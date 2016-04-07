@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.EmployeeCommissionMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.EmployeeCommission" >
+    <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
+    <result column="detail_id" property="detailId" jdbcType="INTEGER" />
+    <result column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
+    <result column="order_type" property="orderType" jdbcType="DECIMAL" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="commission_calculate" property="commissionCalculate" jdbcType="DECIMAL" />
+    <result column="commission_amount" property="commissionAmount" jdbcType="DECIMAL" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="charge_time" property="chargeTime" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="CommissionDtoBaseResultMap" type="com.zefun.web.dto.EmployeeCommissionDto" >
+    <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
+    <result column="detail_id" property="detailId" jdbcType="INTEGER" />
+    <result column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
+    <result column="order_type" property="orderType" jdbcType="DECIMAL" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="commission_calculate" property="commissionCalculate" jdbcType="DECIMAL" />
+    <result column="commission_amount" property="commissionAmount" jdbcType="DECIMAL" />
+    <result column="charge_time" property="chargeTime" jdbcType="CHAR" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_code" property="orderCode" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="EmployeeCommissionOfBossDtoMap" type="com.zefun.wechat.dto.EmployeeCommissionOfBossDto" >
+  	<result column="employee_id" property="employeeId" jdbcType="INTEGER"/>
+  	<result column="employee_name" property="employeeName" jdbcType="VARCHAR"/>
+  	<result column="cash" property="cash" jdbcType="DOUBLE"/>
+  	<result column="card" property="card" jdbcType="DOUBLE"/>
+  	<result column="order_num" property="orderNum" jdbcType="INTEGER"/>
+  	<result column="employee_commission" property="employeeCommission" jdbcType="DOUBLE"/>
+  </resultMap>
+  
+  <resultMap id="CommissionValueAndTypeDtoMap" type="com.zefun.wechat.dto.CommissionValueAndTypeDto" >
+  	<result column="order_type" property="orderType" jdbcType="INTEGER"/>
+  	<result column="commission_calculate" property="commissionCalculate" jdbcType="DECIMAL"/>
+  </resultMap>
+  
+  <resultMap id="EmployeeSkillMap" type="com.zefun.web.entity.EmployeeCommission" >
+    <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
+    <result column="detail_id" property="detailId" jdbcType="INTEGER" />
+    <result column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
+    <result column="order_type" property="orderType" jdbcType="DECIMAL" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="commission_calculate" property="commissionCalculate" jdbcType="DECIMAL" />
+    <result column="commission_amount" property="commissionAmount" jdbcType="DECIMAL" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="charge_time" property="chargeTime" jdbcType="CHAR" />
+    <result column="is_assign" property="isAssign" jdbcType="INTEGER"/>
+    <result column="is_appoint" property="isAppoint" jdbcType="INTEGER"/>
+    <result column="project_type" property="projectType" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    commission_id, detail_id, shift_mahjong_step_id, order_type, employee_id, commission_calculate, commission_amount, is_deleted,
+    charge_time
+  </sql>
+  
+  <!-- 删除门店所有业绩提成数据(清除测试数据)，by 张小胖 -->
+  <delete id="deleteByStoreId" parameterType="java.lang.Integer">
+  	delete from employee_commission where detail_id in (select detail_id from order_detail where store_id = #{storeId})
+  </delete>
+  
+  <select id="selectServiceDayMoneyByEmployeeId" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+    select IFNULL(sum(commission_calculate), 0) from employee_commission where employee_id = #{employeeId} and to_days(charge_time) = to_days(now()) and is_deleted = 0
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_commission
+    where commission_id = #{commissionId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_commission
+    where commission_id = #{commissionId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zefun.web.entity.EmployeeCommission" >
+    insert into employee_commission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commissionId != null" >
+        commission_id,
+      </if>
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="shiftMahjongStepId != null" >
+        shift_mahjong_step_id,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="commissionCalculate != null" >
+        commission_calculate,
+      </if>
+      <if test="commissionAmount != null" >
+        commission_amount,
+      </if>
+      <if test="chargeTime != null" >
+        charge_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commissionId != null" >
+        #{commissionId,jdbcType=INTEGER},
+      </if>
+      <if test="detailId != null" >
+        #{detailId,jdbcType=INTEGER},
+      </if>
+      <if test="shiftMahjongStepId != null" >
+        #{shiftMahjongStepId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=DECIMAL},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="commissionCalculate != null" >
+        #{commissionCalculate,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionAmount != null" >
+        #{commissionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeTime != null" >
+        #{chargeTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.EmployeeCommission" >
+    update employee_commission
+    <set >
+      <if test="detailId != null" >
+        detail_id = #{detailId,jdbcType=INTEGER},
+      </if>
+      <if test="shiftMahjongStepId != null" >
+        shift_mahjong_step_id = #{shiftMahjongStepId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=DECIMAL},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="commissionCalculate != null" >
+        commission_calculate = #{commissionCalculate,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionAmount != null" >
+        commission_amount = #{commissionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="chargeTime != null" >
+        charge_time = #{chargeTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where commission_id = #{commissionId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 计算时间区间的提成 -->
+  <select id="selectBySectionDayCommission" resultType="java.math.BigDecimal" parameterType="java.util.Map" >
+    select 
+    IFNULL(sum(commission_amount), 0)
+    from employee_commission where employee_id = #{employeeId,jdbcType=INTEGER} 
+     and cast(date(#{beginTime,jdbcType=CHAR}) as unsigned int) &lt;= cast(date(charge_time) as unsigned int) 
+	 and cast(date(charge_time) as unsigned int) &lt;= cast(date(#{endTime,jdbcType=CHAR}) as unsigned int) and is_deleted = 0
+  </select>
+  
+  <!-- 计算时间区间，类型的业绩 -->
+  <select id="selectBySectionDayCalculate" resultType="java.math.BigDecimal" parameterType="java.util.Map" >
+    select 
+    IFNULL(sum(commission_calculate), 0)
+    from employee_commission where employee_id = #{employeeId,jdbcType=INTEGER} and is_deleted = 0
+     and cast(date(#{beginTime,jdbcType=CHAR}) as unsigned int) &lt;= cast(date(charge_time) as unsigned int) 
+	 and cast(date(charge_time) as unsigned int) &lt;= cast(date(#{endTime,jdbcType=CHAR}) as unsigned int)
+	 and order_type in 
+	 <foreach item="item" index="index" collection="orderTypeList" open="(" separator="," close=")">  
+	  #{item}  
+	 </foreach> 
+  </select>
+  
+  <select id="selectByTotalCalculate" resultType="java.util.Map" parameterType="java.util.Map" >
+    select f.name as name, f.employee_code as employeeCode, f.head_image as headImage,
+	(select 
+	    IFNULL(sum(a.commission_calculate), 0)
+	    from employee_commission a where a.employee_id = f.employee_id and a.is_deleted = 0
+	     and substring(a.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+		 and substring(a.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+		 and a.order_type = 1
+		 and exists(select * from shift_mahjong_project_step b 
+	                where b.shift_mahjong_step_id = a.shift_mahjong_step_id and b.is_assign = 1)) as assignProjectCalculate,
+	(select 
+	    IFNULL(sum(commission_calculate), 0)
+	    from employee_commission where employee_id = f.employee_id and is_deleted = 0
+	     and substring(charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+		 and substring(charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+		 and order_type = 3 ) as comboCalculate,
+	(select 
+	    IFNULL(sum(commission_calculate), 0)
+	    from employee_commission where employee_id = f.employee_id and is_deleted = 0
+	     and substring(charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+		 and substring(charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+		 and order_type = 2) as goodsCalculate,
+	(select 
+	    IFNULL(sum(commission_calculate), 0)
+	    from employee_commission where employee_id = f.employee_id and is_deleted = 0
+	     and substring(charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+		 and substring(charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+		 and order_type in (4, 5, 6)) as chargeCalculate
+	from employee_info f where f.employee_id = #{employeeId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 计算时间区间，指定项目的业绩 -->
+  <select id="selectBySectionAssignProjectCalculate" resultType="java.math.BigDecimal" parameterType="java.util.Map" >
+    select 
+    IFNULL(sum(a.commission_calculate), 0)
+    from employee_commission a where a.employee_id = #{employeeId,jdbcType=INTEGER} and a.is_deleted = 0
+     and cast(date(#{beginTime,jdbcType=CHAR}) as unsigned int) &lt;= cast(date(a.charge_time) as unsigned int) 
+	 and cast(date(a.charge_time) as unsigned int) &lt;= cast(date(#{endTime,jdbcType=CHAR}) as unsigned int)
+	 and a.order_type = 1
+	 and exists(select * from shift_mahjong_project_step b where b.shift_mahjong_step_id = a.shift_mahjong_step_id and b.is_assign = 1) 
+  </select>
+  
+  <!-- 查询员工对应的指定比 -->
+  <select id="selectScaleByEmployeeId" resultType="java.math.BigDecimal" parameterType="java.util.Map" >
+    select ROUND((select count(a.detail_id) from order_detail a where a.order_type = 1 and a.is_deleted = 0 
+	and exists(select 1 from employee_commission b, shift_mahjong_project_step c 
+	where b.employee_id = #{employeeId,jdbcType=INTEGER} and b.detail_id = a.detail_id and b.is_deleted = 0 
+	and substring(b.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+	and substring(b.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+	and c.shift_mahjong_step_id = b.shift_mahjong_step_id 
+	and c.is_assign = 1 and c.is_deleted = 0))/(select count(a.detail_id) from order_detail a where a.order_type = 1 and a.is_deleted = 0 
+	and exists(select 1 from employee_commission b 
+	where b.employee_id = #{employeeId,jdbcType=INTEGER} and b.detail_id = a.detail_id and b.is_deleted = 0 
+	and substring(b.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+	and substring(b.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR})) * 100, 2) as scale from dual
+  </select>
+  
+  <!-- 查询员工对应的均值指定比 -->
+  <select id="selectAverageScaleByEmployeeId" resultType="java.math.BigDecimal" parameterType="java.util.Map" >
+	select ROUND((select count(a.detail_id) from order_detail a where a.order_type = 1 and a.is_deleted = 0 
+	and exists(select 1 from employee_commission b, shift_mahjong_project_step c 
+	where b.employee_id in
+    <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+	  #{employeeIdItem}  
+	</foreach> 
+	and b.detail_id = a.detail_id and b.is_deleted = 0 
+	and substring(b.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+	and substring(b.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+	and c.shift_mahjong_step_id = b.shift_mahjong_step_id 
+	and c.is_assign = 1 and c.is_deleted = 0))/(select count(a.detail_id) from order_detail a where a.order_type = 1 and a.is_deleted = 0 
+	and exists(select 1 from employee_commission b 
+	where b.employee_id in
+    <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+	  #{employeeIdItem}  
+	</foreach>  
+	and b.detail_id = a.detail_id and b.is_deleted = 0 
+	and substring(b.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+	and substring(b.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR})) * 100, 2) as scale from dual
+  </select>
+  
+  <!-- 根据员工集合排序 -->
+  <select id="selectByEmployeeIdList" resultType="java.util.Map" parameterType="java.util.Map">
+      select 
+          sum(a.commission_calculate) as commissionCalculate, a.employee_id as employeeId
+      from employee_commission a 
+	  where a.employee_id in 
+	         <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+			  #{employeeIdItem}  
+			 </foreach> 
+	         and substring(a.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+			 and substring(a.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+			 and a.is_deleted = 0
+			 and a.order_type in 
+             <foreach item="orderTypeItem" index="index" collection="orderTypeList" open="(" separator="," close=")">  
+			  #{orderTypeItem}  
+			 </foreach>  
+			 group by a.employee_id order by commissionCalculate desc
+  </select>
+  
+  <!-- 查询区域时间内，岗位对应的总业绩 -->
+  <select id="selectByTotalEmployeeIdList" resultType="java.math.BigDecimal" parameterType="java.util.Map">
+      select 
+          IFNULL(sum(a.commission_calculate), 0)
+      from employee_commission a 
+	  where a.employee_id in 
+	         <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+			  #{employeeIdItem}  
+			 </foreach> 
+			 and a.is_deleted = 0
+	         and cast(date(#{beginTime,jdbcType=CHAR}) as unsigned int) &lt;= cast(date(a.charge_time) as unsigned int) 
+			 and cast(date(a.charge_time) as unsigned int) &lt;= cast(date(#{endTime,jdbcType=CHAR}) as unsigned int) 
+			 and a.order_type in 
+             <foreach item="orderTypeItem" index="index" collection="orderTypeList" open="(" separator="," close=")">  
+			    #{orderTypeItem}  
+			 </foreach>  
+  </select>
+  
+  <select id="selectByTotalAverageList" resultType="java.util.Map" parameterType="java.util.Map">
+      select
+      (select 
+          IFNULL(sum(a.commission_calculate), 0)
+      from employee_commission a 
+	  where a.employee_id in 
+	         <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+			  #{employeeIdItem}  
+			 </foreach> 
+			 and a.is_deleted = 0
+	         and substring(a.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+		     and substring(a.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+			 and a.order_type = 1) as totalProject,
+	  (select 
+	    IFNULL(sum(a.commission_calculate), 0)
+	    from employee_commission a where a.employee_id in
+	     <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+		  #{employeeIdItem}  
+		 </foreach> 
+		 and a.is_deleted = 0
+	     and substring(a.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+		 and substring(a.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+		 and a.order_type = 1
+		 and exists(select * from shift_mahjong_project_step b where b.shift_mahjong_step_id = a.shift_mahjong_step_id and b.is_assign = 1)) as totalAssignProject,
+	  (select 
+          IFNULL(sum(a.commission_calculate), 0)
+      from employee_commission a 
+	  where a.employee_id in 
+	         <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+			  #{employeeIdItem}  
+			 </foreach> 
+			 and a.is_deleted = 0
+	         and substring(a.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+		     and substring(a.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+			 and a.order_type = 3) as totalCombo,
+	  (select 
+          IFNULL(sum(a.commission_calculate), 0)
+      from employee_commission a 
+	  where a.employee_id in 
+	         <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+			  #{employeeIdItem}  
+			 </foreach> 
+			 and a.is_deleted = 0
+	         and substring(a.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+		     and substring(a.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+			 and a.order_type = 2) as totalGoods,
+	  (select 
+          IFNULL(sum(a.commission_calculate), 0)
+      from employee_commission a 
+	  where a.employee_id in 
+	         <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+			  #{employeeIdItem}  
+			 </foreach> 
+			 and a.is_deleted = 0
+	         and substring(a.charge_time, 1, 10) &gt;= #{beginTime,jdbcType=CHAR}
+		     and substring(a.charge_time, 1, 10) &lt;= #{endTime,jdbcType=CHAR}
+			 and a.order_type in (4, 5, 6)) as totalCharge 
+	  from dual
+  </select>
+  
+  <!-- 计算时间区间，指定项目的业绩 -->
+  <select id="selectByTotalSectionAssignProjectCalculate" resultType="java.math.BigDecimal" parameterType="java.util.Map" >
+    select 
+    IFNULL(sum(a.commission_calculate), 0)
+    from employee_commission a where a.employee_id in
+     <foreach item="employeeIdItem" index="index" collection="employeeIdList" open="(" separator="," close=")">  
+	  #{employeeIdItem}  
+	 </foreach> 
+	 and a.is_deleted = 0
+     and cast(date(#{beginTime,jdbcType=CHAR}) as unsigned int) &lt;= cast(date(a.charge_time) as unsigned int) 
+	 and cast(date(a.charge_time) as unsigned int) &lt;= cast(date(#{endTime,jdbcType=CHAR}) as unsigned int)
+	 and a.order_type = 1
+	 and exists(select * from shift_mahjong_project_step b where b.shift_mahjong_step_id = a.shift_mahjong_step_id and b.is_assign = 1) 
+  </select>
+  
+  <select id="selectByDetailId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_commission
+    where detail_id = #{detailId,jdbcType=INTEGER} and is_deleted = 0 
+  </select>
+  
+  <select id="selectByEmployeeIdShift" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_commission
+    where shift_mahjong_step_id = #{shiftMahjongStepId,jdbcType=INTEGER} and is_deleted = 0 
+  </select>
+  
+  <select id="selectCommissionByMonth" resultType="java.util.Map" parameterType="java.util.Map" >
+     select 
+         substring(charge_time, 1, 10) as chargeTime, 
+         ifnull(sum(commission_calculate), 0) as sumCommissionCalculate, 
+         ifnull(sum(commission_amount), 0) as sumCommissionAmount
+     from employee_commission  
+     where is_deleted = 0 
+     and employee_id = #{employeeId,jdbcType=INTEGER} 
+     and  substring(charge_time, 1, 7) = #{dateTime,jdbcType=CHAR} 
+     group by substring(charge_time, 1, 10) order by substring(charge_time, 9, 2)
+  </select>
+  
+  <select id="selectSumCommissionByMonth" resultType="java.math.BigDecimal" parameterType="java.util.Map" >
+     select 
+         ifnull(sum(commission_amount), 0) as sumCommissionAmount
+     from employee_commission  
+     where is_deleted = 0 
+     and employee_id = #{employeeId,jdbcType=INTEGER} 
+     and  substring(charge_time, 1, 7) = #{dateTime,jdbcType=CHAR} 
+  </select>
+  
+  <select id="selectCommissionByDay" resultMap="CommissionDtoBaseResultMap" parameterType="java.util.Map" >
+     select 
+         a.commission_id, a.detail_id, a.shift_mahjong_step_id, a.order_type, a.employee_id, a.commission_calculate, a.commission_amount,
+         a.charge_time, b.order_id, b.order_code
+     from employee_commission a, order_info b
+     where a.is_deleted = 0 and exists(select 1 from order_detail c where a.detail_id = c.detail_id and c.order_id = b.order_id and c.is_deleted = 0) 
+     and a.employee_id = #{employeeId,jdbcType=INTEGER} 
+     and  substring(charge_time, 1, 10) = #{dateTime,jdbcType=CHAR} 
+  </select>
+  
+  <select id="selectSumByMonthOrderType" resultType="java.util.Map" parameterType="java.util.Map" >
+     select 
+         ifnull(sum(commission_calculate), 0) as sumCommissionCalculate,
+         ifnull(sum(commission_amount), 0) as sumCommissionAmount
+     from employee_commission  
+     where is_deleted = 0 
+     and employee_id = #{employeeId,jdbcType=INTEGER} 
+     and substring(charge_time, 1, 7) = #{dateTime,jdbcType=CHAR} 
+     and order_type in 
+             <foreach item="orderTypeItem" index="index" collection="orderTypeList" open="(" separator="," close=")">  
+			    #{orderTypeItem}  
+			 </foreach>  
+  </select>
+  
+  <!-- boss端查询员工业绩汇总 -->
+  <select id="selectEmployeeCommissionByBoss" resultMap="EmployeeCommissionOfBossDtoMap">
+	select cash_table.employee_id as employee_id, cash_table.employee_name, 
+		cash_table.sum_cash_commission as cash, card_table.sum_card_commission as card, 
+		cash_table.order_num + card_table.order_num as order_num, 
+		cash_table.employee_commission + card_table.employee_commission as employee_commission 
+	from 
+	(select ei.employee_id as employee_id, ei.name as employee_name, 
+			 sum(ec.commission_calculate) as sum_cash_commission,
+			 count(od.detail_id) as order_num, 
+			 sum(ec.commission_amount) as employee_commission 
+	from employee_info ei 
+	right join employee_commission ec on ec.employee_id = ei.employee_id 
+	left join order_detail od on od.detail_id = ec.detail_id 
+	left join order_info oi on oi.order_id = od.order_id 
+	where ei.is_deleted = 0 and ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+		and oi.cash_amount + oi.unionpay_amount + oi.wechat_amount + oi.alipay_amount + oi.group_amount + oi.debt_amount > 0
+		and oi.store_id = ${storeId} 
+		<if test="deptId != -1 and deptId != null" >
+			and oi.dept_id = ${deptId} 
+		</if>
+		<if test="time != null" >
+			and oi.create_time like "${time}%" 
+		</if>
+	group by ec.employee_id ) as cash_table,
+	(select ei.employee_id as employee_id, ei.name as employee_name, 
+			 sum(ec.commission_calculate) as sum_card_commission,
+			 count(od.detail_id) as order_num, 
+			 sum(ec.commission_amount) as employee_commission 
+	from employee_info ei 
+	right join employee_commission ec on ec.employee_id = ei.employee_id 
+	left join order_detail od on od.detail_id = ec.detail_id 
+	left join order_info oi on oi.order_id = od.order_id 
+	where ei.is_deleted = 0 and ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+		and oi.card_amount > 0
+		and oi.store_id = ${storeId} 
+		<if test="deptId != -1 and deptId != null" >
+			and oi.dept_id = ${deptId} 
+		</if>
+		<if test="time != null" >
+			and oi.create_time like "${time}%" 
+		</if>
+	group by ec.employee_id ) as card_table 
+	where cash_table.employee_id = card_table.employee_id 
+	<if test='sortName != null' >
+		order by ${sortName} desc
+	</if>
+  </select>
+  
+  <!-- boss端查询员工现金业绩汇总 -->
+  <select id="selectEmployeeCashCommissionByBoss" resultMap="EmployeeCommissionOfBossDtoMap">
+  	select ei.employee_id as employee_id, 
+  		ei.name as employee_name, 
+		sum(ec.commission_calculate) as cash,
+		count(od.detail_id) as order_num, 
+		sum(ec.commission_amount) as employee_commission 
+	from employee_info ei 
+	right join employee_commission ec on ec.employee_id = ei.employee_id 
+	left join order_detail od on od.detail_id = ec.detail_id 
+	left join order_info oi on oi.order_id = od.order_id 
+	where ei.is_deleted = 0 and ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+		and oi.cash_amount + oi.unionpay_amount + oi.wechat_amount + oi.alipay_amount + oi.group_amount + oi.debt_amount > 0
+		and oi.store_id = ${storeId} 
+		<if test="positionId != -1 and positionId != null" >
+			and ei.position_id = ${positionId} 
+		</if>
+		<if test="time != null" >
+			and oi.create_time like "${time}%" 
+		</if>
+	group by ec.employee_id
+  </select>
+  <!-- boss端查询员工卡金业绩汇总 -->
+  <select id="selectEmployeeCardCommissionByBoss" resultMap="EmployeeCommissionOfBossDtoMap">
+  	select ei.employee_id as employee_id, 
+  		ei.name as employee_name,
+  		sum(ec.commission_calculate) as card,
+		count(od.detail_id) as order_num, 
+		sum(ec.commission_amount) as employee_commission 
+	from employee_info ei 
+	right join employee_commission ec on ec.employee_id = ei.employee_id 
+	left join order_detail od on od.detail_id = ec.detail_id 
+	left join order_info oi on oi.order_id = od.order_id 
+	where ei.is_deleted = 0 and ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+		and oi.card_amount > 0
+		and oi.store_id = ${storeId} 
+		<if test="positionId != -1 and positionId != null" >
+			and ei.position_id = ${positionId} 
+		</if>
+		<if test="time != null" >
+			and oi.create_time like "${time}%" 
+		</if>
+	group by ec.employee_id
+  </select>
+  <!-- boss端查询用套餐抵扣项目的卡金业绩总汇 -->
+  <select id="selectEmployeeCardCommissionOfComboDeductionProjectByBoss" resultMap="EmployeeCommissionOfBossDtoMap">
+  	select ei.employee_id as employee_id, 
+  		ei.name as employee_name, 
+		sum(ec.commission_calculate) as card,
+		count(od.detail_id) as order_num, 
+		sum(ec.commission_amount) as employee_commission 
+	from employee_commission ec
+	inner join order_detail od on od.detail_id = ec.detail_id
+	right join order_info oi on oi.order_id = od.order_id 
+	left join employee_info ei on ei.employee_id = ec.employee_id 
+	where od.is_deleted = 0 and oi.is_deleted = 0 
+		and oi.cash_amount + oi.unionpay_amount + oi.wechat_amount + oi.alipay_amount + oi.group_amount + oi.debt_amount = 0
+		and oi.card_amount = 0 
+		and od.store_id = ${storeId} 
+		<if test="positionId != -1 and positionId != null" >
+			and ei.position_id = ${positionId} 
+		</if>
+		<if test="time != null" >
+			and oi.create_time like "${time}%" 
+		</if>
+	group by ec.employee_id
+  </select>
+  
+  
+  <!-- boss端查询员工业绩详情，员工基本信息 -->
+  <select id="selectEmployeeInfoOfCommissionDetail" resultType="com.zefun.web.dto.EmployeeDto" parameterType="java.lang.Integer">
+  	select ei.employee_id as employeeId, ei.employee_code as employeeCode, ei.name, ei.phone, ei.head_image as headImage, ei.create_time as createTime, 
+  		di.dept_name as deptName, pi.position_name as positionName, el.level_name as levelName
+	from employee_info ei 
+	inner join dept_info di on di.dept_id = ei.dept_id 
+	inner join position_info pi on pi.position_id = ei.position_id 
+	inner join employee_level el on el.level_id = ei.level_id 
+	where ei.employee_id = ${employeeId} 
+  </select>
+  
+  <!-- 根据员工id和日期查询订单分组员工现金业绩详情 -->
+  <select id="selectCashCommissionDetailByEmployeeIdAndTime" resultMap="CommissionValueAndTypeDtoMap">
+  	select sum(ec.commission_calculate) as commission_calculate, od.order_type as order_type 
+	from order_info oi, order_detail od, employee_commission ec 
+	where oi.order_id = od.order_id and od.detail_id = ec.detail_id 
+	and ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+	and oi.cash_amount + oi.unionpay_amount + oi.wechat_amount + oi.alipay_amount + oi.group_amount > 0 
+	and ec.employee_id = ${employeeId} and oi.create_time like "${time}%" 
+	group by od.order_type
+  </select>
+  
+  <!-- 根据员工id和日期查询订单分组员工卡金业绩详情 -->
+  <select id="selectCardCommissionDetailByEmployeeIdAndTime" resultMap="CommissionValueAndTypeDtoMap">
+  	select sum(ec.commission_calculate) as commission_calculate, od.order_type as order_type 
+	from order_info oi, order_detail od, employee_commission ec 
+	where oi.order_id = od.order_id and od.detail_id = ec.detail_id 
+	and ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+	and oi.card_amount > 0 
+	and ec.employee_id = ${employeeId} and oi.create_time like "${time}%" 
+	group by od.order_type
+  </select>
+  
+  <!-- 计算  业绩分布  中的套餐抵扣项目的员工业绩值 -->
+  <select id="selectComboDeductionProjectEmployeeCommissionDetail" resultType="java.lang.Double">
+  	select sum(ec.commission_calculate) 
+	from order_info oi, order_detail od, employee_commission ec 
+	where oi.order_id = od.order_id and od.detail_id = ec.detail_id 
+		and ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+		and oi.cash_amount + oi.unionpay_amount + oi.wechat_amount + oi.alipay_amount + oi.group_amount = 0 
+		and oi.card_amount = 0 
+		and ec.order_type = 1 and ec.employee_id = ${employeeId} and oi.create_time like "${time}%"
+  </select>
+  
+  <!-- 查询客单量根据大小项分组(根据员工id和日期) -->
+  <select id="selectCustomerCountGroupByProjectType" resultType="java.util.Map">
+  	select count(od.detail_id) as order_num , pi.project_type project_type
+	from employee_commission ec 
+	left join order_detail od on od.detail_id = ec.detail_id 
+	left join project_info pi on od.project_id = pi.project_id 
+	inner join order_info oi on oi.order_id = od.order_id 
+	where ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+	and ec.employee_id = ${employeeId} and oi.create_time like "${time}%" and od.order_type = 1
+	group by pi.project_type 
+  </select>
+  
+  <!-- 查询客单量根据预约分组(根据员工id和日期) -->
+  <select id="selectCustomerCountGroupByAppoint" resultType="java.util.Map">
+  	select count(od.detail_id) as order_num ,od.is_appoint
+	from employee_commission ec 
+	left join order_detail od on od.detail_id = ec.detail_id 
+	left join order_info oi on oi.order_id = od.order_id 
+	where ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+	and ec.employee_id = ${employeeId} and oi.create_time like "${time}%" and od.order_type = 1
+	group by od.is_appoint 
+  </select>
+  
+  <!-- 查询客单量根据指定分组(根据员工id和日期) -->
+  <select id="selectCustomerCountGroupByAssign" resultType="java.util.Map">
+  	select count(od.detail_id) as order_num ,od.is_assign
+	from employee_commission ec 
+	left join order_detail od on od.detail_id = ec.detail_id 
+	left join order_info oi on oi.order_id = od.order_id 
+	where ec.is_deleted = 0 and od.is_deleted = 0 and oi.is_deleted = 0 
+	and ec.employee_id = ${employeeId} and oi.create_time like "${time}%" and od.order_type = 1
+	group by od.is_assign 
+  </select>
+  
+  <!-- 根据员工和时间查询员工提成和项目步骤 by lzc -->
+  <select id="selectCommissionAndStepByEmployeeIdAndTime" resultMap="EmployeeSkillMap">
+	select ec.*, 
+    	smps.is_assign, 
+    	smps.is_designate, 
+    	smps.is_appoint, 
+    	pi.project_type
+	from employee_commission ec 
+	left join shift_mahjong_project_step smps on smps.shift_mahjong_step_id = ec.shift_mahjong_step_id
+	left join order_detail od on od.detail_id = smps.detail_id 
+	left join project_info pi on od.project_id = pi.project_id
+	where ec.is_deleted = 0 and smps.is_deleted = 0 
+	and ec.employee_id = ${employeeId} and smps.create_time like "${time}%" 
+  </select>
+  
+  <!-- 根据订单类型查询提成(根据员工id和日期) -->
+  <select id="selectCommissionAmountGroupByOrderType" resultType="java.util.Map">
+	select sum(commission_amount) as commission_amount, order_type
+	from employee_commission 
+	where is_deleted = 0 and employee_id = ${employeeId} and charge_time like "${time}%" 
+	group by order_type;
+  </select>
+  
+  <!-- 员工评分 -->
+  <select id="selectEvaluateGroupByRate" resultType="java.util.Map">
+	select count(ec.commission_id) as evaluate_count, ee.evaluate_rate
+	from employee_commission ec 
+	left join employee_evaluate ee on ee.detail_id = ec.detail_id and ee.employee_id = ec.employee_id 
+	where ec.is_deleted = 0 
+	and ec.employee_id = ${employeeId} and ec.charge_time like "${time}%" 
+	group by ee.evaluate_rate 
+  </select>
+  
+  <!-- 查询某员工某时间段(某年/某月/某日)提成汇总 by DavidLiang -->
+  <select id="selectEmployeeCommissionByTimePeriod" resultType="java.lang.Double">
+  	select sum(commission_amount) 
+	from employee_commission 
+	where is_deleted = 0 and employee_id = ${employeeId} and charge_time like "${time}%" 
+  </select>
+  
+</mapper>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.MemberErrorXslMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.MemberErrorXsl" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level_name" property="levelName" jdbcType="VARCHAR" />
+    <result column="level_num" property="levelNum" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="balance_amount" property="balanceAmount" jdbcType="DECIMAL" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, level_name, level_num, phone, sex, balance_amount, store_id, is_deleted, 
+    last_operator_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_error_xsl
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_error_xsl
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.MemberErrorXsl" >
+    insert into member_error_xsl (id, name, level_name, 
+      level_num, phone, sex, 
+      balance_amount, store_id, is_deleted, 
+      last_operator_id, update_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{levelName,jdbcType=VARCHAR}, 
+      #{levelNum,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{balanceAmount,jdbcType=DECIMAL}, #{storeId,jdbcType=INTEGER}, #{isDeleted,jdbcType=INTEGER}, 
+      #{lastOperatorId,jdbcType=INTEGER}, #{updateTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.MemberErrorXsl" >
+    insert into member_error_xsl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="levelName != null" >
+        level_name,
+      </if>
+      <if test="levelNum != null" >
+        level_num,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="balanceAmount != null" >
+        balance_amount,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="levelName != null" >
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelNum != null" >
+        #{levelNum,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceAmount != null" >
+        #{balanceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="lastOperatorId != null" >
+        #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.MemberErrorXsl" >
+    update member_error_xsl
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="levelName != null" >
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelNum != null" >
+        level_num = #{levelNum,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceAmount != null" >
+        balance_amount = #{balanceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.MemberErrorXsl" >
+    update member_error_xsl
+    set name = #{name,jdbcType=VARCHAR},
+      level_name = #{levelName,jdbcType=VARCHAR},
+      level_num = #{levelNum,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      balance_amount = #{balanceAmount,jdbcType=DECIMAL},
+      store_id = #{storeId,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <insert id="insertList" parameterType="java.util.List">
+  insert into member_error_xsl (id, name, level_name, 
+      level_num, phone, sex, 
+      balance_amount, store_id, is_deleted, 
+      last_operator_id, update_time)
+    values 
+    <foreach collection="list" item="item" index="index" separator="," >
+    (#{item.id,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.levelName,jdbcType=VARCHAR}, 
+      #{item.levelNum,jdbcType=VARCHAR}, #{item.phone,jdbcType=VARCHAR}, #{item.sex,jdbcType=VARCHAR}, 
+      #{item.balanceAmount,jdbcType=DECIMAL}, #{item.storeId,jdbcType=INTEGER}, #{item.isDeleted,jdbcType=INTEGER}, 
+      #{item.lastOperatorId,jdbcType=INTEGER}, #{item.updateTime,jdbcType=CHAR})
+    </foreach> 
+  </insert>
+  
+  <select id="selectByPage" parameterType="com.zefun.web.entity.Page" resultMap="BaseResultMap">
+    select 
+    id, name, level_name, 
+      level_num, phone, sex, 
+      balance_amount, store_id, is_deleted, 
+      last_operator_id, update_time
+    from member_error_xsl
+    where store_id = #{params.storeId}
+    and (is_deleted = 0 or is_deleted = 1)
+    <if test="params.content!=null">
+    and (
+    name LIKE CONCAT('%',#{params.content},'%')
+    or phone LIKE CONCAT('%',#{params.content},'%')
+    or level_num LIKE CONCAT('%',#{params.content},'%')
+    )
+    </if>
+  </select>
+  
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select * from member_error_xsl where store_id = #{storeId}
+  </select>
+  
+  <select id="selectStoreMemberAmount" parameterType="java.lang.Integer" resultType="com.zefun.web.entity.MemberErrorXsl">
+  	select sum(balance_amount) as balanceAmounts from member_error_xsl where store_id = #{storeId} and is_deleted = 0
+  </select>
+</mapper>

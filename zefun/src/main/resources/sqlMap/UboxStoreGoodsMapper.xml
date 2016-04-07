@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.UboxStoreGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.UboxStoreGoods" >
+    <id column="store_goods_id" property="storeGoodsId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="ubox_goods_id" property="uboxGoodsId" jdbcType="VARCHAR" />
+    <result column="store_goods_price" property="storeGoodsPrice" jdbcType="INTEGER" />
+    <result column="store_goods_integral" property="storeGoodsIntegral" jdbcType="INTEGER" />
+    <result column="store_goods_stock" property="storeGoodsStock" jdbcType="INTEGER" />
+    <result column="store_goods_sales" property="storeGoodsSales" jdbcType="INTEGER" />
+    <result column="rewards_coupon_id" property="rewardsCouponId" jdbcType="INTEGER" />
+    <result column="rewards_gift_amount" property="rewardsGiftAmount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="GoodsInfoResultMap" type="com.zefun.web.dto.ubox.UboxStoreGoodsDto" >
+    <id column="store_goods_id" property="storeGoodsId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="ubox_goods_id" property="uboxGoodsId" jdbcType="VARCHAR" />
+    <result column="store_goods_price" property="storeGoodsPrice" jdbcType="INTEGER" />
+    <result column="store_goods_integral" property="storeGoodsIntegral" jdbcType="INTEGER" />
+    <result column="store_goods_stock" property="storeGoodsStock" jdbcType="INTEGER" />
+    <result column="store_goods_sales" property="storeGoodsSales" jdbcType="INTEGER" />
+    <result column="rewards_coupon_id" property="rewardsCouponId" jdbcType="INTEGER" />
+    <result column="rewards_gift_amount" property="rewardsGiftAmount" jdbcType="INTEGER" />
+    <association property="goodsInfo" column="ubox_goods_id" select="com.zefun.web.mapper.UboxGoodsInfoMapper.selectGoodsInfoByGoodsId" />
+    <association property="rewardsCoupon" column="rewards_coupon_id" select="com.zefun.web.mapper.CouponInfoMapper.selectNormalByCouponId" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    store_goods_id, store_id, ubox_goods_id, store_goods_price, store_goods_integral, 
+    store_goods_stock, store_goods_sales, rewards_coupon_id, rewards_gift_amount
+  </sql>
+  
+  <select id="selectGoodsInfoByStoreGoodsId" resultMap="GoodsInfoResultMap" parameterType="java.lang.Integer">
+  	select 
+    <include refid="Base_Column_List" />
+    from ubox_store_goods
+    where store_goods_id = #{storeGoodsId}
+  </select>
+  
+  <select id="selectGoodsInfoByStoreIdAndUboxId" resultMap="GoodsInfoResultMap" parameterType="java.util.Map">
+   	select 
+    <include refid="Base_Column_List" />
+    from ubox_store_goods
+    where store_id = #{storeId} and ubox_goods_id = #{uboxId}
+  </select>
+  
+  <select id="selectGoodsListByStoreId" resultMap="GoodsInfoResultMap" parameterType="java.lang.Integer">
+  	select 
+    <include refid="Base_Column_List" />
+    from ubox_store_goods
+    where store_id = #{storeId}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ubox_store_goods
+    where store_goods_id = #{storeGoodsId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ubox_store_goods
+    where store_goods_id = #{storeGoodsId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="storeGoodsId" parameterType="com.zefun.web.entity.UboxStoreGoods" >
+    insert into ubox_store_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeGoodsId != null" >
+        store_goods_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="uboxGoodsId != null" >
+        ubox_goods_id,
+      </if>
+      <if test="storeGoodsPrice != null" >
+        store_goods_price,
+      </if>
+      <if test="storeGoodsIntegral != null" >
+        store_goods_integral,
+      </if>
+      <if test="storeGoodsStock != null" >
+        store_goods_stock,
+      </if>
+      <if test="storeGoodsSales != null" >
+        store_goods_sales,
+      </if>
+      <if test="rewardsCouponId != null" >
+        rewards_coupon_id,
+      </if>
+      <if test="rewardsGiftAmount != null" >
+        rewards_gift_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeGoodsId != null" >
+        #{storeGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="uboxGoodsId != null" >
+        #{uboxGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeGoodsPrice != null" >
+        #{storeGoodsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="storeGoodsIntegral != null" >
+        #{storeGoodsIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="storeGoodsStock != null" >
+        #{storeGoodsStock,jdbcType=INTEGER},
+      </if>
+      <if test="storeGoodsSales != null" >
+        #{storeGoodsSales,jdbcType=INTEGER},
+      </if>
+      <if test="rewardsCouponId != null" >
+        #{rewardsCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="rewardsGiftAmount != null" >
+        #{rewardsGiftAmount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.UboxStoreGoods" >
+    update ubox_store_goods
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="uboxGoodsId != null" >
+        ubox_goods_id = #{uboxGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeGoodsPrice != null" >
+        store_goods_price = #{storeGoodsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="storeGoodsIntegral != null" >
+        store_goods_integral = #{storeGoodsIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="storeGoodsStock != null" >
+        store_goods_stock = #{storeGoodsStock,jdbcType=INTEGER},
+      </if>
+      <if test="storeGoodsSales != null" >
+        store_goods_sales = #{storeGoodsSales,jdbcType=INTEGER},
+      </if>
+      <if test="rewardsCouponId != null" >
+        rewards_coupon_id = #{rewardsCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="rewardsGiftAmount != null" >
+        rewards_gift_amount = #{rewardsGiftAmount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where store_goods_id = #{storeGoodsId,jdbcType=INTEGER}
+  </update>
+</mapper>

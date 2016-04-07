@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.ShopAccountStateMapper">
+	<insert id="insert" parameterType="com.zefun.web.entity.ShopAccountState">
+		insert into shop_account_state
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="launchStoreId != null">
+			launch_store_id,
+			</if>
+			<if test="reconciliationStoreId != null">
+			reconciliation_store_id,
+			</if>
+			<if test="amount != null">
+			reconciliation_amount,
+			</if>
+			<if test="reconciliationDate != null">
+			reconciliation_date,
+			</if>
+		</trim>
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="launchStoreId != null">
+			#{launchStoreId,jdbcType=INTEGER}
+			</if>
+			<if test="reconciliationStoreId != null">
+			#{reconciliationStoreId,jdbcType=INTEGER}
+			</if>
+			<if test="amount != null">
+			#{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="reconciliationDate != null">
+			#{reconciliationDate,jdbcType=CHAR}
+			</if>
+		</trim>
+	</insert>
+		<insert id="insertIfNotExist" parameterType="com.zefun.web.entity.ShopAccountState">
+		INSERT INTO shop_account_state(launch_store_id,reconciliation_store_id,reconciliation_amount,reconciliation_date)		
+		SELECT 
+			#{launchStoreId},#{reconciliationStoreId},#{amount},#{reconciliationDate}
+		from DUAL
+		WHERE
+			NOT EXISTS (
+				SELECT
+					reconciliation_amount
+				from
+					shop_account_state
+				WHERE
+					launch_store_id = #{launchStoreId,jdbcType=INTEGER} and reconciliation_store_id = #{reconciliationStoreId,jdbcType=INTEGER}
+			)
+	</insert>
+	<resultMap type="com.zefun.web.entity.ShopAccountState" id="baseMap">
+		<id property="stateId" column="state_id"/>
+		<result property="launchStoreId" column="launch_store_id"/>
+		<result property="reconciliationStoreId" column="reconciliation_store_id"/>
+		<result property="amount" column="reconciliation_amount"/>
+		<result property="reconciliationDate" column="reconciliation_date"/>
+	</resultMap>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.ShopAccountState">
+	update shop_account_state
+	<set>
+		<if test="launchStoreId != null">
+			launch_store_id = #{launchStoreId,jdbcType=INTEGER}
+			</if>
+			<if test="reconciliationStoreId != null">
+			reconciliation_store_id = #{reconciliationStoreId,jdbcType=INTEGER}
+			</if>
+			<if test="amount != null">
+			reconciliation_amount = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="reconciliationDate != null">
+			reconciliation_date = #{reconciliationDate,jdbcType=CHAR}
+			</if>
+	</set>
+	where launch_store_id = #{launchStoreId,jdbcType=INTEGER} and reconciliation_store_id = #{reconciliationStoreId,jdbcType=INTEGER}
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	delete from shop_account_state where state_id = #{stateId,jdbcType=INTEGER}
+	</delete>
+	<sql id="table_base_column">
+		state_id,launch_store_id,reconciliation_store_id,reconciliation_amount,reconciliation_date
+	</sql>
+	<select id="selectAccountState" parameterType="com.zefun.web.entity.ShopAccountState" 
+			resultMap="baseMap">
+		select 
+		<include refid="table_base_column"></include>
+		from shop_account_state
+		where launch_store_id = #{launchStoreId,jdbcType=INTEGER} and reconciliation_store_id = #{reconciliationStoreId,jdbcType=INTEGER}
+	</select>
+</mapper>

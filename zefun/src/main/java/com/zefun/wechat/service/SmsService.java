@@ -1,0 +1,63 @@
+package com.zefun.wechat.service;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.taobao.api.ApiException;
+import com.taobao.api.DefaultTaobaoClient;
+import com.taobao.api.TaobaoClient;
+import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
+import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
+import com.zefun.common.consts.App;
+import com.zefun.web.service.RedisService;
+
+/**
+ * 短信服务类
+* @author 张进军
+* @date Feb 26, 2016 8:48:40 PM
+ */
+@Service
+public class SmsService {
+    
+    /** 阿里基础api对象 */
+    private static TaobaoClient tbClient = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", 
+            "23315394", "1a389561f39b65923914946fa64104f2");
+    
+    /** 日志记录对象 */
+    private static Logger logger = Logger.getLogger(SmsService.class);
+    
+    /** redis服务对象 */
+    @Autowired
+    private RedisService redisService;
+    
+    
+    /**
+     * 发送短信验证码
+    * @author 张进军
+    * @date Feb 26, 2016 9:00:49 PM
+    * @param storeId    门店标识 
+    * @param phone  手机号码
+    * @param code   验证码
+    * @param desc   描述信息
+    * @return   成功返回true，失败返回false
+     */
+    public boolean sendVerifyCode(int storeId, String phone, String code, String desc) {
+        AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
+        req.setSmsType("normal");
+        req.setSmsFreeSignName("智放");
+        req.setSmsParam("{\"code\":\"" + code + "\",\"desc\":\"" + desc + "\"}");
+        req.setRecNum(phone);
+        req.setSmsTemplateCode("SMS_5170058");
+        try {
+            AlibabaAliqinFcSmsNumSendResponse response = tbClient.execute(req);
+            redisService.setex(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone, code, 180);
+            logger.info(response.getBody());
+            return true;
+        }
+        catch (ApiException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+}

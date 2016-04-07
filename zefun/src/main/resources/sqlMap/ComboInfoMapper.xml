@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.ComboInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.ComboInfo" >
+    <id column="combo_id" property="comboId" jdbcType="INTEGER" />
+    <result column="combo_parent_id" property="comboParentId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="combo_name" property="comboName" jdbcType="VARCHAR" />
+    <result column="combo_image" property="comboImage" jdbcType="VARCHAR" />
+    <result column="combo_desc" property="comboDesc" jdbcType="VARCHAR" />
+    <result column="project_count" property="projectCount" jdbcType="INTEGER" />
+    <result column="project_amount" property="projectAmount" jdbcType="DECIMAL" />
+    <result column="combo_sale_price" property="comboSalePrice" jdbcType="DECIMAL" />
+    <result column="commission_type" property="commissionType" jdbcType="INTEGER" />
+    <result column="cash_commission" property="cashCommission" jdbcType="DECIMAL" />
+    <result column="card_commission" property="cardCommission" jdbcType="DECIMAL" />
+    <result column="sales_count" property="salesCount" jdbcType="INTEGER" />
+    <result column="sales_people" property="salesPeople" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="CHAR" />
+    <result column="end_date" property="endDate" jdbcType="CHAR" />
+    <result column="valid_date" property="validDate" jdbcType="INTEGER" />
+    <result column="is_count_limit" property="isCountLimit" jdbcType="INTEGER" />
+    <result column="is_wechat_sell" property="isWechatSell" jdbcType="INTEGER" />
+    <result column="is_disable" property="isDisable" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="standard" property="standard" jdbcType="INTEGER" />
+    <result column="is_attestation" property="isAttestation" jdbcType="INTEGER" />
+    <result column="combo_performance" property="comboPerformance" jdbcType="DECIMAL" />
+  </resultMap>
+  
+   <resultMap type="com.zefun.web.dto.TrendDeptDataDto" id="comboMap">
+  	<result column="dept_id" property="deptId" jdbcType="INTEGER"/>
+  	<association property="trendDeptData" column="{deptId=dept_id,dateType=dateType,begin=begin,end=end}" select="getSpecifyDateDeptComboSummary"></association>
+	</resultMap>
+  
+  <sql id="Base_Column_List" >
+    combo_id, combo_parent_id, store_id, dept_id, combo_name, combo_image, combo_desc, project_count, 
+    project_amount, combo_sale_price, commission_type, 
+    cash_commission, card_commission, sales_count, sales_people, start_date, end_date, valid_date, is_count_limit,
+    is_wechat_sell, is_disable, is_deleted, create_time, update_time, last_operator_id, standard,is_attestation,combo_performance
+  </sql>
+  
+  <!-- 根据门店标识查询套餐标识集合，by 张小胖 -->
+  <select id="selectComboIdByStoreId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select combo_id from combo_info where store_id = #{storeId}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from combo_info
+    where combo_id = #{comboId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from combo_info
+    where combo_id = #{comboId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.ComboInfo" useGeneratedKeys="true" keyProperty="comboId">
+    insert into combo_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="comboId != null" >
+        combo_id,
+      </if>
+      <if test="comboParentId != null" >
+        combo_parent_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="comboName != null" >
+        combo_name,
+      </if>
+      <if test="comboImage != null" >
+        combo_image,
+      </if>
+      <if test="comboDesc != null" >
+        combo_desc,
+      </if>
+      <if test="projectCount != null" >
+        project_count,
+      </if>
+      <if test="projectAmount != null" >
+        project_amount,
+      </if>
+      <if test="comboSalePrice != null" >
+        combo_sale_price,
+      </if>
+      <if test="commissionType != null" >
+        commission_type,
+      </if>
+      <if test="cashCommission != null" >
+        cash_commission,
+      </if>
+      <if test="cardCommission != null" >
+        card_commission,
+      </if>
+      <if test="salesCount != null" >
+        sales_count,
+      </if>
+      <if test="salesPeople != null" >
+        sales_people,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="validDate != null" >
+        valid_date,
+      </if>
+      <if test="isCountLimit != null" >
+        is_count_limit,
+      </if>
+      <if test="isWechatSell != null" >
+        is_wechat_sell,
+      </if>
+      <if test="isDisable != null" >
+        is_disable,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id,
+      </if>
+      <if test="standard != null" >
+        standard,
+      </if>
+      <if test="isAttestation != null" >
+        is_attestation,
+      </if>
+      <if test="comboPerformance != null" >
+        combo_performance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="comboId != null" >
+        #{comboId,jdbcType=INTEGER},
+      </if>
+      <if test="comboParentId != null" >
+        #{comboParentId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="comboName != null" >
+        #{comboName,jdbcType=VARCHAR},
+      </if>
+      <if test="comboImage != null" >
+        #{comboImage,jdbcType=VARCHAR},
+      </if>
+      <if test="comboDesc != null" >
+        #{comboDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCount != null" >
+        #{projectCount,jdbcType=INTEGER},
+      </if>
+      <if test="projectAmount != null" >
+        #{projectAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="comboSalePrice != null" >
+        #{comboSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionType != null" >
+        #{commissionType,jdbcType=INTEGER},
+      </if>
+      <if test="cashCommission != null" >
+        #{cashCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="cardCommission != null" >
+        #{cardCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="salesCount != null" >
+        #{salesCount,jdbcType=INTEGER},
+      </if>
+      <if test="salesPeople != null" >
+        #{salesPeople,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=CHAR},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=CHAR},
+      </if>
+      <if test="validDate != null" >
+        #{validDate,jdbcType=INTEGER},
+      </if>
+      <if test="isCountLimit != null" >
+        #{isCountLimit,jdbcType=INTEGER},
+      </if>
+      <if test="isWechatSell != null" >
+        #{isWechatSell,jdbcType=INTEGER},
+      </if>
+      <if test="isDisable != null" >
+        #{isDisable,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="standard != null" >
+        #{standard,jdbcType=INTEGER},
+      </if>
+      <if test="isAttestation != null" >
+        #{isAttestation,jdbcType=INTEGER},
+      </if>
+      <if test="comboPerformance != null" >
+        #{comboPerformance,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.ComboInfo" >
+    update combo_info
+    <set >
+      <if test="comboParentId != null" >
+        combo_parent_id = #{comboParentId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="comboName != null" >
+        combo_name = #{comboName,jdbcType=VARCHAR},
+      </if>
+      <if test="comboImage != null" >
+        combo_image = #{comboImage,jdbcType=VARCHAR},
+      </if>
+      <if test="comboDesc != null" >
+        combo_desc = #{comboDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCount != null" >
+        project_count = #{projectCount,jdbcType=INTEGER},
+      </if>
+      <if test="projectAmount != null" >
+        project_amount = #{projectAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="comboSalePrice != null" >
+        combo_sale_price = #{comboSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionType != null" >
+        commission_type = #{commissionType,jdbcType=INTEGER},
+      </if>
+      <if test="cashCommission != null" >
+        cash_commission = #{cashCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="cardCommission != null" >
+        card_commission = #{cardCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="salesCount != null" >
+        sales_count = #{salesCount,jdbcType=INTEGER},
+      </if>
+      <if test="salesPeople != null" >
+        sales_people = #{salesPeople,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=CHAR},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=CHAR},
+      </if>
+      <if test="validDate != null" >
+        valid_date = #{validDate,jdbcType=INTEGER},
+      </if>
+      <if test="isCountLimit != null" >
+        is_count_limit = #{isCountLimit,jdbcType=INTEGER},
+      </if>
+      <if test="isWechatSell != null" >
+        is_wechat_sell = #{isWechatSell,jdbcType=INTEGER},
+      </if>
+      <if test="isDisable != null" >
+        is_disable = #{isDisable,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+        <if test="standard != null" >
+        standard = #{standard,jdbcType=INTEGER},
+      </if>
+      <if test="isAttestation != null" >
+        is_attestation = #{isAttestation,jdbcType=INTEGER},
+      </if>
+      <if test="comboPerformance != null" >
+        combo_performance = #{comboPerformance,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where combo_id = #{comboId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByProperty" parameterType="com.zefun.web.entity.ComboInfo" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from combo_info where is_deleted = 0 
+      <if test="comboParentId != null" >
+        and combo_parent_id = #{comboParentId,jdbcType=INTEGER}
+      </if>
+      <if test="storeId != null" >
+        and store_id = #{storeId,jdbcType=INTEGER}
+      </if>
+      <if test="deptId != null" >
+        and dept_id = #{deptId,jdbcType=INTEGER}
+      </if>
+      <if test="comboName != null" >
+        and combo_name = #{comboName,jdbcType=VARCHAR}
+      </if>
+      <if test="comboImage != null" >
+        and combo_image = #{comboImage,jdbcType=VARCHAR}
+      </if>
+      <if test="comboDesc != null" >
+        and combo_desc = #{comboDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="projectCount != null" >
+        and project_count = #{projectCount,jdbcType=INTEGER}
+      </if>
+      <if test="projectAmount != null" >
+        and project_amount = #{projectAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="comboSalePrice != null" >
+        and combo_sale_price = #{comboSalePrice,jdbcType=DECIMAL}
+      </if>
+      <if test="commissionType != null" >
+        and commission_type = #{commissionType,jdbcType=INTEGER}
+      </if>
+      <if test="cashCommission != null" >
+        and cash_commission = #{cashCommission,jdbcType=DECIMAL}
+      </if>
+      <if test="cardCommission != null" >
+        and card_commission = #{cardCommission,jdbcType=DECIMAL}
+      </if>
+      <if test="salesCount != null" >
+        and sales_count = #{salesCount,jdbcType=INTEGER}
+      </if>
+      <if test="salesPeople != null" >
+        and sales_people = #{salesPeople,jdbcType=INTEGER}
+      </if>
+      <if test="startDate != null" >
+        and start_date = #{startDate,jdbcType=CHAR}
+      </if>
+      <if test="endDate != null" >
+        and end_date = #{endDate,jdbcType=CHAR}
+      </if>
+      <if test="validDate != null" >
+        and valid_date = #{validDate,jdbcType=INTEGER}
+      </if>
+      <if test="isCountLimit != null" >
+        and is_count_limit = #{isCountLimit,jdbcType=INTEGER}
+      </if>
+      <if test="isWechatSell != null" >
+        and is_wechat_sell = #{isWechatSell,jdbcType=INTEGER}
+      </if>
+      <if test="isDisable != null" >
+        and is_disable = #{isDisable,jdbcType=INTEGER}
+      </if>
+      <if test="isDeleted != null" >
+        and is_deleted = #{isDeleted,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        and create_time = #{createTime,jdbcType=CHAR}
+      </if>
+      <if test="updateTime != null" >
+        and update_time = #{updateTime,jdbcType=CHAR}
+      </if>
+      <if test="lastOperatorId != null" >
+        and last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+  <resultMap type="com.zefun.web.dto.DeptInfoDto" id="DetpInfoMap">
+        <result property="deptId" column="deptId"  jdbcType="INTEGER" />
+        <result property="deptName" column="deptName" jdbcType="VARCHAR" />
+        <result property="deptCode" column="deptCode"  jdbcType="INTEGER" />
+        <association property="comboInfoList" column="deptId" select="getComboInfo" />
+  </resultMap>
+  <resultMap type="com.zefun.web.dto.DeptComboSummaryDto" id="baseMap">
+  	<id column="dept_id" property="deptId"/>
+  	<result column="dept_name" property="deptName"/>
+  	<association property="combosBelongToDept" column="{deptId=dept_id,begin=begin,end=end}" select="getComboSummaryData"></association>
+  </resultMap>
+  
+  <select id="getDetpInfoByCombo" resultMap="DetpInfoMap" parameterType="java.lang.Integer" >
+  	select dept_id deptId,dept_name deptName,dept_code deptCode, store_id storeId from dept_info where store_id = #{storeId} and is_results = 1 and is_deleted = 0
+  </select>
+  <select id="getComboInfo" resultType="com.zefun.web.entity.ComboInfo" parameterType="java.lang.Integer" >
+  	select combo_id comboId, combo_name comboName, store_id storeId, combo_image comboImage, combo_sale_price comboSalePrice, sales_count salesCount from combo_info where dept_id = #{deptId} and is_deleted = 0
+  </select>
+  
+  <!-- ========================= -->
+  
+  <resultMap type="com.zefun.web.dto.ComboStatementDto" id="ComboStatementDtoMap">
+        <result property="comboId" column="comboId"  jdbcType="INTEGER" />
+        <result property="comboName" column="comboName" jdbcType="VARCHAR" />
+        <result property="deptId" column="deptId"  jdbcType="INTEGER" />
+        <result property="comboSaleTatailPrice" column="comboSaleTatailPrice"  jdbcType="DECIMAL" />
+        <result property="salesCount" column="salesCount"  jdbcType="INTEGER" />
+        <result property="salesPeople" column="salesPeople"  jdbcType="INTEGER" />
+        <result property="standard" column="standard"  jdbcType="INTEGER" />
+        <association property="statementProjectDtoList" column="comboId" select="getComboStatementProjectDto" />
+  </resultMap>
+  
+  <select id="selectComboByTimeSize" resultMap="ComboStatementDtoMap" parameterType="java.lang.Integer" >
+  	select 
+  	   a.combo_id as comboId, a.combo_name as comboName, a.dept_id as deptId, 
+  	   (select ifnull(sum(b.real_price), 0) from order_detail b where b.order_type = 3 and b.is_deleted = 0 and b.project_id = a.combo_id) as comboSaleTatailPrice,
+  	   a.sales_count as salesCount, a.sales_people as salesPeople, a.standard as standard
+  	from combo_info a
+  	where a.store_id = #{storeId,jdbcType=INTEGER} and a.is_count_limit = #{isCountLimit,jdbcType=INTEGER} and a.is_deleted = 0 
+  	<if test="deptId != -1" >
+        and a.dept_id = #{deptId,jdbcType=INTEGER}
+    </if>
+  	order by comboSaleTatailPrice desc
+  </select>
+  
+  <select id="getComboStatementProjectDto" resultType="com.zefun.web.dto.ComboStatementProjectDto" parameterType="java.lang.Integer" >
+  	 select 
+	   a.project_id as projectId, a.project_name as projectName, a.project_count as projectCount 
+	from combo_project a 
+	where a.combo_id = #{comboId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getComboTatailTime" resultType="java.util.Map" parameterType="java.util.Map" >
+  	 select 
+	   ifnull(sum(a.remaining_count), 0) as residueTime, ifnull(sum(a.project_count), 0) - ifnull(sum(a.remaining_count), 0) as consumeTatailTime 
+	from member_combo_project a 
+	where a.combo_id = #{comboId,jdbcType=INTEGER} and a.project_id = #{projectId,jdbcType=INTEGER} group by a.project_id, a.project_name
+  </select>
+	
+	
+  <select id="getComboDetail" parameterType="com.zefun.web.dto.SummaryResultDto"
+  	resultMap="baseMap">
+	SELECT 
+	dept_id,dept_name,
+	#{begin} begin,#{end} end 
+	from dept_info 
+	WHERE store_id = #{storeId,jdbcType=INTEGER} 
+	AND is_results = 1
+	AND is_deleted = 0
+  </select>
+  <select id="getComboSummaryData" parameterType="java.util.HashMap"
+  	resultType="com.zefun.web.dto.ComboSummaryDto">
+	SELECT
+	ci.combo_id comboId,
+	ci.combo_name comboName,
+	di.dept_id deptId,
+	SUM(IFNULL(od.project_count,0)) comboCnt,
+	SUM(IFNULL(od.discount_amount,0)) comboAmount
+	from
+	combo_info ci LEFT JOIN order_detail od
+	ON ci.combo_id = od.project_id
+	RIGHT JOIN dept_info di
+	ON ci.dept_id = di.dept_id
+	WHERE di.dept_id = #{deptId}
+	AND ci.combo_id IS NOT NULL
+	AND (od.create_time <![CDATA[>=]]> #{begin} AND od.create_time <![CDATA[<]]> #{end} OR od.create_time IS NULL)
+	AND od.is_deleted = 0 
+	AND od.order_type = 3 
+	GROUP BY ci.combo_id
+  </select>
+  <select id="getComboRank" parameterType="com.zefun.web.dto.SummaryResultDto"
+  	resultType="com.zefun.web.dto.ComboSummaryDto">
+	SELECT
+	ci.combo_id comboId,
+	ci.combo_name comboName,
+	di.dept_id deptId,
+	SUM(IFNULL(od.project_count,0)) comboCnt,
+	SUM(IFNULL(od.real_price,0)) comboAmount,
+	SUM(
+			IFNULL(od.discount_amount, 0)
+		) / SUM(IFNULL(od.project_count, 100))  avgPrice
+	from
+	combo_info ci LEFT JOIN order_detail od
+	ON ci.combo_id = od.project_id
+	RIGHT JOIN dept_info di
+	ON ci.dept_id = di.dept_id
+	WHERE di.store_id = #{storeId}
+	AND (od.create_time <![CDATA[>=]]> #{begin} AND od.create_time <![CDATA[<]]> #{end} OR od.create_time IS NULL)
+	AND od.is_deleted = 0 
+	AND od.order_type = 3 
+	AND ci.is_deleted = 0
+	GROUP BY ci.combo_id
+	<if test="type!=null">
+		<if test="type==1">
+			ORDER BY comboAmount DESC
+		</if>
+		<if test="type==2">
+			ORDER BY comboAmount ASC
+		</if>
+		<if test="type==3">
+			ORDER BY comboCnt DESC
+		</if>
+		<if test="type==4">
+			ORDER BY comboCnt ASC
+		</if>
+		<if test="type==5">
+			ORDER BY avgPrice DESC
+		</if>
+		<if test="type==6">
+			ORDER BY avgPrice ASC
+		</if>
+	</if>
+	
+  </select>
+  
+    <select id="getComboTrendData" parameterType="com.zefun.web.dto.SummaryResultDto"
+  	resultMap="comboMap">
+  	SELECT dept_id,#{dateType} dateType,#{begin} begin,#{end} end from dept_info WHERE store_id =#{storeId} AND is_results = 1 AND is_deleted = 0
+  </select>
+  
+  <select id="getSpecifyDateDeptComboSummary" parameterType="java.util.HashMap"
+  	resultType="com.zefun.web.dto.DeptSummaryByDayDto">
+	SELECT
+	SUM(IFNULL(discount_amount,0)) deptSum
+	<if test="dateType==3 || dateType==2">
+	,SUBSTR(create_time,9,2) currDate
+	</if>
+	<if test="dateType==4">
+	,SUBSTR(create_time,6,2) currDate
+	</if>
+	from
+	order_detail
+	WHERE	
+	dept_id= #{deptId}
+	AND create_time <![CDATA[>=]]> #{begin} AND create_time <![CDATA[<]]> #{end}
+	AND order_type = 3
+	AND is_deleted = 0
+	<if test="dateType==3 || dateType==2">
+	GROUP BY SUBSTR(create_time,1,10)
+	</if>
+	<if test="dateType==4">
+	GROUP BY SUBSTR(create_time,1,7)
+	</if>
+  </select>
+  <select id="getComboRankByDept" parameterType="com.zefun.web.dto.SummaryResultDto"
+  	resultType="com.zefun.web.dto.ComboSummaryDto">
+  	SELECT
+	ci.combo_id comboId,
+	ci.combo_name comboName,
+	di.dept_id deptId,
+	SUM(IFNULL(od.project_count,0)) comboCnt,
+	SUM(IFNULL(od.real_price,0)) comboAmount,
+	SUM(
+			IFNULL(od.discount_amount, 0)
+		) / SUM(IFNULL(od.project_count, 100))  avgPrice
+	from
+	combo_info ci LEFT JOIN order_detail od
+	ON ci.combo_id = od.project_id
+	RIGHT JOIN dept_info di
+	ON ci.dept_id = di.dept_id
+	WHERE di.dept_id = #{deptId}
+	AND (od.create_time <![CDATA[>=]]> #{begin} AND od.create_time <![CDATA[<]]> #{end} OR od.create_time IS NULL)
+	AND od.is_deleted = 0 
+	AND od.order_type = 3 
+	GROUP BY ci.combo_id
+	ORDER BY comboAmount DESC
+  </select>
+ <!--  查询套餐是否有次数限制 -->
+  <select id="checkComboCountLimit" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) as countTime from combo_info a where exists(select 1 from member_combo_project c 
+  	where c.is_deleted = 0 and c.detail_id = #{detailId,jdbcType=INTEGER} and c.combo_id = a.combo_id)
+    and a.is_count_limit = 0 and a.is_deleted = 0
+  </select>
+  <select id="getCashComboSale" parameterType="com.zefun.web.dto.SummaryResultDto" resultType="com.zefun.web.vo.CashComboSalesVo">
+  	SELECT 
+	SUM(IF(order_type=3,1,0)) cashComboCnt,
+	SUM(if(order_type=3,real_price,0)) cashComboAmt
+	from
+	order_detail
+	WHERE
+	EXISTS
+	(
+		SELECT
+			1
+		from
+			order_info
+		WHERE
+			create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND is_deleted = 0
+		AND store_id = #{storeId}
+		AND cash_amount + unionpay_amount + wechat_amount + alipay_amount + group_amount + debt_amount > 0
+	)
+	AND
+	order_id
+	IN
+	(
+		SELECT
+			order_id
+		from
+			order_info
+		WHERE
+			create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND is_deleted = 0
+		AND store_id = #{storeId}
+		AND cash_amount + unionpay_amount + wechat_amount + alipay_amount + group_amount + debt_amount > 0
+	)
+	<if test="projectId != null">
+		AND project_id = #{projectId}
+	</if>
+  </select>
+  <select id="getCardComboSale" parameterType="com.zefun.web.dto.SummaryResultDto" resultType="com.zefun.web.vo.CardComboSalesVo">
+  SELECT 
+	SUM(IF(order_type=3,1,0)) cardComboCnt,
+	SUM(if(order_type=3,real_price,0)) cardComboAmt
+	from
+	order_detail
+	WHERE
+	EXISTS
+	(
+		SELECT
+			1
+		from
+			order_info
+		WHERE
+			create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND is_deleted = 0
+		AND card_amount>0
+		AND store_id = #{storeId}
+	)
+	AND
+	order_id
+	IN
+	(
+		SELECT
+			order_id
+		from
+			order_info
+		WHERE
+			create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND is_deleted = 0
+		AND card_amount>0
+		AND store_id = #{storeId}
+	)
+	<if test="projectId != null">
+		AND project_id = #{projectId}
+	</if>
+  </select>
+  <select id="getDiscountComboSale" parameterType="com.zefun.web.dto.SummaryResultDto" resultType="com.zefun.web.vo.DiscountComboSalesVo">
+  SELECT 
+	SUM(IF(order_type=3,1,0)) discountComboCnt,
+	SUM(if(order_type=3,real_price,0)) discountComboAmt
+	from
+	order_detail
+	WHERE
+	gift_amount > 0
+	<if test="projectId != null">
+		AND project_id = #{projectId}
+	</if>
+  </select>
+</mapper>

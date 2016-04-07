@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.UboxTransactionMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.UboxTransaction" >
+    <id column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="transaction_amount" property="transactionAmount" jdbcType="INTEGER" />
+    <result column="transaction_integral" property="transactionIntegral" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="ubox_goods_id" property="uboxGoodsId" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="pay_channel" property="payChannel" jdbcType="INTEGER" />
+    <result column="service_employee_id" property="serviceEmployeeId" jdbcType="INTEGER" />
+    <result column="rewards_coupon_id" property="rewardsCouponId" jdbcType="INTEGER" />
+    <result column="rewards_gift_amount" property="rewardsGiftAmount" jdbcType="INTEGER" />
+    <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+    <result column="tran_id" property="tranId" jdbcType="VARCHAR" />
+    <result column="vmid" property="vmid" jdbcType="VARCHAR" />
+    <result column="box_number" property="boxNumber" jdbcType="VARCHAR" />
+    <result column="pickup_code" property="pickupCode" jdbcType="VARCHAR" />
+    <result column="expire_time" property="expireTime" jdbcType="INTEGER" />
+    <result column="box_status" property="boxStatus" jdbcType="INTEGER" />
+    <result column="pay_status" property="payStatus" jdbcType="INTEGER" />
+    <result column="updated_server_status" property="updatedServerStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="MemberTransactionMap" type="com.zefun.web.dto.ubox.UboxTransactionDto" >
+    <id column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="transaction_amount" property="transactionAmount" jdbcType="INTEGER" />
+    <result column="transaction_integral" property="transactionIntegral" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="ubox_goods_id" property="uboxGoodsId" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="pay_channel" property="payChannel" jdbcType="INTEGER" />
+    <result column="service_employee_id" property="serviceEmployeeId" jdbcType="INTEGER" />
+    <result column="rewards_coupon_id" property="rewardsCouponId" jdbcType="INTEGER" />
+    <result column="rewards_gift_amount" property="rewardsGiftAmount" jdbcType="INTEGER" />
+    <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+    <result column="tran_id" property="tranId" jdbcType="VARCHAR" />
+    <result column="vmid" property="vmid" jdbcType="VARCHAR" />
+    <result column="box_number" property="boxNumber" jdbcType="VARCHAR" />
+    <result column="pickup_code" property="pickupCode" jdbcType="VARCHAR" />
+    <result column="expire_time" property="expireTime" jdbcType="INTEGER" />
+    <result column="box_status" property="boxStatus" jdbcType="INTEGER" />
+    <result column="pay_status" property="payStatus" jdbcType="INTEGER" />
+    <result column="updated_server_status" property="updatedServerStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <association property="goodsInfo" column="goods_id" select="com.zefun.web.mapper.UboxStoreGoodsMapper.selectGoodsInfoByStoreGoodsId" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    transaction_id, transaction_amount, transaction_integral, goods_id, ubox_goods_id, 
+    member_id, pay_channel, service_employee_id, rewards_coupon_id, rewards_gift_amount, 
+    out_trade_no, tran_id, vmid, box_number, pickup_code, expire_time, box_status, pay_status, 
+    updated_server_status, create_time, update_time
+  </sql>
+  
+  <select id="selectTransactionInfoByUboxTranId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from ubox_transaction
+    where tran_id = #{tranId}
+  </select>
+  
+  <select id="selectTransactionListByMemberId" resultMap="MemberTransactionMap" parameterType="java.lang.Integer">
+  	select 
+    <include refid="Base_Column_List" />
+    from ubox_transaction
+    where member_id = #{memberId} and pay_status = 2
+  </select>
+  
+  <select id="selectTransactionInfoByTransactionId" resultMap="MemberTransactionMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from ubox_transaction
+    where transaction_id = #{transactionId}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ubox_transaction
+    where transaction_id = #{transactionId,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insert" parameterType="com.zefun.web.entity.UboxTransaction" >
+    insert into ubox_transaction
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
+      <if test="transactionAmount != null" >
+        transaction_amount,
+      </if>
+      <if test="transactionIntegral != null" >
+        transaction_integral,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="uboxGoodsId != null" >
+        ubox_goods_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="payChannel != null" >
+        pay_channel,
+      </if>
+      <if test="serviceEmployeeId != null" >
+        service_employee_id,
+      </if>
+      <if test="rewardsCouponId != null" >
+        rewards_coupon_id,
+      </if>
+      <if test="rewardsGiftAmount != null" >
+        rewards_gift_amount,
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no,
+      </if>
+      <if test="tranId != null" >
+        tran_id,
+      </if>
+      <if test="vmid != null" >
+        vmid,
+      </if>
+      <if test="boxNumber != null" >
+        box_number,
+      </if>
+      <if test="pickupCode != null" >
+        pickup_code,
+      </if>
+      <if test="expireTime != null" >
+        expire_time,
+      </if>
+      <if test="boxStatus != null" >
+        box_status,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="updatedServerStatus != null" >
+        updated_server_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionAmount != null" >
+        #{transactionAmount,jdbcType=INTEGER},
+      </if>
+      <if test="transactionIntegral != null" >
+        #{transactionIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="uboxGoodsId != null" >
+        #{uboxGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="payChannel != null" >
+        #{payChannel,jdbcType=INTEGER},
+      </if>
+      <if test="serviceEmployeeId != null" >
+        #{serviceEmployeeId,jdbcType=INTEGER},
+      </if>
+      <if test="rewardsCouponId != null" >
+        #{rewardsCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="rewardsGiftAmount != null" >
+        #{rewardsGiftAmount,jdbcType=INTEGER},
+      </if>
+      <if test="outTradeNo != null" >
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tranId != null" >
+        #{tranId,jdbcType=VARCHAR},
+      </if>
+      <if test="vmid != null" >
+        #{vmid,jdbcType=VARCHAR},
+      </if>
+      <if test="boxNumber != null" >
+        #{boxNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupCode != null" >
+        #{pickupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expireTime != null" >
+        #{expireTime,jdbcType=INTEGER},
+      </if>
+      <if test="boxStatus != null" >
+        #{boxStatus,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updatedServerStatus != null" >
+        #{updatedServerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.UboxTransaction" >
+    update ubox_transaction
+    <set >
+      <if test="transactionAmount != null" >
+        transaction_amount = #{transactionAmount,jdbcType=INTEGER},
+      </if>
+      <if test="transactionIntegral != null" >
+        transaction_integral = #{transactionIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="uboxGoodsId != null" >
+        ubox_goods_id = #{uboxGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="payChannel != null" >
+        pay_channel = #{payChannel,jdbcType=INTEGER},
+      </if>
+      <if test="serviceEmployeeId != null" >
+        service_employee_id = #{serviceEmployeeId,jdbcType=INTEGER},
+      </if>
+      <if test="rewardsCouponId != null" >
+        rewards_coupon_id = #{rewardsCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="rewardsGiftAmount != null" >
+        rewards_gift_amount = #{rewardsGiftAmount,jdbcType=INTEGER},
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tranId != null" >
+        tran_id = #{tranId,jdbcType=VARCHAR},
+      </if>
+      <if test="vmid != null" >
+        vmid = #{vmid,jdbcType=VARCHAR},
+      </if>
+      <if test="boxNumber != null" >
+        box_number = #{boxNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupCode != null" >
+        pickup_code = #{pickupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expireTime != null" >
+        expire_time = #{expireTime,jdbcType=INTEGER},
+      </if>
+      <if test="boxStatus != null" >
+        box_status = #{boxStatus,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updatedServerStatus != null" >
+        updated_server_status = #{updatedServerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where transaction_id = #{transactionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.AgentFollowMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.AgentFollow" >
+    <id column="agent_follow_id" property="agentFollowId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="operatorType" property="operatortype" jdbcType="CHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    agent_follow_id, store_id, operatorType, open_id, content, is_delete, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from agent_follow
+    where agent_follow_id = #{agentFollowId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from agent_follow
+    where agent_follow_id = #{agentFollowId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.AgentFollow" >
+    insert into agent_follow (agent_follow_id, store_id, operatorType, 
+      open_id, content, is_delete, 
+      create_time, update_time)
+    values (#{agentFollowId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{operatortype,jdbcType=CHAR}, 
+      #{openId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{isDelete,jdbcType=CHAR}, 
+      #{createTime,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.AgentFollow" >
+    insert into agent_follow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="agentFollowId != null" >
+        agent_follow_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="operatortype != null" >
+        operatorType,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="agentFollowId != null" >
+        #{agentFollowId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="operatortype != null" >
+        #{operatortype,jdbcType=CHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.AgentFollow" >
+    update agent_follow
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="operatortype != null" >
+        operatorType = #{operatortype,jdbcType=CHAR},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where agent_follow_id = #{agentFollowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.AgentFollow" >
+    update agent_follow
+    set store_id = #{storeId,jdbcType=INTEGER},
+      operatorType = #{operatortype,jdbcType=CHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=CHAR}
+    where agent_follow_id = #{agentFollowId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据店铺id集查询渠道跟踪记录 -->
+  <select id="selectAgentFollowByStoreIdList" resultMap="BaseResultMap" parameterType="java.util.List">
+  	select 
+    	<include refid="Base_Column_List" /> 
+    from agent_follow 
+    where is_delete = 0 
+    	and store_id in 
+    	<foreach collection="list" item="item" index="index"
+	        open="(" separator="," close=")">#{item}
+	    </foreach>
+  </select>
+  
+</mapper>

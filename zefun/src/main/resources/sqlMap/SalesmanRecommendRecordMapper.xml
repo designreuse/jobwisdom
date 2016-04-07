@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.SalesmanRecommendRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.SalesmanRecommendRecord" >
+    <result column="recommended_id" property="recommendedId" jdbcType="INTEGER" />
+    <result column="recommend_salesman_id" property="recommendSalesmanId" jdbcType="INTEGER" />
+    <result column="recommend_type" property="recommendType" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    recommended_id, recommend_salesman_id, recommend_type
+  </sql>
+  
+  <insert id="insert" parameterType="com.zefun.web.entity.SalesmanRecommendRecord" >
+    insert into salesman_recommend_record (recommended_id, recommend_salesman_id, 
+      recommend_type)
+    values (#{recommendedId,jdbcType=INTEGER}, #{recommendSalesmanId,jdbcType=INTEGER}, 
+      #{recommendType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.SalesmanRecommendRecord" >
+    insert into salesman_recommend_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recommendedId != null" >
+        recommended_id,
+      </if>
+      <if test="recommendSalesmanId != null" >
+        recommend_salesman_id,
+      </if>
+      <if test="recommendType != null" >
+        recommend_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recommendedId != null" >
+        #{recommendedId,jdbcType=INTEGER},
+      </if>
+      <if test="recommendSalesmanId != null" >
+        #{recommendSalesmanId,jdbcType=INTEGER},
+      </if>
+      <if test="recommendType != null" >
+        #{recommendType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 查询该业务员下客户总数 -->
+  <select id="selectCountBySalesmanId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select count(1) from salesman_recommend_record where recommend_salesman_id = ${salesmanId}
+  </select>
+  
+  <!-- 业务员已完成客户总数 -->
+  <select id="selectCountStoreCompleted" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select count(1) 
+  	from salesman_recommend_record srr, store_info si 
+  	where srr.recommended_id = si.store_id and si.store_status in(2,3) and recommend_salesman_id = ${salesmanId}
+  </select>
+  <!-- 业务员正在洽谈中(进行中)客户总数 -->
+  <select id="selectCountStoreProcessing" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select count(1) 
+  	from salesman_recommend_record srr, store_info si 
+  	where srr.recommended_id = si.store_id and si.store_status = 1 and recommend_salesman_id = ${salesmanId}
+  </select>
+  
+  <!-- 查询业务员推荐客户关系集 -->
+  <select id="selectSalesmanRecommendRecordBySalesmanId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+  		<include refid="Base_Column_List" />
+  	from salesman_recommend_record 
+  	where recommend_salesman_id = ${salesmanId}
+  </select>
+  
+</mapper>

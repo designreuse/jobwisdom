@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.BusinessAnalysissMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.dto.EmployeePayrollDto" >
+    <id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="employee_code" property="employeeCode" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level_name" property="levelName" jdbcType="INTEGER" />
+    <result column="head_image" property="headImage" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="CHAR" />
+    <result column="base_salaries" property="baseSalaries" jdbcType="INTEGER" />
+    <result column="position_salaries" property="positionSalaries" jdbcType="INTEGER" />
+    <association property="payrollCommission" column="{employeeId=employee_id,month=month}" select="selectPayrollCommissionByEmployeeId" />
+    <association property="payrollReward" column="{employeeId=employee_id,month=month}" select="selectRewardByEmployeeId" />
+  </resultMap>
+  
+  <select id="selectPayrollByStoreId" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select 
+  		ei.employee_id, 
+		ei.employee_code, 
+    	ei.name, 
+    	el.level_name, 
+    	ei.head_image, 
+		ei.phone,  
+    	ei.base_salaries, 
+    	ei.position_salaries,
+    	#{month} as month
+	from employee_info ei
+	left join employee_level el
+	on ei.level_id = el.level_id
+	where ei.store_id = #{storeId} and ei.level_id != 0 and ei.is_deleted = 0  	
+  </select>
+  
+  <select id="selectPayrollCommissionByEmployeeId" resultType="com.zefun.web.dto.PayrollCommissionDto" parameterType="java.util.Map" >
+  	select 
+		employee_id as employeeId,
+		ifnull(sum(if(order_type = 1, commission_amount, 0)),0) as projectCommission,
+    	ifnull(sum(if(order_type = 1, commission_calculate, 0)),0) as projectPerformance,
+        ifnull(sum(if(order_type = 2, commission_amount, 0)),0) as goodsCommission,
+        ifnull(sum(if(order_type = 2, commission_calculate, 0)),0) as goodsPerformance,
+        ifnull(sum(if(order_type = 3, commission_amount, 0)),0) as comboCommission,
+        ifnull(sum(if(order_type = 3, commission_calculate, 0)),0) as comboPerformance,
+        ifnull(sum(if(order_type = 4, commission_amount, 0)),0) as cardCommission,
+        ifnull(sum(if(order_type = 4, commission_calculate, 0)),0) as cardPerformance
+	from employee_commission where employee_id = #{employeeId} and substring(charge_time, 1, 7) = #{month} and is_deleted = 0
+  </select>
+  
+  <select id="selectRewardByEmployeeId" resultType="com.zefun.web.dto.PayrollRewardDto" parameterType="java.util.Map" >
+  	select
+  		employee_id as employeeId,
+  		ifnull(sum(if(type in (1,2,3,4,5), if(is_reward = 1, number, -number), 0)),0) as attendanceReward,
+		ifnull(sum(if(type in (6,7,8), if(is_reward = 1, number, -number), 0)),0) as behaviourReward,
+		ifnull(sum(if(type in (9,10,11), if(is_reward = 1, number, -number), 0)),0) as serviceReward 
+	from employee_reward where employee_id = #{employeeId} and substring(modifytime, 1, 7) = #{month} 
+  </select>
+</mapper>

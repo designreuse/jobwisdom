@@ -1,0 +1,99 @@
+.legent-cell {
+  text-align: center;
+  font-size: 12px;
+  color: #2de5bc;
+  clear: both;
+}
+.legent-cell .num {
+  color: #2de5bc;
+}
+.legent-cell .huiyuan .nan {
+  color: #5be4a5;
+}
+.legent-cell .huiyuan .nv {
+  color: #9ae9c5;
+}
+.legent-cell .sanke .nan {
+  color: #ffda6f;
+}
+.legent-cell .sanke .nv {
+  color: #fff7d8;
+}
+.legent-cell .lengent-one {
+  background-color: #2de5bc;
+  border-color: #114039;
+}
+.legent-cell .lengent-two {
+  background-color: #e5be2e;
+  border-color: #36381c;
+}
+.tc-legent {
+  color: #a2abb5;
+}
+.tc-legent .title {
+  font-size: 15px;
+}
+.tc-legent .lengent-one,
+.tc-legent .one {
+  background-color: #5d31dc;
+  border-color: #1b1c3f;
+}
+.tc-legent .lengent-two,
+.tc-legent .two {
+  background-color: #b5e986;
+  border-color: #2c412e;
+}
+.tc-legent .lengent-three,
+.tc-legent .three {
+  background-color: #ff7e7d;
+  border-color: #3b2c2c;
+}
+.tc-legent .lengent-four,
+.tc-legent .four {
+  background-color: #4fabe6;
+  border-color: #183541;
+}
+.tc-legent .lengent-five,
+.tc-legent .five {
+  background-color: #ffc07b;
+  border-color: #3b392c;
+}
+.tc-legent .legent-item {
+  clear: both;
+  line-height: 3rem;
+}
+.tc-legent .legent-item span {
+  background-color: transparent;
+}
+.leftchart-wrap {
+  position: relative;
+  text-align: center;
+}
+.pie-titile {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  font-size: 12px;
+  color: #a2abb5;
+}
+.chart-title {
+  position: absolute;
+  bottom: 1rem;
+  font-size: 12px;
+  color: #a2abb5;
+  width: 100%;
+  text-align: center;
+}
+.chart-line-left {
+  width: 60%;
+  position: relative;
+  text-align: center;
+  padding-bottom: 2rem;
+}
+.chart-line-right {
+  width: 40%;
+  position: relative;
+  text-align: center;
+  padding-bottom: 2rem;
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22src%2Fassets%2Fcss%2Fboss-newer%2Fclient-analyze.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22AAAA%3BEACE%2CkBAAA%3BEACA%2CeAAA%3BEACA%2CcAAA%3BEACA%2CWAAA%3B%3BAAJF%2CYAKE%3BEACE%2CcAAA%3B%3BAANJ%2CYAQE%2CSACE%3BEACE%2CcAAA%3B%3BAAVN%2CYAQE%2CSAIE%3BEACE%2CcAAA%3B%3BAAbN%2CYAgBE%2COACE%3BEACE%2CcAAA%3B%3BAAlBN%2CYAgBE%2COAIE%3BEACE%2CcAAA%3B%3BAArBN%2CYAyBE%3BEACE%2CyBAAA%3BEACA%2CqBAAA%3B%3BAA3BJ%2CYA6BE%3BEACE%2CyBAAA%3BEACA%2CqBAAA%3B%3BAAIJ%3BEACE%2CcAAA%3B%3BAADF%2CUAEE%3BEACE%2CeAAA%3B%3BAAHJ%2CUAKE%3BAALF%2CUAKgB%3BEACZ%2CyBAAA%3BEACA%2CqBAAA%3B%3BAAPJ%2CUASE%3BAATF%2CUASgB%3BEACZ%2CyBAAA%3BEACA%2CqBAAA%3B%3BAAXJ%2CUAaE%3BAAbF%2CUAakB%3BEACd%2CyBAAA%3BEACA%2CqBAAA%3B%3BAAfJ%2CUAiBE%3BAAjBF%2CUAiBiB%3BEACb%2CyBAAA%3BEACA%2CqBAAA%3B%3BAAnBJ%2CUAqBE%3BAArBF%2CUAqBiB%3BEACb%2CyBAAA%3BEACA%2CqBAAA%3B%3BAAvBJ%2CUAyBE%3BEACE%2CWAAA%3BEAIA%2CiBAAA%3B%3BAA9BJ%2CUAyBE%2CaAEE%3BEACE%2C6BAAA%3B%3BAAMN%3BEACE%2CkBAAA%3BEACA%2CkBAAA%3B%3BAAEF%3BEACE%2CkBAAA%3BEACA%2CSAAA%3BEACA%2CYAAA%3BEACA%2CeAAA%3BEACA%2CcAAA%3B%3BAAGF%3BEACE%2CkBAAA%3BEACA%2CYAAA%3BEACA%2CeAAA%3BEACA%2CcAAA%3BEACA%2CWAAA%3BEACA%2CkBAAA%3B%3BAAGF%3BEACE%2CUAAA%3BEACA%2CkBAAA%3BEACA%2CkBAAA%3BEACA%2CoBAAA%3B%3BAAGF%3BEACE%2CUAAA%3BEACA%2CkBAAA%3BEACA%2CkBAAA%3BEACA%2CoBAAA%22%7D */

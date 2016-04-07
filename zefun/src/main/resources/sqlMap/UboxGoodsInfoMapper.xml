@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.UboxGoodsInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.UboxGoodsInfo" >
+    <id column="ubox_id" property="uboxId" jdbcType="VARCHAR" />
+    <result column="ubox_name" property="uboxName" jdbcType="VARCHAR" />
+    <result column="ubox_original_price" property="uboxOriginalPrice" jdbcType="INTEGER" />
+    <result column="ubox_sale_price" property="uboxSalePrice" jdbcType="INTEGER" />
+    <result column="ubox_stock" property="uboxStock" jdbcType="INTEGER" />
+    <result column="ubox_picture" property="uboxPicture" jdbcType="VARCHAR" />
+    <result column="ubox_desc" property="uboxDesc" jdbcType="VARCHAR" />
+    <result column="ubox_expire_time" property="uboxExpireTime" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_picture_array" property="goodsPictureArray" jdbcType="VARCHAR" />
+    <result column="goods_desc" property="goodsDesc" jdbcType="VARCHAR" />
+    <result column="goods_sales" property="goodsSales" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ubox_id, ubox_name, ubox_original_price, ubox_sale_price, ubox_stock, ubox_picture, 
+    ubox_desc, ubox_expire_time, goods_name, goods_picture_array, goods_desc, goods_sales, 
+    create_time, update_time, last_operator_id
+  </sql>
+  
+  <select id="selectGoodsInfoByGoodsId" resultType="com.zefun.web.dto.ubox.UboxGoodsInfoDto" parameterType="java.lang.String">
+  	select 
+	    ubox_id as uboxId, 
+	    ubox_name as uboxName, 
+	    ubox_original_price as uboxOriginalPrice, 
+	    ubox_sale_price as uboxSalePrice, 
+	    ubox_stock as uboxStock, 
+	    ubox_picture as uboxPicture, 
+	    ubox_desc as uboxDesc, 
+	    ubox_expire_time as uboxExpireTime, 
+	    goods_name as goodsName, 
+	    goods_picture_array as goodsPictureArray, 
+	    goods_desc as goodsDesc, 
+	    goods_sales as goodsSales, 
+	    update_time as updateTime
+    from ubox_goods_info
+    where ubox_id = #{uboxId}
+  </select>
+  
+  <select id="selectAllGoodsList" resultType="com.zefun.web.dto.ubox.UboxGoodsInfoDto">
+  	select 
+	    ubox_id as uboxId, 
+	    ubox_name as uboxName, 
+	    ubox_original_price as uboxOriginalPrice, 
+	    ubox_sale_price as uboxSalePrice, 
+	    ubox_stock as uboxStock, 
+	    ubox_picture as uboxPicture, 
+	    ubox_desc as uboxDesc, 
+	    ubox_expire_time as uboxExpireTime, 
+	    goods_name as goodsName, 
+	    goods_picture_array as goodsPictureArray, 
+	    goods_desc as goodsDesc, 
+	    goods_sales as goodsSales, 
+	    update_time as updateTime
+    from ubox_goods_info
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ubox_goods_info
+    where ubox_id = #{uboxId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ubox_goods_info
+    where ubox_id = #{uboxId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zefun.web.entity.UboxGoodsInfo" >
+    insert into ubox_goods_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uboxId != null" >
+        ubox_id,
+      </if>
+      <if test="uboxName != null" >
+        ubox_name,
+      </if>
+      <if test="uboxOriginalPrice != null" >
+        ubox_original_price,
+      </if>
+      <if test="uboxSalePrice != null" >
+        ubox_sale_price,
+      </if>
+      <if test="uboxStock != null" >
+        ubox_stock,
+      </if>
+      <if test="uboxPicture != null" >
+        ubox_picture,
+      </if>
+      <if test="uboxDesc != null" >
+        ubox_desc,
+      </if>
+      <if test="uboxExpireTime != null" >
+        ubox_expire_time,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsPictureArray != null" >
+        goods_picture_array,
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc,
+      </if>
+      <if test="goodsSales != null" >
+        goods_sales,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uboxId != null" >
+        #{uboxId,jdbcType=VARCHAR},
+      </if>
+      <if test="uboxName != null" >
+        #{uboxName,jdbcType=VARCHAR},
+      </if>
+      <if test="uboxOriginalPrice != null" >
+        #{uboxOriginalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="uboxSalePrice != null" >
+        #{uboxSalePrice,jdbcType=INTEGER},
+      </if>
+      <if test="uboxStock != null" >
+        #{uboxStock,jdbcType=INTEGER},
+      </if>
+      <if test="uboxPicture != null" >
+        #{uboxPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="uboxDesc != null" >
+        #{uboxDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="uboxExpireTime != null" >
+        #{uboxExpireTime,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPictureArray != null" >
+        #{goodsPictureArray,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDesc != null" >
+        #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSales != null" >
+        #{goodsSales,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.UboxGoodsInfo" >
+    update ubox_goods_info
+    <set >
+      <if test="uboxName != null" >
+        ubox_name = #{uboxName,jdbcType=VARCHAR},
+      </if>
+      <if test="uboxOriginalPrice != null" >
+        ubox_original_price = #{uboxOriginalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="uboxSalePrice != null" >
+        ubox_sale_price = #{uboxSalePrice,jdbcType=INTEGER},
+      </if>
+      <if test="uboxStock != null" >
+        ubox_stock = #{uboxStock,jdbcType=INTEGER},
+      </if>
+      <if test="uboxPicture != null" >
+        ubox_picture = #{uboxPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="uboxDesc != null" >
+        ubox_desc = #{uboxDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="uboxExpireTime != null" >
+        ubox_expire_time = #{uboxExpireTime,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPictureArray != null" >
+        goods_picture_array = #{goodsPictureArray,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSales != null" >
+        goods_sales = #{goodsSales,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ubox_id = #{uboxId,jdbcType=VARCHAR}
+  </update>
+</mapper>

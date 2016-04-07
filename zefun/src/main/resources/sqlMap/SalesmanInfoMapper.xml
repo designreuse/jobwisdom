@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.SalesmanInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.SalesmanInfo" >
+    <id column="salesman_id" property="salesmanId" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="gender" property="gender" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <association property="agentInfo" column="agent_info" javaType="com.zefun.web.entity.AgentInfo">
+    	<id column="ai_agent_id" property="agentId" jdbcType="INTEGER" />
+	    <result column="ai_name" property="name" jdbcType="VARCHAR" />
+	    <result column="ai_phone" property="phone" jdbcType="VARCHAR" />
+	    <result column="ai_company_type" property="companyType" jdbcType="INTEGER" />
+	    <result column="ai_company_name" property="companyName" jdbcType="VARCHAR" />
+	    <result column="ai_province" property="province" jdbcType="VARCHAR" />
+	    <result column="ai_city" property="city" jdbcType="VARCHAR" />
+	    <result column="ai_create_time" property="createTime" jdbcType="CHAR" />
+	    <result column="ai_update_time" property="updateTime" jdbcType="CHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    salesman_id, open_id, agent_id, status, is_delete, name, phone, password, age, gender, 
+    create_time, update_time, comment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from salesman_info
+    where salesman_id = #{salesmanId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from salesman_info
+    where salesman_id = #{salesmanId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.SalesmanInfo" >
+    insert into salesman_info (salesman_id, open_id, agent_id, 
+      status, is_delete, name, 
+      phone, password, age, 
+      gender, create_time, update_time, 
+      comment)
+    values (#{salesmanId,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{agentId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{gender,jdbcType=CHAR}, #{createTime,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR}, 
+      #{comment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.SalesmanInfo" >
+    insert into salesman_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="salesmanId != null" >
+        salesman_id,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="salesmanId != null" >
+        #{salesmanId,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.SalesmanInfo" >
+    update salesman_info
+    <set >
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where salesman_id = #{salesmanId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.SalesmanInfo" >
+    update salesman_info
+    set open_id = #{openId,jdbcType=VARCHAR},
+      agent_id = #{agentId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=CHAR},
+      comment = #{comment,jdbcType=VARCHAR}
+    where salesman_id = #{salesmanId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据渠道(代理)商id查询业务员 -->
+  <select id="selectSalesmanInfoByAgentId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+  		<include refid="Base_Column_List" /> 
+    from salesman_info 
+    where agent_id = #{agentId}  and is_delete = 0  order by status
+  </select>
+  
+  <!-- 分页查询业务员 -->
+  <select id="selectSalesmanInfoByPage" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.Page">
+  	select 
+  		<include refid="Base_Column_List" /> 
+    from salesman_info 
+    where 1 = 1 
+    <if test="params.agentId != null">
+    	and agent_id = #{params.agentId}
+    </if>
+  </select>
+  
+  <!-- 根据微信标识查询业务员 -->
+  <select id="selectSalesmanInfoByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+  		<include refid="Base_Column_List" /> 
+    from salesman_info 
+    where open_id = #{openId}
+  </select>
+  
+  <!-- 根据手机号和密码查询业务员(未被删除) -->
+  <select id="selectSalesmanInfoByPhone" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List" /> 
+    from salesman_info 
+    where is_delete = 0 and phone = #{phone} and password = #{password}
+  </select>
+  
+  <!-- 根据渠道id查看业务员总数(没删除的业务员) -->
+  <select id="selectCountSalesmanByAgentId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select count(1) as count from salesman_info where agent_id = ${agentId} and is_delete = 0
+  </select>
+  
+  <!-- 根据微信标识查询业务员(没删除的业务员) -->
+  <select id="selectSalesmanByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select si.*,
+  		ai.agent_id as ai_agent_id, ai.name as ai_name, ai.phone as ai_phone, ai.company_type as ai_company_type, 
+  		ai.company_name as ai_company_name, ai.province as ai_province, ai.city as ai_city, ai.create_time as ai_create_time, 
+  		ai.update_time as ai_update_time
+  	from salesman_info si, agent_info ai where si.agent_id = ai.agent_id and si.open_id = #{openId} and si.is_delete = 0 limit 1
+  </select>
+  <!-- 根据微信标识查询业务员(没删除没停用的业务员) -->
+  <select id="selectSalesmanByOpenIdNotDeleteNotDisable" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+  		<include refid="Base_Column_List" />  
+  	from salesman_info where open_id = #{openId} and is_delete = 0 and status = 0 limit 1
+  </select>
+  <!-- 根据微信标识查询业务员(不管状态) -->
+  <select id="selectSalesmanByOpenIdIgnoreStatus" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+  		<include refid="Base_Column_List" />  
+  	from salesman_info where open_id = #{openId}
+  </select>
+  
+  <!-- 停用业务员 -->
+  <update id="deactivateSalesman" parameterType="java.lang.Integer" >
+  	update salesman_info set status = 1, open_id = null where salesman_id = ${salesmanId}
+  </update>
+  
+  <!-- 删除业务员 -->
+  <update id="deleteSalesman" parameterType="java.lang.Integer" >
+  	update salesman_info set is_delete = 1, open_id = null where salesman_id = ${salesmanId}
+  </update>
+  
+  <!-- 根据电话查询业务员 -->
+  <select id="selectSalesmanByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select <include refid="Base_Column_List" /> 
+  	from salesman_info where is_delete = 0 and phone = #{phone}
+  </select>
+  
+  <!-- 根据渠道商openId和业务员openId查询业务员(通常检查业务员是否在渠道下) -->
+  <select id="selectSalesmanByAgentOpenIdAndSalesmanOpenId" resultMap="BaseResultMap">
+  	select si.* 
+  	from salesman_info si, wechat_agent wa 
+  	where si.agent_id = wa.agent_id and wa.open_id = #{agentOpenId} and si.open_id = #{salesmanOpenId};
+  </select>
+  
+  <!-- 根据店铺标识(storeId)查询他的推荐者业务员名字 -->
+  <select id="selectSalesmanNameByStoreId" resultType="java.lang.String" parameterType="java.lang.Integer">
+  	select si.name 
+  	from salesman_info si, salesman_recommend_record srr 
+  	where si.salesman_id = srr.recommend_salesman_id and srr.recommend_type = 1 and srr.recommended_id = ${storeId}
+  </select>
+  
+</mapper>

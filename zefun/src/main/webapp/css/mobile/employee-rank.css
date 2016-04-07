@@ -1,0 +1,42 @@
+table {
+  width: 100%;
+  text-align: center;
+  color: #a2abb5;
+  font-size: 12px;
+}
+thead th {
+  height: 3.75rem;
+  background-color: #1b282e;
+}
+thead th.active {
+  background-color: #12b5b1;
+  color: #0a1718;
+}
+.search-desc {
+  height: 2.75rem;
+  text-align: center;
+  color: #a2abb5;
+  font-size: 9px;
+  background-color: #0a1718;
+}
+tbody td {
+  height: 5rem;
+}
+tbody td img {
+  height: 2.8rem;
+  width: 1.5rem;
+  vertical-align: bottom;
+}
+tbody tr:nth-child(odd) td {
+  background-color: #142125;
+}
+tbody tr:nth-child(even) td {
+  background-color: #0a1718;
+}
+.part-table {
+  position: relative;
+  border-top: 0;
+  padding: 8rem 0 6.125rem;
+  background-color: #0a1718;
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22src%2Fassets%2Fcss%2Fboss-newer%2Femployee-rank.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22AAAA%3BEACE%2CWAAA%3BEACA%2CkBAAA%3BEACA%2CcAAA%3BEACA%2CeAAA%3B%3BAAGF%2CKAAM%3BEACJ%2CeAAA%3BEACA%2CyBAAA%3B%3BAACA%2CKAHI%2CGAGH%3BEACC%2CyBAAA%3BEACA%2CcAAA%3B%3BAAGJ%3BEACE%2CeAAA%3BEACA%2CkBAAA%3BEACA%2CcAAA%3BEACA%2CcAAA%3BEACA%2CyBAAA%3B%3BAAGF%2CKAAM%3BEACJ%2CYAAA%3B%3BAADF%2CKAAM%2CGAEJ%3BEACE%2CcAAA%3BEACA%2CaAAA%3BEACA%2CsBAAA%3B%3BAAKJ%2CKAAM%2CGAAE%2CUAAU%2CKAAM%3BEACtB%2CyBAAA%3B%3BAAGF%2CKAAM%2CGAAE%2CUAAU%2CMAAO%3BEACvB%2CyBAAA%3B%3BAAGF%3BEACE%2CkBAAA%3BEACA%2CaAAA%3BEACA%2CoBAAA%22%7D */

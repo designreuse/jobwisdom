@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.RumorsCourseMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.RumorsCourse" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="level_num" property="levelNum" jdbcType="VARCHAR" />
+    <result column="level_name" property="levelName" jdbcType="VARCHAR" />
+    <result column="level_type" property="levelType" jdbcType="VARCHAR" />
+    <result column="course_desc" property="courseDesc" jdbcType="VARCHAR" />
+    <result column="residue_degree" property="residueDegree" jdbcType="INTEGER" />
+    <result column="residue_amount" property="residueAmount" jdbcType="DECIMAL" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, phone, level_num, level_name, level_type, course_desc, residue_degree, 
+    residue_amount, store_id, last_operator_id, is_deleted, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rumors_course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rumors_course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.RumorsCourse" >
+    insert into rumors_course (id, name, phone, 
+      level_num, level_name, level_type, 
+      course_desc, residue_degree, residue_amount, 
+      store_id, last_operator_id, is_deleted, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{levelNum,jdbcType=VARCHAR}, #{levelName,jdbcType=VARCHAR}, #{levelType,jdbcType=VARCHAR}, 
+      #{courseDesc,jdbcType=VARCHAR}, #{residueDegree,jdbcType=INTEGER}, #{residueAmount,jdbcType=DECIMAL}, 
+      #{storeId,jdbcType=INTEGER}, #{lastOperatorId,jdbcType=INTEGER}, #{isDeleted,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.RumorsCourse" >
+    insert into rumors_course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="levelNum != null" >
+        level_num,
+      </if>
+      <if test="levelName != null" >
+        level_name,
+      </if>
+      <if test="levelType != null" >
+        level_type,
+      </if>
+      <if test="courseDesc != null" >
+        course_desc,
+      </if>
+      <if test="residueDegree != null" >
+        residue_degree,
+      </if>
+      <if test="residueAmount != null" >
+        residue_amount,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="levelNum != null" >
+        #{levelNum,jdbcType=VARCHAR},
+      </if>
+      <if test="levelName != null" >
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelType != null" >
+        #{levelType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDesc != null" >
+        #{courseDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="residueDegree != null" >
+        #{residueDegree,jdbcType=INTEGER},
+      </if>
+      <if test="residueAmount != null" >
+        #{residueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="lastOperatorId != null" >
+        #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.RumorsCourse" >
+    update rumors_course
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="levelNum != null" >
+        level_num = #{levelNum,jdbcType=VARCHAR},
+      </if>
+      <if test="levelName != null" >
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelType != null" >
+        level_type = #{levelType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDesc != null" >
+        course_desc = #{courseDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="residueDegree != null" >
+        residue_degree = #{residueDegree,jdbcType=INTEGER},
+      </if>
+      <if test="residueAmount != null" >
+        residue_amount = #{residueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.RumorsCourse" >
+    update rumors_course
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      level_num = #{levelNum,jdbcType=VARCHAR},
+      level_name = #{levelName,jdbcType=VARCHAR},
+      level_type = #{levelType,jdbcType=VARCHAR},
+      course_desc = #{courseDesc,jdbcType=VARCHAR},
+      residue_degree = #{residueDegree,jdbcType=INTEGER},
+      residue_amount = #{residueAmount,jdbcType=DECIMAL},
+      store_id = #{storeId,jdbcType=INTEGER},
+      last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="insertList" parameterType="java.util.List" >
+  	insert into rumors_course (name, phone, 
+      level_num, level_name, level_type, 
+      course_desc, residue_degree, residue_amount, 
+      store_id, last_operator_id, is_deleted, 
+      create_time, update_time)
+    values 
+    <foreach collection="list" item="item" index="index" separator="," >  
+      (#{item.name,jdbcType=VARCHAR}, #{item.phone,jdbcType=VARCHAR}, 
+      #{item.levelNum,jdbcType=VARCHAR}, #{item.levelName,jdbcType=VARCHAR}, #{item.levelType,jdbcType=VARCHAR}, 
+      #{item.courseDesc,jdbcType=VARCHAR}, #{item.residueDegree,jdbcType=INTEGER}, #{item.residueAmount,jdbcType=DECIMAL}, 
+      #{item.storeId,jdbcType=INTEGER}, #{item.lastOperatorId,jdbcType=INTEGER}, #{item.isDeleted,jdbcType=INTEGER}, 
+      #{item.createTime,jdbcType=CHAR}, #{item.updateTime,jdbcType=CHAR})
+    </foreach>
+  </select>
+  
+  <select id="selectByPage" parameterType="com.zefun.web.entity.Page" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from rumors_course
+    where store_id = #{params.storeId}
+    and is_deleted = 0
+  </select>
+  
+  <select id="selectStoreMemberAmount" parameterType="java.lang.Integer" resultType="com.zefun.web.entity.RumorsCourse">
+  	select sum(residue_amount) as residueAmounts from rumors_course where store_id = #{storeId} and is_deleted = 0
+  </select>
+  
+  <select id="selectAllByStoreId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from rumors_course
+    where store_id = #{params.storeId}
+    and is_deleted = 0
+  </select>
+</mapper>

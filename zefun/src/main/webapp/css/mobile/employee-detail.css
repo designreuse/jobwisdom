@@ -1,0 +1,113 @@
+@fs:8rem;
+
+.employee-detail-wrap {
+  background-color: #0a1718;
+}
+.employee-info {
+  padding: 3.0625rem 0rem 3.125rem 2.625rem;
+  clear: both;
+  overflow: hidden;
+}
+
+.img-wrap {
+  float: left;
+}
+
+.gonghao {
+  color: #12b5b1;
+  text-align: center;
+  font-size: 10/@fs;
+}
+
+.employee-img{
+  width: 7.625rem;
+  height: 7.625rem;
+}
+
+.info-desc {
+  float: left;
+  margin-left: 3rem;
+  color: #a2abb5;
+  font-size: 12/@fs;
+  .value {
+    color: #fff;
+  }
+}
+
+.info-item {
+  line-height: 2.5rem;
+}
+
+.score {
+  font-size: 20/@fs;
+  color: #ecb50e;
+}
+
+.chart-sum .num {
+  font-size: 20/@fs;
+  color: #ff7e7d;
+}
+
+.pie-legent {
+  position: absolute;
+  bottom: 3rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.legent-tag {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  display: inline-block;
+  color: #a2abb5;
+  box-sizing: content-box;
+  border: .4rem solid;
+  vertical-align: middle;
+  margin: -0.4rem 1.625rem 0 0.5rem;
+}
+
+.legent-cell {
+  float: left;
+  text-align: center;
+  color: #a2abb5;
+  margin-top: .5rem;
+  font-size: 12/@fs;
+}
+
+.lengent-one {
+  background-color: rgb(26, 99, 176);
+  border-color: #0d2535;
+}
+
+.lengent-two {
+  background-color: rgb(255, 126, 125);
+  border-color: #322828;
+}
+
+.lengent-three {
+  background-color: rgb(255, 192, 123);
+  border-color: #38372b;
+}
+
+.lengent-four {
+  background-color: rgb(181, 233, 134);
+  border-color: #415a3b;
+}
+
+.star-rating .clear-rating, .star-rating-rtl .caption, .star-rating .clear-rating, .star-rating-rtl .clear-rating {
+  display: none;
+}
+
+
+.star-rating .caption {
+  display: none;
+}
+
+.rating-container .rating-stars{
+  color: #ecb50e;
+}
+
+.rating-container {
+  color: #5b6770;
+}

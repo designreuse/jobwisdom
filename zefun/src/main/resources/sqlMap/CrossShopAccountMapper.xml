@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.CrossShopAccountMapper" >
+	<resultMap type="com.zefun.web.dto.StoreReconciliation" id="memberBaseMap">
+		<id property="storeId" column="store_id"/>
+		<result property="storeName" column="store_name"/>
+		<association property="meToOtherMembers" column="{begin=begin,end=end,localStoreId=localStoreId,storeId=store_id}"
+			select="selectMemberIdByStoreId">
+		</association>
+		<association property="otherToMeMebers" column="{begin=begin,end=end,localStoreId=localStoreId,storeId=store_id}"
+			select="selectMembersByStoreId">
+		</association>
+	</resultMap>
+	<sql id="base_column_List">
+		crossShop_id,consumed_store_id,belong_store_id,reconciliation_amount,check_state,remark,reference_detail_id,series_id
+	</sql>
+	<resultMap type="com.zefun.web.entity.CrossShopAccount" id="baseResultMap">
+		<id property="crossShopId" column="crossShop_id" jdbcType="INTEGER"/>
+		<result property="consumedStoreId" column="consumed_store_id" jdbcType="INTEGER"/>
+		<result property="belongStoreId" column="belong_store_id" jdbcType="INTEGER"/>
+		<result property="reconciliationAmount" column="reconciliation_amount" jdbcType="DECIMAL"/>
+		<result property="checkState"  column="check_state" jdbcType="INTEGER"/>
+		<result property="remark" column="remark" jdbcType="LONGVARCHAR"/>
+		<result property="referenceDetailId" column="reference_detail_id" jdbcType="INTEGER"/>
+		<result property="seriesId" column="series_id" jdbcType="INTEGER"/>
+	</resultMap>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from cross_shop_account where crossShop_id = #{crossShopId}
+	</delete>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.CrossShopAccount">
+		update cross_shop_account
+		<set>
+			<if test="reconciliationAmount != null">
+				reconciliation_amount = #{reconciliationAmount},
+			</if>
+			<if test="checkState != null">
+				check_state = #{checkState},
+			</if>
+			<if test="remark != null">
+				remark = #{remark}
+			</if>			
+		</set>
+		where reference_detail_id = #{referenceDetailId}
+	</update>
+	<insert id="insert" parameterType="com.zefun.web.entity.CrossShopAccount" useGeneratedKeys = "true" keyProperty="crossShopId">
+		insert into cross_shop_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="crossShopId != null">
+				crossShop_id,
+			</if>
+			<if test="consumedStoreId != null">
+				consumed_store_id,
+			</if>
+			<if test="belongStoreId != null">
+				belong_store_id,
+			</if>
+			<if test="reconciliationAmount != null">
+				reconciliation_amount,
+			</if>
+			<if test="checkState != null">
+				check_state,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="referenceDetailId != null">
+				reference_detail_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="crossShopId != null">
+				#{crossShopId,jdbcType=INTEGER},
+			</if>
+			<if test="consumedStoreId != null">
+				#{consumedStoreId,jdbcType=INTEGER},
+			</if>
+			<if test="belongStoreId != null">
+				#{belongStoreId,jdbcType=INTEGER},
+			</if>
+			<if test="reconciliationAmount != null">
+				#{reconciliationAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="checkState != null">
+				#{checkState,jdbcType=CHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="referenceDetailId != null">
+				#{referenceDetailId,jdbcType=INTEGER}
+			</if>
+		</trim>
+	</insert>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="baseResultMap">
+		select 
+		<include refid="base_column_List"/>
+		from cross_shop_account where reference_detail_id = #{crossShopId}
+	</select>
+	<select id="selectDifferentStoreMemberConsumed" parameterType="java.util.HashMap"
+		resultMap="memberBaseMap">
+	SELECT store_id, store_name,#{begin} begin,#{end} end,#{lstoreId} localStoreId from store_info WHERE hq_store_id = #{hqStoreId}  AND store_id != #{lstoreId}
+	</select>
+	<select id="selectMemberIdByStoreId" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT
+			member_id
+		from
+			(
+				(
+					SELECT DISTINCT
+						member_id
+					from
+						order_info
+					WHERE
+						store_id = #{localStoreId}
+					AND create_time <![CDATA[>=]]> #{begin}
+					AND create_time <![CDATA[<]]> #{end}
+					AND is_deleted = 0
+					AND (
+						order_type = 2
+						OR (
+							order_type = 1
+							AND card_amount > 0
+						)
+					)
+				)
+				UNION ALL
+					(
+						SELECT DISTINCT
+							member_id
+						from
+							member_info
+						WHERE
+							store_id = #{storeId}
+					)
+			) _temp
+		GROUP BY
+			member_id
+		HAVING
+	COUNT(member_id) > 1
+	</select>
+	<select id="selectMembersByStoreId" parameterType="java.util.HashMap"
+		resultType="java.lang.Integer">
+		SELECT
+			member_id
+		from
+			(
+				(
+					SELECT DISTINCT
+						member_id
+					from
+						order_info
+					WHERE
+						store_id = #{storeId}
+					AND create_time <![CDATA[>=]]> #{begin}
+					AND create_time <![CDATA[<]]> #{end}
+					AND is_deleted = 0
+					AND (
+						order_type = 2
+						OR (
+							order_type = 1
+							AND card_amount > 0
+						)
+					)
+				)
+				UNION ALL
+					(
+						SELECT DISTINCT
+							member_id
+						from
+							member_info
+						WHERE
+							store_id = #{localStoreId}
+					)
+			) _temp
+		GROUP BY
+			member_id
+		HAVING
+			COUNT(member_id) > 1
+	</select>
+	<select id="getOtherToMeResult" parameterType="java.util.HashMap"
+		resultType="com.zefun.web.dto.DifferentStoreMemberConsumeDto">
+		SELECT
+			SUM(IF(card_amount>0,card_amount,0)) cardConsumedAmt,
+			SUM(IF(order_type=2,real_amount,0)) chargeCardAmt
+		from
+			order_info
+		WHERE
+			member_id IN 
+			<foreach collection="memberIds" open="(" close=")" separator="," item="id">
+				#{id}
+			</foreach>
+		AND create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND store_id = #{storeId}
+		AND is_deleted = 0
+	</select>
+	<select id="getCrossShopConsumedDetail" parameterType="java.util.HashMap" resultType="com.zefun.web.dto.ReconciliationOrderDetailDto">
+		SELECT
+			_temp.order_code seriesId,od.create_time createTime,
+			_temp.member_id memberId,od.order_type orderType,od.real_price realPrice,
+			od.project_name projectName,od.detail_id detailId
+		from
+			order_detail od,
+			(
+				SELECT
+					order_id,member_id,order_code
+				from
+					order_info
+				WHERE
+					member_id IN 
+					<foreach collection="memberIds" open="(" close=")" separator="," item="id">
+						#{id}
+					</foreach>
+				AND create_time <![CDATA[>=]]> #{begin}
+				AND create_time <![CDATA[<]]> #{end}
+				AND store_id = #{storeId}
+				<if test="type!=null">
+					<if test="type==1">
+					AND card_amount>0
+					</if>
+					<if test="type==2">
+					AND order_type=2
+					</if>
+				</if>
+			) _temp
+		WHERE _temp.order_id = od.order_id 	AND is_deleted = 0
+	</select>
+	<insert id="insertIfNotExist" parameterType="com.zefun.web.entity.CrossShopAccount">
+		INSERT INTO cross_shop_account(consumed_store_id,belong_store_id,reference_detail_id,series_id)		
+		SELECT 
+			#{consumedStoreId},#{belongStoreId},#{referenceDetailId},#{seriesId}
+		from DUAL
+		WHERE
+			NOT EXISTS (
+				SELECT
+					reference_detail_id
+				from
+					cross_shop_account
+				WHERE
+					reference_detail_id = #{referenceDetailId}
+			)
+	</insert>
+	<select id="getMemberChargeCnt" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT
+			COUNT(DISTINCT member_id) memberCardConsumedCnt
+		from
+			order_info
+		WHERE
+			member_id IN 
+			<foreach collection="memberIds" open="(" close=")" separator="," item="id">
+				#{id}
+			</foreach>
+		AND create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND store_id = #{storeId}
+		AND order_type=2
+		AND is_deleted = 0
+	</select>
+	<select id="getMemberCardCnt" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT
+			COUNT(DISTINCT member_id) memberCardConsumedCnt
+		from
+			order_info
+		WHERE
+			member_id IN 
+			<foreach collection="memberIds" open="(" close=")" separator="," item="id">
+				#{id}
+			</foreach>
+		AND create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND store_id = #{storeId}
+		AND card_amount>0
+		AND is_deleted = 0
+	</select>
+	<select id="selectDetailIdByMemberId" parameterType="java.util.HashMap" resultType="java.lang.String">
+	SELECT
+	od.detail_id
+	from
+	order_info oi,order_detail od
+	WHERE
+	oi.order_id = od.order_id
+	AND
+	oi.member_id IN 
+	<foreach collection="memberIds" open="(" close=")" separator="," item="id">
+		#{id}
+	</foreach>
+	AND oi.is_deleted = 0 AND oi.create_time <![CDATA[>=]]> #{begin} AND oi.create_time <![CDATA[<]]> #{end}
+	AND oi.store_id = #{storeId}
+	</select>
+	<select id="getDetailReconciliationResult" parameterType="java.util.List" resultType="com.zefun.web.dto.ReconciliationDataDto">
+		SELECT
+		SUM(IF(check_state=4,1,0)) isChecked,
+		COUNT(reference_detail_id) allDetailsCnt,
+		SUM(IF(check_state=0,1,0)) initialiseState,
+		SUM(IFNULL(reconciliation_amount,0)) reconciliationAmt
+		from
+		cross_shop_account
+		WHERE
+		reference_detail_id IN 
+		<foreach collection="list" open="(" close=")" separator="," item="id">
+			#{id}
+		</foreach>
+	</select>
+</mapper>

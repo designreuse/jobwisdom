@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.BusinessReportMapper" >
+	
+	<sql id="selected_dept_Item">
+		dept_id,
+		dept_name,
+		#{begin} begin,
+		#{end} end
+	</sql>
+	<sql id="selected_category_Item">
+		category_id,
+		category_name,
+		#{begin} begin,
+		#{end} end
+	</sql>
+	
+  <resultMap id="BaseResultMap" type="com.zefun.web.dto.ServiceReportDto">
+    <id column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <association property="categoryList" column="{deptId=dept_id,begin=begin,end=end}" select="selectCategoryListByDeptId" />
+  </resultMap>
+  
+  <resultMap id="CategoryResultMap" type="com.zefun.web.dto.CategoryReportDto">
+    <id column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <association property="projectList" column="{categoryId=category_id,begin=begin,end=end}" select="selectProjectListByCategoryId" />
+  </resultMap>
+  
+  <resultMap id="ProjectResultMap" type="com.zefun.web.dto.ItemReportDto">
+    <id column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <association property="projectSales" column="{projectId=project_id,begin=begin,end=end}" select="selectProjectSalesByProjectId" />
+  </resultMap>
+  
+  <resultMap type="com.zefun.web.dto.ServiceReportDto" id="goodBaseMap">
+  	<id column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <association property="categoryList" column="{deptId=dept_id,begin=begin,end=end}" select="selectGoodCategoryList" />  
+  </resultMap>
+  <resultMap type="com.zefun.web.dto.CategoryReportDto" id="goodCategoryMap">
+  	<id column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <association property="projectList" column="{categoryId=category_id,begin=begin,end=end}" select="selectGoodListByCategoryId" />  
+  </resultMap>
+  <resultMap type="com.zefun.web.dto.ItemReportDto" id="goodListMap">
+    <id column="goods_id" property="goodId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodName" jdbcType="VARCHAR" />
+    <association property="goodSales" column="{goodId=goods_id,begin=begin,end=end}" select="selectGoodSalesByProjectId" />
+    <association property="cashStoreSales" column="{goodId=goods_id,begin=begin,end=end}" select="getCashStoreSale" />  
+    <association property="cardStoreSales" column="{goodId=goods_id,begin=begin,end=end}" select="getCardStoreSale" />    
+  </resultMap>
+  <select id="selectProjectReportByStoreId" resultMap="BaseResultMap" parameterType="com.zefun.web.dto.SummaryResultDto">
+  	SELECT
+		<include refid="selected_dept_Item"></include>
+	from
+	dept_info
+	WHERE store_id = #{storeId} and is_deleted = 0 and is_results = 1  	
+  </select>
+  
+  <select id="selectCategoryListByDeptId" resultMap="CategoryResultMap" parameterType="java.util.HashMap" >
+  	SELECT
+		<include refid="selected_category_Item"></include>
+	from
+	project_category
+	WHERE dept_id = #{deptId} and is_deleted = 0
+  </select>
+  
+  <select id="selectProjectListByCategoryId" resultMap="ProjectResultMap" parameterType="java.util.HashMap" >
+  	SELECT
+		project_id,
+		project_name,
+		#{begin} begin,
+		#{end} end
+	from	
+	project_info
+	WHERE category_id = #{categoryId} and is_deleted = 0 
+  </select>
+  
+  <select id="selectProjectSalesByProjectId" resultType="com.zefun.web.dto.ProjectSalesDto" parameterType="java.util.HashMap" >
+  	SELECT
+  		od.project_id as projectId,
+		sum(od.real_price) as salesAmount,
+		count(1) as salesCount
+	from project_info pi
+	LEFT JOIN order_detail od	ON pi.project_id = od.project_id
+	RIGHT JOIN order_info oi ON od.order_id = oi.order_id  
+	WHERE pi.project_id = #{projectId} AND od.order_type = 1 and od.is_deleted = 0 
+	and od.is_update = 0 AND od.create_time <![CDATA[>=]]> #{begin}
+	AND od.create_time <![CDATA[<]]> #{end}
+	AND oi.order_status IN (3,4)
+	GROUP BY pi.project_id
+  </select>
+  <select id="getProjectInDeptRank" parameterType="com.zefun.web.dto.SummaryResultDto"
+  	resultType="com.zefun.web.dto.ProjectLaborRank">
+  	SELECT
+	SUM(IFNULL(project_count,0)) projectNum,
+	SUM(IFNULL(discount_amount,0)) projectSummary,
+	FORMAT(AVG(service_length),2) avgServiceTime,
+	pi.dept_id deptId,
+	pi.project_name projectName
+	from
+	order_detail od
+	RIGHT JOIN
+	project_info pi
+	ON
+	od.project_id = pi.project_id
+	INNER JOIN 
+	dept_info di
+	ON 
+	pi.dept_id = di.dept_id
+	WHERE
+	pi.store_id = #{storeId}
+	AND di.is_results = 1
+	AND pi.is_deleted = 0
+	AND od.order_type = 1 
+	and od.is_update = 0 AND od.is_deleted = 0  AND od.create_time <![CDATA[>=]]> #{begin}
+	AND od.create_time <![CDATA[<]]> #{end}
+	GROUP BY pi.project_id
+	<if test="type!=null">
+		<if test="type==1">
+			ORDER BY projectSummary DESC
+		</if>
+		<if test="type==2">
+			ORDER BY projectSummary ASC
+		</if>
+		<if test="type==3">
+			ORDER BY projectNum DESC
+		</if>
+		<if test="type==4">
+			ORDER BY projectNum ASC
+		</if>
+	</if>
+  </select>
+  
+  <select id="getProjectRankByDept" parameterType="com.zefun.web.dto.SummaryResultDto"
+  	resultType="com.zefun.web.dto.ProjectLaborRank">
+  	SELECT
+	SUM(IFNULL(project_count,0)) projectNum,
+	SUM(IFNULL(discount_amount,0)) projectSummary,
+	FORMAT(AVG(service_length),2) avgServiceTime,
+	pi.dept_id deptId,
+	pi.project_name projectName
+	from
+	order_detail od
+	RIGHT JOIN
+	project_info pi
+	ON
+	od.project_id = pi.project_id
+	WHERE
+	pi.dept_id = #{deptId}
+	AND od.order_type = 1 
+	and od.is_update = 0 AND od.create_time <![CDATA[>=]]> #{begin}
+	AND od.create_time <![CDATA[<]]> #{end}
+	GROUP BY pi.project_id
+	ORDER BY projectSummary DESC
+  </select>
+  <select id="selectGoodReportByStoreId" parameterType="com.zefun.web.dto.SummaryResultDto"
+  	resultMap="goodBaseMap">
+  	SELECT
+		<include refid="selected_dept_Item"></include>
+	from
+	dept_info
+	WHERE store_id = #{storeId} and is_deleted = 0 and is_results = 1  	
+  </select>
+  <select id="selectGoodCategoryList" parameterType="java.util.HashMap"
+  	resultMap="goodCategoryMap">
+  	SELECT
+		<include refid="selected_category_Item"></include>
+	from
+	goods_category
+	WHERE dept_id = #{deptId} and is_deleted = 0
+  </select>
+  <select id="selectGoodListByCategoryId" parameterType="java.util.HashMap"
+  	resultMap="goodListMap">
+    SELECT
+		goods_id,
+		goods_name,
+		#{begin} begin,
+		#{end} end
+	from	
+	goods_info
+	WHERE category_id = #{categoryId} and is_deleted = 0 
+  </select>
+  <select id="selectGoodSalesByProjectId" parameterType="java.util.HashMap"
+  	resultType="com.zefun.web.dto.GoodSalesDto">
+   	SELECT
+  		od.project_id as goodId,
+		sum(od.real_price) as salesAmt,
+		count(1) as salesCount
+	from goods_info gi
+	LEFT JOIN order_detail od	ON gi.goods_id = od.project_id
+	RIGHT JOIN order_info oi ON od.order_id = oi.order_id  
+	WHERE gi.goods_id = #{goodId} AND od.order_type = 2 and od.is_deleted = 0 
+	and od.is_update = 0 AND od.create_time <![CDATA[>=]]> #{begin}
+	AND od.create_time <![CDATA[<]]> #{end}
+	AND oi.order_status IN (3,4)
+	GROUP BY gi.goods_id
+  </select>
+  <select id="getCardStoreSale" parameterType="java.util.HashMap"
+  	resultType="com.zefun.web.vo.CardStoreSalesVo">
+  	SELECT 
+	SUM(IF(order_type=2,1,0)) cardStoreCnt,
+	SUM(if(order_type=2,real_price,0)) cardStoreAmt
+	from
+	order_detail
+	WHERE
+	EXISTS
+	(
+		SELECT
+			1
+		from
+			order_info
+		WHERE
+			create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND is_deleted = 0
+		AND card_amount>0
+	)
+	AND
+	order_id
+	IN
+	(
+		SELECT
+			order_id
+		from
+			order_info
+		WHERE
+			create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND is_deleted = 0
+		AND card_amount>0
+	)
+	AND project_id = #{goodId}
+  </select>
+  <select id="getCashStoreSale" parameterType="java.util.HashMap"
+  	resultType="com.zefun.web.vo.CashStoreSalesVo">
+  	SELECT 
+	SUM(IF(order_type=2,1,0)) cashStoreCnt,
+	SUM(if(order_type=2,real_price,0)) cashStoreAmt
+	from
+	order_detail
+	WHERE
+	EXISTS
+	(
+		SELECT
+			1
+		from
+			order_info
+		WHERE
+			create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND is_deleted = 0
+		AND cash_amount + unionpay_amount + wechat_amount + alipay_amount + group_amount + debt_amount > 0
+	)
+	AND
+	order_id
+	IN
+	(
+		SELECT
+			order_id
+		from
+			order_info
+		WHERE
+			create_time <![CDATA[>=]]> #{begin}
+		AND create_time <![CDATA[<]]> #{end}
+		AND is_deleted = 0
+		AND cash_amount + unionpay_amount + wechat_amount + alipay_amount + group_amount + debt_amount > 0
+	)
+	AND project_id = #{goodId}
+  </select>
+</mapper>
