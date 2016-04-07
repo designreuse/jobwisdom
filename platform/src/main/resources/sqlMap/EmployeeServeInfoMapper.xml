@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.EmployeeServeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.EmployeeServeInfo" >
+    <id column="employee_serve_info_id" property="employeeServeInfoId" jdbcType="INTEGER" />
+    <result column="sale_record" property="saleRecord" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="allot" property="allot" jdbcType="INTEGER" />
+    <result column="accounts_commission" property="accountsCommission" jdbcType="DECIMAL" />
+    <result column="real_commission" property="realCommission" jdbcType="DECIMAL" />
+    <result column="is_appiont" property="isAppiont" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="paid_in_performance" property="paidInPerformance" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    employee_serve_info_id, sale_record, employee_id, allot, accounts_commission, real_commission, 
+    is_appiont, stores_id, paid_in_performance, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_employee_serve_info
+    where employee_serve_info_id = #{employeeServeInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_employee_serve_info
+    where employee_serve_info_id = #{employeeServeInfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.EmployeeServeInfo" >
+    insert into pt_employee_serve_info (employee_serve_info_id, sale_record,employee_id, 
+      allot, accounts_commission, real_commission, 
+      is_appiont, stores_id,paid_in_performance, create_time
+      )
+    values (#{employeeServeInfoId,jdbcType=INTEGER}, #{saleRecord,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, 
+      #{allot,jdbcType=INTEGER}, #{accountsCommission,jdbcType=DECIMAL}, #{realCommission,jdbcType=DECIMAL}, 
+      #{isAppiont,jdbcType=INTEGER}, #{storesId,jdbcType=INTEGER},#{paidInPerformance,jdbcType=DECIMAL}, #{createTime,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.EmployeeServeInfo" >
+    insert into pt_employee_serve_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeeServeInfoId != null" >
+        employee_serve_info_id,
+      </if>
+      <if test="saleRecord != null" >
+        sale_record,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="allot != null" >
+        allot,
+      </if>
+      <if test="accountsCommission != null" >
+        accounts_commission,
+      </if>
+      <if test="realCommission != null" >
+        real_commission,
+      </if>
+      <if test="isAppiont != null" >
+        is_appiont,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="paidInPerformance != null" >
+        paid_in_performance,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeeServeInfoId != null" >
+        #{employeeServeInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="saleRecord != null" >
+        #{saleRecord,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="allot != null" >
+        #{allot,jdbcType=INTEGER},
+      </if>
+      <if test="accountsCommission != null" >
+        #{accountsCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="realCommission != null" >
+        #{realCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="isAppiont != null" >
+        #{isAppiont,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="paidInPerformance != null" >
+        #{paidInPerformance,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.EmployeeServeInfo" >
+    update pt_employee_serve_info
+    <set >
+      <if test="saleRecord != null" >
+        sale_record = #{saleRecord,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="allot != null" >
+        allot = #{allot,jdbcType=INTEGER},
+      </if>
+      <if test="accountsCommission != null" >
+        accounts_commission = #{accountsCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="realCommission != null" >
+        real_commission = #{realCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="isAppiont != null" >
+        is_appiont = #{isAppiont,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="paidInPerformance != null" >
+        paid_in_performance = #{paidInPerformance,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where employee_serve_info_id = #{employeeServeInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.EmployeeServeInfo" >
+    update pt_employee_serve_info
+    set sale_record = #{saleRecord,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      allot = #{allot,jdbcType=INTEGER},
+      accounts_commission = #{accountsCommission,jdbcType=DECIMAL},
+      real_commission = #{realCommission,jdbcType=DECIMAL},
+      is_appiont = #{isAppiont,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      paid_in_performance = #{paidInPerformance,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=CHAR}
+    where employee_serve_info_id = #{employeeServeInfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

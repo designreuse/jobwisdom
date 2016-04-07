@@ -1,0 +1,3908 @@
+/*变量*/
+/*变量*/
+/*侧边栏颜色*/
+/*头部颜色*/
+/*二级菜单颜色*/
+/*内容区颜色*/
+/*全局颜色设置*/
+/*间距设置*/
+/*按钮*/
+/*共用样式*/
+/*全局变量*/
+/*头部*/
+#head {
+  height: 99px;
+  width: 1024px;
+  background-color: #235688;
+  border-bottom: 4px solid #282828;
+  color: #fff;
+}
+#head .avatar {
+  float: right;
+  margin-right: 32px;
+  margin-top: 20px;
+  font-size: inherit;
+}
+#head .avatar .cashier-name {
+  display: inline;
+  float: right;
+  width: 45px;
+  margin-top: 20px;
+}
+#head .avatar .cashier-name .name {
+  display: inline-block;
+  height: 28px;
+}
+#head .avatar .cashier-img {
+  float: right;
+  margin-right: 13px;
+  width: 64px;
+  height: 64px;
+  background-color: #fff;
+  border: 2px solid #3d7dbe;
+}
+.logo {
+  float: left;
+  margin-left: 25px;
+  width: 169px;
+  height: 22px;
+  margin-top: 55px;
+}
+.head-list {
+  float: right;
+  margin-right: 32px;
+  margin-top: 60px;
+}
+.head-list .head-word {
+  display: inline;
+}
+.head-list ul li {
+  display: inline;
+  margin-left: 10px;
+}
+.head-list li .sup {
+  position: absolute;
+  width: 15px;
+  line-height: 15px;
+  border-radius: 15px;
+  text-align: center;
+  margin-left: -7px;
+  heigth: 15px;
+  color: #fff;
+  background-color: red;
+}
+/*siderbar*/
+#sidebar {
+  float: left;
+  left: 0px;
+  width: 99px;
+  background-color: #333333;
+}
+#sidebar .board {
+  height: 42px;
+}
+#sidebar .active {
+  color: #3b83c8;
+  background-color: #191919;
+}
+#sidebar .active a {
+  color: #3b83c8;
+}
+#sidebar li {
+  font-size: inherit;
+  padding: 12.5px 0 12.5px 0;
+  border-bottom: 1px solid #191919;
+  text-align: center;
+  width: 100%;
+}
+#sidebar li a {
+  color: #bbbbbb;
+  width: 100%;
+  display: inline-block;
+}
+#sidebar span {
+  display: block;
+}
+.submunu li a .submenu-img {
+  margin: auto;
+  /*text-align: center;*/
+  margin-top: 10px;
+  width: 44px;
+  height: 44px;
+}
+.submunu li a span {
+  display: block;
+  line-height: 25px;
+}
+/*内容*/
+#content {
+  position: relative;
+  width: 925px;
+  height: 672px;
+  float: left;
+  margin: 0px auto;
+}
+/*内容的顶部*/
+.content-top {
+  position: absolute;
+  width: 926px;
+  margin-left: 99px;
+  margin-top: 99px;
+  height: 40px;
+}
+.content-top .weather {
+  display: inline;
+  float: left;
+  margin: 10px 0px 0px 10px;
+}
+.content-top .common {
+  display: inline;
+  float: right;
+  margin-top: 10px;
+}
+.content-top .theme {
+  padding: 10px 37px 12px 20px;
+  line-height: inherit;
+  display: inline;
+  float: right;
+  border-left: 1px solid #cccccc;
+}
+.content-top .theme span {
+  color: #757575;
+}
+/*内容的子菜单*/
+.content-submenu {
+  margin-top: 40px;
+  float: left;
+  width: 925px;
+  height: 138px;
+  background-color: #ffffff;
+}
+.content-submenu ul {
+  margin: 10px auto;
+  margin-left: 26px;
+}
+.submunu li {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin-right: 19px;
+  background-color: #fff;
+  box-shadow: 0px 0px 6px rgba(51, 51, 51, 0.3);
+  text-align: center;
+  line-height: 37px;
+}
+.submunu li a {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  color: #546f8e;
+}
+.submunu .active {
+  background-color: #2f71b2;
+  color: #ffffff;
+  box-shadow: 0px 0px 0px;
+}
+.submunu .active a {
+  color: #ffffff;
+}
+ul {
+  padding: 0px;
+  margin: 0px;
+}
+ul li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+body {
+  margin: 0px auto;
+  height: 768px;
+  width: 1024px;
+  background-color: #eeeeee;
+  font-size: 12px;
+  font-family: 'Microsoft YaHei', Arial, 'Open Sans', sans-serif;
+  max-height: 768px;
+  color: #757575;
+  letter-spacing: 1px;
+  overflow-x: hidden;
+}
+input {
+  width: 100%;
+}
+button {
+  padding-left: 3px;
+  border: 1px solid #cccccc;
+  font-size: 12px;
+}
+button:focus {
+  border-radius: 2px;
+  outline: none;
+}
+input[type="radio"] {
+  height: 15px;
+  width: 15px;
+}
+input[type="button"] {
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+input {
+  padding-left: 10px;
+}
+label {
+  font-weight: 400;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #3997f3;
+}
+input:disabled {
+  background-color: #bbbbbb;
+}
+.width100 {
+  width: 100px !important;
+}
+.red {
+  color: #f2415a;
+}
+.orange {
+  color: #fa9d4b;
+}
+.blue {
+  color: #3083af;
+}
+.green {
+  color: #81c322;
+}
+/*text-align*/
+.tar {
+  text-align: right;
+}
+.tac {
+  text-align: center;
+}
+.tal {
+  text-align: left;
+}
+.container {
+  width: 1024px !important;
+}
+/*浮动*/
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+/*padding*/
+.pl0 {
+  padding-left: 0px;
+}
+.pt10 {
+  padding-top: 10px;
+}
+.pl10 {
+  padding-left: 10px;
+}
+.pr10 {
+  padding-right: 10px;
+}
+.pb10 {
+  padding-bottom: 10px;
+}
+/*margin*/
+.mgt0 {
+  margin-top: 0px;
+}
+.mgt5 {
+  margin-top: 5px;
+}
+.mgl6 {
+  margin-left: 6px;
+}
+.mgl10 {
+  margin-left: 10px;
+}
+.mgr10 {
+  margin-right: 10px;
+}
+.mgt10 {
+  margin-top: 10px;
+}
+.mgb10 {
+  margin-bottom: 10px;
+}
+.mgr18 {
+  margin-right: 18px;
+}
+.mgr16 {
+  margin-right: 16px;
+}
+.mgr37 {
+  margin-right: 37px;
+}
+.mgl18 {
+  margin-left: 18px;
+}
+.mgt8 {
+  margin-top: 8px;
+}
+.mgl30 {
+  margin-left: 30px;
+}
+.mgl-5 {
+  margin-left: -5px;
+}
+.mgr-5 {
+  margin-right: -5px;
+}
+.middle-table td {
+  height: 40px;
+}
+img {
+  cursor: pointer;
+}
+/*tab*/
+.tab_menu {
+  position: absolute;
+  margin: -45px 0px;
+  margin-left: 0px;
+  font-size: 14px;
+}
+.tab_menu li {
+  width: 120px;
+  float: left;
+  height: 35px;
+  line-height: 30px;
+  color: #757575;
+  text-align: center;
+  cursor: pointer;
+}
+.tab_menu li a {
+  display: inline-block;
+  width: 120px;
+  height: 35px;
+}
+.tab_menu .current {
+  border-bottom: #3997f3 solid 3px;
+  color: #3997f3;
+}
+.tab_box .hide {
+  display: none;
+}
+/*项目设置的button*/
+.btn-blue {
+  background-color: #ffffff;
+  border: 1px solid #3997f3;
+  width: 50px;
+  height: 30px;
+  border-radius: 0px;
+  padding: 3px 6px;
+}
+.btn-empty {
+  background-color: #ffffff;
+  color: #757575;
+  border: 1px solid #cccccc;
+  width: 50px;
+  height: 30px;
+  border-radius: 0px;
+  padding: 3px 6px;
+}
+/*表单*/
+.form-horizontal .form-group {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+.form-horizontal .form-group .form-label {
+  width: 65px;
+  float: left;
+}
+.form-group {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+.control-group {
+  overflow: hidden;
+}
+.dropdown-menu {
+  min-width: 0px;
+  font-size: 12px;
+}
+.dropdown .appoints {
+  width: 55px;
+  border-radius: 0px;
+  height: 40px;
+  border-color: #EEEEEE;
+  border-right: 1px solid #c6c6c6;
+  border-top: 1px solid #c6c6c6;
+  background: #fff;
+  border-bottom: 1px solid #c6c6c6;
+  color: #fff;
+  background: url("../img/d-triangle.png") no-repeat 95% 50% #235688;
+}
+.dropdown .dropmenus {
+  color: #060606;
+  text-decoration: none;
+  background-color: #1A75C3;
+}
+.dropdown .btn-lg,
+.dropdown .btn-group-lg > .btn {
+  padding: 4px 10px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+.dropdown .btn {
+  display: inline;
+  padding: 5px 39px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.dropdown .btn:hover,
+.dropdown .btn:focus {
+  color: #060606;
+  text-decoration: none;
+}
+.dropdown .btn-dangers {
+  color: #000;
+  background-color: #fff;
+  border-color: #3997f3;
+}
+.dropdown .dropdown-menu > li > a {
+  display: block;
+  padding-left: 3px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+.dropdown .dropdown-menu .divider {
+  height: 1px;
+  margin: 2px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+/*模态框距离上面的距离*/
+.modal-body {
+  position: static;
+  padding: 15px;
+}
+.modal-dialog {
+  width: 600px;
+  margin: 100px auto;
+}
+.modal-content {
+  position: relative;
+}
+.f-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+.f-button .prev-page {
+  color: #757575;
+}
+.f-button .next-page {
+  color: #3997f3;
+}
+/*提示语句*/
+.hint {
+  height: 26.5px;
+  margin-top: -3.5px;
+}
+.hint td .diamonds {
+  margin-top: 20px;
+}
+.hint .diamonds {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background-color: #3b83c8;
+}
+.hint .word {
+  color: #3b83c8;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  line-height: 40px;
+}
+/*加号*/
+.plus {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #bbb;
+  vertical-align: middle;
+  line-height: 17px;
+  text-align: center;
+}
+/*
+取消确定按钮*/
+.cancel {
+  width: 50px;
+  height: 30px;
+  border-color: #cccccc;
+  background-color: #fff;
+  color: #757575;
+  margin-right: 10px;
+}
+.confirm {
+  width: 100px;
+  height: 30px;
+  border-color: #3997f3;
+  background-color: #fff;
+  color: #757575;
+}
+/*下拉框*/
+.dropdown-input {
+  position: absolute;
+  z-index: 10;
+  width: 905px;
+  height: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 5px 5px 5px #888888;
+}
+.dropdown-input .item {
+  margin-left: 50px;
+}
+.dropdown-input .money {
+  color: red;
+}
+.dropdown-input ul {
+  padding: 5px 10px;
+}
+.dropdown-input li {
+  height: 30px;
+  border-bottom: 1px solid #cdcdcd;
+  line-height: 30px;
+}
+/*气泡*/
+.arrow {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  bottom: 52px;
+  left: 100px;
+}
+.arrow * {
+  display: block;
+  border-width: 10px;
+  position: absolute;
+  border-style: dashed dashed solid dashed;
+  font-size: 0;
+  line-height: 0;
+}
+.arrow em {
+  border-color: transparent transparent #ccc;
+}
+.arrow span {
+  border-color: transparent transparent #FFF;
+  top: 2px;
+}
+/*
+内容的导航区*/
+/*面包屑*/
+.breadcrumb {
+  height: 52px;
+  line-height: 52px;
+  /*margin-left: 87px;*/
+  background-color: transparent;
+  padding: 0px;
+  display: inline-block;
+}
+/*返回按钮*/
+.return {
+  width: 100px;
+  height: 27px;
+  background-color: #fff;
+  margin: 10px 10px 0px 0px;
+  color: #000;
+  border: 1px solid #cccccc;
+}
+/*增加按钮*/
+.add {
+  width: 100px;
+  height: 30px;
+  background-color: #215788;
+  color: #fff;
+  border: 1px solid #c6c6c6;
+  cursor: pointer;
+  text-align: center;
+  line-height: 25px;
+}
+.table tbody td {
+  font-size: 12px;
+}
+.table tbody td img {
+  vertical-align: middle;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: middle;
+  border-top: 1px solid #ddd;
+  color: #757575;
+  padding-left: 10px;
+}
+/*模态框的关闭按钮去掉点击时的蓝色框*/
+.close:focus,
+.close:hover {
+  outline: none;
+}
+:focus {
+  outline: none;
+}
+.table caption {
+  padding-top: 10px;
+}
+/*方块*/
+.diamonds {
+  float: left;
+  height: 10px;
+  width: 10px;
+  margin: 9px 10px;
+  border-radius: 1px;
+}
+.orange-diamonds {
+  background-color: #fa9d4b;
+}
+.purple-diamonds {
+  background-color: #c91f7f;
+}
+.blue-diamonds {
+  background-color: #3083af;
+}
+/*表的头部一栏*/
+.p-column-name {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+.p-column-name td {
+  padding-left: 10px;
+}
+/*背景颜色tab*/
+.modal-tab .tab_box {
+  padding-top: 30px;
+}
+.modal-tab .tab_menu {
+  border: 0px solid;
+  position: absolute;
+  margin: -21px -20px;
+  font-size: 12px;
+  color: #757575;
+}
+.modal-tab .tab_menu li {
+  height: 30px;
+  width: 132px;
+  border: 1px solid #cccccc;
+  background-color: #fff;
+  line-height: 30px;
+  border-left: 0px;
+}
+.modal-tab .tab_menu li:last-child {
+  border-right: 0px;
+}
+.modal-tab .tab_menu .current {
+  background-color: #3997f3;
+  color: #fff;
+  border: 1px solid #3997f3;
+  height: 30px;
+}
+.setting-content .background-tab .tab_menu {
+  border: 0px solid;
+  position: absolute;
+  margin: 10px 20px;
+  margin-left: 10px;
+  font-size: 12px;
+  color: #757575;
+}
+.setting-content .background-tab .tab_menu li {
+  height: 25px;
+  width: 100px;
+  border: 1px solid #cccccc;
+  background-color: #fff;
+  line-height: 25px;
+}
+.setting-content .background-tab .tab_menu .current {
+  background-color: #3997f3;
+  color: #fff;
+  border: 1px solid #3997f3;
+  height: 25px;
+}
+.setting-content .liaocheng-tab .tab_menu {
+  border: 0px solid;
+  position: absolute;
+  margin: 10px 20px;
+  margin-left: 10px;
+  font-size: 12px;
+  color: #757575;
+}
+.setting-content .liaocheng-tab .tab_menu li {
+  height: 25px;
+  width: 100px;
+  border: 1px solid #cccccc;
+  background-color: #fff;
+  line-height: 25px;
+}
+.setting-content .liaocheng-tab .tab_menu .current {
+  background-color: #3997f3;
+  color: #fff;
+  border: 1px solid #3997f3;
+  height: 25px;
+}
+/*slider的样式重定义*/
+.bx-wrapper img {
+  max-width: 100%;
+  display: inline-block;
+}
+.bx-wrapper {
+  -moz-box-shadow: 0 0 0px #ccc;
+  -webkit-box-shadow: 0 0 0px #ccc;
+  box-shadow: 0 0 0px #ccc;
+  border: 0px solid #fff;
+  background: transparent;
+  margin: 0px;
+}
+/*
+input框中加各种图标*/
+.bg-percent-img {
+  background: url("../img/percent.png") no-repeat 97% 50%;
+}
+.bg-money-img {
+  background: url("../img/money.png") no-repeat 97% 50%;
+}
+.bg-dropdown-img {
+  background: url("../img/d-triangle.png") no-repeat 97% 50%;
+}
+.form-part-title {
+  color: #333333;
+  vertical-align: middle;
+  padding-top: 6.5px;
+}
+/*
+模态框内的按钮*/
+.f-button {
+  margin-top: 30px;
+  float: right;
+  margin-bottom: 0px;
+}
+.f-button button {
+  font-size: 12px;
+}
+.f-button button:disabled {
+  background-color: #757575;
+}
+.f-button .prev-step {
+  width: 100px;
+  height: 30px;
+  border-color: #cccccc;
+  background-color: #fff;
+  color: #757575;
+}
+.f-button .next-step {
+  width: 100px;
+  height: 30px;
+  border-color: #3997f3;
+  background-color: #fff;
+  color: #3997f3;
+}
+.f-button .cancel {
+  width: 50px;
+  height: 30px;
+  border-color: #cccccc;
+  background-color: #fff;
+  color: #757575;
+  margin-right: 10px;
+}
+.f-button .confirm {
+  width: 100px;
+  height: 30px;
+  border-color: #3997f3;
+  background-color: #fff;
+  color: #3997f3;
+}
+.open .down-img {
+  transform: rotate(180deg);
+  transition: transform .1s linear;
+}
+.table-hover > tbody > tr:hover {
+  background-color: transparent;
+}
+/*设置字体大小*/
+caption {
+  font-size: 12px;
+}
+/*添加日期的表格*/
+.add-staff .form-staff .form-staff-left .f-group {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 30px;
+}
+.add-staff .form-staff .form-staff-left .form-button {
+  width: 100px;
+  height: 30px;
+  background-color: #fff;
+  margin-top: 78px;
+  border-color: #3997f3;
+  float: left;
+}
+.add-staff .form-staff .form-staff-left .f-whole {
+  display: block;
+  float: left;
+  width: 347px;
+  height: 40px;
+}
+.dropdown .dropdown-menu > li > a {
+  padding-left: 3px;
+  display: block;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+/*头部的button*/
+.table-title {
+  height: 52px;
+}
+.table-title .add {
+  float: right;
+  width: 100px;
+}
+.table-title .batch button {
+  float: right;
+  width: 100px;
+}
+/*分页*/
+.table-title .add-staff-btn .add {
+  /*margin-top: 15px;*/
+  float: left;
+}
+.table-title .pagination {
+  /*margin-top: 5px;*/
+}
+.table-title .per-page {
+  /*margin-top: 10px;*/
+}
+.table-title .per-page select {
+  height: 30px;
+  width: 60px;
+  border-color: #3997f3;
+  padding-left: 10px;
+}
+.table-title .page-num {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 30px;
+  line-height: 30px;
+  /*margin-top: 10px;*/
+}
+.table-title .page-control {
+  /*margin-top: 10px;*/
+}
+.table-title .page-control button {
+  width: 30px;
+  height: 30px;
+}
+.table-title .page-control button:disabled {
+  background-color: #757575;
+  border: 1px solid #757575;
+}
+.table-title .page-control button:disabled span {
+  color: #fff;
+}
+.table-title .page-control .prev-page {
+  background-color: #fff;
+  border-color: #3997f3;
+}
+.table-title .page-control .prev-page span {
+  color: #3997f3;
+}
+.table-title .page-control .next-page {
+  background-color: #fff;
+  border-color: #3997f3;
+}
+.table-title .page-control .next-page span {
+  color: #3997f3;
+}
+.search {
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+.search input {
+  width: 100px;
+  height: 30px;
+  border: 1px solid #235688;
+  padding-left: 5px;
+  border-radius: 15px;
+  transition: width .1s linear;
+  padding-left: 10px;
+}
+.search input:focus {
+  width: 200px;
+}
+.search span {
+  margin-left: -30px;
+}
+/*
+批量设置的button*/
+.batch-setting {
+  width: 100px;
+}
+.more {
+  width: 100px;
+  color: #fff;
+}
+/*让链接占整个块*/
+.submunu li a {
+  height: 80px;
+  width: 100%;
+}
+/*重点*/
+.table tbody tr .emphasis {
+  color: #3997f3;
+  cursor: pointer;
+}
+/*设置表单的高度*/
+.f-group {
+  height: 30px;
+}
+/*时间缩小字体*/
+.table-condensed {
+  font-size: 12px;
+}
+.dropdown-condition {
+  cursor: pointer;
+}
+/*散客收银*/
+/*表格式内容*/
+.width47 {
+  width: 47px;
+}
+.width129.5 {
+  width: 129.5px;
+}
+.width47-o {
+  width: 47px;
+}
+.width43 {
+  width: 43px;
+}
+.width62 {
+  width: 62px;
+}
+.width80 {
+  width: 80px;
+}
+.width73 {
+  width: 73px;
+}
+.width118 {
+  width: 118px;
+}
+.width132 {
+  width: 132px;
+}
+.width168 {
+  width: 168px;
+}
+.width259 {
+  width: 259px;
+}
+.width54 {
+  width: 54px;
+}
+.width122 {
+  width: 122px;
+}
+.content-table {
+  background-image: url("../img/body.png");
+  padding: 11px 10px 0px 10px;
+  background-color: #f0f0f0;
+  width: 925px;
+  height: 491px;
+  overflow: auto;
+}
+.hair {
+  /*index页面表格宽度*/
+}
+.hair .title {
+  text-align: center;
+  height: 28px;
+  background-color: #bbbbbb;
+  color: #eef0f1;
+  line-height: 28px;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+}
+.hair .plus {
+  float: left;
+  width: 38px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  display: inline;
+}
+.hair .minus {
+  float: right;
+  width: 38px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  display: inline;
+}
+.hair .border {
+  border-left: 1px solid #b3b3b3;
+  border-right: 1px solid #b3b3b3;
+}
+.hair td table {
+  width: 100%;
+}
+.hair td input {
+  text-align: center;
+  border-right: 1px solid #c6c6c6;
+  border-top: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
+  border-left: 0px solid;
+}
+.hair .project-head td {
+  height: 31px;
+  color: #757575;
+}
+.hair .project {
+  width: 408px;
+  border-left: 1px solid #cccccc;
+}
+.hair .technician {
+  border-right: 1px solid #cccccc;
+}
+.hair .career,
+.hair .designer,
+.hair .technician {
+  width: 164px;
+}
+.hair .code,
+.hair .money,
+.hair .sum,
+.hair .agent-id,
+.hair .appoint,
+.hair .performance {
+  text-align: center;
+  width: 54px;
+}
+.hair .project-name,
+.hair .discount {
+  text-align: center;
+  width: 122px;
+}
+.hair .tr-input td input {
+  height: 40px;
+}
+.hair .tr-input td select {
+  width: 100%;
+  border-radius: 0px;
+  height: 40px;
+}
+.hair .last-tr {
+  border-right: 1px solid #b3b3b3;
+  border-left: 1px solid #b3b3b3;
+}
+.hair .last-tr .border-left-none {
+  border-left: 0px solid;
+}
+.hair .last-tr .border-right-none {
+  border-right: 0px solid;
+}
+/*index页面结算*/
+.pay {
+  background-color: #fff;
+  position: absolute;
+  bottom: 10px;
+  height: 152px;
+  width: 905px;
+  margin-left: 10px;
+  display: table;
+  box-shadow: 0px 0px 4px rgba(25, 25, 25, 0.9);
+}
+.pay .info {
+  display: table-cell;
+  vertical-align: middle;
+  height: 152px;
+  text-align: center;
+  width: 90px;
+  color: #757575;
+}
+.pay .info img {
+  width: 50px;
+  height: 50px;
+}
+.pay .info span {
+  display: block;
+  margin-top: 12px;
+}
+.pay .pay-line1 {
+  display: table-cell;
+  vertical-align: middle;
+  height: 152px;
+  margin-left: 30px;
+  margin-top: 23px;
+  padding-right: 17px;
+  width: 179px;
+}
+.pay .pay-line1 span {
+  display: inline-block;
+  color: #757575;
+}
+.pay .pay-line1 .left {
+  width: 71px;
+}
+.pay .pay-line1 select {
+  width: 100%;
+  height: 32px;
+  border-radius: 4px;
+  padding-left: 15px;
+  font-size: 14px;
+  font-family: 'Microsoft YaHei', Arial, 'Open Sans', sans-serif;
+  border-color: #3997f3;
+  color: #757575;
+}
+.pay .pay-line2 {
+  display: table-cell;
+  vertical-align: middle;
+  height: 152px;
+  margin-left: 30px;
+  margin-top: 19px;
+  padding-right: 17px;
+  width: 191px;
+}
+.pay .pay-line2 .input-border {
+  border-radius: 4px;
+  padding: 5px 8px 5px 8px;
+  height: 30px;
+  border: 1px solid #3997f3;
+}
+.pay .pay-line2 .input-border label {
+  display: inline-block;
+  float: left;
+  color: #757575;
+}
+.pay .pay-line2 .input-border input {
+  float: left;
+  display: inline-block;
+  border: 0px solid #fff;
+  width: 75px;
+  background-color: #fff;
+}
+.pay .pay-line2 .input-border img {
+  margin-top: -3px;
+  float: right;
+}
+.pay .pay-line2 .input-border input:focus {
+  outline: none;
+}
+.pay .pay-line2 .huiyuan {
+  height: 44px;
+  padding: 15px 12px 5px 8px;
+}
+.pay .pay-line2 .input-border2 {
+  border-radius: 4px;
+  padding: 15px 12px 5px 8px;
+  height: 45px;
+  border: 1px solid #3997f3;
+}
+.pay .pay-line2 .input-border2 label {
+  display: inline-block;
+  float: left;
+  color: #757575;
+}
+.pay .pay-line2 .input-border2 input {
+  float: left;
+  display: inline-block;
+  border: 0px solid #fff;
+  width: 75px;
+  background-color: #fff;
+}
+.pay .pay-line2 .input-border2 img {
+  margin-top: -3px;
+  float: right;
+}
+.pay .pay-line2 .input-border2 input:focus {
+  outline: none;
+}
+.pay .pay-right {
+  vertical-align: middle;
+  display: table-cell;
+  height: 112px;
+  border-radius: 4px;
+  width: 234px;
+  padding-left: 10px;
+}
+.pay .pay-right .pay-content {
+  width: 233px;
+  background-color: #1a75c3;
+  overflow: hidden;
+  height: 110px;
+  border-radius: 4px;
+}
+.pay .pay-right .sum {
+  float: left;
+  font-size: 30px;
+  width: 94px;
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #fff;
+  border-right: 1px solid #fff;
+}
+.pay .pay-right .num {
+  float: right;
+  font-size: 14px;
+  width: 139px;
+  display: block;
+  margin-top: 24px;
+  padding-left: 10px;
+  color: #ffff00;
+}
+.pay .pay-right .num .money {
+  font-size: 26px;
+  font-weight: 700;
+}
+.pay input {
+  padding: 0px 5px;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 0px;
+  border-top: 0px solid #fff;
+}
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 0px solid #fff;
+}
+/*支付的现金划卡和弹出框*/
+.tag-huaka .tag {
+  position: absolute;
+  margin-left: -114px;
+  top: 60px;
+}
+.tag-xianjin .tag {
+  position: absolute;
+  margin-left: -114px;
+  top: 100px;
+}
+.left-down {
+  position: absolute;
+  top: 15px;
+  margin-left: 35px;
+  display: none;
+  /*气泡*/
+}
+.left-down ul {
+  border: 1px solid #3997f3;
+  width: 100px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+.left-down ul li {
+  width: 100%;
+  height: 30px;
+  color: #757575;
+  line-height: 30px;
+  text-align: center;
+}
+.left-down ul .active {
+  background-color: #3997f3;
+  color: #fff;
+}
+.left-down .tag em {
+  display: block;
+  border-width: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 94px;
+  border-style: dashed solid dashed dashed;
+  border-color: transparent #3997f3 transparent transparent;
+  font-size: 0;
+  line-height: 0;
+}
+.left-down .tag span {
+  display: block;
+  border-width: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 95px;
+  border-style: dashed solid dashed dashed;
+  border-color: transparent #FFF transparent transparent;
+  font-size: 0;
+  line-height: 0;
+}
+.open .left-down {
+  display: block;
+}
+.dropdown-menu {
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.175);
+}
+.dropdown-menu {
+  overflow: auto;
+}
+.container {
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+}
+/*散客收银账单模态框*/
+.zhangdan-model {
+  position: relative;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 739px;
+  height: 539px;
+  margin: 100px auto;
+  /*取消按钮*/
+  /*确定按钮*/
+}
+.zhangdan-model .hair .title {
+  text-align: left;
+  background-color: #cccccc;
+  color: #333333;
+  border-right: 1px solid #cccccc;
+}
+.zhangdan-model .code,
+.zhangdan-model .money,
+.zhangdan-model .sum {
+  text-align: center;
+  width: 113px;
+}
+.zhangdan-model .name,
+.zhangdan-model .discount {
+  text-align: center;
+  width: 222px;
+}
+.zhangdan-model .total-amount {
+  float: left;
+  display: table;
+}
+.zhangdan-model .total-amount .word {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 16px;
+}
+.zhangdan-model .total-amount .num {
+  font-size: 30px;
+  color: #f49860;
+  margin-left: 17px;
+}
+.zhangdan-model .print {
+  margin-right: 33px;
+}
+.zhangdan-model .print h5 {
+  display: inline-block;
+}
+.zhangdan-model .cancel {
+  width: 70px;
+  height: 40px;
+  background-color: #fff;
+  color: #757575;
+  border: 1px solid #cccccc;
+}
+.zhangdan-model .confirm {
+  width: 140px;
+  height: 40px;
+  background-color: #3997f3;
+  color: #fff;
+}
+.zhangdan-model .modal-title {
+  color: #757575;
+}
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 0px;
+}
+/*项目设置*/
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 0px;
+  border-top: 0px solid #fff;
+}
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 0px solid #fff;
+}
+input {
+  padding: 0px;
+  border: 1px solid #cccccc;
+}
+/*项目设置的内容*/
+.setting-content {
+  margin: 0px 9px 0px 0px;
+  background-image: url("../img/body.png");
+  width: 925px;
+  height: 490px;
+  overflow: hidden;
+}
+.setting-content .tab_menu {
+  position: absolute;
+  margin: -35px 20px;
+  margin-left: 20px;
+  font-size: 14px;
+}
+.add-classify {
+  display: inline-block;
+  width: 260px;
+  background-color: #fff;
+  color: #757575;
+  height: 489px;
+}
+.add-classify .table tr.active > td {
+  background-color: #3997f3;
+}
+.add-classify caption {
+  font-size: 14px;
+}
+.add-classify .table {
+  background-color: #fff;
+}
+.add-classify .table caption {
+  height: 40px;
+  text-align: center;
+  background-color: #fff;
+  border-top: 1px solid #cccccc;
+}
+.add-classify .table thead td {
+  color: #757575;
+  font-size: 14px;
+}
+.add-classify .table tbody td {
+  height: 40px;
+  /*line-height: 40px;*/
+  text-align: center;
+  border-top: 1px solid #cccccc;
+  color: #333333;
+  font-size: 12px;
+}
+.add-classify .table tbody tr:last-child {
+  border-bottom: 1px solid #c6c6c6;
+}
+.add-classify .table .file {
+  width: 44px;
+}
+.add-classify .table .name {
+  width: 142px;
+  padding-left: 10px;
+  text-align: left;
+}
+.add-classify .table .alter {
+  width: 41px;
+  text-align: right;
+}
+.add-classify .table .alter input {
+  font-size: 12px;
+}
+.add-classify .table .delete {
+  width: 33px;
+  text-align: center;
+  color: #757575;
+}
+.add-classify .table .delete input {
+  font-size: 12px;
+}
+.add-classify .modification td {
+  over-flow: hidden;
+}
+.add-classify .modification select {
+  width: 48px;
+  height: 30px;
+}
+.add-classify .modification input {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100px;
+  height: 30px;
+  border: 1px solid #c6c6c6;
+  padding: 5px;
+}
+.add-classify .modification input[type="button"] {
+  width: 41px;
+  height: 30px;
+  background-color: #fff;
+}
+.add-classify .modification .hint {
+  border-color: #3997f3;
+}
+.add-project {
+  display: inline-block;
+  width: 660px;
+  color: #757575;
+  height: 489px;
+  overflow-y: auto;
+  padding: 0 10px;
+}
+.add-project .add-staff-btn button {
+  height: 30px;
+  background-color: #235688;
+  border-radius: 2px;
+  border: 1px solid #235688;
+  line-height: 20px;
+}
+.add-project .p-column-name {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+.add-project .p-column-name td {
+  text-align: left;
+  padding-left: 10px;
+}
+.add-project .p-column-name .select-all {
+  width: 30px;
+  padding-left: 0px;
+}
+.add-project .p-column-name .code {
+  width: 64px;
+}
+.add-project .p-column-name .name {
+  width: 142px;
+}
+.add-project .p-column-name .money,
+.add-project .p-column-name .push-money,
+.add-project .p-column-name .discount,
+.add-project .p-column-name .f-operation {
+  width: 100px;
+}
+.add-project .column-name {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+.add-project .column-name td {
+  height: 40px;
+  padding-left: 10px;
+}
+.add-project .table-title {
+  height: 53px;
+}
+.add-project .table-title td {
+  height: 53px;
+  line-height: 53px;
+}
+.add-project .table thead td {
+  line-height: 40px;
+  height: 40px;
+  font-weight: 400;
+  color: #757575;
+  font-size: 14px;
+}
+.add-project .table tbody td {
+  height: 40px;
+  text-align: left;
+  line-height: 40px;
+  padding-left: 10px;
+  border: 1px solid #cccccc;
+  color: #333333;
+  font-size: 12px;
+}
+.add-project .code {
+  width: 90px;
+}
+.add-project .name {
+  width: 159px;
+}
+.add-project .money {
+  width: 124px;
+}
+.add-project .type {
+  width: 100px;
+}
+.add-project .add-type {
+  width: 133px;
+  text-align: center;
+  width: 92px;
+  padding-top: 10px;
+  border-radius: 2px;
+}
+.add-project .img-left {
+  margin-right: 20px;
+}
+.add-project .modification input {
+  display: inline-block;
+}
+.add-project .modification .code {
+  width: 49px;
+  height: 30px;
+}
+.add-project .modification .name {
+  width: 118px;
+  height: 30px;
+}
+.add-project .modification .money {
+  width: 49px;
+  height: 30px;
+}
+.add-project .modification .position-name {
+  width: 100px;
+  height: 30px;
+}
+.add-project .modification .persent {
+  width: 100px;
+  height: 30px;
+  background: url("../img/percent.png") no-repeat 90% 50% #ffffff;
+}
+.staff-member-setting {
+  width: 905px;
+  height: 490px;
+  overflow-y: auto;
+  /*下拉菜单*/
+  /*输入tag*/
+  /*折叠菜单*/
+}
+.staff-member-setting caption {
+  padding: 0px;
+  height: 52px;
+}
+.staff-member-setting caption .add {
+  margin-top: 10px;
+}
+.staff-member-setting td {
+  height: 40px;
+  line-height: 40px;
+}
+.staff-member-setting .lebel {
+  width: 45px;
+  text-align: center;
+  padding-left: 8px;
+  vertical-align: middle;
+}
+.staff-member-setting .letter {
+  width: 26px;
+  height: 26px;
+  background-color: #3b9cf8;
+  text-align: center;
+  line-height: 26px;
+  border-radius: 13px;
+  color: #fff;
+}
+.staff-member-setting .name {
+  width: 115px;
+  border-top: 1px solid #b2b2b2;
+  padding-left: 40px;
+  line-height: 62px;
+}
+.staff-member-setting .item-input {
+  width: 650px;
+  border-top: 1px solid #b2b2b2;
+  line-height: 62px;
+}
+.staff-member-setting .down-operation,
+.staff-member-setting .delete-operation {
+  width: 100px;
+  border-top: 1px solid #b2b2b2;
+  cursor: pointer;
+  text-align: center;
+  line-height: 62px;
+}
+.staff-member-setting .discount {
+  background: url("../img/percent.png") no-repeat 90% 50% #ffffff;
+}
+.staff-member-setting .money {
+  background: url("../img/money.png") no-repeat 90% 50% #ffffff;
+}
+.staff-member-setting .label-info {
+  background-color: #bbb;
+}
+.staff-member-setting .bootstrap-tagsinput {
+  height: 40px;
+  width: 100%;
+  line-height: 30px;
+}
+.staff-member-setting .dropdown-menu {
+  width: 100%;
+  padding: 0px 28px;
+}
+.staff-member-setting .dropdown-menu li {
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #c6c6c6;
+  line-height: 40px;
+}
+.staff-member-setting .dropdown-menu .title-li .company-name {
+  color: #ddd;
+}
+.staff-member-setting .dropdown-menu .title-li img {
+  float: right;
+  margin-right: 10px;
+}
+.staff-member-setting .dropdown-menu input {
+  margin-left: 0px;
+}
+.staff-member-setting .bootstrap-tagsinput .tag {
+  height: 30px;
+  margin-right: 2px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
+}
+.staff-member-setting .item-content {
+  width: 620px;
+  border-top: 1px solid #b2b2b2;
+  line-height: 40px;
+}
+.staff-member-setting .item-content .type {
+  background-color: #bbb;
+  margin-right: 7px;
+  text-align: center;
+  border: 1px solid #bbb;
+  width: 20%;
+  color: #777;
+}
+.staff-member-setting .item-content input,
+.staff-member-setting .item-content select {
+  height: 30px;
+  width: 117px;
+  margin-right: 7px;
+  border: 1px solid #fff;
+  width: 20%;
+  padding: 0 10px;
+  border-radius: 2px;
+  line-height: 35px;
+}
+.staff-member-setting .detail td {
+  border: 0px solid #fff;
+  line-height: 40px;
+}
+.staff-member-setting .detail .setting-hint td {
+  padding-left: 60px;
+  height: 20px;
+  line-height: 20px;
+}
+.staff-member-setting .detail .assign {
+  width: 85px;
+}
+.staff-member-setting .detail .button-group {
+  padding-left: 700px;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+  content: "x";
+  padding: 0px 2px;
+  color: #ddd;
+}
+.company-name {
+  margin-left: 22px;
+}
+.check-all,
+.check-input {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  z-index: 100;
+}
+.table > tbody + tbody {
+  border-top: 0px solid #fff;
+}
+/*checkbox*/
+.select-tag input {
+  position: absolute;
+  opacity: 0;
+}
+.select-tag input:checked + span {
+  background-color: #ddd;
+  border-color: #ddd;
+}
+.select-tag input + span {
+  background-color: #ddd;
+  position: relative;
+  display: inline-block;
+  margin-top: -2px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.select-tag input + span {
+  width: 15px;
+  height: 15px;
+  background-color: #ddd;
+  border: 1px solid #ddd;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+.select-tag input + span:after {
+  position: absolute;
+  content: "";
+}
+.select-tag input:checked + span:after {
+  top: -10px;
+  right: 0;
+  bottom: 0;
+  left: -5px;
+  width: 18px;
+  height: 18px;
+  font-family: "iconfont";
+  font-size: 25px;
+  color: #204580;
+  content: "\e609";
+  text-align: center;
+}
+.check-input + span {
+  margin-left: 22px;
+}
+.js-table-header.open + tbody {
+  display: table-row-group;
+}
+.js-table-header + tbody {
+  display: none;
+}
+/*回收箱*/
+.huishou {
+  position: absolute;
+  left: 840px;
+  margin-top: -25px;
+}
+.huishou .word {
+  margin-left: 10px;
+  color: #757575;
+}
+/*新建项目的模态框*/
+.create-new-project {
+  width: 255px;
+  height: 283px;
+  background-color: #fff;
+  margin: auto;
+}
+.create-new-project .modal-header {
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background-color: #235688;
+}
+.create-new-project .modal-body {
+  background-color: #fff;
+  padding: 20px;
+}
+.create-new-project .modal-body .f-group {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.create-new-project .modal-body .f-group input {
+  height: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.create-new-project .modal-body .f-group label {
+  width: 56px;
+}
+.create-new-project .modal-body .f-group .whole-line {
+  width: 150px;
+}
+.create-new-project .modal-body .f-group .input1 {
+  width: 100px;
+  background: url("../img/percent.png") no-repeat 90% 50%;
+}
+.create-new-project .modal-body .f-group .input2 {
+  width: 100px;
+  background: url("../img/money.png") no-repeat 90% 50%;
+}
+.create-new-project .modal-body .f-button {
+  margin-top: 30px;
+  float: right;
+  margin-bottom: 20px;
+}
+.create-new-project .modal-body .f-button .cancel {
+  width: 50px;
+  height: 30px;
+  border-color: #cccccc;
+  background-color: #fff;
+  color: #757575;
+  margin-right: 10px;
+}
+.create-new-project .modal-body .f-button .confirm {
+  width: 100px;
+  height: 30px;
+  border-color: #3997f3;
+  background-color: #fff;
+  color: #757575;
+}
+/*批量设置*/
+.batch .dropdown-menu {
+  position: absolute;
+  top: 30px;
+  left: 0px;
+  z-index: 1000;
+  /*display: none;*/
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+/*员工管理*/
+/*员工管理页面css*/
+/*员工设置*/
+.staff-setting {
+  width: 925px;
+  padding: 0px 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /*.add-people{
+    width: 214px;
+    text-align: right;
+    padding-right: 10px;
+  }*/
+}
+.staff-setting .big-table .breadcrumb {
+  height: 15px;
+  line-height: 1px;
+  margin-left: 0px;
+  background-color: transparent;
+  padding: 0px;
+  margin-bottom: 0px;
+  display: block;
+  margin-top: 10px;
+  text-align: left;
+}
+.staff-setting caption {
+  height: 30px;
+  font-size: 14px;
+  vertical-align: middle;
+  padding-top: 10px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  /*添加新员工*/
+}
+.staff-setting caption .word {
+  margin-top: 10px;
+  display: inline-block;
+  float: left;
+}
+.staff-setting caption .more {
+  margin-left: 10px;
+}
+.staff-setting caption .more button {
+  width: 100px;
+  height: 30px;
+  background-color: #235688;
+  color: #fff;
+  border: 1px solid #235688;
+  border-radius: 4px;
+}
+.staff-setting caption .search {
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+  /*button{
+        width: 80px;
+        height: 30px;
+        background-color: @theme-color;
+        color: #fff;
+        border: 1px solid @theme-color;
+        margin-left: -10px;
+      }*/
+}
+.staff-setting caption .search input {
+  width: 100px;
+  height: 30px;
+  border: 1px solid #235688;
+  padding-left: 5px;
+  border-radius: 15px;
+  transition: width .1s linear;
+  padding-left: 10px;
+}
+.staff-setting caption .search input:focus {
+  width: 200px;
+}
+.staff-setting caption .search span {
+  margin-left: -30px;
+}
+.staff-setting caption .epage-show-num,
+.staff-setting caption .current-page,
+.staff-setting caption .control-page {
+  display: inline-block;
+  float: right;
+  line-height: 30px;
+}
+.staff-setting caption .control-page button {
+  height: 30px;
+  width: 30px;
+  background-color: #fff;
+}
+.staff-setting caption .control-page .prev-page {
+  background: #ccc;
+  box-shadow: 0px 0px 2px #ccc;
+}
+.staff-setting caption .control-page .next-page {
+  background-color: #000;
+  box-shadow: 0px 0px 2px #000;
+}
+.staff-setting caption .epage-show-num select {
+  height: 30px;
+  width: 50px;
+  padding-left: 10px;
+  background-image: -webkit-linear-gradient(top, #ffffff, #cccccc);
+  background-image: linear-gradient(top, #ffffff, #cccccc);
+}
+.staff-setting caption .add-people {
+  display: inline-block;
+  float: left;
+  width: 100px;
+  vertical-align: middle;
+}
+.staff-setting caption .add-people button {
+  width: 90px;
+  height: 30px;
+  background-color: #235688;
+  color: #fff;
+  border: 1px solid #235688;
+  border-radius: 4px;
+}
+.staff-setting .table tbody td {
+  height: 62px;
+  border: 1px solid #c6c6c6;
+}
+.staff-setting .table .tar {
+  text-align: right;
+  padding-right: 10px;
+}
+.staff-setting .table .tac {
+  text-align: center;
+  padding-right: 10px;
+}
+.staff-setting .big-table .big-title td {
+  height: 40px;
+  padding-left: 10px;
+  border: 1px solid #c6c6c6;
+}
+.staff-setting .table tr .img {
+  width: 100px;
+  text-align: center;
+}
+.staff-setting .table tr .img img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
+}
+.staff-setting .name,
+.staff-setting .sex,
+.staff-setting .station {
+  width: 100px;
+}
+.staff-setting .post,
+.staff-setting .own-shop {
+  width: 142px;
+}
+.staff-setting .table .f-pagination td {
+  padding-top: 15px;
+  border: 0px solid;
+}
+.staff-setting .table .f-pagination td img {
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+}
+.staff-setting .table .f-pagination td select {
+  width: 100px;
+  height: 30px;
+}
+.staff-setting .table-title .page-control {
+  margin-top: 0px;
+}
+/*岗位设置*/
+.post-setting .add-post .name,
+.post-setting .add-post .proportion,
+.post-setting .add-post .money,
+.post-setting .add-post .non-proportion,
+.post-setting .add-post .non-money {
+  width: 100px;
+}
+.post-setting .add-post .operation {
+  width: 135px;
+}
+.post-setting .add-post .add-staff-btn {
+  width: 98px;
+  cursor: pointer;
+}
+.post-setting .add-post .add-staff-btn .add {
+  border: 1px solid #235688;
+}
+/*增加员工*/
+.add-staff {
+  width: 925px;
+  height: 490px;
+  padding: 53px 10px 0px 10px;
+  /*头像*/
+  /*表单*/
+}
+.add-staff .title {
+  position: relative;
+  margin-top: -35px;
+  padding-bottom: 16.5px;
+  margin-left: 5px;
+  font-size: 14px;
+}
+.add-staff input {
+  padding: 0px 3px;
+}
+.add-staff input,
+.add-staff select {
+  border-color: #ccc;
+}
+.add-staff .avatar {
+  float: left;
+  width: 135px;
+  text-align: left;
+}
+.add-staff .avatar input {
+  width: 110px;
+  height: 30px ;
+}
+.add-staff .avatar img {
+  width: 110px;
+  height: 110px;
+}
+.add-staff .avatar .added {
+  background-color: #3997f3;
+  border: 1px solid #3997f3;
+}
+.add-staff .avatar .to-add {
+  background-color: #eeeeee;
+  border: 1px solid #3997f3;
+}
+.add-staff .checkbox-select select {
+  width: 160px;
+  margin-left: 30px;
+}
+.add-staff .little-big-input .f-right input {
+  width: 160px;
+}
+.add-staff .form-staff {
+  float: left;
+  width: 768px;
+  color: #333333;
+  /*左边表单*/
+}
+.add-staff .form-staff option {
+  padding: 0px 3px 1px;
+}
+.add-staff .form-staff input,
+.add-staff .form-staff select {
+  height: 30px;
+}
+.add-staff .form-staff select {
+  appearance: button;
+  -moz-appearance: button;
+  /* Firefox */
+  -webkit-appearance: button;
+  background: url("../img/d-triangle.png") no-repeat 97% 50% #ffffff;
+  border-radius: 0px;
+}
+.add-staff .form-staff .emphasis {
+  color: #3997f3;
+}
+.add-staff .form-staff .form-staff-left {
+  float: left;
+  width: 345px;
+  margin-left: 20px;
+  /*两列表单*/
+  /*左边列表单*/
+  /*右边列表单*/
+  /*占全行的表单*/
+  /*返回键*/
+}
+.add-staff .form-staff .form-staff-left .f-group {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.add-staff .form-staff .form-staff-left .f-label {
+  width: 60px;
+}
+.add-staff .form-staff .form-staff-left .two-part {
+  display: table;
+}
+.add-staff .form-staff .form-staff-left .two-part select,
+.add-staff .form-staff .form-staff-left .two-part input {
+  margin-left: 4px;
+}
+.add-staff .form-staff .form-staff-left .two-part select {
+  background: url("../img/d-triangle.png") no-repeat 90% 50% #ffffff;
+}
+.add-staff .form-staff .form-staff-left .f-left {
+  display: table;
+  float: left;
+}
+.add-staff .form-staff .form-staff-left .f-left .f-label {
+  display: table-cell;
+  vertical-align: middle;
+}
+.add-staff .form-staff .form-staff-left .f-left .f-part-input {
+  display: table-cell;
+  vertical-align: middle;
+  float: left;
+  width: 109px;
+}
+.add-staff .form-staff .form-staff-left .f-right {
+  display: table;
+}
+.add-staff .form-staff .form-staff-left .f-right .f-label {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 7px;
+}
+.add-staff .form-staff .form-staff-left .f-right .f-part-input {
+  display: table-cell;
+  vertical-align: middle;
+  float: left;
+  width: 109px;
+}
+.add-staff .form-staff .form-staff-left .f-whole {
+  display: block;
+  float: left;
+  width: 347px;
+}
+.add-staff .form-staff .form-staff-left .f-whole .f-whole-input {
+  width: 280px;
+}
+.add-staff .form-staff .form-staff-left .f-whole .f-whole-select {
+  width: 280px;
+}
+.add-staff .form-staff .form-staff-left .form-button {
+  width: 100px;
+  height: 30px;
+  background-color: #fff;
+  margin-top: 20px;
+  border-color: #3997f3;
+  float: left;
+  margin-top: 78px;
+}
+.add-staff .form-staff .form-staff-left .return {
+  margin-left: 100px;
+}
+.add-staff .form-staff .form-staff-left .confirm {
+  margin-left: 10px;
+}
+.operation {
+  position: absolute;
+  margin-left: 850px;
+  margin-top: -20px;
+}
+/*上传身份证的模态框*/
+.identity {
+  width: 550px;
+  height: 370px;
+  background-color: #fff;
+}
+.identity .modal-header {
+  height: 60px;
+  text-align: center;
+  background-color: #235688;
+  color: #fff;
+}
+.identity .modal-body {
+  padding: 20px;
+  height: auto;
+  overflow: hidden;
+}
+.identity .modal-body .display-frame {
+  width: 315px;
+  height: 200px;
+  float: left;
+  background-color: #ccc;
+}
+.identity .modal-body .selected-show {
+  float: left;
+  padding-left: 27px;
+}
+.identity .modal-body .selected-show li {
+  margin-bottom: 20px;
+}
+.identity .modal-body .selected-show li img {
+  height: 64px;
+  width: 102px;
+  background-color: #ccc;
+}
+.identity .modal-body .selected-show li .delete {
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+  background-color: #fff;
+}
+.identity .modal-footer {
+  height: 71px;
+}
+.identity .modal-footer .select-file {
+  height: 30px;
+  width: 100px;
+  background-color: #235688;
+  float: left;
+  color: #fff;
+  border: 1px solid #235688;
+}
+/*新建员工的模态框*/
+.create-new-post {
+  width: 315px;
+  height: 300px;
+  background-color: #fff;
+  margin: auto;
+  /*模态框的关闭按钮去掉点击时的蓝色框*/
+}
+.create-new-post .close:focus,
+.create-new-post .close:hover {
+  outline: none;
+}
+.create-new-post :focus {
+  outline: none;
+}
+.create-new-post .modal-header {
+  height: 58px;
+  color: #fff;
+  text-align: center;
+  background-color: #235688;
+}
+.create-new-post .modal-body {
+  background-color: #fff;
+  padding: 20px;
+}
+.create-new-post .modal-body .f-group {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.create-new-post .modal-body .f-group input {
+  height: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.create-new-post .modal-body .f-group label {
+  width: 61px;
+}
+.create-new-post .modal-body .f-group .whole-line {
+  width: 206px;
+}
+.create-new-post .modal-body .f-group .input1 {
+  width: 100px;
+  background: url("../img/percent.png") no-repeat 90% 50%;
+}
+.create-new-post .modal-body .f-group .input2 {
+  width: 100px;
+  background: url("../img/money.png") no-repeat 90% 50%;
+}
+.create-new-post .modal-body .f-button {
+  margin-top: 30px;
+  float: right;
+  margin-bottom: 20px;
+}
+/*轮牌*/
+.lunpai-add-classify {
+  display: inline-block;
+  width: 260px;
+  background-color: #fff;
+  color: #757575;
+  height: 489px;
+}
+.lunpai-add-classify .table tr.active > td {
+  background-color: #3997f3;
+}
+.lunpai-add-classify caption {
+  font-size: 14px;
+}
+.lunpai-add-classify .table {
+  background-color: #fff;
+}
+.lunpai-add-classify .table caption {
+  height: 40px;
+  text-align: center;
+  background-color: #fff;
+  border-top: 1px solid #cccccc;
+}
+.lunpai-add-classify .table thead td {
+  color: #757575;
+  font-size: 14px;
+}
+.lunpai-add-classify .table tbody td {
+  height: 40px;
+  text-align: center;
+  border-top: 1px solid #cccccc;
+  color: #333333;
+}
+.lunpai-add-classify .table tbody tr:last-child {
+  border-bottom: 1px solid #cccccc;
+}
+.lunpai-add-classify .table .plus {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #bbb;
+}
+.lunpai-add-classify .table .file {
+  width: 44px;
+}
+.lunpai-add-classify .table .name {
+  width: 142px;
+  padding-left: 10px;
+  text-align: left;
+}
+.lunpai-add-classify .table .alter {
+  width: 41px;
+  text-align: right;
+}
+.lunpai-add-classify .table .alter input {
+  font-size: 12px;
+}
+.lunpai-add-classify .table .delete {
+  width: 33px;
+  text-align: center;
+  color: #757575;
+}
+.lunpai-add-classify .table .delete input {
+  font-size: 12px;
+}
+.lunpai-add-classify .modification td {
+  over-flow: hidden;
+}
+.lunpai-add-classify .modification select {
+  width: 48px;
+  height: 30px;
+}
+.lunpai-add-classify .modification input {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100px;
+  height: 30px;
+  border: 1px solid #c6c6c6;
+}
+.lunpai-add-classify .modification input[type="button"] {
+  width: 41px;
+  height: 30px;
+  background-color: #fff;
+}
+.lunpai-add-classify .modification .hint {
+  border-color: #3997f3;
+}
+.lunpai-add-project {
+  display: inline-block;
+  width: 660px;
+  color: #757575;
+  height: 489px;
+  padding: 0 10px;
+  overflow-y: auto;
+}
+.lunpai-add-project .add-staff-btn button {
+  float: right;
+  width: 100px;
+  height: 30px;
+  background-color: #235688;
+  border-radius: 2px;
+  border: 1px solid #235688;
+  line-height: 20px;
+}
+.lunpai-add-project .p-column-name {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+.lunpai-add-project .p-column-name td {
+  text-align: left;
+  padding-left: 10px;
+}
+.lunpai-add-project .table-title {
+  height: 53px;
+}
+.lunpai-add-project .table-title td {
+  height: 53px;
+  line-height: 53px;
+}
+.lunpai-add-project .add {
+  width: 100px;
+  height: 27px;
+  background-color: #235688;
+  text-align: center;
+  line-height: 27px;
+  color: #fff;
+  border-radius: 2px;
+}
+.lunpai-add-project .table {
+  width: 100%;
+}
+.lunpai-add-project .table thead td {
+  line-height: 40px;
+  height: 40px;
+  font-weight: 400;
+  color: #757575;
+  font-size: 14px;
+}
+.lunpai-add-project .table tbody td {
+  height: 40px;
+  text-align: left;
+  line-height: 40px;
+  padding-left: 10px;
+  border: 1px solid #cccccc;
+  color: #333333;
+}
+.lunpai-add-project .table .tac {
+  text-align: center;
+}
+.lunpai-add-project .table .tar {
+  text-align: right;
+  padding-right: 10px;
+}
+.lunpai-add-project .add-type {
+  width: 133px;
+  text-align: center;
+  width: 92px;
+  padding-top: 10px;
+  border-radius: 2px;
+}
+.lunpai-add-project .img-left {
+  margin-right: 20px;
+}
+.lunpai-add-project .down-minus,
+.lunpai-add-project .up-plus {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #cccccc;
+  line-height: 20px;
+}
+.lunpai-add-project .order {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 2px;
+  line-height: 20px;
+  color: #fff;
+}
+.lunpai-add-project .first {
+  background-color: #f2415a;
+}
+.lunpai-add-project .second {
+  background-color: #fa9d4b;
+}
+.lunpai-add-project .third {
+  background-color: #81c322;
+}
+.lunpai-add-project .four {
+  background-color: #bbbbbb;
+}
+.add-lunpai {
+  width: 925px;
+  height: 490px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0px 10px;
+  /*下拉菜单*/
+}
+.add-lunpai .dropdown-menu {
+  width: 100%;
+  padding: 0px 28px;
+}
+.add-lunpai .dropdown-menu li {
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #c6c6c6;
+  line-height: 40px;
+}
+.add-lunpai .dropdown-menu .title-li .company-name {
+  color: #ddd;
+}
+.add-lunpai .dropdown-menu .title-li .company-name img {
+  margin-top: -5px;
+  margin-left: 10px;
+}
+.add-lunpai .dropdown-menu input {
+  margin-left: 0px;
+}
+.add-lunpai .content-navbar {
+  height: 52px;
+  border-bottom: 1px solid #cccccc;
+}
+.add-lunpai .content-navbar .button-group {
+  display: inline-block;
+  float: right;
+  margin-right: 25px;
+  line-height: 52px;
+}
+.add-lunpai .content-navbar .button-group .cancel {
+  width: 100px;
+  height: 30px;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  color: #bbbbbb;
+  line-height: 15px;
+}
+.add-lunpai .content-navbar .button-group .save {
+  width: 100px;
+  height: 30px;
+  border-radius: 2px;
+  background-color: #235688;
+  color: #fff;
+  line-height: 15px;
+}
+.add-lunpai .fenpei-setting {
+  width: 100%;
+  height: 410px;
+  margin-top: 10px;
+  background-color: #fff;
+}
+.add-lunpai .fenpei-setting tbody .first-tr td {
+  height: 50px;
+  width: 150px;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 5px;
+}
+.add-lunpai .fenpei-setting .fenpei-left {
+  float: left;
+  width: 50%;
+  height: 410px;
+  border: 1px solid #cccccc;
+}
+.add-lunpai .fenpei-setting .fenpei-right {
+  float: left;
+  width: 50%;
+  height: 410px;
+  border: 1px solid #cccccc;
+  border-left: 0px;
+}
+.add-lunpai .fenpei-setting .fenpei-setting-table {
+  width: 100%;
+  float: right;
+}
+.add-lunpai .fenpei-setting .fenpei-setting-table thead td {
+  height: 60px;
+  padding: 10px;
+  border-bottom: 1px solid #c6c6c6;
+}
+.add-lunpai .fenpei-setting .fenpei-setting-table thead td input {
+  height: 40px;
+  padding: 0px 10px;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+  background: url("../img/d-triangle.png") no-repeat 95% 50% #ffffff;
+}
+.add-lunpai .fenpei-setting .fenpei-setting-table tbody td {
+  height: 40px;
+  width: 150px;
+  text-align: center;
+}
+.add-lunpai .fenpei-setting .fenpei-setting-table tbody td .f-tag {
+  display: inline-block;
+  width: 122px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #bbbbbb;
+  line-height: 30px;
+}
+.add-lunpai .fenpei-setting .fenpei-setting-table tbody td .f-tag .glyphicon-remove {
+  margin-left: 10px;
+  color: #fff;
+}
+.create-new-paiwei {
+  width: 315px;
+  height: 288px;
+  background-color: #fff;
+  margin: auto;
+}
+.create-new-paiwei .modal-header {
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background-color: #235688;
+}
+.create-new-paiwei .modal-body {
+  background-color: #fff;
+  padding: 20px;
+}
+.create-new-paiwei .modal-body .f-group {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.create-new-paiwei .modal-body .f-group select,
+.create-new-paiwei .modal-body .f-group input {
+  height: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.create-new-paiwei .modal-body .f-group label {
+  width: 56px;
+}
+.create-new-paiwei .modal-body .f-group .whole-line {
+  width: 212px;
+}
+.create-new-paiwei .modal-body .f-group .input1 {
+  width: 100px;
+  background: url("../img/percent.png") no-repeat 90% 50%;
+}
+.create-new-paiwei .modal-body .f-group .input2 {
+  width: 100px;
+  background: url("../img/money.png") no-repeat 90% 50%;
+}
+.create-new-paiwei .modal-body .f-button {
+  margin-top: 40px;
+  float: right;
+}
+.create-new-paiwei .modal-body .f-button .cancel {
+  width: 50px;
+  height: 30px;
+  border-color: #cccccc;
+  background-color: #fff;
+  color: #757575;
+  margin-right: 10px;
+}
+.create-new-paiwei .modal-body .f-button .confirm {
+  width: 100px;
+  height: 30px;
+  border-color: #3997f3;
+  background-color: #fff;
+  color: #757575;
+}
+.lunpai-dynamic {
+  padding: 10px 10px;
+}
+/*动态轮牌的左边显示人数的表格*/
+.lunpai-left {
+  display: inline-block;
+  padding-top: 31px;
+  width: 140px;
+  float: left;
+}
+.post-num-table thead tr td {
+  height: 40px;
+  padding-left: 10px;
+}
+.post-num-table thead tr td span {
+  display: inline-block;
+  text-align: center;
+}
+.post-num-table tbody tr:nth-last-child(1) {
+  border-bottom: 1px solid #cccccc;
+}
+.post-num-table tbody tr td {
+  height: 29px;
+  padding-left: 10px;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+}
+.post-num-table tbody tr td span {
+  display: inline-block;
+  width: 45px;
+  text-align: center;
+}
+/*动态轮牌的右边显现轮牌状态的表格*/
+.lunpai-slider {
+  width: 750px;
+  float: right;
+  padding-top: 31px;
+}
+.lunpai-dynamic .background-tab .tab_menu {
+  border: 0px solid;
+  position: absolute;
+  margin: -30px 0px 0px;
+  margin-left: 0px;
+  font-size: 12px;
+  color: #757575;
+}
+.slider-part {
+  width: 100px;
+}
+.slider-title {
+  height: 40px;
+  background-color: transparent;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #cccccc;
+  padding-top: 10px;
+  border-right: 0px;
+}
+.slider-title span {
+  display: inline-block;
+  width: 50px;
+}
+.slider-content {
+  height: 86px;
+  text-align: center;
+  border-left: 1px solid #cccccc;
+  vertical-align: middle;
+  padding-top: 5px;
+}
+.slider-content:nth-last-child(1) {
+  border-right: 1px solid #cccccc;
+}
+.slider-content span {
+  display: block;
+}
+.slider-content img {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  background-color: #bbbbbb;
+  filter: mask(rgba(0, 0, 0, 0.9));
+  /*filter:alpha(opacity=50);*/
+  /*opacity:0.3;*/
+  -webkit-filter: brightness(0.5);
+  filter: brightness(0.5);
+  -moz-filter: brightness(0.5);
+  /*-webkit-mask: -webkit-gradient(linear, left top, left bottom, from(rgba(51,51,51,.9)), to(rgba(51,51,51,.9)));*/
+}
+.slider-content .badge {
+  position: absolute;
+  margin-left: -15px;
+  margin-top: -5px;
+  background-color: red;
+  display: inline-block;
+  min-width: 10px;
+  padding: 4px 5.8px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 10px;
+}
+.slider-foot {
+  vertical-align: middle;
+  height: 30px;
+  background-color: #fff;
+  text-align: center;
+  border: 1px solid #cccccc;
+}
+.slider-foot button {
+  height: 30px;
+  width: 100px;
+  color: #333333;
+  border: 0px solid;
+  text-align: left;
+  background: url("../img/d-triangle.png") no-repeat 90% 50% #ffffff;
+}
+/*会员卡类列表*/
+.discard-card {
+  padding: 0 10px;
+  display: inline-block;
+  width: 925px;
+  color: #757575;
+  height: 489px;
+  overflow-y: auto;
+  /* 折扣列表的宽度*/
+  /*礼金/积分列表的宽度*/
+  /*提成列表*/
+  /*推荐人管理列表*/
+  /*提成列表的大高度表格*/
+}
+.discard-card .add-staff-btn button {
+  /*float: right;*/
+  height: 30px;
+  background-color: #235688;
+  border-radius: 2px;
+  border: 1px solid #235688;
+  line-height: 20px;
+  color: #fff;
+}
+.discard-card .p-column-name {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+.discard-card .p-column-name .code {
+  width: 100px;
+}
+.discard-card .p-column-name td {
+  text-align: left;
+  padding-left: 10px;
+}
+.discard-card .select-all {
+  width: 30px;
+  padding-left: 0px;
+}
+.discard-card .code， .member-card-name,
+.discard-card .project-discord,
+.discard-card .shop-discount,
+.discard-card .validity,
+.discard-card .f-operation {
+  width: 100px;
+}
+.discard-card .card-sold-money,
+.discard-card .card-recharge-money {
+  width: 142px;
+}
+.discard-card .value-card-name {
+  width: 100px;
+}
+.discard-card .send-money,
+.discard-card .send-score,
+.discard-card .recharge-money,
+.discard-card .recharge-score,
+.discard-card .consumption-score,
+.discard-card .card-single-people,
+.discard-card .recharge-single-money {
+  width: auto;
+}
+.discard-card .card-more-people,
+.discard-card .recharge-more-score {
+  width: auto;
+}
+.discard-card .main,
+.discard-card .sub {
+  width: auto;
+}
+.discard-card .column-name {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+.discard-card .column-name td {
+  height: 40px;
+  padding-left: 10px;
+}
+.discard-card .table tbody tr td,
+.discard-card .table thead tr td {
+  padding-left: 10px;
+}
+.discard-card thead td {
+  line-height: 40px;
+  height: 40px;
+  font-weight: 400;
+  color: #757575;
+  font-size: 14px;
+}
+.discard-card tbody td {
+  height: 40px;
+  text-align: left;
+  line-height: 40px;
+  padding-left: 10px;
+  border: 1px solid #cccccc;
+  color: #333333;
+  font-size: 12px;
+}
+.discard-card .table-title {
+  height: 53px;
+}
+.discard-card .add-type {
+  width: 133px;
+  text-align: center;
+  width: 92px;
+  padding-top: 10px;
+  border-radius: 2px;
+}
+.discard-card .img-left {
+  margin-right: 20px;
+}
+.discard-card .big-height-table tbody tr td {
+  height: 62px;
+  line-height: 0px;
+}
+.discard-card .ticheng {
+  color: #757575;
+}
+.discard-card .ticheng .num {
+  color: #333333;
+}
+.discard-card .two-line {
+  padding-left: 0px;
+  line-height: 0px;
+}
+.discard-card .td-one-line {
+  height: 62px;
+  float: left;
+  width: 56px;
+  text-align: center;
+  line-height: 62px;
+  color: inherit;
+}
+.discard-card .td-two-line {
+  height: 62px;
+  float: left;
+  text-align: left;
+  vertical-align: middle;
+  width: 220px;
+  padding-left: 10px;
+}
+.discard-card .td-two-line .line1 {
+  display: inline-block;
+  line-height: 30px;
+  color: inherit;
+}
+.discard-card .td-two-line .line2 {
+  display: inline-block;
+  line-height: 30px;
+  color: inherit;
+}
+/*规则设置的模态框*/
+.rule-setting {
+  width: 371px;
+  height: 419px;
+  background-color: #fff;
+  margin: auto;
+}
+.rule-setting .modal-header {
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background-color: #235688;
+}
+.rule-setting .modal-body {
+  background-color: #fff;
+  padding: 20px;
+}
+.rule-setting .modal-body .f-group {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.rule-setting .modal-body .f-group input {
+  height: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.rule-setting .modal-body .f-group label {
+  width: 56px;
+}
+.rule-setting .modal-body .f-group .radio-input {
+  width: 100px;
+}
+.rule-setting .modal-body .f-group .radio-input input {
+  height: 15px;
+}
+.rule-setting .modal-body .f-group .whole-line {
+  width: 150px;
+}
+.rule-setting .modal-body .f-group .input1 {
+  width: 100px;
+}
+.rule-setting .modal-body .f-group .input2 {
+  width: 100px;
+}
+.rule-setting .modal-body .f-button {
+  margin-top: 30px;
+  float: right;
+  margin-bottom: 20px;
+}
+.rule-setting .modal-body .f-button .cancel {
+  width: 50px;
+  height: 30px;
+  border-color: #cccccc;
+  background-color: #fff;
+  color: #757575;
+  margin-right: 10px;
+}
+.rule-setting .modal-body .f-button .confirm {
+  width: 100px;
+  height: 30px;
+  border-color: #3997f3;
+  background-color: #fff;
+  color: #757575;
+}
+/*创建会员卡的模态框*/
+.create-member-card {
+  width: 530px;
+  height: 655px;
+  background-color: #fff;
+  margin: auto;
+}
+.create-member-card .modal-header {
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background-color: #235688;
+}
+.create-member-card .modal-body {
+  background-color: #fff;
+  padding: 20px;
+}
+.create-member-card .modal-body .f-group {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.create-member-card .modal-body .f-group .hint-input {
+  display: inline-block;
+  border: 1px solid #cccccc;
+  padding-left: 10px;
+}
+.create-member-card .modal-body .f-group .hint-input label {
+  width: 41px;
+}
+.create-member-card .modal-body .f-group .hint-input input {
+  width: 122px;
+  border: 0px solid;
+  padding-left: 0px;
+}
+.create-member-card .modal-body .f-group input {
+  height: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.create-member-card .modal-body .f-group label {
+  width: 85px;
+}
+.create-member-card .modal-body .f-group .radio-input {
+  width: 100px;
+}
+.create-member-card .modal-body .f-group .radio-input input {
+  height: 15px;
+}
+.create-member-card .modal-body .f-group .whole-line {
+  width: 365px;
+}
+.create-member-card .modal-body .f-group .input1 {
+  width: 179px;
+  /*background: url("../img/percent.png") no-repeat 90% 50%;*/
+}
+.create-member-card .modal-body .f-group .input2 {
+  width: 177px;
+  margin-left: 6px;
+  /*background: url("../img/money.png") no-repeat 90% 50%;*/
+}
+.create-member-card .modal-body .f-group .part1 {
+  width: 115px;
+}
+/*创建疗程卡的模态框*/
+.create-treatment-card {
+  width: 530px;
+  height: 655px;
+  background-color: #fff;
+  margin: auto;
+}
+.create-treatment-card .modal-header {
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background-color: #235688;
+}
+.create-treatment-card .modal-body {
+  background-color: #fff;
+  padding: 20px;
+}
+.create-treatment-card .modal-body .f-group {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.create-treatment-card .modal-body .f-group button {
+  height: 30px;
+  width: 300px;
+  margin-left: 100px;
+  background-color: #fff;
+  color: #3997f3;
+  border-color: #3997f3;
+}
+.create-treatment-card .modal-body .f-group .hint-input {
+  display: inline-block;
+  border: 1px solid #cccccc;
+  padding-left: 10px;
+}
+.create-treatment-card .modal-body .f-group .hint-input label {
+  width: 41px;
+}
+.create-treatment-card .modal-body .f-group .hint-input input {
+  width: 122px;
+  border: 0px solid;
+  padding-left: 0px;
+}
+.create-treatment-card .modal-body .f-group input {
+  height: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.create-treatment-card .modal-body .f-group label {
+  width: 85px;
+}
+.create-treatment-card .modal-body .f-group .radio-input {
+  width: 100px;
+}
+.create-treatment-card .modal-body .f-group .radio-input input {
+  height: 15px;
+}
+.create-treatment-card .modal-body .f-group .whole-line {
+  width: 365px;
+}
+.create-treatment-card .modal-body .f-group .input1 {
+  width: 177px;
+  background: url("../img/percent.png") no-repeat 90% 50%;
+}
+.create-treatment-card .modal-body .f-group .input2 {
+  width: 177px;
+  margin-left: 6px;
+  background: url("../img/money.png") no-repeat 90% 50%;
+}
+.create-treatment-card .modal-body .f-group .part1 {
+  width: 117px;
+}
+.create-treatment-card .modal-body .f-group .part3-long {
+  width: 178px;
+}
+.create-treatment-card .modal-body .f-group .part3-short {
+  width: 89px;
+}
+/*修改会员卡模态框*/
+.fixhuiyuanka {
+  width: 530px;
+  height: 455px;
+  background-color: #fff;
+  margin: auto;
+}
+.fixhuiyuanka .modal-header {
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background-color: #235688;
+}
+.fixhuiyuanka .modal-body {
+  background-color: #fff;
+  padding: 20px;
+}
+.fixhuiyuanka .modal-body .f-group {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.fixhuiyuanka .modal-body .f-group .hint-input {
+  display: inline-block;
+  border: 1px solid #cccccc;
+  padding-left: 10px;
+}
+.fixhuiyuanka .modal-body .f-group .hint-input label {
+  width: 41px;
+}
+.fixhuiyuanka .modal-body .f-group .hint-input input {
+  width: 122px;
+  border: 0px solid;
+  padding-left: 0px;
+}
+.fixhuiyuanka .modal-body .f-group input {
+  height: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.fixhuiyuanka .modal-body .f-group label {
+  width: 85px;
+}
+.fixhuiyuanka .modal-body .f-group .radio-input {
+  width: 100px;
+}
+.fixhuiyuanka .modal-body .f-group .radio-input input {
+  height: 15px;
+}
+.fixhuiyuanka .modal-body .f-group .whole-line {
+  width: 365px;
+}
+.fixhuiyuanka .modal-body .f-group .input1 {
+  width: 179px;
+  /*background: url("../img/percent.png") no-repeat 90% 50%;*/
+}
+.fixhuiyuanka .modal-body .f-group .input2 {
+  width: 177px;
+  margin-left: 6px;
+  /*background: url("../img/money.png") no-repeat 90% 50%;*/
+}
+.fixhuiyuanka .modal-body .f-group .part1 {
+  width: 115px;
+}
+.treatment-ticheng-patch,
+.treatment-lijin-patch,
+.treatment-tuijian-patch {
+  width: 530px;
+  height: 655px;
+  background-color: #fff;
+  margin: auto;
+}
+.treatment-ticheng-patch .modal-header,
+.treatment-lijin-patch .modal-header,
+.treatment-tuijian-patch .modal-header {
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background-color: #235688;
+}
+.treatment-ticheng-patch .modal-body,
+.treatment-lijin-patch .modal-body,
+.treatment-tuijian-patch .modal-body {
+  background-color: #fff;
+  padding: 20px;
+}
+.treatment-ticheng-patch .modal-body .f-group,
+.treatment-lijin-patch .modal-body .f-group,
+.treatment-tuijian-patch .modal-body .f-group {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.treatment-ticheng-patch .modal-body .f-group .hint-input,
+.treatment-lijin-patch .modal-body .f-group .hint-input,
+.treatment-tuijian-patch .modal-body .f-group .hint-input {
+  display: inline-block;
+  border: 1px solid #cccccc;
+  padding-left: 10px;
+}
+.treatment-ticheng-patch .modal-body .f-group .hint-input label,
+.treatment-lijin-patch .modal-body .f-group .hint-input label,
+.treatment-tuijian-patch .modal-body .f-group .hint-input label {
+  width: 41px;
+}
+.treatment-ticheng-patch .modal-body .f-group .hint-input input,
+.treatment-lijin-patch .modal-body .f-group .hint-input input,
+.treatment-tuijian-patch .modal-body .f-group .hint-input input {
+  width: 122px;
+  border: 0px solid;
+  padding-left: 0px;
+}
+.treatment-ticheng-patch .modal-body .f-group input,
+.treatment-lijin-patch .modal-body .f-group input,
+.treatment-tuijian-patch .modal-body .f-group input {
+  height: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.treatment-ticheng-patch .modal-body .f-group label,
+.treatment-lijin-patch .modal-body .f-group label,
+.treatment-tuijian-patch .modal-body .f-group label {
+  width: 85px;
+}
+.treatment-ticheng-patch .modal-body .f-group .radio-input,
+.treatment-lijin-patch .modal-body .f-group .radio-input,
+.treatment-tuijian-patch .modal-body .f-group .radio-input {
+  width: 100px;
+}
+.treatment-ticheng-patch .modal-body .f-group .radio-input input,
+.treatment-lijin-patch .modal-body .f-group .radio-input input,
+.treatment-tuijian-patch .modal-body .f-group .radio-input input {
+  height: 15px;
+}
+.treatment-ticheng-patch .modal-body .f-group .whole-line,
+.treatment-lijin-patch .modal-body .f-group .whole-line,
+.treatment-tuijian-patch .modal-body .f-group .whole-line {
+  width: 365px;
+}
+.treatment-ticheng-patch .modal-body .f-group .input1,
+.treatment-lijin-patch .modal-body .f-group .input1,
+.treatment-tuijian-patch .modal-body .f-group .input1 {
+  width: 179px;
+  /*background: url("../img/percent.png") no-repeat 90% 50%;*/
+}
+.treatment-ticheng-patch .modal-body .f-group .input2,
+.treatment-lijin-patch .modal-body .f-group .input2,
+.treatment-tuijian-patch .modal-body .f-group .input2 {
+  width: 177px;
+  margin-left: 6px;
+  /*background: url("../img/money.png") no-repeat 90% 50%;*/
+}
+.treatment-ticheng-patch .modal-body .f-group .part1,
+.treatment-lijin-patch .modal-body .f-group .part1,
+.treatment-tuijian-patch .modal-body .f-group .part1 {
+  width: 115px;
+}
+/*修改疗程卡模态框*/
+.fixliaochengka,
+.fixhuiyuanka,
+.chuzhi-lijin-patch,
+.chuzhi-ticheng-patch,
+.chuzhi-tuijian-patch {
+  width: 530px;
+  height: 655px;
+  background-color: #fff;
+  margin: auto;
+}
+.fixliaochengka .modal-header,
+.fixhuiyuanka .modal-header,
+.chuzhi-lijin-patch .modal-header,
+.chuzhi-ticheng-patch .modal-header,
+.chuzhi-tuijian-patch .modal-header {
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background-color: #235688;
+}
+.fixliaochengka .modal-body,
+.fixhuiyuanka .modal-body,
+.chuzhi-lijin-patch .modal-body,
+.chuzhi-ticheng-patch .modal-body,
+.chuzhi-tuijian-patch .modal-body {
+  background-color: #fff;
+  padding: 20px;
+}
+.fixliaochengka .modal-body .f-group,
+.fixhuiyuanka .modal-body .f-group,
+.chuzhi-lijin-patch .modal-body .f-group,
+.chuzhi-ticheng-patch .modal-body .f-group,
+.chuzhi-tuijian-patch .modal-body .f-group {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.fixliaochengka .modal-body .f-group .hint-input,
+.fixhuiyuanka .modal-body .f-group .hint-input,
+.chuzhi-lijin-patch .modal-body .f-group .hint-input,
+.chuzhi-ticheng-patch .modal-body .f-group .hint-input,
+.chuzhi-tuijian-patch .modal-body .f-group .hint-input {
+  display: inline-block;
+  border: 1px solid #cccccc;
+  padding-left: 10px;
+}
+.fixliaochengka .modal-body .f-group .hint-input label,
+.fixhuiyuanka .modal-body .f-group .hint-input label,
+.chuzhi-lijin-patch .modal-body .f-group .hint-input label,
+.chuzhi-ticheng-patch .modal-body .f-group .hint-input label,
+.chuzhi-tuijian-patch .modal-body .f-group .hint-input label {
+  width: 41px;
+}
+.fixliaochengka .modal-body .f-group .hint-input input,
+.fixhuiyuanka .modal-body .f-group .hint-input input,
+.chuzhi-lijin-patch .modal-body .f-group .hint-input input,
+.chuzhi-ticheng-patch .modal-body .f-group .hint-input input,
+.chuzhi-tuijian-patch .modal-body .f-group .hint-input input {
+  width: 122px;
+  border: 0px solid;
+  padding-left: 0px;
+}
+.fixliaochengka .modal-body .f-group input,
+.fixhuiyuanka .modal-body .f-group input,
+.chuzhi-lijin-patch .modal-body .f-group input,
+.chuzhi-ticheng-patch .modal-body .f-group input,
+.chuzhi-tuijian-patch .modal-body .f-group input {
+  height: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.fixliaochengka .modal-body .f-group label,
+.fixhuiyuanka .modal-body .f-group label,
+.chuzhi-lijin-patch .modal-body .f-group label,
+.chuzhi-ticheng-patch .modal-body .f-group label,
+.chuzhi-tuijian-patch .modal-body .f-group label {
+  width: 85px;
+}
+.fixliaochengka .modal-body .f-group .radio-input,
+.fixhuiyuanka .modal-body .f-group .radio-input,
+.chuzhi-lijin-patch .modal-body .f-group .radio-input,
+.chuzhi-ticheng-patch .modal-body .f-group .radio-input,
+.chuzhi-tuijian-patch .modal-body .f-group .radio-input {
+  width: 100px;
+}
+.fixliaochengka .modal-body .f-group .radio-input input,
+.fixhuiyuanka .modal-body .f-group .radio-input input,
+.chuzhi-lijin-patch .modal-body .f-group .radio-input input,
+.chuzhi-ticheng-patch .modal-body .f-group .radio-input input,
+.chuzhi-tuijian-patch .modal-body .f-group .radio-input input {
+  height: 15px;
+}
+.fixliaochengka .modal-body .f-group .whole-line,
+.fixhuiyuanka .modal-body .f-group .whole-line,
+.chuzhi-lijin-patch .modal-body .f-group .whole-line,
+.chuzhi-ticheng-patch .modal-body .f-group .whole-line,
+.chuzhi-tuijian-patch .modal-body .f-group .whole-line {
+  width: 365px;
+}
+.fixliaochengka .modal-body .f-group .input1,
+.fixhuiyuanka .modal-body .f-group .input1,
+.chuzhi-lijin-patch .modal-body .f-group .input1,
+.chuzhi-ticheng-patch .modal-body .f-group .input1,
+.chuzhi-tuijian-patch .modal-body .f-group .input1 {
+  width: 179px;
+  /*background: url("../img/percent.png") no-repeat 90% 50%;*/
+}
+.fixliaochengka .modal-body .f-group .input2,
+.fixhuiyuanka .modal-body .f-group .input2,
+.chuzhi-lijin-patch .modal-body .f-group .input2,
+.chuzhi-ticheng-patch .modal-body .f-group .input2,
+.chuzhi-tuijian-patch .modal-body .f-group .input2 {
+  width: 177px;
+  margin-left: 6px;
+  /*background: url("../img/money.png") no-repeat 90% 50%;*/
+}
+.fixliaochengka .modal-body .f-group .part1,
+.fixhuiyuanka .modal-body .f-group .part1,
+.chuzhi-lijin-patch .modal-body .f-group .part1,
+.chuzhi-ticheng-patch .modal-body .f-group .part1,
+.chuzhi-tuijian-patch .modal-body .f-group .part1 {
+  width: 115px;
+}
+/*会员资料*/
+.huiyuanxinxi {
+  width: 925px;
+  height: 490px;
+  padding: 53px 10px 0px 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /*表单*/
+}
+.huiyuanxinxi .title {
+  position: relative;
+  margin-top: -35px;
+  padding-bottom: 16.5px;
+  margin-left: 5px;
+  font-size: 14px;
+}
+.huiyuanxinxi input {
+  padding: 0px 3px;
+}
+.huiyuanxinxi input,
+.huiyuanxinxi select {
+  border-color: #ccc;
+}
+.huiyuanxinxi .checkbox-select select {
+  width: 170px;
+  margin-left: 30px;
+}
+.huiyuanxinxi .checkbox-select .show-input {
+  width: 177px;
+  display: inline-block;
+  opacity: 1;
+  margin-left: 10px;
+  margin-top: -7px;
+}
+.huiyuanxinxi .little-big-input .f-right input {
+  width: 160px;
+}
+.huiyuanxinxi .form-staff {
+  float: left;
+  width: 905px;
+  color: #333333;
+  /*左边表单*/
+}
+.huiyuanxinxi .form-staff option {
+  padding: 0px 3px 1px;
+}
+.huiyuanxinxi .form-staff input,
+.huiyuanxinxi .form-staff select {
+  height: 30px;
+}
+.huiyuanxinxi .form-staff select {
+  appearance: button;
+  -moz-appearance: button;
+  /* Firefox */
+  -webkit-appearance: button;
+  background: url("../img/d-triangle.png") no-repeat 97% 50% #ffffff;
+  border-radius: 0px;
+}
+.huiyuanxinxi .form-staff .emphasis {
+  color: #3997f3;
+}
+.huiyuanxinxi .form-staff .form-staff-left {
+  float: left;
+  width: 400px;
+  margin-left: 20px;
+  /*两列表单*/
+  /*左边列表单*/
+  /*右边列表单*/
+  /*占全行的表单*/
+  /*返回键*/
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-group {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-label {
+  width: 70px;
+  color: #757575;
+}
+.huiyuanxinxi .form-staff .form-staff-left .two-part {
+  position: relative;
+  display: table;
+}
+.huiyuanxinxi .form-staff .form-staff-left .two-part .input-span {
+  position: absolute;
+  margin-top: 6px;
+  margin-left: -16px;
+  color: #757575;
+}
+.huiyuanxinxi .form-staff .form-staff-left .two-part select,
+.huiyuanxinxi .form-staff .form-staff-left .two-part input {
+  margin-left: 4px;
+}
+.huiyuanxinxi .form-staff .form-staff-left .two-part select {
+  background: url("../img/d-triangle.png") no-repeat 90% 50% #ffffff;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-left {
+  display: table;
+  float: left;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-left .f-label {
+  display: table-cell;
+  vertical-align: middle;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-left .f-part-input {
+  display: table-cell;
+  vertical-align: middle;
+  float: left;
+  width: 109px;
+}
+.huiyuanxinxi .form-staff .form-staff-left .way .f-part-input {
+  padding-left: 55px;
+}
+.huiyuanxinxi .form-staff .form-staff-left .way .way-span {
+  margin-left: 10px;
+  position: absolute;
+  margin-top: 6px;
+  color: #757575;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-right {
+  display: table;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-right .f-label {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 7px;
+  width: 57px;
+  color: #757575;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-right .f-part-input {
+  display: table-cell;
+  vertical-align: middle;
+  float: right;
+  width: 109px;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-whole {
+  display: block;
+  float: left;
+  width: 100%;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-whole .f-whole-input {
+  width: 280px;
+}
+.huiyuanxinxi .form-staff .form-staff-left .f-whole .f-whole-select {
+  width: 280px;
+}
+.huiyuanxinxi .form-staff .form-staff-left .form-button {
+  width: 100px;
+  height: 30px;
+  background-color: #fff;
+  margin-top: 103px;
+  border-color: #3997f3;
+  float: left;
+}
+.huiyuanxinxi .form-staff .form-staff-left .return {
+  margin-left: 100px;
+}
+.huiyuanxinxi .form-staff .form-staff-left .confirm {
+  margin-left: 10px;
+}
+/*会员查询*/
+.customer-management {
+  padding: 10px 10px 0px;
+  display: inline-block;
+  width: 925px;
+  color: #757575;
+  height: 489px;
+  overflow-y: auto;
+  /*搜寻条件*/
+  /*.table-title {
+    height: 53px;
+    td {
+      height: 53px;
+      line-height: 53px;
+    }
+    .per-page{
+      select{
+        height: 30px;
+        width: 100px;
+        border-color: @hint-color;
+        padding-left: 10px;
+      }
+    }
+    .page-num{
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .page-control{
+      margin-top: 10px;
+      button{
+        width: 30px;
+        height: 30px;
+        &:disabled{
+          background-color: @normal-font-color;
+          border: 1px solid @normal-font-color;
+          span{
+            color: #fff;
+          }
+        }
+      }
+      .prev-page{
+        background-color: #fff;
+        border-color: @hint-color;
+        span{
+          color: @hint-color;
+        }
+      }
+      .next-page{
+        background-color: #fff;
+        border-color: @hint-color;
+        span{
+          color: @hint-color;
+        }
+      }
+    }
+  }*/
+  /*提成列表的大高度表格*/
+}
+.customer-management .search-filter-table {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #3997f3;
+}
+.customer-management .search-filter-table thead tr td {
+  height: 50px;
+  vertical-align: top;
+}
+.customer-management .search-filter-table .search-input {
+  height: 30px;
+  width: 398px;
+  border: 1px solid #235688;
+  padding-left: 10px;
+}
+.customer-management .search-filter-table .search-button {
+  height: 30px;
+  width: 50px;
+  background-color: #235688;
+  color: #fff;
+  margin-left: -5px;
+  border-color: #235688;
+}
+.customer-management .search-filter-table .word {
+  margin-left: 40px;
+}
+.customer-management .search-filter-table tbody tr td {
+  height: 40px;
+  padding-left: 0px;
+  border: 0px solid;
+}
+.customer-management .search-filter-table .table-label {
+  width: 75px;
+  vertical-align: top;
+  padding-top: 10px;
+}
+.customer-management .search-filter-table .tabel-input {
+  width: 228px;
+}
+.customer-management .search-filter-table .tabel-input input {
+  border-color: #3997f3;
+  height: 30px;
+  padding-left: 10px;
+}
+.customer-management .search-filter-table .tabel-input .whole-line {
+  width: 212px;
+}
+.customer-management .search-filter-table .tabel-input .part-two {
+  width: 98px;
+}
+.customer-management .search-filter-table .tbody-search-td {
+  text-align: right;
+}
+.customer-management .search-filter-table .tbody-search-button {
+  height: 30px;
+  width: 95px;
+  background-color: #235688;
+  color: #fff;
+  margin-right: 16px;
+}
+.customer-management .add-staff-btn button {
+  float: right;
+  /*width: 100px;*/
+  height: 30px;
+  background-color: #235688;
+  border-radius: 2px;
+  border: 1px solid #235688;
+  line-height: 20px;
+  color: #fff;
+}
+.customer-management .p-column-name {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+.customer-management .p-column-name td {
+  text-align: left;
+  padding-left: 10px;
+}
+.customer-management .select-all {
+  width: 30px;
+  padding-left: 0px;
+}
+.customer-management .column-name {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+.customer-management .column-name td {
+  height: 40px;
+  padding-left: 10px;
+}
+.customer-management thead td {
+  height: 40px;
+  font-weight: 400;
+  color: #757575;
+  font-size: 12px;
+}
+.customer-management tbody td {
+  height: 40px;
+  text-align: left;
+  line-height: 40px;
+  border: 1px solid #cccccc;
+  color: #333333;
+  font-size: 12px;
+}
+.customer-management tbody tr td {
+  padding-left: 10px;
+}
+.customer-management .add-type {
+  width: 133px;
+  text-align: center;
+  width: 92px;
+  padding-top: 10px;
+  border-radius: 2px;
+}
+.customer-management .img-left {
+  margin-right: 20px;
+}
+.customer-management .big-height-table tbody tr td {
+  height: 62px;
+  line-height: 0px;
+}
+.customer-management .two-line {
+  padding-left: 0px;
+  line-height: 0px;
+}
+.customer-management .td-one-line {
+  height: 62px;
+  float: left;
+  width: 56px;
+  text-align: center;
+  line-height: 62px;
+}
+.customer-management .td-two-line {
+  height: 62px;
+  float: left;
+  text-align: left;
+  vertical-align: middle;
+  width: 160px;
+  padding-left: 10px;
+}
+.customer-management .td-two-line .line1 {
+  display: inline-block;
+  line-height: 30px;
+}
+.customer-management .td-two-line .line2 {
+  display: inline-block;
+  line-height: 30px;
+}
+/*智能客管*/
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbW1vbi5sZXNzIiwiaW5kZXgubGVzcyIsInByb2plY3Qtc2V0dGluZy5sZXNzIiwic3RhZmYtc2V0dGluZy5sZXNzIiwidGFrZS10dXJucy5sZXNzIiwia2VndWFuLmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBYUE7RUFDRSxZQUFBO0VBQ0EsYUFBQTtFQUNBLHlCQUFBO0VBQ0EsZ0NBQUE7RUFDQSxXQUFBOztBQUxGLEtBTUU7RUFDRSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBOztBQVZKLEtBTUUsUUFLRTtFQUNFLGVBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGdCQUFBOztBQWZOLEtBTUUsUUFLRSxjQUtFO0VBQ0UscUJBQUE7RUFDQSxZQUFBOztBQWxCUixLQU1FLFFBZUU7RUFDRSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLHNCQUFBO0VBQ0EseUJBQUE7O0FBS047RUFDRSxXQUFBO0VBQ0EsaUJBQUE7RUFDQSxZQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBOztBQUVGO0VBQ0UsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsZ0JBQUE7O0FBSEYsVUFJRTtFQUNFLGVBQUE7O0FBTEosVUFPRSxHQUFHO0VBQ0QsZUFBQTtFQUNBLGlCQUFBOztBQVRKLFVBV0UsR0FBRztFQUNELGtCQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxxQkFBQTs7O0FBS0o7RUFDRSxXQUFBO0VBQ0EsU0FBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTs7QUFKRixRQUtFO0VBQ0UsWUFBQTs7QUFOSixRQVFFO0VBQ0UsY0FBQTtFQUNBLHlCQUFBOztBQVZKLFFBUUUsUUFHRTtFQUNFLGNBQUE7O0FBWk4sUUFlRTtFQUNFLGtCQUFBO0VBQ0EsMEJBQUE7RUFDQSxnQ0FBQTtFQUNBLGtCQUFB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 */

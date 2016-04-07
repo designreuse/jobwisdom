@@ -1,0 +1,620 @@
+/*员工管理页面css*/
+
+/*员工设置*/
+.staff-setting{
+  width: 925px;
+  padding: 0px 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  .big-table .breadcrumb {
+    height: 15px;
+    line-height: 1px;
+    margin-left: 0px;
+    background-color: transparent;
+    padding: 0px;
+    margin-bottom: 0px;
+    display: block;
+    margin-top: 10px;
+    text-align: left;
+  }
+  caption{
+    height: 30px;
+    font-size: 14px;
+    vertical-align: middle;
+    padding-top: 10px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    .word{
+      margin-top: 10px;
+      display: inline-block;
+      float: left;
+    }
+    .more{
+      margin-left: 10px;
+      button{
+        width: 100px;
+        height: 30px;
+        background-color: @theme-color;
+        color: #fff;
+        border: 1px solid @theme-color;
+        border-radius: 4px;
+      }
+    }
+//    搜索框
+    .search{
+      display: inline-block;
+      float: left;
+      margin-right: 10px;
+      input{
+        width: 100px;
+        height: 30px;
+        border: 1px solid @theme-color;
+        padding-left: 5px;
+        border-radius: 15px;
+        transition: width .1s linear;
+        padding-left: 10px;
+        &:focus{
+          width: 200px;
+        }
+      }
+      span{
+        margin-left: -30px;
+      }
+      /*button{
+        width: 80px;
+        height: 30px;
+        background-color: @theme-color;
+        color: #fff;
+        border: 1px solid @theme-color;
+        margin-left: -10px;
+      }*/
+    }
+    .epage-show-num, .current-page, .control-page{
+      display: inline-block;
+      float: right;
+      line-height: 30px;
+    }
+    .control-page{
+      button{
+        height: 30px;
+        width: 30px;
+        background-color: #fff;
+
+      }
+      .prev-page{
+        background: #ccc;
+        box-shadow: 0px 0px 2px #ccc;
+      }
+      .next-page{
+        background-color: #000;
+        box-shadow: 0px 0px 2px #000;
+      }
+    }
+    .epage-show-num{
+      select{
+        height: 30px;
+        width: 50px;
+        padding-left: 10px;
+        background-image:-webkit-linear-gradient(top, #fff, #ccc);
+        background-image:linear-gradient(top, #fff, #ccc);
+      }
+    }
+
+
+    /*添加新员工*/
+    .add-people{
+      display: inline-block;
+      float: left;
+      width: 100px;
+      vertical-align: middle;
+      button{
+        width: 90px;
+        height: 30px;
+        background-color: @theme-color;
+        color: #fff;
+        border: 1px solid @theme-color;
+        border-radius: 4px;
+      }
+    }
+
+  }
+
+  .table tbody td{
+    height: 62px;
+    border: 1px solid @boder-color;
+  }
+
+  .table {
+    .tar{
+      text-align: right;
+      padding-right: 10px;
+    }
+    .tac{
+      text-align: center;
+      padding-right: 10px;
+    }
+  }
+
+  .big-table .big-title td{
+    height: 40px;
+    padding-left: 10px;
+    border: 1px solid @boder-color;
+  }
+  .table tr .img{
+    width: 100px;
+    text-align: center;
+    img{
+      width: 50px;
+      height: 50px;
+      border: 1px solid #000;
+    }
+  }
+  .name, .sex, .station{
+    width: 100px;
+  }
+  .post, .own-shop{
+    width: 142px;
+  }
+  .add-people{
+    width: 214px;
+    text-align: right;
+    padding-right: 10px;
+  }
+  .table .f-pagination{
+    td{
+      padding-top: 15px;
+      border: 0px solid;
+      img{
+        width: 10px;
+        height: 10px;
+        margin-right: 10px;
+      }
+      select{
+        width: 100px;
+        height: 30px;
+      }
+    }
+  }
+  .table-title .page-control{
+    margin-top: 0px;
+  }
+}
+
+/*岗位设置*/
+.post-setting .add-post{
+  .name, .proportion, .money, .non-proportion, .non-money{
+      width: 100px;
+  }
+  .operation{
+      width: 135px;
+  }
+  .add-staff-btn{
+      width: 98px;
+      cursor: pointer;
+      .add{
+        border: 1px solid @theme-color;
+      }
+  }
+}
+
+/*增加员工*/
+.add-staff{
+  width: 925px;
+  height: 490px;
+  padding: 53px 10px 0px 10px;
+  .title{
+    position: relative;
+    margin-top: -35px;
+    padding-bottom: 16.5px;
+    margin-left: 5px;
+    font-size: 14px;
+  }
+  input{
+    padding: 0px 3px;
+  }
+  input, select{
+    border-color: #ccc;
+  }
+  *//*头像*//*
+  .avatar{
+    float: left;
+    width: 135px;
+    text-align: left;
+    input{
+      width: 110px;
+      height: 30px ;
+    }
+    img{
+      width: 110px;
+      height: 110px;
+    }
+    .added{
+      background-color: @btn-blue-color;
+      border: @border-size solid @btn-border-color;
+    }
+    .to-add{
+      background-color: @normal-background-color;
+      border: 1px solid @btn-empty-border-color;
+    }
+  }
+  .checkbox-select{
+    select{
+      width: 160px;
+      margin-left: 30px;
+    }
+  }
+  .little-big-input{
+    .f-right{
+      input{
+        width: 160px;
+      }
+    }
+  }
+  *//*表单*//*
+  .form-staff{
+    float: left;
+    width: 768px;
+    color: @weight-font-color;
+    option{
+      padding: 0px 3px 1px;
+    }
+    input, select {
+      height: 30px;
+    }
+    select{
+      appearance:button;
+      -moz-appearance:button; *//* Firefox *//*
+      -webkit-appearance:button;
+      background: url("../img/d-triangle.png") no-repeat 97% 50% #fff;
+      border-radius: 0px;
+    }
+    .emphasis{
+      color: @hint-color;
+    }
+    *//*左边表单*//*
+
+    .form-staff-left{
+      float: left;
+      width: 345px;
+      margin-left: 20px;
+      .f-group{
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        overflow: hidden;
+      }
+      .f-label{
+        width: 60px;
+      }
+      *//*两列表单*//*
+      .two-part{
+        display:table;
+        select,input{
+          margin-left: 4px;
+        }
+        select{
+          background: url("../img/d-triangle.png") no-repeat 90% 50% #fff;
+        }
+      }
+      *//*左边列表单*//*
+      .f-left{
+        display: table;
+        float: left;
+        .f-label{
+          display: table-cell;
+          vertical-align: middle;
+        }
+        .f-part-input{
+          display: table-cell;
+          vertical-align: middle;
+          float: left;
+          width: 109px;
+        }
+      }
+      *//*右边列表单*//*
+      .f-right{
+        display: table;
+        .f-label{
+          display: table-cell;
+          vertical-align: middle;
+          padding-left: 7px;
+        }
+        .f-part-input{
+          display: table-cell;
+          vertical-align: middle;
+          float: left;
+          width: 109px;
+        }
+
+      }
+      *//*占全行的表单*//*
+      .f-whole{
+        display: block;
+        float: left;
+        width: 347px;
+        .f-whole-input{
+            width: 280px;
+        }
+        .f-whole-select{
+          width: 280px;
+        }
+      }
+      *//*返回键*//*
+      .form-button{
+        width: 100px;
+        height: 30px;
+        background-color: #fff;
+        margin-top: 103px;
+        border-color: @hint-color;
+        float: left;
+      }
+      .return{
+        margin-left: 100px;
+      }
+      .confirm{
+        margin-left: 10px;
+      }
+
+    }
+  }
+}
+
+/*会员资料*/
+.huiyuanxinxi{
+  width: 925px;
+  height: 490px;
+  padding: 53px 10px 0px 10px;
+  .title{
+    position: relative;
+    margin-top: -35px;
+    padding-bottom: 16.5px;
+    margin-left: 5px;
+    font-size: 14px;
+  }
+  input{
+    padding: 0px 3px;
+  }
+  input, select{
+    border-color: #ccc;
+  }
+  .checkbox-select{
+    select{
+      width: 170px;
+      margin-left: 30px;
+    }
+  }
+  .little-big-input{
+    .f-right{
+      input{
+        width: 160px;
+      }
+    }
+  }
+  /*表单*/
+  .form-staff{
+    float: left;
+    width: 905px;
+    color: @weight-font-color;
+    option{
+      padding: 0px 3px 1px;
+    }
+    input, select {
+      height: 30px;
+    }
+    select{
+      appearance:button;
+      -moz-appearance:button; /* Firefox */
+      -webkit-appearance:button;
+      background: url("../img/d-triangle.png") no-repeat 97% 50% #fff;
+      border-radius: 0px;
+    }
+    .emphasis{
+      color: @hint-color;
+    }
+    /*左边表单*/
+
+    .form-staff-left{
+      float: left;
+      width: 400px;
+      margin-left: 20px;
+      .f-group{
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        overflow: hidden;
+      }
+      .f-label{
+        width: 70px;
+      }
+
+      /*两列表单*/
+      .two-part{
+        display:table;
+        select,input{
+          margin-left: 4px;
+        }
+        select{
+          background: url("../img/d-triangle.png") no-repeat 90% 50% #fff;
+        }
+      }
+      /*左边列表单*/
+      .f-left{
+        display: table;
+        float: left;
+        .f-label{
+          display: table-cell;
+          vertical-align: middle;
+        }
+        .f-part-input{
+          display: table-cell;
+          vertical-align: middle;
+          float: left;
+          width: 109px;
+        }
+      }
+      /*右边列表单*/
+      .f-right{
+        display: table;
+        .f-label{
+          display: table-cell;
+          vertical-align: middle;
+          padding-left: 7px;
+          width: 57px;
+        }
+        .f-part-input{
+          display: table-cell;
+          vertical-align: middle;
+          float: right;
+          width: 109px;
+        }
+
+      }
+     /*占全行的表单*/
+      .f-whole{
+        display: block;
+        float: left;
+        width: 100%;
+        .f-whole-input{
+          width: 280px;
+        }
+        .f-whole-select{
+          width: 280px;
+        }
+      }
+      /*返回键*/
+      .form-button{
+        width: 100px;
+        height: 30px;
+        background-color: #fff;
+        margin-top: 103px;
+        border-color: @hint-color;
+        float: left;
+      }
+      .return{
+        margin-left: 100px;
+      }
+      .confirm{
+        margin-left: 10px;
+      }
+
+    }
+  }
+}
+
+.operation{
+  position: absolute;
+  margin-left: 850px;
+  margin-top: -20px;
+}
+
+/*上传身份证的模态框*/
+.identity{
+  width: 550px;
+  height: 370px;
+  background-color: #fff;
+  .modal-header{
+    height: 60px;
+    text-align: center;
+    background-color: @theme-color;
+    color: #fff;
+  }
+  .modal-body{
+    padding: 20px;
+    height: auto;
+    overflow: hidden;
+    .display-frame{
+      width: 315px;
+      height: 200px;
+      float: left;
+      background-color: #ccc;
+    }
+    .selected-show{
+      float: left;
+      padding-left: 27px;
+      li{
+        margin-bottom: 20px;
+        img{
+          height: 64px;
+          width: 102px;
+          background-color: #ccc;
+        }
+        .delete{
+          width: 20px;
+          height: 20px;
+          margin-left: 20px;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+  .modal-footer{
+    height: 71px;
+    .select-file{
+      height: 30px;
+      width: 100px;
+      background-color: @theme-color;
+      float: left;
+      color: #fff;
+      border: 1px solid @theme-color;
+    }
+  }
+}
+
+
+/*新建员工的模态框*/
+.create-new-post{
+  width: 315px;
+  height: 300px;
+  background-color: #fff;
+  margin: auto;
+  /*模态框的关闭按钮去掉点击时的蓝色框*/
+  .close:focus, .close:hover {
+    outline: none;
+  }
+  :focus{
+    outline: none;
+  }
+  .modal-header{
+    height: 58px;
+    color: #fff;
+    text-align: center;
+    background-color: @theme-color;
+  }
+  .modal-body{
+    background-color: #fff;
+    padding: 20px;
+
+    .f-group{
+      height: 30px;
+      margin-bottom: 10px;
+      input{
+        height: 30px;
+        border-radius: 2px;
+        padding-left: 10px;
+      }
+
+      label{
+        width: 61px;
+      }
+      .whole-line{
+        width: 206px;
+      }
+      .input1{
+        width: 100px;
+        background: url("../img/percent.png") no-repeat 90% 50%;
+      }
+      .input2{
+        width: 100px;
+        background: url("../img/money.png") no-repeat 90% 50%;
+      }
+    }
+    .f-button{
+      margin-top: 30px;
+      float: right;
+      margin-bottom: 20px;
+
+    }
+  }
+}
+
+

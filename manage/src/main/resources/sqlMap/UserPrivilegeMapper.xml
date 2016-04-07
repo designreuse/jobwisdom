@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.manage.web.mapper.UserPrivilegeMapper">
+	<resultMap id="BaseResultMap" type="com.lives.manage.web.entity.UserPrivilege">
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="privilege_id" property="privilegeId" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap id="MenuResultMap" type="com.lives.manage.web.dto.MenuDto">
+		<result column="privilege_name" property="name" />
+		<result column="privilege_value" property="url" />
+		<association property="subMenus" column="{refPrivilegeId=privilege_id,userId=userId}" select="selectSubMenus" />
+	</resultMap>
+	
+	<!-- <select id="selectPrivilegeByUserIdAndType" resultType="java.lang.String" parameterType="java.util.Map">
+		select p.privilege_value from m_privilege p where p.privilege_id in 
+		(SELECT distinct(privilege_id) FROM lives.m_user_privilege where user_id = #{userId})
+		(SELECT distinct(privilege_id) FROM m_user_privilege where user_id = #{userId})
+		and p.privilege_type = #{type}
+	</select> -->
+	
+	<select id="selectMenuListByUserId" parameterType="java.lang.Integer" resultMap="MenuResultMap">
+	select 
+		p.privilege_id,
+		#{userId} as userId, 
+		p.privilege_name as name, 
+		p.privilege_value as url 
+	from m_privilege p 
+	where p.privilege_id in (SELECT distinct(privilege_id) FROM m_user_privilege where user_id = #{userId})
+		and p.privilege_type = 0 
+		and p.ref_privilege_id = 0
+	</select>
+	
+	<select id="selectSubMenus" parameterType="java.util.Map" resultType="com.lives.manage.web.dto.MenuDto">
+		select p.privilege_name as name, p.privilege_value as url from m_user_privilege up 
+			left join m_privilege p 
+		    on up.privilege_id = p.privilege_id
+		where up.user_id = #{userId} and p.privilege_type = 0 and ref_privilege_id = #{refPrivilegeId}
+	</select>
+	
+	<select id="selectPrivilegeByUserIdAndType" resultType="java.lang.String" parameterType="java.util.Map">
+		select p.privilege_value from m_privilege p where p.privilege_id in 
+		(SELECT distinct(privilege_id) FROM m_user_privilege where user_id = #{userId})
+		and p.privilege_type = #{type}
+	</select>
+	
+	<insert id="insert" parameterType="com.lives.manage.web.entity.UserPrivilege">
+		insert into m_user_privilege
+		(user_id, privilege_id)
+		values (#{userId,jdbcType=INTEGER},
+		#{privilegeId,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.lives.manage.web.entity.UserPrivilege">
+		insert into m_user_privilege
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="privilegeId != null">
+				privilege_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="privilegeId != null">
+				#{privilegeId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+ 	 <delete id="deleteByPid" parameterType="java.lang.Integer">
+		delete from m_user_privilege where privilege_id = #{pId}
+	</delete>  
+	<!-- 自定义删除操作 -->
+	<delete id="deleteByRoleIdAndUserId" parameterType="com.lives.manage.web.dto.RoleUtils">
+	delete from m_user_privilege where user_id = #{userId} and role_id = #{roleId}
+	</delete>
+	<select id="selectPidByUserId" resultType="java.lang.Integer"
+		parameterType="java.lang.Integer">
+		SELECT t.privilege_id FROM m_user_privilege t WHERE
+		t.user_id = #{uId}
+	</select>
+	<select id="selectPidByUserIdAndRoleId" parameterType="com.lives.manage.web.dto.RoleUtils" resultType="java.lang.Integer">
+	    SELECT t.privilege_id FROM m_user_privilege t WHERE
+		t.user_id = #{userId} AND t.role_id = #{roleId}
+	</select>
+	<resultMap id="PrivilegeMap" type="com.lives.manage.web.entity.Privilege">
+		<id column="privilege_id" property="privilegeId" jdbcType="INTEGER" />
+		<result column="privilege_type" property="privilegeType"
+			jdbcType="VARCHAR" />
+		<result column="privilege_name" property="privilegeName"
+			jdbcType="VARCHAR" />
+		<result column="privilege_value" property="privilegeValue"
+			jdbcType="VARCHAR" />
+		<result column="ref_privilege_id" property="refPrivilegeId"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<select id="getFirstMenu" parameterType="java.lang.Integer"
+		resultMap="PrivilegeMap">
+		SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+		SELECT
+		s.privilege_id FROM m_user_privilege s WHERE s.user_id = #{userId}
+		)
+		AND t.privilege_type = 0 AND t.ref_privilege_id = 0 ORDER BY t.privilege_id
+	</select>
+	<select id="getSecondMenu" parameterType="com.lives.manage.web.dto.RoleUtils"
+		resultMap="PrivilegeMap">
+		SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+		SELECT
+		s.privilege_id FROM m_user_privilege s WHERE s.user_id = #{userId}
+		)
+		AND t.privilege_type = 0 AND t.ref_privilege_id = #{refId} ORDER BY t.privilege_id
+	</select>
+	<select id="getPageClass" parameterType="java.lang.Integer"
+		resultMap="PrivilegeMap">
+		SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+		SELECT
+		s.privilege_id FROM m_user_privilege s WHERE s.user_id = #{userId}
+		)
+		AND t.privilege_type = 2
+	</select>
+	<select id="getGn" parameterType="java.lang.Integer" resultType="java.lang.String">
+	SELECT t.privilege_value FROM m_privilege t WHERE t.privilege_id IN (
+		SELECT
+		s.privilege_id FROM m_user_privilege s WHERE s.user_id = #{userId}
+		)
+		AND t.privilege_type = 1
+	</select>
+	
+	<insert id="insertList" parameterType="java.util.List">  
+	insert into m_user_privilege (user_id, privilege_id,role_id) values 
+    <foreach collection="list" item="item" index="index"  
+        separator=",">  
+        (#{item.userId,jdbcType=INTEGER}, #{item.privilegeId,jdbcType=INTEGER}, #{item.roleId,jdbcType=INTEGER})
+    </foreach>  
+  </insert> 
+  <select id="selectMenuListByRoleId" parameterType="java.lang.Integer" resultMap="PrivilegeMap">
+   SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+   SELECT t.privilege_id FROM m_role_privilege t WHERE t.role_id = #{roleId}) AND t.privilege_type = '菜单' AND t.ref_privilege_id = 0;
+  </select>
+  <select id="selectSecondMenuListByRoleId" parameterType="java.util.Map" resultMap="PrivilegeMap">
+  SELECT * FROM m_privilege m WHERE m.privilege_id IN (
+   SELECT t.privilege_id FROM m_privilege t WHERE t.privilege_id IN (
+   SELECT t.privilege_id FROM m_role_privilege t WHERE t.role_id = #{roleId}) AND t.privilege_type = '菜单'
+)AND m.ref_privilege_id = #{id}
+  </select>
+  <delete id="deleteByUserId" parameterType="java.lang.Integer">
+  delete from m_user_privilege where user_id = #{userId}
+  </delete>
+  <delete id="deleteByRoleId" parameterType="java.lang.Integer">
+   delete from m_user_privilege where role_id = #{roleId}
+  </delete>
+</mapper>

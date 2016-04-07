@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.CouponsMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.Coupons" >
+    <id column="coupons_id" property="couponsId" jdbcType="INTEGER" />
+    <result column="coupons_type" property="couponsType" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="is_use" property="isUse" jdbcType="INTEGER" />
+    <result column="is_record" property="isRecord" jdbcType="INTEGER" />
+    <result column="stote_id" property="stoteId" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="start_end" property="startEnd" jdbcType="CHAR" />
+    <result column="end_date" property="endDate" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    coupons_id, coupons_type, project_id, amount, is_use, is_record, stote_id, create_user, 
+    start_end, end_date, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_base_coupons
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_base_coupons
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.Coupons" >
+    insert into pt_base_coupons (coupons_id, coupons_type, project_id, 
+      amount, is_use, is_record, 
+      stote_id, create_user, start_end, 
+      end_date, create_time)
+    values (#{couponsId,jdbcType=INTEGER}, #{couponsType,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{isUse,jdbcType=INTEGER}, #{isRecord,jdbcType=INTEGER}, 
+      #{stoteId,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, #{startEnd,jdbcType=CHAR}, 
+      #{endDate,jdbcType=CHAR}, #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.Coupons" >
+    insert into pt_base_coupons
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="couponsId != null" >
+        coupons_id,
+      </if>
+      <if test="couponsType != null" >
+        coupons_type,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="isUse != null" >
+        is_use,
+      </if>
+      <if test="isRecord != null" >
+        is_record,
+      </if>
+      <if test="stoteId != null" >
+        stote_id,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="startEnd != null" >
+        start_end,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="couponsId != null" >
+        #{couponsId,jdbcType=INTEGER},
+      </if>
+      <if test="couponsType != null" >
+        #{couponsType,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="isRecord != null" >
+        #{isRecord,jdbcType=INTEGER},
+      </if>
+      <if test="stoteId != null" >
+        #{stoteId,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="startEnd != null" >
+        #{startEnd,jdbcType=CHAR},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.Coupons" >
+    update pt_base_coupons
+    <set >
+      <if test="couponsType != null" >
+        coupons_type = #{couponsType,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="isUse != null" >
+        is_use = #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="isRecord != null" >
+        is_record = #{isRecord,jdbcType=INTEGER},
+      </if>
+      <if test="stoteId != null" >
+        stote_id = #{stoteId,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="startEnd != null" >
+        start_end = #{startEnd,jdbcType=CHAR},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.Coupons" >
+    update pt_base_coupons
+    set coupons_type = #{couponsType,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      is_use = #{isUse,jdbcType=INTEGER},
+      is_record = #{isRecord,jdbcType=INTEGER},
+      stote_id = #{stoteId,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      start_end = #{startEnd,jdbcType=CHAR},
+      end_date = #{endDate,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR}
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+  select * from pt_base_coupons
+  </select>
+</mapper>

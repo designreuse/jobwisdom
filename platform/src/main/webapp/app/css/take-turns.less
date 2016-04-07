@@ -1,0 +1,491 @@
+.lunpai-add-classify {
+  display: inline-block;
+  width: 260px;
+  background-color: #fff;
+  color: @content-font-color;
+  height: 489px;
+  .table tr.active>td{
+    background-color: #3997f3;
+  }
+  caption{
+    font-size: 14px;
+  }
+
+  .table{
+    background-color: #fff;
+    caption{
+      height: 40px;
+      text-align: center;
+      background-color: #fff;
+      border-top: 1px solid @border-color;
+    }
+    thead td{
+      color: @normal-font-color;
+      font-size: 14px;
+    }
+    tbody td{
+      height: 40px;
+      text-align: center;
+      border-top: 1px solid @border-color;
+      color: @weight-font-color;
+    }
+    .plus{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: #bbb;
+    }
+    .file{
+      width: 44px;
+    }
+    .name{
+      width: 142px;
+      padding-left: 10px;
+      text-align: left;
+    }
+    .alter{
+      width: 41px;
+      text-align: right;
+      input{
+        font-size: 12px;
+      }
+    }
+    .delete{
+      width: 33px;
+      text-align: center;
+      color: @normal-font-color;
+      input{
+        font-size: 12px;
+      }
+    }
+  }
+  .modification{
+    td{
+      over-flow: hidden
+    }
+
+    select{
+      width: 48px;
+      height: 30px;
+    }
+    input{
+      display: inline-block;
+      vertical-align: middle;
+      width: 100px;
+      height: 30px;
+      border: 1px solid @boder-color;
+    }
+
+    input[type="button"]{
+      width: 41px;
+      height: 30px;
+      background-color: #fff;
+    }
+
+    .hint{
+      border-color: @hint-color;
+    }
+  }
+}
+.lunpai-add-project{
+  display: inline-block;
+  width: 660px;
+  color: @content-font-color;
+  height: 489px;
+  padding: 0 10px;
+  overflow-y: auto;
+  .add-staff-btn{
+    button{
+      float: right;
+      width: 100px;
+      height: 30px;
+      background-color: @theme-color;
+      border-radius: 2px;
+      border: 1px solid @theme-color;
+      line-height: 20px;
+    }
+  }
+  .p-column-name{
+    background-color: #fff;
+    border: 1px solid @border-color;
+    td{
+      text-align: left;
+      padding-left: 10px;
+    }
+  }
+  .table-title{
+    height: 53px;
+    td{
+      height: 53px;
+      line-height: 53px;
+    }
+  }
+  .add{
+    width: 100px;
+    height: 27px;
+    background-color: #235688;
+    text-align: center;
+    line-height: 27px;
+    color: #fff;
+    border-radius: 2px;
+  }
+  .table{
+    width: 100%;
+    thead td{
+      line-height: 40px;
+      height: 40px;
+      font-weight: 400;
+      color: @normal-font-color;
+      font-size: 14px;
+    }
+    tbody td{
+      height: 40px;
+      text-align: left;
+      line-height: 40px;
+      padding-left: 10px;
+      border: 1px solid @border-color;
+      color: @weight-font-color;
+    }
+    .tac{
+      text-align: center;
+    }
+    .tar{
+      text-align: right;
+      padding-right: 10px;
+    }
+  }
+  .add-type{
+    width: 133px;
+    text-align: center;
+    width: 92px;
+    padding-top: 10px;
+    border-radius: 2px;
+  }
+  .img-left{
+    margin-right: 20px;
+  }
+
+  .down-minus, .up-plus{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 4px;
+    background-color: @light-background-color;
+    line-height: 20px;
+  }
+  .order{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 2px;
+    line-height: 20px;
+  }
+  .first{
+    background-color: @red;
+  }
+  .second{
+    background-color: @orange;
+  }
+  .third{
+    background-color: @green;
+  }
+  .four{
+    background-color: @gray;
+  }
+}
+
+.add-lunpai{
+  width: 925px;
+  height: 490px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0px 10px;
+
+  /*下拉菜单*/
+  .dropdown-menu{
+    width: 100%;
+    padding: 0px 28px;
+    li{
+      width: 100%;
+      height: 40px;
+      border-bottom: 1px solid @boder-color;
+      line-height: 40px;
+    }
+    .title-li{
+      .company-name{
+        color: #ddd;
+      }
+    }
+    input{
+      margin-left: 0px;
+    }
+  }
+  .content-navbar{
+    height: 52px;
+    border-bottom: 1px solid @border-color;
+    .button-group{
+      display: inline-block;
+      float: right;
+      margin-right: 25px;
+      line-height: 52px;
+      .cancel{
+        width: 100px;
+        height: 30px;
+        border-radius: 2px;
+        background-color: @btn-gray-background-color;
+        color: @light-font-color;
+      }
+      .save{
+        width: 100px;
+        height: 30px;
+        border-radius: 2px;
+        background-color: @theme-color;
+        color: #fff;
+      }
+    }
+  }
+  .fenpei-setting{
+    width: 100%;
+    height: 410px;
+    margin-top: 10px;
+    background-color: #fff;
+    tbody .first-tr td{
+      height: 50px;
+      width: 150px;
+      text-align: center;
+      padding-top: 15px;
+      padding-bottom: 5px;
+    }
+
+    .fenpei-setting-table{
+      width: 50%;
+      float: left;
+      thead tr{
+        border: 1px solid @boder-color;
+      }
+      thead td{
+        height: 60px;
+        padding: 10px;
+        input{
+          height: 40px;
+          padding: 0px 10px;
+          border-radius: 2px;
+          border: 1px solid @border-color;
+          background: url("../img/d-triangle.png") no-repeat 100% 50% #fff;
+        }
+      }
+
+      tbody td{
+        height: 40px;
+        width: 150px;
+        text-align: center;
+        .f-tag{
+          display: inline-block;
+          width: 122px;
+          height: 30px;
+          border-radius: 4px;
+          background-color: @weight-background-color;
+          line-height: 30px;
+        }
+      }
+
+
+    }
+  }
+}
+
+
+.create-new-paiwei{
+  width: 255px;
+  height: 283px;
+  background-color: #fff;
+  margin: auto;
+  .modal-header{
+    height: 60px;
+    color: #fff;
+    text-align: center;
+    background-color: @theme-color;
+  }
+  .modal-body{
+    background-color: #fff;
+    padding: 20px;
+    .f-group{
+      height: 30px;
+      margin-bottom: 10px;
+      select, input{
+        height: 30px;
+        border-radius: 2px;
+        padding-left: 10px;
+      }
+
+      label{
+        width: 56px;
+      }
+      .whole-line{
+        width: 150px;
+      }
+      .input1{
+        width: 100px;
+        background: url("../img/percent.png") no-repeat 90% 50%;
+      }
+      .input2{
+        width: 100px;
+        background: url("../img/money.png") no-repeat 90% 50%;
+      }
+    }
+    .f-button{
+      margin-top: 30px;
+      float: right;
+      margin-bottom: 20px;
+      .cancel{
+        width: 50px;
+        height: 30px;
+        border-color: @border-color;
+        background-color: #fff;
+        color: @normal-font-color;
+        margin-right: 10px;
+      }
+      .confirm{
+        width: 100px;
+        height: 30px;
+        border-color: @hint-color;
+        background-color: #fff;
+        color: @normal-font-color;
+      }
+
+    }
+  }
+}
+
+.lunpai-dynamic{
+  padding: 10px 10px;
+}
+
+/*动态轮牌的左边显示人数的表格*/
+.lunpai-left{
+  display: inline-block;
+  padding-top: 31px;
+  width: 140px;
+  float: left;
+}
+
+.post-num-table{
+  thead tr td{
+    height: 40px;
+    padding-left: 10px;
+    span{
+      display: inline-block;
+      text-align: center;
+    }
+  }
+  tbody tr{
+    &:nth-last-child(1){
+      border-bottom: 1px solid @border-color;
+    }
+  }
+  tbody tr td{
+    height: 29px;
+    padding-left: 10px;
+    border-left: 1px solid @border-color;
+    border-right: 1px solid @border-color;
+    span{
+      display: inline-block;
+      width: 45px;
+      text-align: center;
+    }
+  }
+}
+
+/*动态轮牌的右边显现轮牌状态的表格*/
+.lunpai-slider{
+  width: 750px;
+  float: right;
+  padding-top: 31px;
+}
+.lunpai-dynamic .background-tab .tab_menu {
+  border: 0px solid;
+  position: absolute;
+  margin: -30px 0px 0px;
+  margin-left: 0px;
+  font-size: 12px;
+  color: #757575;
+}
+.slider-part{
+  width: 100px;
+}
+.slider-title{
+  height: 40px;
+  background-color: transparent;
+  text-align: center;
+  vertical-align: middle;
+  vertical-align: middle;
+  border: 1px solid @border-color;
+  padding-top: 10px;
+  span{
+    display: inline-block;
+    width: 50px;
+  }
+}
+.slider-content{
+  height: 86px;
+  text-align: center;
+  border-left: 1px solid @border-color;
+  &:nth-last-child(1){
+    border-right:  1px solid @border-color;
+  }
+  vertical-align: middle;
+  padding-top: 5px;
+  span{
+    display: block;
+  }
+  img{
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    background-color: @gray;
+    filter: mask(rgba(0,0,0,.9));
+    /*filter:alpha(opacity=50);*/
+    /*opacity:0.3;*/
+    -webkit-filter: brightness(.5);
+    filter: brightness(.5);
+    -moz-filter: brightness(.5);
+    /*-webkit-mask: -webkit-gradient(linear, left top, left bottom, from(rgba(51,51,51,.9)), to(rgba(51,51,51,.9)));*/
+  }
+  .badge {
+    position: absolute;
+    margin-left: -15px;
+    margin-top: -5px;
+    background-color: red;
+    display: inline-block;
+    min-width: 10px;
+    padding: 4px 5.8px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 10px;
+  }
+}
+.slider-foot{
+  vertical-align: middle;
+  height: 30px;
+  background-color: #fff;
+  text-align: center;
+  border: 1px solid @border-color;
+  button{
+    height: 30px;
+    width: 100px;
+    color: @weight-font-color;
+    border: 0px solid;
+    text-align: left;
+    background: url("../img/d-triangle.png") no-repeat 90% 50% #fff;
+  }
+}
+

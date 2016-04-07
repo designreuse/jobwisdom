@@ -1,0 +1,1937 @@
+[2016-02-28 08:52:50.345] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 2hp3AmC6k64N9wLoAlEy
+[2016-02-28 08:52:56.448] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : PG7HXIfydoAKwbhAAlEz
+[2016-02-28 08:53:01.805] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : bvFEkzObhB6Uwz2QAlE0
+[2016-02-28 09:36:28.529] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 3WHfjujlj9eXw8n3AlE1
+[2016-02-28 09:36:34.967] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : gGsybyC1TMQugL4pAlE2
+[2016-02-28 09:37:27.876] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : b2eZy4NdsSzqgsr5AlE3
+[2016-02-28 09:37:31.873] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : Xo5XV22jlXUVww-wAlE4
+[2016-02-28 09:37:34.903] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 4FockK_vXj9MP-05AlE5
+[2016-02-28 09:41:26.593] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : X8sSe32LXwaSLDMtAlE6
+[2016-02-28 09:41:36.622] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : xPhbGK3KCmSNxRIWAlE7
+[2016-02-28 09:41:48.477] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : oGS90pKgJtA6juarAlE8
+[2016-02-28 09:42:00.917] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 0tIJ7yHZWDlnKWkLAlE9
+[2016-02-28 09:42:08.876] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : kn_KqkEu3AFv1J0kAlE-
+[2016-02-28 09:42:25.273] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 67Cd_1-iTYRT-0IHAlE_
+[2016-02-28 09:42:38.116] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 36sV-4s_o5Thit8xAlFA
+[2016-02-28 09:43:16.420] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : Nz-gIE5viJC6LNEWAlFB
+[2016-02-28 09:47:15.527] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 74MlyVK-EgIlzLlnAlFC
+[2016-02-28 09:47:20.253] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : Km9VhmiVNTd86aHfAlFD
+[2016-02-28 09:48:21.637] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : cAZ251E3xdAx0tvjAlFE
+[2016-02-28 09:49:26.520] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : Ohfu1foWf2fCsXk8AlFF
+[2016-02-28 09:49:34.023] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : SA8o8veClwz7LmRBAlFG
+[2016-02-28 09:51:44.986] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : EPTGTQQ02ee8i3ecAlFH
+[2016-02-28 09:51:55.246] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : cx8f9YVZcfXCbAm4AlFI
+[2016-02-28 09:52:04.098] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : UlLV-TGAW-oX9EHWAlFJ
+[2016-02-28 09:52:08.056] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : cFuVEf7NLxv-yAkzAlFK
+[2016-02-28 10:05:28.673] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:05:28","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 10:05:28.674] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:05:28","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 10:05:28.674] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:05:28","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 10:09:42.659] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : u2Ciwzzkwjkl9eo5AlFL
+[2016-02-28 10:09:44.265] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : MNWXM5Gy6lfmWxEAAlFM
+[2016-02-28 10:12:04.648] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Di0TsAj0eM9i0Pu7AlFN
+[2016-02-28 10:12:08.013] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 1JzIzHhxZXZMpdv2AlFO
+[2016-02-28 10:12:20.214] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Ipfsl7vYdVYqUg8jAlFP
+[2016-02-28 10:12:22.176] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : vPcnWqYWTt3rqS9PAlFQ
+[2016-02-28 10:13:04.706] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : WR2T8X6PDPtYQrETAlFR
+[2016-02-28 10:13:43.727] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : YJfM0QbjEuDSLRLmAlFS
+[2016-02-28 10:23:08.695] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:23:08","length":0,"msg":"1120号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"660"}
+[2016-02-28 10:23:08.696] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:23:08","length":0,"msg":"1120号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-02-28 10:23:08.697] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:23:08","length":0,"msg":"1120号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"237"}
+[2016-02-28 10:23:08.698] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:23:08","length":0,"msg":"1120号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-02-28 10:23:08.698] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:23:08","length":0,"msg":"1120号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-02-28 10:42:25.774] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:42:25","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 10:42:25.775] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:42:25","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 10:42:25.775] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:42:25","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 10:45:46.494] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:45:46","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 10:45:46.494] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:45:46","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 10:45:46.495] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:45:46","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 10:46:00.501] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : RdeXHjoObum7h793AlFT
+[2016-02-28 10:48:10.194] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : hcjWeh48sAl4SlhBAlFU
+[2016-02-28 10:48:43.651] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : k_QvvB4PNMeJ0ueIAlFV
+[2016-02-28 10:54:41.914] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:54:41","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"660"}
+[2016-02-28 10:54:41.915] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:54:41","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-02-28 10:54:41.916] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:54:41","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"237"}
+[2016-02-28 10:54:41.916] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:54:41","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-02-28 10:54:41.917] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:54:41","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-02-28 10:57:28.188] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:57:28","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 10:57:28.189] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:57:28","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 10:57:28.189] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:57:28","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 10:57:50.594] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:57:50","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 10:57:50.595] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:57:50","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 10:57:50.596] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 10:57:50","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 11:00:04.125] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : CC-4TnlaIL23IxjdAlFW
+[2016-02-28 11:01:15.174] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:01:15","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"660"}
+[2016-02-28 11:01:15.175] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:01:15","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-02-28 11:01:15.176] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:01:15","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"237"}
+[2016-02-28 11:01:15.177] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:01:15","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-02-28 11:01:15.178] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:01:15","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-02-28 11:01:57.322] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ag7cmiu1buhovSQDAlFX
+[2016-02-28 11:02:06.175] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : kyUH8zneYhsJaaCJAlFY
+[2016-02-28 11:02:17.627] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : xLANPvUWMErjCDxNAlFZ
+[2016-02-28 11:03:55.277] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : X9ONQfMZpdLCUfLXAlFa
+[2016-02-28 11:04:14.657] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : a_tSOFnL8we7V-bQAlFb
+[2016-02-28 11:04:16.666] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : r9_w2BYChIYaJX3EAlFc
+[2016-02-28 11:05:25.892] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9_TkA89IEYjAbT2FAlFd
+[2016-02-28 11:05:41.321] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : VA_X5ZfLrTJEfoK2AlFe
+[2016-02-28 11:06:56.926] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 8CSZ5xS2T4-Y_YG7AlFf
+[2016-02-28 11:07:32.570] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : lPgsJcv1SN3wy2ljAlFg
+[2016-02-28 11:07:47.303] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : O4K78xH47g8hBP0TAlFh
+[2016-02-28 11:08:40.744] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : AKOiAa0kAduPcFPrAlFi
+[2016-02-28 11:09:16.697] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 03DXKkH984WQgdUtAlFj
+[2016-02-28 11:10:00.736] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : XUISnu0pfYmyTTjjAlFk
+[2016-02-28 11:10:25.846] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : QlrBAVkYTMaLyCZ2AlFl
+[2016-02-28 11:10:27.697] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : GhZ4MVed2Md6NNzYAlFm
+[2016-02-28 11:10:36.166] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : cLi5aaFe4KGPH4qwAlFn
+[2016-02-28 11:10:58.808] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:10:58","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 11:10:58.809] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:10:58","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 11:11:14.051] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:11:14","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 11:11:14.052] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:11:14","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 11:11:50.867] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 0w2jSUDSdEn0-xNqAlFo
+[2016-02-28 11:12:13.538] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:12:13","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 11:12:13.539] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:12:13","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 11:12:16.730] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : SJJ83EZS524unbI4AlFp
+[2016-02-28 11:12:23.069] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : fF2HPeQnemNZrtpuAlFq
+[2016-02-28 11:12:26.896] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:12:26","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 11:12:26.897] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:12:26","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 11:15:25.397] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : yR2KUrwj5-YkiZc6AlFr
+[2016-02-28 11:16:48.314] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 3WxCJZmad_VVrNpyAlFs
+[2016-02-28 11:16:53.184] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : _3wu4jdIsXZT2T_EAlFt
+[2016-02-28 11:16:54.933] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : PKx1OqlVWlujrD_UAlFu
+[2016-02-28 11:18:07.916] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : SqHqhPeUitMmfOCQAlFv
+[2016-02-28 11:18:10.584] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : trI_jV_gDv-hc4jMAlFw
+[2016-02-28 11:18:25.035] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:18:25","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 11:18:25.036] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:18:25","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 11:18:37.911] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 5vxJgceDXZAl8b2lAlFx
+[2016-02-28 11:18:40.041] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : MR44SJX3XZ8gk8FFAlFy
+[2016-02-28 11:19:08.620] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : PI76gyQAvTBtW8cWAlFz
+[2016-02-28 11:19:13.117] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : YtDe3owv88Pg15_wAlF0
+[2016-02-28 11:19:20.040] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : AH90Sc1v4cMmStQYAlF1
+[2016-02-28 11:19:58.871] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : og-IyKwUXm38lUE-AlF2
+[2016-02-28 11:20:02.665] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : z2lj5yR-g2jCj5rLAlF3
+[2016-02-28 11:22:39.215] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:22:39","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 11:22:39.216] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:22:39","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 11:22:39.216] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:22:39","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 11:23:54.849] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : s5dfFyDo1N3yz_h5AlF4
+[2016-02-28 11:23:56.457] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : X2_zrfGsLeCUei2XAlF5
+[2016-02-28 11:24:20.488] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : RqL0ppBzOkJtSZZ4AlF6
+[2016-02-28 11:24:30.172] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 2eQc0K3jwIorc2taAlF7
+[2016-02-28 11:25:02.958] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : mxU4eKZqRM9lZgghAlF8
+[2016-02-28 11:25:21.076] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : bBRZ4yvUMJJLV9hFAlF9
+[2016-02-28 11:25:38.752] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : ThL7q05MxzORWBPBAlF-
+[2016-02-28 11:32:58.410] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : KlbC9cYVZeedo_CLAlF_
+[2016-02-28 11:33:13.032] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : kOZGQY4dh79E820LAlGA
+[2016-02-28 11:33:38.227] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ZrgYMuwJE3nEsQg1AlGB
+[2016-02-28 11:34:06.612] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : I0jvaEQdxteuy_xWAlGC
+[2016-02-28 11:34:51.807] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : wUOsm7avlijJud89AlGD
+[2016-02-28 11:35:15.915] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : dx4rjBwfRbDSG1y6AlGE
+[2016-02-28 11:37:08.031] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : R2SHtB-lTm9ekKSuAlGF
+[2016-02-28 11:37:08.440] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:37:08","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 11:37:08.441] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:37:08","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 11:37:08.442] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:37:08","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 11:37:27.259] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 8yhW6ctwqGN7yMvfAlGG
+[2016-02-28 11:37:38.145] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9cS0mfRKfuGF67oNAlGH
+[2016-02-28 11:37:41.399] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : IgFKLBldjrx_nTLoAlGI
+[2016-02-28 11:37:52.763] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : tLwtKuVitU0dO74JAlGJ
+[2016-02-28 11:37:56.067] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : nzvMQgoToUvzpkKaAlGK
+[2016-02-28 11:38:11.943] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : HY2gJS80yy-iIbVxAlGL
+[2016-02-28 11:39:21.470] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : A4BdLMYixRa81Bh4AlGM
+[2016-02-28 11:40:21.561] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : SsYO8kVqpKo6kKi_AlGN
+[2016-02-28 11:40:32.869] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : A-sY8SiNwWD8XJOHAlGO
+[2016-02-28 11:40:40.948] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 61lvrradfbe3pGOLAlGP
+[2016-02-28 11:41:19.938] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:41:19","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 11:41:19.939] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:41:19","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 11:41:19.940] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:41:19","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 11:41:20.056] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:41:20","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 11:41:20.057] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:41:20","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 11:41:20.057] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 11:41:20","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 11:43:37.988] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : TeJr2lMERlquCGIYAlGQ
+[2016-02-28 11:43:46.668] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : MihE8zMnyx8KDt40AlGR
+[2016-02-28 11:44:03.760] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : DHVViI1UO_faitf6AlGS
+[2016-02-28 11:45:53.028] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : T01LRLhnNx3iAJo_AlGT
+[2016-02-28 11:49:10.976] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : BPK9gok0TtpRi0TdAlGU
+[2016-02-28 11:49:13.063] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Gy7hiZRWbldAKU0wAlGV
+[2016-02-28 11:50:13.570] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : oB2SGRtX0rDIMqGlAlGW
+[2016-02-28 11:50:19.827] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : pyobQMQPHvpVhl-XAlGX
+[2016-02-28 11:50:32.273] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : TBduY-Gk34tolFNkAlGY
+[2016-02-28 11:52:34.906] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : OC1oMj8lIXORIv4WAlGZ
+[2016-02-28 11:52:43.384] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : YHvBVg2Jp4jcFkVyAlGa
+[2016-02-28 11:53:28.129] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 5QdpIRFKV4T5o4AHAlGb
+[2016-02-28 11:53:54.034] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : ot5lp-mbvOecwkIpAlGc
+[2016-02-28 11:54:08.033] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : HhZVKyLbrcRYc2ADAlGd
+[2016-02-28 11:54:12.731] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : YPm1ygc2XXiFuwWnAlGe
+[2016-02-28 11:54:41.352] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : VWrOxrLggbB73VFAAlGf
+[2016-02-28 11:55:14.578] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : K0AJavpxIhd_7WbJAlGg
+[2016-02-28 11:55:19.209] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : uXyvZ4ZbL_BNk31lAlGh
+[2016-02-28 11:55:25.982] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : vBtZld8vQ0nbpsaMAlGi
+[2016-02-28 11:56:06.450] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : od8RPeeR4N11hSEpAlGj
+[2016-02-28 11:56:34.150] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 2nY_z9aDDmMTlF34AlGk
+[2016-02-28 12:02:14.212] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : L-U965G0TIlO0AZ9AlGl
+[2016-02-28 12:02:45.920] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:02:45","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:02:45.921] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:02:45","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:02:45.923] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:02:45","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:03:29.141] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Tr0O5Euv11YD4zXfAlGm
+[2016-02-28 12:03:33.008] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 91qI2m8fxPcZAQ2ZAlGn
+[2016-02-28 12:03:41.065] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : a1J0jgu-_6gHAbLiAlGo
+[2016-02-28 12:04:34.827] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:04:34","length":0,"msg":"1102号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:04:34.828] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:04:34","length":0,"msg":"1102号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:04:34.829] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:04:34","length":0,"msg":"1102号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:05:02.258] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : XcdraWFbob9adzsNAlGp
+[2016-02-28 12:05:03.874] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : HB-hvJY1gg_bH2zVAlGq
+[2016-02-28 12:05:44.654] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:05:44","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 12:05:44.656] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:05:44","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 12:06:38.129] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:06:38","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:06:38.130] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:06:38","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:06:38.130] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:06:38","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:09:59.316] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : hwlXUF0H9ENe7WA4AlGr
+[2016-02-28 12:10:06.648] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : UTMEstubnSnhB1ixAlGs
+[2016-02-28 12:10:52.800] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ckVhFBxGqvDCfJmcAlGt
+[2016-02-28 12:11:44.763] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : W9nFm6JT2KnKqHZFAlGu
+[2016-02-28 12:11:46.270] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : fZTozoItu2eg4KY4AlGv
+[2016-02-28 12:12:07.992] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : PYjsnxQDyfoFxA51AlGw
+[2016-02-28 12:12:33.323] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : cWeMRMGP9mrEzfieAlGx
+[2016-02-28 12:13:13.007] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : BBHgrefxtfdwHfR3AlGy
+[2016-02-28 12:13:15.573] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : zRhp6Z4vfXpELe_yAlGz
+[2016-02-28 12:13:30.894] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : CT2gRxdsY8uW3EHAAlG0
+[2016-02-28 12:14:12.606] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 3tpUhFMXkhVYUQfXAlG1
+[2016-02-28 12:14:16.064] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : xEPp8NnPs9R3-GFqAlG2
+[2016-02-28 12:14:22.945] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : DVHsDOmHncan0dExAlG3
+[2016-02-28 12:14:37.536] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : WF9cLB3VwCvd4xy_AlG4
+[2016-02-28 12:14:56.115] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : E2gZgygzJwMUMBIFAlG5
+[2016-02-28 12:17:23.900] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Ubwj3qJVsbVOsAYBAlG6
+[2016-02-28 12:18:24.830] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:18:24","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:18:24.831] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:18:24","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:18:24.831] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:18:24","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:19:01.739] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:19:01","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:19:01.740] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:19:01","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:19:01.741] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:19:01","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:19:14.271] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:19:14","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:19:14.272] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:19:14","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:19:14.273] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:19:14","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:19:46.198] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : JVfAX5dESdnsHSifAlG7
+[2016-02-28 12:19:53.872] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:19:53","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:19:53.872] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:19:53","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:19:53.873] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:19:53","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:22:14.184] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : y6O3l2R0yjZ2yRmYAlG8
+[2016-02-28 12:22:20.284] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : pI5omDbDlJQQIunGAlG9
+[2016-02-28 12:22:22.209] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 50CaDkOfiEMttrW8AlG-
+[2016-02-28 12:22:29.307] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : p0AGFZROefU1K6NTAlG_
+[2016-02-28 12:22:55.482] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 8_leUAec0yCTKPC_AlHA
+[2016-02-28 12:22:56.807] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 3sftB3FINmruh9-2AlHB
+[2016-02-28 12:23:00.244] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : RBg9YDSjhO67zJ57AlHC
+[2016-02-28 12:23:02.838] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : AIVGnEiUYdn5qAucAlHD
+[2016-02-28 12:23:06.705] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : eaPoxiOspy6vHRUwAlHE
+[2016-02-28 12:23:08.150] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : AwxuLLxnX-flggcCAlHF
+[2016-02-28 12:23:09.645] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : X1_wgioFsyRdgWnlAlHG
+[2016-02-28 12:23:53.012] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:23:53","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:23:53.013] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:23:53","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:23:53.014] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:23:53","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:23:53.154] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:23:53","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:23:53.156] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:23:53","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:23:53.156] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:23:53","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:24:17.499] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 25OZZJhKRGZX9FTJAlHH
+[2016-02-28 12:24:48.317] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : s6UE864DBOGBogKdAlHI
+[2016-02-28 12:24:51.510] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : -gezt2DWKAEzGqFgAlHJ
+[2016-02-28 12:25:15.029] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:25:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:25:15.030] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:25:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:25:15.031] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:25:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:25:43.395] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 5EGly6PiGI3w4ijIAlHK
+[2016-02-28 12:25:51.390] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : toIOuLAogcf86W6BAlHL
+[2016-02-28 12:25:56.299] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : NAV55xe8ituypeJ5AlHM
+[2016-02-28 12:26:15.495] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : -RGVAsyEv9i0Kw_9AlHN
+[2016-02-28 12:26:31.884] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : FT4rAok4Tq12-xuuAlHO
+[2016-02-28 12:26:32.448] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : oxKCloa4vy4JjfCwAlHP
+[2016-02-28 12:26:34.008] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : rygAALqTglIr1dTkAlHQ
+[2016-02-28 12:26:39.690] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : CyMpo_t4GIdCD05RAlHR
+[2016-02-28 12:26:46.381] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : mGIsq7TSUAe2IGJCAlHS
+[2016-02-28 12:26:47.770] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : OuFJ9hEbY7fPRcCJAlHT
+[2016-02-28 12:26:58.181] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : RjdkGPpxcNcQq03PAlHU
+[2016-02-28 12:27:11.042] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : J_gMR0dK-6Q0WxmLAlHV
+[2016-02-28 12:27:41.073] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : MWG4ro-glrOk6NFGAlHW
+[2016-02-28 12:27:44.248] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 2D7IW112q_LBd7XmAlHX
+[2016-02-28 12:27:49.983] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : AS4qZQTcomllDkVxAlHY
+[2016-02-28 12:27:55.081] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : Q49-vdEGqHIhu3b5AlHZ
+[2016-02-28 12:28:06.986] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9fW5yvYf-kPIbHzCAlHa
+[2016-02-28 12:28:08.552] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : be4rsa8YPAoFaY3gAlHb
+[2016-02-28 12:28:14.960] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : RBODMcutghnjLwSbAlHc
+[2016-02-28 12:29:35.475] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : K861geTAgJnxUkVjAlHd
+[2016-02-28 12:29:38.974] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : dCZ89R0miEOOxYnDAlHe
+[2016-02-28 12:32:37.703] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:32:37","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 12:32:37.704] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:32:37","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 12:32:37.705] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:32:37","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 12:33:27.095] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : -Aca0dxwj06kXcNXAlHf
+[2016-02-28 12:33:55.916] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : g6AzYUkhFQGnELpeAlHg
+[2016-02-28 12:33:57.881] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9J-ELkZKd5jHMhjQAlHh
+[2016-02-28 12:34:04.586] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : _RUTNZ1lcrvtj7j1AlHi
+[2016-02-28 12:34:35.810] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : sdZrXlf781wAFuMKAlHj
+[2016-02-28 12:34:49.852] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : gqpnfTefVt-ScInJAlHk
+[2016-02-28 12:34:56.057] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : dDbtgOYN_Dwth5wEAlHl
+[2016-02-28 12:35:06.392] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 0MOQ4C4M6XmhU2rFAlHm
+[2016-02-28 12:35:31.742] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : cUXYgmOpj9B_a33vAlHn
+[2016-02-28 12:35:36.701] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : jdjWOy-edfECiiXDAlHo
+[2016-02-28 12:36:22.381] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 8pybznjB6SSsZcKEAlHp
+[2016-02-28 12:36:41.844] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : WFtubN0DqN3RweWTAlHq
+[2016-02-28 12:36:54.362] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : cJFQbBp6u95ZfEcvAlHr
+[2016-02-28 12:37:14.149] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 8JZC9GzvTIoC3yuMAlHs
+[2016-02-28 12:38:54.807] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 3QXG5sm9Bi5eh8n3AlHt
+[2016-02-28 12:39:37.214] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Jeu1TZZVbrNzs8NNAlHu
+[2016-02-28 12:40:21.076] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:40:21","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 12:40:21.077] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:40:21","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 12:40:26.932] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : BfeXDe7BenumfMB_AlHv
+[2016-02-28 12:40:34.360] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:40:34","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 12:40:34.361] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:40:34","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 12:40:50.631] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:40:50","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 12:40:50.632] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:40:50","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 12:41:03.275] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:41:03","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 12:41:03.276] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 12:41:03","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 12:41:03.860] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 1IJzv5_mXnNxEkq3AlHw
+[2016-02-28 12:52:58.119] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : vyF5esUCZfc0WTWhAlHx
+[2016-02-28 12:53:03.234] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : Uqg5JqN7NQ9ECvyRAlHy
+[2016-02-28 12:53:08.155] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : gf1vlmE1guee00NzAlHz
+[2016-02-28 12:55:01.556] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : v8XajFYF2gslSmTrAlH0
+[2016-02-28 12:55:41.560] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : JiSJ0EqSCLHZLlEAAlH1
+[2016-02-28 12:56:01.458] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : eNd6ECOhaTauEmSPAlH2
+[2016-02-28 12:56:18.340] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : gGp4G0y8VMXs-xhfAlH3
+[2016-02-28 12:56:47.375] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 3l074qo0FKRuAkp8AlH4
+[2016-02-28 12:57:04.282] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : sUUIrqGXtz24I9L1AlH5
+[2016-02-28 12:57:09.141] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : a2RQxqjVHB3QdUsDAlH6
+[2016-02-28 12:57:10.499] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : IJdVqJpyGlmM3OInAlH7
+[2016-02-28 12:57:15.224] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : 7vyuidBgWD_5LYxCAlH8
+[2016-02-28 12:57:18.079] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : mD04whm6gxq6KpayAlH9
+[2016-02-28 12:57:22.393] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : FXkoGu1n84W0VPL-AlH-
+[2016-02-28 12:57:25.067] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : Rm8TeLpfg_6RJTFpAlH_
+[2016-02-28 12:57:39.100] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : DAn9ePJSJ5gpQxYYAlIA
+[2016-02-28 12:58:13.109] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : lsUM8bcBzACA_Av2AlIB
+[2016-02-28 12:58:21.609] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : LSuev8C8YV_i9wNqAlIC
+[2016-02-28 12:58:30.980] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : G9TbQ_cShVhIuhVjAlID
+[2016-02-28 12:58:35.908] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : xyZga3OGwFv4jv5JAlIE
+[2016-02-28 12:58:38.209] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : d1ihhA-GjuCk8nBRAlIF
+[2016-02-28 12:58:49.447] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : sZYO8ngCXELwqyhQAlIG
+[2016-02-28 12:59:39.810] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : cljyPka5Y-MNY9aYAlIH
+[2016-02-28 12:59:41.944] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : -CnkUcr9ygOq1zP9AlII
+[2016-02-28 12:59:47.234] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : R_zIegsvJzZHXQzLAlIJ
+[2016-02-28 12:59:48.608] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : S3sKh5lK2hCXgdUcAlIK
+[2016-02-28 13:02:03.747] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ui7GRJ4ELsbH2wmuAlIL
+[2016-02-28 13:02:32.176] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : uMKiFcnH3B703RZeAlIM
+[2016-02-28 13:02:44.454] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : iO-HooAgbEg5ZLdDAlIN
+[2016-02-28 13:02:54.415] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : dZGaxkFVM_ChBDvSAlIO
+[2016-02-28 13:03:16.928] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : 3861XvuFkhELysEnAlIP
+[2016-02-28 13:03:53.543] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : Ch_5IW4BGm3dmR_KAlIQ
+[2016-02-28 13:03:59.778] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : ktHXMq6vrmxHCjskAlIR
+[2016-02-28 13:04:11.317] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:04:11","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 13:04:11.318] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:04:11","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 13:04:11.319] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:04:11","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 13:04:12.246] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Uat8cAnyEtILKy8AAlIS
+[2016-02-28 13:04:15.458] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : pwLxyDkMGYS9U3UbAlIT
+[2016-02-28 13:04:17.160] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : opCU1NAZzDHazHvJAlIU
+[2016-02-28 13:04:18.929] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : j9Np5qRrpeKp7roqAlIV
+[2016-02-28 13:04:25.223] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : YJfkvzj9l23Tr_xMAlIW
+[2016-02-28 13:04:36.716] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : o3l-LbV4yRDetNkSAlIX
+[2016-02-28 13:04:43.403] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : XJAWEhw2Z3Euc4z6AlIY
+[2016-02-28 13:05:00.516] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : YkV_rLcahLw1673HAlIZ
+[2016-02-28 13:05:10.065] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : caVdZeZLW-d9o99kAlIa
+[2016-02-28 13:05:15.279] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Po03ukEL9jbxZISfAlIb
+[2016-02-28 13:05:17.299] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : nLXLT5_11H86UOdsAlIc
+[2016-02-28 13:05:22.197] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : nR7cWgE3Ca_PnNVmAlId
+[2016-02-28 13:06:17.650] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : c9eXQwUjCfs0rahTAlIe
+[2016-02-28 13:06:21.558] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : jaho67oD256zD_D7AlIf
+[2016-02-28 13:06:23.369] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : oEWSvaU5MjzqSVuVAlIg
+[2016-02-28 13:06:37.330] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : EB5w2E4_cCbXcGBGAlIh
+[2016-02-28 13:07:29.725] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : MsH7lNfyG-TaR1BHAlIi
+[2016-02-28 13:07:31.357] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : fuczI4JNJYZmRY1bAlIj
+[2016-02-28 13:07:38.023] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : -Cjn3sDoXcC2G37SAlIk
+[2016-02-28 13:08:08.275] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : wnO5GimwVx3csdlaAlIl
+[2016-02-28 13:08:14.308] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : SAXruxp2hsT3kUIXAlIm
+[2016-02-28 13:08:25.361] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : v3-oPYfGukxaqI9EAlIn
+[2016-02-28 13:08:54.882] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : dFQ-cpi3vrxLKjKkAlIo
+[2016-02-28 13:09:44.170] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : vBCl1RoUcJdVRi1dAlIp
+[2016-02-28 13:09:49.279] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : 1LWMQZxFYUf9bfuUAlIq
+[2016-02-28 13:09:53.187] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : HHeJNcF5L0Du_3FaAlIr
+[2016-02-28 13:10:05.217] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : R4WjOvxpiY7VoBnUAlIs
+[2016-02-28 13:10:18.925] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : JG_NhUjJ1py3joSRAlIt
+[2016-02-28 13:10:26.782] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : ckb2_GMd472lfLx_AlIu
+[2016-02-28 13:18:06.632] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : gzxQSFkk3HcxMRHhAlIv
+[2016-02-28 13:18:41.006] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : EG9BrhVjyfHr8NKVAlIw
+[2016-02-28 13:18:48.162] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : RpDCVrLQYxkiskprAlIx
+[2016-02-28 13:20:34.439] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : WItSZ-n-tif7YXQ8AlIy
+[2016-02-28 13:22:08.033] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : N7ishuAz1TFQQvRyAlIz
+[2016-02-28 13:22:25.056] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 27vzVJfhuHMOumfbAlI0
+[2016-02-28 13:22:27.104] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 6U-WgRWr3261i64VAlI1
+[2016-02-28 13:22:28.596] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ILnKkVreLeH3aSFKAlI2
+[2016-02-28 13:22:54.347] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : M2Qz5KMsU8739hFQAlI3
+[2016-02-28 13:23:10.841] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : qAUWUv72_Ta72dJgAlI4
+[2016-02-28 13:24:05.311] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : YwekDWr_n3QhvXFrAlI5
+[2016-02-28 13:24:36.202] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : tZmZbHlmuT4ihLkZAlI6
+[2016-02-28 13:24:57.802] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:24:57","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 13:24:57.803] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:24:57","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 13:24:57.803] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:24:57","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 13:27:21.942] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : zOMvArnRXDTHk2gZAlI7
+[2016-02-28 13:27:39.912] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 8xbaE1iJxCwFQ7JFAlI8
+[2016-02-28 13:28:30.507] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : GTqURDBSrRgPbTPQAlI9
+[2016-02-28 13:28:36.004] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : UDOv_lSzhyZqMldtAlI-
+[2016-02-28 13:28:47.107] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:28:47","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 13:28:47.108] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:28:47","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 13:28:47.109] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:28:47","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 13:29:06.138] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:29:06","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 13:29:06.139] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:29:06","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 13:29:06.139] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:29:06","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 13:35:49.770] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : tLtlSSEvE9Oepa6CAlI_
+[2016-02-28 13:37:09.263] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 44jeN1usBtvCWRtGAlJA
+[2016-02-28 13:38:54.873] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : HUBfI1TLZ3TvLcOoAlJB
+[2016-02-28 13:38:56.516] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : gYYTeIeE8PutaVpfAlJC
+[2016-02-28 13:39:05.400] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : mfoc1qyTjvHhuRR7AlJD
+[2016-02-28 13:39:23.530] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 1GHTc-wSWhHsgggUAlJE
+[2016-02-28 13:39:39.334] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : rlyVR57htDLqAGntAlJF
+[2016-02-28 13:40:02.300] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : d7RoODxqvCvo7AmdAlJG
+[2016-02-28 13:40:07.228] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : vsuPAKxllzXpZcDMAlJH
+[2016-02-28 13:40:29.843] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : hP_pkg8vngjlKFgMAlJI
+[2016-02-28 13:40:49.640] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : dopepYzq5m6bWnd3AlJJ
+[2016-02-28 13:40:52.958] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 6wE1hE1MswrJBF3cAlJK
+[2016-02-28 13:41:09.229] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : YXkwuyHEWCsh3LJdAlJL
+[2016-02-28 13:41:09.261] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:41:09","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 13:41:09.261] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:41:09","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 13:41:09.262] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:41:09","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 13:41:12.463] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : HLiSeSWJivn6tpeAAlJM
+[2016-02-28 13:41:15.073] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : wBlwAJ3QaPo0BeHYAlJN
+[2016-02-28 13:41:27.660] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : dowR5wk7ZBFYTBzqAlJO
+[2016-02-28 13:42:58.559] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 6hAUACYUvYSNXWk2AlJP
+[2016-02-28 13:43:15.271] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : hllTO1gm7Ss024IzAlJQ
+[2016-02-28 13:43:23.118] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : N6Cme-x4Tnwf-s4gAlJR
+[2016-02-28 13:44:12.658] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : CW_l-XTLKAgQ6kOgAlJS
+[2016-02-28 13:44:35.292] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : l8iQeAnMdUi7hrl6AlJT
+[2016-02-28 13:44:39.690] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9lAM2s9Bvea2wMKRAlJU
+[2016-02-28 13:45:35.637] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Fzu70wfdGd63qOfcAlJV
+[2016-02-28 13:45:38.838] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : SgnBvoqgbTC645wrAlJW
+[2016-02-28 13:45:38.871] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : o4z0lMsxYtaqBqQcAlJX
+[2016-02-28 13:45:43.012] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : s5f_UgryBTRJZjbYAlJY
+[2016-02-28 13:46:45.388] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Vu6yy3btuNl7jjesAlJZ
+[2016-02-28 13:46:47.081] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 483QSYA5QBbaZc_8AlJa
+[2016-02-28 13:47:23.202] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : rKIMzdyOrO9GhpUqAlJb
+[2016-02-28 13:47:41.711] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : CWWhH2KT0LZrw7LoAlJc
+[2016-02-28 13:47:57.616] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ozGsGD1sYgVUQ1FHAlJd
+[2016-02-28 13:48:21.729] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : jOvp7nxZX8bT9ANvAlJe
+[2016-02-28 13:48:39.375] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : qY-U0OCuW23plIiKAlJf
+[2016-02-28 13:49:21.037] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : CCJTYO8H21T12UxmAlJg
+[2016-02-28 13:49:49.261] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ZoDPE5DwL5iT7VhWAlJh
+[2016-02-28 13:49:50.527] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : uv6hX20-5HLVYRLJAlJi
+[2016-02-28 13:50:39.268] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:50:39","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 13:50:39.269] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:50:39","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 13:50:39.270] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:50:39","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 13:50:39.443] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : UJl1nXD3yyr_tD4GAlJj
+[2016-02-28 13:50:42.369] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : BTTgD7JaK_6TA5jVAlJk
+[2016-02-28 13:50:52.246] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : jicat2i0FUpzDKzwAlJl
+[2016-02-28 13:51:12.288] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : FJH8yZPEG0NZ40c5AlJm
+[2016-02-28 13:51:22.052] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : Z_-1p1Bgb9KscfJ-AlJn
+[2016-02-28 13:52:16.256] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : dNYr4ypx1di1vhrgAlJo
+[2016-02-28 13:52:24.711] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : Eav5GFj_beLciCgKAlJp
+[2016-02-28 13:52:45.462] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:52:45","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 13:52:45.463] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:52:45","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 13:53:13.011] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:53:13","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 13:53:13.012] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:53:13","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 13:53:36.330] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : sR0YFghPrI1J1hxAAlJq
+[2016-02-28 13:54:01.988] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : M8hfdUzQ4nFOhzkVAlJr
+[2016-02-28 13:54:02.498] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:54:02","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 13:54:02.499] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:54:02","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 13:54:02.500] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 13:54:02","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 13:54:33.243] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 9B7mK7983p0u7qsgAlJs
+[2016-02-28 13:55:01.418] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : q0WTEWVKPoxAtUHXAlJt
+[2016-02-28 13:55:06.680] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : c5AGKvLNOZo4WulEAlJu
+[2016-02-28 13:55:19.237] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : cDKCu0wjbx27Sv5uAlJv
+[2016-02-28 13:58:06.395] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : wza-6xa163cU3uA3AlJw
+[2016-02-28 14:01:19.977] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : IcG3gqKpvfkQDSOlAlJx
+[2016-02-28 14:02:36.678] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : edm40W_1KRNlANqyAlJy
+[2016-02-28 14:02:38.321] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : W4z9Xkqgm-e7A3I5AlJz
+[2016-02-28 14:03:02.568] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ykAnvL9KUCx_nOshAlJ0
+[2016-02-28 14:03:10.146] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : WcRIOM91zqwaCgPXAlJ1
+[2016-02-28 14:03:39.301] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ukQDeZFV3ag84-AiAlJ2
+[2016-02-28 14:04:39.272] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : vDOnuJNKdkAAUpXwAlJ3
+[2016-02-28 14:04:47.663] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : PHBZu50afhv4ZIIdAlJ4
+[2016-02-28 14:06:26.229] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:06:26","length":0,"msg":"1318号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"815"}
+[2016-02-28 14:06:36.566] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : yQNOGFYzdtQLqMLAAlJ5
+[2016-02-28 14:06:59.764] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:06:59","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"815"}
+[2016-02-28 14:08:18.526] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:08:18","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 14:08:18.527] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:08:18","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 14:11:28.047] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : vEjwLYgcfeaS8xEjAlJ6
+[2016-02-28 14:11:32.437] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : ssP3b7J9N0t58nLEAlJ7
+[2016-02-28 14:17:38.415] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 8SUsRHaBBmnblsg8AlJ8
+[2016-02-28 14:18:11.333] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : FfAdkIiuesd2n-mZAlJ9
+[2016-02-28 14:18:27.638] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : E5yWkDxNEzU9IqbpAlJ-
+[2016-02-28 14:19:15.488] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : X0dGvj5-vJ_0Go4vAlJ_
+[2016-02-28 14:19:19.962] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : EGlS1k8qJBL10FFKAlKA
+[2016-02-28 14:19:40.320] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 9xbxRrLyLXV_8-CBAlKB
+[2016-02-28 14:19:58.854] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 2k477t5bD6vy1GH4AlKC
+[2016-02-28 14:20:51.045] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 5Y0LGagBI2EJS56MAlKD
+[2016-02-28 14:21:43.385] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 2mAKqaDtd1LrvOsTAlKE
+[2016-02-28 14:21:47.766] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : vpuOoNQ1ruJtHKAXAlKF
+[2016-02-28 14:21:49.767] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : OF4IyivZcVfc0WHYAlKG
+[2016-02-28 14:22:06.800] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : UuIM2WTrBxVITwSDAlKH
+[2016-02-28 14:22:29.584] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : I358jA5FHswStA2TAlKI
+[2016-02-28 14:22:34.253] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : Gp7sEYYfu2YFn6a3AlKJ
+[2016-02-28 14:22:36.584] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : wEFm9YttCq3Mdd0rAlKK
+[2016-02-28 14:23:46.095] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ky6-qEnBDwR_T1w5AlKL
+[2016-02-28 14:24:40.323] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : fHW7b5SBozS2lnrgAlKM
+[2016-02-28 14:25:14.517] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:25:14","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 14:25:14.518] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:25:14","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 14:25:31.745] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:25:31","length":0,"msg":"1108号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 14:25:31.746] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:25:31","length":0,"msg":"1108号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 14:28:23.786] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ztapluxu_uRytWJYAlKN
+[2016-02-28 14:28:50.843] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Q9UW1XkseB7UA1UnAlKO
+[2016-02-28 14:29:09.781] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 3EdtayvpowEka4EAAlKP
+[2016-02-28 14:29:11.602] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Z6chN1Ul5_ew01VzAlKQ
+[2016-02-28 14:31:10.764] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 3dn6vHobVNodNhyEAlKR
+[2016-02-28 14:31:24.182] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : MF3At1poZaRd6FRqAlKS
+[2016-02-28 14:31:50.144] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : G54cEEgyqflMJeAiAlKT
+[2016-02-28 14:33:01.282] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : Oz3ouF5D40fCYDJTAlKU
+[2016-02-28 14:33:11.384] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : bXi8HvDjc37mLNCNAlKV
+[2016-02-28 14:33:40.001] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : tI0r-3NRfgWKX9qXAlKW
+[2016-02-28 14:34:04.776] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : cbq9MowxR9Wp4ynKAlKX
+[2016-02-28 14:34:06.031] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : uJm9RWFQgEwxVFtsAlKY
+[2016-02-28 14:34:12.057] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 1BFWkwRLDHhMvDz7AlKZ
+[2016-02-28 14:34:35.163] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : uQ8HyXI20MRlDKLYAlKa
+[2016-02-28 14:34:56.572] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : eIkwzdb2Ipe8x3BBAlKb
+[2016-02-28 14:35:27.060] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : A7r1yyh_O-awK2eoAlKc
+[2016-02-28 14:35:29.968] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : TGdKZFlEFbTAUR13AlKd
+[2016-02-28 14:35:31.641] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : qQfcE0LLLBwi1K2SAlKe
+[2016-02-28 14:35:41.461] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : g-EAv0PZ4ZO7CLQVAlKf
+[2016-02-28 14:35:55.069] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : aLPX9w8QwwcCLZyfAlKg
+[2016-02-28 14:36:00.455] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : K87auYCw_cPwDz36AlKh
+[2016-02-28 14:36:20.513] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : -a0vctYnzVd9dmXWAlKi
+[2016-02-28 14:36:23.119] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : u7c5JZGcNRBCq0EZAlKj
+[2016-02-28 14:36:26.336] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Ag_g-oiTGopeZBmjAlKk
+[2016-02-28 14:37:02.686] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : -etRYj3Y-b7NHcU8AlKl
+[2016-02-28 14:37:12.699] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:37:12","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 14:37:12.700] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:37:12","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 14:37:22.215] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : JIVSbs8DK-tgt9JtAlKm
+[2016-02-28 14:37:37.888] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9vSPwHXuFetUwJQOAlKn
+[2016-02-28 14:43:07.169] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : tLZ-NST_8819mrU7AlKo
+[2016-02-28 14:43:19.866] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:43:19","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 14:43:19.867] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:43:19","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 14:43:19.868] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:43:19","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 14:43:25.160] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : frYmbGdLc5k-4R9UAlKp
+[2016-02-28 14:45:53.472] [INFO] server - initUser --->> 门店 :124, 用户 : 238, socketId : 3bMA1CZr20P2FMD1AlKq
+[2016-02-28 14:46:00.885] [INFO] server - initUser --->> 门店 :124, 用户 : 238, socketId : V6oO5gJRrBtxNCeEAlKr
+[2016-02-28 14:47:29.111] [INFO] server - initUser --->> 门店 :124, 用户 : 238, socketId : TFgHSXuatfpFLaV6AlKs
+[2016-02-28 14:48:51.299] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : P9NPl5T0I102DA6mAlKt
+[2016-02-28 14:49:16.687] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : dJ8lFARTQ8q5FbpEAlKu
+[2016-02-28 14:50:14.777] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Kz-K41ipW-ABHGa8AlKv
+[2016-02-28 14:50:42.703] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : n2BqRjF2HUBiaSlLAlKw
+[2016-02-28 14:50:56.548] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : PBVueWoQ40wgJVKxAlKx
+[2016-02-28 14:51:14.566] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:51:14","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 14:51:14.567] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 14:51:14","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 14:52:57.961] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : mpR7j0bFuqAEPcuKAlKy
+[2016-02-28 14:53:22.502] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : bTq6O3R8TcpTUOefAlKz
+[2016-02-28 14:53:38.862] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : zzcOo1AwmBJNBaEnAlK0
+[2016-02-28 14:58:07.466] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : isiPvpax2S_dHFsAAlK1
+[2016-02-28 14:58:45.343] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9VwAMqe8yYHTbii7AlK2
+[2016-02-28 14:58:55.764] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : DcVRMaKb9NnAaCrKAlK3
+[2016-02-28 14:59:14.291] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 8hBMsfNesB-fXzI7AlK4
+[2016-02-28 14:59:41.047] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : HK25pIKuL74UWvfZAlK5
+[2016-02-28 14:59:49.552] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 25EmO2EgFUvZxx4bAlK6
+[2016-02-28 14:59:52.073] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : vSkQkSzbTHNYImazAlK7
+[2016-02-28 14:59:58.233] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : RNoY9GE-W-hiRuGxAlK8
+[2016-02-28 15:00:00.011] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 6mzJr0Bh51p3uN1eAlK9
+[2016-02-28 15:00:30.305] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : _ap-qd7Qt-QkLoCpAlK-
+[2016-02-28 15:00:49.001] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:00:48","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:00:49.002] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:00:48","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:00:49.003] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:00:48","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:00:59.319] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 163vXHwDAQDRKwnvAlK_
+[2016-02-28 15:01:13.320] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : AFLVWk_oxlj4aRq3AlLA
+[2016-02-28 15:01:15.313] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:01:15","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:01:15.314] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:01:15","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:01:15.314] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:01:15","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:01:15.508] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:01:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:01:15.509] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:01:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:01:15.510] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:01:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:02:28.535] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:02:28","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:02:28.536] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:02:28","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:02:28.536] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:02:28","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:02:48.200] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:02:48","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:02:48.201] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:02:48","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:02:48.202] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:02:48","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:03:02.553] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:03:02","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:03:02.554] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:03:02","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:03:02.555] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:03:02","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:03:31.122] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:03:31","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:03:31.123] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:03:31","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:03:31.123] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:03:31","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:04:07.976] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : whMzlJiuQdleh1DQAlLB
+[2016-02-28 15:05:04.601] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:04","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:05:04.602] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:04","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:05:04.602] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:04","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:05:44.388] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:44","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:05:44.389] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:44","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:05:44.389] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:44","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:05:44.506] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:44","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:05:44.507] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:44","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:05:44.507] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:44","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:05:56.266] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : WWy5PEopLnuSze5nAlLC
+[2016-02-28 15:05:59.458] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:59","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:05:59.459] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:59","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:05:59.460] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:05:59","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:06:12.639] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:06:12","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:06:12.640] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:06:12","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:06:12.641] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:06:12","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:06:24.538] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:06:24","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:06:24.539] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:06:24","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:06:24.540] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:06:24","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:06:39.620] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : aKPYf-Zpxu0CeUe6AlLD
+[2016-02-28 15:06:44.301] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : kDfujFdK8Hu0z5LWAlLE
+[2016-02-28 15:06:46.530] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 0aU9NSwDCpkOEjPWAlLF
+[2016-02-28 15:08:17.566] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : f0WYkBmkJtUbWxhiAlLG
+[2016-02-28 15:08:39.743] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : tuPFFayq8FMK7ntGAlLH
+[2016-02-28 15:10:21.129] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : qKSUjOHnQ8zHFaSuAlLI
+[2016-02-28 15:10:32.956] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : lKfw_2b2NdFWy-NtAlLJ
+[2016-02-28 15:11:39.867] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : y1ypSuExzouK-a5bAlLK
+[2016-02-28 15:12:23.367] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : B_ieGkgE3kKsDbGNAlLL
+[2016-02-28 15:12:24.953] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : UMCSPJWq1JtKf-04AlLM
+[2016-02-28 15:12:27.260] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : kYHw7EVFy3dOQ-DmAlLN
+[2016-02-28 15:12:28.003] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : TosZmXuw5cwsJF5mAlLO
+[2016-02-28 15:13:10.612] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : PlW88S2GPPSxDGQiAlLP
+[2016-02-28 15:13:18.944] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 16MwgNYu7QemPXJYAlLQ
+[2016-02-28 15:15:38.997] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : JcnF4Jdar9JI_HOnAlLR
+[2016-02-28 15:23:12.308] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : ab_txK_8ARqu0og2AlLS
+[2016-02-28 15:23:42.857] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : zdxaFpGjfbxbFHRLAlLT
+[2016-02-28 15:23:53.414] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : SqJ_w4r3uTkXZiCnAlLU
+[2016-02-28 15:23:56.027] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 2-e2nWDx5UcI9xQ0AlLV
+[2016-02-28 15:26:15.419] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:26:15","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:26:15.419] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:26:15","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:26:15.420] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:26:15","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:26:15.524] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:26:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:26:15.525] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:26:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:26:15.525] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:26:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:27:39.291] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ZH7HiDoeiD16L5zHAlLW
+[2016-02-28 15:30:33.098] [INFO] server - initUser --->> 门店 :124, 用户 : 238, socketId : xzQSiL_nXQtAkZ6NAlLX
+[2016-02-28 15:35:46.274] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:35:46","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:35:46.275] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:35:46","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:35:46.275] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:35:46","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:37:12.636] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:37:12","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:37:12.637] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:37:12","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:37:12.638] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:37:12","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:39:48.420] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : lqyP290Kmw-djEROAlLY
+[2016-02-28 15:40:21.157] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : SixkHinIApK-cIDLAlLZ
+[2016-02-28 15:41:25.993] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:41:25","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 15:41:25.994] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:41:25","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 15:41:40.741] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 8ShwTzJBtKt6Cu5sAlLa
+[2016-02-28 15:41:56.715] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 2hZUbAjpjh7ivPXXAlLb
+[2016-02-28 15:42:09.736] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 7u_BnIFjKSxAJcRCAlLc
+[2016-02-28 15:42:11.967] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : t-L68FnenOC29b6TAlLd
+[2016-02-28 15:43:54.554] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : wLYkTkUcMVxeC0A2AlLe
+[2016-02-28 15:43:56.001] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : utpPkSz-N66Jv2e6AlLf
+[2016-02-28 15:44:59.489] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 941dWvftTyYoBiEmAlLg
+[2016-02-28 15:45:44.898] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : L1F_nfowIgHMijOSAlLh
+[2016-02-28 15:47:30.112] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : KzWWYBnI_QtxTnFBAlLi
+[2016-02-28 15:47:37.948] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : ggzterHjdntB1YxtAlLj
+[2016-02-28 15:47:49.570] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : Q0Mqc1yFIuKGXmI2AlLk
+[2016-02-28 15:48:57.806] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : mabqgQ6YLv6g7T_FAlLl
+[2016-02-28 15:50:10.619] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:50:10","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 15:50:10.620] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:50:10","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 15:50:10.791] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:50:10","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 15:50:10.792] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:50:10","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 15:50:24.370] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:50:24","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 15:50:24.371] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:50:24","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 15:52:56.687] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:52:56","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 15:52:56.688] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:52:56","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 15:52:56.689] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 15:52:56","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 15:56:08.114] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : gJ9YPXj47KCCH7oOAlLm
+[2016-02-28 15:56:18.917] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Qyjn1tXS6k6NE1t0AlLn
+[2016-02-28 15:56:28.969] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : NdY38TRtVod4StkRAlLo
+[2016-02-28 15:56:54.442] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 6nY87cxNyqY57Hu_AlLp
+[2016-02-28 15:57:27.663] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : LtN7z0VkyWnpVUzJAlLq
+[2016-02-28 15:57:33.996] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : flj4QhxlxAykMuxUAlLr
+[2016-02-28 15:57:46.997] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : -JjZcirvx-Gzn7KaAlLs
+[2016-02-28 15:58:03.735] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : UO8huFYPBB-0zfmfAlLt
+[2016-02-28 15:58:10.669] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : iGcjlQV1-uwquT1dAlLu
+[2016-02-28 15:58:16.220] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : CQc2aoZd7GURzV3CAlLv
+[2016-02-28 15:58:22.253] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Gu-UwwVcD_iGlkDVAlLw
+[2016-02-28 15:58:30.584] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : y7ZNFwWFWsGxEQAbAlLx
+[2016-02-28 15:58:48.233] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : AZucjM14MOJ9UlqkAlLy
+[2016-02-28 15:58:59.679] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : HVxbb2Q9ZLiGL1SXAlLz
+[2016-02-28 15:59:04.743] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 0ylkZqQ4oo43s1CyAlL0
+[2016-02-28 15:59:10.312] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : DNBe_Cq__BsgmwgmAlL1
+[2016-02-28 15:59:14.944] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : WQLao16DbJ3QasOPAlL2
+[2016-02-28 15:59:15.079] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : OOFXEry-PQAJsz84AlL3
+[2016-02-28 15:59:19.401] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 7-wFDsK4WqFzIpDZAlL4
+[2016-02-28 15:59:23.537] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Hu8geMR4cPis2pNDAlL5
+[2016-02-28 15:59:31.603] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : AD3PslptyhM0ez9tAlL6
+[2016-02-28 15:59:36.345] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : XzOKaT52T6Silnb6AlL7
+[2016-02-28 15:59:42.731] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : XIEt62Wov3sAbNmVAlL8
+[2016-02-28 15:59:48.011] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : NKdxYMfDIW3gkTi0AlL9
+[2016-02-28 15:59:53.497] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Ba01oRxR1WAIp2ckAlL-
+[2016-02-28 16:00:02.966] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : QzYt7a9qzTEZFhR-AlL_
+[2016-02-28 16:00:07.613] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : J6d67DEFsvtiPXirAlMA
+[2016-02-28 16:00:24.073] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : cYBsyipqc-ptXQOkAlMB
+[2016-02-28 16:00:33.394] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : NKinwUmEmuCA0wuZAlMC
+[2016-02-28 16:00:54.589] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 66IqoCZOScrNdgaZAlMD
+[2016-02-28 16:01:03.826] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : dwMtUsyOhXBx2R-sAlME
+[2016-02-28 16:01:08.064] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 4Fnhh3OBE14YjRCfAlMF
+[2016-02-28 16:01:10.364] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : dTpscIhQegRszK4QAlMG
+[2016-02-28 16:01:14.207] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : FUlLP-3RfzsXqPnyAlMH
+[2016-02-28 16:01:25.745] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : bEsDZKQXyaqM__vGAlMI
+[2016-02-28 16:02:00.897] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : B9nZ6EyFgrQUsvarAlMJ
+[2016-02-28 16:02:04.744] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : zKdWYfGhuNYI56p7AlMK
+[2016-02-28 16:02:18.428] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : rVzXRjbT3WPzNVL8AlML
+[2016-02-28 16:02:52.169] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : c7fZU34cEF44-zPoAlMM
+[2016-02-28 16:02:56.827] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : i-YAIbfwwjGKVEHhAlMN
+[2016-02-28 16:04:53.640] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : fvgWNObC18hfQlrWAlMO
+[2016-02-28 16:05:55.313] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : RiwcCervH-qhfXNyAlMP
+[2016-02-28 16:07:45.109] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : tiLnPz-h_7qZpI9iAlMQ
+[2016-02-28 16:14:09.658] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : uU-HreCQngb2AkRHAlMR
+[2016-02-28 16:14:47.535] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : w49RqtSmX6yw3dNdAlMS
+[2016-02-28 16:14:51.691] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : VXM8UxKwsgPbtp67AlMT
+[2016-02-28 16:14:53.719] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : zPu9UqkG4tFtaQGxAlMU
+[2016-02-28 16:15:45.014] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : xOwjNXeu91d1dnhRAlMV
+[2016-02-28 16:16:55.552] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : _10P9SXnN7QVntc7AlMW
+[2016-02-28 16:17:23.065] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : FVGbZcQQJpfUEBH8AlMX
+[2016-02-28 16:18:01.707] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : LQcaNDRFUJiG6IAYAlMY
+[2016-02-28 16:18:43.209] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9M8OBS1mwzmFLOf_AlMZ
+[2016-02-28 16:22:02.660] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:22:02","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 16:22:02.661] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:22:02","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 16:22:02.662] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:22:02","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 16:22:19.402] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : aS6_HDXC4YyZ4exVAlMa
+[2016-02-28 16:22:26.443] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : x0a8kziOPZOoTdMbAlMb
+[2016-02-28 16:22:59.734] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : viyk8NqrIpiqVw7GAlMc
+[2016-02-28 16:23:13.579] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : -zOAW3Q4ZNUliI2UAlMd
+[2016-02-28 16:23:17.733] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : yYAsHlS1tZeE5tUpAlMe
+[2016-02-28 16:23:31.015] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:23:31","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 16:23:31.016] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:23:31","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 16:23:52.976] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : J6sl7tVpAndljMWIAlMf
+[2016-02-28 16:24:07.198] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : a5z0eJigvHeEZpTqAlMg
+[2016-02-28 16:24:13.915] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:24:13","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 16:24:13.916] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:24:13","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 16:24:13.916] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:24:13","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 16:27:27.833] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : JYc7sa5_uizyAQnnAlMh
+[2016-02-28 16:27:49.042] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : UhuchYHhMW79_4BdAlMi
+[2016-02-28 16:28:10.632] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : k_TtbuIgYJUElxEcAlMj
+[2016-02-28 16:29:23.650] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : _V5VqlQLohoNOtWGAlMk
+[2016-02-28 16:33:41.937] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : xH8Za0LSZEQen7ENAlMl
+[2016-02-28 16:33:44.254] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : xLH7UNWGo4EZ1gL9AlMm
+[2016-02-28 16:34:08.953] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 8P9u539056kTKQl6AlMn
+[2016-02-28 16:34:34.995] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : _PoGaT4LLcIUUjpfAlMo
+[2016-02-28 16:34:36.515] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : btYUohLi2W-_df99AlMp
+[2016-02-28 16:34:38.950] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : TE0tOpy_D1mwh_08AlMq
+[2016-02-28 16:35:17.175] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 87deGTv6PIffbs4UAlMr
+[2016-02-28 16:35:18.557] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ODsXOmfAME9DMROkAlMs
+[2016-02-28 16:35:38.058] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 6k6JwCmvO9aqBcpyAlMt
+[2016-02-28 16:35:39.919] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : JS6zVjfaEG7vd5G7AlMu
+[2016-02-28 16:36:24.274] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : XTnUR2ffjwkt56UCAlMv
+[2016-02-28 16:37:05.383] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : PdVV8CZx6PwcSQp2AlMw
+[2016-02-28 16:37:08.630] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : TXs-fyoDfn8HaO-DAlMx
+[2016-02-28 16:39:38.270] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : pQcw_8BtY6i3_QcyAlMy
+[2016-02-28 16:40:05.513] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 2H9LlilRRCKBZKpMAlMz
+[2016-02-28 16:40:24.658] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ABIjbPiFirDrCYZmAlM0
+[2016-02-28 16:40:52.187] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : LTGqnhKMF4vjTKMWAlM1
+[2016-02-28 16:44:36.629] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9hsF6tnkB4-exXfoAlM2
+[2016-02-28 16:45:02.469] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : eNjipLEcF_TBCEmUAlM3
+[2016-02-28 16:45:09.549] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : JHbQlRH8Kq87EVasAlM4
+[2016-02-28 16:45:11.104] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : I14Dn2-eEPnuBL9qAlM5
+[2016-02-28 16:45:23.007] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : gD3genUoqg-3gJKGAlM6
+[2016-02-28 16:45:49.777] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : YuetdxSb_7IsTuSVAlM7
+[2016-02-28 16:45:58.737] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : IM16euj2p9inNFBJAlM8
+[2016-02-28 16:46:00.946] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : PgQZgWM7EFec1ozHAlM9
+[2016-02-28 16:46:21.954] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : XUI6Isgy6S6HNSSaAlM-
+[2016-02-28 16:46:27.496] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : d2ynYc0wZrO1VRE7AlM_
+[2016-02-28 16:46:30.791] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Ce222_b6iRKuVrABAlNA
+[2016-02-28 16:46:42.033] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : jkA8Yy4RGpNStU-uAlNB
+[2016-02-28 16:46:46.573] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : BCNdsQ2zNrHxSeHeAlNC
+[2016-02-28 16:46:55.307] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : jU3aZnxk93MH8Z17AlND
+[2016-02-28 16:48:45.387] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : nqyAQ11TWT4u4ZLUAlNE
+[2016-02-28 16:49:34.237] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Hg2XxCBzKwzA7eS5AlNF
+[2016-02-28 16:53:17.589] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:53:17","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 16:53:17.590] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:53:17","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 16:53:17.591] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 16:53:17","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 16:54:00.819] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : yplidFMn_NjNeia-AlNG
+[2016-02-28 16:56:19.269] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : qHW1OamynKPcZDwHAlNH
+[2016-02-28 16:56:46.759] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : rRByNFysUKb7ig3RAlNI
+[2016-02-28 16:58:11.828] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : d4mT_H9yplAn-QlsAlNJ
+[2016-02-28 17:06:55.966] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : IdGzHgY2XzDviuESAlNK
+[2016-02-28 17:07:16.782] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : nnU5TYN-i8iDgUjMAlNL
+[2016-02-28 17:07:17.012] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:07:17","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 17:07:17.018] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:07:17","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 17:07:17.018] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:07:17","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 17:07:20.769] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : xOjyBIKvsp_G6GXBAlNM
+[2016-02-28 17:08:51.408] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : tO5ZUGQ06D7gq9NzAlNN
+[2016-02-28 17:08:57.811] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : WDepNLP8m0JYuvn-AlNO
+[2016-02-28 17:10:15.714] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : aFgLjCU0sfPDfXASAlNP
+[2016-02-28 17:10:32.267] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : NIVCQmFrn5CtKCA6AlNQ
+[2016-02-28 17:12:42.683] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 0rEdvZNv0HvgyaVDAlNR
+[2016-02-28 17:12:44.162] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ufiZ1jccE8NLR9ZiAlNS
+[2016-02-28 17:12:46.078] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : gMh1vCTfXQdXWM9FAlNT
+[2016-02-28 17:13:00.395] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : RRMxjYjgHSv2yKwyAlNU
+[2016-02-28 17:13:10.104] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : rRbbLoOg2qkXLXIhAlNV
+[2016-02-28 17:13:19.434] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : U3a_u0zrcvd2e4HnAlNW
+[2016-02-28 17:14:27.131] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : uAv2tfkBZHajq-0GAlNX
+[2016-02-28 17:15:01.604] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : G809GbEqYWBGIRevAlNY
+[2016-02-28 17:15:04.539] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : tKmCSmYBi1Y2bbOTAlNZ
+[2016-02-28 17:15:09.598] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : VMMER0wc5n2mpCBVAlNa
+[2016-02-28 17:15:29.990] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Aw95xFP7-QDttoMtAlNb
+[2016-02-28 17:15:53.835] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : j-H_lvWJNTkAGj1IAlNc
+[2016-02-28 17:16:22.724] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : yO7xOZxYN8cRDB5YAlNd
+[2016-02-28 17:17:09.759] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : zGLxKwfGKWU49aIiAlNe
+[2016-02-28 17:17:34.484] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : dDAsgCQd6QlAJ1Q6AlNf
+[2016-02-28 17:17:36.077] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : wJFU9BuJlbPjtUoYAlNg
+[2016-02-28 17:17:50.483] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ni7LVzquXLvwKkYMAlNh
+[2016-02-28 17:18:12.316] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : RZfNm49Vvgt2EOEfAlNi
+[2016-02-28 17:18:19.583] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : EGwxCiK796coHZ9vAlNj
+[2016-02-28 17:18:22.184] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 62vIy3YeUGlsJgvDAlNk
+[2016-02-28 17:18:24.238] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : WcEf18hVir_MGTPXAlNl
+[2016-02-28 17:20:14.352] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ZQBDXimXZ0uNakUyAlNm
+[2016-02-28 17:20:35.088] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 2ZIB0NpHNOXN67AnAlNn
+[2016-02-28 17:20:52.374] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : -YKaee6BWp492Nw-AlNo
+[2016-02-28 17:21:09.029] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 6wrDjLYI4B2Mgr4_AlNp
+[2016-02-28 17:21:17.100] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : tOBkeRbssKDSRX8XAlNq
+[2016-02-28 17:21:44.913] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : XUdO1CSuXrjN_GZ9AlNr
+[2016-02-28 17:23:00.766] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:23:00","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 17:23:00.768] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:23:00","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 17:23:11.760] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:23:11","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 17:23:11.761] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:23:11","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 17:27:36.454] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : NQECVLJekk2A2t3uAlNs
+[2016-02-28 17:28:13.381] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : zJrsAP7HnaDgav_FAlNt
+[2016-02-28 17:28:19.701] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : ec0rIhRTPDIqcho2AlNu
+[2016-02-28 17:28:42.829] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 6LdkwWUkAvH_rCSMAlNv
+[2016-02-28 17:28:47.027] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : aP_FutMlN7h-2sfXAlNw
+[2016-02-28 17:28:49.256] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 1G5h8_teUgHvTnm6AlNx
+[2016-02-28 17:30:25.326] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : UooQOXlAD2V7w1GcAlNy
+[2016-02-28 17:30:32.055] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ZqOilZjzlC5dM0IwAlNz
+[2016-02-28 17:30:58.329] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : SNkFL-VUl55Cc-Y5AlN0
+[2016-02-28 17:31:08.105] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 6aAl5lwU8rGiqxNKAlN1
+[2016-02-28 17:31:23.584] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : y_j6OYkKWBbBwXreAlN2
+[2016-02-28 17:32:11.303] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:32:11","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 17:32:11.304] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:32:11","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 17:32:11.305] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:32:11","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 17:32:11.511] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:32:11","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 17:32:11.512] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:32:11","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 17:32:11.512] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:32:11","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 17:33:21.793] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : r3F0JfYsOllY18WFAlN3
+[2016-02-28 17:33:34.604] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 4uhI2nqO5lWXCQIkAlN4
+[2016-02-28 17:33:47.979] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:33:47","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 17:33:47.980] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:33:47","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 17:33:47.980] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:33:47","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 17:33:51.587] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : oaBCt_wLH8OOlahSAlN5
+[2016-02-28 17:33:53.035] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 0bDXK2X3GDg6I1v3AlN6
+[2016-02-28 17:37:14.591] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : HunZPByK9dzHyXgiAlN7
+[2016-02-28 17:37:49.801] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : vFR_GwKsidXdAFKSAlN8
+[2016-02-28 17:37:54.245] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : bKr18vUa9eSu4NkHAlN9
+[2016-02-28 17:37:59.538] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 87J8r2Fzy1qnsgaEAlN-
+[2016-02-28 17:38:01.557] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Fkinsy1lZ0I-pde2AlN_
+[2016-02-28 17:38:51.055] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ZOGX0oL2txbEcqLrAlOA
+[2016-02-28 17:39:09.047] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : G1Sv7OlNVzaJf53dAlOB
+[2016-02-28 17:43:18.704] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:43:18","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 17:43:18.704] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:43:18","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 17:43:32.926] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:43:32","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 17:43:32.927] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:43:32","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 17:44:42.121] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:44:42","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 17:44:42.122] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:44:42","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 17:44:42.122] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:44:42","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 17:45:25.487] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:45:25","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 17:45:25.488] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:45:25","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 17:45:41.994] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:45:41","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 17:45:41.995] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:45:41","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 17:45:42.314] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:45:42","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 17:45:42.315] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:45:42","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 17:45:42.315] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 17:45:42","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 17:45:52.478] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ymT_Ai-Py5LzOYrtAlOC
+[2016-02-28 17:45:54.068] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Co5dyC9gSo4nu5wTAlOD
+[2016-02-28 17:50:49.224] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : kfdqsFO1Ts_MDBEJAlOE
+[2016-02-28 17:52:36.016] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : SDQOuUpYSeX4qH3XAlOF
+[2016-02-28 17:54:39.777] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 7EG-shJkevt_3JhQAlOG
+[2016-02-28 17:55:07.522] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : NyH6-nOWtgEjhXXEAlOH
+[2016-02-28 17:55:09.180] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : SWtEFerxApLVF_IgAlOI
+[2016-02-28 17:55:10.894] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ud3C_wtRpSfZbXnVAlOJ
+[2016-02-28 17:55:16.235] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 7wUujJC9Yurp6WTeAlOK
+[2016-02-28 17:55:40.142] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : FXN_GKWiIjPf2wesAlOL
+[2016-02-28 17:55:43.297] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : CqtqGbtmxC8RiQ4IAlOM
+[2016-02-28 17:59:31.530] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 36UgvPbGOZwnhrTIAlON
+[2016-02-28 18:02:07.514] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : xqbSsQgGcGArmeGyAlOO
+[2016-02-28 18:02:16.816] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : LqSmRwEsBOxKcVjmAlOP
+[2016-02-28 18:03:02.040] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : THD91nxLkUS3WcGIAlOQ
+[2016-02-28 18:03:41.127] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : d7215HPn8F2idgOoAlOR
+[2016-02-28 18:03:44.584] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Pdte8MHwI4h6cb2SAlOS
+[2016-02-28 18:03:58.419] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : GCB7IzUpDrV3wqdlAlOT
+[2016-02-28 18:04:01.580] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Map1T-h_jo001-FgAlOU
+[2016-02-28 18:04:45.044] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : kVK9Cc6c7CKAncMqAlOV
+[2016-02-28 18:04:54.382] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : E1E9bhFRCPSLV32wAlOW
+[2016-02-28 18:04:58.040] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : YXBCU6KxnKLYz2X-AlOX
+[2016-02-28 18:05:01.753] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : dgnROB7K7X9VC7_lAlOY
+[2016-02-28 18:05:05.420] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : RP6xgyIDeTHU0Ay3AlOZ
+[2016-02-28 18:05:08.962] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : pCF5EGEqUaq7oxqqAlOa
+[2016-02-28 18:05:12.682] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : jc23M_6cx13i-Gn6AlOb
+[2016-02-28 18:05:51.600] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : tVIj27QNAiEBxsMPAlOc
+[2016-02-28 18:06:13.585] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : ZZ5WE8PAklvZRPFnAlOd
+[2016-02-28 18:06:17.717] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : HiMXvsrWBGB0TsnCAlOe
+[2016-02-28 18:09:41.194] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : LnxJg4podjBjZsJbAlOf
+[2016-02-28 18:09:42.378] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Ay8RuN1MKs2SGx8XAlOg
+[2016-02-28 18:10:31.255] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : UQDgFIMkoPz3J044AlOh
+[2016-02-28 18:13:10.852] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : J3jcQFHW4-Kn_Ft2AlOi
+[2016-02-28 18:13:12.335] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : kH4Y4Ha4krFkmUXJAlOj
+[2016-02-28 18:13:31.738] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : dbOd-OlMAgn6zdKvAlOk
+[2016-02-28 18:13:56.851] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 7j9V9N-vIEPPvuBcAlOl
+[2016-02-28 18:14:19.025] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 83uAR0ktJLKsa4UUAlOm
+[2016-02-28 18:14:21.677] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : lYp7g6c-BZ86mhd7AlOn
+[2016-02-28 18:14:23.042] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : HrSKr9kP94YTiQAbAlOo
+[2016-02-28 18:15:04.407] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : eUfiVFJP5ythNz-IAlOp
+[2016-02-28 18:15:15.156] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : CcCtNcXg5PDRgCdjAlOq
+[2016-02-28 18:15:20.862] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : kMmW_I_7PmcqhrYEAlOr
+[2016-02-28 18:20:43.827] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : H0yiDxxBHYqZf1DjAlOs
+[2016-02-28 18:20:49.719] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : xlUTSh45z3e1vb5fAlOt
+[2016-02-28 18:20:51.532] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Fn_NGqW_43M4YUfpAlOu
+[2016-02-28 18:21:30.383] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ZyPAFn1jU7vZR0xPAlOv
+[2016-02-28 18:22:05.447] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : vMTu0204iYjhXowlAlOw
+[2016-02-28 18:22:08.483] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : F_EPyUR6mi-L2RpIAlOx
+[2016-02-28 18:22:47.408] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : rGGjfgdeWJ_W3UOLAlOy
+[2016-02-28 18:28:07.901] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 53yI2ZGG46TmFKhDAlOz
+[2016-02-28 18:29:12.958] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : P-Q5B-Fgsd9TGN9aAlO0
+[2016-02-28 18:29:16.368] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : fnVE5dk2QU2pl9F-AlO1
+[2016-02-28 18:29:44.735] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : GoeGI0YgEii4DTIuAlO2
+[2016-02-28 18:29:46.681] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : pbzLsFghrXGdmBz1AlO3
+[2016-02-28 18:31:15.754] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Za9vpFtAwkxdE4n0AlO4
+[2016-02-28 18:31:47.244] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : geEkPbXQard9PanxAlO5
+[2016-02-28 18:32:03.636] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Crt9KGA3I00GMr4OAlO6
+[2016-02-28 18:41:54.646] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 18:41:54","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 18:41:54.647] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 18:41:54","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 18:43:49.707] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : TWJlRlHTKzEdk7sRAlO7
+[2016-02-28 18:43:54.842] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : iQuJIZRN0FoQd0wmAlO8
+[2016-02-28 18:44:12.622] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : bc8Rfv1dJaKo8kYoAlO9
+[2016-02-28 18:52:38.550] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 8VJ-xNbr59m9rkC9AlO-
+[2016-02-28 18:53:18.290] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 1q5GcWw2MK7VPFbSAlO_
+[2016-02-28 18:53:22.523] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : EeCD2D8Wp3lmibTtAlPA
+[2016-02-28 18:55:23.436] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 650VfZgs6BYxBGjfAlPC
+[2016-02-28 18:56:39.495] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 5zWyqoFrATKjky3GAlPD
+[2016-02-28 18:56:43.192] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : _zVkCQoCivG4zaqzAlPE
+[2016-02-28 18:56:51.496] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 9q2ZL_cBl-AVyKh6AlPF
+[2016-02-28 18:57:31.632] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 0Qs7gl8xXwysANwAAlPG
+[2016-02-28 18:57:54.518] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : MNwac79AFFdECgidAlPH
+[2016-02-28 19:00:51.581] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 3Oij-du587XOGh9WAlPI
+[2016-02-28 19:01:40.320] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Nr7551auFdNrO5_TAlPJ
+[2016-02-28 19:01:47.423] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : RhxnCSnoxA5ljHucAlPK
+[2016-02-28 19:03:08.308] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : cBuJjCc_TuZ2kuRrAlPL
+[2016-02-28 19:03:51.565] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : NL2tSHBjkvJwyinAAlPM
+[2016-02-28 19:04:14.023] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : bmyi38_Or9HLFPKwAlPN
+[2016-02-28 19:05:46.025] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 9guaK11BhUmBdABdAlPO
+[2016-02-28 19:06:02.966] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : pOBs7hWM7rBotg3qAlPP
+[2016-02-28 19:06:39.860] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 19R-fgE_mmyyI9o9AlPQ
+[2016-02-28 19:07:16.200] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : IQYi3tiDTvBEd-_0AlPR
+[2016-02-28 19:07:58.378] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : pq4v-3eduRb1frHvAlPS
+[2016-02-28 19:09:58.935] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:09:58","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:09:58.936] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:09:58","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:14:32.568] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:14:32","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:14:32.569] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:14:32","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:17:01.073] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:17:01","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:17:01.074] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:17:01","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:17:12.263] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : gFFMFLxM1ViKqnVKAlPT
+[2016-02-28 19:17:13.627] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : fml24Orf0Q-roP0qAlPU
+[2016-02-28 19:17:15.298] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : caDGJ-bRV2VyqxVCAlPV
+[2016-02-28 19:17:16.416] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:17:16","length":0,"msg":"1108号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:17:16.417] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:17:16","length":0,"msg":"1108号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:18:27.840] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : VbeAXQY8zldsyZYPAlPW
+[2016-02-28 19:19:18.203] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : cuvPOeQ-tHyers0HAlPX
+[2016-02-28 19:19:20.097] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : CUPAh11UYNKFyHlqAlPY
+[2016-02-28 19:20:03.225] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:20:03","length":0,"msg":"1218号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 19:20:03.226] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:20:03","length":0,"msg":"1218号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 19:20:03.227] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:20:03","length":0,"msg":"1218号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 19:20:03.355] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:20:03","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 19:20:03.357] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:20:03","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 19:20:03.357] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:20:03","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 19:20:53.528] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : pxqcsw8ehsdy7gzrAlPZ
+[2016-02-28 19:24:15.429] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Xw0S2O2jIubWKLVhAlPa
+[2016-02-28 19:25:23.459] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : aBpPDjbzBB-fRYw8AlPb
+[2016-02-28 19:26:46.150] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:26:46","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:26:46.151] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:26:46","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:29:36.659] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:29:36","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:29:36.660] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:29:36","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:30:32.985] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : c8NBjm3DE24Wtr2tAlPc
+[2016-02-28 19:31:00.459] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : jSP0CincU2LG2ledAlPd
+[2016-02-28 19:31:06.819] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 7zn1kBiuZgQ63L_yAlPe
+[2016-02-28 19:31:08.826] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : In3bGrVZKui6-G8gAlPf
+[2016-02-28 19:31:10.000] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:31:09","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 19:31:10.001] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:31:09","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 19:31:10.002] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:31:09","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 19:33:48.416] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:33:48","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 19:33:48.417] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:33:48","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 19:33:48.418] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:33:48","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 19:34:30.201] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : UOpqb3jhdWZFbEC-AlPh
+[2016-02-28 19:34:31.216] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : ws-Q17bJ0NMRvB6uAlPg
+[2016-02-28 19:34:32.790] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : m5IvA5mOTr8gKwJfAlPi
+[2016-02-28 19:34:37.448] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : GP_N-B0hiXKfA7jSAlPj
+[2016-02-28 19:34:42.365] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : -fTbgxSU5VKcqEFuAlPk
+[2016-02-28 19:38:58.205] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 91wVs15PVL3AxmVYAlPl
+[2016-02-28 19:39:21.271] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:39:21","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:39:21.272] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:39:21","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:39:35.696] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : KiWnz5e49dihBM-zAlPm
+[2016-02-28 19:39:40.090] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : yZTEbPjaT92EUB8AAlPn
+[2016-02-28 19:40:28.234] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:40:28","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:40:28.235] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:40:28","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:40:28.443] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:40:28","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:40:28.444] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:40:28","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:40:28.641] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:40:28","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:40:28.643] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:40:28","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:40:43.385] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:40:43","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:40:43.386] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:40:43","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:41:04.477] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : cqujxlkfRgowrPM1AlPo
+[2016-02-28 19:42:24.168] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : TXQnCvjImbEYuCGyAlPp
+[2016-02-28 19:42:49.628] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : ymZ49oUHfe-wsK7CAlPq
+[2016-02-28 19:42:52.551] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : _46Qb1SAFyqjZLloAlPr
+[2016-02-28 19:44:54.528] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : WQHucsl9-dw8_MxmAlPs
+[2016-02-28 19:45:09.569] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : dH1H9V_ZgmB29OoUAlPt
+[2016-02-28 19:45:17.056] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : WxbLEo846zs8l4GhAlPu
+[2016-02-28 19:45:36.499] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : uyYSMxVdzDR4DCo_AlPv
+[2016-02-28 19:47:46.625] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : eSqquGa0vrJ70e5FAlPw
+[2016-02-28 19:48:56.055] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : E2o7_wKB0316ym8IAlPx
+[2016-02-28 19:53:07.299] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:53:07","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:53:07.300] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:53:07","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:53:07.494] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:53:07","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:53:07.495] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:53:07","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:53:07.697] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:53:07","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:53:07.698] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:53:07","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:53:57.773] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 7ncCKRYqX7IrjFNTAlPy
+[2016-02-28 19:54:06.223] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : DCifn7szUyGLrMZmAlPz
+[2016-02-28 19:54:11.218] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : Mety-eSC1IWtoQoKAlP0
+[2016-02-28 19:54:53.584] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:54:53","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:54:53.584] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:54:53","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:55:05.449] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 60zkRsofDBPkm2BYAlP1
+[2016-02-28 19:57:12.489] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:57:12","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:57:12.490] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:57:12","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:57:41.160] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : iLLVnVUlvSgWwWutAlP2
+[2016-02-28 19:57:47.058] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:57:47","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:57:47.059] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:57:47","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:57:47.199] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:57:47","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:57:47.200] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:57:47","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:57:49.094] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : d-r2dV8E_F_q7datAlP3
+[2016-02-28 19:57:58.323] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:57:58","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 19:57:58.323] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:57:58","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 19:58:00.578] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : V6fy02xvHB-ToOTgAlP4
+[2016-02-28 19:58:25.525] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:58:25","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 19:58:25.526] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:58:25","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 19:58:25.527] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:58:25","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 19:58:25.634] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:58:25","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 19:58:25.635] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:58:25","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 19:58:25.636] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 19:58:25","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 19:58:54.136] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : ivtDJcSw1L15EJa_AlP5
+[2016-02-28 19:59:11.460] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : yLT6pY1QtYqCxVrmAlP6
+[2016-02-28 19:59:36.847] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : ieo7Wid8OQGWjCw-AlP7
+[2016-02-28 19:59:41.483] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : hxLY8zdLkymiOhXYAlP8
+[2016-02-28 19:59:56.316] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : VBLyGQlB-vYzzKSjAlP9
+[2016-02-28 20:00:05.990] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : B6JbhiB5NqeWZ-ppAlP-
+[2016-02-28 20:00:14.617] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 31uf_tsx5FAo90GlAlP_
+[2016-02-28 20:00:19.022] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : GvoyGZZk-tY1ub1ZAlQA
+[2016-02-28 20:00:37.127] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : HjfnrD4Ddo1rKb2yAlQC
+[2016-02-28 20:00:37.696] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : WDm0-gJrK9iMexELAlQB
+[2016-02-28 20:00:47.435] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ypkwLo-KNZpdYmynAlQD
+[2016-02-28 20:00:52.131] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : AWir38BmtFsPga3aAlQE
+[2016-02-28 20:01:00.126] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : SpNCeD_RDb23cI4sAlQF
+[2016-02-28 20:01:13.731] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : EgUNX9GC8U23ZwaBAlQG
+[2016-02-28 20:01:23.786] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : _YSTNPQVythKk49yAlQH
+[2016-02-28 20:01:33.585] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : Ik4429DlZwLCDjtzAlQI
+[2016-02-28 20:01:47.858] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : OEZAndeTabkvtgbxAlQJ
+[2016-02-28 20:01:56.041] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : nk7ccyJKOZpFkiFRAlQK
+[2016-02-28 20:01:57.797] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : AUMv3sCXeW-zxi7HAlQL
+[2016-02-28 20:02:15.436] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : rhiQb1XZtqeg2rhqAlQM
+[2016-02-28 20:02:23.608] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : ovxcZ0VVlBnDX_mTAlQN
+[2016-02-28 20:04:16.891] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : YMv_DEKIQPfumX39AlQO
+[2016-02-28 20:04:18.279] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Saw3kafloZZaI9VxAlQP
+[2016-02-28 20:05:11.681] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : W3-JyslU6h1comX6AlQQ
+[2016-02-28 20:05:12.361] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 0LH5SgXjtXWaqhd1AlQR
+[2016-02-28 20:05:44.264] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : uhcewXyC2JYiuNbBAlQS
+[2016-02-28 20:06:02.545] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : jP58cp1-15NkLWZPAlQT
+[2016-02-28 20:06:04.012] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : l5V7-eS9QzPfIGYWAlQU
+[2016-02-28 20:06:39.631] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : POmJt_vm9dZ0j15lAlQV
+[2016-02-28 20:07:41.385] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:07:41","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 20:07:41.386] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:07:41","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 20:07:41.387] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:07:41","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 20:16:48.729] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : AZRqruPEgWZU5G6QAlQW
+[2016-02-28 20:16:58.850] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : RINrAYVjJ_yyYRoEAlQX
+[2016-02-28 20:18:34.336] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : q2PXEAexjR20cNHjAlQY
+[2016-02-28 20:19:53.777] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : exY9BfCnTNqoFMY9AlQZ
+[2016-02-28 20:23:13.515] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : -xgXH-NYwUiaWnQ5AlQa
+[2016-02-28 20:24:03.810] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 02M9OFa1SZ_W8fTWAlQb
+[2016-02-28 20:24:08.525] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : _znMU8x83FTDUDbVAlQc
+[2016-02-28 20:24:17.960] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:24:17","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 20:24:17.961] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:24:17","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 20:24:31.535] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:24:31","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 20:24:31.536] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:24:31","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 20:25:43.027] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : CbGnqWND8cCYoTpcAlQd
+[2016-02-28 20:28:11.714] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:28:11","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 20:28:11.715] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:28:11","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 20:28:11.715] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:28:11","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 20:30:17.633] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:30:17","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 20:30:17.634] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:30:17","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 20:34:00.451] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : WSoTAvMUB_JYBgbKAlQe
+[2016-02-28 20:34:10.307] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : VvVWHuOyA-xXyZPTAlQf
+[2016-02-28 20:36:50.306] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : oPWNXjUD984tY5GzAlQg
+[2016-02-28 20:37:40.147] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 7mTXXSRV-kDGjSulAlQh
+[2016-02-28 20:37:42.741] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 9uxMlYcsA26_bUaDAlQi
+[2016-02-28 20:37:44.799] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 40lJht_wDxu_SGXKAlQj
+[2016-02-28 20:38:40.555] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:38:40","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 20:38:40.556] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:38:40","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 20:38:40.557] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:38:40","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 20:38:40.688] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:38:40","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 20:38:40.689] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:38:40","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 20:38:40.690] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:38:40","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 20:43:55.849] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:43:55","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 20:43:55.850] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:43:55","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 20:43:55.851] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 20:43:55","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 20:45:12.330] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : rUTo6upPWWtdCINOAlQk
+[2016-02-28 20:56:00.650] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : 8r21aLeSrqvuw5kjAlQl
+[2016-02-28 20:57:22.991] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : Ys6pTybYQHaBfRnzAlQm
+[2016-02-28 20:57:49.604] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : XbPhBWco20ykxN1KAlQn
+[2016-02-28 21:04:53.639] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:04:53","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 21:04:53.641] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:04:53","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 21:05:58.193] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 07GpdBfvjS_43p0-AlQo
+[2016-02-28 21:07:26.008] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : FR5cB1xesl6WtU78AlQp
+[2016-02-28 21:07:29.950] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : U3swgkxJCBPH-9kCAlQq
+[2016-02-28 21:07:33.854] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 0hzcRpNTF84Ljn0bAlQr
+[2016-02-28 21:12:47.641] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : WULAjvmeWkXLPckoAlQs
+[2016-02-28 21:13:30.288] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : E526xQZfkbFjnrOUAlQt
+[2016-02-28 21:13:32.929] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : C3rz9p6JENVwVSWTAlQu
+[2016-02-28 21:14:21.915] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : jvw90qf4ff4KyGM1AlQv
+[2016-02-28 21:14:27.230] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 2wnz39KEsJ9gl8EFAlQw
+[2016-02-28 21:14:52.240] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : jfjvjP3Jq3_pBqfwAlQx
+[2016-02-28 21:15:20.221] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:20","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 21:15:20.222] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:20","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 21:15:20.222] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:20","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 21:15:39.609] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:39","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 21:15:39.610] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:39","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 21:15:39.611] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:39","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 21:15:42.503] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:42","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 21:15:42.504] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:42","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 21:15:49.944] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : fQ2UQJtR4Kyw_QZzAlQy
+[2016-02-28 21:15:59.389] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:59","length":0,"msg":"1108号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 21:15:59.390] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:15:59","length":0,"msg":"1108号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 21:15:59.708] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : NAXO2BEeU-gspqOaAlQz
+[2016-02-28 21:16:16.039] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 8vWCi_eqGFHVPNVvAlQ0
+[2016-02-28 21:16:18.862] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:16:18","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 21:16:18.863] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:16:18","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 21:16:37.536] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:16:37","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 21:16:37.538] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 21:16:37","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 21:21:22.593] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : -NE-V1GqWqQoeBh3AlQ1
+[2016-02-28 21:21:44.874] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 4x8ntNaBAaehMGSnAlQ2
+[2016-02-28 21:21:58.249] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : nsWi0NaqhzB77ONDAlQ3
+[2016-02-28 21:22:07.569] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : bTEOEaztouyFNadTAlQ4
+[2016-02-28 21:22:13.650] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : Nhmxqd2SSK4kJ8wkAlQ5
+[2016-02-28 21:22:48.971] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 5I7ls8NJU1L5whGRAlQ6
+[2016-02-28 21:24:11.672] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Y6puXSqqkc8bZneWAlQ7
+[2016-02-28 21:24:49.296] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : Pvr9RE1qXz9Kmlm7AlQ8
+[2016-02-28 21:24:54.010] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 1ry51Yz64IOC3a3DAlQ9
+[2016-02-28 21:25:03.668] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 1fGwfL7FeR4r3ALhAlQ-
+[2016-02-28 21:25:23.278] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : zME26MP0Qw9v6T4sAlQ_
+[2016-02-28 21:25:30.418] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : rGId4YeJzdJzLU6nAlRA
+[2016-02-28 21:25:35.213] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : KErzzMk4yRBO7yuoAlRB
+[2016-02-28 21:25:40.489] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : I8Td7XKaDdgOvyJMAlRC
+[2016-02-28 21:26:06.309] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : -Tj_uOhgvwHTYuegAlRD
+[2016-02-28 21:26:46.038] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : JSQnY9HcBY9Owo_hAlRE
+[2016-02-28 21:38:53.216] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : EAV7CrC0IuaIV8AqAlRF
+[2016-02-28 21:39:41.549] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : 7_W1RVFaGMm-njFgAlRG
+[2016-02-28 21:39:45.350] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : o6bJG8DkT0OmmxAdAlRH
+[2016-02-28 21:40:02.536] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 32lIG_ZehUalBKe1AlRI
+[2016-02-28 21:40:27.571] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Jt1VqB3nBvTOSty6AlRJ
+[2016-02-28 21:40:30.262] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : xNSoo0lbY_0qynyoAlRK
+[2016-02-28 21:40:51.640] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : nYQQ60WxaZTY7g-UAlRL
+[2016-02-28 21:41:14.851] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : ZIEsQLLen7RG6D0GAlRM
+[2016-02-28 21:41:56.534] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : uYW3cnxxw2o4bqrAAlRN
+[2016-02-28 21:42:00.140] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : pq1k3V4bm1a1sj94AlRO
+[2016-02-28 21:42:17.423] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : BushKrHIwgTJjq3TAlRP
+[2016-02-28 22:09:23.237] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : xUIs0hNuYtc5GjV5AlRQ
+[2016-02-28 22:09:30.768] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : QTDiBntFbpwvHQ6VAlRR
+[2016-02-28 22:10:09.438] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : Kr8lYoJcQcZkvl55AlRS
+[2016-02-28 22:11:42.498] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : kXSYAkyx9DIWZfNnAlRT
+[2016-02-28 22:12:11.787] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : V8o8sjUZkPaRrPPAAlRU
+[2016-02-28 22:12:34.471] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : KmrjBbObSDwdWdYtAlRV
+[2016-02-28 22:12:45.354] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : JoCqA5GYKb83VR0VAlRW
+[2016-02-28 22:13:13.770] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : JbBC90ImiLTrXvUUAlRX
+[2016-02-28 22:13:16.050] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 22:13:16","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-02-28 22:13:16.050] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 22:13:16","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-02-28 22:13:16.051] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 22:13:16","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-02-28 22:13:35.289] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : Rmydu3JZndUNWD6nAlRY
+[2016-02-28 22:13:41.530] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : nRnb2jVC7aVXHL9rAlRZ
+[2016-02-28 22:13:54.860] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 8W9gFexqY-izTuzkAlRa
+[2016-02-28 22:14:46.780] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : gScSvdcpGxEp0ozNAlRb
+[2016-02-28 22:15:32.002] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : zcTe6d1cwNoTvGOeAlRc
+[2016-02-28 22:15:36.546] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : JxuQmj62Suczbar8AlRd
+[2016-02-28 22:15:44.144] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : GaMepi2r3G2Zl4UpAlRe
+[2016-02-28 22:15:48.263] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : lOlYhccd9TJVEJuLAlRf
+[2016-02-28 22:16:20.979] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : na27pZZbYB2DdUvmAlRg
+[2016-02-28 22:16:27.850] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : s8d4vixob9ouhKoFAlRh
+[2016-02-28 22:17:15.587] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : cnhylahm-c6EU1CRAlRi
+[2016-02-28 22:17:44.759] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : GLoN6hF6quXEipXnAlRj
+[2016-02-28 22:18:29.721] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : xYbw556McCXnnwIbAlRk
+[2016-02-28 22:24:00.116] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : K-2gU4ygag26ioqDAlRl
+[2016-02-28 22:24:08.269] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : kv2FReoBQs1Qmr2qAlRm
+[2016-02-28 22:24:32.282] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : 4jcuPAwMU2g8I2zMAlRn
+[2016-02-28 22:28:05.025] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : tV1pKf2oSUgV1737AlRo
+[2016-02-28 22:28:28.914] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : 1UOfEbfAfAjyCMjYAlRq
+[2016-02-28 22:28:35.060] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : _JJ1OOFdfIU8_IgcAlRr
+[2016-02-28 22:28:42.051] [INFO] server - initUser --->> 门店 :157, 用户 : 330, socketId : MrJx3rvACK_kYOlmAlRs
+[2016-02-28 22:29:49.160] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : -jP8cdDLv4E7-B90AlRt
+[2016-02-28 22:30:42.441] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : FvK5DK1IfYBJv7C8AlRu
+[2016-02-28 22:31:16.994] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : k9vl28nXo4mN0uu1AlRv
+[2016-02-28 22:31:48.198] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : verozW9R4suTOSXMAlRw
+[2016-02-28 22:32:24.284] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 22:32:24","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 22:32:24.285] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 22:32:24","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 22:32:28.951] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : FaFWW0KM7p6LO_qjAlRx
+[2016-02-28 22:32:40.174] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 22:32:40","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-02-28 22:32:40.175] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-02-28 22:32:40","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-02-28 22:32:50.940] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : n7HNr26Dd4tAmrbZAlRy
+[2016-02-28 22:33:34.002] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : ncFq_0qs9qZtxnpqAlRz
+[2016-02-28 22:33:49.606] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : ukiqityg2l9k0drNAlR0
+[2016-02-28 22:35:17.557] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : sWW8iWvgGvZrWFLNAlR1
+[2016-02-28 22:37:26.696] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : VOO1sgg-ymYOdK1ZAlR2
+[2016-02-28 22:38:09.506] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Sfp_AtQ8XilE9yU1AlR3
+[2016-02-28 22:39:16.260] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : xUK8drh_usCXpCcBAlR4
+[2016-02-28 22:41:58.137] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : OVY8JpZ3Cwe3fGV0AlR5
+[2016-02-28 22:42:09.892] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : c7xbVAB0Qg4K6DMVAlR6
+[2016-02-28 22:46:26.778] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : jiQHoEXMssY3sKUnAlR7
+[2016-02-28 22:46:47.028] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : B-Lsc3YH7oWtQXqbAlR8
+[2016-02-28 22:47:30.454] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : LmpbSvBmpQjPEWxiAlR9
+[2016-02-28 22:47:52.024] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : wos3PYPzA7XdPO-vAlR-
+[2016-02-28 22:47:57.254] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : RxiBHRrZIA0mT8LZAlR_
+[2016-02-28 22:47:59.608] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 51CMd2_FGxuRBUD2AlSA
+[2016-02-28 22:48:17.170] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : WzF79nWSs81clm1pAlSB
+[2016-02-28 22:48:40.434] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : z_qKZBbRNiQP9fYiAlSC
+[2016-02-28 22:48:54.044] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : ppTeR3Zm3aMXEqDcAlSD
+[2016-02-28 22:49:01.698] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Q5tXE2-hKQk-8kTwAlSE
+[2016-02-28 22:49:30.846] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Qyq0VFpc9C8V1WbAAlSF
+[2016-02-28 22:50:03.841] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : hHOtJzmDzyf1HqcLAlSG
+[2016-02-28 22:50:39.542] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : LmG6g4_Riwl55MlGAlSH
+[2016-02-28 22:50:58.077] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : rm-ADp6b-a4mTUcpAlSI
+[2016-02-28 22:51:23.092] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 5pOFvr_t3l530-8SAlSJ
+[2016-02-28 22:51:46.149] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : YmjUZCFozT4ewgJrAlSK
+[2016-02-28 22:52:42.173] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 3D37VtKbNFNW3dkUAlSL
+[2016-02-28 22:52:48.437] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : a8G41BD9OIwkwyCBAlSM
+[2016-02-28 22:52:56.797] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : LY0c1QiXxnE08C0UAlSN
+[2016-02-28 22:53:11.735] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : jn50nGlwIE_HcQ2OAlSO
+[2016-02-28 22:53:29.007] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Ezkz9jqNSWlaR8AuAlSP
+[2016-02-28 22:53:41.978] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Pqr3-sHOFoKuUyyaAlSQ
+[2016-02-28 22:53:52.765] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : XjMeu2AaZEj1HThxAlSR
+[2016-02-28 22:55:09.951] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : QbL_ifPewvOmbcXQAlSS
+[2016-02-28 22:55:16.365] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : ev9ATye2cahzcJSWAlST
+[2016-02-28 22:55:28.506] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : rswn7lV7OwMukPBGAlSU
+[2016-02-28 22:55:35.855] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : uTuSG8LpWyfsSVqCAlSV
+[2016-02-28 22:56:01.375] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : rEAHrNyCqAnMtm86AlSW
+[2016-02-28 22:56:06.354] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : SqxVtotLzvjdw8osAlSX
+[2016-02-28 22:56:27.016] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 8RzxXaLnNT3kH8h8AlSY
+[2016-02-28 22:56:33.822] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : wSVePtTqgp7ExQQeAlSZ
+[2016-02-28 22:56:40.055] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 6ltKU9eKKF3m8e2dAlSa
+[2016-02-28 22:56:45.279] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : iRuhciuyRRJ-O689AlSb
+[2016-02-28 22:56:50.649] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : ibqVz8Apzkh_2jC_AlSc
+[2016-02-28 22:56:55.417] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 4QXZIZ5L1ka5fc4mAlSd
+[2016-02-28 22:57:01.180] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : nTJb5_3DhulDSSIlAlSe
+[2016-02-28 22:57:10.380] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : FvqQAiSvgCldEXEjAlSf
+[2016-02-28 22:57:15.438] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : qDtYFY-vOaE3WifcAlSg
+[2016-02-28 22:57:19.573] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : Jk0kmzOhA3YnjhuCAlSh
+[2016-02-28 22:57:24.941] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : GdPIic9llt6qFc87AlSi
+[2016-02-28 23:10:15.513] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 7kFF1tJxEYEXRD_VAlSj
+[2016-02-28 23:10:17.480] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : gphetWd8Ymg77FpIAlSk
+[2016-02-28 23:10:52.485] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : vgd9OCOvLWPHBMHCAlSl
+[2016-02-28 23:11:23.513] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : odjVfRVqRdIScTjTAlSm
+[2016-02-28 23:11:31.049] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : cfgbcCJVeGC488efAlSn
+[2016-02-28 23:11:50.904] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : MhAqhho_s4nDmQtOAlSo
+[2016-02-28 23:13:35.485] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : uLkNSw_xbnlbgDCdAlSp
+[2016-02-28 23:15:04.717] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : DnlgOD2XvmRWA32hAlSq
+[2016-02-28 23:19:54.014] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : 7Kbccxp7rX5b_6Q8AlSr
+[2016-02-28 23:22:20.545] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : GArDeeXBP3N8jy5eAlSs
+[2016-02-28 23:23:06.570] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : pSgaA6_aeQkFUpcOAlSt
+[2016-02-28 23:23:24.593] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : q4HYarQHV5HlLqxfAlSu
+[2016-02-28 23:24:00.691] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : fK6MwH_gaLy5XL_mAlSv
+[2016-02-28 23:25:58.808] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : pSLhlJVgLC4Mn1tyAlSw
+[2016-02-28 23:26:10.491] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : O8pMoG-cncw8m3BoAlSx
+[2016-02-28 23:28:17.686] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : ojus2QksPZSQUpj6AlSy
+[2016-02-28 23:31:06.526] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : E2PulcR0GW_rJ9qsAlSz
+[2016-02-28 23:31:32.084] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : V0GPfgppciWuWOS7AlS0
+[2016-02-28 23:31:55.222] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : jvmCUMLAoQMnGhoEAlS1
+[2016-02-28 23:32:01.125] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : ZU-48ZFLnaJyFDinAlS2
+[2016-02-28 23:32:04.770] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : vkJ32t9ABrukldwZAlS3
+[2016-02-28 23:33:27.592] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : KuFsPryfy7mE29y2AlS4
+[2016-02-28 23:33:43.106] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : dD_05qABva9awz-gAlS5
+[2016-02-28 23:33:50.768] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : dzQ2J16znpt2jiKaAlS6
+[2016-02-28 23:35:43.885] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : ju9xs8G330I9bqwkAlS7
+[2016-02-28 23:35:54.020] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : NPSL2fLaMIIFT0OQAlS8
+[2016-02-28 23:35:59.265] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : knjsOERVK8e7JmHvAlS9
+[2016-02-28 23:36:40.788] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : 6B5Wn7qNWFQjbbiwAlS-
+[2016-02-28 23:36:46.410] [INFO] server - initUser --->> 门店 :1032, 用户 : 815, socketId : _l6oi5dT1ZHL1eTRAlS_
+[2016-02-28 23:37:41.171] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : gMtcG2yjF-hyZyadAlTA
+[2016-02-28 23:37:45.955] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : X4OanE5t-yt1Y8VfAlTB
+[2016-02-28 23:42:07.021] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : qrelSp4mS1JXREvCAlTC
+[2016-02-28 23:42:29.160] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : wBI1LTd94sAZ4iP-AlTD
+[2016-02-28 23:49:52.813] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : jVGA7CxXJ-c6VClvAlTE
+[2016-02-28 23:50:31.433] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : DOSU9vu-OMojlyHPAlTF
+[2016-02-28 23:51:03.999] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : B0Dn42Pn1O4B5hufAlTG
+[2016-02-28 23:51:47.533] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : -1dZ6GjUSKPaXTMYAlTH
+[2016-02-28 23:59:17.005] [INFO] server - initUser --->> 门店 :163, 用户 : 394, socketId : zQLUUsJ4npvPXa0jAlTI

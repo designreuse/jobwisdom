@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.MemberCardInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.MemberCardInfo" >
+    <id column="card_id" property="cardId" jdbcType="INTEGER" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="card_type" property="cardType" jdbcType="INTEGER" />
+    <result column="card_project_discount" property="cardProjectDiscount" jdbcType="INTEGER" />
+    <result column="card_goods_discount" property="cardGoodsDiscount" jdbcType="INTEGER" />
+    <result column="card_money_recharge" property="cardMoneyRecharge" jdbcType="DECIMAL" />
+    <result column="card_money_cash" property="cardMoneyCash" jdbcType="DECIMAL" />
+    <result column="card_is_use_date" property="cardIsUseDate" jdbcType="INTEGER" />
+    <result column="card_is_message" property="cardIsMessage" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    card_id, card_name, store_id, card_type, card_project_discount, card_goods_discount, 
+    card_money_recharge, card_money_cash, card_is_use_date, card_is_message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_card_info
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_card_info
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.MemberCardInfo" useGeneratedKeys="true" keyProperty="cardId">
+    insert into member_card_info (card_id, card_name, store_id, 
+      card_type, card_project_discount, card_goods_discount, 
+      card_money_recharge, card_money_cash, card_is_use_date, 
+      card_is_message)
+    values (#{cardId,jdbcType=INTEGER}, #{cardName,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
+      #{cardType,jdbcType=INTEGER}, #{cardProjectDiscount,jdbcType=INTEGER}, #{cardGoodsDiscount,jdbcType=INTEGER}, 
+      #{cardMoneyRecharge,jdbcType=DECIMAL}, #{cardMoneyCash,jdbcType=DECIMAL}, #{cardIsUseDate,jdbcType=INTEGER}, 
+      #{cardIsMessage,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.MemberCardInfo" >
+    insert into member_card_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="cardName != null" >
+        card_name,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="cardType != null" >
+        card_type,
+      </if>
+      <if test="cardProjectDiscount != null" >
+        card_project_discount,
+      </if>
+      <if test="cardGoodsDiscount != null" >
+        card_goods_discount,
+      </if>
+      <if test="cardMoneyRecharge != null" >
+        card_money_recharge,
+      </if>
+      <if test="cardMoneyCash != null" >
+        card_money_cash,
+      </if>
+      <if test="cardIsUseDate != null" >
+        card_is_use_date,
+      </if>
+      <if test="cardIsMessage != null" >
+        card_is_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="cardName != null" >
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=INTEGER},
+      </if>
+      <if test="cardProjectDiscount != null" >
+        #{cardProjectDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="cardGoodsDiscount != null" >
+        #{cardGoodsDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="cardMoneyRecharge != null" >
+        #{cardMoneyRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="cardMoneyCash != null" >
+        #{cardMoneyCash,jdbcType=DECIMAL},
+      </if>
+      <if test="cardIsUseDate != null" >
+        #{cardIsUseDate,jdbcType=INTEGER},
+      </if>
+      <if test="cardIsMessage != null" >
+        #{cardIsMessage,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.MemberCardInfo" >
+    update member_card_info
+    <set >
+      <if test="cardName != null" >
+        card_name = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="cardType != null" >
+        card_type = #{cardType,jdbcType=INTEGER},
+      </if>
+      <if test="cardProjectDiscount != null" >
+        card_project_discount = #{cardProjectDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="cardGoodsDiscount != null" >
+        card_goods_discount = #{cardGoodsDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="cardMoneyRecharge != null" >
+        card_money_recharge = #{cardMoneyRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="cardMoneyCash != null" >
+        card_money_cash = #{cardMoneyCash,jdbcType=DECIMAL},
+      </if>
+      <if test="cardIsUseDate != null" >
+        card_is_use_date = #{cardIsUseDate,jdbcType=INTEGER},
+      </if>
+      <if test="cardIsMessage != null" >
+        card_is_message = #{cardIsMessage,jdbcType=INTEGER},
+      </if>
+    </set>
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.MemberCardInfo" >
+    update member_card_info
+    set card_name = #{cardName,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      card_type = #{cardType,jdbcType=INTEGER},
+      card_project_discount = #{cardProjectDiscount,jdbcType=INTEGER},
+      card_goods_discount = #{cardGoodsDiscount,jdbcType=INTEGER},
+      card_money_recharge = #{cardMoneyRecharge,jdbcType=DECIMAL},
+      card_money_cash = #{cardMoneyCash,jdbcType=DECIMAL},
+      card_is_use_date = #{cardIsUseDate,jdbcType=INTEGER},
+      card_is_message = #{cardIsMessage,jdbcType=INTEGER}
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+  <select id="selectVipCardInfos" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member_card_info
+    where store_id = #{storeId} and card_type = #{cardType}
+  </select>
+  <select id="selectVipCardsByPage" resultMap="BaseResultMap" parameterType="com.lives.platform.web.entity.Page">
+    select 
+    <include refid="Base_Column_List" />
+    from member_card_info
+    where store_id = #{params.storeId} and card_type = #{params.cardType}
+  </select>
+</mapper>

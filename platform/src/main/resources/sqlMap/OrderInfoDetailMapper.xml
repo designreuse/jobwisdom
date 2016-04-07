@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.OrderInfoDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.OrderInfoDetail" >
+    <id column="order_info_detail_id" property="orderInfoDetailId" jdbcType="INTEGER" />
+    <result column="order_info_id" property="orderInfoId" jdbcType="INTEGER" />
+    <result column="order_info_type" property="orderInfoType" jdbcType="INTEGER" />
+    <result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="real_income_amount" property="realIncomeAmount" jdbcType="DECIMAL" />
+    <result column="payable_amount" property="payableAmount" jdbcType="DECIMAL" />
+    <result column="sale_amount" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="commodity_id" property="commodityId" jdbcType="INTEGER" />
+    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    <result column="commodity_price" property="commodityPrice" jdbcType="DECIMAL" />
+    <result column="commodity_num" property="commodityNum" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_info_detail_id, order_info_id, order_info_type, order_amount, real_income_amount, 
+    payable_amount, sale_amount, commodity_id, commodity_name, commodity_price, commodity_num, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_order_info_detail
+    where order_info_detail_id = #{orderInfoDetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_order_info_detail
+    where order_info_detail_id = #{orderInfoDetailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.OrderInfoDetail" useGeneratedKeys = "true" keyProperty="order_info_detail_id">
+    insert into pt_order_info_detail (order_info_detail_id, order_info_id, 
+      order_info_type, order_amount, real_income_amount, 
+      payable_amount, sale_amount, commodity_id, 
+      commodity_name, commodity_price, commodity_num, 
+      create_time)
+    values (#{orderInfoDetailId,jdbcType=INTEGER}, #{orderInfoId,jdbcType=INTEGER},
+      #{orderInfoType,jdbcType=INTEGER}, #{orderAmount,jdbcType=DECIMAL}, #{realIncomeAmount,jdbcType=DECIMAL}, 
+      #{payableAmount,jdbcType=DECIMAL}, #{saleAmount,jdbcType=DECIMAL}, #{commodityId,jdbcType=INTEGER}, 
+      #{commodityName,jdbcType=VARCHAR}, #{commodityPrice,jdbcType=DECIMAL}, #{commodityNum,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.OrderInfoDetail" >
+    insert into pt_order_info_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderInfoDetailId != null" >
+        order_info_detail_id,
+      </if>
+      <if test="orderInfoId != null" >
+        order_info_id,
+      </if>
+      <if test="orderInfoType != null" >
+        order_info_type,
+      </if>
+      <if test="orderAmount != null" >
+        order_amount,
+      </if>
+      <if test="realIncomeAmount != null" >
+        real_income_amount,
+      </if>
+      <if test="payableAmount != null" >
+        payable_amount,
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount,
+      </if>
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="commodityName != null" >
+        commodity_name,
+      </if>
+      <if test="commodityPrice != null" >
+        commodity_price,
+      </if>
+      <if test="commodityNum != null" >
+        commodity_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderInfoDetailId != null" >
+        #{orderInfoDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="orderInfoId != null" >
+        #{orderInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="orderInfoType != null" >
+        #{orderInfoType,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmount != null" >
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realIncomeAmount != null" >
+        #{realIncomeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payableAmount != null" >
+        #{payableAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleAmount != null" >
+        #{saleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=INTEGER},
+      </if>
+      <if test="commodityName != null" >
+        #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityPrice != null" >
+        #{commodityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityNum != null" >
+        #{commodityNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.OrderInfoDetail" >
+    update pt_order_info_detail
+    <set >
+      <if test="orderInfoId != null" >
+        order_info_id = #{orderInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="orderInfoType != null" >
+        order_info_type = #{orderInfoType,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmount != null" >
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realIncomeAmount != null" >
+        real_income_amount = #{realIncomeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payableAmount != null" >
+        payable_amount = #{payableAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount = #{saleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityId != null" >
+        commodity_id = #{commodityId,jdbcType=INTEGER},
+      </if>
+      <if test="commodityName != null" >
+        commodity_name = #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityPrice != null" >
+        commodity_price = #{commodityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityNum != null" >
+        commodity_num = #{commodityNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where order_info_detail_id = #{orderInfoDetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.OrderInfoDetail" >
+    update pt_order_info_detail
+    set order_info_id = #{orderInfoId,jdbcType=INTEGER},
+      order_info_type = #{orderInfoType,jdbcType=INTEGER},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      real_income_amount = #{realIncomeAmount,jdbcType=DECIMAL},
+      payable_amount = #{payableAmount,jdbcType=DECIMAL},
+      sale_amount = #{saleAmount,jdbcType=DECIMAL},
+      commodity_id = #{commodityId,jdbcType=INTEGER},
+      commodity_name = #{commodityName,jdbcType=VARCHAR},
+      commodity_price = #{commodityPrice,jdbcType=DECIMAL},
+      commodity_num = #{commodityNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where order_info_detail_id = #{orderInfoDetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

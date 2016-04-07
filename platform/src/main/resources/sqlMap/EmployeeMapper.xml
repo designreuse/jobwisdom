@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.EmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.Employee" >
+    <id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="employee_no" property="employeeNo" jdbcType="VARCHAR" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="post_message_id" property="postMessageId" jdbcType="INTEGER" />
+    <result column="position_id" property="positionId" jdbcType="INTEGER" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="card" property="card" jdbcType="VARCHAR" />
+    <result column="card_img" property="cardImg" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="CHAR" />
+    <result column="degree" property="degree" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="health_prove" property="healthProve" jdbcType="VARCHAR" />
+    <result column="health_prove_img" property="healthProveImg" jdbcType="VARCHAR" />
+    <result column="health_state" property="healthState" jdbcType="VARCHAR" />
+    <result column="bankname" property="bankname" jdbcType="VARCHAR" />
+    <result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+    <result column="contacts" property="contacts" jdbcType="VARCHAR" />
+    <result column="contacts_mobile" property="contactsMobile" jdbcType="INTEGER" />
+    <result column="boss_sponsor" property="bossSponsor" jdbcType="INTEGER" />
+    <result column="sponsor" property="sponsor" jdbcType="INTEGER" />
+    <result column="work_state" property="workState" jdbcType="INTEGER" />
+    <result column="work_time" property="workTime" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="other_img" property="otherImg" jdbcType="VARCHAR" />
+    <result column="boss_sponsor_name" property="bossSponsorName" jdbcType="VARCHAR" />
+    <result column="sponsor_name" property="sponsorName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="EmployeeDtoMap" type="com.lives.platform.web.dto.EmployeeDto" >
+    <id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="employee_no" property="employeeNo" jdbcType="VARCHAR" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="post_message_id" property="postMessageId" jdbcType="INTEGER" />
+    <result column="position_id" property="positionId" jdbcType="INTEGER" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="card" property="card" jdbcType="VARCHAR" />
+    <result column="card_img" property="cardImg" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="CHAR" />
+    <result column="degree" property="degree" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="health_prove" property="healthProve" jdbcType="VARCHAR" />
+    <result column="health_prove_img" property="healthProveImg" jdbcType="VARCHAR" />
+    <result column="health_state" property="healthState" jdbcType="VARCHAR" />
+    <result column="bankname" property="bankname" jdbcType="VARCHAR" />
+    <result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+    <result column="contacts" property="contacts" jdbcType="VARCHAR" />
+    <result column="contacts_mobile" property="contactsMobile" jdbcType="INTEGER" />
+    <result column="boss_sponsor" property="bossSponsor" jdbcType="INTEGER" />
+    <result column="sponsor" property="sponsor" jdbcType="INTEGER" />
+    <result column="work_state" property="workState" jdbcType="INTEGER" />
+    <result column="work_time" property="workTime" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="other_img" property="otherImg" jdbcType="VARCHAR" />
+    <result column="boss_sponsor_name" property="bossSponsorName" jdbcType="VARCHAR" />
+    <result column="sponsor_name" property="sponsorName" jdbcType="VARCHAR" />
+    <association property="position" column="position_id" select="com.lives.platform.web.mapper.PositionMapper.selectByPrimaryKey" />
+    <association property="postMessage" column="post_message_id" select="com.lives.platform.web.mapper.PostMessageMapper.selectByPrimaryKey" />
+    <association property="stores" column="stores_id" select="com.lives.platform.web.mapper.StoresMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    employee_id, employee_no, stores_id, post_message_id, position_id, employee_name, 
+    sex, mobile, card, card_img, birthday, degree, height, weight, health_prove, health_prove_img, 
+    health_state, bankname, bank_card, contacts, contacts_mobile, boss_sponsor, sponsor, 
+    work_state, work_time, create_time, status, head_img, other_img,boss_sponsor_name,sponsor_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_employee
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByEmployeeId" resultMap="EmployeeDtoMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_employee
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 总部查询连锁店下所有员工 -->
+  <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    (select 
+    <include refid="Base_Column_List" /> 
+    from pt_employee a where exists(select 1 from pt_stores b where a.stores_id = b.stores_id and b.parent_id = #{parentId,jdbcType=INTEGER}))
+    union 
+    (select 
+    <include refid="Base_Column_List" />
+     from pt_employee a where a.stores_id = #{parentId,jdbcType=INTEGER})
+  </select>
+  
+  <!-- 查询门店下所有员工 -->
+  <select id="selectByStoresId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_employee where stores_id = #{storesId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询门店下所有员工及门店等信息 -->
+  <select id="selectBySynthetical" resultMap="EmployeeDtoMap" parameterType="com.lives.platform.web.entity.Page" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_employee where stores_id = #{params.storesId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_employee
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.Employee" useGeneratedKeys = "true" keyProperty="employeeId">
+    insert into pt_employee (employee_id, employee_no, stores_id, 
+      post_message_id, position_id, employee_name, 
+      sex, mobile, card, 
+      card_img, birthday, degree, 
+      height, weight, health_prove, 
+      health_prove_img, health_state, bankname, 
+      bank_card, contacts, contacts_mobile, 
+      boss_sponsor, sponsor, work_state, 
+      work_time, create_time, status, 
+      head_img, other_img,boss_sponsor_name,sponsor_name)
+    values (#{employeeId,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, #{storesId,jdbcType=INTEGER}, 
+      #{postMessageId,jdbcType=INTEGER}, #{positionId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, 
+      #{cardImg,jdbcType=VARCHAR}, #{birthday,jdbcType=CHAR}, #{degree,jdbcType=VARCHAR}, 
+      #{height,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{healthProve,jdbcType=VARCHAR}, 
+      #{healthProveImg,jdbcType=VARCHAR}, #{healthState,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, 
+      #{bankCard,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{contactsMobile,jdbcType=INTEGER}, 
+      #{bossSponsor,jdbcType=INTEGER}, #{sponsor,jdbcType=INTEGER}, #{workState,jdbcType=INTEGER}, 
+      #{workTime,jdbcType=CHAR}, #{createTime,jdbcType=CHAR}, #{status,jdbcType=INTEGER}, 
+      #{headImg,jdbcType=VARCHAR}, #{otherImg,jdbcType=VARCHAR},#{bossSponsorName,jdbcType=VARCHAR},#{sponsorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.Employee" useGeneratedKeys = "true" keyProperty="employeeId">
+    insert into pt_employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="employeeNo != null" >
+        employee_no,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="postMessageId != null" >
+        post_message_id,
+      </if>
+      <if test="positionId != null" >
+        position_id,
+      </if>
+      <if test="employeeName != null" >
+        employee_name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="card != null" >
+        card,
+      </if>
+      <if test="cardImg != null" >
+        card_img,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="degree != null" >
+        degree,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="healthProve != null" >
+        health_prove,
+      </if>
+      <if test="healthProveImg != null" >
+        health_prove_img,
+      </if>
+      <if test="healthState != null" >
+        health_state,
+      </if>
+      <if test="bankname != null" >
+        bankname,
+      </if>
+      <if test="bankCard != null" >
+        bank_card,
+      </if>
+      <if test="contacts != null" >
+        contacts,
+      </if>
+      <if test="contactsMobile != null" >
+        contacts_mobile,
+      </if>
+      <if test="bossSponsor != null" >
+        boss_sponsor,
+      </if>
+      <if test="sponsor != null" >
+        sponsor,
+      </if>
+      <if test="workState != null" >
+        work_state,
+      </if>
+      <if test="workTime != null" >
+        work_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="headImg != null" >
+        head_img,
+      </if>
+      <if test="otherImg != null" >
+        other_img,
+      </if>
+      <if test="bossSponsorName != null" >
+        boss_sponsor_name,
+      </if>
+      <if test="sponsorName != null" >
+        sponsor_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeNo != null" >
+        #{employeeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="postMessageId != null" >
+        #{postMessageId,jdbcType=INTEGER},
+      </if>
+      <if test="positionId != null" >
+        #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="card != null" >
+        #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImg != null" >
+        #{cardImg,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=CHAR},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="healthProve != null" >
+        #{healthProve,jdbcType=VARCHAR},
+      </if>
+      <if test="healthProveImg != null" >
+        #{healthProveImg,jdbcType=VARCHAR},
+      </if>
+      <if test="healthState != null" >
+        #{healthState,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsMobile != null" >
+        #{contactsMobile,jdbcType=INTEGER},
+      </if>
+      <if test="bossSponsor != null" >
+        #{bossSponsor,jdbcType=INTEGER},
+      </if>
+      <if test="sponsor != null" >
+        #{sponsor,jdbcType=INTEGER},
+      </if>
+      <if test="workState != null" >
+        #{workState,jdbcType=INTEGER},
+      </if>
+      <if test="workTime != null" >
+        #{workTime,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="headImg != null" >
+        #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="otherImg != null" >
+        #{otherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bossSponsorName != null" >
+        #{bossSponsorName,jdbcType=VARCHAR},
+      </if>
+      <if test="sponsorName != null" >
+        #{sponsorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.Employee" >
+    update pt_employee
+    <set >
+      <if test="employeeNo != null" >
+        employee_no = #{employeeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="postMessageId != null" >
+        post_message_id = #{postMessageId,jdbcType=INTEGER},
+      </if>
+      <if test="positionId != null" >
+        position_id = #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="card != null" >
+        card = #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImg != null" >
+        card_img = #{cardImg,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=CHAR},
+      </if>
+      <if test="degree != null" >
+        degree = #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="healthProve != null" >
+        health_prove = #{healthProve,jdbcType=VARCHAR},
+      </if>
+      <if test="healthProveImg != null" >
+        health_prove_img = #{healthProveImg,jdbcType=VARCHAR},
+      </if>
+      <if test="healthState != null" >
+        health_state = #{healthState,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        bankname = #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        bank_card = #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsMobile != null" >
+        contacts_mobile = #{contactsMobile,jdbcType=INTEGER},
+      </if>
+      <if test="bossSponsor != null" >
+        boss_sponsor = #{bossSponsor,jdbcType=INTEGER},
+      </if>
+      <if test="sponsor != null" >
+        sponsor = #{sponsor,jdbcType=INTEGER},
+      </if>
+      <if test="workState != null" >
+        work_state = #{workState,jdbcType=INTEGER},
+      </if>
+      <if test="workTime != null" >
+        work_time = #{workTime,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="headImg != null" >
+        head_img = #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="otherImg != null" >
+        other_img = #{otherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="otherImg != null" >
+        boss_sponsor_name = #{bossSponsorName,jdbcType=VARCHAR},
+      </if>
+      <if test="otherImg != null" >
+        sponsor_name = #{sponsorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.Employee" >
+    update pt_employee
+    set employee_no = #{employeeNo,jdbcType=VARCHAR},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      post_message_id = #{postMessageId,jdbcType=INTEGER},
+      position_id = #{positionId,jdbcType=INTEGER},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      card = #{card,jdbcType=VARCHAR},
+      card_img = #{cardImg,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=CHAR},
+      degree = #{degree,jdbcType=VARCHAR},
+      height = #{height,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      health_prove = #{healthProve,jdbcType=VARCHAR},
+      health_prove_img = #{healthProveImg,jdbcType=VARCHAR},
+      health_state = #{healthState,jdbcType=VARCHAR},
+      bankname = #{bankname,jdbcType=VARCHAR},
+      bank_card = #{bankCard,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      contacts_mobile = #{contactsMobile,jdbcType=INTEGER},
+      boss_sponsor = #{bossSponsor,jdbcType=INTEGER},
+      sponsor = #{sponsor,jdbcType=INTEGER},
+      work_state = #{workState,jdbcType=INTEGER},
+      work_time = #{workTime,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      status = #{status,jdbcType=INTEGER},
+      head_img = #{headImg,jdbcType=VARCHAR},
+      other_img = #{otherImg,jdbcType=VARCHAR},
+      boss_sponsor_name = #{bossSponsorName,jdbcType=VARCHAR},
+      sponsor_name = #{sponsorName,jdbcType=VARCHAR}
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByProperty" parameterType="com.lives.platform.web.entity.Employee" resultMap="BaseResultMap">
+    select * from pt_employee where 1 = 1
+       <if test="employeeName != null" >
+         and employee_name = #{employeeName,jdbcType=VARCHAR}
+      </if>
+      <if test="sex != null" >
+         and sex = #{sex,jdbcType=INTEGER}
+      </if>
+      <if test="card != null" >
+         and card = #{card,jdbcType=VARCHAR}
+      </if>
+      <if test="employeeNo != null" >
+         and employee_no = #{employeeNo,jdbcType=VARCHAR}
+      </if>
+      <if test="birthday != null" >
+         and birthday = #{birthday,jdbcType=VARCHAR}
+      </if>
+      <if test="mobile != null" >
+         and mobile = #{mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="positionId != null" >
+         and position_id = #{positionId,jdbcType=INTEGER}
+      </if>
+      <if test="storesId != null" >
+         and stores_id = #{storesId,jdbcType=INTEGER}
+      </if>
+      <if test="status != null" >
+         and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="workTime != null" >
+         and workTime = #{workTime,jdbcType=CHAR}
+      </if>
+  </select>
+  
+  <select id="selectEmployeesByPosition" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from pt_employee
+	where position_id in(select position_id from pt_position where post_message_id = #{postMessageId,jdbcType=INTEGER})
+  </select>
+  
+  <select id="selectEmployeesByPositionList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from pt_employee
+	where stores_id =#{storesId,jdbcType=INTEGER} and position_id in 
+	<foreach item="item" index="index" collection="positionId" open="(" separator="," close=")">
+	  #{item}  
+	</foreach>  
+  </select>
+  
+</mapper>

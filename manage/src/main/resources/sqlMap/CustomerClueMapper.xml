@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.manage.web.mapper.CustomerClueMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.manage.web.entity.CustomerClue" >
+    <id column="clue_id" property="clueId" jdbcType="INTEGER" />
+    <result column="owner_id" property="ownerId" jdbcType="INTEGER" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="customer_code" property="customerCode" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="brand_level" property="brandLevel" jdbcType="VARCHAR" />
+    <result column="customer_type" property="customerType" jdbcType="VARCHAR" />
+    <result column="store_number" property="storeNumber" jdbcType="INTEGER" />
+    <result column="version_name" property="versionName" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="principal_duty" property="principalDuty" jdbcType="VARCHAR" />
+    <result column="principal_name" property="principalName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="contact_type" property="contactType" jdbcType="VARCHAR" />
+    <result column="contact_info" property="contactInfo" jdbcType="VARCHAR" />
+    <result column="clue_source" property="clueSource" jdbcType="VARCHAR" />
+    <result column="clue_status" property="clueStatus" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="is_over" property="isOver" jdbcType="INTEGER" />
+    <result column="is_public" property="isPublic" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    clue_id, owner_id, customer_name, company_name, customer_code, brand_name, brand_level, 
+    customer_type, store_number, version_name, province, city, area, addr, principal_duty, 
+    principal_name, phone, contact_type, contact_info, clue_source, clue_status, creator_id, 
+    create_time, is_over, is_public, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from m_customer_clue
+    where clue_id = #{clueId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from m_customer_clue
+    where clue_id = #{clueId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.manage.web.entity.CustomerClue" >
+    insert into m_customer_clue (clue_id, owner_id, customer_name, 
+      company_name, customer_code, brand_name, 
+      brand_level, customer_type, store_number, 
+      version_name, province, city, 
+      area, addr, principal_duty, 
+      principal_name, phone, contact_type, 
+      contact_info, clue_source, clue_status, 
+      creator_id, create_time, is_over, 
+      is_public, is_delete)
+    values (#{clueId,jdbcType=INTEGER}, #{ownerId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{customerCode,jdbcType=VARCHAR}, #{brandName,jdbcType=VARCHAR}, 
+      #{brandLevel,jdbcType=VARCHAR}, #{customerType,jdbcType=VARCHAR}, #{storeNumber,jdbcType=INTEGER}, 
+      #{versionName,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{principalDuty,jdbcType=VARCHAR}, 
+      #{principalName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{contactType,jdbcType=VARCHAR}, 
+      #{contactInfo,jdbcType=VARCHAR}, #{clueSource,jdbcType=VARCHAR}, #{clueStatus,jdbcType=VARCHAR}, 
+      #{creatorId,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}, #{isOver,jdbcType=INTEGER}, 
+      #{isPublic,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.manage.web.entity.CustomerClue" >
+    insert into m_customer_clue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clueId != null" >
+        clue_id,
+      </if>
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="customerCode != null" >
+        customer_code,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="brandLevel != null" >
+        brand_level,
+      </if>
+      <if test="customerType != null" >
+        customer_type,
+      </if>
+      <if test="storeNumber != null" >
+        store_number,
+      </if>
+      <if test="versionName != null" >
+        version_name,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="principalDuty != null" >
+        principal_duty,
+      </if>
+      <if test="principalName != null" >
+        principal_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="contactType != null" >
+        contact_type,
+      </if>
+      <if test="contactInfo != null" >
+        contact_info,
+      </if>
+      <if test="clueSource != null" >
+        clue_source,
+      </if>
+      <if test="clueStatus != null" >
+        clue_status,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="isOver != null" >
+        is_over,
+      </if>
+      <if test="isPublic != null" >
+        is_public,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clueId != null" >
+        #{clueId,jdbcType=INTEGER},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCode != null" >
+        #{customerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandLevel != null" >
+        #{brandLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNumber != null" >
+        #{storeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="versionName != null" >
+        #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="principalDuty != null" >
+        #{principalDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="principalName != null" >
+        #{principalName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactType != null" >
+        #{contactType,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfo != null" >
+        #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="clueSource != null" >
+        #{clueSource,jdbcType=VARCHAR},
+      </if>
+      <if test="clueStatus != null" >
+        #{clueStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="isOver != null" >
+        #{isOver,jdbcType=INTEGER},
+      </if>
+      <if test="isPublic != null" >
+        #{isPublic,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.manage.web.entity.CustomerClue" >
+    update m_customer_clue
+    <set >
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCode != null" >
+        customer_code = #{customerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandLevel != null" >
+        brand_level = #{brandLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        customer_type = #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNumber != null" >
+        store_number = #{storeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="versionName != null" >
+        version_name = #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="principalDuty != null" >
+        principal_duty = #{principalDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="principalName != null" >
+        principal_name = #{principalName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactType != null" >
+        contact_type = #{contactType,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfo != null" >
+        contact_info = #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="clueSource != null" >
+        clue_source = #{clueSource,jdbcType=VARCHAR},
+      </if>
+      <if test="clueStatus != null" >
+        clue_status = #{clueStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="isOver != null" >
+        is_over = #{isOver,jdbcType=INTEGER},
+      </if>
+      <if test="isPublic != null" >
+        is_public = #{isPublic,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where clue_id = #{clueId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.manage.web.entity.CustomerClue" >
+    update m_customer_clue
+    set owner_id = #{ownerId,jdbcType=INTEGER},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      customer_code = #{customerCode,jdbcType=VARCHAR},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      brand_level = #{brandLevel,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=VARCHAR},
+      store_number = #{storeNumber,jdbcType=INTEGER},
+      version_name = #{versionName,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      principal_duty = #{principalDuty,jdbcType=VARCHAR},
+      principal_name = #{principalName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      contact_type = #{contactType,jdbcType=VARCHAR},
+      contact_info = #{contactInfo,jdbcType=VARCHAR},
+      clue_source = #{clueSource,jdbcType=VARCHAR},
+      clue_status = #{clueStatus,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR},
+      is_over = #{isOver,jdbcType=INTEGER},
+      is_public = #{isPublic,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where clue_id = #{clueId,jdbcType=INTEGER}
+  </update>
+	<select id="queryCustClue" resultType="com.lives.manage.web.dto.CustClueDto" parameterType="java.util.Map">
+		select
+		clue_id
+		clueId,owner_id ownerId,customer_name customerName,company_name
+		companyName,customer_code customerCode,brand_name
+		brandName,brand_level brandLevel,customer_type
+		customerType,store_number storeNumber,version_name
+		versionName,phone,province,city,area,addr,principal_duty principalDuty,principal_name principalName,contact_type contactType,is_over isOver,
+		clue_status clueStatus,create_time createTime,clue_source clueSource
+		from
+		m_customer_clue where is_public=#{isPublic} 
+		<if test="ownerId != null and ownerId !=''">
+				 and owner_id=#{ownerId}
+	    </if>
+		
+		<if test="customerName != null and customerName!=''">
+				 and customer_name like '%${customerName}%'
+	    </if>
+	    <if test="clueStatus != null and clueStatus!=''">
+				 and clue_status =#{clueStatus}
+	    </if>
+	    <if test="brandLevel != null and brandLevel!=''">
+				 and brand_level =#{brandLevel}
+	    </if>
+	    <if test="minNumber != null and minNumber!=''">
+	    <![CDATA[
+				 and store_number >=#{minNumber}
+				 ]]>
+	    </if>
+	    <if test="maxNumber != null and maxNumber!=''">
+	    <![CDATA[
+				 and store_number <=#{maxNumber}
+				 ]]>
+	    </if>
+	    <if test="startTime != null and startTime!=''">
+	    <![CDATA[
+	    and DATE_FORMAT(create_time, '%Y-%m-%d') >=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+	    ]]>
+	    </if>
+	    <if test="endTime != null and endTime!=''">
+	    <![CDATA[
+	    and DATE_FORMAT(create_time, '%Y-%m-%d') <=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+	    ]]>
+	    </if>
+		<if test="offset != null">
+				limit #{offset},#{limit}
+		</if>
+		
+	</select>
+	<select id="queryCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+	select count(0) from m_customer_clue where is_public=#{isPublic} 
+	<if test="ownerId != null and ownerId !=''">
+				 and owner_id=#{ownerId}
+	    </if>
+	<if test="customerName != null and customerName!=''">
+				 and customer_name like '%${customerName}%'
+	    </if>
+	    <if test="clueStatus != null and clueStatus!=''">
+				 and clue_status =#{clueStatus}
+	    </if>
+	    <if test="brandLevel != null and brandLevel!=''">
+				 and brand_level =#{brandLevel}
+	    </if>
+	    <if test="minNumber != null and minNumber!=''">
+	    <![CDATA[
+				 and store_number >=#{minNumber}
+				 ]]>
+	    </if>
+	    <if test="maxNumber != null and maxNumber!=''">
+	    <![CDATA[
+				 and store_number <=#{maxNumber}
+				 ]]>
+	    </if>
+	    <if test="startTime != null and startTime!=''">
+	    <![CDATA[
+	    and DATE_FORMAT(create_time, '%Y-%m-%d') >=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+	    ]]>
+	    </if>
+	    <if test="endTime != null and endTime!=''">
+	    <![CDATA[
+	    and DATE_FORMAT(create_time, '%Y-%m-%d') <=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+	    ]]>
+	    </if>
+		</select>
+		
+		<update id="updateClueSs" parameterType="com.lives.manage.web.entity.CustomerClue">
+		 update m_customer_clue
+    set owner_id = #{ownerId,jdbcType=INTEGER},
+      is_public =#{isPublic,jdbcType=INTEGER}
+    where clue_id = #{clueId,jdbcType=INTEGER}
+		
+		</update>
+</mapper>

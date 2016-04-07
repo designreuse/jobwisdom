@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.CommodityTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.CommodityType" >
+    <id column="commodity_type_id" property="commodityTypeId" jdbcType="INTEGER" />
+    <result column="commodity_type" property="commodityType" jdbcType="INTEGER" />
+    <result column="is_valid" property="isValid" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    commodity_type_id, commodity_type, is_valid, belong_store, stores_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_commodity_type
+    where commodity_type_id = #{commodityTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_commodity_type
+    where commodity_type_id = #{commodityTypeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.CommodityType" >
+    insert into pt_commodity_type (commodity_type_id, commodity_type, is_valid, 
+      belong_store, stores_id, create_time
+      )
+    values (#{commodityTypeId,jdbcType=INTEGER}, #{commodityType,jdbcType=INTEGER}, #{isValid,jdbcType=INTEGER}, 
+      #{storesId,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.CommodityType" >
+    insert into pt_commodity_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commodityTypeId != null" >
+        commodity_type_id,
+      </if>
+      <if test="commodityType != null" >
+        commodity_type,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commodityTypeId != null" >
+        #{commodityTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="commodityType != null" >
+        #{commodityType,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.CommodityType" >
+    update pt_commodity_type
+    <set >
+      <if test="commodityType != null" >
+        commodity_type = #{commodityType,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where commodity_type_id = #{commodityTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.CommodityType" >
+    update pt_commodity_type
+    set commodity_type = #{commodityType,jdbcType=INTEGER},
+      is_valid = #{isValid,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where commodity_type_id = #{commodityTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

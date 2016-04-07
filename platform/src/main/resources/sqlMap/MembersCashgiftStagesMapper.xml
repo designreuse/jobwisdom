@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.MembersCashgiftStagesMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.MembersCashgiftStages" >
+    <id column="cashgift_stages_id" property="cashgiftStagesId" jdbcType="INTEGER" />
+    <result column="members_id" property="membersId" jdbcType="INTEGER" />
+    <result column="stages_amount" property="stagesAmount" jdbcType="DECIMAL" />
+    <result column="stages_number" property="stagesNumber" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cashgift_stages_id, members_id, stages_amount, stages_number, stores_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_members_cashgift_stages
+    where cashgift_stages_id = #{cashgiftStagesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_members_cashgift_stages
+    where cashgift_stages_id = #{cashgiftStagesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.MembersCashgiftStages" >
+    insert into pt_members_cashgift_stages (cashgift_stages_id, members_id, stages_amount, 
+      stages_number, stores_id, create_time)
+    values (#{cashgiftStagesId,jdbcType=INTEGER}, #{membersId,jdbcType=INTEGER}, #{stagesAmount,jdbcType=DECIMAL}, 
+      #{stagesNumber,jdbcType=INTEGER}, #{storesId,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.MembersCashgiftStages" >
+    insert into pt_members_cashgift_stages
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cashgiftStagesId != null" >
+        cashgift_stages_id,
+      </if>
+      <if test="membersId != null" >
+        members_id,
+      </if>
+      <if test="stagesAmount != null" >
+        stages_amount,
+      </if>
+      <if test="stagesNumber != null" >
+        stages_number,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cashgiftStagesId != null" >
+        #{cashgiftStagesId,jdbcType=INTEGER},
+      </if>
+      <if test="membersId != null" >
+        #{membersId,jdbcType=INTEGER},
+      </if>
+      <if test="stagesAmount != null" >
+        #{stagesAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="stagesNumber != null" >
+        #{stagesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.MembersCashgiftStages" >
+    update pt_members_cashgift_stages
+    <set >
+      <if test="membersId != null" >
+        members_id = #{membersId,jdbcType=INTEGER},
+      </if>
+      <if test="stagesAmount != null" >
+        stages_amount = #{stagesAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="stagesNumber != null" >
+        stages_number = #{stagesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where cashgift_stages_id = #{cashgiftStagesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.MembersCashgiftStages" >
+    update pt_members_cashgift_stages
+    set members_id = #{membersId,jdbcType=INTEGER},
+      stages_amount = #{stagesAmount,jdbcType=DECIMAL},
+      stages_number = #{stagesNumber,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where cashgift_stages_id = #{cashgiftStagesId,jdbcType=INTEGER}
+  </update>
+</mapper>

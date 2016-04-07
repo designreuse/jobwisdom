@@ -1,0 +1,25 @@
+/*tab*/
+.tab_menu {
+  position: absolute;
+  margin: -45px 20px;
+  margin-left: 20px;
+  font-size: 16px;
+}
+.tab_menu li {
+  width: 99px;
+  float: left;
+  height: 35px;
+  line-height: 30px;
+  color: #757575;
+  text-align: center;
+  cursor: pointer;
+}
+.tab_menu .current {
+  border-bottom: #235688 solid 3px;
+  color: #235688;
+}
+.tab_box .hide {
+  display: none;
+}
+/*button*/
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbW1vbi5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFDQTtFQUNFLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGVBQUE7O0FBSkYsU0FLRTtFQUNFLFdBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTs7QUFaSixTQWVFO0VBQ0UsZ0NBQUE7RUFDQSxjQUFBOztBQUlKLFFBQVM7RUFDUCxhQUFBIiwiZmlsZSI6InVuZGVmaW5lZCJ9 */

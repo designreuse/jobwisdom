@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.DommissionMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.Dommission" >
+    <id column="dommission_id" property="dommissionId" jdbcType="INTEGER" />
+    <result column="project_info_id" property="projectInfoId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="discount" property="discount" jdbcType="INTEGER" />
+    <result column="amount_assign" property="amountAssign" jdbcType="DECIMAL" />
+    <result column="discount_assign" property="discountAssign" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="DommissionEmployeeDtoResultMap" type="com.lives.platform.web.dto.DommissionEmployeeDto" >
+    <id column="dommission_id" property="dommissionId" jdbcType="INTEGER" />
+    <result column="project_info_id" property="projectInfoId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="discount" property="discount" jdbcType="INTEGER" />
+    <result column="amount_assign" property="amountAssign" jdbcType="DECIMAL" />
+    <result column="discount_assign" property="discountAssign" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <association property="employee" column="employee_id" select="com.lives.platform.web.mapper.EmployeeMapper.selectByPrimaryKey" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    dommission_id, project_info_id, employee_id, amount, discount, amount_assign, discount_assign, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_dommission
+    where dommission_id = #{dommissionId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByProjectInfoId" resultMap="DommissionEmployeeDtoResultMap" parameterType="java.lang.Integer" >
+    select * from pt_dommission
+    where project_info_id = #{projectInfoId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_dommission
+    where dommission_id = #{dommissionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.Dommission" >
+    insert into pt_dommission (dommission_id, project_info_id, employee_id, amount, discount, amount_assign, discount_assign, create_time)
+    values (#{dommissionId,jdbcType=INTEGER}, #{projectInfoId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DECIMAL}, #{discount,jdbcType=INTEGER}, #{amountAssign,jdbcType=DECIMAL}, #{discountAssign,jdbcType=INTEGER},
+      #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.Dommission" >
+    insert into pt_dommission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dommissionId != null" >
+        dommission_id,
+      </if>
+      <if test="projectInfoId != null" >
+        project_info_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="amountAssign != null" >
+        amount_assign,
+      </if>
+      <if test="discountAssign != null" >
+        discount_assign,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dommissionId != null" >
+        #{dommissionId,jdbcType=INTEGER},
+      </if>
+      <if test="projectInfoId != null" >
+        #{projectInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="amountAssign != null" >
+        #{amountAssign,jdbcType=DECIMAL},
+      </if>
+      <if test="discountAssign != null" >
+        #{discountAssign,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.Dommission" >
+    update pt_dommission
+    <set >
+      <if test="projectInfoId != null" >
+        project_info_id = #{projectInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="amountAssign != null" >
+        amount_assign = #{amountAssign,jdbcType=DECIMAL},
+      </if>
+      <if test="discountAssign != null" >
+        discount_assign = #{discountAssign,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where dommission_id = #{dommissionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.Dommission" >
+    update pt_dommission
+    set project_info_id = #{projectInfoId,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=INTEGER},
+      amount_assign = #{amountAssign,jdbcType=DECIMAL},
+      discount_assign = #{discountAssign,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where dommission_id = #{dommissionId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByProperty" parameterType="com.lives.platform.web.entity.Dommission" resultMap="BaseResultMap">
+    select * from pt_dommission where 1 = 1
+       <if test="projectInfoId != null" >
+         and project_info_id = #{projectInfoId,jdbcType=INTEGER}
+      </if>
+      <if test="employeeId != null" >
+         and employee_id = #{employeeId,jdbcType=INTEGER}
+      </if>
+      <if test="amount != null" >
+         and amount = #{amount,jdbcType=INTEGER}
+      </if>
+      <if test="discount != null" >
+         and discount = #{discount,jdbcType=INTEGER}
+      </if>
+      <if test="amountAssign != null" >
+         and amount_assign = #{amountAssign,jdbcType=INTEGER}
+      </if>
+      <if test="discountAssign != null" >
+         and discount_assign = #{discountAssign,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+         and create_time = #{createTime,jdbcType=CHAR}
+      </if>
+  </select>
+  
+  <insert id="insertPositionList" parameterType="java.util.List">  
+    insert into pt_dommission (project_info_id,employee_id,amount,discount,amount_assign,discount_assign,create_time) values  
+    <foreach collection="list" item="item" index="index"  separator=",">  
+        (#{item.projectInfoId,jdbcType=INTEGER}, #{item.employeeId,jdbcType=INTEGER},
+        #{item.amount,jdbcType=INTEGER}, #{item.discount,jdbcType=INTEGER},
+        #{item.amountAssign,jdbcType=INTEGER}, #{item.discountAssign,jdbcType=INTEGER},
+        #{item.createTime,jdbcType=CHAR})  
+    </foreach>  
+  </insert> 
+  
+  <select id="selectByProjectIdList" parameterType="com.lives.platform.web.entity.Dommission" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from pt_dommission 
+  	where project_info_id in
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </select>
+  
+  <select id="selectByProjectIdAndEmpIdList" parameterType="com.lives.platform.web.entity.Dommission" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from pt_dommission 
+  	where project_info_id in
+  	<foreach item="item" index="index" collection="projectInfoId" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+	and employee_id in 
+	<foreach item="item" index="index" collection="employeeId" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </select>
+  
+  <delete id="deleteDommissionBatch" parameterType="java.util.List">
+	delete from pt_dommission where dommission_id in
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </delete>
+  
+  <delete id="deleteDommissionByEmpIdBatch" parameterType="java.util.List">
+	delete from pt_dommission where employee_id in
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </delete>
+  
+  
+  <delete id="deleteByProjectInfoId" parameterType="java.lang.Integer" >
+    delete from pt_project_relation
+    where project_info_id = #{projectInfoId,jdbcType=INTEGER}
+  </delete>
+  
+</mapper>

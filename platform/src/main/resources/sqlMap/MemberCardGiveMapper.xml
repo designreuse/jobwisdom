@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.MemberCardGiveMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.dto.MemberCardGiveDto" >
+    <id column="card_id" property="cardId" jdbcType="INTEGER" />
+    <result column="card_name"  property="cardName" jdbcType="VARCHAR" />
+    <result column="give_cash_type" property="giveCashType" jdbcType="VARCHAR" />
+    <result column="give_cash_money" property="giveCashMoney" jdbcType="DECIMAL" />
+    <result column="give_cash_date" property="giveCashDate" jdbcType="INTEGER" />
+    <result column="give_integral_type" property="giveIntegralType" jdbcType="VARCHAR" />
+    <result column="give_integral_money" property="giveIntegralMoney" jdbcType="DECIMAL" />
+    <result column="give_recharge_type" property="giveRechargeType" jdbcType="VARCHAR" />
+    <result column="give_recharge_money" property="giveRechargeMoney" jdbcType="DECIMAL" />
+    <result column="give_recharge_date" property="giveRechargeDate" jdbcType="INTEGER" />
+    <result column="give_recharge_integral_type" property="giveRechargeIntegralType" jdbcType="VARCHAR" />
+    <result column="give_recharge_integral_money" property="giveRechargeIntegralMoney" jdbcType="DECIMAL" />
+    <result column="give_Consumption_integral_type" property="giveConsumptionIntegralType" jdbcType="VARCHAR" />
+    <result column="give_Consumption_integral_money" property="giveConsumptionIntegralMoney" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    card_id, give_cash_type, give_cash_money, give_cash_date, give_integral_type, give_integral_money, 
+    give_recharge_type, give_recharge_money, give_recharge_date, give_recharge_integral_type, 
+    give_recharge_integral_money, give_Consumption_integral_type, give_Consumption_integral_money
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_card_give
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_card_give
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.dto.MemberCardGiveDto" >
+    insert into member_card_give (card_id, give_cash_type, give_cash_money, 
+      give_cash_date, give_integral_type, give_integral_money, 
+      give_recharge_type, give_recharge_money, give_recharge_date, 
+      give_recharge_integral_type, give_recharge_integral_money, 
+      give_Consumption_integral_type, give_Consumption_integral_money
+      )
+    values (#{cardId,jdbcType=INTEGER}, #{giveCashType,jdbcType=VARCHAR}, #{giveCashMoney,jdbcType=DECIMAL}, 
+      #{giveCashDate,jdbcType=INTEGER}, #{giveIntegralType,jdbcType=VARCHAR}, #{giveIntegralMoney,jdbcType=DECIMAL}, 
+      #{giveRechargeType,jdbcType=VARCHAR}, #{giveRechargeMoney,jdbcType=DECIMAL}, #{giveRechargeDate,jdbcType=INTEGER}, 
+      #{giveRechargeIntegralType,jdbcType=VARCHAR}, #{giveRechargeIntegralMoney,jdbcType=DECIMAL}, 
+      #{giveConsumptionIntegralType,jdbcType=VARCHAR}, #{giveConsumptionIntegralMoney,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.dto.MemberCardGiveDto" >
+    insert into member_card_give
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="giveCashType != null" >
+        give_cash_type,
+      </if>
+      <if test="giveCashMoney != null" >
+        give_cash_money,
+      </if>
+      <if test="giveCashDate != null" >
+        give_cash_date,
+      </if>
+      <if test="giveIntegralType != null" >
+        give_integral_type,
+      </if>
+      <if test="giveIntegralMoney != null" >
+        give_integral_money,
+      </if>
+      <if test="giveRechargeType != null" >
+        give_recharge_type,
+      </if>
+      <if test="giveRechargeMoney != null" >
+        give_recharge_money,
+      </if>
+      <if test="giveRechargeDate != null" >
+        give_recharge_date,
+      </if>
+      <if test="giveRechargeIntegralType != null" >
+        give_recharge_integral_type,
+      </if>
+      <if test="giveRechargeIntegralMoney != null" >
+        give_recharge_integral_money,
+      </if>
+      <if test="giveConsumptionIntegralType != null" >
+        give_Consumption_integral_type,
+      </if>
+      <if test="giveConsumptionIntegralMoney != null" >
+        give_Consumption_integral_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="giveCashType != null" >
+        #{giveCashType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveCashMoney != null" >
+        #{giveCashMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="giveCashDate != null" >
+        #{giveCashDate,jdbcType=INTEGER},
+      </if>
+      <if test="giveIntegralType != null" >
+        #{giveIntegralType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveIntegralMoney != null" >
+        #{giveIntegralMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="giveRechargeType != null" >
+        #{giveRechargeType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveRechargeMoney != null" >
+        #{giveRechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="giveRechargeDate != null" >
+        #{giveRechargeDate,jdbcType=INTEGER},
+      </if>
+      <if test="giveRechargeIntegralType != null" >
+        #{giveRechargeIntegralType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveRechargeIntegralMoney != null" >
+        #{giveRechargeIntegralMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="giveConsumptionIntegralType != null" >
+        #{giveConsumptionIntegralType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveConsumptionIntegralMoney != null" >
+        #{giveConsumptionIntegralMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.dto.MemberCardGiveDto" >
+    update member_card_give
+    <set >
+      <if test="giveCashType != null" >
+        give_cash_type = #{giveCashType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveCashMoney != null" >
+        give_cash_money = #{giveCashMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="giveCashDate != null" >
+        give_cash_date = #{giveCashDate,jdbcType=INTEGER},
+      </if>
+      <if test="giveIntegralType != null" >
+        give_integral_type = #{giveIntegralType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveIntegralMoney != null" >
+        give_integral_money = #{giveIntegralMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="giveRechargeType != null" >
+        give_recharge_type = #{giveRechargeType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveRechargeMoney != null" >
+        give_recharge_money = #{giveRechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="giveRechargeDate != null" >
+        give_recharge_date = #{giveRechargeDate,jdbcType=INTEGER},
+      </if>
+      <if test="giveRechargeIntegralType != null" >
+        give_recharge_integral_type = #{giveRechargeIntegralType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveRechargeIntegralMoney != null" >
+        give_recharge_integral_money = #{giveRechargeIntegralMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="giveConsumptionIntegralType != null" >
+        give_Consumption_integral_type = #{giveConsumptionIntegralType,jdbcType=VARCHAR},
+      </if>
+      <if test="giveConsumptionIntegralMoney != null" >
+        give_Consumption_integral_money = #{giveConsumptionIntegralMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.dto.MemberCardGiveDto" >
+    update member_card_give
+    set give_cash_type = #{giveCashType,jdbcType=VARCHAR},
+      give_cash_money = #{giveCashMoney,jdbcType=DECIMAL},
+      give_cash_date = #{giveCashDate,jdbcType=INTEGER},
+      give_integral_type = #{giveIntegralType,jdbcType=VARCHAR},
+      give_integral_money = #{giveIntegralMoney,jdbcType=DECIMAL},
+      give_recharge_type = #{giveRechargeType,jdbcType=VARCHAR},
+      give_recharge_money = #{giveRechargeMoney,jdbcType=DECIMAL},
+      give_recharge_date = #{giveRechargeDate,jdbcType=INTEGER},
+      give_recharge_integral_type = #{giveRechargeIntegralType,jdbcType=VARCHAR},
+      give_recharge_integral_money = #{giveRechargeIntegralMoney,jdbcType=DECIMAL},
+      give_Consumption_integral_type = #{giveConsumptionIntegralType,jdbcType=VARCHAR},
+      give_Consumption_integral_money = #{giveConsumptionIntegralMoney,jdbcType=DECIMAL}
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+  <select id="selectPresentInfosByPage" resultMap="BaseResultMap" parameterType="com.lives.platform.web.entity.Page">
+  select o.card_id, o.give_cash_type, o.give_cash_money, o.give_cash_date, o.give_integral_type, o.give_integral_money, 
+    o.give_recharge_type, o.give_recharge_money, o.give_recharge_date, o.give_recharge_integral_type, 
+    o.give_recharge_integral_money, o.give_Consumption_integral_type, o.give_Consumption_integral_money,t.card_name from member_card_give o,member_card_info t where o.card_id = t.card_id and o.card_id in (
+     select t.card_id from member_card_info t where t.store_id = #{params.storeId} and t.card_type =  #{params.cardType}
+     )
+  </select>
+</mapper>

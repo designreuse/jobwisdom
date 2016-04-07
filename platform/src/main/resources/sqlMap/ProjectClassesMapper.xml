@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.ProjectClassesMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.ProjectClasses" >
+    <id column="classes_id" property="classesId" jdbcType="INTEGER" />
+    <result column="plate_id" property="plateId" jdbcType="INTEGER" />
+    <result column="classes_name" property="classesName" jdbcType="VARCHAR" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="is_use" property="isUse" jdbcType="INTEGER" />
+    <result column="parent_classes_id" property="parentClassesId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    classes_id, plate_id, classes_name, stores_id, type, create_time,is_use, parent_classes_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_project_classes
+    where classes_id = #{classesId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByStoresIdList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_project_classes
+    where stores_id = #{storesId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_project_classes
+    where classes_id = #{classesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.ProjectClasses" >
+    insert into pt_project_classes (classes_id, plate_id, classes_name, 
+      stores_id, type, create_time, is_use, parent_classes_id
+      )
+    values (#{classesId,jdbcType=INTEGER}, #{plateId,jdbcType=INTEGER}, #{classesName,jdbcType=VARCHAR}, 
+      #{storesId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}, #{isUse,jdbcType=INTEGER}, #{parentClassesId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.ProjectClasses" useGeneratedKeys = "true" keyProperty="classesId">
+    insert into pt_project_classes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classesId != null" >
+        classes_id,
+      </if>
+      <if test="plateId != null" >
+        plate_id,
+      </if>
+      <if test="classesName != null" >
+        classes_name,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="isUse != null" >
+        is_use,
+      </if>
+      <if test="parentClassesId != null" >
+        parent_classes_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classesId != null" >
+        #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="plateId != null" >
+        #{plateId,jdbcType=INTEGER},
+      </if>
+      <if test="classesName != null" >
+        #{classesName,jdbcType=VARCHAR},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="parentClassesId != null" >
+        #{parentClassesId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.ProjectClasses" >
+    update pt_project_classes
+    <set >
+      <if test="plateId != null" >
+        plate_id = #{plateId,jdbcType=INTEGER},
+      </if>
+      <if test="classesName != null" >
+        classes_name = #{classesName,jdbcType=VARCHAR},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="isUse != null" >
+      	is_use = #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="parentClassesId != null" >
+      	parent_classes_id = #{parentClassesId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where classes_id = #{classesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.ProjectClasses" >
+    update pt_project_classes
+    set plate_id = #{plateId,jdbcType=INTEGER},
+      classes_name = #{classesName,jdbcType=VARCHAR},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR},
+      is_use = #{isUse,jdbcType=CHAR},
+      parent_classes_id = #{parentClassesId,jdbcType=INTEGER}
+    where classes_id = #{classesId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectByProperty" parameterType="com.lives.platform.web.entity.ProjectClasses" resultMap="BaseResultMap">
+  	 select <include refid="Base_Column_List" /> from pt_project_classes where 1 = 1
+      <if test="plateId != null" >
+         and plate_id = #{plateId,jdbcType=INTEGER}
+      </if>
+      <if test="classesName != null" >
+         and classes_name = #{classesName,jdbcType=VARCHAR}
+      </if>
+      <if test="storesId != null" >
+         and stores_id = #{storesId,jdbcType=INTEGER}
+      </if>
+      <if test="type != null" >
+         and type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+         and create_time = #{createTime,jdbcType=CHAR}
+      </if>
+      <if test="isUse != null" >
+         and is_use = #{isUse,jdbcType=INTEGER}
+      </if>
+      <if test="parentClassesId != null" >
+         and parent_classes_id = #{parentClassesId,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+  <select id="selectByProjectstoresIdList" parameterType="com.lives.platform.web.entity.ProjectInfo" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from pt_project_classes 
+  	where parent_classes_id = #{parentClassesId,jdbcType=INTEGER} 
+  	and stores_id in
+  	<foreach item="item" index="index" collection="storesId" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </select>
+  
+  <insert id="insertClassesBatch" parameterType="java.util.List">  
+  	 insert into pt_project_classes (plate_id, classes_name, 
+      stores_id, type, create_time, is_use, parent_classes_id)
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">  
+    (#{item.plateId,jdbcType=INTEGER}, #{item.classesName,jdbcType=VARCHAR}, #{item.storesId,jdbcType=INTEGER}, #{item.type,jdbcType=INTEGER},
+     #{item.createTime,jdbcType=CHAR}, #{item.isUse,jdbcType=INTEGER}, #{item.parentClassesId,jdbcType=INTEGER})
+  	</foreach>
+  </insert>
+  
+  <delete id="deleteClassesIdBatch" parameterType="java.util.List">
+	delete from pt_project_classes where classes_id in
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </delete>
+  
+</mapper>

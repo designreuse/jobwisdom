@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.MembersCardNameMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.MembersCardName" >
+    <id column="card_name_id" property="cardNameId" jdbcType="INTEGER" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="cost" property="cost" jdbcType="INTEGER" />
+    <result column="lowest_limit" property="lowestLimit" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="card_discount" property="cardDiscount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    card_name_id, card_name, cost, lowest_limit, stores_id, card_discount, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_members_card_name
+    where card_name_id = #{cardNameId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_members_card_name
+    where card_name_id = #{cardNameId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.MembersCardName" >
+    insert into pt_members_card_name (card_name_id, card_name, cost, 
+      lowest_limit, stores_id, card_discount, 
+      create_time)
+    values (#{cardNameId,jdbcType=INTEGER}, #{cardName,jdbcType=VARCHAR}, #{cost,jdbcType=INTEGER}, 
+      #{lowestLimit,jdbcType=INTEGER}, #{storesId,jdbcType=INTEGER}, #{cardDiscount,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.MembersCardName" >
+    insert into pt_members_card_name
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cardNameId != null" >
+        card_name_id,
+      </if>
+      <if test="cardName != null" >
+        card_name,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="lowestLimit != null" >
+        lowest_limit,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="cardDiscount != null" >
+        card_discount,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cardNameId != null" >
+        #{cardNameId,jdbcType=INTEGER},
+      </if>
+      <if test="cardName != null" >
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="lowestLimit != null" >
+        #{lowestLimit,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="cardDiscount != null" >
+        #{cardDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.MembersCardName" >
+    update pt_members_card_name
+    <set >
+      <if test="cardName != null" >
+        card_name = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="lowestLimit != null" >
+        lowest_limit = #{lowestLimit,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="cardDiscount != null" >
+        card_discount = #{cardDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where card_name_id = #{cardNameId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.MembersCardName" >
+    update pt_members_card_name
+    set card_name = #{cardName,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=INTEGER},
+      lowest_limit = #{lowestLimit,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      card_discount = #{cardDiscount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where card_name_id = #{cardNameId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByProperty" parameterType="com.lives.platform.web.entity.MembersCardName" resultMap="BaseResultMap">
+  	 select <include refid="Base_Column_List" /> from pt_members_card_name where 1 = 1
+      <if test="cardName != null" >
+         and card_name = #{cardName,jdbcType=VARCHAR}
+      </if>
+      <if test="cost != null" >
+         and cost = #{cost,jdbcType=INTEGER}
+      </if>
+      <if test="lowestLimit != null" >
+         and lowest_limit = #{lowestLimit,jdbcType=INTEGER}
+      </if>
+      <if test="storesId != null" >
+         and stores_id = #{storesId,jdbcType=INTEGER}
+      </if>
+      <if test="cardDiscount != null" >
+         and card_discount = #{cardDiscount,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+         and create_time = #{createTime,jdbcType=CHAR}
+      </if>
+  </select>
+  
+</mapper>

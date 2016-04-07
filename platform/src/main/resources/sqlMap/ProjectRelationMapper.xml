@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.ProjectRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.ProjectRelation" >
+    <id column="project_relation_id" property="projectRelationId" jdbcType="INTEGER" />
+    <result column="category_no" property="categoryNo" jdbcType="INTEGER" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="project_info_id" property="projectInfoId" jdbcType="INTEGER" />
+    <result column="stroes_id_set" property="stroesIdSet" jdbcType="VARCHAR" />
+    <result column="project_price" property="projectPrice" jdbcType="DECIMAL" />
+    <result column="position_info" property="positionInfo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="project_id_set" property="projectIdSet" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    project_relation_id, category_no, category_name, type, project_info_id, project_id_set, stroes_id_set, 
+    project_price, position_info, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_project_relation
+    where project_relation_id = #{projectRelationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_project_relation
+    where project_relation_id = #{projectRelationId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.ProjectRelation" >
+    insert into pt_project_relation (project_relation_id, category_no, category_name, 
+      type, project_info_id, project_id_set, stroes_id_set, 
+      project_price, position_info, create_time)
+    values (#{projectRelationId,jdbcType=INTEGER}, #{categoryNo,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{projectInfoId,jdbcType=INTEGER}, #{projectIdSet,jdbcType=VARCHAR}, #{stroesIdSet,jdbcType=VARCHAR}, 
+      #{projectPrice,jdbcType=DECIMAL}, #{positionInfo,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.ProjectRelation" >
+    insert into pt_project_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectRelationId != null" >
+        project_relation_id,
+      </if>
+      <if test="categoryNo != null" >
+        category_no,
+      </if>
+      <if test="categoryName != null" >
+        category_name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="projectInfoId != null" >
+        project_info_id,
+      </if>
+      <if test="projectIdSet != null" >
+        project_id_set,
+      </if>
+      <if test="stroesIdSet != null" >
+        stroes_id_set,
+      </if>
+      <if test="projectPrice != null" >
+        project_price,
+      </if>
+      <if test="positionInfo != null" >
+        position_info,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectRelationId != null" >
+        #{projectRelationId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryNo != null" >
+        #{categoryNo,jdbcType=INTEGER},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="projectInfoId != null" >
+        #{projectInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="projectIdSet != null" >
+        #{projectIdSet,jdbcType=VARCHAR},
+      </if>
+      <if test="stroesIdSet != null" >
+        #{stroesIdSet,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPrice != null" >
+        #{projectPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="positionInfo != null" >
+        #{positionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.ProjectRelation" >
+    update pt_project_relation
+    <set >
+      <if test="categoryNo != null" >
+        category_no = #{categoryNo,jdbcType=INTEGER},
+      </if>
+      <if test="categoryName != null" >
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="projectInfoId != null" >
+        project_info_id = #{projectInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="projectIdSet != null" >
+        project_id_set = #{projectIdSet,jdbcType=VARCHAR},
+      </if>
+      <if test="stroesIdSet != null" >
+        stroes_id_set = #{stroesIdSet,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPrice != null" >
+        project_price = #{projectPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="positionInfo != null" >
+        position_info = #{positionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where project_relation_id = #{projectRelationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.ProjectRelation" >
+    update pt_project_relation
+    set category_no = #{categoryNo,jdbcType=INTEGER},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      project_info_id = #{projectInfoId,jdbcType=INTEGER},
+      project_id_set = #{projectIdSet,jdbcType=VARCHAR},
+      stroes_id_set = #{stroesIdSet,jdbcType=VARCHAR},
+      project_price = #{projectPrice,jdbcType=DECIMAL},
+      position_info = #{positionInfo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=CHAR}
+    where project_relation_id = #{projectRelationId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByProperty" parameterType="com.lives.platform.web.entity.ProjectRelation" resultMap="BaseResultMap">
+  	select * from pt_project_relation where 1 = 1
+  	<if test="categoryNo != null" >
+         and category_no = #{categoryNo,jdbcType=INTEGER}
+    </if>
+    <if test="categoryName != null" >
+         and category_name = #{categoryName,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null" >
+         and type = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="projectInfoId != null" >
+         and project_info_id = #{projectInfoId,jdbcType=INTEGER}
+    </if>
+    <if test="projectIdSet != null" >
+         and project_id_set = #{projectIdSet,jdbcType=VARCHAR}
+    </if>
+    <if test="stroesIdSet != null" >
+         and stroes_id_set = #{stroesIdSet,jdbcType=VARCHAR}
+    </if>
+    <if test="projectPrice != null" >
+         and project_price = #{projectPrice,jdbcType=INTEGER}
+    </if>
+    <if test="positionInfo != null" >
+         and position_info = #{positionInfo,jdbcType=VARCHAR}
+    </if>
+    <if test="createTime != null" >
+         and create_time = #{createTime,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <insert id="insertBatch" parameterType="java.util.List">  
+  	insert into pt_project_relation (project_relation_id, category_no, category_name, 
+      type, project_info_id, project_id_set, stroes_id_set, project_price, position_info, create_time)
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">  
+    (#{item.projectRelationId,jdbcType=INTEGER}, #{item.categoryNo,jdbcType=INTEGER}, #{item.categoryName,jdbcType=VARCHAR}, 
+      #{item.type,jdbcType=INTEGER}, #{item.projectInfoId,jdbcType=INTEGER}, #{item.projectIdSet,jdbcType=VARCHAR}, #{item.stroesIdSet,jdbcType=VARCHAR}, 
+      #{item.projectPrice,jdbcType=DECIMAL}, #{item.positionInfo,jdbcType=VARCHAR}, #{item.createTime,jdbcType=CHAR})
+    </foreach>
+  </insert>
+  
+  <delete id="deleteByProjectIdSet" parameterType="java.lang.String" >
+    delete from pt_project_relation
+    where project_id_set = #{projectIdSet,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteProjectRelationBatch" parameterType="java.util.List">
+	delete from pt_project_relation where project_relation_id in
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </delete>
+  
+  <select id="selectByProjectIdSet" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from pt_project_relation
+	where type =#{type,jdbcType=INTEGER} and project_info_id in 
+	<foreach item="item" index="index" collection="projectInfoId" open="(" separator="," close=")">
+	  #{item}  
+	</foreach>  
+  </select>
+  
+</mapper>

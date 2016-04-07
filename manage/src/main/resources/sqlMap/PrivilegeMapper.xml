@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.manage.web.mapper.PrivilegeMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.manage.web.entity.Privilege" >
+    <id column="privilege_id" property="privilegeId" jdbcType="INTEGER" />
+    <result column="privilege_type" property="privilegeType" jdbcType="INTEGER" />
+    <result column="privilege_name" property="privilegeName" jdbcType="VARCHAR" />
+    <result column="privilege_value" property="privilegeValue" jdbcType="VARCHAR" />
+    <result column="ref_privilege_id" property="refPrivilegeId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    privilege_id, privilege_type, privilege_name, privilege_value, ref_privilege_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from m_privilege
+    where privilege_id = #{privilegeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from m_privilege
+    where privilege_id = #{privilegeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.manage.web.entity.Privilege" >
+    insert into m_privilege (privilege_id, privilege_type, privilege_name, 
+      privilege_value, ref_privilege_id)
+    values (#{privilegeId,jdbcType=INTEGER}, #{privilegeType,jdbcType=INTEGER}, #{privilegeName,jdbcType=VARCHAR}, 
+      #{privilegeValue,jdbcType=VARCHAR}, #{refPrivilegeId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.manage.web.entity.Privilege" >
+    insert into m_privilege
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="privilegeId != null" >
+        privilege_id,
+      </if>
+      <if test="privilegeType != null" >
+        privilege_type,
+      </if>
+      <if test="privilegeName != null" >
+        privilege_name,
+      </if>
+      <if test="privilegeValue != null" >
+        privilege_value,
+      </if>
+      <if test="refPrivilegeId != null" >
+        ref_privilege_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="privilegeId != null" >
+        #{privilegeId,jdbcType=INTEGER},
+      </if>
+      <if test="privilegeType != null" >
+        #{privilegeType,jdbcType=INTEGER},
+      </if>
+      <if test="privilegeName != null" >
+        #{privilegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="privilegeValue != null" >
+        #{privilegeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="refPrivilegeId != null" >
+        #{refPrivilegeId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.manage.web.entity.Privilege" >
+    update m_privilege
+    <set >
+      <if test="privilegeType != null" >
+        privilege_type = #{privilegeType,jdbcType=INTEGER},
+      </if>
+      <if test="privilegeName != null" >
+        privilege_name = #{privilegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="privilegeValue != null" >
+        privilege_value = #{privilegeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="refPrivilegeId != null" >
+        ref_privilege_id = #{refPrivilegeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where privilege_id = #{privilegeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.manage.web.entity.Privilege" >
+    update m_privilege
+    set privilege_type = #{privilegeType,jdbcType=INTEGER},
+      privilege_name = #{privilegeName,jdbcType=VARCHAR},
+      privilege_value = #{privilegeValue,jdbcType=VARCHAR},
+      ref_privilege_id = #{refPrivilegeId,jdbcType=INTEGER}
+    where privilege_id = #{privilegeId,jdbcType=INTEGER}
+  </update>
+  <select id="selectFirstMenu" resultMap="BaseResultMap">
+  select * from m_privilege where ref_privilege_id = 0 and privilege_type = '菜单' ;
+  </select>
+  <select id="selectSecondPrivileges" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  select * from m_privilege where  privilege_type = '菜单' and ref_privilege_id = #{id,jdbcType=INTEGER};
+  </select>
+  <select id="getAllPrivilegesGn" resultMap="BaseResultMap">
+   select * from m_privilege where  privilege_type = '功能';
+  </select>
+  <select id="getAllPrivilegesYs" resultMap="BaseResultMap">
+   select * from m_privilege where  privilege_type = '元素';
+  </select>
+  <select id="getAllPrivilegesCd" resultMap="BaseResultMap">
+  select * from m_privilege where  privilege_type = '菜单';
+  </select>
+<!-- bootstrap 树形展示 菜单展示--> 
+  <resultMap type="com.lives.manage.web.dto.PrivilegeDto" id="PrivilegeDto">
+        <result column="privilege_name" property="text" />
+        <result column="privilege_id" property="id"/>
+		<result column="privilege_value" property="url" />
+		<association property="nodes" column="privilege_id" select="selectSubMenus" />
+  </resultMap>
+  <select id="selectBootstrapPrivilegeMenu" resultMap="PrivilegeDto">
+  select * from m_privilege where privilege_type = 0 and ref_privilege_id = 0
+  </select>
+  <select id="selectSubMenus" resultType="com.lives.manage.web.dto.PrivilegeDto" parameterType="java.lang.Integer">
+  select m.privilege_id as id,
+  m.privilege_name as text,
+  m.privilege_value as url
+  from m_privilege m where privilege_type = 0 and ref_privilege_id = #{privilege_id}
+  </select>
+  
+  <resultMap id="PrivilegeDtoNotMenu" type="com.lives.manage.web.dto.PrivilegeDto" >
+        <result column="privilege_id" property="id"/>
+        <result column="privilege_name" property="text" />
+  </resultMap>
+  <select id="selectPrivilege" parameterType="java.lang.Integer" resultMap="PrivilegeDtoNotMenu">
+  select * from m_privilege where privilege_type = #{type}
+  </select> 
+  
+    <resultMap type="com.lives.manage.web.dto.PrivilegeDto" id="PrivilegeByUser">
+        <result column="privilege_name" property="text" />
+        <result column="privilege_id" property="id"/>
+		<result column="privilege_value" property="url" />
+		<association property="nodes" column="{privilege_id=privilege_id,userId=user_id,roleId=role_id}" select="selectSubMenusByUser" />
+   </resultMap>
+  <select id="selectFirstBootstrapPrivilegeMenu" parameterType="java.util.Map" resultMap="PrivilegeByUser">
+  SELECT v.privilege_name,v.privilege_id,v.privilege_value,h.user_id,o.role_id FROM m_privilege v,m_role o,m_user h WHERE v.privilege_id IN(
+  SELECT m.privilege_id FROM m_user_privilege m WHERE m.user_id = #{userId} AND role_id = #{roleId}
+  ) AND v.privilege_type = 0 AND v.ref_privilege_id = 0 AND h.user_id = #{userId} AND o.role_id = #{roleId}
+  </select>
+   <select id="selectSubMenusByUser" resultType="com.lives.manage.web.dto.PrivilegeDto" parameterType="java.util.Map">
+   SELECT m.privilege_id AS id,
+  m.privilege_name AS text,
+  m.privilege_value AS url
+  FROM m_privilege m WHERE m.privilege_id IN (
+  SELECT m.privilege_id FROM m_user_privilege m WHERE m.user_id = #{userId} AND role_id = #{roleId}
+  ) AND privilege_type = 0 AND ref_privilege_id = #{privilege_id}
+  </select>
+  
+  <select id="selectBootstrapPriivlegeFunction" parameterType="java.util.Map" resultType="com.lives.manage.web.dto.PrivilegeDto">
+  SELECT m.privilege_id AS id,
+  m.privilege_name AS TEXT,
+  m.privilege_value AS url
+  FROM m_privilege m WHERE m.privilege_id IN (
+  SELECT m.privilege_id FROM m_user_privilege m WHERE m.user_id = #{userId} AND role_id = #{roleId}
+  ) AND privilege_type = 1
+  </select>
+    <select id="selectBootstrapPriivlegeElemt" parameterType="java.util.Map" resultType="com.lives.manage.web.dto.PrivilegeDto">
+  SELECT m.privilege_id AS id,
+  m.privilege_name AS TEXT,
+  m.privilege_value AS url
+  FROM m_privilege m WHERE m.privilege_id IN (
+  SELECT m.privilege_id FROM m_user_privilege m WHERE m.user_id = #{userId} AND role_id = #{roleId}
+  ) AND privilege_type = 2
+  </select>
+  
+  <!-- bootstrap table 展示权限开始 -->
+   <resultMap type="com.lives.manage.web.dto.PrivilegeInfoDto" id="PrivilegeInfoDto">
+        <result column="privilege_name" property="text" />
+        <result column="privilege_id" property="id"/>
+		<result column="privilege_value" property="url" />
+		<association property="nodes" column="{privilege_id=privilege_id}" select="selectSubMenusTableByUser" />
+   </resultMap>
+   <resultMap type="com.lives.manage.web.dto.PrivilegeInfoDto" id="PrivilegeInfoDto2">
+        <result column="privilege_name" property="text" />
+        <result column="privilege_id" property="id"/>
+		<result column="privilege_value" property="url" />
+		<association property="fatherName" column="{ref_privilege_id=ref_privilege_id}" select="selectSubMenusTableByUser2" />
+   </resultMap>
+  <select id="selectBootstrapTablePrivilegeMenu" resultMap="PrivilegeInfoDto2" parameterType="java.util.Map">
+  select * from m_privilege where privilege_type = 0 LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="selectSubMenusTableByUser2" resultType="java.lang.String" parameterType="java.util.Map">
+  select m.privilege_name from m_privilege m where m.privilege_id = #{ref_privilege_id}  
+  </select>
+  <select id="selectPrivilegeMenuCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(1) from m_privilege where privilege_type = #{type} 
+  </select>
+  
+  <select id="selectSubMenusTableByUser" resultMap="PrivilegeInfoDto2" parameterType="java.util.Map">
+  select m.privilege_id,
+  m.privilege_name,
+  m.privilege_value,
+  m.ref_privilege_id
+  from m_privilege m where privilege_type = 0 and ref_privilege_id = #{privilege_id} 
+  </select>
+  
+  <!-- bootstrap table 展示菜单权限结束 -->
+  
+  
+  <select id="selectPrivilegForGn" resultType="com.lives.manage.web.dto.PrivilegeDto" parameterType="java.util.Map">
+  select m.privilege_name as text,m.privilege_id as id,m.privilege_value as url from m_privilege m where m.privilege_type = #{type,jdbcType=INTEGER} LIMIT #{limit} OFFSET #{offset}
+  </select>
+  
+  <select id="selectPrivilegForYs" resultType="com.lives.manage.web.dto.PrivilegeInfoDto" parameterType="java.util.Map">
+  select m.privilege_name as text,m.privilege_id as id,m.privilege_value as url from m_privilege m where m.privilege_type = #{type,jdbcType=INTEGER} LIMIT #{limit} OFFSET #{offset}
+  </select>
+  
+  <!-- 超级管理员获得所有的菜单 -->
+  	<resultMap id="MenuResultMap" type="com.lives.manage.web.dto.MenuDto">
+		<result column="privilege_name" property="name" />
+		<result column="privilege_value" property="url" />
+		<association property="subMenus" column="{refPrivilegeId=privilege_id}" select="selectSubMenusForSuperMan" />
+	</resultMap>
+	
+	<select id="selectMenuListForSuperMan" resultMap="MenuResultMap">
+	select 
+		p.privilege_id,
+		p.privilege_name as name, 
+		p.privilege_value as url 
+	from m_privilege p 
+	    where
+		 p.privilege_type = 0
+		and p.ref_privilege_id = 0
+	</select>
+	
+	<select id="selectSubMenusForSuperMan" parameterType="java.util.Map" resultType="com.lives.manage.web.dto.MenuDto">
+		select p.privilege_name as name, p.privilege_value as url from m_privilege p 
+		where  p.privilege_type = 0 and ref_privilege_id = #{refPrivilegeId}
+	</select>
+</mapper>

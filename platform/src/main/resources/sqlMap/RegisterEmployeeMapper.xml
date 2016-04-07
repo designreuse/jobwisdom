@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.RegisterEmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.RegisterEmployee" >
+    <id column="register_employee_id" property="registerEmployeeId" jdbcType="INTEGER" />
+    <result column="post_register_id" property="postRegisterId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="creation_time" property="creationTime" jdbcType="CHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    register_employee_id, post_register_id, employee_id, creation_time, creator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_register_employee
+    where register_employee_id = #{registerEmployeeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_register_employee
+    where register_employee_id = #{registerEmployeeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.RegisterEmployee" >
+    insert into pt_register_employee (register_employee_id, post_register_id, 
+      employee_id, creation_time, creator
+      )
+    values (#{registerEmployeeId,jdbcType=INTEGER}, #{postRegisterId,jdbcType=INTEGER}, 
+      #{employeeId,jdbcType=INTEGER}, #{creationTime,jdbcType=CHAR}, #{creator,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.RegisterEmployee" >
+    insert into pt_register_employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="registerEmployeeId != null" >
+        register_employee_id,
+      </if>
+      <if test="postRegisterId != null" >
+        post_register_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="registerEmployeeId != null" >
+        #{registerEmployeeId,jdbcType=INTEGER},
+      </if>
+      <if test="postRegisterId != null" >
+        #{postRegisterId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.RegisterEmployee" >
+    update pt_register_employee
+    <set >
+      <if test="postRegisterId != null" >
+        post_register_id = #{postRegisterId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+    </set>
+    where register_employee_id = #{registerEmployeeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.RegisterEmployee" >
+    update pt_register_employee
+    set post_register_id = #{postRegisterId,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      creation_time = #{creationTime,jdbcType=CHAR},
+      creator = #{creator,jdbcType=INTEGER}
+    where register_employee_id = #{registerEmployeeId,jdbcType=INTEGER}
+  </update>
+</mapper>

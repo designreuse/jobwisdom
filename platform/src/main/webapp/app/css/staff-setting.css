@@ -1,0 +1,99 @@
+/*员工管理页面css*/
+/*员工设置*/
+.staff-setting .table tr .img {
+  width: 122px;
+  text-align: center;
+}
+.staff-setting .table tr .img img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
+}
+.staff-setting .name,
+.staff-setting .sex {
+  width: 104px;
+}
+.staff-setting .station,
+.staff-setting .post,
+.staff-setting .own-shop {
+  width: 139px;
+}
+.staff-setting .add-people {
+  width: 158px;
+  line-height: 52px;
+  padding-top: 10px;
+  vertical-align: middle;
+}
+/*岗位设置*/
+.post-setting .add-post .name {
+  width: 316px;
+}
+.post-setting .add-post .deduct {
+  width: 254px;
+}
+.post-setting .add-post .add-staff {
+  width: 74px;
+}
+/*增加员工*/
+.add-staff .avatar {
+  float: left;
+  margin-left: 10px;
+  border: 1px solid #000;
+  width: 110px;
+}
+.add-staff .avatar input {
+  width: 110px;
+  height: 30px ;
+}
+.add-staff .avatar img {
+  width: 110px;
+  height: 110px;
+}
+.add-staff .form-staff {
+  float: left;
+  margin-left: 50px;
+  border: 1px solid #000;
+  width: 755px;
+}
+.add-staff .form-staff .form-staff-left {
+  border: 1px solid #000;
+  float: left;
+  width: 345px;
+  /*分两边的表单*/
+  /*占全行的表单*/
+}
+.add-staff .form-staff .form-staff-left .f-group {
+  display: block;
+  width: 100%;
+}
+.add-staff .form-staff .form-staff-left .f-label {
+  width: 56px;
+}
+.add-staff .form-staff .form-staff-left .f-left {
+  display: block;
+  float: left;
+  width: 50%;
+}
+.add-staff .form-staff .form-staff-left .f-left .f-part-input {
+  float: left;
+  width: 110px;
+}
+.add-staff .form-staff .form-staff-left .f-whole {
+  display: block;
+  float: left;
+  width: 347px;
+}
+.add-staff .form-staff .form-staff-left .f-whole .f-whole-input {
+  width: 280px;
+}
+.add-staff .form-staff .form-staff-right {
+  border: 1px solid red;
+  float: right;
+  width: 345px;
+  margin-left: 50px;
+}
+.add-staff .f-group {
+  display: block;
+  width: 100%;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0YWZmLXNldHRpbmcubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUdBLGNBQ0UsT0FBTyxHQUFHO0VBQ1IsWUFBQTtFQUNBLGtCQUFBOztBQUhKLGNBQ0UsT0FBTyxHQUFHLEtBR1I7RUFDRSxXQUFBO0VBQ0EsWUFBQTtFQUNBLHNCQUFBOztBQVBOLGNBV0U7QUFYRixjQVdTO0VBQ0wsWUFBQTs7QUFaSixjQWNFO0FBZEYsY0FjWTtBQWRaLGNBY21CO0VBQ2YsWUFBQTs7QUFmSixjQWlCRTtFQUNFLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0VBQ0Esc0JBQUE7OztBQUtKLGFBQWMsVUFDWjtFQUNJLFlBQUE7O0FBRk4sYUFBYyxVQUlaO0VBQ0ksWUFBQTs7QUFMTixhQUFjLFVBT1o7RUFDSSxXQUFBOzs7QUFLTixVQUNFO0VBQ0UsV0FBQTtFQUNBLGlCQUFBO0VBQ0Esc0JBQUE7RUFDQSxZQUFBOztBQUxKLFVBQ0UsUUFLRTtFQUNFLFlBQUE7RUFDQSxhQUFBOztBQVJOLFVBQ0UsUUFTRTtFQUNFLFlBQUE7RUFDQSxhQUFBOztBQVpOLFVBa0JFO0VBQ0UsV0FBQTtFQUNBLGlCQUFBO0VBQ0Esc0JBQUE7RUFDQSxZQUFBOztBQXRCSixVQWtCRSxZQUtFO0VBQ0Usc0JBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTs7OztBQTFCTixVQWtCRSxZQUtFLGlCQUlFO0VBQ0UsY0FBQTtFQUNBLFdBQUE7O0FBN0JSLFVBa0JFLFlBS0UsaUJBU0U7RUFDRSxXQUFBOztBQWpDUixVQWtCRSxZQUtFLGlCQWFFO0VBQ0UsY0FBQTtFQUNBLFdBQUE7RUFDQSxVQUFBOztBQXZDUixVQWtCRSxZQUtFLGlCQWFFLFFBSUU7RUFDRSxXQUFBO0VBQ0EsWUFBQTs7QUExQ1YsVUFrQkUsWUFLRSxpQkF1QkU7RUFDRSxjQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7O0FBakRSLFVBa0JFLFlBS0UsaUJBdUJFLFNBSUU7RUFDSSxZQUFBOztBQW5EWixVQWtCRSxZQXNDRTtFQUNFLHFCQUFBO0VBQ0EsWUFBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTs7QUE1RE4sVUErREU7RUFDRSxjQUFBO0VBQ0EsV0FBQSIsImZpbGUiOiJ1bmRlZmluZWQifQ== */

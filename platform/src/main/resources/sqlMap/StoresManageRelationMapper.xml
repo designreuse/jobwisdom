@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.StoresManageRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.StoresManageRelation" >
+    <id column="stores_manage_relation_id" property="storesManageRelationId" jdbcType="INTEGER" />
+    <result column="itemid1" property="itemid1" jdbcType="INTEGER" />
+    <result column="itemid2" property="itemid2" jdbcType="INTEGER" />
+    <result column="is_valid" property="isValid" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stores_manage_relation_id, itemid1, itemid2, is_valid, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_stores_manage_relation
+    where stores_manage_relation_id = #{storesManageRelationId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByStoresAccountId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_stores_manage_relation
+    where itemid1 = #{itemid1,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_stores_manage_relation
+    where stores_manage_relation_id = #{storesManageRelationId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.StoresManageRelation" >
+    insert into pt_stores_manage_relation (stores_manage_relation_id, itemid1, 
+      itemid2, is_valid, create_time
+      )
+    values (#{storesManageRelationId,jdbcType=INTEGER}, #{itemid1,jdbcType=INTEGER}, 
+      #{itemid2,jdbcType=INTEGER}, #{isValid,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.StoresManageRelation" >
+    insert into pt_stores_manage_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storesManageRelationId != null" >
+        stores_manage_relation_id,
+      </if>
+      <if test="itemid1 != null" >
+        itemid1,
+      </if>
+      <if test="itemid2 != null" >
+        itemid2,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storesManageRelationId != null" >
+        #{storesManageRelationId,jdbcType=INTEGER},
+      </if>
+      <if test="itemid1 != null" >
+        #{itemid1,jdbcType=INTEGER},
+      </if>
+      <if test="itemid2 != null" >
+        #{itemid2,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.StoresManageRelation" >
+    update pt_stores_manage_relation
+    <set >
+      <if test="itemid1 != null" >
+        itemid1 = #{itemid1,jdbcType=INTEGER},
+      </if>
+      <if test="itemid2 != null" >
+        itemid2 = #{itemid2,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where stores_manage_relation_id = #{storesManageRelationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.StoresManageRelation" >
+    update pt_stores_manage_relation
+    set itemid1 = #{itemid1,jdbcType=INTEGER},
+      itemid2 = #{itemid2,jdbcType=INTEGER},
+      is_valid = #{isValid,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where stores_manage_relation_id = #{storesManageRelationId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertStoresManageRelationList" parameterType="java.util.List">  
+    insert into pt_stores_manage_relation (stores_manage_relation_id, itemid1, 
+      itemid2, is_valid, create_time) values  
+    <foreach collection="list" item="item" index="index"  
+        separator=",">  
+        ( #{item.storesManageRelationId,jdbcType=INTEGER}, #{item.itemid1,jdbcType=INTEGER}, 
+      #{item.itemid2,jdbcType=INTEGER}, #{item.isValid,jdbcType=INTEGER}, #{item.createTime,jdbcType=CHAR})  
+    </foreach>  
+  </insert>  
+  <insert id="insertStoresManageRelationCopy" parameterType="com.lives.platform.web.entity.StoresManageRelation">  
+    insert into pt_stores_manage_relation (itemid1,itemid2,create_time) 
+     select 
+        #{itemid1,jdbcType=INTEGER},
+         itemid2,
+        #{createTime,jdbcType=CHAR}
+      from pt_stores_manage_relation 
+      where itemid1 = #{itemid2,jdbcType=INTEGER}  
+  </insert> 
+</mapper>

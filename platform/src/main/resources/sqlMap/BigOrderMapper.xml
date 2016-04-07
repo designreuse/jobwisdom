@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.BigOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.BigOrder" >
+    <id column="b_order_id" property="bOrderId" jdbcType="INTEGER" />
+    <result column="b_order_type" property="bOrderType" jdbcType="INTEGER" />
+    <result column="combo_sale_detail_id" property="comboSaleDetailId" jdbcType="INTEGER" />
+    <result column="user_order_detail_id" property="userOrderDetailId" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    b_order_id, b_order_type, combo_sale_detail_id, user_order_detail_id, stores_id, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_big_order
+    where b_order_id = #{bOrderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_big_order
+    where b_order_id = #{bOrderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.BigOrder" >
+    insert into pt_big_order (b_order_id, b_order_type, combo_sale_detail_id, 
+      user_order_detail_id, stores_id, create_time
+      )
+    values (#{bOrderId,jdbcType=INTEGER}, #{bOrderType,jdbcType=INTEGER}, #{comboSaleDetailId,jdbcType=INTEGER}, 
+      #{userOrderDetailId,jdbcType=INTEGER}, #{storesId,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.BigOrder" >
+    insert into pt_big_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bOrderId != null" >
+        b_order_id,
+      </if>
+      <if test="bOrderType != null" >
+        b_order_type,
+      </if>
+      <if test="comboSaleDetailId != null" >
+        combo_sale_detail_id,
+      </if>
+      <if test="userOrderDetailId != null" >
+        user_order_detail_id,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bOrderId != null" >
+        #{bOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="bOrderType != null" >
+        #{bOrderType,jdbcType=INTEGER},
+      </if>
+      <if test="comboSaleDetailId != null" >
+        #{comboSaleDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="userOrderDetailId != null" >
+        #{userOrderDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.BigOrder" >
+    update pt_big_order
+    <set >
+      <if test="bOrderType != null" >
+        b_order_type = #{bOrderType,jdbcType=INTEGER},
+      </if>
+      <if test="comboSaleDetailId != null" >
+        combo_sale_detail_id = #{comboSaleDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="userOrderDetailId != null" >
+        user_order_detail_id = #{userOrderDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where b_order_id = #{bOrderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.BigOrder" >
+    update pt_big_order
+    set b_order_type = #{bOrderType,jdbcType=INTEGER},
+      combo_sale_detail_id = #{comboSaleDetailId,jdbcType=INTEGER},
+      user_order_detail_id = #{userOrderDetailId,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where b_order_id = #{bOrderId,jdbcType=INTEGER}
+  </update>
+</mapper>

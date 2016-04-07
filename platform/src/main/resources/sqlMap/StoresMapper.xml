@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.StoresMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.Stores" >
+    <id column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="stores_type" property="storesType" jdbcType="INTEGER" />
+    <result column="stores_name" property="storesName" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="stores_code" property="storesCode" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="principal_duty" property="principalDuty" jdbcType="VARCHAR" />
+    <result column="card_no" property="cardNo" jdbcType="VARCHAR" />
+    <result column="principal_name" property="principalName" jdbcType="VARCHAR" />
+    <result column="sys_name" property="sysName" jdbcType="VARCHAR" />
+    <result column="expire_time" property="expireTime" jdbcType="CHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="paas_word" property="paasWord" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="creator_Id" property="creatorId" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="updator_id" property="updatorId" jdbcType="INTEGER" />
+    <result column="is_pay" property="isPay" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stores_id, parent_id, stores_type, stores_name, company_name, stores_code, brand_name, 
+    province, city, area, addr, phone, principal_duty, card_no, principal_name, sys_name, 
+    expire_time, user_name, paas_word, create_time, creator_Id, update_time, updator_id, 
+    is_pay, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_stores
+    where stores_id = #{storesId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByStoresId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from pt_stores a 
+    where exists(select 1 from pt_stores b where b.stores_id = #{storesId,jdbcType=INTEGER} and b.company_name = a.company_name)
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_stores
+    where stores_id = #{storesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.Stores" >
+    insert into pt_stores (stores_id, parent_id, stores_type, 
+      stores_name, company_name, stores_code, 
+      brand_name, province, city, 
+      area, addr, phone, 
+      principal_duty, card_no, principal_name, 
+      sys_name, expire_time, user_name, 
+      paas_word, create_time, creator_Id, 
+      update_time, updator_id, is_pay, 
+      is_delete)
+    values (#{storesId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{storesType,jdbcType=INTEGER}, 
+      #{storesName,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{storesCode,jdbcType=VARCHAR}, 
+      #{brandName,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{principalDuty,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, #{principalName,jdbcType=VARCHAR}, 
+      #{sysName,jdbcType=VARCHAR}, #{expireTime,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{paasWord,jdbcType=CHAR}, #{createTime,jdbcType=CHAR}, #{creatorId,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=CHAR}, #{updatorId,jdbcType=INTEGER}, #{isPay,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.Stores" >
+    insert into pt_stores
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="storesType != null" >
+        stores_type,
+      </if>
+      <if test="storesName != null" >
+        stores_name,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="storesCode != null" >
+        stores_code,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="principalDuty != null" >
+        principal_duty,
+      </if>
+      <if test="cardNo != null" >
+        card_no,
+      </if>
+      <if test="principalName != null" >
+        principal_name,
+      </if>
+      <if test="sysName != null" >
+        sys_name,
+      </if>
+      <if test="expireTime != null" >
+        expire_time,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="paasWord != null" >
+        paas_word,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_Id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updatorId != null" >
+        updator_id,
+      </if>
+      <if test="isPay != null" >
+        is_pay,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="storesType != null" >
+        #{storesType,jdbcType=INTEGER},
+      </if>
+      <if test="storesName != null" >
+        #{storesName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="storesCode != null" >
+        #{storesCode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="principalDuty != null" >
+        #{principalDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="principalName != null" >
+        #{principalName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysName != null" >
+        #{sysName,jdbcType=VARCHAR},
+      </if>
+      <if test="expireTime != null" >
+        #{expireTime,jdbcType=CHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="paasWord != null" >
+        #{paasWord,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="updatorId != null" >
+        #{updatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isPay != null" >
+        #{isPay,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.Stores" >
+    update pt_stores
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="storesType != null" >
+        stores_type = #{storesType,jdbcType=INTEGER},
+      </if>
+      <if test="storesName != null" >
+        stores_name = #{storesName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="storesCode != null" >
+        stores_code = #{storesCode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="principalDuty != null" >
+        principal_duty = #{principalDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        card_no = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="principalName != null" >
+        principal_name = #{principalName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysName != null" >
+        sys_name = #{sysName,jdbcType=VARCHAR},
+      </if>
+      <if test="expireTime != null" >
+        expire_time = #{expireTime,jdbcType=CHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="paasWord != null" >
+        paas_word = #{paasWord,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_Id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="updatorId != null" >
+        updator_id = #{updatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isPay != null" >
+        is_pay = #{isPay,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where stores_id = #{storesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.Stores" >
+    update pt_stores
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      stores_type = #{storesType,jdbcType=INTEGER},
+      stores_name = #{storesName,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      stores_code = #{storesCode,jdbcType=VARCHAR},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      principal_duty = #{principalDuty,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      principal_name = #{principalName,jdbcType=VARCHAR},
+      sys_name = #{sysName,jdbcType=VARCHAR},
+      expire_time = #{expireTime,jdbcType=CHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      paas_word = #{paasWord,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      creator_Id = #{creatorId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=CHAR},
+      updator_id = #{updatorId,jdbcType=INTEGER},
+      is_pay = #{isPay,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where stores_id = #{storesId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByProperty" parameterType="com.lives.platform.web.entity.Stores" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from pt_stores where 1 = 1
+       <if test="parentId != null" >
+         and parent_id = #{parentId,jdbcType=INTEGER}
+      </if>
+      <if test="storesType != null" >
+         and stores_type = #{storesType,jdbcType=INTEGER}
+      </if>
+      <if test="storesName != null" >
+         and stores_name = #{storesName,jdbcType=VARCHAR}
+      </if>
+      <if test="companyName != null" >
+         and company_name = #{companyName,jdbcType=VARCHAR}
+      </if>
+      <if test="storesCode != null" >
+         and stores_code = #{storesCode,jdbcType=VARCHAR}
+      </if>
+      <if test="brandName != null" >
+         and brand_name = #{brandName,jdbcType=VARCHAR}
+      </if>
+      <if test="province != null" >
+         and province = #{province,jdbcType=VARCHAR}
+      </if>
+      <if test="city != null" >
+         and city = #{city,jdbcType=VARCHAR}
+      </if>
+      <if test="area != null" >
+         and area = #{area,jdbcType=VARCHAR}
+      </if>
+      <if test="addr != null" >
+         and addr = #{addr,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+         and phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="principalDuty != null" >
+         and principal_duty = #{principalDuty,jdbcType=VARCHAR}
+      </if>
+      <if test="cardNo != null" >
+         and card_no = #{cardNo,jdbcType=VARCHAR}
+      </if>
+      <if test="principalName != null" >
+         and principal_name = #{principalName,jdbcType=VARCHAR}
+      </if>
+      <if test="sysName != null" >
+         and sys_name = #{sysName,jdbcType=VARCHAR}
+      </if>
+      <if test="expireTime != null" >
+         and expire_time = #{expireTime,jdbcType=CHAR}
+      </if>
+      <if test="userName != null" >
+         and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="paasWord != null" >
+         and paas_word = #{paasWord,jdbcType=CHAR}
+      </if>
+      <if test="createTime != null" >
+         and create_time = #{createTime,jdbcType=CHAR}
+      </if>
+      <if test="creatorId != null" >
+         and creator_Id = #{creatorId,jdbcType=INTEGER}
+      </if>
+      <if test="updateTime != null" >
+         and update_time = #{updateTime,jdbcType=CHAR}
+      </if>
+      <if test="updatorId != null" >
+         and updator_id = #{updatorId,jdbcType=INTEGER}
+      </if>
+      <if test="isPay != null" >
+         and is_pay = #{isPay,jdbcType=INTEGER}
+      </if>
+      <if test="isDelete != null" >
+         and is_delete = #{isDelete,jdbcType=INTEGER}
+      </if>
+  </select>
+</mapper>

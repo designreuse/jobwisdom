@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.StoresManageMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.StoresManage" >
+    <id column="stores_manage_id" property="storesManageId" jdbcType="INTEGER" />
+    <result column="stores_manage_name" property="storesManageName" jdbcType="VARCHAR" />
+    <result column="hq_stores_id" property="hqStoresId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stores_manage_id, stores_manage_name, hq_stores_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_stores_manage
+    where stores_manage_id = #{storesManageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_stores_manage
+    where stores_manage_id = #{storesManageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.StoresManage" >
+    insert into pt_stores_manage (stores_manage_id, stores_manage_name, 
+      hq_stores_id, create_time)
+    values (#{storesManageId,jdbcType=INTEGER}, #{storesManageName,jdbcType=VARCHAR}, 
+      #{hqStoresId,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.StoresManage" useGeneratedKeys = "true" keyProperty="storesManageId">
+    insert into pt_stores_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storesManageId != null" >
+        stores_manage_id,
+      </if>
+      <if test="storesManageName != null" >
+        stores_manage_name,
+      </if>
+      <if test="hqStoresId != null" >
+        hq_stores_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storesManageId != null" >
+        #{storesManageId,jdbcType=INTEGER},
+      </if>
+      <if test="storesManageName != null" >
+        #{storesManageName,jdbcType=VARCHAR},
+      </if>
+      <if test="hqStoresId != null" >
+        #{hqStoresId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.StoresManage" >
+    update pt_stores_manage
+    <set >
+      <if test="storesManageName != null" >
+        stores_manage_name = #{storesManageName,jdbcType=VARCHAR},
+      </if>
+      <if test="hqStoresId != null" >
+        hq_stores_id = #{hqStoresId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where stores_manage_id = #{storesManageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.StoresManage" >
+    update pt_stores_manage
+    set stores_manage_name = #{storesManageName,jdbcType=VARCHAR},
+      hq_stores_id = #{hqStoresId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where stores_manage_id = #{storesManageId,jdbcType=INTEGER}
+  </update>
+</mapper>

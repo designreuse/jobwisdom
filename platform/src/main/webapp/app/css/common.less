@@ -1,0 +1,739 @@
+button{
+  border: 1px solid @border-color;
+}
+input[type="radio"]{
+  height: 15px;
+  width: 15px;
+}
+input[type="button"]{
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+input{
+  padding-left: 10px;
+}
+label{
+  font-weight: 400;
+}
+
+
+.width100{
+  width: 100px;
+}
+.red{
+  color: @red;
+}
+.orange{
+  color: @orange;
+}
+.blue{
+  color: @deep-blue;
+}
+.green{
+  color: @green;
+}
+/*text-align*/
+.tar{
+  text-align: right;
+}
+.tac{
+  text-align: center;
+}
+.tal{
+  text-align: left;
+}
+.container{
+  width: 1024px !important;
+}
+/*浮动*/
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+/*padding*/
+.pl0{
+  padding-left: 0px;
+}
+.pt10{
+  padding-top: 10px;
+}
+.pl10{
+  padding-left: 10px;
+}
+.pr10{
+  padding-right: 10px;
+}
+.pb10{
+  padding-bottom: 10px;
+}
+/*margin*/
+.mgt0{
+  margin-top: 0px;
+}
+.mgt5{
+  margin-top: 5px;
+}
+.mgl6{
+  margin-left: 6px;
+}
+.mgl10{
+  margin-left: 10px;
+}
+.mgr10{
+  margin-right: 10px;
+}
+.mgt10{
+  margin-top: 10px;
+}
+.mgb10{
+  margin-bottom: 10px;
+}
+.mgr18{
+  margin-right: 18px;
+}
+.mgr16{
+  margin-right: 16px;
+}
+.mgr37{
+  margin-right: 37px;
+}
+.mgl18{
+  margin-left: 18px;
+}
+.mgt8{
+  margin-top: 8px;
+}
+.mgl30{
+  margin-left: 30px;
+}
+.mgl-5{
+  margin-left: -5px;
+}
+.mgr-5{
+  margin-right: -5px;
+}
+.middle-table td{
+  height: 40px;
+}
+img{
+  cursor: pointer;
+}
+/*tab*/
+.tab_menu{
+  position: absolute;
+  margin: -45px 0px;
+  margin-left: 0px;
+  font-size: 16px;
+  li{
+    width: 120px;
+    float: left;
+    height: 35px;
+    line-height: 30px;
+    color: #757575;
+    text-align: center;
+    cursor: pointer;
+
+  }
+  .current{
+    border-bottom: @hint-color solid 3px;
+    color: @hint-color;
+  }
+}
+.tab_box .hide{
+  display:none;
+}
+
+/*项目设置的button*/
+.btn-blue{
+  background-color: @btn-white-background-color;
+  border: @border-size solid @btn-blue-color;
+  width: 50px;
+  height: 30px;
+  border-radius: 0px;
+  padding: 3px 6px;
+}
+.btn-empty{
+  background-color: @btn-white-background-color;
+  color: @btn-empty-font-color;
+  border: @border-size solid @border-color;
+  width: 50px;
+  height: 30px;
+  border-radius: 0px;
+  padding: 3px 6px;
+}
+
+
+/*表单*/
+.form-horizontal{
+  .form-group {
+    margin-right: 0px;
+    margin-left: 0px;
+    .form-label{
+      width: 65px;
+      float: left;
+    }
+  }
+}
+.form-group {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+.control-group {
+  overflow: hidden;
+}
+.dropdown-menu{
+  min-width: 0px;
+  font-size: 12px;
+}
+.dropdown{
+  .appoints{
+    width: 55px;
+    border-radius: 0px;
+    height: 40px;
+    border-color: #EEEEEE;
+    border-right: 1px solid #c6c6c6;
+    border-top: 1px solid #c6c6c6;
+    background: #fff;
+    border-bottom: 1px solid #c6c6c6;
+    color: #fff;
+    background: url("../img/d-triangle.png") no-repeat 95% 50% @theme-color;
+  }
+  .dropmenus{
+    color: #060606;
+    text-decoration: none;
+    background-color: #1A75C3;
+  }
+  .btn-lg, .btn-group-lg>.btn {
+    padding: 4px 10px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 6px;
+  }
+  .btn {
+    display: inline;
+    padding: 5px 39px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  .btn:hover, .btn:focus {
+    color: #060606;
+    text-decoration: none;
+  }
+  .btn-dangers {
+    color: #000;
+    background-color: #fff;
+    border-color: #3997f3;
+  }
+  .dropdown-menu>li>a {
+    display: block;
+    padding: 3px 52px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+  }
+  .dropdown-menu .divider {
+    height: 1px;
+    margin: 2px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+  }
+}
+
+/*模态框距离上面的距离*/
+.modal-body {
+  position: static;
+  padding: 15px;
+}
+.modal-dialog {
+  width: 600px;
+  margin: 100px auto;
+}
+.modal-content{
+  position: relative;
+}
+.f-button{
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+/*提示语句*/
+.hint{
+  height: 26.5px;
+  margin-top: -3.5px;
+  td .diamonds{
+    margin-top: 20px;
+  }
+  .diamonds{
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background-color: @hint-font-color;
+  }
+  .word{
+    color: @hint-font-color;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+}
+
+/*加号*/
+.plus{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #bbb;
+  vertical-align: middle;
+  line-height: 17px;
+  text-align: center;
+}
+
+/*
+取消确定按钮*/
+.cancel{
+  width: 50px;
+  height: 30px;
+  border-color: @border-color;
+  background-color: #fff;
+  color: @normal-font-color;
+  margin-right: 10px;
+}
+.confirm{
+  width: 100px;
+  height: 30px;
+  border-color: @hint-color;
+  background-color: #fff;
+  color: @normal-font-color;
+}
+
+/*下拉框*/
+.dropdown-input{
+  position: absolute;
+  z-index: 10;
+  width: 905px;
+  height: auto;
+  background-color: #fff;
+  border:1px solid #ccc;
+  box-shadow: 5px 5px 5px #888888;
+  .item{
+    margin-left: 50px;
+  }
+  .money{
+    color: red;
+  }
+  ul{
+    padding: 5px 10px;
+  }
+  li{
+    height: 30px;
+    border-bottom: 1px solid #cdcdcd;
+    line-height: 30px;
+  }
+}
+
+/*气泡*/
+.arrow{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  bottom: 52px;
+  left: 100px;
+}
+.arrow *{
+  display: block;
+  border-width: 10px;
+  position: absolute;
+  border-style: dashed dashed solid dashed;
+  font-size: 0;
+  line-height: 0;
+}
+.arrow em{
+  border-color: transparent transparent #ccc;
+}
+.arrow span{
+  border-color: transparent transparent #FFF;
+  top: 2px;
+}
+
+
+/*
+内容的导航区*/
+
+/*面包屑*/
+.breadcrumb{
+  height: 52px;
+  line-height: 52px;
+  margin-left: 87px;
+  background-color: transparent;
+  padding: 0px;
+  display: inline-block;
+}
+/*返回按钮*/
+.return{
+  width: 100px;
+  height: 27px;
+  background-color: #fff;
+  margin: 10px 10px 0px 0px;
+  color: #000;
+  border: 1px solid @border-color
+}
+/*增加按钮*/
+.add{
+  width: 100px;
+  height: 30px;
+  background-color: #215788;
+  color: #fff;
+  border: 1px solid @boder-color;
+  cursor: pointer;
+  text-align: center;
+  line-height: 25px;
+}
+
+.table tbody td{
+  font-size: 12px;
+  img{
+    vertical-align: middle;
+  }
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: middle;
+  border-top: 1px solid #ddd;
+  color: @weight-font-color;
+}
+
+/*模态框的关闭按钮去掉点击时的蓝色框*/
+.close:focus, .close:hover {
+  outline: none;
+}
+:focus{
+  outline: none;
+}
+
+.table caption{
+  padding-top: 10px;
+}
+
+
+/*方块*/
+.diamonds{
+  float: left;
+  height: 10px;
+  width: 10px;
+  margin: 9px 10px;
+  border-radius: 1px;
+}
+
+.orange-diamonds{
+  background-color: @orange;
+}
+
+.purple-diamonds{
+  background-color: @deep-purple;
+}
+
+.blue-diamonds{
+  background-color: @deep-blue;
+}
+
+
+/*表的头部一栏*/
+.p-column-name{
+  background-color: #fff;
+  border: 1px solid @border-color;
+  td{
+    padding-left: 10px;
+  }
+}
+
+
+/*背景颜色tab*/
+.modal-tab{
+  .tab_box{
+    padding-top: 30px;
+  }
+  .tab_menu{
+    border: 0px solid;
+    position: absolute;
+    margin: -21px -20px;
+    font-size: 12px;
+    color: @normal-font-color;
+    li{
+      height: 30px;
+      width: 132px;
+      border: 1px solid @border-color;
+      background-color: #fff;
+      line-height: 30px;
+    }
+    .current{
+      background-color: @hint-color;
+      color: #fff;
+      border: 1px solid @hint-color;
+      height: 30px;
+    }
+  }
+}
+
+.setting-content .background-tab .tab_menu{
+  border: 0px solid;
+  position: absolute;
+  margin: 10px 20px;
+  margin-left: 10px;
+  font-size: 12px;
+  color: @normal-font-color;
+  li{
+    height: 25px;
+    width: 100px;
+    border: 1px solid @border-color;
+    background-color: #fff;
+    line-height: 25px;
+  }
+  .current{
+    background-color: @hint-color;
+    color: #fff;
+    border: 1px solid @hint-color;
+    height: 25px;
+  }
+}
+
+
+.setting-content .liaocheng-tab .tab_menu{
+  border: 0px solid;
+  position: absolute;
+  margin: 10px 20px;
+  margin-left: 10px;
+  font-size: 12px;
+  color: @normal-font-color;
+  li{
+    height: 25px;
+    width: 100px;
+    border: 1px solid @border-color;
+    background-color: #fff;
+    line-height: 25px;
+  }
+  .current{
+    background-color: @hint-color;
+    color: #fff;
+    border: 1px solid @hint-color;
+    height: 25px;
+  }
+}
+/*slider的样式重定义*/
+.bx-wrapper img {
+  max-width: 100%;
+  display: inline-block;
+}
+.bx-wrapper {
+  -moz-box-shadow: 0 0 0px #ccc;
+  -webkit-box-shadow: 0 0 0px #ccc;
+  box-shadow: 0 0 0px #ccc;
+  border: 0px solid #fff;
+  background: transparent;
+  margin: 0px;
+}
+
+
+/*
+input框中加各种图标*/
+.bg-percent-img{
+  background: url("../img/percent.png") no-repeat 95% 50%;
+}
+.bg-money-img{
+  background: url("../img/money.png") no-repeat 95% 50%;
+}
+.bg-dropdown-img{
+  background: url("../img/d-triangle.png") no-repeat 95% 50%;
+}
+
+.form-part-title{
+  color: @weight-font-color;
+  vertical-align: middle;
+  padding-top: 6.5px;
+}
+
+
+/*
+模态框内的按钮*/
+.f-button{
+  margin-top: 30px;
+  float: right;
+  margin-bottom: 0px;
+  button{
+    font-size: 12px;
+  }
+  .prev-step{
+    width: 100px;
+    height: 30px;
+    border-color: @border-color;
+    background-color: #fff;
+    color: @normal-font-color;
+  }
+  .next-step{
+    width: 100px;
+    height: 30px;
+    border-color: @hint-color;
+    background-color: #fff;
+    color: @hint-color;
+  }
+  .cancel{
+    width: 50px;
+    height: 30px;
+    border-color: @border-color;
+    background-color: #fff;
+    color: @normal-font-color;
+    margin-right: 10px;
+  }
+  .confirm{
+    width: 100px;
+    height: 30px;
+    border-color: @hint-color;
+    background-color: #fff;
+    color: @hint-color;
+  }
+
+}
+
+.open .down-img{
+  transform: rotate(180deg);
+  transition: transform .1s linear;
+}
+
+.table-hover>tbody>tr:hover {
+  background-color: transparent;
+}
+
+/*设置字体大小*/
+caption{
+  font-size: 12px;
+}
+
+
+/*添加日期的表格*/
+.add-staff .form-staff .form-staff-left .f-group {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 30px;
+}
+
+.add-staff .form-staff .form-staff-left .form-button {
+  width: 100px;
+  height: 30px;
+  background-color: #fff;
+  margin-top: 40px;
+  border-color: #3997f3;
+  float: left;
+}
+
+.add-staff .form-staff .form-staff-left .f-whole {
+  display: block;
+  float: left;
+  width: 347px;
+  height: 40px;
+}
+
+.dropdown .dropdown-menu > li > a {
+  display: block;
+  padding: 0px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
+
+/*分页*/
+.table-title {
+  .per-page{
+    select{
+      height: 30px;
+      width: 60px;
+      border-color: @hint-color;
+      padding-left: 10px;
+    }
+  }
+  .page-num{
+    margin-left: 10px;
+    margin-right: 10px;
+
+  }
+  .page-control{
+    margin-top: 5px;
+    button{
+      width: 30px;
+      height: 30px;
+    }
+    .prev-page{
+      background-color: #fff;
+      border-color: @hint-color;
+      span{
+        color: @hint-color;
+      }
+    }
+    .next-page{
+      background-color: @weight-background-color;
+      border-color: @weight-background-color;
+      span{
+        color: #fff;
+      }
+    }
+  }
+}
+
+//    搜索框
+.search{
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+  input{
+    width: 100px;
+    height: 30px;
+    border: 1px solid @theme-color;
+    padding-left: 5px;
+    border-radius: 15px;
+    transition: width .1s linear;
+    padding-left: 10px;
+    &:focus{
+      width: 200px;
+    }
+  }
+  span{
+    margin-left: -30px;
+  }
+}
+
+/*
+批量设置的button*/
+.batch-setting{
+  width: 100px;
+}
+
+.more{
+  width: 100px;
+  color: #fff;
+}
+
+
+.submunu li a{
+  height: 80px;
+  width: ;
+}

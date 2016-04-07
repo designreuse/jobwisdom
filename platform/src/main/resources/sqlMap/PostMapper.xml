@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.PostMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.Post" >
+    <id column="post_id" property="postId" jdbcType="INTEGER" />
+    <result column="post_message_id" property="postMessageId" jdbcType="INTEGER" />
+    <result column="valid" property="valid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    post_id, post_message_id, valid
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_post
+    where post_id = #{postId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllPost" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pt_post
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_post
+    where post_id = #{postId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.Post" >
+    insert into pt_post (post_id, post_message_id, valid
+      )
+    values (#{postId,jdbcType=INTEGER}, #{postMessageId,jdbcType=INTEGER}, #{valid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.Post" >
+    insert into pt_post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="postId != null" >
+        post_id,
+      </if>
+      <if test="postMessageId != null" >
+        post_message_id,
+      </if>
+      <if test="valid != null" >
+        valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="postId != null" >
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="postMessageId != null" >
+        #{postMessageId,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.Post" >
+    update pt_post
+    <set >
+      <if test="postMessageId != null" >
+        post_message_id = #{postMessageId,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where post_id = #{postId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.Post" >
+    update pt_post
+    set post_message_id = #{postMessageId,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=INTEGER}
+    where post_id = #{postId,jdbcType=INTEGER}
+  </update>
+</mapper>

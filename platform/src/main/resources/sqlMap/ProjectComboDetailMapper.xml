@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.ProjectComboDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.ProjectComboDetail" >
+    <id column="combo_detail_id" property="comboDetailId" jdbcType="INTEGER" />
+    <result column="combo_id" property="comboId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="original_cost" property="originalCost" jdbcType="DECIMAL" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    combo_detail_id, combo_id, project_id, stores_id, create_time, original_cost, cost
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_project_combo_detail
+    where combo_detail_id = #{comboDetailId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByStoresIdList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_project_combo_detail
+    where stores_id = #{storesId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_project_combo_detail
+    where combo_detail_id = #{comboDetailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.ProjectComboDetail" >
+    insert into pt_project_combo_detail (combo_detail_id, combo_id, project_id, 
+      stores_id, create_time, original_cost, cost)
+    values (#{comboDetailId,jdbcType=INTEGER}, #{comboId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{storesId,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}, #{originalCost,jdbcType=DECIMAL} ,#{cost,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.ProjectComboDetail" >
+    insert into pt_project_combo_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="comboDetailId != null" >
+        combo_detail_id,
+      </if>
+      <if test="comboId != null" >
+        combo_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="originalCost != null" >
+        original_cost,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="comboDetailId != null" >
+        #{comboDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="comboId != null" >
+        #{comboId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="originalCost != null" >
+        #{original_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.ProjectComboDetail" >
+    update pt_project_combo_detail
+    <set >
+      <if test="comboId != null" >
+        combo_id = #{comboId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="originalCost != null" >
+        #{original_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where combo_detail_id = #{comboDetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.ProjectComboDetail" >
+    update pt_project_combo_detail
+    set combo_id = #{comboId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR},
+      original_cost = #{originalCost,jdbcType=DECIMAL},
+      cost = #{cost,jdbcType=DECIMAL}
+    where combo_detail_id = #{comboDetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

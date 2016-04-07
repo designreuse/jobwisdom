@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/rabbit
+    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <!-- 连接服务配置 -->
+    <rabbit:connection-factory id="connectionFactory"
+        host="${rabbitmq.host}" port="${rabbitmq.port}" username="${rabbitmq.username}"
+        password="${rabbitmq.password}" channel-cache-size="${rabbitmq.channel.cache.size}" />
+        
+    <bean id="ackManual"
+        class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField"
+            value="org.springframework.amqp.core.AcknowledgeMode.MANUAL" />
+    </bean>
+
+    <bean id="mqErrorHandler" class="com.zefun.wechat.utils.MQErrorHandler"/>
+    <bean id="msgConverter" class="org.springframework.amqp.support.converter.SimpleMessageConverter" />
+
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory"/>
+    <rabbit:admin connection-factory="connectionFactory" />
+    
+    <bean id="retryOperationsInterceptorFactoryBean"
+        class="org.springframework.amqp.rabbit.config.StatelessRetryOperationsInterceptorFactoryBean">
+        <property name="messageRecoverer">
+            <bean class="com.zefun.wechat.utils.MQRepublishMessageRecoverer"/>
+        </property>
+        <property name="retryOperations">
+            <bean class="org.springframework.retry.support.RetryTemplate">
+                <property name="backOffPolicy">
+                    <bean
+                        class="org.springframework.retry.backoff.ExponentialBackOffPolicy">
+                        <property name="initialInterval" value="500" />
+                        <property name="multiplier" value="10.0" />
+                        <property name="maxInterval" value="10000" />
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    
+    
+    <!-- 创建rabbitAdmin 代理类 -->
+    <rabbit:queue id="queue_employee_service_notice" name="${rabbitmq.wechat.template.notice.employee.service}" durable="true"
+        auto-delete="false" exclusive="false" />
+    
+    <rabbit:queue id="queue_member_transcation_notice" name="${rabbitmq.wechat.template.notice.member.transcation}" durable="true"
+        auto-delete="false" exclusive="false" />
+        
+    <rabbit:queue id="queue_member_charge_notice" name="${rabbitmq.wechat.template.notice.member.charge}" durable="true"
+        auto-delete="false" exclusive="false" />    
+    
+    <rabbit:queue id="queue_appointment_apply_notice" name="${rabbitmq.wechat.template.notice.appointment.apply}" durable="true"
+        auto-delete="false" exclusive="false" /> 
+        
+   <rabbit:queue id="queue_appointment_result_notice" name="${rabbitmq.wechat.template.notice.appointment.result}" durable="true"
+        auto-delete="false" exclusive="false" />       
+  
+    <rabbit:queue id="queue_member_service_coupon" name="${rabbitmq.wechat.template.notice.coupon}" durable="true"
+        auto-delete="false" exclusive="false" />  
+             
+    <!--路由设置 将队列绑定，属于direct类型 -->
+    <rabbit:direct-exchange id="directExchange"
+        name="directExchange" durable="true" auto-delete="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="queue_employee_service_notice" key="${rabbitmq.wechat.template.notice.employee.service}" />
+            <rabbit:binding queue="queue_member_transcation_notice" key="${rabbitmq.wechat.template.notice.member.transcation}" />
+            <rabbit:binding queue="queue_member_charge_notice" key="${rabbitmq.wechat.template.notice.member.charge}" />
+            <rabbit:binding queue="queue_appointment_apply_notice" key="${rabbitmq.wechat.template.notice.appointment.apply}" />
+            <rabbit:binding queue="queue_appointment_result_notice" key="${rabbitmq.wechat.template.notice.appointment.result}" />
+            <rabbit:binding queue="queue_member_service_coupon" key="${rabbitmq.wechat.template.notice.coupon}" />
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+    
+    <!-- 处理员工服务交接通知队列 -->
+    <bean class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="acknowledgeMode" ref="ackManual" />
+        <property name="queueNames" value="${rabbitmq.wechat.template.notice.employee.service}" />
+        <property name="messageListener">
+            <bean class="com.zefun.wechat.listener.EmployeeServiceNoticeListener" />
+        </property>
+        <property name="concurrentConsumers" value="${rabbitmq.concurrentConsumers}" />
+        <property name="adviceChain" ref="retryOperationsInterceptorFactoryBean" />
+        <property name="errorHandler" ref="mqErrorHandler" />
+    </bean>
+    
+    <!-- 处理会员结账通知队列 -->
+    <bean class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="acknowledgeMode" ref="ackManual" />
+        <property name="queueNames" value="${rabbitmq.wechat.template.notice.member.transcation}" />
+        <property name="messageListener">
+            <bean class="com.zefun.wechat.listener.MemberTranscationNoticeListener" />
+        </property>
+        <property name="concurrentConsumers" value="${rabbitmq.concurrentConsumers}" />
+        <property name="adviceChain" ref="retryOperationsInterceptorFactoryBean" />
+        <property name="errorHandler" ref="mqErrorHandler" />
+    </bean>
+    
+    <!-- 处理会员充值通知队列 -->
+    <bean class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="acknowledgeMode" ref="ackManual" />
+        <property name="queueNames" value="${rabbitmq.wechat.template.notice.member.charge}" />
+        <property name="messageListener">
+            <bean class="com.zefun.wechat.listener.MemberChargeNoticeListener" />
+        </property>
+        <property name="concurrentConsumers" value="${rabbitmq.concurrentConsumers}" />
+        <property name="adviceChain" ref="retryOperationsInterceptorFactoryBean" />
+        <property name="errorHandler" ref="mqErrorHandler" />
+    </bean>
+    
+    <!-- 处理会员预约申请通知队列 -->
+    <bean class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="acknowledgeMode" ref="ackManual" />
+        <property name="queueNames" value="${rabbitmq.wechat.template.notice.appointment.apply}" />
+        <property name="messageListener">
+            <bean class="com.zefun.wechat.listener.AppointmentApplyNoticeListener" />
+        </property>
+        <property name="concurrentConsumers" value="${rabbitmq.concurrentConsumers}" />
+        <property name="adviceChain" ref="retryOperationsInterceptorFactoryBean" />
+        <property name="errorHandler" ref="mqErrorHandler" />
+    </bean>
+    
+    <!-- 处理会员预约申请通知队列 -->
+    <bean class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="acknowledgeMode" ref="ackManual" />
+        <property name="queueNames" value="${rabbitmq.wechat.template.notice.appointment.result}" />
+        <property name="messageListener">
+            <bean class="com.zefun.wechat.listener.AppointmentResultNoticeListener" />
+        </property>
+        <property name="concurrentConsumers" value="${rabbitmq.concurrentConsumers}" />
+        <property name="adviceChain" ref="retryOperationsInterceptorFactoryBean" />
+        <property name="errorHandler" ref="mqErrorHandler" />
+    </bean>
+ 
+     <!-- 发送优惠券队列通知 -->
+    <bean class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="acknowledgeMode" ref="ackManual" />
+        <property name="queueNames" value="${rabbitmq.wechat.template.notice.coupon}" />
+        <property name="messageListener">
+            <bean class="com.zefun.wechat.listener.MemberTranscationNoitceCoupon" />
+        </property>
+        <property name="concurrentConsumers" value="${rabbitmq.concurrentConsumers}" />
+        <property name="adviceChain" ref="retryOperationsInterceptorFactoryBean" />
+        <property name="errorHandler" ref="mqErrorHandler" />
+    </bean>   
+</beans>

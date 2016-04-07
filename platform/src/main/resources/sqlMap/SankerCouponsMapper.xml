@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.SankerCouponsMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.SankerCoupons" >
+    <id column="coupons_id" property="couponsId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="start" property="start" jdbcType="CHAR" />
+    <result column="end" property="end" jdbcType="CHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    coupons_id, name, amount, start, end, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_sanker_coupons
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_sanker_coupons
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.SankerCoupons" >
+    insert into pt_sanker_coupons (coupons_id, name, amount, 
+      start, end, state)
+    values (#{couponsId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{start,jdbcType=CHAR}, #{end,jdbcType=CHAR}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.SankerCoupons" >
+    insert into pt_sanker_coupons
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="couponsId != null" >
+        coupons_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="start != null" >
+        start,
+      </if>
+      <if test="end != null" >
+        end,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="couponsId != null" >
+        #{couponsId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="start != null" >
+        #{start,jdbcType=CHAR},
+      </if>
+      <if test="end != null" >
+        #{end,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.SankerCoupons" >
+    update pt_sanker_coupons
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="start != null" >
+        start = #{start,jdbcType=CHAR},
+      </if>
+      <if test="end != null" >
+        end = #{end,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.SankerCoupons" >
+    update pt_sanker_coupons
+    set name = #{name,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      start = #{start,jdbcType=CHAR},
+      end = #{end,jdbcType=CHAR},
+      state = #{state,jdbcType=INTEGER}
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+  select * from pt_sanker_coupons
+  </select>
+</mapper>

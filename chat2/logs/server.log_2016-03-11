@@ -1,0 +1,174 @@
+[2016-03-11 11:20:47.012] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-11 11:20:47.937] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-11 11:20:49.197] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-11 11:20:50.632] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-11 11:20:52.371] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-11 11:20:54.624] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-11 11:20:57.752] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-11 11:21:02.368] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-11 11:21:19.561] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-11 11:25:19.099] [INFO] server - 44,519,离线消息3434
+[2016-03-11 11:26:13.230] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-11 11:28:15.249] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-11 11:28:22.485] [INFO] server - 44,519,离线消息3434
+[2016-03-11 11:28:22.490] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-11 11:32:13.204] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-11 11:32:30.435] [INFO] server - 519,44,离线消息3434
+[2016-03-11 11:32:30.437] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-11 11:32:50.565] [INFO] server - 519,43,离线消息3434
+[2016-03-11 11:32:50.567] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-11 11:35:34.730] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-11 11:35:50.022] [INFO] server - 44,519,离线消息3434
+[2016-03-11 11:35:50.024] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-11 11:37:29.511] [INFO] server - 44,519,离线消息3434
+[2016-03-11 11:37:29.516] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-11 11:38:03.042] [INFO] server - 44,519,离线消息3434
+[2016-03-11 11:38:03.046] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-11 11:40:06.459] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-11 11:40:12.082] [INFO] server - 44,519,离线消息3434
+[2016-03-11 11:40:21.390] [INFO] server - 44,519,离线消息3434
+[2016-03-11 11:40:25.133] [INFO] server - 44,519,离线消息3434
+[2016-03-11 11:40:46.097] [INFO] server - 519,43,离线消息3434
+[2016-03-11 11:40:49.790] [INFO] server - 519,43,离线消息3434
+[2016-03-11 11:40:49.793] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-11 11:42:03.767] [INFO] server - 43,519,离线消息3434
+[2016-03-11 11:42:03.776] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-11 11:42:08.607] [INFO] server - 44,519,离线消息3434
+[2016-03-11 11:42:08.613] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-11 11:52:37.903] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 11:52:37","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-11 11:54:58.739] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 11:54:58","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-11 11:54:58.741] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 11:54:58","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-11 12:19:01.570] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 12:18:58","length":0,"msg":"1218号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-11 12:19:40.134] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 12:19:40","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-11 12:19:40.147] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 12:19:40","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-11 12:46:08.655] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 12:46:08","length":0,"msg":"1212号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-11 13:00:16.741] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:00:16","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-11 13:00:16.743] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:00:16","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-11 13:00:29.212] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:00:29","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-11 13:00:48.218] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:00:48","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-11 13:00:48.221] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:00:48","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-11 13:03:47.155] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:03:47","length":0,"msg":"1403号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"651"}
+[2016-03-11 13:03:47.157] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:03:47","length":0,"msg":"1403号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"886"}
+[2016-03-11 13:03:47.159] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:03:47","length":0,"msg":"1403号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"648"}
+[2016-03-11 13:03:47.161] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:03:47","length":0,"msg":"1403号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"629"}
+[2016-03-11 13:04:50.392] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:04:50","length":0,"msg":"1403号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"651"}
+[2016-03-11 13:04:50.394] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:04:50","length":0,"msg":"1403号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"886"}
+[2016-03-11 13:04:50.396] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:04:50","length":0,"msg":"1403号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"648"}
+[2016-03-11 13:04:50.397] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:04:50","length":0,"msg":"1403号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"629"}
+[2016-03-11 13:16:13.160] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:16:13","length":0,"msg":"1103号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"536"}
+[2016-03-11 13:18:28.999] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:18:29","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-11 13:18:29.003] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:18:29","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-11 13:32:35.104] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:32:35","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-03-11 13:44:49.707] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:44:49","length":0,"msg":"1103号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-03-11 13:48:09.277] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:48:09","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-11 13:48:09.280] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-11 13:48:09","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}

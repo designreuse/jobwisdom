@@ -1,0 +1,61 @@
+.add-project .add-staff-btn .dropDownIcon {
+	background-color: white;
+	border-color: #C7C4C4;
+	background: url(../app/img/d-triangle.png) no-repeat 97% 50% #fff;
+}
+
+.dropDownIcon {
+	background-color: white;
+	border-color: #C7C4C4;
+	background: url(../app/img/d-triangle.png) no-repeat 97% 50% #fff;
+}
+
+.add-project .add-staff-btn.dropdownUL{
+   max-height: 96px;
+   overflow-y: auto;
+}
+
+.dropdownUL{
+   max-height: 96px;
+   overflow-y: auto;
+}
+
+.appoints {
+	width: 100px;
+	border-radius: 0px;
+	height: 40px;
+	border-color: #EEEEEE;
+	border-right: 1px solid #c6c6c6;
+	border-top: 1px solid #c6c6c6;
+	background: #fff;
+	border-bottom: 1px solid #c6c6c6;
+}
+
+.btn-group>.sign{
+    position: absolute;
+    margin-left: -15px;
+    margin-top: 13px;
+}
+
+.btn-group > .btn:hover,
+.btn-group-vertical > .btn:hover,
+.btn-group > .btn:focus,
+.btn-group-vertical > .btn:focus,
+.btn-group > .btn:active,
+.btn-group-vertical > .btn:active,
+.btn-group > .btn.active,
+.btn-group-vertical > .btn.active {
+  z-index: 0;
+}
+
+.superDropDownLi{
+    text-align: center;
+}
+
+button{
+	border: 1px solid #ccc;
+	font-size: 12px;
+	line-height: 1.42857143;
+	padding: 1px 3px;
+    text-align: center;
+}

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.manage.web.mapper.RoleMapper">
+	<resultMap id="BaseResultMap" type="com.lives.manage.web.entity.Role">
+		<id column="role_id" property="roleId" jdbcType="INTEGER" />
+		<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		role_id, role_name, sort
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from m_role
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from m_role
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" useGeneratedKeys="true" parameterType="com.lives.manage.web.entity.Role" keyProperty="roleId">
+		insert into m_role (role_id, role_name, sort
+		)
+		values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR},
+		#{sort,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.lives.manage.web.entity.Role">
+		insert into m_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="roleName != null">
+				role_name,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				#{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="roleName != null">
+				#{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.lives.manage.web.entity.Role">
+		update m_role
+		<set>
+			<if test="roleName != null">
+				role_name = #{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=INTEGER},
+			</if>
+		</set>
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.lives.manage.web.entity.Role">
+		update m_role
+		set role_name = #{roleName,jdbcType=VARCHAR},
+		sort = #{sort,jdbcType=INTEGER}
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</update>
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(0) from m_role;
+	</select>
+	<resultMap type="com.lives.manage.web.entity.UserRoleUtils"
+		id="userRoleUtils">
+		<result column="user_name" property="userName" />
+		<result column="role_name" property="roleName" />
+	</resultMap>
+	<select id="getAllUserRole" resultMap="userRoleUtils">
+		SELECT u.user_name,r.role_name FROM m_user_role m, m_role r,m_user u
+		WHERE u.user_id = m.user_id
+		AND r.role_id = m.role_id
+		ORDER BY r.sort ASC
+	</select>
+	<select id="selectAllRole" resultMap="BaseResultMap">
+	select * from m_role;
+	</select>
+	
+	<select id="selectRoleByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	SELECT * FROM m_role t WHERE t.role_id IN (
+     SELECT v.role_id FROM m_user_role v WHERE user_id = #{userId}
+    )
+	</select>
+	
+	<select id="selectRoleBookstrap" parameterType="java.lang.Integer" resultType="com.lives.manage.web.dto.RoleDto">
+	select m.role_name as text,m.role_id as id from m_role m where m.role_id = #{roleId}
+	</select>
+	
+	<select id="selectAllRoleId" resultType="java.lang.Integer">
+	select m.role_id from m_role m;
+	</select>
+	
+	<select id="selectRoleId" parameterType="java.lang.String" resultType="java.lang.Integer">
+	select m.role_id as id from m_role m where m.role_name = #{roleName}
+	</select>
+</mapper>

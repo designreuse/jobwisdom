@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="format-detection" content="email=no"/>
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+        <title>我是客服</title>
+        <!--[if lt IE 8]><script src="./json3.min.js"></script><![endif]-->
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+    <script>
+        var userId = 0;
+        var userType = 'kf';
+    	var user = {"userId" : userId, "storeId" : 2, "storeName" : "storeName", "userType":userType};
+        var socket = io.connect('ws://127.0.0.1:3000');
+	    socket.on('connect', function(data) {
+	    	console.log(data);
+	    	//登录聊天室
+	        socket.emit('initUser', user);
+            socket.on('getMsg', function(data){
+                alert(data)
+            })
+            socket.emit('getNotOnlineMsg', userId, 'kf');
+	    });
+    </script>
+	
+	<div id="div">
+	
+    发送消息:<input type="text" id="message"><button type="button" id="send">发送</button>
+	</div>
+        
+    </body>
+    <script type="text/javascript">
+        $("#send").on('click', function(){
+            socket.emit('chatMsg', userId, 519,  $('#message').val(), userType);
+           
+        })
+
+    </script>
+</html>

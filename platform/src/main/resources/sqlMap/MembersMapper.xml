@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.MembersMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.Members" >
+    <id column="members_id" property="membersId" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="members_info_id" property="membersInfoId" jdbcType="INTEGER" />
+    <result column="members_card_id" property="membersCardId" jdbcType="INTEGER" />
+    <result column="card_name_id" property="cardNameId" jdbcType="INTEGER" />
+    <result column="members_name" property="membersName" jdbcType="VARCHAR" />
+    <result column="members_mobile" property="membersMobile" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="is_lunar_cal" property="isLunarCal" jdbcType="INTEGER" />
+    <result column="members_type" property="membersType" jdbcType="INTEGER" />
+    <result column="members_type_name" property="membersTypeName" jdbcType="INTEGER" />
+    <result column="register_time" property="registerTime" jdbcType="CHAR" />
+    <result column="consume_total_amount" property="consumeTotalAmount" jdbcType="DECIMAL" />
+    <result column="consume_num" property="consumeNum" jdbcType="DECIMAL" />
+    <result column="cash_gift_amount" property="cashGiftAmount" jdbcType="DECIMAL" />
+    <result column="cash_gift_balance" property="cashGiftBalance" jdbcType="DECIMAL" />
+    <result column="topup_total_amount" property="topupTotalAmount" jdbcType="DECIMAL" />
+    <result column="account_balance" property="accountBalance" jdbcType="DECIMAL" />
+    <result column="stored_total_amount" property="storedTotalAmount" jdbcType="DECIMAL" />
+    <result column="stored_balance" property="storedBalance" jdbcType="DECIMAL" />
+    <result column="last_consumption_date" property="lastConsumptionDate" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="system_card_no" property="systemCardNo" jdbcType="INTEGER" />
+    <result column="entity_card_no" property="entityCardNo" jdbcType="INTEGER" />
+    <result column="open_card_way" property="openCardWay" jdbcType="INTEGER" />
+    <result column="direct_referrer" property="directReferrer" jdbcType="INTEGER" />
+    <result column="indirect_referrer" property="indirectReferrer" jdbcType="INTEGER" />
+    <result column="open_card_send_integral" property="openCardSendIntegral" jdbcType="INTEGER" />
+    <result column="open_card_date" property="openCardDate" jdbcType="CHAR" />
+    <result column="pay_pwd" property="payPwd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    members_id, stores_id, members_info_id, members_card_id, card_name_id, members_name, 
+    members_mobile, sex, birthday, is_lunar_cal, members_type, members_type_name, register_time, consume_total_amount, 
+    consume_num, cash_gift_amount, cash_gift_balance, topup_total_amount, account_balance, 
+    stored_total_amount, stored_balance, last_consumption_date, create_time, system_card_no, 
+    entity_card_no, open_card_way, direct_referrer, indirect_referrer,open_card_send_integral, open_card_date,pay_pwd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_members
+    where members_id = #{membersId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_members
+    where members_id = #{membersId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.Members" >
+    insert into pt_members (members_id, stores_id, members_info_id, 
+      members_card_id, card_name_id, members_name, 
+      members_mobile, sex, birthday, 
+      is_lunar_cal, members_type, members_type_name, register_time, 
+      consume_total_amount, consume_num, cash_gift_amount, 
+      cash_gift_balance, topup_total_amount, account_balance, 
+      stored_total_amount, stored_balance, last_consumption_date, 
+      create_time, system_card_no, entity_card_no, 
+      open_card_way, direct_referrer, indirect_referrer, open_card_send_integral, open_card_date,pay_pwd
+      )
+    values (#{membersId,jdbcType=INTEGER}, #{storesId,jdbcType=INTEGER}, #{membersInfoId,jdbcType=INTEGER}, 
+      #{membersCardId,jdbcType=INTEGER}, #{cardNameId,jdbcType=INTEGER}, #{membersName,jdbcType=VARCHAR}, 
+      #{membersMobile,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR}, 
+      #{isLunarCal,jdbcType=INTEGER}, #{membersType,jdbcType=INTEGER}, #{membersTypeName,jdbcType=INTEGER}, #{registerTime,jdbcType=CHAR}, 
+      #{consumeTotalAmount,jdbcType=DECIMAL}, #{consumeNum,jdbcType=DECIMAL}, #{cashGiftAmount,jdbcType=DECIMAL}, 
+      #{cashGiftBalance,jdbcType=DECIMAL}, #{topupTotalAmount,jdbcType=DECIMAL}, #{accountBalance,jdbcType=DECIMAL}, 
+      #{storedTotalAmount,jdbcType=DECIMAL}, #{storedBalance,jdbcType=DECIMAL}, #{lastConsumptionDate,jdbcType=CHAR}, 
+      #{createTime,jdbcType=CHAR}, #{systemCardNo,jdbcType=INTEGER}, #{entityCardNo,jdbcType=INTEGER}, 
+      #{openCardWay,jdbcType=INTEGER}, #{directReferrer,jdbcType=INTEGER},#{indirectReferrer,jdbcType=INTEGER}, #{openCardSendIntegral,jdbcType=INTEGER}, 
+      #{openCardDate,jdbcType=CHAR}, #{payPwd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="membersId" parameterType="com.lives.platform.web.entity.Members" >
+    insert into pt_members
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="membersId != null" >
+        members_id,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="membersInfoId != null" >
+        members_info_id,
+      </if>
+      <if test="membersCardId != null" >
+        members_card_id,
+      </if>
+      <if test="cardNameId != null" >
+        card_name_id,
+      </if>
+      <if test="membersName != null" >
+        members_name,
+      </if>
+      <if test="membersMobile != null" >
+        members_mobile,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="isLunarCal != null" >
+        is_lunar_cal,
+      </if>
+      <if test="membersType != null" >
+        members_type,
+      </if>
+      <if test="membersTypeName != null" >
+        members_type_name,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="consumeTotalAmount != null" >
+        consume_total_amount,
+      </if>
+      <if test="consumeNum != null" >
+        consume_num,
+      </if>
+      <if test="cashGiftAmount != null" >
+        cash_gift_amount,
+      </if>
+      <if test="cashGiftBalance != null" >
+        cash_gift_balance,
+      </if>
+      <if test="topupTotalAmount != null" >
+        topup_total_amount,
+      </if>
+      <if test="accountBalance != null" >
+        account_balance,
+      </if>
+      <if test="storedTotalAmount != null" >
+        stored_total_amount,
+      </if>
+      <if test="storedBalance != null" >
+        stored_balance,
+      </if>
+      <if test="lastConsumptionDate != null" >
+        last_consumption_date,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="systemCardNo != null" >
+        system_card_no,
+      </if>
+      <if test="entityCardNo != null" >
+        entity_card_no,
+      </if>
+      <if test="openCardWay != null" >
+        open_card_way,
+      </if>
+      <if test="directReferrer != null" >
+        direct_referrer,
+      </if>
+      <if test="indirectReferrer != null" >
+        indirect_referrer,
+      </if>
+      <if test="openCardSendIntegral != null" >
+        open_card_send_integral,
+      </if>
+      <if test="openCardDate != null" >
+        open_card_date,
+      </if>
+      <if test="payPwd != null" >
+        pay_pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="membersId != null" >
+        #{membersId,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="membersInfoId != null" >
+        #{membersInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="membersCardId != null" >
+        #{membersCardId,jdbcType=INTEGER},
+      </if>
+      <if test="cardNameId != null" >
+        #{cardNameId,jdbcType=INTEGER},
+      </if>
+      <if test="membersName != null" >
+        #{membersName,jdbcType=VARCHAR},
+      </if>
+      <if test="membersMobile != null" >
+        #{membersMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="isLunarCal != null" >
+        #{isLunarCal,jdbcType=INTEGER},
+      </if>
+      <if test="membersType != null" >
+        #{membersType,jdbcType=INTEGER},
+      </if>
+      <if test="membersTypeName != null" >
+        #{membersTypeName,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=CHAR},
+      </if>
+      <if test="consumeTotalAmount != null" >
+        #{consumeTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="consumeNum != null" >
+        #{consumeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="cashGiftAmount != null" >
+        #{cashGiftAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="cashGiftBalance != null" >
+        #{cashGiftBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="topupTotalAmount != null" >
+        #{topupTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountBalance != null" >
+        #{accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="storedTotalAmount != null" >
+        #{storedTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="storedBalance != null" >
+        #{storedBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="lastConsumptionDate != null" >
+        #{lastConsumptionDate,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="systemCardNo != null" >
+        #{systemCardNo,jdbcType=INTEGER},
+      </if>
+      <if test="entityCardNo != null" >
+        #{entityCardNo,jdbcType=INTEGER},
+      </if>
+      <if test="openCardWay != null" >
+        #{openCardWay,jdbcType=INTEGER},
+      </if>
+      <if test="directReferrer != null" >
+        #{directReferrer,jdbcType=INTEGER},
+      </if>
+      <if test="indirectReferrer != null" >
+        #{indirectReferrer,jdbcType=INTEGER},
+      </if>
+      <if test="openCardSendIntegral != null" >
+        #{openCardSendIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="openCardDate != null" >
+        #{openCardDate,jdbcType=CHAR},
+      </if>
+      <if test="payPwd != null" >
+        #{payPwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.Members" >
+    update pt_members
+    <set >
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="membersInfoId != null" >
+        members_info_id = #{membersInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="membersCardId != null" >
+        members_card_id = #{membersCardId,jdbcType=INTEGER},
+      </if>
+      <if test="cardNameId != null" >
+        card_name_id = #{cardNameId,jdbcType=INTEGER},
+      </if>
+      <if test="membersName != null" >
+        members_name = #{membersName,jdbcType=VARCHAR},
+      </if>
+      <if test="membersMobile != null" >
+        members_mobile = #{membersMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="isLunarCal != null" >
+        is_lunar_cal = #{isLunarCal,jdbcType=INTEGER},
+      </if>
+      <if test="membersType != null" >
+        members_type = #{membersType,jdbcType=INTEGER},
+      </if>
+      <if test="membersTypeName != null" >
+        members_type_name = #{membersTypeName,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=CHAR},
+      </if>
+      <if test="consumeTotalAmount != null" >
+        consume_total_amount = #{consumeTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="consumeNum != null" >
+        consume_num = #{consumeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="cashGiftAmount != null" >
+        cash_gift_amount = #{cashGiftAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="cashGiftBalance != null" >
+        cash_gift_balance = #{cashGiftBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="topupTotalAmount != null" >
+        topup_total_amount = #{topupTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountBalance != null" >
+        account_balance = #{accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="storedTotalAmount != null" >
+        stored_total_amount = #{storedTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="storedBalance != null" >
+        stored_balance = #{storedBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="lastConsumptionDate != null" >
+        last_consumption_date = #{lastConsumptionDate,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="systemCardNo != null" >
+        system_card_no = #{systemCardNo,jdbcType=INTEGER},
+      </if>
+      <if test="entityCardNo != null" >
+        entity_card_no = #{entityCardNo,jdbcType=INTEGER},
+      </if>
+      <if test="openCardWay != null" >
+        open_card_way = #{openCardWay,jdbcType=INTEGER},
+      </if>
+      <if test="directReferrer != null" >
+        direct_referrer = #{directReferrer,jdbcType=INTEGER},
+      </if>
+      <if test="indirectReferrer != null" >
+        indirect_referrer = #{indirectReferrer,jdbcType=INTEGER},
+      </if>
+      <if test="openCardSendIntegral != null" >
+        open_card_send_integral = #{openCardSendIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="openCardDate != null" >
+        open_card_date = #{openCardDate,jdbcType=CHAR},
+      </if>
+      <if test="payPwd != null" >
+        pay_pwd = #{payPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where members_id = #{membersId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.Members" >
+    update pt_members
+    set stores_id = #{storesId,jdbcType=INTEGER},
+      members_info_id = #{membersInfoId,jdbcType=INTEGER},
+      members_card_id = #{membersCardId,jdbcType=INTEGER},
+      card_name_id = #{cardNameId,jdbcType=INTEGER},
+      members_name = #{membersName,jdbcType=VARCHAR},
+      members_mobile = #{membersMobile,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      is_lunar_cal = #{isLunarCal,jdbcType=INTEGER},
+      members_type = #{membersType,jdbcType=INTEGER},
+      members_type_name = #{membersTypeName,jdbcType=INTEGER},
+      register_time = #{registerTime,jdbcType=CHAR},
+      consume_total_amount = #{consumeTotalAmount,jdbcType=DECIMAL},
+      consume_num = #{consumeNum,jdbcType=DECIMAL},
+      cash_gift_amount = #{cashGiftAmount,jdbcType=DECIMAL},
+      cash_gift_balance = #{cashGiftBalance,jdbcType=DECIMAL},
+      topup_total_amount = #{topupTotalAmount,jdbcType=DECIMAL},
+      account_balance = #{accountBalance,jdbcType=DECIMAL},
+      stored_total_amount = #{storedTotalAmount,jdbcType=DECIMAL},
+      stored_balance = #{storedBalance,jdbcType=DECIMAL},
+      last_consumption_date = #{lastConsumptionDate,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      system_card_no = #{systemCardNo,jdbcType=INTEGER},
+      entity_card_no = #{entityCardNo,jdbcType=INTEGER},
+      open_card_way = #{openCardWay,jdbcType=INTEGER},
+      direct_referrer = #{directReferrer,jdbcType=INTEGER},
+      indirect_referrer = #{indirectReferrer,jdbcType=INTEGER},
+      open_card_send_integral = #{openCardSendIntegral,jdbcType=INTEGER},
+      open_card_date = #{openCardDate,jdbcType=INTEGER},
+      pay_pwd = #{payPwd,jdbcType=VARCHAR}
+    where members_id = #{membersId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByMembersProperty" parameterType="com.lives.platform.web.entity.Members" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from pt_members where 1 = 1
+      <if test="storesId != null" >
+        and stores_id = #{storesId,jdbcType=INTEGER}
+      </if>
+      <if test="membersInfoId != null" >
+        and members_info_id = #{membersInfoId,jdbcType=INTEGER}
+      </if>
+      <if test="membersCardId != null" >
+        and members_card_id = #{membersCardId,jdbcType=INTEGER}
+      </if>
+      <if test="cardNameId != null" >
+        and card_name_id = #{cardNameId,jdbcType=INTEGER}
+      </if>
+      <if test="membersName != null" >
+        and members_name = #{membersName,jdbcType=VARCHAR}
+      </if>
+      <if test="membersMobile != null" >
+        and members_mobile = #{membersMobile,jdbcType=VARCHAR}
+      </if>
+      <if test="sex != null" >
+        and sex = #{sex,jdbcType=INTEGER}
+      </if>
+      <if test="birthday != null" >
+        and birthday = #{birthday,jdbcType=VARCHAR}
+      </if>
+      <if test="isLunarCal != null" >
+        and is_lunar_cal = #{isLunarCal,jdbcType=INTEGER}
+      </if>
+      <if test="membersType != null" >
+        and members_type = #{membersType,jdbcType=INTEGER}
+      </if>
+      <if test="membersTypeName != null" >
+        and members_type_name = #{membersTypeName,jdbcType=INTEGER}
+      </if>
+      <if test="registerTime != null" >
+        and register_time = #{registerTime,jdbcType=CHAR}
+      </if>
+      <if test="consumeTotalAmount != null" >
+        and consume_total_amount = #{consumeTotalAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="consumeNum != null" >
+        and consume_num = #{consumeNum,jdbcType=DECIMAL}
+      </if>
+      <if test="cashGiftAmount != null" >
+        and cash_gift_amount = #{cashGiftAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="cashGiftBalance != null" >
+        and cash_gift_balance = #{cashGiftBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="topupTotalAmount != null" >
+        and topup_total_amount = #{topupTotalAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="accountBalance != null" >
+        and account_balance = #{accountBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="storedTotalAmount != null" >
+        and stored_total_amount = #{storedTotalAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="storedBalance != null" >
+        and stored_balance = #{storedBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="lastConsumptionDate != null" >
+        and last_consumption_date = #{lastConsumptionDate,jdbcType=CHAR}
+      </if>
+      <if test="createTime != null" >
+        and create_time = #{createTime,jdbcType=CHAR}
+      </if>
+      <if test="systemCardNo != null" >
+        and system_card_no = #{systemCardNo,jdbcType=INTEGER}
+      </if>
+      <if test="entityCardNo != null" >
+        and entity_card_no = #{entityCardNo,jdbcType=INTEGER}
+      </if>
+      <if test="openCardWay != null" >
+        and open_card_way = #{openCardWay,jdbcType=INTEGER}
+      </if>
+      <if test="directReferrer != null" >
+        and direct_referrer = #{directReferrer,jdbcType=INTEGER}
+      </if>
+      <if test="indirectReferrer != null" >
+        and indirect_referrer = #{indirectReferrer,jdbcType=INTEGER}
+      </if>
+      <if test="openCardSendIntegral != null" >
+        and open_card_send_integral = #{openCardSendIntegral,jdbcType=INTEGER}
+      </if>
+      <if test="openCardDate != null" >
+        and open_card_date = #{openCardDate,jdbcType=CHAR}
+      </if>
+      <if test="payPwd != null" >
+        and pay_pwd = #{payPwd,jdbcType=VARCHAR}
+      </if>
+      
+  </select>
+  
+  <select id="selectByMembersSearchCriteria" parameterType="com.lives.platform.web.dto.MembersDto" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from pt_members where 1 = 1
+      <if test="storesId != null" >
+        and stores_id = #{storesId,jdbcType=INTEGER}
+      </if>
+      <if test="membersName != null" >
+      	and members_name = #{membersName,jdbcType=VARCHAR}
+      	or members_mobile = #{membersName,jdbcType=VARCHAR}
+      </if>
+      <if test="membersType != null" >
+        and members_type = #{membersType,jdbcType=INTEGER}
+      </if>
+      <if test="cardNameId != null" >
+        and card_name_id = #{cardNameId,jdbcType=INTEGER}
+      </if>
+      <if test="sex != null" >
+        and sex = #{sex,jdbcType=INTEGER}
+      </if>
+      <if test="cashGiftAmountStart != null and cashGiftAmountEnd != null" >
+        and cash_gift_amount between #{cashGiftAmountStart,jdbcType=DECIMAL} and #{cashGiftAmountEnd,jdbcType=DECIMAL}
+      </if>
+      <if test="cashGiftBalanceStart != null and cashGiftBalanceEnd != null" >
+        and cash_gift_balance between #{cashGiftBalanceStart,jdbcType=DECIMAL} and #{cashGiftBalanceEnd,jdbcType=DECIMAL}
+      </if>
+      <if test="topupTotalAmountStart != null and topupTotalAmountEnd != null" >
+        and topup_total_amount between #{topupTotalAmountStart,jdbcType=DECIMAL} and #{topupTotalAmountEnd,jdbcType=DECIMAL}
+      </if>
+      <if test="registerTimeStart != null and registerTimeEnd != null" >
+        and register_time between #{registerTimeStart,jdbcType=CHAR} and #{registerTimeEnd,jdbcType=CHAR}
+      </if> 
+      <if test="consumeTotalAmountStart != null and consumeTotalAmountEnd != null" >
+        and consume_total_amount between #{consumeTotalAmountStart,jdbcType=DECIMAL} and #{consumeTotalAmountEnd,jdbcType=DECIMAL}
+      </if>
+      <if test="consumeNumStart != null and consumeNumEnd != null" >
+        and consume_num between #{consumeNumStart,jdbcType=DECIMAL} and #{consumeNumEnd,jdbcType=DECIMAL}
+      </if>
+      <if test="accountBalanceStart != null and accountBalanceEnd != null" >
+        and account_balance between #{accountBalanceStart,jdbcType=DECIMAL} and #{accountBalanceEnd,jdbcType=DECIMAL}
+      </if>
+  </select>
+  
+</mapper>

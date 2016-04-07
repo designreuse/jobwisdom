@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.MembersWaterMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.MembersWater" >
+    <id column="members_water_id" property="membersWaterId" jdbcType="INTEGER" />
+    <result column="members_id" property="membersId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="water_type" property="waterType" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="giving_integral" property="givingIntegral" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    members_water_id, members_id, type, water_type, amount, giving_integral, stores_id, create_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_members_water
+    where members_water_id = #{membersWaterId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_members_water
+    where members_water_id = #{membersWaterId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.lives.platform.web.entity.MembersWater" >
+    insert into pt_members_water
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="membersWaterId != null" >
+        members_water_id,
+      </if>
+      <if test="membersId != null" >
+        members_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="waterType != null" >
+        water_type,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="givingIntegral != null" >
+        giving_integral,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="membersWaterId != null" >
+        #{membersWaterId,jdbcType=INTEGER},
+      </if>
+      <if test="membersId != null" >
+        #{membersId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="waterType != null" >
+        #{waterType,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="givingIntegral != null" >
+        #{givingIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.MembersWater" >
+    update pt_members_water
+    <set >
+      <if test="membersId != null" >
+        members_id = #{membersId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="waterType != null" >
+        water_type = #{waterType,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="givingIntegral != null" >
+        giving_integral = #{givingIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where members_water_id = #{membersWaterId,jdbcType=INTEGER}
+  </update>
+</mapper>

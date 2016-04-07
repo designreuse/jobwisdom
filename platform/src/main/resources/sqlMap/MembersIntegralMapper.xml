@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.MembersIntegralMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.MembersIntegral" >
+    <id column="members_integral_id" property="membersIntegralId" jdbcType="INTEGER" />
+    <result column="members_id" property="membersId" jdbcType="INTEGER" />
+    <result column="members_open_card_id" property="membersOpenCardId" jdbcType="INTEGER" />
+    <result column="referrer" property="referrer" jdbcType="INTEGER" />
+    <result column="open_card_integral" property="openCardIntegral" jdbcType="INTEGER" />
+    <result column="topup_integral" property="topupIntegral" jdbcType="INTEGER" />
+    <result column="consumption_integral" property="consumptionIntegral" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    members_integral_id, members_id, members_open_card_id, referrer, open_card_integral, topup_integral, consumption_integral, stores_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_members_integral
+    where members_integral_id = #{membersIntegralId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_members_integral
+    where members_integral_id = #{membersIntegralId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.MembersIntegral" >
+    insert into pt_members_integral (members_integral_id, members_id, members_open_card_id, referrer, 
+      open_card_integral, topup_integral, consumption_integral, stores_id, create_time
+      )
+    values (#{membersIntegralId,jdbcType=INTEGER}, #{membersId,jdbcType=INTEGER}, #{membersOpenCardId,jdbcType=INTEGER}, #{referrer,jdbcType=INTEGER}, 
+      #{openCardIntegral,jdbcType=INTEGER}, #{topupIntegral,jdbcType=INTEGER}, #{consumptionIntegral,jdbcType=INTEGER},
+      #{storesId,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.MembersIntegral" >
+    insert into pt_members_integral
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="membersIntegralId != null" >
+        members_integral_id,
+      </if>
+      <if test="membersId != null" >
+        members_id,
+      </if>
+      <if test="membersOpenCardId != null" >
+        members_open_card_id,
+      </if>
+      <if test="referrer != null" >
+        referrer,
+      </if>
+      <if test="openCardIntegral != null" >
+        open_card_integral,
+      </if>
+      <if test="topupIntegral != null" >
+        topup_integral,
+      </if>
+      <if test="consumptionIntegral != null" >
+        consumption_integral,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="membersIntegralId != null" >
+        #{membersIntegralId,jdbcType=INTEGER},
+      </if>
+      <if test="membersId != null" >
+        #{membersId,jdbcType=INTEGER},
+      </if>
+      <if test="membersOpenCardId != null" >
+        #{membersOpenCardId,jdbcType=INTEGER},
+      </if>
+      <if test="referrer != null" >
+        #{referrer,jdbcType=INTEGER},
+      </if>
+      <if test="openCardIntegral != null" >
+        #{openCardIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="topupIntegral != null" >
+        #{topupIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="consumptionIntegral != null" >
+        #{consumptionIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.MembersIntegral" >
+    update pt_members_integral
+    <set >
+      <if test="membersId != null" >
+        members_id = #{membersId,jdbcType=INTEGER},
+      </if>
+      <if test="membersOpenCardId != null" >
+        members_open_card_id = #{membersOpenCardId,jdbcType=INTEGER},
+      </if>
+      <if test="referrer != null" >
+        referrer = #{referrer,jdbcType=INTEGER},
+      </if>
+      <if test="openCardIntegral != null" >
+        open_card_integral = #{openCardIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="topupIntegral != null" >
+        topup_integral = #{topupIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="consumptionIntegral != null" >
+        consumption_integral = #{consumptionIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where members_integral_id = #{membersIntegralId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.MembersIntegral" >
+    update pt_members_integral
+    set members_id = #{membersId,jdbcType=INTEGER},
+      members_open_card_id = #{membersOpenCardId,jdbcType=INTEGER},
+      referrer = #{referrer,jdbcType=INTEGER},
+      open_card_integral = #{openCardIntegral,jdbcType=INTEGER},
+      topup_integral = #{topupIntegral,jdbcType=INTEGER},
+      consumption_integral = #{consumptionIntegral,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where members_integral_id = #{membersIntegralId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByMembersIntegralProperty" parameterType="com.lives.platform.web.entity.MembersIntegral" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from pt_members_integral where 1 = 1
+      <if test="membersId != null" >
+        and members_id = #{membersId,jdbcType=INTEGER}
+      </if>
+      <if test="membersOpenCardId != null" >
+        and members_open_card_id = #{membersOpenCardId,jdbcType=INTEGER}
+      </if>
+      <if test="referrer != null" >
+        and referrer = #{referrer,jdbcType=INTEGER}
+      </if>
+      <if test="openCardIntegral != null" >
+        and open_card_integral = #{openCardIntegral,jdbcType=INTEGER}
+      </if>
+      <if test="topupIntegral != null" >
+        and topup_integral = #{topupIntegral,jdbcType=INTEGER}
+      </if>
+      <if test="consumptionIntegral != null" >
+        and consumption_integral = #{consumptionIntegral,jdbcType=INTEGER}
+      </if>
+      <if test="storesId != null" >
+        and stores_id = #{storesId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        and create_time = #{createTime,jdbcType=CHAR}
+      </if>
+      
+  </select>
+  
+</mapper>

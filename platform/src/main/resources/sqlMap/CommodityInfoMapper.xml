@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.CommodityInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.CommodityInfo" >
+    <id column="commodity_id" property="commodityId" jdbcType="INTEGER" />
+    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    <result column="commodity_num" property="commodityNum" jdbcType="INTEGER" />
+    <result column="commodity_type" property="commodityType" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="commodity_no" property="commodityNo" jdbcType="VARCHAR" />
+    <result column="commodity_desc" property="commodityDesc" jdbcType="VARCHAR" />
+    <result column="supplier" property="supplier" jdbcType="VARCHAR" />
+    <result column="commodity_brand" property="commodityBrand" jdbcType="VARCHAR" />
+    <result column="purchase_price" property="purchasePrice" jdbcType="DECIMAL" />
+    <result column="sel_price" property="selPrice" jdbcType="DECIMAL" />
+    <result column="commodity_use" property="commodityUse" jdbcType="VARCHAR" />
+    <result column="commodity_pic" property="commodityPic" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    commodity_id, commodity_name, commodity_num, commodity_type, stores_id, create_time, 
+    commodity_no, commodity_desc, supplier, commodity_brand, purchase_price, sel_price, 
+    commodity_use, commodity_pic
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_commodity_info
+    where commodity_id = #{commodityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_commodity_info
+    where commodity_id = #{commodityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.CommodityInfo" >
+    insert into pt_commodity_info (commodity_id, commodity_name, commodity_num, 
+      commodity_type, stores_id, create_time, 
+      commodity_no, commodity_desc, supplier, 
+      commodity_brand, purchase_price, sel_price, 
+      commodity_use, commodity_pic)
+    values (#{commodityId,jdbcType=INTEGER}, #{commodityName,jdbcType=VARCHAR}, #{commodityNum,jdbcType=INTEGER}, 
+      #{commodityType,jdbcType=INTEGER}, #{storesId,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}, 
+      #{commodityNo,jdbcType=VARCHAR}, #{commodityDesc,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, 
+      #{commodityBrand,jdbcType=VARCHAR}, #{purchasePrice,jdbcType=DECIMAL}, #{selPrice,jdbcType=DECIMAL}, 
+      #{commodityUse,jdbcType=VARCHAR}, #{commodityPic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.CommodityInfo" >
+    insert into pt_commodity_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="commodityName != null" >
+        commodity_name,
+      </if>
+      <if test="commodityNum != null" >
+        commodity_num,
+      </if>
+      <if test="commodityType != null" >
+        commodity_type,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="commodityNo != null" >
+        commodity_no,
+      </if>
+      <if test="commodityDesc != null" >
+        commodity_desc,
+      </if>
+      <if test="supplier != null" >
+        supplier,
+      </if>
+      <if test="commodityBrand != null" >
+        commodity_brand,
+      </if>
+      <if test="purchasePrice != null" >
+        purchase_price,
+      </if>
+      <if test="selPrice != null" >
+        sel_price,
+      </if>
+      <if test="commodityUse != null" >
+        commodity_use,
+      </if>
+      <if test="commodityPic != null" >
+        commodity_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=INTEGER},
+      </if>
+      <if test="commodityName != null" >
+        #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityNum != null" >
+        #{commodityNum,jdbcType=INTEGER},
+      </if>
+      <if test="commodityType != null" >
+        #{commodityType,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="commodityNo != null" >
+        #{commodityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityDesc != null" >
+        #{commodityDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null" >
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityBrand != null" >
+        #{commodityBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null" >
+        #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="selPrice != null" >
+        #{selPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityUse != null" >
+        #{commodityUse,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityPic != null" >
+        #{commodityPic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.CommodityInfo" >
+    update pt_commodity_info
+    <set >
+      <if test="commodityName != null" >
+        commodity_name = #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityNum != null" >
+        commodity_num = #{commodityNum,jdbcType=INTEGER},
+      </if>
+      <if test="commodityType != null" >
+        commodity_type = #{commodityType,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="commodityNo != null" >
+        commodity_no = #{commodityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityDesc != null" >
+        commodity_desc = #{commodityDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null" >
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityBrand != null" >
+        commodity_brand = #{commodityBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null" >
+        purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="selPrice != null" >
+        sel_price = #{selPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityUse != null" >
+        commodity_use = #{commodityUse,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityPic != null" >
+        commodity_pic = #{commodityPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where commodity_id = #{commodityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.CommodityInfo" >
+    update pt_commodity_info
+    set commodity_name = #{commodityName,jdbcType=VARCHAR},
+      commodity_num = #{commodityNum,jdbcType=INTEGER},
+      commodity_type = #{commodityType,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR},
+      commodity_no = #{commodityNo,jdbcType=VARCHAR},
+      commodity_desc = #{commodityDesc,jdbcType=VARCHAR},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      commodity_brand = #{commodityBrand,jdbcType=VARCHAR},
+      purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      sel_price = #{selPrice,jdbcType=DECIMAL},
+      commodity_use = #{commodityUse,jdbcType=VARCHAR},
+      commodity_pic = #{commodityPic,jdbcType=VARCHAR}
+    where commodity_id = #{commodityId,jdbcType=INTEGER}
+  </update>
+</mapper>

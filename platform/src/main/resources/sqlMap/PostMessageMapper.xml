@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.PostMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.PostMessage" >
+    <id column="post_message_id" property="postMessageId" jdbcType="INTEGER" />
+    <result column="post_message_name" property="postMessageName" jdbcType="VARCHAR" />
+    <result column="post_message_no" property="postMessageNo" jdbcType="INTEGER" />
+    <result column="creation_time" property="creationTime" jdbcType="CHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="PostMessagePositionDtoResultMap" type="com.lives.platform.web.dto.PostMessagePositionDto" >
+    <id column="post_message_id" property="postMessageId" jdbcType="INTEGER" />
+    <result column="post_message_name" property="postMessageName" jdbcType="VARCHAR" />
+    <result column="post_message_no" property="postMessageNo" jdbcType="INTEGER" />
+    <result column="creation_time" property="creationTime" jdbcType="CHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <association property="position" column="post_message_id" select="com.lives.platform.web.mapper.PositionMapper.selectByPostMessageId"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    post_message_id, post_message_name,post_message_no, creation_time, creator, state, stores_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_post_message
+    where post_message_id = #{postMessageId,jdbcType=INTEGER}
+  </select>
+  <select id="selectPostMessagePositionDto" resultMap="PostMessagePositionDtoResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from pt_post_message
+    where stores_id = #{storesId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pt_post_message
+    where state = 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_post_message
+    where post_message_id = #{postMessageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.PostMessage" useGeneratedKeys = "true" keyProperty="postMessageId">
+    insert into pt_post_message (post_message_id, post_message_name,post_message_no, creation_time, 
+      creator, state, stores_id
+      )
+    values (#{postMessageId,jdbcType=INTEGER}, #{postMessageName,jdbcType=VARCHAR},#{postMessageNo,jdbcType=INTEGER}, #{creationTime,jdbcType=CHAR}, 
+      #{creator,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{storesId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.PostMessage" useGeneratedKeys = "true" keyProperty="postMessageId">
+    insert into pt_post_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="postMessageId != null" >
+        post_message_id,
+      </if>
+      <if test="postMessageName != null" >
+        post_message_name,
+      </if>
+      <if test="postMessageNo != null" >
+        post_message_no,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="postMessageId != null" >
+        #{postMessageId,jdbcType=INTEGER},
+      </if>
+      <if test="postMessageName != null" >
+        #{postMessageName,jdbcType=VARCHAR},
+      </if>
+      <if test="postMessageNo != null" >
+        #{postMessageNo,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.PostMessage" >
+    update pt_post_message
+    <set >
+      <if test="postMessageName != null" >
+        post_message_name = #{postMessageName,jdbcType=VARCHAR},
+      </if>
+      <if test="postMessageNo != null" >
+        post_message_no = #{postMessageNo,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where post_message_id = #{postMessageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.PostMessage" >
+    update pt_post_message
+    set post_message_name = #{postMessageName,jdbcType=VARCHAR},
+      post_message_no = #{postMessageNo,jdbcType=INTEGER},
+      creation_time = #{creationTime,jdbcType=CHAR},
+      creator = #{creator,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER}
+    where post_message_id = #{postMessageId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByProperty" parameterType="com.lives.platform.web.entity.PostMessage" resultMap="BaseResultMap">
+    select * from pt_post_message where 1 = 1
+       <if test="postMessageName != null" >
+         and post_message_name like  '%#{postMessageName,jdbcType=VARCHAR}%'
+      </if>
+      <if test="postMessageNo != null" >
+         and post_message_no like  '%#{postMessageNo,jdbcType=INTEGER}%'
+      </if>
+      <if test="state != null" >
+         and state = #{state,jdbcType=INTEGER}
+      </if>
+      <if test="storesId != null" >
+         and stores_id = #{storesId,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+</mapper>

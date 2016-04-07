@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.manage.web.mapper.RolePrivilegeMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.manage.web.entity.RolePrivilege" >
+    <result column="privilege_id" property="privilegeId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.lives.manage.web.entity.RolePrivilege" >
+    insert into m_role_privilege (privilege_id, role_id)
+    values (#{privilegeId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.manage.web.entity.RolePrivilege" >
+    insert into m_role_privilege
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="privilegeId != null" >
+        privilege_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="privilegeId != null" >
+        #{privilegeId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectPidByRoleId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  SELECT t.privilege_id FROM m_role_privilege t WHERE t.role_id = #{roleId};
+  </select>
+
+  <resultMap id="PrivilegeMap" type="com.lives.manage.web.entity.Privilege" >
+    <id column="privilege_id" property="privilegeId" jdbcType="INTEGER" />
+    <result column="privilege_type" property="privilegeType" jdbcType="VARCHAR" />
+    <result column="privilege_name" property="privilegeName" jdbcType="VARCHAR" />
+    <result column="privilege_value" property="privilegeValue" jdbcType="VARCHAR" />
+    <result column="ref_privilege_id" property="refPrivilegeId" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="selectHasBuild" resultMap="PrivilegeMap" parameterType="java.lang.Integer">
+  SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+  SELECT s.privilege_id FROM m_role_privilege s WHERE s.role_id = #{roleId}
+  );
+  </select>
+<!--   <select id="selectHasBuildForMenu" resultMap="PrivilegeMap" parameterType="java.lang.Integer">
+SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+SELECT s.privilege_id FROM m_role_privilege s WHERE s.role_id = #{roleId}
+) AND t.privilege_type = '菜单' AND t.ref_privilege_id = 0;
+  </select> -->
+<select id="selectHasBuildForMenu" resultMap="PrivilegeMap" parameterType="com.lives.manage.web.dto.RoleUtils">
+  SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+SELECT s.privilege_id FROM m_role_privilege s WHERE s.role_id = #{roleId}
+) AND t.privilege_id IN (
+SELECT k.privilege_id FROM m_user_privilege k WHERE k.user_id = #{userId}
+) AND t.privilege_type = '菜单' AND t.ref_privilege_id = 0;
+  </select>
+<select id="selectHasBuildForYs" resultMap="PrivilegeMap" parameterType="java.lang.Integer">
+SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+SELECT s.privilege_id FROM m_role_privilege s WHERE s.role_id = #{roleId}
+) AND t.privilege_id IN ( SELECT k.privilege_id FROM m_user_privilege k WHERE k.user_id = #{userId} ) AND t.privilege_type = '元素';
+  </select>
+  <select id="selectHasBuildForGn" resultMap="PrivilegeMap" parameterType="java.lang.Integer">
+ SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+SELECT s.privilege_id FROM m_role_privilege s WHERE s.role_id = #{roleId}
+) AND t.privilege_id IN ( SELECT k.privilege_id FROM m_user_privilege k WHERE k.user_id = #{userId} ) AND t.privilege_type = '功能';
+  </select>
+  <select id="selectHasBuildForSecondMenu" resultMap="PrivilegeMap" parameterType="com.lives.manage.web.dto.TreeDto">
+SELECT * FROM m_privilege t WHERE t.privilege_id IN (
+SELECT s.privilege_id FROM m_role_privilege s WHERE s.role_id = #{roleId}
+) AND t.privilege_id IN (
+SELECT k.privilege_id FROM m_user_privilege k WHERE k.user_id = #{userId}
+) AND t.privilege_type = '菜单' AND t.ref_privilege_id = #{id};
+  </select>
+  
+    <delete id="deleteByRoleId" parameterType="java.lang.Integer">
+  DELETE FROM m_role_privilege WHERE role_id = #{roleId};
+  </delete>
+   <delete id="deleteBecasePid" parameterType="java.lang.Integer">
+  DELETE FROM m_role_privilege WHERE privilege_id = #{pId};
+  </delete> 
+  <delete id="deleteByRoleIdAndUserId" parameterType="java.util.Map">
+  delete from m_user_role where role_id = #{roleId} and user_id = #{userId}
+  </delete>
+  <select id="selectElemetByRoleId" parameterType="java.lang.Integer" resultMap="PrivilegeMap">
+  SELECT * FROM m_privilege m WHERE m.privilege_id IN(
+SELECT t.privilege_id FROM m_role_privilege t WHERE t.role_id = #{roleId}
+) AND m.privilege_type = '元素'
+  </select>
+  <select id="selectGnByRoleId" parameterType="java.lang.Integer" resultMap="PrivilegeMap">
+    SELECT * FROM m_privilege m WHERE m.privilege_id IN(
+SELECT t.privilege_id FROM m_role_privilege t WHERE t.role_id = #{roleId}
+) AND m.privilege_type = '功能'
+  </select>
+  
+   <resultMap type="com.lives.manage.web.dto.PrivilegeDto" id="PrivilegeByAdmin">
+        <result column="privilege_name" property="text" />
+        <result column="privilege_id" property="id"/>
+		<association property="nodes" column="{privilege_id=privilege_id,roleId=role_id}" select="selectSubMenusByAdmin" />
+   </resultMap>
+  <select id="selectPrivilegeMenuForAdmin" parameterType="java.lang.Integer" resultMap="PrivilegeByAdmin">
+  SELECT h.privilege_id,h.privilege_name,w.role_id FROM m_privilege h,m_role w WHERE h.privilege_id IN (
+ SELECT v.privilege_id FROM m_role_privilege v WHERE v.role_id = #{roleId}
+ ) AND h.privilege_type = 0 AND h.ref_privilege_id = 0 AND w.role_id = #{roleId}
+  </select>
+   <select id="selectSubMenusByAdmin" resultType="com.lives.manage.web.dto.PrivilegeDto" parameterType="java.util.Map">
+  SELECT m.privilege_id AS id,
+  m.privilege_name AS text,
+  m.privilege_value AS url
+  FROM m_privilege m WHERE m.privilege_id IN (
+  SELECT v.privilege_id FROM m_role_privilege v WHERE v.role_id = #{roleId}
+  ) AND privilege_type = 0 AND ref_privilege_id = #{privilege_id}
+  </select>
+  <select id="selectPriivlegeFunctionForAdmin" parameterType="java.lang.Integer" resultType="com.lives.manage.web.dto.PrivilegeDto">
+  SELECT m.privilege_id AS id,
+  m.privilege_name AS text,
+  m.privilege_value AS url 
+  FROM m_privilege m WHERE  m.privilege_id IN (
+  SELECT v.privilege_id FROM m_role_privilege v WHERE v.role_id = #{roleId}
+   )AND m.privilege_type = 1 
+  </select>
+  <select id="selectPriivlegeElemtForAdmin" parameterType="java.lang.Integer" resultType="com.lives.manage.web.dto.PrivilegeDto">
+   SELECT m.privilege_id AS id,
+  m.privilege_name AS text,
+  m.privilege_value AS url 
+  FROM m_privilege m WHERE  m.privilege_id IN (
+  SELECT v.privilege_id FROM m_role_privilege v WHERE v.role_id = #{roleId}
+   )AND m.privilege_type = 2
+  </select>
+  
+  <insert id="insertByList" parameterType="java.util.List">  
+	insert into m_role_privilege (privilege_id,role_id) values 
+    <foreach collection="list" item="item" index="index"  
+        separator=",">  
+        (#{item.privilegeId,jdbcType=INTEGER}, #{item.roleId,jdbcType=INTEGER})
+    </foreach>  
+  </insert> 
+</mapper>

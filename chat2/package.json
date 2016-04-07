@@ -1,0 +1,18 @@
+{
+  "name": "chat2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "amqp": "^0.2.4",
+    "co": "^3.0.6",
+    "co-redis": "^1.1.1",
+    "express": "^4.13.3",
+    "apn": "^1.5.2",
+    "log4js": "^0.6.28",
+    "redis": "^0.10.3",
+    "redis-sentinel": "^0.1.3",
+    "socket.io": "^1.3.7"
+  },
+  "devDependencies": {}
+}

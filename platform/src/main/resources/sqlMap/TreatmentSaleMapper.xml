@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.TreatmentSaleMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.TreatmentSale" >
+    <id column="treatment_sale_id" property="treatmentSaleId" jdbcType="INTEGER" />
+    <result column="treatment_course_id" property="treatmentCourseId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="real_income_amount" property="realIncomeAmount" jdbcType="DECIMAL" />
+    <result column="payable_amount" property="payableAmount" jdbcType="DECIMAL" />
+    <result column="sale_amount" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="how_many" property="howMany" jdbcType="INTEGER" />
+    <result column="stores_id" property="storesId" jdbcType="INTEGER" />
+    <result column="sign_bill_id" property="signBillId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    treatment_sale_id, treatment_course_id, user_id, order_amount, real_income_amount, 
+    payable_amount, sale_amount, order_type, how_many, stores_id, sign_bill_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_treatment_sale
+    where treatment_sale_id = #{treatmentSaleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_treatment_sale
+    where treatment_sale_id = #{treatmentSaleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.TreatmentSale" >
+    insert into pt_treatment_sale (treatment_sale_id, treatment_course_id, 
+      user_id, order_amount, real_income_amount, 
+      payable_amount, sale_amount, order_type, 
+      how_many, stores_id, sign_bill_id, 
+      create_time)
+    values (#{treatmentSaleId,jdbcType=INTEGER}, #{treatmentCourseId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{orderAmount,jdbcType=DECIMAL}, #{realIncomeAmount,jdbcType=DECIMAL}, 
+      #{payableAmount,jdbcType=DECIMAL}, #{saleAmount,jdbcType=DECIMAL}, #{orderType,jdbcType=INTEGER}, 
+      #{howMany,jdbcType=INTEGER}, #{storesId,jdbcType=INTEGER}, #{signBillId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.TreatmentSale" >
+    insert into pt_treatment_sale
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="treatmentSaleId != null" >
+        treatment_sale_id,
+      </if>
+      <if test="treatmentCourseId != null" >
+        treatment_course_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderAmount != null" >
+        order_amount,
+      </if>
+      <if test="realIncomeAmount != null" >
+        real_income_amount,
+      </if>
+      <if test="payableAmount != null" >
+        payable_amount,
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="howMany != null" >
+        how_many,
+      </if>
+      <if test="storesId != null" >
+        stores_id,
+      </if>
+      <if test="signBillId != null" >
+        sign_bill_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="treatmentSaleId != null" >
+        #{treatmentSaleId,jdbcType=INTEGER},
+      </if>
+      <if test="treatmentCourseId != null" >
+        #{treatmentCourseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmount != null" >
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realIncomeAmount != null" >
+        #{realIncomeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payableAmount != null" >
+        #{payableAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleAmount != null" >
+        #{saleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="howMany != null" >
+        #{howMany,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="signBillId != null" >
+        #{signBillId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.TreatmentSale" >
+    update pt_treatment_sale
+    <set >
+      <if test="treatmentCourseId != null" >
+        treatment_course_id = #{treatmentCourseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmount != null" >
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realIncomeAmount != null" >
+        real_income_amount = #{realIncomeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payableAmount != null" >
+        payable_amount = #{payableAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount = #{saleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="howMany != null" >
+        how_many = #{howMany,jdbcType=INTEGER},
+      </if>
+      <if test="storesId != null" >
+        stores_id = #{storesId,jdbcType=INTEGER},
+      </if>
+      <if test="signBillId != null" >
+        sign_bill_id = #{signBillId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where treatment_sale_id = #{treatmentSaleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.TreatmentSale" >
+    update pt_treatment_sale
+    set treatment_course_id = #{treatmentCourseId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      real_income_amount = #{realIncomeAmount,jdbcType=DECIMAL},
+      payable_amount = #{payableAmount,jdbcType=DECIMAL},
+      sale_amount = #{saleAmount,jdbcType=DECIMAL},
+      order_type = #{orderType,jdbcType=INTEGER},
+      how_many = #{howMany,jdbcType=INTEGER},
+      stores_id = #{storesId,jdbcType=INTEGER},
+      sign_bill_id = #{signBillId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where treatment_sale_id = #{treatmentSaleId,jdbcType=INTEGER}
+  </update>
+</mapper>

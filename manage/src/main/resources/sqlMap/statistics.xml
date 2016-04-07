@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.manage.web.mapper.StatisticsMapper">
+	<!-- 获取省份的销售前十名的 -->
+	<select id="provinceSaleRank" resultType="java.util.Map">
+		select province,count(*) count from m_customer_info where is_delete=0 group by
+		province ORDER BY count DESC LIMIT 10
+	</select>
+	<!-- 获取城市的销售前十名的 -->
+	<select id="citySaleRank" resultType="java.util.Map">
+		select city,count(*) count from m_customer_info where is_delete=0 group by city
+		ORDER BY count DESC LIMIT 10
+	</select>
+	<!--本月区域开户汇总  -->
+	<select id="monthSummary" resultType="java.util.Map" parameterType="java.util.Map">
+		select t.province,t.city,count(*) count,
+		(select count(0) from m_customer_info p1 where p1.city=t.city and p1.customer_type=1 and p1.is_delete=0 ) dan_count,
+		(select count(0) from m_customer_info p2 where p2.city=t.city and p2.customer_type=2 and p2.is_delete=0) lian_count,
+		(select count(0) from m_customer_info p3 where p3.city=t.city and p3.customer_type=3 and p3.is_delete=0) fen_count
+		from m_customer_info t where t.is_delete=0 
+		and DATE_FORMAT(t.create_time, '%Y-%m')=DATE_FORMAT(#{createTime}, '%Y-%m')
+		group by t.city limit #{offset},#{limit}
+	</select>
+	<select id="monthSummaryCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) as count from (select count(*) count from m_customer_info t  where is_delete=0 and DATE_FORMAT(t.create_time, '%Y-%m')=DATE_FORMAT(#{createTime}, '%Y-%m') group by t.city ORDER BY count desc ) a
+	</select>
+	<select id="persSummary" resultType="java.util.Map" parameterType="java.util.Map">
+		select t.creator_Id,count(*) count,(select count(0) from m_customer_info p where  p.creator_Id=t.creator_Id and customer_type=1) dan_count, 
+	(select count(0) from m_customer_info p where  p.creator_Id=t.creator_Id and customer_type=2) lian_count,
+	(select count(0) from m_customer_info p where  p.creator_Id=t.creator_Id and customer_type=3) fen_count
+	from m_customer_info t  where t.is_delete=0  and DATE_FORMAT(t.create_time, '%Y-%m')=DATE_FORMAT(#{createTime}, '%Y-%m') group by t.creator_Id ORDER BY count desc 
+    limit #{offset},#{limit}
+	</select>
+	
+	<select id="persSummaryCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*) as count from (select count(*) count from m_customer_info t  where t.is_delete=0 and DATE_FORMAT(t.create_time, '%Y-%m')=DATE_FORMAT(#{createTime}, '%Y-%m')  group by t.creator_Id ORDER BY count desc ) a
+	</select>
+	
+	<select id="persSaleRank" resultType="java.util.Map">
+	select (select real_name from m_user u where u.user_id=t.creator_Id) real_name,creator_Id,count(*) count from m_customer_info t where 1=1 group by creator_Id
+		ORDER BY count DESC LIMIT 10
+	</select>
+	
+    <!-- 获取版本类型    然后用版本类型获取十二月分的统计客户数量 -->
+	<resultMap type="com.lives.manage.web.entity.GoodsInfo" id="ResultMap">
+        <id property="nameType" column="goods_nametype"  />
+    </resultMap>
+    <select id="queryNametype" parameterType="java.util.Map" resultMap="ResultMap">
+    select goods_nametype from m_goods_info  group by goods_nametype
+    </select>
+    
+
+    <!-- 统计图  月度平台销售走势图 -->
+    <resultMap type="com.lives.manage.web.dto.SystemStatisticsDto" id="StatisticsResultMap">
+        <result property="systemType" column="systemType"  />
+        <association property="statisticsList" column="{systemType=systemType,createTime=createTime}" select="selectStatisticsByType" />
+    </resultMap>
+    <select id="selectSystemStatistics" resultMap="StatisticsResultMap" parameterType="java.lang.String" >
+    	select distinct(goods_nametype) systemType, #{createTime} createTime from m_goods_info
+    </select>
+    
+    <select id="selectStatisticsByType" resultType="java.util.Map" parameterType="java.util.Map">
+    	select DATE_FORMAT(t.create_time, '%m') createTime, count(0) count from m_customer_info t  
+	      left join m_goods_info g on g.goods_id=t.sys_name 
+	    where DATE_FORMAT(t.create_time, '%Y')=#{createTime}
+	      and g.goods_nametype=#{systemType}
+	      group by DATE_FORMAT(t.create_time, '%m'),g.goods_nametype
+    </select>
+    
+    <!-- 统计图  月度平台数量分析图 -->
+    <resultMap type="com.lives.manage.web.dto.SystemStatisticsDto" id="monthSalesMap">
+        <result property="systemType" column="systemType"  />
+        <association property="count" column="{systemType=systemType,years=years,monthTime=monthTime}" select="monthSalesSon" />
+    </resultMap>
+    <select id="monthSales" resultMap="monthSalesMap" parameterType="java.util.Map" >
+    	select distinct(goods_nametype) systemType, #{years} years,#{monthTime} monthTime from m_goods_info
+    </select>
+    <select id="monthSalesSon" resultType="java.lang.Integer" parameterType="java.util.Map">
+    	select count(0) count from m_customer_info t
+        left join m_goods_info g on g.goods_id=t.sys_name
+        where g.goods_nametype=#{systemType} and substring(t.create_time,1,4) = #{years,jdbcType=CHAR} and substring(t.create_time,6,2) =#{monthTime,jdbcType=CHAR} 
+        group by substring(t.create_time,1,7),g.goods_nametype
+    </select>
+    
+    <!-- 饼状统计图  月度平台销量图 -->
+    <resultMap type="com.lives.manage.web.dto.SystemStatisticsDto" id="monthSalesMoneyMap">
+        <result property="systemType" column="systemType"  />
+        <association property="moneycount" column="{systemType=systemType,years=years,monthTime=monthTime}" select="monthSalesMoneySon" />
+    </resultMap>
+    <select id="monthSalesMoney" resultMap="monthSalesMoneyMap" parameterType="java.util.Map" >
+    	select distinct(goods_nametype) systemType, #{years} years,#{monthTime} monthTime from m_goods_info
+    </select>
+   <select id="monthSalesMoneySon" resultType="java.lang.Double" parameterType="java.util.Map">
+    	select sum(o.real_amount) moneycount from m_customer_info t 
+            left join m_order_info o on o.customer_id=t.customer_id
+            left join m_goods_info g on g.goods_id=t.sys_name
+            where g.goods_nametype=#{systemType} and substring(t.create_time,1,4) = #{years,jdbcType=CHAR} and substring(t.create_time,6,2) =#{monthTime,jdbcType=CHAR}  
+       group by substring(t.create_time,1,7),g.goods_nametype
+    </select>
+</mapper>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.api.mapper.ShiftMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.api.dto.ShiftDto" >
+    <id column="shif_id" property="shifId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="shif_name" property="shifName" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="CHAR" />
+    <result column="end_time" property="endTime" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="EntityResultMap" type="com.zefun.api.entity.ShiftInfo" >
+    <id column="shif_id" property="shifId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="shif_name" property="shifName" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="CHAR" />
+    <result column="end_time" property="endTime" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <!-- 根据员工查询班次信息, by 张进军 -->
+  <select id="selectShiftByEmployeeId" resultType="java.util.Map" parameterType="java.lang.Integer">
+    select 
+	    (select CONCAT(start_time, ',', end_time) from shift_info where shif_id = es.shif_ida ) '2',
+	    (select CONCAT(start_time, ',', end_time) from shift_info where shif_id = es.shif_idb ) '3',
+	    (select CONCAT(start_time, ',', end_time) from shift_info where shif_id = es.shif_idc ) '4',
+	    (select CONCAT(start_time, ',', end_time) from shift_info where shif_id = es.shif_idd ) '5',
+	    (select CONCAT(start_time, ',', end_time) from shift_info where shif_id = es.shif_ide ) '6',
+	    (select CONCAT(start_time, ',', end_time) from shift_info where shif_id = es.shif_idf ) '7',
+	    (select CONCAT(start_time, ',', end_time) from shift_info where shif_id = es.shif_idg ) '1'
+	from employee_shift es where es.employee_id = #{employeeId}
+  </select>
+  
+  <!-- 根据主键批量查询班次信息 -->
+  <select id="selectShiftsByIds" resultMap="EntityResultMap">
+  	select * from shift_info where shif_id in 
+  	<foreach collection="array" item="employeeId" index="index" open="(" close=")" separator=",">
+  		#{employeeId}
+  	</foreach>
+  	order by start_time
+  </select>
+  
+  <!-- 根据员工id集查询今天所有要上班员工班次信息 -->
+  <select id="selectShiftByEmployeeIdList" resultMap="EntityResultMap">
+  	select 
+  		si.*, es.employee_id
+  	from shift_info si
+  	<where>
+  		<choose>
+  			<when test="weekDay == 1">  
+	            si.shif_id in (select es.shif_idg from employee_shift es where es.employee_id in  
+	            	<foreach collection="list" item="employeeId" index="index" open="(" close=")" separator=",">
+	            		#{employeeId}
+	            	</foreach>
+	            )
+	        </when>  
+	        <when test="weekDay == 2">
+	        	si.shif_id in (select es.shif_ida from employee_shift es where es.employee_id in  
+	            	<foreach collection="list" item="employeeId" index="index" open="(" close=")" separator=",">
+	            		#{employeeId}
+	            	</foreach>
+	            )
+	        </when>
+	        <when test="weekDay == 3">
+	        	si.shif_id in (select es.shif_idb from employee_shift es where es.employee_id in  
+	            	<foreach collection="list" item="employeeId" index="index" open="(" close=")" separator=",">
+	            		#{employeeId}
+	            	</foreach>
+	            )
+	        </when>
+	        <when test="weekDay == 4">
+				si.shif_id in (select es.shif_idc from employee_shift es where es.employee_id in  
+	            	<foreach collection="list" item="employeeId" index="index" open="(" close=")" separator=",">
+	            		#{employeeId}
+	            	</foreach>
+	            )
+	        </when>
+	        <when test="weekDay == 5">
+	        	si.shif_id in (select es.shif_idd from employee_shift es where es.employee_id in  
+	            	<foreach collection="list" item="employeeId" index="index" open="(" close=")" separator=",">
+	            		#{employeeId}
+	            	</foreach>
+	            )
+	        </when>
+	        <when test="weekDay == 6">
+	          	si.shif_id in (select es.shif_ide from employee_shift es where es.employee_id in  
+	            	<foreach collection="list" item="employeeId" index="index" open="(" close=")" separator=",">
+	            		#{employeeId}
+	            	</foreach>
+	            )
+	        </when>
+	        <when test="weekDay == 7">
+	        	si.shif_id in (select es.shif_idf from employee_shift es where es.employee_id in  
+	            	<foreach collection="list" item="employeeId" index="index" open="(" close=")" separator=",">
+	            		#{employeeId}
+	            	</foreach>
+	            )
+	        </when>
+  		</choose>
+  	</where>
+  </select>
+  
+  <!-- 根据员工id和周几查询他今天班次 -->
+  <select id="selectShiftByEmployeeIdAndWeekday" resultMap="EntityResultMap">
+  	select * from shift_info 
+  	<where>
+  		<choose>
+  			<when test="weekDay == 1">
+  				shif_id = (select shif_idg from employee_shift where employee_id = #{employeeId})
+  			</when>
+  			<when test="weekDay == 2">
+  				shif_id = (select shif_ida from employee_shift where employee_id = #{employeeId})
+  			</when>
+  			<when test="weekDay == 3">
+  				shif_id = (select shif_idb from employee_shift where employee_id = #{employeeId})
+  			</when>
+  			<when test="weekDay == 4">
+  				shif_id = (select shif_idc from employee_shift where employee_id = #{employeeId})
+  			</when>
+  			<when test="weekDay == 5">
+  				shif_id = (select shif_idd from employee_shift where employee_id = #{employeeId})
+  			</when>
+  			<when test="weekDay == 6">
+  				shif_id = (select shif_ide from employee_shift where employee_id = #{employeeId})
+  			</when>
+  			<when test="weekDay == 7">
+  				shif_id = (select shif_idf from employee_shift where employee_id = #{employeeId})
+  			</when>
+  		</choose>
+  	</where>
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zefun.api.dto.ShiftDto" >
+    update shift_info
+    set store_id = #{storeId,jdbcType=INTEGER},
+      shif_name = #{shifName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=CHAR},
+      end_time = #{endTime,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=CHAR},
+      last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
+    where shif_id = #{shifId,jdbcType=INTEGER}
+  </update>
+  <select id="getEmployeeShift" parameterType="com.zefun.api.entity.Page" resultType="com.zefun.api.dto.ShiftDto">
+	  select i.employee_id employeeId,i.employee_code employeeCode,i.name,
+	(select a.shif_name from shift_info a where a.shif_id=t.shif_ida) shifIda,
+	(select b.shif_name from shift_info b where b.shif_id=t.shif_idb) shifIdb,
+	(select c.shif_name from shift_info c where c.shif_id=t.shif_idc) shifIdc,
+	(select d.shif_name from shift_info d where d.shif_id=t.shif_idd) shifIdd,
+	(select e.shif_name from shift_info e where e.shif_id=t.shif_ide) shifIde,
+	(select f.shif_name from shift_info f where f.shif_id=t.shif_idf) shifIdf,
+	(select g.shif_name from shift_info g where g.shif_id=t.shif_idg) shifIdg
+	from employee_shift t
+	left join employee_info i on i.employee_id=t.employee_id
+    left join position_info p on p.position_id=i.position_id
+    left join dept_info d on d.dept_id=p.dept_id
+    where d.dept_id=#{params.deptId} and i.is_deleted=0
+    <if test="params.search !=null and params.search !=''">
+    and (i.employee_code like concat('%',#{params.search},'%') or i.name like concat('%',#{params.search},'%'))
+    </if>
+  </select>
+  <select id="getShiftInfo" parameterType="java.lang.Integer" resultType="com.zefun.api.entity.ShiftInfo">
+	select shif_id shifId,shif_name shifName,start_time startTime,end_time endTime from shift_info where dept_id=#{deptId}
+  </select>
+  <insert id="employeeShift" parameterType="java.util.Map">
+  insert into employee_shift (data_id, employee_id, shif_ida, 
+      shif_idb, shif_idc, shif_idd, 
+      shif_ide, shif_idf, shif_idg, 
+      create_time, update_time, last_operator_id
+      )
+    values (#{dataId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{shifIda,jdbcType=INTEGER}, 
+      #{shifIdb,jdbcType=INTEGER}, #{shifIdc,jdbcType=INTEGER}, #{shifIdd,jdbcType=INTEGER}, 
+      #{shifIde,jdbcType=INTEGER}, #{shifIdf,jdbcType=INTEGER}, #{shifIdg,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR}, #{lastOperatorId,jdbcType=INTEGER}
+      )
+  </insert>
+  <delete id="deleteShift" parameterType="java.util.Map">
+  delete from employee_shift where employee_id=#{employeeId}
+  </delete>
+  <select id="queryEmployeeShift" parameterType="java.util.Map" resultType="com.zefun.api.dto.ShiftDto">
+  select t.shif_ida shifIda,t.shif_idb shifIdb,t.shif_idc shifIdc,t.shif_idd shifIdd ,t.shif_ide shifIde,t.shif_idf shifIdf,t.shif_idg shifIdg,
+	(select a.shif_name from shift_info a where a.shif_id=t.shif_ida) shifNamea,
+	(select b.shif_name from shift_info b where b.shif_id=t.shif_idb) shifNameb,
+	(select c.shif_name from shift_info c where c.shif_id=t.shif_idc) shifNamec,
+	(select d.shif_name from shift_info d where d.shif_id=t.shif_idd) shifNamed,
+	(select e.shif_name from shift_info e where e.shif_id=t.shif_ide) shifNamee,
+	(select f.shif_name from shift_info f where f.shif_id=t.shif_idf) shifNamef,
+	(select g.shif_name from shift_info g where g.shif_id=t.shif_idg) shifNameg
+	from employee_shift t
+  where t.employee_id=#{employeeId}
+  </select>
+  <select id="countIsshift"  parameterType="java.util.Map" resultType="java.lang.Integer">
+  select count(0) from employee_shift where employee_id=#{employeeId}
+  </select>
+  <update id="updateShift" parameterType="com.zefun.api.entity.ShiftInfo" >
+  update shift_info set start_time=#{startTime} ,end_time=#{endTime}  where shif_name=#{shifName} and dept_id=#{deptId}
+  </update>
+  <insert id="addShift" parameterType="java.util.Map" >
+  insert into shift_info (shif_id, store_id, dept_id, 
+      shif_name, start_time, end_time, 
+      create_time, update_time, last_operator_id
+      )
+    values (#{shifId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
+      #{shifName,jdbcType=VARCHAR}, #{startTime,jdbcType=CHAR}, #{endTime,jdbcType=CHAR}, 
+      #{createTime,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR}, #{lastOperatorId,jdbcType=INTEGER}
+      )
+  </insert>
+  <select id="queryshiftinfo" parameterType="java.util.Map" resultType="com.zefun.api.entity.ShiftInfo">
+  SELECT shif_id shifId from shift_info
+  where dept_id=#{deptId} and shif_name=#{shifName}
+  </select>
+  <insert id="insertInfo" parameterType="com.zefun.api.dto.ShiftDto">
+   insert into employee_shift ( employee_id, shif_ida, 
+      shif_idb, shif_idc, shif_idd, 
+      shif_ide, shif_idf, shif_idg
+      )
+    values (#{employeeId,jdbcType=INTEGER}, #{shifIda,jdbcType=INTEGER}, 
+      #{shifIdb,jdbcType=INTEGER}, #{shifIdc,jdbcType=INTEGER}, #{shifIdd,jdbcType=INTEGER}, 
+      #{shifIde,jdbcType=INTEGER}, #{shifIdf,jdbcType=INTEGER}, #{shifIdg,jdbcType=INTEGER}
+      )
+  </insert>
+  <resultMap type="com.zefun.api.dto.ShiftDto" id="getEmployeeInfo">
+  		
+        <association property="shiftDto" column="{employeeId=employeeId}" select="yuanGongShift" />
+  </resultMap>
+ <select id="queryEmployee" parameterType="com.zefun.api.entity.Page" resultMap="getEmployeeInfo">
+ select employee_id employeeId,name,employee_code employeeCode from employee_info where store_id=#{params.storeId} and is_deleted=0
+ <if test="params.deptId != null and params.deptId != ''">
+  and dept_id=#{params.deptId} 
+   </if>
+ </select>
+ <select id="yuanGongShift" resultType="com.zefun.api.dto.ShiftDto" parameterType="java.util.Map">
+ select t.shif_ida shifIda,t.shif_idb shifIdb,t.shif_idc shifIdc,t.shif_idd shifIdd ,t.shif_ide shifIde,t.shif_idf shifIdf,t.shif_idg shifIdg,
+	(select a.shif_name from shift_info a where a.shif_id=t.shif_ida) shifNamea,
+	(select b.shif_name from shift_info b where b.shif_id=t.shif_idb) shifNameb,
+	(select c.shif_name from shift_info c where c.shif_id=t.shif_idc) shifNamec,
+	(select d.shif_name from shift_info d where d.shif_id=t.shif_idd) shifNamed,
+	(select e.shif_name from shift_info e where e.shif_id=t.shif_ide) shifNamee,
+	(select f.shif_name from shift_info f where f.shif_id=t.shif_idf) shifNamef,
+	(select g.shif_name from shift_info g where g.shif_id=t.shif_idg) shifNameg
+	from employee_shift t
+  where t.employee_id=#{employeeId}
+ </select>
+ 
+ <insert id="insertShiftinfo" parameterType="com.zefun.api.entity.ShiftInfo" >
+  insert into shift_info (shif_id, store_id, dept_id, 
+      shif_name, start_time, end_time, 
+      create_time, update_time, last_operator_id
+      )
+    values (#{shifId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
+      #{shifName,jdbcType=VARCHAR}, #{startTime,jdbcType=CHAR}, #{endTime,jdbcType=CHAR}, 
+      #{createTime,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR}, #{lastOperatorId,jdbcType=INTEGER}
+      )
+  </insert>
+</mapper>

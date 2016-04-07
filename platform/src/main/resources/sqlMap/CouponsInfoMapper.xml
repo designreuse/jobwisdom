@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.CouponsInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.CouponsInfo" >
+    <id column="coupons_id" property="couponsId" jdbcType="INTEGER" />
+    <result column="vip_id" property="vipId" jdbcType="INTEGER" />
+    <result column="coupons_no" property="couponsNo" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="sourse" property="sourse" jdbcType="VARCHAR" />
+    <result column="is_payment" property="isPayment" jdbcType="INTEGER" />
+    <result column="is_use" property="isUse" jdbcType="INTEGER" />
+    <result column="start_end" property="startEnd" jdbcType="CHAR" />
+    <result column="end_date" property="endDate" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    coupons_id, vip_id, coupons_no, amount, project_id, sourse, is_payment, is_use, start_end, 
+    end_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_vip_coupons
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_vip_coupons
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.CouponsInfo" >
+    insert into pt_vip_coupons (coupons_id, vip_id, coupons_no, 
+      amount, project_id, sourse, 
+      is_payment, is_use, start_end, 
+      end_date)
+    values (#{couponsId,jdbcType=INTEGER}, #{vipId,jdbcType=INTEGER}, #{couponsNo,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{projectId,jdbcType=VARCHAR}, #{sourse,jdbcType=VARCHAR}, 
+      #{isPayment,jdbcType=INTEGER}, #{isUse,jdbcType=INTEGER}, #{startEnd,jdbcType=CHAR}, 
+      #{endDate,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.CouponsInfo" >
+    insert into pt_vip_coupons
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="couponsId != null" >
+        coupons_id,
+      </if>
+      <if test="vipId != null" >
+        vip_id,
+      </if>
+      <if test="couponsNo != null" >
+        coupons_no,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="sourse != null" >
+        sourse,
+      </if>
+      <if test="isPayment != null" >
+        is_payment,
+      </if>
+      <if test="isUse != null" >
+        is_use,
+      </if>
+      <if test="startEnd != null" >
+        start_end,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="couponsId != null" >
+        #{couponsId,jdbcType=INTEGER},
+      </if>
+      <if test="vipId != null" >
+        #{vipId,jdbcType=INTEGER},
+      </if>
+      <if test="couponsNo != null" >
+        #{couponsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourse != null" >
+        #{sourse,jdbcType=VARCHAR},
+      </if>
+      <if test="isPayment != null" >
+        #{isPayment,jdbcType=INTEGER},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="startEnd != null" >
+        #{startEnd,jdbcType=CHAR},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.CouponsInfo" >
+    update pt_vip_coupons
+    <set >
+      <if test="vipId != null" >
+        vip_id = #{vipId,jdbcType=INTEGER},
+      </if>
+      <if test="couponsNo != null" >
+        coupons_no = #{couponsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourse != null" >
+        sourse = #{sourse,jdbcType=VARCHAR},
+      </if>
+      <if test="isPayment != null" >
+        is_payment = #{isPayment,jdbcType=INTEGER},
+      </if>
+      <if test="isUse != null" >
+        is_use = #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="startEnd != null" >
+        start_end = #{startEnd,jdbcType=CHAR},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=CHAR},
+      </if>
+    </set>
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.CouponsInfo" >
+    update pt_vip_coupons
+    set vip_id = #{vipId,jdbcType=INTEGER},
+      coupons_no = #{couponsNo,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      sourse = #{sourse,jdbcType=VARCHAR},
+      is_payment = #{isPayment,jdbcType=INTEGER},
+      is_use = #{isUse,jdbcType=INTEGER},
+      start_end = #{startEnd,jdbcType=CHAR},
+      end_date = #{endDate,jdbcType=CHAR}
+    where coupons_id = #{couponsId,jdbcType=INTEGER}
+  </update>
+</mapper>

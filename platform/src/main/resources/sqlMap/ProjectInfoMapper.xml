@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.ProjectInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.ProjectInfo" >
+    <id column="project_info_id" property="projectInfoId" jdbcType="INTEGER" />
+    <result column="project_no" property="projectNo" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_price" property="projectPrice" jdbcType="DECIMAL" />
+    <result column="stroes_id" property="stroesId" jdbcType="INTEGER" />
+    <result column="status_emp" property="statusEmp" jdbcType="INTEGER" />
+    <result column="status_member" property="statusMember" jdbcType="INTEGER" />
+    <result column="classes_id" property="classesId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="ProjectInfoDtoResultMap" type="com.lives.platform.web.dto.ProjectClassDto" >
+    <result column="classes_name" property="classesName" jdbcType="VARCHAR" />
+    <association property="lproject" column="classes_id" select="selectByClassesId" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    project_info_id, project_no, project_name, project_price, stroes_id, status_emp, status_member, classes_id, parent_id, create_time
+  </sql>
+  
+  <select id="selectProjectInfoDto" resultMap="ProjectInfoDtoResultMap" parameterType="java.lang.Integer">
+    select * from pt_project_classes where stores_id = #{stroesId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByClassesId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="Base_Column_List" /> from pt_project_info where classes_id = #{classesId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_project_info
+    where project_info_id = #{projectInfoId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_project_info
+    where stroes_id = #{projectInfoId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.ProjectInfo" useGeneratedKeys = "true" keyProperty="projectInfoId">
+    insert into pt_project_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectInfoId != null" >
+        project_info_id,
+      </if>
+      <if test="projectNo != null" >
+        project_no,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="projectPrice != null" >
+        project_price,
+      </if>
+      <if test="stroesId != null" >
+        stroes_id,
+      </if>
+      <if test="statusEmp != null" >
+        status_emp,
+      </if>
+      <if test="statusMember != null" >
+        status_member,
+      </if>
+      <if test="classesId != null" >
+        classes_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectInfoId != null" >
+        #{projectInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="projectNo != null" >
+        #{projectNo,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPrice != null" >
+        #{projectPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stroesId != null" >
+        #{stroesId,jdbcType=INTEGER},
+      </if>
+      <if test="statusEmp != null" >
+        #{statusEmp,jdbcType=INTEGER},
+      </if>
+      <if test="statusMember != null" >
+        #{statusMember,jdbcType=INTEGER},
+      </if>
+      <if test="classesId != null" >
+        #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.ProjectInfo" >
+    update pt_project_info
+    <set >
+      <if test="projectNo != null" >
+        project_no = #{projectNo,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPrice != null" >
+        project_price = #{projectPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stroesId != null" >
+        stroes_id = #{stroesId,jdbcType=INTEGER},
+      </if>
+      <if test="statusEmp != null" >
+        status_emp = #{statusEmp,jdbcType=INTEGER},
+      </if>
+      <if test="statusMember != null" >
+        status_member = #{statusMember,jdbcType=INTEGER},
+      </if>
+      <if test="classesId != null" >
+        classes_id = #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where project_info_id = #{projectInfoId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByProperty" parameterType="com.lives.platform.web.entity.ProjectInfo" resultMap="BaseResultMap">
+    select * from pt_project_info where 1 = 1
+      <if test="projectNo != null" >
+         and project_no = #{projectNo,jdbcType=INTEGER}
+      </if>
+      <if test="projectName != null" >
+         and project_name = #{projectName,jdbcType=VARCHAR}
+      </if>
+      <if test="projectPrice != null" >
+         and project_price = #{projectPrice,jdbcType=VARCHAR}
+      </if>
+      <if test="stroesId != null" >
+         and stroes_id = #{stroesId,jdbcType=VARCHAR}
+      </if>
+      <if test="statusEmp != null" >
+         and status_emp = #{statusEmp,jdbcType=VARCHAR}
+      </if>
+      <if test="statusMember != null" >
+         and status_member = #{statusMember,jdbcType=VARCHAR}
+      </if>
+      <if test="classesId != null" >
+         and classes_id = #{classesId,jdbcType=INTEGER}
+      </if>
+      <if test="parentId != null" >
+         and parent_id = #{parentId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+         and create_time = #{createTime,jdbcType=CHAR}
+      </if>
+  </select>
+  
+  <select id="selectByProjectIdList" parameterType="com.lives.platform.web.entity.ProjectInfo" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from pt_project_info 
+  	where project_info_id in
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </select>
+  
+  <delete id="deleteProjectIdBatch" parameterType="java.util.List">
+	delete from pt_project_info where project_info_id in
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </delete>
+  
+  <insert id="insertProjectInfoList" parameterType="java.util.List">  
+  	insert into pt_project_info (project_no, project_name,project_price, stroes_id, status_emp, status_member, classes_id, parent_id, create_time)
+    values 
+    <foreach collection="list" item="item" index="index"  separator=",">  
+    	( #{item.projectNo,jdbcType=INTEGER}, #{item.projectName,jdbcType=VARCHAR}, 
+	      #{item.projectPrice,jdbcType=DECIMAL}, #{item.stroesId,jdbcType=INTEGER}, #{item.statusEmp,jdbcType=INTEGER}, #{item.statusMember,jdbcType=INTEGER},
+	      #{item.classesId,jdbcType=INTEGER}, #{item.parentId,jdbcType=INTEGER}, #{item.createTime,jdbcType=CHAR})
+    </foreach>
+  </insert>
+  
+  <select id="selectByStroesIdAndPno" parameterType="com.lives.platform.web.entity.ProjectInfo" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from pt_project_info 
+  	where stroes_id in
+  	<foreach item="item" index="index" collection="stroesId" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+	and project_no in 
+	<foreach item="item" index="index" collection="projectNo" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+  </select>
+  
+  <update id="batchUpdateProject"  parameterType="java.util.List">
+  	<foreach collection="list" item="item" index="index" open="" close="" >
+    	update pt_project_info 
+        <set>
+        	project_price = ${item.projectPrice}, status_emp = ${item.statusEmp}
+        </set>
+        where project_info_id = ${item.projectInfoId};
+  	</foreach>
+  </update>
+ 
+  
+</mapper>

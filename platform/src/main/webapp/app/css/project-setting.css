@@ -1,0 +1,442 @@
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 0px;
+  border-top: 0px solid #fff;
+}
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 0px solid #fff;
+}
+/*项目设置的内容*/
+.setting-content {
+  margin: 0px 9px 0px 0px;
+  background-color: #f0f0f0;
+  width: 925px;
+  height: 600px;
+  overflow: auto;
+}
+.setting-content .tab_menu {
+  position: absolute;
+  margin: -35px 20px;
+  margin-left: 20px;
+  font-size: 16px;
+}
+.add-classify {
+  display: inline-block;
+  width: 260px;
+  background-color: #fff;
+  color: #757575;
+  border: 1px solid #c6c6c6;
+  height: 489px;
+}
+.add-classify .table tr.active > td {
+  background-color: #3997f3;
+}
+.add-classify .table caption {
+  height: 40px;
+  text-align: center;
+}
+.add-classify .table td {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.add-classify .table .plus {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #bbb;
+  margin-top: 10px;
+}
+.add-classify .table .file {
+  width: 44px;
+}
+.add-classify .table .name {
+  width: 142px;
+  text-align: left;
+}
+.add-classify .table .alter {
+  width: 41px;
+  text-align: left;
+}
+.add-classify .table .delete {
+  width: 33px;
+  text-align: left;
+}
+.add-classify .amend td {
+  line-height: 40px;
+}
+.add-classify .amend input {
+  width: 150px;
+  height: 30px;
+}
+.add-classify .amend input[type="button"] {
+  width: 41px;
+  height: 30px;
+  background-color: #fff;
+}
+.add-project {
+  display: inline-block;
+  width: 62.7%;
+  margin-left: 10px;
+  color: #757575;
+  height: 489px;
+}
+.add-project .add {
+  width: 100px;
+  height: 27px;
+  background-color: #235688;
+  text-align: center;
+  line-height: 27px;
+  color: #fff;
+}
+.add-project .table {
+  width: 100%;
+}
+.add-project .table thead td {
+  text-align: left;
+  line-height: 52px;
+  height: 52px;
+  font-weight: 700;
+}
+.add-project .table tbody td {
+  height: 62px;
+  text-align: left;
+  line-height: 62px;
+  border-top: 1px solid #c6c6c6;
+}
+.add-project .code {
+  width: 118px;
+}
+.add-project .name {
+  width: 152px;
+}
+.add-project .money {
+  width: 92px;
+}
+.add-project .type {
+  width: 126px;
+}
+.add-project .add-type {
+  text-align: center;
+  width: 92px;
+  padding-top: 10px;
+}
+.add-project .img-left {
+  margin-right: 20px;
+}
+.content-center {
+  /*内容区*/
+  width: 865px;
+  /*下拉菜单*/
+  /*折叠菜单*/
+}
+.content-center caption {
+  height: 52px;
+}
+.content-center caption .breadcrumb {
+  height: 52px;
+  line-height: 52px;
+  margin-left: 87px;
+  background-color: #f0f0f0;
+}
+.content-center caption .return {
+  width: 100px;
+  height: 27px;
+  background-color: #fff;
+  margin: 10px 10px 0px 0px;
+  color: #000;
+  border: 1px solid #204568;
+}
+.content-center caption .add {
+  width: 100px;
+  height: 27px;
+  background-color: #215788;
+  margin: 10px 93px 0px 0px;
+  color: #fff;
+  border: 1px solid #c6c6c6;
+}
+.content-center td {
+  height: 62px;
+  line-height: 62px;
+}
+.content-center .lebel {
+  width: 86px;
+  text-align: center;
+  padding-left: 40px;
+  vertical-align: middle;
+}
+.content-center .letter {
+  width: 26px;
+  height: 26px;
+  background-color: #3b9cf8;
+  text-align: center;
+  line-height: 26px;
+  border-radius: 13px;
+  color: #fff;
+}
+.content-center .name {
+  width: 73px;
+  border-top: 1px solid #b2b2b2;
+  line-height: 73px;
+}
+.content-center .item-input {
+  width: 620px;
+  border-top: 1px solid #b2b2b2;
+  line-height: 62px;
+  /*input{
+      line-height: 35px;
+    }*/
+}
+.content-center .operation {
+  width: 112px;
+  border-top: 1px solid #b2b2b2;
+  cursor: pointer;
+  text-align: center;
+  line-height: 62px;
+}
+.content-center .discount {
+  background: url("../img/percent.png") no-repeat 90% 50% #ffffff;
+}
+.content-center .money {
+  background: url("../img/money.png") no-repeat 90% 50% #ffffff;
+}
+.content-center .label-info {
+  background-color: #bbb;
+}
+.content-center .bootstrap-tagsinput {
+  height: 40px;
+  width: 100%;
+  line-height: 30px;
+}
+.content-center .dropdown-menu {
+  width: 100%;
+  padding: 0px 28px;
+}
+.content-center .dropdown-menu li {
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #c6c6c6;
+  line-height: 40px;
+}
+.content-center .dropdown-menu .title-li .company-name {
+  color: #ddd;
+}
+.content-center .dropdown-menu input {
+  margin-left: 0px;
+}
+.content-center .bootstrap-tagsinput .tag {
+  height: 30px;
+  margin-right: 2px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
+}
+.content-center .item-content {
+  width: 620px;
+  border-top: 1px solid #b2b2b2;
+  line-height: 62px;
+}
+.content-center .item-content .type {
+  background-color: #bbb;
+  margin-right: 7px;
+  text-align: center;
+  border: 1px solid #bbb;
+  width: 20%;
+  color: #777;
+}
+.content-center .item-content input,
+.content-center .item-content select {
+  height: 35px;
+  width: 117px;
+  margin-right: 7px;
+  border: 1px solid #fff;
+  width: 20%;
+  padding: 0 10px;
+  border-radius: 2px;
+  line-height: 35px;
+}
+.content-center .cancel {
+  margin-right: 70px;
+  float: right;
+  width: 140px;
+  height: 34px;
+  border: 1px solid #c6c6c6;
+  line-height: 34px;
+}
+.content-center .affirm {
+  float: right;
+  margin-right: 16px;
+  width: 140px;
+  height: 34px;
+  border: 1px solid #c6c6c6;
+  line-height: 34px;
+}
+.content-center .detail td {
+  border: 0px solid #fff;
+  line-height: 62px;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+  content: "x";
+  padding: 0px 2px;
+  color: #ddd;
+}
+tr:hover {
+  background-color: #f0f0f0;
+}
+.company-name {
+  margin-left: 22px;
+}
+.check-all,
+.check-input {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  z-index: 100;
+}
+.table > tbody + tbody {
+  border-top: 0px solid #fff;
+}
+/*checkbox*/
+.select-tag input {
+  position: absolute;
+  opacity: 0;
+}
+.select-tag input:checked + span {
+  background-color: #ddd;
+  border-color: #ddd;
+}
+.select-tag input + span {
+  background-color: #ddd;
+  position: relative;
+  display: inline-block;
+  margin-top: -2px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.select-tag input + span {
+  width: 15px;
+  height: 15px;
+  background-color: #ddd;
+  border: 1px solid #ddd;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+.select-tag input + span:after {
+  position: absolute;
+  content: "";
+}
+.select-tag input:checked + span:after {
+  top: -10px;
+  right: 0;
+  bottom: 0;
+  left: -5px;
+  width: 18px;
+  height: 18px;
+  font-family: "iconfont";
+  font-size: 25px;
+  color: #204580;
+  content: "\e609";
+  text-align: center;
+}
+.check-input + span {
+  margin-left: 22px;
+}
+.js-table-header.open + tbody {
+  display: table-row-group;
+}
+.js-table-header + tbody {
+  display: none;
+}
+/*模态框*/
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 600px;
+    margin: 150px auto;
+  }
+  .modal-dialog input {
+    padding-left: 45%;
+  }
+}
+/*
+.css-checkbox {
+  margin: 7px 0;
+}
+.css-input {
+  position: relative;
+  display: inline-block;
+  margin: 2px 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+.css-input input {
+  position: absolute;
+  opacity: 0;
+}
+input[type="radio"], input[type="checkbox"] {
+  margin: 4px 0 0;
+  margin-top: 1px \9;
+  line-height: normal;
+}
+.css-checkbox-primary input:checked+span {
+  background-color: #5c90d2;
+  border-color: #5c90d2;
+}
+.css-checkbox input+span {
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-transition: background-color .2s;
+  transition: background-color .2s;
+}
+.css-input input+span {
+  position: relative;
+  display: inline-block;
+  margin-top: -2px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.css-checkbox input+span:after {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-family: "FontAwesome";
+  font-size: 10px;
+  color: #fff;
+  line-height: 18px;
+  content: "\f00c";
+  text-align: center;
+}
+.css-input input+span:after {
+  position: absolute;
+  content: "";
+}
+*:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.table>thead>tr>td.active, .table>tbody>tr>td.active, .table>tfoot>tr>td.active, .table>thead>tr>th.active, .table>tbody>tr>th.active, .table>tfoot>tr>th.active, .table>thead>tr.active>td, .table>tbody>tr.active>td, .table>tfoot>tr.active>td, .table>thead>tr.active>th, .table>tbody>tr.active>th, .table>tfoot>tr.active>th {
+  background-color: #f9f9f9;
+}
+.table>thead>tr>td.active, .table>tbody>tr>td.active, .table>tfoot>tr>td.active, .table>thead>tr>th.active, .table>tbody>tr>th.active, .table>tfoot>tr>th.active, .table>thead>tr.active>td, .table>tbody>tr.active>td, .table>tfoot>tr.active>td, .table>thead>tr.active>th, .table>tbody>tr.active>th, .table>tfoot>tr.active>th {
+  background-color: #f5f5f5;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+  padding: 12px 10px;
+  border-top: 1px solid #f0f0f0;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+*/
+/*# sourceMappingURL=data:application/json;base64,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 */

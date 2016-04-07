@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.PostRegisterMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.entity.PostRegister" >
+    <id column="post_register_id" property="postRegisterId" jdbcType="INTEGER" />
+    <result column="post_id" property="postId" jdbcType="INTEGER" />
+    <result column="register_order" property="registerOrder" jdbcType="INTEGER" />
+    <result column="register_name" property="registerName" jdbcType="VARCHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="CHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="valid" property="valid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    post_register_id, post_id, register_order, register_name, creation_time, creator, 
+    valid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_post_register
+    where post_register_id = #{postRegisterId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pt_post_register
+    where post_register_id = #{postRegisterId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.entity.PostRegister" >
+    insert into pt_post_register (post_register_id, post_id, register_order, 
+      register_name, creation_time, creator, 
+      valid)
+    values (#{postRegisterId,jdbcType=INTEGER}, #{postId,jdbcType=INTEGER}, #{registerOrder,jdbcType=INTEGER}, 
+      #{registerName,jdbcType=VARCHAR}, #{creationTime,jdbcType=CHAR}, #{creator,jdbcType=INTEGER}, 
+      #{valid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.entity.PostRegister" >
+    insert into pt_post_register
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="postRegisterId != null" >
+        post_register_id,
+      </if>
+      <if test="postId != null" >
+        post_id,
+      </if>
+      <if test="registerOrder != null" >
+        register_order,
+      </if>
+      <if test="registerName != null" >
+        register_name,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="valid != null" >
+        valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="postRegisterId != null" >
+        #{postRegisterId,jdbcType=INTEGER},
+      </if>
+      <if test="postId != null" >
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="registerOrder != null" >
+        #{registerOrder,jdbcType=INTEGER},
+      </if>
+      <if test="registerName != null" >
+        #{registerName,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.entity.PostRegister" >
+    update pt_post_register
+    <set >
+      <if test="postId != null" >
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="registerOrder != null" >
+        register_order = #{registerOrder,jdbcType=INTEGER},
+      </if>
+      <if test="registerName != null" >
+        register_name = #{registerName,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where post_register_id = #{postRegisterId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.entity.PostRegister" >
+    update pt_post_register
+    set post_id = #{postId,jdbcType=INTEGER},
+      register_order = #{registerOrder,jdbcType=INTEGER},
+      register_name = #{registerName,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=CHAR},
+      creator = #{creator,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=INTEGER}
+    where post_register_id = #{postRegisterId,jdbcType=INTEGER}
+  </update>
+</mapper>

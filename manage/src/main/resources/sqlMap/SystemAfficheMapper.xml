@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.manage.web.mapper.SystemAfficheMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.manage.web.entity.SystemAffiche" >
+    <id column="affiche_id" property="afficheId" jdbcType="INTEGER" />
+    <result column="affiche_title" property="afficheTitle" jdbcType="VARCHAR" />
+    <result column="affiche_content" property="afficheContent" jdbcType="VARCHAR" />
+    <result column="affiche_role" property="afficheRole" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="affiche_classes" property="afficheClasses" jdbcType="VARCHAR" />
+    <result column="affiche_status" property="afficheStatus" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="affiche_time" property="afficheTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    affiche_id, affiche_title, affiche_content, affiche_role, creator_id, create_time, 
+    affiche_classes, affiche_status, update_time, affiche_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from m_system_affiche
+    where affiche_id = #{afficheId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from m_system_affiche
+    where affiche_id = #{afficheId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="java.util.Map" useGeneratedKeys = "true" keyProperty="afficheId">
+    insert into m_system_affiche (affiche_id, affiche_title, affiche_content, 
+      affiche_role, creator_id, create_time, 
+      affiche_classes, affiche_status, update_time, 
+      affiche_time)
+    values (#{afficheId,jdbcType=INTEGER}, #{afficheTitle,jdbcType=VARCHAR}, #{afficheContent,jdbcType=VARCHAR}, 
+      #{afficheRole,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}, 
+      #{afficheClasses,jdbcType=VARCHAR}, #{afficheStatus,jdbcType=VARCHAR}, #{updateTime,jdbcType=CHAR}, 
+      #{afficheTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.manage.web.entity.SystemAffiche" >
+    insert into m_system_affiche
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="afficheId != null" >
+        affiche_id,
+      </if>
+      <if test="afficheTitle != null" >
+        affiche_title,
+      </if>
+      <if test="afficheContent != null" >
+        affiche_content,
+      </if>
+      <if test="afficheRole != null" >
+        affiche_role,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="afficheClasses != null" >
+        affiche_classes,
+      </if>
+      <if test="afficheStatus != null" >
+        affiche_status,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="afficheTime != null" >
+        affiche_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="afficheId != null" >
+        #{afficheId,jdbcType=INTEGER},
+      </if>
+      <if test="afficheTitle != null" >
+        #{afficheTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="afficheContent != null" >
+        #{afficheContent,jdbcType=VARCHAR},
+      </if>
+      <if test="afficheRole != null" >
+        #{afficheRole,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="afficheClasses != null" >
+        #{afficheClasses,jdbcType=VARCHAR},
+      </if>
+      <if test="afficheStatus != null" >
+        #{afficheStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="afficheTime != null" >
+        #{afficheTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.manage.web.entity.SystemAffiche" >
+    update m_system_affiche
+    <set >
+      <if test="afficheTitle != null" >
+        affiche_title = #{afficheTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="afficheContent != null" >
+        affiche_content = #{afficheContent,jdbcType=VARCHAR},
+      </if>
+      <if test="afficheRole != null" >
+        affiche_role = #{afficheRole,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="afficheClasses != null" >
+        affiche_classes = #{afficheClasses,jdbcType=VARCHAR},
+      </if>
+      <if test="afficheStatus != null" >
+        affiche_status = #{afficheStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="afficheTime != null" >
+        affiche_time = #{afficheTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where affiche_id = #{afficheId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.manage.web.entity.SystemAffiche" >
+    update m_system_affiche
+    set affiche_title = #{afficheTitle,jdbcType=VARCHAR},
+      affiche_content = #{afficheContent,jdbcType=VARCHAR},
+      affiche_role = #{afficheRole,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR},
+      affiche_classes = #{afficheClasses,jdbcType=VARCHAR},
+      affiche_status = #{afficheStatus,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=CHAR},
+      affiche_time = #{afficheTime,jdbcType=CHAR}
+    where affiche_id = #{afficheId,jdbcType=INTEGER}
+  </update>
+  <select id="selectTable" resultType="com.lives.manage.web.entity.SystemAffiche" parameterType="java.util.Map">
+		select
+		affiche_id
+		afficheId,affiche_title afficheTitle,affiche_content afficheContent,affiche_role
+		afficheRole,creator_id creatorId,create_time
+		createTime,affiche_classes afficheClasses,affiche_status
+		afficheStatus,IF(affiche_status=1,'未审核',if(affiche_status=2,'已审核','')) stateName, update_time updateTime,affiche_time
+		afficheTime
+		from
+		m_system_affiche  
+		<if test="offset != null">
+				limit #{offset},#{limit}
+		</if>
+	</select>
+	<select id="selectDetalis" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(0) from m_system_affiche where 1=1
+	</select>
+	
+    <update id="updatestate" parameterType="java.util.Map">
+    update m_system_affiche
+    set affiche_status = #{afficheStatus}
+    where affiche_id = #{afficheId}
+    </update>
+    
+    <select id="selectAfficheInfo" parameterType="java.util.Map" resultType="java.util.Map">
+    select
+		affiche_id
+		afficheId,affiche_title afficheTitle,affiche_content afficheContent,affiche_role
+		afficheRole,creator_id creatorId,create_time
+		createTime,affiche_classes afficheClasses,affiche_status
+		afficheStatus,IF(affiche_status=1,'未审核',if(affiche_status=2,'已审核','')) stateName, update_time updateTime,affiche_time
+		afficheTime
+		from
+		m_system_affiche where 1=1 and affiche_id = #{afficheId}
+    </select>
+    
+    <insert id="addAfficheRole" parameterType="java.util.Map">
+    insert into m_affiche_role(role_id,affiche_id)values(#{afficheRole,jdbcType=INTEGER},#{afficheId,jdbcType=INTEGER})
+    </insert>
+    <delete id="deleteAfficheRole" parameterType="java.util.Map">
+    delete from m_affiche_role where affiche_id=#{afficheId}
+    </delete>
+</mapper>

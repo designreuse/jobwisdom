@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.MemberCardCommissionMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.dto.MemberCardCommissionDto" >
+    <id column="card_id" property="cardId" jdbcType="INTEGER" />
+    <result column="commission_type" property="commissionType" jdbcType="VARCHAR" />
+    <result column="commission_single_money" property="commissionSingleMoney" jdbcType="DECIMAL" />
+    <result column="commission_multi_money" property="commissionMultiMoney" jdbcType="VARCHAR" />
+    <result column="recharge_commission_type" property="rechargeCommissionType" jdbcType="VARCHAR" />
+    <result column="prepaid_single_commission_money" property="prepaidSingleCommissionMoney" jdbcType="DECIMAL" />
+    <result column="recharge_rate_money" property="rechargeRateMoney" jdbcType="VARCHAR" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    card_id, commission_type, commission_single_money, commission_multi_money, recharge_commission_type, 
+    prepaid_single_commission_money, recharge_rate_money
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_card_commission
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_card_commission
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.dto.MemberCardCommissionDto" >
+    insert into member_card_commission (card_id, commission_type, commission_single_money, 
+      commission_multi_money, recharge_commission_type, 
+      prepaid_single_commission_money, recharge_rate_money
+      )
+    values (#{cardId,jdbcType=INTEGER}, #{commissionType,jdbcType=VARCHAR}, #{commissionSingleMoney,jdbcType=DECIMAL}, 
+      #{commissionMultiMoney,jdbcType=VARCHAR}, #{rechargeCommissionType,jdbcType=VARCHAR}, 
+      #{prepaidSingleCommissionMoney,jdbcType=DECIMAL}, #{rechargeRateMoney,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.dto.MemberCardCommissionDto" >
+    insert into member_card_commission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="commissionType != null" >
+        commission_type,
+      </if>
+      <if test="commissionSingleMoney != null" >
+        commission_single_money,
+      </if>
+      <if test="commissionMultiMoney != null" >
+        commission_multi_money,
+      </if>
+      <if test="rechargeCommissionType != null" >
+        recharge_commission_type,
+      </if>
+      <if test="prepaidSingleCommissionMoney != null" >
+        prepaid_single_commission_money,
+      </if>
+      <if test="rechargeRateMoney != null" >
+        recharge_rate_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="commissionType != null" >
+        #{commissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionSingleMoney != null" >
+        #{commissionSingleMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionMultiMoney != null" >
+        #{commissionMultiMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeCommissionType != null" >
+        #{rechargeCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="prepaidSingleCommissionMoney != null" >
+        #{prepaidSingleCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeRateMoney != null" >
+        #{rechargeRateMoney,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.dto.MemberCardCommissionDto" >
+    update member_card_commission
+    <set >
+      <if test="commissionType != null" >
+        commission_type = #{commissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionSingleMoney != null" >
+        commission_single_money = #{commissionSingleMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionMultiMoney != null" >
+        commission_multi_money = #{commissionMultiMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeCommissionType != null" >
+        recharge_commission_type = #{rechargeCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="prepaidSingleCommissionMoney != null" >
+        prepaid_single_commission_money = #{prepaidSingleCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeRateMoney != null" >
+        recharge_rate_money = #{rechargeRateMoney,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.dto.MemberCardCommissionDto" >
+    update member_card_commission
+    set commission_type = #{commissionType,jdbcType=VARCHAR},
+      commission_single_money = #{commissionSingleMoney,jdbcType=DECIMAL},
+      commission_multi_money = #{commissionMultiMoney,jdbcType=VARCHAR},
+      recharge_commission_type = #{rechargeCommissionType,jdbcType=VARCHAR},
+      prepaid_single_commission_money = #{prepaidSingleCommissionMoney,jdbcType=DECIMAL},
+      recharge_rate_money = #{rechargeRateMoney,jdbcType=VARCHAR}
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectCutInfosByPage" resultMap="BaseResultMap" parameterType="com.lives.platform.web.entity.Page">
+  select o.card_id, o.commission_type, o.commission_single_money, o.commission_multi_money, o.recharge_commission_type, 
+    o.prepaid_single_commission_money, o.recharge_rate_money,m.card_name from member_card_commission o,member_card_info m where m.card_id = o.card_id and o.card_id in (
+     select t.card_id from member_card_info t where t.store_id = #{params.storeId} and t.card_type = #{params.cardType})
+  </select>
+</mapper>

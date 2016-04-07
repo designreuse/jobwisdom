@@ -1,0 +1,337 @@
+.discard-card {
+  padding: 0 10px;
+  display: inline-block;
+  width: 925px;
+  color: @content-font-color;
+  height: 489px;
+  overflow-y: auto;
+  .add-staff-btn {
+    button {
+      float: right;
+      height: 30px;
+      background-color: @theme-color;
+      border-radius: 2px;
+      border: 1px solid @theme-color;
+      line-height: 20px;
+      color: #fff;
+    }
+  }
+  .p-column-name {
+    background-color: #fff;
+    border: 1px solid @border-color;
+    td {
+      text-align: left;
+      padding-left: 10px;
+    }
+  }
+    .select-all {
+      width: 30px;
+      padding-left: 0px;
+    }
+    /* 折扣列表的宽度*/
+    .code， .member-card-name, .project-discord, .shop-discount, .validity, .f-operation {
+      width: 100px;
+    }
+    .card-sold-money, .card-recharge-money {
+      width: 142px;
+    }
+    /*礼金/积分列表的宽度*/
+    .value-card-name {
+      width: 100px;
+    }
+    .send-money, .send-score, .recharge-money, .recharge-score, .consumption-score, .card-single-people, .recharge-single-money {
+      width: auto;
+    }
+  /*提成列表*/
+  .card-more-people, .recharge-more-score{
+    width: auto;
+  }
+  /*推荐人管理列表*/
+  .main, .sub{
+    width: auto;
+  }
+    .column-name {
+      background-color: #fff;
+      border: 1px solid @border-color;
+      td {
+        height: 40px;
+        padding-left: 10px;
+      }
+
+    }
+    .table {
+      thead td {
+        line-height: 40px;
+        height: 40px;
+        font-weight: 400;
+        color: @normal-font-color;
+        font-size: 14px;
+      }
+      tbody td {
+        height: 40px;
+        text-align: left;
+        line-height: 40px;
+        padding-left: 10px;
+        border: 1px solid @border-color;
+        color: @weight-font-color;
+        font-size: 12px;
+      }
+    }
+  .table-title{
+    height: 53px;
+  }
+    .add-type {
+      width: 133px;
+      text-align: center;
+      width: 92px;
+      padding-top: 10px;
+      border-radius: 2px;
+    }
+    .img-left {
+      margin-right: 20px;
+    }
+
+  /*提成列表的大高度表格*/
+  .big-height-table tbody tr td{
+    height: 62px;
+    line-height: 0px;
+  }
+  .two-line{
+    padding-left: 0px;
+    line-height: 0px;
+  }
+  .td-one-line{
+    height: 62px;
+    float: left;
+    width: 56px;
+    text-align: center;
+    line-height: 62px;
+  }
+  .td-two-line{
+    height: 62px;
+    float: left;
+    text-align: left;
+    vertical-align: middle;
+    width: 160px;
+    padding-left: 10px;
+    .line1{
+       display: inline-block;
+      line-height: 30px;
+     }
+    .line2{
+      display: inline-block;
+      line-height: 30px;
+    }
+  }
+}
+
+
+/*规则设置的模态框*/
+.rule-setting{
+  width: 371px;
+  height: 419px;
+  background-color: #fff;
+  margin: auto;
+  .modal-header{
+    height: 60px;
+    color: #fff;
+    text-align: center;
+    background-color: @theme-color;
+  }
+  .modal-body{
+    background-color: #fff;
+    padding: 20px;
+
+    .f-group{
+      height: 30px;
+      margin-bottom: 10px;
+      input{
+        height: 30px;
+        border-radius: 2px;
+        padding-left: 10px;
+      }
+
+      label{
+        width: 56px;
+      }
+      .radio-input{
+        width: 100px;
+        input{
+          height: 15px;
+        }
+      }
+      .whole-line{
+        width: 150px;
+      }
+      .input1{
+        width: 100px;
+      }
+      .input2{
+        width: 100px;
+      }
+    }
+    .f-button{
+      margin-top: 30px;
+      float: right;
+      margin-bottom: 20px;
+      .cancel{
+        width: 50px;
+        height: 30px;
+        border-color: @border-color;
+        background-color: #fff;
+        color: @normal-font-color;
+        margin-right: 10px;
+      }
+      .confirm{
+        width: 100px;
+        height: 30px;
+        border-color: @hint-color;
+        background-color: #fff;
+        color: @normal-font-color;
+      }
+    }
+  }
+}
+
+/*创建会员卡的模态框*/
+.create-member-card{
+  width: 530px;
+  height: 655px;
+  background-color: #fff;
+  margin: auto;
+  .modal-header{
+    height: 60px;
+    color: #fff;
+    text-align: center;
+    background-color: @theme-color;
+  }
+  .modal-body{
+    background-color: #fff;
+    padding: 20px;
+    .f-group{
+      height: 30px;
+      margin-bottom: 10px;
+      .hint-input{
+        display: inline-block;
+        border: 1px solid @border-color;
+        padding-left: 10px;
+        label{
+          width: 41px;
+        }
+        input{
+          width: 122px;
+          border: 0px solid;
+          padding-left: 0px;
+        }
+      }
+      input{
+        height: 30px;
+        border-radius: 2px;
+        padding-left: 10px;
+      }
+      label{
+        width: 85px;
+      }
+      .radio-input{
+        width: 100px;
+        input{
+          height: 15px;
+        }
+      }
+      .whole-line{
+        width: 365px;
+      }
+      .input1{
+        width: 179px;
+        /*background: url("../img/percent.png") no-repeat 90% 50%;*/
+      }
+      .input2{
+        width: 177px;
+        margin-left: 6px;
+        /*background: url("../img/money.png") no-repeat 90% 50%;*/
+      }
+      .part1{
+        width: 115px;
+      }
+    }
+  }
+}
+
+
+/*创建疗程卡的模态框*/
+.create-treatment-card{
+  width: 530px;
+  height: 655px;
+  background-color: #fff;
+  margin: auto;
+  .modal-header{
+    height: 60px;
+    color: #fff;
+    text-align: center;
+    background-color: @theme-color;
+  }
+  .modal-body{
+    background-color: #fff;
+    padding: 20px;
+    .f-group{
+      height: 30px;
+      margin-bottom: 10px;
+      button{
+        height: 30px;
+        width: 300px;
+        margin-left: 100px;
+        background-color: #fff;
+        color: @hint-color;
+        border-color: @hint-color;
+      }
+      .hint-input{
+        display: inline-block;
+        border: 1px solid @border-color;
+        padding-left: 10px;
+        label{
+          width: 41px;
+        }
+        input{
+          width: 122px;
+          border: 0px solid;
+          padding-left: 0px;
+        }
+      }
+      input{
+        height: 30px;
+        border-radius: 2px;
+        padding-left: 10px;
+      }
+      label{
+        width: 85px;
+      }
+      .radio-input{
+        width: 100px;
+        input{
+          height: 15px;
+        }
+      }
+      .whole-line{
+        width: 365px;
+      }
+      .input1{
+        width: 177px;
+        background: url("../img/percent.png") no-repeat 90% 50%;
+      }
+      .input2{
+        width: 177px;
+        margin-left: 6px;
+        background: url("../img/money.png") no-repeat 90% 50%;
+      }
+      .part1{
+        width: 117px;
+      }
+      .part3-long{
+        width: 178px;
+      }
+      .part3-short{
+        width: 89px;
+      }
+    }
+  }
+}

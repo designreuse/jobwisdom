@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.manage.web.mapper.MenuInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.manage.web.entity.MenuInfo" >
+    <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="ordre_no" property="ordreNo" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="MenuInfoDto" type="com.lives.manage.web.dto.MenuInfoDto" ></resultMap>
+  <sql id="Base_Column_List" >
+    menu_id, parent_id, menu_name, link_url, ordre_no
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from m_menu_info
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from m_menu_info
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.manage.web.entity.MenuInfo" >
+    insert into m_menu_info (menu_id, parent_id, menu_name, 
+      link_url, ordre_no)
+    values (#{menuId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, 
+      #{linkUrl,jdbcType=VARCHAR}, #{ordreNo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.manage.web.entity.MenuInfo" >
+    insert into m_menu_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="menuName != null" >
+        menu_name,
+      </if>
+      <if test="linkUrl != null" >
+        link_url,
+      </if>
+      <if test="ordreNo != null" >
+        ordre_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null" >
+        #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ordreNo != null" >
+        #{ordreNo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.manage.web.entity.MenuInfo" >
+    update m_menu_info
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null" >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null" >
+        link_url = #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ordreNo != null" >
+        ordre_no = #{ordreNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.manage.web.entity.MenuInfo" >
+    update m_menu_info
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      link_url = #{linkUrl,jdbcType=VARCHAR},
+      ordre_no = #{ordreNo,jdbcType=INTEGER}
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getMenuinfo" resultType="com.lives.manage.web.dto.MenuInfoDto" parameterType="com.lives.manage.web.dto.MenuInfoDto">
+  select t.menu_id menuId,t.parent_id parentId,(select t.menu_name from m_menu_info p where p.menu_id=t.menu_id) parent_name,t.menu_name menuName,t.link_url linkUrl,t.ordre_no ordreNo from m_menu_info t
+</select>
+
+</mapper>

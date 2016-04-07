@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lives.platform.web.mapper.MemberCardRecommendMapper" >
+  <resultMap id="BaseResultMap" type="com.lives.platform.web.dto.MemberCardRecommendDto" >
+    <id column="card_id" property="cardId" jdbcType="INTEGER" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="recommend_main_card_commission_type" property="recommendMainCardCommissionType" jdbcType="VARCHAR" />
+    <result column="recommend_main_card_commission_money" property="recommendMainCardCommissionMoney" jdbcType="DECIMAL" />
+    <result column="recommend_main_recharge_commission_type" property="recommendMainRechargeCommissionType" jdbcType="VARCHAR" />
+    <result column="recommend_main_recharge_commission_money" property="recommendMainRechargeCommissionMoney" jdbcType="DECIMAL" />
+    <result column="recommend_main_consumption_commission_type" property="recommendMainConsumptionCommissionType" jdbcType="VARCHAR" />
+    <result column="recommend_main_consumption_commission_money" property="recommendMainConsumptionCommissionMoney" jdbcType="DECIMAL" />
+    <result column="recommend_secondary_card_commission_type" property="recommendSecondaryCardCommissionType" jdbcType="VARCHAR" />
+    <result column="recommend_secondary_card_commission_money" property="recommendSecondaryCardCommissionMoney" jdbcType="DECIMAL" />
+    <result column="recommend_secondary_recharge_commission_type" property="recommendSecondaryRechargeCommissionType" jdbcType="VARCHAR" />
+    <result column="recommend_secondary_recharge_commission_money" property="recommendSecondaryRechargeCommissionMoney" jdbcType="DECIMAL" />
+    <result column="recommend_secondary_consumption_commission_type" property="recommendSecondaryConsumptionCommissionType" jdbcType="VARCHAR" />
+    <result column="recommend_secondary_consumption_commission_money" property="recommendSecondaryConsumptionCommissionMoney" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    card_id, recommend_main_card_commission_type, recommend_main_card_commission_money, 
+    recommend_main_recharge_commission_type, recommend_main_recharge_commission_money, 
+    recommend_main_consumption_commission_type, recommend_main_consumption_commission_money, 
+    recommend_secondary_card_commission_type, recommend_secondary_card_commission_money, 
+    recommend_secondary_recharge_commission_type, recommend_secondary_recharge_commission_money, 
+    recommend_secondary_consumption_commission_type, recommend_secondary_consumption_commission_money
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_card_recommend
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_card_recommend
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lives.platform.web.dto.MemberCardRecommendDto" >
+    insert into member_card_recommend (card_id, recommend_main_card_commission_type, 
+      recommend_main_card_commission_money, recommend_main_recharge_commission_type, 
+      recommend_main_recharge_commission_money, recommend_main_consumption_commission_type, 
+      recommend_main_consumption_commission_money, recommend_secondary_card_commission_type, 
+      recommend_secondary_card_commission_money, recommend_secondary_recharge_commission_type, 
+      recommend_secondary_recharge_commission_money, recommend_secondary_consumption_commission_type, 
+      recommend_secondary_consumption_commission_money)
+    values (#{cardId,jdbcType=INTEGER}, #{recommendMainCardCommissionType,jdbcType=VARCHAR}, 
+      #{recommendMainCardCommissionMoney,jdbcType=DECIMAL}, #{recommendMainRechargeCommissionType,jdbcType=VARCHAR}, 
+      #{recommendMainRechargeCommissionMoney,jdbcType=DECIMAL}, #{recommendMainConsumptionCommissionType,jdbcType=VARCHAR}, 
+      #{recommendMainConsumptionCommissionMoney,jdbcType=DECIMAL}, #{recommendSecondaryCardCommissionType,jdbcType=VARCHAR}, 
+      #{recommendSecondaryCardCommissionMoney,jdbcType=DECIMAL}, #{recommendSecondaryRechargeCommissionType,jdbcType=VARCHAR}, 
+      #{recommendSecondaryRechargeCommissionMoney,jdbcType=DECIMAL}, #{recommendSecondaryConsumptionCommissionType,jdbcType=VARCHAR}, 
+      #{recommendSecondaryConsumptionCommissionMoney,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lives.platform.web.dto.MemberCardRecommendDto" >
+    insert into member_card_recommend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="recommendMainCardCommissionType != null" >
+        recommend_main_card_commission_type,
+      </if>
+      <if test="recommendMainCardCommissionMoney != null" >
+        recommend_main_card_commission_money,
+      </if>
+      <if test="recommendMainRechargeCommissionType != null" >
+        recommend_main_recharge_commission_type,
+      </if>
+      <if test="recommendMainRechargeCommissionMoney != null" >
+        recommend_main_recharge_commission_money,
+      </if>
+      <if test="recommendMainConsumptionCommissionType != null" >
+        recommend_main_consumption_commission_type,
+      </if>
+      <if test="recommendMainConsumptionCommissionMoney != null" >
+        recommend_main_consumption_commission_money,
+      </if>
+      <if test="recommendSecondaryCardCommissionType != null" >
+        recommend_secondary_card_commission_type,
+      </if>
+      <if test="recommendSecondaryCardCommissionMoney != null" >
+        recommend_secondary_card_commission_money,
+      </if>
+      <if test="recommendSecondaryRechargeCommissionType != null" >
+        recommend_secondary_recharge_commission_type,
+      </if>
+      <if test="recommendSecondaryRechargeCommissionMoney != null" >
+        recommend_secondary_recharge_commission_money,
+      </if>
+      <if test="recommendSecondaryConsumptionCommissionType != null" >
+        recommend_secondary_consumption_commission_type,
+      </if>
+      <if test="recommendSecondaryConsumptionCommissionMoney != null" >
+        recommend_secondary_consumption_commission_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="recommendMainCardCommissionType != null" >
+        #{recommendMainCardCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendMainCardCommissionMoney != null" >
+        #{recommendMainCardCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendMainRechargeCommissionType != null" >
+        #{recommendMainRechargeCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendMainRechargeCommissionMoney != null" >
+        #{recommendMainRechargeCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendMainConsumptionCommissionType != null" >
+        #{recommendMainConsumptionCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendMainConsumptionCommissionMoney != null" >
+        #{recommendMainConsumptionCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendSecondaryCardCommissionType != null" >
+        #{recommendSecondaryCardCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendSecondaryCardCommissionMoney != null" >
+        #{recommendSecondaryCardCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendSecondaryRechargeCommissionType != null" >
+        #{recommendSecondaryRechargeCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendSecondaryRechargeCommissionMoney != null" >
+        #{recommendSecondaryRechargeCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendSecondaryConsumptionCommissionType != null" >
+        #{recommendSecondaryConsumptionCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendSecondaryConsumptionCommissionMoney != null" >
+        #{recommendSecondaryConsumptionCommissionMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lives.platform.web.dto.MemberCardRecommendDto" >
+    update member_card_recommend
+    <set >
+      <if test="recommendMainCardCommissionType != null" >
+        recommend_main_card_commission_type = #{recommendMainCardCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendMainCardCommissionMoney != null" >
+        recommend_main_card_commission_money = #{recommendMainCardCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendMainRechargeCommissionType != null" >
+        recommend_main_recharge_commission_type = #{recommendMainRechargeCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendMainRechargeCommissionMoney != null" >
+        recommend_main_recharge_commission_money = #{recommendMainRechargeCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendMainConsumptionCommissionType != null" >
+        recommend_main_consumption_commission_type = #{recommendMainConsumptionCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendMainConsumptionCommissionMoney != null" >
+        recommend_main_consumption_commission_money = #{recommendMainConsumptionCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendSecondaryCardCommissionType != null" >
+        recommend_secondary_card_commission_type = #{recommendSecondaryCardCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendSecondaryCardCommissionMoney != null" >
+        recommend_secondary_card_commission_money = #{recommendSecondaryCardCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendSecondaryRechargeCommissionType != null" >
+        recommend_secondary_recharge_commission_type = #{recommendSecondaryRechargeCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendSecondaryRechargeCommissionMoney != null" >
+        recommend_secondary_recharge_commission_money = #{recommendSecondaryRechargeCommissionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendSecondaryConsumptionCommissionType != null" >
+        recommend_secondary_consumption_commission_type = #{recommendSecondaryConsumptionCommissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendSecondaryConsumptionCommissionMoney != null" >
+        recommend_secondary_consumption_commission_money = #{recommendSecondaryConsumptionCommissionMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lives.platform.web.dto.MemberCardRecommendDto" >
+    update member_card_recommend
+    set recommend_main_card_commission_type = #{recommendMainCardCommissionType,jdbcType=VARCHAR},
+      recommend_main_card_commission_money = #{recommendMainCardCommissionMoney,jdbcType=DECIMAL},
+      recommend_main_recharge_commission_type = #{recommendMainRechargeCommissionType,jdbcType=VARCHAR},
+      recommend_main_recharge_commission_money = #{recommendMainRechargeCommissionMoney,jdbcType=DECIMAL},
+      recommend_main_consumption_commission_type = #{recommendMainConsumptionCommissionType,jdbcType=VARCHAR},
+      recommend_main_consumption_commission_money = #{recommendMainConsumptionCommissionMoney,jdbcType=DECIMAL},
+      recommend_secondary_card_commission_type = #{recommendSecondaryCardCommissionType,jdbcType=VARCHAR},
+      recommend_secondary_card_commission_money = #{recommendSecondaryCardCommissionMoney,jdbcType=DECIMAL},
+      recommend_secondary_recharge_commission_type = #{recommendSecondaryRechargeCommissionType,jdbcType=VARCHAR},
+      recommend_secondary_recharge_commission_money = #{recommendSecondaryRechargeCommissionMoney,jdbcType=DECIMAL},
+      recommend_secondary_consumption_commission_type = #{recommendSecondaryConsumptionCommissionType,jdbcType=VARCHAR},
+      recommend_secondary_consumption_commission_money = #{recommendSecondaryConsumptionCommissionMoney,jdbcType=DECIMAL}
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectRecommendInfosByPage" resultMap="BaseResultMap" parameterType="com.lives.platform.web.entity.Page">
+  select o.card_id, o.recommend_main_card_commission_type, o.recommend_main_card_commission_money, 
+    o.recommend_main_recharge_commission_type, o.recommend_main_recharge_commission_money, 
+    o.recommend_main_consumption_commission_type, o.recommend_main_consumption_commission_money, 
+    o.recommend_secondary_card_commission_type, o.recommend_secondary_card_commission_money, 
+    o.recommend_secondary_recharge_commission_type, o.recommend_secondary_recharge_commission_money, 
+    o.recommend_secondary_consumption_commission_type, o.recommend_secondary_consumption_commission_money,t.card_name from member_card_recommend o ,member_card_info t where o.card_id = t.card_id and o.card_id in(
+    select m.card_id from member_card_info m where m.card_type = #{params.cardType} and m.store_id = #{params.storeId}
+    )
+  </select>
+</mapper>
