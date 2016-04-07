@@ -1,10 +1,24 @@
 *.class
-
+.metadata/
+*.log
+*.project
+*.DS_Store
+*.classpath
+*.iml
+*.bak
+bin/
+gen/
+out/
+.idea/
+target/
+.settings/
+.svn
+node_modules
+.checkstyle
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
