@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="spring_struts2_Hibernate_demo"
+  id="myeclipse.1425130318524"
+  context-root="/spring_struts2_Hibernate_demo"
+  j2ee-spec="1.7"
+  archive="spring_struts2_Hibernate_demo.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

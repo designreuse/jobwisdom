@@ -1,0 +1,7 @@
+<ehcache>
+	<!-- 指定一个目录：当 EHCache 把数据写到硬盘上时, 将把数据写到这个目录下. -->
+	<diskStore path="d:/ehcache" />
+
+	<defaultCache maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true" />
+</ehcache>
