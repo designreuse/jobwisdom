@@ -880,7 +880,7 @@ public class SelfCashierService {
 	        
 	        //检查是否可以使用礼金抵扣
 	        if (detail.getIsGiftCash() == 1 && giftmoney.compareTo(BigDecimal.ZERO) == 1 
-	        		&& detail.getHighestDiscount().compareTo(BigDecimal.ZERO) == 1) {
+	        		    && detail.getHighestDiscount().compareTo(BigDecimal.ZERO) == 1) {
 	            //项目原价减掉礼金之后还需要支付超过会员折扣价格的卡金，则不优先使用礼金抵扣。
 	            PaymentOffDto giftPaymentOff = new PaymentOffDto();
 	            giftPaymentOff.setId(String.valueOf(memberId));

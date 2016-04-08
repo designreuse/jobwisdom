@@ -51,7 +51,7 @@ public class OpenCardController extends BaseController {
 	 */
 	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_OPENCARD, method = RequestMethod.GET)
 	public ModelAndView initializeOpenCard(HttpServletRequest request, HttpServletResponse response, String phoneNum,
-			Integer clickType) {
+			    Integer clickType) {
 		return openCardService.initializeOpenCard(getStoreId(request), phoneNum, clickType);
 	}
 
@@ -88,11 +88,11 @@ public class OpenCardController extends BaseController {
 	@RequestMapping(value = Url.KeepAccounts.ADD_MEMBERINFO, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto addMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer memberId,
-			String phone, String name, String sex, Integer levelId, BigDecimal amountvalue, String recommend,
-			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal balanceAmount,
-			BigDecimal rewardAmount, Integer messageType, BigDecimal cashAmount, BigDecimal unionpayAmount,
-			BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount, String payPassword, String deptStr,
-			Integer openRecommendId) throws ParseException {
+    			String phone, String name, String sex, Integer levelId, BigDecimal amountvalue, String recommend,
+    			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal balanceAmount,
+    			BigDecimal rewardAmount, Integer messageType, BigDecimal cashAmount, BigDecimal unionpayAmount,
+    			BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount, String payPassword, String deptStr,
+    			Integer openRecommendId) throws ParseException {
 		// 提成员工
 		List<Integer> recommendId = new ArrayList<Integer>();
 		// 提成金额
@@ -155,9 +155,9 @@ public class OpenCardController extends BaseController {
 	@RequestMapping(value = Url.KeepAccounts.RECHARGE_MEMBERINFO, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto rechargeMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer subAccountId,
-			BigDecimal chargeAmount, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
-			BigDecimal alipayAmount, BigDecimal debtAmount, String recommend, BigDecimal giftmoneyAmount,
-			Integer pastDate, Integer partType, BigDecimal rewardAmount, Integer type, String deptStr)
+    			BigDecimal chargeAmount, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
+    			BigDecimal alipayAmount, BigDecimal debtAmount, String recommend, BigDecimal giftmoneyAmount,
+    			Integer pastDate, Integer partType, BigDecimal rewardAmount, Integer type, String deptStr)
 			throws ParseException {
 		List<Integer> recommendId = new ArrayList<Integer>();
 		List<BigDecimal> commissionAmount = new ArrayList<BigDecimal>();
@@ -210,8 +210,8 @@ public class OpenCardController extends BaseController {
 	@RequestMapping(value = Url.KeepAccounts.REFUND_MEMBERINFO, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto refundMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer memberId,
-			BigDecimal realPrice, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
-			BigDecimal alipayAmount) throws ParseException {
+    			BigDecimal realPrice, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
+    			BigDecimal alipayAmount) throws ParseException {
 
 		return openCardService.refundMemberInfo(memberId, realPrice, cashAmount, unionpayAmount, wechatAmount,
 				alipayAmount, getStoreId(request), getUserId(request));
@@ -243,9 +243,9 @@ public class OpenCardController extends BaseController {
 	@RequestMapping(value = Url.KeepAccounts.UPGRADE_MEMBERINFO, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto upgradeMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer memberId,
-			Integer levelId, BigDecimal amountvalue, String recommend, BigDecimal giftmoneyAmount, Integer pastDate,
-			Integer partType, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
-			BigDecimal alipayAmount, BigDecimal debtAmount, BigDecimal rewardAmount, String deptStr)
+    			Integer levelId, BigDecimal amountvalue, String recommend, BigDecimal giftmoneyAmount, Integer pastDate,
+    			Integer partType, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
+    			BigDecimal alipayAmount, BigDecimal debtAmount, BigDecimal rewardAmount, String deptStr)
 			throws ParseException {
 		// 提成员工
 		List<Integer> recommendId = new ArrayList<Integer>();
@@ -299,8 +299,8 @@ public class OpenCardController extends BaseController {
 	@RequestMapping(value = Url.KeepAccounts.PRESENT_GIFT, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto presentGift(Integer memberId, Integer giftmoneyAmount, Integer part, Integer overdueMonth,
-			Integer integralAmount, String coupon, String comment, HttpServletRequest request,
-			HttpServletResponse response) {
+    			Integer integralAmount, String coupon, String comment, HttpServletRequest request,
+    			HttpServletResponse response) {
 		int employeeId = getUserId(request);
 		return openCardService.presentGift(memberId, giftmoneyAmount, part, overdueMonth, integralAmount, coupon,
 				comment, employeeId);
@@ -321,7 +321,7 @@ public class OpenCardController extends BaseController {
 	@RequestMapping(value = Url.KeepAccounts.CHECKOUT_ACCOUNT, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto checkoutAccount(HttpServletRequest request, HttpServletResponse response, Integer outSubAccountId,
-			Integer inSubAccountId, BigDecimal chargeAmount, String password) {
+			    Integer inSubAccountId, BigDecimal chargeAmount, String password) {
 		return openCardService.checkoutAccount(outSubAccountId, inSubAccountId, chargeAmount, password,
 				getStoreId(request), getUserId(request));
 	}

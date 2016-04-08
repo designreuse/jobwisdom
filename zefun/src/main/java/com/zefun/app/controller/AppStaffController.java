@@ -96,7 +96,7 @@ public class AppStaffController {
     @ApiOperation(value ="修改员工密码", notes ="修改员工密码", httpMethod ="POST", produces=MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = Url.App.UPDATE_EMP_PWD, method = RequestMethod.POST)
     @ApiResponses(value={@ApiResponse(code=App.System.API_RESULT_CODE_FOR_SUCCEES, message="修改员工密码", response=String.class),
-			@ApiResponse(code=App.System.API_RESULT_CODE_FOR_FAIL, message="系统错误", response=String.class)})
+			       @ApiResponse(code=App.System.API_RESULT_CODE_FOR_FAIL, message="系统错误", response=String.class)})
     @ResponseBody
     public BaseDto updateEmpPwd(@ApiParam(value="Json参数", name="updateEmpPwd", required=true)@RequestBody UpdatePwdParam param) throws Exception{
         return staffCentreService.updateEmpPwd(param);
@@ -113,7 +113,7 @@ public class AppStaffController {
     @ApiOperation(value ="员工预约", notes ="员工预约", httpMethod ="POST", produces=MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = Url.App.STAFF_APPOINT, method = RequestMethod.POST)
     @ApiResponses(value={@ApiResponse(code=App.System.API_RESULT_CODE_FOR_SUCCEES, message="员工预约", response=String.class),
-			@ApiResponse(code=App.System.API_RESULT_CODE_FOR_FAIL, message="系统错误", response=String.class)})
+			     @ApiResponse(code=App.System.API_RESULT_CODE_FOR_FAIL, message="系统错误", response=String.class)})
     @ResponseBody
     public BaseDto staffAppAppoint(@ApiParam(value="Json参数", required=true)@RequestBody StaffAppointParam param) throws Exception{
         return staffCentreService.staffAppAppoint(param);

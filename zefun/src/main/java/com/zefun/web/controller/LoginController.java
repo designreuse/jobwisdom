@@ -43,8 +43,8 @@ public class LoginController extends BaseController {
      */
     @ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces=MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value={@ApiResponse(code=200, message="用户登陆信息"),
-			@ApiResponse(code=0, message=""+"(token验证失败)", response=String.class),
-			@ApiResponse(code=1, message=""+"(系统错误)", response=String.class)})
+    			 @ApiResponse(code=0, message=""+"(token验证失败)", response=String.class),
+    			 @ApiResponse(code=1, message=""+"(系统错误)", response=String.class)})
     @RequestMapping(value = Url.UserLogin.LOGIN, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto userLogin(HttpServletRequest request,
@@ -62,8 +62,8 @@ public class LoginController extends BaseController {
      */
     @ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces=MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value={@ApiResponse(code=200, message="用户登陆信息"),
-			@ApiResponse(code=0, message=""+"(token验证失败)", response=String.class),
-			@ApiResponse(code=1, message=""+"(系统错误)", response=String.class)})
+    			 @ApiResponse(code=0, message=""+"(token验证失败)", response=String.class),
+    			 @ApiResponse(code=1, message=""+"(系统错误)", response=String.class)})
     @RequestMapping(value = Url.UserLogin.INDEX)
     public ModelAndView index(HttpServletRequest request,
             HttpServletResponse response) {
@@ -96,8 +96,8 @@ public class LoginController extends BaseController {
      */
     @ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces=MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value={@ApiResponse(code=200, message="用户登陆信息"),
-			@ApiResponse(code=0, message=""+"(token验证失败)", response=String.class),
-			@ApiResponse(code=1, message=""+"(系统错误)", response=String.class)})	
+    			 @ApiResponse(code=0, message=""+"(token验证失败)", response=String.class),
+    			 @ApiResponse(code=1, message=""+"(系统错误)", response=String.class)})	
     @RequestMapping(value = Url.UserLogin.LOGOUT)
     public ModelAndView logout(HttpServletRequest request,
             HttpServletResponse response) {
