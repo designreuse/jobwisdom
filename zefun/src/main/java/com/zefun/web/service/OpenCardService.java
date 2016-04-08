@@ -237,12 +237,12 @@ public class OpenCardService {
 	 */
 	@Transactional
 	public BaseDto addMemberInfo(Integer memberId, String phone, String name, String sex, Integer levelId,
-			BigDecimal amountvalue, List<Integer> recommendId, List<BigDecimal> commissionAmount,
-			List<BigDecimal> calculateAmount, BigDecimal giftmoneyAmount, Integer pastDate, Integer partType,
-			BigDecimal balanceAmount, BigDecimal rewardAmount, Integer messageType, BigDecimal cashAmount,
-			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
-			String payPassword, List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer openRecommendId,
-			Integer storeId, Integer lastOperatorId) throws ParseException {
+    			BigDecimal amountvalue, List<Integer> recommendId, List<BigDecimal> commissionAmount,
+    			List<BigDecimal> calculateAmount, BigDecimal giftmoneyAmount, Integer pastDate, Integer partType,
+    			BigDecimal balanceAmount, BigDecimal rewardAmount, Integer messageType, BigDecimal cashAmount,
+    			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
+    			String payPassword, List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer openRecommendId,
+    			Integer storeId, Integer lastOperatorId) throws ParseException {
 
 	    if (memberId != null) {
 	        //校验是否存在同样的卡，存在则返回错误代码
@@ -267,14 +267,14 @@ public class OpenCardService {
 		}
 
 		Map<String, Integer> accountMap = insertMemberBastInfo(memberId, storeId, levelId, name, sex, phone, messageType, lastOperatorId,
-				payPassword, receivableAmount, rewardAmount, openRecommendId);
+				    payPassword, receivableAmount, rewardAmount, openRecommendId);
 		
 		memberId = accountMap.get("memberId");
 		int subAccountId = accountMap.get("subAccountId");
 
 		commissionAndGift(memberId, subAccountId, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
-				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 4, storeId,
-				rewardAmount, deptIds, deptCalculates, lastOperatorId);
+    				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 4, storeId,
+    				rewardAmount, deptIds, deptCalculates, lastOperatorId);
 		
 		memberInfoService.syncLevelId(memberId);
 
@@ -298,8 +298,8 @@ public class OpenCardService {
 	 * @return 会员标识
 	 */
 	public Map<String, Integer> insertMemberBastInfo(Integer memberId, Integer storeId, Integer levelId, String name, String sex,
-			String phone, Integer messageType, Integer lastOperatorId, String payPassword, BigDecimal receivableAmount,
-			BigDecimal rewardAmount, Integer openRecommendId) {
+			  String phone, Integer messageType, Integer lastOperatorId, String payPassword, BigDecimal receivableAmount,
+			  BigDecimal rewardAmount, Integer openRecommendId) {
 		if (memberId == null) {
 			// 添加会员信息表
 			MemberInfo memberInfo = new MemberInfo();
@@ -406,11 +406,11 @@ public class OpenCardService {
 	 */
 	@Transactional
 	public BaseDto rechargeMemberInfo(Integer subAccountId, BigDecimal chargeAmount, BigDecimal cashAmount,
-			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
-			List<Integer> recommendId, List<BigDecimal> commissionAmount, List<BigDecimal> calculateAmount,
-			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal rewardAmount,
-			List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer type, Integer storeId,
-			Integer lastOperatorId) throws ParseException {
+    			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
+    			List<Integer> recommendId, List<BigDecimal> commissionAmount, List<BigDecimal> calculateAmount,
+    			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal rewardAmount,
+    			List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer type, Integer storeId,
+    			Integer lastOperatorId) throws ParseException {
 
 		MemberSubAccount subAccount = memberSubAccountMapper.selectByPrimaryKey(subAccountId);
 
@@ -439,8 +439,8 @@ public class OpenCardService {
 		memberSubAccountMapper.updateCharge(subHashMap);
 
 		commissionAndGift(memberId, subAccount.getSubAccountId(), recommendId, commissionAmount, calculateAmount, giftmoneyAmount, chargeAmount,
-				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 5, storeId,
-				rewardAmount, deptIds, deptCalculates, lastOperatorId);
+    				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 5, storeId,
+    				rewardAmount, deptIds, deptCalculates, lastOperatorId);
 		
 		memberInfoService.syncLevelId(memberId);
 
@@ -475,8 +475,8 @@ public class OpenCardService {
 	 */
 	@Transactional
 	public BaseDto refundMemberInfo(Integer memberId, BigDecimal realPrice, BigDecimal cashAmount,
-			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, Integer storeId,
-			Integer lastOperatorId) throws ParseException {
+    			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, Integer storeId,
+    			Integer lastOperatorId) throws ParseException {
 		MemberAccount memberAccount = memberAccountMapper.selectByPrimaryKey(memberId);
 
 		MemberAccount record = new MemberAccount();
@@ -490,8 +490,8 @@ public class OpenCardService {
 		BigDecimal giftmoneyAmount = new BigDecimal(0);
 
 		commissionAndGift(memberId, null, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, realPrice,
-				cashAmount, unionpayAmount, wechatAmount, alipayAmount, new BigDecimal(0), 0, 0, 8, storeId,
-				new BigDecimal(0), null, null, lastOperatorId);
+    				cashAmount, unionpayAmount, wechatAmount, alipayAmount, new BigDecimal(0), 0, 0, 8, storeId,
+    				new BigDecimal(0), null, null, lastOperatorId);
 
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}
@@ -525,11 +525,11 @@ public class OpenCardService {
 	 */
 	@Transactional
 	public BaseDto upgradeMemberInfo(Integer memberId, Integer levelId, BigDecimal amountvalue,
-			List<Integer> recommendId, List<BigDecimal> commissionAmount, List<BigDecimal> calculateAmount,
-			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal cashAmount,
-			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
-			BigDecimal rewardAmount, Integer storeId, List<Integer> deptIds, List<BigDecimal> deptCalculates,
-			Integer lastOperatorId) throws ParseException {
+    			List<Integer> recommendId, List<BigDecimal> commissionAmount, List<BigDecimal> calculateAmount,
+    			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal cashAmount,
+    			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
+    			BigDecimal rewardAmount, Integer storeId, List<Integer> deptIds, List<BigDecimal> deptCalculates,
+    			Integer lastOperatorId) throws ParseException {
 		// 添加会员信息表
 		MemberInfo memberInfo = new MemberInfo();
 		memberInfo.setLevelId(levelId);
@@ -561,8 +561,8 @@ public class OpenCardService {
 		memberAccountMapper.updateCharge(hashMap);
 
 		commissionAndGift(memberId, null, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
-				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 6, storeId,
-				rewardAmount, deptIds, deptCalculates, lastOperatorId);
+    				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 6, storeId,
+    				rewardAmount, deptIds, deptCalculates, lastOperatorId);
 		changeMemberOrder(memberId);
 		// 更新缓存中的会员数据
 		memberInfoService.wipeCache(memberId);
@@ -644,10 +644,10 @@ public class OpenCardService {
 	 */
 	@Transactional
 	private void commissionAndGift(Integer memberId, Integer subAccountId, List<Integer> recommendId, List<BigDecimal> commissionAmount,
-			List<BigDecimal> calculateAmount, BigDecimal giftmoneyAmount, BigDecimal receivableAmount,
-			BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount,
-			BigDecimal debtAmount, Integer pastDate, Integer partType, Integer type, Integer storeId,
-			BigDecimal rewardAmount, List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer lastOperatorId)
+    			List<BigDecimal> calculateAmount, BigDecimal giftmoneyAmount, BigDecimal receivableAmount,
+    			BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount,
+    			BigDecimal debtAmount, Integer pastDate, Integer partType, Integer type, Integer storeId,
+    			BigDecimal rewardAmount, List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer lastOperatorId)
 			throws ParseException {
 
 		// 添加订单信息
@@ -781,13 +781,13 @@ public class OpenCardService {
 		if (type == 8) {
 			// 增加还款记录
 			memberInfoService.insertDebtFlow(memberId, orderInfo.getOrderId(), receivableAmount, businessDesc, 2,
-					lastOperatorId, DateUtil.getCurTime());
+					    lastOperatorId, DateUtil.getCurTime());
 		}
 
 		if (debtAmount.compareTo(BigDecimal.ZERO) == 1) {
 			// 增加挂帐记录
 			memberInfoService.insertDebtFlow(memberId, orderInfo.getOrderId(), debtAmount, businessDesc + "欠款", 1,
-					lastOperatorId, DateUtil.getCurTime());
+					    lastOperatorId, DateUtil.getCurTime());
 
 			MemberAccount orderSubmit = memberAccountMapper.selectByPrimaryKey(memberId);
 
@@ -823,7 +823,7 @@ public class OpenCardService {
 		// 添加礼金
 		if (giftmoneyAmount.compareTo(BigDecimal.ZERO) == 1) {
 			addGiftmoney(memberId, partType, giftmoneyAmount, pastDate, businessDesc + "赠送", businessDesc + "赠送",
-					lastOperatorId, detailId);
+					    lastOperatorId, detailId);
 		}
 	}
 
@@ -838,7 +838,7 @@ public class OpenCardService {
 	* @param deptCalculates    部门业绩集合
 	 */
 	public void addDeptObjective(Integer orderId, Integer calculateType, List<Integer> deptIds,
-			List<BigDecimal> deptCalculates) {
+			    List<BigDecimal> deptCalculates) {
 		for (int i = 0; i < deptIds.size(); i++) {
 			DeptObjective deptObjective = new DeptObjective();
 			deptObjective.setOrderId(orderId);
@@ -864,7 +864,7 @@ public class OpenCardService {
 	 */
 	@Transactional
 	public BaseDto checkoutAccount(Integer outSubAccountId, Integer inSubAccountId, BigDecimal chargeAmount,
-			String password, Integer storeId, Integer lastOperatorId) {
+			    String password, Integer storeId, Integer lastOperatorId) {
 
 		MemberSubAccount outMemberSubAccount = memberSubAccountMapper.selectByPrimaryKey(outSubAccountId);
 
@@ -912,7 +912,7 @@ public class OpenCardService {
 		outMoneyFlow.setBusinessType(3);
 		outMoneyFlow.setFlowAmount(chargeAmount);
 		outMoneyFlow
-				.setBalanceAmount(new BigDecimal(Float.parseFloat(String.valueOf(outMemberAccount.getBalanceAmount()))
+				    .setBalanceAmount(new BigDecimal(Float.parseFloat(String.valueOf(outMemberAccount.getBalanceAmount()))
 						- Float.parseFloat(String.valueOf(chargeAmount))));
 		outMoneyFlow.setOrderId(inSubAccountId);
 		outMoneyFlow.setFlowTime(DateUtil.getCurTime());
@@ -928,7 +928,7 @@ public class OpenCardService {
 		inMoneyFlow.setBusinessType(3);
 		inMoneyFlow.setFlowAmount(chargeAmount);
 		inMoneyFlow
-				.setBalanceAmount(new BigDecimal(Float.parseFloat(String.valueOf(outMemberAccount.getBalanceAmount()))
+				    .setBalanceAmount(new BigDecimal(Float.parseFloat(String.valueOf(outMemberAccount.getBalanceAmount()))
 						+ Float.parseFloat(String.valueOf(chargeAmount))));
 		inMoneyFlow.setOrderId(outSubAccountId);
 		inMoneyFlow.setFlowTime(DateUtil.getCurTime());
@@ -993,7 +993,7 @@ public class OpenCardService {
 	 */
 	@Transactional
 	public BaseDto presentGift(Integer memberId, Integer giftmoneyAmount, Integer part, Integer overdueMonth,
-			Integer integralAmount, String coupon, String comment, int employeeId) {
+			    Integer integralAmount, String coupon, String comment, int employeeId) {
 		String time = DateUtil.getCurTime();
 
 		// 检查是否赠送礼金
@@ -1083,7 +1083,7 @@ public class OpenCardService {
 	 */
 	@Transactional
 	private void addGiftmoney(int memberId, int part, BigDecimal totalMoney, int overdueMonth, String businessType,
-			String businessDesc, int employeeId, Integer detailId) {
+			    String businessDesc, int employeeId, Integer detailId) {
 		BigDecimal money = totalMoney.divide(new BigDecimal(part), 2, BigDecimal.ROUND_HALF_DOWN);
 		Map<String, Object> hash = new HashMap<String, Object>();
 		hash.put("totalGiftmoneyAmount", money);

@@ -59,14 +59,14 @@ public class CustomJavaPluginConfig extends WebMvcConfigurerAdapter {
      */
 	private ApiInfo apiInfo() {
 		ApiInfo apiInfo = new ApiInfo("maywant后台API接口平台",
-				"提供详细APP后台所有restful接口", "com",
-				"http://www.maywant.com/zefun/", "maywant 官网", "http://www.maywant.com/zefun/");
+				  "提供详细APP后台所有restful接口", "com",
+				  "http://www.maywant.com/zefun/", "maywant 官网", "http://www.maywant.com/zefun/");
 		return apiInfo;
 	}
 
 	@Override
 	public void configureDefaultServletHandling(
-			DefaultServletHandlerConfigurer configurer) {
+			  DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
     /**
