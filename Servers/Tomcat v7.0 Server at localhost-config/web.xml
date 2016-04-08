@@ -37,8 +37,12 @@
   <!-- parameters (default values are in square brackets):                  -->
   <!--                                                                      -->
   <!--   debug               Debugging detail level for messages logged     -->
+<<<<<<< HEAD
   <!--                       by this servlet. Useful values are 0, 1, and   -->
   <!--                       11 where higher values mean more detail. [0]   -->
+=======
+  <!--                       by this servlet.  [0]                          -->
+>>>>>>> dcb73ec5aed05edcc49339b9759cf5b001c4ae16
   <!--                                                                      -->
   <!--   fileEncoding        Encoding to be used to read static resources   -->
   <!--                       [platform default]                             -->
@@ -228,11 +232,14 @@
   <!--                                                                      -->
   <!--   xpoweredBy          Determines whether X-Powered-By response       -->
   <!--                       header is added by generated servlet.  [false] -->
+<<<<<<< HEAD
   <!--                                                                      -->
   <!--   quoteAttributeEL    When EL is used in an attribute value on a     -->
   <!--                       JSP page should the rules for quoting of       -->
   <!--                       attributes described in JSP.1.6 be applied to  -->
   <!--                       the expression? [true]                         -->
+=======
+>>>>>>> dcb73ec5aed05edcc49339b9759cf5b001c4ae16
 
     <servlet>
         <servlet-name>jsp</servlet-name>
@@ -322,6 +329,7 @@
   <!--                        Recommended value: WEB-INF/cgi                -->
   <!--                                                                      -->
   <!--   debug                Debugging detail level for messages logged    -->
+<<<<<<< HEAD
   <!--                        by this servlet. Useful values range from 0   -->
   <!--                        to 5 where 0 means no logging and 5 means     -->
   <!--                        maximum logging. Values of 10 or more mean    -->
@@ -337,6 +345,9 @@
   <!--                        The debug page is not considered secure and   -->
   <!--                        should not be enabled for production systems. -->
   <!--                        [0]                                           -->
+=======
+  <!--                        by this servlet.  [0]                         -->
+>>>>>>> dcb73ec5aed05edcc49339b9759cf5b001c4ae16
   <!--                                                                      -->
   <!--   executable           Name of the executable used to run the        -->
   <!--                        script. [perl]                                -->

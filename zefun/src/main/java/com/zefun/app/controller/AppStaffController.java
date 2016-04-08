@@ -79,7 +79,7 @@ public class AppStaffController {
     @ApiOperation(value ="记录员工打卡", notes ="记录员工打卡", httpMethod ="POST", produces=MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = Url.App.SIGN_CHECK, method = RequestMethod.POST)
     @ApiResponses(value={@ApiResponse(code=App.System.API_RESULT_CODE_FOR_SUCCEES, message="打卡成功", response=String.class),
-			@ApiResponse(code=App.System.API_RESULT_CODE_FOR_FAIL, message="系统错误", response=String.class)})
+			        @ApiResponse(code=App.System.API_RESULT_CODE_FOR_FAIL, message="系统错误", response=String.class)})
     @ResponseBody
     public BaseDto signCheck(@ApiParam(value="Json参数", name="signCheck", required=true)@RequestBody SigeCheckParam param) throws Exception{
         return employeeAttendanceService.signCheck(param);
