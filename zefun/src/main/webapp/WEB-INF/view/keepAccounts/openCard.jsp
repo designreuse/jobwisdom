@@ -149,10 +149,10 @@
 	          <div class="n-tab">
 	            <ul>
 	                <li onclick="subTabFun(this)" class="active" name = "rechargeName" data-target="#tab2">
-	                    <span>充值111111</span>
+	                    <span>充值</span>
 	                </li>
 	                <li onclick="subTabFun(this)" data-target="#tab1">
-	                      <span>开卡</span>
+	                    <span>开卡</span>
 	                </li>
 	                <li onclick="subTabFun(this)" data-target="#tab6">
 	                        <span>还款</span>
