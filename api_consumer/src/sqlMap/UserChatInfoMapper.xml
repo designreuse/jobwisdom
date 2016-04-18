@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.api.mapper.UserChatInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.api.entity.UserChatInfo" >
+    <id column="chat_id" property="chatId" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="CHAR" />
+    <result column="from_user" property="fromUser" jdbcType="INTEGER" />
+    <result column="to_user" property="toUser" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zefun.api.entity.UserChatInfo" extends="BaseResultMap" >
+    <result column="msg" property="msg" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    chat_id, date, from_user, to_user, is_deleted
+  </sql>
+  <sql id="Blob_Column_List" >
+    msg
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_chat_info
+    where chat_id = #{chatId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_chat_info
+    where chat_id = #{chatId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.api.entity.UserChatInfo" >
+    insert into user_chat_info (chat_id, date, from_user, 
+      to_user, is_deleted, msg
+      )
+    values (#{chatId,jdbcType=INTEGER}, #{date,jdbcType=CHAR}, #{fromUser,jdbcType=INTEGER}, 
+      #{toUser,jdbcType=INTEGER}, #{isDeleted,jdbcType=INTEGER}, #{msg,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.api.entity.UserChatInfo" >
+    insert into user_chat_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="chatId != null" >
+        chat_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="fromUser != null" >
+        from_user,
+      </if>
+      <if test="toUser != null" >
+        to_user,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="chatId != null" >
+        #{chatId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=CHAR},
+      </if>
+      <if test="fromUser != null" >
+        #{fromUser,jdbcType=INTEGER},
+      </if>
+      <if test="toUser != null" >
+        #{toUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.api.entity.UserChatInfo" >
+    update user_chat_info
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=CHAR},
+      </if>
+      <if test="fromUser != null" >
+        from_user = #{fromUser,jdbcType=INTEGER},
+      </if>
+      <if test="toUser != null" >
+        to_user = #{toUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where chat_id = #{chatId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zefun.api.entity.UserChatInfo" >
+    update user_chat_info
+    set date = #{date,jdbcType=CHAR},
+      from_user = #{fromUser,jdbcType=INTEGER},
+      to_user = #{toUser,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      msg = #{msg,jdbcType=LONGVARCHAR}
+    where chat_id = #{chatId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.api.entity.UserChatInfo" >
+    update user_chat_info
+    set date = #{date,jdbcType=CHAR},
+      from_user = #{fromUser,jdbcType=INTEGER},
+      to_user = #{toUser,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where chat_id = #{chatId,jdbcType=INTEGER}
+  </update>
+</mapper>

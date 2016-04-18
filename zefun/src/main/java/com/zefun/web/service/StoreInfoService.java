@@ -24,6 +24,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -293,8 +294,8 @@ public class StoreInfoService {
     /**套餐项目*/
     @Autowired
     private ComboProjectMapper comboProjectMapper;
-//    /**日志系统*/
-//    private Logger log = Logger.getLogger(StoreInfoService.class);
+    /**日志系统*/
+    private Logger log = Logger.getLogger(StoreInfoService.class);
 
 
 
@@ -423,6 +424,9 @@ public class StoreInfoService {
      */
     @Transactional
     public void initStoreData(int storeId, int storeType, String name, String userName){
+        
+        log.info("name:"+name+"userName:"+userName);
+        
         EmployeeDto employeeDto=new EmployeeDto();
         employeeDto.setStoreId(storeId);
         employeeDto.setDeptId(0);

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.api.mapper.EmployeeShiftMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.api.entity.EmployeeShift" >
+    <id column="data_id" property="dataId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="shif_ida" property="shifIda" jdbcType="INTEGER" />
+    <result column="shif_idb" property="shifIdb" jdbcType="INTEGER" />
+    <result column="shif_idc" property="shifIdc" jdbcType="INTEGER" />
+    <result column="shif_idd" property="shifIdd" jdbcType="INTEGER" />
+    <result column="shif_ide" property="shifIde" jdbcType="INTEGER" />
+    <result column="shif_idf" property="shifIdf" jdbcType="INTEGER" />
+    <result column="shif_idg" property="shifIdg" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="EmployeeShiftAndShiftInfoMap" type="com.zefun.api.dto.EmployeeShiftAndShiftInfoDto" >
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+	<result column="start_time" property="startTime" jdbcType="CHAR" />
+	<result column="end_time" property="endTime" jdbcType="CHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    data_id, employee_id, shif_ida, shif_idb, shif_idc, shif_idd, shif_ide, shif_idf, 
+    shif_idg, create_time, update_time, last_operator_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_shift
+    where data_id = #{dataId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询该天(周几)需要上班的员工 -->
+  <select id="selectEmployeeByWeekday" parameterType="java.lang.Integer" resultMap="EmployeeShiftAndShiftInfoMap">
+  	select 
+  		es.*,
+  		si.*
+  	from employee_shift es 
+  	left join shift_info si on 
+  	<if test="weekDay == 1">
+  		es.shif_idg = si.shif_id where es.shif_idg != 0
+  	</if>
+  	<if test="weekDay == 2">
+  		es.shif_ida = si.shif_id where es.shif_ida != 0
+  	</if>
+  	<if test="weekDay == 3">
+  		es.shif_idb = si.shif_id where es.shif_idb != 0
+  	</if>
+  	<if test="weekDay == 4">
+  		es.shif_idc = si.shif_id where es.shif_idc != 0
+  	</if>
+  	<if test="weekDay == 5">
+  		es.shif_idd = si.shif_id where es.shif_idd != 0
+  	</if>
+  	<if test="weekDay == 6">
+  		es.shif_ide = si.shif_id where es.shif_ide != 0
+  	</if>
+  	<if test="weekDay == 7">
+  		es.shif_idf = si.shif_id where es.shif_idf != 0
+  	</if>
+  	<!-- <where> 
+  		<choose>  
+	        <when test="_parameter == 1">  
+	            shif_idg != 0
+	        </when>  
+	        <when test="_parameter == 2">  
+	            shif_ida != 0
+	        </when>
+	        <when test="_parameter == 3">  
+	            shif_idb != 0
+	        </when>
+	        <when test="_parameter == 4">  
+	            shif_idc != 0
+	        </when>
+	        <when test="_parameter == 5">  
+	            shif_idd != 0
+	        </when>
+	        <when test="_parameter == 6">  
+	            shif_ide != 0
+	        </when>
+	        <when test="_parameter == 7">  
+	            shif_idf != 0
+	        </when>
+	    </choose> 
+  	</where> -->
+  </select>
+  
+  <select id="selectEmployeeDtoByWeekday" parameterType="java.lang.Integer" resultMap="EmployeeShiftAndShiftInfoMap">
+  	select es.employee_id, si.start_time, si.end_time, si.store_id 
+  	from shift_info si 
+	inner join employee_shift es 
+	on si.shif_id = 
+		<choose>  
+	        <when test="_parameter == 1">  
+	            es.shif_idg where es.shif_idg != 0
+	        </when>  
+	        <when test="_parameter == 2">  
+	            es.shif_ida where es.shif_ida != 0
+	        </when>
+	        <when test="_parameter == 3">  
+	            es.shif_idb where es.shif_idb != 0
+	        </when>
+	        <when test="_parameter == 4">  
+	            es.shif_idc where es.shif_idc != 0
+	        </when>
+	        <when test="_parameter == 5">  
+	            es.shif_idd where es.shif_idd != 0
+	        </when>
+	        <when test="_parameter == 6">  
+	            es.shif_ide where es.shif_ide != 0
+	        </when>
+	        <when test="_parameter == 7">  
+	            es.shif_idf where es.shif_idf != 0
+	        </when>
+	    </choose> 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_shift
+    where data_id = #{dataId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.api.entity.EmployeeShift" >
+    insert into employee_shift (data_id, employee_id, shif_ida, 
+      shif_idb, shif_idc, shif_idd, 
+      shif_ide, shif_idf, shif_idg, 
+      create_time, update_time, last_operator_id
+      )
+    values (#{dataId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{shifIda,jdbcType=INTEGER}, 
+      #{shifIdb,jdbcType=INTEGER}, #{shifIdc,jdbcType=INTEGER}, #{shifIdd,jdbcType=INTEGER}, 
+      #{shifIde,jdbcType=INTEGER}, #{shifIdf,jdbcType=INTEGER}, #{shifIdg,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR}, #{lastOperatorId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.api.entity.EmployeeShift" >
+    insert into employee_shift
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataId != null" >
+        data_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="shifIda != null" >
+        shif_ida,
+      </if>
+      <if test="shifIdb != null" >
+        shif_idb,
+      </if>
+      <if test="shifIdc != null" >
+        shif_idc,
+      </if>
+      <if test="shifIdd != null" >
+        shif_idd,
+      </if>
+      <if test="shifIde != null" >
+        shif_ide,
+      </if>
+      <if test="shifIdf != null" >
+        shif_idf,
+      </if>
+      <if test="shifIdg != null" >
+        shif_idg,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataId != null" >
+        #{dataId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="shifIda != null" >
+        #{shifIda,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdb != null" >
+        #{shifIdb,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdc != null" >
+        #{shifIdc,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdd != null" >
+        #{shifIdd,jdbcType=INTEGER},
+      </if>
+      <if test="shifIde != null" >
+        #{shifIde,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdf != null" >
+        #{shifIdf,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdg != null" >
+        #{shifIdg,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.api.entity.EmployeeShift" >
+    update employee_shift
+    <set >
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="shifIda != null" >
+        shif_ida = #{shifIda,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdb != null" >
+        shif_idb = #{shifIdb,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdc != null" >
+        shif_idc = #{shifIdc,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdd != null" >
+        shif_idd = #{shifIdd,jdbcType=INTEGER},
+      </if>
+      <if test="shifIde != null" >
+        shif_ide = #{shifIde,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdf != null" >
+        shif_idf = #{shifIdf,jdbcType=INTEGER},
+      </if>
+      <if test="shifIdg != null" >
+        shif_idg = #{shifIdg,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where data_id = #{dataId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.api.entity.EmployeeShift" >
+    update employee_shift
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      shif_ida = #{shifIda,jdbcType=INTEGER},
+      shif_idb = #{shifIdb,jdbcType=INTEGER},
+      shif_idc = #{shifIdc,jdbcType=INTEGER},
+      shif_idd = #{shifIdd,jdbcType=INTEGER},
+      shif_ide = #{shifIde,jdbcType=INTEGER},
+      shif_idf = #{shifIdf,jdbcType=INTEGER},
+      shif_idg = #{shifIdg,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=CHAR},
+      last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
+    where data_id = #{dataId,jdbcType=INTEGER}
+  </update>
+</mapper>

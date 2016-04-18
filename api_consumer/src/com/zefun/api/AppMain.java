@@ -11,7 +11,7 @@ public class AppMain {
     public void start() {
         ClassPathXmlApplicationContext context = null;
         try {
-        	context = new ClassPathXmlApplicationContext("classpath:app.xml");
+        	context = new ClassPathXmlApplicationContext("classpath:resource/app.xml");
         } catch (Exception e) {
         	logger.error("An error occurred, applicationContext will close.", e);
         	if (context != null) {

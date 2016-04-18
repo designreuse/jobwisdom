@@ -34,13 +34,14 @@ public interface App {
 		// public static final String SERVER_HOST = "moffatt.maywant.com";
 		// public static final String SERVER_HOST = "uat.maywant.com";
 		// public static final String SERVER_HOST = "wechat.maywant.com";
-		public static final String SERVER_HOST = "www.maywant.com";
+		// public static final String SERVER_HOST = "www.livesall.cn";
+		public static final String SERVER_HOST = "job.livesall.cn";
 
 		/** 服务器基础地址 */
-		public static final String SERVER_BASE_URL = "http://" + SERVER_HOST + "/zefun";
+		public static final String SERVER_BASE_URL = "http://" + SERVER_HOST + "/jobwisdom";
 
 		/** 智放公众号的门店标识 */
-		public static final int WECHAT_ZEFUN_STORE_ID = 1;
+		public static final int WECHAT_ZEFUN_STORE_ID = 1133;
 
 		/** 友美公众号的门店标识 */
 		public static final int WECHAT_YOUMEI_STORE_ID = 0;
@@ -290,7 +291,7 @@ public interface App {
 		/** 微信基础授权，获取openid */
 		public static final String AUTH_REDIRECT_BASE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?"
 				+ "appid={app_id}&redirect_uri=http%3A%2F%2F" + App.System.SERVER_HOST
-				+ "%2Fzefun%2Fwechat%2Fcallback%2F{openid_key}"
+				+ "%2Fjobwisdom%2Fwechat%2Fcallback%2F{openid_key}"
 				+ "%3Fscope%3Dsnsapi_base%26redirect%3D{redirect_uri}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
 
 		/** 微信高级授权，获取用户信息 */
@@ -392,5 +393,4 @@ public interface App {
 		/** 出货状态：出货确认中 */
 		public static final int API_DELIVER_CODE_CONFIRMING = 202;
 	}
-
 }
