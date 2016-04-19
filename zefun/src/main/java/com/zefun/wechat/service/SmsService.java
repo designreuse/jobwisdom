@@ -22,7 +22,7 @@ public class SmsService {
     
     /** 阿里基础api对象 */
     private static TaobaoClient tbClient = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", 
-            "23315394", "1a389561f39b65923914946fa64104f2");
+            "23341881", "ebfd3e013a89513d4e64f7b56b801ae9");
     
     /** 日志记录对象 */
     private static Logger logger = Logger.getLogger(SmsService.class);
@@ -45,10 +45,10 @@ public class SmsService {
     public boolean sendVerifyCode(int storeId, String phone, String code, String desc) {
         AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
         req.setSmsType("normal");
-        req.setSmsFreeSignName("智放");
-        req.setSmsParam("{\"code\":\"" + code + "\",\"desc\":\"" + desc + "\"}");
+        req.setSmsFreeSignName("注册验证");
+        req.setSmsParam("{\"code\":\"" + code + "\",\"product\":\"" + desc + "\"}");
         req.setRecNum(phone);
-        req.setSmsTemplateCode("SMS_5170058");
+        req.setSmsTemplateCode("SMS_7465203");
         try {
             AlibabaAliqinFcSmsNumSendResponse response = tbClient.execute(req);
             redisService.setex(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone, code, 180);

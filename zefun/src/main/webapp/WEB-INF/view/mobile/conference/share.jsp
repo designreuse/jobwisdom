@@ -471,7 +471,7 @@ function callWeixin(rj, personnelId, conferenceId) {
         	link = baseUrl+'mobile/view/pay/conference?fromUser='+personnelId+'&conferenceId='+conferenceId;  //生成了当前分享着的分享链接,只要分享前控制好这句就行了,别的不管
         	showPayCallBackHtml();
 //          WeixinJSBridge.invoke('closeWindow', {}, function(e) {});
-//            window.location.href = baseUrl + "memberCenter/view/home/${session_key_store_id}/1";
+//          window.location.href = baseUrl + "memberCenter/view/home/${session_key_store_id}/1";
         } else {
             isPay = false;
         }
