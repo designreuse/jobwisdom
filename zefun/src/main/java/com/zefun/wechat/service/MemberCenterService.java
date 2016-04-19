@@ -827,7 +827,7 @@ public class MemberCenterService {
     * @return           验证码
      */
     public BaseDto getVerifyCodeAction(int storeId, String phone){
-        rabbitService.sendVerifyCode(storeId, phone, "注册会员");
+        rabbitService.sendVerifyCode(storeId, phone, "中邦我道");
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     

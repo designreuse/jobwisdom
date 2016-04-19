@@ -130,5 +130,6 @@
 	</div>
 </div>  
 <%@include file="../memberBase.jsp" %>
+<%@include file="../wechatBase.jsp" %>
 </body>
 </html>
