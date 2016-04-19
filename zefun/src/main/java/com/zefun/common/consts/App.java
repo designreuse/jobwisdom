@@ -279,26 +279,26 @@ public interface App {
 	class Wechat {
 		/** 临时 ACCESS_TOKEN ,后续将存入库中,定时更新 */
 		public static final String ACCESS_TOKEN = "GJwb5yQ2VDkoIxvJ2LskPEPXZYq8Fanbm_hzvd5oURfYevEkwt6-ljth3rvS"
-				+ "nPFEqUqTlUys5DIj3KeMwZLasyDhk5YFVYDBqwm_3PehPY4";
+				    + "nPFEqUqTlUys5DIj3KeMwZLasyDhk5YFVYDBqwm_3PehPY4";
 
 		/** 获取用户授权access_token的url */
 		public static final String AUTH_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?"
-				+ "appid=%s&secret=%s&code=%s&grant_type=authorization_code";
+				    + "appid=%s&secret=%s&code=%s&grant_type=authorization_code";
 
 		/** 获取关注用户的信息 */
 		public static final String GET_USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN";
 
 		/** 微信基础授权，获取openid */
 		public static final String AUTH_REDIRECT_BASE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?"
-				+ "appid={app_id}&redirect_uri=http%3A%2F%2F" + App.System.SERVER_HOST
-				+ "%2Fjobwisdom%2Fwechat%2Fcallback%2F{openid_key}"
-				+ "%3Fscope%3Dsnsapi_base%26redirect%3D{redirect_uri}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+				    + "appid={app_id}&redirect_uri=http%3A%2F%2F" + App.System.SERVER_HOST
+				    + "%2Fjobwisdom%2Fwechat%2Fcallback%2F{openid_key}"
+				    + "%3Fscope%3Dsnsapi_base%26redirect%3D{redirect_uri}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
 
 		/** 微信高级授权，获取用户信息 */
 		public static final String AUTH_REDIRECT_INFO_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?"
-				+ "appid={app_id}&redirect_uri=http%3A%2F%2F" + App.System.SERVER_HOST
-				+ "%2Fzefun%2Fwechat%2Fcallback%3Fscope%3Dsnsapi_userinfo%26"
-				+ "redirect%3D{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+				    + "appid={app_id}&redirect_uri=http%3A%2F%2F" + App.System.SERVER_HOST
+				    + "%2Fzefun%2Fwechat%2Fcallback%3Fscope%3Dsnsapi_userinfo%26"
+				    + "redirect%3D{redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
 		/** 获取微信素材资源 */
 		public static final String FETCH_MEDIA_URL = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s";
