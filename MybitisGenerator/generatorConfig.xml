@@ -26,7 +26,7 @@
 			targetPackage="com.zefun.web.mapper" targetProject="MybitisGenerator">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-		<table tableName="member_error_hc" domainObjectName="MemberErrorHc"
+		<table tableName="yzm_page_qiniu" domainObjectName="yzmPageQiniu"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>

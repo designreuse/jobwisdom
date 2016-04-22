@@ -6,162 +6,181 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>智慧美业，绽放未来</title>
-<link rel="stylesheet" href="<%=basePath %>css/style.default.css" type="text/css" />
+<%-- <link rel="stylesheet" href="<%=basePath %>css/style.default.css" type="text/css" /> --%>
 <link rel="stylesheet" href="<%=basePath %>css/iconfont.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath %>css/zhifang.css" type="text/css" />
 <style>
-	#particles.particles-box {
-        position: absolute;
-        width: 100%;
-        top: 0;
-        bottom: 0;
-        background: url(<%=basePath%>img/home/login-bg.png) no-repeat center center;
-        background-size: 100% 100%;
-        min-height: 100%;
-    }
     body{
+        background-color:#2a3244;
         margin: 0;
         height: 100%;
         overflow: hidden;
     }
-    .loginwrapper{
-        position: absolute;
-        top:80px;
-        right: 200px;
+    /*LOGO标语*/
+    .loginDL{
+        height: 800px;
+        width: 760px;
+        margin: 100px auto;
     }
-    .logintitle {
-        text-align: center;
-        font-size: 36px;
-        color: #18beb6;
-        background-image: none;
-        border: 0;
-        box-shadow: none;
-        margin: 10px;
+    .logo_by{
+        margin:auto;
     }
-    .loginwrapperinner{
+
+    /*用户登录*/
+    .denglu{
+        margin-top: 50px;
+    }
+    .yonghuAnniu{
         position: relative;
-        backgrond-color: #0e2e2e;
-    }
-    .loginwrapperinner {
-        border: 1px solid rgb(29, 159, 152);
-        border-radius: 3px;
-        background-color: rgb(14, 56, 55);
-        box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.2);
-    }
-    .loginform input {
-        color: #2f7e7c;
-        border: 1px solid #41c8c1;
-        border-radius: 3px;
+        margin-left: 200px;
+        width: 350px;
+        height: 50px;
 
     }
-    #loginform {
-         margin-top: 30px;
-    }
-    .loginwrapper input#username {
-        background: #cfd7d7 url(<%=basePath%>img/username.png) no-repeat 8px 12px;
-        border: 1px solid #41c8c1;
-        border-radius: 3px;
-    }
-    .loginwrapper input#password {
-        background: #cfd7d7 url(<%=basePath%>img/password.png) no-repeat 8px 12px;
-        border: 1px solid #41c8c1;
-        border-radius: 3px;
-    }
-    .loginwrapper button.btn {
-        background-image: -moz-linear-gradient( 90deg, rgb(26,186,182) 0%, rgb(32,217,211) 100%);
-        background-image: -webkit-linear-gradient( 90deg, rgb(26,186,182) 0%, rgb(32,217,211) 100%);
-        background-image: -ms-linear-gradient( 90deg, rgb(26,186,182) 0%, rgb(32,217,211) 100%);
-        box-shadow: 0px 1px 3px 0px #666;
-        color: #333;
-        font-size: 18px;
-    }
-    .wrong-msg {
-        width: 358px;
+    .yonghuAnniu span{
+        color: #ffffff;
         position: absolute;
-        border: 1px solid #e6a7a7;
-        padding: 15px 12px;
-        background-color: #e3d7d7;
-        color: #333;
-        box-sizing: border-box;
-    }
+        left: 40px;
+        top:8px;
 
-    .attention-img {
-        width: 35px;
-        height: 35px;
-        vertical-align: middle;
-        float: left;
     }
-    .reset-pass{
+    .dengluAnniu img{
+        position: absolute;
+        top: 0px;
+    }
+    .DLclassA{
+        margin-top: 20px;
+        width: 705px;
+        height: 170px;
+        background-color: #ffffff;
+        border-radius: 10px;
+    }
+    .DLclassA li{
+        margin-bottom: 5px;
+    }
+    .hei{
+        width: 650px;
+        height: 50px;
+        margin: auto;
+    }
+    .poop input{
+        width: 650px;
+        height: 50px;
+        background-color: #ffffff;
+        border:none;
+        border-bottom: 1px solid #dbdce2;
+        line-height: 50px;
         font-size: 14px;
-        color: #2f7e7c;
     }
-    .msg-desc {
-        margin-left: 40px;
+    .popo input{
+        width: 650px;
+        height: 50px;
+        background-color: #ffffff;
+        border:none;
+        line-height: 50px;
+        font-size: 14px;
     }
-    .go-img {
-        margin-left: 30px;
-        verticle-align: middle;
+    .shuaxin{
+        margin-left: 620px;
+        margin-top: -40px;
     }
-    .link-zhifang {
-        width: 100%;
-        padding: 12px 0;
-        border: 1px solid #41c8c1;
+    .yzm{
+        margin-left: 530px;
+        margin-top: -40px;
+        font-family:myFont;
+        font-size: 30px;
+        letter-spacing:2px;
+    }
+
+    /*店面登录*/
+    .mendianAnniu{
+        position: relative;
+        margin-top: -50px;
+        margin-left: 400px;
+        width: 350px;
+        height: 50px;
+
+    }
+    .mendianAnniu span{
+        color: #ffffff;
+        position: absolute;
+        left: 40px;
+        top:8px;
+
+    }
+    .mendianAnniu img{
+        position: absolute;
+        top: 0px;
+    }
+
+    /*登录按钮*/
+    .dengluAnniu{
+        margin-top: 30px;
+
+    }
+    .dengluAnniu button{
+        width:705px ;
+        height:58px ;
+        background-color: #e5e5e5;
+        border-radius: 10px;
+        border: none;
+        cursor:pointer;
+        font-size: 18px;
+        color: #000;
+    }
+
+    /*忘记密码*/
+    .wangjimima{
+        margin-top:30px;
+        margin-left: 320px;
+    }
+    .wangjimima a{
+        color: #cbcccf;
+        font-size: 16px;
+    }
+
+    /*分割线*/
+    .fengex{
+        position:absolute;
+        top:800px;
+        left:5%;
+    }
+
+    /*客服咨询*/
+    .kefuzixun{
+        margin-top: 130px;
+        width: 705px;
+        height: 50px;
+    }
+    .kefuzixun span{
+        float: left ;
+        color: #cbcccf;
+        font-size: 14px;
+        margin-left: 250px;
+        margin-top: 10px;
+    }
+    .zzA{float: left;margin-left: 25px;}
+    .zzB{float: left;margin-left: 25px;}
+
+    /*版权*/
+    .banquan{
+        margin-top: 10px;
         text-align: center;
-        font-size: 13px;
-        color: #b9dfde;
-        background-color: transparent;
-        border-radius: 3px;
     }
-    .banquan {
-        position: absolute;
-        width: 100%;
-        font-size: 12px;
-        color: #fff;
-        bottom: 40px;
-        text-align: center;
+    .banquan span{
+        color:#cbcccf ;
+        font-size: 14px;
     }
-    .logo{
-        position: absolute;
-        width: 207px;
-        height: 58px;
-        top: 40px;
-        left: 80px;
-        z-index: 99;
-    }
-    .slogon {
-        position: absolute;
-        width: 380px;
-        height: 40px;
-        top: 55px;
-        left: 350px;
-        z-index: 100;
-    }
-    #staticParticle {
-        position: absolute;
-        width: 100%;
-        top: 0;
-        bottom: 0;
-        background: url('<%=basePath%>img/home/login-bg.png') no-repeat center center; /*static-particle.png*/
-        background-size: 100% 100%;
-        min-height: 100%;
-    }
-    .staticParticle {
-        margin-left: 10%;
-        height: 80%;
-        margin-top: 5%;
-    }
-    @media (max-width: 1024px) {
-        #staticParticle .staticParticle {
-            display: none;
-        }
+    .list2{
+        display:none;
     }
 </style>
-<script src="<%=basePath %>js/common/login.js"></script>
+
 </head>
 
 <body class="loginbody">
 
-<div>
+<%-- <div>
     <div class="logo">
         <img src="<%=basePath %>img/login-logo.png" alt="">
     </div>
@@ -179,13 +198,13 @@
         <div class="loginwrap zindex100 animate2 bounceInDown">
 
             <div class="loginwrapperinner">
-                <%-- <div class="wrong-msg">
+                <div class="wrong-msg">
                     <img src="<%=basePath %>img/wrong-msg.png" alt="" class="attention-img">
                     <div class="msg-desc">用户名或密码输入错误，请重新输入。
                         <br>
                         你也可以：<span class="reset-pass">重置登录密码</span>
                     </div>
-                </div> --%>
+                </div>
                 <h1 class="logintitle">
                     登录智放系统
                 </h1>
@@ -195,9 +214,9 @@
                 <p class="animate6 bounceIn login-p">
                     <button class="btn btn-default btn-block login-btn loginButton">登&nbsp;&nbsp;录</button>
                 </p>
-                <%-- <p>
+                <p>
                     <button class="link-zhifang">还未加入智放，请立即了解 <img src="<%=basePath %>img/youjiantou.png" alt="" class="go-img"></button>
-                </p> --%>
+                </p>
             </div><!--loginwrapperinner-->
         </div>
 
@@ -238,18 +257,109 @@
 <div id="alertWrap" class="alertWrap" style="display: none;">
     <div id="alertToast" class="toast">
     </div>
+</div> --%>
+
+<!--分割线-->
+<div class="fengex"><img src="<%=basePath %>images/fengex.png"> </div>
+
+<div class="loginDL">
+    <!--LOGO及标语-->
+    <div class="logo_by">
+        <img src="<%=basePath %>images/logo_by.png">
+    </div>
+
+    <!--登陆表单切换-->
+    <div class="denglu">
+            <div class="DLgeren  DLmendian titleone">
+                <div class="yonghuAnniu"><a href="#"><img src="<%=basePath %>images/login_geren.png" ><span>用户登录</span></a></div>
+                <div class="mendianAnniu"><a href="#"><img src="<%=basePath %>images/login_mendian.png" ><span>门店登录</span></a></div>
+            </div>
+        <div class="con">
+            <div class="DLclassA listone list1">
+                <ul>
+                    <li class="hei">
+                        <div class="zhanghuming poop"><input type="text"  id="usernamepp" placeholder=" 账户名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                    </li>
+                    <li class="hei">
+                        <div class="mima poop"><input type="password" id="passwordpp" placeholder="密码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                    </li>
+                    <li class="hei">
+                        <div class="yanzhengma popo"><input type="text" id ="verificationpp" placeholder=" 请输入验证码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                        <div class="shuaxin"><a href="#"><img src="<%=basePath %>images/shuaxin.png"></a></div>
+                        <div name = "imgyzmpp" onclick="yzm(this)"  class="yzm" ><img src=""></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="DLclassA listone list2">
+                <ul>
+                    <li class="hei">
+                        <div class="zhanghuming poop"><input type="text"  name="zhanghuming" placeholder=" 门店名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                    </li>
+                    <li class="hei">
+                        <div class="mima poop"><input type="text" name="mima" placeholder=" 密码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                    </li>
+                    <li class="hei">
+                        <div class="yanzhengma popo"><input type="text" name="yanzhengma" placeholder=" 请输入验证码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                        <div class="shuaxin"><a href="#" onclick="document.getElementById('yzm').innerHTML = yzm();"><img src="<%=basePath %>images/shuaxin.png"></a></div>
+                        <div id="yzm" class="yzm"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--登陆按钮-->
+    <div class="dengluAnniu">
+        <button type="button" name = "loginButton">登&nbsp;录</button>
+    </div>
+
+    <!--忘记密码-->
+    <div class="wangjimima">
+        <a href="#">忘记密码?</a>
+    </div>
+
+    <!--客服咨询-->
+    <div class="kefuzixun">
+        <span>使用客服咨询</span>
+        <div class="zzA"><a href="#" title="QQ客服" ><img src="<%=basePath %>images/login_qq.png"></a></div>
+        <div class="zzB"><a href="#" title="微信客服" ><img src="<%=basePath %>images/login_weixin.png"></a></div>
+    </div>
+
+    <!--版权-->
+    <div class="banquan">
+        <span>© 2016 jobwisdom.cn 版权所有 ICP证：粤ICP备15091901号&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </div>
+
 </div>
+
+<div id="loadingWrap" class="alertWrap" style="display: none;">
+    <div class="loadingImg">
+        <img src="http://7xkv8r.com1.z0.glb.clouddn.com/pc/loadData.gif"/>
+    </div>
+</div>
+<div id="alertWrap" class="alertWrap" style="display: none;">
+    <div id="alertToast" class="toast">
+    </div>
+</div> 
+
 <script type="text/javascript" src="<%=basePath %>js/common/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/common/jquery-migrate-1.1.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/base/pc.js"></script>
+<script src="<%=basePath %>js/common/loginA.js"></script>
+<script src="<%=basePath %>js/common/loginB.js"></script>
 <script type="text/javascript">
+
+var pageUrlTop = "http://7xt6g0.com1.z0.glb.clouddn.com/";
+var pageValue = "";
 jQuery.noConflict();
 
 jQuery(document).ready(function(){
   
   jQuery.noConflict();
-
+  
+  yzm(jQuery("div[name='imgyzmpp']"));
+  
   jQuery(document).ready(function(){
       jQuery("#username").focus();
       
@@ -264,62 +374,92 @@ jQuery(document).ready(function(){
       
       jQuery(document).keyup(function(e){
           if(e.keyCode == 13){
-            jQuery('.loginButton').click();
+            jQuery('button[name="loginButton"]').click();
           }
       });
       
-      jQuery('.loginButton').click(function(){
-        if(jQuery('#username').val() == '' || jQuery('#password').val() == '') {
-                if(jQuery('#username').val() == '') {
+      jQuery('button[name="loginButton"]').click(function(){
+    	  
+    	var username = jQuery("#usernamepp").val();
+    	var usernameObj = jQuery("#usernamepp");
+        var password = jQuery("#passwordpp").val();
+        var passwordObj = jQuery("#passwordpp");
+        var verification = jQuery("#verificationpp").val();
+        var verificationObj = jQuery("#verificationpp");
+        
+        if(username == '' || password == '' || pageValue != verification) {
+                if(username == '') {
+                	usernameObj.focus();
+                	usernameObj.addClass('error');
+                    dialog("对不起，未找到您输入的账号");
+                } else {
+                	usernameObj.removeClass('error');
+                }
+                if(password == '') {
+                	passwordObj.focus();
+                	passwordObj.addClass('error'); 
+                    dialog("对不起，您输入的密码错误");
+                }else {
+                	passwordObj.removeClass('error');
+                }
+                
+                if (pageValue != verification) {
+                	verificationObj.focus();
+                	verificationObj.addClass('error');
+                	dialog("对不起，您输入的验证码有误");
+                }
+                else {
+                	verificationObj.removeClass('error');
+                }
+                return;
+        }
+        
+        password = CryptoJS.MD5(CryptoJS.MD5(password).toString().toUpperCase()).toString().toUpperCase();
+        
+        jQuery.ajax({
+            type : "post",
+            url : baseUrl + "user/login",
+            data : "username=" + username + "&password=" + password,
+            dataType : "json",
+            success : function(e){
+                if (e.code != 0) {
+                  if (e.code == 9001) {
                     jQuery('#username').focus();
                     jQuery('#username').addClass('error');
                     dialog("对不起，未找到您输入的账号");
-                } else {
-                    jQuery('#username').removeClass('error');
-                }
-                if(jQuery('#password').val() == '') {
+                  } else {
                     jQuery('#password').focus();
-                    jQuery('#password').addClass('error'); 
+                    jQuery('#password').addClass('error');
                     dialog("对不起，您输入的密码错误");
-                }else {
-                    jQuery('#password').removeClass('error');
+                  }
+                  return;
+                }else{
+                	window.location.href = baseUrl + e.msg;
                 }
-                jQuery('.loginwrap').addClass('animate0 wobble').bind(anievent,function(){
-                    jQuery(this).removeClass('animate0 wobble');
-                });
             }
-        
-        var username = jQuery("#username").val();
-            var password = jQuery("#password").val();
-            password = CryptoJS.MD5(CryptoJS.MD5(password).toString().toUpperCase()).toString().toUpperCase();
-            jQuery.ajax({
-                type : "post",
-                url : baseUrl + "user/login",
-                data : "username=" + username + "&password=" + password,
-                dataType : "json",
-                success : function(e){
-                    if (e.code != 0) {
-                      if (e.code == 9001) {
-                        jQuery('#username').focus();
-                        jQuery('#username').addClass('error');
-                        dialog("对不起，未找到您输入的账号");
-                      } else {
-                        jQuery('#password').focus();
-                        jQuery('#password').addClass('error');
-                        dialog("对不起，您输入的密码错误");
-                      }
-                        jQuery('.loginwrap').addClass('animate0 wobble').bind(anievent,function(){
-                            jQuery(this).removeClass('animate0 wobble');
-                        });
-                        return;
-                    }else{
-                    	window.location.href = baseUrl + e.msg;
-                    }
-                }
-            });
+        });
       });
   });
 });
+
+function yzm(obj){
+	jQuery.ajax({
+        type : "post",
+        url : baseUrl + "app/getYzmPage",
+        dataType : "json",
+        success : function(e){
+            if (e.code != 0) {
+                dialog("验证码刷新失败");
+                return;
+            }else{
+            	var data = e.msg;
+            	var pageUrl  = pageUrlTop + data.pageUrl;
+            	pageValue = data.pageValue;
+            	jQuery(obj).find("img").attr("src", pageUrl);
+            }
+        }
+    });
+}
 </script>
 </body>
 </html>

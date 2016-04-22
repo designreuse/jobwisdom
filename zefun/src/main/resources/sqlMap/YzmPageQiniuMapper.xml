@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.YzmPageQiniuMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.YzmPageQiniu" >
+    <id column="yzm_page_id" property="yzmPageId" jdbcType="INTEGER" />
+    <result column="page_url" property="pageUrl" jdbcType="VARCHAR" />
+    <result column="page_value" property="pageValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    yzm_page_id, page_url, page_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yzm_page_qiniu
+    where yzm_page_id = #{yzmPageId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yzm_page_qiniu
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yzm_page_qiniu
+    where yzm_page_id = #{yzmPageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.YzmPageQiniu" >
+    insert into yzm_page_qiniu (yzm_page_id, page_url, page_value
+      )
+    values (#{yzmPageId,jdbcType=INTEGER}, #{pageUrl,jdbcType=VARCHAR}, #{pageValue,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.YzmPageQiniu" >
+    insert into yzm_page_qiniu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="yzmPageId != null" >
+        yzm_page_id,
+      </if>
+      <if test="pageUrl != null" >
+        page_url,
+      </if>
+      <if test="pageValue != null" >
+        page_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="yzmPageId != null" >
+        #{yzmPageId,jdbcType=INTEGER},
+      </if>
+      <if test="pageUrl != null" >
+        #{pageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pageValue != null" >
+        #{pageValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.YzmPageQiniu" >
+    update yzm_page_qiniu
+    <set >
+      <if test="pageUrl != null" >
+        page_url = #{pageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pageValue != null" >
+        page_value = #{pageValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where yzm_page_id = #{yzmPageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.YzmPageQiniu" >
+    update yzm_page_qiniu
+    set page_url = #{pageUrl,jdbcType=VARCHAR},
+      page_value = #{pageValue,jdbcType=VARCHAR}
+    where yzm_page_id = #{yzmPageId,jdbcType=INTEGER}
+  </update>
+</mapper>
