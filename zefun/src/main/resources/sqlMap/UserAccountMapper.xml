@@ -11,10 +11,11 @@
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    user_id, role_id, user_name, user_pwd, pwd_salt, create_time, update_time, last_operator_id, store_id
+    user_id, role_id, user_name, user_pwd, pwd_salt, create_time, update_time, last_operator_id, store_id, store_account
   </sql>
   
   <select id="selectUserNameByStoreIdAndRoleId" resultType="java.lang.String" parameterType="java.util.Map">
@@ -45,7 +46,7 @@
   </delete>
 
   <insert id="insert" parameterType="com.zefun.web.entity.UserAccount" >
-    insert into user_account(user_id,role_id,user_name,user_pwd,pwd_salt,store_id) values (#{userId},#{roleId},#{userName},#{userPwd},#{pwdSalt},#{storeId})
+    insert into user_account(user_id,role_id,user_name,user_pwd,pwd_salt,store_id, store_account) values (#{userId},#{roleId},#{userName},#{userPwd},#{pwdSalt},#{storeId},#{storeAccount})
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.UserAccount" >

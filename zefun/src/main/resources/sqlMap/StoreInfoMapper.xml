@@ -7,6 +7,7 @@
     <result column="store_type" property="storeType" jdbcType="INTEGER" />
     <result column="store_name" property="storeName" jdbcType="VARCHAR" />
     <result column="store_linkname" property="storeLinkname" jdbcType="VARCHAR" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <result column="store_linkphone" property="storeLinkphone" jdbcType="VARCHAR" />
     <result column="store_city" property="storeCity" jdbcType="VARCHAR" />
     <result column="store_province" property="storeProvince" jdbcType="VARCHAR" />
@@ -25,7 +26,7 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    store_id, hq_store_id, store_type, store_name, store_linkname, store_linkphone,
+    store_id, hq_store_id, store_type, store_name, store_linkname, store_account, store_linkphone,
     store_address, store_city, store_province, store_tel, store_logo, carousel_picture, store_desc,
     technical, characteristic, teacher_introduction, create_time, update_time, latitude, longitude
   </sql>
@@ -334,5 +335,11 @@
     and a.store_id = b.store_id
     and b.member_id = c.member_id
   </select>
-
+  
+  <select id="isExitsStoreAccount" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select
+    count(*)
+    from store_info 
+    where store_account =  #{storeAccount,jdbcType=VARCHAR} AND store_status = 5
+  </select>
 </mapper>

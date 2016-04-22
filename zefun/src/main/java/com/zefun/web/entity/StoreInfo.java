@@ -24,6 +24,9 @@ public class StoreInfo {
 	/** 门店联系人 */
 	private String storeLinkname;
 
+	/** 门店代号 */
+	private String storeAccount;
+
 	/** 门店联系电话 */
 	private String storeLinkphone;
 
@@ -76,6 +79,14 @@ public class StoreInfo {
 
 	/** 经度 */
 	private String longitude;
+
+	public String getStoreAccount() {
+		return storeAccount;
+	}
+
+	public void setStoreAccount(String storeAccount) {
+		this.storeAccount = storeAccount;
+	}
 
 	public String getLatitude() {
 		return latitude;
