@@ -6,8 +6,10 @@ import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.zefun.web.controller.EmployeeController;
 import com.zefun.web.dto.BaseDto;
 /**
@@ -25,6 +27,7 @@ public class EmployeeTest extends BaseTest{
      * 日志
      */
     private Logger logger = Logger.getLogger(GoodsInfoTest.class);
+    
 	/**
 	 * 
 	* @author chendb

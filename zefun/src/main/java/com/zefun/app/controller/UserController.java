@@ -14,7 +14,6 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import com.zefun.app.common.param.BaseParam;
 import com.zefun.app.common.param.LoginParam;
-import com.zefun.app.common.param.SigeCheckParam;
 import com.zefun.app.service.UserService;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;

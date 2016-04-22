@@ -891,16 +891,15 @@ public class MemberCenterController extends BaseController {
     public ModelAndView storeInfoView(@PathVariable int storeId, @PathVariable int businessType, 
             @RequestParam(value = "selectStoreId", required = false) Integer selectStoreId, 
             HttpServletRequest request, HttpServletResponse response){
-        /*String openId = getOpenId(storeId, businessType, request, response);
+        String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
             return null;
         }
         if (selectStoreId == null) {
             selectStoreId = getStoreIdByOpenId(openId);
-        }*/
-    	//test
-    	storeId = 1005;
-    	selectStoreId = 1005;
+        }
+//    	storeId = 1005;
+//    	selectStoreId = 1005;
         return memberCenterService.storeInfoView(storeId, selectStoreId);
     }
     

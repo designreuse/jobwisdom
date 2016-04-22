@@ -1448,7 +1448,7 @@ public class MemberCenterService {
             List<EmployeeBaseDto> employeeList = employeeInfoMapper.selectEmployeeListByList(list);
             mav.addObject("employeeList", employeeList);
         }
-        
+        mav.addObject("session_key_store_id", storeId);
         return mav;
     }
     

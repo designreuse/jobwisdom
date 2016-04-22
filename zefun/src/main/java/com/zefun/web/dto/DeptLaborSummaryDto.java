@@ -16,6 +16,7 @@ import com.zefun.web.entity.StoreInfo;
   *@date 2016年1月14日
   *@description 门店劳动业绩分类汇总
   */
+@SuppressWarnings("unused")
 public class DeptLaborSummaryDto extends SummaryResultDto{
 	/**
     * @author 乐建建
@@ -105,7 +106,7 @@ public class DeptLaborSummaryDto extends SummaryResultDto{
 		this.projectLaborAchievement=processRanks(ranks, this.idForName);
 		this.projectLaborAchievement=processRank(lastranks2, this.projectLaborAchievement);		
 		this.dateType=type;
-		int scale = 2;
+        int scale = 2;
 		
 		this.totalLaborIncome=summaryDto==null?null:summaryDto.getTotalLaborIncome();
 		this.totalServicedCustomer=summaryDto==null?null:summaryDto.getTotalServicedCustomer();

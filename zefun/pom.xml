@@ -90,11 +90,20 @@
 		<!-- spring end -->
 		
 		<!-- servlet -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>3.0-alpha-1</version>
+		</dependency> -->
+		
+		<!-- java web servlet 依赖 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
 		</dependency>
+		
 
 		<!-- mybatis begin -->
 		<dependency>
