@@ -336,20 +336,20 @@ public class SystemSettingService {
     	}
     	else {
     	    //首次配置微信功能，进行分组初始化
-            memberGroupId = weixinMessageService.createGroup(storeId, "会员_智放系统创建");
-            WechatGroupInfo membereGroup = new WechatGroupInfo(storeId, 1, memberGroupId, "会员_智放系统创建");
+            memberGroupId = weixinMessageService.createGroup(storeId, "会员_我道系统创建");
+            WechatGroupInfo membereGroup = new WechatGroupInfo(storeId, 1, memberGroupId, "会员_我道系统创建");
             wechatGroupInfoMapper.insert(membereGroup);
             
-            staffGroupId = weixinMessageService.createGroup(storeId, "员工_智放系统创建");
-            WechatGroupInfo staffGroup = new WechatGroupInfo(storeId, 2, staffGroupId, "员工_智放系统创建");
+            staffGroupId = weixinMessageService.createGroup(storeId, "员工_我道系统创建");
+            WechatGroupInfo staffGroup = new WechatGroupInfo(storeId, 2, staffGroupId, "员工_我道系统创建");
             wechatGroupInfoMapper.insert(staffGroup);
             
-            bossGroupId = weixinMessageService.createGroup(storeId, "老板_智放系统创建");
-            WechatGroupInfo bossGroup = new WechatGroupInfo(storeId, 3, bossGroupId, "老板_智放系统创建");
+            bossGroupId = weixinMessageService.createGroup(storeId, "老板_我道系统创建");
+            WechatGroupInfo bossGroup = new WechatGroupInfo(storeId, 3, bossGroupId, "老板_我道系统创建");
             wechatGroupInfoMapper.insert(bossGroup);
             
-            noneGroupId = weixinMessageService.createGroup(storeId, "未绑定_智放系统创建");
-            WechatGroupInfo noneGroup = new WechatGroupInfo(storeId, 4, noneGroupId, "未绑定_智放系统创建");
+            noneGroupId = weixinMessageService.createGroup(storeId, "未绑定_我道系统创建");
+            WechatGroupInfo noneGroup = new WechatGroupInfo(storeId, 4, noneGroupId, "未绑定_我道系统创建");
             wechatGroupInfoMapper.insert(noneGroup);
     	}
     	

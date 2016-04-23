@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +19,6 @@ import com.zefun.common.log.AccessLog;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.service.RedisService;
 
 /**
  * 拦截需要登录的操作请求，检查Token
@@ -40,10 +38,6 @@ public class SessionInterceptor implements HandlerInterceptor {
      */
     private String[] allowUrlPatterns;
     
-    /** redis操作服务类 */
-    @Autowired
-    private RedisService redisService;
-
     /**
      * @param request request
      * @param response response
@@ -106,7 +100,6 @@ public class SessionInterceptor implements HandlerInterceptor {
      */
     private String getRequstParams(HttpServletRequest request) {
         StringBuffer sb = new StringBuffer("");
-        @SuppressWarnings("unchecked")
         Map<String, String[]> params = request.getParameterMap();
         for (String key : params.keySet()) {
             String[] values = params.get(key);
@@ -131,6 +124,7 @@ public class SessionInterceptor implements HandlerInterceptor {
     * @param msg            错误信息
     * @throws IOException   输出产生的异常
      */
+    @SuppressWarnings("unused")
     private void printErr(HttpServletResponse response, int code, String msg) throws IOException{
         response.setContentType("application/json; charset=utf-8");
         PrintWriter out = response.getWriter();

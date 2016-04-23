@@ -325,13 +325,29 @@ public class WeixinMessageService {
         
         //会员菜单
         if (groupType == 1) {
-            JSONObject memberCenterButton = new JSONObject();
-            memberCenterButton.put("type", "view");
-            memberCenterButton.put("name", "会员中心");
-            memberCenterButton.put("url", App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_HOME
+            
+            JSONObject wechatShopButton = new JSONObject();
+            wechatShopButton.put("name", "微官网");
+            JSONArray wechatShopButtonList = new JSONArray();
+            
+            JSONObject shopButton = new JSONObject();
+            shopButton.put("type", "view");
+            shopButton.put("name", "在线商城");
+            shopButton.put("url", App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_SHOP_CENTER
                     .replace("{storeId}", String.valueOf(storeId))
                     .replace("{businessType}", "1"));
-            buttonList.add(memberCenterButton);
+            wechatShopButtonList.add(shopButton);
+            
+            JSONObject storeInfoButton = new JSONObject();
+            storeInfoButton.put("type", "view");
+            storeInfoButton.put("name", "门店介绍");
+            storeInfoButton.put("url", App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_STORE_INFO
+                    .replace("{storeId}", String.valueOf(storeId))
+                    .replace("{businessType}", "1"));
+            wechatShopButtonList.add(storeInfoButton);
+            wechatShopButton.put("sub_button", wechatShopButtonList);
+            buttonList.add(wechatShopButton);
+            
             
             //打印照片
 //            JSONObject personalButton = new JSONObject();
@@ -367,13 +383,13 @@ public class WeixinMessageService {
                     .replace("{businessType}", "1"));
             buttonList.add(appointmentButton);
             
-            JSONObject shopButton = new JSONObject();
-            shopButton.put("type", "view");
-            shopButton.put("name", "积分商城");
-            shopButton.put("url", App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_SHOP_CENTER
+            JSONObject memberCenterButton = new JSONObject();
+            memberCenterButton.put("type", "view");
+            memberCenterButton.put("name", "会员中心");
+            memberCenterButton.put("url", App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_HOME
                     .replace("{storeId}", String.valueOf(storeId))
                     .replace("{businessType}", "1"));
-            buttonList.add(shopButton);
+            buttonList.add(memberCenterButton);
         }
         //员工菜单
         else if (groupType == 2) {
@@ -480,13 +496,30 @@ public class WeixinMessageService {
      */
     private JSONArray getNormalMenuList(int storeId){
         JSONArray buttonList = new JSONArray();
+        
+        JSONObject wechatShopButton = new JSONObject();
+        wechatShopButton.put("name", "微官网");
+        JSONArray wechatShopButtonList = new JSONArray();
+        
         JSONObject storeInfoButton = new JSONObject();
         storeInfoButton.put("type", "view");
         storeInfoButton.put("name", "门店介绍");
         storeInfoButton.put("url", App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_STORE_INFO
                 .replace("{storeId}", String.valueOf(storeId))
                 .replace("{businessType}", "1"));
-        buttonList.add(storeInfoButton);
+        wechatShopButtonList.add(storeInfoButton);
+        
+        JSONObject shopButton = new JSONObject();
+        shopButton.put("type", "view");
+        shopButton.put("name", "在线商城");
+        shopButton.put("url", App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_SHOP_CENTER
+                .replace("{storeId}", String.valueOf(storeId))
+                .replace("{businessType}", "1"));
+        wechatShopButtonList.add(shopButton);
+        
+        wechatShopButton.put("sub_button", wechatShopButtonList);
+        
+        buttonList.add(wechatShopButton);
         
         JSONObject appointmentButton = new JSONObject();
         appointmentButton.put("type", "view");
