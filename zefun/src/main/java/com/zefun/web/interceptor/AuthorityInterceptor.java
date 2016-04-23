@@ -38,15 +38,15 @@ public class AuthorityInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
-        String requestPath = request.getServletPath().toString();
-        String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
+//        String requestPath = request.getServletPath().toString();
+//        String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
 
-        //过滤非拦截接口
-        for (String url : allowUrlPatterns) {
-            if (Pattern.matches("^" + url + "$", requestUrl)) {
-                return true;
-            }
-        }
+//        //过滤非拦截接口
+//        for (String url : allowUrlPatterns) {
+//            if (Pattern.matches("^" + url + "$", requestUrl)) {
+//                return true;
+//            }
+//        }
 
         Object userInfo = request.getSession().getAttribute(App.Session.USER_INFO);
         //未登陆或者登陆超时
@@ -55,20 +55,20 @@ public class AuthorityInterceptor implements HandlerInterceptor{
             return false;
         }
 
-        //检查权限
-        EmployeeBaseDto employeeInfo = (EmployeeBaseDto) userInfo;
-        String roleId = redisService.hget(App.Redis.PC_USER_ID_ROLE_HASH, employeeInfo.getEmployeeId());
-        if ("100".equals(roleId)){
-            return true;
-        }
-        
-        Set<String> set = redisService.smembers(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId);
-        List<String> authorUrl = new ArrayList<String>(set);
-        //如果不拥有该权限
-        if (authorUrl.isEmpty() || !authorUrl.contains(requestPath)){
-            writeNoLoginResult(request, response, App.System.ERROR_CODE_FORBIDDEN);
-            return false;
-        }
+//        //检查权限
+//        EmployeeBaseDto employeeInfo = (EmployeeBaseDto) userInfo;
+//        String roleId = redisService.hget(App.Redis.PC_USER_ID_ROLE_HASH, employeeInfo.getEmployeeId());
+//        if ("100".equals(roleId)){
+//            return true;
+//        }
+//        
+//        Set<String> set = redisService.smembers(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId);
+//        List<String> authorUrl = new ArrayList<String>(set);
+//        //如果不拥有该权限
+//        if (authorUrl.isEmpty() || !authorUrl.contains(requestPath)){
+//            writeNoLoginResult(request, response, App.System.ERROR_CODE_FORBIDDEN);
+//            return false;
+//        }
         return true;
     }
 
