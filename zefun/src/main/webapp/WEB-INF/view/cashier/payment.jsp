@@ -337,6 +337,8 @@
 <%@ include file="/template/memberData.jsp" %>
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/cashier/cashier.js?date=<%=new Date().getTime() %>"></script>
-
+<script>
+   	var loginType = "${loginType}";
+</script>
 </body>
 </html>

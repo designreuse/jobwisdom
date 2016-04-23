@@ -259,6 +259,8 @@ public interface App {
 		public static final String STORE_NAME = "session_key_store_name";
 		/** 当前登录人员信息 */
 		public static final String USER_INFO = "session_key_user_info";
+		/** 第一次登录标识 */
+		public static final String ONE_LOGIN_TIME = "session_key_one_login_time";
 		/** 微信操作业务类型(1:会员,2:员工) */
 		public static final String WECHAT_BUSINESS_TYPE = "session_wechat_business_type";
 

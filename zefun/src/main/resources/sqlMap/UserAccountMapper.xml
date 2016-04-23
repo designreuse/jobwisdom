@@ -26,11 +26,11 @@
   	select count(1) from user_account where user_name like concat(#{userName},'%') and status = 0;
   </select>
 
-  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.util.Map" >
     select
     <include refid="Base_Column_List" />
     from user_account
-    where user_name = #{userName} and status = 0
+    where user_name = #{userName} and store_account = #{storeAccount} and status = 0
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -45,7 +45,7 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.zefun.web.entity.UserAccount" >
+  <insert id="insert" parameterType="com.zefun.web.entity.UserAccount"  useGeneratedKeys="true" keyProperty="userId">
     insert into user_account(user_id,role_id,user_name,user_pwd,pwd_salt,store_id, store_account) values (#{userId},#{roleId},#{userName},#{userPwd},#{pwdSalt},#{storeId},#{storeAccount})
   </insert>
 

@@ -147,11 +147,15 @@ public class UserController {
 	 *            电话号码
 	 * @param storeAccount
 	 *            门店账户名
+	 * @param phoneYzm
+	 *            短信验证码
 	 * @return BaseDto
 	 */
+	@RequestMapping(value = Url.App.REGISTER_STORE_FREE, method = RequestMethod.POST)
+	@ResponseBody
 	public BaseDto registerStoreFree(HttpServletRequest request, HttpServletResponse response, String StoreName,
-			String phoneNumber, String storeAccount) {
+			String phoneNumber, String storeAccount, Integer phoneYzm) {
 
-		return userService.registerStoreFree(StoreName, phoneNumber, storeAccount);
+		return userService.registerStoreFree(request, StoreName, phoneNumber, storeAccount, phoneYzm);
 	}
 }

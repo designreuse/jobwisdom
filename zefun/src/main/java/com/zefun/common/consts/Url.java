@@ -1077,6 +1077,8 @@ public interface Url {
 		public static final String STAFF_APPOINT = "app/staffAppoint";
 		/** 获取验证码 */
 		public static final String GET_YZM_PAGE = "app/getYzmPage";
+		/** 免费注册门店 */
+		public static final String REGISTER_STORE_FREE = "app/registerStoreFree";
 	}
 
 	/**
