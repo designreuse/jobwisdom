@@ -27,7 +27,8 @@ public class DateUtil {
 		try {
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			return format.parse(dataStr);
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -44,7 +45,8 @@ public class DateUtil {
 		try {
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			return format.parse(dataStr);
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -64,9 +66,7 @@ public class DateUtil {
 
 	/**
 	 * 根据时间字符串获取日期
-	 * 
-	 * @param dataStr
-	 *            时间字符串 1313243564
+	 * @param dataStr 时间字符串 1313243564
 	 * @return 日期
 	 */
 	public static String tranStrToDateStrToo() {

@@ -482,7 +482,7 @@ public interface Url {
 		public static final String MOVE_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token=ACCESS_TOKEN";
 		/** 获取accessToken */
 		public static final String GET_ACCESSTOKEN = "https://api.weixin.qq.com/cgi-bin/token?gra"
-				+ "nt_type=client_credential&appid=APPID&secret=APPSECRET";
+				    + "nt_type=client_credential&appid=APPID&secret=APPSECRET";
 		/** 获取图文消息列表 */
 		public static final String GET_THUMB = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=ACCESS_TOKEN";
 		/** 微信更新图文消息 */
