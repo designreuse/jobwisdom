@@ -1,6 +1,7 @@
 package com.zefun.web.entity;
 
 public class YzmPageQiniu {
+    
 	private Integer yzmPageId;
 
 	private String pageUrl;

@@ -62,6 +62,7 @@ public class UserController {
 	 *            用户登录需要的参数
 	 * @return 成功返回码0，返回值为用户角色、token、userid；失败返回其他错误码，返回值为提示语
 	 * @throws Exception
+	 *             Exception
 	 * @since JDK 1.8
 	 */
 	@ApiOperation(value = "用户登录管理", notes = "用户登录管理(用于数据同步)", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -108,6 +109,7 @@ public class UserController {
 	 *            BaseParam
 	 * @return BaseDto
 	 * @throws Exception
+	 *             Exception
 	 * @since JDK 1.8
 	 */
 	@ApiOperation(value = "根据employeeId获取员工的详细信息", notes = "根据employeeId获取员工的详细信息", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -125,7 +127,9 @@ public class UserController {
 	/**
 	 * 获取验证码
 	 * 
-	 * @return
+	 * @author 高国藩
+	 * @date 2016年4月23日 下午4:28:20
+	 * @return 获取验证码
 	 */
 	@RequestMapping(value = Url.App.GET_YZM_PAGE, method = RequestMethod.POST)
 	@ResponseBody

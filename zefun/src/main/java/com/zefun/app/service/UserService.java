@@ -120,7 +120,7 @@ public class UserService {
 	 * @param param
 	 *            BaseParam
 	 * @return BaseDto
-	 * @throws Exception
+	 * @throws Exception Exception
 	 * @since JDK 1.8
 	 */
 	public BaseDto userList(BaseParam param) throws Exception {
@@ -143,10 +143,9 @@ public class UserService {
 	 * staffInfo:(根据employeeId获取员工的详细信息).
 	 * 
 	 * @author michael
-	 * @param param
-	 *            BaseParam
+	 * @param param BaseParam
 	 * @return employeeInfo
-	 * @throws Exception
+	 * @throws Exception Exception
 	 * @since JDK 1.8
 	 */
 
@@ -185,6 +184,12 @@ public class UserService {
 		}
 	}
 
+	/**
+	 * 
+	* @author 高国藩
+	* @date 2016年4月23日 下午4:28:48
+	* @return
+	 */
 	public Map<String, String> getYzmPage() {
 		String pageValue = redisService.srandmember(App.Redis.WEB_PC_YZM_PAGE_SET);
 		String pageUrl = "";
