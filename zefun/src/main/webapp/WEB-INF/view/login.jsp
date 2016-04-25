@@ -17,7 +17,7 @@
         overflow: hidden;
     }
     /*LOGO标语*/
-    .loginDL{
+    .loginDL,.registerDL{
         height: 800px;
         width: 760px;
         margin: 100px auto;
@@ -51,12 +51,13 @@
     .DLclassA{
         margin-top: 20px;
         width: 705px;
-        height: 170px;
+        height: 220px;
         background-color: #ffffff;
         border-radius: 10px;
     }
     .DLclassA li{
         margin-bottom: 5px;
+		line-height:50px;
     }
     .hei{
         width: 650px;
@@ -132,7 +133,7 @@
     /*忘记密码*/
     .wangjimima{
         margin-top:30px;
-        margin-left: 320px;
+       
     }
     .wangjimima a{
         color: #cbcccf;
@@ -174,6 +175,38 @@
     .list2{
         display:none;
     }
+
+	.code{
+	    float:left
+		
+		}
+  
+   .code input{
+    width:200px;
+	height:30px;
+	border:1px solid white;
+	font-size:14px
+	
+    }  
+	.get_code{
+	
+	float:right;
+	background:#f2f2f2;
+	font-size:14px;
+	cursor:pointer;
+	width:110px;
+	height:40px;
+	text-align:center;
+	line-height:40px;
+	margin-top:8px;
+	border:none;
+	
+	 }
+	 
+	input:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0px 1000px white inset;
+		
+	}
 </style>
 
 </head>
@@ -270,15 +303,14 @@
 
     <!--登陆表单切换-->
     <div class="denglu">
-            <div class="DLgeren  DLmendian titleone">
-                <div class="yonghuAnniu"><a href="#"><img src="<%=basePath %>images/login_geren.png" ><span>用户登录</span></a></div>
-                <div class="mendianAnniu"><a href="#"><img src="<%=basePath %>images/login_mendian.png" ><span>门店登录</span></a></div>
-            </div>
         <div class="con">
             <div class="DLclassA listone list1">
                 <ul>
                     <li class="hei">
-                        <div class="zhanghuming poop"><input type="text"  id="usernamepp" placeholder=" 账户名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                        <div class="zhanghuming poop"><input type="text"  id="loginStoreAccount" placeholder=" 企业代号" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                    </li>
+                    <li class="hei">
+                        <div class="zhanghuming poop"><input type="text"  id="usernamepp" placeholder=" 工号" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
                     </li>
                     <li class="hei">
                         <div class="mima poop"><input type="password" id="passwordpp" placeholder="密码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
@@ -287,21 +319,6 @@
                         <div class="yanzhengma popo"><input type="text" id ="verificationpp" placeholder=" 请输入验证码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
                         <div class="shuaxin"><a href="#"><img src="<%=basePath %>images/shuaxin.png"></a></div>
                         <div name = "imgyzmpp" onclick="yzm(this)"  class="yzm" ><img src=""></div>
-                    </li>
-                </ul>
-            </div>
-            <div class="DLclassA listone list2">
-                <ul>
-                    <li class="hei">
-                        <div class="zhanghuming poop"><input type="text"  name="zhanghuming" placeholder=" 门店名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
-                    </li>
-                    <li class="hei">
-                        <div class="mima poop"><input type="text" name="mima" placeholder=" 密码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
-                    </li>
-                    <li class="hei">
-                        <div class="yanzhengma popo"><input type="text" name="yanzhengma" placeholder=" 请输入验证码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
-                        <div class="shuaxin"><a href="#" onclick="document.getElementById('yzm').innerHTML = yzm();"><img src="<%=basePath %>images/shuaxin.png"></a></div>
-                        <div id="yzm" class="yzm"></div>
                     </li>
                 </ul>
             </div>
@@ -315,7 +332,67 @@
 
     <!--忘记密码-->
     <div class="wangjimima">
-        <a href="#">忘记密码?</a>
+        <a href="javascript:;" class="toregister">免费注册</a>
+        <a href="#" style="position:relative;left:560px">忘记密码?</a>
+    </div>
+
+    <!--客服咨询-->
+    <div class="kefuzixun">
+        <span>使用客服咨询</span>
+        <div class="zzA"><a href="#" title="QQ客服" ><img src="<%=basePath %>images/login_qq.png"></a></div>
+        <div class="zzB"><a href="#" title="微信客服" ><img src="<%=basePath %>images/login_weixin.png"></a></div>
+    </div>
+
+    <!--版权-->
+    <div class="banquan">
+        <span>© 2016 jobwisdom.cn 版权所有 ICP证：粤ICP备15091901号&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </div>
+
+</div>
+
+<!--注册-->
+<div class="registerDL">
+    <!--LOGO及标语-->
+    <div class="logo_by">
+        <img src="<%=basePath %>images/logo_by.png">
+    </div>
+
+    <!--登陆表单切换-->
+    <div class="denglu">
+            <!-- <div class="DLgeren  DLmendian titleone">
+                <div class="yonghuAnniu"><a href="#"><img src="assets/images/login_geren.png" ><span>用户登录</span></a></div>
+                <div class="mendianAnniu"><a href="#"><img src="assets/images/login_mendian.png" ><span>门店登录</span></a></div>
+            </div> -->
+        <div class="con">
+            <div class="DLclassA listone list1">
+                <ul>
+	                <li class="hei">
+                        <div class="zhanghuming poop"><input type="text"  name="storeName" placeholder=" 企业名称" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                    </li>
+                    <li class="hei">
+                        <div class="zhanghuming poop"><input type="text"  name="storeAccount" placeholder=" 企业代号" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                    </li>
+                    <li class="hei">
+                        <div class="mima poop"><input type="text" name="phoneNumber" placeholder=" 手机号" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                    </li>
+		            <li class="hei">
+                        <div class="code"><input type="text" name="phoneYzm" placeholder=" 请输入6位验证码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
+                        <button class="get_code">获取验证码</button> 
+		            </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--登陆按钮-->
+    <div class="dengluAnniu">
+        <button type="button" name = "registerButton" >注&nbsp;册</button>
+    </div>
+
+    <!--忘记密码-->
+    <div class="wangjimima">
+  <a href="javascript:;" class="tologin">返回登录</a>
+        <a href="#" style="position:relative;left:560px">服务协议</a>
     </div>
 
     <!--客服咨询-->
@@ -356,6 +433,35 @@ jQuery.noConflict();
 
 jQuery(document).ready(function(){
   
+	jQuery('.get_code').click(function(){
+	       var s=120;
+	       jQuery('.get_code').text('120')
+	       
+		    _res= setInterval(function(){
+		    	jQuery(".get_code").attr("disabled", true);//设置disabled属性
+			    s-=1;
+			    jQuery('.get_code').text(s);
+				
+				if(s<=0){
+					jQuery('.get_code').text('重新获取验证码');
+				   jQuery(".get_code").removeAttr("disabled"); //移除disabled属性
+				  clearInterval(_res);
+				}
+				
+			   },1000)
+	   
+    });	
+	
+	jQuery('.toregister').click(function(){
+		jQuery('.loginDL').hide();
+		jQuery('.registerDL').show();
+	});
+	
+	jQuery('.tologin').click(function(){
+		jQuery('.loginDL').show();
+		jQuery('.registerDL').hide();
+	});
+	
   jQuery.noConflict();
   
   yzm(jQuery("div[name='imgyzmpp']"));
@@ -379,7 +485,7 @@ jQuery(document).ready(function(){
       });
       
       jQuery('button[name="loginButton"]').click(function(){
-    	  
+    	var loginStoreAccount = jQuery("#loginStoreAccount").val();
     	var username = jQuery("#usernamepp").val();
     	var usernameObj = jQuery("#usernamepp");
         var password = jQuery("#passwordpp").val();
@@ -387,7 +493,14 @@ jQuery(document).ready(function(){
         var verification = jQuery("#verificationpp").val();
         var verificationObj = jQuery("#verificationpp");
         
-        if(username == '' || password == '' || pageValue != verification) {
+        if(username == '' || password == '' || pageValue != verification || loginStoreAccount == '') {
+	        	if(loginStoreAccount == '') {
+	        		jQuery("#loginStoreAccount").focus();
+	        		jQuery("#loginStoreAccount").addClass('error');
+	                dialog("对不起，未找到您输入的账号");
+	            } else {
+	            	jQuery("#loginStoreAccount").removeClass('error');
+	            }
                 if(username == '') {
                 	usernameObj.focus();
                 	usernameObj.addClass('error');
@@ -419,14 +532,14 @@ jQuery(document).ready(function(){
         jQuery.ajax({
             type : "post",
             url : baseUrl + "user/login",
-            data : "username=" + username + "&password=" + password,
+            data : "storeAccount=" + loginStoreAccount +"&username=" + username + "&password=" + password,
             dataType : "json",
             success : function(e){
                 if (e.code != 0) {
                   if (e.code == 9001) {
-                    jQuery('#username').focus();
-                    jQuery('#username').addClass('error');
-                    dialog("对不起，未找到您输入的账号");
+                    jQuery('#loginStoreAccount').focus();
+                    jQuery('#loginStoreAccount').addClass('error');
+                    dialog(e.msg);
                   } else {
                     jQuery('#password').focus();
                     jQuery('#password').addClass('error');
@@ -440,6 +553,69 @@ jQuery(document).ready(function(){
         });
       });
   });
+});
+
+jQuery("button[name='registerButton']").click(function(){
+	
+	var storeName = jQuery("input[name='storeName']").val();
+	var storeAccount = jQuery("input[name='storeAccount']").val();
+	var phoneNumber = jQuery("input[name='phoneNumber']").val();
+	var phoneYzm = jQuery("input[name='phoneYzm']").val();
+	
+	if (storeName == '' || storeAccount == '' || phoneNumber == '' || phoneYzm == '') {
+		if(storeName == '') {
+			jQuery("input[name='storeName']").focus();
+			jQuery("input[name='storeName']").addClass('error');
+            dialog("对不起，企业名称不能为空");
+        } else {
+        	jQuery("input[name='storeName']").removeClass('error');
+        }
+        if(storeAccount == '') {
+        	jQuery("input[name='storeAccount']").focus();
+        	jQuery("input[name='storeAccount']").addClass('error'); 
+            dialog("对不起，企业代号不能为空");
+        }else {
+        	jQuery("input[name='storeAccount']").removeClass('error');
+        }
+        
+        if (phoneNumber == '') {
+        	jQuery("input[name='phoneNumber']").focus();
+        	jQuery("input[name='phoneNumber']").addClass('error');
+        	dialog("对不起，手机号码不能为空");
+        }
+        else {
+        	jQuery("input[name='phoneNumber']").removeClass('error');
+        }
+        
+        if (phoneYzm == '') {
+        	jQuery("input[name='phoneYzm']").focus();
+        	jQuery("input[name='phoneYzm']").addClass('error');
+        	dialog("对不起，手机号码不能为空");
+        }
+        else {
+        	jQuery("input[name='phoneYzm']").removeClass('error');
+        }
+        return;
+	}
+	
+	jQuery.ajax({
+        type : "post",
+        url : baseUrl + "app/registerStoreFree",
+        data : "storeName=" + storeName + "&storeAccount=" + storeAccount+ "&phoneNumber=" + phoneNumber  + "&phoneYzm=" + phoneYzm,
+        dataType : "json",
+        success : function(e){
+            if (e.code != 0) {
+              if (e.code == 9901) {
+            	jQuery("input[name='storeAccount']").focus();
+            	jQuery("input[name='storeAccount']").addClass('error');
+                dialog("对不起，企业代号已存在");
+              } 
+              return;
+            }else{
+            	window.location.href = baseUrl + e.msg;
+            }
+        }
+    });
 });
 
 function yzm(obj){

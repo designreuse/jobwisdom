@@ -29,6 +29,11 @@ jQuery(function() {
        })
    }
    table(); 
+   
+   if (loginType == 2)  {
+	   dialog("你好，第一次登录的初哥");
+   }
+   
 });
 
 var isMember = false;

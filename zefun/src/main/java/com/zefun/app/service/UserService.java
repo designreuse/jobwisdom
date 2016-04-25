@@ -6,21 +6,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zefun.app.common.dto.UserInfoDTO;
 import com.zefun.app.common.param.BaseParam;
 import com.zefun.app.common.param.LoginParam;
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.Url;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
+import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.entity.MemberMenu;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.YzmPageQiniu;
+import com.zefun.web.mapper.AuthorityRequestMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
+import com.zefun.web.mapper.MemberMenuMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.YzmPageQiniuMapper;
@@ -51,7 +60,16 @@ public class UserService {
 	private YzmPageQiniuMapper yzmPageQiniuMapper;
 
 	/** 门店 */
+	@Autowired
 	private StoreInfoMapper storeInfoMapper;
+
+	/** 接口权限 */
+	@Autowired
+	private AuthorityRequestMapper authorityRequestMapper;
+
+	/** 菜单权限表 */
+	@Autowired
+	private MemberMenuMapper memberMenuMapper;
 
 	/**
 	 * 
@@ -66,8 +84,11 @@ public class UserService {
 	 * @since JDK 1.8
 	 */
 	public BaseDto login(LoginParam param) throws Exception {
+		Map<String, String> mapUser = new HashMap<String, String>();
+		mapUser.put("userName", param.getUserName());
+		mapUser.put("storeAccount", param.getStoreAccount());
 		// 较验用户名是否存在
-		UserAccount userAccount = userAccountMapper.selectByUserName(param.getUserName());
+		UserAccount userAccount = userAccountMapper.selectByUserName(mapUser);
 		if (userAccount == null) {
 			return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "用户名不存在");
 		}
@@ -204,7 +225,9 @@ public class UserService {
 	 *            门店账户名
 	 * @return BaseDto
 	 */
-	public BaseDto registerStoreFree(String storeName, String phoneNumber, String storeAccount) {
+	@Transactional
+	public BaseDto registerStoreFree(HttpServletRequest request, String storeName, String phoneNumber,
+			String storeAccount, Integer phoneYzm) {
 		// 判断门店名称是否存在
 		int num = storeInfoMapper.isExitsStoreAccount(storeAccount);
 		if (num > 0) {
@@ -222,16 +245,70 @@ public class UserService {
 		storeInfo.setStoreStatus(3);
 		storeInfoMapper.insert(storeInfo);
 
+		EmployeeDto employeeDto = new EmployeeDto();
+		employeeDto.setStoreId(storeInfo.getStoreId());
+		employeeDto.setName(storeName);
+		employeeDto.setPhone(phoneNumber);
+		employeeDto.setCreateTime(DateUtil.getCurTime());
+		employeeInfoMapper.insert(employeeDto);
+
 		// 保存用户信息初始密码123456
 		UserAccount userAccount = new UserAccount();
 		userAccount.setStoreId(storeInfo.getStoreId());
 		userAccount.setStoreAccount(storeAccount);
 		userAccount.setRoleId(1);
 		userAccount.setUserName("10000");
+		userAccount.setUserId(employeeDto.getEmployeeId());
+		String password = StringUtil.md5(StringUtil.md5("123456"));
+		String hash = StringUtil.encryptPwd(password);
+		password = hash.split(":")[0];
+		String salt = hash.split(":")[1];
 
-		/* userAccount.setUserPwd(userPwd); */
+		userAccount.setUserPwd(password);
+		userAccount.setPwdSalt(salt);
+		userAccount.setCreateTime(DateUtil.getCurTime());
+
 		userAccountMapper.insert(userAccount);
-		return new BaseDto();
+
+		HttpSession sessiion = request.getSession();
+
+		// 登陆成功
+		Integer userId = userAccount.getUserId();
+		sessiion.setAttribute(App.Session.USER_ID, userId);
+
+		int roleId = userAccount.getRoleId();
+		// 要查询出该用户所拥有的接口权限,将其放入session中
+		List<String> authorUrl = authorityRequestMapper.selectByUserRoleId(userAccount.getRoleId());
+		// 将接口权限放入redis中一份
+		redisService.del(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId);
+		redisService.sadd(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId,
+				authorUrl.toArray(new String[authorUrl.size()]));
+		// 将roleName放入redis中 下面并没从redis中直接取出,是因为可能放入错误的数据 比如新增了权限,人员角色调整.
+		redisService.hset(App.Redis.PC_USER_ID_ROLE_HASH, userId, roleId);
+
+		String path = request.getContextPath();
+		String basePath = request.getScheme() + "://" + request.getServerName()
+				+ (request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + path + "/";
+		// 查询出该用户所拥有的菜单权限,将其放入session中
+		MemberMenu memberMenu = memberMenuMapper.selectMenuByRoleId(userAccount.getRoleId());
+		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("{hostname}", basePath));
+		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU,
+				memberMenu.getSecontMenu().replace("{hostname}", basePath));
+
+		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
+		sessiion.setAttribute(App.Session.STORE_ID, employeeInfo.getStoreId());
+		sessiion.setAttribute(App.Session.STORE_NAME, employeeInfo.getStoreName());
+		sessiion.setAttribute(App.Session.USER_INFO, employeeInfo);
+		sessiion.setAttribute(App.Session.ROLE_ID, roleId);
+		sessiion.setAttribute(App.Session.ONE_LOGIN_TIME, 2);
+
+		// 如果登陆成功将挑战的地址首页放入basedto中,用于跳转
+		BaseDto dto = new BaseDto();
+		dto.setCode(App.System.API_RESULT_CODE_FOR_SUCCEES);
+
+		dto.setMsg(Url.SelfCashier.VIEW_HOME);
+
+		return dto;
 
 	}
 }

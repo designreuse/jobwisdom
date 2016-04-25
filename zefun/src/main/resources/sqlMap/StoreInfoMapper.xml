@@ -91,6 +91,9 @@
       <if test="storeName != null" >
         store_name,
       </if>
+      <if test="storeAccount != null" >
+        store_account,
+      </if>
       <if test="storeLinkname != null" >
         store_linkname,
       </if>
@@ -146,6 +149,9 @@
       </if>
       <if test="storeName != null" >
         #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=VARCHAR},
       </if>
       <if test="storeLinkname != null" >
         #{storeLinkname,jdbcType=VARCHAR},
