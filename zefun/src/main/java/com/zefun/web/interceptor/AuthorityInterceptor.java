@@ -39,21 +39,21 @@ public class AuthorityInterceptor implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
 //        String requestPath = request.getServletPath().toString();
-//        String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
+        String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
 
 //        //过滤非拦截接口
-//        for (String url : allowUrlPatterns) {
-//            if (Pattern.matches("^" + url + "$", requestUrl)) {
-//                return true;
-//            }
-//        }
-
-        Object userInfo = request.getSession().getAttribute(App.Session.USER_INFO);
-        //未登陆或者登陆超时
-        if (userInfo == null){
-            writeNoLoginResult(request, response, App.System.ERROR_CODE_SESSION_INVALID);
-            return false;
+        for (String url : allowUrlPatterns) {
+            if (Pattern.matches("^" + url + "$", requestUrl)) {
+                return true;
+            }
         }
+
+//        Object userInfo = request.getSession().getAttribute(App.Session.USER_INFO);
+//        //未登陆或者登陆超时
+//        if (userInfo == null){
+//            writeNoLoginResult(request, response, App.System.ERROR_CODE_SESSION_INVALID);
+//            return false;
+//        }
 
 //        //检查权限
 //        EmployeeBaseDto employeeInfo = (EmployeeBaseDto) userInfo;
