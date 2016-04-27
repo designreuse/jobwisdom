@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zefun.common.consts.App;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.EntityJsonConverter;
+import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.DeptMahjongDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
@@ -41,6 +42,7 @@ import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 项目
@@ -49,6 +51,7 @@ import net.sf.json.JSONArray;
 *
  */
 @Service
+@Transactional
 public class ProjectService {
     /** 项目类别 */
     @Autowired private ProjectCategoryMapper projectCategoryMapper;
@@ -876,5 +879,155 @@ public class ProjectService {
      */
     public ProjectAppointDto selectProjectAppointByProjectId(int projectId){
         return projectInfoMapper.selectProjectAppointByProjectId(projectId);
+    }
+
+
+    /**
+     * 新增第1步
+    * @author 高国藩
+    * @date 2016年4月25日 下午5:55:09
+    * @param projectInfo projectInfo
+    * @param stepNum stepNum
+    * @return BaseDto
+     */
+    public BaseDto saveProjectInfo(ProjectInfo projectInfo, Integer stepNum) {
+        projectInfo.setProjectStep(stepNum);
+        projectInfoMapper.insertSelective(projectInfo);
+        JSONObject data = new JSONObject();
+        data.put("projectId", projectInfo.getProjectId());
+        data.put("projectStep", projectInfo.getProjectStep());
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, data);
+    }
+
+
+    /**
+     * 新增第2步
+    * @author 高国藩
+    * @date 2016年4月25日 下午5:55:09
+    * @param projectInfo projectInfo
+    * @param stepNum stepNum
+    * @return BaseDto
+     */
+    public BaseDto updateProjectInfoPrice(ProjectInfo projectInfo, Integer stepNum) {
+        projectInfo.setProjectStep(stepNum);
+        projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
+        JSONObject data = new JSONObject();
+        data.put("projectId", projectInfo.getProjectId());
+        data.put("projectStep", projectInfo.getProjectStep());
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, data);
+    }
+    
+    /**
+     * 设置项目第三部,设置项目步骤和提成
+    * @author 高国藩
+    * @date 2016年4月26日 下午8:37:40
+    * @param data {"projectId":projectId,"step":data1,"commission":data2};
+    * @param status 修改1 新增0
+    * @return xiu
+     */
+    @SuppressWarnings("unchecked")
+    public BaseDto saveOrUpdateCommison(JSONObject data, Integer status) {
+        
+        List<ProjectStep> oldProjectSteps = projectStepMapper.queryProjectStepByPIdList(data.getInt("projectId"));
+        for (int i = 0; i < oldProjectSteps.size(); i++) {
+            oldProjectSteps.get(i).setIsDeleted(1);
+            projectStepMapper.updateByPrimaryKey(oldProjectSteps.get(i));
+        }
+        
+        ProjectCommission projectCommission = new ProjectCommission();
+        projectCommission.setProjectId(data.getInt("projectId"));
+        List<ProjectCommission> projectCommissions = projectCommissionMapper.selectByProperty(projectCommission);
+        for (int i = 0; i < projectCommissions.size(); i++) {
+            projectCommissions.get(i).setIsDeleted(1);
+            projectCommissionMapper.updateByPrimaryKeySelective(projectCommissions.get(i));
+        }
+        
+        List<ProjectStep> projectSteps = (List<ProjectStep>) JSONArray.toCollection(data.getJSONArray("step"), ProjectStep.class);
+        for (int i = 0; i < projectSteps.size(); i++) {
+            projectStepMapper.insert(projectSteps.get(i));
+        }
+        List<ProjectCommission> commissions = (List<ProjectCommission>) 
+                JSONArray.toCollection(data.getJSONArray("commission"), ProjectCommission.class);
+        projectCommissionMapper.insertProjectCommissionList(commissions);
+        
+        ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(data.getInt("projectId"));
+        if (status == 0){
+            projectInfo.setProjectStep(3);
+            projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
+        }
+        
+        JSONObject returnDate = new JSONObject();
+        returnDate.put("projectId", projectInfo.getProjectId());
+        returnDate.put("projectStep", projectInfo.getProjectStep());
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate);
+        
+    }
+
+
+    /**
+     * 新增会员卡折扣
+    * @author 高国藩
+    * @date 2016年4月27日 上午10:57:43
+    * @param data data
+    * @return     BaseDto
+     */
+    @SuppressWarnings("unchecked")
+    public BaseDto saveLevelDiscount(JSONObject data) {
+        Integer projectId = data.getInt("projectId");
+        
+        ProjectDiscount projectDiscount = new ProjectDiscount();
+        projectDiscount.setProjectId(projectId);
+        List<ProjectDiscount> discounts = projectDiscountMapper.selectByProperty(projectDiscount);
+        
+        for (int i = 0; i < discounts.size(); i++) {
+            discounts.get(i).setIsDeleted(1);
+            projectDiscountMapper.updateByPrimaryKeySelective(discounts.get(i));
+        }
+        discounts = (List<ProjectDiscount>) JSONArray.toCollection(data.getJSONArray("data"), ProjectDiscount.class);
+        projectDiscountMapper.insertProjectDiscountList(discounts);
+        
+        ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
+        projectInfo.setProjectStep(4);
+        projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
+        JSONObject returnDate = new JSONObject();
+        returnDate.put("projectId", projectInfo.getProjectId());
+        returnDate.put("projectStep", projectInfo.getProjectStep());
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate); 
+    }
+
+
+    /**
+     * 根据步骤进行修改
+    * @author 高国藩
+    * @date 2016年4月27日 上午10:52:19
+    * @param data        data
+    * @param stepNum     stepNum
+    * @return BaseDto
+     */
+    public BaseDto updateProjectBystepNum(JSONObject data, Integer stepNum) {
+        if (stepNum == 1){
+            ProjectInfo projectInfo = (ProjectInfo) JSONObject.toBean(data, ProjectInfo.class);
+            projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
+            JSONObject returnDate = new JSONObject();
+            returnDate.put("projectId", projectInfo.getProjectId());
+            returnDate.put("projectStep", projectInfo.getProjectStep());
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate.toString());
+        }
+        if (stepNum == 2){
+            ProjectInfo projectInfo = (ProjectInfo) JSONObject.toBean(data, ProjectInfo.class);
+            projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
+            JSONObject returnDate = new JSONObject();
+            returnDate.put("projectId", projectInfo.getProjectId());
+            returnDate.put("projectStep", projectInfo.getProjectStep());
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate);
+        }
+        if (stepNum == 3){
+            return saveOrUpdateCommison(data, 1);
+        }
+        if (stepNum == 4){
+           
+        }
+        // TODO Auto-generated method stub
+        return null;
     }
 }

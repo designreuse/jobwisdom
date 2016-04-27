@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +27,7 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
+import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptMahjongDto;
@@ -75,10 +79,11 @@ public class ProjectInfoController extends BaseController {
     * @param request request
     * @param response response
     * @param model 视图模型
+    * @param projectId 项目ID (如果不存在的话,说明是新建,如果存在,对该项目进行修改)
     * @return ModelAndView
      */
     @RequestMapping(value = Url.Project.PROJECT_LIST)
-    public ModelAndView toProjectSetting(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView toProjectSetting(HttpServletRequest request, HttpServletResponse response, Integer projectId, ModelAndView model) {
         int storeId = getStoreId(request);
         
         List<DeptProjectBaseDto> deptProjectList = projectService.getDeptProjectByStoreId(storeId);
@@ -90,14 +95,65 @@ public class ProjectInfoController extends BaseController {
         model.addObject("mahjongList", JSONArray.fromObject(deptMahjongList).toString());
 
         // 会员等级列表
-//        List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
         List<MemberLevel> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
         model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList).toString());
         List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();
         model.addObject("images", images);
+        
+        if (projectId!=null){
+            
+        }
+       
         model.setViewName(View.Project.PROJECTSETTING);
         return model;
+    }
+    
+    /**
+     * 保存项目
+    * @author 高国藩
+    * @date 2016年4月25日 下午5:59:57
+    * @param request   request
+    * @param response  response
+    * @param stepNum   编辑步骤
+    * @param data      数据
+    * @param status    0/1 新增/修改
+    * @return          状态
+     */
+    @RequestMapping(value = Url.Project.PROJECT_SAVE_STEP, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto saveProjectByStep(HttpServletRequest request, HttpServletResponse response, 
+            @PathVariable("stepNum")Integer stepNum, @PathVariable("status")Integer status, 
+            @RequestBody JSONObject data) {
+        
+        // 初次创建项目
+        if (status==0&&stepNum==1){
+            return projectService.saveProjectInfo((ProjectInfo)JSONObject.toBean(data, ProjectInfo.class), stepNum);
+        }
+        // 新增价格设置
+        if (status==0&&stepNum==2){
+            return projectService.updateProjectInfoPrice((ProjectInfo)JSONObject.toBean(data, ProjectInfo.class), stepNum);
+        }
+        // 职位提成新增
+        if (status==0&&stepNum==3){
+            return projectService.saveOrUpdateCommison(data, status);
+        }
+        if (status==0&&stepNum==4){
+            return projectService.saveLevelDiscount(data);
+        }
+        if (status==1&&stepNum==1){
+            return projectService.updateProjectBystepNum(data, stepNum);
+        }
+        if (status==1&&stepNum==2){
+            return projectService.updateProjectBystepNum(data, stepNum);
+        }
+        if (status==1&&stepNum==3){
+            return projectService.updateProjectBystepNum(data, stepNum);
+        }
+        if (status==1&&stepNum==4){
+            return projectService.saveLevelDiscount(data);
+        }
+        return null;
     }
 
     /**

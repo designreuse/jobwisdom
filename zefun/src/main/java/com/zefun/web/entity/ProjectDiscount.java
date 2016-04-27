@@ -37,6 +37,18 @@ public class ProjectDiscount {
 
     /** 最后操作人标识 */
     private Integer lastOperatorId;
+    
+    /** 会员门店成本*/
+    private BigDecimal memberCostPrice;
+    
+
+    public BigDecimal getMemberCostPrice() {
+        return memberCostPrice;
+    }
+
+    public void setMemberCostPrice(BigDecimal memberCostPrice) {
+        this.memberCostPrice = memberCostPrice;
+    }
 
     /** @param discountId	折扣标识 */
     public void setDiscountId(Integer discountId) {

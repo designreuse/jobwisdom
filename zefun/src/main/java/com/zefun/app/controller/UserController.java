@@ -68,8 +68,8 @@ public class UserController {
 	@ApiOperation(value = "用户登录管理", notes = "用户登录管理(用于数据同步)", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
 	@RequestMapping(value = Url.App.LOGIN, method = RequestMethod.POST)
 	@ApiResponses(value = {
-			@ApiResponse(code = App.System.API_RESULT_CODE_FOR_SUCCEES, message = "用户登陆", response = String.class),
-			@ApiResponse(code = App.System.API_RESULT_CODE_FOR_FAIL, message = "系统错误", response = String.class) })
+			    @ApiResponse(code = App.System.API_RESULT_CODE_FOR_SUCCEES, message = "用户登陆", response = String.class),
+			    @ApiResponse(code = App.System.API_RESULT_CODE_FOR_FAIL, message = "系统错误", response = String.class) })
 	@ResponseBody
 	public BaseDto login(@ApiParam(value = "Json参数", name = "login", required = true) @RequestBody LoginParam param)
 			throws Exception {
@@ -91,11 +91,11 @@ public class UserController {
 	@ApiOperation(value = "根据storeId获取所有用户", notes = "获取所用用户", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
 	@RequestMapping(value = Url.App.GET_USER_LIST, method = RequestMethod.POST)
 	@ApiResponses(value = {
-			@ApiResponse(code = App.System.API_RESULT_CODE_FOR_SUCCEES, message = "所有用户", response = String.class),
-			@ApiResponse(code = App.System.API_RESULT_CODE_FOR_FAIL, message = "系统错误", response = String.class) })
+			    @ApiResponse(code = App.System.API_RESULT_CODE_FOR_SUCCEES, message = "所有用户", response = String.class),
+			    @ApiResponse(code = App.System.API_RESULT_CODE_FOR_FAIL, message = "系统错误", response = String.class) })
 	@ResponseBody
 	public BaseDto userList(
-			@ApiParam(value = "Json参数", name = "userList", required = true) @RequestBody BaseParam param)
+			    @ApiParam(value = "Json参数", name = "userList", required = true) @RequestBody BaseParam param)
 			throws Exception {
 		return userService.userList(param);
 	}
@@ -115,11 +115,11 @@ public class UserController {
 	@ApiOperation(value = "根据employeeId获取员工的详细信息", notes = "根据employeeId获取员工的详细信息", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
 	@RequestMapping(value = Url.App.STAFF_INFO, method = RequestMethod.POST)
 	@ApiResponses(value = {
-			@ApiResponse(code = App.System.API_RESULT_CODE_FOR_SUCCEES, message = "获取用户", response = String.class),
-			@ApiResponse(code = App.System.API_RESULT_CODE_FOR_FAIL, message = "系统错误", response = String.class) })
+			    @ApiResponse(code = App.System.API_RESULT_CODE_FOR_SUCCEES, message = "获取用户", response = String.class),
+			    @ApiResponse(code = App.System.API_RESULT_CODE_FOR_FAIL, message = "系统错误", response = String.class) })
 	@ResponseBody
 	public BaseDto staffInfo(
-			@ApiParam(value = "Json参数", name = "staffInfo", required = true) @RequestBody BaseParam param)
+			    @ApiParam(value = "Json参数", name = "staffInfo", required = true) @RequestBody BaseParam param)
 			throws Exception {
 		return userService.staffInfo(param);
 	}
@@ -158,7 +158,7 @@ public class UserController {
 	@RequestMapping(value = Url.App.REGISTER_STORE_FREE, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto registerStoreFree(HttpServletRequest request, HttpServletResponse response, String StoreName,
-			String phoneNumber, String storeAccount, Integer phoneYzm) {
+			    String phoneNumber, String storeAccount, Integer phoneYzm) {
 
 		return userService.registerStoreFree(request, StoreName, phoneNumber, storeAccount, phoneYzm);
 	}
