@@ -24,7 +24,7 @@ public class ProjectInfo {
 	/** 门店标识 */
 	private Integer storeId;
 	
-	/**部门标识*/
+	/** 部门标识*/
     private Integer deptId;
 
 	/** 类别标识 */
@@ -111,8 +111,30 @@ public class ProjectInfo {
 	/** 附属图片*/
 	private String affiliatedImage;
 	
+	/** 项目编号*/
+	private String projectCodeSuffix;
 	
-	public BigDecimal getHighestDiscount() {
+	/** 项目编辑步骤*/
+	private Integer projectStep;
+	
+	
+	public Integer getProjectStep() {
+        return projectStep;
+    }
+
+    public void setProjectStep(Integer projectStep) {
+        this.projectStep = projectStep;
+    }
+
+    public String getProjectCodeSuffix() {
+        return projectCodeSuffix;
+    }
+
+    public void setProjectCodeSuffix(String projectCodeSuffix) {
+        this.projectCodeSuffix = projectCodeSuffix;
+    }
+
+    public BigDecimal getHighestDiscount() {
         return highestDiscount;
     }
 

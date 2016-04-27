@@ -1,0 +1,80 @@
+.right_head{height:80px}
+.shopp{display:inline-block;}
+.right_head li {width:86px;float:left;text-align:center;margin-right:60px;height:80px}
+.right_ul img{height:42px;width:42px}
+.right_ul{float:left;padding-left:50px}
+.right_ul div{MARGIN-TOP:10PX}
+.right_ul li.active{background:white}
+.right_button{float:right;margin:20px 20px}
+.right_button .save{float:left;width:140px;height:38px;border-radius:15px;background:black;text-align:center;line-height:38px;color:white;box-shadow: 0px 0px 30px #ccc;border:none}
+.right_button .cancle{float:left;width:140px;height:38px;border-radius:15px;background:#ffffff;text-align:center;line-height:38px;color:#ccc;box-shadow: 0px 0px 30px #ccc;border:none;margin-left:50px}
+.tab_content{padding-top:90px;background:white;height:1000px}
+.tab_content_div_left{float:left;padding-left:50px}
+.tab_content_div_right{float:left}
+.tab_content_div_left div{height:50px}
+.tab_content_div_left div input{position:relative;left:58px;border-radius:5px!important}
+.tab_content_div_left select{position:relative;left:30px;width:147px;padding-left:64px;border-radius:5px!important}
+
+.write,.write_3,.write_4{border-radius:50px;box-shadow:0 0 30px #ccc;width:140px;height:40px!important;text-align:center;line-height:40px;cursor:pointer;color:#afb0b6;    position:relative;top:60px;left:20px}
+.write .add_{position:relative;right:18px}
+.textarea{height:100px;border:1px solid #ccc;position:relative;top: -20px!important;width:220px!important;
+    left: 120px!important;}
+table  tr td{
+	width:200px;
+	height:40px;
+	border:1px solid #ccc;
+	
+	text-align:center;
+	
+}
+
+.zzc{position: fixed; top: 0px; opacity: 0.7; height:1090px;left: 0px; width: 100%; z-index: 10000; background: rgb(0, 0, 0);}
+ .save_{
+	height:30px;width:100px;border-radius:10px;box-shadow:0 0 20px #ccc;background:white;border:none;
+	
+}
+
+.step_1{
+	margin-top:40px;
+	display:none
+	
+}
+.button_1,.button_2{
+	border:none;width:100px;height:30px;text-align:center;line-height:30px;margin-left:900px;margin-top:20px;background:white;box-shadow:0 0 15px #ccc;border-radius:10px;color:#ccc;
+	
+}
+.editor{cursor:pointer}
+.choose{MARGIN-LEFT: 150PX;
+    HEIGHT: 50PX;
+}
+
+input[type=radio] {
+  margin-left:20px
+}
+.width_{display:inline-block;width:120px}
+.price_{display:inline-block;width:100px}
+.step_1  select{border:none;width:180px;}
+.step_1 td{width:100px;   border-bottom:1px solid #ccc;border-right:1px solid #fff
+ }
+.cut_step_1,.cut_step_3{border:none!important}
+.step_1 input{border:none}
+.step_2{margin-top:40px;width:1028px}
+.step_2  select{width:158px}
+.step_2 td{width:160px}
+
+.table_s td{border-right:none!important;border-left:none!important;}
+.table_s{margin-left:20px;line-height:40px;width:1030px}
+.table_s{border:1px solid #dbdce2;box-shadow:0 0 10px #ccc}
+.table_s tr{color:#383e52}
+.write_4{position:relative;left:50px!important}
+
+table tr td{line-height:40px}
+.step_2{    border: 1px solid #dbdce2;
+    box-shadow: 0 0 10px #ccc;}
+	
+	.table_ td{
+		
+    box-shadow: 0 0 2px #ccc;
+	}
+.cash{margin-left:135px;width:400px;margin-top:30px;background:white;position:relative;z-index:100000000;height:300px;padding:20px;display:none}
+.color_{color:#afb0b6}

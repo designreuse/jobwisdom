@@ -106,7 +106,17 @@ public class ProjectInfoDto {
     /** 附属图片*/
     private String affiliatedImage;
     
+    /** 项目编辑步骤*/
+    private Integer projectStep;
     
+    public Integer getProjectStep() {
+        return projectStep;
+    }
+
+    public void setProjectStep(Integer projectStep) {
+        this.projectStep = projectStep;
+    }
+
     public BigDecimal getHighestDiscount() {
         return highestDiscount;
     }

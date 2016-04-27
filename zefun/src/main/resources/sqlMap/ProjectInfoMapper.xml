@@ -33,6 +33,7 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
     <result column="affiliated_image" property="affiliatedImage" jdbcType="VARCHAR" />
     <result column="highest_discount" property="highestDiscount" jdbcType="DECIMAL" />
+    <result column="project_step" property="projectStep" jdbcType="INTEGER" />
   </resultMap>
   
   <resultMap id="ProjectInfoMap" type="com.zefun.web.dto.ProjectInfoDto" >
@@ -68,6 +69,7 @@
     <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
     <result column="affiliated_image" property="affiliatedImage" jdbcType="VARCHAR" />
     <result column="highest_discount" property="highestDiscount" jdbcType="DECIMAL" />
+     <result column="project_step" property="projectStep" jdbcType="INTEGER" />
   </resultMap>
   
   <!-- 部门项目基础数据对象 -->
@@ -155,7 +157,8 @@
   <sql id="Base_Column_List" >
     project_id, parent_id, store_id, dept_id, category_id, hairstyle_id, project_name, project_type, project_image, project_desc, 
     project_price, cost_price, performance_calculate, appointment_price, sales_count, sales_people, is_appointment, is_wechat_sell, is_disable, 
-    is_deleted, is_update, is_gift_cash, is_groupbuy, groupbuy_price, groupbuy_results, groupbuy_platform, create_time, update_time, last_operator_id,affiliated_image, highest_discount
+    is_deleted, is_update, is_gift_cash, is_groupbuy, groupbuy_price, groupbuy_results, groupbuy_platform, create_time, update_time, 
+    last_operator_id,affiliated_image, highest_discount, project_step
   </sql>
   
   <!-- 根据项目标识查询项目信息，包括可预约的员工 -->
@@ -376,6 +379,9 @@
       <if test="affiliatedImage != null" >
         affiliated_image,
       </if>
+      <if test="projectStep != null" >
+        project_step,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="projectId != null" >
@@ -471,6 +477,9 @@
       <if test="affiliatedImage != null" >
        #{affiliatedImage,jdbcType=INTEGER},
       </if>
+       <if test="projectStep != null" >
+       #{projectStep,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.ProjectInfo" >
@@ -565,6 +574,9 @@
       </if>
       <if test="affiliatedImage != null" >
        affiliated_image = #{affiliatedImage,jdbcType=INTEGER},
+      </if>
+      <if test="projectStep != null" >
+       project_step = #{projectStep,jdbcType=INTEGER},
       </if>
     </set>
     where project_id = #{projectId,jdbcType=INTEGER}

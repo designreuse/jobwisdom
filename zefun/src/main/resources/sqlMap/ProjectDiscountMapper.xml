@@ -12,9 +12,10 @@
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="member_cost_price" property="memberCostPrice" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Base_Column_List" >
-    discount_id, project_id, level_id, discount_proportion, online_appointment_price, discount_amount, is_deleted, create_time, update_time, last_operator_id
+    discount_id, project_id, level_id, discount_proportion, online_appointment_price, discount_amount, is_deleted, create_time, update_time, last_operator_id, member_cost_price
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -59,6 +60,9 @@
       <if test="lastOperatorId != null" >
         last_operator_id,
       </if>
+      <if test="memberCostPrice != null" >
+        member_cost_price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="discountId != null" >
@@ -91,6 +95,9 @@
       <if test="lastOperatorId != null" >
         #{lastOperatorId,jdbcType=INTEGER},
       </if>
+      <if test="memberCostPrice != null" >
+      	#{memberCostPrice,jdbcType=DECIMAL},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.ProjectDiscount" >
@@ -122,6 +129,9 @@
       </if>
       <if test="lastOperatorId != null" >
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="memberCostPrice != null" >
+      	member_cost_price = #{memberCostPrice,jdbcType=DECIMAL},
       </if>
     </set>
     where discount_id = #{discountId,jdbcType=INTEGER}
@@ -157,13 +167,14 @@
   </select>
   
   <insert id="insertProjectDiscountList" parameterType="java.util.List">  
-  	insert into project_discount (discount_id, project_id, level_id, discount_proportion, online_appointment_price, discount_amount, is_deleted, create_time, update_time, last_operator_id)
+  	insert into project_discount (discount_id, project_id, level_id, discount_proportion, online_appointment_price, discount_amount, is_deleted, create_time, update_time, last_operator_id, member_cost_price)
     values 
     <foreach collection="list" item="item" index="index" separator=",">  
     	( #{item.discountId,jdbcType=INTEGER}, #{item.projectId,jdbcType=INTEGER},
 	      #{item.levelId,jdbcType=INTEGER}, #{item.discountProportion,jdbcType=DECIMAL},#{item.onlineAppointmentPrice,jdbcType=DECIMAL}, 
 	      #{item.discountAmount,jdbcType=DECIMAL}, #{item.isDeleted,jdbcType=INTEGER},
-	      #{item.createTime,jdbcType=CHAR}, #{item.updateTime,jdbcType=CHAR}, #{item.lastOperatorId,jdbcType=INTEGER})
+	      #{item.createTime,jdbcType=CHAR}, #{item.updateTime,jdbcType=CHAR}, #{item.lastOperatorId,jdbcType=INTEGER}),
+	      #{item.memberCostPrice,jdbcType=DECIMAL})
     </foreach>
   </insert>
   

@@ -52,12 +52,12 @@ public class LoginController extends BaseController {
 	 */
 	@ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "用户登陆信息"),
-			@ApiResponse(code = 0, message = "" + "(token验证失败)", response = String.class),
-			@ApiResponse(code = 1, message = "" + "(系统错误)", response = String.class) })
+			    @ApiResponse(code = 0, message = "" + "(token验证失败)", response = String.class),
+			    @ApiResponse(code = 1, message = "" + "(系统错误)", response = String.class) })
 	@RequestMapping(value = Url.UserLogin.LOGIN, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto userLogin(HttpServletRequest request, HttpServletResponse response, String username,
-			String storeAccount, String password) {
+			    String storeAccount, String password) {
 		return loginService.login(request, response, username, storeAccount, password);
 	}
 
@@ -74,20 +74,23 @@ public class LoginController extends BaseController {
 	 */
 	@ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "用户登陆信息"),
-			@ApiResponse(code = 0, message = "" + "(token验证失败)", response = String.class),
-			@ApiResponse(code = 1, message = "" + "(系统错误)", response = String.class) })
+			    @ApiResponse(code = 0, message = "" + "(token验证失败)", response = String.class),
+			    @ApiResponse(code = 1, message = "" + "(系统错误)", response = String.class) })
 	@RequestMapping(value = Url.UserLogin.INDEX)
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
 		// 未登陆或者登陆超时
 		if (request.getSession().getAttribute(App.Session.USER_INFO) == null) {
 			return new ModelAndView(View.Index.LOGIN);
-		} else {
+		} 
+		else {
 			Integer roleId = (Integer) request.getSession().getAttribute(App.Session.ROLE_ID);
 			if (roleId == App.System.SYSTEM_ROLE_STORE_EMPLOYEE) {
 				return new ModelAndView("redirect:/" + Url.SystemSetting.VIEW_PERSON_SETTING);
-			} else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {
+			} 
+			else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {
 				return new ModelAndView("redirect:/" + Url.Member.VIEW_BASE_MEMBER);
-			} else {
+			} 
+			else {
 				return new ModelAndView("redirect:/" + Url.SelfCashier.VIEW_HOME);
 			}
 		}
@@ -106,8 +109,8 @@ public class LoginController extends BaseController {
 	 */
 	@ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "用户登陆信息"),
-			@ApiResponse(code = 0, message = "" + "(token验证失败)", response = String.class),
-			@ApiResponse(code = 1, message = "" + "(系统错误)", response = String.class) })
+			    @ApiResponse(code = 0, message = "" + "(token验证失败)", response = String.class),
+			    @ApiResponse(code = 1, message = "" + "(系统错误)", response = String.class) })
 	@RequestMapping(value = Url.UserLogin.LOGOUT)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
 		request.getSession().invalidate();
