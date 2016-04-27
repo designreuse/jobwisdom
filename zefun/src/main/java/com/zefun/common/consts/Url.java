@@ -482,7 +482,7 @@ public interface Url {
 		public static final String MOVE_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token=ACCESS_TOKEN";
 		/** 获取accessToken */
 		public static final String GET_ACCESSTOKEN = "https://api.weixin.qq.com/cgi-bin/token?gra"
-				    + "nt_type=client_credential&appid=APPID&secret=APPSECRET";
+				+ "nt_type=client_credential&appid=APPID&secret=APPSECRET";
 		/** 获取图文消息列表 */
 		public static final String GET_THUMB = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=ACCESS_TOKEN";
 		/** 微信更新图文消息 */
@@ -1088,6 +1088,8 @@ public interface Url {
 	 * @date Nov 9, 2015 11:14:30 AM
 	 */
 	class StoreInfo {
+		/** 查询门店列表 */
+		public static final String SHOW_STORE_LIST = "/storeinfo/view/showStoreList";
 		/** 增加门店 */
 		public static final String ACTION_ADD_STORE = "/storeinfo/action/addstore";
 		/** 显示店铺设置页面 */

@@ -120,7 +120,8 @@ public class UserService {
 	 * @param param
 	 *            BaseParam
 	 * @return BaseDto
-	 * @throws Exception Exception
+	 * @throws Exception
+	 *             Exception
 	 * @since JDK 1.8
 	 */
 	public BaseDto userList(BaseParam param) throws Exception {
@@ -143,9 +144,11 @@ public class UserService {
 	 * staffInfo:(根据employeeId获取员工的详细信息).
 	 * 
 	 * @author michael
-	 * @param param BaseParam
+	 * @param param
+	 *            BaseParam
 	 * @return employeeInfo
-	 * @throws Exception Exception
+	 * @throws Exception
+	 *             Exception
 	 * @since JDK 1.8
 	 */
 
@@ -186,9 +189,9 @@ public class UserService {
 
 	/**
 	 * 
-	* @author 高国藩
-	* @date 2016年4月23日 下午4:28:48
-	* @return
+	 * @author 高国藩
+	 * @date 2016年4月23日 下午4:28:48
+	 * @return
 	 */
 	public Map<String, String> getYzmPage() {
 		String pageValue = redisService.srandmember(App.Redis.WEB_PC_YZM_PAGE_SET);
@@ -231,7 +234,7 @@ public class UserService {
 		// 判断门店名称是否存在
 		int num = storeInfoMapper.isExitsStoreAccount(storeAccount);
 		if (num > 0) {
-			return new BaseDto(9901, "门店代号已存在");
+			return new BaseDto(9901, "门店代号已存在!");
 		}
 
 		// 保存门店信息
