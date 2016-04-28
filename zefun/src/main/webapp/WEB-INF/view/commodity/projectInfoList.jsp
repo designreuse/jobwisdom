@@ -35,7 +35,7 @@
 			</div>
 
 			<!--mainleft-->
-			<%@include file="/menu2.jsp"%>
+			<%@include file="/menu.jsp"%>
 			<!--LEFT PANEL结束 -->
 
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
