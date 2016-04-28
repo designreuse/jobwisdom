@@ -117,8 +117,19 @@ public class ProjectInfo {
 	/** 项目编辑步骤*/
 	private Integer projectStep;
 	
+	/** 项目所在的部门名称*/
+	private String deptName;
 	
-	public Integer getProjectStep() {
+	
+	public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public Integer getProjectStep() {
         return projectStep;
     }
 

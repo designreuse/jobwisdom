@@ -7,7 +7,6 @@ package com.zefun.common.consts;
  * @date Aug 4, 2015 9:21:29 AM
  */
 public interface View {
-
 	/**
 	 * 首页处理
 	 * 
@@ -350,6 +349,7 @@ public interface View {
 	class Project {
 		/** 项目价格设置页面 */
 		public static final String PROJECTSETTING = "commodity/projectSetting2";
+		public static final String PROJECT_LIST = "commodity/projectInfoList";
 	}
 
 	/**

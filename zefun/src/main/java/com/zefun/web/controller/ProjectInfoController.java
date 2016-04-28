@@ -27,7 +27,6 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
-import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptMahjongDto;
@@ -107,6 +106,20 @@ public class ProjectInfoController extends BaseController {
        
         model.setViewName(View.Project.PROJECTSETTING);
         return model;
+    }
+    
+    /**
+     * 进入新风格项目列表页面
+    * @author 高国藩
+    * @date 2016年4月27日 下午5:48:49
+    * @param request    request
+    * @param response   response
+    * @return           ModelAndView
+     */
+    @RequestMapping(value = Url.Project.PROJECT_INFO_LIST)
+    public ModelAndView viewProjects(HttpServletRequest request, HttpServletResponse response) {
+        Integer storeId = getStoreId(request);
+        return projectService.viewProjects(storeId);
     }
     
     /**
