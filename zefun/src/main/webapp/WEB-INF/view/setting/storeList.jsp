@@ -6,8 +6,8 @@
 <style type="text/css">
 
 	.rollBox{width:704px;padding:12px 0 5px 6px;}
-	.rollBox .LeftBotton{height:70px;width:50px;background:url('./assets/images/left_click.png') no-repeat 11px 0;overflow:hidden;float:left;display:inline;margin:25px 0 0 0;cursor:pointer;background-size:40px;position:relative;top:290px;left:-90px}
-	.rollBox .RightBotton{height:70px;width:50px;background:url('./assets/images/right_click.png') no-repeat -8px 0;overflow:hidden;float:right;display:inline;margin:25px 0 0 0;cursor:pointer;background-size:40px;position:relative;    top: -340px;
+	.rollBox .LeftBotton{height:70px;width:50px;background:url('<%=basePath%>images/left_click.png') no-repeat 11px 0;overflow:hidden;float:left;display:inline;margin:25px 0 0 0;cursor:pointer;background-size:40px;position:relative;top:290px;left:-90px}
+	.rollBox .RightBotton{height:70px;width:50px;background:url('<%=basePath%>images/right_click.png') no-repeat -8px 0;overflow:hidden;float:right;display:inline;margin:25px 0 0 0;cursor:pointer;background-size:40px;position:relative;    top: -340px;
 	    left: 350px;}
 	.rollBox .Cont{width:910px;overflow:hidden;float:left;margin-left:70px}
 	.rollBox .ScrCont{width:10000000px;}
@@ -457,8 +457,6 @@
     </div>
 </div>
 
-<script type="text/javascript" charset="utf-8" src="<%=basePath %>js/base/base64Helper.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=basePath %>js/setting/storeSetting.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zxYZYzCtCT1lhiVOuxQeieOf"></script>
 <script type="text/javascript" src="<%=basePath%>js/baiduMap/baiduMapOfEditStorePosition.js"></script>
 </body>
