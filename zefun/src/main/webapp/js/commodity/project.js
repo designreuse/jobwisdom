@@ -39,18 +39,6 @@ jQuery(function(){
 	});
 }) 
 
-
-var flag = true;
-jQuery("body").delegate("input[type='radio']","click",function(){
-	if(jQuery(this).val() == 1){
-		jQuery(this).val(0)
-	}else {
-		jQuery(this).val(1)
-	}
-    jQuery(this)[0].checked = flag;
-    flag = !flag;
-});
-
 /**
  * 改变radio的样式
  * @param id
