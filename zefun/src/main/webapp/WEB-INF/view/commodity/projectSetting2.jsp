@@ -259,12 +259,9 @@
 						<div class="tab_content_div_right"></div>
 
 					</div>
-
-
 				</div>
 			</div>
 		</div>
-		
 			
 		</div>
 	</div>
@@ -272,7 +269,6 @@
 
 </body>
 
-<script type="text/javascript" src="<%=basePath%>js/commodity/project.js"></script>
 <script>
 	var deptProjectList = ${js_deptProjectList};
 	var deptMahjongList = ${mahjongList};
@@ -603,6 +599,57 @@
 					'</tr>';
 		table.append(jQuery(html));
 	});
+
+	jQuery(function(){
+		jQuery('.tab_content_div:gt(0)').hide()
+		jQuery('.right_head li').click(function(){
+			var step = jQuery(this).attr("step");
+			if (step > (projectStep+1)){
+				dialog("请先完成前面的步骤吧");
+				return;
+			}
+			if (step <= (projectStep)){
+				status = 1;
+			}else{
+				status = 0;
+			}
+			stepNum = step;
+			jQuery(this).addClass('active').siblings().removeClass('active');
+			jQuery('.tab_content_div').eq(jQuery(this).index()).show().siblings().hide();
+		});
+	})
+
+
+	//会员种类
+	jQuery(function(){
+		jQuery('.write_3').click(function(){
+			jQuery('.cash').show();
+			jQuery(this).hide();
+		});	
+	})
+
+	//职位
+	 jQuery(function(){
+		 jQuery('.write_4').click(function(){
+		     jQuery('.step_1').fadeIn('1000');
+			 jQuery(this).hide();
+		});
+	}) 
+
+	/**
+	 * 改变radio的样式
+	 * @param id
+	 */
+	function chkRadio(opt) {
+		if (jQuery(this).val() == "1"){
+			opt.checked = false;
+			jQuery(this).val("0");
+		}
+		else {
+			opt.checked = true;
+			jQuery(this).val("1");
+		}
+	}
 
 </script>
 </html>
