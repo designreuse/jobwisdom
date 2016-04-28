@@ -7,27 +7,14 @@
 %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <body>
-
-	<div class="mainwrapper">
-		<!--loading start-->
-		<%@ include file="/loading.jsp"%>
-		<!--loading end-->
-
-		<!--left-panel start-->
-		<%@ include file="/menu.jsp"%>
-		<!--left-panel end-->
-
-		<!--RIGHT PANEL开始 -->
-		<div class="rightpanel" style="margin-left: 200px;">
-			<%@ include file="/top.jsp"%>
-			<!-- 页面代码 -->
-
-			<!--RIGHT PANEL结束 -->
-
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
+		<%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
 			<div class='content_right'>
 				<div class="right_head clearfix">
 					<ul class="right_ul">
-
 						<li step="1" class="active">
 							<div>
 								<img src="<%=basePath%>/images/tab_1.png">
@@ -49,19 +36,14 @@
 							</div> <span>会员折扣</span>
 						</li>
 					</ul>
-
 					<div class="right_button">
 						<button class="save">保存</button>
 						<button class="cancle">取消</button>
 					</div>
-
-
 				</div>
-
 				<div class="tab_content">
 					<!--新增项目-->
 					<div class="tab_content_div clearfix">
-
 						<div class="tab_content_div_left">
 							<div>
 								项目所属部门： 
@@ -277,19 +259,16 @@
 						<div class="tab_content_div_right"></div>
 
 					</div>
-
-
 				</div>
 			</div>
 		</div>
-		<div class="clearfix"></div>
-
-		<div id="star"></div>
-
+			
+		</div>
 	</div>
+	
+
 </body>
 
-<script type="text/javascript" src="<%=basePath%>js/commodity/project.js"></script>
 <script>
 	var deptProjectList = ${js_deptProjectList};
 	var deptMahjongList = ${mahjongList};
@@ -620,6 +599,57 @@
 					'</tr>';
 		table.append(jQuery(html));
 	});
+
+	jQuery(function(){
+		jQuery('.tab_content_div:gt(0)').hide()
+		jQuery('.right_head li').click(function(){
+			var step = jQuery(this).attr("step");
+			if (step > (projectStep+1)){
+				dialog("请先完成前面的步骤吧");
+				return;
+			}
+			if (step <= (projectStep)){
+				status = 1;
+			}else{
+				status = 0;
+			}
+			stepNum = step;
+			jQuery(this).addClass('active').siblings().removeClass('active');
+			jQuery('.tab_content_div').eq(jQuery(this).index()).show().siblings().hide();
+		});
+	})
+
+
+	//会员种类
+	jQuery(function(){
+		jQuery('.write_3').click(function(){
+			jQuery('.cash').show();
+			jQuery(this).hide();
+		});	
+	})
+
+	//职位
+	 jQuery(function(){
+		 jQuery('.write_4').click(function(){
+		     jQuery('.step_1').fadeIn('1000');
+			 jQuery(this).hide();
+		});
+	}) 
+
+	/**
+	 * 改变radio的样式
+	 * @param id
+	 */
+	function chkRadio(opt) {
+		if (jQuery(this).val() == "1"){
+			opt.checked = false;
+			jQuery(this).val("0");
+		}
+		else {
+			opt.checked = true;
+			jQuery(this).val("1");
+		}
+	}
 
 </script>
 </html>

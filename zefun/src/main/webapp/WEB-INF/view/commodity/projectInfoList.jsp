@@ -23,22 +23,18 @@
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
-
-		<!--left-panel start-->
-		<!-- LEFT PANEL 开始-->
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
-
-			<!--logo-->
-			<div class="logo-wrap">
-				<a href="index.html"> <img src="<%=basePath%>images/logo_by.png" alt="">
-				</a>
-			</div>
-
-			<!--mainleft-->
 			<%@include file="/menu.jsp"%>
-			<!--LEFT PANEL结束 -->
-
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
+				<%@include file="/top.jsp"%>
+				<!--headerpanel-->
+				<div class="write_input">
+					<div class="div1">编辑</div>
+					<div class="write_5" style="background: white; float: left; top: 0px !important; left: 20px !important; width: 100px !important">
+						<span class="add_step" style="position: relative; left: -10px">+</span>新增
+					</div>
+				</div>
+				<!--项目设置 -->
 				<div class="alertPanel" style="">
 				<c:forEach items="${deptProjectList }" var="deptPorject">
 					<div class="part_panel">
@@ -54,30 +50,6 @@
 					</div>
 				</c:forEach>
 				</div>
-				<div class="headerpanel">
-					<div class="headerlist">
-						<div class="header_">
-							<div class="header_content">
-								<input type="text" class="input_" value="搜索"> <img src="<%=basePath%>images/seach.png"> <span class="header_img"><img src="<%=basePath%>images/logo_.png"></span> <select>
-									<option>111</option>
-									<option>111</option>
-
-								</select>
-							</div>
-						</div>
-
-
-					</div>
-				</div>
-				<!--headerpanel-->
-				<div class="write_input">
-					<div class="div1">编辑</div>
-					<div class="write_5" style="background: white; float: left; top: 0px !important; left: 20px !important; width: 100px !important">
-						<span class="add_step" style="position: relative; left: -10px">+</span>新增
-					</div>
-				</div>
-				<!--项目设置 -->
-
 				<div class="rollBox">
 					<div class="LeftBotton" onmousedown="ISL_GoUp()" onmouseup="ISL_StopUp()"></div>
 					<div class="Cont" id="ISL_Cont">
