@@ -6,8 +6,10 @@
             + request.getContextPath() + "/";
     String menuPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
 %>
+<div class="logo-wrap">
+	<a href="index.html"> <img src="<%=basePath%>images/logo_by.png" alt=""></a>
+</div>
 <div class="leftmenu">
-
 	<ul class="left_nav" style="height: 840px;">
 
 		<li>

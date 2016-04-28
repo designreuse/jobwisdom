@@ -7,27 +7,14 @@
 %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <body>
-
-	<div class="mainwrapper">
-		<!--loading start-->
-		<%@ include file="/loading.jsp"%>
-		<!--loading end-->
-
-		<!--left-panel start-->
-		<%@ include file="/menu.jsp"%>
-		<!--left-panel end-->
-
-		<!--RIGHT PANEL开始 -->
-		<div class="rightpanel" style="margin-left: 200px;">
-			<%@ include file="/top.jsp"%>
-			<!-- 页面代码 -->
-
-			<!--RIGHT PANEL结束 -->
-
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
+		<%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
 			<div class='content_right'>
 				<div class="right_head clearfix">
 					<ul class="right_ul">
-
 						<li step="1" class="active">
 							<div>
 								<img src="<%=basePath%>/images/tab_1.png">
@@ -49,19 +36,14 @@
 							</div> <span>会员折扣</span>
 						</li>
 					</ul>
-
 					<div class="right_button">
 						<button class="save">保存</button>
 						<button class="cancle">取消</button>
 					</div>
-
-
 				</div>
-
 				<div class="tab_content">
 					<!--新增项目-->
 					<div class="tab_content_div clearfix">
-
 						<div class="tab_content_div_left">
 							<div>
 								项目所属部门： 
@@ -282,11 +264,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix"></div>
-
-		<div id="star"></div>
-
+		
+			
+		</div>
 	</div>
+	
+
 </body>
 
 <script type="text/javascript" src="<%=basePath%>js/commodity/project.js"></script>
