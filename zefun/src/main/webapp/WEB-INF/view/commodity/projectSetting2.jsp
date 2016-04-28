@@ -364,13 +364,13 @@
 	function coverDate(step) {
 		if (step == 1) {
 			var data = null;
-			var projectName = jQuery("input[name='projectName']").val()
-			var deptId = jQuery("select[name='deptId']").val()
-			var categoryId = jQuery("select[name='categoryId']").val()
-			var projectName = jQuery("input[name='projectName']").val()
-			var projectType = jQuery("select[name='projectType']").val()
-			var projectDesc = jQuery("input[name='projectDesc']").val()
-			var projectCodeSuffix = jQuery("input[name='projectCodeSuffix']").val()
+			var projectName = jQuery("input[name='projectName']").val();
+			var deptId = jQuery("select[name='deptId']").val();
+			var categoryId = jQuery("select[name='categoryId']").val();
+			var projectName = jQuery("input[name='projectName']").val();
+			var projectType = jQuery("select[name='projectType']").val();
+			var projectDesc = jQuery("input[name='projectDesc']").val();
+			var projectCodeSuffix = jQuery("input[name='projectCodeSuffix']").val();
 			data = {
 				"storeId" : storeId,
 				"projectId" : projectId,

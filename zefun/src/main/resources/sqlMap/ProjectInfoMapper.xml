@@ -34,6 +34,8 @@
     <result column="affiliated_image" property="affiliatedImage" jdbcType="VARCHAR" />
     <result column="highest_discount" property="highestDiscount" jdbcType="DECIMAL" />
     <result column="project_step" property="projectStep" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="CHAR" />
+    <result column="project_code_suffix" property="projectCodeSuffix" jdbcType="CHAR" />
   </resultMap>
   
   <resultMap id="ProjectInfoMap" type="com.zefun.web.dto.ProjectInfoDto" >
@@ -69,7 +71,8 @@
     <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
     <result column="affiliated_image" property="affiliatedImage" jdbcType="VARCHAR" />
     <result column="highest_discount" property="highestDiscount" jdbcType="DECIMAL" />
-     <result column="project_step" property="projectStep" jdbcType="INTEGER" />
+    <result column="project_step" property="projectStep" jdbcType="INTEGER" />
+    <result column="project_code_suffix" property="projectCodeSuffix" jdbcType="CHAR" />
   </resultMap>
   
   <!-- 部门项目基础数据对象 -->
@@ -232,7 +235,8 @@
         is_appointment as isAppointment,
         appointment_price as appointmentPrice,
         sales_count as salesCount,
-        sales_people as salesPeople
+        sales_people as salesPeople,
+        project_code_suffix as projectCodeSuffix
     from project_info where category_id = #{categoryId} and is_deleted = 0 order by create_time asc
   </select>
   <select id="selectProjectBaseByProjectId" resultType="com.zefun.web.dto.ProjectBaseDto" parameterType="java.lang.Integer">
@@ -382,6 +386,9 @@
       <if test="projectStep != null" >
         project_step,
       </if>
+      <if test="projectCodeSuffix != null" >
+        project_code_suffix,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="projectId != null" >
@@ -480,6 +487,9 @@
        <if test="projectStep != null" >
        #{projectStep,jdbcType=INTEGER},
       </if>
+      <if test="projectCodeSuffix != null" >
+      	#{projectCodeSuffix,jdbcType=CHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.ProjectInfo" >
@@ -577,6 +587,9 @@
       </if>
       <if test="projectStep != null" >
        project_step = #{projectStep,jdbcType=INTEGER},
+      </if>
+      <if test="projectCodeSuffix != null" >
+       project_code_suffix = #{projectCodeSuffix,jdbcType=CHAR},
       </if>
     </set>
     where project_id = #{projectId,jdbcType=INTEGER}
@@ -739,10 +752,8 @@
   </select>
   
   <select id="selectByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from project_info
-    where store_id = #{storeId,jdbcType=INTEGER} and is_deleted = 0 
+    SELECT po.*, di.dept_name FROM project_info po LEFT JOIN dept_info di ON di.dept_id = po.dept_id
+    where po.store_id = #{storeId,jdbcType=INTEGER} and po.is_deleted = 0 
   </select>
   
   <select id="selectByDetailId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >

@@ -241,6 +241,8 @@ public interface Url {
 		public static final String UPLOAD_PROJECT = "project/upload";
 		/** 保存项目,包括项目的保存步骤*/
         public static final String PROJECT_SAVE_STEP = "project/save/by/step/{stepNum}/{status}";
+        /** 项目列表*/
+        public static final String PROJECT_INFO_LIST = "project/view/projects";
 	}
 
 	/** 套餐模块 */

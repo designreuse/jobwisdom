@@ -1,21 +1,24 @@
+*{font-family:microsoft yahei}
+
 .right_head{height:80px}
+input,button,select,textarea{outline:none}
 .shopp{display:inline-block;}
 .right_head li {width:86px;float:left;text-align:center;margin-right:60px;height:80px}
 .right_ul img{height:42px;width:42px}
-.right_ul{float:left;padding-left:50px}
+.right_ul{background:#f2f5f8;float:left;padding-left:50px}
 .right_ul div{MARGIN-TOP:10PX}
 .right_ul li.active{background:white}
 .right_button{float:right;margin:20px 20px}
 .right_button .save{float:left;width:140px;height:38px;border-radius:15px;background:black;text-align:center;line-height:38px;color:white;box-shadow: 0px 0px 30px #ccc;border:none}
 .right_button .cancle{float:left;width:140px;height:38px;border-radius:15px;background:#ffffff;text-align:center;line-height:38px;color:#ccc;box-shadow: 0px 0px 30px #ccc;border:none;margin-left:50px}
-.tab_content{padding-top:90px;background:white;height:1000px}
+.tab_content{padding-top:90px;background:white;}
 .tab_content_div_left{float:left;padding-left:50px}
 .tab_content_div_right{float:left}
 .tab_content_div_left div{height:50px}
 .tab_content_div_left div input{position:relative;left:58px;border-radius:5px!important}
 .tab_content_div_left select{position:relative;left:30px;width:147px;padding-left:64px;border-radius:5px!important}
 
-.write,.write_3,.write_4{border-radius:50px;box-shadow:0 0 30px #ccc;width:140px;height:40px!important;text-align:center;line-height:40px;cursor:pointer;color:#afb0b6;    position:relative;top:60px;left:20px}
+.write,.write_3,.write_4,.write_5,.write_6{border-radius:50px;box-shadow:0 0 30px #ccc;width:140px;height:40px!important;text-align:center;line-height:40px;cursor:pointer;color:#afb0b6;    position:relative;top:60px;left:20px}
 .write .add_{position:relative;right:18px}
 .textarea{height:100px;border:1px solid #ccc;position:relative;top: -20px!important;width:220px!important;
     left: 120px!important;}
@@ -40,7 +43,7 @@ table  tr td{
 	
 }
 .button_1,.button_2{
-	border:none;width:100px;height:30px;text-align:center;line-height:30px;margin-left:900px;margin-top:20px;background:white;box-shadow:0 0 15px #ccc;border-radius:10px;color:#ccc;
+	border:none;width:100px;height:30px;text-align:center;line-height:30px;margin-left:900px;margin-top:20px;background:white;box-shadow:0 0 15px #ccc;border-radius:10px;color:#ccc;display:none
 	
 }
 .editor{cursor:pointer}
@@ -57,8 +60,8 @@ input[type=radio] {
 .step_1 td{width:100px;   border-bottom:1px solid #ccc;border-right:1px solid #fff
  }
 .cut_step_1,.cut_step_3{border:none!important}
-.step_1 input{border:none}
-.step_2{margin-top:40px;width:1028px}
+.step_1 input{height:48px;border:1px solid #ccc}
+.step_2{margin-top:40px}
 .step_2  select{width:158px}
 .step_2 td{width:160px}
 
@@ -78,3 +81,101 @@ table tr td{line-height:40px}
 	}
 .cash{margin-left:135px;width:400px;margin-top:30px;background:white;position:relative;z-index:100000000;height:300px;padding:20px;display:none}
 .color_{color:#afb0b6}
+
+
+/** Í·²¿ **/
+
+.header_{
+	height:73px;
+	width:1100px;
+	background:#2a3244
+	
+}
+.logo-wrap{background:#2a3244!important;    padding-left: 10px!important;height:63px!important;padding-top:10px!important}
+.logo-wrap img{height:55px!important;width:auto!important;position:relative;left:-40px;top:-10px}
+.header_  .input_{border-radius:20px!important;background:#2a3244;height:20px;width:80px ;padding-left:30px}
+.header_  img{position:relative;    top: -24px;
+    left: 5px;display:block!important}
+.header_content select{border-radius:20px!important;background:#2a3244;height:20px;width:80px ;border:1px solid #fff;color:white;position:relative;    left: 150px;
+    top: -68px;}
+.header_content{width:300px;position:relative;    left: 730px;
+    top: 20px;
+}
+.header_img {display:inline-block!important;position:relative;left: 140px;top:-30px;margin-left:20px}
+.left_nav li{height:100px;width:80px!important;color:#8d929a;font-size:12px;box-shadow:0 0 0 white!important;border-top:1px solid #383e52;border-bottom:1px solid #383e52}
+.left_nav{background:#2a3244;height:1000px}
+.nav_img{    padding: 30px 30px 0 30px;}
+.left_nav{width:auto!important;}
+.left_nav span{display:inline-block;position:relative;left:10px;top:8px}
+.leftmenu .active a{z-index:0!important}
+.leftpanel .logo-wrap{    border-bottom: 4px solid #2a3244!important;}
+
+
+.left_nav_2{height:1000px;margin-left:80px}
+.left_nav_2 li{width:120px!important;height:80px;box-shadow:0 0 0 #fff!important;}
+.left_nav_2 ul{background:#323a4c;height:994px;background:#323a4c;width:120px!important}
+.left_nav_2 span{display:inline-block;font-size:12px}
+.left_nav_2 img{padding:10px;position:relative;top:16px}
+.left_nav_2 .active{background:#2a3244!important}
+.leftmenu .active img{display:inline!important}
+.headerpanel{border-bottom: 4px solid #2a3244!important;}
+.leftmenu .active{background:#2a3244!important;border-left:3px solid #ff0242;}
+.left_nav_2 img{height:21px}
+.left_nav_2 li:hover{color:white;cursor:pointer}
+.leftmenu{height: 890px;
+    overflow: hidden;}
+.mainwrapper{min-height:auto!important}
+
+.column_img_container{background:url('../images/back.png') no-repeat;padding-top:10px;padding-bottom:10px;background-size:210px 210px;height:190px;cursor:pointer}
+.column_img_container:hover{background:url('../images/back_.png');box-shadow:0 0 30px #ccc}
+.head_pic img{height:60px;width:60px}
+.head_pic{height:60px;width:60px;border-radius:30px;overflow:hidden;box-shadow:0 0 20px #ccc;margin:15px auto}
+.shop_number li{width:93px;text-align:center;float:left;}
+.head_pic em img{height:20px;width:20px}	
+.boss_cut{font-size:14px;color:#383e52;display:inline-block;}
+.column_img_container span{display:inline-block;}
+.hair{text-align:center;margin-top:4px;color:#d4dbe5}
+em{font-style:normal}
+.hair img{padding-right:10px!important;position:relative;top:6px;border:none!important;display:inline-block!important}
+.shop_number li em{color:#d4dbe5;}
+.column_small_first {margin:10px 20px 50px 20px}
+.shop_number li p{color:#383e52}
+.shop_number{margin-top:10px;}
+.shop_number li:first-child{border-right:1px solid #dae1eb;height: 20px;
+    margin-top: 14px;}
+.number_{display:inline-block;position:relative;top:-14px}
+.num_{position:relative;top:-14px}
+.write_input input{width:100px;height:26px;background:#ffffff;box-shadow: 0px 0px 30px #ccc;}
+.div1{float:left;    border-radius: 50px;
+    box-shadow: 0 0 30px #ccc;
+    width: 100px;
+    height: 40px!important;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;background:white}
+.write_input{position:relative;left:746px;color: #afb0b6;top:36px}
+
+
+.alertPanel{ background-color:rgba(105,111,124,0.9);position:absolute;bottom:0;right:0;color:white;height:750px;width:292px;z-index:10000;padding:10px 20px}
+.part_panel p{color:#dfe0e2;font-size:14px}
+.part_panel dt{margin:15px 40px 10px 40px}
+.part_panel dd{    width: 110px;
+    height: 20px;
+    float: left;
+    text-align: right;
+    position: relative;
+    left: 50px;
+	margin-bottom:5px}
+	
+	.part_panel{margin-bottom:30px}
+	
+	input[type=radio]:checked{background:#ff0242!important}
+	.left_nav li{cursor:pointer}
+	.left_nav .active1{color:white;}
+	
+	
+	.shop_bottom div{float:left;width:93px;text-align:center;color:#afb0b6;}
+.shop_bottom .writting{border-right:1px solid #ccc}
+.shop_bottom{margin-top:8px}
+.writting:hover{color:red}
+.delete:hover{color:red}

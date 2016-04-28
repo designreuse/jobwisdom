@@ -10,8 +10,10 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.EntityJsonConverter;
 import com.zefun.web.dto.BaseDto;
@@ -896,6 +898,7 @@ public class ProjectService {
         JSONObject data = new JSONObject();
         data.put("projectId", projectInfo.getProjectId());
         data.put("projectStep", projectInfo.getProjectStep());
+        redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, projectInfo.getDeptId());
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, data);
     }
 
@@ -914,6 +917,7 @@ public class ProjectService {
         JSONObject data = new JSONObject();
         data.put("projectId", projectInfo.getProjectId());
         data.put("projectStep", projectInfo.getProjectStep());
+        redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, projectInfo.getDeptId());
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, data);
     }
     
@@ -959,6 +963,7 @@ public class ProjectService {
         JSONObject returnDate = new JSONObject();
         returnDate.put("projectId", projectInfo.getProjectId());
         returnDate.put("projectStep", projectInfo.getProjectStep());
+        redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, projectInfo.getDeptId());
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate);
         
     }
@@ -992,6 +997,7 @@ public class ProjectService {
         JSONObject returnDate = new JSONObject();
         returnDate.put("projectId", projectInfo.getProjectId());
         returnDate.put("projectStep", projectInfo.getProjectStep());
+        redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, projectInfo.getDeptId());
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate); 
     }
 
@@ -1011,6 +1017,7 @@ public class ProjectService {
             JSONObject returnDate = new JSONObject();
             returnDate.put("projectId", projectInfo.getProjectId());
             returnDate.put("projectStep", projectInfo.getProjectStep());
+            redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, projectInfo.getDeptId());
             return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate.toString());
         }
         if (stepNum == 2){
@@ -1019,6 +1026,7 @@ public class ProjectService {
             JSONObject returnDate = new JSONObject();
             returnDate.put("projectId", projectInfo.getProjectId());
             returnDate.put("projectStep", projectInfo.getProjectStep());
+            redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, projectInfo.getDeptId());
             return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate);
         }
         if (stepNum == 3){
@@ -1029,5 +1037,24 @@ public class ProjectService {
         }
         // TODO Auto-generated method stub
         return null;
+    }
+
+
+    /**
+     * 跳转页面
+    * @author 高国藩
+    * @date 2016年4月27日 下午5:50:18
+    * @param storeId storeId
+    * @return        ModelAndView
+     */
+    public ModelAndView viewProjects(Integer storeId) {
+        List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(storeId);
+        ModelAndView view = new ModelAndView(View.Project.PROJECT_LIST);
+        view.addObject("projectInfos", projectInfos);
+        
+        List<DeptProjectBaseDto> deptProjectList = getDeptProjectByStoreId(storeId);
+        view.addObject("deptProjectList", deptProjectList);
+        
+        return view;
     }
 }
