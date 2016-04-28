@@ -2,8 +2,8 @@
 <%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<link rel="stylesheet" href="<%=basePath %>editor/themes/default/default.css" />
-	<style type="text/css">
+<link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
+<style type="text/css">
 
 	.rollBox{width:704px;padding:12px 0 5px 6px;}
 	.rollBox .LeftBotton{height:70px;width:50px;background:url('./assets/images/left_click.png') no-repeat 11px 0;overflow:hidden;float:left;display:inline;margin:25px 0 0 0;cursor:pointer;background-size:40px;position:relative;top:290px;left:-90px}
