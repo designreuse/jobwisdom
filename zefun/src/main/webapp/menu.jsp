@@ -6,6 +6,7 @@
             + request.getContextPath() + "/";
     String menuPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
 %>
+<%@include file="/loading.jsp" %>
 <div class="logo-wrap">
 	<a href="index.html"> <img src="<%=basePath%>images/logo_by.png" alt=""></a>
 </div>
@@ -57,9 +58,7 @@
 			<li class="active"><span><img src="<%=basePath%>images/left3.png">项目设置</span></li>
 			<li><span><img src="<%=basePath%>images/left4.png">项目设置</span></li>
 			<li><span><img src="<%=basePath%>images/left5.png">项目设置</span></li>
-
 		</ul>
-
 	</div>
 	<!--营业报表-->
 

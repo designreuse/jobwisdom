@@ -11,6 +11,8 @@
 			</div>
 		</div>
 	</div>
-
 </body>
+<script>
+// dialog('msg');
+</script>
 </html>

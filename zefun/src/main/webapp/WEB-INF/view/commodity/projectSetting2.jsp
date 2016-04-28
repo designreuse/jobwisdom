@@ -601,7 +601,7 @@
 	});
 
 	jQuery(function(){
-		jQuery('.tab_content_div:gt(0)').hide()
+		jQuery('.tab_content_div:gt(0)').hide();
 		jQuery('.right_head li').click(function(){
 			var step = jQuery(this).attr("step");
 			if (step > (projectStep+1)){
