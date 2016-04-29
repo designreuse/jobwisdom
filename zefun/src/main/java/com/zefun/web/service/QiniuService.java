@@ -35,19 +35,21 @@ import com.zefun.web.dto.BaseDto;
 @Service
 public class QiniuService {
     /** 七牛应用id */
-    private static final String QINIU_AK = "y6orG-wW5CzUSJ_E0kk_jfCkEW16qZAu7ihg2g_n";
+    private static final String QINIU_AK = "uDB532MrQLEj9JovzDHhfKB8krYbkJYg9ALGY5U0";
     /** 七牛应用密钥 */
-    private static final String QINIU_SK = "czEgmRjAh_MFLEmLB6Qien41FxgbAZV5u8Bwvm7j";
+    private static final String QINIU_SK = "hzkYEXnTzzB8hqG4QGvsz0hbfBoLGYC7_VHuIy4R";
     /** 空间名称 */
-    private static final String QINIU_SCOPE = "zefun";
+    private static final String QINIU_SCOPE = "jobwisdom";
     /**域名*/
-    public static final String DO_MAIN = "http://7xkv8r.com1.z0.glb.clouddn.com/";
+    public static final String DO_MAIN = "http://7xss26.com1.z0.glb.clouddn.com/";
     /**jpg*/
     private static final String JPG = "data:image/jpg;base64,";
     /**png*/
     private static final String PNG = "data:image/png;base64,";
     /**gif*/
     private static final String GIF = "data:image/gif;base64,";
+    /**jpeg*/
+    private static final String JPEG = "data:image/jpeg;base64,";
     
     /**日志对象*/
     private Logger logger = Logger.getLogger(QiniuController.class);
@@ -188,6 +190,9 @@ public class QiniuService {
             }
             else if (stringBase64.startsWith(GIF)){
                 stringBase64 = stringBase64.substring(GIF.length(), stringBase64.length());
+            }
+            else if (stringBase64.startsWith(JPEG)){
+                stringBase64 = stringBase64.substring(JPEG.length(), stringBase64.length());
             }
             key = new sun.misc.BASE64Encoder().encode(key.getBytes());
             if (key.indexOf("+") > 0) {

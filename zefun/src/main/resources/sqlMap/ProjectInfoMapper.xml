@@ -161,7 +161,7 @@
     project_id, parent_id, store_id, dept_id, category_id, hairstyle_id, project_name, project_type, project_image, project_desc, 
     project_price, cost_price, performance_calculate, appointment_price, sales_count, sales_people, is_appointment, is_wechat_sell, is_disable, 
     is_deleted, is_update, is_gift_cash, is_groupbuy, groupbuy_price, groupbuy_results, groupbuy_platform, create_time, update_time, 
-    last_operator_id,affiliated_image, highest_discount, project_step
+    last_operator_id,affiliated_image, highest_discount, project_step, project_code_suffix
   </sql>
   
   <!-- 根据项目标识查询项目信息，包括可预约的员工 -->

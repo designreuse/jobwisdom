@@ -48,12 +48,12 @@
 .fuzzysearch li:hover {
   background-color: #eee;
 }
-/*自助收银*/
-/*颜色*/
+/*鑷姪鏀堕摱*/
+/*棰滆壊*/
 /*@sidebar-bd-color: #bab9bd;*/
 /**/
-/*字体颜色*/
-/*头部*/
+/*瀛椾綋棰滆壊*/
+/*澶撮儴*/
 .icon-sousuo {
   display: inline-block;
   margin-top: 0;
@@ -152,7 +152,7 @@ input {
 .headerpanel li:hover a {
   color: #fff;
 }
-/*左面板*/
+/*宸﹂潰鏉�*/
 .leftpanel .logo-wrap {
   height: 74px;
   line-height: 74px;
@@ -166,7 +166,7 @@ input {
   height: 40px;
   vertical-align: middle;
 }
-/*左菜单*/
+/*宸﹁彍鍗�*/
 .leftmenu {
   margin-top: 0px;
 }
@@ -312,8 +312,8 @@ h4.widgettitle {
     transform: scale3D(0, 0, 1);
   }
 }
-/*变量*/
-/*元样式*/
+/*鍙橀噺*/
+/*鍏冩牱寮�*/
 .gray {
   color: darkgray;
 }
@@ -547,7 +547,7 @@ h4.widgettitle {
 .dep-border-table {
   border: 1px solid #123134;
 }
-/*覆盖框架样式*/
+/*瑕嗙洊妗嗘灦鏍峰紡*/
 .table td {
   font-size: 12px;
 }
@@ -663,7 +663,7 @@ a:active {
   text-indent: -9999px;
   z-index: 899;
 }
-/*下拉*/
+/*涓嬫媺*/
 .dropdown-menu li > a:hover,
 .dropdown-menu li > a:focus,
 .dropdown-submenu:hover a {
@@ -674,7 +674,7 @@ a:active {
   min-width: 50px;
   width: 100px;
 }
-/*分页*/
+/*鍒嗛〉*/
 .btn.perpage,
 .btn.perpage:hover,
 .btn.perpage:focus {
@@ -701,7 +701,7 @@ a:active {
 .btn .afont {
   color: #13828d;
 }
-/*全局样式*/
+/*鍏ㄥ眬鏍峰紡*/
 .text-through {
   text-decoration: line-through;
 }
@@ -797,12 +797,11 @@ input[type="color"],
 }
 .mainwrapper {
   overflow-y: hidden;
-  overflow-x: visible;
 }
 .disp-inline-block {
   display: inline-block;
 }
-/*字体颜色*/
+/*瀛椾綋棰滆壊*/
 .font-999 {
   color: #999;
 }
@@ -815,7 +814,7 @@ input[type="color"],
 .font-molv {
   color: #123134;
 }
-/*字体大小*/
+/*瀛椾綋澶у皬*/
 .font-size-20 {
   font-size: 20px;
 }
@@ -884,7 +883,7 @@ label {
   color: #123134;
   font-size: 14px;
 }
-/*按钮*/
+/*鎸夐挳*/
 .btn,
 .btn:hover,
 .btn:focus {
@@ -1153,7 +1152,7 @@ input[type="file"] {
 .cursor {
   cursor: pointer;
 }
-/*表格基本样式*/
+/*琛ㄦ牸鍩烘湰鏍峰紡*/
 #custom-toolbar .table-toolbar {
   float: left;
 }
@@ -1174,14 +1173,14 @@ input[type="file"] {
 thead th {
   background-color: #c9e6e6;
 }
-/*轮牌*/
+/*杞墝*/
 .lunpai-dynamic {
   padding: 10px 0px;
 }
 .lunpai-dynamic ul {
   padding-left: 0px;
 }
-/*动态轮牌的左边显示人数的表格*/
+/*鍔ㄦ�佽疆鐗岀殑宸﹁竟鏄剧ず浜烘暟鐨勮〃鏍�*/
 .bx-wrapper img {
   max-width: 100%;
   display: inline-block;
@@ -1242,7 +1241,7 @@ img {
   border-bottom: 0px;
   height: 30px;
 }
-/*自助收银*/
+/*鑷姪鏀堕摱*/
 .widgettitle .dengdaiqueren,
 .widgettitle .fuwuzhong,
 .widgettitle .yichengjiao {
@@ -1317,7 +1316,7 @@ img {
   border-right: 1px solid #1e1e1e;
   text-align: center;
 }
-/*开卡充值*/
+/*寮�鍗″厖鍊�*/
 .member-info-table .people-info td:first-child {
   font-weight: 400;
   background: transparent;
@@ -1352,7 +1351,7 @@ img {
   width: 120px;
   letter-spacing: 10px;
 }
-/*流水账单*/
+/*娴佹按璐﹀崟*/
 .liushui-table .timepicker {
   width: 100px;
 }
@@ -1371,14 +1370,14 @@ img {
   color: #333;
   text-decoration: none;
 }
-/*新增账单的模态框*/
+/*鏂板璐﹀崟鐨勬ā鎬佹*/
 .add-account {
   width: 371px;
   height: 425px;
   background-color: #fff;
   margin: auto;
 }
-/*新增会员的模态框*/
+/*鏂板浼氬憳鐨勬ā鎬佹*/
 .add-member {
   width: 359px;
   background-color: #fff;
@@ -1387,7 +1386,7 @@ img {
 .add-member .editprofileform p label {
   width: 70px;
 }
-/*会员资料模态框*/
+/*浼氬憳璧勬枡妯℃�佹*/
 .member-data {
   height: 470px;
   width: 965px;
@@ -1405,46 +1404,46 @@ img {
 .member-data .modal-body .ui-tabs-nav li {
   width: 12.5%;
 }
-/*会员资料基本信息*/
+/*浼氬憳璧勬枡鍩烘湰淇℃伅*/
 .member-base-info-table tbody tr .white-bg {
   background-color: #fff;
 }
-/*增加会员卡模态框*/
+/*澧炲姞浼氬憳鍗℃ā鎬佹*/
 .add-member-card {
   width: 431px;
 }
-/*设置优惠卡模态框*/
+/*璁剧疆浼樻儬鍗℃ā鎬佹*/
 .card-discard-setting {
   width: 430px;
 }
-/*增加项目类别模态框*/
+/*澧炲姞椤圭洰绫诲埆妯℃�佹*/
 .add-category-modal {
   width: 310px;
 }
-/*添加供货商模态框*/
+/*娣诲姞渚涜揣鍟嗘ā鎬佹*/
 .add-supplier-modal {
   width: 380px;
 }
-/*添加职位模态框*/
+/*娣诲姞鑱屼綅妯℃�佹*/
 .add-zhiwei-modal {
   width: 400px;
 }
-/*修改职位模态框*/
+/*淇敼鑱屼綅妯℃�佹*/
 .fix-zhiwei-modal {
   width: 400px;
 }
-/*修改职位模态框*/
+/*淇敼鑱屼綅妯℃�佹*/
 .fix-gangwei-modal {
   width: 400px;
 }
-/*目标设定模态框*/
+/*鐩爣璁惧畾妯℃�佹*/
 .add-target-modal {
   width: 459px;
 }
 .rotating-setting-modal {
   width: 700px;
 }
-/*微信预览模态框*/
+/*寰俊棰勮妯℃�佹*/
 .weixin-preview-modal {
   background-color: transparent;
   top: -13%;
@@ -1646,7 +1645,7 @@ img {
   height: 50px;
 }
 /*
-项目设置*/
+椤圭洰璁剧疆*/
 .project-list {
   display: inline-block;
   width: 25%;
@@ -1733,7 +1732,7 @@ img {
   width: 1.25em;
   text-align: center;
 }
-/*项目设置*/
+/*椤圭洰璁剧疆*/
 .project-setting {
   width: 73%;
   float: right;
@@ -1903,7 +1902,7 @@ img {
   width: 100px;
   height: 100px;
 }
-/*员工信息的下拉框*/
+/*鍛樺伐淇℃伅鐨勪笅鎷夋*/
 .user-info {
   display: inline-block;
   position: relative;
@@ -1957,7 +1956,7 @@ img {
   min-width: 50px;
   padding: 0px;
 }
-/*漂亮的单选*/
+/*婕備寒鐨勫崟閫�*/
 .check-radio {
   display: inline-block;
   width: 15px;
@@ -1980,11 +1979,11 @@ img {
   margin-left: -25px;
   opacity: 0;
 }
-/*员工班次模态框*/
+/*鍛樺伐鐝妯℃�佹*/
 .add-emp-yuangong-banci {
   width: 500px;
 }
-/*tabs超出被隐藏的问题*/
+/*tabs瓒呭嚭琚殣钘忕殑闂*/
 .ui-tabs {
   border: 1px solid #bbb;
   background: #fcfcfc;
@@ -2012,12 +2011,12 @@ img {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/*下拉按钮的颜色*/
+/*涓嬫媺鎸夐挳鐨勯鑹�*/
 .btn-group.open .btn.dropdown-toggle {
   background-color: #13828d;
 }
 /*
-价格设置左边的搜索很容易溢出*/
+浠锋牸璁剧疆宸﹁竟鐨勬悳绱㈠緢瀹规槗婧㈠嚭*/
 .project-list-head .search-input {
   box-sizing: border-box;
   width: 75%;
@@ -2036,25 +2035,25 @@ img {
   overflow-x: hidden;
   overflow-y: auto;
 }
-.chzn-container .chzn-results li {
+.chzn-container .chzn-results聽li {
   border: 0px;
 }
-/*员工班次模态框*/
+/*鍛樺伐鐝妯℃�佹*/
 .fix-banci-modal {
   width: 400px;
 }
-/*取消按钮*/
+/*鍙栨秷鎸夐挳*/
 .quxiao-btn,
 .quxiao-btn:hover {
   background-color: #ccc;
 }
-/*输入部门名字input */
+/*杈撳叆閮ㄩ棬鍚嶅瓧input */
 .bumen-input {
   display: inline-block;
   width: 40%;
 }
 /*
-流水查询*/
+娴佹按鏌ヨ*/
 .shuju-tongji {
   display: flex;
   padding: 10px;
@@ -2072,7 +2071,7 @@ img {
   color: #333;
 }
 /*
-轮牌*/
+杞墝*/
 .lunpai-tab {
   margin: 0px;
   padding: 0px;
@@ -2101,7 +2100,7 @@ img {
   color: #fff;
 }
 /*
-支付图标的颜色*/
+鏀粯鍥炬爣鐨勯鑹�*/
 .icon-tuangou {
   font-size: 14px;
   color: #29C3A9;
@@ -2117,7 +2116,7 @@ img {
 .icon-caution {
   color: red;
 }
-/*轮牌设置*/
+/*杞墝璁剧疆*/
 .bx-wrapper {
   box-shadow: 0 0 0px #ccc;
   border: 0px solid #fff;
@@ -2153,7 +2152,7 @@ img {
 .zhiwei-name .name {
   margin-left: 20px;
 }
-/*动态轮牌的右边显现轮牌状态的表格*/
+/*鍔ㄦ�佽疆鐗岀殑鍙宠竟鏄剧幇杞墝鐘舵�佺殑琛ㄦ牸*/
 .lunpai-dynamic .background-tab .tab_menu {
   border: 0px solid;
   position: absolute;
@@ -2346,7 +2345,7 @@ img {
   font-size: 0;
   line-height: 0;
 }
-/*轮牌选择状态*/
+/*杞墝閫夋嫨鐘舵��*/
 .select-zhuangtai {
   position: absolute;
   padding: 0px;
@@ -2442,7 +2441,7 @@ img {
   text-shadow: none;
   border-color: #ccc;
 }
-/*分页不能点*/
+/*鍒嗛〉涓嶈兘鐐�*/
 .page-disable {
   background-color: #ccc;
 }
@@ -2450,18 +2449,18 @@ img {
   color: #999;
 }
 /*
-视频图标*/
+瑙嗛鍥炬爣*/
 .icon-shipin {
   font-size: 18px !important;
 }
-/*小于1024的左边菜单控制按钮*/
+/*灏忎簬1024鐨勫乏杈硅彍鍗曟帶鍒舵寜閽�*/
 @media (min-width: 1200px) {
   .left-show-btn,
   .showmenu {
     display: none;
   }
 }
-/*小于1024的左边菜单控制按钮*/
+/*灏忎簬1024鐨勫乏杈硅彍鍗曟帶鍒舵寜閽�*/
 @media (max-width: 1200px) {
   .left-show-btn,
   .showmenu {
@@ -2510,7 +2509,7 @@ img {
   border-radius: 3px;
   text-decoration: none;
 }
-/*新的模态框*/
+/*鏂扮殑妯℃�佹*/
 .modal-btn-group {
   margin: 20px 0px;
   text-align: right;
@@ -2704,7 +2703,7 @@ img {
 .edit-mingshi .arrow_out {
   top: 64px;
 }
-/*登陆*/
+/*鐧婚檰*/
 .logintitle {
   background: linear-gradient(to bottom, #0fc3be 0%, #16f3ec 100%);
   text-align: center;
@@ -2853,7 +2852,7 @@ img {
   width: 110px;
   height: 110px;
 }
-/*员工信息模态框selecct顶部的问题*/
+/*鍛樺伐淇℃伅妯℃�佹selecct椤堕儴鐨勯棶棰�*/
 .employee-data-modal .ui-tabs-panel {
   padding: 15px;
   background: transparent;
@@ -2939,7 +2938,7 @@ img {
 .confirm {
   width: 535px;
 }
-/*最新的漂亮的单选或多选*/
+/*鏈�鏂扮殑婕備寒鐨勫崟閫夋垨澶氶��*/
 .ch-checker {
   position: relative;
   display: inline-block;
@@ -3007,7 +3006,7 @@ img {
 .beau-radio.active .iconfont {
   opacity: 1;
 }
-/*添加电话预约和微信预约图标*/
+/*娣诲姞鐢佃瘽棰勭害鍜屽井淇￠绾﹀浘鏍�*/
 .day-yuyue-table .icon-weixin2 {
   color: #49d9ba;
   font-size: 20px;
@@ -3022,7 +3021,7 @@ img {
 .day-yuyue-table tbody tr td:first-child {
   text-align: left;
 }
-/*优化登录页面*/
+/*浼樺寲鐧诲綍椤甸潰*/
 body.loginbody {
   background-image: none;
   /* background: #ccc !important; */
@@ -3061,7 +3060,7 @@ body.loginbody {
 #jietu .modal-body {
   max-height: none;
 }
-/*截图的大小*/
+/*鎴浘鐨勫ぇ灏�*/
 .cropper-crop-box {
   width: 580px !important;
   height: 580px !important;
@@ -3084,7 +3083,7 @@ body.loginbody {
   margin-bottom: -60px;
   z-index: 1100;
 }
-/*回到顶部*/
+/*鍥炲埌椤堕儴*/
 .return-top {
   position: fixed;
   right: 10px;
@@ -3103,7 +3102,7 @@ body.loginbody {
 .return-top:hover {
   background-color: #fbd04d;
 }
-/*组织架构图片*/
+/*缁勭粐鏋舵瀯鍥剧墖*/
 .func-desc-img {
   width: 575px;
   height: 655px;
@@ -3242,7 +3241,7 @@ body.loginbody {
 .state-control {
   display: inline-block;
 }
-/*充值模态框*/
+/*鍏呭�兼ā鎬佹*/
 .taocan-select {
   display: inline-block;
   width: 400px;
@@ -3296,7 +3295,7 @@ body.loginbody {
 .flex-item {
   flex-grow: 1;
 }
-/*开单*/
+/*寮�鍗�*/
 .kd-select-content {
   border: 1px solid #d9e9e9;
   border-top: 0;
@@ -3351,7 +3350,7 @@ body.loginbody {
   padding: 0px;
   margin: 0px;
 }
-/*选择类型*/
+/*閫夋嫨绫诲瀷*/
 .select-list {
   width: 60px;
   float: left;
@@ -3374,7 +3373,7 @@ body.loginbody {
   background-color: #e9f0f1;
   color: #13828d;
 }
-/*选择系列*/
+/*閫夋嫨绯诲垪*/
 .selected-child-select {
   float: left;
   width: 150px;
@@ -3472,7 +3471,7 @@ td.text-right.fb {
   right: -10px;
   color: #3a87ad;
 }
-/*修改*/
+/*淇敼*/
 #employeeInfoForm table td {
   border-top: 1px solid #d9e9e9;
 }
@@ -3487,7 +3486,7 @@ td.text-right.fb {
 #baseSettingForm .chzn-container {
   display: block;
 }
-/*我的分店*/
+/*鎴戠殑鍒嗗簵*/
 .zf-logn {
   padding: 20px;
   width: 870px;
@@ -3549,7 +3548,7 @@ td.text-right.fb {
 .md1 dt img {
   width: 100%;
 }
-/*会员数据模态框*/
+/*浼氬憳鏁版嵁妯℃�佹*/
 .icon-icon07 {
   font-size: 26px;
 }
@@ -3631,7 +3630,7 @@ input[type=radio]:checked::after {
   background: #fff;
   border-radius: 1em;
 }
-/*异常会员数据模态框*/
+/*寮傚父浼氬憳鏁版嵁妯℃�佹*/
 .member-yichang {
   width: 770px;
 }
@@ -3729,7 +3728,7 @@ input[type=radio]:checked::after {
   width: auto;
   text-align: left;
 }
-/*微信预览模态框*/
+/*寰俊棰勮妯℃�佹*/
 #weixin-yulan-modal .modal-body {
   width: 300px;
   overflow: inherit;
@@ -3775,7 +3774,7 @@ input[type=radio]:checked::after {
 .imgword-opr .size1of3 {
   width: 100px;
 }
-/*分享者设置*/
+/*鍒嗕韩鑰呰缃�*/
 .fenxiang .chzn-container {
   display: inline-block;
 }
@@ -3791,7 +3790,7 @@ input[type=radio]:checked::after {
 #baseSettingForm .fenxiang .chzn-container {
   display: inline-block;
 }
-/*分页*/
+/*鍒嗛〉*/
 .fenye {
   overflow: hidden;
   float: right;
@@ -3905,7 +3904,7 @@ input.jiaodian::-webkit-input-placeholder {
 .more-condition-table td {
   text-align: left !important;
 }
-/*选择图库*/
+/*閫夋嫨鍥惧簱*/
 #photo-list-modal {
   width: 950px;
 }
@@ -4052,7 +4051,7 @@ input.jiaodian::-webkit-input-placeholder {
   background-color: #f7f7f7;
   width: 8px;
 }
-/*拖拽的部分*/
+/*鎷栨嫿鐨勯儴鍒�*/
 ::-webkit-scrollbar-thumb {
   background-color: #c7d7d7;
   border-radius: 10px;
@@ -4131,8 +4130,8 @@ input.jiaodian::-webkit-input-placeholder {
 .BMap_Marker img {
   max-width: none;
 }
-/*会员营销*/
-/*会员卡类模态框内的“折”和二级input设置*/
+/*浼氬憳钀ラ攢*/
+/*浼氬憳鍗＄被妯℃�佹鍐呯殑鈥滄姌鈥濆拰浜岀骇input璁剧疆*/
 .second-word {
   display: inline-block;
 }
@@ -4153,7 +4152,7 @@ input.jiaodian::-webkit-input-placeholder {
 .member-data .modal-body .ui-tabs {
   height: auto;
 }
-/*价格设置*/
+/*浠锋牸璁剧疆*/
 .add-project-modal,
 .add-series-modal,
 .add-sub-project-modal {
@@ -4241,7 +4240,7 @@ input.jiaodian::-webkit-input-placeholder {
 .return .icon-chevron-left {
   margin-top: 3px;
 }
-/*项目设置*/
+/*椤圭洰璁剧疆*/
 .project-setting {
   /*.table td input{
     width: 70px;
@@ -4262,11 +4261,11 @@ input.jiaodian::-webkit-input-placeholder {
 .xingwei-chakan-modal {
   width: 500px;
 }
-/*员工设置*/
+/*鍛樺伐璁剧疆*/
 .add-target-modal p label {
   width: 110px;
 }
-/*员工资料模态框*/
+/*鍛樺伐璧勬枡妯℃�佹*/
 .employee-data-modal {
   height: 570px;
   width: 965px;
@@ -4394,7 +4393,7 @@ input.jiaodian::-webkit-input-placeholder {
 .employee-data-modal .self-btn .btn {
   width: 80px;
 }
-/*班次*/
+/*鐝*/
 .page-tab {
   display: flex;
   justify-content: center;
@@ -4429,7 +4428,7 @@ input.jiaodian::-webkit-input-placeholder {
   left: calc(50% - 10px);
 }
 /*
-增加部门按钮*/
+澧炲姞閮ㄩ棬鎸夐挳*/
 .add-bumen,
 .add-bumen:hover {
   width: 100%;
@@ -4481,7 +4480,7 @@ textarea {
 .employee-data-modal .self-btn {
   overflow: hidden;
 }
-/*智能报表*/
+/*鏅鸿兘鎶ヨ〃*/
 .across-shop-modal {
   width: 680px;
 }
@@ -4522,14 +4521,14 @@ textarea {
   border-right: 1px solid #e6e6e6;
   float: left;
   color: #979797;
-  font-family: "微软雅黑";
+  font-family: "寰蒋闆呴粦";
   font-size: 14px;
 }
 .contentinner p {
   margin: 5px 0;
 }
-/*微美拓客*/
-/*微信拓客css*/
+/*寰編鎷撳*/
+/*寰俊鎷撳css*/
 .imgword-list {
   display: flex;
   flex-direction: row;
@@ -4552,7 +4551,7 @@ textarea {
 .imgword-top p {
   margin: 0px;
 }
-/*标题*/
+/*鏍囬*/
 .imgword-title {
   font-weight: 400;
   font-style: normal;
@@ -4568,7 +4567,7 @@ textarea {
 .imgword-title a {
   color: #222;
 }
-/*时间*/
+/*鏃堕棿*/
 .imgword-info {
   font-size: 13px;
   line-height: 20px;
@@ -4634,7 +4633,7 @@ textarea {
 .search-bar {
   margin-left: 10px;
 }
-/*新建图文消息的页面*/
+/*鏂板缓鍥炬枃娑堟伅鐨勯〉闈�*/
 .news-area {
   float: left;
   /*width: 320px;*/
@@ -4922,7 +4921,7 @@ textarea {
 .news-current {
   border: 2px solid #43b548;
 }
-/*图片库*/
+/*鍥剧墖搴�*/
 .photo-list {
   display: flex;
   flex-direction: row;
@@ -5146,7 +5145,7 @@ textarea {
   font-size: 14px;
 }
 /*
-链接跳转*/
+閾炬帴璺宠浆*/
 .go-url {
   padding-left: 100px;
 }
@@ -5187,7 +5186,7 @@ textarea {
   font-size: 14px;
   cursor: pointer;
 }
-/*微信预览content内容*/
+/*寰俊棰勮content鍐呭*/
 .content-show {
   z-index: 999999;
   background-color: #fff;
@@ -5222,7 +5221,7 @@ textarea {
   top: auto;
   bottom: -2px;
 }
-/*图片预览*/
+/*鍥剧墖棰勮*/
 #preview {
   width: 100px;
   height: 100px;
@@ -5233,7 +5232,7 @@ textarea {
   top: auto;
   bottom: 40px !important;
 }
-/*拔去微信的样式*/
+/*鎷斿幓寰俊鐨勬牱寮�*/
 .sub_title_bar.light {
   background-color: #f4f5f9;
   border-bottom: 1px solid #e7e7eb;
@@ -5253,7 +5252,7 @@ a {
   color: #459ae9;
   text-decoration: none;
 }
-/*上传按钮样式*/
+/*涓婁紶鎸夐挳鏍峰紡*/
 .article-file-box {
   position: relative;
   width: 300px;
@@ -5321,7 +5320,7 @@ a {
   font-size: 20px;
   padding-right: 15px;
 }
-/*编辑模板模态框*/
+/*缂栬緫妯℃澘妯℃�佹*/
 .bianji-pic-modal {
   width: 990px;
 }
@@ -5395,7 +5394,7 @@ a {
   padding-bottom: 50px;
   float: right;
 }
-/*发送图文*/
+/*鍙戦�佸浘鏂�*/
 .tuwen {
   width: 318px;
   border: 1px solid #d8e9e9;
@@ -5514,7 +5513,7 @@ a {
   width: 580px;
   height: 390px;
 }
-/*新的tab*/
+/*鏂扮殑tab*/
 .new-contentinner {
   padding-top: 20px;
   background-color: #e7e7e7;
@@ -5677,7 +5676,7 @@ input[type="radio"] {
 .tab-padding {
   padding: 60px 45px;
 }
-/*流水查询模态*/
+/*娴佹按鏌ヨ妯℃��*/
 .clearfix:after {
   content: ".";
   display: block;
@@ -5793,7 +5792,7 @@ ul {
 .w85 {
   width: 85px;
 }
-/*控制所有模态框居中*/
+/*鎺у埗鎵�鏈夋ā鎬佹灞呬腑*/
 /*.modal{
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
@@ -5889,7 +5888,7 @@ ul {
   color: #333;
   vertical-align: middle;
 }
-/*修改考勤记录模态框*/
+/*淇敼鑰冨嫟璁板綍妯℃�佹*/
 .xg-kaoqing {
   overflow: hidden;
 }
@@ -5917,7 +5916,7 @@ ul {
 .modal-content.add-sub-project-modal {
   width: 750px !important;
 }
-/*预约*/
+/*棰勭害*/
 .yuyue {
   border: 1px solid #d9e9e9;
 }
@@ -6163,7 +6162,7 @@ ul {
   top: 0;
   color: #fff;
 }
-/*预约模态框*/
+/*棰勭害妯℃�佹*/
 .yuyue-tab {
   margin: 0 auto;
   text-align: center;
@@ -6588,7 +6587,7 @@ td.table-part1 {
 .shop-logo {
   margin-left: 0;
 }
-/*客服*/
+/*瀹㈡湇*/
 .m-wrap {
   width: 1000px;
   position: absolute;

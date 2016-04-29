@@ -39,19 +39,3 @@ jQuery(function(){
 	});
 }) 
 
-/**
- * 改变radio的样式
- * @param id
- */
-function chkRadio(opt) {
-	if (jQuery(this).val() == "1"){
-		opt.checked = false;
-		jQuery(this).val("0");
-	}
-	else {
-		opt.checked = true;
-		jQuery(this).val("1");
-	}
-}
-
-

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="/head.jsp"%>
 <%
-    String qiniu = "http://7xkv8r.com1.z0.glb.clouddn.com/";
+    String qiniu = "http://7xss26.com1.z0.glb.clouddn.com/";
 %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <body>
@@ -37,8 +37,8 @@
 						</li>
 					</ul>
 					<div class="right_button">
-						<button class="save">保存</button>
-						<button class="cancle">取消</button>
+						<button class="save">保 存</button>
+						<button class="cancle">取 消</button>
 					</div>
 				</div>
 				<div class="tab_content">
@@ -47,7 +47,7 @@
 						<div class="tab_content_div_left">
 							<div>
 								项目所属部门： 
-								<select name="deptId" style="box-shadow: 0 0 3px #ccc;" onchange="choseCategory(this)">
+								<select name="deptId" style="box-shadow: 0 0 3px #ccc;" onchange="choseCategory(this.value)">
 									<c:forEach var="deptProject" items="${deptProjectList }">
 										<option value="${deptProject.deptId }">${deptProject.deptName }</option>
 									</c:forEach>
@@ -78,11 +78,19 @@
 							<div style="position: relative; top: -30px">
 								项目描述：<input name="projectDesc" type="textarea" class="textarea" style="position: relative; top: 40px !important; left: 60px !important; box-shadow: 0 0 3px #ccc;">
 							</div>
-
-
 						</div>
 
-						<div class="tab_content_div_right"></div>
+						<div class="tab_content_div_right" style="margin-left:160px">
+								添加图片：
+				              <ul class="add_pic clearfix">
+							    <li><img projectImage="<%=qiniu%>system/profile/set_img.png" name="projectImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							  </ul>
+						</div>
 
 					</div>
 
@@ -143,7 +151,7 @@
 						</div>
 
 						<div class="step_1" style="margin-left: 20px;">
-							<table style="border: 1px solid #dbdce2; box-shadow: 0 0 10px #ccc;">
+							<table style="border: 1px solid #dbdce2; box-shadow: 0 0 10px #ccc;width: 1028px">
 								<tr>
 									<td style="border-right: 1px solid #dbdce2 !important; color: #afb0b6; border-bottom: 1px solid #dbdce2 !important;">步骤顺序</td>
 									<td style="color: #afb0b6;">轮牌名称</td>
@@ -170,7 +178,7 @@
 									<td td style="color: #afb0b6"><input type="text" class="cut_step_3" name="stepPerformance"></td>
 									<td td style="color: #afb0b6">
 										<div class="cut_step_4">
-											<input type="radio" onclick="chkRadio(this)" value="0" name="isDisable">
+											<input type="radio" onclick="chkRadio(this)" value="0" name="isDisable" style="width:18px">
 										</div>
 
 									</td>
@@ -229,6 +237,7 @@
 							<tr>
 								<td>会员卡种类</td>
 								<td>会员门店价</td>
+								<td>门店价格</td>
 								<td>会员成本金额</td>
 							<tr>
 						</table>
@@ -243,7 +252,6 @@
 							</div>
 							<div>
 								<span class="price_"> 会员门店价格：</span><input name="discountAmount" type="text" class="vip" style="box-shadow: 0 0 2px #ccc; left: 28px">
-
 							</div>
 							<div>
 								<span class="price_">会员成本金额：</span><input name="memberCostPrice" type="text" class="vipcoin" style="box-shadow: 0 0 2px #ccc; left: 28px">
@@ -253,8 +261,8 @@
 
 							<button class="save_">添加</button>
 						</div>
-						<div class="write_3" style="position: relative; left: 160px">
-							<span class="add" style="border: none">+</span>编辑
+						<div class="write_3" style="position: relative; left: 60px;width: 120px;">
+							<img src="<%=basePath %>images/add.png"><em style="position:relative;left:4px">编辑</em>
 						</div>
 						<div class="tab_content_div_right"></div>
 
@@ -266,9 +274,73 @@
 		</div>
 	</div>
 	
+	<div class="zzc">
+	      <div class="photo_cut">
+		   <div id="clipArea"></div>
+           <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
+		   <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
+		   <div class="button_panel"> 
+		    <button class="selectpic">选择图片</button>
+		    <button class="sureinput">确定上传</button>
+			<button class="cancelinput">取消</button>
+		  </div>
+         </div>
+   </div>
 
 </body>
 
+<script>
+	var cssWidth = 200;
+	var cssHeight = 200;
+	var qiniu = '<%=qiniu %>';
+	var imgObject;
+	jQuery(function(){
+	     jQuery('.add_pic li').click(function(){
+	    	imgObject = jQuery(this);
+		    jQuery('.zzc').show()
+		 })
+		 jQuery('.cancelinput').click(function(){
+		    jQuery('.zzc').hide();
+		    jQuery('.photo-clip-rotateLayer').html('');
+		 })
+	})
+	function zccCallback(dataBase64){
+		imgObject.children("img").attr("src", dataBase64);
+		var key = "jobwisdom/project/" + new Date().getTime();
+		if ((typeof(imgObject.children("img").attr("projectImage")))!="undefined"){
+			var url = qiniu+key;
+			imgObject.children("img").attr("projectImage", url);
+		}else {
+			var url = qiniu+key;
+			imgObject.children("img").attr("affiliatedImage", url);
+		}
+	    var data = {"stringBase64":dataBase64,"key":key};
+	    jQuery('.cancelinput').click();
+	    jQuery.ajax({
+			type: "POST",
+			url: baseUrl+"qiniu/base64",
+		       data: JSON.stringify(data),
+		       contentType: "application/json",
+		       dataType: "json",
+		       async:true,  
+		       beforeSend:function(){
+		       	console.log("beforeSend upload image");
+		       },
+		       error:function (){
+		       	console.log("upload image error");
+		       },
+		       complete :function (){
+		       	console.log("complete upload image");
+		       },
+		       success: function(data) {
+			       	var imageUrl = data.msg.imageUrl;
+			       	var key = data.msg.key;
+			       	console.log(imageUrl);
+		       }
+     	});
+	}
+</script>
+<script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>
 <script>
 	var deptProjectList = ${js_deptProjectList};
 	var deptMahjongList = ${mahjongList};
@@ -280,23 +352,86 @@
 	var storeId = '${session_key_store_id}';
 	var projectId = '${projectId}';
 	var deptId = deptProjectList[0].deptId;
-	var project = '${project}';
-	var projectStep = 0;
-	if (projectId != '') {
-		projectStep = project.projectStep;
-		deptId = project.deptId;
-		status = 1;
+	
+	var project = null;
+	var projectCommissionList = null;
+	var projectDiscountList = null;
+	var projectStepList = null;
+	
+	/**
+	 * 更换轮拍,更换职位信息
+	 */
+	function changeMahjongStep(shiftMahjongId) {
+		var html = '<tr>'+
+						'<td style="color: #afb0b6; border-bottom: 1px solid #dbdce2 !important; border-right: 1px solid #dbdce2 !important;">职位名称</td>'+
+						'<td style="color: #afb0b6">提成方式</td>'+
+						'<td style="color: #afb0b6">指定提成</td>'+
+						'<td style="color: #afb0b6">非指定提成</td>'+
+						'<td style="color: #afb0b6">预约奖励</td>'+
+					'</tr>';
+		jQuery(".step_2").children("tbody").empty();
+		jQuery(".step_2").children("tbody").append(jQuery(html));
+		var tempList;
+		for (var i = 0; i < deptMahjongList.length; i++) {
+			if (deptMahjongList[i].deptId == deptId){
+				for (var j = 0; j < deptMahjongList[i].mahjongLevelList.length; j++) {
+					if(deptMahjongList[i].mahjongLevelList[j].shiftMahjongId == shiftMahjongId){
+						tempList = deptMahjongList[i].mahjongLevelList[j].employeeLevelList;
+					}
+				}
+			}
+		}
+		for (var j = 0; j < tempList.length; j++) {
+			var str = "<tr class='empLevel'>"
+				+ "<td>"
+				+ "<select name='levelId'>";
+			for (var i = 0; i < tempList.length; i++) {
+				var level = tempList[i];
+				str += "<option value='" + level.levelId + "'>" + level.levelName + "</option>";
+			}
+			str += '</select>'+
+				'</td>'+
+		            '<td><select class="cut_step_7" name="assignType">'+
+						'<option value="2">固定</option>'+
+						'<option value="1">比例</option>'+
+						'</select>'+
+					'</td>'+
+					'<td><input type="text" name="assignCash" class="cut_step_11"></td>'+
+					'<td><input type="text" name="assignCard" class="cut_step_11"></td>'+
+					'<td><input type="text" name="appointmentReward" class="cut_step_11"></td>'+
+		         '</tr>';
+		         jQuery(".step_2").append(jQuery(str));
+		}
+		for (var j = 0; j < tempList.length; j++) {
+			jQuery(".step_2").find("select[name='levelId']").eq(j).find("option").eq(j).attr('selected','selected');
+			jQuery(".step_2").find("select[name='levelId']").eq(j).val(tempList[j].levelId);
+		}
 	}
-	else {
-		projectId = null;
+	
+	/**
+	* 更换部门,更换轮拍和职位信息
+	*/
+	function checkUpdateLevel(deptIds){
+		deptId = deptIds;
+		jQuery("select[name='shiftMahjongId']").empty();
+		for (var i = 0; i < deptMahjongList.length; i++) {
+			if (deptMahjongList[i].deptId == deptId) {
+				for (var j = 0; j < deptMahjongList[i].mahjongLevelList.length; j++) {
+					var shiftMahjongId = deptMahjongList[i].mahjongLevelList[j].shiftMahjongId;
+					var shiftMahjongName = deptMahjongList[i].mahjongLevelList[j].shiftMahjongName;
+					var html = '<option value="'+shiftMahjongId+'">'+shiftMahjongName+'</option>';
+					jQuery("select[name='shiftMahjongId']").append(jQuery(html));
+				}
+				if (deptMahjongList[i].mahjongLevelList.length == 0)changeMahjongStep(0);
+				changeMahjongStep(deptMahjongList[i].mahjongLevelList[0].shiftMahjongId);
+			}
+		}
 	}
-
 	/**
 	 * 更换部门切换类别
 	 */
-	function choseCategory(opt) {
-		var deptId = jQuery(opt).val()
-		console.log(deptId)
+	function choseCategory(deptIds) {
+		deptId = deptIds;
 		for (var int = 0; int < deptProjectList.length; int++) {
 			if (deptProjectList[int].deptId == deptId) {
 				jQuery("select[name='categoryId']").empty()
@@ -310,6 +445,151 @@
 			}
 		}
 		checkUpdateLevel(deptId);
+	}
+	
+	var projectStep = 0;
+	if (projectId != '') {
+		project = eval('('+'${projectInfo}'+')');
+		projectCommissionList = eval('('+'${projectCommissionList}'+')');
+		projectDiscountList = eval('('+'${projectDiscountList}'+')');
+		projectStepList = eval('('+'${projectStepList}'+')');
+		projectStep = project.projectStep;
+		deptId = project.deptId;
+		status = 1;
+		
+		/**锁定项目基本信息*/
+		var deptName = jQuery("select[name='deptId']").find("option[value='"+deptId+"']").text();
+		jQuery("select[name='deptId']").empty();
+		jQuery("select[name='deptId']").append(jQuery('<option value="'+deptId+'">'+deptName+'</option>'));
+		jQuery("select[name='deptId']").val(deptId);
+		
+		var categoryId = project.categoryId;
+		choseCategory(deptId);
+		jQuery("select[name='categoryId']").val(categoryId);
+		
+		var projectImage = project.projectImage;
+		jQuery("img[name='projectImage']").attr("projectImage", projectImage);
+		jQuery("img[name='projectImage']").attr("src", projectImage);
+		var affiliatedImage = project.affiliatedImage;
+		for (var i = 0; i < affiliatedImage.split(",").length; i++) {
+			jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage", affiliatedImage.split(",")[i]);
+			jQuery("img[name='affiliatedImage']").eq(i).attr("src", affiliatedImage.split(",")[i]);
+		}
+		
+		jQuery("select[name='projectType']").val(project.projectType);
+		jQuery("input[name='projectName']").val(project.projectName);
+		jQuery("input[name='projectDesc']").val(project.projectDesc);
+		jQuery("input[name='projectCodeSuffix']").val(project.projectCodeSuffix);
+		
+		/**锁定项目价格*/
+		if(projectStep>=2){
+			
+			jQuery("input[name='projectPrice']").val(project.projectPrice);
+			jQuery("input[name='costPrice']").val(project.costPrice);
+			jQuery("input[name='appointmentPrice']").val(project.appointmentPrice);
+			jQuery("input[name='highestDiscount']").val(project.highestDiscount);
+			
+			jQuery("input[name='isGiftCash'][value='"+project.isGiftCash+"']").click();
+			jQuery("input[name='isAppointment'][value='"+project.isAppointment+"']").click();
+		}
+		
+		/**锁定轮牌职位信息*/
+		if(projectStep>=3){
+			for (var i = 0; i < projectStepList.length; i++) {
+				var shiftMahjongId = projectStepList[i].shiftMahjongId;
+				var shiftMahjongName = null;
+				for (var m = 0; m < deptMahjongList.length; m++) {
+					if (deptMahjongList[m].deptId == deptId){
+						for (var r = 0; r < deptMahjongList[m].mahjongLevelList.length; r++) {
+							if (deptMahjongList[m].mahjongLevelList[r].shiftMahjongId == shiftMahjongId){
+								shiftMahjongName = deptMahjongList[m].mahjongLevelList[r].shiftMahjongName;
+							}
+						}
+					}
+				}
+				
+				var step = projectStepList[i].projectStepOrder;
+				var rowspan = 0;
+				var isSame = [];
+				
+				var disableList = ['比例','固定'];
+				var assignTypeList = ['','比例','固定'];
+				var projectStepName = projectStepList[i].projectStepName;
+				var stepPerformanceType = projectStepList[i].stepPerformanceType;
+				var stepPerformanceTypeName = assignTypeList[stepPerformanceType];
+				var stepPerformance = projectStepList[i].stepPerformance;
+				var isDisable = projectStepList[i].isDisable;
+				for (var j = 0; j < projectCommissionList.length; j++) {
+					if(shiftMahjongId == projectCommissionList[j].shiftMahjongId){
+						rowspan += 1;
+						isSame.push(j);
+					}
+				}
+				
+				for (var j = 0; j < isSame.length; j++) {
+					var levelId = projectCommissionList[isSame[j]].levelId;
+					var levelName = "sd";
+					var assignType = projectCommissionList[isSame[j]].assignCashType;
+					var assignCash = projectCommissionList[isSame[j]].assignCash;
+					var assignCard = projectCommissionList[isSame[j]].assignCard;
+					var appointmentReward = projectCommissionList[isSame[j]].appointmentReward;
+					if (j == 0){
+						var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'+
+								'<td rowspan="'+rowspan+'" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;">'+
+								'<span style="position:relative;top:50%">'+step+'</span>'+
+								'</td><td>'+shiftMahjongName+'</td>'+
+								'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
+								'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
+								'<td stepPerformance="'+stepPerformance+'">'+stepPerformance+'</td>'+
+								'<td isDisable="'+isDisable+'">'+disableList[isDisable]+'</td>'+
+								'<td levelId="'+levelId+'">'+levelName+'</td>'+
+								'<td assignType="'+assignType+'">'+assignTypeList[assignType]+'</td>'+
+								'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
+								'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
+								'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
+								'</tr>');
+						jQuery('.table_s').append(tr);
+					}else {
+						var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'+
+								'<td>'+shiftMahjongName+'</td>'+
+								'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
+								'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
+								'<td stepPerformance="'+stepPerformance+'">'+stepPerformance+'</td>'+
+								'<td isDisable="'+isDisable+'">'+disableList[isDisable]+'</td>'+
+								'<td levelId="'+levelId+'">'+levelName+'</td>'+
+								'<td assignType="'+assignType+'">'+assignTypeList[assignType]+'</td>'+
+								'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
+								'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
+								'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
+								'</tr>');
+						jQuery('.table_s').append(tr);
+					}
+				}
+			}
+		}
+		if(projectStep>=4){
+			for (var i = 0; i < projectDiscountList.length; i++) {
+				var levelId = projectDiscountList[i].levelId;
+				var projectPrice = project.projectPrice;
+				var discountAmount = projectDiscountList[i].discountAmount;
+				var memberCostPrice = projectDiscountList[i].memberCostPrice;
+				var levelName = null;
+				for (var j = 0; j < memberLevelList.length; j++) {
+					if (levelId == memberLevelList[j].levelId){
+						levelName = memberLevelList[j].levelName;
+					}
+				}
+				var html = '<tr>'+
+							'<td levelid="'+levelId+'">'+levelName+
+							'</td><td>'+projectPrice+
+							'</td><td discountamount="'+discountAmount+'">'+discountAmount+
+							'</td><td membercostprice="'+memberCostPrice+'">'+memberCostPrice+'</td></tr>';
+				jQuery(".table_").children("tbody").append(jQuery(html));
+			}
+		}
+	}
+	else {
+		projectId = null;
 	}
 
 	/**
@@ -350,6 +630,15 @@
 			var projectType = jQuery("select[name='projectType']").val();
 			var projectDesc = jQuery("input[name='projectDesc']").val();
 			var projectCodeSuffix = jQuery("input[name='projectCodeSuffix']").val();
+			var projectImage = jQuery("img[name='projectImage']").attr("projectImage");
+			var affiliatedImage = "";
+			for (var i = 0; i < jQuery("img[name='affiliatedImage']").length; i++) {
+				if (i == (jQuery("img[name='affiliatedImage']").length-1)){
+					affiliatedImage = affiliatedImage + jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage");
+				}else {
+					affiliatedImage = affiliatedImage + jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage")+ ",";
+				}
+			}
 			data = {
 				"storeId" : storeId,
 				"projectId" : projectId,
@@ -359,13 +648,15 @@
 				"projectName" : projectName,
 				"projectType" : projectType,
 				"projectDesc" : projectDesc,
-				"projectCodeSuffix" : projectCodeSuffix
+				"projectCodeSuffix" : projectCodeSuffix,
+				"projectImage" : projectImage,
+				"affiliatedImage" : affiliatedImage
 			};
 			deptId = deptId;
 			return data;
 		} else if (step == 2) {
 			var projectPrice = jQuery("input[name='projectPrice']").val();
-			var costPricecostPrice = jQuery("input[name='costPrice']").val();
+			var costPrice = jQuery("input[name='costPrice']").val();
 			var appointmentPrice = jQuery("input[name='appointmentPrice']").val();
 			var highestDiscount = jQuery("input[name='highestDiscount']").val();
 			var isGiftCash = jQuery('input:radio[name="isGiftCash"]:checked').val();
@@ -373,7 +664,7 @@
 			data = {
 				"projectId" : projectId,
 				"projectPrice" : projectPrice,
-				"costPricecostPrice" : costPricecostPrice,
+				"costPrice" : costPrice,
 				"appointmentPrice" : appointmentPrice,
 				"highestDiscount" : highestDiscount,
 				"isGiftCash" : isGiftCash,
@@ -422,95 +713,7 @@
 		}
 	}
 	
-	/**
-	* 初始化轮拍信息
-	*/
-	var currentDeptId = null;
-	var currentMahjongList = null;
-	var currentLevelList = new Array();
-	var deptMahjong = new Object();
-	var mahjongLevel = new Object();
-    for (var i = 0; i < deptMahjongList.length; i++) {
-    	var dept = deptMahjongList[i];
-    	var mahjongList = dept.mahjongLevelList
-    	deptMahjong[dept.deptId] = mahjongList;
-    	
-    	for (var j = 0; j < mahjongList.length; j++) {
-			var mahjong = mahjongList[j];
-    		mahjongLevel[mahjong.shiftMahjongId] = mahjong.employeeLevelList;
-		}
-    	try {
-    		if(i == 0){
-        		currentDeptId = dept.deptId;
-        		currentMahjongList = mahjongList;
-        		currentLevelList = mahjongList[0].employeeLevelList;
-        	}
-		} catch (e) {
-			
-		}
-	}
 
-	/**
-	 * 更换轮拍,更换职位信息
-	 */
-	var changeMahjongStep = function(shiftMahjongId) {
-		var html = '<tr>'+
-						'<td style="color: #afb0b6; border-bottom: 1px solid #dbdce2 !important; border-right: 1px solid #dbdce2 !important;">职位名称</td>'+
-						'<td style="color: #afb0b6">提成方式</td>'+
-						'<td style="color: #afb0b6">指定提成</td>'+
-						'<td style="color: #afb0b6">非指定提成</td>'+
-						'<td style="color: #afb0b6">预约奖励</td>'+
-					'</tr>';
-		jQuery(".step_2").children("tbody").empty();
-		jQuery(".step_2").children("tbody").append(jQuery(html));
-		var tempList = mahjongLevel[shiftMahjongId];
-		for (var j = 0; j < tempList.length; j++) {
-			var str = "<tr class='empLevel'>"
-				+ "<td>"
-				+ "<select name='levelId'>";
-			for (var i = 0; i < tempList.length; i++) {
-				var level = tempList[i];
-				str += "<option value='" + level.levelId + "'>" + level.levelName + "</option>";
-			}
-			str += '</select>'+
-				'</td>'+
-		            '<td><select class="cut_step_7" name="assignType">'+
-						'<option value="2">固定</option>'+
-						'<option value="1">比例</option>'+
-						'</select>'+
-					'</td>'+
-					'<td><input type="text" name="assignCash" class="cut_step_11"></td>'+
-					'<td><input type="text" name="assignCard" class="cut_step_11"></td>'+
-					'<td><input type="text" name="appointmentReward" class="cut_step_11"></td>'+
-		         '</tr>';
-		         jQuery(".step_2").append(jQuery(str));
-		}
-		for (var j = 0; j < tempList.length; j++) {
-			jQuery(".step_2").find("select[name='levelId']").eq(j).find("option").eq(j).attr('selected','selected');
-			jQuery(".step_2").find("select[name='levelId']").eq(j).val(tempList[j].levelId);
-		}
-	}
-	
-	/**
-	* 更换部门,更换轮拍和职位信息
-	*/
-	function choseCategory(dept){
-		deptId = jQuery(dept).val();
-		jQuery("select[name='shiftMahjongId']").empty();
-		for (var i = 0; i < deptMahjongList.length; i++) {
-			if (deptMahjongList[i].deptId == deptId) {
-				for (var j = 0; j < deptMahjongList[i].mahjongLevelList.length; j++) {
-					var shiftMahjongId = deptMahjongList[i].mahjongLevelList[j].shiftMahjongId;
-					var shiftMahjongName = deptMahjongList[i].mahjongLevelList[j].shiftMahjongName;
-					var html = '<option value="'+shiftMahjongId+'">'+shiftMahjongName+'</option>';
-					jQuery("select[name='shiftMahjongId']").append(jQuery(html));
-				}
-				if (deptMahjongList[i].mahjongLevelList.length == 0)changeMahjongStep(0);
-				changeMahjongStep(deptMahjongList[i].mahjongLevelList[0].shiftMahjongId);
-			}
-		}
-	}
-	
 	/**
 	*　为项目table添加步骤和职位信息
 	*/
@@ -591,9 +794,10 @@
 	    jQuery('.cash').hide();
 	    jQuery('.write_3').show();
 		var table=jQuery('.tab_content_div').find('.table_');
+		var projectPrice = jQuery("input[name='projectPrice']").val();
 		var html = '<tr>'+
 					'<td levelId="'+levelId+'">'+levelName+'</td>'+
-					'<td></td>'+
+					'<td>'+projectPrice+'</td>'+
 					'<td discountAmount="'+discountAmount+'">'+discountAmount+'</td>'+
 					'<td memberCostPrice="'+memberCostPrice+'">'+memberCostPrice+'</td>'+
 					'</tr>';

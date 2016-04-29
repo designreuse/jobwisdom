@@ -51,13 +51,13 @@
 				</c:forEach>
 				</div>
 				<div class="rollBox">
-					<div class="LeftBotton" onmousedown="ISL_GoUp()" onmouseup="ISL_StopUp()"></div>
+					<div class="LeftBotton"></div>
 					<div class="Cont" id="ISL_Cont">
 						<div class="ScrCont">
 							<div id="List1">
 								<c:forEach items="${projectInfos }" var="project" step="2" varStatus="status">
 									<div class="pic">
-									<div class="column_small_first " action-type="showdesc">
+									<div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>project/view/projectList?projectId=${projectInfos[status.count*2-2].projectId }","_self")'>
 										<div class="column_img_container">
 											<div class="head_pic">
 												<img src="<%=basePath%>images/head_pic.png">
@@ -78,7 +78,7 @@
 									</div>
 									
 									<c:if test="${(status.count*2-1)!=fn:length(projectInfos) }">
-									<div class="column_small_first " action-type="showdesc">
+									<div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>project/view/projectList?projectId=${projectInfos[status.count*2-1].projectId }","_self")'>
 										<div class="column_img_container">
 											<div class="head_pic">
 												<img src="<%=basePath%>images/head_pic.png">
@@ -103,7 +103,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="RightBotton" onmousedown="ISL_GoDown()" onmouseup="ISL_StopDown()"></div>
+					<div class="RightBotton"></div>
 				</div>
 				<div class="project-category">
 
@@ -158,4 +158,5 @@
 	</div>
 </body>
 <script type="text/javascript" src="<%=basePath%>js/commodity/project.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/base/roll.js"></script>
 </html>
