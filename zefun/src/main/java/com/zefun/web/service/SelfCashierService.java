@@ -166,6 +166,7 @@ public class SelfCashierService {
 	 * @date 2015年10月21日 下午15:25:03
 	 * @param storeId
 	 *            门店标识
+	 * @param loginType 登录类型
 	 * @return cashierDto
 	 * @throws ParseException
 	 *             ParseException
@@ -219,7 +220,7 @@ public class SelfCashierService {
 	 * @param memberId
 	 *            结账会员标识(会员自助结账时)
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
-	 * @throws ServiceException
+	 * @throws ServiceException ServiceException
 	 */
 	@Transactional
 	public BaseDto cashierSubmit(int employeeId, OrderInfoSubmitDto orderSubmit, Integer memberId)
@@ -280,10 +281,12 @@ public class SelfCashierService {
 				if (ownerDetail.getOrderType() == 1) {
 					tempAmount = projectService.getProjectPriceByMember(memberSubAccount.getLevelId(),
 							ownerDetail.getProjectId(), ownerDetail.getProjectPrice());
-				} else if (ownerDetail.getOrderType() == 2) {
+				} 
+				else if (ownerDetail.getOrderType() == 2) {
 					tempAmount = goodsInfoService.getGoodsPriceByMember(memberSubAccount.getLevelId(),
 							ownerDetail.getProjectId(), ownerDetail.getProjectPrice());
-				} else {
+				} 
+				else {
 					tempAmount = ownerDetail.getDiscountAmount();
 				}
 				// 处理改价的问题
@@ -314,16 +317,17 @@ public class SelfCashierService {
 					updateMemberGiftMoney(ownerMemberId, detail.getOffAmount());
 					// 增加礼金流水
 					insertGiftMoneyFlow(ownerMemberId, ownerDetail.getDetailId(), detail.getOffAmount(), curTime,
-							ownerDetail.getProjectName());
+							  ownerDetail.getProjectName());
 
 					giftAmount = giftAmount.add(detail.getOffAmount());
 					orderDetail.setGiftAmount(detail.getOffAmount());
 
 					// 检查是否有礼金抵扣
 					if (StringUtils.isNotBlank(ownerDetail.getFreeAmount()) && !"0".equals(ownerDetail.getFreeAmount())
-							&& !"0.00".equals(ownerDetail.getFreeAmount())) {
+							  && !"0.00".equals(ownerDetail.getFreeAmount())) {
 						orderDetail.setRealPrice(ownerDetail.getDiscountAmount().subtract(detail.getOffAmount()));
-					} else {
+					} 
+					else {
 						orderDetail.setRealPrice(ownerDetail.getProjectPrice().subtract(detail.getOffAmount()));
 					}
 
@@ -346,7 +350,8 @@ public class SelfCashierService {
 					orderDetail.setCouponId(relevanceId);
 					orderDetail.setOffType(2);
 					discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());
-				} else {
+				} 
+				else {
 					discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());
 				}
 				appointOff = appointOff.add(ownerDetail.getAppointOff());
@@ -355,7 +360,8 @@ public class SelfCashierService {
 					rm = BigDecimal.ZERO;
 				}
 				orderDetail.setRealPrice(rm);
-			} else {
+			} 
+			else {
 				discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());
 			}
 
@@ -369,9 +375,9 @@ public class SelfCashierService {
 
 		// 校验实收金额
 		BigDecimal tempAmount = cashierDto.getDebtAmount().add(orderSubmit.getAlipayAmount())
-				.add(orderSubmit.getCardAmount()).add(orderSubmit.getCashAmount()).add(giftAmount)
-				.add(orderSubmit.getUnionpayAmount()).add(orderSubmit.getWechatAmount()).add(appointOff)
-				.add(comboAmount).add(couponAmount).add(orderSubmit.getGroupAmount()).add(orderSubmit.getDebtAmount());
+				  .add(orderSubmit.getCardAmount()).add(orderSubmit.getCashAmount()).add(giftAmount)
+				  .add(orderSubmit.getUnionpayAmount()).add(orderSubmit.getWechatAmount()).add(appointOff)
+				  .add(comboAmount).add(couponAmount).add(orderSubmit.getGroupAmount()).add(orderSubmit.getDebtAmount());
 		if (tempAmount.compareTo(realAmount) == -1) {
 			throw new ServiceException(1, "您支付的金额与实收金额不一致");
 		}
@@ -417,11 +423,11 @@ public class SelfCashierService {
 
 			// 新增会员账户流水
 			insertMoneyFlow(cashierDto.getMemberInfo().getStoreId(), orderSubmit.getSubAccountId(), orderId,
-					orderSubmit.getCardAmount(), cashierDto.getMemberInfo().getBalanceAmount(), curTime, employeeId);
+					  orderSubmit.getCardAmount(), cashierDto.getMemberInfo().getBalanceAmount(), curTime, employeeId);
 			// 新增积分流水
 			if (integralAmount > 0) {
 				insertIntegralFlow(ownerMemberId, orderId, cashierDto.getMemberInfo().getBalanceIntegral(),
-						integralAmount, curTime);
+						  integralAmount, curTime);
 			}
 		}
 
@@ -431,7 +437,7 @@ public class SelfCashierService {
 			if (orderSubmit.getDebtAmount().compareTo(BigDecimal.ZERO) == 1) {
 				// 增加挂帐记录
 				memberInfoService.insertDebtFlow(ownerMemberId, orderId, orderSubmit.getDebtAmount(), "消费欠款", 1,
-						employeeId, curTime);
+						  employeeId, curTime);
 
 				// 更新账户挂帐金额
 				MemberAccount memberAccount = new MemberAccount();
@@ -468,12 +474,12 @@ public class SelfCashierService {
 				String projectList = projectSet.toString();
 				projectList = projectList.substring(1, projectList.length() - 1);
 				String url = App.System.SERVER_BASE_URL
-						+ Url.MemberCenter.VIEW_PAYMENT_DETAIL.replace("{businessType}", "1") + "?orderId=" + orderId;
+						  + Url.MemberCenter.VIEW_PAYMENT_DETAIL.replace("{businessType}", "1") + "?orderId=" + orderId;
 				rabbitService.sendPaymentNotice(2, cashierDto.getMemberInfo().getStoreId(), url, openId,
-						memberInfo.getStoreName(), memberInfo.getPhone(), projectList,
-						cashierDto.getReceivableAmount().toString(), orderSubmit.getCardAmount().toString(),
-						memberInfo.getBalanceAmount().subtract(orderSubmit.getDebtAmount()).toString(),
-						orderSubmit.getDebtAmount().toString());
+						  memberInfo.getStoreName(), memberInfo.getPhone(), projectList,
+						  cashierDto.getReceivableAmount().toString(), orderSubmit.getCardAmount().toString(),
+						  memberInfo.getBalanceAmount().subtract(orderSubmit.getDebtAmount()).toString(),
+						  orderSubmit.getDebtAmount().toString());
 			}
 		}
 
@@ -540,39 +546,39 @@ public class SelfCashierService {
 				String rewardName = "";
 
 				switch (type) {
-				// 积分
-				case 1:
-					url = App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_INTEGRAL_FLOW_LIST;
-					rewardName = reward + "分商城积分";
-					break;
-				// 礼金
-				case 2:
-					url = App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_GIFT_MONEY_FLOW_LIST;
-					rewardName = reward + "元账户礼金";
-					break;
-				// 优惠券
-				case 3:
-					url = App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_MEMBER_COUPON;
-					CouponInfo couponInfo = couponInfoMapper.selectNormalByCouponId(reward);
-					rewardName = couponInfo.getCouponPrice() + "元";
-					switch (couponInfo.getCouponType()) {
-					case 0:
-						rewardName += "通用优惠券";
-						break;
+					// 积分
 					case 1:
-						rewardName += "项目优惠券";
+						url = App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_INTEGRAL_FLOW_LIST;
+						rewardName = reward + "分商城积分";
 						break;
+					// 礼金
 					case 2:
-						rewardName += "商品优惠券";
+						url = App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_GIFT_MONEY_FLOW_LIST;
+						rewardName = reward + "元账户礼金";
 						break;
-
+					// 优惠券
+					case 3:
+						url = App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_MEMBER_COUPON;
+						CouponInfo couponInfo = couponInfoMapper.selectNormalByCouponId(reward);
+						rewardName = couponInfo.getCouponPrice() + "元";
+						switch (couponInfo.getCouponType()) {
+							case 0:
+								rewardName += "通用优惠券";
+								break;
+							case 1:
+								rewardName += "项目优惠券";
+								break;
+							case 2:
+								rewardName += "商品优惠券";
+								break;
+		
+							default:
+								break;
+						}
+	
+						break;
 					default:
 						break;
-					}
-
-					break;
-				default:
-					break;
 				}
 
 				url += "?memberId=" + recommenderId;
@@ -754,7 +760,7 @@ public class SelfCashierService {
 	 */
 	@Transactional
 	protected void insertIntegralFlow(Integer memberId, Integer orderId, Integer integralBanlance,
-			Integer integralAmount, String time) {
+			  Integer integralAmount, String time) {
 		IntegralFlow integralFlow = new IntegralFlow();
 		integralFlow.setAccountId(memberId);
 		integralFlow.setOrderId(orderId);
@@ -784,7 +790,7 @@ public class SelfCashierService {
 	 */
 	@Transactional
 	protected int insertGiftMoneyFlow(Integer accountId, Integer detailId, BigDecimal giftAmount, String time,
-			String projectName) {
+			  String projectName) {
 
 		List<GiftmoneyDetail> list = giftmoneyDetailMapper.selectByAccountId(accountId);
 
@@ -795,7 +801,7 @@ public class SelfCashierService {
 
 		for (GiftmoneyDetail giftmoneyDetail : list) {
 			if (giftmoneyDetail.getResidueNowMoney().compareTo(operationValue) == -1
-					|| giftmoneyDetail.getResidueNowMoney().compareTo(operationValue) == 0) {
+					  || giftmoneyDetail.getResidueNowMoney().compareTo(operationValue) == 0) {
 				// 修改礼金明细，当期剩余礼金
 				GiftmoneyDetail record = new GiftmoneyDetail();
 				record.setDetail(giftmoneyDetail.getDetail());
@@ -804,12 +810,14 @@ public class SelfCashierService {
 				operationValue = operationValue.subtract(giftmoneyDetail.getResidueNowMoney());
 				if (residueMoneyInfo == null) {
 					residueMoneyInfo = giftmoneyDetail.getDetail() + ":" + giftmoneyDetail.getResidueNowMoney();
-				} else {
+				} 
+				else {
 					residueMoneyInfo = residueMoneyInfo + "," + giftmoneyDetail.getDetail() + ":"
 							+ giftmoneyDetail.getResidueNowMoney();
 				}
 				continue;
-			} else {
+			} 
+			else {
 				if (operationValue.compareTo(new BigDecimal(0)) != 0) {
 					// 修改礼金明细，当期剩余礼金
 					GiftmoneyDetail record = new GiftmoneyDetail();
@@ -819,7 +827,8 @@ public class SelfCashierService {
 
 					if (residueMoneyInfo == null) {
 						residueMoneyInfo = giftmoneyDetail.getDetail() + ":" + operationValue;
-					} else {
+					} 
+					else {
 						residueMoneyInfo = residueMoneyInfo + "," + giftmoneyDetail.getDetail() + ":" + operationValue;
 					}
 					break;
@@ -862,7 +871,7 @@ public class SelfCashierService {
 	 */
 	@Transactional
 	protected int insertMoneyFlow(Integer storeId, Integer accountId, Integer orderId, BigDecimal flowAmount,
-			BigDecimal balance, String time, int operatorId) {
+			  BigDecimal balance, String time, int operatorId) {
 		// 新增资金流水
 		MoneyFlow moneyFlow = new MoneyFlow();
 		moneyFlow.setAccountId(accountId);
@@ -937,7 +946,7 @@ public class SelfCashierService {
 
 			// 检查是否可以使用礼金抵扣
 			if (detail.getIsGiftCash() == 1 && giftmoney.compareTo(BigDecimal.ZERO) == 1
-					&& detail.getHighestDiscount().compareTo(BigDecimal.ZERO) == 1) {
+					  && detail.getHighestDiscount().compareTo(BigDecimal.ZERO) == 1) {
 				// 项目原价减掉礼金之后还需要支付超过会员折扣价格的卡金，则不优先使用礼金抵扣。
 				PaymentOffDto giftPaymentOff = new PaymentOffDto();
 				giftPaymentOff.setId(String.valueOf(memberId));
@@ -986,10 +995,12 @@ public class SelfCashierService {
 					if (detail.getOrderType() == 1) {
 						price = projectService.getProjectPriceByMember(levelId, detail.getProjectId(),
 								detail.getProjectPrice());
-					} else if (detail.getOrderType() == 2) {
+					} 
+					else if (detail.getOrderType() == 2) {
 						price = goodsInfoService.getGoodsPriceByMember(levelId, detail.getProjectId(),
 								detail.getProjectPrice());
-					} else {
+					} 
+					else {
 						price = detail.getProjectPrice();
 					}
 					discountMap.put(detail.getDetailId() + "_" + subAccount.getSubAccountId(), price);

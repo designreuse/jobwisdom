@@ -51,7 +51,7 @@ public interface UserAccountMapper {
 	 *
 	 * @author 张进军
 	 * @date Sep 18, 2015 7:35:11 PM
-	 * @param userName
+	 * @param mapUser
 	 *            用户账号
 	 * @return 用户账户信息
 	 */

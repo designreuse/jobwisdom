@@ -191,7 +191,7 @@ public class UserService {
 	 * 
 	 * @author 高国藩
 	 * @date 2016年4月23日 下午4:28:48
-	 * @return
+	 * @return Map<String, String>
 	 */
 	public Map<String, String> getYzmPage() {
 		String pageValue = redisService.srandmember(App.Redis.WEB_PC_YZM_PAGE_SET);
@@ -204,11 +204,12 @@ public class UserService {
 			for (YzmPageQiniu yzmPageQiniu : yzmPageQiniuList) {
 				redisService.sadd(App.Redis.WEB_PC_YZM_PAGE_SET, yzmPageQiniu.getPageValue());
 				redisService.hset(App.Redis.WEB_PC_YZM_PAGE_HASH, yzmPageQiniu.getPageValue(),
-						yzmPageQiniu.getPageUrl());
+						  yzmPageQiniu.getPageUrl());
 			}
 			pageValue = redisService.srandmember(App.Redis.WEB_PC_YZM_PAGE_SET);
 			pageUrl = redisService.hget(App.Redis.WEB_PC_YZM_PAGE_HASH, pageValue);
-		} else {
+		} 
+		else {
 			pageUrl = redisService.hget(App.Redis.WEB_PC_YZM_PAGE_HASH, pageValue);
 		}
 		Map<String, String> map = new HashMap<>();
@@ -219,18 +220,17 @@ public class UserService {
 
 	/**
 	 * 免费门店注册
-	 * 
-	 * @param StoreName
-	 *            门店名称
-	 * @param phoneNumber
-	 *            电话号码
+	 * @param request request 
+	 * @param storeName 门店名称
+	 * @param phoneNumber 电话号码
 	 * @param storeAccount
 	 *            门店账户名
+	 * @param phoneYzm 手机验证码
 	 * @return BaseDto
 	 */
 	@Transactional
 	public BaseDto registerStoreFree(HttpServletRequest request, String storeName, String phoneNumber,
-			String storeAccount, Integer phoneYzm) {
+			  String storeAccount, Integer phoneYzm) {
 		// 判断门店名称是否存在
 		int num = storeInfoMapper.isExitsStoreAccount(storeAccount);
 		if (num > 0) {
@@ -247,6 +247,12 @@ public class UserService {
 		storeInfo.setCreateTime(DateUtil.getCurTime());
 		storeInfo.setStoreStatus(3);
 		storeInfoMapper.insert(storeInfo);
+		
+		//修改门店总店标识(如果是空表示为总店)(总店也不能为空，填写本身id--王大爷)
+		StoreInfo storeInfoObj = new StoreInfo();
+		storeInfoObj.setStoreId(storeInfo.getStoreId());
+		storeInfoObj.setHqStoreId(storeInfo.getStoreId());
+		storeInfoMapper.updateByPrimaryKey(storeInfoObj);
 
 		EmployeeDto employeeDto = new EmployeeDto();
 		employeeDto.setStoreId(storeInfo.getStoreId());
@@ -285,18 +291,18 @@ public class UserService {
 		// 将接口权限放入redis中一份
 		redisService.del(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId);
 		redisService.sadd(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId,
-				authorUrl.toArray(new String[authorUrl.size()]));
+				  authorUrl.toArray(new String[authorUrl.size()]));
 		// 将roleName放入redis中 下面并没从redis中直接取出,是因为可能放入错误的数据 比如新增了权限,人员角色调整.
 		redisService.hset(App.Redis.PC_USER_ID_ROLE_HASH, userId, roleId);
 
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName()
-				+ (request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + path + "/";
+				  + (request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + path + "/";
 		// 查询出该用户所拥有的菜单权限,将其放入session中
 		MemberMenu memberMenu = memberMenuMapper.selectMenuByRoleId(userAccount.getRoleId());
 		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("{hostname}", basePath));
 		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU,
-				memberMenu.getSecontMenu().replace("{hostname}", basePath));
+				  memberMenu.getSecontMenu().replace("{hostname}", basePath));
 
 		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
 		sessiion.setAttribute(App.Session.STORE_ID, employeeInfo.getStoreId());

@@ -48,5 +48,7 @@
     <script type="text/javascript" src="<%=basePath %>js/base/big.js"></script>
     <script type="text/javascript" src="<%=basePath %>js/common/cropper.js"></script>
     <script type="text/javascript">document.documentElement.scrollTop=0;</script>
-    
+    <style>
+    .mainwrapper{overflow-x:hidden!important}
+    </style>
 </head>

@@ -17,9 +17,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -126,6 +123,9 @@ import com.zefun.wechat.dto.ComboSummaryViewDto;
 import com.zefun.wechat.dto.RegionCountDto;
 import com.zefun.wechat.dto.RegionCountRankDto;
 import com.zefun.wechat.service.SalesmanInfoService;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 门店信息服务类
@@ -297,10 +297,44 @@ public class StoreInfoService {
     /**日志系统*/
     private Logger log = Logger.getLogger(StoreInfoService.class);
 
+    /**
+     * 查询门店列表页面
+    * @author 老王
+    * @date 2016年4月28日 下午12:16:29 
+    * @param storeId 门店标识
+    * @return ModelAndView
+     */
+    public ModelAndView showStoreList(Integer storeId) {
+    	ModelAndView mav = new ModelAndView(View.Setting.STORE_LIST);
+    	//判断当前登录是否为总店
+    	
+    	StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+    	
+    	List<StoreInfo> storeInfoList = new ArrayList<>();
+    	if (storeInfo.getStoreType() == 2) {
+    		//当为总店是   查询所有门店
+    		storeInfoList = storeInfoMapper.selectChainsByHQStoreId(storeId);
+    	}
+    	else {
+    		storeInfoList.add(storeInfo);
+    	}
+    	mav.addObject("storeInfoList", storeInfoList);
+    	
+    	return mav;
+    }
 
-
-
-
+    /**
+     * 创建门店
+    * @author 老王
+    * @date 2016年4月28日 下午6:09:27 
+    * @return ModelAndView
+     */
+    public ModelAndView addStore() {
+    	ModelAndView mav = new ModelAndView(View.Setting.ADD_STORE);
+    	
+    	return mav;
+    }
+    
     /**
      * 进行店铺设置操作
     * @author 张进军

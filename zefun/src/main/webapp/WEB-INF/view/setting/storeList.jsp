@@ -21,528 +21,128 @@
 </style>
 
 <body>
-<div class="mainwrapper">
-    <!--loading start-->
-    <%@ include file="/loading.jsp"%>
-    <!--loading end-->
-
-    <!--left-panel start-->
-    <%@ include file="/menu.jsp"%>
-    <!--left-panel end-->
-
-    <!--RIGHT PANEL开始 -->
-    <div class="rightpanel" style="margin-left: 200px;">
-        <%@ include file="/top.jsp"%>
-        <div class='content_right'>
-		   <!--项目设置 -->
-		
-		  <div class="rollBox">
-		     <div class="LeftBotton" onmousedown="ISL_GoUp()" onmouseup="ISL_StopUp()"></div>
-		     <div class="Cont" id="ISL_Cont">
-		      <div class="ScrCont">
-		       <div id="List1">
-		        <!-- 图片列表 begin -->
-		         <div class="pic">
-		           <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+    <div class="leftpanel" style="height: 840px; margin-left: 0px;">
+        <%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
+			<!-- 页面元素开始 -->
+			<div class='content_right'>
+		         <div class="write_input">
+				    <div class="write_6" style="background:white;float:left;top:0px!important;left:120px!important;width:100px!important" onclick="addStorePage();"><span class="add_step" style="position:relative;left:-10px">+</span>新增</div>
+				 </div>
+				  <div class="rollBox">
+				     <div class="LeftBotton" onmousedown="ISL_GoUp()" onmouseup="ISL_StopUp()"></div>
+				     <div class="Cont" id="ISL_Cont">
+				      <div class="ScrCont">
+				       <div id="List1">
+				        <!-- 图片列表 begin -->
+				         <c:forEach items="${storeInfoList}" var="storeInfo" step="2" varStatus="status">
+				             <div class="pic">
+					           <div class="column_small_first" action-type="showdesc">
+										<div class="column_img_container">
+											 <em class="boss_cut" style="font-size:14px;font-weight:bold">${storeInfoList[status.count*2-2].storeName}</em>
+					                            <div class="head_pic">
+												   <img src="<%=picPath%>${storeInfoList[status.count*2-2].storeLogo}">
+												</div>
+												<ul class="clearfix shop_number" >
+												  <li>
+												      <em class="number_">联系人</em>
+													   <p class="num_">${storeInfoList[status.count*2-2].storeLinkname}<p>
+												  </li>
+												  
+												  <li>
+												      <em class="shop_price">电话号码</em>
+													   <p>${storeInfoList[status.count*2-2].storeLinkphone}<p>
+												  </li>
+												
+												</ul>
+													  <div class="shop_bottom clearfix">
+													  <div class="writting">
+													   	 编辑
+													  </div>
+													 <div class="delete">
+													 	 删除
+													  </div>
+												</div>
+									       </div>
+											
 									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									      <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-							 <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
-									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									     <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-						
-		         </div>
-				   <div class="pic">
-		           <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
-									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									      <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-							 <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
-									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									     <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-						
-		         </div>
-				 
-				   <div class="pic">
-		           <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
-									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									      <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-							 <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
-									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									     <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-						
-		         </div>
-				 
-				   <div class="pic">
-		           <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
-									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									      <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-							 <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
-									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									     <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-						
-		         </div>
-				   <div class="pic">
-		           <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
-									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									      <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-							 <div class="column_small_first " action-type="showdesc">
-								<div class="column_img_container">
-								 <em class="boss_cut" style="font-size:14px;font-weight:bold">华南店</em>
-		                            <div class="head_pic">
-									   <img src="assets/images/head_pic.png">
-									   
-									</div>
-									
-								
-									<ul class="clearfix shop_number" >
-									  <li>
-									      <em class="number_">联系人</em>
-										   <p class="num_">大王<p>
-										   
-									  </li>
-									  
-									  <li>
-									     <em class="shop_price">电话号码</em>
-										   <p>1283232323<p>
-									  </li>
-									
-									</ul>
-										<div class="shop_bottom clearfix">
-									  <div class="writting">
-									  
-									    编辑
-									  </div>
-									 <div class="delete">
-									  删除
-									  
-									  </div>
-									
-									
-									</div>
-								</div>
-								
-							</div>
-							
-						
-		         </div>
-		       
-		       
-		        <!-- 图片列表 end -->
-		       </div>
-		       <div id="List2"></div>
-		      </div>
-		     </div>
-		     <div class="RightBotton" onmousedown="ISL_GoDown()" onmouseup="ISL_StopDown()"></div>
-		    </div>
+								<c:if test="${(status.count*2-1)!=fn:length(storeInfoList) }">
+								   <div class="column_small_first " action-type="showdesc">
+										<div class="column_img_container">
+											 <em class="boss_cut" style="font-size:14px;font-weight:bold">${storeInfoList[status.count*2-1].storeName}</em>
+					                            <div class="head_pic">
+												   <img src="<%=picPath%>${storeInfoList[status.count*2-1].storeLogo}">
+												</div>
+												<ul class="clearfix shop_number" >
+												  <li>
+												      <em class="number_">联系人</em>
+													  <p class="num_">${storeInfoList[status.count*2-1].storeLinkname}<p>
+												  </li>
+												  <li>
+												     <em class="shop_price">电话号码</em>
+													 <p>${storeInfoList[status.count*2-1].storeLinkphone}<p>
+												  </li>
+												</ul>
+												<div class="shop_bottom clearfix">
+												  <div class="writting">
+												                编辑
+												  </div>
+												  <div class="delete">
+												                删除
+												  </div>
+												</div>
+											</div>
+										</div>
+								</c:if>
+					         </div>
+				         </c:forEach>
+				       
+				        <!-- 图片列表 end -->
+				       </div>
+				       <div id="List2"></div>
+				      </div>
+				     </div>
+				     <div class="RightBotton" onmousedown="ISL_GoDown()" onmouseup="ISL_StopDown()"></div>
+				    </div>
 		              
 		 </div>
-        <!--RIGHT PANEL结束 -->
-        <div class="clearfix"></div>
-
-        <div id="star"></div>
+		</div>
     </div>
 </div>
+
 <script language="javascript" type="text/javascript">
-
-//图片滚动列表 mengjia 070816
-var Speed = 1; //速度(毫秒)
-var Space = 6; //每次移动(px)
-var PageWidth = 910; //翻页宽度
-var fill = 0; //整体移位
-var MoveLock = false;
-var MoveTimeObj;
-var Comp = 0;
-var AutoPlayObj = null;
-
-GetObj('ISL_Cont').scrollLeft = fill;
-GetObj("ISL_Cont").onmouseover = function(){clearInterval(AutoPlayObj);}
-GetObj("ISL_Cont").onmouseout = function(){AutoPlay();}
-AutoPlay();
-function GetObj(objName){if(document.getElementById){return eval('document.getElementById("'+objName+'")')}else{return eval('document.all.'+objName)}}
-
-function ISL_GoUp(){ //上翻开始
- if(MoveLock) return;
- clearInterval(AutoPlayObj);
- MoveLock = true;
- MoveTimeObj = setInterval('ISL_ScrUp();',Speed);
-}
-function ISL_StopUp(){ //上翻停止
- clearInterval(MoveTimeObj);
- if(GetObj('ISL_Cont').scrollLeft % PageWidth - fill != 0){
-  Comp = fill - (GetObj('ISL_Cont').scrollLeft % PageWidth);
-  CompScr();
- }else{
-  MoveLock = false;
- }
- AutoPlay();
-}
-function ISL_ScrUp(){ //上翻动作
- if(GetObj('ISL_Cont').scrollLeft <= 0){GetObj('ISL_Cont').scrollLeft = GetObj('ISL_Cont').scrollLeft + GetObj('List1').offsetWidth}
- GetObj('ISL_Cont').scrollLeft -= Space ;
-}
-function ISL_GoDown(){ //下翻
- clearInterval(MoveTimeObj);
- if(MoveLock) return;
- clearInterval(AutoPlayObj);
- MoveLock = true;
- ISL_ScrDown();
- MoveTimeObj = setInterval('ISL_ScrDown()',Speed);
-}
-function ISL_StopDown(){ //下翻停止
- clearInterval(MoveTimeObj);
- if(GetObj('ISL_Cont').scrollLeft % PageWidth - fill != 0 ){
-  Comp = PageWidth - GetObj('ISL_Cont').scrollLeft % PageWidth + fill;
-  CompScr();
- }else{
-  MoveLock = false;
- }
- AutoPlay();
-}
-function ISL_ScrDown(){ //下翻动作
- if(GetObj('ISL_Cont').scrollLeft >= GetObj('List1').scrollWidth){GetObj('ISL_Cont').scrollLeft = GetObj('ISL_Cont').scrollLeft - GetObj('List1').scrollWidth;}
- GetObj('ISL_Cont').scrollLeft += Space ;
-}
-function CompScr(){
- var num;
- if(Comp == 0){MoveLock = false;return;}
- if(Comp < 0){ //上翻
-  if(Comp < -Space){
-   Comp += Space;
-   num = Space;
-  }else{
-   num = -Comp;
-   Comp = 0;
-  }
-  GetObj('ISL_Cont').scrollLeft -= num;
-  setTimeout('CompScr()',Speed);
- }else{ //下翻
-  if(Comp > Space){
-   Comp -= Space;
-   num = Space;
-  }else{
-   num = Comp;
-   Comp = 0;
-  }
-  GetObj('ISL_Cont').scrollLeft += num;
-  setTimeout('CompScr()',Speed);
- }
-}
-
+   function addStorePage() {
+	   window.location.href = baseUrl + "storeinfo/view/addStore";
+   }
+   
+   jQuery(function(){
+	     var count=jQuery('.pic').size();
+	     var now=0;
+		 //向右走
+	      jQuery('.RightBotton').click(function(){
+	         if(now<=count-5){
+			    now+=4;
+		        jQuery('.pic').stop(true,true).animate({
+			     left:-227*now
+			   
+			       }) 
+			  }	
+	        		
+		    });
+			//向左走
+		 jQuery('.LeftBotton').click(function(){
+	         if(now>=1){
+			    now-=4;
+		        jQuery('.pic').stop(true,true).animate({
+			     left:-227*now
+			   
+			       }) 
+			  }	
+	        		
+		    });
+	  })
 </script>
-<script type="text/javascript" src="<%=basePath%>js/baiduMap/baiduMapOfEditStorePosition.js"></script>
 </body>
 </html>
