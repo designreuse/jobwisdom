@@ -234,15 +234,20 @@ em{font-style:normal}
 
 
 .content_left{float:left}
-.content_right_{float:left;width:400px;height:400px;border:1px solid #ccc;margin-top:100px;margin-left:50px}
-.submit_{width:200px;height:36px;background:black;border-radius:10px;color:white;text-align:center;line-height:36px;border:none;position:relative;top:660px;left:-450px;box-shadow:0 0 10px #ccc}
+
+.content_right_{float:left;width:400px;height:400px;margin-top:100px;margin-left:50px}
+.submit_{width:200px;height:36px;background:black;border-radius:20px;color:white;text-align:center;line-height:36px;border:none;position:relative;top:30px;left:-330px;box-shadow:0 0 10px #ccc}
+
 .content_right_ p{margin:0 20px 20px 20px}
 .address{margin:0px 0px 10px 20px}
 .address_search input{position:relative;left:20px;font-size:12px;text-align:center}
 .address_search img{position:relative;z-index:10;top:5px;left:-10px}
-.cancel_{width:200px;height:36px;background:white;border-radius:10px;color:#ccc;text-align:center;line-height:36px;border:none;position:relative;top:626px;left:-200px;box-shadow:0 0 10px #ccc}
 
-
+.cancel_{width:200px;height:36px;background:white;border-radius:20px;color:#ccc;text-align:center;line-height:36px;border:none;position:relative;top:-6px;left:-40px;box-shadow:0 0 10px #ccc}
+.choosecity{margin:20px 70px}
+.detailaddress{display:inline-block;margin-left:36px;position:relative;left:30px}
+.addrres-search{border-radius: 6px!important;    top: -62px;position:relative;
+    left: 158px;}
 
 .add_pic li{float:left;margin-top:20px;margin-right:20px}
 .add_pic{width:400px}
@@ -271,5 +276,4 @@ em{font-style:normal}
 .cancelinput{margin-left:40px}
 
 #List1 .pic{position:relative}
-
 

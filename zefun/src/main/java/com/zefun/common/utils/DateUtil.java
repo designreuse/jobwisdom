@@ -66,7 +66,6 @@ public class DateUtil {
 
 	/**
 	 * 根据时间字符串获取日期
-	 * @param dataStr 时间字符串 1313243564
 	 * @return 日期
 	 */
 	public static String tranStrToDateStrToo() {
@@ -213,7 +212,8 @@ public class DateUtil {
 			date.setTime(sdf.parse(dateTime));
 			date.set(Calendar.DATE, date.get(Calendar.DATE) + days);
 			return sdf.format(date.getTime());
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			return dateTime;
 		}
 	}
@@ -236,7 +236,8 @@ public class DateUtil {
 			calendar.setTime(sdf.parse(date));
 			calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + months);
 			return sdf.format(calendar.getTime());
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			return date;
 		}
 	}
@@ -259,7 +260,8 @@ public class DateUtil {
 			date.setTime(sdf.parse(dateTime));
 			date.set(Calendar.SECOND, date.get(Calendar.SECOND) + secondes);
 			return sdf.format(date.getTime());
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			return dateTime;
 		}
 	}
@@ -293,11 +295,13 @@ public class DateUtil {
 			Date endDate = null;
 			if (StringUtil.isNotEmpty(endTime)) {
 				endDate = sdf.parse(endTime);
-			} else {
+			} 
+			else {
 				endDate = new Date();
 			}
 			return startDate.getTime() - endDate.getTime();
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			return 0;
 		}
 	}
@@ -358,7 +362,8 @@ public class DateUtil {
 		try {
 			date = sdf.parse(d);
 			now.setTime(date);
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		now.add(Calendar.DATE, -day);
@@ -390,7 +395,7 @@ public class DateUtil {
 	 * @param day
 	 *            天数
 	 * @return Date
-	 * @throws ParseException
+	 * @throws ParseException ParseException
 	 */
 	public static String getDateAfterDaysStr(String dateStr, int day) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -408,7 +413,7 @@ public class DateUtil {
 	 * @param months
 	 *            月份数
 	 * @return Date
-	 * @throws ParseException
+	 * @throws ParseException ParseException
 	 */
 	public static String getDateAfterMonthsStr(String dateStr, int months) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -536,7 +541,8 @@ public class DateUtil {
 		int dayOfWeek = cd.get(Calendar.DAY_OF_WEEK);
 		if (dayOfWeek == 1) {
 			return -6;
-		} else {
+		} 
+		else {
 			return 2 - dayOfWeek;
 		}
 	}
@@ -714,7 +720,8 @@ public class DateUtil {
 			long time2 = cal.getTimeInMillis();
 			long betweendays = (time2 - time1) / (1000 * 3600 * 24);
 			return Integer.parseInt(String.valueOf(betweendays)) + "";
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			return "0";
 		}
 	}
@@ -779,7 +786,7 @@ public class DateUtil {
 	 * @param date
 	 *            日期(2014-04-20)
 	 * @return 2014-03-20
-	 * @throws ParseException
+	 * @throws ParseException ParseException
 	 */
 	public static String subMonth(String date) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -806,29 +813,29 @@ public class DateUtil {
 	public static String getWeekName(int weekNumber) {
 		String weekName = "";
 		switch (weekNumber) {
-		case 1:
-			weekName = "日";
-			break;
-		case 2:
-			weekName = "一";
-			break;
-		case 3:
-			weekName = "二";
-			break;
-		case 4:
-			weekName = "三";
-			break;
-		case 5:
-			weekName = "四";
-			break;
-		case 6:
-			weekName = "五";
-			break;
-		case 7:
-			weekName = "六";
-			break;
-		default:
-			break;
+			case 1:
+				weekName = "日";
+				break;
+			case 2:
+				weekName = "一";
+				break;
+			case 3:
+				weekName = "二";
+				break;
+			case 4:
+				weekName = "三";
+				break;
+			case 5:
+				weekName = "四";
+				break;
+			case 6:
+				weekName = "五";
+				break;
+			case 7:
+				weekName = "六";
+				break;
+			default:
+				break;
 		}
 		return weekName;
 	}
@@ -849,7 +856,8 @@ public class DateUtil {
 			Date beginDate = myFormatter.parse(beginTime);
 			Date endDate = myFormatter.parse(endTime);
 			minute = (endDate.getTime() - beginDate.getTime()) / (60 * 1000);
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return Integer.parseInt(String.valueOf(minute));
@@ -888,7 +896,8 @@ public class DateUtil {
 			cd.add(Calendar.DATE, dayNum); // 增加指定天
 			// cd.add(Calendar.MONTH, dayNum); //增加指定月
 			return sdf.format(cd.getTime());
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			return null;
 		}
 	}
@@ -1057,17 +1066,17 @@ public class DateUtil {
 			return null;
 		}
 		switch (dateType) {
-		case "year":
-			time = new SimpleDateFormat("yyyy").format(new Date());
-			break;
-		case "month":
-			time = new SimpleDateFormat("yyyy-MM").format(new Date());
-			break;
-		case "day":
-			time = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-			break;
-		default:
-			break;
+			case "year":
+				time = new SimpleDateFormat("yyyy").format(new Date());
+				break;
+			case "month":
+				time = new SimpleDateFormat("yyyy-MM").format(new Date());
+				break;
+			case "day":
+				time = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+				break;
+			default:
+				break;
 		}
 		return time;
 	}
@@ -1092,7 +1101,8 @@ public class DateUtil {
 			calendar.add(Calendar.MONTH, 0);
 			calendar.set(Calendar.DAY_OF_MONTH, 1);
 			return dateFormat.format(calendar.getTime());
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -1117,7 +1127,8 @@ public class DateUtil {
 			calendar.setTime(date);
 			calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 			return dateFormat.format(calendar.getTime());
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -1143,7 +1154,8 @@ public class DateUtil {
 			calendar.add(Calendar.MONTH, -1);
 			calendar.set(Calendar.DAY_OF_MONTH, 1);
 			return dateFormat.format(calendar.getTime());
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -1169,7 +1181,8 @@ public class DateUtil {
 			calendar.add(Calendar.MONTH, -1);
 			calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 			return dateFormat.format(calendar.getTime());
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -1259,29 +1272,29 @@ public class DateUtil {
 	public static String getShiftIdByWeekDay(String weekDay) {
 		String shiftId = null;
 		switch (weekDay) {
-		case "星期一":
-			shiftId = "shif_ida";
-			break;
-		case "星期二":
-			shiftId = "shif_idb";
-			break;
-		case "星期三":
-			shiftId = "shif_idc";
-			break;
-		case "星期四":
-			shiftId = "shif_idd";
-			break;
-		case "星期五":
-			shiftId = "shif_ide";
-			break;
-		case "星期六":
-			shiftId = "shif_idf";
-			break;
-		case "星期日":
-			shiftId = "shif_idg";
-			break;
-		default:
-			break;
+			case "星期一":
+				shiftId = "shif_ida";
+				break;
+			case "星期二":
+				shiftId = "shif_idb";
+				break;
+			case "星期三":
+				shiftId = "shif_idc";
+				break;
+			case "星期四":
+				shiftId = "shif_idd";
+				break;
+			case "星期五":
+				shiftId = "shif_ide";
+				break;
+			case "星期六":
+				shiftId = "shif_idf";
+				break;
+			case "星期日":
+				shiftId = "shif_idg";
+				break;
+			default:
+				break;
 		}
 		return shiftId;
 	}
@@ -1326,22 +1339,23 @@ public class DateUtil {
 			diffMin = diff / nm; // 计算差多少分钟
 			diffSec = diff / ns; // 计算差多少秒
 			switch (returnFormat) {
-			case "day":
-				returnValue = diffDay;
-				break;
-			case "hour":
-				returnValue = diffHour;
-				break;
-			case "min":
-				returnValue = diffMin;
-				break;
-			case "sec":
-				returnValue = diffSec;
-				break;
-			default:
-				break;
+				case "day":
+					returnValue = diffDay;
+					break;
+				case "hour":
+					returnValue = diffHour;
+					break;
+				case "min":
+					returnValue = diffMin;
+					break;
+				case "sec":
+					returnValue = diffSec;
+					break;
+				default:
+					break;
 			}
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return returnValue;

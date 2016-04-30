@@ -72,8 +72,11 @@ public interface View {
 	 * @date Nov 9, 2015 11:36:48 AM
 	 */
 	class Setting {
+		
 		/** 门店列表展示 */
 		public static final String STORE_LIST = "setting/storeList";
+		/** 创建门店*/
+		public static final String ADD_STORE =  "setting/addStore";
 		/** 店铺设置 */
 		public static final String STORE_SETTING = "setting/storeSetting";
 
@@ -349,6 +352,9 @@ public interface View {
 	class Project {
 		/** 项目价格设置页面 */
 		public static final String PROJECTSETTING = "commodity/projectSetting2";
+		/**
+		 * 
+		 */
 		public static final String PROJECT_LIST = "commodity/projectInfoList";
 	}
 

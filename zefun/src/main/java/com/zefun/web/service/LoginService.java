@@ -59,12 +59,13 @@ public class LoginService {
 	 *            结果封装
 	 * @param username
 	 *            用户名
+	 * @param storeAccount 门店账号
 	 * @param password
 	 *            密码
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
 	 */
 	public BaseDto login(HttpServletRequest request, HttpServletResponse response, String username, String storeAccount,
-			String password) {
+			  String password) {
 		Map<String, String> mapUser = new HashMap<String, String>();
 		mapUser.put("userName", username);
 		mapUser.put("storeAccount", storeAccount);
@@ -90,18 +91,18 @@ public class LoginService {
 		// 将接口权限放入redis中一份
 		redisService.del(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId);
 		redisService.sadd(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId,
-				authorUrl.toArray(new String[authorUrl.size()]));
+				  authorUrl.toArray(new String[authorUrl.size()]));
 		// 将roleName放入redis中 下面并没从redis中直接取出,是因为可能放入错误的数据 比如新增了权限,人员角色调整.
 		redisService.hset(App.Redis.PC_USER_ID_ROLE_HASH, userId, roleId);
 
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName()
-				+ (request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + path + "/";
+				  + (request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + path + "/";
 		// 查询出该用户所拥有的菜单权限,将其放入session中
 		MemberMenu memberMenu = memberMenuMapper.selectMenuByRoleId(userAccount.getRoleId());
 		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("{hostname}", basePath));
 		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU,
-				memberMenu.getSecontMenu().replace("{hostname}", basePath));
+				  memberMenu.getSecontMenu().replace("{hostname}", basePath));
 
 		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
 		sessiion.setAttribute(App.Session.STORE_ID, employeeInfo.getStoreId());
@@ -115,9 +116,11 @@ public class LoginService {
 
 		if (roleId == App.System.SYSTEM_ROLE_STORE_EMPLOYEE) {
 			dto.setMsg(Url.SystemSetting.VIEW_PERSON_SETTING);
-		} else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {
+		} 
+		else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {
 			dto.setMsg(Url.Member.VIEW_BASE_MEMBER);
-		} else {
+		} 
+		else {
 			dto.setMsg(Url.SelfCashier.VIEW_HOME);
 		}
 

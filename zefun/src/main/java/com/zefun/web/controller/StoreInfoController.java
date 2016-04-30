@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.Url;
-import com.zefun.common.consts.View;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.service.StoreInfoService;
@@ -38,11 +37,31 @@ public class StoreInfoController extends BaseController {
 	@Autowired
 	private ProjectInfoController projectInfoController;
 
+	/**
+	 * 查询门店列表页面
+	* @author 老王
+	* @date 2016年4月28日 上午11:58:04 
+	* @param request 返回
+	* @return ModelAndView
+	 */
 	@RequestMapping(value = Url.StoreInfo.SHOW_STORE_LIST, method = RequestMethod.GET)
-	public ModelAndView showStoreList() {
-		return new ModelAndView(View.Setting.STORE_LIST);
+	public ModelAndView showStoreList(HttpServletRequest request) {
+		Integer storeId = getStoreId(request);
+		return storeInfoService.showStoreList(storeId);
 	}
 
+	/**
+	 * 创建门店
+	* @author 老王
+	* @date 2016年4月28日 下午6:11:25 
+	* @return ModelAndView
+	 */
+	@RequestMapping(value = Url.StoreInfo.ADD_STORE)
+	public ModelAndView addStore() {
+		
+		return storeInfoService.addStore();
+	}
+	
 	/**
 	 * 进入店铺设置页面
 	 * 

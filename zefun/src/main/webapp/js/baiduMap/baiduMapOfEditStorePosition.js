@@ -163,6 +163,8 @@ map.addEventListener("zoomend", function(){   //缩放事件
 function serachlocal(){
     var markerArray=new Array();
     var typeArray=new Array('','－公交站','','－地铁站');
+    var province = "";
+    var city = "";
     var local = new BMap.LocalSearch(map, {     
     renderOptions: {     
         map: map,     
@@ -230,6 +232,8 @@ function serachlocal(){
                 (function(){
                     var index = i + 1;
                     var poi = results.getPoi(i);
+                    province = poi.province;
+                    city = poi.city;
                     content = "<h3>" + poi.title + typeArray[poi.type] + "</h3>";
                     content += "<div>" + poi.address + "</div>";
                     content += '<form action="" method="post">'
@@ -250,7 +254,7 @@ function serachlocal(){
     },
     });
     //alert(jQuery("#city").text() + document.getElementById("searchtext").value);
-    local.search(jQuery("#city").text() + document.getElementById("searchtext").value);  
+    local.search(province + city + document.getElementById("searchtext").value);  
 }
 
 //点击拖拽事件"我在这里"(不能传中文参数)
