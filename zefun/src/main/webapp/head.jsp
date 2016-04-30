@@ -48,7 +48,15 @@
     <script type="text/javascript" src="<%=basePath %>js/base/big.js"></script>
     <script type="text/javascript" src="<%=basePath %>js/common/cropper.js"></script>
     <script type="text/javascript">document.documentElement.scrollTop=0;</script>
+<<<<<<< HEAD
     <style>
     .mainwrapper{overflow-x:hidden!important}
     </style>
+=======
+    
+    <script type="text/javascript" src="<%=basePath %>js/base/iscroll-zoom.js"></script>
+	<script type="text/javascript" src="<%=basePath %>js/base/hammer.js"></script>
+	<script type="text/javascript" src="<%=basePath %>js/base/jquery.photoClip.js"></script>
+    
+>>>>>>> 11f23698519ad41aa69441ceece9bd3f940799bf
 </head>

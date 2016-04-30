@@ -570,6 +570,7 @@ public class MemberController extends BaseController{
         return cookieStore;
     }
     
+    
     /**
      * 将map参数转换为http参数
     * @author 张进军

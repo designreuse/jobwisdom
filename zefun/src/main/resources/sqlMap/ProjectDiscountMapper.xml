@@ -173,8 +173,8 @@
     	( #{item.discountId,jdbcType=INTEGER}, #{item.projectId,jdbcType=INTEGER},
 	      #{item.levelId,jdbcType=INTEGER}, #{item.discountProportion,jdbcType=DECIMAL},#{item.onlineAppointmentPrice,jdbcType=DECIMAL}, 
 	      #{item.discountAmount,jdbcType=DECIMAL}, #{item.isDeleted,jdbcType=INTEGER},
-	      #{item.createTime,jdbcType=CHAR}, #{item.updateTime,jdbcType=CHAR}, #{item.lastOperatorId,jdbcType=INTEGER}),
-	      #{item.memberCostPrice,jdbcType=DECIMAL})
+	      #{item.createTime,jdbcType=CHAR}, #{item.updateTime,jdbcType=CHAR}, #{item.lastOperatorId,jdbcType=INTEGER}, #{item.memberCostPrice,jdbcType=DECIMAL}
+        )
     </foreach>
   </insert>
   

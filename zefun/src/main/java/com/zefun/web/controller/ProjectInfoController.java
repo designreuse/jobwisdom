@@ -81,6 +81,7 @@ public class ProjectInfoController extends BaseController {
     * @param projectId 项目ID (如果不存在的话,说明是新建,如果存在,对该项目进行修改)
     * @return ModelAndView
      */
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = Url.Project.PROJECT_LIST)
     public ModelAndView toProjectSetting(HttpServletRequest request, HttpServletResponse response, Integer projectId, ModelAndView model) {
         int storeId = getStoreId(request);
@@ -101,7 +102,18 @@ public class ProjectInfoController extends BaseController {
         model.addObject("images", images);
         
         if (projectId!=null){
+            BaseDto baseDto = queryProjectInfoById(request, response, projectId);
             
+            Map<String, Object> map = (Map<String, Object>) baseDto.getMsg();
+            ProjectInfo projectInfo = (ProjectInfo) map.get("projectInfo");
+            List<ProjectCommission> projectCommissionList = (List<ProjectCommission>) map.get("projectCommissionList");
+            List<ProjectDiscount> projectDiscountList = (List<ProjectDiscount>) map.get("projectDiscountList");
+            List<ProjectStep> projectStepList = (List<ProjectStep>) map.get("projectStepList");
+            model.addObject("projectInfo", JSONObject.fromObject(projectInfo));
+            model.addObject("projectCommissionList", JSONArray.fromObject(projectCommissionList));
+            model.addObject("projectDiscountList", JSONArray.fromObject(projectDiscountList));
+            model.addObject("projectStepList", JSONArray.fromObject(projectStepList));
+            model.addObject("projectId", projectInfo.getProjectId());
         }
        
         model.setViewName(View.Project.PROJECTSETTING);
