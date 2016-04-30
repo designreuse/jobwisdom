@@ -6,6 +6,9 @@
     String qiniu = "http://7xss26.com1.z0.glb.clouddn.com/";
 %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
+<style type="text/css">
+	.border {border:1px solid red!important}
+</style>
 <body>
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -72,7 +75,7 @@
 
 							</div>
 							<div>
-								项目编号：<input name="projectCodeSuffix" type="text" style="box-shadow: 0 0 3px #ccc;">
+								项目编号：<input placeholder="五位编码,例如 : 11223" name="projectCodeSuffix" type="text" maxlength="5" style="box-shadow: 0 0 3px #ccc;">
 
 							</div>
 							<div style="position: relative; top: -30px">
@@ -99,19 +102,19 @@
 
 						<div class="tab_content_div_left">
 							<div>
-								<span class="shopp"> 门店价格：</span><input name="projectPrice" type="text" style="box-shadow: 0 0 3px #ccc;">
+								<span class="shopp"> 门店价格：</span><input name="projectPrice" type="number" style="box-shadow: 0 0 3px #ccc;">
 
 							</div>
 							<div>
-								<span class="shopp"> 成本金额：</span><input name="costPrice" type="text" style="box-shadow: 0 0 3px #ccc;">
+								<span class="shopp"> 成本金额：</span><input name="costPrice" type="number" style="box-shadow: 0 0 3px #ccc;">
 
 							</div>
 							<div>
-								<span class="shopp"> 预约优惠金额：</span><input name="appointmentPrice" type="text" style="position: relative; left: 34px; box-shadow: 0 0 3px #ccc;">
+								<span class="shopp"> 预约优惠金额：</span><input name="appointmentPrice" type="number" style="position: relative; left: 34px; box-shadow: 0 0 3px #ccc;">
 
 							</div>
 							<div>
-								<span class="shopp"> 最大抵扣礼金：</span><input name="highestDiscount" type="text" style="position: relative; left: 34px; box-shadow: 0 0 3px #ccc;">
+								<span class="shopp"> 最大抵扣礼金：</span><input name="highestDiscount" type="number" style="position: relative; left: 34px; box-shadow: 0 0 3px #ccc;">
 							</div>
 						</div>
 
@@ -169,13 +172,13 @@
 												</c:forEach>
 											</c:if>
 									</select></td>
-									<td td style="color: #afb0b6"><input type="text" class="cut_step_1" name="projectStepName"></td>
+									<td td style="color: #afb0b6"><input type="text" class="cut_step_1" maxlength="8" name="projectStepName"></td>
 									<td td style="color: #afb0b6"><select class="cut_step_2" name="stepPerformanceType">
 											<option value="2">固定</option>
 											<option value="1">比例</option>
 
 									</select></td>
-									<td td style="color: #afb0b6"><input type="text" class="cut_step_3" name="stepPerformance"></td>
+									<td td style="color: #afb0b6"><input type="number" class="cut_step_3" name="stepPerformance"></td>
 									<td td style="color: #afb0b6">
 										<div class="cut_step_4">
 											<input type="radio" onclick="chkRadio(this)" value="0" name="isDisable" style="width:18px">
@@ -217,9 +220,9 @@
 											<option value="1">比例</option>
 											</select>
 										</td>
-										<td><input type="text" name="assignCash" class="cut_step_11"></td>
-										<td><input type="text" name="assignCard" class="cut_step_11"></td>
-										<td><input type="text" name="appointmentReward" class="cut_step_11"></td>
+										<td><input type="number" name="assignCash" class="cut_step_11"></td>
+										<td><input type="number" name="assignCard" class="cut_step_11"></td>
+										<td><input type="number" name="appointmentReward" class="cut_step_11"></td>
 		                                </tr>
 		                            </c:forEach>
 								</tbody>
@@ -251,10 +254,10 @@
 								</select>
 							</div>
 							<div>
-								<span class="price_"> 会员门店价格：</span><input name="discountAmount" type="text" class="vip" style="box-shadow: 0 0 2px #ccc; left: 28px">
+								<span class="price_"> 会员门店价格：</span><input name="discountAmount" type="number" class="vip" style="box-shadow: 0 0 2px #ccc; left: 28px">
 							</div>
 							<div>
-								<span class="price_">会员成本金额：</span><input name="memberCostPrice" type="text" class="vipcoin" style="box-shadow: 0 0 2px #ccc; left: 28px">
+								<span class="price_">会员成本金额：</span><input name="memberCostPrice" type="number" class="vipcoin" style="box-shadow: 0 0 2px #ccc; left: 28px">
 
 							</div>
 
@@ -396,9 +399,9 @@
 						'<option value="1">比例</option>'+
 						'</select>'+
 					'</td>'+
-					'<td><input type="text" name="assignCash" class="cut_step_11"></td>'+
-					'<td><input type="text" name="assignCard" class="cut_step_11"></td>'+
-					'<td><input type="text" name="appointmentReward" class="cut_step_11"></td>'+
+					'<td><input type="number" name="assignCash" class="cut_step_11"></td>'+
+					'<td><input type="number" name="assignCard" class="cut_step_11"></td>'+
+					'<td><input type="number" name="appointmentReward" class="cut_step_11"></td>'+
 		         '</tr>';
 		         jQuery(".step_2").append(jQuery(str));
 		}
@@ -597,7 +600,19 @@
 	 */
 	jQuery(".save").on("click", function() {
 		var data = coverDate(stepNum);
-		console.log(data);
+		var isOk = true;
+		if (stepNum <= 2){
+			jQuery.each(data,function(name,value) {
+				if(!isNotNull(value)){
+					jQuery("input[name='"+name+"']").addClass("border");
+					isOk = false;
+					return false;
+				}
+			});
+		}
+		if(!isOk){
+			return ;
+		}
 		jQuery.ajax({
 			type : "post",
 			data : JSON.stringify(data),
@@ -642,7 +657,6 @@
 			data = {
 				"storeId" : storeId,
 				"projectId" : projectId,
-				"projectName" : projectName,
 				"deptId" : deptId,
 				"categoryId" : categoryId,
 				"projectName" : projectName,
@@ -734,10 +748,23 @@
 		var stepPerformanceTypeName = jQuery("select[name='stepPerformanceType']").find("option:selected").text();
 		var stepPerformance = jQuery("input[name='stepPerformance']").val();
 		var isDisable = jQuery("input[name='isDisable']").val(); 
+		//校验数据
+		var checkJson = {"projectStepName":projectStepName,"stepPerformance":stepPerformance};
+		var isOk = true;
+		jQuery.each(checkJson,function(name,value) {
+			if(!isNotNull(value)){
+				jQuery("input[name='"+name+"']").addClass("border");
+				isOk = false;
+				return false;
+			}
+		});
+		if(!isOk)return;
 		
 		var hasStep = jQuery(".table_s").find("td[rowspan]");
 		var disableList = ['比例','固定'];
 		var assignTypeList = ['','比例','固定'];
+		
+		var isHide = true;
 		
 		for (var i = 0; i < jQuery(".empLevel").length; i++) {
 			var levelId = jQuery("select[name='levelId']").eq(i).val();
@@ -747,6 +774,19 @@
 			var assignCash = jQuery("input[name='assignCash']").eq(i).val();
 			var assignCard = jQuery("input[name='assignCard']").eq(i).val();
 			var appointmentReward = jQuery("input[name='appointmentReward']").eq(i).val();
+			
+			var checkJson = {"assignCash":assignCash,"assignCard":assignCard,"appointmentReward":appointmentReward};
+			var isOk = true;
+			jQuery.each(checkJson,function(name,value) {
+				if(!isNotNull(value)){
+					jQuery("input[name='"+name+"']").addClass("border");
+					isOk = false;
+					isHide = false;
+					return false;
+				}
+			});
+			if(!isOk)return;
+			
 			if(i==0){
 				var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+(hasStep.length+1)+'>'+
 						'<td rowspan="'+jQuery(".empLevel").length+'" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;">'+
@@ -779,8 +819,10 @@
 				jQuery('.table_s').append(tr);
 			}
 		}
-		jQuery('.step_1').hide();
-		jQuery('.write_4').show();
+		if(isHide){
+			jQuery('.step_1').hide();
+			jQuery('.write_4').show();
+		}
 	}
 	
 	/**
@@ -791,6 +833,18 @@
 		var levelName = jQuery("select[name='discountLevel']").find("option:selected").text();
 		var discountAmount = jQuery("input[name='discountAmount']").val();
 		var memberCostPrice = jQuery("input[name='memberCostPrice']").val();
+		
+		var checkJson = {"discountAmount":discountAmount,"memberCostPrice":memberCostPrice};
+		var isOk = true;
+		jQuery.each(checkJson,function(name,value) {
+			if(!isNotNull(value)){
+				jQuery("input[name='"+name+"']").addClass("border");
+				isOk = false;
+				return false;
+			}
+		});
+		if(!isOk)return;
+		
 	    jQuery('.cash').hide();
 	    jQuery('.write_3').show();
 		var table=jQuery('.tab_content_div').find('.table_');
@@ -855,5 +909,14 @@
 		}
 	}
 
+	/** 非空校验 */
+	function isNotNull(str){
+		if(str!=null&&str!=''&&typeof(str)!="undefined")return true;
+		return false;
+	}
+	/** 重新获取焦点的时候,去掉校验的红色框 */
+	jQuery(function(){
+		jQuery("input").focus(function(){jQuery(this).removeClass("border")});
+	})
 </script>
 </html>
