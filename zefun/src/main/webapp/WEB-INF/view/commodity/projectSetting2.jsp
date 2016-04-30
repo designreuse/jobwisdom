@@ -41,7 +41,7 @@
 					</ul>
 					<div class="right_button">
 						<button class="save">保 存</button>
-						<button class="cancle">取 消</button>
+						<button class="cancle" onclick='window.open("<%=basePath %>project/view/projectList","_self")'>取 消</button>
 					</div>
 				</div>
 				<div class="tab_content">
@@ -86,12 +86,12 @@
 						<div class="tab_content_div_right" style="margin-left:160px">
 								添加图片：
 				              <ul class="add_pic clearfix">
-							    <li><img projectImage="<%=qiniu%>system/profile/set_img.png" name="projectImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="<%=qiniu%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img projectImage="system/profile/set_img.png" name="projectImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
+							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
 							  </ul>
 						</div>
 
@@ -311,11 +311,9 @@
 		imgObject.children("img").attr("src", dataBase64);
 		var key = "jobwisdom/project/" + new Date().getTime();
 		if ((typeof(imgObject.children("img").attr("projectImage")))!="undefined"){
-			var url = qiniu+key;
-			imgObject.children("img").attr("projectImage", url);
+			imgObject.children("img").attr("projectImage", key);
 		}else {
-			var url = qiniu+key;
-			imgObject.children("img").attr("affiliatedImage", url);
+			imgObject.children("img").attr("affiliatedImage", key);
 		}
 	    var data = {"stringBase64":dataBase64,"key":key};
 	    jQuery('.cancelinput').click();
@@ -472,11 +470,11 @@
 		
 		var projectImage = project.projectImage;
 		jQuery("img[name='projectImage']").attr("projectImage", projectImage);
-		jQuery("img[name='projectImage']").attr("src", projectImage);
+		jQuery("img[name='projectImage']").attr("src",  qiniu+projectImage);
 		var affiliatedImage = project.affiliatedImage;
 		for (var i = 0; i < affiliatedImage.split(",").length; i++) {
 			jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage", affiliatedImage.split(",")[i]);
-			jQuery("img[name='affiliatedImage']").eq(i).attr("src", affiliatedImage.split(",")[i]);
+			jQuery("img[name='affiliatedImage']").eq(i).attr("src", qiniu+affiliatedImage.split(",")[i]);
 		}
 		
 		jQuery("select[name='projectType']").val(project.projectType);
