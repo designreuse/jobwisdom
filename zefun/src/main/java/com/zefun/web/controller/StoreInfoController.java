@@ -63,6 +63,23 @@ public class StoreInfoController extends BaseController {
 	}
 	
 	/**
+	 * 创建分店
+	* @author 老王
+	* @date 2016年4月30日 下午4:52:22 
+	* @param storeInfo 门店信息
+	* @param request 返回
+	* @return BaseDto
+	 */
+	public BaseDto saveUpdateStore (StoreInfo storeInfo, HttpServletRequest request) {
+		if (storeInfo.getStoreId() == null) {
+			return storeInfoService.saveStore(storeInfo);
+		}
+		else {
+			return storeInfoService.storeSettingAction(storeInfo);
+		}
+	}
+	
+	/**
 	 * 进入店铺设置页面
 	 * 
 	 * @author 张进军
@@ -90,9 +107,7 @@ public class StoreInfoController extends BaseController {
 	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_SETTING, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto storeSettingAction(StoreInfo storeInfo, HttpServletRequest request) {
-		Integer storeId = getStoreId(request);
-		storeInfo.setStoreId(storeId);
-		return storeInfoService.storeSettingAction(storeId, storeInfo);
+		return storeInfoService.storeSettingAction(storeInfo);
 	}
 
 	/**

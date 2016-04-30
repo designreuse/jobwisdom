@@ -17,9 +17,9 @@
 				  <div class="content_left"> 
 				     <p style="font-size:14px">设置店铺LOGO:</p>
 				     
-				      <div id="preview"><img id="imghead" border=0 src="<%=basePath%>images/set_img.png" width="180" height="180" /></div>
+				      <div id="preview"><img border=0 affiliatedImage="<%=qiniuPath%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniuPath%>system/profile/set_img.png" width="180" height="180" /></div>
 					  <P>*此logo用于移动端店铺介绍页面</P>
-				      <input type="file" onchange="previewImage(this)"  style="position:relative;width: 80px; height: 80px;top: -124px;opacity:0;cursor:pointer"/>
+				      <!-- <input type="file"   style="position:relative;width: 80px; height: 80px;top: -124px;opacity:0;cursor:pointer"/> -->
 				     
 					<div class="set_name">
 					 <div class="shop_name">
@@ -52,26 +52,20 @@
                       <input type="text" style="border-radius: 6px!important; width: 276px;position: relative;left: 50px;height: 26px;top: 6px; " placeholder="请搜索">
                       <%-- <input id="searchtext" type="text" class="wp60"  value="${street }" placeholder=""/> --%>
                       <div class="container">
-
-	
-	
-	<div class="docs-methods">
-		<form class="form-inline">
-			<div id="distpicker">
-				<div class="form-group">
-					<div style="position: relative;">
-						<input id="city-picker3" class="form-control" readonly type="text" value="江苏省/常州市/溧阳市" data-toggle="city-picker">
+						<div class="docs-methods">
+							<form class="form-inline">
+								<div id="distpicker">
+									<div class="form-group">
+										<div style="position: relative;">
+											<input id="city-picker3" class="form-control" readonly type="text" value="江苏省/常州市/溧阳市" data-toggle="city-picker">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						
 					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-	
-</div>
-
-
-                      
-                      <span id="searchbt" class="addrres-search" onclick="serachlocal()" style="cursor:pointer">搜索</span>
+                    <span id="searchtext" class="addrres-search" onclick="serachlocal()" style="cursor:pointer">搜索</span>
 					  
 				        <div id="lat" class="hide">${storeInfo.latitude }</div>
 	                    <div id="lng" class="hide">${storeInfo.longitude }</div>
@@ -85,7 +79,7 @@
 			  
 			  
 			  </div>
-			  <button class="submit_">提交</button>
+			  <button class="submit_" onclick="saveStoreInfo();">提交</button>
 			  <button class="cancel_">取消</button>
 			 </div>
 
@@ -93,6 +87,18 @@
             </div>
 		</div>
     </div>
+</div>
+<div class="zzc">
+ <div class="photo_cut">
+  <div id="clipArea"></div>
+        <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
+    <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
+  	<div class="button_panel"> 
+	   <button class="selectpic">选择图片</button>
+	   <button class="sureinput">确定上传</button>
+		<button class="cancelinput">取消</button>
+	 </div>
+   </div>
 </div>
 <script type="text/javascript">
 	var globalLat = '${storeInfo.latitude }';
@@ -103,5 +109,153 @@
 <script src="<%=basePath%>js/common/city-picker.data.js"></script>
 <script src="<%=basePath%>js/common/city-picker.js"></script>
 <script src="<%=basePath%>js/common/main.js"></script>
+<script type="text/javascript">
+	
+	var cssWidth = 200;
+	var cssHeight = 200;
+	var qiniuUrl = '<%=qiniuPath%>';
+	var imgObject;
+	
+	jQuery(function(){
+	     jQuery('#preview').click(function(){
+	    	imgObject = jQuery(this);
+		    jQuery('.zzc').show()
+		 })
+		 jQuery('.cancelinput').click(function(){
+		    jQuery('.zzc').hide();
+		    jQuery('.photo-clip-rotateLayer').html('');
+		 })
+	});
+	var imgKey = "";
+	function zccCallback(dataBase64){
+		imgObject.children("img").attr("src", dataBase64);
+		var key = "jobwisdom/project/" + new Date().getTime();
+		if ((typeof(imgObject.children("img").attr("projectImage")))!="undefined"){
+			var url = qiniuUrl+key;
+			imgKey = key;
+			imgObject.children("img").attr("projectImage", url);
+		}else {
+			var url = qiniuUrl+key;
+			imgKey = key;
+			imgObject.children("img").attr("affiliatedImage", url);
+		}
+	    var data = {"stringBase64":dataBase64,"key":key};
+	    jQuery('.cancelinput').click();
+	    jQuery.ajax({
+			type: "POST",
+			url: baseUrl+"qiniu/base64",
+		       data: JSON.stringify(data),
+		       contentType: "application/json",
+		       dataType: "json",
+		       async:true,  
+		       beforeSend:function(){
+		       	console.log("beforeSend upload image");
+		       },
+		       error:function (){
+		       	console.log("upload image error");
+		       },
+		       complete :function (){
+		       	console.log("complete upload image");
+		       },
+		       success: function(data) {
+			       	var imageUrl = data.msg.imageUrl;
+			       	var key = data.msg.key;
+			       	console.log(imageUrl);
+		       }
+     	});
+	}
+
+	
+	//提交店铺信息
+	function saveStoreInfo(){
+		var storeLogo = imgKey;
+		var storeName = jQuery("#storeName").val();
+		var storeTel = jQuery("#storeTel").val();
+		var addressList = jQuery("#city-picker3").val().split('/');
+		var storeProvince = addressList[0];
+		var storeCity = addressList[1];
+		var street = jQuery("#searchtext").val();
+		if (isEmpty(storeProvince)) {
+			dialog("请选择省");
+			return;
+		}
+		if (isEmpty(storeCity)) {
+			dialog("请选择市");
+			return;
+		}
+		if (isEmpty(street)) {
+			dialog("请选择街道");
+			return;
+		}
+		var storeAddress = jQuery("#city-picker3").val() + street;
+		if (typeof storeAddress === 'undefined') {
+			dialog("请选择地址");
+			return;
+		}		
+		var storeLinkname = jQuery("#storeLinkname").val();
+		var storeLinkphone = jQuery("#storeLinkphone").val();
+		var latitude = jQuery("#lat").text();
+		var longitude = jQuery("#lng").text();
+		if (isEmpty(storeLogo)) {
+	        dialog("请上传您的店铺Logo");
+	        return;
+	    }
+		if (isEmpty(storeName)) {
+			dialog("请填写您的店铺名称");
+			return;
+		}
+		/*if (isEmpty(storeAddress)) {
+			dialog("请填写您的店铺地址");
+			return;
+		} else {
+			var city = jQuery("#city").text();
+			//alert(city);
+			if (storeAddress.indexOf(city) == -1) {
+				dialog("修改地址只能在您店铺所在城市进行修改");
+				return;
+			}
+		}*/
+
+		if (isEmpty(storeTel)) {
+	        dialog("请填写您的店铺电话");
+	        return;
+	    }
+		if (isEmpty(storeLinkname)) {
+	        dialog("请填写您的店铺负责人姓名");
+	        return;
+	    }
+		if (isEmpty(storeLinkphone)) {
+	        dialog("请填写您的店铺负责人电话");
+	        return;
+	    }
+		if (isEmpty(latitude) || isEmpty(longitude)) {
+			dialog("店铺坐标获取失败，请刷新页面重新选取位置");
+			return;
+		}
+		var data = "storeLogo=" + storeLogo + "&storeName=" + storeName + "&storeTel=" + storeTel + "&storeAddress=" + storeAddress + "&storeProvince=" + storeProvince + "&storeCity=" + storeCity
+			+ "&storeLinkname=" + storeLinkname + "&storeLinkphone=" + storeLinkphone + "&latitude=" + latitude + "&longitude=" + longitude;
+		submit(data, "保存成功，已更新您的店铺信息");
+	}
+	
+	//数据提交
+	function submit(data, msg){
+		jQuery.ajax({
+	        cache: true,
+	        type: "POST",
+	        url: baseUrl + "storeinfo/action/storeSetting",
+	        data: data,
+	        async: false,
+	        success: function(data) {
+	        	if (data.code != 0) {
+	                dialog(e.msg);
+	                return;
+	            }
+	        	dialog(msg);
+	        }
+	    });
+	}
+</script>
+<script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>
+
 </body>
 </html>

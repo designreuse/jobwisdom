@@ -4,6 +4,8 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ request.getContextPath() + "/";
 	String picPath = "http://7xkv8r.com1.z0.glb.clouddn.com/";
+	String qiniuPath = "http://7xss26.com1.z0.glb.clouddn.com/";
+
 	
 	String memberCssPath = basePath + "css/mobile/member-0-0-1.min.css";
 	String employeeCssPath = basePath + "css/mobile/employee-0-0-1.min.css";
@@ -30,5 +32,6 @@
 <script type="text/javascript">
 	var baseUrl = "<%=basePath%>";
 	var picUrl = "<%=picPath%>";
+	var qiniuUrl = "<%=qiniuPath%>";
 </script>
 

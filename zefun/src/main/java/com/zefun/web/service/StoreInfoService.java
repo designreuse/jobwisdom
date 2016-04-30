@@ -339,15 +339,26 @@ public class StoreInfoService {
      * 进行店铺设置操作
     * @author 张进军
     * @date Nov 9, 2015 11:19:28 AM
-    * @param storeId    店铺标识
     * @param storeInfo  店铺信息
     * @return   成功返回码0；失败返回其他错误码，返回值为提示语
      */
-    public BaseDto storeSettingAction(Integer storeId, StoreInfo storeInfo) {
+    public BaseDto storeSettingAction(StoreInfo storeInfo) {
         storeInfoMapper.updateByPrimaryKey(storeInfo);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
 
+    /**
+     * 新增门店
+    * @author 老王
+    * @date 2016年4月30日 下午4:55:19 
+    * @param storeInfo 门店信息
+    * @return BaseDto
+     */
+    public BaseDto saveStore (StoreInfo storeInfo) {
+    	storeInfoMapper.insert(storeInfo);
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
+    
 
     /**
      * 门店信息编辑操作
