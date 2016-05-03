@@ -16,8 +16,14 @@
 			   
 				  <div class="content_left"> 
 				     <p style="font-size:14px">设置店铺LOGO:</p>
-				     
-				      <div id="preview"><img border=0 affiliatedImage="<%=qiniuPath%>system/profile/set_img.png" name="affiliatedImage" src="<%=qiniuPath%>system/profile/set_img.png" width="180" height="180" /></div>
+				     <c:choose>
+				      <c:when test="${storeInfo.storeLogo == null}">
+				         <div id="preview"><img border=0 affiliatedImage="" name="affiliatedImage" src="<%=qiniuPath%>system/profile/set_img.png" width="180" height="180" /></div>
+				      </c:when>
+				      <c:otherwise>
+				         <div id="preview"><img border=0 affiliatedImage="<%=qiniuPath%>${storeInfo.storeLogo }" name="affiliatedImage" src="<%=qiniuPath%>${storeInfo.storeLogo }" width="180" height="180" /></div>
+				      </c:otherwise>
+				     </c:choose>
 					  <P>*此logo用于移动端店铺介绍页面</P>
 				      <!-- <input type="file"   style="position:relative;width: 80px; height: 80px;top: -124px;opacity:0;cursor:pointer"/> -->
 				     
@@ -49,7 +55,7 @@
 				      <div id="city" class="choosecity">选择省市: </div>
 				      <div class="detailaddress">详细地址： </div>
                       <%-- <span  class="addrres-difang">${storeInfo.storeProvince}${storeInfo.storeCity}</span> --%>
-                      <input type="text" style="border-radius: 6px!important; width: 276px;position: relative;left: 50px;height: 26px;top: 6px; " placeholder="请搜索">
+                      <input type="text" id="searchtext" style="border-radius: 6px!important; value = "${storeInfo.storeAddress}" width: 276px;position: relative;left: 50px;height: 26px;top: 6px; " placeholder="请搜索">
                       <%-- <input id="searchtext" type="text" class="wp60"  value="${street }" placeholder=""/> --%>
                       <div class="container">
 						<div class="docs-methods">
@@ -57,7 +63,7 @@
 								<div id="distpicker">
 									<div class="form-group">
 										<div style="position: relative;">
-											<input id="city-picker3" class="form-control" readonly type="text" value="江苏省/常州市/溧阳市" data-toggle="city-picker">
+											<input id="city-picker3" class="form-control" readonly type="text" value="${storeInfo.storeProvince}/${storeInfo.storeCity}" data-toggle="city-picker">
 										</div>
 									</div>
 								</div>
@@ -65,22 +71,22 @@
 						</div>
 						
 					</div>
-                    <span id="searchtext" class="addrres-search" onclick="serachlocal()" style="cursor:pointer">搜索</span>
+                    <span class="addrres-search" onclick="serachlocal()" style="cursor:pointer">搜索</span>
 					  
-				        <div id="lat" class="hide">${storeInfo.latitude }</div>
+<%-- 				        <div id="lat" class="hide">${storeInfo.latitude }</div>
 	                    <div id="lng" class="hide">${storeInfo.longitude }</div>
 	                    <div id="results"></div>  
 				        <div id="mapx"></div>  
 				        <div id="mapy"></div>  
 				        <div id="level"></div> 
 	                    <!-- 地图填充 -->
-	                    <div style="width:490px;height:380px;border:#ccc solid 1px;font-size:12px;position:relative;top:-30px;left:70px" id="map"></div>
+	                    <div style="width:490px;height:380px;border:#ccc solid 1px;font-size:12px;position:relative;top:-30px;left:70px" id="map"></div> --%>
 			     </div>
 			  
 			  
 			  </div>
 			  <button class="submit_" onclick="saveStoreInfo();">提交</button>
-			  <button class="cancel_">取消</button>
+			  <button class="cancel_" onclick= "cancel()">取消</button>
 			 </div>
 
               
@@ -165,6 +171,9 @@
      	});
 	}
 
+	function cancel() {
+		window.location.href = baseUrl + "storeinfo/view/showStoreList";
+	}
 	
 	//提交店铺信息
 	function saveStoreInfo(){
@@ -194,8 +203,8 @@
 		}		
 		var storeLinkname = jQuery("#storeLinkname").val();
 		var storeLinkphone = jQuery("#storeLinkphone").val();
-		var latitude = jQuery("#lat").text();
-		var longitude = jQuery("#lng").text();
+/* 		var latitude = jQuery("#lat").text();
+		var longitude = jQuery("#lng").text(); */
 		if (isEmpty(storeLogo)) {
 	        dialog("请上传您的店铺Logo");
 	        return;
@@ -228,12 +237,12 @@
 	        dialog("请填写您的店铺负责人电话");
 	        return;
 	    }
-		if (isEmpty(latitude) || isEmpty(longitude)) {
+/* 		if (isEmpty(latitude) || isEmpty(longitude)) {
 			dialog("店铺坐标获取失败，请刷新页面重新选取位置");
 			return;
-		}
+		} */
 		var data = "storeLogo=" + storeLogo + "&storeName=" + storeName + "&storeTel=" + storeTel + "&storeAddress=" + storeAddress + "&storeProvince=" + storeProvince + "&storeCity=" + storeCity
-			+ "&storeLinkname=" + storeLinkname + "&storeLinkphone=" + storeLinkphone + "&latitude=" + latitude + "&longitude=" + longitude;
+			+ "&storeLinkname=" + storeLinkname + "&storeLinkphone=" + storeLinkphone ;/* + "&latitude=" + latitude + "&longitude=" + longitude */
 		submit(data, "保存成功，已更新您的店铺信息");
 	}
 	
@@ -242,7 +251,7 @@
 		jQuery.ajax({
 	        cache: true,
 	        type: "POST",
-	        url: baseUrl + "storeinfo/action/storeSetting",
+	        url: baseUrl + "storeinfo/action/saveUpdateStore",
 	        data: data,
 	        async: false,
 	        success: function(data) {
@@ -251,6 +260,7 @@
 	                return;
 	            }
 	        	dialog(msg);
+	        	window.location.href = baseUrl + "storeinfo/view/showStoreList";
 	        }
 	    });
 	}

@@ -39,41 +39,41 @@
 				        <!-- 图片列表 begin -->
 				         <c:forEach items="${storeInfoList}" var="storeInfo" step="2" varStatus="status">
 				             <div class="pic">
-					           <div class="column_small_first" action-type="showdesc">
-										<div class="column_img_container">
-											 <em class="boss_cut" style="font-size:14px;font-weight:bold">${storeInfoList[status.count*2-2].storeName}</em>
-					                            <div class="head_pic">
-												   <img src="<%=picPath%>${storeInfoList[status.count*2-2].storeLogo}">
-												</div>
-												<ul class="clearfix shop_number" >
-												  <li>
-												      <em class="number_">联系人</em>
-													   <p class="num_">${storeInfoList[status.count*2-2].storeLinkname}<p>
-												  </li>
-												  
-												  <li>
-												      <em class="shop_price">电话号码</em>
-													   <p>${storeInfoList[status.count*2-2].storeLinkphone}<p>
-												  </li>
-												
-												</ul>
-													  <div class="shop_bottom clearfix">
-													  <div class="writting">
-													   	 编辑
-													  </div>
-													 <div class="delete">
-													 	 删除
-													  </div>
-												</div>
-									       </div>
+					           <div class="column_small_first" action-type="showdesc"  onclick='window.open("<%=basePath %>storeinfo/view/addStore?storeId=${storeInfoList[status.count*2-2].storeId }","_self")'>
+									<div class="column_img_container">
+										 <em class="boss_cut" style="font-size:14px;font-weight:bold">${storeInfoList[status.count*2-2].storeName}</em>
+				                            <div class="head_pic">
+											   <img src="<%=qiniuPath%>${storeInfoList[status.count*2-2].storeLogo}">
+											</div>
+											<ul class="clearfix shop_number" >
+											  <li>
+											      <em class="number_">联系人</em>
+												   <p class="num_">${storeInfoList[status.count*2-2].storeLinkname}<p>
+											  </li>
+											  
+											  <li>
+											      <em class="shop_price">电话号码</em>
+												   <p>${storeInfoList[status.count*2-2].storeLinkphone}<p>
+											  </li>
 											
-									</div>
+											</ul>
+												  <div class="shop_bottom clearfix">
+												  <div class="writting">
+												   	 编辑
+												  </div>
+												 <div class="delete">
+												 	 删除
+												  </div>
+											</div>
+								       </div>
+										
+								</div>
 								<c:if test="${(status.count*2-1)!=fn:length(storeInfoList) }">
-								   <div class="column_small_first " action-type="showdesc">
+								   <div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>storeinfo/view/addStore?storeId=${storeInfoList[status.count*2-1].storeId }","_self")'>
 										<div class="column_img_container">
 											 <em class="boss_cut" style="font-size:14px;font-weight:bold">${storeInfoList[status.count*2-1].storeName}</em>
 					                            <div class="head_pic">
-												   <img src="<%=picPath%>${storeInfoList[status.count*2-1].storeLogo}">
+												   <img src="<%=qiniuPath%>${storeInfoList[status.count*2-1].storeLogo}">
 												</div>
 												<ul class="clearfix shop_number" >
 												  <li>
@@ -113,8 +113,8 @@
 </div>
 
 <script language="javascript" type="text/javascript">
-   function addStorePage() {
-	   window.location.href = baseUrl + "storeinfo/view/addStore";
+   function addStorePage(storeId) {
+		   window.location.href = baseUrl + "storeinfo/view/addStore";
    }
    
    jQuery(function(){

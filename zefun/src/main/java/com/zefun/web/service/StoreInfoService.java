@@ -327,11 +327,15 @@ public class StoreInfoService {
      * 创建门店
     * @author 老王
     * @date 2016年4月28日 下午6:09:27 
+    * @param storeId 门店标识
     * @return ModelAndView
      */
-    public ModelAndView addStore() {
+    public ModelAndView addStore(Integer storeId) {
     	ModelAndView mav = new ModelAndView(View.Setting.ADD_STORE);
-    	
+    	if (storeId  != null) {
+    		StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+        	mav.addObject("storeInfo", storeInfo);
+    	}
     	return mav;
     }
     
@@ -355,6 +359,8 @@ public class StoreInfoService {
     * @return BaseDto
      */
     public BaseDto saveStore (StoreInfo storeInfo) {
+    	StoreInfo hqStoreInfo = storeInfoMapper.selectByPrimaryKey(storeInfo.getHqStoreId());
+    	storeInfo.setStoreAccount(hqStoreInfo.getStoreAccount());
     	storeInfoMapper.insert(storeInfo);
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }

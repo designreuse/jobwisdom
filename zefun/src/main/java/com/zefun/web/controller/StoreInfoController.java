@@ -54,12 +54,14 @@ public class StoreInfoController extends BaseController {
 	 * 创建门店
 	* @author 老王
 	* @date 2016年4月28日 下午6:11:25 
+	* @param request 返回
+	* @param storeId 门店id
 	* @return ModelAndView
 	 */
 	@RequestMapping(value = Url.StoreInfo.ADD_STORE)
-	public ModelAndView addStore() {
+	public ModelAndView addStore(HttpServletRequest request, Integer storeId) {
 		
-		return storeInfoService.addStore();
+		return storeInfoService.addStore(storeId);
 	}
 	
 	/**
@@ -70,8 +72,12 @@ public class StoreInfoController extends BaseController {
 	* @param request 返回
 	* @return BaseDto
 	 */
+	@RequestMapping(value = Url.StoreInfo.SAVE_UPDATE_STORE)
 	public BaseDto saveUpdateStore (StoreInfo storeInfo, HttpServletRequest request) {
 		if (storeInfo.getStoreId() == null) {
+			Integer storeId = getStoreId(request);
+			storeInfo.setHqStoreId(storeId);
+			storeInfo.setStoreType(3);
 			return storeInfoService.saveStore(storeInfo);
 		}
 		else {

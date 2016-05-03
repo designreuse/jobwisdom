@@ -2,8 +2,6 @@ var isAssignArray =new Array("未指定", "指定", "");
 var isAppointArray =new Array("未预约","预约", "");
 
 var curDate = getCurDate();
-jQuery('#startDate').datetimepicker({value : curDate + ' 00:00'});
-jQuery('#endDate').datetimepicker({value : curDate + ' 23:59'});
 
 function btnSearchPhone() {
 	var queryCode = jQuery("#ipt-search-phone").val();
