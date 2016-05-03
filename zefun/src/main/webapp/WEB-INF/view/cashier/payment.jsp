@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.util.Date" %>
 <%@ include file="/head.jsp" %>
-<link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <body>
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">

@@ -6,6 +6,7 @@
     String menuPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
 %>
 <%@include file="/loading.jsp" %>
+<link rel="stylesheet" href="<%=basePath%>css/common.css" type="text/css" />
 <div class="logo-wrap">
 	<a href="index.html"> <img src="<%=basePath%>images/logo_by.png" alt=""></a>
 </div>
@@ -62,11 +63,47 @@
 			<a href="<%=menuBasePath%>wechat/items/manage"><li><span><img src="<%=basePath%>images/left5.png">营销方案库</span></li></a>
 			<a href="<%=menuBasePath%>view/coupons"><li><span><img src="<%=basePath%>images/left5.png">优惠券管理</span></li></a>
 		</ul>
+		<ul index="2">
+			<a href="<%=menuBasePath%>summary/view/summary"><li class=""><span><img src="<%=basePath%>images/left0.png">营业汇总</span></li></a>
+			<a href="<%=menuBasePath%>cashreceipts/view/cashreceipts"><li><span><img src="<%=basePath%>images/left1.png">现金收入</span></li></a>
+			<a href="<%=menuBasePath%>cardsales/view/cardsales"><li class=""><span><img src="<%=basePath%>images/left2.png">卡项销售</span></li></a>
+			<a href="<%=menuBasePath%>laborperformance/view/laborperformance"><li class="active"><span><img src="<%=basePath%>images/left3.png">劳动业绩</span></li></a>
+			<a href="<%=menuBasePath%>packagesales/view/packagesales"><li><span><img src="<%=basePath%>images/left4.png">套餐销售</span></li></a>
+			<a href="<%=menuBasePath%>commoditysales/view/commoditysales"><li><span><img src="<%=basePath%>images/left5.png">商品销售</span></li></a>
+			<a href="<%=menuBasePath%>reconciliation/view/crossReconciliation"><li><span><img src="<%=basePath%>images/left5.png">跨店对账</span></li></a>
+			<a href="<%=menuBasePath%>businessAnalysis/view/payroll"><li><span><img src="<%=basePath%>images/left5.png">工资单</span></li></a>
+		</ul>
+		<ul index="3">
+			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span><img src="<%=basePath%>images/left0.png">项目列表</span></li></a>
+			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span><img src="<%=basePath%>images/left1.png">套餐列表</span></li></a>
+			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span><img src="<%=basePath%>images/left2.png">商品列表</span></li></a>
+			<a href="<%=menuBasePath%>goodsInfo/view/goodsStockList"><li class="active"><span><img src="<%=basePath%>images/left3.png">商品库存</span></li></a>
+			<a href="<%=menuBasePath%>goodsInfo/purchase/records"><li><span><img src="<%=basePath%>images/left4.png">进货管理</span></li></a>
+			<a href="<%=menuBasePath%>goodsInfo/view/shipment/record"><li><span><img src="<%=basePath%>images/left5.png">出货管理</span></li></a>
+			<a href="<%=menuBasePath%>goodsInfo/view/brand"><li><span><img src="<%=basePath%>images/left5.png">商品品牌</span></li></a>
+			<a href="<%=menuBasePath%>supplierInfo/view/supplierInfoList"><li><span><img src="<%=basePath%>images/left5.png">供应商管理</span></li></a>
+		</ul>
+		<ul index="4">
+			<a href="<%=menuBasePath%>position/view/positioninfo"><li class=""><span><img src="<%=basePath%>images/left0.png">组织架构</span></li></a>
+			<a href="<%=menuBasePath%>employee/view/employee"><li><span><img src="<%=basePath%>images/left1.png">员工资料</span></li></a>
+			<a href="<%=menuBasePath%>storeManageRule/view/home"><li class=""><span><img src="<%=basePath%>images/left2.png">管理制度</span></li></a>
+			<a href="<%=menuBasePath%>shift/view/shift"><li class="active"><span><img src="<%=basePath%>images/left3.png">排班设置</span></li></a>
+			<a href="<%=menuBasePath%>objective/view/objective"><li><span><img src="<%=basePath%>images/left4.png">目标设置</span></li></a>
+			<a href="<%=menuBasePath%>objectiverule/view/objectiverule"><li><span><img src="<%=basePath%>images/left5.png">目标考核</span></li></a>
+			<a href="<%=menuBasePath%>attendance/view/attendance"><li><span><img src="<%=basePath%>images/left5.png">考勤记录</span></li></a>
+		</ul>
+		<ul index="5">
+			<a href="<%=menuBasePath%>system/view/person"><li class=""><span><img src="<%=basePath%>images/left0.png">账户设置</span></li></a>
+			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span><img src="<%=basePath%>images/left1.png">基础设置</span></li></a>
+			<a href="<%=menuBasePath%>system/view/share"><li class=""><span><img src="<%=basePath%>images/left2.png">分享拓客</span></li></a>
+			<a href="<%=menuBasePath%>system/view/storeUsage"><li class="active"><span><img src="<%=basePath%>images/left3.png">系统信息</span></li></a>
+		</ul>
 	</div>
 </div>
 <!--leftmenu-->
 </div>
 <script>
+var tempUrl = '<%=menuBasePath%>';
 var requestUrl = document.URL;
 jQuery(function(){
     jQuery('.left_nav li').click(function(){
@@ -86,10 +123,22 @@ jQuery(function(){
 
 	})
 })
-jQuery(".left_nav_2").find("li").removeClass("active");
-jQuery(".left_nav_2").find("a[href='"+requestUrl+"']").parent("ul").show().siblings().hide();
-jQuery(".left_nav_2").find("a[href='"+requestUrl+"']").children("li").addClass("active");
-jQuery(".left_nav li").removeClass("active1");
-jQuery(".left_nav li").eq(jQuery(".left_nav_2").find("a[href='"+requestUrl+"']").parent("ul").attr("index")).addClass("active1");
+function choseMenu(url){
+	
+	jQuery(".left_nav_2").find("li").removeClass("active");
+	jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").show().siblings().hide();
+	jQuery(".left_nav_2").find("a[href='"+url+"']").children("li").addClass("active");
+	jQuery(".left_nav li").removeClass("active1");
+	jQuery(".left_nav li").eq(jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").attr("index")).addClass("active1");
+	
+}
+choseMenu(requestUrl);
 
+var tmp = "http://"+location.host+location.pathname;
+if (requestUrl.indexOf("?")!=-1){
+	if(requestUrl.substring(0, requestUrl.indexOf("?")) == tmp){
+		tmp = "http://"+location.host+"/jobwisdom/project/view/projects";
+		choseMenu(tmp);
+	}
+}
 </script>
