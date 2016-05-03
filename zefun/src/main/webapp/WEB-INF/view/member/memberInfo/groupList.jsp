@@ -1,20 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/head.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <body>
 
-<div class="mainwrapper">
-    <!--loading start-->
-    <%@ include file="/loading.jsp" %>
-    <!--loading end-->
-
-    <!--left-panel start-->
-    <%@ include file="/menu.jsp" %>
-    <!--left-panel end-->
-
-    <!--RIGHT PANEL开始 -->
-    <div class="rightpanel" style="margin-left: 200px;">
-      	<%@ include file="/top.jsp" %>
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
+		<%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
       	<!-- 页面代码 -->
    <div class="maincontent">
     <div class="contentinner">
@@ -144,13 +138,7 @@
 	</div>
 </div>
      
-    <!--RIGHT PANEL结束 -->
-
-    <div class="clearfix"></div>
-
-    <div id="star"></div>
-
-</div><!--mainwrapper-->
+</div><!--mainwrapper--></div>
 <%@ include file="/template/memberData.jsp" %>
 </body>
 <script>
@@ -165,22 +153,22 @@ jQuery(document).ready(function(){
 
    function table() {
        jQuery(".mainwrapper").show()
-       var fix=jQuery(".t-fix").offset()
-       var tableT=fix.top
+       var fix=jQuery(".t-fix").offset();
+       var tableT=fix.top;
        jQuery(window).scroll(function(event){
-           var scH=jQuery(window).scrollTop()
+           var scH=jQuery(window).scrollTop();
            if(scH>tableT){
-               jQuery(".t-fix").addClass("add-fix")
+               jQuery(".t-fix").addClass("add-fix");
                for(i=0;i<jQuery(".t-fix th").length;i++){
                    var tdwidth=a[i];
                    var tbwidth=a[i];
-                   jQuery(".t-fix th").eq(i).css("width",tdwidth)
-                   jQuery(".t-table td").eq(i).css("width",tbwidth)
+                   jQuery(".t-fix th").eq(i).css("width",tdwidth);
+                   jQuery(".t-table td").eq(i).css("width",tbwidth);
 
                }
            }
            else{
-               jQuery(".t-fix").removeClass("add-fix")
+               jQuery(".t-fix").removeClass("add-fix");
            }
        })
    }

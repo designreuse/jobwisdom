@@ -39,6 +39,7 @@ import com.zefun.common.utils.ExcelUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptInfoDto;
+import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.StoreFlowBaseDto;
 import com.zefun.web.dto.StoreFlowDto;
 import com.zefun.web.entity.CodeLibrary;
@@ -46,6 +47,7 @@ import com.zefun.web.entity.Page;
 import com.zefun.web.entity.StoreFlow;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
+import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.StoreFlowMapper;
 
 /**
@@ -71,6 +73,10 @@ public class StoreFlowService {
 	/** 部门*/
 	@Autowired
 	private DeptInfoMapper deptInfoMapper;
+	
+	/**员工数据*/
+	@Autowired
+	private EmployeeInfoMapper employeeInfoMapper;
 	
 	/**
 	 * 保存开支记账
@@ -455,6 +461,9 @@ public class StoreFlowService {
 		mav.addObject("endDate", DateUtil.getMaxMonthDateStr());
 		mav.addObject("toDate", DateUtil.getCurDateChine());
 		mav.addObject("deptInfoDtoList", deptInfoDtoList);
+		
+		List<EmployeeDto> employeeDtos = employeeInfoMapper.getDeptEmployee(deptInfoDtoList.get(0).getDeptId());
+		mav.addObject("employeeDtos", employeeDtos);
 		
 		Map<String, Object> map = selectCome(storeId, beginTime, endTime);
 		

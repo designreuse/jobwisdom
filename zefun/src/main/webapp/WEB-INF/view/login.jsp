@@ -528,8 +528,6 @@ jQuery(document).ready(function(){
         }
         
         password = CryptoJS.MD5(CryptoJS.MD5(password).toString().toUpperCase()).toString().toUpperCase();
-        alert(password);
-        console.log(password)
         
         jQuery.ajax({
             type : "post",
