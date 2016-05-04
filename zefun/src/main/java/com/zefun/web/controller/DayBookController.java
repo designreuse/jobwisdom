@@ -72,7 +72,7 @@ public class DayBookController extends BaseController {
     @ResponseBody
     @RequestMapping(value = View.DayBook.ACTION_DAYBOOK_LIST, method = RequestMethod.POST)
     public BaseDto dayBookView(DayBookQueryDto params, HttpServletRequest request, HttpServletResponse response) throws ParseException{
-    	Integer storeId = getStoreId(request);
+    	Integer storeId = 1005/*getStoreId(request)*/;
     	params.setStoreId(storeId);
 		
 		Map<String, Object> map = dayBookService.querydaybookInfo(storeId, params);
@@ -91,7 +91,8 @@ public class DayBookController extends BaseController {
     @ResponseBody
     @RequestMapping(value = Url.DayBook.SELECT_ORDER_BY_UPDATE, method = RequestMethod.POST)
     public BaseDto selectOrderByUpdate(HttpServletRequest request, HttpServletResponse response, Integer orderId) {
-        return dayBookService.selectOrderByUpdate(orderId);
+    	Integer storeId = 1005/*getStoreId(request)*/;
+        return dayBookService.selectOrderByUpdate(orderId, storeId);
     }
     
     /**

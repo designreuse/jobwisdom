@@ -29,14 +29,24 @@
     color: #c1c6d3;
 }
 
+.income_1  tr:nth-child(even){
+  background:#edf1f5;
+	
+}
 .income tr td{    width: 200px;
     height: 40px;
     border: 1px solid #ccc;
 text-align: center;}
+.income_1 tr td{    width: 200px;
+    height: 40px;
+    border: 1px solid #ccc;
+text-align: center;
+line-height:40px
+}
 
 .rightpanel{background:white}
 .income_{margin:40px 0 10px 0}
-.income{margin-bottom:10px}
+.income,.income_1{margin-bottom:10px}
 .total{margin-bottom:40px}
 .total span{display:inline-block;margin-right:30px}
 
@@ -98,3 +108,8 @@ text-align: center;}
 .close_zzc{display:inline-block;position:relative;left:450px;top:2px}
 .boss_ em{padding-left:20px}
 .Korea em{padding-left:20px}
+
+.income_1 span em{display:inline-block;margin-left:8px}
+.income_1 tr td{
+	    vertical-align: middle;
+}
