@@ -1,422 +1,230 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <%@ include file="/head.jsp" %>
-<style>
-	.ml4neg {
-		margin-left: -4px;
-	}
-</style>
+<link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
+<link rel="stylesheet" href="<%=basePath%>css/water.css" type="text/css" />
 <body>
 
-<div class="mainwrapper" style="background-position: 0px 0px;">
-    <!--loading start-->
-    <%@ include file="/loading.jsp" %>
-    <!--loading end-->
+<div class="zzc" style="display:none">
+   <div class="zzc_content">
+	  <div class="water_number">流水单号:<span id="orderCodeModel"></span><span class="close_zzc"><img src="assets/images/close.png"></span ></div>
+	   <table class="zzc_1">
+	     <tr>
+	       <td>应收 </td>
+		   <td>现钞 </td>
+		   <td>银联 </td>
+		   <td>微信 </td>
+		   <td>支付宝</td>
+		   <td>卡金</td>
+		   <td>团购 </td>
+		   <td>优惠抵扣 </td>
+		   <td>挂账 </td>
+		   <td>实收</td>
+	      </tr>
+		   <tr>
+	       <td><span class="red" id = "discountAmountModel"></span></td>
+		   <td><input type="text" name = "cashAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
+		   <td><input type="text" name = "unionpayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
+		   <td><input type="text" name = "wechatAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
+           <td><input type="text" name = "alipayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
+           <td><input type="text" name = "cardAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
+           <td><input type="text" name = "groupAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
+           <td><span class="red" id = "privilegeModel"></span></td>
+           <td><input type="text" name = "debtAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
+           <td><span class="red" id = "realAmountModel"></span></td>
+	      </tr>
+	   </table>
+	   <div id = "detailExpense">
+	      
+	   </div>
+	 <div class="water_button">
+	   <button class="water_cancel">取消</button>
+	   <button class="accounts">结账</button>
+	 </div>
+	</div>
+</div>
 
-    <!--left-panel start-->
-    <%@ include file="/menu.jsp" %>
-    <!--left-panel end-->
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+   <div class="leftpanel" style="height: 840px; margin-left: 0px;">
+    <%@include file="/menu.jsp"%>
 
     <!--RIGHT PANEL开始 -->
     <div class="rightpanel" style="margin-left: 200px;">
       	<%@ include file="/top.jsp" %>
-      	<div class="maincontent">
-			<div class="contentinner">
-	           <div class="widgetcontent">
-	           	 <table class="table">
-                     <tr>
-                         <td>
-                             <input id="ipt-search-phone" type="search" placeholder="水单号/手机号/员工工号"/>
-                             <button class="btn search-button" onclick="btnSearchPhone();">立即搜索</button>
-                         </td>
-                         <td>
-                             <input id="startDate" class="input120" type="text" name="date" placeholder="起始时间" daysOffset="0"/>
-		                    -&nbsp;<input id="endDate" class="input120" type="text" name="date" placeholder="截止时间"  daysOffset="0"/>
-		                     <button class="btn" onclick="btnSearchTime();">区间查询</button>
-                         </td>
-                         <td>
-		                     <div class='ch-checker fl'>
-	                              <div class='beau-checker'>
-	                                <span class='iconfont icon-gou'></span>
-	                              </div>
-	                              <input type='checkbox' class='yellow-checker' name='isDeletedValue'/>
-                             </div>
-                             <span class="ml30">查询删除订单</span>
-                         </td>
-                     </tr>
-                 </table>
-	             <table class="table table-bordered ls-detai-table">
-	              <thead>
-		              <tr>
-		                  <td colspan="7">营业收入</td>
-		                  <td colspan="5">收入来源</td>
-		              </tr>
-	              </thead>
-	              <tbody>
-		              <tr>
-		                  <th>现金</th>
-		                  <th>银联</th>
-		                  <th>微信</th>
-		                  <th>支付宝</th>
-		                  <th>团购</th>
-		                  <th>挂账</th>
-		                  <th>划卡</th>
-		                  <th>项目劳动(<span id="projectSalesCount">${detailCount.projectSalesCount}</span>单)</th>
-		                  <th>商品销售(<span id="goodsSalesCount">${detailCount.goodsSalesCount}</span>单)</th>
-		                  <th>套餐销售(<span id="comboSalesCount">${detailCount.comboSalesCount}</span>单)</th>
-		                  <th>开卡充值(<span id="cardSalesCount">${detailCount.cardSalesCount}</span>单)</th>
-		                  <th>卡金赠送(<span id="presentCount">${detailCount.presentCount}</span>单)</th>
-		              </tr>
-		              <tr>
-		                  <td><span id="cashAmount">${countBook.cashAmount }</span></td>
-		                  <td><span id="unionpayAmount">${countBook.unionpayAmount }</span></td>
-		                  <td><span id="wechatAmount">${countBook.wechatAmount }</span></td>
-		                  <td><span id="alipayAmount">${countBook.alipayAmount }</span></td>
-		                  <td><span id="groupAmount">${countBook.groupAmount }</span></td>
-		                  <td><span id="debtAmount">${countBook.debtAmount }</span></td>
-		                  <td><span id="cardAmount">${countBook.cardAmount }</span></td>
-		                  <td><span id="projectSalesAmount">${detailCount.projectSalesAmount}</span></td>
-		                  <td><span id="goodsSalesAmount">${detailCount.goodsSalesAmount}</span></td>
-		                  <td><span id="comboSalesAmount">${detailCount.comboSalesAmount}</span></td>
-		                  <td><span id="cardSalesAmount">${detailCount.cardSalesAmount}</span></td>
-		                  <td><span id="presentAmount">${detailCount.presentAmount}</span></td>
-		              </tr>
-	              </tbody>
-	            </table>
-	            <div class="more-toolbar" >
-	              <div class="table-toolbar">
-	                  <!-- <span class="font-size-16 btn-color">流水详情</span> -->
-	                  <div class="table-pagination">
-	                        <table class="ls-detail fr">
-	                            <tr>
-	                                <td>总客数：</td>
-	                                <td id="totalPersonCount">${countBook.count }</td>
-	                                <td>应收款：</td>
-	                                <td id="receivableAmount">${countBook.receivableAmount }</td>
-	                                <td>礼金抵扣：</td>
-	                                <td id="giftAmount">${countBook.giftAmount }</td>
-	                                <td>优惠券抵扣：</td>
-	                                <td id="couponAmount">${countBook.couponAmount }</td>
-	                                <td>套餐抵扣：</td>
-                                    <td id="comboAmount">${countBook.comboAmount }</td>
-                                    <td>划卡：</td>
-                                    <td id="cardAmount">${countBook.cardAmount }</td>
-	                                <td>现金实收：</td>
-	                                <td id="realPrice">${countBook.realPrice }</td>
-	                            </tr>
-	                        </table>
-	                    </div>
-	              </div><!--table-toolbar-->
-	              <div class="clearfix"></div>
-	            </div><!--more-toolbar-->
-	            <table class="table table-bordered table-striped liushui-table">
-	              <thead class="t-fix">
-	              <tr>
-	                  <th>流水单号</th>
-	                  <th>顾客</th>
-	                  <th class="cursor" onclick="changeOrderByType('timeOrder', this);">消费时间
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont  hide"></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th>服务内容</th>
-	                  <th class="cursor" onclick="changeOrderByType('receivableOrder', this);">应收
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('cashOrder', this);">现金
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('unionpayOrder', this);">银联
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('netpayOrder', this);">网络
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('cardOrder', this);">卡金
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('comboOrder', this);">套餐
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('giftOrder', this);">礼金
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('couponOrder', this);">优惠券
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('grouppayOrder', this);">团购
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('debtOrder', this);">挂账
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('realOrder', this);">实收
-	                    <div class="paixu">
-	                      <i class="FontAwesome iconfa-caret-up afont "></i>
-	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
-	                    </div>
-	                  </th>
-					  <th>操作</th>
-	              </tr>
-	              </thead>
-	              <tbody id="tbody-data">
-	              <c:forEach var="daybook" items="${page.results}" varStatus="status">
-	              	<c:if test="${status.index == 0 }"><tr class="t-table"></c:if>
-	              	<c:if test="${status.index != 0 }"><tr></c:if>
-	                  <td onclick="updateSelectOrder(${daybook.orderId})"><a class="can-click">${daybook.orderCode}</a></td>
-	                  
-	                  	<c:choose>
-		                  <c:when test="${daybook.memberId == null}">
-		                  <td>
-		                  	散客（${daybook.sex}）
-		                  </td>
-		                  </c:when>
-		                  <c:otherwise>
-		                  <td class="can-click" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo(${daybook.memberId})">
-		                  ${daybook.memberName}
-		                  </td>
-		                  </c:otherwise>
-		                 </c:choose>
-	                  
-	                  <td>${daybook.createTime}</td>
-	                  <td class="wthn100 ellipsis-text" data-toggle="tooltip" data-placement="right" title="${daybook.projectName}">
-	                     ${daybook.projectName}
-	                  </td>
-	                  <td>${daybook.realPrice}</td>
-	                  <td>${daybook.cashAmount}</td>
-	                  <td>${daybook.unionpayAmount}</td>
-	                  <td>
-		                  <c:choose>
-		                  	<c:when test="${daybook.wechatAmount == 0 and daybook.alipayAmount == 0}">
-		                  		0
-		                  	</c:when>
-		                  	<c:when test="${daybook.wechatAmount > daybook.alipayAmount}">
-		                  		<i class="iconfont icon-weixin fl"></i>
-				                  <span class="fl ml10">
-				                  	${daybook.wechatAmount + daybook.alipayAmount}
-				                  </span>
-		                  	</c:when>
-		                  	<c:when test="${daybook.alipayAmount > daybook.wechatAmount}">
-		                  		<i class="iconfont icon-zhifubao fl"></i>
-				                  <span class="fl ml10">
-				                  	${daybook.wechatAmount + daybook.alipayAmount}
-				                  </span>
-		                  	</c:when>
-		                  	<c:otherwise>
-		                  		0
-		                  	</c:otherwise>
-		                  </c:choose>
-	                  </td>
-	                  <td>${daybook.cardAmount}</td>
-	                  <td>${daybook.comboAmount}</td>
-	                  <td>${daybook.giftAmount}</td>
-	                  <td>${daybook.couponAmount}</td>
-	                  <td>${daybook.groupAmount}</td>
-	                  <td>${daybook.debtAmount}</td>
-	                  <td>${daybook.realAmount}</td>
-					  <td><span class="iconfa-trash project-icon" onclick="deleteOrder(${daybook.orderId}, this)"></span></td>
-	              </tr>
-	              </c:forEach>
-	              </tbody>
-	          </table>
-	          <%@ include file="/template/page.jsp" %>
-			</div>
-		</div>
-   	</div>
-    <!--RIGHT PANEL结束 -->
+        <div class='content_right' >
+ 	请输入单号：<input type="text" id="ipt-search-phone" class="simgle" placeholder="水单号/手机号/员工工号">
+	<input type="datetime-local"  id = "startDate" value="2014-03-15T08:00" style="color:#d7d8da;border:1px solid #d7d8da;width:160px">
+
+    <span style="display:inline-block;margin:0 10px;color:#ccc">-——</span>
+
+	<input type="datetime-local" id="endDate" class="datetime_" style="color:#d7d8da;border:1px solid #d7d8da;width:160px">
+ 
+    <button class="search_" onclick="btnSearchTime();">立刻查询</button>
+	<div class="income_">营业收入：</div>
+	<table class="income">
+	  <tr>
+	    <td>现钞</td>
+	    <td>银联</td>
+		<td>微信支付</td>
+		<td>支付宝付</td>
+		<td>团购支付</td>
+		<td>疗程消费</td>
+		<td>划卡消费</td>
+	  </tr>
+	   <tr>
+	    <td id="cashAmount">${countBook.cashAmount}</td>
+	    <td id="unionpayAmount">${countBook.unionpayAmount}</td>
+		<td id="wechatAmount">${countBook.wechatAmount}</td>
+		<td id="alipayAmount">${countBook.alipayAmount }</td>
+	    <td id="groupAmount">${countBook.groupAmount }</td>
+	    <td id="debtAmount">${countBook.debtAmount }</td>
+		<td id="cardAmount">${countBook.cardAmount }</td>
+	  </tr>
+	</table>
+
 	
-	<!--流水查询模态框-->
-	<div class="modal hide" id="liushui-search" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	    <div class="modal-dialog" role="document">
-	        <div class="modal-content liushui-data">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" onclick="cancelModel()">&times;</span></button>
-	                <span id="orderCodeModel"></span>
-	                &nbsp;&nbsp;&nbsp;&nbsp;
-	                <span></span>
-	            </div>
-	            <div class="modal-body">
-	                    <table class="table price">
-	                        <thead>
-	                            <tr>
-	                                <td>应收</td>
-	                                <td>现金</td>
-	                                <td>银联</td>
-	                                <td>微信</td>
-	                                <td>支付宝</td>
-	                                <td>卡金</td>
-	                                <td>团购</td>
-	                                <td>优惠抵扣</td>
-	                                <td>挂账</td>
-	                                <td>实收</td>
-	                            </tr>
-	                        </thead>
-	                        <tbody>
-	                            <tr>
-	                                <td><span class="red" id = "discountAmountModel"></span></td>
-	                                <td><input type="text" name = "cashAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-	                                <td><input type="text" name = "unionpayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-	                                <td><input type="text" name = "wechatAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-	                                <td><input type="text" name = "alipayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-	                                <td><input type="text" name = "cardAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-	                                <td><input type="text" name = "groupAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-	                                <td><span class="red" id = "privilegeModel"></span></td>
-	                                <td><input type="text" name = "debtAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-	                                <td><span class="red" id = "realAmountModel"></span></td>
-	                            </tr>
-	                        </tbody>
-	                    </table>
-	                    <!-- 基本信息开始 -->
-	                    <div class="expense" id = "detailExpense">
-	                            
-                        </div>
-	                </div>
-	            </div><!--modal-body-->
-	            <!-- 基本信息结束 -->
-                <div class="modal-footer clearfix">
-                    <div class="fr">
-                        <button class="btn" aria-hidden="true" onclick="cancelModel()" id = "cancelModel" data-dismiss="modal" aria-label="Close">取消</button>
-                        <button class="btn" onclick="confirmModel()">确定</button>
-                    </div>
-                </div>
-	        </div><!--modal-content-->
-	    </div><!--modal-dialog--> 
-	    
-	    <!--删除提示-->
-	    <div class="modal hide" id="deleteOrderTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	        <div class="modal-dialog" role="document">
-	            <div class="modal-content confirm">
-	                <div class="modal-header">
-	                    <button type="button" class="close" data-dismiss="modal" onclick="czCancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                    <h4 class="modal-title" id="myModalLabel">删除订单</h4>
-	                </div>
-	    
-	                <div class="modal-body confirm-body">
-	                                                订单删除后不可恢复，是否确定本次操作？
-	                </div><!--modal-body-->
-	    
-	                <div class="modal-footer">
-	                    <a class="btn cancel-btn modal-cancel" data-dismiss="modal" href="javascript:void(0);">取消</a>
-	                    <a class="btn btn-primary save-btn modal-confirm" href="javascript:deleteOrderConfirm();">确定</a>
-	                </div>
-	            </div>
-	        </div>
-	    </div>  
-	    
-	    <!-- 会员等级 -->
-	    <div class="modal hide" id="member-level-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	    <div class="modal-dialog" role="document">
-	        <div class="modal-content rotating-setting-modal" style="width: 450px;">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                <h5 class="modal-title" id="myModalLabel">恢复会员等级</h5>
-	            </div>
-	            <div class="modal-body">
-	                <form action="" class="editprofileform" method="post" style="padding-bottom: 42px;">
-	                    <table class="table">
-	                      <tbody id = "modelTbody">
-	                        <tr id = "topTR">
-	                            <td colspan="2">
-						                             检测到改订单为升级会员操作 ，您可以选择下列会员等级进行调整
-	                            </td>
-	                        </tr>
-	                        
-	                        </tbody>
-	                    </table>
-	                </form>
-	            </div><!--modal body-->
 	
-	            <div class="modal-footer">
-	                <a class="btn modal-cancel" href="#" data-dismiss="modal" aria-label="Close">取消</a>
-	                <a class="btn btn-primary modal-confirm" href="#" onclick="updateMemberLevel()">确定</a>
-	            </div>
-	        </div>
-	        
-	        
-	    </div>
-	</div> 
+	<div class="income_">收入来源：</div>
+	<table class="income">
+	  <tr>
+	    <td>服务项目（<span id="projectSalesCount">${detailCount.projectSalesCount}</span>单）</td>
+	    <td>商品销售（<span id="goodsSalesCount">${detailCount.goodsSalesCount}</span>单）</td>
+		<td>疗程销售（<span id="comboSalesCount">${detailCount.comboSalesCount}</span>单）</td>
+		<td>开卡充值（<span id="cardSalesCount">${detailCount.cardSalesCount}</span>单）</td>
+		<td>卡金赠送（<span id="presentCount">${detailCount.presentCount}</span>单）</td>
+		
+	  </tr>
+	   <tr>
+	    <td id="projectSalesAmount">${detailCount.projectSalesAmount}</td>
+	    <td id="goodsSalesAmount">${detailCount.goodsSalesAmount}</td>
+		<td id="comboSalesAmount">${detailCount.comboSalesAmount}</td>
+	    <td id="cardSalesAmount">${detailCount.cardSalesAmount}</td>
+	    <td id="presentAmount">${detailCount.presentAmount}</td>
+		
+	  </tr>
+	</table>
+	<div class="total">
+	  <span>总客数：<em id="totalPersonCount">${countBook.count }</em></span>
+	  <span>应收款：<em id="receivableAmount">${countBook.receivableAmount}</em></span>
+	  <span>礼金抵扣：<em id="giftAmount">${countBook.giftAmount }</em></span>
+	  <span>优惠券抵扣：<em id="couponAmount">${countBook.couponAmount }</em></span>
+	  <span>套餐抵扣：<em id="comboAmount">${countBook.comboAmount }</em></span>
+	  <span>划卡：<em id="cardAmount">${countBook.cardAmount }</em></span>
+	  <span>现金实收：<em id="realPrice">${countBook.realPrice }</em></span>
+	</div>
+	
+	
+		<table class="income_1">
+		   <thead>
+			  <tr>
+			    <td class="water_" style="cursor:pointer">水单号</td>
+			    <td>顾客</td>
+				<td>消费时间</td>
+				<td>服务内容</td>
+				<td>应收</td>
+				<td>消费金额</td>
+				<td>抵扣</td>
+				<td>挂账</td>
+				<td>实收</td>
+				<td>操作</td>
+			  </tr>
+	      </thead>
+	      <tbody id="tbody-data">
+	          <c:forEach var="daybook" items="${page.results}" varStatus="status">
+		        <tr>
+		            <td onclick="updateSelectOrder(${daybook.orderId})"><a class="can-click">${daybook.orderCode}</a></td>
+		            <c:choose>
+		                 <c:when test="${daybook.memberId == null}">
+		                 <td>
+		                 	散客（${daybook.sex}）
+		                 </td>
+		                 </c:when>
+		                 <c:otherwise>
+		                   <td class="can-click" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo(${daybook.memberId})">
+		                      ${daybook.memberName}
+		                   </td>
+		                 </c:otherwise>
+	                </c:choose>
+	                <td>${daybook.createTime}</td>
+	                <td>
+	                   ${daybook.projectName}
+	                </td>
+	                <td>${daybook.realPrice}</td>
+	                <td>
+		               <c:if test="${daybook.cashAmount == 0 and daybook.unionpayAmount == 0 and daybook.wechatAmount == 0 and daybook.alipayAmount == 0 and daybook.cardAmount == 0}">
+		                   0.00
+		               </c:if>
+		               <c:if test="${daybook.cashAmount != 0}">
+		                   <span>${daybook.cashAmount}<em style="color:red">现金</em></span>
+		               </c:if>
+		               <c:if test="${daybook.unionpayAmount != 0}">
+		                   <span>${daybook.unionpayAmount}<em style="color:blue">银联</em></span>
+		               </c:if>
+		               <c:if test="${daybook.wechatAmount != 0}">
+		                   <span>${daybook.wechatAmount}<em style="color:#59688a">微信</em></span>
+		               </c:if>
+		               <c:if test="${daybook.alipayAmount != 0}">
+		                   <span>${daybook.alipayAmount}<em style="color:green">支付宝</em></span>
+		               </c:if>
+		               <c:if test="${daybook.cardAmount != 0}">
+		                   <span>${daybook.cardAmount}<em style="color:pink">卡金</em></span>
+		               </c:if>
+	                </td>
+                  
+	                <td>
+	                  <c:if test="${daybook.comboAmount == 0 and daybook.giftAmount == 0 and daybook.couponAmount == 0 and daybook.groupAmount == 0}">
+	                     0.00
+	                  </c:if>
+	                  <c:if test="${daybook.comboAmount != 0}">
+		                   <span>${daybook.comboAmount}<em style="color:red;display:block">疗程</em></span>
+		              </c:if>
+		              <c:if test="${daybook.giftAmount != 0}">
+		                   <span>${daybook.giftAmount}<em style="color:blue;display:block">礼金</em></span>
+		              </c:if>
+		              <c:if test="${daybook.couponAmount != 0}">
+		                   <span>${daybook.couponAmount}<em style="color:#59688a;display:block">优惠券</em></span>
+		              </c:if>
+		              <c:if test="${daybook.groupAmount != 0}">
+		                   <span>${daybook.groupAmount}<em style="color:green;display:block">团购</em></span>
+		              </c:if>
+	                </td>
+	                <td>${daybook.debtAmount}</td>
+	                <td>${daybook.realAmount}</td>
+			        <td><span class="iconfa-trash project-icon" onclick="deleteOrder(${daybook.orderId}, this)"></span></td>
+		        </tr> 
+	  </c:forEach>
+	      </tbody>
+	</table>
+	<%@ include file="/template/page.jsp" %>
+  </div>
+	    
 
-    <div class="clearfix"></div>
-
-    <div id="star"></div>
-
-</div><!--mainwrapper-->
+  </div>
+</div>
+</div>
+<!--mainwrapper-->
 
 <%@ include file="/template/memberData.jsp" %>
-<script type="text/javascript">
-jQuery(function() {
-	/*表头置顶*/
-	var a=[];
-    jQuery(".mainwrapper").show()
-    var tlength=jQuery(".t-fix th").length;
-        for(i=0;i<tlength;i++)  {
-        a[i]=jQuery(".t-fix th").eq(i).width();
-    }
-
-   function table() {
-       jQuery(".mainwrapper").show()
-       var fix=jQuery(".t-fix").offset()
-       var tableT=fix.top
-       jQuery(window).scroll(function(event){
-           var scH=jQuery(window).scrollTop()
-           if(scH>tableT){
-               jQuery(".t-fix").addClass("add-fix")
-               for(i=0;i<jQuery(".t-fix th").length;i++){
-                   var tdwidth=a[i];
-                   var tbwidth=a[i];
-                   jQuery(".t-fix th").eq(i).css("width",tdwidth)
-                   jQuery(".t-table td").eq(i).css("width",tbwidth)
-
-               }
-           }
-           else{
-               jQuery(".t-fix").removeClass("add-fix")
-           }
-       })
-   }
-   table(); 
-});
-//获取加载页面时的页码信息
-var pageNo = "${page.pageNo}";
-var pageSize = "${page.pageSize}";
-var totalPage = "${page.totalPage}";
-var totalRecord = '${page.totalRecord}';
-
-var queryParams = JSON.parse('${queryParamsStr}');
-console.log("queryParams : " + JSON.stringify(queryParams));
+<script>
+	var pageNo = "${page.pageNo}";
+	var pageSize = "${page.pageSize}";
+	var totalPage = "${page.totalPage}";
+	var totalRecord = '${page.totalRecord}';
+	
+	var queryParams = JSON.parse('${queryParamsStr}');
+   
+    //初始化时间控件
+    var now = new Date() ;
+        
+    var nowYear = now.getFullYear() ; //年
+    var nowMonth = now.getMonth()+1<10?"0"+(now.getMonth()+1):now.getMonth() ; //月
+    var nowDay = now.getDate()<10?"0"+now.getDate():now.getDate() ; //日期
+        
+    var nowDate = nowYear+"-"+nowMonth+"-"+nowDay ;
+        
+    jQuery("#startDate").val(nowDate + "T00:00") ;
+    jQuery("#endDate").val(nowDate + "T23:59") ;
 </script>
 <script type="text/javascript" src="<%=basePath %>js/daybook/daybook.js"></script>
 </body>

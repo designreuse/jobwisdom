@@ -29,6 +29,7 @@ import com.zefun.web.dto.OrderInfoBaseDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.DebtFlow;
 import com.zefun.web.entity.EmployeeCommission;
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeObjective;
 import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
@@ -199,12 +200,18 @@ public class DayBookService {
 	* @author 王大爷
 	* @date 2015年12月1日 下午7:48:17
 	* @param orderId 订单标识
+	* @param storeId 门店标识
 	* @return BaseDto
 	 */
-    public BaseDto selectOrderByUpdate(Integer orderId) {
+    public BaseDto selectOrderByUpdate(Integer orderId, Integer storeId) {
         OrderInfoBaseDto orderInfoBaseDto = orderInfoMapper.selectOrderBaseByOrderId(orderId);
         orderInfoBaseDto = processOrderInfoBaseDto(orderInfoBaseDto);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, orderInfoBaseDto);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("orderInfoBaseDto", orderInfoBaseDto);
+        
+        List<EmployeeInfo> employeeInfoList = employeeInfoMapper.selectEmployeeByStoreId(storeId);
+        map.put("employeeInfoList", employeeInfoList);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }
 
     /**

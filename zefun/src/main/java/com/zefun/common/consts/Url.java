@@ -1096,6 +1096,8 @@ public interface Url {
 		public static final String SHOW_STORE_LIST = "/storeinfo/view/showStoreList";
 		/** 创建门店*/
 		public static final String ADD_STORE = "/storeinfo/view/addStore";
+		/** 新增修改门店*/
+		public static final String SAVE_UPDATE_STORE = "/storeinfo/action/saveUpdateStore";
 		/** 增加门店 */
 		public static final String ACTION_ADD_STORE = "/storeinfo/action/addstore";
 		/** 显示店铺设置页面 */

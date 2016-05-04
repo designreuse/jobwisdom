@@ -2,8 +2,6 @@ var isAssignArray =new Array("未指定", "指定", "");
 var isAppointArray =new Array("未预约","预约", "");
 
 var curDate = getCurDate();
-jQuery('#startDate').datetimepicker({value : curDate + ' 00:00'});
-jQuery('#endDate').datetimepicker({value : curDate + ' 23:59'});
 
 function btnSearchPhone() {
 	var queryCode = jQuery("#ipt-search-phone").val();
@@ -88,6 +86,8 @@ function changePage(queryCode){
 		
 		beginTime = beginTimes.replace(/\//g,"-");
 		endTime = endTimes.replace(/\//g,"-");
+		beginTime = beginTime.replace("T", " ");
+		endTimes = endTimes.replace("T", " ");
 		queryParams["beginTime"] = beginTime;
 		queryParams["endTime"] = endTime;
 		queryParams["pageNo"] = pageNo;
@@ -182,27 +182,47 @@ function spellTableData(data) {
 		projectName = "充值开卡";
 	}
 	str += '<td>' + data.createTime + '</td>'
-		+ '<td class="wthn100 ellipsis-text" data-toggle="tooltip" data-placement="right" title="' + projectName + '">'
+		+ '<td>'
 	 	+ projectName + '</td>'
 	 	+ '<td>' + data.realPrice + '</td>'
-	 	+ '<td>' + data.cashAmount + '</td>'
-	    + '<td>' + data.unionpayAmount + '</td>'
 	    + '<td>';
-	if(data.wechatAmount == 0 && data.alipayAmount == 0) {
-		str += 0;
-	} else if (data.wechatAmount > data.alipayAmount) {
-		var waAmount = data.wechatAmount + data.alipayAmount;
-		str += '<i class="iconfont icon-weixin fl"></i><span class="fl ml10">' + waAmount + '</span>';
-	} else {
-		var waAmount = data.wechatAmount + data.alipayAmount;
-		str += '<i class="iconfont icon-zhifubao fl"></i><span class="fl ml10">' + waAmount + '</span>';
+    
+	if (data.cashAmount == 0 && data.unionpayAmount == 0 && data.wechatAmount == 0 && data.alipayAmount == 0 && data.cardAmount == 0) {
+		str += 0.00;
+	} 
+	if (data.cashAmount != 0) {
+		str += '<span>'+data.cashAmount+'<em style="color:red">现金</em></span>';
+	} 
+	if (data.unionpayAmount != 0){
+		str += '<span>'+data.unionpayAmount+'<em style="color:blue">银联</em></span>';
+	}
+	if (data.wechatAmount != 0){
+		str += '<span>'+data.wechatAmount+'<em style="color:#59688a">微信</em></span>';
+	}
+	if (data.alipayAmount != 0){
+		str += '<span>'+data.alipayAmount+'<em style="color:green">支付宝</em></span>';
+	}
+	if (data.cardAmount != 0){
+		str += '<span>'+data.cardAmount+'<em style="color:pink">卡金</em></span>';
+	}
+	str += '</td><td>';
+	
+	if (data.comboAmount == 0 && data.giftAmount == 0 && data.couponAmount == 0 && data.groupAmount == 0) {
+		str += 0.00;
+	}
+	if (data.comboAmount != 0) {
+		str += '<span>'+data.comboAmount+'<em style="color:red;display:block">疗程</em></span>';
+	}
+	if (data.giftAmount != 0) {
+		str += '<span>'+data.giftAmount+'<em style="color:blue;display:block">礼金</em></span>';
+	}
+	if (data.couponAmount != 0) {
+		str += '<span>'+data.couponAmount+'<em style="color:#59688a;display:block">优惠券</em></span>';
+	}
+	if (data.groupAmount != 0) {
+		str += '<span>'+data.groupAmount+'<em style="color:green;display:block">团购</em></span>';
 	}
 	str += '</td>'
-		+ '<td>' + data.cardAmount + '</td>'
-		+ '<td>' + data.comboAmount + '</td>'
-		+ '<td>' + data.giftAmount + '</td>'
-		+ '<td>' + data.couponAmount + '</td>'
-		+ '<td>' + data.groupAmount + '</td>'
 		+ '<td>' + data.debtAmount + '</td>'
 		+ '<td>' + data.realAmount + '</td>'
 		+ '<td><span class="iconfa-trash project-icon" onclick="deleteOrder('+ data.orderId + ', this)"></span></td>'
@@ -213,6 +233,10 @@ function spellTableData(data) {
 var updateOrderId = "";
 
 var commissionArray = new Array();
+ 
+ jQuery('.close_zzc,.water_cancel').click(function(){
+    jQuery('.zzc').hide();
+ });
 
 function updateSelectOrder(orderId) {
 	updateOrderId = orderId;
@@ -226,7 +250,10 @@ function updateSelectOrder(orderId) {
 				dialog(e.msg);
 				return;
 			}
-			var obj = e.msg;
+			var data = e.msg;
+			var obj = data.orderInfoBaseDto;
+			var employeeInfoList = data.employeeInfoList;
+			
 			jQuery("#orderCodeModel").text("流水单号：" + obj.orderCode);
 			jQuery("#discountAmountModel").text(obj.discountAmount);
 			jQuery("input[name='cashAmountModel']").val(obj.cashAmount);
@@ -241,68 +268,86 @@ function updateSelectOrder(orderId) {
 			jQuery("#privilegeModel").text(privilege);
 			
 			jQuery("#detailExpense").empty();
-			jQuery("#detailExpense").append("<p class='mt20'></p>");
 			var orderDetailList = obj.orderDetailList;
 			for (var i = 0; i < orderDetailList.length; i++) {
 				var orderDetailDto = orderDetailList[i];
-				var tables = jQuery("<table class='table xfdetail' orderDetail = '"+orderDetailDto.orderDetail+"'></table>");
 				
-				var proStr = "<thead>" + "<tr>" +
-	                "<th colspan='3'>" + orderDetailDto.projectName+"</thd>" +
-	                "<th class='text-right' colspan='5' name = ''>	<span class='mr10'>应收：¥" + orderDetailDto.discountAmount + '</span>';
+				var divObj = jQuery("<div class='boss_cut'></div>");
+				
+				var proStr = "<div class='boss_'>"+orderDetailDto.projectName+"<span><em>应收：¥"+orderDetailDto.discountAmount+"</em>";
 				if (orderDetailDto.privilegeMoney <= 0) {
 					proStr += "";
 				} else {
-					proStr += "<span class='mr10'>"+orderDetailDto.privilegeInfo+" -"+orderDetailDto.privilegeMoney+"</span>"
+					proStr += "<em>"+orderDetailDto.privilegeInfo+" -"+orderDetailDto.privilegeMoney+"</em>"
 				}
 				if (orderDetailDto.appointOff <= 0) {
 					proStr += "";
 				}
 				else {
-					proStr += "<span class='mr10'>预约：-"+orderDetailDto.appointOff+"</span>";
+					proStr += "<em>预约：-"+orderDetailDto.appointOff+"</em>";
 				}
 				if (orderDetailDto.freeAmount > 0) {
-					proStr += "<span class='mr10'>改单金额: +"+orderDetailDto.freeAmount+" </span>"+
-				    "<span class='mr10'>改单备注: "+orderDetailDto.orderRemark+"</span>";
+					proStr += "<em>改单金额: +"+orderDetailDto.freeAmount+" </em>"+
+				    "<em>改单备注: "+orderDetailDto.orderRemark+"</em>";
 				} 
 				else if (orderDetailDto.freeAmount < 0){
-					proStr += "<span class='mr10'>改单金额: "+orderDetailDto.freeAmount+" </span>"+
-				    "<span class='mr10'>改单备注: "+orderDetailDto.orderRemark+"</span>";
+					proStr += "<em>改单金额: "+orderDetailDto.freeAmount+" </em>"+
+				    "<em>改单备注: "+orderDetailDto.orderRemark+"</em>";
 				}
 				else {
 					proStr += "";
 				}
-				proStr += "<span>实收: "+orderDetailDto.realPrice+" </span></th></tr>"+
-					          "</thead>";
+				proStr += "<em>实收: "+orderDetailDto.realPrice+" </em></span></div>";
 				
-				tables.append(proStr);
+				divObj.append(proStr);
+				
 				var stepList = orderDetailDto.stepList;
-				var tbodys = jQuery("<tbody></tbody>");
+				var tbodys = jQuery("<table></table>");
 				for (var j = 0; j < stepList.length; j++) {
 					var orderDetailStepDto = stepList[j];
-					var tbodysStr = "<tr  commissionId = '"+orderDetailStepDto.commissionId+"'>"+
-						                "<td class='w100'>"+orderDetailStepDto.projectStepName+"</td>"+
-						                "<td class='w100'>"+orderDetailStepDto.shiftMahjongName+"</td>";
-					if (isEmpty(orderDetailStepDto.employeeInfo) || orderDetailStepDto.employeeInfo == "null") {
-						tbodysStr = tbodysStr + "<td class='wthn150'>未设置人员</td>";
+					var tbodysStr = "<tr commissionId = '"+orderDetailStepDto.commissionId+"'>"+
+						                "<td>"+orderDetailStepDto.projectStepName+"</td>"+
+						                "<td>"+orderDetailStepDto.shiftMahjongName+"</td>";
+										
+					tbodysStr += "<td><select name='employeeId' class='chzn-select mr5 input-medium'>";
+
+					tbodysStr += "<option value=''>未设置服务人员</option>";
+					for (var k = 0; k < employeeInfoList.length; k++) {
+						if (isEmpty(orderDetailStepDto.employeeInfo) || orderDetailStepDto.employeeInfo == "null") {
+							tbodysStr += "<option value='"+employeeInfoList[k].employeeId+"'><span class='gp'>"+employeeInfoList[k].employeeCode+"</span> <span class='name'>"+employeeInfoList[k].name+"</span></option>";
+						}
+						else {
+							if (orderDetailStepDto.employeeInfo.employeeId == employeeInfoList[k].employeeId) {
+								tbodysStr += "<option selected='selected' value='"+employeeInfoList[k].employeeId+"'><span class='gp'>"+employeeInfoList[k].employeeCode+"</span> <span class='name'>"+employeeInfoList[k].name+"</span></option>";
+							}
+							else {
+								tbodysStr += "<option value='"+employeeInfoList[k].employeeId+"'><span class='gp'>"+employeeInfoList[k].employeeCode+"</span> <span class='name'>"+employeeInfoList[k].name+"</span></option>";
+							}
+						}
 					}
-					else {
-						tbodysStr = tbodysStr + "<td class='wthn150'>"+orderDetailStepDto.employeeInfo.employeeCode+" "+orderDetailStepDto.employeeInfo.name+"</td>";
+					if (orderDetailDto.orderType == 1) {
+						tbodysStr += "</select></td><td><select name='isAssign' value = "+orderDetailStepDto.isAssign+">";
+						tbodysStr += "<option value='0'>非指定</option>"+
+				                     "<option value='1'>指定</option></select>";
+						
+						tbodysStr += "<td><select name='isAppoint' value = "+orderDetailStepDto.isAppoint+">";
+						tbodysStr += "<option value='0'>非预约</option>"+
+				                     "<option value='1'>预约</option></select></td>";
 					}
-					tbodysStr = tbodysStr + "<td class='w100'>"+isAssignArray[orderDetailStepDto.isAssign]+"</td>"+
-							                "<td class='w100'>"+isAppointArray[orderDetailStepDto.isAppoint]+"</td>"+
-							                "<td>提成： <input class='w85' type='text' name = 'commissionAmount' value = '"+orderDetailStepDto.commissionAmount+"' placeholder='0'/></td>"+
+					
+					tbodysStr = tbodysStr + "<td>提成： <input class='w85' type='text' name = 'commissionAmount' value = '"+orderDetailStepDto.commissionAmount+"' placeholder='0'/></td>"+
 							                "<td>业绩： <input class='w85' type='text' name = 'commissionCalculate' value = '"+orderDetailStepDto.commissionCalculate+"' placeholder='0'/></td>"+
-							                "<td></td>"
 							            "</tr>";
 					tbodys.append(tbodysStr);
 					var commissionObj = {"commissionId": orderDetailStepDto.commissionId,"commissionAmount":orderDetailStepDto.commissionAmount,"commissionCalculate":orderDetailStepDto.commissionCalculate};
 	                commissionArray.push(commissionObj);
 				}
-				tables.append(tbodys);
-				jQuery("#detailExpense").append(tables);
+				divObj.append(tbodys);
+				jQuery("#detailExpense").append(divObj);
 			}
-			jQuery("#liushui-search").modal("show");
+			jQuery("select[name='employeeId']").chosen({disable_search_threshold: 3});
+			jQuery("select[name='employeeId']").trigger("liszt:updated");
+			jQuery('.zzc').show();
 		}
 	});
 }
