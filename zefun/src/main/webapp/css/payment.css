@@ -46,7 +46,10 @@
     margin-left: 20px;
     color: #2a3244;}
 	
-	
+table tr td{line-height:40px;width:200px;
+	height:40px;
+	border:1px solid #ccc;
+	text-align:center;}
 .add_menu_table_{    
     line-height: 40px;
     width: 1030px;    border: 1px solid #dbdce2;

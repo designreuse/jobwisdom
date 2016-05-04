@@ -7,22 +7,21 @@ jQuery(document).ready(function(){
 		 }
   		 var data = serializeData();
   		 data = data + "&itemNum=" + itemNum;
-  		 console.log(data);
-  			jQuery.ajax({
-  				type : "post",
-  				url : baseUrl + "uploadnews",
-  				data : data,
-  				dataType : "json",
-  				success : function(e){
-  					if(e.code == 0){
-  						dialog(e.msg);
-  						window.location.href=baseUrl+"wechat/items/manage";
-  					}else{
-  						dialog("出错了,请稍后重试");
-  					}
-  					
-			  }
-		});
+		 jQuery.ajax({
+			type : "post",
+			url : baseUrl + "uploadnews",
+			data : data,
+			dataType : "json",
+			success : function(e){
+				if(e.code == 0){
+					dialog(e.msg);
+					window.location.href=baseUrl+"wechat/items/manage";
+				}else{
+					dialog("出错了,请稍后重试");
+				}
+				
+		  }
+	 });
 	}); 
 });
 

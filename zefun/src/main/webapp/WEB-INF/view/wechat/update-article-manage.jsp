@@ -10,18 +10,11 @@
 	}
 </style>
 <body>
-	<div class="mainwrapper">
-		<!--loading start-->
-		<%@ include file="/loading.jsp" %>
-		<!--loading end-->
-
-		<!--left-panel start-->
-		<%@ include file="/menu.jsp"%>
-		<!--left-panel end-->
-
-		<!--RIGHT PANEL开始 -->
-		<div class="rightpanel" style="margin-left: 200px;">
-<%@ include file="/top.jsp"%>
+	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
+			<%@include file="/menu.jsp"%>
+			<div class="rightpanel" style="margin-left: 200px; position: relative">
+				<%@include file="/top.jsp"%>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
@@ -239,13 +232,9 @@
 				</div>
 			</div>
 			<!-- 页面内容结束 -->
-
+		</div>
 		</div>
 		<!--RIGHT PANEL结束 -->
-
-		<div class="clearfix"></div>
-
-		<div id="star"></div>
 	</div>
 	<c:forEach items="${items }"  var="itemPicture" varStatus="statusPicture">
 	<!-- 选择图片模态框 -->

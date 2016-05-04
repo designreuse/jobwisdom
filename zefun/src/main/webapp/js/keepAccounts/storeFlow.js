@@ -232,7 +232,6 @@ function checkPageButton(){
 	} else {
 		jQuery("#previousPageButton").attr("disabled",false);  
 	}
-	
 	//处理下一页
 	if(pageNo >= totalPage){
 		jQuery("#nextPageButton").attr("disabled",true);  

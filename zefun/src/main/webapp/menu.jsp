@@ -3,7 +3,7 @@
 <%
     String menuBasePath = request.getScheme() + "://"
             + request.getServerName() + request.getContextPath() + "/";
-    String menuPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
+    String menuPicPath = "7xss26.com1.z0.glb.clouddn.com";
 %>
 <%@include file="/loading.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/common.css" type="text/css" />

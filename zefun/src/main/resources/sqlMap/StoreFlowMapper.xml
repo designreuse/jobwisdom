@@ -253,7 +253,11 @@
   <select id="selectByPage" resultMap="StoreFlowBaseDtoMap" parameterType="com.zefun.web.entity.Page">
     select
       *
-    from store_flow where is_deleted = 0 and store_id = #{params.storeId} and CAST(replace(flow_time,'-','') as UNSIGNED) between #{params.beginTime} and #{params.endTime} order by flow_id desc
+    from store_flow where is_deleted = 0 and store_id = #{params.storeId} 
+    <if test="params.beginTime != null" >
+    and CAST(replace(flow_time,'-','') as UNSIGNED) between #{params.beginTime} and #{params.endTime}
+    </if>
+    order by flow_id desc
   </select>
 
   <select id="selectByCome" resultType="java.lang.Integer" parameterType="com.zefun.web.dto.StoreFlowDto">

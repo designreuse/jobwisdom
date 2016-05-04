@@ -129,7 +129,6 @@ public class StoreFlowController extends BaseController{
 	@RequestMapping(value = Url.KeepAccounts.DOWNLOAD_EXCLE, method = RequestMethod.GET)
 	@ResponseBody
 	public BaseDto downloadExcle(HttpServletRequest request, HttpServletResponse response){
-		
 		return storeFlowService.downloadExcle(response);
 	}
 	

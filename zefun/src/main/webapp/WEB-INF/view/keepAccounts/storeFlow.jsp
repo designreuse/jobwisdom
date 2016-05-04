@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="/head.jsp"%>
-<link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/payment.css" type="text/css" />
 <body>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -80,7 +79,7 @@
 						<input type="date" id="begin_time" style="color: #d7d8da; border: 1px solid #d7d8da"> <span style="display: inline-block; margin: 0 10px; color: #ccc">-——</span> 
 						<input type="date" id="end_time" class="datetime_" style="color: #d7d8da; border: 1px solid #d7d8da">
 
-						<button class="im_search">立刻查询</button>
+						<button class="im_search" id="findDate">立刻查询</button>
 						<table class="add_menu_table_" style="margin-top: 20px">
 							<thead>
 								<tr>
@@ -183,16 +182,21 @@ jQuery("#save").click(function(){
 	})
 })
 
+
 /**分页处理*/
 function changePage(){
 	var beginTimes = jQuery("#begin_time").val();
 	var endTimes = jQuery("#end_time").val();
-	var beginTime = parseInt(beginTimes.replace("/","").replace("/",""));
-	var endTime = parseInt(endTimes.replace("/","").replace("/",""));
+	var data = "pageNo=" + pageNo + "&pageSize=" + pageSize;
+	if (beginTimes!=""&&endTimes!=""){
+		var beginTime = parseInt(beginTimes.replace("-",""));
+		var endTime = parseInt(endTimes.replace("-",""));
+		data = data + "&beginTime=" + beginTime + "&endTime=" + endTime;
+	}
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "KeepAccounts/storeFlowList",
-		data : "pageNo=" + pageNo + "&pageSize=" + pageSize + "&beginTime=" + beginTime + "&endTime=" + endTime,
+		data : data,
 		dataType : "json",
 		success : function(e){
 			if(e.code != 0){
@@ -201,7 +205,7 @@ function changePage(){
 			}
 			var obj = e.msg;
 			refreshTableData(obj.page);
-			updateCome(obj.inComeAll,obj.outComeAll);
+			//updateCome(obj.inComeAll,obj.outComeAll);
 			checkPageButton();
 			totalRecord = obj.page.totalRecord;
 			if(isFindDate){
@@ -211,5 +215,72 @@ function changePage(){
 		}
 	});
 }
+
+var isFindDate = false;
+//查询时间区间内开支记账
+jQuery("#findDate").click(function(){
+	isFindDate = true;
+	pageNo = 1;
+	changePage();
+});
+
+/**更改每页显示数量*/
+function changePageSize(size){
+	pageNo = 1;
+	pageSize = size;
+	jQuery(".perpage").html(size + "<span class='iconfa-caret-down afont'></span>");
+	changePage();
+}
+
+
+function refreshTableData(page){
+	pageNo = page.pageNo;
+	pageSize = page.pageSize;
+	totalPage = page.totalPage;
+	jQuery("#storeflowTbody").empty();
+	var storeFlowList = page.results;
+	for (var i = 0; i < storeFlowList.length; i++) {
+		console.log(storeFlowList)
+		var storeflow = storeFlowList[i];
+		var income ="";
+		var outcome = "";
+		if(storeflow.flowType == 2){
+			income = storeflow.flowAmount;
+		}
+		if(storeflow.flowType == 1){
+			outcome = storeflow.flowAmount;
+		}
+		jQuery("#storeflowTbody").append("<tr id='"+storeflow.flowId+"' class='t-table'>"
+	            +"<td>"+storeflow.businessType+"</td>"
+                +"<td>"+storeflow.businessProject+"</td>"
+                +"<td>"+storeflow.flowSource+"</td>"
+                +"<td>"+income+"</td>"
+                +"<td>"+outcome+"</td>"
+                +"<td>"+storeflow.principal.name+"</td>"
+                +"<td>"+storeflow.operator.name+"</td>"
+                +"<td>"+storeflow.flowTime+"</td>"
+                +"<td>"+storeflow.flowNum+"</td>"
+                +"<td class='ellipsis-text width150' data-toggle='tooltip' data-placement='top' title='${storeflow.businessDesc}'>"+storeflow.businessDesc+"&nbsp;</td>"
+		        +"<td>"
+		          +"<i class='iconfa-trash project-icon' onclick='deleteStoreflow("+storeflow.flowId+")'></i>"
+		        +"</td>"
+            +"</tr>");
+	}
+}
+function checkPageButton(){
+	//处理上一页
+	if(pageNo <= 1){
+		jQuery("#previousPageButton").attr("disabled",true);  
+	} else {
+		jQuery("#previousPageButton").attr("disabled",false);  
+	}
+	//处理下一页
+	if(pageNo >= totalPage){
+		jQuery("#nextPageButton").attr("disabled",true);  
+	} else {
+		jQuery("#nextPageButton").attr("disabled",false);  
+	}
+}
+
 </script>
 </html>

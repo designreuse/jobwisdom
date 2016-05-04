@@ -39,7 +39,8 @@
 				console.log("FileUploaded invoked ...");
 				var domain = up.getOption('domain');
 				var res = eval('(' + info + ')');
-				var sourceLink = domain + res.key;
+//				var sourceLink = domain + res.key;
+				var sourceLink = qiniuUrl + res.key;
 				jQuery('#mask').remove();
 				
 				jQuery("#showImg1").attr("src", sourceLink).show();
@@ -108,7 +109,8 @@
 				console.log("FileUploaded invoked ...");
 				var domain = up.getOption('domain');
 				var res = eval('(' + info + ')');
-				var sourceLink = domain + res.key;
+				var sourceLink = qiniuUrl + res.key;
+//				var sourceLink = domain + res.key;
 				jQuery('#mask').remove();
 				jQuery("#showImg2").attr("src", sourceLink).show();
 				jQuery("#imgUrl2").val(sourceLink);
@@ -180,7 +182,8 @@
 				console.log("FileUploaded invoked ...");
 				var domain = up.getOption('domain');
 				var res = eval('(' + info + ')');
-				var sourceLink = domain + res.key;
+				var sourceLink = qiniuUrl + res.key;
+//				var sourceLink = domain + res.key;
 				jQuery('#mask').remove();
 				jQuery("#showImg3").attr("src", sourceLink).show();
 				jQuery("#imgUrl3").val(sourceLink);
@@ -251,7 +254,8 @@
 				console.log("FileUploaded invoked ...");
 				var domain = up.getOption('domain');
 				var res = eval('(' + info + ')');
-				var sourceLink = domain + res.key;
+				var sourceLink = qiniuUrl + res.key;
+//				var sourceLink = domain + res.key;
 				jQuery('#mask').remove();
 				jQuery("#showImg4").attr("src", sourceLink).show();
 				jQuery("#imgUrl4").val(sourceLink);
@@ -322,7 +326,8 @@
 				console.log("FileUploaded invoked ...");
 				var domain = up.getOption('domain');
 				var res = eval('(' + info + ')');
-				var sourceLink = domain + res.key;
+				var sourceLink = qiniuUrl + res.key;
+//				var sourceLink = domain + res.key;
 				jQuery('#mask').remove();
 				jQuery("#showImg5").attr("src", sourceLink).show();
 				jQuery("#imgUrl5").val(sourceLink);
@@ -393,7 +398,8 @@
 				console.log("FileUploaded invoked ...");
 				var domain = up.getOption('domain');
 				var res = eval('(' + info + ')');
-				var sourceLink = domain + res.key;
+				var sourceLink = qiniuUrl + res.key;
+//				var sourceLink = domain + res.key;
 				jQuery('#mask').remove();
 				jQuery("#showImg6").attr("src", sourceLink).show();
 				jQuery("#imgUrl6").val(sourceLink);
@@ -464,7 +470,8 @@
 				console.log("FileUploaded invoked ...");
 				var domain = up.getOption('domain');
 				var res = eval('(' + info + ')');
-				var sourceLink = domain + res.key;
+				var sourceLink = qiniuUrl + res.key;
+//				var sourceLink = domain + res.key;
 				jQuery('#mask').remove();
 				jQuery("#showImg7").attr("src", sourceLink).show();
 				jQuery("#imgUrl7").val(sourceLink);
@@ -535,7 +542,8 @@
 				console.log("FileUploaded invoked ...");
 				var domain = up.getOption('domain');
 				var res = eval('(' + info + ')');
-				var sourceLink = domain + res.key;
+				var sourceLink = qiniuUrl + res.key;
+//				var sourceLink = domain + res.key;
 				jQuery('#mask').remove();
 				jQuery("#showImg8").attr("src", sourceLink).show();
 				jQuery("#imgUrl8").val(sourceLink);
