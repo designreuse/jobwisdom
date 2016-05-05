@@ -6,6 +6,17 @@ jQuery(function () {
     })
     jQuery('.lcs_check').lc_switch('是', '否');
 })
+//初始化时间控件
+var now = new Date() ;
+     
+var nowYear = now.getFullYear() ; //年
+var nowMonth = now.getMonth()+1<10?"0"+(now.getMonth()+1):now.getMonth() ; //月
+var nowDay = now.getDate()<10?"0"+now.getDate():now.getDate() ; //日期
+var nowHour = now.getHours()<10?"0"+now.getHours():now.getHours() ; //时
+var nowMinute = now.getMinutes()<10?"0"+now.getMinutes():now.getMinutes() ; //分
+
+var nowDate = nowYear+"-"+nowMonth+"-"+nowDay+"T"+nowHour+":"+nowMinute;
+jQuery("input[name='openOrderDate']").val(nowDate) ;
 
 function changeDept(deptId) {
 	jQuery(".select-target").addClass("hide");
@@ -63,81 +74,104 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 					return;
 				}
 				var date = e.msg;
-				var xiaofei = jQuery("<li class='xiaofei-item' name= 'projectNameLI' projectId = '"+date.projectId+"'></li>");
-				xiaofei.append("<div class='xiaofei-name'>"+
-				                    "<span class='name mr20' style='display: inline-block; width:160px;'>"+date.projectName+"</span>"+
-				                    "<span class='origin-price'>项目价格:</span>"+
-				                    "<span class='item-price'>￥"+date.projectPrice+"</span>"+
-				                    "<span class='fr iconfa-trash project-icon' onclick = 'deleteProject(this)'></span>"+
-				                "</div>");
+				var projectDiv = jQuery("<div class='pay_detail_buy' name= 'projectNameLI' projectId = '"+date.projectId+"'></div>");
+				
+				projectDiv.append("<div class='pay_detail_buy_top'> <span class='delete_'>-</span>"+date.projectName+"<em>项目价格:￥"+date.projectPrice+"</em></div>");
+				
+				var  stepTable = jQuery("<table class='pay_detail_content_table'></table>");
 				
 				var shiftStepDtoList = date.shiftStepDtoList;
 				for (var i = 0; i < shiftStepDtoList.length; i++) {
-					var buzhou = jQuery("<div class='buzhou' projectStepId = '"+shiftStepDtoList[i].projectStepId+"'></div>");
-					buzhou.append("<span class='ml50' style='display: inline-block; width:140px;'>"+shiftStepDtoList[i].projectStepName+"</span>"+
-		                          "<span style='display: inline-block; width:200px;'>"+shiftStepDtoList[i].shiftMahjongName+"</span>"+
-		                          "<span >选择员工:</span>");
-					var select = jQuery("<select name='employeeId' id='' class='chzn-select mr5 input-medium' ></select>")
+					
+					var buzhou = jQuery("<tr projectStepId = '"+shiftStepDtoList[i].projectStepId+"'></tr>");
+					buzhou.append("<td>"+shiftStepDtoList[i].projectStepName+"</td>"+
+		                          "<td>"+shiftStepDtoList[i].shiftMahjongName+"</td>");
+					
+					var buzhouTD = jQuery("<td >选择员工:</td>");
+					
+					var select = jQuery("<select name='employeeId' class='chzn-select mr5 input-medium'></select>")
 					select.append("<option value=''>请选择</option>");
 					var shiftMahjongEmployeeList = shiftStepDtoList[i].shiftMahjongEmployeeList;
 					for (var j = 0; j < shiftMahjongEmployeeList.length; j++) {
 						select.append("<option value='"+shiftMahjongEmployeeList[j].employeesId+"'><span class='gp'>"+shiftMahjongEmployeeList[j].employeeCode+"</span> <span class='name'>"+shiftMahjongEmployeeList[j].name+"</span></option>");
 					}
-					buzhou.append(select);
-					buzhou.append("<span class='ml50'>是否指定:</span>"+
-	                              "<input type='checkbox' class='mr5 lcs_check' name = 'isAssign' value='0'/>"+
-	                              "<span class='ml50'>是否预约:</span>"+
-	                              "<input type='checkbox' class='mr5 lcs_check isDisableApp' name = 'isAppoint' value='0' onchange = 'changeIsAppoint(this)'/>");
-					xiaofei.append(buzhou);
+					
+					buzhouTD.append(select);
+					buzhou.append(buzhouTD);
+					
+					buzhou.append("<td>指定:<input type='checkbox' name = 'isAssign'></td>"+
+	                              "<td>预约:<input type='checkbox' name='isAppoint'></td>");
+					stepTable.append(buzhou);
 				}
-				jQuery("li[name='goodsNameLI']").before(xiaofei);
-				jQuery("#showUL").find("select").chosen();
-				jQuery('.lcs_check').lc_switch('是', '否');
+				projectDiv.append(stepTable);
+				jQuery("div[name='projectPay']").append(projectDiv);
+				jQuery("select[name='employeeId']").chosen({disable_search_threshold: 3});
+				
+				changeDiv(1);
+				/*jQuery('.lcs_check').lc_switch('是', '否');*/
 			}
 		});
 	}
-	else if (type == 2) {
-		var str = "<div class='buzhou' goodsId = '"+projectId+"'>"+
-                     "<span class='ml50' style='display: inline-block; width:200px;'>"+projectName+"</span>"+
-                     "<span style='display: inline-block; width:90px;'>￥"+projectPrice+"</span>"+
-                     "<span class='ml50'>提成员工:</span>"+
+	else {
+		var str = "<p class='hand_2' goodsId = '"+projectId+"'>"+
+                     "<span class='delete_'>-</span><i>"+projectName+"</i>"+
+                     "<em>项目价格：￥"+projectPrice+"</em>"+
+                     "<em>提成员工:"+
                      "<select name='employeeId' id='' class='chzn-select mr5 input-medium'>"+
                         "<option value=''>请选择人员</option>";
 		for (var i = 0; i < employeeInfoList.length; i++) {
 			str += "<option value='"+employeeInfoList[i].employeeId+"'><span class='gp'>"+employeeInfoList[i].employeeCode+"</span> <span class='name'>"+employeeInfoList[i].name+"</span></option>";
 		}
-		str += "</select>"+
-	           "<span class='fr iconfa-trash project-icon' style='margin-right:20px;' onclick = 'deleteComboGoods(this)'></span>"+
-	           "</div>";
+		str += "</select></em>"+
+	           "<em style='position:relative;top:10px' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/x.png'></em>"+
+	           "</p>";
 		
-		jQuery("li[name='goodsNameLI']").append(str);
-		jQuery("#showUL").find("select").chosen();
+		if (type == 2) {
+			jQuery("div[name='goodsNameLI']").append(str);
+			jQuery("div[name='goodsNameLI']").find("select").chosen();
+			changeDiv(2);
+		}
+		else {
+			jQuery("div[name='comboNameLI']").append(str);
+			jQuery("div[name='comboNameLI']").find("select").chosen();
+			changeDiv(3);
+		}
+	}
+}
+
+function changeDiv(type) {
+	if (type == 1) {
+		jQuery("div[name='goodsNameLI']").addClass("hide");
+		jQuery("div[name='comboNameLI']").addClass("hide");
+		jQuery("div[name='projectPay']").removeClass("hide");
+		
+		jQuery("li[name='projectDetail']").siblings().removeClass("active");
+		jQuery("li[name='projectDetail']").addClass("active");
+	}
+	else if (type == 2) {
+		jQuery("div[name='projectPay']").addClass("hide");
+		jQuery("div[name='comboNameLI']").addClass("hide");
+		jQuery("div[name='goodsNameLI']").removeClass("hide");
+		
+		jQuery("li[name='goodsDetail']").siblings().removeClass("active");
+		jQuery("li[name='goodsDetail']").addClass("active");
 	}
 	else {
-		var str = "<div class='buzhou' comboId = '"+projectId+"'>"+
-        "<span class='ml50' style='display: inline-block; width:200px;'>"+projectName+"</span>"+
-        "<span style='display: inline-block; width:90px;'>￥"+projectPrice+"</span>"+
-        "<span class='ml50'>提成员工:</span>"+
-        "<select name='employeeId' id='' class='chzn-select mr5 input-medium'>"+
-           "<option value=''>请选择人员</option>";
-		for (var i = 0; i < employeeInfoList.length; i++) {
-		str += "<option value='"+employeeInfoList[i].employeeId+"'><span class='gp'>"+employeeInfoList[i].employeeCode+"</span> <span class='name'>"+employeeInfoList[i].name+"</span></option>";
-		}
-		str += "</select>"+
-		  "<span class='fr iconfa-trash project-icon' style='margin-right:20px;' onclick = 'deleteComboGoods(this)'></span>"+
-		  "</div>";
+		jQuery("div[name='projectPay']").addClass("hide");
+		jQuery("div[name='goodsNameLI']").addClass("hide");
+		jQuery("div[name='comboNameLI']").removeClass("hide");
 		
-		jQuery("li[name='comboNameLI']").append(str);
-		jQuery("#showUL").find("select").chosen();
+		jQuery("li[name='comboDetail']").siblings().removeClass("active");
+		jQuery("li[name='comboDetail']").addClass("active");
 	}
 }
 
 function deleteProject(obj) {
-	jQuery(obj).parents(".xiaofei-item").remove();
+	jQuery(obj).parents(".pay_detail_buy").remove();
 }
 
 function deleteComboGoods(obj) {
-	jQuery(obj).parents(".buzhou").remove();
+	jQuery(obj).parents(".hand_2").remove();
 }
 
 function changeIsAppoint(obj) {
@@ -145,57 +179,34 @@ function changeIsAppoint(obj) {
 	jQuery(obj).attr("checked",true);
 }
 
-var openType = 1;
-
-function save(type) {
-	var memberId = jQuery("div[name='memberTR']").find("input[name = 'memberId']").val();
-	if (type == 2) {
-		jQuery("#saveModel").modal("show");
-	}
-	else {
-		queren();
-	}
-	openType = type;
-}
-
-function queren() {
+function save() {
 	var openOrderDate = jQuery("input[name='openOrderDate']").val();
-	
-	if (openType == 1) {
-		openOrderDate = "";
-	}
-	else {
-		if (openOrderDate.length == 0) {
-			dialog("补单时间不能为空！");
-			return;
-		}
-		
-		if (isStartEndDate(openOrderDate)) {
-			dialog("补单时间不能大于等于当前时间！");
-			return;
-		}
-	}
-	
-	jQuery("#saveModel").addClass("hide");
+	var handOrderCode = jQuery("input[name='handOrderCode']").val();
 	var memberId = jQuery("div[name='memberTR']").find("input[name = 'memberId']").val();
 	var sex = jQuery("input:radio[name='sex']:checked").val();
 	
 	var arrayObj = new Array();
 	//项目
-	var projectObj = jQuery("li[name='projectNameLI']");
+	var projectObj = jQuery("div[name='projectNameLI']");
 	for (var i = 0; i < projectObj.length; i++) {
 		var projectId = jQuery(projectObj[i]).attr("projectId");
 		var projectStepArrayObj = new Array();
-		var projectStepObj = jQuery(projectObj[i]).find(".buzhou");
+		var projectStepObj = jQuery(projectObj[i]).find("tr");
 		
 		var appoint = 0;
 		
 		for (var j = 0; j < projectStepObj.length; j++) {
 			var projectStepId = jQuery(projectStepObj[j]).attr("projectStepId");
 			var employeeId = jQuery(projectStepObj[j]).find("select[name='employeeId']").val();
-			var isAssign = jQuery(projectStepObj[j]).find("input[name='isAssign']").val();
+			var isAssign = 0;
+			if (jQuery(projectStepObj[j]).find("input[name='isAssign']").prop('checked')) {
+				isAssign = 1;
+			}
+			var isAppoint = 0;
+			if (jQuery(projectStepObj[j]).find("input[name='isAppoint']").prop('checked')) {
+				isAppoint = 1;
+			}
 
-			var isAppoint = jQuery(projectStepObj[j]).find("input[name='isAppoint']").val();
             if (isAppoint == 1) {
             	appoint = isAppoint;
 			}
@@ -230,7 +241,7 @@ function queren() {
 	jQuery.ajax({
     	url : baseUrl + "KeepAccounts/manuallyOpenOrderSave",
     	type : "POST",
-    	data : "memberId=" + memberId + "&sex=" + sex + "&arrayObjStr=" + arrayObjStr + "&openOrderDate="+ openOrderDate,
+    	data : "memberId=" + memberId + "&sex=" + sex + "&arrayObjStr=" + arrayObjStr + "&openOrderDate="+ openOrderDate +"&handOrderCode=" + handOrderCode,
     	success : function(e){
     		if (e.code != 0) {
                 dialog(e.msg);

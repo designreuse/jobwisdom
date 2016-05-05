@@ -69,15 +69,16 @@ public class ManuallyOpenOrderController extends BaseController{
 	* @param sex 散客性别
 	* @param arrayObjStr 开单项目
 	* @param openOrderDate 补单时间
+	* @param handOrderCode 手工单号
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.KeepAccounts.MANUALLY_OPEN_ORDER_SAVE)
     @ResponseBody
 	public BaseDto manuallyOpenOrderSave(HttpServletRequest request, HttpServletResponse response, Integer memberId, String sex,
-	        String arrayObjStr, String openOrderDate) {
+	        String arrayObjStr, String openOrderDate, String handOrderCode) {
 		
 	    Integer storeId = getStoreId(request);
 	    Integer lastOperatorId = getUserId(request);
-	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, storeId, lastOperatorId);
+	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, storeId, lastOperatorId, handOrderCode);
 	}
 }

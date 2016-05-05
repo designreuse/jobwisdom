@@ -27,6 +27,9 @@ public class OrderInfoBaseDto {
     
     /** 会员订单号*/
     private String orderCode;
+    
+    /** 手工单号*/
+    private String handOrderCode;
 
     /** 应收金额 */
     private BigDecimal receivableAmount;
@@ -94,7 +97,17 @@ public class OrderInfoBaseDto {
     private List<OrderDetailDto> orderDetailList;
 
     
-    public BigDecimal getGroupAmount() {
+    
+    
+    public String getHandOrderCode() {
+		return handOrderCode;
+	}
+
+	public void setHandOrderCode(String handOrderCode) {
+		this.handOrderCode = handOrderCode;
+	}
+
+	public BigDecimal getGroupAmount() {
 		return groupAmount;
 	}
 
