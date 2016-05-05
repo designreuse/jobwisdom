@@ -29,10 +29,10 @@
 				<%@include file="/top.jsp"%>
 				<!--headerpanel-->
 				<div class="write_input">
-					<div class="div1">编辑</div>
-					<div class="write_5" style="background: white; float: left; top: 0px !important; left: 20px !important; width: 100px !important">
+					<!-- <div class="div1">编辑</div> -->
+					<a href="<%=basePath%>project/view/projectList"><div class="write_5" style="background: white; float: left; top: 0px !important; left: 20px !important; width: 100px !important">
 						<span class="add_step" style="position: relative; left: -10px">+</span>新增
-					</div>
+					</div></a>
 				</div>
 				<!--项目设置 -->
 				<div class="alertPanel" style="">

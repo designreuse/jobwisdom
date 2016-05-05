@@ -113,6 +113,7 @@ public class StoreInfoController extends BaseController {
 	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_SETTING, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto storeSettingAction(StoreInfo storeInfo, HttpServletRequest request) {
+	    storeInfo.setStoreId(getStoreId(request));
 		return storeInfoService.storeSettingAction(storeInfo);
 	}
 
