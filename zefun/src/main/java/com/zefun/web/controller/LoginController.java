@@ -40,14 +40,11 @@ public class LoginController extends BaseController {
 	 * 
 	 * @author 高国藩
 	 * @date 2015年9月20日 上午10:04:24
-	 * @param request
-	 *            请求
-	 * @param response
-	 *            对登陆的状态进行封装
-	 * @param username
-	 *            用户
-	 * @param password
-	 *            密码
+	 * @param request 请求
+	 * @param response 对登陆的状态进行封装
+	 * @param username 用户
+	 * @param password 密码
+	 * @param storeAccount storeAccount
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
 	 */
 	@ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,13 +60,10 @@ public class LoginController extends BaseController {
 
 	/**
 	 * 如果已经登陆,跳转主页
-	 * 
 	 * @author 高国藩
 	 * @date 2015年10月26日 下午4:46:57
-	 * @param request
-	 *            请求
-	 * @param response
-	 *            结果
+	 * @param request  请求
+	 * @param response  结果
 	 * @return 跳转页面
 	 */
 	@ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -98,13 +92,10 @@ public class LoginController extends BaseController {
 
 	/**
 	 * 用户退出
-	 * 
 	 * @author 张进军
 	 * @date Oct 26, 2015 2:28:38 PM
-	 * @param request
-	 *            请求对象
-	 * @param response
-	 *            响应对象
+	 * @param request 请求对象
+	 * @param response 响应对象
 	 * @return 登录页面
 	 */
 	@ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)

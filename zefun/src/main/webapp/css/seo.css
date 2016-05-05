@@ -1,0 +1,83 @@
+i{font-style:normal}
+.right_head{height:80px}
+input,button,select,textarea{outline:none}
+.shopp{display:inline-block;}
+.right_head li {width:76px;float:left;text-align:center;margin-right:60px;height:80px;cursor:pointer;}
+.right_ul img{height:42px;width:42px}
+.right_ul{background:#f2f5f8;float:left;padding-left:50px}
+.right_ul div{MARGIN-TOP:10PX}
+.right_head{background:#f2f5f8}
+.right_ul li.active{background:white}
+
+.right_ul div{height:40px}
+
+.seo_push {
+  color:#2b2d32;
+    width: 130px;
+    height: 35px;
+    border-radius: 20px;
+    background: white;
+    text-align: center;
+    line-height: 35px;
+    font-size:14px;
+    box-shadow: 0px 6px 10px #ccc;
+    border: none;
+	margin-left:50px
+}
+.seo_content{
+	background:white;padding:40px 60px
+}
+.seo_search input{
+	width:250px;
+	color:#c1c6d3!important;
+	text-align:center;
+	box-shadow:0 0 4px #ccc;border-radius:4px;
+	height:26px;
+	
+}
+.seo_search span{
+	position:relative;left:-30px;top:6px;
+}
+.pic_count{margin:20px 0}
+.seo_ul li{float:left;position:relative;background:url('../images/back.png') no-repeat;background-size:200px 200px;height:200px;margin-right:42px;margin-bottom:30px;}
+.seo_ul li .seo_pic img{height:195px}
+.seo_close{position:absolute;right: 10px;
+    top: 5px;}
+
+.mainwrapper{background:white!important}
+
+.column_small_first{margin:0!important;width:200px;float:left;margin-right:30px!important;margin-bottom:40px!important;position:relative}
+.column_img_container{background-size: 200px 210px!important;overflow:hidden}
+.long_hair{text-align:center;font-size:16px;margin-bottom:4px}
+.seo_time{text-align:center;color:#d7d8da}
+.shop_number li:first-child {
+ 
+    margin-top: 0px!important;
+}
+.shop_number{margin-top:16px!important}
+ .seo_first{height:500px;overflow-y:scroll}
+ .shop_number_ li{float:left;width:33%;text-align:center;margin-top:20px}
+ .column_img_container:hover{background:url('../images/back_.png');box-shadow:0 0 30px #ccc}
+ 
+ .head_pic {
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #ccc;
+    margin: 15px auto;}
+	
+	.column_img_container {
+    background: url('../images/back.png') no-repeat;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+    height: 190px;
+    cursor: pointer;
+}
+
+.shop_number li {
+    width: 93px;
+    text-align: center;
+    float: left;
+}

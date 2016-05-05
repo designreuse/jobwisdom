@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>智慧美业，绽放未来</title>
+<title>引客上门,留住顾客,促成交易</title>
 <%-- <link rel="stylesheet" href="<%=basePath %>css/style.default.css" type="text/css" /> --%>
 <link rel="stylesheet" href="<%=basePath %>css/iconfont.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath %>css/zhifang.css" type="text/css" />

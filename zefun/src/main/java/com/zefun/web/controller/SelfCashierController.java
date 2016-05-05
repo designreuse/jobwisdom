@@ -86,7 +86,7 @@ public class SelfCashierController extends BaseController {
 	@RequestMapping(value = Url.SelfCashier.ACTION_CHANGE_MEMBER, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto changeOrderMember(Integer orderId, Integer memberId, String passwd, HttpServletRequest request,
-			HttpServletResponse response) {
+			    HttpServletResponse response) {
 		Integer storeId = getStoreId(request);
 		if (storeId == null || orderId == null || memberId == null || StringUtils.isBlank(passwd)) {
 			return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "指定的会员不存在");
@@ -109,7 +109,7 @@ public class SelfCashierController extends BaseController {
 	@RequestMapping(value = Url.SelfCashier.ACTION_MEMBER_INFO, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto selectSelfCashierMemberByStore(String phone, HttpServletRequest request,
-			HttpServletResponse response) {
+			    HttpServletResponse response) {
 		BaseDto baseDto = new BaseDto();
 		Integer storeId = getStoreId(request);
 
@@ -117,7 +117,8 @@ public class SelfCashierController extends BaseController {
 		MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
 		if (memberInfo == null) {
 			baseDto.setCode(App.System.API_RESULT_CODE_FOR_FAIL);
-		} else {
+		} 
+		else {
 			baseDto.setCode(App.System.API_RESULT_CODE_FOR_SUCCEES);
 			baseDto.setMsg(memberInfo);
 		}
@@ -140,13 +141,14 @@ public class SelfCashierController extends BaseController {
 	@RequestMapping(value = Url.SelfCashier.ACTION_ORDER_INFO, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto selfCashierOrderInfoAction(Integer orderId, HttpServletRequest request,
-			HttpServletResponse response) {
+			    HttpServletResponse response) {
 		BaseDto baseDto = null;
 		Integer storeId = getStoreId(request);
 		if (orderId != null && storeId != null) {
 			SelfCashierOrderDto selfCashierOrderDto = selfCashierService.queryOrderDetailAction(orderId);
 			baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, selfCashierOrderDto);
-		} else {
+		} 
+		else {
 			baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
 		}
 		return baseDto;
@@ -170,7 +172,7 @@ public class SelfCashierController extends BaseController {
 	@RequestMapping(value = Url.SelfCashier.ACTION_SUBMIT_ORDER, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto cashierSubmit(@RequestBody OrderInfoSubmitDto orderSubmit, HttpServletRequest request,
-			HttpServletResponse response) throws ServiceException {
+			    HttpServletResponse response) throws ServiceException {
 		Integer employeeId = getUserId(request);
 		return selfCashierService.cashierSubmit(employeeId, orderSubmit, null);
 	}

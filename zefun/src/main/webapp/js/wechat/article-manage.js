@@ -56,7 +56,7 @@ qiniu.uploader({
 		},
 		'Key' : function(up, file) {
 			console.log("Key invoked ...");
-			var key = "zefun/wechat/" + new Date().getTime();
+			var key = "jobwisdom/wechat/" + new Date().getTime();
 			return key;
 		}
 	}

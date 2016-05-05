@@ -23,7 +23,7 @@ public interface App {
 		public static final String API_RESULT_MSG_FOR_FAIL = "fail";
 
 		/** 分页查询默认的每页显示数量 */
-		public static final int API_DEFAULT_PAGE_SIZE = 50;
+		public static final int API_DEFAULT_PAGE_SIZE = 2;
 
 		/** APP中的角色区分，员工 */
 		public static final String APP_USER_ROLE_EMPLOYEE = "employee";
@@ -41,7 +41,7 @@ public interface App {
 		public static final String SERVER_BASE_URL = "http://" + SERVER_HOST + "/jobwisdom";
 
 		/** 智放公众号的门店标识 */
-		public static final int WECHAT_ZEFUN_STORE_ID = 1133;
+		public static final int WECHAT_ZEFUN_STORE_ID = 0;
 
 		/** 友美公众号的门店标识 */
 		public static final int WECHAT_YOUMEI_STORE_ID = 0;

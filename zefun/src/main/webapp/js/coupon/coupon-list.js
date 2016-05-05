@@ -12,7 +12,7 @@
 			var couponType = ctype;
 			var couponVantages = jQuery("#couponVantages").val();
 			var couponUseId = "0";
-			var couponIsUse = jQuery(".lcs_check_assignType").val();
+			var couponIsUse = jQuery("#couponIsUse").val();
 			var couponStartTime = jQuery("#couponStartTime").val();
 			var couponStopTime = jQuery("#couponStopTime").val();
 			var ok = checkInput(couponName,couponPrice,couponVantages,couponStartTime,couponStopTime);
@@ -24,7 +24,7 @@
 				url : baseUrl + "coupons/add",
 				data : "couponName="+couponName+"&couponPrice="+couponPrice+"&couponType="+
 				couponType+"&couponUseId="+couponUseId+"&couponVantages="+couponVantages+
-				"&couponIsUse="+couponIsUse+"&couponStartTime="+couponStartTime+"&couponStopTime="+couponStopTime,
+				"&couponIsUse="+couponIsUse+"&couponStopTime="+couponStopTime,
 				dataType : "json",
 				success : function(e){
 					if(e.code == 0){
@@ -46,8 +46,7 @@
 			var couponType = ctype;
 			var couponUseId = projectId;
 			var couponVantages = jQuery("#couponVantages").val();
-			var couponIsUse = jQuery(".lcs_check_assignType").val();
-			var couponStartTime = jQuery("#couponStartTime").val();
+			var couponIsUse = jQuery("#couponIsUse").val();
 			var couponStopTime = jQuery("#couponStopTime").val();
 			var ok = checkInput(couponName,couponPrice,couponVantages,couponStartTime,couponStopTime);
 			if(ok == false){
@@ -58,7 +57,7 @@
 				url : baseUrl + "coupons/add",
 				data : "couponName="+couponName+"&couponPrice="+couponPrice+"&couponType="+
 				couponType+"&couponUseId="+couponUseId+"&couponVantages="+couponVantages+
-				"&couponIsUse="+couponIsUse+"&couponStartTime="+couponStartTime+"&couponStopTime="+couponStopTime,
+				"&couponIsUse="+couponIsUse+"&couponStopTime="+couponStopTime,
 				dataType : "json",
 				success : function(e){
 					if(e.code == 0){
@@ -80,8 +79,7 @@
 			var couponType = ctype;
 			var couponUseId = goodsId;
 			var couponVantages = jQuery("#couponVantages").val();
-			var couponIsUse = jQuery(".lcs_check_assignType").val();
-			var couponStartTime = jQuery("#couponStartTime").val();
+			var couponIsUse = jQuery("#couponIsUse").val();
 			var couponStopTime = jQuery("#couponStopTime").val();
 			var ok = checkInput(couponName,couponPrice,couponVantages,couponStartTime,couponStopTime);
 			if(ok == false){
@@ -92,7 +90,7 @@
 				url : baseUrl + "coupons/add",
 				data : "couponName="+couponName+"&couponPrice="+couponPrice+"&couponType="+
 				couponType+"&couponUseId="+couponUseId+"&couponVantages="+couponVantages+
-				"&couponIsUse="+couponIsUse+"&couponStartTime="+couponStartTime+"&couponStopTime="+couponStopTime,
+				"&couponIsUse="+couponIsUse+"&couponStopTime="+couponStopTime,
 				dataType : "json",
 				success : function(e){
 					if(e.code == 0){
@@ -114,15 +112,14 @@
 			var couponType = ctype;
 			var couponUseId = mealId;
 			var couponVantages = jQuery("#couponVantages").val();
-			var couponIsUse = jQuery(".lcs_check_assignType").val();
-			var couponStartTime = jQuery("#couponStartTime").val();
+			var couponIsUse = jQuery("#couponIsUse").val();
 			var couponStopTime = jQuery("#couponStopTime").val();
 			jQuery.ajax({
 				type : "post",
 				url : baseUrl + "coupons/add",
 				data : "couponName="+couponName+"&couponPrice="+couponPrice+"&couponType="+
 				couponType+"&couponUseId="+couponUseId+"&couponVantages="+couponVantages+
-				"&couponIsUse="+couponIsUse+"&couponStartTime="+couponStartTime+"&couponStopTime="+couponStopTime,
+				"&couponIsUse="+couponIsUse+"&couponStopTime="+couponStopTime,
 				dataType : "json",
 				success : function(e){
 					if(e.code == 0){
@@ -144,15 +141,14 @@
 			var couponType = ctype;
 			var couponUseId = mealId;
 			var couponVantages = jQuery("#couponVantages").val();
-			var couponIsUse = jQuery(".lcs_check_assignType").val();
-			var couponStartTime = jQuery("#couponStartTime").val();
+			var couponIsUse = jQuery("#couponIsUse").val();
 			var couponStopTime = jQuery("#couponStopTime").val();
 			jQuery.ajax({
 				type : "post",
 				url : baseUrl + "coupons/add",
 				data : "couponName="+couponName+"&couponPrice="+couponPrice+"&couponType="+
 				couponType+"&couponUseId="+couponUseId+"&couponVantages="+couponVantages+
-				"&couponIsUse="+couponIsUse+"&couponStartTime="+couponStartTime+"&couponStopTime="+couponStopTime,
+				"&couponIsUse="+couponIsUse+"&couponStopTime="+couponStopTime,
 				dataType : "json",
 				success : function(e){
 					if(e.code == 0){
@@ -174,15 +170,14 @@
 			var couponType = ctype;
 			var couponUseId = mealId;
 			var couponVantages = jQuery("#couponVantages").val();
-			var couponIsUse = jQuery(".lcs_check_assignType").val();
-			var couponStartTime = jQuery("#couponStartTime").val();
+			var couponIsUse = jQuery("#couponIsUse").val();
 			var couponStopTime = jQuery("#couponStopTime").val();
 			jQuery.ajax({
 				type : "post",
 				url : baseUrl + "coupons/add",
 				data : "couponName="+couponName+"&couponPrice="+couponPrice+"&couponType="+
 				couponType+"&couponUseId="+couponUseId+"&couponVantages="+couponVantages+
-				"&couponIsUse="+couponIsUse+"&couponStartTime="+couponStartTime+"&couponStopTime="+couponStopTime,
+				"&couponIsUse="+couponIsUse+"&couponStopTime="+couponStopTime,
 				dataType : "json",
 				success : function(e){
 					if(e.code == 0){
@@ -446,8 +441,8 @@
 			td.append(jQuery("<span class='xj hide' id='"+ojb.couponId+"' style='cursor: pointer'>下架  </span>"));
 		}
 		
-		td.append(jQuery("<span class='yl' id='"+ojb.couponId+"' style='cursor: pointer'>预览  </span>"));
-		td.append(jQuery("<span class='fs' id='"+ojb.couponId+"' style='cursor: pointer'>赠送  </span>"));
+//		td.append(jQuery("<span class='yl' id='"+ojb.couponId+"' style='cursor: pointer'>预览  </span>"));
+//		td.append(jQuery("<span class='fs' id='"+ojb.couponId+"' style='cursor: pointer'>赠送  </span>"));
 		td.append(jQuery("<span class='delete' id='"+ojb.couponId+"' style='cursor: pointer'>删除  </span>"));
 		tr.append(td);
 		jQuery("#showCoupon").append(tr);
@@ -530,7 +525,7 @@
 					td.append(jQuery("<span class='fb' id='"+e.msg.results[i].couponId+"' style='cursor: pointer'>发布  </span>"));
 					td.append(jQuery("<span class='xj hide' id='"+e.msg.results[i].couponId+"' style='cursor: pointer'>下架  </span>"));
 				}
-				td.append(jQuery("<span class='yl' id='"+e.msg.results[i].couponId+"' style='cursor: pointer'>预览  </span>"));
+				//td.append(jQuery("<span class='yl' id='"+e.msg.results[i].couponId+"' style='cursor: pointer'>预览  </span>"));
 				if(e.msg.results[i].couponIsUse == '已发布'){
 					td.append(jQuery("<span class='fs' id='"+e.msg.results[i].couponId+"' style='cursor: pointer'>发送  </span>"));
 				}
@@ -590,11 +585,3 @@
 	   	ctype = "0";
 	  }		  
 	  
-	  /*选择时间*/
-	  jQuery("#couponStopTime").bind("click", function(){
-	    jQuery(this).datetimepicker({
-	      lang:'ch',
-	      timepicker:false,
-	      format:"Y-m-d"
-	    });
-	  });

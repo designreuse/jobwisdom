@@ -3,7 +3,7 @@
 <%
     String menuBasePath = request.getScheme() + "://"
             + request.getServerName() + request.getContextPath() + "/";
-    String menuPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
+    String menuPicPath = "7xss26.com1.z0.glb.clouddn.com";
 %>
 <%@include file="/loading.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/common.css" type="text/css" />
@@ -135,10 +135,9 @@ function choseMenu(url){
 choseMenu(requestUrl);
 
 var tmp = "http://"+location.host+location.pathname;
-if (requestUrl.indexOf("?")!=-1){
-	if(requestUrl.substring(0, requestUrl.indexOf("?")) == tmp){
-		tmp = "http://"+location.host+"/jobwisdom/project/view/projects";
-		choseMenu(tmp);
-	}
+if(tmp.indexOf("project")!=-1){
+	tmp = "http://"+location.host+"/jobwisdom/project/view/projects";
+	choseMenu(tmp);
 }
+
 </script>

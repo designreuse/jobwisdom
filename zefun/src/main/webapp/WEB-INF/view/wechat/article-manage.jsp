@@ -4,24 +4,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="<%=basePath %>editor/themes/default/default.css" />
-
 <body>
-	<div class="mainwrapper">
-		<!--loading start-->
-		<%@ include file="/loading.jsp" %>
-		<!--loading end-->
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
+		<%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
 
-		<!--left-panel start-->
-		<%@ include file="/menu.jsp"%>
-		<!--left-panel end-->
-
-		<!--RIGHT PANEL开始 -->
-		<div class="rightpanel" style="margin-left: 200px;">
-			<%@ include file="/top.jsp"%>
-<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/articleImagesButton.js"></script>
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/articleImagesButton.js"></script>
 			<!-- 页面内容开始 -->
 
 <div class="maincontent" style="overflow-y: auto">
@@ -142,26 +135,15 @@
 										<span style="min-width: 104px; padding: 0; background-color: #44b549;display: none"><button class="btn">保存并群发</button></span>
 									</div>
 								</div>
-								<!--news-edit-area-->
-								
 							</div>
-							<!--tabs-1-->
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- 页面内容结束 -->
-
 		</div>
-		<!--RIGHT PANEL结束 -->
-
-		<div class="clearfix"></div>
-
-		<div id="star"></div>
-
 	</div>
 	<!--mainwrapper-->
-	
+</div>	
 <!-- 选择图片模态框 -->
 <div class="modal hide" id="photo-list-modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
