@@ -36,7 +36,7 @@ public class ZefunRunable implements Runnable{
         if (null == charset) {
             charset = DEFAULT_CHARSET;
         }
-        BasicClientCookie cookie = new BasicClientCookie("JSESSIONID",  "F30D33F89C8838E49EFED115194A6EE0");
+        BasicClientCookie cookie = new BasicClientCookie("JSESSIONID",  "D21FDEC1E6FEA8C58F4D6CA24C5A9F0B");
         cookie.setVersion(0);
         cookie.setDomain("http://112.74.210.155/jobwisdom/");
         cookie.setPath("/");
@@ -48,7 +48,7 @@ public class ZefunRunable implements Runnable{
         RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
         
         HttpGet get = new HttpGet(url);
-        get.setConfig(config);
+//        get.setConfig(config);
         try {
             // 提交请求并以指定编码获取返回数据
             HttpResponse httpResponse = httpClient.execute(get);

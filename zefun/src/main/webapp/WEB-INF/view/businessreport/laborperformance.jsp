@@ -6,19 +6,11 @@
 
 <body>
 
-<div class="mainwrapper">
-    <!--loading start-->
-    <%@ include file="/loading.jsp" %>
-    <!--loading end-->
-
-    <!--left-panel start-->
-    <%@ include file="/menu.jsp" %>
-    <!--left-panel end-->
-
-    <!--RIGHT PANEL开始 -->
-
-    <div class="rightpanel" style="margin-left: 200px;">
-    <%@ include file="/top.jsp" %>
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+    <div class="leftpanel" style="height: 840px; margin-left: 0px;">
+        <%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
 
 
 <div class="maincontent">
@@ -1252,7 +1244,7 @@ jQuery("input[type='radio']").on("click", function(){
 
     <!--RIGHT PANEL结束 -->
 
-
+</div>
 </div><!--mainwrapper-->
 <form action="<%=basePath %>laborperformance/view/laborperformance" style="display:none;" id="summaryFrm" method="post">
 <input type="hidden" name="begin" id="begin"/>

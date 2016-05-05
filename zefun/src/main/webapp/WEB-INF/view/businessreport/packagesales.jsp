@@ -5,20 +5,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <body>
-
-	<div class="mainwrapper">
-		<!--loading start-->
-		<%@ include file="/loading.jsp"%>
-		<!--loading end-->
-
-		<!--left-panel start-->
-		<%@ include file="/menu.jsp"%>
-		<!--left-panel end-->
-
-		<!--RIGHT PANEL开始 -->
-
-		<div class="rightpanel" style="margin-left: 200px;">
-			<%@ include file="/top.jsp"%>
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+    <div class="leftpanel" style="height: 840px; margin-left: 0px;">
+        <%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
 
 
 			<div class="maincontent">
@@ -1204,13 +1195,7 @@
 
 	</div>
 	<!--RIGHT PANEL结束 -->
-
-	<div class="clearfix"></div>
-
-	<div id="star"></div>
-	<!-- <div class="left-show-btn">
-        <span class="iconfont icon-quanbu110"></span>
-    </div>-->
+</div>
 	<a href="" class="showmenu"></a>
 
 	<form action="<%=basePath%>packagesales/view/packagesales" style="display: none;" id="summaryFrm" method="post">
