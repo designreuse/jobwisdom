@@ -27,7 +27,10 @@ public class OrderInfo {
 
 	/** 订单号 */
 	private String orderCode;
-
+	
+	/** 手工单号*/
+	private String handOrderCode;
+	
 	/** 应收金额 */
 	private BigDecimal receivableAmount;
 
@@ -96,6 +99,16 @@ public class OrderInfo {
 
 	/** 最后操作人标识 */
 	private Integer lastOperatorId;
+
+	
+	
+	public String getHandOrderCode() {
+		return handOrderCode;
+	}
+
+	public void setHandOrderCode(String handOrderCode) {
+		this.handOrderCode = handOrderCode;
+	}
 
 	/** @param orderId	订单标识 */
 	public void setOrderId(Integer orderId){

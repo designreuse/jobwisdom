@@ -152,40 +152,40 @@
 	                </td>
 	                <td>${daybook.realPrice}</td>
 	                <td>
-		               <c:if test="${daybook.cashAmount == 0 and daybook.unionpayAmount == 0 and daybook.wechatAmount == 0 and daybook.alipayAmount == 0 and daybook.cardAmount == 0}">
+		               <c:if test="${daybook.cashAmount == '0.00' and daybook.unionpayAmount == '0.00' and daybook.wechatAmount == '0.00' and daybook.alipayAmount == '0.00' and daybook.cardAmount == '0.00'}">
 		                   0.00
 		               </c:if>
 		               <c:if test="${daybook.cashAmount != 0}">
 		                   <span>${daybook.cashAmount}<em style="color:red">现金</em></span>
 		               </c:if>
-		               <c:if test="${daybook.unionpayAmount != 0}">
+		               <c:if test="${daybook.unionpayAmount != '0.00'}">
 		                   <span>${daybook.unionpayAmount}<em style="color:blue">银联</em></span>
 		               </c:if>
-		               <c:if test="${daybook.wechatAmount != 0}">
+		               <c:if test="${daybook.wechatAmount != '0.00'}">
 		                   <span>${daybook.wechatAmount}<em style="color:#59688a">微信</em></span>
 		               </c:if>
-		               <c:if test="${daybook.alipayAmount != 0}">
+		               <c:if test="${daybook.alipayAmount != '0.00'}">
 		                   <span>${daybook.alipayAmount}<em style="color:green">支付宝</em></span>
 		               </c:if>
-		               <c:if test="${daybook.cardAmount != 0}">
+		               <c:if test="${daybook.cardAmount != '0.00'}">
 		                   <span>${daybook.cardAmount}<em style="color:pink">卡金</em></span>
 		               </c:if>
 	                </td>
                   
 	                <td>
-	                  <c:if test="${daybook.comboAmount == 0 and daybook.giftAmount == 0 and daybook.couponAmount == 0 and daybook.groupAmount == 0}">
+	                  <c:if test="${daybook.comboAmount == '0.00' and daybook.giftAmount == '0.00' and daybook.couponAmount == '0.00' and daybook.groupAmount == '0.00'}">
 	                     0.00
 	                  </c:if>
-	                  <c:if test="${daybook.comboAmount != 0}">
+	                  <c:if test="${daybook.comboAmount != '0.00'}">
 		                   <span>${daybook.comboAmount}<em style="color:red;display:block">疗程</em></span>
 		              </c:if>
-		              <c:if test="${daybook.giftAmount != 0}">
+		              <c:if test="${daybook.giftAmount != '0.00'}">
 		                   <span>${daybook.giftAmount}<em style="color:blue;display:block">礼金</em></span>
 		              </c:if>
-		              <c:if test="${daybook.couponAmount != 0}">
+		              <c:if test="${daybook.couponAmount != '0.00'}">
 		                   <span>${daybook.couponAmount}<em style="color:#59688a;display:block">优惠券</em></span>
 		              </c:if>
-		              <c:if test="${daybook.groupAmount != 0}">
+		              <c:if test="${daybook.groupAmount != '0.00'}">
 		                   <span>${daybook.groupAmount}<em style="color:green;display:block">团购</em></span>
 		              </c:if>
 	                </td>

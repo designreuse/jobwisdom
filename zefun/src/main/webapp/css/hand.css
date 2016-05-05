@@ -1,0 +1,90 @@
+.content_right{padding:20px}
+.content_right input[type='text']{  border-radius: 5px!important; box-shadow: 0 0 3px #ccc;margin-left:20px}
+.content_right_sex {display:inline-block;margin-left:300px}
+.content_right_sex i{display:inline-block;margin-left:40px}
+.content_right input[type='radio']{margin-left:5px}
+
+.all-kind-wrap {
+    float: left;
+    width: 816px!important;
+    height: 120px;
+    padding: 6px 0 6px 10px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.all-kind-wrap .detail-item {
+    background-color: #eee;
+    margin: 0 4px 4px 0;
+    padding: 10px 0 9px 11px;
+    float: left;
+    width: 130px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.all-kind-wrap .detail-item .item-price {
+    /* font-size: 13px; */
+    margin-top: 8px;
+}
+.select-list{height:auto!important}
+
+.kd-bmlist .active{
+	
+	background:#59688a!important
+}
+
+.kd-bmlist .active em{
+	
+border-color: #59688a transparent transparent!important;
+}
+
+.kd-select-content{margin-top:20px}
+
+.pay_detail_ul li{width:344px;float:left;height:36px;border:1px solid #dbdce2;text-align:center;line-height:36px}
+.pay_detail_ul li.active{background:#59688a;color:white}
+.pay_detail{margin:40px 0 10px 0}
+
+.pay_detail_ul{height:36px}
+.delete_{color:red;font-size:44px;cursor:pointer;display:inline-block;margin-right:4px;position:relative;top:10px}
+.pay_detail_buy_top{margin-top:10px}
+.pay_detail_buy{margin-bottom:20px}
+.pay_detail_buy_top em{display:inline-block;margin-left:40px}
+.pay_detail_content_table{margin-top:10px}
+.pay_detail_content_table td{
+   
+    height: 36px;
+    border: 1px solid #ccc;
+    line-height: 20px;
+    text-align: center;
+	padding:0px 40px;
+	 vertical-align: middle;
+	 border:none
+}
+.pay_detail_content_table input[type='radio']{
+	display:inline-block;margin-left:4px;margin-right:4px
+}
+.pay_detail_content_{border:1px solid #ccc;width: 1036px;height: 414px;
+    overflow: overlay;}
+
+.hand_time input{border-top:none!important;border-right:none!important;border-left:none!important;width:120px}
+.hand_time span{display:inline-block;margin-left:20px}
+.hand_time{position:relative;left:440px;top:20px}
+.hand_time button{border:none;width:130px;border-radius:40px;background:black;color:white;box-shadow:0 0 10px #ccc;text-align:center;height:36px;line-height:36px}
+
+.select-list .active{background:#59688a!important;color:white!important}
+.selected-child-select .active{background:#59688a!important;color:white!important}
+.kd-bmlist .bm{border:1px solid #ccc}
+
+::-webkit-scrollbar-thumb{background:#59688a!important}
+
+.focus_input{background:white;height:300px;width:800px;position:absolute;border-radius:8px;box-shadow:0 0 8px #ccc;display:none;z-index:2;    margin-left: 80px;
+    margin-top: 10px;padding:20px
+}
+
+.focus_input p{margin-bottom:20px;cursor:pointer;color:#b9b9bd;font-size:14px;}
+
+.focus_input p:hover{color:#474747!important}
+.rsearch{background:#2a3244;border:1px solid #ccc;width:180px;text-align:center;height:36px;line-height:36px;margin-left:200px;border-radius:8px;color:#d7d8da}
+
+.hand_2{margin:30px 40px}

@@ -365,7 +365,7 @@ public class StaffService {
         if (orderId == null) {
             String orderCode = getOrderCode("order_info", storeId);
             //保存订单信息
-            orderId = addOrderInfo(orderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId);
+            orderId = addOrderInfo(orderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId, "");
         }
         
         Integer markTypeInteger = addDetail(orderId, employeeObj, objString, nextProjectObj, storeId, memberId, levelId, 
@@ -463,9 +463,9 @@ public class StaffService {
             BigDecimal  projectPrice = new BigDecimal(projectPriceStr);
             
             //项目数量
-            Integer projectCount = (Integer) jsonObject.getInt("projectCount");
+            Integer projectCount = jsonObject.getInt("projectCount");
             //项目头像
-            String projectImage = (String) jsonObject.getString("projectImage");
+            String projectImage = jsonObject.getString("projectImage");
             
             //保存订单明细
             String detailCode = null;
@@ -625,10 +625,12 @@ public class StaffService {
     * @param openOrderDate 补单时间
     * @param sex 性别
     * @param employeeId 操作员工
+    * @param handOrderCode 手工单号
     * @return 订单标识
      */
     @Transactional
-    public Integer addOrderInfo(String orderCode, Integer memberId, Integer storeId, String sex, String openOrderDate, Integer employeeId){
+    public Integer addOrderInfo(String orderCode, Integer memberId, Integer storeId, String sex, 
+    		  String openOrderDate, Integer employeeId, String handOrderCode){
         //保存订单信息
         int deptId = employeeService.getDeptIdByEmployeeId(employeeId);
         OrderInfo orderInfo = new OrderInfo();
@@ -641,7 +643,7 @@ public class StaffService {
         orderInfo.setStoreId(storeId);
         orderInfo.setCreateTime(openOrderDate);
         orderInfo.setLastOperatorId(employeeId);
-        
+        orderInfo.setHandOrderCode(handOrderCode);
         orderInfoMapper.insert(orderInfo);
         return orderInfo.getOrderId();
     }

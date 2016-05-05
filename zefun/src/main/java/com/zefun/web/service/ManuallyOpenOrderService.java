@@ -132,11 +132,12 @@ public class ManuallyOpenOrderService {
 	* @param openOrderDate 补单时间
 	* @param storeId 门店标识
 	* @param lastOperatorId 操作人
+	* @param handOrderCode 手工单号
 	* @return BaseDto
 	 */
 	@Transactional
     public BaseDto manuallyOpenOrderSave(Integer memberId, String sex, String arrayObjStr, String openOrderDate, Integer storeId, 
-    		Integer lastOperatorId){
+    		Integer lastOperatorId, String handOrderCode){
         //查询会员基本信息
         MemberBaseDto memberBaseDto = new MemberBaseDto();
         if (memberId != null) {
@@ -152,26 +153,14 @@ public class ManuallyOpenOrderService {
 			openOrderDate = DateUtil.getCurTime();
 			typeDate = true;
 		}
-        
-        String orderCode = "";
-        
-        if (typeDate) {
-        	orderCode = staffService.getOrderCode("order_info", storeId);
-        }
         else {
-        	Map<String, Object> map = new HashMap<String, Object>();
-        	map.put("openOrderDate", openOrderDate);
-        	map.put("storeId", storeId);
-        	orderCode = orderInfoMapper.getOpenOrderDateCode(map);
-        	if (orderCode == "" || orderCode == null) {
-        		String[] aStrings = openOrderDate.split(" ");
-        		String[] bStrings = aStrings[0].split("-");
-        		orderCode = bStrings[0] + bStrings[1] + bStrings[2] + "0001";
-        	}
+        	openOrderDate = openOrderDate.replace("T", " ");
         }
+        
+        String orderCode = staffService.getOrderCode("order_info", storeId);
         
         //保存订单信息
-        Integer orderId = staffService.addOrderInfo(orderCode, memberId, storeId, sex, openOrderDate, lastOperatorId);
+        Integer orderId = staffService.addOrderInfo(orderCode, memberId, storeId, sex, openOrderDate, lastOperatorId, handOrderCode);
         
         JSONArray arrayObj =JSONArray.fromObject(arrayObjStr);
         

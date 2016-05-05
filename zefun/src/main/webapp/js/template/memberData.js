@@ -40,13 +40,13 @@ jQuery(document).ready(function(){
 function dimSelectMember (obj, str) {
 	var a = 1;
 	var parentsObj = jQuery(obj).parents("div[name='memberTR']");
-	parentsObj.find(".fuzzysearch").empty();
+	parentsObj.find(".focus_input").empty();
 	for (var i = 0; i < inputMemberList.length; i++) {
 		var mMap = inputMemberList[i];
 		var name = mMap.name.toString();
 		var phone = mMap.phone.toString();
 		if (name.indexOf(str.toString()) != -1){
-			parentsObj.find(".fuzzysearch").append("<li class='text-center' onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
+			parentsObj.find(".focus_input").append("<li class='text-center' onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
 			a++;
 			if (a == 10) {
 				break;
@@ -54,7 +54,7 @@ function dimSelectMember (obj, str) {
 			continue;
 		}
 		if (phone.indexOf(str) != -1) {
-			parentsObj.find(".fuzzysearch").append("<li class='text-center' onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
+			parentsObj.find(".focus_input").append("<li class='text-center' onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
 			a++;
 			if (a == 10) {
 				break;
@@ -64,7 +64,7 @@ function dimSelectMember (obj, str) {
 		inputMemberList.splice(i,1);//从下标为i的元素开始，连续删除1个元素
         i--;//因为删除下标为i的元素后，该位置又被新的元素所占据，所以要重新检测该位置
 	}
-	parentsObj.find(".fuzzysearch").append("<em class='t-border'></em>"+
+	parentsObj.find(".focus_input").append("<em class='t-border'></em>"+
                                            "<span class='t-content'></span>")
 }
 
@@ -75,7 +75,7 @@ function choosePhone (obj, phone) {
 
 jQuery("body").delegate("input[name='phoneNumber']","blur", function(event){
 	setTimeout(function () {
-		jQuery(".fuzzysearch").css("display", "none");
+		jQuery(".focus_input").css("display", "none");
 	},500);
 });
 
@@ -85,7 +85,7 @@ jQuery("body").delegate("input[name='phoneNumber']","focus", function(event){
 	var obj = event.srcElement ? event.srcElement : event.target;
 	
 	if (isEmpty(jQuery(obj).val()) || obj != inputMemberObj) {
-		jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").empty();
+		jQuery(obj).parents("div[name='memberTR']").find(".focus_input").empty();
 		inputMemberList = JSON.parse(JSON.stringify(memberList));
 		inputPhoneNum = 0;
 		inputMemberObj = obj;
@@ -95,7 +95,7 @@ jQuery("body").delegate("input[name='phoneNumber']","focus", function(event){
 
 	dimSelectMember(obj, jQuery(obj).val());
 	
-	jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").css("display", "block");
+	jQuery(obj).parents("div[name='memberTR']").find(".focus_input").css("display", "block");
 });
 
 //当前
@@ -109,12 +109,12 @@ jQuery(document).keyup(function(event){
 	if (jQuery(obj).attr("name") == "phoneNumber") {
 		
 		if (isEmpty(jQuery(obj).val())) {
-			jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").empty();
+			jQuery(obj).parents("div[name='memberTR']").find(".focus_input").empty();
 			inputMemberList = JSON.parse(JSON.stringify(memberList));
 			return;
 		}
 		
-		jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").css("display", "block");
+		jQuery(obj).parents("div[name='memberTR']").find(".focus_input").css("display", "block");
 		
 		if (inputPhoneNum < jQuery(obj).val().length) {
 			dimSelectMember(obj, jQuery(obj).val());
