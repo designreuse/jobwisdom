@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 String topBasePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath() + "/";
-String qiniu = "http://7xss26.com1.z0.glb.clouddn.com/";
 %>
 <div class="headerpanel">
 	<div class="headerlist">

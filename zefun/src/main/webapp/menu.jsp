@@ -135,10 +135,9 @@ function choseMenu(url){
 choseMenu(requestUrl);
 
 var tmp = "http://"+location.host+location.pathname;
-if (requestUrl.indexOf("?")!=-1){
-	if(requestUrl.substring(0, requestUrl.indexOf("?")) == tmp){
-		tmp = "http://"+location.host+"/jobwisdom/project/view/projects";
-		choseMenu(tmp);
-	}
+if(tmp.indexOf("project")!=-1){
+	tmp = "http://"+location.host+"/jobwisdom/project/view/projects";
+	choseMenu(tmp);
 }
+
 </script>

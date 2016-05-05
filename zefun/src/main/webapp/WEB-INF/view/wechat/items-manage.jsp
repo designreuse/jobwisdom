@@ -30,7 +30,7 @@
 					<div class="seo_content" style="display: block;">
 
 						<div class="seo_search">
-							<input type="text" placeholder="标题/作者/摘要"><span><img src="<%=basePath%>images/seach.png"></span>
+							<input type="text" placeholder="标题"><span><img src="<%=basePath%>images/seach.png"></span>
 							<a href="<%=basePath %>artic/manager"><button class="seo_push">新建</button></a>
 						</div>
 
@@ -71,7 +71,7 @@
 					<div class="seo_content" style="display: none;">
 
 						<div class="seo_search">
-							<input type="text" placeholder="标题/作者/摘要"><span><img src="<%=basePath%>images/seach.png"></span>
+							<input type="text" placeholder="标题"><span><img src="<%=basePath%>images/seach.png"></span>
 						</div>
 
 						<div class="pic_count">图文消息（共${fn:length(items)}个）</div>

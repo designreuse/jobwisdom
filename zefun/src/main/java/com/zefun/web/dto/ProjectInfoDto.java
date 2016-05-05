@@ -109,6 +109,18 @@ public class ProjectInfoDto {
     /** 项目编辑步骤*/
     private Integer projectStep;
     
+    /** 项目标号*/
+    private String projectCodeSuffix;
+    
+    
+    public String getProjectCodeSuffix() {
+        return projectCodeSuffix;
+    }
+
+    public void setProjectCodeSuffix(String projectCodeSuffix) {
+        this.projectCodeSuffix = projectCodeSuffix;
+    }
+
     public Integer getProjectStep() {
         return projectStep;
     }
