@@ -258,7 +258,8 @@ jQuery(function(){
 	//将已经选择的员工打上标记
 	var ea = jQuery(".employeeSelected li");
     for (var i = 0; i < ea.length; i++) {
-        jQuery(".employeeAll li[employeeId='" + jQuery(ea[i]).attr("employeeId") + "']").addClass("p-selected");
+        //jQuery(".employeeAll li[employeeId='" + jQuery(ea[i]).attr("employeeId") + "']").addClass("p-selected");
+    	jQuery(".employeeAll li[employeeId='" + jQuery(ea[i]).attr("employeeId") + "']").css('background','white');
     }
 });
 
@@ -283,7 +284,7 @@ jQuery(".setting_option").click(function(){
 });
 
 //选择名师的操作控制
-jQuery(".employeeAll li").on("click",function(){
+/*jQuery(".employeeAll li").on("click",function(){
     var employeeId = jQuery(this).attr("employeeId");
     var tmp = jQuery(".employeeSelected [employeeId='" + employeeId + "']");
     if (!isEmpty(tmp) && tmp.length > 0) {
@@ -295,14 +296,14 @@ jQuery(".employeeAll li").on("click",function(){
         jQuery(".employeeSelected [employeeId='" + employeeId + "']").prepend('<div class="shanchu-icon"><span class="iconfont icon-shanchujilu"></span></div>');
         jQuery(this).addClass("p-selected");
     }
-});
+});*/
 
 //移除选择的名师
-jQuery(".yixuanze").delegate(".shanchu-icon", "click", function(e){
+/*jQuery(".yixuanze").delegate(".shanchu-icon", "click", function(e){
     var se = jQuery(this).parent();
     jQuery("[employeeId='" + se.attr("employeeId") + "']").removeClass("p-selected");
     se.remove();
-});
+});*/
 
 //移除轮播图片
 jQuery(".edit-img").delegate(".icon-guanbi", "click", function(e){

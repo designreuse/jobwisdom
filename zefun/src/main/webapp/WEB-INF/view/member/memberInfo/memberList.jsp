@@ -50,18 +50,11 @@
 </style>
 <script type="text/javascript" src="<%=basePath %>js/base/exportTable.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
-<div class="mainwrapper">
-    <!--loading start-->
-    <%@ include file="/loading.jsp" %>
-    <!--loading end-->
-
-    <!--left-panel start-->
-    <%@ include file="/menu.jsp" %>
-    <!--left-panel end-->
-
-    <!--RIGHT PANEL开始 -->
-    <div class="rightpanel" style="margin-left: 200px;">
-      	<%@ include file="/top.jsp" %>
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+    <div class="leftpanel" style="height: 840px; margin-left: 0px;">
+        <%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
       	<!-- 页面代码 -->
 		<div class="maincontent">
 		    <div class="contentinner">
@@ -289,28 +282,17 @@
 	                		<!-- <span class="cursor memberlevel-default-setting hide">修改</span> -->
                 		</td>
                 		<td>
-		                	<i class="iconfont icon-xx ml10 input30" onclick="deleteMemberTip(${member.memberId },this);"></i>
+		                	<i class="iconfont icon-xx ml10 input30" onclick="deleteMemberTip(${member.memberId },this)"></i>
                 		</td>
 		            </tr>
 		            </c:forEach>
 		            </tbody>
 		        </table>
-		        <script type="text/javascript">
-		        
-		        /* //memberArray = eval("("+memberArray+")"); */
-		        </script>
 		        <%@ include file="/template/page.jsp" %>
-		        
 	       </div><!-- contentinner -->
        </div><!-- maincontent -->
     </div><!-- rightpanel -->
-
-    <!--RIGHT PANEL结束 -->
-
-    <div class="clearfix"></div>
-
-    <div id="star"></div>
-
+    </div>
 </div><!--mainwrapper-->
 <!--删除提示-->
            <div class="modal hide" id="deleteErrorMemberModel" tabindex="-1" role="dialog" aria-labelledby="deleteErrorMemberModel">

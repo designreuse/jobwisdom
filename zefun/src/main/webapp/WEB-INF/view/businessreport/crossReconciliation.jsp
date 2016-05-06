@@ -5,28 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <body>
 
-<div class="mainwrapper" style="background-position: 0px 0px;">
-    <!--loading start-->
-    <%@ include file="/loading.jsp" %>
-    <!--loading end-->
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+    <div class="leftpanel" style="height: 840px; margin-left: 0px;">
+        <%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
 
-    <!--left-panel start-->
-    <%@ include file="/menu.jsp" %>
-    <!--left-panel end-->
-
-    <!--RIGHT PANEL开始 -->
-<div class="rightpanel" style="margin-left: 200px;">
-      	<%@ include file="/top.jsp" %>
-      	<!-- 页面代码 -->
-<!--loading end-->
-    <!--left-panel start-->
-    <!-- LEFT PANEL 开始-->
-
-<!--LEFT PANEL结束 -->
-
-    <!--left-panel end-->
-
-    <!--RIGHT PANEL开始 -->
 <style>
     .ls-detai-table tbody tr:nth-of-type(2) {
         height:auto;
@@ -986,10 +970,7 @@
 </body>
 </html>     	
     <!--RIGHT PANEL结束 -->
-
-    <div class="clearfix"></div>
-
-    <div id="star"></div>
+</div></div>
 <form action="<%=basePath %>reconciliation/view/crossReconciliation" style="display:none;" id="summaryFrm" method="post">
 <input type="hidden" name="month" id="month"/>
 </form>
