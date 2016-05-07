@@ -190,6 +190,8 @@ public class ConferenceController extends BaseController {
             return null;
         }
         setJsapiSignData(App.System.WECHAT_ZEFUN_STORE_ID, request);
+        conferenceId = 1;
+        fromUser = 1;
         return conferenceService.shareConferenceView(conferenceId, fromUser, openId);
     }
     
@@ -335,6 +337,32 @@ public class ConferenceController extends BaseController {
             @PathVariable("personnelId") Integer personnelId, @PathVariable("conferenceId") Integer conferenceId){
         conferenceService.wechatCallBackConferencePay(personnelId, conferenceId);
 		return "SUCCESS";
+    }
+    
+    /**
+     * 微信Js-SDK开发demo
+    * @author 高国藩
+    * @date 2016年5月6日 下午6:19:24
+    * @param request   request
+    * @param response  response
+    * @return          view
+     */
+    @RequestMapping(value = "conference/pay/h5Pay")
+    public ModelAndView h5Pay(HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        if (openId == null) {
+            return null;
+        }
+        setJsapiSignData(App.System.WECHAT_ZEFUN_STORE_ID, request);
+        /*Integer conferenceId = 1;
+        String goodsName = "iphone 7s";
+        Integer totalFee = 1;
+        String callback = "/" + Url.Conference.WECHAT_CALLBACK_CONFERENCE_PAY.replace("{personnelId}", String.valueOf(1))
+                .replace("{conferenceId}", String.valueOf(2));
+        wechatService.wepayForZefun(App.System.WECHAT_ZEFUN_STORE_ID, 5, conferenceId, goodsName, 
+                totalFee, openId, callback, request);*/
+        ModelAndView view = new ModelAndView("wechat/H5Pay");
+        return view;
     }
     
 }
