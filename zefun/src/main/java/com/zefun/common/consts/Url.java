@@ -482,6 +482,10 @@ public interface Url {
 		public static final String DELETE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
 		/** 创建分组-微信接口 */
 		public static final String CREATE_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token=ACCESS_TOKEN";
+		/** 删除分组-微信接口 */
+        public static final String DELETED_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token=ACCESS_TOKEN";
+        /** 获取分组-微信接口 */
+        public static final String GET_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=ACCESS_TOKEN";
 		/** 移动用户分组-微信接口 */
 		public static final String MOVE_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token=ACCESS_TOKEN";
 		/** 获取accessToken */

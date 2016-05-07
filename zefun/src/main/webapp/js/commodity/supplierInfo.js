@@ -120,6 +120,7 @@ function cancelUpdate(obj){
 
 /**删除供应商*/
 function deleteSupplierInfo(supplierId){
+	jQuery(this).parents("tr").remove();
 	jQuery.ajax({
         cache: true,
         type: "POST",
