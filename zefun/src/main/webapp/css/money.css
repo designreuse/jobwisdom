@@ -1,0 +1,116 @@
+html{overflow-x:hidden}
+.content_right{padding:30px 40px}
+.money_ span{display:inline-block;margin-left:30px;font-size:14px}
+.money_{margin-top:30px}
+
+.column_small_first{margin:0!important;width:200px;float:left;margin-right:30px!important;margin-bottom:40px!important;position:relative}
+.column_img_container{background-size: 200px 240px!important;overflow:hidden£}
+.long_hair{text-align:center;font-size:16px;margin-bottom:4px}
+.seo_time{text-align:center;color:#d7d8da}
+.shop_number li:first-child {
+   border-right: 1px solid #dae1eb;
+    height: 20px;
+   
+}
+ .seo_first{height:500px; margin: 30px 30px;}
+
+ .column_img_container:hover{background:url('../images/back_.png');box-shadow:0 0 30px #ccc;}
+ 
+ .head_pic {
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #ccc;
+    margin: 15px auto;}
+	
+	.column_img_container {
+    background: url('../images/back.png') no-repeat;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  
+    height: 220px!important;
+    cursor: pointer;
+}
+
+.shop_number li {
+    width: 33%!important;
+    text-align: center;
+  
+	color:#c4c5c6;
+	float:left;
+}
+.long_hair span{display:inline-block;margin-left:15px}
+
+
+.shop_number li:nth-child(2) {
+    border-right: 1px solid #dae1eb;
+    height: 20px;
+  
+}
+.shop_number li:hover{color:#323a4c}
+.shop_number{padding-bottom:5px;margin-top:16px!important;height:40px;border-top:1px solid #c4c5c6;padding-top:5px}
+.change_price{width:800px;margin:80px auto}
+
+.zzc{
+	position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+	display:none;
+    
+}
+
+.change_price{background:white}
+.change_price .change_price_{background:#323a4c;height:56px;color:white;font-size:16px;text-align:center;line-height:56px}
+
+.money_head_content{margin:30px 70px}
+
+.money_head_p{width:50px;height:50px;border-radius:25px;overflow:hidden;float:left}
+
+..money_head_p img{width:50px;height:50px;border-radius:25px;}
+.boss_number_{float:left;margin-left:10px}
+.boss_number_ p{margin-top:4px}
+
+.money_change {
+    border: 1px solid #dbdce2;
+    box-shadow: 0 0 10px #ccc;
+	margin-top:20px
+}
+
+.money_change td {
+    padding: 0 14px;
+    box-shadow: 0 0 2px #ccc;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 10px;
+	width:200px
+}
+
+.remarks_money{margin-top:40px}
+.remarks_money span{display:inline-block;margin-right:30px}
+.remarks_money input{width:590px;box-shadow:0 0 10px #ccc;height:30px}
+
+.money_button {width:440px;margin:50px auto;}
+.money_button button{
+	width: 170px;
+    height: 35px;
+    border-radius: 10px;
+    background: #2a3244;
+    text-align: center;
+    line-height: 35px;
+    box-shadow: 0px 6px 10px #ccc;
+    border: none;
+    color: white;
+	font-size:14px;
+	margin-left:40px;
+	margin-bottom:50px
+
+}
+.change_price_ span{display:inline-block;height:20px;position:relative;left:330px;top:10px}
+	
+	

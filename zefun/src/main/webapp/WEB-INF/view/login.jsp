@@ -315,11 +315,11 @@
                     <li class="hei">
                         <div class="mima poop"><input type="password" id="passwordpp" placeholder="密码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
                     </li>
-                    <li class="hei">
+                    <%-- <li class="hei">
                         <div class="yanzhengma popo"><input type="text" id ="verificationpp" placeholder=" 请输入验证码" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color: #999"></div>
                         <div class="shuaxin"><a href="#"><img src="<%=basePath %>images/shuaxin.png"></a></div>
                         <div name = "imgyzmpp" onclick="yzm(this)"  class="yzm" ><img src=""></div>
-                    </li>
+                    </li> --%>
                 </ul>
             </div>
         </div>
@@ -423,8 +423,8 @@
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/common/jquery-migrate-1.1.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/base/pc.js"></script>
-<script src="<%=basePath %>js/common/loginA.js"></script>
-<script src="<%=basePath %>js/common/loginB.js"></script>
+<%-- <script src="<%=basePath %>js/common/loginA.js"></script>
+ --%><script src="<%=basePath %>js/common/loginB.js"></script>
 <script type="text/javascript">
 
 var pageUrlTop = "http://7xt6g0.com1.z0.glb.clouddn.com/";
@@ -493,7 +493,7 @@ jQuery(document).ready(function(){
         var verification = jQuery("#verificationpp").val();
         var verificationObj = jQuery("#verificationpp");
         
-        if(username == '' || password == '' || pageValue != verification || loginStoreAccount == '') {
+        if(username == '' || password == '' || loginStoreAccount == '') {
 	        	if(loginStoreAccount == '') {
 	        		jQuery("#loginStoreAccount").focus();
 	        		jQuery("#loginStoreAccount").addClass('error');
@@ -516,14 +516,14 @@ jQuery(document).ready(function(){
                 	passwordObj.removeClass('error');
                 }
                 
-                if (pageValue != verification) {
+                /* if (pageValue != verification) {
                 	verificationObj.focus();
                 	verificationObj.addClass('error');
                 	dialog("对不起，您输入的验证码有误");
-                }
-                else {
+                } */
+                /* else {
                 	verificationObj.removeClass('error');
-                }
+                } */
                 return;
         }
         

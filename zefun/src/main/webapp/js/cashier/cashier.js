@@ -49,6 +49,11 @@ var selectOffList = new Array();
 var balanceAmount = 0;
 var appointOff = 0;
 
+function changeMoney(orderId) {
+	
+	jQuery("div[name='changeMoneyDIV']").show();
+}
+
 /**
  * 弹框搜索用户
  * @param orderId 订单标识
