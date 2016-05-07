@@ -137,9 +137,8 @@
 </style>
 <body>
 
-  <div class="mainwrapper">
-   <!--loading start-->
-   <%@ include file="/loading.jsp" %>
+  <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+   <div class="leftpanel" style="height: 840px; margin-left: 0px;">
     <!--loading end-->
    <%@ include file="/menu.jsp" %>
    <div class="rightpanel" style="margin-left: 200px;">
@@ -926,6 +925,7 @@
     <div class="clearfix"></div>
 
     <div id="star"></div>
+    </div>
   </div>
 
 </body>
