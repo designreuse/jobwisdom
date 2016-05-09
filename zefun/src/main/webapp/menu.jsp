@@ -48,13 +48,13 @@
 		<ul index="0">
 			<a href="<%=menuBasePath%>selfcashier/view/list"><li><span><img src="<%=basePath%>images/left0.png">自助收银</span></li></a>
 			<a href="<%=menuBasePath%>KeepAccounts/initializeManuallyOpenOrder"><li><span><img src="<%=basePath%>images/left1.png">手工开单</span></li></a>
-			<a href="<%=menuBasePath%>KeepAccounts/initializeOpenCard"><li><span><img src="<%=basePath%>images/left2.png">开卡充值</span></li></a>
-			<a href="<%=menuBasePath%>appoint/view/list"><li><span><img src="<%=basePath%>images/left3.png">预约中心</span></li></a>
 			<a href="<%=menuBasePath%>KeepAccounts/initializeStoreFlow"><li><span><img src="<%=basePath%>images/left4.png">开支记账</span></li></a>
 			<a href="<%=menuBasePath%>daybook/view/index"><li><span><img src="<%=basePath%>images/left5.png">流水查询</span></li></a>
 			<a href="<%=menuBasePath%>KeepAccounts/initializeShiftMahjong"><li><span><img src="<%=basePath%>images/left5.png">员工轮牌</span></li></a>
 		</ul>
 		<ul index="1">
+		    <a href="<%=menuBasePath%>KeepAccounts/initializeOpenCard"><li><span><img src="<%=basePath%>images/left2.png">开卡充值</span></li></a>
+			<a href="<%=menuBasePath%>appoint/view/list"><li><span><img src="<%=basePath%>images/left3.png">预约中心</span></li></a>
 			<a href="<%=menuBasePath%>member/view/list"><li class=""><span><img src="<%=basePath%>images/left0.png">会员数据</span></li></a>
 			<a href="<%=menuBasePath%>member/view/error/member/info"><li><span><img src="<%=basePath%>images/left1.png">异常会员数据</span></li></a>
 			<a href="<%=menuBasePath%>member/view/census/list"><li class=""><span><img src="<%=basePath%>images/left2.png">会员分组</span></li></a>
@@ -94,6 +94,7 @@
 		</ul>
 		<ul index="5">
 			<a href="<%=menuBasePath%>system/view/person"><li class=""><span><img src="<%=basePath%>images/left0.png">账户设置</span></li></a>
+			<a href="<%=menuBasePath%>storeinfo/view/showStoreList"><li class="active"><span><img src="<%=basePath%>images/left3.png">门店管理</span></li></a>
 			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span><img src="<%=basePath%>images/left1.png">基础设置</span></li></a>
 			<a href="<%=menuBasePath%>system/view/share"><li class=""><span><img src="<%=basePath%>images/left2.png">分享拓客</span></li></a>
 			<a href="<%=menuBasePath%>system/view/storeUsage"><li class="active"><span><img src="<%=basePath%>images/left3.png">系统信息</span></li></a>

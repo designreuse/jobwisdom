@@ -822,7 +822,7 @@ var deleteOrderObj = "";
 function deleteOrder (obj, deleteOrderIds) {
 	jQuery("#deleteOrderModal").modal("show");
 	deleteOrderId = deleteOrderIds;
-	deleteOrderObj = jQuery(obj).parent().parent();
+	deleteOrderObj = jQuery(obj).parents(".column_small_first");
 }
 
 function deleteOrderModalCancel () {

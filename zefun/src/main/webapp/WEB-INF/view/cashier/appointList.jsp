@@ -21,10 +21,8 @@
 </style>
 <body>
 	
-	<div class="mainwrapper" style="background-position: 0px 0px;">
-		<!--loading start-->
-		<%@ include file="/loading.jsp"%>
-		<!--loading end-->
+	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
 
 		<!--left-panel start-->
 		<%@ include file="/menu.jsp"%>
@@ -578,7 +576,7 @@
 			</div>
 		</div>
 
-
+      </div>
 	</div>
 	<!--RIGHT PANEL结束 -->
 

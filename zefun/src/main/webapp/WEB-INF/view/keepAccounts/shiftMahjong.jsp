@@ -2,202 +2,321 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/head.jsp" %>
+<link rel="stylesheet" href="<%=basePath%>css/emploee.css" type="text/css" />
+<link href='<%=basePath%>css/jquery.gridly.css' rel='stylesheet' type='text/css'>
+<link href='<%=basePath%>css/sample.css' rel='stylesheet' type='text/css'>
 <body>
 
-  <div class="mainwrapper">
-   <!--loading start-->
-   <%@ include file="/loading.jsp" %>
-    <!--loading end-->
-   <%@ include file="/menu.jsp" %>
-   <div class="rightpanel" style="margin-left: 200px;">
-      <%@ include file="/top.jsp" %>
-      <style>
-	    .bx-wrapper{
-	        width: 100%;
-	        margin: 0px;
-	       /* max-width: 1000px !important;*/
-	    }
-	</style>
-	<div class="maincontent">
-	    <div class="contentinner">
-	       <!--轮牌部门-->
-	       <div class="lunpai-head">
-	            <ul class="lunpai-tab fl">
-	                <c:forEach items="${deptList}" var="dept" varStatus="status">
-	                    <c:if test="${status.index == 0}">
-	                        <li class="tab active" onclick="updateDept(this,${dept.deptId})">
-			                    <span>${dept.deptName}</span>
-			                </li>
-	                    </c:if>
-	                    <c:if test="${status.index != 0}">
-	                        <li class="tab" onclick="updateDept(this,${dept.deptId})">
-			                    <span>${dept.deptName}</span>
-			                </li>
-	                    </c:if>
-	                </c:forEach>
-	            </ul>
-	
-	            <div class="add-paiwei-btn fr" id="shiftModel">
-	                <i class="iconfa-plus"></i>
-	                <span class="ml10">新增排位</span>
-	            </div>
-	       </div>
-	
-	        <div class="clearfix"></div>
-	
-	        <!--动态轮牌内容-->
-	
-	        <div class="lunpai-dynamic" id = "lunpaiDIV">
-	
-	        </div><!--lunpai-dynamic-->
-	    </div><!--contentinner-->
-	</div><!--maincontent-->
-	
-	
-	<!--轮牌设置-->
-	<div class="modal hide" id="rotating-setting-modal"  role="dialog" aria-labelledby="myModalLabel">
-	    <div class="modal-dialog" role="document">
-	        <div class="modal-content rotating-setting-modal" style="width: 750px;">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                <h5 class="modal-title" id="myModalLabel">轮牌设置</h5>
-	            </div>
-	            <div class="modal-body">
-	                <form action="" class="editprofileform" method="post" style="padding-bottom: 42px;">
-	                    <table class="table">
-	                      <tbody id = "modelTbody">
-	                        <tr>
-	                          <td colspan="4">轮牌名称: <input type="text" name="shiftMahjongName" placeholder="轮牌名称"/><span style="color : red">*最多五个字符</span></td>
-	                        </tr>
-	                        <tr>
-	                            <td>轮牌规则:</td>
-	                            <td>
-	                              <div class="ch-checker fl">
-	                                <div class="beau-checker">
-	                                  <span class="iconfont icon-gou"></span>
-	                                </div>
-	                                <input type="radio" class="yellow-checker" name="shiftMahjongRule" value="1"/>
-	                              </div>
-	                              <span class="fl ml30">指定不动牌</span>
-	                            </td>
-	                            <td colspan="2">
-	                              <div class="ch-checker fl">
-	                                <div class="beau-checker">
-	                                  <span class="iconfont icon-gou"></span>
-	                                </div>
-	                                <input type="radio" class="yellow-checker" name="shiftMahjongRule" value="2"/>
-	                              </div>
-	                              <span class="fl ml30">指定动牌</span>
-	                            </td>
-	                        </tr>
-	                        
-	                        <tr>
-	                            <td>上牌规则:</td>
-	                            <td>
-	                              <div class="ch-checker fl">
-	                                <div class="beau-checker">
-	                                  <span class="iconfont icon-gou"></span>
-	                                </div>
-	                                <input type="radio" class="yellow-checker" name="shiftMahjongUp" value="1"/>
-	                              </div>
-	                              <span class="fl ml30">考勤上牌</span>
-	                            </td>
-	                            <td colspan="2">
-	                              <div class="ch-checker fl">
-	                                <div class="beau-checker">
-	                                  <span class="iconfont icon-gou"></span>
-	                                </div>
-	                                <input type="radio" class="yellow-checker" name="shiftMahjongUp" value="2"/>
-	                              </div>
-	                              <span class="fl ml30">持续上牌</span>
-	                            </td>
-	                        </tr>
-	                        
-	                        <tr>
-	                            <td>离开规则:</td>
-	                            <td>
-	                              <div class="ch-checker fl">
-	                                <div class="beau-checker">
-	                                  <span class="iconfont icon-gou"></span>
-	                                </div>
-	                                <input type="radio" class="yellow-checker" name="nature" value="1"/>
-	                              </div>
-	                              <span class="fl ml30">离开不轮牌</span>
-	                            </td>
-	                            <td colspan="2">
-	                              <div class="ch-checker fl">
-	                                <div class="beau-checker">
-	                                  <span class="iconfont icon-gou"></span>
-	                                </div>
-	                                <input type="radio" class="yellow-checker" name="nature" value="2"/>
-	                              </div>
-	                              <span class="fl ml30">离开轮牌</span>
-	                            </td>
-	                        </tr>
-	
-	                        <tr>
-	                            <td colspan="4">
-	                                                                                               请选择该排位下的排班岗位
-	                            </td>
-	                        </tr>
-	                        </tbody>
-	                    </table>
-	                </form>
-	            </div><!--modal body-->
-	
-	            <div class="modal-footer">
-	                <a class="btn modal-cancel" href="#" data-dismiss="modal" aria-label="Close">取消</a>
-	                <a class="btn btn-primary modal-confirm" href="#" id= "confirm">确定</a>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	
-	<script>
-     	var deptId = "${deptId}";
-     	var deptListStr = '${deptListJson}';
- 	    var deptDtoList = eval("(" + deptListStr + ")");
-	</script>
-	
-	
-	<script type="text/javascript" src="<%=basePath %>js/keepAccounts/shiftMahjong.js"></script><%-- ?1=<%=new Date().getTime() %> --%>
-   </div>
-     <!--RIGHT PANEL结束 -->
-
-    <div class="clearfix"></div>
-
-    <div id="star"></div>
-    
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+   <div class="leftpanel" style="height: 840px; margin-left: 0px;">
+		<%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
+			<div class='content_right clearfix'>
+			        <div  class="emploee-left">
+					   <div class="emploee-part">
+					         <div class="emploee_head">
+							    <img src="assets/images/head_pic.png">
+							 
+							 </div>
+							 <p><img src="<%=basePath%>images/partment.png"><span>美发部</span></p>
+					   
+					   </div>
+					   
+					    <div class="emploee-part">
+					         <div class="emploee_head">
+							    <img src="assets/images/head_pic.png">
+							 
+							 </div>
+							 <p><img src="<%=basePath%>images/partment.png"><span>美容部</span></p>
+					   
+					   </div>
+					   
+					    <div class="emploee-part">
+					         <div class="emploee_head">
+							    <img src="assets/images/head_pic.png">
+							 
+							 </div>
+							 <p><img src="<%=basePath%>images/partment.png"><span>美甲部</span></p>
+					   
+					   </div>
+					   
+					    <div class="emploee-part">
+					         <div class="emploee_head">
+							    <img src="assets/images/head_pic.png">
+							 
+							 </div>
+							 <p><img src="<%=basePath%>images/partment.png"><span>水疗部</span></p>
+					   
+					   </div>
+					
+					
+					</div>
+			    	<div>
+						<div  class="emploee-right">
+						
+						 <div class="emplee_content_1">
+						    <div class="emplee_name">轮牌名称：<input type="text" placeholder="最多5个字"></div>
+							<div class="emplee_rule">
+							   <span>轮牌规则：<em><input type="checkbox">指定不动牌</em><em><input type="checkbox">指定不动牌</em></span>
+							   <span>上牌规则：<em><input type="checkbox">考勤上牌</em><em><input type="checkbox">持续上牌</em></span>
+							   <span>离开规则：<em><input type="checkbox">离开不轮牌</em><em><input type="checkbox">离开轮牌</em></span>
+							
+							
+							</div>
+							
+							<div class="emplee_job">
+							<p>请选择改排位下的排班岗位：</p>
+							<div class="emplee_job_content">
+							  <div class="emplee_job_content_">
+							   <span>
+							      <em>
+								    <input type="checkbox">设计师 
+								</em>
+									<i>上牌方式</i>
+									 <select>
+									   <option>
+									     打卡上牌
+									   </option>
+									 </select>
+								  
+								  
+								</span>
+							
+							
+							  <span>
+							      <em>
+								    <input type="checkbox">设计师 
+								</em>
+									<i>上牌方式</i>
+									 <select>
+									   <option>
+									     打卡上牌
+									   </option>
+									 </select>
+								  
+								  
+								</span>
+							  </div>
+							  
+							  	  <div class="emplee_job_content_">
+							   <span>
+							      <em>
+								    <input type="checkbox">设计师 
+								</em>
+									<i>上牌方式</i>
+									 <select>
+									   <option>
+									     打卡上牌
+									   </option>
+									 </select>
+								  
+								  
+								</span>
+							
+							
+							  <span>
+							      <em>
+								    <input type="checkbox">设计师 
+								</em>
+									<i>上牌方式</i>
+									 <select>
+									   <option>
+									     打卡上牌
+									   </option>
+									 </select>
+								  
+								  
+								</span>
+							  </div>
+							  
+							  	  <div class="emplee_job_content_">
+							   <span>
+							      <em>
+								    <input type="checkbox">设计师 
+								</em>
+									<i>上牌方式</i>
+									 <select>
+									   <option>
+									     打卡上牌
+									   </option>
+									 </select>
+								  
+								  
+								</span>
+							
+							
+							  <span>
+							      <em>
+								    <input type="checkbox">设计师 
+								</em>
+									<i>上牌方式</i>
+									 <select>
+									   <option>
+									     打卡上牌
+									   </option>
+									 </select>
+								  
+								  
+								</span>
+							  </div>
+							</div>
+						</div>	
+						   <button class="emplee_save_">保存</button>
+						</div>
+						
+						
+						
+						<button class="setting-up">调整顺序</button>
+						<div class="emplee_roll clearfix">
+						   <ul class="roll_left">
+						     <li class="active">烫染师牌</li>
+							 <li>洗护牌</li>
+					         <li>洗剪吹设计</li>
+						     <li>烫染设计师</li>
+						   </ul>
+						
+					  	 <div class="roll_">
+						  <span class="roll_left_click"><img src="<%=basePath%>images/left_click.png"></span>
+					     <div class="roll_content"> 	  
+						   <div class='example'>
+					        <ul class='gridly'>
+					          <li class='brick small'>
+					            
+							    <div class="roll_pic">
+								   <img src="assets/images/head_pic.png">
+								</div>
+								<p>1189 <em>欧老板</em></p>
+								<div class="state">
+								 <i>1</i> <img src="assets/images/roll4.png">空闲中
+								</div>
+							
+					          </li>
+					          <li class='brick small'>
+					            
+							    <div class="roll_pic">
+								   <img src="assets/images/head_pic.png">
+								</div>
+								<p>1189 <em>欧老板</em></p>
+									<div class="state">
+								 <i>1</i> <img src="assets/images/roll4.png">空闲中
+								</div>
+							
+					          </li>
+					           <li class='brick small'>
+					            
+							    <div class="roll_pic">
+								   <img src="assets/images/head_pic.png">
+								</div>
+								<p>1189 <em>欧老板</em></p>
+									<div class="state">
+								 <i>1</i> <img src="assets/images/roll4.png">空闲中
+								</div>
+							
+					          </li>
+					           <li class='brick small'>
+					            
+							    <div class="roll_pic">
+								   <img src="assets/images/head_pic.png">
+								</div>
+								<p>1189 <em>欧老板</em></p>
+						        <div class="state">
+								 <i>1</i> <img src="assets/images/roll4.png">空闲中
+								</div>
+							
+					          </li>
+					          <li class='brick small'>
+					            
+							    <div class="roll_pic">
+								   <img src="assets/images/head_pic.png">
+								</div>
+								<p>1189 <em>欧老板</em></p>
+								<div class="state">
+								 <i>1</i> <img src="assets/images/roll4.png">空闲中
+								</div>
+							
+					          </li>
+					         <li class='brick small'>
+					            
+							    <div class="roll_pic">
+								   <img src="assets/images/head_pic.png">
+								</div>
+								<p>1189 <em>欧老板</em></p>
+								<div class="state">
+								 <i>1</i> <img src="assets/images/roll4.png">空闲中
+								</div>
+							
+					          </li>
+					     
+					        </ul>
+					    </div>
+						  </div> 
+						     <span class="roll_right_click"><img src="<%=basePath%>images/right_click.png"></span>
+						  </div>
+						</div>
+						
+					  <div class="emplee_button">	
+						<button>设置</button>
+						<button>编辑</button>
+					  </div>
+						</div>
+						
+						
+					</div>
+			</div>
+		</div>
+    </div>
   </div>
-  <!--轮牌的状态变化选择下拉-->
-	<ul class="select-zhuangtai hide">
-	    <li>
-	        <div class="select-icon fl">
-	            <div class="center kongxianzhong" onclick="updateState(1)">
-	                <div class="zhuangtai">
-	                    <img src="<%=basePath %>img/lunpai/coffee.png" alt="工作中"/>
-	                </div>
-	            </div>
-	            <div class="center zanshilikai" onclick="updateState(2)">
-	                <div class="zhuangtai">
-	                    <img src="<%=basePath %>img/lunpai/alarm.png" alt="工作中"/>
-	                </div>
-	            </div>
-	            <div class="center likai" onclick="updateState(3)">
-	                <div class="zhuangtai">
-	                    <img src="<%=basePath %>img/lunpai/clock.png" alt="工作中"/>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="select-zt-word fl">
-	            <div class="select1 cursor" onclick="updateState(1)">空闲中</div>
-	            <div class="select1 cursor" onclick="updateState(2)">暂时离开</div>
-	            <div class="select1 cursor" onclick="updateState(3)">离开</div>
-	        </div>
-	    </li>
-	    <em></em>
-	    <span></span>
-	</ul>
-</body>
 
+</body>
+<script src='<%=basePath %>js/common/jquery.gridly.js' type='text/javascript'></script>
+<script src='<%=basePath %>js/common/sample.js' type='text/javascript'></script>
+<script src='<%=basePath %>js/common/rainbow.js' type='text/javascript'></script>
+<script>
+
+	jQuery(function(){
+	     var now_=0, count=jQuery('.roll_content .gridly li').size();
+		 
+	  //向右走
+      jQuery('.roll_right_click').click(function(){
+         if(now_<=count-5){
+		    now_+=1;
+	        jQuery(this).parent('.roll_').find('.gridly').stop(true,true).animate({
+		       left:-322*now_
+		   
+		       }) 
+			  }
+		  });
+	  //向左走
+	  
+	  	//向左走
+	 jQuery('.roll_left_click').click(function(){
+         if(now_>=1){
+		    now_-=1;
+	         jQuery(this).parent('.roll_').find('.gridly').stop(true,true).animate({
+		     left:-322*now_
+		   
+		     }) 
+		  }	
+        		
+	  });
+ });
+	
+	//弹出弹窗
+	jQuery(function(){
+	   
+      jQuery('.setting-up').click(function(){
+	    jQuery('.zzc').show();
+		
+	  });
+	  
+    jQuery('.emplee_cancle').click(function(){
+	
+	      jQuery('.zzc').hide();
+	 }) 
+   });
+	
+	
+	
+</script>
 </html>
