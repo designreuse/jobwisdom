@@ -100,57 +100,25 @@ function setShiftMahjong(shiftMahjongIdS,shiftMahjongName,nature,shiftMahjongUp,
 
 //切换部门时更新model中岗位下拉
 function updatePosition(){
-	jQuery("tr[name = 'positionMessage']").remove();
+	jQuery(".emplee_job_content_").empty();
 	
 	for (var i = 0; i < deptDtoList.length; i++) {
 		if (deptId == deptDtoList[i].deptId) {
 			var positionList = deptDtoList[i].positionInfo;
-			var positionMessage = null;
 			for (var j = 0; j < positionList.length; j++) {
-				if (j % 2 == 0) {
-					positionMessage = jQuery("<tr name = 'positionMessage'></tr>");
-					positionMessage.append("<td>"+
-					                            "<div class='ch-checker fl'>"+
-					                              "<div class='beau-checker'>"+
-					                                "<span class='iconfont icon-gou'></span>"+
-					                              "</div>"+
-					                              "<input type='checkbox' class='yellow-checker' name='positionId' value='"+positionList[j].positionId+"'/>"+
-					                            "</div>"+
-					                            "<span class='ml30'>"+positionList[j].positionName+"</span>"+
-					                        "</td>"+
-					                        "<td>"+
-					                            "<span class='ml8 mr5'>上牌方式:</span>"+
-					                            "<select name='upShiftType' class='chzn-select input-small'>"+
-					                              "<option value='1'>打卡上牌</option>"+
+				var positionMessage = "<span>"+
+									      "<em>"+
+										    "<input type='checkbox' name='positionId' value='"+positionList[j].positionId+"'>设计师 "+
+										"</em>"+
+											 "<i>上牌方式</i>"+
+											 "<select name='upShiftType'>"+
+												 "<option value='1'>打卡上牌</option>"+
 					                              "<option value='0'>手动上牌</option>"+
-					                            "</select>"+
-					                         "</td>");
-					if (j + 1 == positionList.length) {
-						positionMessage.append("<td></td><td></td>")
-						jQuery("#modelTbody").append(positionMessage);
-					}
-				}
-				else {
-					positionMessage.append("<td>"+
-					                            "<div class='ch-checker fl'>"+
-					                              "<div class='beau-checker'>"+
-					                                "<span class='iconfont icon-gou'></span>"+
-					                              "</div>"+
-					                              "<input type='checkbox' class='yellow-checker' name='positionId' value='"+positionList[j].positionId+"'/>"+
-					                            "</div>"+
-					                            "<span class='ml30'>"+positionList[j].positionName+"</span>"+
-				                           "</td>"+
-					                       "<td>"+
-					                            "<span class='ml8 mr5'>上牌方式:</span>"+
-					                            "<select name='upShiftType' class='chzn-select input-small'>"+
-					                              "<option value='1'>打卡上牌</option>"+
-					                              "<option value='0'>手动上牌</option>"+
-					                            "</select>"+
-					                         "</td>");
-					jQuery("#modelTbody").append(positionMessage);
-				}
+											 "</select>"+
+										"</span>"
+				jQuery(".emplee_job_content_").append(positionMessage);
+					
 			}
-			jQuery(".chzn-select").chosen({disable_search_threshold: 10, no_results_text: ""});
 			return;
 		}
 	}
@@ -255,9 +223,17 @@ function updatePage(){
 			}
 			var shiftMahjongDtoList = e.msg;
 			jQuery("#lunpaiDIV").empty();
+			var rollUL = jQuery("<ul class='roll_left'></ul>");
+			
 			for (var i = 0; i < shiftMahjongDtoList.length; i++) {
 				var shiftInfo = shiftMahjongDtoList[i];
-                var widgetcontent = jQuery("<div class='widgetcontent'></div>")
+				if (i == 0) {
+					rollUL.append("<li class='active'>"+shiftInfo.shiftMahjongName+"</li>");
+				}
+				else {
+					rollUL.append("<li>"+shiftInfo.shiftMahjongName+"</li>");
+				}
+              /*  var widgetcontent = jQuery("<div class='widgetcontent'></div>")
 				var zhiwei = jQuery("<div class='zhiwei-lunpai'></div>");
 				zhiwei.append("<div class='zhiwei-name'>"+
 						                        "<span class='ml10 name'>"+shiftInfo.shiftMahjongName+"</span>"+
@@ -283,8 +259,9 @@ function updatePage(){
 	                          "</div>");
 				zhiwei.append(shiftObj);
 				widgetcontent.append(zhiwei);
-				jQuery("#lunpaiDIV").append(widgetcontent);
+				jQuery("#lunpaiDIV").append(widgetcontent);*/
 			}
+			jQuery("#lunpaiDIV").append(rollUL);
 		}
 	});
 }

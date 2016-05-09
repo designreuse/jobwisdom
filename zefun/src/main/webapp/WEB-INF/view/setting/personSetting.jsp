@@ -2,105 +2,125 @@
 <%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<link rel="stylesheet" href="<%=basePath %>editor/themes/default/default.css" />
- <style>
-    .hide{
-        display: none!important;
-    }
-</style>
+<link rel="stylesheet" href="<%=basePath %>css/account_set.css" />
+<link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <body>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
 			<%@include file="/menu.jsp"%>
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
-        <div class="maincontent">
-		    <div class="contentinner">
-		        <div class="border-head">
-		            <span>账户信息</span>
-		        </div>
-		        <form id="employeeInfoForm">
-			        <div class="border-content">
-			            <table class="table nobordered-table">
-			                <tr>
-			                    <td class="text-right fb">头像:</td>
-			                    <td>
-			                          <img id="headImg" src="<%=picPath %>${session_key_user_info.headImage }?imageView2/1/w/120/h/120" class="person-img"/>
-			                          <input type="hidden" name="headImage" value="${session_key_user_info.headImage }" />
-			                    </td>
-			                </tr>
-			                <tr>
-			                    <td class="text-right fb">姓名:</td>
-			                    <td><input type="text" name="name" value="${session_key_user_info.name }" class="name"/></td>
-			                </tr>
-			                <tr>
-			                    <td class="text-right fb">性别:</td>
-			                    <td>
-			                    	<label class="radio">
-			                    		<input type="radio" name="sex" value="男"/> <span class="ml5">男</span> 
-			                    	</label>
-			                    	<label class="radio">
-			                    		<input type="radio" name="sex" value="女" class="ml30"/> <span class="ml5">女</span>
-			                    	</label>
-			                    </td>
-			                </tr>
-			                <tr>
-			                    <td class="text-right fb">登录密码:</td>
-			                    <td>****** <span class="can-click" onclick="showUpdatePassword()" data-target="#fix-password" data-toggle="modal">修改密码</span></td>
-			                </tr>
-			                <tr>
-	                            <td class="text-right fb"><a class="btn btn-primary" href="javascript:save();">保存</a></td>
-	                            <td></td>
-	                        </tr>
-	                        <!-- <tr>
-                                <td class="text-right fb"><a class="btn btn-primary" href="javascript:testVoice(1);">男声语音测试</a></td>
-                                <td><a class="btn btn-primary" href="javascript:testVoice(0);">女声语音测试</a></td>
-                            </tr> -->
-			            </table>
-			        </div>
-		        </form>
-		    </div>
-		</div>
-		
-		<!--修改密码模态框-->
-		<div class="modal hide" id="fix-password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		    <div class="modal-dialog" role="document">
-		        <div class="modal-content fix-password-modal">
-		            <div class="modal-header">
-		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
-		            </div>
-		            <div class="modal-body">
-		                <form action="" class="editprofileform" method="post">
-		                    <p>
-		                        <label for="origin-pass">原密码</label>
-		                        <input type="password" id="oldPwd"/>
-		                    </p>
-		                    <p>
-		                        <label for="current-pass">新密码</label>
-		                        <input type="password" id="newPwd"/>
-		                    </p>
-		                    <p>
-                                <label for="current-pass">确认密码</label>
-                                <input type="password" id="repeatPwd"/>
-                            </p>
-		                </form>
-		            </div><!--modal body-->
-		            <div class="modal-footer">
-		                <a class="btn modal-cancel" data-dismiss="modal" href="javascript:void();">取消</a>
-		                <a class="btn btn-primary" href="javascript:updatePassword();">保存</a>
-		            </div>
-		        </div>
-		    </div>
-		</div>
+				
+		        <div class='content_right clearfix'>
+				     <div class="accont_detail clearfix">
+					    <div class="accont_detail_left">
+						   <p class="guest_detail">客户信息</p>
+						   <div class="account_set_head">
+						      <%-- <span class="account_set_head_"><img src="<%=qiniuPath %>${session_key_user_info.headImage }"></span> --%>
+						      <c:choose>
+							      <c:when test="${session_key_user_info.headImage == null}">
+							         <span class="account_set_head_"><img border=0 affiliatedImage="" name="affiliatedImage" src="<%=qiniuPath%>system/profile/set_img.png" width="180" height="180" /></span>
+							      </c:when>
+							      <c:otherwise>
+							         <span class="account_set_head_"><img border=0 affiliatedImage="${session_key_user_info.headImage }" name="affiliatedImage" src="<%=qiniuPath%>${session_key_user_info.headImage }" width="180" height="180" /></span>
+							      </c:otherwise>
+						      </c:choose>
+						      <span>
+							     <button class="alter_head"><img src="<%=basePath %>images/webchat_add.png">修改头像</button>
+							  </span>
+							 <p class="account_name">姓名：<span><input type="text" name="name" value="${session_key_user_info.name }"></span></p>
+						    <p class="account_sex">性别：<span><input type="radio" name="sex" value="男">男  </span> <span><input type="radio" name="sex" value="女">女</span></p>
+						     <div class="set_save">
+							 
+							   <button class="first_button" onclick ="save();">保存</button>
+							 </div>
+						   </div>
+						
+						</div>
+						
+					 <div class="accont_detail_right">
+						   <p class="guest_detail">修改密码</p>
+						   <div class="account_set_head_1">
+						     <p class="account_name_">原密码：<span><input type="text" id="oldPwd"></span></p>
+							 <p class="account_name_">新密码：<span><input type="text" id="newPwd"></span></p>
+							<p class="account_name_" style="position:relative;left:-12px"/>确认密码：<span><input type="text" id="repeatPwd"></span></p>
+						      
+							  <button class="account_sure" onclick = "updatePassword();">确认</button>
+						   </div>
+						
+						</div>
+						
+						
+					 
+					 
+					 
+					 </div>
+					
+				  </div>
     </div>
 </div>
 </div>
+<div class="zzc">
+ <div class="photo_cut">
+  <div id="clipArea"></div>
+        <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
+    <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
+  	<div class="button_panel"> 
+	   <button class="selectpic">选择图片</button>
+	   <button class="sureinput">确定上传</button>
+		<button class="cancelinput">取消</button>
+	 </div>
+   </div>
+</div>
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 <script type="text/javascript">
+
+var cssWidth = 200;
+var cssHeight = 200;
+var qiniuUrl = '<%=qiniuPath%>';
+
+function zccCallback(dataBase64){
+	jQuery(".account_set_head_").children("img").attr("src", dataBase64);
+	var key = "jobwisdom/project/" + new Date().getTime();
+
+	jQuery(".account_set_head_").children("img").attr("affiliatedImage", key);
+    var data = {"stringBase64":dataBase64,"key":key};
+    jQuery('.cancelinput').click();
+    jQuery.ajax({
+		type: "POST",
+		url: baseUrl+"qiniu/base64",
+	       data: JSON.stringify(data),
+	       contentType: "application/json",
+	       dataType: "json",
+	       async:true,  
+	       beforeSend:function(){
+	       	console.log("beforeSend upload image");
+	       },
+	       error:function (){
+	       	console.log("upload image error");
+	       },
+	       complete :function (){
+	       	console.log("complete upload image");
+	       },
+	       success: function(data) {
+		       	var imageUrl = data.msg.imageUrl;
+		       	var key = data.msg.key;
+		       	console.log(imageUrl);
+	       }
+ 	});
+}
+
 jQuery(function(){
 	jQuery("[name='sex'][value='${session_key_user_info.sex}']").attr('checked',true);
 });
+
+jQuery('.alter_head').click(function(){
+    jQuery('.zzc').show()
+ })
+ jQuery('.cancelinput').click(function(){
+    jQuery('.zzc').hide();
+    jQuery('.photo-clip-rotateLayer').html('');
+ })
 
 var audio = null;
 function testVoice(per){
@@ -130,11 +150,6 @@ function showUpdatePassword(){
 	jQuery("#oldPwd").val('');
     jQuery("#newPwd").val('');
     jQuery("#repeatPwd").val('');
-	jQuery("#fix-password").removeClass("hide");
-}
-
-function hideUpdatePassword(){
-	jQuery("#fix-password").addClass("hide");
 }
 
 function updatePassword(){
@@ -169,13 +184,17 @@ function updatePassword(){
                 return;
             }
             dialog("密码修改成功");
-            hideUpdatePassword();
+            console.log("密码修改成功");
+            showUpdatePassword();
         }
     });
 }
 
 function save(){
-	var data = jQuery("#employeeInfoForm").serialize();
+    var headImage = jQuery(".account_set_head_").find("img").attr("affiliatedImage");
+    var name = jQuery("input[name='name']").val();
+    var sex = jQuery("input[name='sex']:checked").val();
+	var data = {"headImage" : headImage, "name" : name, "sex" : sex};
 	jQuery.ajax({
 		url : baseUrl + "system/action/person",
 		type : "POST",
@@ -190,68 +209,7 @@ function save(){
 	});
 }
 
-/**七牛上传图片，一定要将这个js放在自定义按钮的内容实现*/
-var qiniu = new QiniuJsSDK();
-qiniu.uploader({
-    runtimes: 'html5,flash,html4',    //上传模式,依次退化
-    browse_button: 'headImg',       //上传选择的点选按钮，**必需**
-    uptoken_url: baseUrl + 'qiniu/uptoken',            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
-    domain: picUrl,   //bucket 域名，下载资源时用到，**必需**
-    container: 'employeeInfoForm',           //上传区域DOM ID，默认是browser_button的父元素，
-    filters : {mime_types : [{title : "Image files", extensions : "jpg,jpeg,png,bmp"}],max_file_size: '10m'},
-    flash_swf_url: baseUrl+'js/qiniu/Moxie.swf', //引入flash,相对路径
-    max_retries : 3, //上传失败最大重试次数
-    dragdrop : true, //开启可拖曳上传
-    drop_element : 'employeeInfoForm', //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
-    chunk_size : '2mb', //分块上传时，每片的体积
-    auto_start : true, //选择文件后自动上传，若关闭需要自己绑定事件触发上传,
-    init : {
-        'FilesAdded' : function(up, files) {
-            console.log("FilesAdded invoked ...");
-            var err = false;
-            plupload.each(files, function(file) {
-                if(!qiniu.isImage(file.name)){
-                    err = true;
-                    return false;
-                }
-            });
-            if(err) {
-                dialog("只能上传图片文件");
-                up.removeFile(files[0]);
-                up.stop();
-                jQuery("#loadingWrap").fadeOut();
-            }
-        },
-        'BeforeUpload' : function(up, file) {
-            jQuery("#loadingWrap").fadeIn();
-            console.log("BeforeUpload invoked ...");
-        },
-        'UploadProgress' : function(up, file) {
-            console.log("UploadProgress invoked ...");
-        },
-        'FileUploaded' : function(up, file, info) {
-            console.log("FileUploaded invoked ...");
-            var domain = up.getOption('domain');
-            var res = eval('(' + info + ')');
-            var sourceLink = domain + res.key + "?imageView2/1/w/120/h/120";
-            jQuery("#headImg").attr("src", sourceLink);
-            jQuery("[name='headImage']").val(res.key);
-        },
-        'Error' : function(up, err, errTip) {
-            dialog(errTip);
-            jQuery("#loadingWrap").fadeOut();
-        },
-        'UploadComplete' : function() {
-            console.log("UploadComplete invoked ...");
-            jQuery("#loadingWrap").fadeOut();
-        },
-        'Key' : function(up, file) {
-            console.log("Key invoked ...");
-            var key = "zefun/employee/" + new Date().getTime();
-            return key;
-        }
-    }
-});
 </script>
+<script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>
 </body>
 </html>
