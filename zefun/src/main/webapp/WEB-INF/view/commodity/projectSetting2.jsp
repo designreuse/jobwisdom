@@ -6,6 +6,7 @@
     String qiniu = "http://7xss26.com1.z0.glb.clouddn.com/";
 %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
+<link rel="stylesheet" href="<%=basePath%>css/roll.css" type="text/css" />
 <style type="text/css">
 	.border {border:1px solid red!important}
 </style>
@@ -265,7 +266,7 @@
 							<button class="save_">添加</button>
 						</div>
 						<div class="write_3" style="position: relative; left: 60px;width: 120px;">
-							<img src="<%=basePath %>images/add.png"><em style="position:relative;left:4px">编辑</em>
+							<img src="<%=basePath %>images/webchat_add.png"><em style="position:relative;left:4px">编辑</em>
 						</div>
 						<div class="tab_content_div_right"></div>
 
