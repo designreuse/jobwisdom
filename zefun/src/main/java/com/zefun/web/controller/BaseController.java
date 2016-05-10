@@ -13,11 +13,16 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.App.Session;
 import com.zefun.common.consts.Url;
+import com.zefun.common.utils.GenerateQrCodeUtil;
 import com.zefun.common.utils.SignUtil;
+import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.UserAccount;
@@ -25,6 +30,7 @@ import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.RedisService;
+import com.zefun.wechat.service.WechatCallService;
 
 /**
  * 服务基础类
@@ -57,6 +63,7 @@ public class BaseController {
     
     /** 日志记录对象 */
     private Logger logger = Logger.getLogger(BaseController.class);
+
 
     /**
      * 获取当前用户所在的门店
@@ -489,6 +496,8 @@ public class BaseController {
         }
         return url;
     }
+    
+
     
 /**
      * 在运行前都加入客服信息

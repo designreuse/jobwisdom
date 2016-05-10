@@ -3,6 +3,8 @@ package com.zefun.test;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.zefun.common.consts.Url;
+import com.zefun.common.utils.StringUtil;
 import com.zefun.wechat.service.WechatCallService;
 
 /**
@@ -12,9 +14,9 @@ import com.zefun.wechat.service.WechatCallService;
  */
 public class WechatPayTest extends BaseTest {
 
-    /** 微信支付服务对象 */
+   /* *//** 微信支付服务对象 *//*
     @Autowired
-    private WechatCallService wechatCallService;
+    private WechatCallService wechatCallService;*/
     
     
     /**
@@ -24,6 +26,9 @@ public class WechatPayTest extends BaseTest {
      */
     @Test
     public void refund() {
-        wechatCallService.refund("1457958175525945499");
+        /*String callback = "/" + Url.Conference.WECHAT_CALLBACK_CONFERENCE_PAY.replace("{personnelId}", String.valueOf(1))
+            .replace("{conferenceId}", String.valueOf(1));
+        wechatCallService.payByQrCode("iphone 7s", 1, StringUtil.getKey(), callback, request);*/
+//        wechatCallService.refund("1457958175525945499");
     }
 }
