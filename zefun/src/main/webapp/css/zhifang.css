@@ -675,8 +675,8 @@ a:active {
 .btn.perpage,
 .btn.perpage:hover,
 .btn.perpage:focus {
-  background-color: #d9e9e9;
-  color: #13828d;
+  background-color: #8795b2;
+  color: white;
 }
 .left-page,
 .right-page {
@@ -684,7 +684,7 @@ a:active {
   width: 30px;
   height: 30px;
   line-height: 30px;
-  background-color: #d9e9e9;
+  background-color: #cad1e0;
   text-align: center;
   vertical-align: middle;
   box-sizing: border-box;
@@ -693,10 +693,10 @@ a:active {
 .left-page .afont,
 .right-page .afont {
   font-size: 15px;
-  color: #13828d;
+  color: white;
 }
 .btn .afont {
-  color: #13828d;
+  color:white;
 }
 /*閸忋劌鐪弽宄扮础*/
 .text-through {
@@ -947,7 +947,7 @@ input[type="search"] {
   text-shadow: none;
 }
 .can-click {
-  color: #cad1e0 !important;
+  color: black !important;
   cursor: pointer;
 }
 .table .can-click {
@@ -1879,7 +1879,7 @@ img {
   margin-left: -10px;
 }
 .td-bkg-col {
-  background-color: #c9e6e6 !important;
+  background-color:#8795b2 !important;
 }
 .table th {
   padding: 8px;
@@ -6284,7 +6284,7 @@ ul {
   width: 170px;
 }
 .filess .btn {
-  background-color: #00828c;
+  background-color: #8795b2;
   height: 20px;
   width: 50px;
 }
