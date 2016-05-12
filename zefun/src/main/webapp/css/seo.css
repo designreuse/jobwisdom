@@ -75,7 +75,15 @@ input,button,select,textarea{outline:none}
     height: 190px;
     cursor: pointer;
 }
-
+.head_pic img {
+    transition: transform 1s ease-out;
+     height: 60px;
+    width: 60px;
+    border-radius: 30px;
+}
+.head_pic img:hover{
+	transform:rotate(360deg);
+}
 .shop_number li {
     width: 93px;
     text-align: center;
