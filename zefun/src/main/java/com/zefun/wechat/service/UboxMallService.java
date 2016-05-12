@@ -24,14 +24,23 @@ import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.ubox.UboxStoreGoodsDto;
 import com.zefun.web.dto.ubox.UboxTransactionDto;
 import com.zefun.web.entity.CouponInfo;
+import com.zefun.web.entity.GoodsInfo;
+import com.zefun.web.entity.OrderDetail;
+import com.zefun.web.entity.OrderInfo;
+import com.zefun.web.entity.TransactionInfo;
 import com.zefun.web.entity.UboxMachineInfo;
 import com.zefun.web.entity.UboxTransaction;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
+import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.OrderDetailMapper;
+import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.TransactionInfoMapper;
 import com.zefun.web.mapper.UboxMachineInfoMapper;
 import com.zefun.web.mapper.UboxStoreGoodsMapper;
 import com.zefun.web.mapper.UboxTransactionMapper;
 import com.zefun.web.service.MemberInfoService;
+import com.zefun.web.service.RedisService;
 
 import net.sf.json.JSONObject;
 
@@ -70,6 +79,25 @@ public class UboxMallService {
     @Autowired
     private CouponInfoMapper couponInfoMapper;
     
+    /** 优惠券信息操作对象 */
+    @Autowired
+    private GoodsInfoMapper goodsInfoMapper;
+    
+    /** 订单处理 */
+    @Autowired
+    private TransactionInfoMapper transactionInfoMapper;
+    
+    /**redis*/
+    @Autowired
+    private RedisService redisService;
+    
+    /**订单*/
+    @Autowired
+    private OrderInfoMapper orderInfoMapper;
+    /**订单明细*/
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
+    
     
     /**
      * 商品详情页面
@@ -86,6 +114,10 @@ public class UboxMallService {
         
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         mav.addObject("memberInfo", memberInfo);
+        
+        GoodsInfo info = goodsInfoMapper.selectByPrimaryKey(storeGoodsId);
+        mav.addObject("goodsInfo", info);
+        
         return mav;
     }
     
@@ -329,4 +361,58 @@ public class UboxMallService {
         uboxTransactionMapper.updateByPrimaryKey(uboxTransaction);
         return 1;
     }
+
+
+    /**
+     * 回调,将订单信息更新,将会员购买的商品进行入单
+    * @author 高国藩
+    * @date 2016年5月12日 下午8:57:29
+    * @param transactionId  transactionId
+    * @param outTradeNo     outTradeNo
+    * @param resultCode     resultCode
+    * @param returnCode     returnCode
+    * @param openId         openId
+    * @return               SUCCESS
+     */
+    @Transactional
+    public String callBackPayGoodsInfo(String transactionId, String outTradeNo, String resultCode, String returnCode, String openId) {
+        if (resultCode.equals("SUCCESS")&&returnCode.equals("SUCCESS")){
+            String memberId = redisService.hget(App.Redis.WECHAT_OPENID_TO_USERID_KEY_HASH, openId);
+            TransactionInfo transactionInfo = transactionInfoMapper.selectByPrimaryKey(transactionId);
+            transactionInfo.setTransactionId(transactionId);
+            transactionInfo.setPayChannel(1);
+            transactionInfo.setPayStatus(2);
+            transactionInfoMapper.updateByPrimaryKey(transactionInfo);
+            //订单
+            Integer storeId = transactionInfo.getStoreId();
+            Integer goodsId = transactionInfo.getGoodsId();
+            Integer amount = transactionInfo.getTransactionAmount();
+            OrderInfo orderInfo = new OrderInfo();
+            orderInfo.setStoreId(storeId);
+            orderInfo.setOrderType(1);
+            orderInfo.setMemberId(Integer.parseInt(memberId));
+            orderInfo.setReceivableAmount(new BigDecimal(amount).divide(new BigDecimal(100)));
+            orderInfo.setRealAmount(new BigDecimal(amount).divide(new BigDecimal(100)));
+            orderInfo.setWechatAmount(new BigDecimal(amount).divide(new BigDecimal(100)));
+            orderInfo.setOrderStatus(3);
+            orderInfo.setCreateTime(DateUtil.getCurDate());
+            orderInfoMapper.insert(orderInfo);
+            Integer orderId = orderInfo.getOrderId();
+            //订单明细
+            GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(goodsId);
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setOrderId(orderId);
+            orderDetail.setOrderType(2);
+            orderDetail.setProjectId(goodsId);
+            orderDetail.setProjectName(goodsInfo.getGoodsName());
+            orderDetail.setProjectImage(goodsInfo.getGoodsImage());
+            orderDetail.setOrderStatus(3);
+            orderDetail.setCreateTime(DateUtil.getCurDate());
+            orderDetail.setProjectPrice(new BigDecimal(amount).divide(new BigDecimal(100)));
+            //订单库存
+            return "SUCCESS";
+        }
+        return "FAILE";
+    }
+
 }

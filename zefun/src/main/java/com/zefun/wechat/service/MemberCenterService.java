@@ -58,6 +58,7 @@ import com.zefun.web.dto.ubox.UboxStoreGoodsDto;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
 import com.zefun.web.entity.GiftmoneyFlow;
+import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberAppointment;
@@ -102,6 +103,7 @@ import com.zefun.web.mapper.StoreWechatMapper;
 import com.zefun.web.mapper.UboxMachineInfoMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatMemberMapper;
+import com.zefun.web.service.GoodsInfoService;
 import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.ProjectService;
 import com.zefun.web.service.QiniuService;
@@ -266,6 +268,10 @@ public class MemberCenterService {
 	
 	/**日志记录对象*/
 	private final Logger logger = Logger.getLogger(MemberCenterService.class);
+	
+	/** 商品列表 */
+	@Autowired
+	private GoodsInfoService goodsInfoService;
 	
 	
 	/**
@@ -762,21 +768,23 @@ public class MemberCenterService {
         //检查该会员是否有未赠送的奖励
         if (redisService.sismember(App.Redis.WECHAT_OPENID_TO_SUBSCRIBE_AWARD_SET, openId)) {
             StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
-            //检查是否有赠送的优惠券
-            String coupon = storeSetting.getFirstFollowCoupon();
-            if (StringUtils.isNotBlank(coupon)) {
-                String[] couponList = coupon.split(",");
-                for (String c : couponList) {
-                    int couponId = Integer.parseInt(c);
-                    memberInfoService.presentCouponToMember(memberId, couponId);
+            if (storeSetting!=null){
+                //检查是否有赠送的优惠券
+                String coupon = storeSetting.getFirstFollowCoupon();
+                if (StringUtils.isNotBlank(coupon)) {
+                    String[] couponList = coupon.split(",");
+                    for (String c : couponList) {
+                        int couponId = Integer.parseInt(c);
+                        memberInfoService.presentCouponToMember(memberId, couponId);
+                    }
                 }
-            }
-            
-            //检查是否有赠送的礼金
-            Integer gift = storeSetting.getFirstFollowGift();
-            if (gift > 0) {
-            	memberInfoService.presentGiftmoneyToMember(memberId, new BigDecimal(gift), "用户注册奖励");
                 
+                //检查是否有赠送的礼金
+                Integer gift = storeSetting.getFirstFollowGift();
+                if (gift > 0) {
+                    memberInfoService.presentGiftmoneyToMember(memberId, new BigDecimal(gift), "用户注册奖励");
+                    
+                }
             }
             redisService.srem(App.Redis.WECHAT_OPENID_TO_SUBSCRIBE_AWARD_SET, memberId);
         }
@@ -1333,16 +1341,21 @@ public class MemberCenterService {
         ModelAndView mav = new ModelAndView(View.MemberCenter.SHOP_CENTER);
         mav.addObject("page", page);
         
-        //查询友宝商城
-        List<UboxStoreGoodsDto> goodsList = uboxService.getGoodsListByStoreId(ownerStoreId);
-        if (goodsList != null && goodsList.size() > 0) {
-            mav.addObject("goodsList", goodsList);
-            mav.addObject("hasUbox", 1);
-        }
-        else {
-            mav.addObject("hasUbox", 0);
-        }
+        List<GoodsInfo> goodsList = goodsInfoService.queryGoodsInfos(ownerStoreId);
+        mav.addObject("goodsList", goodsList);
         
+        StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(ownerStoreId);
+        mav.addObject("storeInfo", storeInfo);
+        
+        //查询友宝商城
+//        List<UboxStoreGoodsDto> goodsList = uboxService.getGoodsListByStoreId(ownerStoreId);
+//        if (goodsList != null && goodsList.size() > 0) {
+//            mav.addObject("goodsList", goodsList);
+//            mav.addObject("hasUbox", 1);
+//        }
+//        else {
+//            mav.addObject("hasUbox", 0);
+//        }
         return mav;
     }
     

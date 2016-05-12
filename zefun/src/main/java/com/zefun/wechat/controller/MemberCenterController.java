@@ -898,8 +898,6 @@ public class MemberCenterController extends BaseController {
         if (selectStoreId == null) {
             selectStoreId = getStoreIdByOpenId(openId);
         }
-//    	storeId = 1005;
-//    	selectStoreId = 1005;
         return memberCenterService.storeInfoView(storeId, selectStoreId);
     }
     

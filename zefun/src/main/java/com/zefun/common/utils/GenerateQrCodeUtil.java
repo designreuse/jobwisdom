@@ -23,11 +23,11 @@ import com.google.zxing.common.BitMatrix;
 * @date 2016年5月10日 下午4:33:47
  */
 public class GenerateQrCodeUtil {
-    /**黑白间隔*/
+    /***/
     private static final int WHITE = 0xFFFFFFFF;
-    /**黑白间隔*/
+    /***/
     private static final int BLACK = 0xFF000000;
-    /**黑白间隔*/
+    /***/
     private static final String UPLOAD = "upload";
 
     /**
@@ -142,7 +142,6 @@ public class GenerateQrCodeUtil {
         try {
             bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 300, 300, hints);
             BufferedImage image = toBufferedImage(bitMatrix);
-            // 输出二维码图片流
             try {
                 ImageIO.write(image, "png", response.getOutputStream());
             } 

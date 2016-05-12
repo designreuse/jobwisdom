@@ -49,7 +49,7 @@
     select
         <include refid="Base_Column_List" />
     from store_info
-    where store_type != 2 and (hq_store_id = #{storeId} or store_id = #{storeId})
+    where <!-- store_type != 2 and --> (hq_store_id = #{storeId} or store_id = #{storeId})
   </select>
 
   <select id="selectDescByStoreId" parameterType="java.lang.Integer" resultType="java.lang.String">

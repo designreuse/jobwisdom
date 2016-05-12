@@ -16,7 +16,7 @@
 		    	<c:if test="${session_key_role_id == 101 || session_key_role_id == 103 }">
 		    		<c:set var="hasModify" value="1" />
 		    	</c:if>
-		         <c:if test="${hasModify == 1 }">
+		         <c:if test="${hasModify != 1 }">
 			        <div class="widgetcontent">
 			            <div class="more-toolbar" >
 			                <div class="table-toolbar">
