@@ -1,35 +1,4 @@
 jQuery(function() {
-	/*表头置顶*/
-	var a=[];
-    jQuery(".mainwrapper").show()
-    var tlength=jQuery(".t-fix th").length;
-        for(i=0;i<tlength;i++)  {
-        a[i]=jQuery(".t-fix th").eq(i).width();
-    }
-
-   function table() {
-       jQuery(".mainwrapper").show()
-       var fix=jQuery(".t-fix").offset()
-       var tableT=fix.top
-       jQuery(window).scroll(function(event){
-           var scH=jQuery(window).scrollTop()
-           if(scH>tableT){
-               jQuery(".t-fix").addClass("add-fix")
-               for(i=0;i<jQuery(".t-fix th").length;i++){
-                   var tdwidth=a[i];
-                   var tbwidth=a[i];
-                   jQuery(".t-fix th").eq(i).css("width",tdwidth)
-                   jQuery(".t-table td").eq(i).css("width",tbwidth)
-
-               }
-           }
-           else{
-               jQuery(".t-fix").removeClass("add-fix")
-           }
-       })
-   }
-   table(); 
-   
    if (loginType == 2)  {
 	   dialog("你好，第一次登录的初哥");
    }
@@ -150,7 +119,7 @@ function cleanSearchMember() {
 	jQuery("#search-memberstore").text('');
 }
 
-function showCashierDetail(orderId, orderStatus) {
+function showCashierDetail(orderId) {
 	jQuery.ajax({
         cache: true,
         type: "POST",
@@ -164,11 +133,12 @@ function showCashierDetail(orderId, orderStatus) {
 			clearPayment();
 			addCashierDetail(data.msg);
 			if (data.msg.orderStatus == 2 || data.msg.orderStatus == 5) {
-				jQuery(".submitButton").removeClass("hide");
+				jQuery(".money_next").removeClass("hide");
 			}
 			else {
-				jQuery(".submitButton").addClass("hide");
+				jQuery(".money_next").addClass("hide");
 			}
+			jQuery('.zzc').show();
 		}
 	});
 }
@@ -277,16 +247,33 @@ function addCashierDetail(orderInfo){
 	totalRealMoney = new Big(0);
 	totalReceivableMoney = new Big(0);
 	appointOff = 0;
-	jQuery("#appointOff").html("");
 	
 	initHead(orderInfo);
 	
 	orderId = orderInfo.orderId;
-	var tbody = document.getElementById("tbody-datainfo");
-	tbody.innerHTML = "";
+	
 	var orderDetails = orderInfo.orderDetails;
 	allOffMap = orderInfo.allOffMap;
 	discountMap = orderInfo.discountMap;
+	
+	var tbody = document.getElementById("projectTbody");
+	tbody.innerHTML = "";
+	if (isMember) {
+		jQuery("#projectTbody").append("<tr>"+
+			     "<td>项目名称</td>"+
+				 "<td>项目价格</td>"+
+				 "<td>会员价格</td>"+
+				 "<td style = 'width: 280px;'>疗程/礼金/优惠券抵扣</td>"+
+				 "<td>实收金额</td>"+
+			  "</tr>");
+	}
+	else {
+		jQuery("#projectTbody").append("<tr>"+
+			     "<td>项目名称</td>"+
+				 "<td>项目价格</td>"+
+				 "<td>实收金额</td>"+
+			  "</tr>");
+	}
 	
 	for (var i = 0; i < orderDetails.length; i++){
 		var detail = orderDetails[i];
@@ -432,6 +419,7 @@ function addCashierDetail(orderInfo){
 		totalRealMoney = totalRealMoney.plus(realMoney);
 		syncRealMoney();
 		tbody.appendChild(tr);
+				
 		jQuery("[name='selectOff']").chosen({disable_search_threshold: 10, width:"95%"});
 	} 
 	
@@ -444,7 +432,7 @@ function addCashierDetail(orderInfo){
 		jQuery("#cashAmount").val(totalRealMoney.toFixed(2));
 	}
 	
-	jQuery("#totalReceivableMoney").html(totalReceivableMoney.toFixed(2));
+	jQuery("em[name='totalReceivableMoney']").html(totalReceivableMoney.toFixed(2));
 	jQuery("#cashier").modal({show:true, backdrop:"static"});
 }
 
@@ -529,6 +517,15 @@ jQuery("#cashier").delegate("[name='payMemberLevel']", "change", function(event)
 	balanceAmount = subAccountMap[subAccountId];
 	syncCardAmount();
 });
+
+function nextCheckout() {
+	if (isMember) {
+		
+	}
+	else {
+		jQuery(".zzc_1_card").addClass("hide");
+	}
+}
 
 //选择新的优惠项
 function get(selectOff, id){
@@ -770,7 +767,6 @@ function initHead(orderInfo){
 	var memberId = orderInfo.memberId;
 	var memberName = "";
 	var memberLevel = "";
-	jQuery("#selectSubAccount").html();
 	var memberImg = "";
 	if (!isEmpty(memberId)) {
 		memberName = orderInfo.memberInfo.name;
@@ -789,32 +785,30 @@ function initHead(orderInfo){
 	}
 	memberImg = picUrl + memberImg;
 	
-	jQuery("[name='payImg']").attr("src", memberImg);
-	jQuery("[name='payMemberName']").html(memberName);
-	jQuery("[name='payOrderCode']").html(orderCode);
-	jQuery("#selectSubAccount").html("");
-	var cashierOrderTheadBody = "<th>项目名称</th><th>项目价格</th>";
+	jQuery(".money_head_p").find("img").attr("src", memberImg);
+	jQuery(".boss_sex").html(memberName);
+	jQuery("em[name='orderNumber']").html(orderCode);
+
 	if(!isEmpty(memberId)) {
+		jQuery(".roll_money").removeClass("hide");
 		var subAccountList = orderInfo.subAccountList;
-		var payMemberLevel = jQuery("<select class='chzn-select' name='payMemberLevel'></select>");
-		subAccountMap = {};
+		jQuery("#memberListUL").empty();
 		for (var i = 0; i < subAccountList.length; i++) {
 			var subAccount = subAccountList[i];
 			subAccountMap[subAccount.subAccountId] = new Big(subAccount.balanceAmount);
-			payMemberLevel.append("<option value=" + subAccount.subAccountId + ">" + subAccount.levelName + " (项目" + subAccount.projectDiscount + "折, 商品" + subAccount.goodsDiscount + "折)</option>");
+			jQuery("#memberListUL").append("<li levelId = '" + subAccount.subAccountId + "'>"+
+					    "<div class='original_card'>"+
+						  "<div class='card_first'>"+subAccount.levelName +"<span class='circle_pic'><img src='assets/images/circle.png'></span></div>"+
+						  "<p>余额：<em class='rest'>"+subAccount.balanceAmount+"</em></p>"+
+						   "<p>项目折扣：<em class='ten_money'>" + subAccount.projectDiscount + "折</em></p>"+
+						    "<p>商品折扣：<em class='ten_money'>"+ subAccount.goodsDiscount + "折</em></p>"+
+						"</div>"+
+					  "</li>");
 		}
-		jQuery("#selectSubAccount").append(payMemberLevel);
-		payMemberLevel.chosen({disable_search_threshold: 10});
-		
-		cashierOrderTheadBody += "<th>会员价格</th><th>套餐/礼金/优惠券抵扣</th>";
-		jQuery("#memberAccount").removeClass("hide");
-		jQuery("#notifyContent").removeClass("hide");
+		jQuery(".roll_money").removeClass("hide");
 	} else {
-		jQuery("#memberAccount").addClass("hide");
-		jQuery("#notifyContent").addClass("hide");
+		jQuery(".roll_money").addClass("hide");
 	}
-	cashierOrderTheadBody += "<th>实收金额</th>";
-	jQuery("#detail-thead-body").html(cashierOrderTheadBody);
 }
 
 var deleteOrderId = "";

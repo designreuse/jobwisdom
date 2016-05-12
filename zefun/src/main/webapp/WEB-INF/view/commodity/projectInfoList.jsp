@@ -6,20 +6,8 @@
     String qiniu = "http://7xkv8r.com1.z0.glb.clouddn.com/";
 %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
-<style type="text/css">
-.rollBox{width:704px;padding:12px 0 5px 6px;}
-.rollBox .LeftBotton{height:70px;width:50px;background:url('<%=basePath%>images/left_click.png') no-repeat 11px 0;overflow:hidden;float:left;display:inline;margin:25px 0 0 0;cursor:pointer;background-size:40px;position:relative;top:290px;left:-180px}
-.rollBox .RightBotton{height:70px;width:50px;background:url('<%=basePath%>images/right_click.png') no-repeat -8px 0;overflow:hidden;float:right;display:inline;margin:25px 0 0 0;cursor:pointer;background-size:40px;position:relative;    top: -340px;
-    left: 350px;}
-.rollBox .Cont{width:910px;overflow:hidden;float:left;margin-left:70px}
-.rollBox .ScrCont{width:10000000px;}
-.rollBox .Cont .pic{float:left;text-align:center;}
-.rollBox .Cont .pic img{padding:4px;background:#fff;border:1px solid #ccc;display:block;margin:0 auto;}
-.rollBox .Cont .pic p{line-height:26px;color:#505050;}
-.rollBox .Cont a:link,.rollBox .Cont a:visited{color:#626466;text-decoration:none;}
-.rollBox .Cont a:hover{color:#f00;text-decoration:underline;}
-.rollBox #List1,.rollBox #List2{float:left;}
-</style>
+<link rel="stylesheet" href="<%=basePath%>css/roll.css" type="text/css" />
+
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">

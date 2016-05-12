@@ -188,6 +188,8 @@
 				}
 			});
 		}
+		jQuery(".seo-1-save.add").show('slow');
+		jQuery('.add_new_').hide('slow');
 	});
 	//动态生成商品项目套餐信息
 	function changeEniy(type){
@@ -436,13 +438,14 @@
 		if(ojb.couponIsUse == '已发布'){
 			td.append(jQuery("<span class='fb hide' id='"+ojb.couponId+"' style='cursor: pointer'>发布  </span>"));
 			td.append(jQuery("<span class='xj' id='"+ojb.couponId+"' style='cursor: pointer'>下架  </span>"));
+			td.append(jQuery("<span class='fs' id='"+ojb.couponId+"' style='cursor: pointer'>赠送  </span>"));
 		}else{
 			td.append(jQuery("<span class='fb' id='"+ojb.couponId+"' style='cursor: pointer'>发布  </span>"));
 			td.append(jQuery("<span class='xj hide' id='"+ojb.couponId+"' style='cursor: pointer'>下架  </span>"));
 		}
 		
 //		td.append(jQuery("<span class='yl' id='"+ojb.couponId+"' style='cursor: pointer'>预览  </span>"));
-//		td.append(jQuery("<span class='fs' id='"+ojb.couponId+"' style='cursor: pointer'>赠送  </span>"));
+//		
 		td.append(jQuery("<span class='delete' id='"+ojb.couponId+"' style='cursor: pointer'>删除  </span>"));
 		tr.append(td);
 		jQuery("#showCoupon").append(tr);

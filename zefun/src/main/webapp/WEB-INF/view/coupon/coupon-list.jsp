@@ -10,8 +10,8 @@
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
 				<div class="content_right">
-					<div class="add_new_">
-						<p>新增优惠券:</p>
+					<button onclick="jQuery(this).hide('slow');jQuery('.add_new_').show('slow')" class="seo-1-save add">新增优惠券</button>
+					<div class="add_new_ hide">
 						<table class="seo-table">
 							<tbody>
 								<tr>
