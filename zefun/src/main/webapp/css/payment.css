@@ -3,12 +3,12 @@
 .add_menu_table{    
     line-height: 40px;
     width: 1030px;    border: 1px solid #dbdce2;
-    box-shadow: 0 0 10px #ccc;color:#c1c6d3}
+    box-shadow: 0 0 10px #ccc;}
 	
 .add_menu_table select{
 	
 	    border: none;
-    width: 100px;color:#c1c6d3
+    width: 100px;color:#939393
 	
 }
 .add_menu_table input{width:80px;border:none;text-align:center;color:#c1c6d3}
@@ -32,6 +32,10 @@
    margin-top:15px;
    margin-left:900px;
    color:#2a3244
+}
+
+#begin_time,#end_time{
+	color:#939393!important
 }
 .im_search{width: 130px;
     height: 35px;

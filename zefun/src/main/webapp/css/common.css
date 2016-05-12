@@ -19,7 +19,7 @@
 }
 .header_img {display:inline-block!important;position:relative;left: 140px;top:-30px;margin-left:20px}
 .left_nav li{height:100px;width:80px!important;color:#8d929a;font-size:12px;box-shadow:0 0 0 white!important;border-top:1px solid #383e52;border-bottom:1px solid #383e52}
-.left_nav{background:#2a3244;height:1000px}
+.left_nav{background:#2a3244;height:100%}
 .nav_img{    padding: 30px 30px 0 30px;}
 .left_nav{width:auto!important;}
 .left_nav span{display:inline-block;position:relative;left:10px;top:8px}
@@ -29,7 +29,7 @@
 
 .left_nav_2{height:1000px;margin-left:80px}
 .left_nav_2 li{width:120px!important;height:80px;box-shadow:0 0 0 #fff!important;color:#A69F9F}
-.left_nav_2 ul{background:#323a4c;height:994px;background:#323a4c;width:120px!important}
+.left_nav_2 ul{background:#323a4c;height:100%;background:#323a4c;width:120px!important}
 .left_nav_2 span{display:inline-block;font-size:12px}
 .left_nav_2 img{padding:10px;position:relative;top:16px}
 .left_nav_2 .active{background:#2a3244!important;color:#FFFFFF!important}

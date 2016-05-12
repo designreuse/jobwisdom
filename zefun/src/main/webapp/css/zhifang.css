@@ -48,12 +48,12 @@
 .fuzzysearch li:hover {
   background-color: #eee;
 }
-/*鑷姪鏀堕摱*/
-/*棰滆壊*/
+/*閼奉亜濮弨鍫曟懕*/
+/*妫版粏澹�*/
 /*@sidebar-bd-color: #bab9bd;*/
 /**/
-/*瀛椾綋棰滆壊*/
-/*澶撮儴*/
+/*鐎涙ぞ缍嬫０婊嗗*/
+/*婢舵挳鍎�*/
 .icon-sousuo {
   display: inline-block;
   margin-top: 0;
@@ -152,7 +152,7 @@ input {
 .headerpanel li:hover a {
   color: #fff;
 }
-/*宸﹂潰鏉�*/
+/*瀹革箓娼伴弶锟�*/
 .leftpanel .logo-wrap {
   height: 74px;
   line-height: 74px;
@@ -166,7 +166,7 @@ input {
   height: 40px;
   vertical-align: middle;
 }
-/*宸﹁彍鍗�*/
+/*瀹革箒褰嶉崡锟�*/
 .leftmenu {
   margin-top: 0px;
 }
@@ -246,7 +246,7 @@ input {
   background-color: #eee;
 }
 h4.widgettitle {
-  background-color: #d9e9e9 !important;
+  background-color: #cad1e0 !important;
   color: #333;
 }
 .widgettitle {
@@ -312,8 +312,8 @@ h4.widgettitle {
     transform: scale3D(0, 0, 1);
   }
 }
-/*鍙橀噺*/
-/*鍏冩牱寮�*/
+/*閸欐﹢鍣�*/
+/*閸忓啯鐗卞锟�*/
 .gray {
   color: darkgray;
 }
@@ -547,7 +547,7 @@ h4.widgettitle {
 .dep-border-table {
   border: 1px solid #123134;
 }
-/*瑕嗙洊妗嗘灦鏍峰紡*/
+/*鐟曞棛娲婂鍡樼仸閺嶅嘲绱�*/
 .table td {
   font-size: 12px;
 }
@@ -663,18 +663,18 @@ a:active {
   text-indent: -9999px;
   z-index: 899;
 }
-/*涓嬫媺*/
+/*娑撳濯�*/
 .dropdown-menu li > a:hover,
 .dropdown-menu li > a:focus,
 .dropdown-submenu:hover a {
-  background: #d9e9e9;
-  color: #13828d;
+  background: #cad1e0;
+  color: white;
 }
 .table-pagination .dropdown-menu {
   min-width: 50px;
   width: 100px;
 }
-/*鍒嗛〉*/
+/*閸掑棝銆�*/
 .btn.perpage,
 .btn.perpage:hover,
 .btn.perpage:focus {
@@ -701,7 +701,7 @@ a:active {
 .btn .afont {
   color: #13828d;
 }
-/*鍏ㄥ眬鏍峰紡*/
+/*閸忋劌鐪弽宄扮础*/
 .text-through {
   text-decoration: line-through;
 }
@@ -753,7 +753,7 @@ input[type="color"],
   line-height: 30px;
 }
 .huizong-tr td {
-  background-color: #13828d;
+  background-color: #cad1e0;
   color: #fff ;
 }
 .weight-tr td {
@@ -761,7 +761,7 @@ input[type="color"],
   color: #fff ;
 }
 .light-td {
-  background-color: #c9e6e6;
+  background-color: #90a4cf;
   color: #333 ;
 }
 .paixu {
@@ -786,9 +786,7 @@ input[type="color"],
 .vatp {
   vertical-align: text-top;
 }
-.btn-color {
-  color: #13828d;
-}
+
 .lunpai-conteninner {
   user-select: none;
 }
@@ -801,7 +799,7 @@ input[type="color"],
 .disp-inline-block {
   display: inline-block;
 }
-/*瀛椾綋棰滆壊*/
+/*鐎涙ぞ缍嬫０婊嗗*/
 .font-999 {
   color: #999;
 }
@@ -814,7 +812,7 @@ input[type="color"],
 .font-molv {
   color: #123134;
 }
-/*瀛椾綋澶у皬*/
+/*鐎涙ぞ缍嬫径褍鐨�*/
 .font-size-20 {
   font-size: 20px;
 }
@@ -859,7 +857,7 @@ input[type="color"],
   color: #fff;
 }
 .modal-header {
-  background-color: #13828d;
+  background-color: #8795b2;
   color: #fff;
   border-top-left-radius: 6px !important;
   border-top-right-radius: 6px !important;
@@ -883,22 +881,28 @@ label {
   color: #123134;
   font-size: 14px;
 }
-/*鎸夐挳*/
+/*閹稿鎸�*/
 .btn,
-.btn:hover,
+
 .btn:focus {
   background-image: none;
-  background-color: #13828d;
+  background: #2a3244;
   color: #fff;
   font-weight: 400;
-  box-shadow: none;
+  border-radius:4px;
+  box-shadow: 0px 6px 10px #ccc;
   text-shadow: none;
+  border:none;
+}
+.btn:hover{
+	background:#464c5a;
+	color:white
 }
 input[type="search"] {
-  border-color: #13828d;
+  border-color: #cad1e0;
 }
 .more-toolbar {
-  border: 1px solid #d9e9e9;
+  border: 1px solid #cad1e0;
   /*border-bottom: 0;*/
   padding: 10px 10px 10px 10px;
 }
@@ -946,11 +950,11 @@ input[type="search"] {
   text-shadow: none;
 }
 .can-click {
-  color: #27968e !important;
+  color: #cad1e0 !important;
   cursor: pointer;
 }
 .table .can-click {
-  color: #27968e;
+  color: #cad1e0;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -1108,7 +1112,7 @@ input[type="file"] {
 }
 .table thead th {
   vertical-align: middle;
-  background-color: #c9e6e6;
+  background-color: #cad1e0;
   color: #333;
 }
 .table-toolbar .checker {
@@ -1152,7 +1156,7 @@ input[type="file"] {
 .cursor {
   cursor: pointer;
 }
-/*琛ㄦ牸鍩烘湰鏍峰紡*/
+/*鐞涖劍鐗搁崺鐑樻拱閺嶅嘲绱�*/
 #custom-toolbar .table-toolbar {
   float: left;
 }
@@ -1173,14 +1177,14 @@ input[type="file"] {
 thead th {
   background-color: #c9e6e6;
 }
-/*杞墝*/
+/*鏉烆喚澧�*/
 .lunpai-dynamic {
   padding: 10px 0px;
 }
 .lunpai-dynamic ul {
   padding-left: 0px;
 }
-/*鍔ㄦ�佽疆鐗岀殑宸﹁竟鏄剧ず浜烘暟鐨勮〃鏍�*/
+/*閸斻劍锟戒浇鐤嗛悧宀�娈戝锕佺珶閺勫墽銇氭禍鐑樻殶閻ㄥ嫯銆冮弽锟�*/
 .bx-wrapper img {
   max-width: 100%;
   display: inline-block;
@@ -1241,7 +1245,7 @@ img {
   border-bottom: 0px;
   height: 30px;
 }
-/*鑷姪鏀堕摱*/
+/*閼奉亜濮弨鍫曟懕*/
 .widgettitle .dengdaiqueren,
 .widgettitle .fuwuzhong,
 .widgettitle .yichengjiao {
@@ -1316,7 +1320,7 @@ img {
   border-right: 1px solid #1e1e1e;
   text-align: center;
 }
-/*寮�鍗″厖鍊�*/
+/*瀵拷閸椻�冲帠閸婏拷*/
 .member-info-table .people-info td:first-child {
   font-weight: 400;
   background: transparent;
@@ -1351,7 +1355,7 @@ img {
   width: 120px;
   letter-spacing: 10px;
 }
-/*娴佹按璐﹀崟*/
+/*濞翠焦鎸夌拹锕�宕�*/
 .liushui-table .timepicker {
   width: 100px;
 }
@@ -1370,14 +1374,14 @@ img {
   color: #333;
   text-decoration: none;
 }
-/*鏂板璐﹀崟鐨勬ā鎬佹*/
+/*閺傛澘顤冪拹锕�宕熼惃鍕侀幀浣诡攱*/
 .add-account {
   width: 371px;
   height: 425px;
   background-color: #fff;
   margin: auto;
 }
-/*鏂板浼氬憳鐨勬ā鎬佹*/
+/*閺傛澘顤冩导姘喅閻ㄥ嫭膩閹焦顢�*/
 .add-member {
   width: 359px;
   background-color: #fff;
@@ -1386,7 +1390,7 @@ img {
 .add-member .editprofileform p label {
   width: 70px;
 }
-/*浼氬憳璧勬枡妯℃�佹*/
+/*娴兼艾鎲崇挧鍕灐濡剝锟戒焦顢�*/
 .member-data {
   height: 470px;
   width: 965px;
@@ -1404,46 +1408,46 @@ img {
 .member-data .modal-body .ui-tabs-nav li {
   width: 12.5%;
 }
-/*浼氬憳璧勬枡鍩烘湰淇℃伅*/
+/*娴兼艾鎲崇挧鍕灐閸╃儤婀版穱鈩冧紖*/
 .member-base-info-table tbody tr .white-bg {
   background-color: #fff;
 }
-/*澧炲姞浼氬憳鍗℃ā鎬佹*/
+/*婢х偛濮炴导姘喅閸椻剝膩閹焦顢�*/
 .add-member-card {
   width: 431px;
 }
-/*璁剧疆浼樻儬鍗℃ā鎬佹*/
+/*鐠佸墽鐤嗘导妯诲劕閸椻剝膩閹焦顢�*/
 .card-discard-setting {
   width: 430px;
 }
-/*澧炲姞椤圭洰绫诲埆妯℃�佹*/
+/*婢х偛濮炴い鍦窗缁鍩嗗Ο鈩冿拷浣诡攱*/
 .add-category-modal {
   width: 310px;
 }
-/*娣诲姞渚涜揣鍟嗘ā鎬佹*/
+/*濞ｈ濮炴笟娑滄彛閸熷棙膩閹焦顢�*/
 .add-supplier-modal {
   width: 380px;
 }
-/*娣诲姞鑱屼綅妯℃�佹*/
+/*濞ｈ濮為懕灞肩秴濡剝锟戒焦顢�*/
 .add-zhiwei-modal {
   width: 400px;
 }
-/*淇敼鑱屼綅妯℃�佹*/
+/*娣囶喗鏁奸懕灞肩秴濡剝锟戒焦顢�*/
 .fix-zhiwei-modal {
   width: 400px;
 }
-/*淇敼鑱屼綅妯℃�佹*/
+/*娣囶喗鏁奸懕灞肩秴濡剝锟戒焦顢�*/
 .fix-gangwei-modal {
   width: 400px;
 }
-/*鐩爣璁惧畾妯℃�佹*/
+/*閻╊喗鐖ｇ拋鎯х暰濡剝锟戒焦顢�*/
 .add-target-modal {
   width: 459px;
 }
 .rotating-setting-modal {
   width: 700px;
 }
-/*寰俊棰勮妯℃�佹*/
+/*瀵邦喕淇婃０鍕潔濡剝锟戒焦顢�*/
 .weixin-preview-modal {
   background-color: transparent;
   top: -13%;
@@ -1645,7 +1649,7 @@ img {
   height: 50px;
 }
 /*
-椤圭洰璁剧疆*/
+妞ゅ湱娲扮拋鍓х枂*/
 .project-list {
   display: inline-block;
   width: 25%;
@@ -1686,15 +1690,15 @@ img {
   font-size: 20px;
 }
 .project-list-ul .project-sublist-title {
-  background: linear-gradient(to bottom, #dbebec, #ecfeff);
-  box-shadow: 0px 1px 0px 0px #96babc;
+  background: linear-gradient(to bottom, #dbebec, #8fa1c8);
+  box-shadow: 0px 1px 0px 0px #cad1e0;
   /*background-color: @table-descrip;*/
-  color: #3b8f97;
+  color: white;
   padding: 8px 8px 8px 20px;
   border-bottom: 1px solid #fff;
 }
 .project-list-ul .project-sublist-title .iconfont {
-  color: #3b8f97;
+  color: #728abb;
   margin-right: 5px;
 }
 .project-list-ul li {
@@ -1732,7 +1736,7 @@ img {
   width: 1.25em;
   text-align: center;
 }
-/*椤圭洰璁剧疆*/
+/*妞ゅ湱娲扮拋鍓х枂*/
 .project-setting {
   width: 73%;
   float: right;
@@ -1814,7 +1818,7 @@ img {
   padding: 8px 8px;
   background-color: #d9e9e9;
   /*margin-bottom: 2px;*/
-  background-color: #13828d;
+  background-color: #cad1e0;
   color: #fff;
 }
 .font-span {
@@ -1902,7 +1906,7 @@ img {
   width: 100px;
   height: 100px;
 }
-/*鍛樺伐淇℃伅鐨勪笅鎷夋*/
+/*閸涙ê浼愭穱鈩冧紖閻ㄥ嫪绗呴幏澶嬵攱*/
 .user-info {
   display: inline-block;
   position: relative;
@@ -1956,7 +1960,7 @@ img {
   min-width: 50px;
   padding: 0px;
 }
-/*婕備寒鐨勫崟閫�*/
+/*濠曞倷瀵掗惃鍕礋闁拷*/
 .check-radio {
   display: inline-block;
   width: 15px;
@@ -1979,11 +1983,11 @@ img {
   margin-left: -25px;
   opacity: 0;
 }
-/*鍛樺伐鐝妯℃�佹*/
+/*閸涙ê浼愰悵顓燁偧濡剝锟戒焦顢�*/
 .add-emp-yuangong-banci {
   width: 500px;
 }
-/*tabs瓒呭嚭琚殣钘忕殑闂*/
+/*tabs鐡掑懎鍤悮顐︽閽樺繒娈戦梻顕�顣�*/
 .ui-tabs {
   border: 1px solid #bbb;
   background: #fcfcfc;
@@ -2011,12 +2015,12 @@ img {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/*涓嬫媺鎸夐挳鐨勯鑹�*/
+/*娑撳濯洪幐澶愭尦閻ㄥ嫰顤侀懝锟�*/
 .btn-group.open .btn.dropdown-toggle {
-  background-color: #13828d;
+  background-color: #98a4bd;
 }
 /*
-浠锋牸璁剧疆宸﹁竟鐨勬悳绱㈠緢瀹规槗婧㈠嚭*/
+娴犻攱鐗哥拋鍓х枂瀹革箒绔熼惃鍕偝缁便垹绶㈢�硅妲楀┃銏犲毉*/
 .project-list-head .search-input {
   box-sizing: border-box;
   width: 75%;
@@ -2035,25 +2039,25 @@ img {
   overflow-x: hidden;
   overflow-y: auto;
 }
-.chzn-container .chzn-results聽li {
+.chzn-container .chzn-results鑱絣i {
   border: 0px;
 }
-/*鍛樺伐鐝妯℃�佹*/
+/*閸涙ê浼愰悵顓燁偧濡剝锟戒焦顢�*/
 .fix-banci-modal {
   width: 400px;
 }
-/*鍙栨秷鎸夐挳*/
+/*閸欐牗绉烽幐澶愭尦*/
 .quxiao-btn,
 .quxiao-btn:hover {
   background-color: #ccc;
 }
-/*杈撳叆閮ㄩ棬鍚嶅瓧input */
+/*鏉堟挸鍙嗛柈銊╂，閸氬秴鐡nput */
 .bumen-input {
   display: inline-block;
   width: 40%;
 }
 /*
-娴佹按鏌ヨ*/
+濞翠焦鎸夐弻銉嚄*/
 .shuju-tongji {
   display: flex;
   padding: 10px;
@@ -2071,7 +2075,7 @@ img {
   color: #333;
 }
 /*
-杞墝*/
+鏉烆喚澧�*/
 .lunpai-tab {
   margin: 0px;
   padding: 0px;
@@ -2100,7 +2104,7 @@ img {
   color: #fff;
 }
 /*
-鏀粯鍥炬爣鐨勯鑹�*/
+閺�顖欑帛閸ョ偓鐖ｉ惃鍕杹閼癸拷*/
 .icon-tuangou {
   font-size: 14px;
   color: #29C3A9;
@@ -2116,7 +2120,7 @@ img {
 .icon-caution {
   color: red;
 }
-/*杞墝璁剧疆*/
+/*鏉烆喚澧濈拋鍓х枂*/
 .bx-wrapper {
   box-shadow: 0 0 0px #ccc;
   border: 0px solid #fff;
@@ -2152,7 +2156,7 @@ img {
 .zhiwei-name .name {
   margin-left: 20px;
 }
-/*鍔ㄦ�佽疆鐗岀殑鍙宠竟鏄剧幇杞墝鐘舵�佺殑琛ㄦ牸*/
+/*閸斻劍锟戒浇鐤嗛悧宀�娈戦崣瀹犵珶閺勫墽骞囨潪顔惧閻樿埖锟戒胶娈戠悰銊︾壐*/
 .lunpai-dynamic .background-tab .tab_menu {
   border: 0px solid;
   position: absolute;
@@ -2345,7 +2349,7 @@ img {
   font-size: 0;
   line-height: 0;
 }
-/*杞墝閫夋嫨鐘舵��*/
+/*鏉烆喚澧濋柅澶嬪閻樿埖锟斤拷*/
 .select-zhuangtai {
   position: absolute;
   padding: 0px;
@@ -2441,7 +2445,7 @@ img {
   text-shadow: none;
   border-color: #ccc;
 }
-/*鍒嗛〉涓嶈兘鐐�*/
+/*閸掑棝銆夋稉宥堝厴閻愶拷*/
 .page-disable {
   background-color: #ccc;
 }
@@ -2449,18 +2453,18 @@ img {
   color: #999;
 }
 /*
-瑙嗛鍥炬爣*/
+鐟欏棝顣堕崶鐐垼*/
 .icon-shipin {
   font-size: 18px !important;
 }
-/*灏忎簬1024鐨勫乏杈硅彍鍗曟帶鍒舵寜閽�*/
+/*鐏忓繋绨�1024閻ㄥ嫬涔忔潏纭呭綅閸楁洘甯堕崚鑸靛瘻闁斤拷*/
 @media (min-width: 1200px) {
   .left-show-btn,
   .showmenu {
     display: none;
   }
 }
-/*灏忎簬1024鐨勫乏杈硅彍鍗曟帶鍒舵寜閽�*/
+/*鐏忓繋绨�1024閻ㄥ嫬涔忔潏纭呭綅閸楁洘甯堕崚鑸靛瘻闁斤拷*/
 @media (max-width: 1200px) {
   .left-show-btn,
   .showmenu {
@@ -2509,7 +2513,7 @@ img {
   border-radius: 3px;
   text-decoration: none;
 }
-/*鏂扮殑妯℃�佹*/
+/*閺傛壆娈戝Ο鈩冿拷浣诡攱*/
 .modal-btn-group {
   margin: 20px 0px;
   text-align: right;
@@ -2703,7 +2707,7 @@ img {
 .edit-mingshi .arrow_out {
   top: 64px;
 }
-/*鐧婚檰*/
+/*閻у妾�*/
 .logintitle {
   background: linear-gradient(to bottom, #0fc3be 0%, #16f3ec 100%);
   text-align: center;
@@ -2852,7 +2856,7 @@ img {
   width: 110px;
   height: 110px;
 }
-/*鍛樺伐淇℃伅妯℃�佹selecct椤堕儴鐨勯棶棰�*/
+/*閸涙ê浼愭穱鈩冧紖濡剝锟戒焦顢媠elecct妞ゅ爼鍎撮惃鍕６妫帮拷*/
 .employee-data-modal .ui-tabs-panel {
   padding: 15px;
   background: transparent;
@@ -2938,7 +2942,7 @@ img {
 .confirm {
   width: 535px;
 }
-/*鏈�鏂扮殑婕備寒鐨勫崟閫夋垨澶氶��*/
+/*閺堬拷閺傛壆娈戝鍌欏瘨閻ㄥ嫬宕熼柅澶嬪灗婢舵岸锟斤拷*/
 .ch-checker {
   position: relative;
   display: inline-block;
@@ -3006,7 +3010,7 @@ img {
 .beau-radio.active .iconfont {
   opacity: 1;
 }
-/*娣诲姞鐢佃瘽棰勭害鍜屽井淇￠绾﹀浘鏍�*/
+/*濞ｈ濮為悽浣冪樈妫板嫮瀹抽崪灞戒簳娣囷繝顣╃痪锕�娴橀弽锟�*/
 .day-yuyue-table .icon-weixin2 {
   color: #49d9ba;
   font-size: 20px;
@@ -3021,7 +3025,7 @@ img {
 .day-yuyue-table tbody tr td:first-child {
   text-align: left;
 }
-/*浼樺寲鐧诲綍椤甸潰*/
+/*娴兼ê瀵查惂璇茬秿妞ょ敻娼�*/
 body.loginbody {
   background-image: none;
   /* background: #ccc !important; */
@@ -3060,7 +3064,7 @@ body.loginbody {
 #jietu .modal-body {
   max-height: none;
 }
-/*鎴浘鐨勫ぇ灏�*/
+/*閹搭亜娴橀惃鍕亣鐏忥拷*/
 .cropper-crop-box {
   width: 580px !important;
   height: 580px !important;
@@ -3083,7 +3087,7 @@ body.loginbody {
   margin-bottom: -60px;
   z-index: 1100;
 }
-/*鍥炲埌椤堕儴*/
+/*閸ョ偛鍩屾い鍫曞劥*/
 .return-top {
   position: fixed;
   right: 10px;
@@ -3102,13 +3106,13 @@ body.loginbody {
 .return-top:hover {
   background-color: #fbd04d;
 }
-/*缁勭粐鏋舵瀯鍥剧墖*/
+/*缂佸嫮绮愰弸鑸电�崶鍓у*/
 .func-desc-img {
   width: 575px;
   height: 655px;
 }
 .table tr:last-child td {
-  border-bottom: 1px solid #d9e9e9;
+  border-bottom: 1px solid #cad1e0;
 }
 .shop-logo {
   width: 60px;
@@ -3132,15 +3136,15 @@ body.loginbody {
   width: 100%;
   line-height: 50px;
   background-color: #fff;
-  color: #13828d;
+  
   font-size: 16px;
   font-weight: 700;
-  border: 1px solid #d9e9e9;
+  border: 1px solid #cad1e0;
   padding: 0px 10px;
   box-sizing: border-box;
 }
 .border-content {
-  border: 1px solid #d9e9e9;
+  border: 1px solid #cad1e0;
   border-top: 0px;
   width: 100%;
   background-color: #fff;
@@ -3241,7 +3245,7 @@ body.loginbody {
 .state-control {
   display: inline-block;
 }
-/*鍏呭�兼ā鎬佹*/
+/*閸忓懎锟藉吋膩閹焦顢�*/
 .taocan-select {
   display: inline-block;
   width: 400px;
@@ -3295,7 +3299,7 @@ body.loginbody {
 .flex-item {
   flex-grow: 1;
 }
-/*寮�鍗�*/
+/*瀵拷閸楋拷*/
 .kd-select-content {
   border: 1px solid #d9e9e9;
   border-top: 0;
@@ -3350,7 +3354,7 @@ body.loginbody {
   padding: 0px;
   margin: 0px;
 }
-/*閫夋嫨绫诲瀷*/
+/*闁瀚ㄧ猾璇茬��*/
 .select-list {
   width: 60px;
   float: left;
@@ -3373,7 +3377,7 @@ body.loginbody {
   background-color: #e9f0f1;
   color: #13828d;
 }
-/*閫夋嫨绯诲垪*/
+/*闁瀚ㄧ化璇插灙*/
 .selected-child-select {
   float: left;
   width: 150px;
@@ -3471,7 +3475,7 @@ td.text-right.fb {
   right: -10px;
   color: #3a87ad;
 }
-/*淇敼*/
+/*娣囶喗鏁�*/
 #employeeInfoForm table td {
   border-top: 1px solid #d9e9e9;
 }
@@ -3486,7 +3490,7 @@ td.text-right.fb {
 #baseSettingForm .chzn-container {
   display: block;
 }
-/*鎴戠殑鍒嗗簵*/
+/*閹存垹娈戦崚鍡楃暗*/
 .zf-logn {
   padding: 20px;
   width: 870px;
@@ -3548,7 +3552,7 @@ td.text-right.fb {
 .md1 dt img {
   width: 100%;
 }
-/*浼氬憳鏁版嵁妯℃�佹*/
+/*娴兼艾鎲抽弫鐗堝祦濡剝锟戒焦顢�*/
 .icon-icon07 {
   font-size: 26px;
 }
@@ -3617,7 +3621,7 @@ input[type=radio] {
   border: none;
 }
 input[type=radio]:checked {
-  background: #fbd04d;
+  background: #ff0242!important;
 }
 input[type=radio]:checked::after {
   content: '';
@@ -3630,7 +3634,7 @@ input[type=radio]:checked::after {
   background: #fff;
   border-radius: 1em;
 }
-/*寮傚父浼氬憳鏁版嵁妯℃�佹*/
+/*瀵倸鐖舵导姘喅閺佺増宓佸Ο鈩冿拷浣诡攱*/
 .member-yichang {
   width: 770px;
 }
@@ -3728,7 +3732,7 @@ input[type=radio]:checked::after {
   width: auto;
   text-align: left;
 }
-/*寰俊棰勮妯℃�佹*/
+/*瀵邦喕淇婃０鍕潔濡剝锟戒焦顢�*/
 #weixin-yulan-modal .modal-body {
   width: 300px;
   overflow: inherit;
@@ -3774,7 +3778,7 @@ input[type=radio]:checked::after {
 .imgword-opr .size1of3 {
   width: 100px;
 }
-/*鍒嗕韩鑰呰缃�*/
+/*閸掑棔闊╅懓鍛邦啎缂冿拷*/
 .fenxiang .chzn-container {
   display: inline-block;
 }
@@ -3790,7 +3794,7 @@ input[type=radio]:checked::after {
 #baseSettingForm .fenxiang .chzn-container {
   display: inline-block;
 }
-/*鍒嗛〉*/
+/*閸掑棝銆�*/
 .fenye {
   overflow: hidden;
   float: right;
@@ -3813,11 +3817,11 @@ input[type=radio]:checked::after {
   margin-right: 10px;
 }
 .pagination li a {
-  color: #0e8992;
+  color: white;
 }
 .pagination li.active {
   border: 1px solid #d8e9e9;
-  background-color: #0e8992;
+  background-color:#323a4c;
   color: #fff !important;
 }
 .pagination li.active a {
@@ -3829,10 +3833,10 @@ input[type=radio]:checked::after {
 .pagination li.last {
   width: 60px;
   height: 30px;
-  background-color: #d8e9e9;
+  background-color: #323a4c;
 }
 .pagination li:hover {
-  border: 1px solid #0e8992;
+  background:#5d6c8f
 }
 .p-part {
   height: 32px;
@@ -3904,7 +3908,7 @@ input.jiaodian::-webkit-input-placeholder {
 .more-condition-table td {
   text-align: left !important;
 }
-/*閫夋嫨鍥惧簱*/
+/*闁瀚ㄩ崶鎯х氨*/
 #photo-list-modal {
   width: 950px;
 }
@@ -4051,7 +4055,7 @@ input.jiaodian::-webkit-input-placeholder {
   background-color: #f7f7f7;
   width: 8px;
 }
-/*鎷栨嫿鐨勯儴鍒�*/
+/*閹锋牗瀚块惃鍕劥閸掞拷*/
 ::-webkit-scrollbar-thumb {
   background-color: #c7d7d7;
   border-radius: 10px;
@@ -4130,8 +4134,8 @@ input.jiaodian::-webkit-input-placeholder {
 .BMap_Marker img {
   max-width: none;
 }
-/*浼氬憳钀ラ攢*/
-/*浼氬憳鍗＄被妯℃�佹鍐呯殑鈥滄姌鈥濆拰浜岀骇input璁剧疆*/
+/*娴兼艾鎲抽拃銉╂敘*/
+/*娴兼艾鎲抽崡锛勮濡剝锟戒焦顢嬮崘鍛畱閳ユ粍濮岄垾婵嗘嫲娴滃瞼楠噄nput鐠佸墽鐤�*/
 .second-word {
   display: inline-block;
 }
@@ -4152,7 +4156,7 @@ input.jiaodian::-webkit-input-placeholder {
 .member-data .modal-body .ui-tabs {
   height: auto;
 }
-/*浠锋牸璁剧疆*/
+/*娴犻攱鐗哥拋鍓х枂*/
 .add-project-modal,
 .add-series-modal,
 .add-sub-project-modal {
@@ -4240,7 +4244,7 @@ input.jiaodian::-webkit-input-placeholder {
 .return .icon-chevron-left {
   margin-top: 3px;
 }
-/*椤圭洰璁剧疆*/
+/*妞ゅ湱娲扮拋鍓х枂*/
 .project-setting {
   /*.table td input{
     width: 70px;
@@ -4261,11 +4265,11 @@ input.jiaodian::-webkit-input-placeholder {
 .xingwei-chakan-modal {
   width: 500px;
 }
-/*鍛樺伐璁剧疆*/
+/*閸涙ê浼愮拋鍓х枂*/
 .add-target-modal p label {
   width: 110px;
 }
-/*鍛樺伐璧勬枡妯℃�佹*/
+/*閸涙ê浼愮挧鍕灐濡剝锟戒焦顢�*/
 .employee-data-modal {
   height: 570px;
   width: 965px;
@@ -4393,7 +4397,7 @@ input.jiaodian::-webkit-input-placeholder {
 .employee-data-modal .self-btn .btn {
   width: 80px;
 }
-/*鐝*/
+/*閻濐厽顐�*/
 .page-tab {
   display: flex;
   justify-content: center;
@@ -4428,7 +4432,7 @@ input.jiaodian::-webkit-input-placeholder {
   left: calc(50% - 10px);
 }
 /*
-澧炲姞閮ㄩ棬鎸夐挳*/
+婢х偛濮為柈銊╂，閹稿鎸�*/
 .add-bumen,
 .add-bumen:hover {
   width: 100%;
@@ -4480,7 +4484,7 @@ textarea {
 .employee-data-modal .self-btn {
   overflow: hidden;
 }
-/*鏅鸿兘鎶ヨ〃*/
+/*閺呴缚鍏橀幎銉ㄣ��*/
 .across-shop-modal {
   width: 680px;
 }
@@ -4505,7 +4509,7 @@ textarea {
   width: 900px;
 }
 .report-title {
-  background-color: #d9e9e9 !important;
+  background-color: #cad1e0 !important;
   margin: 5px 0 15px 0;
   border: 1px solid #e6e6e6;
   padding: 10px 10px;
@@ -4521,14 +4525,14 @@ textarea {
   border-right: 1px solid #e6e6e6;
   float: left;
   color: #979797;
-  font-family: "寰蒋闆呴粦";
+  font-family: "瀵邦喛钂嬮梿鍛寸拨";
   font-size: 14px;
 }
 .contentinner p {
   margin: 5px 0;
 }
-/*寰編鎷撳*/
-/*寰俊鎷撳css*/
+/*瀵邦喚绶ㄩ幏鎾愁吂*/
+/*瀵邦喕淇婇幏鎾愁吂css*/
 .imgword-list {
   display: flex;
   flex-direction: row;
@@ -4551,7 +4555,7 @@ textarea {
 .imgword-top p {
   margin: 0px;
 }
-/*鏍囬*/
+/*閺嶅洭顣�*/
 .imgword-title {
   font-weight: 400;
   font-style: normal;
@@ -4567,7 +4571,7 @@ textarea {
 .imgword-title a {
   color: #222;
 }
-/*鏃堕棿*/
+/*閺冨爼妫�*/
 .imgword-info {
   font-size: 13px;
   line-height: 20px;
@@ -4633,7 +4637,7 @@ textarea {
 .search-bar {
   margin-left: 10px;
 }
-/*鏂板缓鍥炬枃娑堟伅鐨勯〉闈�*/
+/*閺傛澘缂撻崶鐐瀮濞戝牊浼呴惃鍕�夐棃锟�*/
 .news-area {
   float: left;
   /*width: 320px;*/
@@ -4921,7 +4925,7 @@ textarea {
 .news-current {
   border: 2px solid #43b548;
 }
-/*鍥剧墖搴�*/
+/*閸ュ墽澧栨惔锟�*/
 .photo-list {
   display: flex;
   flex-direction: row;
@@ -5145,7 +5149,7 @@ textarea {
   font-size: 14px;
 }
 /*
-閾炬帴璺宠浆*/
+闁剧偓甯寸捄瀹犳祮*/
 .go-url {
   padding-left: 100px;
 }
@@ -5186,7 +5190,7 @@ textarea {
   font-size: 14px;
   cursor: pointer;
 }
-/*寰俊棰勮content鍐呭*/
+/*瀵邦喕淇婃０鍕潔content閸愬懎顔�*/
 .content-show {
   z-index: 999999;
   background-color: #fff;
@@ -5221,7 +5225,7 @@ textarea {
   top: auto;
   bottom: -2px;
 }
-/*鍥剧墖棰勮*/
+/*閸ュ墽澧栨０鍕潔*/
 #preview {
   width: 100px;
   height: 100px;
@@ -5232,7 +5236,7 @@ textarea {
   top: auto;
   bottom: 40px !important;
 }
-/*鎷斿幓寰俊鐨勬牱寮�*/
+/*閹锋柨骞撳顔讳繆閻ㄥ嫭鐗卞锟�*/
 .sub_title_bar.light {
   background-color: #f4f5f9;
   border-bottom: 1px solid #e7e7eb;
@@ -5252,7 +5256,7 @@ a {
   color: #459ae9;
   text-decoration: none;
 }
-/*涓婁紶鎸夐挳鏍峰紡*/
+/*娑撳﹣绱堕幐澶愭尦閺嶅嘲绱�*/
 .article-file-box {
   position: relative;
   width: 300px;
@@ -5320,7 +5324,7 @@ a {
   font-size: 20px;
   padding-right: 15px;
 }
-/*缂栬緫妯℃澘妯℃�佹*/
+/*缂傛牞绶Ο鈩冩緲濡剝锟戒焦顢�*/
 .bianji-pic-modal {
   width: 990px;
 }
@@ -5394,7 +5398,7 @@ a {
   padding-bottom: 50px;
   float: right;
 }
-/*鍙戦�佸浘鏂�*/
+/*閸欐垿锟戒礁娴橀弬锟�*/
 .tuwen {
   width: 318px;
   border: 1px solid #d8e9e9;
@@ -5513,7 +5517,7 @@ a {
   width: 580px;
   height: 390px;
 }
-/*鏂扮殑tab*/
+/*閺傛壆娈憈ab*/
 .new-contentinner {
   padding-top: 20px;
   background-color: #e7e7e7;
@@ -5676,7 +5680,7 @@ input[type="radio"] {
 .tab-padding {
   padding: 60px 45px;
 }
-/*娴佹按鏌ヨ妯℃��*/
+/*濞翠焦鎸夐弻銉嚄濡剝锟斤拷*/
 .clearfix:after {
   content: ".";
   display: block;
@@ -5792,7 +5796,7 @@ ul {
 .w85 {
   width: 85px;
 }
-/*鎺у埗鎵�鏈夋ā鎬佹灞呬腑*/
+/*閹貉冨煑閹碉拷閺堝膩閹焦顢嬬仦鍛厬*/
 /*.modal{
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
@@ -5827,21 +5831,19 @@ ul {
   padding: 0;
 }*/
 .ls-detail td:nth-of-type(2n) {
-  color: #ed2e2e;
+  color: #cad1e0;
   font-size: 16px;
   padding-right: 5px;
 }
 .ls-detail td span {
   color: #7d7d7d;
 }
-.ls-detail td:nth-of-type(2n-1) {
-  color: #00828c;
-}
+
 .ls-detai-table {
   border-bottom: none;
 }
 .ls-detai-table thead td {
-  background-color: #13828d;
+  background-color: #cad1e0;
   color: #fff;
 }
 .ls-detai-table td {
@@ -5854,7 +5856,7 @@ ul {
 }
 .ls-detai-table tr th {
   text-align: center;
-  background-color: #c9e6e6 !important;
+  background-color: #cad1e0 !important;
 }
 /*#toLeadModal .chzn-container .chzn-drop{
   max-height:100px;
@@ -5884,11 +5886,11 @@ ul {
   margin-right: 30px;
 }
 .table td {
-  border-top: 1px solid #d9e9e9;
+  border-top: 1px solid #cad1e0;
   color: #333;
   vertical-align: middle;
 }
-/*淇敼鑰冨嫟璁板綍妯℃�佹*/
+/*娣囶喗鏁奸懓鍐ㄥ珶鐠佹澘缍嶅Ο鈩冿拷浣诡攱*/
 .xg-kaoqing {
   overflow: hidden;
 }
@@ -5916,7 +5918,7 @@ ul {
 .modal-content.add-sub-project-modal {
   width: 750px !important;
 }
-/*棰勭害*/
+/*妫板嫮瀹�*/
 .yuyue {
   border: 1px solid #d9e9e9;
 }
@@ -5927,9 +5929,7 @@ ul {
   overflow: hidden;
   border-top: 1px solid #d9e9e9;
 }
-.yuyue-data .iconfont {
-  color: #147684;
-}
+
 .yuyue table {
   width: 100%;
 }
@@ -5937,10 +5937,10 @@ ul {
 .arr-right {
   width: 40px;
   height: 40px;
-  background-color: #d8e9e9;
+  background-color: #aec0e3;
   line-height: 40px;
   text-align: center;
-  border-bottom: 1px solid #d8e9e9;
+  border-bottom: 1px solid #aec0e3;
 }
 .yuyue-main {
   width: 968px;
@@ -5970,7 +5970,7 @@ ul {
   text-align: center;
 }
 .yuyue-main li.current {
-  background-color: #147684;
+  background-color: #8795b2;
   position: relative;
   color: #fff;
 }
@@ -5981,7 +5981,7 @@ ul {
   height: 0;
   border-width: 10px;
   border-style: solid;
-  border-color: #147684 transparent transparent ;
+  border-color: #8795b2 transparent transparent ;
   left: 50%;
   margin-left: -10px;
   bottom: -20px;
@@ -5994,9 +5994,10 @@ ul {
   height: 39px;
   border-top: 1px solid #d8e9e9;
   border-bottom: 1px solid #d8e9e9;
-  background-color: #c7e6e6;
+  background-color: #8795b2;
   line-height: 39px;
   font-size: 14px;
+  color:white
 }
 .status-title-l {
   width: 108px;
@@ -6018,20 +6019,20 @@ ul {
   width: 24px;
   cursor: pointer;
   height: 157px;
-  border-right: 1px solid #d9e9e9;
-  border-bottom: 1px solid #d9e9e9;
+  border-right: 1px solid #8795b2;
+  border-bottom: 1px solid #8795b2;
   text-align: center;
-  color: #007d86;
+  border-left: 1px solid #8795b2;
   padding-top: 65px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .status-time li.current {
-  background-color: #007d86;
+  background-color: #8795b2;
   color: #fff;
   position: relative;
-  border-right: 1px solid #007d86;
+  border-right: 1px solid #aab5cb;
 }
 .status-time li.current:before {
   content: "";
@@ -6040,7 +6041,7 @@ ul {
   height: 0;
   border-width: 10px;
   border-style: solid;
-  border-color: transparent   transparent transparent  #147684;
+  border-color: transparent   transparent transparent  #8795b2;
   top: 50%;
   margin-top: -10px;
   right: -20px;
@@ -6139,7 +6140,7 @@ ul {
 .add {
   width: 33px;
   height: 33px;
-  border: 1px solid #80cdcd;
+  border: 1px solid #8795b2;
   display: inline-block;
   margin: 6px 10px;
   line-height: 33px;
@@ -6148,7 +6149,7 @@ ul {
 }
 .add .iconfont {
   font-size: 28px;
-  color: #80cdcd;
+  color: #8795b2;
   width: 28px;
 }
 .arr-r {
@@ -6162,7 +6163,7 @@ ul {
   top: 0;
   color: #fff;
 }
-/*棰勭害妯℃�佹*/
+/*妫板嫮瀹冲Ο鈩冿拷浣诡攱*/
 .yuyue-tab {
   margin: 0 auto;
   text-align: center;
@@ -6190,8 +6191,8 @@ ul {
   margin-left: -1px;
 }
 .yuyue-tab li.current {
-  background-color: #1c828d;
-  border: 1px solid #2399a7;
+  background-color: #8795b2;
+  border: 1px solid #8795b2;
   color: #fff;
 }
 .yuyue-modal .modal-body {
@@ -6206,7 +6207,7 @@ ul {
   border-right: 1px solid #d9e9e9;
 }
 .yuyue-co {
-  color: #238b94;
+
   margin-right: 26px;
 }
 .yuyue-work {
@@ -6250,14 +6251,14 @@ ul {
 .yuyue-work {
   position: relative;
   height: 90px;
-  border: 1px solid #2399a7;
+  border: 1px solid #8795b2;
 }
 .yuyue-work .m-arr-left,
 .yuyue-work .m-arr-right {
   width: 22px;
   height: 90px;
   text-align: center;
-  background-color: #2399a7;
+  background-color: #8795b2;
   line-height: 87px;
   color: #fff;
   cursor: pointer;
@@ -6380,7 +6381,7 @@ td.table-part1 {
 }
 .zhanbi-tr .hz-weight {
   font-weight: bold !important;
-  color: #13828d !important;
+  color: #cad1e0 !important;
 }
 .more-condition-table .more-condition-table td {
   text-align: center !important;
@@ -6587,7 +6588,7 @@ td.table-part1 {
 .shop-logo {
   margin-left: 0;
 }
-/*瀹㈡湇*/
+/*鐎广垺婀�*/
 .m-wrap {
   width: 1000px;
   position: absolute;
@@ -6812,7 +6813,7 @@ ul.search-peopel {
   width: 76px;
   height: auto;
   line-height: inherit;
-  background-color: #1c828d;
+  background-color: #2399a7;
   background-image: none ;
   position: absolute;
   right: 0;
@@ -7046,9 +7047,9 @@ ul.search-peopel {
   line-height: 28px;
   border-top: 1px solid #d5d5d5;
   border-bottom: 1px solid #d5d5d5;
-  background-color: #d7eeee;
+  background-color: #323a4c;
   padding-left: 20px;
-  color: #000000;
+  color: #ccc;
 }
 .select-result1 {
   position: relative;
@@ -7100,7 +7101,7 @@ ul.search-peopel {
   padding-left: 20px;
 }
 .blue {
-  color: #a8d5d3 !important;
+  color: white !important;
 }
 .red {
   color: #f65858 !important;
