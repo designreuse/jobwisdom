@@ -1463,5 +1463,17 @@ public interface Url {
 		/** 商品价格、奖励配置操作 */
 		public static final String ACTION_GOODS_REWARDS = "ubox/goods/action/rewards";
 	}
+	
+	/**
+	 * 移动支付类
+	* @author 高国藩
+	* @date 2016年5月10日 下午6:00:20
+	 */
+	class AppPay {
+	    /** 发起NATIVE扫码支付请求 */
+        public static final String REQUEST_APP_PAY = "app/pay/qr";
+        /** NATIVE扫码支付请求回调 */
+        public static final String REQUEST_APP_PAY_CALLBACK = "app/pay/qr/call";
+	}
 
 }

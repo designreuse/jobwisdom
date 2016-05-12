@@ -2,6 +2,7 @@ package com.zefun.wechat.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,8 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
+import com.zefun.common.utils.GenerateQrCodeUtil;
+import com.zefun.common.utils.StringUtil;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.AgentInfo;
@@ -315,6 +318,7 @@ public class ConferenceController extends BaseController {
         
         ConferenceInfo conferenceInfo = conferenceService.getConferenceInfoById(conferenceId);
         Integer totalFee = conferenceInfo.getRegistrationAmount();
+        totalFee = 1;
         goodsName = "参会费用";
         String callback = "/" + Url.Conference.WECHAT_CALLBACK_CONFERENCE_PAY.replace("{personnelId}", String.valueOf(personnelId))
         		  .replace("{conferenceId}", String.valueOf(conferenceId));
@@ -339,6 +343,7 @@ public class ConferenceController extends BaseController {
 		return "SUCCESS";
     }
     
+    
     /**
      * 微信Js-SDK开发demo
     * @author 高国藩
@@ -359,9 +364,27 @@ public class ConferenceController extends BaseController {
         Integer totalFee = 1;
         String callback = "/" + Url.Conference.WECHAT_CALLBACK_CONFERENCE_PAY.replace("{personnelId}", String.valueOf(1))
                 .replace("{conferenceId}", String.valueOf(2));
-        wechatService.wepayForZefun(App.System.WECHAT_ZEFUN_STORE_ID, 5, conferenceId, goodsName, 
-                totalFee, openId, callback, request);*/
+        BaseDto baseDto = wechatService.wepayForZefun(App.System.WECHAT_ZEFUN_STORE_ID, 5, conferenceId, goodsName, 
+                totalFee, openId, callback, request);
+        Map<String, String> payMap =  (Map<String, String>) baseDto.getMsg();
+        */
+       /* String appId = payMap.get("appId");
+        String timeStamp = payMap.get("timeStamp");
+        String nonceStr = payMap.get("nonceStr");
+        String signType = payMap.get("signType");
+        String paySign = payMap.get("paySign");
+        String packages = payMap.get("package");
+        String outTradeNo = payMap.get("transactionId");*/
+        
         ModelAndView view = new ModelAndView("wechat/H5Pay");
+       /* view.addObject("appId", appId);
+        view.addObject("timeStamp", timeStamp);
+        view.addObject("nonceStr", nonceStr);
+        view.addObject("signType", signType);
+        view.addObject("paySign", paySign);
+        view.addObject("packages", packages);
+        view.addObject("outTradeNo", outTradeNo);*/
+        
         return view;
     }
     

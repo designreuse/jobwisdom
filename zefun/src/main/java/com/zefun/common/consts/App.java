@@ -310,18 +310,18 @@ public interface App {
 		public static final String FETCH_MEDIA_URL = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s";
 
 		/** 智放微信应用ID */
-		public static final String PAY_APP_KEY_ZEFUN = "wxfa2df13178ee38e7";
+		public static final String PAY_APP_KEY_ZEFUN = "wx287441046c9f38b2";
 		/** 智放微信支付商户号 */
-		public static final String MCH_ID_ZEFUN = "1269832301";
+		public static final String MCH_ID_ZEFUN = "1335522901";
 		/** 智放微信支付API密钥 */
-		public static final String MCH_PAY_KEY_ZEFUN = "01c1f4ac48704ee7911e077f3d5252f2";
+		public static final String MCH_PAY_KEY_ZEFUN = "123456789qwasdfghjklertyuiopzxcv";
 
 		/** 智放微信应用ID */
-		public static final String PAY_APP_KEY_YOUMEI = "wx3f32198dcbf2e02b";
+		public static final String PAY_APP_KEY_YOUMEI = "wx287441046c9f38b2";
 		/** 智放微信支付商户号 */
-		public static final String MCH_ID_YOUMEI = "1318380001";
+		public static final String MCH_ID_YOUMEI = "1335522901";
 		/** 智放微信支付API密钥 */
-		public static final String MCH_PAY_KEY_YOUMEI = "01c1f4ac48704ee7911e077f3d5252f2";
+		public static final String MCH_PAY_KEY_YOUMEI = "123456789qwasdfghjklertyuiopzxcv";
 
 		/** 币种 */
 		public static final String FEE_TYPE = "CNY";

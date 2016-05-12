@@ -26,7 +26,7 @@
    <div class="weui_opr_area">
        <p class="weui_btn_area">
            <a href="#" class="weui_btn weui_btn_primary" onclick="uploadImage()">头像</a>
-           <a href="#" class="weui_btn weui_btn_default">取消</a>
+           <a href="#" class="weui_btn weui_btn_default" onclick="initWechat(1,1)">支付</a>
        </p>
    </div>
    <div class="weui_extra_area">
@@ -40,7 +40,7 @@
        <div class="weui_dialog_hd"><strong class="weui_dialog_title">弹窗标题</strong></div>
        <div class="weui_dialog_bd">弹窗内容，告知当前页面信息等</div>
        <div class="weui_dialog_ft">
-           <a href="#" class="weui_btn_dialog primary" onclick="choseImage()">确定</a>
+           <a href="#" class="weui_btn_dialog primary" onclick="initWechat(1,1)">支付</a>
        </div>
    </div>
 </div>
@@ -74,7 +74,7 @@ function initWechat(personnelId, conferenceId){
 	  $.ajax({
 		  type : "POST",
 		  url : baseUrl + "conference/init/pay",
-		  data : "goodsName=渠道会议报名&personnelId="+1+"&conferenceId="+1,
+		  data : "goodsName=渠道会议报名&personnelId="+personnelId+"&conferenceId="+conferenceId,
 		  dataType : "json",
 		  success : function(e){
 			  if (e.code != 0) {
@@ -87,25 +87,20 @@ function initWechat(personnelId, conferenceId){
 }
 
 function callWeixin(rj, personnelId, conferenceId) {
-    WeixinJSBridge.invoke('getBrandWCPayRequest', {
-        "appId" : rj.appId,
-        "timeStamp" : rj.timeStamp,
-        "nonceStr" : rj.nonceStr,
-        "package" : rj.package,
-        "signType" : rj.signType,
-        "paySign" : rj.paySign
-    }, function(res) {
-        // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-        // 因此微信团队建议，当收到ok返回时，向商户后台询问是否收到交易成功的通知，若收到通知，前端展示交易成功的界面；若此时未收到通知，商户后台主动调用查询订单接口，查询订单的当前状态，并反馈给前端展示相应的界面
-        if (res.err_msg == "get_brand_wcpay_request:ok") {
-        	link = baseUrl+'mobile/view/pay/conference?fromUser='+personnelId+'&conferenceId='+conferenceId;  //生成了当前分享着的分享链接,只要分享前控制好这句就行了,别的不管
-        	showPayCallBackHtml();
-//          WeixinJSBridge.invoke('closeWindow', {}, function(e) {});
-//          window.location.href = baseUrl + "memberCenter/view/home/${session_key_store_id}/1";
-        } else {
-            isPay = false;
-        }
-    });
+  WeixinJSBridge.invoke('getBrandWCPayRequest', {
+      "appId" : rj.appId,
+      "timeStamp" : rj.timeStamp,
+      "nonceStr" : rj.nonceStr,
+      "package" : rj.package,
+      "signType" : rj.signType,
+      "paySign" : rj.paySign
+  }, function(res) {
+      if (res.err_msg == "get_brand_wcpay_request:ok") {
+    	  
+      } else {
+    	  
+      }
+  });
 }
 
 </script>
