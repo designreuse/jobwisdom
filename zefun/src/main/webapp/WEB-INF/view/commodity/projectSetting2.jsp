@@ -80,7 +80,7 @@
 
 							</div>
 							<div style="position: relative; top: -30px">
-								项目描述：<input name="projectDesc" type="textarea" class="textarea" style="position: relative; top: 40px !important; left: 60px !important; box-shadow: 0 0 3px #ccc;">
+								项目描述：<textarea name="projectDesc" type="textarea" class="textarea" style="position: relative; top: 40px !important; left: 60px !important; box-shadow: 0 0 3px #ccc;border-radius:8px!important;width:206px!important"></textarea>
 							</div>
 						</div>
 

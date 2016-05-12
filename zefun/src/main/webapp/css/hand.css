@@ -69,7 +69,7 @@ border-color: #59688a transparent transparent!important;
 
 .hand_time input{border-top:none!important;border-right:none!important;border-left:none!important;width:120px}
 .hand_time span{display:inline-block;margin-left:20px}
-.hand_time{position:relative;left:440px;top:20px}
+.hand_time{position:relative;left:440px;top:10px}
 .hand_time button{border:none;width:130px;border-radius:40px;background:black;color:white;box-shadow:0 0 10px #ccc;text-align:center;height:36px;line-height:36px}
 
 .select-list .active{background:#59688a!important;color:white!important}
