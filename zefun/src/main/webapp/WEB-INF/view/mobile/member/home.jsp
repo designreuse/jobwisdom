@@ -1,135 +1,83 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/base.jsp" %>
+<%@include file="/base.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, height = device-height">
-    <meta content="telephone=no" name="format-detection" />
-    <title>会员中心</title>
-    <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
-    <link rel="stylesheet" href="<%=memberCssPath%>"/>
-  </head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, height = device-height">
+<meta content="telephone=no" name="format-detection" />
+<title>会员中心</title>
+<link rel="stylesheet" type="text/css" href="<%=basePath%>css/mobile/style.css">
+<link rel="stylesheet" type="text/css" href="<%=basePath%>css/mobile/shop.css">
+</head>
 <body>
-<div class="content wrap">
-    <!--个人中心页面-->
-	<div class="bg-gray pb7">
-	    <div class="person-info-login">
-	        <a href="<%=basePath%>memberCenter/view/info">
-	            <img src="<%=picPath%>${memberBaseInfo.headUrl }?imageView2/1/w/220/h/220" alt=""/>
-	            <div class="info">
-	                <div class="name">${memberBaseInfo.name } <span class="sex">${memberBaseInfo.sex }</span></div>
-	                <div class="shop-name">${memberBaseInfo.storeName }</div>
-	            </div>
-	        </a>
-	        <a href="<%=basePath %>memberCenter/view/levelInfo">
-	            <div class="member-flag fr">
-	                <span>${memberBaseInfo.levelName }</span>
-	                <span class="iconfont" style="padding-left: .5rem;">&#xe7ba;</span>
-	            </div>
-            </a>
-	    </div>
-	    <div class="score-money-list-wrap">
-	        <ul>
-	            <li class="money-li">
-	                <a href="<%=basePath%>memberCenter/view/cardmoneyFlow">
-	                  <div><span>储值余额 </span></div>
-	                  <div><span class="ml num">${memberBaseInfo.balanceAmount }</span></div>
-	                </a>
-	            </li>
-	            
-	            <li class="score-li">
-	               <a href="<%=basePath%>memberCenter/view/giftmoneyFlow">
-	                 <div><span>礼金余额 </span></div>
-	                 <div><span class="ml num">${memberBaseInfo.giftmoneyAmount }</span></div>
-	               </a>
-	            </li>
-	        </ul>
-	    </div>
-	    <div class="function-list-wrap mt2">
-	        <ul class="function-list">
-	            <li class="function-item normal-li">
-	                <a href="<%=basePath%>memberCenter/view/orderList">
-	                  <span><i class="iconfont icon-dingdan"></i> <span class="ml">我的订单</span></span>
-	                  <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
-	                </a>
-	            </li>
-	            <li class="function-item normal-li">
-                    <a href="<%=basePath%>memberCenter/view/appointmentList/${session_key_store_id}/1">
-                      <span><i class="iconfont icon-iconfontreneps"></i> <span class="ml">我的预约</span></span>
-                      <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
-                    </a>
-                </li>
-	            <li class="function-item normal-li">
-	                <a href="<%=basePath%>memberCenter/view/comboList">
-	                  <span><i class="iconfont icon-huli2"></i> <span class="ml">我的套餐</span></span>
-	                  <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
-	                </a>
-	            </li>
-	            <li class="function-item normal-li">
-	                <a href="<%=basePath%>memberCenter/view/integralFlow">
-	                  <span><i class="iconfont icon-wodejifen"></i> <span class="ml">我的积分</span></span>
-	                  <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
-	                </a>
-	            </li>
-	            <li class="function-item normal-li">
-	                <a href="<%=basePath%>memberCenter/view/memberCoupon">
-	                  <span><i class="iconfont icon-youhuiquan0240"></i> <span class="ml">我的优惠券</span></span>
-	                  <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
-	                </a>
-	            </li>
-	            <c:if test="${hasUbox == 1 }">
-	            	<li class="function-item normal-li">
-		                <a href="<%=basePath%>uboxMall/view/orderList/${session_key_store_id}">
-		                  <span><i class="iconfont icon-tuoyuan6"></i> <span class="ml">我的购物清单</span></span>
-		                  <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
-		                </a>
-		            </li>
-	            </c:if>
-	        </ul>
-	
-	        <ul class="function-list mt2">
-	            <li class="function-item normal-li">
-	                <a href="<%=basePath%>memberCenter/view/info">
-	                    <span><i class="iconfont icon-ordinaryset"></i> <span class="ml">个人设置</span></span>
-	                    <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
-	                </a>
-	            </li>
-	        </ul>
-	    </div>
+
+	<div class="con">
+
+		<div class="person_">
+			<a href="<%=basePath %>memberCenter/view/levelInfo"><span class="vip">${memberBaseInfo.levelName }</span></a>
+			<div class="head_pic">
+			<a href="<%=basePath%>memberCenter/view/info">
+				<img src="<%=picPath%>${memberBaseInfo.headUrl }?imageView2/1/w/220/h/220">
+			</a>
+			</div>
+			<ul class="clearfix person_coin">
+				<li>剩余积分
+					<p>1.00</p>
+				</li>
+				<a href="<%=basePath%>memberCenter/view/giftmoneyFlow">
+				<li>礼金金额
+					<p>${memberBaseInfo.giftmoneyAmount }</p>
+				</li>
+				</a>
+				<li>优惠卷数
+					<p>1.00</p>
+				</li>
+				<a href="<%=basePath%>memberCenter/view/cardmoneyFlow">
+				<li>储值余额
+					<p>${memberBaseInfo.balanceAmount }</p>
+				</li>
+				</a>
+			</ul>
+
+		</div>
+
+		<ul class="person_ul">
+			<a href="<%=basePath%>memberCenter/view/orderList"><li><img src="<%=basePath%>images/mobile/member/person1.png">订单</li></a>
+			<a href="<%=basePath%>memberCenter/view/appointmentList/${session_key_store_id}/1"><li><img src="<%=basePath%>images/mobile/member/person2.png">预约</li></a>
+			<a href="<%=basePath%>memberCenter/view/comboList"><li><img src="<%=basePath%>images/mobile/member/person3.png">疗程</li></a>
+			<a href="<%=basePath%>memberCenter/view/integralFlow"><li><img src="<%=basePath%>images/mobile/member/person4.png">积分</li></a>
+			<a href="<%=basePath%>memberCenter/view/memberCoupon"><li><img src="<%=basePath%>images/mobile/member/person5.png">优惠券</li></a>
+			<<%-- a href="<%=basePath%>uboxMall/view/orderList/${session_key_store_id}"><li><img src="<%=basePath%>images/mobile/member/person6.png">购物清单</li></a> --%>
+			<li><img src="<%=basePath%>images/mobile/member/person7.png">储值卡</li>
+			<a href="<%=basePath%>memberCenter/view/info"><li><img src="<%=basePath%>images/mobile/member/person8.png">个人设置</li></a>
+
+		</ul>
 	</div>
+
+ <ul class="bottom_fix clearfix">
+ 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
+	      <li><img src="<%=basePath %>images/mobile/member/botton_1.png">
+		      <p>我的</p>
+		  </li>
+	    </a>
+	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
+	    	<li><img src="<%=basePath %>images/mobile/member/botton_2.png">
+		       <p>预约</p>
+		    </li>
+	    </a>
+	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
+		  <li><img src="<%=basePath %>images/mobile/member/botton_3.png">
+		    <p>商城</p>
+		  </li>
+	    </a>
+	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
+	     <li><img src="<%=basePath %>images/mobile/member/botton_4.png">
+		     <p>门店</p>
+		  </li>
+	    </a>
+ </ul>
 	
-	<div class="footer">
-	  <ul>
-	    <li class="active">
-	      <a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
-	        <span class="iconfont icon-wode"></span>
-	        <span class="word">我的</span>
-	      </a>
-	    </li>
-	    <li>
-	      <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
-	        <span class="iconfont icon-yuyue5"></span>
-	        <span>预约</span>
-	      </a>
-	    </li>
-	    <li >
-	      <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
-	        <span class="iconfont icon-jifen"></span>
-	        <span>商城</span>
-	      </a>
-	    </li>
-	    <li >
-	      <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
-	        <span class="iconfont icon-dianpu2"></span>
-	        <span>门店</span>
-	      </a>
-	    </li>
-	  </ul>
-	</div>
-</div>  
-<%@include file="../memberBase.jsp" %>
-<%@include file="../wechatBase.jsp" %>
 </body>
 </html>

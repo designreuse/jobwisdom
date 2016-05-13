@@ -41,7 +41,7 @@
 						</li>
 					</ul>
 					<div class="right_button">
-						<button class="save">保 存</button>
+						<button class="save" onclick="save()">保 存</button>
 						<button class="cancle" onclick='window.open("<%=basePath %>project/view/projectList","_self")'>取 消</button>
 					</div>
 				</div>
@@ -344,6 +344,7 @@
 </script>
 <script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>
 <script>
+	
 	var deptProjectList = ${js_deptProjectList};
 	var deptMahjongList = ${mahjongList};
 	var memberLevelList = ${memberLevelList};
@@ -597,13 +598,18 @@
 	/**
 	 * 保存数据,根据步骤去保存数据
 	 */
-	jQuery(".save").on("click", function() {
+	function save(){
 		var data = coverDate(stepNum);
+		console.log(data);
 		var isOk = true;
 		if (stepNum <= 2){
 			jQuery.each(data,function(name,value) {
-				if(!isNotNull(value)){
-					jQuery("input[name='"+name+"']").addClass("border");
+				if(!isNotNull(value) && name!="projectId"){
+					if(name=="projectDesc"){
+						jQuery("textarea[name='"+name+"']").addClass("border");
+					}else{
+						jQuery("input[name='"+name+"']").addClass("border");
+					}
 					isOk = false;
 					return false;
 				}
@@ -618,10 +624,11 @@
 			url : baseUrl + "project/save/by/step/" + stepNum + "/" + status,
 			dataType : "json",
 			contentType : "application/json",
-			success : function(returnData) {
-				projectId = returnData.msg.projectId;
-				stepNum = returnData.msg.projectStep;
-				projectStep = returnData.msg.projectStep;
+			async : false,
+			success : function(data) {
+				projectId = data.msg.projectId;
+				stepNum = data.msg.projectStep;
+				projectStep = data.msg.projectStep;
 				if (projectStep == 4){
 					jQuery("li[step="+(projectStep)+"]").click();
 				}
@@ -630,7 +637,8 @@
 				}
 			}
 		});
-	})
+	}
+	//jQuery(".save").on("click", function() {})
 	/**
 	 * 拼装后台数据
 	 */
@@ -642,7 +650,7 @@
 			var categoryId = jQuery("select[name='categoryId']").val();
 			var projectName = jQuery("input[name='projectName']").val();
 			var projectType = jQuery("select[name='projectType']").val();
-			var projectDesc = jQuery("input[name='projectDesc']").val();
+			var projectDesc = jQuery("textarea[name='projectDesc']").val();
 			var projectCodeSuffix = jQuery("input[name='projectCodeSuffix']").val();
 			var projectImage = jQuery("img[name='projectImage']").attr("projectImage");
 			var affiliatedImage = "";
@@ -898,13 +906,13 @@
 	 * @param id
 	 */
 	function chkRadio(opt) {
-		if (jQuery(this).val() == "1"){
+		if (jQuery(opt).val() == "1"){
 			opt.checked = false;
-			jQuery(this).val("0");
+			jQuery(opt).val("0");
 		}
 		else {
 			opt.checked = true;
-			jQuery(this).val("1");
+			jQuery(opt).val("1");
 		}
 	}
 

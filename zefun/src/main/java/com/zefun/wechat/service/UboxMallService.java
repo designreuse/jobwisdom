@@ -409,6 +409,7 @@ public class UboxMallService {
             orderDetail.setOrderStatus(3);
             orderDetail.setCreateTime(DateUtil.getCurDate());
             orderDetail.setProjectPrice(new BigDecimal(amount).divide(new BigDecimal(100)));
+            orderDetailMapper.insert(orderDetail);
             //订单库存
             return "SUCCESS";
         }

@@ -86,6 +86,7 @@ public class MemberCenterController extends BaseController {
         if (openId == null) {
             return null;
         }
+        setJsapiSignData(storeId, request);
         int memberId = getUserIdByOpenId(openId);
         int ownerStoreId = getStoreIdByOpenId(openId);
         return memberCenterService.homeView(memberId, ownerStoreId);

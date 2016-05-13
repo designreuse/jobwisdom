@@ -70,7 +70,7 @@
         </c:choose> --%>
     </section>
 
-    <h2 class="box-title" style="background-color: #F7F7F7;">商品详情</h2>
+    <h2 class="box-title">商品详情</h2>
 
     <%-- <section class="box">
 
@@ -90,7 +90,7 @@
 
     </section> --%>
 
-    <h3 class="box-title" style="font-size: 1.4rem;font-weight: normal;background-color: #F7F7F7;">${goodsInfo.goodsDesc}</h3>
+    <h3 class="box-title">${goodsInfo.goodsDesc}</h3>
     <section class="box"></section>
     <!-- <h2 class="box-title">订单&取货</h2> -->
 
@@ -117,7 +117,14 @@
     
  	<div id="footer">
  		<div class="f-con c">
-			<a class="btn btn-primary" onclick="initPay(${goodsInfo.storeId},${goodsInfo.goodsId})">立即购买</a>
+ 			<c:choose>
+ 				<c:when test="${storeGoods.storeGoodsIntegral > 0 }">
+ 					<a class="btn btn-primary"  id="modalBuy" href="javascript:void();">立即支付</a>
+ 				</c:when>
+ 				<c:otherwise>
+ 					<a class="btn btn-primary" onclick="initPay(${goodsInfo.storeId},${goodsInfo.goodsId})">立即支付1</a>
+ 				</c:otherwise>
+ 			</c:choose>
  		</div>
  	</div>
 </div>  
@@ -165,7 +172,7 @@
             </div>
             <div class="s-modal-body">
                 <div class="word text-left tip" id="confirmTip">
-                    	抱歉，您还不是本店会员。只有会员才能购买商品并获得奖励哦！
+                    抱歉，您还不是本店会员。只有会员才能购买商品并获得奖励哦！
                 </div>
             </div>
             <div class="s-modal-foot">
@@ -245,10 +252,6 @@ function initPay(storeId, goodsId){
  		  url : baseUrl + "app/goodsinfo/wechat/init/pay",
  		  data : data,
  		  dataType : "json",
- 		  beforeSend : function(){
-		  },
-		  complete : function(){
-		  },
  		  success : function(e){
  			  if (e.code != 0) {
  				  dialog(e.msg);

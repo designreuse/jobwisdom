@@ -8,87 +8,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, height = device-height">
     <meta content="telephone=no" name="format-detection" />
-    <title>在线商城</title>
-    
+    <title>积分商城</title>
     <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
     <link rel="stylesheet" href="<%=basePath %>css/mobile/share.min.css" />
     <link rel="stylesheet" href="<%=swiperCssPath%>"/>
     <link rel="stylesheet" href="<%=memberCssPath%>"/>
-	<script type="text/javascript" src="<%=swiperJsPath%>"></script>
-    
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>css/mobile/style.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>css/mobile/shop.css">
   </head>
-    
 <body>
-<div class="con">
-       <header  class="clearfix header_">
-       	  <div class="down_content">
-       	     <img src="<%=basePath%>images/mobile/member/down_content.png">
-       	  </div>
-       	  <div class="search">
-             <span class="search_img"><img src="<%=basePath%>images/mobile/member/search.png"></span> <input type="search" name="search" placeholder="搜索">
-       	  </div>
 
-       	  <div class="more_shop">
-             <p>更多店铺</p>
-            <ul>
-               <li>广州分店<span>惠州旗舰店</span></li>
 
-            </ul>
-
-       	  </div>
-       </header>
-       
-       <div class="project-detail-descript" style="height:230px;">
+<div class="content wrap">
+<div class="project-detail-descript">
           <div class="swiper-container">
               <div class="swiper-wrapper">
-              		<div class="swiper-slide">
-		            	    <img src="<%=basePath %>images/mobile/member/1.jpg" />
-		            </div>
-		            <div class="swiper-slide">
-		            	    <img src="<%=basePath %>images/mobile/member/2.jpg" />
-		            </div>
-		            <div class="swiper-slide">
-		            	    <img src="<%=basePath %>images/mobile/member/3.jpg" />
-		            </div>
-              		<%-- <c:forEach items="${fn:split(storeInfo.carouselPicture, ',') }" var="pic">
+              		<c:forEach items="${fn:split(storeInfo.carouselPicture, ',') }" var="pic">
 	                    <div class="swiper-slide">
 		            	    <img src="<%=picPath %>${pic}" />
 		                </div>
-              		</c:forEach> --%>
+              		</c:forEach>
               </div>
           </div>
        </div>
-
-      <div class="img">
-        <div><img src="<%=basePath%>images/mobile/member/app_10.png" onclick="showConten(1)"><p>新品上市</p></div>
-        <div><img src="<%=basePath%>images/mobile/member/app_11.png" onclick="showConten(1)"><p>热销产品</p></div>
-        <div><img src="<%=basePath%>images/mobile/member/app_12.png" onclick="showConten(2)"><p>积分兑换</p></div>
-       </div>
-       <div id="ubox" style="margin-bottom: 7rem;">
-	       <div class="shop_content">
-	            <p><span class="recommend_">精品推荐</span><a href="">更多>></a></p>
-	        </div>
-        
-          <div class="shop_content_  clearfix">
-          	<c:forEach items="${goodsList }" var="goodsList">
-          	<a href="<%=basePath %>mobile/view/pay/goodsInfo?storeId=${goodsList.storeId }&storeGoodsId=${goodsList.goodsId }">
-                  <div class="recommend_shop">
-                  	 <div><img src="<%=picPath %>${goodsList.goodsImage}"></div>
-                  	 <span>${goodsList.goodsName }</span>
-                     <div class="al_sell">
-                         <span class="number_">已售0件</span>
-                         <span class="price_">¥ ${goodsList.goodsPrice }</span>
-                     </div>
-                  </div>
-             </a>
-             </c:forEach>
-           </div> 
-       </div>
-     </div>
+	<div class="">
+	    <ul class="store-tab">
+	        <li class="current" onclick="showConten(1, this)">购物商城</li>
+	        <li onclick="showConten(2, this)">积分商城</li>
+	    </ul>
+	</div>
 	
-	<!-- 积分兑换 -->
+	<!-- 友宝商城 -->
+    <div id="ubox" class="waterfall pb7 ">
+	    <c:forEach items="${goodsList }" var="goodsList">
+	    	<div class="grid">
+      				<a href="<%=basePath %>mobile/view/pay/goodsInfo?storeId=${goodsList.storeId }&storeGoodsId=${goodsList.goodsId }">
+			            <div class="imgholder">
+			                <img class="lazy" src="<%=picPath %>${goodsList.goodsImage}" data-original="12" />
+			            </div>
+			            <div class="meta">
+			                <h3>${goodsList.goodsName }</h3>
+			                <p class="pro-p"><span class="pro-price"><i>￥</i>${goodsList.goodsPrice }</span></p>
+			            </div>
+			        </a>
+		    </div>
+	    </c:forEach>
+    		
+    	<%-- <c:forEach items="${goodsList}" var="storeGoods">
+	      	<div class="grid">
+	      		<c:choose>
+	      			<c:when test="${storeGoods.goodsInfo.uboxStock <= 0 }">
+	      				<a href="javascript:void(0);">
+		      				<div class="shop-status">
+				                <img src="<%=basePath %>images/mobile/member/shop-status.png" alt="">
+				            </div>
+				            <div class="imgholder">
+				                <img class="lazy" src="<%=picPath %>img_lazy_loding.png" data-original="${storeGoods.goodsInfo.uboxPicture}" />
+				            </div>
+				            <div class="meta">
+				                <h3>${storeGoods.goodsInfo.goodsName }</h3>
+				                <p class="pro-p"><span class="pro-price"><i>￥</i>${storeGoods.storeGoodsPrice / 100 }</span></p>
+				            </div>
+			            </a>
+	      			</c:when>
+	      			<c:otherwise>
+	      				<a href="<%=basePath %>mobile/view/pay/goodsInfo?storeId=${session_key_store_id}&storeGoodsId=${storeGoods.storeGoodsId}">
+				            <div class="imgholder">
+				                <img class="lazy" src="<%=picPath %>img_lazy_loding.png" data-original="${storeGoods.goodsInfo.uboxPicture}" />
+				            </div>
+				            <div class="meta">
+				                <h3>${storeGoods.goodsInfo.goodsName }</h3>
+				                <p class="pro-p"><span class="pro-price"><i>￥</i>${storeGoods.storeGoodsPrice / 100 }</span></p>
+				            </div>
+				        </a>
+	      			</c:otherwise>
+	      		</c:choose>
+		    </div>
+    	</c:forEach> --%>
+	</div>
+	
+	<!-- 积分商城 -->
 	<div id="coupon" class="waterfall pb7 hide">
 	    <div class="jifenduihuan-wrap">
 	        <ul class="designer-list">
@@ -136,28 +133,36 @@
 	        <p></p>
 	    </div>
     </div>
- <ul class="bottom_fix clearfix">
- 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
-	      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
-		      <p>我的</p>
-		  </li>
-	    </a>
-	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
-	    	<li><img src="<%=basePath %>images/mobile/member/botton_2.png">
-		       <p>预约</p>
-		    </li>
-	    </a>
-	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
-		  <li><img src="<%=basePath %>images/mobile/member/botton_3_3.png">
-		    <p>商城</p>
-		  </li>
-	    </a>
-	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
-	     <li><img src="<%=basePath %>images/mobile/member/botton_4.png">
-		     <p>门店</p>
-		  </li>
-	    </a>
- </ul>
+	
+	<%-- <div class="footer">
+      <ul>
+        <li>
+          <a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
+            <span class="iconfont icon-wode"></span>
+            <span class="word">我的</span>
+          </a>
+        </li>
+        <li>
+          <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
+            <span class="iconfont icon-yuyue5"></span>
+            <span>预约</span>
+          </a>
+        </li>
+        <li  class="active">
+          <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
+            <span class="iconfont icon-jifen"></span>
+            <span>商城</span>
+          </a>
+        </li>
+        <li >
+          <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
+            <span class="iconfont icon-dianpu2"></span>
+            <span>门店</span>
+          </a>
+        </li>
+      </ul>
+    </div> --%>
+	
 	<!--确认兑换-->
 	<div class="s-modal hide s-modal-miss" id="confirmWindow">
 	    <div class="s-modal-wrap">
@@ -204,32 +209,81 @@
 	</div>
 </div>  
 <%@include file="../memberBase.jsp" %>
+<script src="<%=basePath %>js/mobile/jquery.lazyload.min.js"></script>
+<script src="<%=basePath %>js/mobile/blocksit.min.js"></script>
 <script type="text/javascript" src="<%=swiperJsPath%>"></script>
-<script type="text/javascript" src="<%=basePath%>js/mobile/jquery.lazyload.min.js"></script>
 <script type="text/javascript">
-    /**轮播*/
-	$(document).ready(function (){
-		var width = $(window).width();
-		$(".swiper-container").height(width);
-		
-	   var mySwiper = new Swiper ('.swiper-container', {
-	       autoplay: 2000,
-	       direction : 'horizontal',
-	   });
-	   
-	   $("img[name='lazyImage']").each(function(){
-		   var dw = width * 2;
-	       $(this).attr("src", picUrl + $(this).attr("data-original") + "?imageView2/1/w/" + dw + "/h/" + dw)
-	   });
-	
-		$("img.lazy").lazyload({ 
-		  threshold : 100,
-		  skip_invisible : false,
-		  effect: "fadeIn"
-		}); 
+	var mySwiper = new Swiper ('.swiper-container', {
+	    autoplay: 2000,
+	    direction : 'horizontal'
 	});
-
-	function showConten(type){
+	if ('${hasUbox}' == 1) {
+		var waterfallCol; //列数
+		var winWidth = $(window).width();
+		var winHeight = $(window).height();
+		var conWidth; //列宽
+		var waterfall = $("#waterfall");
+		
+		$(document).ready(function() { 
+			setWidth();
+			setBlocksIt();
+			
+			$("img.lazy").lazyload({ 
+			  threshold : 150, 
+			  load:function(){
+				console.log("lazyload...");
+				setBlocksIt()
+			  }
+			}); 
+		  
+			//window resize
+			var currentWidth = $(window).width();
+			$(window).resize(function() {  
+			    winHeight = $(window).height();
+			    setWidth();
+			    
+			    if(conWidth != currentWidth) {
+			      currentWidth = conWidth;
+			      $(waterfall).width(conWidth);
+			      setBlocksIt();
+			    }
+			});
+		});
+		
+		function setBlocksIt(){
+			$(waterfall).BlocksIt({
+		      numOfCol: waterfallCol,
+		      offsetX: 8,
+		      offsetY: 8,
+		      blockElement: '.grid'
+		    });
+		}
+		//设置列数
+		function setWidth(){
+		  	winWidth = $(window).width();
+		
+		    if(winWidth < 500) {
+		      conWidth = winWidth;
+		      waterfallCol = 2;
+		    } else if(winWidth < 750) {
+		      conWidth = winWidth;
+		      waterfallCol = 3;
+		    } else if(winWidth < 1100) {
+		      conWidth = 880;
+		      waterfallCol = 4;
+		    } else {
+		      conWidth = 1100;
+		      waterfallCol = 5;
+		    }
+		}
+		
+		$("#ubox").removeClass("hide");
+	}
+	else {
+		//$("#coupon").removeClass("hide");
+	}
+	
+	function showConten(type, obj){
 		if (type == 1) {
 			$("#ubox").removeClass("hide");
 			$("#coupon").addClass("hide");
@@ -238,6 +292,8 @@
 			$("#coupon").removeClass("hide");
 			$("#ubox").addClass("hide");
 		}
+		$(obj).addClass("current");
+		$(obj).siblings().removeClass("current");
 	}
 
     var couponId = '';
@@ -261,6 +317,12 @@
     		}
     	});
     }
+    
+    $(function () {
+       var width = document.body.scrollWidth;
+        imgWidth = width - 168;
+       $(".price-img").css("width", imgWidth);
+    })
 </script>
 </body>
 </html>
