@@ -14,285 +14,32 @@
 			     <div class="emploee_head clearfix">
 			      <div style="overflow:hidden;margin-right:-30px" class="clearfix">	   
 				   <ul class="clearfix emploee_ul">
-			          <li class="active">美发部</li>
-					  <li>美发部</li>
-					  <li>烫染设计师</li>
-					  <li>洗护牌</li>
+					  <c:forEach items="${deptList}" var="dept" varStatus="status">
+	                    <c:if test="${status.index == 0}">
+	                        <li class="active" onclick="updateDept(this,${dept.deptId})">
+			                    <span>${dept.deptName}</span>
+			                </li>
+	                    </c:if>
+	                    <c:if test="${status.index != 0}">
+	                        <li onclick="updateDept(this,${dept.deptId})">
+			                    <span>${dept.deptName}</span>
+			                </li>
+	                    </c:if>
+	                </c:forEach>
 			        </ul>		
 				    <div class="emploee_right">
-					  <span class="left_click"><img src="assets/images/left_click.png"></span>
+					  <span class="left_click"><img src="<%=basePath%>images/left_click.png"></span>
 					   <ul class="emploee_right_ul clearfix">
-					     <li>
-						   <div class="emploee_right_li">烫染师牌</div>
-						   <span style="border-right:1px solid #ccc"><img src="assets/images/emploee_2.png"></span>
-						   <span><img src="assets/images/emploee_3.png"></span>
-						 </li>
-						   <li>
-						   <div class="emploee_right_li">烫染师牌</div>
-						   <span style="border-right:1px solid #ccc"><img src="assets/images/emploee_2.png"></span>
-						   <span><img src="assets/images/emploee_3.png"></span>
-						 </li>
-						   <li>
-						   <div class="emploee_right_li">烫染师牌</div>
-						   <span style="border-right:1px solid #ccc"><img src="assets/images/emploee_2.png"></span>
-						   <span><img src="assets/images/emploee_3.png"></span>
-						 </li>
-						    <li>
-						   <div class="emploee_right_li">烫染师牌</div>
-						   <span style="border-right:1px solid #ccc"><img src="assets/images/emploee_2.png"></span>
-						   <span><img src="assets/images/emploee_3.png"></span>
-						 </li>
-						   <li>
-						   <div class="emploee_right_li">烫染师牌</div>
-						   <span style="border-right:1px solid #ccc"><img src="assets/images/emploee_2.png"></span>
-						   <span><img src="assets/images/emploee_3.png"></span>
-						 </li>
-						
-						   <li>
-					        <img src="assets/images/emploee_1.png">
-						 </li>
+						   
 					   </ul>
-					   <span class="right_click"><img src="assets/images/right_click.png"></span>
+					   <span class="right_click"><img src="<%=basePath%>images/right_click.png"></span>
 				    </div>
 				</div>	
-					<div class="adjust"><span class="adjust_"><img src="assets/images/adjust.png">调整轮牌</span><span class="adjust_button"><button class="save1">保存</button><button>取消</button></span><em class="adjust_text">点击按钮，然后拖动任务卡片，即可调整排序～</em></div>
+					<div class="adjust"><span class="adjust_"><img src="<%=basePath%>images/adjust.png">调整轮牌</span><span class="adjust_button"><button class="save1" onclick="saveUpdateOrder()">保存</button><button onclick = "caltUpdate()">取消</button></span><em class="adjust_text">点击按钮，然后拖动任务卡片，即可调整排序～</em></div>
 				<div class="drag_content">	
 				
 				 <div class="example">
 			        <ul class="gridly" style="height: 156px;">
-			       <li class="brick small">
-			            
-					    <div class="roll_pic">
-						   <img src="assets/images/head_pic.png">
-						</div>
-						<p>1189 <em>欧老板</em></p>
-						<div class="state">
-						 <i>1</i><span class="line_"></span> 
-						 <em style="position:relative"><span class="select_"> <em><img src="assets/images/pic1.png"></em> <span style="position:relative;left:-5px">空闲</span></span><em class="down"><img src="assets/images/down_.png"></em></em>
-						  <ul class="free">
-						        <li>
-								  <em><img src="assets/images/emploee_6.png"></em> 空闲
-								  
-								</li>
-								 <li> 
-								  <em><img src="assets/images/emploee_5.png"></em> 工作
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_7.png"></em> 点客
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_8.png"></em> 下牌
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_9.png"></em> 暂休
-			                    </li>
-								
-						   </ul>		
-						 
-						</div>
-					
-			          </li>
-					<li class="brick small">
-			            
-					    <div class="roll_pic">
-						   <img src="assets/images/head_pic.png">
-						</div>
-						<p>1189 <em>欧老板</em></p>
-						<div class="state">
-						 <i>1</i><span class="line_"></span> 
-						 <em style="position:relative"><span class="select_"> <em><img src="assets/images/pic1.png"></em> <span style="position:relative;left:-5px">空闲</span></span><em class="down"><img src="assets/images/down_.png"></em></em>
-						  <ul class="free">
-						        <li>
-								  <em><img src="assets/images/emploee_6.png"></em> 空闲
-								  
-								</li>
-								 <li> 
-								  <em><img src="assets/images/emploee_5.png"></em> 工作
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_7.png"></em> 点客
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_8.png"></em> 下牌
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_9.png"></em> 暂休
-			                    </li>
-								
-						   </ul>		
-						 
-						</div>
-					
-			          </li>
-					  
-					  <li class="brick small">
-			            
-					    <div class="roll_pic">
-						   <img src="assets/images/head_pic.png">
-						</div>
-						<p>1189 <em>欧老板</em></p>
-						<div class="state">
-						 <i>1</i><span class="line_"></span> 
-						 <em style="position:relative"><span class="select_"> <em><img src="assets/images/pic1.png"></em> <span style="position:relative;left:-5px">空闲</span></span><em class="down"><img src="assets/images/down_.png"></em></em>
-						  <ul class="free">
-						        <li>
-								  <em><img src="assets/images/emploee_6.png"></em> 空闲
-								  
-								</li>
-								 <li> 
-								  <em><img src="assets/images/emploee_5.png"></em> 工作
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_7.png"></em> 点客
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_8.png"></em> 下牌
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_9.png"></em> 暂休
-			                    </li>
-								
-						   </ul>		
-						 
-						</div>
-					
-			          </li>
-				<li class="brick small">
-			            
-					    <div class="roll_pic">
-						   <img src="assets/images/head_pic.png">
-						</div>
-						<p>1189 <em>欧老板</em></p>
-						<div class="state">
-						 <i>1</i><span class="line_"></span> 
-						 <em style="position:relative"><span class="select_"> <em><img src="assets/images/pic1.png"></em> <span style="position:relative;left:-5px">空闲</span></span><em class="down"><img src="assets/images/down_.png"></em></em>
-						  <ul class="free">
-						        <li>
-								  <em><img src="assets/images/emploee_6.png"></em> 空闲
-								  
-								</li>
-								 <li> 
-								  <em><img src="assets/images/emploee_5.png"></em> 工作
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_7.png"></em> 点客
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_8.png"></em> 下牌
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_9.png"></em> 暂休
-			                    </li>
-								
-						   </ul>		
-						 
-						</div>
-					
-			          </li>
-					<li class="brick small">
-			            
-					    <div class="roll_pic">
-						   <img src="assets/images/head_pic.png">
-						</div>
-						<p>1189 <em>欧老板</em></p>
-						<div class="state">
-						 <i>1</i><span class="line_"></span> 
-						 <em style="position:relative"><span class="select_"> <em><img src="assets/images/pic1.png"></em> <span style="position:relative;left:-5px">空闲</span></span><em class="down"><img src="assets/images/down_.png"></em></em>
-						  <ul class="free">
-						        <li>
-								  <em><img src="assets/images/emploee_6.png"></em> 空闲
-								  
-								</li>
-								 <li> 
-								  <em><img src="assets/images/emploee_5.png"></em> 工作
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_7.png"></em> 点客
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_8.png"></em> 下牌
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_9.png"></em> 暂休
-			                    </li>
-								
-						   </ul>		
-						 
-						</div>
-					
-			          </li>
-					  
-					    <li class="brick small">
-			            
-					    <div class="roll_pic">
-						   <img src="assets/images/head_pic.png">
-						</div>
-						<p>1189 <em>欧老板</em></p>
-						<div class="state">
-						 <i>1</i><span class="line_"></span> 
-						 <em style="position:relative"><span class="select_"> <em><img src="assets/images/pic1.png"></em> <span style="position:relative;left:-5px">空闲</span></span><em class="down"><img src="assets/images/down_.png"></em></em>
-						  <ul class="free">
-						        <li>
-								  <em><img src="assets/images/emploee_6.png"></em> 空闲
-								  
-								</li>
-								 <li> 
-								  <em><img src="assets/images/emploee_5.png"></em> 工作
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_7.png"></em> 点客
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_8.png"></em> 下牌
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_9.png"></em> 暂休
-			                    </li>
-								
-						   </ul>		
-						 
-						</div>
-					
-			          </li>
-					  
-					   <li class="brick small">
-			            
-					    <div class="roll_pic">
-						   <img src="assets/images/head_pic.png">
-						</div>
-						<p>1189 <em>欧老板</em></p>
-						<div class="state">
-						 <i>1</i><span class="line_"></span> 
-						 <em style="position:relative"><span class="select_"> <em><img src="assets/images/pic1.png"></em> <span style="position:relative;left:-5px">空闲</span></span><em class="down"><img src="assets/images/down_.png"></em></em>
-						  <ul class="free">
-						        <li>
-								  <em><img src="assets/images/emploee_6.png"></em> 空闲
-								  
-								</li>
-								 <li> 
-								  <em><img src="assets/images/emploee_5.png"></em> 工作
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_7.png"></em> 点客
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_8.png"></em> 下牌
-			                    </li>
-								 <li>
-								  <em><img src="assets/images/emploee_9.png"></em> 暂休
-			                    </li>
-								
-						   </ul>		
-						 
-						</div>
-					
-			          </li>
-					    <li class="brick small">
-			            
-					      <img src="assets/images/emploee_10.png">
-					
-			          </li>
-					    
 			     
 			        </ul>
 			    </div>
@@ -305,6 +52,51 @@
     </div>
   </div>
 
+
+  <div class="zzc">
+	  <div class="adjust_list">
+	     <p class="adjust_1">调整轮牌</p>
+	     <div class="emplee_content_1">
+		    <div class="emplee_name"><span>轮牌名称：<span><input type="text" name="shiftMahjongName" placeholder="最多5个字"></div>
+			<div class="emplee_rule">
+			   <span><i class="rule_1">轮牌规则：</i><em><input type="radio" name="shiftMahjongRule" value="1">指定不动牌</em><em><input type="radio" name="shiftMahjongRule" value="2">指定动牌</em></span>
+			   <span><i class="rule_1">上牌规则：</i><em><input type="radio" name="shiftMahjongUp" value="1">考勤上牌</em><em><input type="radio" name="shiftMahjongUp" value="2">持续上牌</em></span>
+			   <span><i class="rule_1">离开规则：</i><em><input type="radio" name="nature" value="1">离开不轮牌</em><em><input type="radio" name="nature" value="2">离开轮牌</em></span>
+			
+			
+			</div>
+			
+			<div class="emplee_job">
+			<p>请选择改排位下的排班岗位：</p>
+			<div class="emplee_job_content">
+			
+			  <div class="emplee_job_content_">
+
+			  </div>
+			  	 
+			</div>
+		</div>
+	     <div class="emplee_save_">
+		   <button>取消</button>
+		   <button id= "confirm">确认</button>
+		</div>
+	  </div>
+	
+	</div>
+	</div>
+	
+	<div class="zzc1">
+	  <div class="adjust_list_">
+	     <p class="adjust_1">上牌<span class="close_1"><img src="<%=basePath%>images/close_1.png"></p>
+	     <div class="emplee_content_1_">
+		    <ul class="emplee_content_2 clearfix">
+		    
+			</ul>
+		 <button class="emplee_sure" onclick="upStateEmployee()">确定</button>
+	    </div>
+	   
+	</div>
+	</div>
 </body>
 <script src='<%=basePath %>js/common/jquery.gridly.js' type='text/javascript'></script>
 <script>
@@ -313,7 +105,7 @@
 	var deptListStr = '${deptListJson}';
     var deptDtoList = eval("(" + deptListStr + ")");
     
-  //抖动拖拽
+    //抖动拖拽
     function drag(){ 
      jQuery(function() {
        jQuery( ".gridly" ).sortable({
@@ -323,69 +115,25 @@
        jQuery( ".gridly, .brick" ).disableSelection();
      });
     } 
-
-   jQuery(function(){
-     jQuery('.adjust_').click(function(){
-        jQuery('.gridly li').addClass('active');
-   	  jQuery('.adjust_button').show();
-   	  jQuery(this).hide();
-   	  drag();
-      });
-      
-   });
-
-   //模拟下拉
-   jQuery(function(){
-     jQuery('.select_').click(function(){
-        jQuery(this).parents('.state').find('.free').show();
-   	 jQuery('.free li').click(function(){
-   	   var html=jQuery(this).html();
-   	   jQuery(this).parents('.state').find('.select_').html(html);
-   	   jQuery('.free').hide();
-   	 
-   	 })
-     
-     });
-    })
+   
+   jQuery('.free li').click(function(){
+  	   var html=jQuery(this).html();
+  	   jQuery(this).parents('.state').find('.select_').html(html);
+  	   jQuery('.free').hide();
+  	 
+   })
     
     //选中头部红色
     //模拟下拉
-   jQuery(function(){
-     jQuery('.emploee_right_ul li').click(function(){
+    jQuery('.emploee_right_ul').delegate("li", "click", function(){
+    	jQuery(this).siblings().removeClass("active");
         jQuery(this).addClass('active');
-      });
-    })
-    
-    
-    //轮播
-    
-    	jQuery(function(){
-   	     var now_=0, count=jQuery('.emploee_right_ul li').size();
-   		 
-   	  //向右走
-         jQuery('.right_click').click(function(){
-            if(now_<=count-5){
-   		    now_+=1;
-   	        jQuery(this).parent('').find('.emploee_right_ul').stop(true,true).animate({
-   		       left:-200*now_
-   		   
-   		       }) 
-   			  }
-   		  });
-   	  //向左走
-   	  
-   	  	//向左走
-   	 jQuery('.left_click').click(function(){
-            if(now_>=1){
-   		    now_-=1;
-   	         jQuery(this).parent('').find('.emploee_right_ul').stop(true,true).animate({
-   		     left:-200*now_
-   		   
-   		     }) 
-   		  }	
-           		
-   	  });
     });
+    
+   jQuery('.emploee_ul li').click(function(){
+   	jQuery(this).siblings().removeClass("active");
+       jQuery(this).addClass('active');
+   });
    	
    	//弹出弹窗
    	jQuery(function(){

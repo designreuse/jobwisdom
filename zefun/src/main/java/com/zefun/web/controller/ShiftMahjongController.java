@@ -121,6 +121,40 @@ public class ShiftMahjongController extends BaseController{
 	    return shiftMahjongService.updateState(shiftMahjongEmployeeId, state, storeId);
 	}
 	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年5月13日 上午1:08:17 
+	* @param request 返回
+	* @param response 请求
+	* @param shiftMahjongEmployeeIdListStr 上牌人员集合
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.KeepAccounts.UPDATE_STATE_UP, method = RequestMethod.POST)
+	@ResponseBody
+	public BaseDto updateStateUp(HttpServletRequest request, HttpServletResponse response, String shiftMahjongEmployeeIdListStr){
+	    Integer storeId = getStoreId(request);
+	    return shiftMahjongService.updateStateUp(shiftMahjongEmployeeIdListStr, storeId);
+	}
+
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年5月13日 上午3:01:45 
+	* @param request fanhui
+	* @param response qingqiu 
+	* @param shiftMahjongId lunpai
+	* @param shiftMahjongEmployeeIdListStr 牌人员集合
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.KeepAccounts.UPDATE_EMPLOYEE_ORDER, method = RequestMethod.POST)
+	@ResponseBody
+	public BaseDto updateEmployeeOrder (HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongId, 
+			  String shiftMahjongEmployeeIdListStr) {
+		Integer storeId = getStoreId(request);
+		return shiftMahjongService.updateEmployeeOrder(shiftMahjongId, shiftMahjongEmployeeIdListStr, storeId);
+	}
+	
 /*	*//**
 	 * 设置轮牌
 	* @author 王大爷
@@ -165,12 +199,14 @@ public class ShiftMahjongController extends BaseController{
     * @param request 返回
     * @param response 请求
     * @param shiftMahjongId 轮牌信息ID
+    * @param stateType 状态
     * @return BaseDto
      */
 	@RequestMapping(value = Url.KeepAccounts.REFRESH_SHIFTMAHJONG_EMPLOYEE, method = RequestMethod.POST)
 	@ResponseBody
-	public BaseDto refreshShiftMahjongEmployee(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongId) {
-	    return shiftMahjongService.refreshShiftMahjongEmployee(shiftMahjongId);
+	public BaseDto refreshShiftMahjongEmployee(HttpServletRequest request, HttpServletResponse response, 
+			  Integer shiftMahjongId, Integer stateType) {
+	    return shiftMahjongService.refreshShiftMahjongEmployee(shiftMahjongId, stateType);
 	}
 	
 	/**

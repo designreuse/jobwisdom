@@ -88,6 +88,7 @@ transform: rotate(1deg);
 .emplee_job_content .design_ {
     display: inline-block;
     margin-right: 68px;
+    margin-bottom: 32px;
 }
 
 .emplee_job_content_ {

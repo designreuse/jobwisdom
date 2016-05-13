@@ -209,7 +209,14 @@
     select 
     <include refid="Base_Column_List" />
     from shift_mahjong_employee
-    where shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER} order by shift_mahjong_order
+    where shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER} and state in (0,1,2,4) order by shift_mahjong_order
+  </select>
+  
+  <select id="selectByShiftMahjongIdDown" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shift_mahjong_employee
+    where shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER} and state = 3 order by shift_mahjong_order
   </select>
   
   <insert id="insertShiftMahjongEmployeeList" parameterType="java.util.List">  

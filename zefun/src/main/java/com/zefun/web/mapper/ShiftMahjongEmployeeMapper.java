@@ -76,13 +76,22 @@ public interface ShiftMahjongEmployeeMapper {
     Integer updateIsPunchCard(Map<String, Object> map);
     
     /**
-     * 通过轮牌信息ID查询轮牌员工信息ID
+     * 通过轮牌信息ID查询轮牌员工信息ID(上班中)
     * @author 王大爷
     * @date 2015年8月11日 上午10:19:47
     * @param shiftMahjongId 轮牌信息ID
     * @return 轮牌员工信息结合
      */
     List<ShiftMahjongEmployee> selectByShiftMahjongId(Integer shiftMahjongId);
+    
+    /**
+     * 通过轮牌信息ID查询轮牌员工信息ID(离开)
+    * @author 老王
+    * @date 2016年5月12日 下午8:10:39 
+    * @param shiftMahjongId 轮牌信息ID
+    * @return List<ShiftMahjongEmployee>
+     */
+    List<ShiftMahjongEmployee> selectByShiftMahjongIdDown(Integer shiftMahjongId);
     
     /**
      * 批量插入轮牌员工信息表数据

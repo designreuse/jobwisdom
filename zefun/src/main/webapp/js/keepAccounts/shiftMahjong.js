@@ -1,11 +1,11 @@
 var  shiftMahjongId = "";
 
 var stateList = new Array();
-var a1 = {"state":"0","name":"工作中","styles":"gongzuozhong","imgs":baseUrl+"img/lunpai/cut.png"};
-var a2 = {"state":"1","name":"空闲中","styles":"kongxianzhong","imgs":baseUrl+"img/lunpai/coffee.png"};
-var a3 = {"state":"2","name":"暂时离开","styles":"zanshilikai","imgs":baseUrl+"img/lunpai/alarm.png"};
-var a4 = {"state":"3","name":"离开","styles":"likai","imgs":baseUrl+"img/lunpai/clock.png"};
-var a5 = {"state":"4","name":"指定服务","styles":"zhidingfuwu","imgs":baseUrl+"img/lunpai/heart.png"};
+var a1 = {"state":"0","name":"工作","imgs":baseUrl+"images/emploee_5.png"};
+var a2 = {"state":"1","name":"空闲","imgs":baseUrl+"images/emploee_6.png"};
+var a3 = {"state":"2","name":"暂休","imgs":baseUrl+"images/emploee_9.png"};
+var a4 = {"state":"3","name":"下牌","imgs":baseUrl+"images/emploee_8.png"};
+var a5 = {"state":"4","name":"点客","imgs":baseUrl+"images/emploee_7.png"};
 
 stateList[0] = a1;
 stateList[1] = a2;
@@ -19,6 +19,9 @@ var overallObj = "";
 //全局修改状态轮牌员工标识
 var shiftMahjongEmployeeId = "";
 
+var now_=0;
+var count= 0;
+
 jQuery(document).ready(function(){
 	updatePage();
 	var obj = jQuery(".s-slider-wrap");
@@ -26,6 +29,30 @@ jQuery(document).ready(function(){
 		var num = jQuery(obj[i]).attr("num");
 		renewalShift(num, 0);
 	}
+});
+
+//向右走
+jQuery('.right_click').click(function(){
+   if(now_<=count-5){
+	    now_+=1;
+      jQuery(this).parent('').find('.emploee_right_ul').stop(true,true).animate({
+	       left:-200*now_
+	   
+	       }) 
+		  }
+	  });
+//向左走
+
+	//向左走
+jQuery('.left_click').click(function(){
+   if(now_>=1){
+	    now_-=1;
+       jQuery(this).parent('').find('.emploee_right_ul').stop(true,true).animate({
+	     left:-200*now_
+	   
+	     }) 
+	  }	
+  		
 });
 
 function renewalShift(num, locationNum) {
@@ -43,7 +70,7 @@ function renewalShift(num, locationNum) {
 }
 
 //初始化轮牌新增model
-jQuery("#shiftModel").click(function(){
+jQuery(".emploee_right_ul").delegate("#shiftModel", "click",function(){
 	shiftMahjongId = "";
 	
 	valuation("shiftMahjongRule", 1);
@@ -53,20 +80,13 @@ jQuery("#shiftModel").click(function(){
 	
 	updatePosition();
 	
-	jQuery("#rotating-setting-modal").modal("show");
+	jQuery(".zzc").show();
 });
 
-function setShiftMahjong(shiftMahjongIdS,shiftMahjongName,nature,shiftMahjongUp,shiftMahjongRule){
+function setShiftMahjong(shiftMahjongIdS){
 	shiftMahjongId = shiftMahjongIdS;
 	
-	jQuery("#rotating-setting-modal").modal("show");
-	
-	valuation("shiftMahjongRule", shiftMahjongRule);
-	valuation("shiftMahjongUp", shiftMahjongUp);
-	valuation("nature", nature);
-    
-	jQuery("input[name='shiftMahjongName']").val(shiftMahjongName);
-	
+	jQuery(".zzc").show();
 	
 	jQuery.ajax({
 		type : "post",
@@ -79,16 +99,23 @@ function setShiftMahjong(shiftMahjongIdS,shiftMahjongName,nature,shiftMahjongUp,
 				dialog(e.msg);
 				return;
 			}
-			var data = e.msg;
+			var obj = e.msg;
+			var data = obj.mapList;
+			var shiftMahjong = obj.shiftMahjong;
+			
+			valuation("shiftMahjongRule", shiftMahjong.shiftMahjongRule);
+			valuation("shiftMahjongUp", shiftMahjong.shiftMahjongUp);
+			valuation("nature", shiftMahjong.nature);
+		    
+			jQuery("input[name='shiftMahjongName']").val(shiftMahjong.shiftMahjongName);
 			updatePosition();
 			if(data.length > 0){
 				var obj = jQuery("input[name='positionId']");
 				for (var j = 0; j < obj.length; j++) {
 					for(var i = 0; i < data.length;i++){
 						if (jQuery(obj[j]).val() == data[i].positionId) {
-							jQuery(obj[j]).parent().find(".beau-checker").addClass("active");
 							jQuery(obj[j]).prop("checked", true);
-							jQuery(obj[j]).parent().parent().next().find("select[name='upShiftType']").val(data[i].isPunchCard);
+							jQuery(obj[j]).parents(".design_").find("select[name='upShiftType']").val(data[i].isPunchCard);
 							jQuery(obj[j]).parent().parent().next().find("select[name='upShiftType']").trigger("liszt:updated");
 						}
 					}
@@ -106,18 +133,18 @@ function updatePosition(){
 		if (deptId == deptDtoList[i].deptId) {
 			var positionList = deptDtoList[i].positionInfo;
 			for (var j = 0; j < positionList.length; j++) {
-				var positionMessage = "<span>"+
+				var positionMessage = "<span class='design_'>"+
 									      "<em>"+
-										    "<input type='checkbox' name='positionId' value='"+positionList[j].positionId+"'>设计师 "+
-										"</em>"+
-											 "<i>上牌方式</i>"+
+										    "<input type='checkbox' name='positionId' value='"+positionList[j].positionId+"'><span class='design'>"+positionList[j].positionName+" </span> "+
+										  "</em>"+
+											"<i>上牌方式</i>"+
 											 "<select name='upShiftType'>"+
-												 "<option value='1'>打卡上牌</option>"+
-					                              "<option value='0'>手动上牌</option>"+
+											   "<option value='1'>打卡上牌</option>"+
+						                       "<option value='0'>手动上牌</option>"+
 											 "</select>"+
-										"</span>"
+										"</span>";
+										
 				jQuery(".emplee_job_content_").append(positionMessage);
-					
 			}
 			return;
 		}
@@ -150,10 +177,10 @@ jQuery("#confirm").click(function(){
 	var positionIdListStr = "";
 	for (var i = 0; i < positionIdList.length; i++) {
 		if (positionIdListStr == "") {
-			positionIdListStr = jQuery(positionIdList[i]).val() + ":" + jQuery(positionIdList[i]).parent().parent().next().find("select[name='upShiftType']").val();
+			positionIdListStr = jQuery(positionIdList[i]).val() + ":" + jQuery(positionIdList[i]).parents(".design_").find("select[name='upShiftType']").val();
 		}
 		else {
-			positionIdListStr = positionIdListStr + "," + jQuery(positionIdList[i]).val() + ":" + jQuery(positionIdList[i]).parent().parent().next().find("select[name='upShiftType']").val();
+			positionIdListStr = positionIdListStr + "," + jQuery(positionIdList[i]).val() + ":" + jQuery(positionIdList[i]).parents(".design_").find("select[name='upShiftType']").val();
 		}
 	}
 	
@@ -177,13 +204,23 @@ jQuery("#confirm").click(function(){
 				dialog(e.msg);
 				return;
 			}
-			updatePage();
-			var obj = jQuery(".s-slider-wrap");
-			for (var i = 0; i < obj.length; i++) {
-				var num = jQuery(obj[i]).attr("num");
-				renewalShift(num, 0);
+			
+			if (isEmpty(shiftMahjongId)) {
+				var shiftMahjongIdReturn = e.msg;
+				jQuery(".emploee_right_ul").find("li").removeClass("active");
+				jQuery(".emploee_right_ul").find("#shiftModel").before("<li class='active' onclick = \"refreshShift("+shiftMahjongIdReturn+", 1)\" shiftMahjongId = '"+shiftMahjongIdReturn+"'>"+
+						   "<div class='emploee_right_li'>"+shiftMahjongName+"</div>"+
+						   "<span style='border-right:1px solid #ccc' onclick=\"setShiftMahjong("+shiftMahjongIdReturn+")\"><img src='"+ baseUrl +"images/emploee_2.png'></span>"+
+						  "<span onclick=\"deleteShiftMahjong(this, "+shiftMahjongIdReturn+")\"><img src='"+baseUrl+"images/emploee_3.png'></span>"+
+						"</li>");
+				refreshShift(shiftMahjongIdReturn, 1);
 			}
-			jQuery('#rotating-setting-modal').modal("hide");
+			else {
+				jQuery(".emploee_right_ul").find(".active").find(".emploee_right_li").text(shiftMahjongName);
+				refreshShift(shiftMahjongId, 1);
+			}
+            
+			jQuery('.zzc').hide();
 		}
 	});
 });
@@ -222,95 +259,160 @@ function updatePage(){
 				return;
 			}
 			var shiftMahjongDtoList = e.msg;
-			jQuery("#lunpaiDIV").empty();
-			var rollUL = jQuery("<ul class='roll_left'></ul>");
+			jQuery(".emploee_right_ul").empty();
 			
 			for (var i = 0; i < shiftMahjongDtoList.length; i++) {
 				var shiftInfo = shiftMahjongDtoList[i];
 				if (i == 0) {
-					rollUL.append("<li class='active'>"+shiftInfo.shiftMahjongName+"</li>");
+					jQuery(".emploee_right_ul").append("<li class='active' onclick = \"refreshShift("+shiftInfo.shiftMahjongId+", 1)\" shiftMahjongId = '"+shiftInfo.shiftMahjongId+"'>"+
+														   "<div class='emploee_right_li'>"+shiftInfo.shiftMahjongName+"</div>"+
+														   "<span style='border-right:1px solid #ccc' onclick=\"setShiftMahjong("+shiftInfo.shiftMahjongId+")\"><img src='"+ baseUrl +"images/emploee_2.png'></span>"+
+														  "<span onclick=\"deleteShiftMahjong(this, "+shiftInfo.shiftMahjongId+")\"><img src='"+baseUrl+"images/emploee_3.png'></span>"+
+														"</li>");
+					var shiftMahjongEmployeeList = shiftMahjongDtoList[i].shiftMahjongEmployeeList;
+					
+					infoDIV(shiftMahjongEmployeeList);
 				}
 				else {
-					rollUL.append("<li>"+shiftInfo.shiftMahjongName+"</li>");
+					jQuery(".emploee_right_ul").append("<li onclick = \"refreshShift("+shiftInfo.shiftMahjongId+", 1)\" shiftMahjongId = '"+shiftInfo.shiftMahjongId+"'>"+
+							   "<div class='emploee_right_li'>"+shiftInfo.shiftMahjongName+"</div>"+
+							   "<span style='border-right:1px solid #ccc' onclick=\"setShiftMahjong("+shiftInfo.shiftMahjongId+")\"><img src='"+ baseUrl+"images/emploee_2.png'></span>"+
+							  "<span onclick=\"deleteShiftMahjong(this, "+shiftInfo.shiftMahjongId+")\"><img src='"+baseUrl+"images/emploee_3.png'></span>"+
+							"</li>");
 				}
-              /*  var widgetcontent = jQuery("<div class='widgetcontent'></div>")
-				var zhiwei = jQuery("<div class='zhiwei-lunpai'></div>");
-				zhiwei.append("<div class='zhiwei-name'>"+
-						                        "<span class='ml10 name'>"+shiftInfo.shiftMahjongName+"</span>"+
-						                        "<div class='lunpai-shezhi fr'>"+
-						                            "<i class='iconfont icon-shezhi' onclick=\"setShiftMahjong("+shiftInfo.shiftMahjongId+",'"+shiftInfo.shiftMahjongName+"',"+shiftInfo.nature+","+shiftInfo.shiftMahjongUp+","+shiftInfo.shiftMahjongRule+")\"></i>"+
-						                            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='iconfont iconfa-trash' onclick=\"deleteShiftMahjong(this, "+shiftInfo.shiftMahjongId+")\"></i>"+
-						                        "</div>"+
-						                    "</div>");
-				var shiftObj = jQuery("<div class='s-whole-wrap'></div>");
-				shiftObj.append("<div class='s-left-control'>"+
-	                             "<span class='iconfont icon-zuobianfangxiang'></span>"+
-	                          "</div>");
-				var wrapObj = jQuery("<div class='s-slider-wrap' nature = '"+shiftInfo.nature+"' num = '"+i+"'></div>");
-				
-				var shiftMahjongEmployeeList = shiftMahjongDtoList[i].shiftMahjongEmployeeList;
-				
-				var employeeObj = infoDIV(shiftInfo.shiftMahjongId,shiftMahjongEmployeeList, i);
-				
-				wrapObj.append(employeeObj);
-				shiftObj.append(wrapObj);
-				shiftObj.append("<div class='s-right-control'>"+
-	                             "<span class='iconfont icon-youbianfangxiang'></span>"+
-	                          "</div>");
-				zhiwei.append(shiftObj);
-				widgetcontent.append(zhiwei);
-				jQuery("#lunpaiDIV").append(widgetcontent);*/
 			}
-			jQuery("#lunpaiDIV").append(rollUL);
+			jQuery(".emploee_right_ul").append("<li id = 'shiftModel' name ='addemployee' >"+
+			        "<img src='"+baseUrl+"images/emploee_1.png'>"+
+			   "</li>")
+		}
+	});
+	
+	count = jQuery('.emploee_right_ul li').size()
+}
+
+function showDoewEmployee() {
+	var shiftMahjongIdDown = jQuery(".emploee_right_ul").find(".active").attr("shiftMahjongId");
+	refreshShift(shiftMahjongIdDown, 2);
+}
+
+jQuery('.adjust_').click(function(){
+	var shiftMahjongIdDown = jQuery(".emploee_right_ul").find(".active").attr("shiftMahjongId");
+	refreshShift(shiftMahjongIdDown, 1);
+    jQuery('.gridly li').addClass('active');
+	  jQuery('.adjust_button').show();
+	  jQuery(this).hide();
+	  jQuery("li[name='addEmployeeState']").remove();
+	  jQuery(".free").remove();
+	  drag();
+	  
+  });
+
+function caltUpdate() {
+	var shiftMahjongIdDown = jQuery(".emploee_right_ul").find(".active").attr("shiftMahjongId");
+	refreshShift(shiftMahjongIdDown, 1);
+	jQuery(".adjust_").show();
+	jQuery(".adjust_button").hide();
+}
+
+//员工排位
+function infoDIV(shiftMahjongEmployeeList){
+	
+	jQuery(".gridly").empty();
+	for (var j = 0; j < shiftMahjongEmployeeList.length; j++) {
+		var shiftMahjongEmployee = shiftMahjongEmployeeList[j];
+		var imgs = picUrl+shiftMahjongEmployee.headImage;
+		jQuery(".gridly").append("<li class='brick small' shiftMahjongEmployeeId = '"+shiftMahjongEmployee.shiftMahjongEmployeeId+"'>"+
+								    "<div class='roll_pic'>"+
+									   "<img src='"+imgs+"'>"+
+									"</div>"+
+									"<p>"+shiftMahjongEmployee.employeeCode+"<em>"+shiftMahjongEmployee.name+"</em></p>"+
+									"<div class='state'>"+
+									 "<i>"+shiftMahjongEmployee.shiftMahjongOrder+"</i><span class='line_'></span> "+
+									 "<em style='position:relative' name = 'chooseStateEM' onclick ='showUpdateState(this, "+shiftMahjongEmployee.state+")'>" +
+									      "<span class='select_'> " +
+									         "<em><img src='"+stateList[shiftMahjongEmployee.state].imgs+"'></em> " +
+									         "<span style='position:relative;left:-5px'>"+stateList[shiftMahjongEmployee.state].name+"</span>" +
+									      "</span>" +
+									      "<em class='down'>" +
+									         "<img src='"+baseUrl+"images/down_.png'>" +
+									      "</em>" +
+									 "</em>"+
+									  "<ul class='free'>"+
+									        "<li onclick='updateState("+shiftMahjongEmployee.shiftMahjongEmployeeId+", 1)'>"+
+											  "<em><img src='"+baseUrl+"images/emploee_6.png'></em> 空闲"+
+											"</li>"+
+											 "<li onclick='updateState("+shiftMahjongEmployee.shiftMahjongEmployeeId+", 2)'>"+
+											    "<em><img src='"+baseUrl+"images/emploee_9.png'></em> 暂休"+
+						                    "</li>"+
+											 "<li onclick='updateState("+shiftMahjongEmployee.shiftMahjongEmployeeId+", 3)'>"+
+											    "<em><img src='"+baseUrl+"images/emploee_8.png'></em> 下牌"+
+						                    "</li>"+
+									   "</ul>"+	
+									"</div>"+
+						          "</li>");
+	}
+	jQuery(".gridly").append("<li class='brick small' onclick = 'showDoewEmployee()' name = 'addEmployeeState'>"+
+		      "<img src='"+baseUrl+"images/emploee_10.png'>"+
+          "</li>")
+}
+
+function saveUpdateOrder() {
+	var objList = jQuery(".gridly").find(".brick");
+	var shiftMahjongEmployeeIdList = new Array();
+	for (var i = 0; i < objList.length; i++) {
+		var shiftMahjongEmployeeId = jQuery(objList[i]).attr("shiftMahjongEmployeeId");
+		shiftMahjongEmployeeIdList.push(shiftMahjongEmployeeId);
+	}
+	var shiftMahjongEmployeeIdListStr = JSON.stringify(shiftMahjongEmployeeIdList);
+	var shiftMahjongId = jQuery(".emploee_right_ul").find(".active").attr("shiftMahjongId");
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "KeepAccounts/updateEmployeeOrder",
+		data : "shiftMahjongId="+shiftMahjongId+"&shiftMahjongEmployeeIdListStr="+shiftMahjongEmployeeIdListStr,
+		async: false,
+		dataType : "json",
+		success : function(e){
+			if(e.code != 0){
+				dialog(e.msg);
+				return;
+			}
+            var date = e.msg;
+            infoDIV(date.shiftMahjongEmployeeList);
+            jQuery(".adjust_").show();
+        	jQuery(".adjust_button").hide();
 		}
 	});
 }
 
-var totailNum = 0;
-
-//员工排位
-function infoDIV(shiftMahjongIdDiv,shiftMahjongEmployeeList){
-	
-	var employeeObj = jQuery("<div class='slider4'></div>");
-	totailNum = shiftMahjongEmployeeList.length - 1;
+function infoDIVDome(shiftMahjongEmployeeList) {
+	jQuery(".emplee_content_2").empty();
 	for (var j = 0; j < shiftMahjongEmployeeList.length; j++) {
 		var shiftMahjongEmployee = shiftMahjongEmployeeList[j];
-		var slideObj = jQuery("<div class='slide slider-part' name='"+j+"'></div>");
-		var imgs = picUrl+shiftMahjongEmployee.headImage;
-		var sliderTitle = jQuery("<div class='slider-title' shiftMahjongEmployeeId = '"+shiftMahjongEmployee.shiftMahjongEmployeeId+"' shiftMahjongId = '"+shiftMahjongIdDiv+"' shiftMahjongOrder = '"+shiftMahjongEmployee.shiftMahjongOrder+"'></div>");
-		if (shiftMahjongEmployee.shiftMahjongOrder == 999) {
-			sliderTitle.append("<span class=''>"+shiftMahjongEmployee.shiftMahjongOrder+"</span>");
-		}
-		else {
-			sliderTitle.append("<img src='"+baseUrl+"img/common/left-arraw.png' alt='' onclick= 'upwardIMG(this)'/>"+
-			                   "<span class=''>"+shiftMahjongEmployee.shiftMahjongOrder+"</span>"+
-			                   "<img src='"+baseUrl+"img/common/right-arraw.png' alt='' onclick= 'nextIMG(this)'/>");
-		}
-		slideObj.append(sliderTitle);
-		slideObj.append("<div class='slider-content'>"+
-		                    "<div class='center'>"+
-		                        "<img src='"+imgs+"' alt=''/>"+
-		                        "<div class='name'>"+shiftMahjongEmployee.employeeCode+" "+ shiftMahjongEmployee.name+"</div>"+
-		                    "</div>"+
-		                "</div>");
-		for (var k = 0; k < stateList.length; k++) {
-			if(stateList[k].state == shiftMahjongEmployee.state){
-				slideObj.append("<div class='slider-foot' shiftMahjongEmployeeId = '"+shiftMahjongEmployee.shiftMahjongEmployeeId+"' shiftMahjongId = '"+shiftMahjongIdDiv+"'>"+
-					               "<div class='center "+stateList[k].styles+"'>"+
-				                        "<div class='zhuangtai fl'>"+
-				                            "<img src='"+stateList[k].imgs+"' alt='"+stateList[k].name+"'/>"+
-				                        "</div>"+
-				                        "<div class='zhuangtai-word fl' names = '"+stateList[k].state+"'>"+
-				                            ""+stateList[k].name+""+
-				                        "</div>"+
-				                    "</div>"+
-				                "</div>");
-			}
-		}
-		employeeObj.append(slideObj);
+		jQuery(".emplee_content_2").append("<li shiftMahjongEmployeeId = '"+shiftMahjongEmployee.shiftMahjongEmployeeId+"'>"+shiftMahjongEmployee.employeeCode+" "+shiftMahjongEmployee.name+"</li>");
+
 	}
-	return employeeObj;
+	jQuery(".zzc1").show();
 }
+
+jQuery(".emplee_content_2").delegate("li", "click", function(){
+	event = event ? event : window.event; 
+	var obj = event.srcElement ? event.srcElement : event.target;
+	if (jQuery(obj).hasClass("active")) {
+		jQuery(obj).removeClass("active");
+	}
+	else {
+		jQuery(obj).addClass("active");
+	}
+})
+
+function showUpdateState(obj, state){
+	if (state == 0 || state == 4) {
+		dialog("工作状态，无法修改状态！");
+		return;
+	}
+	jQuery(obj).parents('.state').find('.free').show();
+}
+
 
 var moveShiftMahjongEmployeeId = "";
 
@@ -321,11 +423,11 @@ var moveShiftMahjongOrder = "";
 var moveObj = "";
 
 
-function refreshShift(shiftMahjongIds) {
+function refreshShift(shiftMahjongIds, stateType) {
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "staff/action/refreshShiftMahjongEmployee",
-		data : "shiftMahjongId="+shiftMahjongIds,
+		data : "shiftMahjongId="+shiftMahjongIds+"&stateType="+stateType,
 		async: false,
 		dataType : "json",
 		success : function(e){
@@ -334,15 +436,16 @@ function refreshShift(shiftMahjongIds) {
 				return;
 			}
             var date = e.msg;
-            
-            jQuery(moveObj).empty();
-            
-            var employeeObj = infoDIV(shiftMahjongIds, date);
-			moveObj.empty();
-			moveObj.append(employeeObj);
+            if(stateType == 1) {
+            	infoDIV(date);
+            }            
+            else {
+            	infoDIVDome(date);
+            }
 		}
 	});
 }
+
 
 //上移
 function upwardIMG(obj){
@@ -435,7 +538,7 @@ function nextIMG(obj){
 	});
 }
 
-jQuery("body").delegate(".slider-foot", "click", function () {
+/*jQuery("body").delegate(".slider-foot", "click", function () {
     	moveObj = jQuery(this).parents(".s-slider-wrap");
     	
     	moveShiftMahjongEmployeeId = jQuery(this).attr("shiftMahjongEmployeeId");
@@ -474,7 +577,7 @@ jQuery("body").delegate(".slider-foot", "click", function () {
             
             jQuery(".select-zhuangtai").removeClass("hide").css({"left":left, "top":top});
     	}
-});
+});*/
 
 
 function transitionEndEventName () {
@@ -497,27 +600,26 @@ function transitionEndEventName () {
 
 var transitionEnd = transitionEndEventName();
 
-jQuery("html").delegate("body:not('.slider-foot')", "click", function(){
-	jQuery(".select-zhuangtai").addClass("hide");
-});
-
-jQuery(".select-zhuangtai").click(function(){
+jQuery("html").delegate("*", "click", function(event){
+	if (jQuery(this).parents("em[name='chooseStateEM']").attr("name") != "chooseStateEM") {
+		jQuery(".free").hide();
+	}
 	event.stopPropagation();
 });
 
 
 
-
-
-//jQuery("body:not('.select-zhuangtai')").click(function () {
-//	jQuery(".select-zhuangtai").addClass("hide");
-//});
-
-function updateState(num){
+function upStateEmployee() {
+	var chooseObjList = jQuery(".emplee_content_2").find(".active");
+	var shiftMahjongEmployeeIdList = new Array();
+	for (var i = 0; i < chooseObjList.length; i++) {
+		shiftMahjongEmployeeIdList.push(jQuery(chooseObjList[i]).attr("shiftmahjongemployeeid"));
+	}
+	var shiftMahjongEmployeeIdListStr = JSON.stringify(shiftMahjongEmployeeIdList);
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "KeepAccounts/updateState",
-		data : "shiftMahjongEmployeeId="+moveShiftMahjongEmployeeId+"&state="+num,
+		url : baseUrl + "KeepAccounts/updateStateUp",
+		data : "shiftMahjongEmployeeIdListStr="+shiftMahjongEmployeeIdListStr,
 		async:false,//使用同步的Ajax请求  
 		dataType : "json",
 		success : function(e){
@@ -526,15 +628,29 @@ function updateState(num){
 				return;
 			}
             var date = e.msg;
-			var employeeObj = infoDIV(date.shiftMahjongId,date.shiftMahjongEmployeeList);
+			infoDIV(date.shiftMahjongEmployeeList);
+			jQuery(".zzc1").hide();
+		}
+	});
+}
 
-			moveObj.empty();
-			moveObj.append(employeeObj);
-			
-			var showNum = jQuery(moveObj).find(".slider-title[shiftMahjongEmployeeId='"+moveShiftMahjongEmployeeId+"']").parents(".slider-part").attr("name");
-			showShift(showNum);
-			
-			jQuery(".select-zhuangtai").addClass("hide");
+
+
+
+function updateState(shiftMahjongEmployeeId, num){
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "KeepAccounts/updateState",
+		data : "shiftMahjongEmployeeId="+shiftMahjongEmployeeId+"&state="+num,
+		async:false,//使用同步的Ajax请求  
+		dataType : "json",
+		success : function(e){
+			if(e.code != 0){
+				dialog(e.msg);
+				return;
+			}
+            var date = e.msg;
+			infoDIV(date.shiftMahjongEmployeeList);
 		}
 	});
 }
@@ -551,8 +667,15 @@ function deleteShiftMahjong(obj, shiftMahjongId){
 				dialog(e.msg);
 				return;
 			}
-			jQuery(obj).parents(".widgetcontent").remove();
+			jQuery(".emploee_right_ul").find(".active").remove();
+			var objList = jQuery(".emploee_right_ul").find("li");
+			if (jQuery(objList[0]).attr("name") != "addemployee") {
+				jQuery(objList[0]).addClass("active");
+				refreshShift(jQuery(objList[0]).attr("shiftmahjongid"), 1)
+			}
+			
 		}
 	});
+	event.stopPropagation();
 }
 

@@ -276,7 +276,7 @@ public class ShiftMahjongService {
 	    //删除缓存
         redisService.hdel(App.Redis.DEPT_PROJECT_MAHJONG_INFO_KEY_HASH, String.valueOf(shiftMahjong.getDeptId()));
 	    
-	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjong.getShiftMahjongId());
 	}
 	
 	/**
@@ -348,7 +348,68 @@ public class ShiftMahjongService {
 	* @return BaseDto
 	 */
 	public BaseDto updateState(Integer shiftMahjongEmployeeId, Integer state, Integer storeId){
-	    ShiftMahjong shiftMahjong = shiftMahjongMapper.selectByShiftMahjongEmployeeId(shiftMahjongEmployeeId);
+		
+		Integer shiftMahjongId = updateStateCha(shiftMahjongEmployeeId, state, storeId);
+        ShiftMahjongDto shiftMahjongDto = shiftMahjongMapper.selectByShiftMahjongIdDto(shiftMahjongId);
+	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjongDto);
+	}
+	
+	/**
+	 * 批量上牌
+	* @author 老王
+	* @date 2016年5月13日 上午1:21:34 
+	* @param shiftMahjongEmployeeIdListStr 上牌人员集合
+	* @param storeId 门店标识
+	* @return BaseDto
+	 */
+	public BaseDto updateStateUp(String shiftMahjongEmployeeIdListStr, Integer storeId) {
+		Integer shiftMahjongId = null;
+		JSONArray shiftMahjongEmployeeIdListJson = JSONArray.fromObject(shiftMahjongEmployeeIdListStr);
+		for (int i = 0; i < shiftMahjongEmployeeIdListJson.size(); i++) {
+			Integer shiftMahjongEmployeeId = shiftMahjongEmployeeIdListJson.getInt(i);
+			shiftMahjongId = updateStateCha(shiftMahjongEmployeeId, 1, storeId);
+		}
+
+		ShiftMahjongDto shiftMahjongDto = shiftMahjongMapper.selectByShiftMahjongIdDto(shiftMahjongId);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjongDto);
+	}
+	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年5月13日 上午3:00:55 
+	* @param shiftMahjongId 轮牌id
+	* @param shiftMahjongEmployeeIdListStr 员工
+	* @param storeId 门店标识
+	* @return BaseDto
+	 */
+	public BaseDto updateEmployeeOrder(Integer shiftMahjongId, String shiftMahjongEmployeeIdListStr, Integer storeId) {
+		JSONArray shiftMahjongEmployeeIdListJson = JSONArray.fromObject(shiftMahjongEmployeeIdListStr);
+		for (int i = 0; i < shiftMahjongEmployeeIdListJson.size(); i++) {
+			Integer shiftMahjongEmployeeId = shiftMahjongEmployeeIdListJson.getInt(i);
+			ShiftMahjongEmployee shiftMahjongEmployee = new ShiftMahjongEmployee();
+			shiftMahjongEmployee.setShiftMahjongEmployeeId(shiftMahjongEmployeeId);
+			int a = i + 1;
+			shiftMahjongEmployee.setShiftMahjongOrder(a);
+			
+			shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
+		}
+
+		ShiftMahjongDto shiftMahjongDto = shiftMahjongMapper.selectByShiftMahjongIdDto(shiftMahjongId);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjongDto);
+	}
+	
+	/**
+	 * 子方法
+	* @author 老王
+	* @date 2016年5月13日 上午1:13:11 
+	* @param shiftMahjongEmployeeId 轮牌员工信息标识
+	* @param state 状态
+	* @param storeId 门店标识
+	* @return Integer
+	 */
+	public Integer updateStateCha(Integer shiftMahjongEmployeeId, Integer state, Integer storeId) {
+		ShiftMahjong shiftMahjong = shiftMahjongMapper.selectByShiftMahjongEmployeeId(shiftMahjongEmployeeId);
 	    updateStateShiftMahjong(shiftMahjongEmployeeId, state, shiftMahjong);
 	    ShiftMahjongEmployee shiftMahjongEmployee = new ShiftMahjongEmployee();
         shiftMahjongEmployee.setShiftMahjongEmployeeId(shiftMahjongEmployeeId);
@@ -360,8 +421,7 @@ public class ShiftMahjongService {
         if (state.intValue() == 1) {
             staffService.selfMotionExecute(shiftMahjongEmployeeId, storeId);
         }
-        ShiftMahjongDto shiftMahjongDto = shiftMahjongMapper.selectByShiftMahjongIdDto(shiftMahjong.getShiftMahjongId());
-	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjongDto);
+        return shiftMahjong.getShiftMahjongId();
 	}
 	
 	/**
@@ -439,9 +499,11 @@ public class ShiftMahjongService {
                 mapList.add(map);
             }
         }
-	    
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("mapList", mapList);
+	    map.put("shiftMahjong", shiftMahjong);
 		/*List<Map<String, Integer>> mapList = shiftMahjongEmployeeMapper.selectByPositionIdMap(shiftMahjongId);*/
-		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, mapList);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
 	}
 	
 	
@@ -450,10 +512,17 @@ public class ShiftMahjongService {
 	* @author 王大爷
 	* @date 2015年12月23日 下午8:49:59
 	* @param shiftMahjongId 轮牌标识
+	* @param stateType 状态类型
 	* @return BaseDto
 	 */
-	public BaseDto refreshShiftMahjongEmployee(Integer shiftMahjongId) {
-	    List<ShiftMahjongEmployee> list = shiftMahjongEmployeeMapper.selectByShiftMahjongId(shiftMahjongId);
+	public BaseDto refreshShiftMahjongEmployee(Integer shiftMahjongId, Integer stateType) {
+		List<ShiftMahjongEmployee> list = new ArrayList<>();
+		if (stateType == 1) {
+			list = shiftMahjongEmployeeMapper.selectByShiftMahjongId(shiftMahjongId);
+		}
+		else {
+			list = shiftMahjongEmployeeMapper.selectByShiftMahjongIdDown(shiftMahjongId);
+		}
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, list);
 	}
 	
