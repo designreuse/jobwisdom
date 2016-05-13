@@ -40,28 +40,28 @@
   
   <!-- 根据门店标识查询优惠券信息，by 张进军 -->
   <select id="selectBaseByStoreId" resultType="com.zefun.web.dto.CouponBaseDto" parameterType="com.zefun.web.entity.Page" >
-    SELECT 
+      SELECT 
 		CASE c.coupon_type 
-		   WHEN 1 THEN (SELECT project_name from project_info WHERE project_id = c.coupon_use_id)
-		   WHEN 2 THEN (SELECT goods_name from goods_info WHERE goods_id = c.coupon_use_id) 
-		   WHEN 3 THEN (SELECT combo_name from combo_info WHERE combo_id = c.coupon_use_id)
-		   WHEN 4 THEN (SELECT category_name from goods_category WHERE category_id = c.coupon_use_id)
-		   WHEN 5 THEN (SELECT category_name from project_category WHERE category_id = c.coupon_use_id)
-		   ELSE '' 
-		END as projectName,
-		CASE c.coupon_type 
-		   WHEN 1 THEN (SELECT project_image from project_info WHERE project_id = c.coupon_use_id)
-		   WHEN 2 THEN (SELECT goods_image from goods_info WHERE goods_id = c.coupon_use_id) 
-		   WHEN 3 THEN (SELECT combo_image from combo_info WHERE combo_id = c.coupon_use_id)
-		   ELSE '' 
-		END as projectImage,  
-		c.coupon_id as couponId,
-		c.coupon_type as couponType,
-		c.coupon_name as couponName,
-		c.coupon_price as couponPrice,
-		c.coupon_vantages as couponVantages,
-		c.coupon_stop_time as overdueTime
-	from coupon_info c where c.coupon_is_use = 1 and c.is_delete = 0 and c.store_id = #{params.storeId} and c.coupon_stop_time >= curdate()
+		   WHEN 1 THEN (SELECT project_name FROM project_info WHERE project_id = c.coupon_use_id)
+		   WHEN 2 THEN (SELECT goods_name FROM goods_info WHERE goods_id = c.coupon_use_id)
+		   WHEN 3 THEN (SELECT combo_name FROM combo_info WHERE combo_id = c.coupon_use_id)
+		   WHEN 4 THEN (SELECT category_name FROM goods_category WHERE category_id = c.coupon_use_id)
+		   WHEN 5 THEN (SELECT category_name FROM project_category WHERE category_id = c.coupon_use_id)
+		   ELSE ''
+		END AS projectName,
+		CASE c.coupon_type
+		   WHEN 1 THEN (SELECT project_image FROM project_info WHERE project_id = c.coupon_use_id)
+		   WHEN 2 THEN (SELECT goods_image FROM goods_info WHERE goods_id = c.coupon_use_id)
+		   WHEN 3 THEN (SELECT combo_image FROM combo_info WHERE combo_id = c.coupon_use_id)
+		   ELSE ''
+		END AS projectImage,
+		c.coupon_id AS couponId,
+		c.coupon_type AS couponType,
+		c.coupon_name AS couponName,
+		c.coupon_price AS couponPrice,
+		c.coupon_vantages AS couponVantages,
+		c.coupon_stop_time AS overdueTime
+	from coupon_info c WHERE c.coupon_is_use = 1 AND c.is_delete = 0 AND c.store_id = #{params.storeId} AND c.coupon_stop_time >= CURDATE()
   </select>
   <!-- 根据会员标识查询优惠券信息，by 张进军 -->
   <select id="selectBaseByMemberId" resultType="com.zefun.web.dto.CouponBaseDto" parameterType="java.lang.Integer" >

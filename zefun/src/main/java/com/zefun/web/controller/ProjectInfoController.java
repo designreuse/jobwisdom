@@ -1,6 +1,7 @@
 package com.zefun.web.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -127,9 +128,10 @@ public class ProjectInfoController extends BaseController {
     * @param request    request
     * @param response   response
     * @return           ModelAndView
+     * @throws IOException 
      */
     @RequestMapping(value = Url.Project.PROJECT_INFO_LIST)
-    public ModelAndView viewProjects(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView viewProjects(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer storeId = getStoreId(request);
         return projectService.viewProjects(storeId);
     }

@@ -2,8 +2,6 @@ package com.zefun.wechat.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,8 +17,6 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
-import com.zefun.common.utils.GenerateQrCodeUtil;
-import com.zefun.common.utils.StringUtil;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.AgentInfo;
@@ -352,7 +348,7 @@ public class ConferenceController extends BaseController {
     * @param response  response
     * @return          view
      */
-    @RequestMapping(value = "conference/pay/h5Pay")
+    @RequestMapping(value = "mobile/pay/h5Pay")
     public ModelAndView h5Pay(HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
         if (openId == null) {

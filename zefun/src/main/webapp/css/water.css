@@ -26,7 +26,7 @@
     width: 1030px;
     border: 1px solid #dbdce2;
     box-shadow: 0 0 10px #ccc;
-    color: #c1c6d3;
+    color: #797b80;
 }
 
 .income_1  tr:nth-child(even){
@@ -113,3 +113,4 @@ line-height:40px
 .income_1 tr td{
 	    vertical-align: middle;
 }
+#startDate,#endDate{color:#a5a7aa!important}

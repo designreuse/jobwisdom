@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/base.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -25,11 +26,11 @@
 	    <div class="swiper-container">
 	        <div class="swiper-wrapper">
 	        	<div class="swiper-slide">
-	                <img class="lazy" name="lazyImage" src="<%=picPath %>img_lazy_loding.png" data-original="${storeGoods.goodsInfo.uboxPicture }"/>
+	                <img class="lazy" name="lazyImage" src="<%=picPath %>${goodsInfo.goodsImage}" data-original="${goodsInfo.goodsImage}"/>
 	            </div>
-	        	<c:forEach items="${storeGoods.goodsInfo.pictureArray }" var="img">
+	        	<c:forEach items="${fn:split(goodsInfo.affiliatedImage, ',') }" var="img">
 	        		<div class="swiper-slide">
-		                <img class="lazy" name="lazyImage" src="<%=picPath %>img_lazy_loding.png" data-original="${img }"/>
+		                <img class="lazy" name="lazyImage" src="<%=picPath %>${img}" data-original="${img }"/>
 		            </div>
 	        	</c:forEach>
 	        </div>
@@ -40,9 +41,9 @@
     <section class="box pro-desc">
         <div class="ovh">
             <div class="fl">
-                <h1>${storeGoods.goodsInfo.goodsName }</h1>
+                <h1>${goodsInfo.goodsName }</h1>
                 <div class="pro-others">
-                    <span class="item font-666">已售出：${storeGoods.goodsInfo.goodsSales }</span>
+                    <span class="item font-666">已售出：6</span>
                 </div>
             </div>
             <div class="share1 fr">
@@ -51,12 +52,12 @@
             </div>
         </div>
         <div class="pro-money">
-        	<span class="time">￥${storeGoods.goodsInfo.uboxOriginalPrice / 100}</span>
-        	<c:if test="${storeGoods.storeGoodsIntegral > 0 }">
+        	<span class="time">￥${goodsInfo.goodsPrice / 100}</span>
+        	<%-- <c:if test="${storeGoods.storeGoodsIntegral > 0 }">
         		<span>或 </span><span class="time">￥${storeGoods.storeGoodsPrice / 100}+${storeGoods.storeGoodsIntegral }积分</span>
-        	</c:if>
+        	</c:if> --%>
         </div>
-        <c:choose>
+        <%-- <c:choose>
         	<c:when test="${!empty storeGoods.rewardsCoupon and storeGoods.rewardsGiftAmount > 0 }">
         		<p class="pro-yh"><span>送</span>${storeGoods.rewardsCoupon.couponPrice }元${storeGoods.rewardsCoupon.couponName }, 另送${storeGoods.rewardsGiftAmount }元礼金</p>
         	</c:when>
@@ -66,12 +67,12 @@
         	<c:when test="${empty storeGoods.rewardsCoupon and storeGoods.rewardsGiftAmount > 0 }">
         		<p class="pro-yh"><span>送</span>${storeGoods.rewardsGiftAmount }元礼金</p>
         	</c:when>
-        </c:choose>
+        </c:choose> --%>
     </section>
 
     <h2 class="box-title">商品详情</h2>
 
-    <section class="box">
+    <%-- <section class="box">
 
         <div class="article">
             <c:if test="${!empty storeGoods.goodsInfo.goodsContentList }">
@@ -87,9 +88,9 @@
 			</c:if>
         </div>
 
-    </section>
+    </section> --%>
 
-    <h2 class="box-title"></h2>
+    <h3 class="box-title">${goodsInfo.goodsDesc}</h3>
     <section class="box"></section>
     <!-- <h2 class="box-title">订单&取货</h2> -->
 
@@ -118,10 +119,10 @@
  		<div class="f-con c">
  			<c:choose>
  				<c:when test="${storeGoods.storeGoodsIntegral > 0 }">
- 					<a class="btn btn-primary" id="modalBuy" href="javascript:void();">立即支付</a>
+ 					<a class="btn btn-primary"  id="modalBuy" href="javascript:void();">立即支付</a>
  				</c:when>
  				<c:otherwise>
- 					<a class="btn btn-primary" href="javascript:checkPay();">立即支付</a>
+ 					<a class="btn btn-primary" onclick="initPay(${goodsInfo.storeId},${goodsInfo.goodsId})">立即支付1</a>
  				</c:otherwise>
  			</c:choose>
  		</div>
@@ -228,15 +229,38 @@
  function checkPay() {
 	 if (isEmpty('${memberInfo.memberId}')) {
 		 $("#confirmWindow").removeClass("hide");
+		 return false;
      }
 	 else {
-		 pay();
+		 return true;
 	 }
+	 /* else {
+		 pay();
+	 } */
  }
  
  function register() {
-	 window.location.href = baseUrl + "memberCenter/view/register/${storeGoods.storeId}";
+	 window.location.href = baseUrl + "memberCenter/view/register/${goodsInfo.storeId}";
  }
+
+function initPay(storeId, goodsId){
+	var isOk = checkPay();
+	if(!isOk)return;
+	var data = "storeId=" + storeId + "&goodsId=" + goodsId;
+ 	$.ajax({
+ 		  type : "POST",
+ 		  url : baseUrl + "app/goodsinfo/wechat/init/pay",
+ 		  data : data,
+ 		  dataType : "json",
+ 		  success : function(e){
+ 			  if (e.code != 0) {
+ 				  dialog(e.msg);
+ 				  return;
+ 			  }
+ 			  callWeixin(e.msg);
+ 		  }
+ 	  });
+}
  
  function pay(){
 	  var type = $(".pro-current").attr("data-type");
@@ -263,8 +287,6 @@
         "signType" : rj.signType,
         "paySign" : rj.paySign
     }, function(res) {
-        // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-        // 因此微信团队建议，当收到ok返回时，向商户后台询问是否收到交易成功的通知，若收到通知，前端展示交易成功的界面；若此时未收到通知，商户后台主动调用查询订单接口，查询订单的当前状态，并反馈给前端展示相应的界面
         if (res.err_msg == "get_brand_wcpay_request:ok") {
             window.location.href = baseUrl + "uboxMall/view/goodsPayCallback/" + rj.transactionId;
         } else {

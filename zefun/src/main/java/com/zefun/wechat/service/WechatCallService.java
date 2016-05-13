@@ -202,7 +202,6 @@ public class WechatCallService {
         String transactionId = StringUtil.getKey();
         callback = callback.replace("{transactionId}", transactionId);
         BaseDto result = pay(App.System.WECHAT_ZEFUN_STORE_ID, goodsName, totalFee, openId, transactionId, callback, request);
-//        payByQrCode(goodsName, totalFee, transactionId, callback, request);
         if (result.getCode() == App.System.API_RESULT_CODE_FOR_SUCCEES) {
             // 新建订单
             TransactionInfo transactionInfo = new TransactionInfo();
@@ -279,8 +278,7 @@ public class WechatCallService {
         parameters.put("out_trade_no", outTradeNo);
         parameters.put("total_fee", String.valueOf(totalFee));
         parameters.put("spbill_create_ip", spbillCreateIp);
-        parameters.put("notify_url", App.System.SERVER_BASE_URL
-                + callBackUrl.replace("{transactionId}", outTradeNo));
+        parameters.put("notify_url", App.System.SERVER_BASE_URL + callBackUrl.replace("{transactionId}", outTradeNo));
         parameters.put("trade_type", "JSAPI");
         parameters.put("openid", openId);
         String mySign = SignUtil.createSign("UTF-8", parameters, mchKey);
@@ -299,21 +297,13 @@ public class WechatCallService {
         logger.info("weixin pay request result : " + preXml);
 
         preXml = preXml.replace("<![CDATA[", "").replace("]]>", "");
-        String returnCode = preXml.substring(
-                preXml.indexOf("<return_code>") + 13,
-                preXml.indexOf("</return_code>"));
-        String resultCode = preXml.substring(
-                preXml.indexOf("<result_code>") + 13,
-                preXml.indexOf("</result_code>"));
+        String returnCode = preXml.substring(preXml.indexOf("<return_code>") + 13, preXml.indexOf("</return_code>"));
+        String resultCode = preXml.substring(preXml.indexOf("<result_code>") + 13, preXml.indexOf("</result_code>"));
 
         Map<String, String> payMap = new HashMap<String, String>();
-        if (preXml.contains("<result_code>") && returnCode.equals("SUCCESS")
-                && resultCode.equals("SUCCESS")) {
-            String prepayId = preXml.substring(
-                    preXml.indexOf("<prepay_id>") + 11,
-                    preXml.indexOf("</prepay_id>"));
+        if (preXml.contains("<result_code>") && returnCode.equals("SUCCESS") && resultCode.equals("SUCCESS")) {
+            String prepayId = preXml.substring(preXml.indexOf("<prepay_id>") + 11, preXml.indexOf("</prepay_id>"));
             String xpackage = "prepay_id=" + prepayId;
-
             String ts = Long.toString(System.currentTimeMillis());
 
             /*
@@ -331,8 +321,7 @@ public class WechatCallService {
             parameters2.put("nonceStr", uuid);
             parameters2.put("signType", App.Wechat.SIGN_TYPE);
             parameters2.put("package", xpackage);
-            String paySign = SignUtil.createSign("UTF-8", parameters2, mchKey); // SignUtil.paySign(singMap2,
-                                                                                // mchKey);
+            String paySign = SignUtil.createSign("UTF-8", parameters2, mchKey); // SignUtil.paySign(singMap2, mchKey);
 
             payMap.put("resultCode", "0");
             payMap.put("appId", appId);
@@ -344,8 +333,7 @@ public class WechatCallService {
             payMap.put("transactionId", outTradeNo);
         } 
         else {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
-                    App.System.API_RESULT_MSG_FOR_FAIL);
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
         }
 
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, payMap);
@@ -375,7 +363,7 @@ public class WechatCallService {
         parameters.put("mch_id", mchId);
         parameters.put("device_info", deviceInfo);
         parameters.put("nonce_str", uuid);
-        parameters.put("body", "iphone6s");
+        parameters.put("body", goodsName);
         parameters.put("out_trade_no", outTradeNo);
         parameters.put("total_fee", String.valueOf(totalFee));
         parameters.put("spbill_create_ip", spbillCreateIp);
@@ -479,7 +467,7 @@ public class WechatCallService {
 
     /**
      *微信统一下单api，获取预付单信息
-    * @author 张进军
+    * @author 高国藩
     * @date Sep 23, 2015 7:31:07 PM
     * @param xo                         订单信息
     * @return                           预付单信息
@@ -603,8 +591,7 @@ public class WechatCallService {
             httpclient = HttpClients.custom().setSSLSocketFactory(sslsf)
                     .build();
 
-            HttpPost httpPost = new HttpPost(
-                    "https://api.mch.weixin.qq.com/secapi/pay/refund");
+            HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/secapi/pay/refund");
             StringEntity myEntity = new StringEntity(xml, "utf-8");
             httpPost.addHeader("Content-Type", "text/xml");
             httpPost.setEntity(myEntity);

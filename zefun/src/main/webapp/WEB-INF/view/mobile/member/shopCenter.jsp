@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/base.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -17,36 +18,41 @@
 
 
 <div class="content wrap">
-	<c:if test="${hasUbox == 1 }">
-		<div class="project-detail-descript">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-		            	<img src="<%=picPath %>zefun/shop/banner/1_雀巢咖啡.jpg" />
-		            </div>
-		            <div class="swiper-slide">
-		                <img src="<%=picPath %>zefun/shop/banner/2_迪奥化妆品.jpg" alt=""/>
-		            </div>
-		            <div class="swiper-slide">
-		                <img src="<%=picPath %>zefun/shop/banner/3_歌帝梵巧克力.jpg" alt=""/>
-		            </div>
-		            <div class="swiper-slide">
-		                <img src="<%=picPath %>zefun/shop/banner/4_飞利浦蓝牙音响.jpg" alt=""/>
-		            </div>
-                </div>
-            </div>
-        </div>
-		<div class="">
-		    <ul class="store-tab">
-		        <li class="current" onclick="showConten(1, this)">购物商城</li>
-		        <li onclick="showConten(2, this)">积分商城</li>
-		    </ul>
-		</div>
-	</c:if>
+<div class="project-detail-descript">
+          <div class="swiper-container">
+              <div class="swiper-wrapper">
+              		<c:forEach items="${fn:split(storeInfo.carouselPicture, ',') }" var="pic">
+	                    <div class="swiper-slide">
+		            	    <img src="<%=picPath %>${pic}" />
+		                </div>
+              		</c:forEach>
+              </div>
+          </div>
+       </div>
+	<div class="">
+	    <ul class="store-tab">
+	        <li class="current" onclick="showConten(1, this)">购物商城</li>
+	        <li onclick="showConten(2, this)">积分商城</li>
+	    </ul>
+	</div>
 	
 	<!-- 友宝商城 -->
-    <div id="ubox" class="waterfall pb7 hide">
-    	<c:forEach items="${goodsList}" var="storeGoods">
+    <div id="ubox" class="waterfall pb7 ">
+	    <c:forEach items="${goodsList }" var="goodsList">
+	    	<div class="grid">
+      				<a href="<%=basePath %>mobile/view/pay/goodsInfo?storeId=${goodsList.storeId }&storeGoodsId=${goodsList.goodsId }">
+			            <div class="imgholder">
+			                <img class="lazy" src="<%=picPath %>${goodsList.goodsImage}" data-original="12" />
+			            </div>
+			            <div class="meta">
+			                <h3>${goodsList.goodsName }</h3>
+			                <p class="pro-p"><span class="pro-price"><i>￥</i>${goodsList.goodsPrice }</span></p>
+			            </div>
+			        </a>
+		    </div>
+	    </c:forEach>
+    		
+    	<%-- <c:forEach items="${goodsList}" var="storeGoods">
 	      	<div class="grid">
 	      		<c:choose>
 	      			<c:when test="${storeGoods.goodsInfo.uboxStock <= 0 }">
@@ -76,7 +82,7 @@
 	      			</c:otherwise>
 	      		</c:choose>
 		    </div>
-    	</c:forEach>
+    	</c:forEach> --%>
 	</div>
 	
 	<!-- 积分商城 -->
@@ -128,7 +134,7 @@
 	    </div>
     </div>
 	
-	<div class="footer">
+	<%-- <div class="footer">
       <ul>
         <li>
           <a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
@@ -155,7 +161,7 @@
           </a>
         </li>
       </ul>
-    </div>
+    </div> --%>
 	
 	<!--确认兑换-->
 	<div class="s-modal hide s-modal-miss" id="confirmWindow">
@@ -274,7 +280,7 @@
 		$("#ubox").removeClass("hide");
 	}
 	else {
-		$("#coupon").removeClass("hide");
+		//$("#coupon").removeClass("hide");
 	}
 	
 	function showConten(type, obj){

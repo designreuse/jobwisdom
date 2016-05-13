@@ -1,8 +1,11 @@
 package com.zefun.wechat.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +16,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.Url;
+import com.zefun.common.utils.XmlUtil;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.GoodsInfoDto;
+import com.zefun.web.service.GoodsInfoService;
 import com.zefun.wechat.service.UboxMallService;
+import com.zefun.wechat.service.WechatCallService;
+
+import net.sf.json.JSONObject;
 
 /**
  * 友宝商城控制器
@@ -28,6 +37,18 @@ public class UboxMallController extends BaseController {
     /** 友宝商城服务对象 */
     @Autowired
     private UboxMallService uboxMallService;
+    
+    /** 微信支付服务 */
+    @Autowired
+    private WechatCallService wechatCallService;
+    
+    /** 商品 */
+    @Autowired
+    private GoodsInfoService goodsInfoService;
+    
+    /**日志*/
+    private Logger logger = Logger.getLogger(UboxMallController.class);
+    
     
     /**
      * 商品详情页面
@@ -46,14 +67,65 @@ public class UboxMallController extends BaseController {
         if (openId == null) {
             return null;
         }
-        String wechatPayOpenId = getOpenIdForYoumei(1, request, response);
+        /*String wechatPayOpenId = getOpenIdForYoumei(1, request, response);
         if (wechatPayOpenId == null) {
             return null;
-        }
+        }*/
         Integer memberId = getUserIdByOpenId(openId);
         return uboxMallService.goodsInfoView(storeGoodsId, memberId);
     }
     
+    /**
+     * 发起微信支付
+    * @author 高国藩
+    * @date 2016年5月12日 下午5:24:35
+    * @param storeId  storeId
+    * @param goodsId  goodsId
+    * @param request  request
+    * @param response response
+    * @return         微信签名
+     */
+    @RequestMapping(value = Url.AppPay.GOODSINFO_PAY, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto goodsPayAction(Integer storeId, Integer goodsId, HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(storeId, 1, request, response);
+        if (openId == null) {
+            return null;
+        }
+       /* String wechatPayOpenId = getOpenIdForYoumei(1, request, response);
+        if (wechatPayOpenId == null) {
+            return null;
+        }*/
+//        Integer memberId = getUserIdByOpenId(openId);
+        
+        GoodsInfoDto goodsInfoDto = goodsInfoService.queryGoodsInfoById(goodsId);
+        String callback = "/" + Url.AppPay.GOODSINFO_PAY_CALLBACK;
+        return wechatCallService.wepayForZefun(storeId, 4, goodsId, goodsInfoDto.getGoodsName(), 
+                goodsInfoDto.getGoodsPrice().intValue(), openId, callback, request);
+    }
+    
+    /**
+     * 微信回调支付接口
+    * @author 高国藩
+    * @date 2016年5月12日 下午6:08:14
+    * @param transactionId transactionId
+    * @param request request
+    * @param data    微信返回的信息
+    * @return SUCCESS
+     */
+    @RequestMapping(value = Url.AppPay.GOODSINFO_PAY_CALLBACK)
+    @ResponseBody
+    public String callBackPayGoodsInfo(HttpServletRequest request, @RequestBody String data, @PathVariable String transactionId){
+        Map<String, String> map = XmlUtil.getMapFromXML(data);
+        String resultCode = map.get("result_code");
+        String returnCode = map.get("return_code");
+        String openId = map.get("openid");
+        String outTradeNo = map.get("out_trade_no");
+        logger.info("微信返回订单标示:"+outTradeNo);
+        logger.info("系统返回订单标示:"+transactionId);
+        logger.info("xml --> "+JSONObject.fromObject(map).toString());
+        return uboxMallService.callBackPayGoodsInfo(transactionId, outTradeNo, resultCode, returnCode, openId);
+    }
     
     /**
      * 商品支付操作
