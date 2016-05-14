@@ -15,7 +15,8 @@
   
  transform: rotate(360deg);
 }
-
+.arrows_right{position:absolute;right:0;top:450px}
+.arrows_right img{width:65px;z-index:10}
 </style>
 <body>
 
@@ -31,8 +32,10 @@
 						<span class="add_step" style="position: relative; left: -10px">+</span>新增
 					</div></a>
 				</div>
+					
 				<!--项目设置 -->
 				<div class="alertPanel" style="">
+			
 				<c:forEach items="${deptProjectList }" var="deptPorject">
 					<div class="part_panel">
 						<p>${deptPorject.deptName }</p>

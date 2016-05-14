@@ -169,7 +169,7 @@ em{font-style:normal}
 .write_input{position:relative;left:746px;color: #afb0b6;top:36px}
 
 
-.alertPanel{ background-color:rgba(105,111,124,0.9);position:absolute;bottom:0;right:0;color:white;height:750px;width:292px;z-index:10000;padding:10px 20px}
+.alertPanel{ background-color:rgba(105,111,124,0.9);position:absolute;bottom:0;right:0;color:white;height:750px;width:292px;z-index:10000;padding:10px 20px;}
 .part_panel p{color:#dfe0e2;font-size:14px}
 .part_panel dt{margin:15px 40px 10px 40px}
 .part_panel dd{    width: 110px;
