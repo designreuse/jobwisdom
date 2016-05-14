@@ -7,7 +7,16 @@
 %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/roll.css" type="text/css" />
+<style>
+.close1 img{
+  transition: transform 1s ease-out;
+    }
+.close1 img:hover{
+  
+ transform: rotate(360deg);
+}
 
+</style>
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -46,7 +55,8 @@
 								<c:forEach items="${projectInfos }" var="project" step="2" varStatus="status">
 									<div class="pic">
 									<div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>project/view/projectList?projectId=${projectInfos[status.count*2-2].projectId }","_self")'>
-										<div class="column_img_container">
+										<div class="column_img_container" style="position:relatiev">
+										   <span class="close1" style="position:absolute;right:25px;top:15px;"><img src="<%=basePath%>images/close1.png" style="width:20px"></span>
 											<div class="head_pic">
 												<img src="<%=basePath%>images/head_pic.png">
 											</div>
