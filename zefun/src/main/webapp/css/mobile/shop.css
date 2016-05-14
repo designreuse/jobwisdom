@@ -131,5 +131,5 @@ em{font-style:normal}
 .text_content{margin-bottom:0.5rem;line-height:1.5rem;font-size:1.3rem}
 .list_money span{color:#ee7352;font-size:1.3rem;font-weight:bold}
 .list_money em{display:inline-block;float:right;}
-.content_detial{border-bottom:1px solid #ccc;height:9.2rem;margin-bottom:1rem}
+.content_detial{border-bottom:1px solid #ccc!important;height:9.2rem;margin-bottom:1rem}
 .content_detial:last-child{border:none}
