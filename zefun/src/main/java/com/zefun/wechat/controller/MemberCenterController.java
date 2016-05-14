@@ -86,6 +86,7 @@ public class MemberCenterController extends BaseController {
         if (openId == null) {
             return null;
         }
+        setJsapiSignData(storeId, request);
         int memberId = getUserIdByOpenId(openId);
         int ownerStoreId = getStoreIdByOpenId(openId);
         return memberCenterService.homeView(memberId, ownerStoreId);
@@ -852,6 +853,25 @@ public class MemberCenterController extends BaseController {
         }
         Integer ownerStoreId = getStoreIdByOpenId(openId);
         return memberCenterService.shopCenterView(storeId, ownerStoreId);
+    }
+    
+    /**
+     * 查询门店下商品分来大全
+    * @author 张进军
+    * @date Oct 21, 2015 10:00:34 AM
+    * @param storeId    门店标识
+    * @param request        请求对象
+    * @param response       相应对象
+    * @return           积分商城页面(分类大全)
+     */
+    @RequestMapping(value = Url.MemberCenter.VIEW_SHOP_CENTER_LIST)
+    public ModelAndView shopCenterViewList(@PathVariable int storeId, HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(storeId, 1, request, response);
+        if (openId == null) {
+            return null;
+        }
+        Integer ownerStoreId = getStoreIdByOpenId(openId);
+        return memberCenterService.shopCenterViewList(storeId, ownerStoreId);
     }
 
     

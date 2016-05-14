@@ -83,6 +83,17 @@
     sales_count, sales_people, is_wechat_sell, is_disable, is_deleted, is_sell_product, affiliated_image, create_time, update_time, last_operator_id,
     is_cash_deduction, highest_discount, calculation_type
   </sql>
+  
+  <resultMap type="com.zefun.web.dto.GoodsInfoCatagoryDto" id="catagoryGoodsInfos">
+        <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+        <result column="store_id" property="storeId" jdbcType="INTEGER" />
+        <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+        <association property="goodsInfos" column="category_id" select="selectGoodsBaseByCategoryId" />
+  </resultMap>
+  <select id="selectCatagoryGoodsInfos" resultMap="catagoryGoodsInfos" parameterType="java.lang.Integer">
+  	SELECT category_id, store_id, category_name FROM goods_category WHERE store_id = #{storeId} AND is_deleted = 0
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
   select * from goods_info where goods_id =  #{goodsId,jdbcType=INTEGER}
   </select>

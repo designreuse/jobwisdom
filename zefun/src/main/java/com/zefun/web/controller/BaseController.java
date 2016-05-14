@@ -13,16 +13,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.App.Session;
 import com.zefun.common.consts.Url;
-import com.zefun.common.utils.GenerateQrCodeUtil;
 import com.zefun.common.utils.SignUtil;
-import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.UserAccount;
@@ -30,7 +25,6 @@ import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.RedisService;
-import com.zefun.wechat.service.WechatCallService;
 
 /**
  * 服务基础类
@@ -207,7 +201,7 @@ public class BaseController {
                     || url.contains(Url.MemberCenter.VIEW_EMPLOYEE_INFO)
                     || url.contains(Url.MemberCenter.VIEW_EMPLOYEE_PROJECT)
                     || url.contains(Url.MemberCenter.VIEW_SHOP_CENTER.replace("/{storeId}", "").replace("/{businessType}", ""))
-                    || url.contains(Url.UboxMall.VIEW_GOODS_INFO)) 
+                    || url.contains(Url.UboxMall.VIEW_GOODS_INFO))
             		  && (StringUtils.isNotBlank(bt) && !String.valueOf(businessType).equals(bt))) {
                 if ("1".equals(bt) && 2 == businessType) {
                 	request.setAttribute("tip", "该模块只有内部员工才能访问");

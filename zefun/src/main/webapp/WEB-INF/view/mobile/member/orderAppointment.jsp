@@ -11,7 +11,13 @@
     <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
     <link rel="stylesheet" href="<%=memberCssPath%>"/>
     <link rel="stylesheet" href="<%=swiperCssPath%>"/>
+    <style type="text/css">
+    .bottom_fix{width:100%;background:white;position:fixed;bottom:0;height:6rem;z-index:2}
+	.bottom_fix li{float:left;width:25%;text-align:center;line-height:3rem;margin-top:0.5rem}
+	.bottom_fix img{width:3rem}
+    </style>
   </head>
+  
 <body>
 
 <div class="content wrap">
@@ -97,7 +103,31 @@
 	        </div>               
         </c:forEach>
 	</div>
-	<div>
+	
+	<ul class="bottom_fix clearfix">
+ 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
+	      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
+		      <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">我的</p>
+		  </li>
+	    </a>
+	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
+	    	<li><img src="<%=basePath %>images/mobile/member/botton_2_2.png">
+		       <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">预约</p>
+		    </li>
+	    </a>
+	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
+		  <li><img src="<%=basePath %>images/mobile/member/botton_3.png">
+		    <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">商城</p>
+		  </li>
+	    </a>
+	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
+	     <li><img src="<%=basePath %>images/mobile/member/botton_4.png">
+		     <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">门店</p>
+		  </li>
+	    </a>
+ 	</ul>
+ 
+	<%-- <div>
       <ul class="footer">
         <li>
           <a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
@@ -124,7 +154,7 @@
           </a>
         </li>
       </ul>
-    </div>
+    </div> --%>
     
     <c:if test="${!empty storeList }">
         <div class="s-modal share-modal s-modal-miss hide" id="liansuo-modal">

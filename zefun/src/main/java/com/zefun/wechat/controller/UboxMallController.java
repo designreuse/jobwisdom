@@ -24,7 +24,6 @@ import com.zefun.web.service.GoodsInfoService;
 import com.zefun.wechat.service.UboxMallService;
 import com.zefun.wechat.service.WechatCallService;
 
-import net.sf.json.JSONObject;
 
 /**
  * 友宝商城控制器
@@ -121,9 +120,6 @@ public class UboxMallController extends BaseController {
         String returnCode = map.get("return_code");
         String openId = map.get("openid");
         String outTradeNo = map.get("out_trade_no");
-        logger.info("微信返回订单标示:"+outTradeNo);
-        logger.info("系统返回订单标示:"+transactionId);
-        logger.info("xml --> "+JSONObject.fromObject(map).toString());
         return uboxMallService.callBackPayGoodsInfo(transactionId, outTradeNo, resultCode, returnCode, openId);
     }
     

@@ -86,9 +86,18 @@ public class MemberBaseDto {
     /** 服务人员*/
     private List<Map<String, Object>> projectStepList;
     
+    /**优惠券数量 */
+    private Integer couponCount;
     
     
-    
+    public Integer getCouponCount() {
+        return couponCount;
+    }
+
+    public void setCouponCount(Integer couponCount) {
+        this.couponCount = couponCount;
+    }
+
     public List<MemberSubAccountDto> getSubAccountDtoList() {
 		return subAccountDtoList;
 	}
