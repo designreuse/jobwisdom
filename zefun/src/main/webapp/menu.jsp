@@ -149,6 +149,11 @@ function loginOut() {
 	window.location.href = "http://"+location.host+"/jobwisdom/user/logout";
 }
 
+function updatePassword () {
+	var passUrl = "http://"+location.host+"/jobwisdom/system/view/person";
+	window.location.href = passUrl;
+}
+
 function cantLoginOut () {
 	jQuery(".top_zzc").hide();
 }

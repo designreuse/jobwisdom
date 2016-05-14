@@ -24,7 +24,7 @@ String topBasePath = request.getScheme()+"://"+request.getServerName()+":"+reque
 		   </div>
 			 
 			 </em>
-			 <span style="border-right:1px solid #999da7"><img src="<%=basePath%>/images/top2.png">修改密码</span>
+			 <span style="border-right:1px solid #999da7" onclick = "updatePassword()"><img src="<%=basePath%>/images/top2.png">修改密码</span>
 			 <span class="out" onclick = "showLoginOut();"><img src="<%=basePath%>images/top3.png">退出登录</span>
            </div>
 		</div>
