@@ -125,8 +125,8 @@
 	        <div class="money_head clearfix">
 				<p class="money_head_p"><img src="assets/images/money_head.png"></p>
 				<div class="boss_number_">
-				  <span class="boss_sex">欧老板（男）</span>
-				  <span class="order_number">订单号：<em name="orderNumber"></em></span>
+				  <span class="boss_sex"></span>
+				  <span class="order_number"><em name="orderNumber"></em></span>
 				</div>
 			</div>
 			<div class="roll_money hide">
@@ -143,8 +143,8 @@
 				       
 			</table>
 			
-			<p class="money_get"><span>应收：<em name="totalReceivableMoney">156414</em></span><em>应收：<i id="totalRealMoney">156414</i></em></p>	
-			<button class="money_next" nclick="nextCheckout()" >下一步</button>
+			<p class="money_get"><span>应收：<em name="totalReceivableMoney"></em></span><em>应收：<i id="totalRealMoney"></i></em></p>	
+			<button class="money_next" onclick="nextCheckout()" >下一步</button>
 		
         </div>
     </div>
@@ -158,7 +158,7 @@
 	        <div class="money_head clearfix">
 				<p class="money_head_p"><img src="assets/images/money_head.png"></p>
 				<div class="boss_number_">
-				   <span class="boss_sex">欧老板（男）</span>
+				   <span class="boss_sex"></span>
 				   <span class="order_number">订单号：<em name="orderNumber"></em></span>
 				</div>
 			   
@@ -187,9 +187,9 @@
 				<td>操作</td>
 			  </tr>
 			  <tr>
-                <td >1231</td>
-				<td>0</td>
-				<td>1231</td>
+                <td name = "nextOldPric"></td>
+				<td name = "discountPric"></td>
+				<td name = "nextNewPric"></td>
 				<td><span class="change_price_red">改价</span></td>
 			  </tr>
 			</table>
@@ -202,11 +202,11 @@
 			  <li> 支护宝支付<input type="text" id="alipayAmount" name="alipayAmount"></li>
 			  <li> 团购支付<input type="text" id="groupAmount" name="groupAmount"></li>
 			</ul>
-			<p class="money_get" style="margin-left:30px;margin-top:4px"><span >应收：<em name="totalReceivableMoney">156414</em></span><em>应收：<i id="totalRealMoney">156414</i></em> <span class="notice">发送通知：<input type="radio" name="yes"> 是<input type="radio" name="yes"> 否</span> </p>	
+			<p class="money_get" style="margin-left:30px;margin-top:4px"><span >应收：<em name="totalReceivableMoney"></em></span><em>应收：<i id="totalRealMoney">156414</i></em> <span class="notice">发送通知：<input type="radio" name="isNotify" value="1" checked="checked"> 是<input type="radio" name="isNotify" value="0"> 否</span> </p>	
 			<button class="money_over">结账</button>
 		   <div class="change_price_content">
-		   <span class="money_add"><img src="assets/images/money_add.png"></span>
-		   <div class="triangle"><img src="assets/images/triangle.png"></div>
+		   <span class="money_add"><img src="<%=basePath %>images/money_add.png"></span>
+		   <div class="triangle"><img src="<%=basePath %>images/triangle.png"></div>
 		      <button class="sure_change_price">确认</button>
 			  <table class="sure_table">
 			     <tr>
@@ -234,7 +234,8 @@
 
 <%@ include file="/template/memberData.jsp" %>
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
-<script type="text/javascript" src="<%=basePath %>js/cashier/cashier.js?date=<%=new Date().getTime() %>"></script>
+<%-- <script type="text/javascript" src="<%=basePath %>js/cashier/cashier.js?date=<%=new Date().getTime() %>"></script>
+ --%><script type="text/javascript" src="<%=basePath %>js/cashier/cashier.js"></script>
 <script>
    	var loginType = "${loginType}";
    	
@@ -264,27 +265,18 @@
            		
    	    });
      })
-      //原价卡上的图片的出现与消失
-      jQuery(function(){
-         jQuery('.money_card_content li').click(function(){
-   	     jQuery(this).find('.circle_pic').show();
-   		 jQuery(this).addClass('active')
-   	  
-   	  });
       
-      })
-      
+     
       //点击下一步,关闭图标
       
       jQuery(function(){
         jQuery('.money_close_').click(function(){
-   	    jQuery('.zzc').hide();
-         });
+   	    	jQuery('.zzc').hide();
+        });
         
         jQuery('.money_next').click(function(){
-   	    jQuery('.zzc').hide();
-   		jQuery('.zzc1').show();
-   	    
+   	    	jQuery('.zzc').hide();
+   			jQuery('.zzc1').show();
         });
    	 
    	

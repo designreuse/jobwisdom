@@ -81,6 +81,12 @@ body {
 .register form span{color:#808080;font-size:10px;display:inline-block;height:22px;position:relative;top:6px}
 .register p{height:12px!important}
 .register .login_logo{margin-top:0!important}
+
+/* input:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0px 1000px white inset;
+		
+	} */
+
 </style>
 
 </head>
@@ -101,13 +107,13 @@ body {
 	   
 	      <p><input type="text" id="usernamepp" placeholder="工号"><i><img src="<%=basePath %>images/emploee_number.png"></i></p>
 		  
-		   <p><input type="text" id="passwordpp" placeholder="密码"><i><img src="<%=basePath %>images/password.png"></i></p>
+		   <p><input type="password" id="passwordpp" placeholder="密码"><i><img src="<%=basePath %>images/password.png"></i></p>
 		   
 		    <p><input type="text" id ="verificationpp" placeholder="请输入6位数字" style="padding-left:10px;width:136px"><span class="code_pic"><img alt="" src=""></span></p>
 		   
 		   
-		   <div class="remember_password"><input type="checkbox"><span class="remember_password_">记住密码</span><a href="javascript:;" style="color:#5258d8;display:inline-block;margin-left:95px;text-decoration:underline">忘记密码</a></div>
-		   <input type="button"  name = "loginButton" value="登陆" class="login_1"/>
+		   <div class="remember_password"><input type="checkbox" id = "rmbUser"><span class="remember_password_">记住密码</span><a href="javascript:;" style="color:#5258d8;display:inline-block;margin-left:95px;text-decoration:underline">忘记密码</a></div>
+		   <input type="button" name = "loginButton" value="登陆" class="login_1"/>
 		   <div class="login_bottom">
 		     <span><img src="<%=basePath%>images/login_bottom1.png"></span>
 		     <span><img src="<%=basePath%>images/login_bottom2.png"></span>
@@ -166,6 +172,7 @@ body {
 <script type="text/javascript" src="<%=basePath %>js/common/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/common/jquery-migrate-1.1.1.min.js"></script>
+<script type="text/javascript" src="<%=basePath %>js/common/jquery.cookie.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/base/pc.js"></script>
 <script type="text/javascript">
 //注册登陆切换
@@ -353,6 +360,34 @@ function yzm(obj){
         }
     });
 }
+
+/* $(document).ready(function() {
+    if ($.cookie("rmbUser") == "true") {
+        $("#rmbUser").attr("checked", true);
+        $("#loginStoreAccount").val($.cookie("loginStoreAccount"));
+        $("#usernamepp").val($.cookie("usernamepp"));
+        $("#passwordpp").val($.cookie("passwordpp"));
+    }
+});
+
+function saveUserInfo() {
+    if ($("#rmbUser").attr("checked") == "checked") {
+        var loginStoreAccount = $("#loginStoreAccount").val();
+        var usernamepp = $("#usernamepp").val();
+        var passwordpp = $("#passwordpp").val();
+        $.cookie("rmbUser", "true", { expires: 7 }); // 存储一个带7天期限的 cookie
+        $.cookie("loginStoreAccount", loginStoreAccount, { expires: 7 }); // 存储一个带7天期限的 cookie
+        $.cookie("usernamepp", usernamepp, { expires: 7 }); // 存储一个带7天期限的 cookie
+        $.cookie("passwordpp", passwordpp, { expires: 7 }); // 存储一个带7天期限的 cookie
+    }
+    else {
+        $.cookie("rmbUser", "false", { expires: -1 });        // 删除 cookie
+        $.cookie("loginStoreAccount", '', { expires: -1 });
+        $.cookie("usernamepp", '', { expires: -1 });
+        $.cookie("passwordpp", '', { expires: -1 });
+    }
+} */
+
 </script>
 <script type="text/javascript">
 var num = 200;

@@ -225,12 +225,12 @@ function submitPhone (obj) {
 				jQuery(obj).parents("div[name='memberTR']").find("input[name='memberId']").val(memberBaseDto.memberId).change();
 				jQuery(obj).parents("div[name='memberTR']").find("input[name='levelId']").val(memberBaseDto.levelId);
 				
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberNameSpan']").text(memberBaseDto.name);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberPhoneSpan']").text(memberBaseDto.phone);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberSexSpan']").text(memberBaseDto.sex);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberBalanceAmountSpan']").text(zeroValue(memberBaseDto.balanceAmount));
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberBalanceGiftmoneyAmountSpan']").text(zeroValue(memberBaseDto.giftmoneyAmount));
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberBalanceIntegralSpan']").text(zeroValue(memberBaseDto.balanceIntegral));
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberNameSpan']").text(memberBaseDto.name);
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberPhoneSpan']").text(memberBaseDto.phone);
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberSexSpan']").text(memberBaseDto.sex);
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberBalanceAmountSpan']").text(zeroValue(memberBaseDto.balanceAmount));
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberBalanceGiftmoneyAmountSpan']").text(zeroValue(memberBaseDto.giftmoneyAmount));
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberBalanceIntegralSpan']").text(zeroValue(memberBaseDto.balanceIntegral));
 				
 				jQuery("div[name='moreMemberInfoDIV']").find("span[name='totalConsumeAmountSpan']").text(zeroValue(memberBaseDto.totalConsumeAmount));
 				jQuery("div[name='moreMemberInfoDIV']").find("span[name='lastDayNumberSpan']").text(memberBaseDto.lastDayNumber);
