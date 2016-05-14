@@ -86,6 +86,20 @@ body {
 		-webkit-box-shadow: 0 0 0px 1000px white inset;
 		
 	} */
+	
+	.login_imformation input[type=password] {
+    background-color: rgba(161,123,151,0.1);
+    border: none;
+    height: 34px;
+    width: 195px;
+    border-radius: 4px;
+    position: absolute;
+    padding-left: 4px;
+    line-height: 34px；color:#eeeff1;
+    font-size: 14px;
+    padding-left: 40px;
+    color: #cacaca;
+}
 
 </style>
 
