@@ -204,8 +204,10 @@ public interface View {
 		public static final String CARD_MONEY_FLOW = "mobile/member/cardmoneyFlow";
 		/** 礼金流水记录页面 */
 		public static final String GIFT_MONEY_FLOW = "mobile/member/giftmoneyFlow";
-		/** 积分商城 */
+		/** 在线商城 */
 		public static final String SHOP_CENTER = "mobile/member/shopCenter";
+		/** 商城分类 */
+        public static final String SHOP_CENTER_LIST = "mobile/member/goodsList";
 		/** 会员优惠券 */
 		public static final String MEMBER_COUPON = "mobile/member/memberCoupon";
 		/** 店铺信息 */

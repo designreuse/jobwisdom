@@ -39,6 +39,7 @@ import com.zefun.web.dto.CouponBaseDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.DetailPaymentDto;
 import com.zefun.web.dto.EmployeeBaseDto;
+import com.zefun.web.dto.GoodsInfoCatagoryDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberComboDto;
 import com.zefun.web.dto.MemberOrderDto;
@@ -81,6 +82,7 @@ import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.EmployeeEvaluateMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
+import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.IntegralFlowMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberAppointmentMapper;
@@ -273,6 +275,9 @@ public class MemberCenterService {
 	@Autowired
 	private GoodsInfoService goodsInfoService;
 	
+	/** 商品列表 */
+    @Autowired
+    private GoodsInfoMapper goodsInfoMapper;
 	
 	/**
 	 * wifi主页
@@ -314,14 +319,16 @@ public class MemberCenterService {
      */
     public ModelAndView homeView(Integer memberId, int storeId){
         MemberBaseDto memberBaseInfo = memberInfoService.getMemberBaseInfo(memberId, false);
+        List<CouponBaseDto> couponList = couponInfoMapper.selectBaseByMemberId(memberId);
+        memberBaseInfo.setCouponCount(couponList.size());
         ModelAndView mav = new ModelAndView(View.MemberCenter.HOME);
         mav.addObject("memberBaseInfo", memberBaseInfo);
         
         //检查会员所属门店是否包含友宝机器
-        String vmid = uboxMachineInfoMapper.selectVmidByStoreId(storeId);
-        if (StringUtil.isNotEmpty(vmid)) {
-            mav.addObject("hasUbox", 1);
-        }
+//        String vmid = uboxMachineInfoMapper.selectVmidByStoreId(storeId);
+//        if (StringUtil.isNotEmpty(vmid)) {
+//            mav.addObject("hasUbox", 1);
+//        }
         
         return mav;
     }
@@ -1880,6 +1887,28 @@ public class MemberCenterService {
 			}
     	}
     	return map;
+    }
+
+
+    /**
+     * 查询门店下商品分类大全
+    * @author 小高
+    * @date Oct 21, 2015 10:00:34 AM
+    * @param mainStoreId    门店标识（总店）
+    * @param ownerStoreId   会员所属门店
+    * @return               商城分类页面
+     */
+    public ModelAndView shopCenterViewList(int mainStoreId, Integer ownerStoreId) {
+        if (ownerStoreId == null) {
+            List<StoreInfo> storeList = storeInfoMapper.selectBaseInfoByMainId(mainStoreId);
+            ownerStoreId = storeList.get(0).getStoreId();
+        }
+        List<GoodsInfoCatagoryDto> goodsInfoCatagoryDtos =  goodsInfoMapper.selectCatagoryGoodsInfos(ownerStoreId);
+        
+        ModelAndView view = new ModelAndView(View.MemberCenter.SHOP_CENTER_LIST);
+        view.addObject("goodsInfoCatagoryDtos", goodsInfoCatagoryDtos);
+        
+        return view;
     }
     
     

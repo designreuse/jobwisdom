@@ -43,20 +43,11 @@
        <div class="project-detail-descript" style="height:230px;">
           <div class="swiper-container">
               <div class="swiper-wrapper">
-              		<div class="swiper-slide">
-		            	    <img src="<%=basePath %>images/mobile/member/1.jpg" />
-		            </div>
-		            <div class="swiper-slide">
-		            	    <img src="<%=basePath %>images/mobile/member/2.jpg" />
-		            </div>
-		            <div class="swiper-slide">
-		            	    <img src="<%=basePath %>images/mobile/member/3.jpg" />
-		            </div>
-              		<%-- <c:forEach items="${fn:split(storeInfo.carouselPicture, ',') }" var="pic">
+              		<c:forEach items="${fn:split(storeInfo.carouselPicture, ',') }" var="pic">
 	                    <div class="swiper-slide">
 		            	    <img src="<%=picPath %>${pic}" />
 		                </div>
-              		</c:forEach> --%>
+              		</c:forEach>
               </div>
           </div>
        </div>
@@ -68,7 +59,7 @@
        </div>
        <div id="ubox" style="margin-bottom: 7rem;">
 	       <div class="shop_content">
-	            <p><span class="recommend_">精品推荐</span><a href="">更多>></a></p>
+	            <p><span class="recommend_">精品推荐</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_id}">更多>></a></p>
 	        </div>
         
           <div class="shop_content_  clearfix">

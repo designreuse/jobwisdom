@@ -106,23 +106,23 @@
 	
 	<ul class="bottom_fix clearfix">
  		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
-	      <li><img src="<%=basePath %>images/mobile/member/botton_1.png">
-		      <p style="top:-2rem;">我的</p>
+	      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
+		      <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">我的</p>
 		  </li>
 	    </a>
 	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
-	    	<li><img src="<%=basePath %>images/mobile/member/botton_2.png">
-		       <p>预约</p>
+	    	<li><img src="<%=basePath %>images/mobile/member/botton_2_2.png">
+		       <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">预约</p>
 		    </li>
 	    </a>
 	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
 		  <li><img src="<%=basePath %>images/mobile/member/botton_3.png">
-		    <p>商城</p>
+		    <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">商城</p>
 		  </li>
 	    </a>
 	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
 	     <li><img src="<%=basePath %>images/mobile/member/botton_4.png">
-		     <p>门店</p>
+		     <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">门店</p>
 		  </li>
 	    </a>
  	</ul>

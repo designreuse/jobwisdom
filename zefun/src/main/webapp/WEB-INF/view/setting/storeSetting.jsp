@@ -200,8 +200,8 @@ jQuery(function(){
 	})
 })
 
-var cssWidth = 200;
-var cssHeight = 200;
+var cssWidth = 375;
+var cssHeight = 230;
 
 var imgObject = null;
 var imgType = null;

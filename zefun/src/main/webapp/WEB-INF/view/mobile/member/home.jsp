@@ -23,17 +23,21 @@
 			</a>
 			</div>
 			<ul class="clearfix person_coin">
+				<a href="<%=basePath%>memberCenter/view/integralFlow">
 				<li>剩余积分
-					<p>1.00</p>
+					<p>${memberBaseInfo.balanceIntegral }</p>
 				</li>
+				</a>
 				<a href="<%=basePath%>memberCenter/view/giftmoneyFlow">
 				<li>礼金金额
 					<p>${memberBaseInfo.giftmoneyAmount }</p>
 				</li>
 				</a>
+				<a href="<%=basePath%>memberCenter/view/memberCoupon">
 				<li>优惠卷数
-					<p>1.00</p>
+					<p>${memberBaseInfo.couponCount }</p>
 				</li>
+				</a>
 				<a href="<%=basePath%>memberCenter/view/cardmoneyFlow">
 				<li>储值余额
 					<p>${memberBaseInfo.balanceAmount }</p>
@@ -49,7 +53,7 @@
 			<a href="<%=basePath%>memberCenter/view/comboList"><li><img src="<%=basePath%>images/mobile/member/person3.png">疗程</li></a>
 			<a href="<%=basePath%>memberCenter/view/integralFlow"><li><img src="<%=basePath%>images/mobile/member/person4.png">积分</li></a>
 			<a href="<%=basePath%>memberCenter/view/memberCoupon"><li><img src="<%=basePath%>images/mobile/member/person5.png">优惠券</li></a>
-			<<%-- a href="<%=basePath%>uboxMall/view/orderList/${session_key_store_id}"><li><img src="<%=basePath%>images/mobile/member/person6.png">购物清单</li></a> --%>
+			<%-- a href="<%=basePath%>uboxMall/view/orderList/${session_key_store_id}"><li><img src="<%=basePath%>images/mobile/member/person6.png">购物清单</li></a> --%>
 			<li><img src="<%=basePath%>images/mobile/member/person7.png">储值卡</li>
 			<a href="<%=basePath%>memberCenter/view/info"><li><img src="<%=basePath%>images/mobile/member/person8.png">个人设置</li></a>
 

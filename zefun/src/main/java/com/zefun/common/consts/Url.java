@@ -678,6 +678,8 @@ public interface Url {
 		public static final String VIEW_EMPLOYEE_INFO = "/memberCenter/view/employeeInfo";
 		/** 员工项目详情 */
 		public static final String VIEW_EMPLOYEE_PROJECT = "/memberCenter/view/employeeProject";
+		/** 商品分类大全*/
+        public static final String VIEW_SHOP_CENTER_LIST = "/memberCenter/view/shopCenter/list/{storeId}";
 	}
 
 	/** 友宝商城模块 */

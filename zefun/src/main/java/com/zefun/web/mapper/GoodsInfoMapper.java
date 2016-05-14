@@ -5,6 +5,7 @@ import java.util.List;
 import com.zefun.web.dto.DeptGoodSalesSummaryDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.GoodSalesSummaryDto;
+import com.zefun.web.dto.GoodsInfoCatagoryDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.TrendDeptDataDto;
@@ -90,6 +91,15 @@ public interface GoodsInfoMapper {
     * @return 部门下的商品信息
      */
     DeptGoodsBaseDto selectDeptGoodsByDeptId(Integer deptId);
+    
+    /**
+     * 根据门店标识查询系列和旗下商品
+    * @author 高国藩
+    * @date Oct 15, 2015 12:02:09 AM
+    * @param storeId    门店标识
+    * @return           门店下的商品信息
+     */
+    List<GoodsInfoCatagoryDto> selectCatagoryGoodsInfos(Integer storeId);
     
     /**
      * 根据商品id查询该商品所有数据
