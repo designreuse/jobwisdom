@@ -89,7 +89,7 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 .person_{
 	height:210px;
 	width:100%;
-	background:url('../images/back.png') no-repeat;
+	background:url('../../images/mobile/member/back.png') no-repeat;
 	position:relative;
 	width:100%;
 	position:relative
@@ -110,7 +110,7 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 
 .head_pic{width:7rem;height:7rem;border-radius:7rem;margin:0 auto;padding-top:3rem;overflow:hidden}
 .head_pic img{width:7rem;height:7rem;border-radius:7rem;}
-.vip{display:inline-block;position:absolute;left:2rem;background:url(../images/vip.png);height:5.2rem;width:3.2rem;background-size:cover;text-align:center;color:black;font-weight:bold;font-size:1.4rem;line-height:5rem}
+.vip{display:inline-block;position:absolute;left:2rem;background:url(../../images/mobile/member/vip.png);height:5.2rem;width:3.2rem;background-size:cover;text-align:center;color:black;font-weight:bold;font-size:1.4rem;line-height:5rem}
 .person_ul li{height:4.2rem;border-bottom:1px solid #ccc!important;line-height:4.2rem;color:#210a0a;font-size:1.4rem}
 .person_ul{padding:1rem 1rem ;background:white;margin-bottom:7rem}
 .person_ul li img{margin-right:1rem}
