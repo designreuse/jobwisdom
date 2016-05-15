@@ -2,88 +2,61 @@
 <%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<link rel="stylesheet" href="<%=basePath %>editor/themes/default/default.css" />
+<link rel="stylesheet" href="<%=basePath %>css/system.css" />
 <body>
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
     <div class="leftpanel" style="height: 840px; margin-left: 0px;">
         <%@include file="/menu.jsp"%>
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
-        <div class="maincontent">
-		  <div class="contentinner">
-		
-		    <div class="widgetcontent">
-		      <!--使用期限-->
-		      <div class="qixian">
-		        <div class="border-head">
-		          <span>使用期限</span>
-		        </div>
-		        <div class="border-content">
-		          <div class="show"></div>
-		          <div class="desc">
-		              <div class="font-size-14">累计充值: ${storeAccount.totalDays }天</div>
-		              <div class="font-size-14">当前剩余: ${storeAccount.balanceDays }天</div>
-		              <div class="btn w80" data-toggle="modal" data-target="#chongzhi">充值</div>
-		          </div>
-		          <div class="clearfix"></div>
-		        </div>
-		      </div>
-		
-		      <!--短信剩余-->
-		      <div class="shengyu">
-		          <div class="border-head">
-		              <span>短信服务</span>
-		          </div>
-		          <div class="border-content">
-		              <div class="show"></div>
-		              <div class="desc">
-		                  <div>累计充值: ${storeAccount.totalSms }条</div>
-		                  <div>当前剩余: ${storeAccount.balanceSms }条</div>
-		                  <div class="btn w80" data-toggle="modal" data-target="#chongzhi">充值</div>
-		              </div>
-		              <div class="clearfix"></div>
-		          </div>
-		      </div>
-		
-		      <div class="clearfix"></div>
-		    </div>
-		
-		    <div class="widetcontent">
-		      <!--店铺状态-->
-		      <div class="shop-state">
-		        <div class="border-head">店铺状态</div>
-		        <div class="content">
-		          <table class="table nobordered-table lr-bordered-table">
-		              <tbody>
-		              <!-- <tr>
-		                  <td class="text-right fb w100">店铺状态：</td>
-		                  <td>
-		                  </td>
-		              </tr> -->
-		              <tr>
-		                  <td class="text-right fb w100">使用状态：</td>
-		                  <td>
-		                      <div class="state-control">
-		                      	<c:choose>
-		                      		<c:when test="${storeAccount.storeStatus == 2 }">
-		                      			<div class="state-toggle state-active cursor">试运营</div>
-		                        		<div class="state-toggle state-neg cursor" data-toggle="modal" data-target="#cleanDataTip">正式运营</div>
-		                        		<span class="ml30 font-999">*目前是试运营状态，点击可切换正式运营状态。</span>
-		                      		</c:when>
-		                      		<c:when test="${storeAccount.storeStatus == 3 }">
-		                      			正式运营
-		                      		</c:when>
-		                      	</c:choose>
-		                      </div>
-		                  </td>
-		              </tr>
-		              </tbody>
-		          </table>
-		        </div>
-		      </div>
-		    </div>
+        <div class='content_right clearfix'>
+		      <div class="system_content clearfix">
+			     <div class="system_content_detail">
+				    <p class="system_time">使用期限</p>
+				     <div class="system_content_time">
+					   <span>累计充值：${storeAccount.totalDays }天</span>
+					   <span>当前剩余：${storeAccount.balanceDays }天</span>
+		            </div>
+					<button class="recharge">充值</button>
+				 </div>
+				 
+				 
+			  
+			     <div class="system_content_detail">
+				    <p class="system_time">短信服务</p>
+				     <div class="system_content_time">
+					   <span>累计充值：${storeAccount.totalSms }条</span>
+					   <span>当前剩余：${storeAccount.balanceSms }条</span>
+		            </div>
+					<button class="recharge">充值</button>
+				 </div>
+				 
+				    <div class="system_content_detail">
+				    <p class="system_time">店铺状态</p>
+				     <div class="system_content_time">
+					   <span>使用状态：
+					   <c:choose>
+                      		<c:when test="${storeAccount.storeStatus == 2 }">
+                      			<div class="state-toggle state-active cursor">试运营</div>
+                        		<div class="state-toggle state-neg cursor" data-toggle="modal" data-target="#cleanDataTip">正式运营</div>
+                        		<span class="ml30 font-999">*目前是试运营状态，点击可切换正式运营状态。</span>
+                      		</c:when>
+                      		<c:when test="${storeAccount.storeStatus == 3 }">
+                      			正式运营
+                      		</c:when>
+                      	</c:choose>
+					   </span>
+					  
+		            </div>
+					
+				 </div>
+				 
+			  </div>
+			
+			
 		  </div>
-		</div>
+		  
+		  
 		<div class="modal hide" id="cleanDataTip" role="dialog" aria-labelledby="myModalLabel">
 		    <div class="modal-dialog" role="document">
 		        <div class="modal-content confirm">

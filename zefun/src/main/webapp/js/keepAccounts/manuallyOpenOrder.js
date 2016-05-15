@@ -288,16 +288,12 @@ function chooseSkipType(skipType) {
 //切换会员
 function changeMember(obj){
 	if (jQuery(obj).val() == "") {
-		jQuery("div[name='sexDIV']").css("display", "inline-block");
-		jQuery("div[name='sexDIV']").parent().find("div[name='memberTR']").addClass("p-part-first");
-		jQuery(".fanhui").addClass("hide");
-		jQuery("div[name='moreMemberInfoDIV']").addClass("hide");
+		jQuery("div[name='seekTD']").css("display", "inline-block");
+		jQuery("div[name='resultTD']").css("display", "none");
 	}
 	else {
-		jQuery("div[name='sexDIV']").css("display", "none");
-		jQuery("div[name='sexDIV']").parent().find("div[name='memberTR']").removeClass("p-part-first");
-		jQuery(".fanhui").removeClass("hide");
-		jQuery("div[name='moreMemberInfoDIV']").removeClass("hide");
+		jQuery("div[name='seekTD']").css("display", "none");
+		jQuery("div[name='resultTD']").css("display", "inline-block");
 	}
 }
 

@@ -406,7 +406,7 @@ public interface Url {
 		public static final String UPDATE_STOREFLOW = "KeepAccounts/updateStoreFlow";
 		/** 动态生成项目类别 */
 		public static final String TREND_CODELIBRARY = "KeepAccounts/trendCodeLibrary";
-
+        
 		/* 轮值排班 */
 		/** 初始化轮值排班界面 */
 		public static final String INITIALIZE_SHIFT_MAHJONG = "KeepAccounts/initializeShiftMahjong";
@@ -430,7 +430,11 @@ public interface Url {
 		public static final String SELECT_SHIFTMAHJONG = "staff/action/selectshiftMahjong";
 		/** 修改轮牌员工状态 */
 		public static final String UPDATE_STATE = "KeepAccounts/updateState";
-
+		/** 上牌接口*/
+		public static final String UPDATE_STATE_UP = "KeepAccounts/updateStateUp";
+		/** 修改员工顺序 */
+		public static final String UPDATE_EMPLOYEE_ORDER = "KeepAccounts/updateEmployeeOrder";
+		
 		/** 初始化开卡充值页面 */
 		public static final String INITIALIZE_OPENCARD = "KeepAccounts/initializeOpenCard";
 		/** 开卡 */

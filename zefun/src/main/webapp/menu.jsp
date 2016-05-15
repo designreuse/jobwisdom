@@ -141,4 +141,15 @@ if(tmp.indexOf("project")!=-1){
 	choseMenu(tmp);
 }
 
+function showLoginOut () {
+	jQuery(".top_zzc").show();
+}
+
+function loginOut() {
+	window.location.href = "http://"+location.host+"/jobwisdom/user/logout";
+}
+
+function cantLoginOut () {
+	jQuery(".top_zzc").hide();
+}
 </script>

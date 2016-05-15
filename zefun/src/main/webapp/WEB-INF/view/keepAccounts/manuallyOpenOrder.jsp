@@ -33,9 +33,7 @@ em {
 			             <span>会员名称：</span>
 					     <input type="text" class="focus_" name = "phoneNumber" placeholder="会员手机号">
 						 <ul class="focus_input">
-						     <p>手机号：13414313443 &nbsp;姓名：lily &nbsp; 性别：女 &nbsp;门店：涛美华南店</p>
-							 <p>手机号：13414313443 &nbsp; 姓名：lily &nbsp;性别：女 &nbsp;门店：涛美华南店</p>
-							 <p>手机号：13414313443 &nbsp; 姓名：lily  &nbsp;性别：女 &nbsp;门店：涛美华南店</p>
+						     
 						 </ul>
 						 <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 						 <em class="content_right_sex">
@@ -44,7 +42,13 @@ em {
 					     </em>
 			         </div>
 				     <div style="position:relative;display:none" name="resultTD" class="hand-detail">
-				          <span>手机号：13414313443 &nbsp;姓名：lily &nbsp; 性别：女 &nbsp;门店：涛美华南店&nbsp;余额：0&nbsp;礼金：0&nbsp;欠款：0&nbsp;卡号：</span>
+				          <span>手机号：<em name = "memberPhoneSpan"></em> &nbsp;
+				                                           姓名：<em name = "memberNameSpan"></em> &nbsp; 
+				                                           性别：<em name = "memberSexSpan"> </em>&nbsp;
+				                                           账户余额：<em name = "memberBalanceAmountSpan"></em>&nbsp;
+				                                           可用礼金：<em name = "memberBalanceGiftmoneyAmountSpan"></em>&nbsp;
+				                                           剩余积分：<em name = "memberBalanceIntegralSpan"></em>
+				          </span>
 				           <button class="rsearch">重新查询</button>
 				           <input type="hidden" name = "memberId" onchange="changeMember(this)">
 				     </div>	
