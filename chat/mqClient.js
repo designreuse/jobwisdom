@@ -16,13 +16,13 @@ var exchName = "directExchange";
 
 var connOptions = {
 
-      host: '192.168.10.11',
+      host: '120.24.165.15',
 
       port: 5672,
 
-      login: 'zefun',
+      login: 'admin',
 
-      password: 'livesALL2015'
+      password: 'admin'
 
     };
 

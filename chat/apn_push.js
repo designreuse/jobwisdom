@@ -3,7 +3,7 @@ var apn = require('apn');
 
 var exchName = "directExchange";
 var connOptions = {
-      host: '127.0.0.1',
+      host: '120.24.165.15',
       port: 5672,
       login: 'heros',
       password: 'heros'

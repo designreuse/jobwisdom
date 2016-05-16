@@ -1,0 +1,72 @@
+[2016-03-18 13:49:57.797] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-18 13:49:57.797] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-18 13:50:19.558] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-18 13:50:19.558] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-18 13:50:30.572] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-18 13:50:30.572] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-18 13:50:41.586] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-18 13:50:41.586] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-18 13:50:52.599] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-18 13:50:52.599] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-18 13:51:03.613] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-18 13:51:03.613] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-18 13:51:12.410] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-18 13:51:28.566] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 13:51:29.572] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 13:51:36.408] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 13:51:39.274] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 13:51:43.922] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 13:53:59.479] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-18 13:53:57","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-18 13:53:59.482] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-18 13:53:57","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-18 13:53:59.484] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-18 13:53:57","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-18 13:54:20.065] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-18 13:54:18","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-18 14:01:23.015] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-18 14:04:37.161] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-18 14:04:43.136] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-18 15:03:54.357] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 15:03:56.331] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 15:03:58.658] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 15:05:02.552] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:02.696] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:02.841] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:03.133] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:03.413] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:03.553] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:04.120] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:04.263] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:04.404] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:04.988] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:08.221] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:08.849] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:09.313] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:09.689] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:09.946] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:10.193] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:10.423] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:10.654] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:10.885] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:11.110] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:11.369] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:11.584] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:11.820] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:05:12.082] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 15:20:12.484] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 15:20:15.099] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 15:20:45.940] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 15:35:07.324] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 16:35:19.655] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 17:19:20.652] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 17:19:24.072] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 17:19:26.248] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 17:24:25.620] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 17:24:29.333] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-18 17:29:50.254] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-18 17:30:11.597] [INFO] server - 用户不在线,转为离线消息.

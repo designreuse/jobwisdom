@@ -188,7 +188,9 @@ public class StaffService {
      */
     @Transactional
     public BaseDto login(int storeId, String phone, String password, String openId, HttpServletRequest request){
-        UserAccount userAccount = userAccountMapper.selectByUserName(phone);
+        Map<String, String> params = new HashMap<>();
+        params.put("userName", phone);
+        UserAccount userAccount = userAccountMapper.selectByUserName(params);
         if (userAccount == null) {
             return new BaseDto(9001, "账号不存在或已被删除");
         }
