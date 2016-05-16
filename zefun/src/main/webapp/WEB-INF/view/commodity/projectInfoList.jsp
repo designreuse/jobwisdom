@@ -34,8 +34,7 @@
 				</div>
 					
 				<!--项目设置 -->
-				<div class="alertPanel" style="">
-			
+				<div class="alertPanel" style="display: none">
 				<c:forEach items="${deptProjectList }" var="deptPorject">
 					<div class="part_panel">
 						<p>${deptPorject.deptName }</p>
@@ -59,9 +58,9 @@
 									<div class="pic">
 									<div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>project/view/projectList?projectId=${projectInfos[status.count*2-2].projectId }","_self")'>
 										<div class="column_img_container" style="position:relatiev">
-										   <span class="close1" style="position:absolute;right:25px;top:15px;"><img src="<%=basePath%>images/close1.png" style="width:20px"></span>
+										   <span deptId="${projectInfos[status.count*2-2].deptId}" projectId="${projectInfos[status.count*2-2].projectId }" class="close1" style="position:absolute;right:25px;top:15px;"><img src="<%=basePath%>images/close1.png" style="width:20px"></span>
 											<div class="head_pic">
-												<img src="<%=basePath%>images/head_pic.png">
+												<img src="<%=picPath%>${projectInfos[status.count*2-2].projectImage}">
 											</div>
 											<em class="boss_cut">${projectInfos[status.count*2-2].projectName }</em>
 											<p class="hair">
@@ -81,8 +80,9 @@
 									<c:if test="${(status.count*2-1)!=fn:length(projectInfos) }">
 									<div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>project/view/projectList?projectId=${projectInfos[status.count*2-1].projectId }","_self")'>
 										<div class="column_img_container">
+										<span deptId="${projectInfos[status.count*2-1].deptId}" projectId="${projectInfos[status.count*2-1].projectId }" class="close1" style="position:absolute;right:25px;top:275px;"><img src="<%=basePath%>images/close1.png" style="width:20px"></span>
 											<div class="head_pic">
-												<img src="<%=basePath%>images/head_pic.png">
+												<img src="<%=picPath%>${projectInfos[status.count*2-1].projectImage}">
 											</div>
 											<em class="boss_cut">${projectInfos[status.count*2-1].projectName }</em>
 											<p class="hair">
@@ -160,4 +160,31 @@
 </body>
 <script type="text/javascript" src="<%=basePath%>js/commodity/project.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/base/roll.js"></script>
+<script>
+jQuery(".close1").on("click", function (){
+	if(confirm("确定要删除该项目么?")){
+		var projectId = jQuery(this).attr("projectId");
+		var deptId = jQuery(this).attr("deptId"); 
+		jQuery.ajax({
+	        cache: true,
+	        type: "POST",
+	        url: baseUrl+"project/deleteProject",
+	        data: "projectId="+ projectId + "&deptId=" + deptId,
+	        async: false,
+	        error: function(request) {
+	            dialog("Connection error");
+	        },
+	        success: function(data) {
+	            if(data.code == 0){
+	            	dialog("删除成功");
+	            	location.reload();
+	            }else{
+	            	dialog(data.msg);
+	            }
+	        }
+	    });
+	}
+	return false;
+});
+</script>
 </html>

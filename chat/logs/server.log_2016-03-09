@@ -1,0 +1,630 @@
+[2016-03-09 00:01:01.684] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : 79TnRWnyrqOiJOYxApTV
+[2016-03-09 00:15:55.273] [INFO] server - initUser --->> 门店 :1013, 用户 : 536, socketId : lewzRQraZ3t2HG5MApTW
+[2016-03-09 00:16:46.976] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : CVD_bxKJGgQsz_UtApTX
+[2016-03-09 00:16:48.499] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : zxVXxU3qGk9eAdPNApTY
+[2016-03-09 00:16:52.281] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : FEfDGJLuHR3sK1njApTZ
+[2016-03-09 00:16:57.163] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : dHGcitPOMzjaiQChApTa
+[2016-03-09 00:16:59.187] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : ur0NZSjCDLQ598R4ApTb
+[2016-03-09 00:17:01.851] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : 9Av4QSJs3htW5lRKApTc
+[2016-03-09 00:20:13.643] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : szVSSSXg0OCLx3TkApTd
+[2016-03-09 00:20:13.646] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : F9O4oqMdkQ8h6ALwApTe
+[2016-03-09 00:20:37.669] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : mv2WRxN7f_hrem-wApTf
+[2016-03-09 01:20:55.455] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : t1RFbP_QN3J57gF5ApTg
+[2016-03-09 01:20:57.404] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : TUavoW9gvLAbRgI2ApTh
+[2016-03-09 02:21:38.787] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : RaVV8ZoSX21yjOylApTi
+[2016-03-09 02:21:39.018] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : FLfaIY_OLG4mEu1pApTj
+[2016-03-09 03:22:23.893] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : o91E4UjDpKuJVxABApTk
+[2016-03-09 03:22:44.433] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : NDv0TeFTNBttYoqSApTl
+[2016-03-09 04:23:27.247] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : 0JgDKKjD8KRhYaKKApTm
+[2016-03-09 04:23:29.784] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : bLz-IpB7a7auMdRmApTn
+[2016-03-09 05:24:08.643] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : 86BYcW3038rjFIytApTo
+[2016-03-09 05:24:11.451] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : 3PKLlvwKVdkXrLfcApTp
+[2016-03-09 06:24:55.281] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : sTHEq7LSfPLD6Y42ApTr
+[2016-03-09 06:24:55.290] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : nGubcmyfLGpZpaFsApTq
+[2016-03-09 07:25:38.707] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : 4p5LlvcuCIMdo3OrApTs
+[2016-03-09 07:25:39.616] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : I4yBwGKwAe5Hci8YApTt
+[2016-03-09 08:25:46.101] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : h6aHKyloYQxDKXZxApTu
+[2016-03-09 08:26:23.254] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : bYgF2dNn03pgiTZ0ApTv
+[2016-03-09 08:26:23.266] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : BaVSoWliNYj9zAW3ApTw
+[2016-03-09 08:29:52.321] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : FNvc8RSJh0uj7QsYApTx
+[2016-03-09 08:37:00.968] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : H0BOen4_mgyOLa9RApTy
+[2016-03-09 08:42:23.048] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : bs2kIHiS2HDFmCBVApTz
+[2016-03-09 08:42:37.102] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : _IsUcqAxUlhIiylnApT0
+[2016-03-09 08:51:49.521] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : yqTD5P9rbxrx4EosApT1
+[2016-03-09 08:51:52.220] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : HGcm9yXjphMu1oCNApT2
+[2016-03-09 08:55:59.575] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : P6S5UaWLfx9vLMdtApT3
+[2016-03-09 08:56:07.235] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : KUxWAyUt6D1qwPT8ApT4
+[2016-03-09 08:56:10.358] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : MNnkyiHgJH3xfKZPApT5
+[2016-03-09 08:57:02.703] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : 4J6VK8sfTrcGwgngApT6
+[2016-03-09 08:57:35.330] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : ys9akfcLTzSzUPxgApT7
+[2016-03-09 08:57:44.686] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : laTBCaPdfHbsiAQpApT8
+[2016-03-09 08:59:45.143] [INFO] server - initUser --->> 门店 :122, 用户 : 284, socketId : gVK5rxQ9iMLb3IUKApT9
+[2016-03-09 09:08:00.527] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : deEzw_m5Ned3DsvMApT-
+[2016-03-09 09:08:01.558] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : bo1ur5msspmUMm_9ApT_
+[2016-03-09 09:10:03.006] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : PuwdgsQtmboI1aGQApUA
+[2016-03-09 09:10:27.087] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 9rAytHWt8SWx5O0mApUB
+[2016-03-09 09:10:30.362] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : QYjLbVGfN8r-EWpjApUC
+[2016-03-09 09:10:50.794] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : XabePlxrTgB0y2_kApUD
+[2016-03-09 09:11:02.504] [INFO] server - initUser --->> 门店 :122, 用户 : 237, socketId : DjjNaTsZipiu-g2zApUE
+[2016-03-09 09:11:44.365] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : n3B7M1XBKPODuFdXApUF
+[2016-03-09 09:11:49.487] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : aEQiPDsgpsnMIb3AApUG
+[2016-03-09 09:12:05.933] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : D1JkOMI3U7wrun8YApUH
+[2016-03-09 09:12:11.452] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : DhWk9WYftnJq1MtRApUI
+[2016-03-09 09:12:17.367] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : v1nc89fGYe0Fn-s1ApUJ
+[2016-03-09 09:32:35.125] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : P_CBiH0SkH9r9wYuApUK
+[2016-03-09 09:32:37.614] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 45A1swhMiuIB5IGCApUL
+[2016-03-09 09:33:02.127] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : S6y--GNeExmD-bfPApUM
+[2016-03-09 09:33:06.095] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : -CElKs5iMNpa_djUApUN
+[2016-03-09 09:33:09.016] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : HM-DyZxu1lhikQWFApUO
+[2016-03-09 09:33:22.319] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : wXl4gUWUN3LsWUSPApUP
+[2016-03-09 09:33:30.951] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : Gewg4oQC91-gGL72ApUQ
+[2016-03-09 09:33:32.964] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : T04Lb9a-fe49jWz7ApUR
+[2016-03-09 09:33:39.216] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : oEySQ9N1AdRJnrUrApUS
+[2016-03-09 09:33:57.432] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : sSEzDJYmOQd7OS5cApUT
+[2016-03-09 09:33:59.354] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : pCuNOX4MN7WGnjSFApUU
+[2016-03-09 09:34:03.396] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 0gV95OMtlVw6xc2mApUV
+[2016-03-09 09:34:05.237] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 3rWsmPbJFNtWEq5JApUW
+[2016-03-09 09:34:07.413] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : cuYE6-U7FAJ-sRT8ApUX
+[2016-03-09 09:34:09.433] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 1Bjo1EFd24YVM7FPApUY
+[2016-03-09 09:35:07.291] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 4j_sqQwLBYtawjkgApUZ
+[2016-03-09 09:35:21.827] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : KJ1Vqq3oS8V4avN8ApUa
+[2016-03-09 09:35:52.581] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : PbrHUaz7S1U4hXB1ApUb
+[2016-03-09 09:35:57.736] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : obCcTp0YimgLR3IhApUc
+[2016-03-09 09:38:06.722] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : WEM-gdqxmrmnW_Z0ApUd
+[2016-03-09 09:38:09.854] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : gG-urvyMdZSPOAQ_ApUe
+[2016-03-09 09:39:35.872] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : lJFI0c5KuuqfhHPwApUf
+[2016-03-09 09:40:10.089] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : ZzyGH3XQCLjcS14lApUg
+[2016-03-09 09:40:22.662] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : q1q_43B6urEOIpQEApUh
+[2016-03-09 09:47:11.560] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : x-7HmylmVsOF6OooApUi
+[2016-03-09 09:47:14.683] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : X2ZCk_n_tu81qGzTApUj
+[2016-03-09 09:57:54.756] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 48IRD7gIHNZq2DzCApUk
+[2016-03-09 09:57:57.387] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : oQAmiSueFMHVbFUKApUl
+[2016-03-09 09:58:28.409] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : Ws9xvlijFj9roueIApUm
+[2016-03-09 10:01:19.030] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : jWnvUJ6iL1GrOOOXApUn
+[2016-03-09 10:01:50.853] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : Y9VQcmRT2MyZ-sedApUo
+[2016-03-09 10:01:55.441] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : B7lOBtRqXQZAOaaoApUp
+[2016-03-09 10:04:07.730] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : U2JJE3hPo1X5oCkaApUq
+[2016-03-09 10:04:14.276] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : oYZhAZE1KHHfq3ZjApUr
+[2016-03-09 10:04:27.665] [INFO] server - initUser --->> 门店 :1004, 用户 : 2, socketId : XZOwm9T_uKalvyR0ApUs
+[2016-03-09 10:04:29.521] [INFO] server - initUser --->> 门店 :1004, 用户 : 2, socketId : hAQB4FdbYW85HItgApUt
+[2016-03-09 10:04:43.957] [INFO] server - initUser --->> 门店 :1004, 用户 : 2, socketId : s0CDJr6U5GnYt6B7ApUu
+[2016-03-09 10:04:45.540] [INFO] server - initUser --->> 门店 :1004, 用户 : 2, socketId : BrU1WSdV0TEUTO1DApUv
+[2016-03-09 10:05:02.609] [INFO] server - initUser --->> 门店 :100, 用户 : 430, socketId : XZJWNxZg0foIUMmAApUw
+[2016-03-09 10:05:07.203] [INFO] server - initUser --->> 门店 :100, 用户 : 430, socketId : 8DZvnV_9s5gEtRz0ApUx
+[2016-03-09 10:05:08.909] [INFO] server - initUser --->> 门店 :100, 用户 : 430, socketId : 47ug3vMKouA7MhoEApUy
+[2016-03-09 10:05:27.436] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 0BgEhvt0pYbYjLgHApUz
+[2016-03-09 10:05:43.473] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : _bPWhBJGX1OakcsjApU0
+[2016-03-09 10:05:57.831] [INFO] server - initUser --->> 门店 :100, 用户 : 430, socketId : EuXq0CarIkmXhaLRApU1
+[2016-03-09 10:06:00.653] [INFO] server - initUser --->> 门店 :100, 用户 : 430, socketId : 9x5Gd4F6HsYkpA-QApU2
+[2016-03-09 10:06:02.886] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : x8AuJU8C0VjIyai6ApU3
+[2016-03-09 10:06:09.597] [INFO] server - initUser --->> 门店 :100, 用户 : 430, socketId : btCJGwEDfJ_NDVUyApU4
+[2016-03-09 10:06:36.183] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : QEiSXj8tT0sTVjvVApU5
+[2016-03-09 10:08:44.916] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : EDCymZHemE3kv15UApU6
+[2016-03-09 10:08:48.683] [INFO] server - initUser --->> 门店 :1017, 用户 : 611, socketId : FySaEagtQMbWFmbgApU7
+[2016-03-09 10:12:49.461] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : P2appiEp7whjRXhGApU8
+[2016-03-09 10:12:51.170] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 9CfiBKXk-iLEHIBOApU9
+[2016-03-09 10:13:08.625] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : JzweeX7x4gy7kZI3ApU-
+[2016-03-09 10:13:10.784] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : -s2zzdpOQJ3KIXUFApU_
+[2016-03-09 10:13:43.132] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 28tJNjNd8zdNiAEZApVA
+[2016-03-09 10:13:44.919] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : pB3WwqvHc1Y2_PPRApVB
+[2016-03-09 10:13:47.620] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : h7GDhLi15tXKYuKGApVC
+[2016-03-09 10:15:46.208] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : jntr9_3y0OGMQZybApVD
+[2016-03-09 10:15:53.248] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : HQL8ycc2_N68_uWKApVE
+[2016-03-09 10:16:19.100] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : Q9lZaKdpis0jfQekApVF
+[2016-03-09 10:16:21.201] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : GAlsoYonJKgydfilApVG
+[2016-03-09 10:16:25.667] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : Z9wdn-SB5Q8i7ByvApVH
+[2016-03-09 10:16:26.594] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 9u9KXmqp9ziV9D48ApVI
+[2016-03-09 10:16:31.273] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : GCZITvGDk7wAeVwMApVJ
+[2016-03-09 10:16:33.134] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : uyQ94Y6hr0AnHN5NApVK
+[2016-03-09 10:16:33.845] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : _gGCzWM1fBGtruNkApVL
+[2016-03-09 10:16:35.573] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 8jL4yq3n8ev7hfYYApVM
+[2016-03-09 10:16:47.239] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : -vj3LGSMJX2GXYRJApVN
+[2016-03-09 10:16:51.615] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : VCkY0Yn7Qb9qf3uHApVO
+[2016-03-09 10:17:05.567] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : e1Kn7TuVl-3LsaA_ApVP
+[2016-03-09 10:17:07.738] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : ZPS07O4UjhGs7vcaApVQ
+[2016-03-09 10:17:09.686] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : XasrgzuHaL42FqSWApVR
+[2016-03-09 10:17:20.449] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : Dkt9SHjlTMgShRGBApVS
+[2016-03-09 10:17:27.333] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : eRTZ1_wLHW1DojDVApVT
+[2016-03-09 10:17:35.692] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : d3luTVTottF5kJ3wApVU
+[2016-03-09 10:20:28.536] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : _sdiSRavEF1y75G-ApVV
+[2016-03-09 10:20:35.721] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 37sn7BEYD1UZOsndApVW
+[2016-03-09 10:20:58.261] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 8PGlPj6PHxIXgpsuApVX
+[2016-03-09 10:21:03.231] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : 9Uc6YrXK5QmdqQ3pApVY
+[2016-03-09 10:21:15.054] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : J6bfQc790ELUfyTvApVZ
+[2016-03-09 10:21:23.881] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : LPqn7XPmKliFpd9jApVa
+[2016-03-09 10:21:27.136] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : F3uwiilhE0zh44_JApVb
+[2016-03-09 10:22:03.175] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : VCWD1OgkNWEWelu6ApVc
+[2016-03-09 10:22:31.187] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : eeHxIezv6dLEKZFpApVd
+[2016-03-09 10:22:31.744] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : X4VyqMNP82YSt6zZApVe
+[2016-03-09 10:22:43.976] [INFO] server - initUser --->> 门店 :1045, 用户 : 894, socketId : mFxOCO7MjJZDlubxApVf
+[2016-03-09 10:22:47.859] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : eXTm_-JGaJrTjQouApVg
+[2016-03-09 10:22:53.716] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : GbA_tMRmOOzs4ZS9ApVh
+[2016-03-09 10:22:54.793] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : EP9xut3MEFH039oKApVi
+[2016-03-09 10:22:56.834] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : ey319JIttg4WcSVjApVj
+[2016-03-09 10:22:59.011] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : qePQSXTEUephMuL2ApVk
+[2016-03-09 10:23:04.637] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : qjS6Akc54ZJwT5UhApVl
+[2016-03-09 10:23:07.166] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : aYOYZ7ob4qXkBSfXApVm
+[2016-03-09 10:23:08.891] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : iKhCAR5X7D15ipMwApVn
+[2016-03-09 10:23:14.671] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : RA5PgWyRVwPVsPLKApVo
+[2016-03-09 10:23:16.396] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : Mu-mOPgIa8S18k0RApVp
+[2016-03-09 10:23:18.133] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : zZY3AkHwZol03i-QApVq
+[2016-03-09 10:24:07.068] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : -cDxcXKRbaEuKXiUApVr
+[2016-03-09 10:24:35.276] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : i64NQDvPEVdjbw78ApVs
+[2016-03-09 10:24:37.378] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : G3Fw31EaaImVaaONApVt
+[2016-03-09 10:24:38.914] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : aCYglNsLWkT_ESJVApVu
+[2016-03-09 10:24:41.932] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : BiY0QeGUr39mux7pApVv
+[2016-03-09 10:24:43.051] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : HiPvbbwe-U7wI7gYApVw
+[2016-03-09 10:24:43.244] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : ZPdFAi_8-6VPAEb5ApVx
+[2016-03-09 10:24:47.384] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : wes1-zD3dT70WLxDApVy
+[2016-03-09 10:25:16.901] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : yVHrvN1wFGlelV9bApVz
+[2016-03-09 10:25:20.998] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : uN1GSrdJpHO3RyD4ApV0
+[2016-03-09 10:25:24.734] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : ZHg5HSoyFA3o472DApV1
+[2016-03-09 10:25:26.873] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : 2N77p1h1-pSHyaRoApV2
+[2016-03-09 10:25:31.445] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : UN2X5l4wPbVPuenQApV3
+[2016-03-09 10:26:04.654] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : bqtCVdEBC5y90z6yApV4
+[2016-03-09 10:26:08.481] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : gVGsXcFkHQbsh1iWApV5
+[2016-03-09 10:26:11.592] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : wqgPX1xUW2Lox2HEApV6
+[2016-03-09 10:26:12.451] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : NnuLI98w2pWm54RXApV7
+[2016-03-09 10:26:25.902] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : CiENcBM9ejk1RlH_ApV8
+[2016-03-09 10:26:26.865] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : sUbrkijDMbwd8quaApV9
+[2016-03-09 10:26:30.566] [INFO] server - initUser --->> 门店 :1025, 用户 : 648, socketId : asI4UM4HRjSHd-2KApV-
+[2016-03-09 10:26:33.975] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : fvdWBYjPW-_BFApGApV_
+[2016-03-09 10:26:35.933] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : d4ghU9ZpxVoG-zDQApWA
+[2016-03-09 10:26:40.399] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : DrnHjumiSb-GYVP5ApWB
+[2016-03-09 10:26:42.891] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : iC_9aro0aMDf1IN2ApWC
+[2016-03-09 10:26:56.070] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : yoZuLMi829_YXf5pApWE
+[2016-03-09 10:26:56.072] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : cUEZBm9HG81RxzlyApWD
+[2016-03-09 10:27:09.800] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : uBbt631cEL7eyUquApWF
+[2016-03-09 10:27:12.677] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : m1z_IUodFqxcFg43ApWG
+[2016-03-09 10:27:17.305] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : Krbmm6tCJ17UzTHWApWH
+[2016-03-09 10:27:41.870] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 7jP1cbORtxUZ3xbqApWI
+[2016-03-09 10:27:49.304] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : XEG7KryZvN2PyZOwApWJ
+[2016-03-09 10:27:51.807] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : XKxbcMkyiLoyAlDPApWK
+[2016-03-09 10:27:54.488] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : H5vDChixl5qzEYzVApWL
+[2016-03-09 10:27:56.062] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 4kL-x9suZDdQwi8mApWM
+[2016-03-09 10:28:01.929] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 5A07YMwoADzRWfBuApWN
+[2016-03-09 10:28:04.754] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 9ZuM947IBRWvKgWRApWO
+[2016-03-09 10:28:15.042] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : 4ZCxpXEwhfrkVV99ApWP
+[2016-03-09 10:28:24.035] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : dDnIX5qpssH7iN4XApWQ
+[2016-03-09 10:28:25.281] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : jjA42YMzJJnaWO2nApWR
+[2016-03-09 10:28:40.453] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : f_0Xy-QdZ-V9Ky0MApWS
+[2016-03-09 10:28:45.235] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 8glXP2dt3U5W2qHOApWT
+[2016-03-09 10:28:48.048] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : 7XFvQWPnqQip80uuApWU
+[2016-03-09 10:28:49.809] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : DKsjiqldkxUANw4wApWV
+[2016-03-09 10:28:50.050] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : OpIPVTWmredgbAWCApWW
+[2016-03-09 10:28:50.223] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : tW0tAVAhNZqi2pqjApWX
+[2016-03-09 10:28:52.150] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : eeZMv2-M5IzWn3hnApWY
+[2016-03-09 10:28:53.584] [INFO] server - initUser --->> 门店 :1074, 用户 : 1535, socketId : TThE_EgjM3H0JlRJApWZ
+[2016-03-09 10:28:55.204] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : YgWD5cj3E6Mxv4dMApWa
+[2016-03-09 10:28:58.816] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : z6BEvwoRWCS-MtViApWb
+[2016-03-09 10:29:07.313] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : ccaTU6H_xOa2C9t_ApWc
+[2016-03-09 10:29:15.307] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : JzgmhsWqV-W31uavApWd
+[2016-03-09 10:29:24.338] [INFO] server - initUser --->> 门店 :1052, 用户 : 1113, socketId : YfVRqtjYt19zm5Z0ApWe
+[2016-03-09 14:48:19.421] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 14:48:28.765] [INFO] server - initUser --->> 门店 :1005, 用户 : 519, socketId : 1PDfnmL1V1KFF1eYAAAA
+[2016-03-09 14:48:36.350] [INFO] server - socket.id :1PDfnmL1V1KFF1eYAAAA 的用户下线了.....
+[2016-03-09 15:05:26.083] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:05:25","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"536"}
+[2016-03-09 15:07:08.873] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:07:08","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-09 15:07:17.665] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:07:17","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-09 15:07:17.665] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:07:17","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-09 15:08:39.510] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:08:39","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-09 15:13:58.678] [INFO] server - initUser --->> 门店 :2, 用户 : 1, socketId : AWNArmwixh10ZXhzAAAB
+[2016-03-09 15:20:30.093] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 15:25:34.542] [INFO] server - 1,1,sdf
+[2016-03-09 15:31:13.385] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 15:43:34.051] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 15:43:35.333] [INFO] server - 519,1005,sdf
+[2016-03-09 15:47:30.985] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:47:30","length":0,"msg":"1419号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-09 15:47:30.985] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:47:30","length":0,"msg":"1419号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-09 15:47:30.985] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:47:30","length":0,"msg":"1419号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-09 15:57:04.192] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:57:04","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-09 15:57:04.192] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:57:04","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-09 15:57:04.192] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:57:04","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-09 15:57:24.342] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:57:24","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-09 15:57:24.358] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:57:24","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-09 15:57:24.358] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:57:24","length":0,"msg":"1109号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-09 15:59:06.056] [INFO] server - socket.id :qct_xH2mHOpKsMZnAAAA 的用户下线了.....
+[2016-03-09 15:59:47.250] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 15:59:52.946] [INFO] server - 519,1005,sdf
+[2016-03-09 15:59:57.146] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 15:59:56","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-09 16:00:01.583] [INFO] server - socket.id :fecIyR_guhHER7q2AAAB 的用户下线了.....
+[2016-03-09 16:00:07.248] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 16:00:07","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-09 16:00:07.263] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 16:00:07","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-09 16:00:51.101] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:00:55.943] [INFO] server - 519,1005,sdf
+[2016-03-09 16:00:58.340] [INFO] server - socket.id :FdhN-wJf4enP2Fo0AAAA 的用户下线了.....
+[2016-03-09 16:01:16.672] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:01:20.894] [INFO] server - socket.id :Uo8arXLeMM2uUaImAAAA 的用户下线了.....
+[2016-03-09 16:01:24.943] [INFO] server - 519,1005,sdf
+[2016-03-09 16:01:41.179] [INFO] server - socket.id :JwnwLt2Dr66-Ad5JAAAB 的用户下线了.....
+[2016-03-09 16:04:24.044] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:04:28.968] [INFO] server - 519,1005,sdf
+[2016-03-09 16:04:36.465] [INFO] server - userId:[object Object]
+[2016-03-09 16:04:36.466] [INFO] server - socket.id :PtXzM3SzD0P1LbrnAAAA 的用户下线了.....
+[2016-03-09 16:06:19.862] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:06:27.170] [INFO] server - 519,1005,sdf
+[2016-03-09 16:06:40.740] [ERROR] redis - [Error: Redis connection to 192.168.10.41:6379 failed - connect ETIMEDOUT 192.168.10.41:6379]
+Error: Redis connection to 192.168.10.41:6379 failed - connect ETIMEDOUT 192.168.10.41:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-09 16:07:29.047] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:07:51.275] [INFO] server - userId:[object Object]socketId:qPD7mfzWh4D9BBVhAAAA
+[2016-03-09 16:07:51.276] [INFO] server - socket.id :qPD7mfzWh4D9BBVhAAAA 的用户下线了.....
+[2016-03-09 16:07:52.270] [INFO] server - userId:519socketId:h7OfV6NI9zf13W6aAAAB
+[2016-03-09 16:07:52.958] [INFO] server - 519,1005,sdf
+[2016-03-09 16:09:34.924] [INFO] server - userId:[object Object]socketId:h7OfV6NI9zf13W6aAAAB
+[2016-03-09 16:09:34.924] [INFO] server - socket.id :h7OfV6NI9zf13W6aAAAB 的用户下线了.....
+[2016-03-09 16:12:52.024] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:12:57.689] [INFO] server - userId:519socketId:cPMdzZJCNREgD-jPAAAA
+[2016-03-09 16:12:57.708] [INFO] server - 519,1005,sdf
+[2016-03-09 16:13:01.979] [INFO] server - redis userId:[object Object]socketId:cPMdzZJCNREgD-jPAAAA
+[2016-03-09 16:13:01.982] [INFO] server - socket.id :cPMdzZJCNREgD-jPAAAA 的用户下线了.....
+[2016-03-09 16:17:43.118] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:17:50.013] [INFO] server - userId:519socketId:gwoimV_NhA_z-OtzAAAA
+[2016-03-09 16:17:50.022] [INFO] server - 519,1005,sdf
+[2016-03-09 16:18:30.047] [INFO] server - redis userId:[object Object]socketId:gwoimV_NhA_z-OtzAAAA
+[2016-03-09 16:18:30.048] [INFO] server - socket.id :gwoimV_NhA_z-OtzAAAA 的用户下线了.....
+[2016-03-09 16:28:14.398] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:28:21.028] [INFO] server - userId:519socketId:hOWJMxwpNVfszNuoAAAA
+[2016-03-09 16:28:21.048] [INFO] server - 519,1005,sdf
+[2016-03-09 16:28:25.797] [INFO] server - redis userId:[object Object]socketId:hOWJMxwpNVfszNuoAAAA
+[2016-03-09 16:28:25.801] [INFO] server - socket.id :hOWJMxwpNVfszNuoAAAA 的用户下线了.....
+[2016-03-09 16:28:50.550] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:28:56.485] [INFO] server - userId:519socketId:4ZrIW9i_n_266U2MAAAA
+[2016-03-09 16:28:56.501] [INFO] server - 519,1005,sdf
+[2016-03-09 16:28:58.446] [INFO] server - redis userId:[object Object]socketId:4ZrIW9i_n_266U2MAAAA
+[2016-03-09 16:28:58.447] [INFO] server - socket.id :4ZrIW9i_n_266U2MAAAA 的用户下线了.....
+[2016-03-09 16:30:03.709] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:30:09.203] [INFO] server - userId:519socketId:p35e6ENf34pHpXlVAAAA
+[2016-03-09 16:30:09.477] [INFO] server - 519,1005,sdf
+[2016-03-09 16:30:10.681] [INFO] server - redis userId:[object Object]socketId:p35e6ENf34pHpXlVAAAA
+[2016-03-09 16:30:10.683] [INFO] server - socket.id :p35e6ENf34pHpXlVAAAA 的用户下线了.....
+[2016-03-09 16:30:46.251] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:30:56.718] [INFO] server - userId:519socketId:VL3oHHUBaEjPbJcsAAAA
+[2016-03-09 16:30:56.741] [INFO] server - 519,1005,sdf
+[2016-03-09 16:30:59.236] [INFO] server - redis userId:519socketId:VL3oHHUBaEjPbJcsAAAA
+[2016-03-09 16:30:59.239] [INFO] server - socket.id :VL3oHHUBaEjPbJcsAAAA 的用户下线了.....
+[2016-03-09 16:32:25.907] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:32:30.317] [INFO] server - userId:519socketId:ljYDjvmuc9GEzcn7AAAA
+[2016-03-09 16:32:30.601] [INFO] server - 519,1005,sdf
+[2016-03-09 16:32:30.621] [INFO] server - null
+[2016-03-09 16:32:49.543] [INFO] server - userId:519socketId:XxCsww8_3KTI7EHwAAAB
+[2016-03-09 16:32:49.822] [INFO] server - 519,1005,sdf
+[2016-03-09 16:32:49.846] [INFO] server - null
+[2016-03-09 16:32:52.508] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:32:56.922] [INFO] server - userId:519socketId:8F-cXWgdU9KV9TFJAAAB
+[2016-03-09 16:32:57.145] [INFO] server - 519,1005,sdf
+[2016-03-09 16:32:57.161] [INFO] server - true
+[2016-03-09 16:37:19.914] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-09 16:37:27.255] [INFO] server - userId:519socketId:i28hY2HlfGHZ6JT_AAAB
+[2016-03-09 16:37:27.276] [INFO] server - 519,1005,sdf
+[2016-03-09 16:37:27.377] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-09 16:49:21.299] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 16:49:21","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-09 16:54:26.755] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 16:54:26","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-09 16:58:49.401] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 16:58:49","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-09 16:58:49.401] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 16:58:49","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-09 17:17:17.454] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:17:17","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-09 17:17:38.135] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:17:38","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-09 17:17:38.136] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:17:38","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-09 17:18:21.403] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:18:21","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-09 17:20:01.497] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:20:01","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-09 17:20:01.499] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:20:01","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-09 17:20:13.848] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:20:13","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-09 17:20:23.230] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:20:23","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-09 17:20:23.236] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:20:23","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-09 17:20:46.928] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:20:45","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-09 17:20:56.363] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:20:56","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-09 17:20:56.366] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-09 17:20:56","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-09 18:28:36.398] [INFO] server - userId:519socketId:o9JCD4JCejr572trAAAA
+[2016-03-09 18:28:37.354] [INFO] server - 519,1005,sdf
+[2016-03-09 18:28:37.357] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-09 18:28:45.632] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:28:45.633] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:28:56.637] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:28:56.638] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:29:07.640] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:29:07.642] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:29:18.641] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:29:18.642] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:29:29.642] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:29:29.643] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:29:40.643] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:29:40.644] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:29:51.644] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:29:51.645] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:30:02.646] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:30:02.647] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:30:13.646] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:30:13.647] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:30:24.646] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:30:24.647] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:30:35.646] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:30:35.649] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:30:46.646] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:30:46.647] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:30:57.647] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:30:57.648] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:31:08.646] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:31:08.648] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:31:19.647] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:31:19.648] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:31:30.648] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:31:30.649] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:31:41.648] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:31:41.649] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:31:52.648] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:31:52.649] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:32:03.649] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:32:03.650] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:32:22.318] [INFO] server - userId:519socketId:U-xsNlC0HErQnaCIAAAB
+[2016-03-09 18:32:23.369] [INFO] server - 519,1005,sdf
+[2016-03-09 18:32:23.370] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-09 18:32:23.694] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:32:23.695] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:32:34.695] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:32:34.696] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:32:45.696] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:32:45.697] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:32:56.697] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:32:56.699] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:33:07.698] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:33:07.699] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:33:18.699] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:33:18.701] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:33:29.700] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:33:29.701] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:33:40.701] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:33:40.702] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:33:51.700] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:33:51.703] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:34:02.701] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:34:02.703] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:34:13.701] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:34:13.702] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:34:24.702] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:34:24.703] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:35:59.889] [INFO] server - userId:519socketId:0pEiBIJA4zLLS58QAAAB
+[2016-03-09 18:36:00.360] [INFO] server - 519,43,sdf
+[2016-03-09 18:36:00.362] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-09 18:36:02.346] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:36:02.347] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:36:13.348] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:36:13.349] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:36:24.348] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:36:24.349] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:36:35.350] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:36:35.351] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:36:46.351] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:36:46.352] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:36:57.350] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:36:57.351] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:37:08.351] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:37:08.352] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:37:19.351] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:37:19.353] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:37:30.351] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:37:30.353] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:37:41.351] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:37:41.352] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:37:52.352] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:37:52.353] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:38:03.352] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:38:03.353] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:38:14.353] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:38:14.354] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:38:25.353] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:38:25.354] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:38:38.346] [INFO] server - userId:519socketId:1eyUgS3at45-aR0KAAAB
+[2016-03-09 18:38:39.375] [INFO] server - 519,43,sdf
+[2016-03-09 18:38:39.377] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-09 18:38:43.250] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:38:43.251] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:38:54.252] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:38:54.253] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:39:05.252] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:39:05.253] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:39:16.252] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:39:16.253] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:39:27.253] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:39:27.254] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:39:38.253] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:39:38.254] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:39:49.254] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:39:49.255] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:40:00.255] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:40:00.256] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:40:11.255] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:40:11.257] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:40:22.255] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:40:22.257] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:40:33.255] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:40:33.257] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:40:44.254] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:40:44.255] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:40:55.255] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:40:55.256] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:41:06.255] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:41:06.256] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:41:17.256] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:41:17.257] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:41:28.257] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:41:28.258] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:41:39.256] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:41:39.257] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:41:50.257] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:41:50.258] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:42:01.257] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:42:01.258] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:42:12.258] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:42:12.259] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:42:23.258] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:42:23.260] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:42:34.258] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:42:34.259] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:42:45.258] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:42:45.259] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:42:56.260] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:42:56.261] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:43:07.259] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:43:07.260] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:43:18.260] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:43:18.261] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:43:29.260] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:43:29.262] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:43:40.262] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:43:40.262] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:43:51.263] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:43:51.264] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:44:02.263] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:44:02.264] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:44:13.263] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:44:13.264] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:44:24.264] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:44:24.266] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:44:35.264] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:44:35.266] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:44:46.264] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:44:46.265] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:44:57.264] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:44:57.265] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:45:08.263] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:45:08.264] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:45:19.265] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:45:19.266] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:45:30.264] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:45:30.265] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:45:41.265] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:45:41.266] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:45:52.267] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:45:52.268] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:46:03.267] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:46:03.268] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:46:14.267] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:46:14.268] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:46:25.268] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:46:25.269] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:46:36.267] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:46:36.268] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:46:47.268] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:46:47.269] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:46:58.267] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:46:58.268] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:47:09.268] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:47:09.270] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:47:20.269] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:47:20.269] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:47:31.269] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:47:31.270] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:47:42.270] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:47:42.271] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:47:53.270] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:47:53.271] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:48:04.270] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:48:04.271] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:48:15.270] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:48:15.271] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:48:26.271] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:48:26.272] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:48:37.271] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:48:37.272] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:48:48.272] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:48:48.273] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:48:59.271] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:48:59.271] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:49:10.273] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:49:10.274] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:49:21.274] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:49:21.275] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:49:32.273] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:49:32.273] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:49:43.273] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:49:43.274] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:49:54.274] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:49:54.275] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:50:05.275] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:50:05.275] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:50:16.275] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:50:16.276] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:50:27.276] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:50:27.281] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:50:38.278] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:50:38.279] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:50:49.278] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:50:49.279] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:51:00.278] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:51:00.278] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:51:11.279] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:51:11.280] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-09 18:51:22.279] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-09 18:51:22.280] [ERROR] rabbitmq - rabbitmq is close

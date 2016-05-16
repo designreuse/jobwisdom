@@ -1,0 +1,630 @@
+[2016-03-10 11:32:03.494] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 11:32:04.394] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-10 11:32:05.653] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-10 11:32:07.088] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-10 11:32:08.822] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-10 11:32:09.083] [INFO] server - userId:519socketId:xuJn4O8P_pfsFvKSAAAA
+[2016-03-10 11:32:09.085] [INFO] server - 519,43,sdf
+[2016-03-10 11:32:11.075] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-10 11:32:26.414] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 11:32:39.663] [INFO] server - userId:519socketId:dKG44DOODzVbXeGkAAAB
+[2016-03-10 11:32:39.755] [INFO] server - 519,43,sdf
+[2016-03-10 11:32:39.756] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 11:32:59.453] [INFO] server - userId:43socketId:MU8e8lGd8XSYSgwgAAAC
+[2016-03-10 11:33:10.082] [INFO] server - 43,519,浜茬埍鐨勬櫤鏀�,浣犻夯鐥�
+[2016-03-10 11:35:04.861] [INFO] server - 43,519,浜茬埍鐨勬櫤鏀�,浣犻夯鐥�
+[2016-03-10 11:35:18.743] [INFO] server - 43,519,智放.你吗比
+[2016-03-10 11:53:50.474] [INFO] server - 43,519,智放.你吗比
+[2016-03-10 11:53:50.476] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 11:53:58.047] [INFO] server - 43,519,智放.你吗比
+[2016-03-10 11:53:58.049] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 11:54:05.798] [INFO] server - 43,519,智放.你吗比
+[2016-03-10 11:54:05.804] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 11:54:06.440] [INFO] server - 43,519,智放.你吗比
+[2016-03-10 11:54:06.442] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 11:54:06.940] [INFO] server - 43,519,智放.你吗比
+[2016-03-10 11:54:06.942] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 11:55:47.770] [INFO] server - userId:43socketId:HBNd6OdWb3aYQY74AAAA
+[2016-03-10 11:55:47.809] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 11:55:58.788] [INFO] server - userId:519socketId:of9bEdXkuM2sttFuAAAB
+[2016-03-10 11:55:58.885] [INFO] server - 519,43,sdf
+[2016-03-10 11:55:58.886] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 11:55:58.890] [INFO] server - 519,43,2
+[2016-03-10 11:56:44.841] [INFO] server - userId:519socketId:OnrsOk2Vl_HlZJchAAAC
+[2016-03-10 11:56:44.940] [INFO] server - 519,43,2
+[2016-03-10 11:57:31.140] [INFO] server - 519,43,2
+[2016-03-10 11:57:34.924] [INFO] server - 519,43,2
+[2016-03-10 11:57:35.529] [INFO] server - 519,43,2
+[2016-03-10 11:57:36.056] [INFO] server - 519,43,2
+[2016-03-10 11:57:36.564] [INFO] server - 519,43,2
+[2016-03-10 11:57:37.032] [INFO] server - 519,43,2
+[2016-03-10 11:57:37.483] [INFO] server - 519,43,2
+[2016-03-10 11:57:37.921] [INFO] server - 519,43,2
+[2016-03-10 11:57:38.383] [INFO] server - 519,43,2
+[2016-03-10 11:57:38.816] [INFO] server - 519,43,2
+[2016-03-10 11:57:39.231] [INFO] server - 519,43,2
+[2016-03-10 11:57:39.646] [INFO] server - 519,43,2
+[2016-03-10 11:57:40.058] [INFO] server - 519,43,2
+[2016-03-10 11:57:40.466] [INFO] server - 519,43,2
+[2016-03-10 11:57:40.867] [INFO] server - 519,43,2
+[2016-03-10 11:57:41.454] [INFO] server - 519,43,2
+[2016-03-10 12:04:47.209] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 12:04:47","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-10 12:04:47.212] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 12:04:47","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-10 12:04:47.214] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 12:04:47","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-10 12:05:56.931] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 12:05:57","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-10 12:06:50.579] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 12:06:50","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-10 12:07:43.514] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 12:07:43","length":0,"msg":"1105号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-10 12:07:43.515] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 12:07:43","length":0,"msg":"1105号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-10 12:07:43.517] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 12:07:43","length":0,"msg":"1105号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-10 13:56:01.389] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 13:56:18.016] [INFO] server - userId:43socketId:Wp-91sCj2MoWWetZAAAB
+[2016-03-10 13:56:28.012] [INFO] server - 43,519,浜茬埍鐨勬櫤鏀�,浣犻夯鐥�
+[2016-03-10 13:56:28.013] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 14:02:13.058] [INFO] server - 43,519,智放.你吗比
+[2016-03-10 14:02:13.060] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 14:02:13.941] [INFO] server - 43,519,智放.你吗比
+[2016-03-10 14:02:13.945] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 14:02:14.531] [INFO] server - 43,519,智放.你吗比
+[2016-03-10 14:02:14.532] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 14:02:33.090] [INFO] server - userId:519socketId:6FSIvpiznGBUVexfAAAC
+[2016-03-10 14:02:33.196] [INFO] server - { userId: '0', msg: [] }
+[2016-03-10 14:07:38.367] [INFO] server - { userId: '0', msg: [] }
+[2016-03-10 14:07:50.711] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 14:07:52.252] [INFO] server - userId:43socketId:ttdX9KGzSzvQN2GSAAAB
+[2016-03-10 14:07:52.567] [INFO] server - [ '43' ]
+[2016-03-10 14:07:52.573] [INFO] server - { userId: '0', msg: [] }
+[2016-03-10 14:08:02.250] [INFO] server - 43,519,浜茬埍鐨勬櫤鏀�,浣犻夯鐥�
+[2016-03-10 14:08:54.247] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 14:08:54.275] [INFO] server - userId:43socketId:Gik4Ka8N_PIOcd0ZAAAB
+[2016-03-10 14:09:00.673] [INFO] server - userId:519socketId:t3VjH7YIwX5F2fACAAAC
+[2016-03-10 14:09:00.770] [INFO] server - 0
+[2016-03-10 14:09:00.771] [INFO] server - { userId: '0', msg: [] }
+[2016-03-10 14:09:05.251] [INFO] server - 43,519,浜茬埍鐨勬櫤鏀�,浣犻夯鐥�
+[2016-03-10 14:10:51.866] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 14:10:59.672] [INFO] server - { userId: '43',
+  msg: [ '浜茬埍鐨勬櫤鏀�,浣犻夯鐥�', '智放.你吗比', '智放.你吗比', '智放.你吗比' ] }
+[2016-03-10 14:11:02.984] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:14:06.414] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 14:14:06","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 14:14:59.583] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 14:14:59","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 14:14:59.585] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 14:14:59","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 14:20:38.749] [INFO] server - 43,519,第一句
+[2016-03-10 14:20:41.359] [INFO] server - 43,519,第2句
+[2016-03-10 14:20:43.906] [INFO] server - 43,519,第3句
+[2016-03-10 14:20:47.993] [INFO] server - 44,519,第3句
+[2016-03-10 14:20:53.666] [INFO] server - 44,519,第5句
+[2016-03-10 14:20:58.450] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:21:26.272] [INFO] server - 43,519,第1句
+[2016-03-10 14:21:26.274] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 14:21:29.110] [INFO] server - 43,519,第2句
+[2016-03-10 14:21:29.112] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 14:21:31.512] [INFO] server - 43,519,第3句
+[2016-03-10 14:21:31.514] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 14:21:40.076] [INFO] server - 44,519,第3句
+[2016-03-10 14:21:40.079] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 14:21:43.188] [INFO] server - 44,519,第2句
+[2016-03-10 14:21:43.189] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 14:21:50.430] [INFO] server - { userId: '43', msg: [ '第1句', '第2句', '第3句' ] }
+[2016-03-10 14:21:50.435] [INFO] server - { userId: '44', msg: [ '第3句', '第2句' ] }
+[2016-03-10 14:22:24.112] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:22:24.114] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:24:59.808] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 14:25:00","length":0,"msg":"1218号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 14:25:03.189] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 14:25:09.767] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:09.771] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:12.873] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:12.874] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:13.622] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:13.624] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:14.182] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:14.183] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:14.707] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:14.708] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:15.183] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:15.184] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:15.602] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:15.608] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:15.972] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 14:25:16","length":0,"msg":"1218号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 14:25:16.020] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:16.022] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:16.528] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:16.530] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:16.993] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:16.995] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:17.458] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:17.459] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:17.961] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:17.963] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:18.501] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:18.502] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:18.970] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:18.972] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:19.433] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:25:19.435] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:25:53.991] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 14:26:01.685] [INFO] server - { userId: '43', msg: [] }
+[2016-03-10 14:26:01.688] [INFO] server - { userId: '44', msg: [] }
+[2016-03-10 14:58:36.809] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 14:59:25.941] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 14:59:50.533] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 15:02:25.214] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 15:12:55.495] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:12:55","length":0,"msg":"1101号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"536"}
+[2016-03-10 15:13:13.866] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:13:14","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-10 15:19:37.520] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:19:35","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:19:56.435] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 15:20:11.831] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:20:11","length":0,"msg":"1218号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:20:43.193] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:20:42","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 15:20:57.099] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:20:42","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 15:21:17.532] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:21:17","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:21:26.318] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:21:26","length":0,"msg":"1103号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"536"}
+[2016-03-10 15:21:33.146] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:21:33","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:21:53.780] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:21:54","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 15:21:53.783] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:21:54","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 15:22:28.043] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:22:28","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:22:55.497] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:22:55","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 15:22:55.501] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:22:55","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 15:23:15.158] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:23:15","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:23:29.332] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:23:29","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 15:23:29.334] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:23:29","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 15:23:45.997] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:23:46","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:24:22.960] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:24:23","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 15:24:22.978] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:24:23","length":0,"msg":"1215号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 15:25:03.937] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:25:02","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:26:04.357] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:26:04","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 15:26:04.359] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:26:04","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 15:26:25.315] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:26:25","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:26:25.462] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:26:25","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 15:26:25.465] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:26:25","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 15:26:47.858] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 15:27:32.234] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:27:32","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 15:44:56.733] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:44:57","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 15:44:56.734] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:44:57","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 15:49:23.484] [INFO] server - 44,519,第2句
+[2016-03-10 15:49:24.269] [INFO] server - 44,519,第2句
+[2016-03-10 15:49:24.744] [INFO] server - 44,519,第2句
+[2016-03-10 15:50:30.108] [INFO] server - 519,43,sdf
+[2016-03-10 15:51:11.068] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 15:51:45.368] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 15:51:45","length":0,"msg":"1103号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-10 15:52:49.246] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 16:07:17.839] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 16:07:30.085] [INFO] server - 44,519,第2句
+[2016-03-10 16:07:39.381] [INFO] server - 519,43,sdf
+[2016-03-10 16:08:41.516] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:08:40","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-10 16:24:53.018] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:24:53","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 16:29:22.195] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"907"}
+[2016-03-10 16:29:22.198] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"571"}
+[2016-03-10 16:29:22.200] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"585"}
+[2016-03-10 16:29:22.201] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"575"}
+[2016-03-10 16:29:22.203] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"521"}
+[2016-03-10 16:29:22.205] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"1586"}
+[2016-03-10 16:29:22.206] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"523"}
+[2016-03-10 16:29:22.208] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"864"}
+[2016-03-10 16:29:22.216] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"525"}
+[2016-03-10 16:29:22.219] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:29:22","length":0,"msg":"1101号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"1508"}
+[2016-03-10 16:39:37.392] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:39:36","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"536"}
+[2016-03-10 16:52:12.159] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:52:12","length":0,"msg":"1218号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 16:52:12.298] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:52:12","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 16:52:12.300] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:52:12","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 16:55:11.683] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:55:12","length":0,"msg":"1211号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-10 16:56:24.157] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 16:56:24","length":0,"msg":"1216号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-10 17:01:29.025] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:01:29","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-10 17:01:29.027] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:01:29","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-10 17:01:29.030] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:01:29","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-10 17:02:32.107] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:02:32","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-10 17:02:32.109] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:02:32","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-10 17:02:32.114] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:02:32","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-10 17:05:18.036] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 17:07:34.077] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:07:34","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 17:08:15.983] [INFO] server - 44,519,第2句
+[2016-03-10 17:08:26.680] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:08:27","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 17:08:26.682] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:08:27","length":0,"msg":"1213号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 17:08:40.966] [INFO] server - 519,43,sdf
+[2016-03-10 17:14:11.605] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:14:11","length":0,"msg":"1201号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-10 17:14:11.607] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:14:11","length":0,"msg":"1201号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-10 17:14:11.609] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:14:11","length":0,"msg":"1201号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-10 17:19:22.839] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 17:19:43.402] [INFO] server - 44,519,智放你好
+[2016-03-10 17:21:13.898] [INFO] server - 519,43,sdf
+[2016-03-10 17:21:15.624] [INFO] server - 44,519,智放你好
+[2016-03-10 17:23:00.640] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 17:23:13.557] [INFO] server - 519,43,sdf
+[2016-03-10 17:23:14.238] [INFO] server - 44,519,智放你好
+[2016-03-10 17:25:18.821] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 17:25:26.489] [INFO] server - 44,519,智放你好
+[2016-03-10 17:52:01.661] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 17:52:35.304] [INFO] server - 44,519,离线消息1
+[2016-03-10 17:52:38.105] [INFO] server - 44,519,离线消息2
+[2016-03-10 17:52:47.543] [INFO] server - 43,519,离线消息3
+[2016-03-10 17:53:56.528] [INFO] server - 44,519,离线消息1
+[2016-03-10 17:55:22.042] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:55:22","length":0,"msg":"1106号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 17:56:04.182] [INFO] server - 44,519,离线消息1
+[2016-03-10 17:56:04.187] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 17:56:46.120] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 17:56:46","length":0,"msg":"1105号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-03-10 18:00:12.561] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 18:02:41.786] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 18:03:30.904] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 18:04:38.674] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:04:39","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-10 18:04:38.676] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:04:39","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-10 18:04:38.678] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:04:39","length":0,"msg":"1200号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-10 18:05:06.217] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:05:06","length":0,"msg":"1210号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"278"}
+[2016-03-10 18:05:06.219] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:05:06","length":0,"msg":"1210号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"514"}
+[2016-03-10 18:05:06.222] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:05:06","length":0,"msg":"1210号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"284"}
+[2016-03-10 18:06:27.234] [INFO] server - 44,519,离线消息1
+[2016-03-10 18:06:46.022] [INFO] server - 44,519,离线消息1
+[2016-03-10 18:06:46.025] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 18:07:34.995] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 18:07:41.690] [INFO] server - 44,519,离线消息1
+[2016-03-10 18:08:32.523] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-10 18:08:55.185] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:08:55","length":0,"msg":"1101号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"394"}
+[2016-03-10 18:09:01.829] [INFO] server - 44,519,离线消息
+[2016-03-10 18:09:01.831] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 18:09:21.155] [INFO] server - 44,519,离线消息3434
+[2016-03-10 18:09:21.157] [INFO] server - 发送对象不在线,存为离线信息....
+[2016-03-10 18:10:05.473] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:10:05","length":0,"msg":"1212号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"406"}
+[2016-03-10 18:12:38.314] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"907"}
+[2016-03-10 18:12:38.316] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"571"}
+[2016-03-10 18:12:38.317] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"585"}
+[2016-03-10 18:12:38.319] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"575"}
+[2016-03-10 18:12:38.320] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"521"}
+[2016-03-10 18:12:38.321] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"1586"}
+[2016-03-10 18:12:38.322] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"523"}
+[2016-03-10 18:12:38.362] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"864"}
+[2016-03-10 18:12:38.363] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"525"}
+[2016-03-10 18:12:38.365] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:12:38","length":0,"msg":"1207号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"1508"}
+[2016-03-10 18:18:05.870] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:06","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 18:18:05.872] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:06","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 18:18:08.208] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"1362"}
+[2016-03-10 18:18:08.210] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"574"}
+[2016-03-10 18:18:08.211] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"520"}
+[2016-03-10 18:18:08.212] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"586"}
+[2016-03-10 18:18:08.214] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"522"}
+[2016-03-10 18:18:08.214] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"237"}
+[2016-03-10 18:18:08.243] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"853"}
+[2016-03-10 18:18:08.244] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"1122"}
+[2016-03-10 18:18:08.245] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"616"}
+[2016-03-10 18:18:08.245] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:08","length":0,"msg":"1207号，您有新预约，请与顾客确认","pkg":"","receiveTime":"","type":2},"fid":2,"fromUser":"0","toUser":"519"}
+[2016-03-10 18:18:36.168] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:36","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 18:18:41.556] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:42","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 18:18:41.557] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:42","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 18:18:54.582] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:18:55","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"348"}
+[2016-03-10 18:19:03.420] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:19:03","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"330"}
+[2016-03-10 18:19:03.421] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:19:03","length":0,"msg":"1102号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"887"}
+[2016-03-10 18:20:46.838] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"1362"}
+[2016-03-10 18:20:46.839] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"574"}
+[2016-03-10 18:20:46.840] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"520"}
+[2016-03-10 18:20:46.840] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"586"}
+[2016-03-10 18:20:46.842] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"522"}
+[2016-03-10 18:20:46.843] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"237"}
+[2016-03-10 18:20:46.843] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"853"}
+[2016-03-10 18:20:46.844] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"1122"}
+[2016-03-10 18:20:46.845] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"616"}
+[2016-03-10 18:20:46.845] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:20:47","length":0,"msg":"1210号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"519"}
+[2016-03-10 18:32:41.605] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"1362"}
+[2016-03-10 18:32:41.607] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"574"}
+[2016-03-10 18:32:41.608] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"520"}
+[2016-03-10 18:32:41.608] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"586"}
+[2016-03-10 18:32:41.884] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"522"}
+[2016-03-10 18:32:41.885] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"237"}
+[2016-03-10 18:32:41.886] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"853"}
+[2016-03-10 18:32:41.887] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"1122"}
+[2016-03-10 18:32:41.888] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"616"}
+[2016-03-10 18:32:41.888] [INFO] server - 
+
+<-- receiveNotify begin -->{"data":{"createTime":"2016-03-10 18:32:40","length":0,"msg":"1299号，有顾客需要您的服务","pkg":"","receiveTime":"","type":4},"fid":2,"fromUser":"0","toUser":"519"}
+[2016-03-10 18:40:01.749] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - read ECONNRESET]
+Error: Redis connection to 127.0.0.1:6379 failed - read ECONNRESET
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)
+[2016-03-10 18:40:03.009] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)

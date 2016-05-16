@@ -4,6 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="<%=basePath%>css/webchat.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <body>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -62,10 +65,13 @@
  						</div>
 						<div class="webchat_div_" style="display: none;">
 							<p>门店介绍：</p>
-							<button class="insert_img" onclick="zcc(this,'edit')">
+							<button class="insert_img" onclick="zcc(this,'editor1')">
 								<img src="<%=basePath%>images/webchat_add.png">插入图片
 							</button>
-							<div contenteditable="true" id="descriptionEditor" name="content" class="webchat_area">
+							<script id="editor1" type="text/plain" style="width:550px;height:400px;">
+							${storeInfo.storeDesc }
+							</script>
+							<%-- <div contenteditable="true" id="descriptionEditor" name="content" class="webchat_area">
 								<c:if test="${!empty storeInfo.storeDescArray }">
 				                    <c:forEach var="content" items="${storeInfo.storeDescArray }">
 										<c:if test="${content.type == '1' }">
@@ -76,16 +82,19 @@
 										</c:if>
 									</c:forEach>
 								</c:if>
-							</div>
+							</div> --%>
 							<button class="webchat_submit" onclick="edit('#descriptionEditor', 1)">提交</button>
 						</div>
 
 						<div class="webchat_div_" style="display: none;">
 							<p>特色服务：</p>
-							<button class="insert_img" onclick="zcc(this,'edit')">
+							<button class="insert_img" onclick="zcc(this,'editor2')">
 								<img src="<%=basePath%>images/webchat_add.png">插入图片
 							</button>
-							<div contenteditable="true" id="characteristicEditor" class="webchat_area">
+							<script id="editor2" type="text/plain" style="width:550px;height:400px;">
+							${storeInfo.characteristic }
+							</script>
+							<%-- <div contenteditable="true" id="characteristicEditor" class="webchat_area">
 								<c:if test="${!empty storeInfo.characteristicArray }">
 				                    <c:forEach var="content" items="${storeInfo.characteristicArray }">
 										<c:if test="${content.type == '1' }">
@@ -96,7 +105,7 @@
 										</c:if>
 									</c:forEach>
 								</c:if>
-							</div>
+							</div> --%>
 							<button class="webchat_submit" onclick="edit('#characteristicEditor', 2)">提交</button>
 						</div>
 
@@ -173,6 +182,20 @@
 </body>
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>js/setting/storeSetting.js"></script>
 <script type="text/javascript">
+
+var toolbars = {
+		toolbars: [
+		   		['fullscreen', 'source', '|', 'undo', 'redo', '|',
+		           'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript','|', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+		           'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+		           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+		           'directionalityltr', 'directionalityrtl', 'indent', '|',
+		           'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase','preview']
+		   	],maximumWords:3000,elementPathEnabled:false
+		   };
+var u1 = UE.getEditor('editor1', toolbars);
+var u2 = UE.getEditor('editor2', toolbars);
+
 /**tab页面切换*/
 jQuery(function(){
    jQuery('.webchat_div_:gt(0)').hide();
@@ -209,10 +232,12 @@ function zcc(opt,type){
 	imgType = type;
 	if(type=="img"){
 		imgObject = jQuery(opt).parent("li");
-	}
-	if(type=="edit"){
+	}else {
 		imgObject = jQuery(opt).next();
 	}
+	/* if(type=="edit"){
+		imgObject = jQuery(opt).next();
+	} */
 	jQuery('.zzc').show();
 }
 
@@ -245,10 +270,12 @@ function zccCallback(dataBase64){
 		       		imgObject.empty();
 		       		var html = '<img style="width: 89px;height: 89px" onclick="zcc(this,"img")" src="'+qiniuUrl+key+'">'+
                     		   '<input type="hidden" name="carouselPicture" value="'+key+'">';
+		       		imgObject.append(jQuery(html));
 		       	}else{
-		       		var html = '<img style="width: 560px;height: 560px" src="'+qiniuUrl+key+'">';
+		       		UE.getEditor(imgType).execCommand('insertHtml', '<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'+qiniuUrl+key+'">');
+		       		//var html = '<img style="width: 560px;height: 560px" src="'+qiniuUrl+key+'">';
 		       	}
-		       	imgObject.append(jQuery(html));
+		       	//imgObject.append(jQuery(html));
 	       }
  	});
 }

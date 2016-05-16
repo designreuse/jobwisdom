@@ -30,7 +30,13 @@
     select
     <include refid="Base_Column_List" />
     from user_account
-    where user_name = #{userName} and store_account = #{storeAccount} and status = 0
+    where status = 0
+    <if test="storeAccount!=null">
+    and store_account = #{storeAccount}  
+    </if>
+    <if test="userName!=null">
+    and user_name = #{userName} 
+    </if>
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
