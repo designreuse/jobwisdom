@@ -14,7 +14,7 @@ em,i{font-style:normal}
     height: 20px;
    
 }
- .seo_first{height:500px; margin: 50px 30px;margin-right:-30px;overflow:overlay}
+ .seo_first{height:600px; margin: 50px 30px;margin-right:-30px;overflow:overlay}
 
  .column_img_container:hover{background:url('../images/back_.png');box-shadow:0 0 30px #ccc;}
  
@@ -175,7 +175,7 @@ padding-left:114px
 }
 .money_close_ img{width:20px;position:relative;}
 
-.money_content{height:216px;width:213px;background:url('../images/money_back.png') no-repeat;float:left;margin-right:37px;margin-bottom:40px}
+.money_content{height:216px;width:213px;background:url('../images/money_back.png') no-repeat;float:left;margin-right:37px;margin-bottom:40px;position:relative}
 .money_title{font-size:18px;color:#cc6042;text-align:center;position:relative;top:16px;position:relative}
 .money_close{position:absolute;right:8px;top:-8px}
 .money_head_pic{height:70px;width:190px;margin: 0 auto;background:#f8f9fa;margin-top:22px;position:relative}
@@ -193,6 +193,7 @@ padding-left:114px
 .money_content .active{
 	background:#cbb7ad
 }
+.consume{position:relative}
 .circle_pic{display:none}
 .money_card_content li{cursor:pointer}
 .money_card_content .active{background:#f6f6d7}
@@ -252,11 +253,23 @@ padding-left:114px
 input[type=radio]:checked {
     background: #ff0242!important;
 }
-.change_price_content{background:#f8f9fc;border:1px solid #ccc;box-shadow:0 4px 10px #ccc;border-radius:4px;position:absolute;top:280px;width:600px;display:none}
+.change_price_content{background:#f8f9fc;border:1px solid #ccc;box-shadow:0 4px 10px #ccc;border-radius:4px;position:absolute;top:194px;width:600px;display:none}
 .triangle{width:22px;height:15px;position:relative;left:516px;top:-15px}
-.sure_change_price{width:68px;height:24px;text-align:center;line-height:24px;color:white;background:#2a3244;border:none;margin-left:500px;border-radius:5px}
+.sure_change_price{width:68px;height:24px;text-align:center;line-height:24px;color:white;background:#2a3244;border:none;border-radius:5px}
+.sure_change_price_{width:68px;height:24px;text-align:center;line-height:24px;color:white;background:#2a3244;border:none;margin-left:400px;margin-right:20px;border-radius:5px}
 .sure_table td{width:180px;text-align:center;border:1px solid #ccc;;height:38px;vertical-align:middle;box-shadow:0 0 10px #dddddd}
 .sure_table{margin:20px 10px}
 .sure_table select,.sure_table input{width:126px;border-radius:4px;height:16px}
 .money_add{position:absolute;right:14px;top:90px;}
 .money_close_1{left:296px!important}
+.overflow_{display: inline-block;
+    width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	cursor:pointer;
+	position:relative;top:5px;}
+
+.copy_text{position:absolute;background:#f8f9fa;top:30px;background:#ccc;width:180px;border-radius:8px;margin-left:5px;font-size:13px;padding:0 10px;}
+
+.please{position:absolute;width:210px;height:40px;color:white;font-size:14px;text-align:center;line-height:40px;top:-36px;left:-11px;border-radius:10px;background:rgba(50,58,76,0.8);display:none}

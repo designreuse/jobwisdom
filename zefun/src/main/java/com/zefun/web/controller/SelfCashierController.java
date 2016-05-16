@@ -197,4 +197,22 @@ public class SelfCashierController extends BaseController {
 		Integer lastOperatorId = getUserId(request);
 		return staffOrderService.deleteOrderInfo(orderId, storeId, lastOperatorId);
 	}
+	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年5月16日 下午12:09:23 
+	* @param request
+	 *            请求对象
+	 * @param response
+	 *            响应对象
+	* @param mainOrderId 主id
+	* @param removeOrderId 副id
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.SelfCashier.ACTION_MERGE_ORDER)
+	@ResponseBody
+	public BaseDto mergeOrder (HttpServletRequest request, HttpServletResponse response, Integer mainOrderId, Integer removeOrderId) {
+		return selfCashierService.mergeOrder(mainOrderId, removeOrderId);
+	}
 }

@@ -638,7 +638,6 @@ public class SelfCashierService {
 		}
 		if (queryOff) {
 			orderInfo = calculatePaymentOff(orderInfo);
-			;
 		}
 		return orderInfo;
 	}
@@ -773,6 +772,29 @@ public class SelfCashierService {
 		integralFlowMapper.insert(integralFlow);
 	}
 
+	/**
+	 * 合并订单
+	* @author 老王
+	* @date 2016年5月16日 上午11:04:28 
+	* @param mainOrderId 合并主订单标识
+	* @param removeOrderId 合并副订单标识
+	* @return BaseDto
+	 */
+	@Transactional
+	public BaseDto mergeOrder(Integer mainOrderId, Integer removeOrderId) {
+		orderInfoMapper.deleteByPrimaryKey(removeOrderId);
+		List<OrderDetail> orderDetailList = orderDetailMapper.selectOrderDetail(removeOrderId);
+		for (OrderDetail orderDetail : orderDetailList) {
+			OrderDetail record = new OrderDetail();
+			record.setDetailId(orderDetail.getDetailId());
+			record.setOrderId(mainOrderId);
+			orderDetailMapper.updateByPrimaryKey(record);
+		}
+		//修改订单价格
+		orderInfoMapper.updateTotalPrice(mainOrderId);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+	}
+	
 	/**
 	 * 新增礼金流水
 	 * 

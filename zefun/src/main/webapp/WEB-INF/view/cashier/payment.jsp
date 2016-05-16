@@ -32,7 +32,7 @@
 			    
 			   <div class="clearfix seo_first">
 			       <c:forEach var="selfCashier" items="${cashierDtoList}" varStatus="status">
-			         <div class="money_content">
+			         <div class="money_content" orderId = "${selfCashier.orderId}">
 					    <p class="money_title">${selfCashier.orderCode}<em class="money_close"><img src="<%=basePath %>images/money_close.png"></em></p>
 						<c:choose>
 							<c:when test="${selfCashier.memberName == null}">
@@ -41,8 +41,9 @@
 						              
 						            </div>	
 						            <div class="head_pic_right">
+						                <div class="please">拖拽至 目标单 合并</div>
 						                <p>顾客：散户</p>
-										 <p>性别：${selfCashier.sex }</p>
+										<p>性别：${selfCashier.sex }</p>
 						            </div>	
 					            	<div class="refrush"><img src="<%=basePath %>images/freshen.png"></div>			 
 								</div>
@@ -53,6 +54,7 @@
 						                 <img src="<%=qiniuPath %>${selfCashier.memberInfo.headUrl }">
 						            </div>	
 						            <div class="head_pic_right">
+						                <div class="please">拖拽至 目标单 合并</div>
 						                <p>顾客：${selfCashier.memberName}</p>
 										 <p>性别：${selfCashier.sex }</p>
 						            </div>	
@@ -143,7 +145,7 @@
 				       
 			</table>
 			
-			<p class="money_get"><span>应收：<em name="totalReceivableMoney"></em></span><em>应收：<i id="totalRealMoney"></i></em></p>	
+			<p class="money_get"><span>应收：<em name="totalReceivableMoney"></em></span><em>应收：<i name="totalRealMoney"></i></em></p>	
 			<button class="money_next" onclick="nextCheckout()" >下一步</button>
 		
         </div>
@@ -152,7 +154,7 @@
 
 <div class="zzc1">
    <div class="sure_price">
-      <p class="sure_price_"><span class="money_close_1"><img src="<%=basePath %>images/close.png"></span></p>
+      <p class="sure_price_"><em onclick = "lastStep()" style="position:relative;left:-280px"><img src="<%=basePath %>images/come_back.png" style="width:28px"></em><span class="money_close_1"><img src="<%=basePath %>images/close.png"></span></p>
       
 	  <div class="money_head_content">
 	        <div class="money_head clearfix">
@@ -171,11 +173,11 @@
 				<td>项目折扣</td>
 				<td>商品折扣</td>
 			  </tr>
-			    <tr>
-                <td>原价卡</td>
-				<td>1231</td>
-				<td>10</td>
-				<td>10</td>
+			  <tr name = "nextLevelId" levelId = "">
+                <td name = "nextLevelName">原价卡</td>
+				<td name = "nextBalanceAmount">1231</td>
+				<td name = "nextProjectDiscount">10</td>
+				<td name = "nextGoodsDiscount">10</td>
 			  </tr>
 			</table>
 	   
@@ -202,11 +204,13 @@
 			  <li> 支护宝支付<input type="text" id="alipayAmount" name="alipayAmount"></li>
 			  <li> 团购支付<input type="text" id="groupAmount" name="groupAmount"></li>
 			</ul>
-			<p class="money_get" style="margin-left:30px;margin-top:4px"><span >应收：<em name="totalReceivableMoney"></em></span><em>应收：<i id="totalRealMoney">156414</i></em> <span class="notice">发送通知：<input type="radio" name="isNotify" value="1" checked="checked"> 是<input type="radio" name="isNotify" value="0"> 否</span> </p>	
-			<button class="money_over">结账</button>
+			<p class="money_get" style="margin-left:30px;margin-top:4px"><span >应收：<em name="totalReceivableMoney"></em></span><em>应收：<i name="totalRealMoney"></i></em> <span class="notice">发送通知：<input type="radio" name="isNotify" value="1" checked="checked"> 是<input type="radio" name="isNotify" value="0"> 否</span> </p>	
+			
+			<button class="money_over" onclick="submitOrderInfo()">结账</button>
 		   <div class="change_price_content">
 		   <span class="money_add"><img src="<%=basePath %>images/money_add.png"></span>
 		   <div class="triangle"><img src="<%=basePath %>images/triangle.png"></div>
+		     <button class="sure_change_price_">取消</button>
 		      <button class="sure_change_price">确认</button>
 			  <table class="sure_table">
 			     <tr>
@@ -286,7 +290,7 @@
       //点击改价
       jQuery(function(){
          jQuery('.change_price_red').click(function(){
-   	     jQuery('.change_price_content').show();
+   	     jQuery(this).parents('.money_head_content').find('.change_price_content').show();
           });
    	   //点击改价页面的关闭
    	   
@@ -294,7 +298,67 @@
    	     jQuery('.zzc1').hide();
           });
       });
-   	
+    
+    
+    jQuery(function() {
+        
+        jQuery(".money_content").draggable({
+		 
+          start:function(){
+              jQuery(this).find('.please').show();
+			  jQuery(this).css('z-index','2');
+          } ,
+          drag:function(){
+                 jQuery(".money_content" ).draggable({ revert: "valid",revert: true });
+				   $this_ = jQuery(this);
+				    console.log('b')
+          },
+            stop:function(){
+			     
+              jQuery('.please').hide();
+			   console.log('e');
+               
+			}
+       
+	   });
+	   
+     jQuery( ".money_content" ).droppable({
+          drop: function(event, ui) {
+       	     event = event ? event : window.event; 
+       		 var obj = event.srcElement ? event.srcElement : event.target;
+       		 console.log("编号"+ jQuery(obj).find(".money_title").text());
+	         var like=window.confirm('确定合并');
+		   if(like==true){
+		    	 
+			   var mainOrderId = jQuery(obj).attr("orderId");
+			   
+			   var removeOrderId = jQuery($this_).attr("orderId");
+			   
+			   jQuery.ajax({
+					type : "post",
+					url : baseUrl + "selfcashier/action/mergeOrder",
+					data : "mainOrderId="+mainOrderId+"&removeOrderId="+removeOrderId,
+					async:false,//使用同步的Ajax请求 
+					dataType : "json",
+					success : function(e){
+						if(e.code != 0){
+							dialog(e.msg);
+							return;
+						}
+						dialog("合并成功成功！");
+						$this_.remove();
+					}
+				});
+	       }
+	       else{
+	　　　　    jQuery( ".money_content").draggable({ revert: "valid",revert: true });
+	       }
+         }
+     });
+	 
+    
+ 
+  });
 </script>
 </body>
 </html>
