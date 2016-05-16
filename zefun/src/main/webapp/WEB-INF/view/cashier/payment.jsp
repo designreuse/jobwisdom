@@ -154,7 +154,7 @@
 
 <div class="zzc1">
    <div class="sure_price">
-      <p class="sure_price_"><span class="money_close_1"><img src="<%=basePath %>images/close.png"></span></p>
+      <p class="sure_price_"><em onclick = "lastStep()" style="position:relative;left:-280px"><img src="<%=basePath %>images/come_back.png" style="width:28px"></em><span class="money_close_1"><img src="<%=basePath %>images/close.png"></span></p>
       
 	  <div class="money_head_content">
 	        <div class="money_head clearfix">
@@ -205,11 +205,12 @@
 			  <li> 团购支付<input type="text" id="groupAmount" name="groupAmount"></li>
 			</ul>
 			<p class="money_get" style="margin-left:30px;margin-top:4px"><span >应收：<em name="totalReceivableMoney"></em></span><em>应收：<i name="totalRealMoney"></i></em> <span class="notice">发送通知：<input type="radio" name="isNotify" value="1" checked="checked"> 是<input type="radio" name="isNotify" value="0"> 否</span> </p>	
-			<button class="money_over" onclick = "lastStep()" >上一步</button>
+			
 			<button class="money_over" onclick="submitOrderInfo()">结账</button>
 		   <div class="change_price_content">
 		   <span class="money_add"><img src="<%=basePath %>images/money_add.png"></span>
 		   <div class="triangle"><img src="<%=basePath %>images/triangle.png"></div>
+		     <button class="sure_change_price_">取消</button>
 		      <button class="sure_change_price">确认</button>
 			  <table class="sure_table">
 			     <tr>
@@ -289,7 +290,7 @@
       //点击改价
       jQuery(function(){
          jQuery('.change_price_red').click(function(){
-   	     jQuery('.change_price_content').show();
+   	     jQuery(this).parents('.money_head_content').find('.change_price_content').show();
           });
    	   //点击改价页面的关闭
    	   
