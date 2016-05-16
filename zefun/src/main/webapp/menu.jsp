@@ -15,7 +15,7 @@
 		<li>
 			<div class="nav_img">
 				<img src="<%=basePath%>images/left_1.png">
-			</div> <span>智能前台</span>
+			</div> <span>业务中心</span>
 		</li>
 		<li>
 			<div class="nav_img">

@@ -258,18 +258,9 @@ function save() {
 
 function chooseSkipType(skipType) {
 	if (skipType == 1) {
-		jQuery("#showUL").empty();
-		jQuery("#showUL").append("<li class='xiaofei-item' name= 'goodsNameLI'>"+
-			                        "<div class='xiaofei-name'>"+
-			                            "<span class='name mr20'>商品销售</span>"+
-			                        "</div>"+
-			                     "</li>"+
-			                     "<li class='xiaofei-item' name= 'comboNameLI'>"+
-			                        "<div class='xiaofei-name'>"+
-			                            "<span class='name mr20'>套餐销售</span>"+
-			                        "</div>"+
-			                     "</li>");
-		
+		jQuery("div[name='projectPay']").empty();
+		jQuery("div[name='goodsNameLI']").empty();
+		jQuery("div[name='comboNameLI']").empty();
 	}
 	else if (skipType == 2) {
 		var phoneNum = jQuery("input[name='phoneNumber']").val();

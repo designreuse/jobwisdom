@@ -41,8 +41,9 @@
 						              
 						            </div>	
 						            <div class="head_pic_right">
+						                <div class="please">拖拽至 目标单 合并</div>
 						                <p>顾客：散户</p>
-										 <p>性别：${selfCashier.sex }</p>
+										<p>性别：${selfCashier.sex }</p>
 						            </div>	
 					            	<div class="refrush"><img src="<%=basePath %>images/freshen.png"></div>			 
 								</div>
@@ -53,6 +54,7 @@
 						                 <img src="<%=qiniuPath %>${selfCashier.memberInfo.headUrl }">
 						            </div>	
 						            <div class="head_pic_right">
+						                <div class="please">拖拽至 目标单 合并</div>
 						                <p>顾客：${selfCashier.memberName}</p>
 										 <p>性别：${selfCashier.sex }</p>
 						            </div>	
@@ -143,7 +145,7 @@
 				       
 			</table>
 			
-			<p class="money_get"><span>应收：<em name="totalReceivableMoney"></em></span><em>应收：<i id="totalRealMoney"></i></em></p>	
+			<p class="money_get"><span>应收：<em name="totalReceivableMoney"></em></span><em>应收：<i name="totalRealMoney"></i></em></p>	
 			<button class="money_next" onclick="nextCheckout()" >下一步</button>
 		
         </div>
@@ -171,11 +173,11 @@
 				<td>项目折扣</td>
 				<td>商品折扣</td>
 			  </tr>
-			    <tr>
-                <td>原价卡</td>
-				<td>1231</td>
-				<td>10</td>
-				<td>10</td>
+			  <tr name = "nextLevelId" levelId = "">
+                <td name = "nextLevelName">原价卡</td>
+				<td name = "nextBalanceAmount">1231</td>
+				<td name = "nextProjectDiscount">10</td>
+				<td name = "nextGoodsDiscount">10</td>
 			  </tr>
 			</table>
 	   
@@ -202,8 +204,9 @@
 			  <li> 支护宝支付<input type="text" id="alipayAmount" name="alipayAmount"></li>
 			  <li> 团购支付<input type="text" id="groupAmount" name="groupAmount"></li>
 			</ul>
-			<p class="money_get" style="margin-left:30px;margin-top:4px"><span >应收：<em name="totalReceivableMoney"></em></span><em>应收：<i id="totalRealMoney">156414</i></em> <span class="notice">发送通知：<input type="radio" name="isNotify" value="1" checked="checked"> 是<input type="radio" name="isNotify" value="0"> 否</span> </p>	
-			<button class="money_over">结账</button>
+			<p class="money_get" style="margin-left:30px;margin-top:4px"><span >应收：<em name="totalReceivableMoney"></em></span><em>应收：<i name="totalRealMoney"></i></em> <span class="notice">发送通知：<input type="radio" name="isNotify" value="1" checked="checked"> 是<input type="radio" name="isNotify" value="0"> 否</span> </p>	
+			<button class="money_over" onclick = "lastStep()" >上一步</button>
+			<button class="money_over" onclick="submitOrderInfo()">结账</button>
 		   <div class="change_price_content">
 		   <span class="money_add"><img src="<%=basePath %>images/money_add.png"></span>
 		   <div class="triangle"><img src="<%=basePath %>images/triangle.png"></div>
@@ -294,7 +297,58 @@
    	     jQuery('.zzc1').hide();
           });
       });
-   	
+    
+    
+    jQuery(function() {
+        
+        jQuery(".money_content").draggable({
+		 
+          start:function(){
+              jQuery(this).find('.please').show();
+			  jQuery(this).css('z-index','2');
+			  console.log('a')
+               } ,
+            drag:function(){
+                 jQuery(".money_content" ).draggable({ revert: "valid",revert: true });
+				   $this_ = jQuery(this);
+				    console.log('b')
+                },
+            stop:function(){
+			     
+              jQuery('.please').hide();
+			   console.log('e');
+               
+			}
+       
+	   });
+	   
+     jQuery( ".money_content" ).droppable({
+          drop: function(event, ui) {
+       	     event = event ? event : window.event; 
+       		 var obj = event.srcElement ? event.srcElement : event.target;
+       		 console.log("编号"+ jQuery(obj).find(".money_title").text());
+	         var like=window.confirm('确定合并');
+		     if(like==true){
+		    	 
+			     $this_.remove();
+				 console.log('c')
+	           }
+	       else{
+	　　　　    jQuery( ".money_content").draggable({ revert: "valid",revert: true });
+	          console.log('d')
+	       }
+         }
+     });
+	 
+    
+ 
+  });
+    
+    $('p').mouseup(function(){
+        alert('mouseup function is running !');
+      }).click(function(){
+         alert('click function is running too !');
+         });
 </script>
 </body>
 </html>

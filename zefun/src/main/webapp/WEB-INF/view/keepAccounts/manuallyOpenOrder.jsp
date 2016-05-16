@@ -178,6 +178,25 @@ em {
   </div>
 </div>
 
+<div class="modal hide" tabindex="-1" role="dialog" id="memberSkipModal">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content kaidan-tip">
+	            <div class="modal-header">
+	                <h4 class="modal-title">温馨提示</h4>
+	            </div>
+	            <div class="modal-body">
+	                <p class="extendpd"><span class="red font-size-14">已成功开单</span> 请问还需要进行其它操作吗?</p>
+	            </div><!--modal body-->
+	            <div class="modal-footer">
+	                <a class="btn btn-primary modal-confirm" href="#" onclick ="chooseSkipType(1)">继续开单</a>
+	                <a class="btn btn-primary modal-confirm" href="#" name = "memberModelChoose" onclick="chooseSkipType(2)">会员充值</a>
+	                <a class="btn btn-primary modal-confirm" href="#" name = "memberModelChoose" onclick="chooseSkipType(3)">会员升级</a>
+	                <a class="btn btn-primary modal-confirm" href="#" onclick ="chooseSkipType(4)">立即买单</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
 <script type="text/javascript">
    var employeeInfoListStr = '${employeeInfoList}';
    var employeeInfoList = eval("(" + employeeInfoListStr + ")");
