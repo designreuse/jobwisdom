@@ -1,4 +1,4 @@
-package com.zefun.test;
+package com.zefun.wechat;
 
 import java.io.IOException;
 
@@ -35,7 +35,9 @@ public class ZefunRunable implements Runnable{
 
     @Override
     public void run(){
+        
         try {
+            Thread.sleep(10000);
             String QUEUE_NAME = "hello";  
             ConnectionFactory factory = new ConnectionFactory();  
             factory.setHost("120.24.165.15");  
@@ -49,7 +51,6 @@ public class ZefunRunable implements Runnable{
             System.out.println(" [x] Sent '" + message + "'");  
             channel.close();  
             connection.close();  
-            Thread.sleep(1000);
         } catch (Exception e) {
             // TODO: handle exception
         }
