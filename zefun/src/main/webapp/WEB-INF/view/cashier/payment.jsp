@@ -32,7 +32,7 @@
 			    
 			   <div class="clearfix seo_first">
 			       <c:forEach var="selfCashier" items="${cashierDtoList}" varStatus="status">
-			         <div class="money_content">
+			         <div class="money_content" orderId = "${selfCashier.orderId}">
 					    <p class="money_title">${selfCashier.orderCode}<em class="money_close"><img src="<%=basePath %>images/money_close.png"></em></p>
 						<c:choose>
 							<c:when test="${selfCashier.memberName == null}">
@@ -306,13 +306,12 @@
           start:function(){
               jQuery(this).find('.please').show();
 			  jQuery(this).css('z-index','2');
-			  console.log('a')
-               } ,
-            drag:function(){
+          } ,
+          drag:function(){
                  jQuery(".money_content" ).draggable({ revert: "valid",revert: true });
 				   $this_ = jQuery(this);
 				    console.log('b')
-                },
+          },
             stop:function(){
 			     
               jQuery('.please').hide();
@@ -328,14 +327,30 @@
        		 var obj = event.srcElement ? event.srcElement : event.target;
        		 console.log("编号"+ jQuery(obj).find(".money_title").text());
 	         var like=window.confirm('确定合并');
-		     if(like==true){
+		   if(like==true){
 		    	 
-			     $this_.remove();
-				 console.log('c')
-	           }
+			   var mainOrderId = jQuery(obj).attr("orderId");
+			   
+			   var removeOrderId = jQuery($this_).attr("orderId");
+			   
+			   jQuery.ajax({
+					type : "post",
+					url : baseUrl + "selfcashier/action/mergeOrder",
+					data : "mainOrderId="+mainOrderId+"&removeOrderId="+removeOrderId,
+					async:false,//使用同步的Ajax请求 
+					dataType : "json",
+					success : function(e){
+						if(e.code != 0){
+							dialog(e.msg);
+							return;
+						}
+						dialog("合并成功成功！");
+						$this_.remove();
+					}
+				});
+	       }
 	       else{
 	　　　　    jQuery( ".money_content").draggable({ revert: "valid",revert: true });
-	          console.log('d')
 	       }
          }
      });
@@ -343,12 +358,6 @@
     
  
   });
-    
-    $('p').mouseup(function(){
-        alert('mouseup function is running !');
-      }).click(function(){
-         alert('click function is running too !');
-         });
 </script>
 </body>
 </html>

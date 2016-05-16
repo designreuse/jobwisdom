@@ -375,6 +375,13 @@ function yzm(obj){
     });
 }
 
+$(document).keydown(function (event) {  
+	var e = event || window.event || arguments.callee.caller.arguments[0];
+    if(e && e.keyCode==13){ // enter 键
+    	jQuery('input[name="loginButton"]').click();
+   }
+});
+
 /* $(document).ready(function() {
     if ($.cookie("rmbUser") == "true") {
         $("#rmbUser").attr("checked", true);

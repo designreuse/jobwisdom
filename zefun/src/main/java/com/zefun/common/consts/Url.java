@@ -1146,6 +1146,9 @@ public interface Url {
 
 		/** 取消订单 */
 		public static final String ACTION_DELETE_ORDERINFO = "selfcashier/action/deleteOrderInfo";
+		
+		/** 合并订单*/
+		public static final String ACTION_MERGE_ORDER = "selfcashier/action/mergeOrder";
 	}
 
 	/**
