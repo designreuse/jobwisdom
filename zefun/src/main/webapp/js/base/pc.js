@@ -76,8 +76,10 @@ function textToVoice(per, text){
 	    	if(audio != null) audio.pause();
 	    	
             audio = new Audio();
+            console.log(picUrl + e.msg);
             audio.src = picUrl + e.msg;
             audio.play();
+            console.log("语音播放结束");
 	    }
 	});
 }

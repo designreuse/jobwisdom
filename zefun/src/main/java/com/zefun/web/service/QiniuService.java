@@ -115,7 +115,8 @@ public class QiniuService {
         params.put("cuid", "zefun");
         params.put("ctp", "1");
         params.put("per", "" + per);
-        params.put("tok", redisService.get(App.Redis.BAIDU_TEXT_TO_VOICE_ACCESS_TOKEN_KEY));
+        params.put("tok", "24.803bd627c8d6f9299230f5809cffefe2.2592000.1465960194.282335-7977080");
+//        params.put("tok", redisService.get(App.Redis.BAIDU_TEXT_TO_VOICE_ACCESS_TOKEN_KEY));
         byte[] data = HttpClientUtil.downloadPost("http://tsn.baidu.com/text2audio", params);
         String key = "zefun/voice/" + System.nanoTime() + ".mp3";
         try {
@@ -125,6 +126,7 @@ public class QiniuService {
             logger.error("textToVioce error : ", e);
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
         }
+        logger.info("key....."+key);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, key);
     }
     

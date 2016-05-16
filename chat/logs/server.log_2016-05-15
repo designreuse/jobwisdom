@@ -1,0 +1,25 @@
+[2016-05-15 17:34:58.078] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-05-15 17:37:57.265] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:37:57.267] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:37:58.291] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:37:58.292] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:37:59.314] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:37:59.315] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:38:00.338] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:38:00.339] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:38:01.364] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:38:01.365] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:38:02.391] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:38:02.392] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:38:03.414] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:38:03.415] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:38:04.442] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:38:04.443] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:38:05.465] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:38:05.466] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:38:06.496] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:38:06.496] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:38:07.520] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:38:07.521] [ERROR] rabbitmq - rabbitmq is close
+[2016-05-15 17:38:08.548] [ERROR] rabbitmq - Connection error : Error: read ECONNRESET
+[2016-05-15 17:38:08.549] [ERROR] rabbitmq - rabbitmq is close
