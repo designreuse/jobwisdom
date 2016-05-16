@@ -208,40 +208,26 @@ jQuery(document).ready(function(){
 });
 
 //===================内容编辑区域处理结束=============================================================================================================================
-    
-function edit(editor, type) {
-	var editorObject = jQuery(editor);
-	var data = {};
-        
-	var contents = new Array();
-	var it_contents = function(cs){
-	    cs.each(function(){
-	        if(this.nodeName.toLowerCase() == '#text') {
-	            if(this.data && jQuery.trim(this.data)) {
-	                contents.push(this.data + "\001" + '1');
-	            }
-	        } else if(this.nodeName.toLowerCase() == 'div') {
-	            it_contents(jQuery(this).contents());
-	        } else if(this.nodeName.toLowerCase() == 'img') {
-	            var s = jQuery(this).attr('src').replace(picUrl, '');
-	            contents.push(s + "\001" + '2');
-	        }
-	    });
-	};
-	it_contents(editorObject.contents());
-	
-	if(!contents.length) {
-	    editorObject.focus();
-	    dialog("您啥都还没写呢");
-	    return;
+function edit(editor, type){
+	var data = null;
+	if(type == 1){
+		var content = UE.getEditor("editor1").getContent();
+		content = content.replace(/%/g, "%25");  
+		content = content.replace(/\&/g, "%26");  
+		content = content.replace(/\+/g, "%2B"); 
+		data = "storeDesc=" + content;
+		
+	}else {
+		var content = UE.getEditor("editor2").getContent();
+		content = content.replace(/%/g, "%25");  
+		content = content.replace(/\&/g, "%26");  
+		content = content.replace(/\+/g, "%2B"); 
+		data = "characteristic=" + content;
 	}
-	data['contents'] = contents;
-	data['type'] = type;
-	//提交数据
 	jQuery.ajax({
 		type: "POST",
-		url: baseUrl + "storeinfo/action/storeEditor",
-       	data: base64encode(utf16to8(JSON.stringify(data))),
+		url: baseUrl + "storeinfo/action/storeSetting",
+       	data: data,
        	success: function(data) {
     	   if (data.code != 0) {
     		   dialog(data.msg);
@@ -250,7 +236,49 @@ function edit(editor, type) {
     	   dialog("保存成功");
        	}
 	});
-};
+}
+//function edit(editor, type) {
+//	var editorObject = jQuery(editor);
+//	var data = {};
+//        
+//	var contents = new Array();
+//	var it_contents = function(cs){
+//	    cs.each(function(){
+//	        if(this.nodeName.toLowerCase() == '#text') {
+//	            if(this.data && jQuery.trim(this.data)) {
+//	                contents.push(this.data + "\001" + '1');
+//	            }
+//	        } else if(this.nodeName.toLowerCase() == 'div') {
+//	            it_contents(jQuery(this).contents());
+//	        } else if(this.nodeName.toLowerCase() == 'img') {
+//	            var s = jQuery(this).attr('src').replace(picUrl, '');
+//	            contents.push(s + "\001" + '2');
+//	        }
+//	    });
+//	};
+//	it_contents(editorObject.contents());
+//	
+//	if(!contents.length) {
+//	    editorObject.focus();
+//	    dialog("您啥都还没写呢");
+//	    return;
+//	}
+//	data['contents'] = contents;
+//	data['type'] = type;
+//	//提交数据
+//	jQuery.ajax({
+//		type: "POST",
+//		url: baseUrl + "storeinfo/action/storeEditor",
+//       	data: base64encode(utf16to8(JSON.stringify(data))),
+//       	success: function(data) {
+//    	   if (data.code != 0) {
+//    		   dialog(data.msg);
+//    		   return;
+//    	   }
+//    	   dialog("保存成功");
+//       	}
+//	});
+//};
 
 jQuery(".rating").rating({showCaption : false, step : 0.5});
 

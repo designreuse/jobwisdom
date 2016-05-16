@@ -1,0 +1,26 @@
+[2016-03-21 09:53:30.959] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:30.959] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:32.972] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:32.972] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:34.968] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:34.968] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:36.981] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:36.981] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:38.993] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:38.993] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:41.021] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:41.021] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:43.018] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:43.018] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:45.030] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:45.030] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:47.058] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:47.058] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:49.071] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:49.071] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:51.099] [ERROR] rabbitmq - Connection error : Error: connect ECONNREFUSED 127.0.0.1:5672
+[2016-03-21 09:53:51.099] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-21 09:53:53.111] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-21 09:54:15.171] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-21 18:23:16.523] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-21 18:23:20.577] [INFO] server - 用户不在线,转为离线消息.

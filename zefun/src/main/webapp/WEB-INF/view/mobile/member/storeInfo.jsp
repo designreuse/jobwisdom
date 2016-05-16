@@ -87,7 +87,8 @@
 	        </ul>
 	        
 	        <div class="store-wrap srore-bgc" id="s-tab1">
-	            <div class="store-js">
+	        ${storeInfo.storeDesc }
+	            <%-- <div class="store-js">
 	            	<c:if test="${!empty storeInfo.storeDescArray }">
 	                    <c:forEach var="content" items="${storeInfo.storeDescArray }">
 							<c:if test="${content.type == '1' }">
@@ -98,11 +99,12 @@
 							</c:if>
 						</c:forEach>
 					</c:if>
-	            </div>
+	            </div> --%>
 	        </div>
 	        
 	        <div class="store-wrap srore-bgc hide" id="s-tab2">
-	            <div class="store-js">
+	        ${storeInfo.characteristic }
+	            <%-- <div class="store-js">
 	                <c:if test="${!empty storeInfo.characteristicArray }">
 	                    <c:forEach var="content" items="${storeInfo.characteristicArray }">
 							<c:if test="${content.type == '1' }">
@@ -113,7 +115,7 @@
 							</c:if>
 						</c:forEach>
 					</c:if>
-	            </div>
+	            </div> --%>
 	        </div>
 	        
 	        <div class="store-wrap hide" id="s-tab3">

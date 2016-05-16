@@ -1,0 +1,82 @@
+[2016-03-12 10:40:52.446] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:40:52.479] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:41:03.446] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:41:03.447] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:41:14.445] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:41:14.446] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:41:25.446] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:41:25.447] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:41:36.447] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:41:36.448] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:41:47.447] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:41:47.448] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:41:58.448] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:41:58.449] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:42:09.449] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:42:09.451] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:42:20.449] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:42:21.555] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:42:31.556] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:42:31.558] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:42:42.556] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:42:42.557] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:42:53.556] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:42:53.556] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:43:04.557] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:43:04.557] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:43:15.558] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:43:15.559] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:43:26.559] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:43:26.560] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:43:37.560] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:43:37.561] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:43:48.560] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:43:48.561] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:43:59.560] [ERROR] rabbitmq - Connection error : TimeoutError: connection timeout
+[2016-03-12 10:43:59.561] [ERROR] rabbitmq - rabbitmq is close
+[2016-03-12 10:44:00.642] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-12 10:44:14.798] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-12 11:50:25.892] [INFO] server - 519,0,sdfsdfsdf
+[2016-03-12 11:50:25.893] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-12 11:52:11.352] [INFO] server - 519,0,sdfsdf
+[2016-03-12 11:52:43.710] [INFO] server - 519,0,客服0号,你好
+[2016-03-12 11:54:31.356] [INFO] server - 0,519,会员你好
+[2016-03-12 11:55:31.593] [INFO] server - 519,0,客服0号,你好
+
+[2016-03-12 11:55:34.448] [INFO] server - 0,519,会员你好
+[2016-03-12 12:00:03.439] [INFO] rabbitmq - rabbitmq is ready ... 
+[2016-03-12 12:00:27.705] [INFO] server - 519,0,您好,客服
+[2016-03-12 12:00:27.706] [INFO] server - 客服不在线,转为离线消息.
+[2016-03-12 12:00:51.364] [INFO] server - 0,519,水电费说的
+[2016-03-12 12:01:35.724] [INFO] server - 0,519,你好
+[2016-03-12 12:01:52.810] [INFO] server - 0,519,你好
+[2016-03-12 12:02:52.967] [INFO] server - 0,519,你好
+[2016-03-12 12:03:37.785] [INFO] server - 0,519,你好
+[2016-03-12 12:03:53.734] [INFO] server - 519,0,你也好
+[2016-03-12 12:08:53.479] [INFO] server - 0,519,你好
+[2016-03-12 12:08:57.400] [INFO] server - 0,519,你好
+[2016-03-12 12:11:31.332] [INFO] server - 0,519,你好
+[2016-03-12 12:11:34.166] [INFO] server - 0,519,你好
+[2016-03-12 12:12:39.656] [INFO] server - 0,519,你好
+[2016-03-12 12:12:39.658] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-12 12:12:39.821] [INFO] server - 0,519,你好
+[2016-03-12 12:12:39.822] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-12 12:13:18.404] [INFO] server - 519,0,模块
+[2016-03-12 12:13:33.736] [INFO] server - 0,519,智放你要是
+[2016-03-12 12:13:49.653] [INFO] server - 0,519,智放你在么
+[2016-03-12 12:13:49.654] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-12 12:13:49.943] [INFO] server - 0,519,智放你在么
+[2016-03-12 12:13:49.945] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-12 12:13:50.194] [INFO] server - 0,519,智放你在么
+[2016-03-12 12:13:50.195] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-12 12:13:50.475] [INFO] server - 0,519,智放你在么
+[2016-03-12 12:13:50.477] [INFO] server - 用户不在线,转为离线消息.
+[2016-03-12 13:50:17.857] [ERROR] redis - [Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379]
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+    at RedisClient.on_error (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:185:24)
+    at Socket.<anonymous> (c:\Users\Lzh\Desktop\chat2\node_modules\redis\index.js:95:14)
+    at emitOne (events.js:77:13)
+    at Socket.emit (events.js:169:7)
+    at emitErrorNT (net.js:1250:8)
+    at doNTCallback2 (node.js:429:9)
+    at process._tickCallback (node.js:343:17)

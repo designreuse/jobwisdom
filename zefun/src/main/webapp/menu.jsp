@@ -6,6 +6,7 @@
     String menuPicPath = "7xss26.com1.z0.glb.clouddn.com";
 %>
 <%@include file="/loading.jsp" %>
+<%@include file="chat.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/common.css" type="text/css" />
 <div class="logo-wrap">
 	<a href="index.html"> <img src="<%=basePath%>images/logo_by.png" alt=""></a>
