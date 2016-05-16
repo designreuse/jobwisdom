@@ -17,7 +17,42 @@
 }
 .arrows_right{position:absolute;right:0;top:450px}
 .arrows_right img{width:65px;z-index:10}
+.left_1 img{ transition: transform 1s ease-out;}
 </style>
+
+<script>
+ jQuery(function(){
+    jQuery('.left_1').click(function(){
+       jQuery('.alertPanel').animate({
+    	    right:'0'
+       })
+       jQuery('.left_1').animate({
+    	    right:'331'
+       },function(){
+    	   jQuery(this).addClass('b');
+    	   jQuery(this).find('img').css('transform','rotate(180deg)')  
+    	   
+       });
+    });
+    jQuery(document).on('click','.b',function(){
+    	
+    	 jQuery('.alertPanel').animate({
+           right:'-331'
+        });
+    	 
+    	 jQuery('.left_1').animate({
+     	    right:'0'
+         },function(){
+     	   jQuery(this).removeClass('b');
+     	   jQuery(this).find('img').css('transform','rotate(0deg)')  
+     	   
+        }); 
+    	
+    	
+    });
+  })
+
+</script>
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -34,7 +69,9 @@
 				</div>
 					
 				<!--项目设置 -->
-				<div class="alertPanel" style="display: none">
+			
+				<span class="left_1"><img src="<%=basePath%>images/right_.png"></span>
+				<div class="alertPanel">
 				<c:forEach items="${deptProjectList }" var="deptPorject">
 					<div class="part_panel">
 						<p>${deptPorject.deptName }</p>
@@ -49,6 +86,7 @@
 					</div>
 				</c:forEach>
 				</div>
+            
 				<div class="rollBox">
 					<div class="LeftBotton"></div>
 					<div class="Cont" id="ISL_Cont">
