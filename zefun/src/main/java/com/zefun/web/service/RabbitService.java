@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.json.JSONObject;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aliyun.mns.client.CloudAccount;
+import com.aliyun.mns.client.CloudQueue;
+import com.aliyun.mns.client.MNSClient;
+import com.aliyun.mns.model.Message;
+import com.aliyun.mns.model.QueueMeta;
 import com.zefun.common.consts.App;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.ChatDataDto;
@@ -23,6 +26,8 @@ import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 import com.zefun.wechat.service.SmsService;
+
+import net.sf.json.JSONObject;
 
 /**
  * 消息队列服务类
@@ -66,8 +71,26 @@ public class RabbitService {
     * @param object         传输对象
      */
     public void send(String routingKey, Object object) {
-        logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
-        rabbitTemplate.convertAndSend(routingKey, object);
+        /*logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
+        rabbitTemplate.convertAndSend(routingKey, object);*/
+        CloudAccount account = new CloudAccount("uVrRDPBKu0DGqiHp", "Hg1wsK0ZD9MemUJMQQCR8jmXJmVrs2", 
+        		  "https://1548958446311011.mns.cn-shenzhen.aliyuncs.com/");
+        //这个client仅初始化一次
+        MNSClient client = account.getMNSClient(); 
+        
+        QueueMeta qMeta = new QueueMeta();
+        qMeta.setQueueName("cloud-queue-demo");
+        qMeta.setPollingWaitSeconds(30);
+        
+        CloudQueue queue = client.createQueue(qMeta);
+        Map<String, Object> map = new HashMap<>();
+        map.put("routingKey", routingKey);
+        map.put("object", object);
+        
+        Message message = new Message();
+        message.setMessageBody(map);
+        queue.putMessage();
+        client.close();
     }
     
     
