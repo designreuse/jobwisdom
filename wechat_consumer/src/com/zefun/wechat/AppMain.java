@@ -1,12 +1,7 @@
 package com.zefun.wechat;
 
-import java.io.IOException;
-
 import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.rabbitmq.client.Channel;  
-import com.rabbitmq.client.Connection;  
-import com.rabbitmq.client.ConnectionFactory;
 
 
 public class AppMain {

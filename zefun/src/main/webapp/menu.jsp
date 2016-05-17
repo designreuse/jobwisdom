@@ -57,7 +57,7 @@
 		    <a href="<%=menuBasePath%>KeepAccounts/initializeOpenCard"><li><span><img src="<%=basePath%>images/left2.png">开卡充值</span></li></a>
 			<a href="<%=menuBasePath%>appoint/view/list"><li><span><img src="<%=basePath%>images/left3.png">预约中心</span></li></a>
 			<a href="<%=menuBasePath%>member/view/list"><li class=""><span><img src="<%=basePath%>images/left0.png">会员数据</span></li></a>
-			<a href="<%=menuBasePath%>member/view/error/member/info"><li><span><img src="<%=basePath%>images/left1.png">异常会员数据</span></li></a>
+			<%-- <a href="<%=menuBasePath%>member/view/error/member/info"><li><span><img src="<%=basePath%>images/left1.png">异常会员数据</span></li></a> --%>
 			<a href="<%=menuBasePath%>member/view/census/list"><li class=""><span><img src="<%=basePath%>images/left2.png">会员分组</span></li></a>
 			<a href="<%=menuBasePath%>memberLevel/view/list"><li class="active"><span><img src="<%=basePath%>images/left3.png">会员卡查询</span></li></a>
 			<a href="<%=menuBasePath%>storeinfo/view/storeSetting"><li><span><img src="<%=basePath%>images/left4.png">微门店设置</span></li></a>

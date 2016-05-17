@@ -17,14 +17,11 @@
 </head>
 
 <body>
-	<div class="mainwrapper">
-	
-		<!--loading start-->
-		<%@ include file="/loading.jsp" %>
-		<!--loading end-->
-		<%@ include file="/menu.jsp"%>
-		<div class="rightpanel" style="margin-left: 200px;">
-			<%@ include file="/top.jsp"%>
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
+		<%@include file="/menu.jsp"%>
+		<div class="rightpanel" style="margin-left: 200px; position: relative">
+			<%@include file="/top.jsp"%>
 
 			<!-- 页面内容开始 -->
             <div class="maincontent" style="overflow-y: auto">
@@ -76,14 +73,10 @@
 			                <a  class="fr btn mr10" onclick="showSend()">确认发送</a>
 			            </div>
 			        </div>
-			
 			    </div>
 			</div>
-			            
-  
 		</div>
-		<div class="clearfix"></div>
-		<div id="star"></div>
+	  </div>
 	</div>
 
 <!-- 会员卡等级 -->	

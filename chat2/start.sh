@@ -1,2 +1,0 @@
-forever start server.js
-

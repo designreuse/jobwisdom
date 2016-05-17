@@ -10,6 +10,9 @@ function dialog(msg){
 jQuery.ajaxSetup({
 	timeout: 60000,
 	error : function(xhr, textStatus, error) {
+		console.log(xhr.status);
+		console.log(textStatus);
+		console.log(error);
 		var err_code = xhr.status;
 		switch (err_code) {
 		case 404:
