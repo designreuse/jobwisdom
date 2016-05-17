@@ -140,6 +140,8 @@ table tr td{line-height:40px}
 
 
 .column_img_container{background:url('../images/back.png') no-repeat;padding-top:10px;padding-bottom:10px;background-size:210px 210px;height:190px;cursor:pointer}
+ .left_1{position:absolute;z-index:10;right:0px;top:310px;background:url('../images/right_2.png') no-repeat;width:31px;height:305px;display:inline-block}
+  .left_1 img{position:relative;top:110px}
 .column_img_container:hover{background:url('../images/back_.png');box-shadow:0 0 30px #ccc}
 .head_pic img{height:60px;width:60px}
 .head_pic{height:60px;width:60px;border-radius:30px;overflow:hidden;box-shadow:0 0 20px #ccc;margin:15px auto;overflow:hidden}
@@ -169,7 +171,7 @@ em{font-style:normal}
 .write_input{position:relative;left:746px;color: #afb0b6;top:36px}
 
 
-.alertPanel{ background-color:rgba(105,111,124,0.9);position:absolute;bottom:0;right:0;color:white;height:750px;width:292px;z-index:10000;padding:10px 20px;}
+.alertPanel{ background-color:rgba(105,111,124,0.9);position:absolute;bottom:0;right:-331px;color:white;height:750px;width:292px;z-index:10000;padding:10px 20px;}
 .part_panel p{color:#dfe0e2;font-size:14px}
 .part_panel dt{margin:15px 40px 10px 40px}
 .part_panel dd{    width: 110px;
