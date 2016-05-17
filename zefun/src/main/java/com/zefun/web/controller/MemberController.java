@@ -63,7 +63,6 @@ import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.mapper.RumorsCourseMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 import com.zefun.web.service.MemberInfoService;
-
 import net.sf.json.JSONObject;
 
 /**

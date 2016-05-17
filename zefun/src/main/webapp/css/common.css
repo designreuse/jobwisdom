@@ -1,4 +1,5 @@
 /** Í·²¿ **/
+em,i{font-style:normal}
 .leftpanel .logo-wrap{text-align:left!important}
 .header_{
 	height:53px;
@@ -7,6 +8,7 @@
 	
 	
 }
+.leftpanel{height:auto!important}
 .logo-wrap{background:#2a3244!important;    padding-left: 20px!important;height:53px!important;}
 .logo-wrap img{height:38px!important;width:auto!important;position:relative;top:-10px}
 .header_  .input_{border-radius:20px!important;background:#2a3244;height:20px;width:80px ;padding-left:30px}

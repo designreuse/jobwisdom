@@ -26,6 +26,7 @@ var USER_SOCKET_KEY = "chat_user_to_socket_hash";
 var receiveNotify = function(msg) {
 	logger.info("\r\n\r\n<-- receiveNotify begin -->");
 	var obj = JSON.parse(msg);
+	logger.info(obj);
 	sendMsg(obj);
 }
 
