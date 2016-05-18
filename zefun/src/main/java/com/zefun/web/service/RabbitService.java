@@ -1,4 +1,7 @@
 package com.zefun.web.service;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,13 +13,13 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aliyun.mns.client.CloudAccount;
-import com.aliyun.mns.client.CloudQueue;
-import com.aliyun.mns.client.MNSClient;
-import com.aliyun.mns.model.Message;
-import com.aliyun.mns.model.QueueMeta;
+import com.aliyun.openservices.ons.api.Message;
+import com.aliyun.openservices.ons.api.Producer;
+import com.aliyun.openservices.ons.api.SendResult;
+import com.aliyun.openservices.ons.api.exception.ONSClientException;
 import com.zefun.common.consts.App;
 import com.zefun.common.utils.DateUtil;
+import com.zefun.common.utils.ToolSpring;
 import com.zefun.web.dto.ChatDataDto;
 import com.zefun.web.dto.ChatNoticeDto;
 import com.zefun.web.dto.CouponInfoDto;
@@ -71,27 +74,45 @@ public class RabbitService {
     * @param object         传输对象
      */
     public void send(String routingKey, Object object) {
+    	
+    	Producer producer = (Producer) ToolSpring.getBean("producer");
+    	Message msg = new Message("Topic_api_test", routingKey, toByteArray(object));
+
+        msg.setKey("ORDERID_100");
+        // 发送消息，只要不抛异常就是成功
+        try {
+            SendResult sendResult = producer.send(msg);
+            assert sendResult != null;
+        }
+        catch (ONSClientException e) {
+        }
         /*logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
         rabbitTemplate.convertAndSend(routingKey, object);*/
-        CloudAccount account = new CloudAccount("uVrRDPBKu0DGqiHp", "Hg1wsK0ZD9MemUJMQQCR8jmXJmVrs2", 
-        		  "https://1548958446311011.mns.cn-shenzhen.aliyuncs.com/");
-        //这个client仅初始化一次
-        MNSClient client = account.getMNSClient(); 
-        
-        QueueMeta qMeta = new QueueMeta();
-        qMeta.setQueueName("cloud-queue-demo");
-        qMeta.setPollingWaitSeconds(30);
-        
-        CloudQueue queue = client.createQueue(qMeta);
-        Map<String, Object> map = new HashMap<>();
-        map.put("routingKey", routingKey);
-        map.put("object", object);
-        
-        Message message = new Message();
-        message.setMessageBody(map);
-        queue.putMessage();
-        client.close();
     }
+    
+    /**
+     * 
+    * @author 老王
+    * @date 2016年5月17日 下午7:02:25 
+    * @param obj 对象
+    * @return byte[]
+     */
+    public byte[] toByteArray (Object obj) {      
+        byte[] bytes = null;      
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();      
+        try {        
+            ObjectOutputStream oos = new ObjectOutputStream(bos);         
+            oos.writeObject(obj);        
+            oos.flush();         
+            bytes = bos.toByteArray ();      
+            oos.close();         
+            bos.close();        
+        } 
+        catch (IOException ex) {        
+            ex.printStackTrace();   
+        }      
+        return bytes;    
+    } 
     
     
     /**
@@ -368,7 +389,7 @@ public class RabbitService {
     }
     
     
-    /**
+    /**i k
      * 自助收银结账时向消息队列推送订单标识，用于处理员工提成的计算
      * @param orderId 订单标识
      */

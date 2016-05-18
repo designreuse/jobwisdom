@@ -340,12 +340,10 @@
         </dependency>
         <!-- 阿里消息队列 -->
 	    <dependency>
-            <groupId>local</groupId>
-            <artifactId>aliyun-sdk-mns</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/aliyun-sdk-mns-1.1.4.jar</systemPath>
-        </dependency>
+		    <groupId>com.aliyun.openservices</groupId>
+		   <artifactId>ons-client</artifactId>
+		   <version>1.2.1</version>
+		</dependency>
 	</dependencies>
 	
 	<reporting>
