@@ -62,6 +62,7 @@
 			    <div class="more-toolbar" >
 		            <div class="table-toolbar">
 		                <span class="font-size-16 btn-color mr10">会员数据</span>
+		                <a class="button-search btn fr ml10" href="<%=basePath %>member/view/error/member/info">异常会员数据</a>
 		            </div>
 		            <div class="clearfix"></div>
 		        </div><!--more-toolbar-->

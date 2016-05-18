@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 
 import java.io.Serializable;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -37,20 +38,7 @@ public class ZefunRunable implements Runnable{
     public void run(){
         
         try {
-            Thread.sleep(10000);
-            String QUEUE_NAME = "hello";  
-            ConnectionFactory factory = new ConnectionFactory();  
-            factory.setHost("120.24.165.15");  
-            factory.setUsername("admin");
-            factory.setPassword("admin");
-            Connection connection = factory.newConnection();  
-            Channel channel = connection.createChannel();  
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);  
-            String message = "Hello World!";  
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());  
-            System.out.println(" [x] Sent '" + message + "'");  
-            channel.close();  
-            connection.close();  
+            
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -120,11 +108,23 @@ public class ZefunRunable implements Runnable{
         
     }
     
-    public static void main(String[] args) {
-        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(100, 3000, 2000, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1000), new ThreadPoolExecutor.DiscardOldestPolicy());
-        for (int i = 0; i < 100000; i++) {
-            threadPool.execute(new ZefunRunable());
-        }
+    public static void main(String[] args) throws IOException {
+        String QUEUE_NAME = "hello.d";  
+        ConnectionFactory factory = new ConnectionFactory();  
+        factory.setHost("120.24.165.15");  
+        factory.setUsername("admin");
+        factory.setPassword("admin");
+        Connection connection = factory.newConnection();  
+        Channel channel = connection.createChannel();  
+        channel.queueDeclare(QUEUE_NAME, false, false, false, null);  
+        String message = "sdfdfsdssdfsd";  
+        channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());  
+        System.out.println(" [x] Sent '" + message + "'");  
+        connection.close();
+        factory.clone();
+        channel.close();  
+        connection.close();
+        System.exit(0);
     }
 
 }

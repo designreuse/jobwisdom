@@ -154,7 +154,8 @@ public class MemberController extends BaseController{
     @ResponseBody
     public BaseDto listMemberInfosByContent(String content, Page<MemberInfoDto> page, HttpServletRequest request, String sex, Integer levelId){
         Integer storeId = getStoreId(request);
-        return memberInfoService.listMemberInfosByContent(storeId, content, page, sex, levelId);
+        BaseDto baseDto = memberInfoService.listMemberInfosByContent(storeId, content, page, sex, levelId);
+        return baseDto;
     } 
 	
 	/**

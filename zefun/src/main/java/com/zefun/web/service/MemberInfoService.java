@@ -625,20 +625,20 @@ public class MemberInfoService {
      */
     public BaseDto listMemberInfosByContent(Integer storeId, String content,
             Page<MemberInfoDto> page, String sex, Integer levelId) {
-        List<StoreInfo> storeList = storeInfoMapper.selectBaseInfoByMainId(storeId);
+//        List<StoreInfo> storeList = storeInfoMapper.selectBaseInfoByMainId(storeId);
         Map<String, Object> params = new HashMap<String, Object>();
-        if (storeList!=null&&storeList.size()>0){
-            params.put("storeList", storeList);
-        }
-        else {
-            params.put("storeId", storeId);
-        }
+//        if (storeList!=null&&storeList.size()>0){
+//            params.put("storeList", storeList);
+//        }
+//        else {
+//            params.put("storeId", storeId);
+//        }
+        params.put("storeId", storeId);
         params.put("content", content);
         params.put("sex", sex);
         params.put("levelId", levelId);
         page.setParams(params);
-        List<MemberInfoDto> ls = memberInfoMapper
-                .selectByPageOrderNameOrPhone(page);
+        List<MemberInfoDto> ls = memberInfoMapper.selectByPageOrderNameOrPhone(page);
         page.setResults(ls);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
     }

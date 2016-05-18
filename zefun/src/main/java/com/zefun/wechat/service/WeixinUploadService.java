@@ -933,7 +933,9 @@ public class WeixinUploadService {
     public BaseDto prevItems(String accessToken, String userName,
             String mediaId, Integer type) throws ClientProtocolException, IOException {
         String touser = null;
-        UserAccount userAccount = userAccountMapper.selectByUserName(userName);
+        Map<String, String> mapUser = new HashMap<String, String>();
+        mapUser.put("userName", userName);
+        UserAccount userAccount = userAccountMapper.selectByUserName(mapUser);
         touser = redisService.hget(App.Redis.WECHAT_EMPLOYEEID_TO_OPENID_KEY_HASH, userAccount.getUserId().toString());
         if (touser == null){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "未查询到相关信息");

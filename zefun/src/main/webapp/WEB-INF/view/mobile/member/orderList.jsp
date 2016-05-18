@@ -19,7 +19,7 @@
             <ul class="order-ul bsw mb2">
 	            <li class="dingdan-danhao">
 	                <span class="danhao fl">
-	                    单号: ${order.orderCode }
+	                    	单号: ${order.orderCode }
 	                </span>
 	                <c:choose>
 	                   <c:when test="${order.orderStatus == 1 }">
