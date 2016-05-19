@@ -30,4 +30,7 @@
 	<!-- <import resource="redis-cluster.xml"/> -->
 	<import resource="redis-context.xml" />
 	<import resource="rabbitmq-context.xml" />
+	<import resource="producer.xml" />
+	
+	<bean id="toolSpring" class="com.zefun.common.utils.ToolSpring"></bean>
 </beans>

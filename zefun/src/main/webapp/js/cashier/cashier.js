@@ -5,6 +5,16 @@ jQuery(function() {
    
 });
 
+//字数超出，以气泡的形式
+jQuery(function(){
+    jQuery('.overflow_').hover(function(){
+      var text=jQuery(this).text();
+	   jQuery(this).parents('.consume').find('.copy_text').text(text);
+ },function(){
+   jQuery(this).parents('.consume').find('.copy_text').text('');
+})
+});
+
 var isMember = false;
 var orderId = null;
 var useOffObject = new Object();
@@ -136,10 +146,10 @@ function showCashierDetail(orderId) {
 			clearPayment();
 			addCashierDetail(data.msg);
 			if (data.msg.orderStatus == 2 || data.msg.orderStatus == 5) {
-				jQuery(".money_next").removeClass("hide");
+				jQuery(".money_next").css("visibility", "visible");
 			}
 			else {
-				jQuery(".money_next").addClass("hide");
+				jQuery(".money_next").css("visibility", "hidden");
 			}
 			jQuery('.zzc').show();
 		}

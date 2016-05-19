@@ -122,11 +122,9 @@ jQuery(function(){
 	function (){
 		jQuery(".left_nav_2").find("li").removeClass("active");
 		jQuery(".left_nav_2").find("a[href='"+requestUrl+"']").children("li").addClass("active");
-
 	})
 })
 function choseMenu(url){
-	
 	jQuery(".left_nav_2").find("li").removeClass("active");
 	jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").show().siblings().hide();
 	jQuery(".left_nav_2").find("a[href='"+url+"']").children("li").addClass("active");
@@ -134,6 +132,11 @@ function choseMenu(url){
 	jQuery(".left_nav li").eq(jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").attr("index")).addClass("active1");
 	
 }
+
+jQuery(".leftmenu").mouseleave(function(){
+	choseMenu(requestUrl);
+});
+
 choseMenu(requestUrl);
 
 var tmp = "http://"+location.host+location.pathname;

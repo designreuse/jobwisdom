@@ -338,6 +338,12 @@
             <scope>system</scope>
             <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160224.jar</systemPath>
         </dependency>
+        <!-- 阿里消息队列 -->
+	    <dependency>
+		    <groupId>com.aliyun.openservices</groupId>
+		   <artifactId>ons-client</artifactId>
+		   <version>1.2.1</version>
+		</dependency>
 	</dependencies>
 	
 	<reporting>

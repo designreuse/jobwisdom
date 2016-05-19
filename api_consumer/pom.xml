@@ -201,6 +201,13 @@
             <artifactId>quartz</artifactId>
             <version>2.2.1</version>
         </dependency>
+        
+        <!-- 阿里消息队列 -->
+	    <dependency>
+		    <groupId>com.aliyun.openservices</groupId>
+		   <artifactId>ons-client</artifactId>
+		   <version>1.2.1</version>
+		</dependency>
     </dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>

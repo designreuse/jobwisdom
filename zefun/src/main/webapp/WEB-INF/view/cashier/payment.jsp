@@ -63,10 +63,13 @@
 							</c:otherwise>
 						</c:choose>
 						<div class="consume">
+						  <span class="copy_text"> </span>
 						  <p>消费项目：
-						      <c:forEach items="${selfCashier.orderDetails }" var="detail">
-					         	${detail.projectName }
-                              </c:forEach>
+						      <em class="overflow_" name = "projectTextEm">
+							      <c:forEach items="${selfCashier.orderDetails }" var="detail">
+						         	${detail.projectName }
+	                              </c:forEach>
+                              </em>
 						  </p>
 						  <p>开单人员：${selfCashier.operateEmployee.employeeCode} ${selfCashier.operateEmployee.name }</p>
 						  <p>开单时间： ${selfCashier.createTime}</p>
@@ -329,7 +332,10 @@
        		 console.log("编号"+ jQuery(obj).find(".money_title").text());
 	         var like=window.confirm('确定合并');
 		   if(like==true){
-		    	 
+			   var thistext = jQuery($this_).find("projectTextEm").text();
+			   var objtext = jQuery(obj).find("projectTextEm").text();
+			   objtext = objtext + " " + thistext;
+			   jQuery(obj).find("projectTextEm").text(objtext);
 			   var mainOrderId = jQuery(obj).attr("orderId");
 			   
 			   var removeOrderId = jQuery($this_).attr("orderId");
