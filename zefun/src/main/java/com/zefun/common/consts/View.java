@@ -232,6 +232,8 @@ public interface View {
 		public static final String EMPLOYEE_INFO = "mobile/member/employeeInfo";
 		/** 员工项目详情 */
 		public static final String EMPLOYEE_PROJECT = "mobile/member/employeeProject";
+		/** 门店特色服务*/
+        public static final String STORE_SPE = "mobile/member/special";
 	}
 
 	/** 友宝商城模块 */

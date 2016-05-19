@@ -300,7 +300,7 @@ public class RabbitService {
         record.put("appointTime", appointTime);
         record.put("createTime", DateUtil.getCurTime());
         send(App.Queue.APPOINTMENT_APPLY_NOTICE, record);
-        
+        rabbitTemplate.convertAndSend(App.Queue.APPOINTMENT_APPLY_NOTICE, record);
         //检查门店是否需要预约语音提示
         StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
         if (storeSetting.getSpeechType() == 1) {
@@ -319,6 +319,7 @@ public class RabbitService {
                 for (String userId : set) {
                     chat.setToUser(userId);
                     send(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
+                    rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
                 }
             }
         }

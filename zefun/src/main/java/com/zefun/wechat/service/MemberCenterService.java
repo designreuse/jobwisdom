@@ -73,6 +73,7 @@ import com.zefun.web.entity.ProjectEvaluate;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectShare;
 import com.zefun.web.entity.ProjectStep;
+import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.entity.StoreWechat;
@@ -99,6 +100,7 @@ import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ProjectShareMapper;
 import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.ShiftMapper;
+import com.zefun.web.mapper.SpecialServiceMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 import com.zefun.web.mapper.StoreWechatMapper;
@@ -278,7 +280,9 @@ public class MemberCenterService {
 	/** 商品列表 */
     @Autowired
     private GoodsInfoMapper goodsInfoMapper;
-	
+    @Autowired
+    private SpecialServiceMapper specialServiceMapper;
+    
 	/**
 	 * wifi主页
 	* @author 张进军
@@ -1468,6 +1472,11 @@ public class MemberCenterService {
             List<EmployeeBaseDto> employeeList = employeeInfoMapper.selectEmployeeListByList(list);
             mav.addObject("employeeList", employeeList);
         }
+        
+        List<SpecialService> specialServices = specialServiceMapper.selectByStoreId(storeId);
+        mav.addObject("specialServices", specialServices);
+        
+        
         mav.addObject("session_key_store_id", storeId);
         return mav;
     }
@@ -1908,6 +1917,21 @@ public class MemberCenterService {
         ModelAndView view = new ModelAndView(View.MemberCenter.SHOP_CENTER_LIST);
         view.addObject("goodsInfoCatagoryDtos", goodsInfoCatagoryDtos);
         
+        return view;
+    }
+
+
+    /**
+     * 
+    * @author 高国藩
+    * @date 2016年5月19日 下午7:23:09
+    * @param sId
+    * @return
+     */
+    public ModelAndView storeInfoViewSpecail(Integer sId) {
+        SpecialService specialService = specialServiceMapper.selectByPrimaryKey(sId);
+        ModelAndView view = new ModelAndView(View.MemberCenter.STORE_SPE);
+        view.addObject("specialService", specialService);
         return view;
     }
     

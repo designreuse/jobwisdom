@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.SpecialServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.SpecialService" >
+    <id column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="employee_code" property="employeeCode" jdbcType="INTEGER" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    <result column="s_image" property="sImage" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zefun.web.entity.SpecialService" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    s_id, s_name, store_id, project_id, project_name, employee_code, employee_name, s_image, 
+    is_deleted
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from special_service
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from special_service
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.SpecialService" >
+    insert into special_service (s_id, s_name, store_id, 
+      project_id, project_name, employee_code, 
+      employee_name, s_image, is_deleted, 
+      content)
+    values (#{sId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
+      #{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{employeeCode,jdbcType=INTEGER}, 
+      #{employeeName,jdbcType=VARCHAR}, #{sImage,jdbcType=VARCHAR}, #{isDeleted,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.SpecialService" useGeneratedKeys="true" keyProperty="sId">
+    insert into special_service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sName != null" >
+        s_name,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="employeeCode != null" >
+        employee_code,
+      </if>
+      <if test="employeeName != null" >
+        employee_name,
+      </if>
+      <if test="sImage != null" >
+        s_image,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeCode != null" >
+        #{employeeCode,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sImage != null" >
+        #{sImage,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.SpecialService" >
+    update special_service
+    <set >
+      <if test="sName != null" >
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeCode != null" >
+        employee_code = #{employeeCode,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sImage != null" >
+        s_image = #{sImage,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zefun.web.entity.SpecialService" >
+    update special_service
+    set s_name = #{sName,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      employee_code = #{employeeCode,jdbcType=INTEGER},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      s_image = #{sImage,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.SpecialService" >
+    update special_service
+    set s_name = #{sName,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      employee_code = #{employeeCode,jdbcType=INTEGER},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      s_image = #{sImage,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByStoreId" parameterType="java.lang.Integer" resultType="com.zefun.web.entity.SpecialService">
+    select s_id as sId, s_name as sName, store_id as storeId, project_id as projectId, 
+    	   project_name as projectName, employee_code as employeeCode, employee_name as employeeName,
+    	   s_image as sImage, content as content, is_deleted as isDeleted
+    from special_service
+    where store_id = #{storeId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+</mapper>

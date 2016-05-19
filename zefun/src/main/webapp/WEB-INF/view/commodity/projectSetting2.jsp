@@ -620,8 +620,8 @@
 		}
 		jQuery.ajax({
 			type : "post",
-			data : JSON.stringify(data),
 			url : baseUrl + "project/save/by/step/" + stepNum + "/" + status,
+			data : JSON.stringify(data),
 			dataType : "json",
 			contentType : "application/json",
 			async : false,

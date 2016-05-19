@@ -7,6 +7,32 @@
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
+	
+<style type="text/css">
+.special-sever_content{width:200px;height:230px;border:1px solid #ccc;border-radius:10px;overflow:hidden;box-shadow:0 0 10px #ccc;float:left;margin:0 45px 20px 30px}
+.special_sever_pic .serve_top img{width:200px;left:0!important;}
+.special_sever_text p{padding-left:20px;margin-bottom:0px!important}
+.special_sever_text{margin-top:10px;color:#7f7f7f}
+.special_sever_pic span{position:absolute;top:8px;right:8px;display:inline-block;z-index:10}
+.special_sever_pic{position:relative}
+.special_sever_pic span img{left:0!important}
+.special_sever{height:550px;overflow:overlay}
+.special_sever_text span{display:inline-block;margin-right:10px;}
+.special_sever_text em{color:black}
+.add_serve{    width: 130px;
+	    height: 35px;
+	    border-radius: 20px;
+	    background: white;
+	    text-align: center;
+	    line-height: 35px;
+	    margin-bottom: 20px;
+	    box-shadow: 0px 6px 10px #ccc;
+	    border: none;
+		position:relative;
+		left:30px
+}
+.add_serve:hover{background:#fcfbfb;}
+</style>
 <body>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -71,42 +97,56 @@
 							<script id="editor1" type="text/plain" style="width:550px;height:400px;">
 							${storeInfo.storeDesc }
 							</script>
-							<%-- <div contenteditable="true" id="descriptionEditor" name="content" class="webchat_area">
-								<c:if test="${!empty storeInfo.storeDescArray }">
-				                    <c:forEach var="content" items="${storeInfo.storeDescArray }">
-										<c:if test="${content.type == '1' }">
-											<div>${content.text }</div>
-										</c:if>
-										<c:if test="${content.type == '2' }">
-											<img style="width: 560px;height: 560px" src="<%=picPath %>${content.text}">
-										</c:if>
-									</c:forEach>
-								</c:if>
-							</div> --%>
 							<button class="webchat_submit" onclick="edit('#descriptionEditor', 1)">提交</button>
 						</div>
 
 						<div class="webchat_div_" style="display: none;">
-							<p>特色服务：</p>
-							<button class="insert_img" onclick="zcc(this,'editor2')">
-								<img src="<%=basePath%>images/webchat_add.png">插入图片
-							</button>
-							<script id="editor2" type="text/plain" style="width:550px;height:400px;">
-							${storeInfo.characteristic }
-							</script>
-							<%-- <div contenteditable="true" id="characteristicEditor" class="webchat_area">
-								<c:if test="${!empty storeInfo.characteristicArray }">
-				                    <c:forEach var="content" items="${storeInfo.characteristicArray }">
-										<c:if test="${content.type == '1' }">
-											<div>${content.text }</div>
-										</c:if>
-										<c:if test="${content.type == '2' }">
-											<img style="width: 560px;height: 560px" src="<%=picPath %>${content.text}">
-										</c:if>
+						<div class="spe">
+							<button class="add_serve" onclick="addService(this)">添加服务</button>
+								<div class="special_sever clearfix">
+								<c:forEach items="${specialServices }" var="specialService">
+									<div id="${specialService.sId}" class="special-sever_content" onclick="editSpe(${specialService.sId}, this)">
+									     <div class="special_sever_pic">
+										   <span><img src="<%=basePath %>images/hand_close.png"></span>
+										   <em class="serve_top"><img src="<%=qiniuPath%>${specialService.sImage }"></em>
+										 </div>
+									     <div class="special_sever_text">
+										   <p><span>服务名称：</span><em>${specialService.sName }</em></p>
+										   <p><span>服务项目：</span><em>${specialService.projectName }</em></p>
+										   <p><span>适用员工：</span><em>${specialService.employeeCode }  ${specialService.employeeName }</em></p>
+										 </div>
+								    </div>
+								</c:forEach>
+							    </div>
+							</div>
+						    <div style="display: none">
+						    	输入特色名称: <input name="sName" type="text" style="box-shadow: 0 0 3px #ccc;"><br><br>
+								选择一个项目: 
+								<select data-placeholder="选择项目"  class="chzn-select input80" name="projectId" id="projectId">
+									<c:forEach items="${projectInfos }" var="projectInfo">
+										<option value="${projectInfo.projectId }">${projectInfo.projectName }</option>
 									</c:forEach>
-								</c:if>
-							</div> --%>
-							<button class="webchat_submit" onclick="edit('#characteristicEditor', 2)">提交</button>
+		                        </select><br><br>
+		                                                       选择一个员工: 
+		                        <select data-placeholder="选择员工"  class="chzn-select input80" name="emp" id="emp">
+									<c:forEach items="${storeEmployeeList }" var="storeEmployee">
+										<option value="${storeEmployee.employeeCode }">${storeEmployee.name }</option>
+									</c:forEach>
+		                        </select>
+		                        <br><br>
+		                        	选择一张图片:
+		                        	<li>
+		                        		<img style="width: 89px;height: 89px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
+                                        <input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
+                                    </li>
+		                        <button class="insert_img" onclick="zcc(this,'editor2')">
+									<img src="<%=basePath%>images/webchat_add.png">插入图片
+								</button><br>
+								<script id="editor2" type="text/plain" style="width:550px;height:400px;">
+
+								</script>
+								<button class="webchat_submit" onclick="edit('#characteristicEditor', 2)">提交</button>
+						    </div>
 						</div>
 
 						<div class="webchat_div_" style="display: block;">
@@ -179,7 +219,9 @@
 		  </div>
          </div>
    </div>
+
 </body>
+<script>var specialServicesJs = ${specialServicesJs};</script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>js/setting/storeSetting.js"></script>
 <script type="text/javascript">
 
@@ -241,6 +283,9 @@ function zcc(opt,type){
 	jQuery('.zzc').show();
 }
 
+var width = 200;
+var height = 200;
+
 function zccCallback(dataBase64){
 	imgObject.children("img").attr("src", dataBase64);
 	var key = "jobwisdom/project/" + new Date().getTime();
@@ -273,13 +318,11 @@ function zccCallback(dataBase64){
 		       		imgObject.append(jQuery(html));
 		       	}else{
 		       		UE.getEditor(imgType).execCommand('insertHtml', '<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'+qiniuUrl+key+'">');
-		       		//var html = '<img style="width: 560px;height: 560px" src="'+qiniuUrl+key+'">';
 		       	}
 		       	//imgObject.append(jQuery(html));
 	       }
  	});
 }
-
 
 jQuery(function(){
 	 jQuery('.cancelinput').click(function(){
@@ -287,6 +330,33 @@ jQuery(function(){
 	    jQuery('.photo-clip-rotateLayer').html('');
 	 })
 })
+
+function addService(opt){
+	jQuery(opt).parent().hide("800").siblings("div").show("800");
+	sId = null;
+}
+
+
+function editSpe(sIds, opt){
+	sId = sIds;
+	for (var i = 0; i < specialServicesJs.length; i++) {
+		if(specialServicesJs[i].sId == sId){
+			var sName = specialServicesJs[i].sName;
+			var projectId = specialServicesJs[i].projectId;
+			var emp = specialServicesJs[i].employeeCode;
+			var sImage = specialServicesJs[i].sImage;
+			var content = specialServicesJs[i].content;
+			jQuery("input[name='sName']").val(sName);
+			jQuery("select[name='projectId']").val(projectId);
+			jQuery("select[name='emp']").val(emp);
+			jQuery("input[name='carouselPicture']").last().val(sImage);
+			jQuery("input[name='carouselPicture']").last().prev().attr("src", qiniuUrl+sImage);
+			UE.getEditor("editor2").setContent(content);
+		}
+	}
+	console.log(sId);
+	jQuery(opt).parents(".spe").hide("800").siblings("div").show("800");
+}
 </script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>js/base/base64Helper.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>

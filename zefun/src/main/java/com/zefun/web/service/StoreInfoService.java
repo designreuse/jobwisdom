@@ -80,6 +80,7 @@ import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.entity.SalesmanInfo;
 import com.zefun.web.entity.ShiftMahjong;
+import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreAccount;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreSetting;
@@ -108,6 +109,7 @@ import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.SalesmanInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
+import com.zefun.web.mapper.SpecialServiceMapper;
 import com.zefun.web.mapper.StoreAccountMapper;
 import com.zefun.web.mapper.StoreFlowMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
@@ -294,6 +296,9 @@ public class StoreInfoService {
     /**套餐项目*/
     @Autowired
     private ComboProjectMapper comboProjectMapper;
+    /**特色服务*/
+    @Autowired
+    private SpecialServiceMapper specialServiceMapper;
     /**日志系统*/
     private Logger log = Logger.getLogger(StoreInfoService.class);
 
@@ -422,9 +427,16 @@ public class StoreInfoService {
         StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
         view.addObject("storeInfo", storeInfo);
         
+        List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(storeId);
+        view.addObject("projectInfos", projectInfos);
+        
         List<EmployeeBaseDto> employeeList = employeeInfoMapper.selectEmployeeListByStoreId(storeId);
         view.addObject("storeEmployeeList", employeeList);
-
+        
+        List<SpecialService> specialServices = specialServiceMapper.selectByStoreId(storeId);
+        view.addObject("specialServices", specialServices);
+        view.addObject("specialServicesJs", JSONArray.fromObject(specialServices));
+        
         if (StringUtils.isNotBlank(storeInfo.getTeacherIntroduction())) {
             List<String> list = Arrays.asList(storeInfo.getTeacherIntroduction().split(","));
             List<EmployeeBaseDto> showEmployeeList = employeeInfoMapper.selectEmployeeListByList(list);
@@ -2286,6 +2298,23 @@ public class StoreInfoService {
      */
     public int countWechatByIds(List<Integer> storeIds) {
         return storeInfoMapper.countWechatByIds(storeIds);
+    }
+
+    /**
+     * 
+    * @author 高国藩
+    * @date 2016年5月19日 下午5:00:11
+    * @param specialService
+    * @return
+     */
+    public BaseDto storeSettingSpecialAction(SpecialService specialService) {
+        if (specialService.getsId()==null){
+            specialServiceMapper.insert(specialService);
+        }
+        else {
+            specialServiceMapper.updateByPrimaryKeyWithBLOBs(specialService);
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, specialService);
     }
 
 }
