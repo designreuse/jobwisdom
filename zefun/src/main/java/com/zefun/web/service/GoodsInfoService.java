@@ -51,6 +51,7 @@ import com.zefun.web.mapper.ShipmentRecordMapper;
 import com.zefun.web.vo.CardStoreSalesVo;
 import com.zefun.web.vo.CashStoreSalesVo;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 商品
@@ -59,6 +60,7 @@ import net.sf.json.JSONArray;
 *
  */
 @Service
+@Transactional
 public class GoodsInfoService {
     /**
      * 商品品牌
@@ -859,5 +861,97 @@ public class GoodsInfoService {
             card.setCardStoreCnt(0);
         }
         return card;
+    }
+
+    /**
+     * 查询门店下商品列表
+    * @author 高国藩
+    * @date 2016年5月18日 上午10:36:25
+    * @param storeId storeId
+    * @return        List<GoodsInfoDto>  
+     */
+    public List<GoodsInfoDto> selectGoodsInfosByStoreId(Integer storeId) {
+        return goodsInfoMapper.selectAllGoodsInfoByStoreId(storeId);
+    }
+
+    /**
+     * 根据步骤进行保存商品
+    * @author 高国藩
+    * @date 2016年5月19日 上午10:46:19
+    * @param goodsInfo  goodsInfo
+    * @param stepNum    步骤
+    * @return           状态吗
+     */
+    public BaseDto saveGoodsInfoByStep(GoodsInfo goodsInfo, Integer stepNum) {
+        goodsInfo.setProjectStep(stepNum);
+        goodsInfoMapper.insertSelective(goodsInfo);
+        JSONObject data = new JSONObject();
+        data.put("goodsId", goodsInfo.getGoodsId());
+        data.put("projectStep", goodsInfo.getProjectStep());
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, data);
+    }
+
+    /**
+     * 根据步骤进行保存商品
+    * @author 高国藩
+    * @date 2016年5月19日 上午10:46:19
+    * @param goodsInfo  goodsInfo
+    * @param stepNum    步骤
+    * @return           状态吗
+     */
+    public BaseDto saveGoodsInfoPrice(GoodsInfo goodsInfo, Integer stepNum) {
+        goodsInfo.setProjectStep(stepNum);
+        goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
+        JSONObject data = new JSONObject();
+        data.put("goodsId", goodsInfo.getGoodsId());
+        data.put("projectStep", goodsInfo.getProjectStep());
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, data);
+    }
+
+    /**
+     * 根据步骤进行保存商品
+    * @author 高国藩
+    * @date 2016年5月19日 上午10:46:19
+    * @param goodsInfo  goodsInfo
+    * @param stepNum    步骤
+    * @return           状态吗
+     */
+    public BaseDto updateGoodsInfoPrice(GoodsInfo goodsInfo, Integer stepNum) {
+        goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
+        JSONObject data = new JSONObject();
+        data.put("goodsId", goodsInfo.getGoodsId());
+        data.put("projectStep", goodsInfo.getProjectStep());
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, data);
+    }
+
+    /**
+     * 根据步骤进行保存商品
+    * @author 高国藩
+    * @date 2016年5月19日 上午10:46:19
+    * @param data  goodsInfo
+    * @return           状态吗
+     */
+    @SuppressWarnings("unchecked")
+    public BaseDto saveLevelDiscount(JSONObject data) {
+        Integer goodsId = data.getInt("goodsId");
+        GoodsDiscount goodsDiscount = new GoodsDiscount();
+        goodsDiscount.setGoodsId(goodsId);
+        List<GoodsDiscount> goodsDiscounts = goodsDiscountMapper.selectByProperty(goodsDiscount);
+        
+        for (int i = 0; i < goodsDiscounts.size(); i++) {
+            goodsDiscountMapper.deleteByPrimaryKey(goodsDiscounts.get(i).getDiscountId());
+        }
+        
+        goodsDiscounts = (List<GoodsDiscount>) JSONArray.toCollection(data.getJSONArray("data"), GoodsDiscount.class);
+        goodsDiscountMapper.insertGoodsDiscountList(goodsDiscounts);
+        GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(goodsId);
+        goodsInfo.setProjectStep(4);
+        goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
+        
+        JSONObject returnDate = new JSONObject();
+        returnDate.put("goodsId", goodsInfo.getGoodsId());
+        returnDate.put("projectStep", goodsInfo.getProjectStep());
+        redisService.hdel(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, goodsInfo.getDeptId());
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate);
     }
 }

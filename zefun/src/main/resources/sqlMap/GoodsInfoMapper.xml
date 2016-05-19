@@ -35,6 +35,8 @@
     <result column="is_cash_deduction" property="isCashDeduction" jdbcType="INTEGER" />
     <result column="highest_discount" property="highestDiscount" jdbcType="DECIMAL" />
     <result column="calculation_type" property="calculationType" jdbcType="INTEGER" />
+    <result column="project_step" property="projectStep" jdbcType="INTEGER" />
+    <result column="goods_code_suffix" property="goodsCodeSuffix" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="GoodsInfoDtoMap" type="com.zefun.web.dto.GoodsInfoDto" >
@@ -76,12 +78,14 @@
 	<result column="is_cash_deduction" property="isCashDeduction" jdbcType="INTEGER" />
 	<result column="highest_discount" property="highestDiscount" jdbcType="DECIMAL" />
 	<result column="calculation_type" property="calculationType" jdbcType="INTEGER" />
+	<result column="project_step" property="projectStep" jdbcType="INTEGER" />
+    <result column="goods_code_suffix" property="goodsCodeSuffix" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     goods_id, store_id, category_id, brand_id, dept_id, goods_name, goods_price, cost_price, online_shopping_price, is_include_cost, 
     goods_image, goods_desc, goods_stock, warn_stock, commission_type, commission_amount, commission_card_type, card_amount, integral_exchange ,
     sales_count, sales_people, is_wechat_sell, is_disable, is_deleted, is_sell_product, affiliated_image, create_time, update_time, last_operator_id,
-    is_cash_deduction, highest_discount, calculation_type
+    is_cash_deduction, highest_discount, calculation_type, project_step, goods_code_suffix
   </sql>
   
   <resultMap type="com.zefun.web.dto.GoodsInfoCatagoryDto" id="catagoryGoodsInfos">
@@ -204,6 +208,12 @@
       <if test="calculationType != null" >
         calculation_type,
       </if>
+      <if test="projectStep != null" >
+        project_step,
+      </if>
+      <if test="goodsCodeSuffix != null" >
+        goods_code_suffix,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="goodsId != null" >
@@ -302,6 +312,12 @@
       <if test="calculationType != null" >
        #{calculationType,jdbcType=INTEGER},
       </if>
+      <if test="projectStep != null" >
+       #{projectStep,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCodeSuffix != null" >
+       #{goodsCodeSuffix,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.dto.GoodsInfoDto" >
@@ -395,10 +411,16 @@
         is_cash_deduction = #{isCashDeduction,jdbcType=INTEGER},
       </if>
       <if test="highestDiscount != null" >
-       highest_discount = #{highestDiscount,jdbcType=DECIMAL},
+        highest_discount = #{highestDiscount,jdbcType=DECIMAL},
       </if>
       <if test="calculationType != null" >
-       calculation_type = #{calculationType,jdbcType=INTEGER},
+        calculation_type = #{calculationType,jdbcType=INTEGER},
+      </if>
+      <if test="projectStep != null" >
+        project_step = #{projectStep,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCodeSuffix != null" >
+        goods_code_suffix = #{goodsCodeSuffix,jdbcType=VARCHAR},
       </if>
     </set>
     where goods_id = #{goodsId,jdbcType=INTEGER}
@@ -841,5 +863,13 @@
 	<if test="goodsId != null">
 	AND project_id = #{goodsId}
 	</if>
+  </select>
+  
+  <select id="selectAllGoodsInfoByStoreId" resultType="com.zefun.web.dto.GoodsInfoDto" parameterType="java.lang.Integer">
+  	SELECT gf.goods_id as goodsId, gf.goods_name as goodsName, gf.goods_price as goodsPrice,
+  	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId
+  	from goods_info gf 
+  	left join dept_info df on gf.dept_id = df.dept_id
+  	where gf.is_deleted = 0 and gf.store_id = #{storeId}
   </select>
 </mapper>

@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +25,6 @@ import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsBrandDto;
@@ -86,6 +88,44 @@ public class GoodsInfoController extends BaseController{
     public ModelAndView toGoodsInfoPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
         Integer storeId = getStoreId(request);
         
+//        List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
+//        model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
+//        model.addObject("js_deptGoodsBaseDto", JSONArray.fromObject(deptGoodsBaseDto));
+//    
+//        /**自己的品牌库*/
+//        List<GoodsBrand> brands =  goodsBrandMapper.selectByStoreId(storeId);
+//        model.addObject("brands", brands);
+//        /**智放品牌列表*/
+//        List<CodeLibrary> goodsBrands = goodsInfoService.selectGoodsBrandList();
+//        model.addObject("goodsBrandList", goodsBrands);
+//
+//        /** 会员等级列表 */
+//        List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
+//        model.addObject("memberLevels", memberLevelList);
+//        model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
+//        List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage(); //selectGoodsImage();
+//        model.addObject("images", images);
+        
+        List<GoodsInfoDto> goodsInfos = goodsInfoService.selectGoodsInfosByStoreId(storeId);
+        model.addObject("goodsInfos", goodsInfos);
+        model.setViewName(View.GoodsInfo.GOODSINFO);
+        return model;
+    }
+    
+    /**
+     * 进入商品的新增页面
+    * @author 高国藩
+    * @date 2016年5月18日 下午5:43:27
+    * @param request    请求
+    * @param response   结果流
+    * @param goodsId    商品ID
+    * @return           跳转页面 
+     */
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = Url.GoodsInfo.GOODSINFO_SETTING)
+    public ModelAndView toGoodsInfoSeting(HttpServletRequest request, HttpServletResponse response, Integer goodsId) {
+        ModelAndView model = new ModelAndView(View.GoodsInfo.GOODSETTING);
+        Integer storeId = getStoreId(request);
         List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
         model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
         model.addObject("js_deptGoodsBaseDto", JSONArray.fromObject(deptGoodsBaseDto));
@@ -95,20 +135,73 @@ public class GoodsInfoController extends BaseController{
         model.addObject("brands", brands);
         /**智放品牌列表*/
         List<CodeLibrary> goodsBrands = goodsInfoService.selectGoodsBrandList();
-        /*List<GoodsBrand> goodsBrandList = goodsInfoService.queryGoodsBrandList(storeId);*/
         model.addObject("goodsBrandList", goodsBrands);
 
         /** 会员等级列表 */
         List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
         model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
-        List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage(); //selectGoodsImage();
-        model.addObject("images", images);
         
-        model.setViewName(View.GoodsInfo.GOODSINFO);
+        if (goodsId!=null){
+            BaseDto baseDto = queryGoodsInfoById(request, response, goodsId);
+            GoodsInfoDto goodsInfo = (GoodsInfoDto) ((Map<String, Object>)baseDto.getMsg()).get("goodsInfo");
+            List<GoodsDiscount> goodsDiscountList = (List<GoodsDiscount>) ((Map<String, Object>)baseDto.getMsg()).get("goodsDiscountList");
+            
+            model.addObject("goodsInfo", JSONObject.fromObject(goodsInfo));
+            model.addObject("goodsId", goodsInfo.getGoodsId());
+            model.addObject("goodsDiscountList", JSONArray.fromObject(goodsDiscountList));
+        }
+        
         return model;
     }
 
+    
+    /**
+     * 保存项目
+    * @author 高国藩
+    * @date 2016年4月25日 下午5:59:57
+    * @param request   request
+    * @param response  response
+    * @param stepNum   编辑步骤
+    * @param data      数据
+    * @param status    0/1 新增/修改
+    * @return          状态
+     */
+    @RequestMapping(value = Url.GoodsInfo.GOODS_SAVE_STEP, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto saveProjectByStep(HttpServletRequest request, HttpServletResponse response, 
+            @PathVariable("stepNum")Integer stepNum, @PathVariable("status")Integer status, 
+            @RequestBody JSONObject data) {
+        
+        // 初次创建项目
+        if (status==0&&stepNum==1){
+            return goodsInfoService.saveGoodsInfoByStep((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+        }
+        // 新增价格设置
+        if (status==0&&stepNum==2){
+            return goodsInfoService.saveGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+        }
+        // 销售提成新增
+        if (status==0&&stepNum==3){
+            return goodsInfoService.saveGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+        }
+        if (status==0&&stepNum==4){
+            return goodsInfoService.saveLevelDiscount(data);
+        }
+        if (status==1&&stepNum==1){
+            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+        }
+        if (status==1&&stepNum==2){
+            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+        }
+        if (status==1&&stepNum==3){
+            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+        }
+        if (status==1&&stepNum==4){
+            return goodsInfoService.saveLevelDiscount(data);
+        }
+        return null;
+    }
     /**
      * 保存商品类别
     * @author 洪秋霞

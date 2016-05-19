@@ -317,6 +317,10 @@ public interface Url {
 		public static final String SERCH_BRAND = "goodsInfo/serch/brand";
 		/** 商品进货管理页面 */
 		public static final String GOODS_PURCHASE_RECORDS = "goodsInfo/purchase/records";
+		/** 商品设置页面*/
+        public static final String GOODSINFO_SETTING = "goodsInfo/view/setting";
+        /** 商品步骤设置*/
+        public static final String GOODS_SAVE_STEP = "goods/save/by/step/{stepNum}/{status}";
 	}
 
 	/** 供应商模块 */

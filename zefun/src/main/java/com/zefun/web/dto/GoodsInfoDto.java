@@ -126,7 +126,29 @@ public class GoodsInfoDto {
     /**最大礼金抵扣*/
     private BigDecimal highestDiscount; 
     
+    /** 项目步骤*/
+    private Integer projectStep;
     
+    /** 商品编码*/
+    private String goodsCodeSuffix;
+    
+    
+    public Integer getProjectStep() {
+        return projectStep;
+    }
+
+    public void setProjectStep(Integer projectStep) {
+        this.projectStep = projectStep;
+    }
+
+    public String getGoodsCodeSuffix() {
+        return goodsCodeSuffix;
+    }
+
+    public void setGoodsCodeSuffix(String goodsCodeSuffix) {
+        this.goodsCodeSuffix = goodsCodeSuffix;
+    }
+
     public Integer getCalculationType() {
         return calculationType;
     }
