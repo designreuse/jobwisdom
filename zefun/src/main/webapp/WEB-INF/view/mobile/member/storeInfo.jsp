@@ -118,7 +118,7 @@
 	    <div class="store-list-wrap mt2">
 	        <ul class="store-tab">
 	            <li class="current" data-target="s-tab1">门店介绍</li>
-	            <li data-target="s-tab2">特色服务</li>
+	            <li data-target="s-tab2">作品展示</li>
 	            <li data-target="s-tab3">名师介绍</li>
 	        </ul>
 	        
