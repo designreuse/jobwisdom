@@ -137,6 +137,24 @@ public class StoreInfoController extends BaseController {
 	    specialService.setIsDeleted(0);
 	    return storeInfoService.storeSettingSpecialAction(specialService);
     }
+	
+	/**
+	 * 删除特色服务
+	* @author 高国藩
+	* @date 2016年5月20日 下午3:30:51
+	* @param request request
+	* @param sId sId
+	* @return sId
+	 */
+	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_SETTING_SPECIAL_DELETED, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto storeSettingSpecialActionDeleted(HttpServletRequest request, Integer sId) {
+        SpecialService specialService = new SpecialService();
+        specialService.setStoreId(getStoreId(request));
+        specialService.setIsDeleted(1);
+        specialService.setsId(sId);
+        return storeInfoService.storeSettingSpecialActionDeleted(specialService);
+    }
 
 	/**
 	 * 门店信息编辑操作

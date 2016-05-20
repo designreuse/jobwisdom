@@ -2301,11 +2301,11 @@ public class StoreInfoService {
     }
 
     /**
-     * 
+     * 设置特色服务
     * @author 高国藩
     * @date 2016年5月19日 下午5:00:11
-    * @param specialService
-    * @return
+    * @param specialService specialService
+    * @return               specialService
      */
     public BaseDto storeSettingSpecialAction(SpecialService specialService) {
         if (specialService.getsId()==null){
@@ -2315,6 +2315,18 @@ public class StoreInfoService {
             specialServiceMapper.updateByPrimaryKeyWithBLOBs(specialService);
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, specialService);
+    }
+
+    /**
+     * 删除特色服务
+    * @author 高国藩
+    * @date 2016年5月20日 下午3:24:52
+    * @param specialService specialService
+    * @return               状态吗
+     */
+    public BaseDto storeSettingSpecialActionDeleted(SpecialService specialService) {
+        specialServiceMapper.updateByPrimaryKeySelective(specialService);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除成功");
     }
 
 }

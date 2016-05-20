@@ -34,7 +34,7 @@
     delete from special_service
     where s_id = #{sId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zefun.web.entity.SpecialService" >
+  <insert id="insert" parameterType="com.zefun.web.entity.SpecialService" useGeneratedKeys="true" keyProperty="sId">
     insert into special_service (s_id, s_name, store_id, 
       project_id, project_name, employee_code, 
       employee_name, s_image, is_deleted, 

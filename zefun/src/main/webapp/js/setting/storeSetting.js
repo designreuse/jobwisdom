@@ -252,8 +252,21 @@ function edit(editor, type){
 //		    		   dialog(data.msg);
 //		    		   return;
 //	    	   }
-	    	   jQuery(".webchat_div_").eq(2).children("div").eq(0).show("800");
-	    	   jQuery(".webchat_div_").eq(2).children("div").eq(1).hide("800");
+	    	   
+	    	   if(sId == null){
+	    		   var html = '<div id="'+data.msg.sId+'" class="special-sever_content" onclick="editSpe('+data.msg.sId+', this)">'+
+										     '<div class="special_sever_pic">'+
+									   '<span onclick="deleteService('+data.msg.sId+', this, event)"><img src="'+baseUrl+'images/hand_close.png"></span>'+
+									   '<em class="serve_top"><img src="'+qiniuUrl+data.msg.sImage+'"></em>'+
+									 '</div>'+
+								     '<div class="special_sever_text">'+
+									   '<p><span>服务名称：</span><em>'+data.msg.sName+'</em></p>'+
+									   '<p><span>服务项目：</span><em>'+data.msg.projectName+'</em></p>'+
+									   '<p><span>适用员工：</span><em>'+data.msg.employeeCode+'  '+data.msg.employeeName+'</em></p>'+
+									 '</div>'+
+							    '</div>';
+	    		   jQuery(".special_sever.clearfix").append(jQuery(html));
+	    	   }
 	    	   for (var i = 0; i < specialServicesJs.length; i++) {
 	    			if(specialServicesJs[i].sId == sId){
 	    					specialServicesJs[i].sName = data.msg.sName;
@@ -269,6 +282,8 @@ function edit(editor, type){
 	    					jQuery(".special-sever_content[id='"+sId+"']").find(".special_sever_text").append(jQuery(html));
 	    			}
 	    		}
+	    	   jQuery(".webchat_div_").eq(2).children("div").eq(0).show("800");
+	    	   jQuery(".webchat_div_").eq(2).children("div").eq(1).hide("800");
 	       	}
 		});
 	}

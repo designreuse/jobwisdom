@@ -1128,6 +1128,8 @@ public interface Url {
 		public static final String ACTION_STORE_COPY = "/storeinfo/action/copy";
 		/** 门店特色服务*/
         public static final String ACTION_STORE_SETTING_SPECIAL = "/storeinfo/action/storeSetting/special";
+        /** 特色服务删除*/
+        public static final String ACTION_STORE_SETTING_SPECIAL_DELETED = "/storeinfo/action/storeSetting/special/deleted";
 	}
 
 	/**

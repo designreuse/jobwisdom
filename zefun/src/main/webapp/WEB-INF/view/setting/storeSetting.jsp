@@ -107,7 +107,7 @@
 								<c:forEach items="${specialServices }" var="specialService">
 									<div id="${specialService.sId}" class="special-sever_content" onclick="editSpe(${specialService.sId}, this)">
 									     <div class="special_sever_pic">
-										   <span><img src="<%=basePath %>images/hand_close.png"></span>
+										   <span onclick="deleteService(${specialService.sId}, this, event)"><img src="<%=basePath %>images/hand_close.png"></span>
 										   <em class="serve_top"><img src="<%=qiniuPath%>${specialService.sImage }"></em>
 										 </div>
 									     <div class="special_sever_text">
@@ -233,7 +233,7 @@ var toolbars = {
 		           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
 		           'directionalityltr', 'directionalityrtl', 'indent', '|',
 		           'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase','preview']
-		   	],maximumWords:3000,elementPathEnabled:false
+		   	],maximumWords:3000,elementPathEnabled:false,imageScaleEnabled:false,wordCount:false,autoHeightEnabled:false
 		   };
 var u1 = UE.getEditor('editor1', toolbars);
 var u2 = UE.getEditor('editor2', toolbars);
@@ -243,6 +243,8 @@ jQuery(function(){
    jQuery('.webchat_div_:gt(0)').hide();
    jQuery('.webchat_p p').click(function(){
 	     jQuery('.webchat_div_').eq(jQuery(this).index()).show().siblings().hide();
+	     jQuery('.webchat_div_').eq(jQuery(this).index()).children("div").eq(0).show();
+	     jQuery('.webchat_div_').eq(jQuery(this).index()).children("div").eq(1).hide();
    });
 })
 /**复制人员*/
@@ -356,6 +358,27 @@ function editSpe(sIds, opt){
 	}
 	console.log(sId);
 	jQuery(opt).parents(".spe").hide("800").siblings("div").show("800");
+}
+
+function deleteService(sIds, opt, event){
+	var father = jQuery(opt);
+	event.stopPropagation();
+	jQuery.ajax({
+		type: "POST",
+		url: baseUrl+"storeinfo/action/storeSetting/special/deleted",
+	       data: "sId="+sIds,
+	       dataType: "json",
+	       async:true,  
+	       success: function(data) {
+	    	   if(data.code == 0){
+	    		   father.parent().parent().remove();
+	    		   console.log(jQuery(opt).parents('.special-sever_content').html());
+	    	   }
+	    	   else {
+	    		   dialog("请刷新尝试");
+	    	   }
+	       }
+ 	});
 }
 </script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>js/base/base64Helper.js"></script>
