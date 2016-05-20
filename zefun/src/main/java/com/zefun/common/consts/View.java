@@ -232,6 +232,8 @@ public interface View {
 		public static final String EMPLOYEE_INFO = "mobile/member/employeeInfo";
 		/** 员工项目详情 */
 		public static final String EMPLOYEE_PROJECT = "mobile/member/employeeProject";
+		/** 门店特色服务*/
+        public static final String STORE_SPE = "mobile/member/special";
 	}
 
 	/** 友宝商城模块 */
@@ -378,8 +380,8 @@ public interface View {
 	 * @date 2015年8月11日 下午2:04:50
 	 */
 	class GoodsInfo {
-		/** 商品设置页面 */
-		public static final String GOODSINFO = "commodity/goodsInfo";
+		/** 商品列表页面 */
+		public static final String GOODSINFO = "commodity/goodsInfoList";
 		/** 商品库存页面 */
 		public static final String GOODSSTOCK = "commodity/goodsStock";
 		/** 商品出货记录 */
@@ -388,6 +390,8 @@ public interface View {
 		public static final String BRAND = "commodity/goodsBrand";
 		/** 商品进货页面 */
 		public static final String GOODS_PURCHASE_RECORDS = "commodity/purchaseRecords";
+		/** 商品设置页面 */
+        public static final String GOODSETTING = "commodity/goodsInfoSetting";
 	}
 
 	/**

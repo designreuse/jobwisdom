@@ -28,6 +28,42 @@
 	    .mb-footer {
 	        margin-bottom: 6.125rem;
 	    }
+	    
+	    .recommend_shop {
+		    width: 46%;
+		    margin-left: 3%;
+		    float: left;
+		    border-radius: 0.5rem;
+		    border: 1px solid #e1e1e1;
+		    background: white;
+		    margin-bottom: 1rem;
+		    margin: 0;
+		    padding: 0;
+		    list-style: none;
+		}
+		.al_sell {
+		    padding-left: 0.2rem;
+		    margin-bottom: 0.5rem;
+		}
+		.al_sell .number_ {
+		    color: #9f9f9f;
+		    font-size: 0.6rem;
+		}
+		.al_sell .price_ {
+		    color: #e0371b;
+		    position: relative;
+		    left: 30%;
+		}
+		.content_detial{float:left;width:50%}
+		.detail_text h2{    display: block;
+    margin: 0.5rem 0rem 1rem 0.2rem;
+    font-weight: bold;
+    color: black;
+    font-size: 1.3rem;}
+    .detail_text{font-size:10px}
+    .text_content,.list_money{    color: #9f9f9f;
+    font-size: 0.6rem;margin-top:0!important;    padding-top: 0rem!important;}
+    .detail_text span{display:inline-block;margin:0 1rem}
 	</style>
     <style type="text/css">
     .bottom_fix{width:100%;background:white;position:fixed;bottom:0;height:6rem;z-index:2}
@@ -82,40 +118,30 @@
 	    <div class="store-list-wrap mt2">
 	        <ul class="store-tab">
 	            <li class="current" data-target="s-tab1">门店介绍</li>
-	            <li data-target="s-tab2">特色服务</li>
+	            <li data-target="s-tab2">作品展示</li>
 	            <li data-target="s-tab3">名师介绍</li>
 	        </ul>
 	        
-	        <div class="store-wrap srore-bgc" id="s-tab1">
+	        <div class="store-wrap srore-bgc clearfix" id="s-tab1">
 	        ${storeInfo.storeDesc }
-	            <%-- <div class="store-js">
-	            	<c:if test="${!empty storeInfo.storeDescArray }">
-	                    <c:forEach var="content" items="${storeInfo.storeDescArray }">
-							<c:if test="${content.type == '1' }">
-								<p class="store-wz">${content.text }</p>
-							</c:if>
-							<c:if test="${content.type == '2' }">
-								<img style="max-width: 100%;max-height: 100%;" src="<%=picPath %>${content.text}">
-							</c:if>
-						</c:forEach>
-					</c:if>
-	            </div> --%>
 	        </div>
 	        
-	        <div class="store-wrap srore-bgc hide" id="s-tab2">
-	        ${storeInfo.characteristic }
-	            <%-- <div class="store-js">
-	                <c:if test="${!empty storeInfo.characteristicArray }">
-	                    <c:forEach var="content" items="${storeInfo.characteristicArray }">
-							<c:if test="${content.type == '1' }">
-								<p class="store-wz">${content.text }</p>
-							</c:if>
-							<c:if test="${content.type == '2' }">
-								<img style="max-width: 100%;max-height: 100%;" src="<%=picPath %>${content.text}">
-							</c:if>
-						</c:forEach>
-					</c:if>
-	            </div> --%>
+	        <div class="store-wrap srore-bgc clearfix  hide" id="s-tab2">
+		        <c:forEach items="${specialServices }" var="specialService">
+					<a href="<%=basePath %>memberCenter/view/store/special?sId=${specialService.sId }">
+						<div class="content_detial clearfix">
+							<div class="detail_left">
+								<img style="width: 175.5px;height: 175.5px;" src="<%=picPath %>${specialService.sImage }">
+							</div>
+							<div class="detail_text">
+								<span>服务名称</span><em style="color:black">${specialService.sName }</em></br>
+								<span>适用项目</span><em style="color:black">${specialService.projectName }</em></br>
+								<span>贡献员工</span><em style="color:black">${specialService.employeeCode }号 ,  ${specialService.employeeName }</em>
+							</div>
+						</div>
+					</a>
+				</c:forEach>
+	        	<%-- ${storeInfo.characteristic } --%>
 	        </div>
 	        
 	        <div class="store-wrap hide" id="s-tab3">

@@ -119,11 +119,20 @@ public class ZefunRunable implements Runnable{
         
     }
     
-    public static void main(String[] args) {
-        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(100, 3000, 2000, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1000), new ThreadPoolExecutor.DiscardOldestPolicy());
-        for (int i = 0; i < 100000; i++) {
-            threadPool.execute(new ZefunRunable());
-        }
+    public static void main(String[] args) throws IOException {
+        String QUEUE_NAME = "hello";  
+        ConnectionFactory factory = new ConnectionFactory();  
+        factory.setHost("120.24.165.15");  
+        factory.setUsername("admin");
+        factory.setPassword("admin");
+        Connection connection = factory.newConnection();  
+        Channel channel = connection.createChannel();  
+        channel.queueDeclare(QUEUE_NAME, false, false, false, null);  
+        String message = "Hello World!";  
+        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());  
+        System.out.println(" [x] Sent '" + message + "'");  
+        channel.close();  
+        connection.close();  
     }
 
 }

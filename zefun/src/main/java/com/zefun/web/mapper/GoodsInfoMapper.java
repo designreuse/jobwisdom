@@ -178,4 +178,13 @@ public interface GoodsInfoMapper {
      * @return 结果
      */
     CardStoreSalesVo getCardStoreSale(SummaryResultDto dto);
+    
+    /**
+     * 用于商品列表展示数据
+    * @author 高国藩
+    * @date 2016年5月18日 上午10:09:27
+    * @param storeId  storeId
+    * @return         List<GoodsInfoDto>
+     */
+    List<GoodsInfoDto> selectAllGoodsInfoByStoreId(Integer storeId);
 }

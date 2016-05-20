@@ -317,6 +317,10 @@ public interface Url {
 		public static final String SERCH_BRAND = "goodsInfo/serch/brand";
 		/** 商品进货管理页面 */
 		public static final String GOODS_PURCHASE_RECORDS = "goodsInfo/purchase/records";
+		/** 商品设置页面*/
+        public static final String GOODSINFO_SETTING = "goodsInfo/view/setting";
+        /** 商品步骤设置*/
+        public static final String GOODS_SAVE_STEP = "goods/save/by/step/{stepNum}/{status}";
 	}
 
 	/** 供应商模块 */
@@ -684,6 +688,8 @@ public interface Url {
 		public static final String VIEW_EMPLOYEE_PROJECT = "/memberCenter/view/employeeProject";
 		/** 商品分类大全*/
         public static final String VIEW_SHOP_CENTER_LIST = "/memberCenter/view/shopCenter/list/{storeId}";
+        /** 门店特色服务*/
+        public static final String VIEW_STORE_INFO_SEPCIAL = "/memberCenter/view/store/special";
 	}
 
 	/** 友宝商城模块 */
@@ -1120,6 +1126,10 @@ public interface Url {
 		public static final String ACTION_STORE_INITIALIZE = "/storeinfo/action/initialize";
 		/** 门店数据复制 */
 		public static final String ACTION_STORE_COPY = "/storeinfo/action/copy";
+		/** 门店特色服务*/
+        public static final String ACTION_STORE_SETTING_SPECIAL = "/storeinfo/action/storeSetting/special";
+        /** 特色服务删除*/
+        public static final String ACTION_STORE_SETTING_SPECIAL_DELETED = "/storeinfo/action/storeSetting/special/deleted";
 	}
 
 	/**

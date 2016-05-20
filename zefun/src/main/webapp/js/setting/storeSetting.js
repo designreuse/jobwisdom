@@ -208,6 +208,7 @@ jQuery(document).ready(function(){
 });
 
 //===================内容编辑区域处理结束=============================================================================================================================
+var sId = null;
 function edit(editor, type){
 	var data = null;
 	if(type == 1){
@@ -216,27 +217,78 @@ function edit(editor, type){
 		content = content.replace(/\&/g, "%26");  
 		content = content.replace(/\+/g, "%2B"); 
 		data = "storeDesc=" + content;
+		jQuery.ajax({
+			type: "POST",
+			url: baseUrl + "storeinfo/action/storeSetting",
+	       	data: data,
+	       	success: function(data) {
+	    	   if (data.code != 0) {
+	    		   dialog(data.msg);
+	    		   return;
+	    	   }
+	    	   dialog("保存成功");
+	       	}
+		});
 		
 	}else {
 		var content = UE.getEditor("editor2").getContent();
-		content = content.replace(/%/g, "%25");  
-		content = content.replace(/\&/g, "%26");  
-		content = content.replace(/\+/g, "%2B"); 
-		data = "characteristic=" + content;
+		var sName = jQuery("input[name='sName']").val();
+		var projectId = jQuery("select[name='projectId']").val();
+		var projectName = jQuery("#projectId option:selected").text();
+		var employeeCode = jQuery("select[name='emp']").val();
+		var employeeName = jQuery("#emp option:selected").text();
+		var sImage = jQuery("input[name='carouselPicture']").last().val();
+		
+		data = {"sId":sId, "sName":sName, "projectId":projectId, "projectName":projectName, "employeeCode":employeeCode, "employeeName":employeeName, "sImage":sImage, "content":content};
+		
+		jQuery.ajax({
+			type: "POST",
+			url: baseUrl + "storeinfo/action/storeSetting/special",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType : "application/json",
+	       	success: function(data) {
+//	       		if (data.code != 0) {
+//		    		   dialog(data.msg);
+//		    		   return;
+//	    	   }
+	    	   
+	    	   if(sId == null){
+	    		   var html = '<div id="'+data.msg.sId+'" class="special-sever_content" onclick="editSpe('+data.msg.sId+', this)">'+
+										     '<div class="special_sever_pic">'+
+									   '<span onclick="deleteService('+data.msg.sId+', this, event)"><img src="'+baseUrl+'images/hand_close.png"></span>'+
+									   '<em class="serve_top"><img src="'+qiniuUrl+data.msg.sImage+'"></em>'+
+									 '</div>'+
+								     '<div class="special_sever_text">'+
+									   '<p><span>服务名称：</span><em>'+data.msg.sName+'</em></p>'+
+									   '<p><span>服务项目：</span><em>'+data.msg.projectName+'</em></p>'+
+									   '<p><span>适用员工：</span><em>'+data.msg.employeeCode+'  '+data.msg.employeeName+'</em></p>'+
+									 '</div>'+
+							    '</div>';
+	    		   jQuery(".special_sever.clearfix").append(jQuery(html));
+	    	   }
+	    	   for (var i = 0; i < specialServicesJs.length; i++) {
+	    			if(specialServicesJs[i].sId == sId){
+	    					specialServicesJs[i].sName = data.msg.sName;
+	    					specialServicesJs[i].projectId = data.msg.projectId;
+	    					specialServicesJs[i].employeeCode = data.msg.employeeCode;
+	    					specialServicesJs[i].sImage = data.msg.sImage;
+	    					specialServicesJs[i].content = data.msg.content;
+	    					jQuery(".special-sever_content[id='"+sId+"']").find("img").attr("src", qiniuUrl+data.msg.sImage);
+	    					jQuery(".special-sever_content[id='"+sId+"']").find(".special_sever_text").empty();
+	    					var html = '<p><span>服务名称：</span><em>'+data.msg.sName+'</em></p>'+
+		    						   '<p><span>服务项目：</span><em>'+data.msg.projectName+'</em></p>'+
+		    						   '<p><span>适用员工：</span><em>'+data.msg.employeeCode+'  '+data.msg.employeeName+'</em></p>';
+	    					jQuery(".special-sever_content[id='"+sId+"']").find(".special_sever_text").append(jQuery(html));
+	    			}
+	    		}
+	    	   jQuery(".webchat_div_").eq(2).children("div").eq(0).show("800");
+	    	   jQuery(".webchat_div_").eq(2).children("div").eq(1).hide("800");
+	       	}
+		});
 	}
-	jQuery.ajax({
-		type: "POST",
-		url: baseUrl + "storeinfo/action/storeSetting",
-       	data: data,
-       	success: function(data) {
-    	   if (data.code != 0) {
-    		   dialog(data.msg);
-    		   return;
-    	   }
-    	   dialog("保存成功");
-       	}
-	});
 }
+
 //function edit(editor, type) {
 //	var editorObject = jQuery(editor);
 //	var data = {};

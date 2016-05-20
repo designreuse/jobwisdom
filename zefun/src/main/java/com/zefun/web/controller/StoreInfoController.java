@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.service.StoreInfoService;
+
+import net.sf.json.JSONObject;
 
 /**
  * 门店信息服务
@@ -116,6 +120,41 @@ public class StoreInfoController extends BaseController {
 	    storeInfo.setStoreId(getStoreId(request));
 		return storeInfoService.storeSettingAction(storeInfo);
 	}
+	
+	/**
+	 * 门店特色服务
+	* @author 高国藩
+	* @date 2016年5月19日 下午5:02:02
+	* @param request  请求
+	* @param data     数据
+	* @return         状态
+	 */
+	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_SETTING_SPECIAL, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto storeSettingSpecialAction(HttpServletRequest request, @RequestBody JSONObject data) {
+	    SpecialService specialService = (SpecialService) JSONObject.toBean(data, SpecialService.class);
+	    specialService.setStoreId(getStoreId(request));
+	    specialService.setIsDeleted(0);
+	    return storeInfoService.storeSettingSpecialAction(specialService);
+    }
+	
+	/**
+	 * 删除特色服务
+	* @author 高国藩
+	* @date 2016年5月20日 下午3:30:51
+	* @param request request
+	* @param sId sId
+	* @return sId
+	 */
+	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_SETTING_SPECIAL_DELETED, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto storeSettingSpecialActionDeleted(HttpServletRequest request, Integer sId) {
+        SpecialService specialService = new SpecialService();
+        specialService.setStoreId(getStoreId(request));
+        specialService.setIsDeleted(1);
+        specialService.setsId(sId);
+        return storeInfoService.storeSettingSpecialActionDeleted(specialService);
+    }
 
 	/**
 	 * 门店信息编辑操作

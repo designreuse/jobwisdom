@@ -55,7 +55,6 @@ import com.zefun.web.dto.ProjectBaseDto;
 import com.zefun.web.dto.ProjectEvaluateDto;
 import com.zefun.web.dto.SelfCashierDetailDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
-import com.zefun.web.dto.ubox.UboxStoreGoodsDto;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
 import com.zefun.web.entity.GiftmoneyFlow;
@@ -73,6 +72,7 @@ import com.zefun.web.entity.ProjectEvaluate;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectShare;
 import com.zefun.web.entity.ProjectStep;
+import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.entity.StoreWechat;
@@ -99,10 +99,10 @@ import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ProjectShareMapper;
 import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.ShiftMapper;
+import com.zefun.web.mapper.SpecialServiceMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 import com.zefun.web.mapper.StoreWechatMapper;
-import com.zefun.web.mapper.UboxMachineInfoMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatMemberMapper;
 import com.zefun.web.service.GoodsInfoService;
@@ -112,7 +112,6 @@ import com.zefun.web.service.QiniuService;
 import com.zefun.web.service.RabbitService;
 import com.zefun.web.service.RedisService;
 import com.zefun.web.service.SelfCashierService;
-import com.zefun.web.service.UboxService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -256,17 +255,9 @@ public class MemberCenterService {
     @Autowired
     private BossCenterService bossCenterService;
     
-    /** 友宝机器信息操作对象 */
-    @Autowired
-    private UboxMachineInfoMapper uboxMachineInfoMapper;
-    
     /** 会员子账户信息操作对象 */
     @Autowired
     private MemberSubAccountMapper memberSubAccountMapper;
-	
-    /** 友宝商品服务对象 */
-    @Autowired
-    private UboxService uboxService;
 	
 	/**日志记录对象*/
 	private final Logger logger = Logger.getLogger(MemberCenterService.class);
@@ -278,7 +269,12 @@ public class MemberCenterService {
 	/** 商品列表 */
     @Autowired
     private GoodsInfoMapper goodsInfoMapper;
-	
+    /**
+     * 特色服务
+     */
+    @Autowired
+    private SpecialServiceMapper specialServiceMapper;
+    
 	/**
 	 * wifi主页
 	* @author 张进军
@@ -1468,6 +1464,11 @@ public class MemberCenterService {
             List<EmployeeBaseDto> employeeList = employeeInfoMapper.selectEmployeeListByList(list);
             mav.addObject("employeeList", employeeList);
         }
+        
+        List<SpecialService> specialServices = specialServiceMapper.selectByStoreId(storeId);
+        mav.addObject("specialServices", specialServices);
+        
+        
         mav.addObject("session_key_store_id", storeId);
         return mav;
     }
@@ -1908,6 +1909,21 @@ public class MemberCenterService {
         ModelAndView view = new ModelAndView(View.MemberCenter.SHOP_CENTER_LIST);
         view.addObject("goodsInfoCatagoryDtos", goodsInfoCatagoryDtos);
         
+        return view;
+    }
+
+
+    /**
+     * 展示特色服务
+    * @author 高国藩
+    * @date 2016年5月19日 下午7:23:09
+    * @param sId sId
+    * @return    sId
+     */
+    public ModelAndView storeInfoViewSpecail(Integer sId) {
+        SpecialService specialService = specialServiceMapper.selectByPrimaryKey(sId);
+        ModelAndView view = new ModelAndView(View.MemberCenter.STORE_SPE);
+        view.addObject("specialService", specialService);
         return view;
     }
     

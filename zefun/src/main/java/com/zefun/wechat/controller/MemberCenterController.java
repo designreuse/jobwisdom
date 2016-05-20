@@ -921,6 +921,19 @@ public class MemberCenterController extends BaseController {
         return memberCenterService.storeInfoView(storeId, selectStoreId);
     }
     
+    /**
+     * 特色服务详情
+    * @author 高国藩
+    * @date 2016年5月19日 下午7:26:53
+    * @param request 请求
+    * @param sId  服务ID
+    * @return     sepcail页面
+     */
+    @RequestMapping(value = Url.MemberCenter.VIEW_STORE_INFO_SEPCIAL)
+    public ModelAndView storeInfoViewSpecail(HttpServletRequest request, Integer sId){
+        return memberCenterService.storeInfoViewSpecail(sId);
+    }
+    
     
     /**
      * 店铺展示页面
