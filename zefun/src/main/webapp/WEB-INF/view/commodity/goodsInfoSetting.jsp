@@ -42,7 +42,7 @@
 					</ul>
 					<div class="right_button">
 						<button class="save" onclick="save()">保 存</button>
-						<button class="cancle" onclick='window.open("<%=basePath %>project/view/projectList","_self")'>取 消</button>
+						<button class="cancle" onclick='window.open("<%=basePath %>goodsInfo/view/setting","_self")'>取 消</button>
 					</div>
 				</div>
 				<div class="tab_content">
@@ -303,7 +303,8 @@
 	
 	var projectStep = 0;
 	if (goodsId != '') {
-		goodsInfo = eval('('+'${goodsInfo}'+')');
+		console.log('${goodsInfo}');
+		goodsInfo = eval('('+trim('${goodsInfo}')+')');
 		goodsDiscountList = eval('('+'${goodsDiscountList}'+')');
 		projectStep = goodsInfo.projectStep;
 		deptId = goodsInfo.deptId;
@@ -326,10 +327,12 @@
 			jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage", affiliatedImage.split(",")[i]);
 			jQuery("img[name='affiliatedImage']").eq(i).attr("src", qiniu+affiliatedImage.split(",")[i]);
 		}
+		console.log(jQuery.trim("${goodsDesc}"));
+		var Desc = "${goodsDesc}";
 		
 		jQuery("input[name='brandId']").val(goodsInfo.brandId);
 		jQuery("input[name='goodsName']").val(goodsInfo.goodsName);
-		jQuery("textarea[name='goodsDesc']").val(goodsInfo.goodsDesc);
+		jQuery("textarea[name='goodsDesc']").val(Desc);
 		jQuery("input[name='goodsCodeSuffix']").val(goodsInfo.goodsCodeSuffix);
 		
 		if(projectStep>=2){
@@ -696,5 +699,9 @@
 	jQuery(function(){
 		jQuery("input").focus(function(){jQuery(this).removeClass("border")});
 	})
+	
+	function trim(t){
+		return (t||"").replace(/^\s+|\s+$/g, "");
+	}
 </script>
 </html>
