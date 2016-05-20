@@ -21,7 +21,12 @@
 		<li>
 			<div class="nav_img">
 				<img src="<%=basePath%>images/left_2.png">
-			</div> <span>会员营销</span>
+			</div> <span>会员管理</span>
+		</li>
+		<li>
+			<div class="nav_img">
+				<img src="<%=basePath%>images/left_2.png">
+			</div> <span>营销中心</span>
 		</li>
 		<li>
 			<div class="nav_img">
@@ -60,11 +65,13 @@
 			<%-- <a href="<%=menuBasePath%>member/view/error/member/info"><li><span><img src="<%=basePath%>images/left1.png">异常会员数据</span></li></a> --%>
 			<a href="<%=menuBasePath%>member/view/census/list"><li class=""><span><img src="<%=basePath%>images/left2.png">会员分组</span></li></a>
 			<a href="<%=menuBasePath%>memberLevel/view/list"><li class="active"><span><img src="<%=basePath%>images/left3.png">会员卡查询</span></li></a>
+		</ul>
+		<ul index="2">
 			<a href="<%=menuBasePath%>storeinfo/view/storeSetting"><li><span><img src="<%=basePath%>images/left4.png">微门店设置</span></li></a>
 			<a href="<%=menuBasePath%>wechat/items/manage"><li><span><img src="<%=basePath%>images/left5.png">营销方案库</span></li></a>
 			<a href="<%=menuBasePath%>view/coupons"><li><span><img src="<%=basePath%>images/left5.png">优惠券管理</span></li></a>
 		</ul>
-		<ul index="2">
+		<ul index="3">
 			<a href="<%=menuBasePath%>summary/view/summary"><li class=""><span><img src="<%=basePath%>images/left0.png">营业汇总</span></li></a>
 			<a href="<%=menuBasePath%>cashreceipts/view/cashreceipts"><li><span><img src="<%=basePath%>images/left1.png">现金收入</span></li></a>
 			<a href="<%=menuBasePath%>cardsales/view/cardsales"><li class=""><span><img src="<%=basePath%>images/left2.png">卡项销售</span></li></a>
@@ -74,7 +81,7 @@
 			<a href="<%=menuBasePath%>reconciliation/view/crossReconciliation"><li><span><img src="<%=basePath%>images/left5.png">跨店对账</span></li></a>
 			<a href="<%=menuBasePath%>businessAnalysis/view/payroll"><li><span><img src="<%=basePath%>images/left5.png">工资单</span></li></a>
 		</ul>
-		<ul index="3">
+		<ul index="4">
 			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span><img src="<%=basePath%>images/left0.png">项目列表</span></li></a>
 			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span><img src="<%=basePath%>images/left1.png">套餐列表</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span><img src="<%=basePath%>images/left2.png">商品列表</span></li></a>
@@ -84,7 +91,7 @@
 			<a href="<%=menuBasePath%>goodsInfo/view/brand"><li><span><img src="<%=basePath%>images/left5.png">商品品牌</span></li></a>
 			<a href="<%=menuBasePath%>supplierInfo/view/supplierInfoList"><li><span><img src="<%=basePath%>images/left5.png">供应商管理</span></li></a>
 		</ul>
-		<ul index="4">
+		<ul index="5">
 			<a href="<%=menuBasePath%>position/view/positioninfo"><li class=""><span><img src="<%=basePath%>images/left0.png">组织架构</span></li></a>
 			<a href="<%=menuBasePath%>employee/view/employee"><li><span><img src="<%=basePath%>images/left1.png">员工资料</span></li></a>
 			<a href="<%=menuBasePath%>storeManageRule/view/home"><li class=""><span><img src="<%=basePath%>images/left2.png">管理制度</span></li></a>
@@ -93,7 +100,7 @@
 			<a href="<%=menuBasePath%>objectiverule/view/objectiverule"><li><span><img src="<%=basePath%>images/left5.png">目标考核</span></li></a>
 			<a href="<%=menuBasePath%>attendance/view/attendance"><li><span><img src="<%=basePath%>images/left5.png">考勤记录</span></li></a>
 		</ul>
-		<ul index="5">
+		<ul index="6">
 			<a href="<%=menuBasePath%>system/view/person"><li class=""><span><img src="<%=basePath%>images/left0.png">账户设置</span></li></a>
 			<a href="<%=menuBasePath%>storeinfo/view/showStoreList"><li class="active"><span><img src="<%=basePath%>images/left3.png">门店管理</span></li></a>
 			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span><img src="<%=basePath%>images/left1.png">基础设置</span></li></a>
@@ -161,4 +168,12 @@ function updatePassword () {
 function cantLoginOut () {
 	jQuery(".top_zzc").hide();
 }
+
+jQuery(function(){
+	   jQuery('.support_hover').hover(function(){
+	      jQuery(this).find('.ask_responsive').show();
+      },function(){
+		    jQuery(this).find('.ask_responsive').hide()
+		 })
+  })
 </script>

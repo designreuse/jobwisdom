@@ -5,14 +5,6 @@
     <id column="level_id" property="levelId" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
-    <result column="project_discount" property="projectDiscount" jdbcType="INTEGER" />
-    <result column="goods_discount" property="goodsDiscount" jdbcType="INTEGER" />
-    <result column="sell_amount" property="sellAmount" jdbcType="INTEGER" />
-    <result column="charge_min_money" property="chargeMinMoney" jdbcType="INTEGER" />
-    <result column="cash_discount_type" property="cashDiscountType" jdbcType="INTEGER" />
-    <result column="integral_unit" property="integralUnit" jdbcType="INTEGER" />
-    <result column="integral_number" property="integralNumber" jdbcType="INTEGER" />
-    <result column="performance_discount_percent" property="performanceDiscountPercent" jdbcType="INTEGER" />
     <result column="level_notice" property="levelNotice" jdbcType="VARCHAR" />
     <result column="is_default" property="isDefault" jdbcType="INTEGER" />
     <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
@@ -21,10 +13,13 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
   </resultMap>
   
-  <resultMap id="ProjectBaseResultMap" type="com.zefun.web.entity.MemberLevel" >
-    <id column="level_id" property="levelId" jdbcType="INTEGER" />
-    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+  <resultMap id="MemberLevelDtoMap" type="com.zefun.web.dto.MemberLevelDto" >
+    <result column="level_id" property="levelId" jdbcType="INTEGER" />
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+    <result column="level_notice" property="levelNotice" jdbcType="VARCHAR" />
+    <result column="discount_id" property="discountId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
     <result column="project_discount" property="projectDiscount" jdbcType="INTEGER" />
     <result column="goods_discount" property="goodsDiscount" jdbcType="INTEGER" />
     <result column="sell_amount" property="sellAmount" jdbcType="INTEGER" />
@@ -33,23 +28,11 @@
     <result column="integral_unit" property="integralUnit" jdbcType="INTEGER" />
     <result column="integral_number" property="integralNumber" jdbcType="INTEGER" />
     <result column="performance_discount_percent" property="performanceDiscountPercent" jdbcType="INTEGER" />
-    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
-    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="CHAR" />
-    <result column="update_time" property="updateTime" jdbcType="CHAR" />
-    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    level_id, store_id, level_name, project_discount, goods_discount, sell_amount, charge_min_money, 
-    cash_discount_type, integral_unit, integral_number, performance_discount_percent, 
+    level_id, store_id, level_name, 
     level_notice, is_default, is_deleted, create_time, update_time, last_operator_id
-  </sql>
-  
-  <sql id="Project_Base_Column_List" >
-    level_id, store_id, level_name, project_discount, goods_discount, sell_amount, charge_min_money, 
-    cash_discount_type, integral_unit, integral_number, performance_discount_percent, is_default, 
-    is_deleted, create_time, update_time, last_operator_id
   </sql>
   
   <!-- 查询使用某种会员卡的会员数量, by 张小胖  -->
@@ -78,17 +61,25 @@
     where level_id = #{levelId,jdbcType=INTEGER}
   </select>
   
-  <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.Page">
+  <select id="selectByPage" resultMap="MemberLevelDtoMap" parameterType="com.zefun.web.entity.Page">
   	select 
-  	<include refid="Base_Column_List" />
-  	from member_level where is_deleted = 0 and store_id = (select ifnull(hq_store_id, #{params.storeId}) from store_info where store_id = #{params.storeId})  order by is_default desc, project_discount asc
-  	<!-- 加入store_info连接 -->
-  	<!-- select ml.*, si.*
-	from member_level ml, store_info si
-	where ml.store_id = si.store_id and 
-	ml.is_deleted = 0 and ml.store_id = 
-		(select ifnull(sit.hq_store_id, 1004) from store_info sit where sit.store_id = 1004) 
-	order by ml.is_default desc, ml.project_discount asc -->
+  		a.level_id as levelId, 
+  		a.store_id as storeId, 
+  		b.level_name as levelName, 
+    	b.level_notice as levelNotice, 
+    	b.is_default as isDefault,
+    	a.discount_id as discountId, 
+    	a.project_discount as projectDiscount, 
+    	a.goods_discount as goods_discount, 
+    	a.sell_amount as sellAmount, 
+    	a.charge_min_money as chargeMinMoney, 
+        a.cash_discount_type as cashDiscountType, 
+        a.integral_unit as integralUnit, 
+        a.integral_number as integralNumber, 
+        a.performance_discount_percent as performanceDiscountPercent
+  	from member_level_discount a
+  	left join member_level b on b.level_id = a.level_id 
+  	where a.is_deleted = 0 and a.store_id = #{params.storeId}  order by isDefault desc, projectDiscount asc
   </select>
   
   <select id="selectByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -97,7 +88,7 @@
   	from member_level where is_deleted = 0 and store_id = (select ifnull(hq_store_id, #{storeId}) from store_info where store_id = #{storeId}) 
   </select>
   
-  <select id="selectByAllStoreId" resultMap="ProjectBaseResultMap" parameterType="java.lang.Integer">
+  <select id="selectByAllStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
   	select 
   	<include refid="Base_Column_List" />
   	from member_level where is_deleted = 0 and store_id = (select ifnull(hq_store_id, #{storeId}) from store_info where store_id = #{storeId}) 
@@ -132,30 +123,6 @@
       <if test="levelName != null" >
         level_name,
       </if>
-      <if test="projectDiscount != null" >
-        project_discount,
-      </if>
-      <if test="goodsDiscount != null" >
-        goods_discount,
-      </if>
-      <if test="sellAmount != null" >
-        sell_amount,
-      </if>
-      <if test="chargeMinMoney != null" >
-        charge_min_money,
-      </if>
-      <if test="cashDiscountType != null" >
-        cash_discount_type,
-      </if>
-      <if test="integralUnit != null" >
-        integral_unit,
-      </if>
-      <if test="integralNumber != null" >
-        integral_number,
-      </if>
-      <if test="performanceDiscountPercent != null" >
-        performance_discount_percent,
-      </if>
       <if test="levelNotice != null" >
         level_notice,
       </if>
@@ -184,30 +151,6 @@
       </if>
       <if test="levelName != null" >
         #{levelName,jdbcType=VARCHAR},
-      </if>
-      <if test="projectDiscount != null" >
-        #{projectDiscount,jdbcType=INTEGER},
-      </if>
-      <if test="goodsDiscount != null" >
-        #{goodsDiscount,jdbcType=INTEGER},
-      </if>
-      <if test="sellAmount != null" >
-        #{sellAmount,jdbcType=INTEGER},
-      </if>
-      <if test="chargeMinMoney != null" >
-        #{chargeMinMoney,jdbcType=INTEGER},
-      </if>
-      <if test="cashDiscountType != null" >
-        #{cashDiscountType,jdbcType=INTEGER},
-      </if>
-      <if test="integralUnit != null" >
-        #{integralUnit,jdbcType=INTEGER},
-      </if>
-      <if test="integralNumber != null" >
-        #{integralNumber,jdbcType=INTEGER},
-      </if>
-      <if test="performanceDiscountPercent != null" >
-        #{performanceDiscountPercent,jdbcType=INTEGER},
       </if>
       <if test="levelNotice != null" >
         #{levelNotice,jdbcType=VARCHAR},
@@ -238,30 +181,6 @@
       </if>
       <if test="levelName != null" >
         level_name = #{levelName,jdbcType=VARCHAR},
-      </if>
-      <if test="projectDiscount != null" >
-        project_discount = #{projectDiscount,jdbcType=INTEGER},
-      </if>
-      <if test="goodsDiscount != null" >
-        goods_discount = #{goodsDiscount,jdbcType=INTEGER},
-      </if>
-      <if test="sellAmount != null" >
-        sell_amount = #{sellAmount,jdbcType=INTEGER},
-      </if>
-      <if test="chargeMinMoney != null" >
-        charge_min_money = #{chargeMinMoney,jdbcType=INTEGER},
-      </if>
-      <if test="cashDiscountType != null" >
-        cash_discount_type = #{cashDiscountType,jdbcType=INTEGER},
-      </if>
-      <if test="integralUnit != null" >
-        integral_unit = #{integralUnit,jdbcType=INTEGER},
-      </if>
-      <if test="integralNumber != null" >
-        integral_number = #{integralNumber,jdbcType=INTEGER},
-      </if>
-      <if test="performanceDiscountPercent != null" >
-        performance_discount_percent = #{performanceDiscountPercent,jdbcType=INTEGER},
       </if>
       <if test="levelNotice != null" >
         level_notice = #{levelNotice,jdbcType=VARCHAR},

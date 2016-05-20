@@ -1,11 +1,37 @@
-jQuery(function () {
-    jQuery(".bm").on("click", function () {
-        var _self = jQuery(this);
-        _self.parent().find(".bm").removeClass("active");
-        _self.addClass("active");
-    })
-    jQuery('.lcs_check').lc_switch('是', '否');
-})
+
+//轮播
+jQuery(function(){
+	
+	jQuery("div[name='memberTR']").find(".hand_table").hide();
+	jQuery("div[name='memberTR']").find(".hand_table_").show();
+	
+	     var now_=0, count=jQuery('.hair_series li').size();
+		 
+	  //向右走
+      jQuery('.hand_right').click(function(){
+         if(now_<=count-4){
+		    now_+=1;
+	        jQuery(this).parent().find('.hair_series ul').stop(true,true).animate({
+		       left:-95*now_
+		   
+		       }) 
+			  }
+		  });
+	  //向左走
+	  
+	  	//向左走
+	 jQuery('.hand_left').click(function(){
+         if(now_>=1){
+		    now_-=1;
+	         jQuery(this).parent().find('.hair_series ul').stop(true,true).animate({
+		     left:-95*now_
+		   
+		     }) 
+		  }	
+        		
+	  });
+ });
+
 //初始化时间控件
 var now = new Date() ;
      
@@ -15,24 +41,26 @@ var nowDay = now.getDate()<10?"0"+now.getDate():now.getDate() ; //日期
 var nowHour = now.getHours()<10?"0"+now.getHours():now.getHours() ; //时
 var nowMinute = now.getMinutes()<10?"0"+now.getMinutes():now.getMinutes() ; //分
 
-var nowDate = nowYear+"-"+nowMonth+"-"+nowDay+"T"+nowHour+":"+nowMinute;
+var nowDate = nowYear+"-"+nowMonth+"-"+nowDay+" "+nowHour+":"+nowMinute;
 jQuery("input[name='openOrderDate']").val(nowDate) ;
 
-function changeDept(deptId) {
-	jQuery(".select-target").addClass("hide");
+function changeDept(obj) {
+	var deptId = jQuery(obj).val();
+	jQuery("div[chooseDept='chooseDept']").addClass("hide");
 	jQuery("div[name='"+deptId+"']").removeClass("hide");
 }
 
 
 function changeType(obj, name) {
-	var parent = jQuery(obj).parents(".select-target");
-	parent.find(".select-item").removeClass("active");
+	var parent = jQuery(obj).parents("div[chooseDept='chooseDept']");
+	
+	jQuery(obj).siblings().removeClass("active");
 	jQuery(obj).addClass("active");
 	
-	parent.find(".selected-child-select").addClass("hide");
+	parent.find(".hair_series").addClass("hide");
 	parent.find("div[name= '"+name+"UL']").removeClass("hide");
 	
-	parent.find(".all-kind-wrap").addClass("hide");
+	parent.find(".hair_content").addClass("hide");
 	
 	if (name == 'combo') {
 		parent.find("div[name= '"+name+"']").removeClass("hide");
@@ -45,10 +73,10 @@ function changeType(obj, name) {
 }
 
 function changeCategory(obj, categoryid, name) {
-	jQuery(obj).parent().find(".selected-item").removeClass("active");
+	jQuery(obj).siblings().removeClass("active");
 	jQuery(obj).addClass("active");
-	var parent = jQuery(obj).parents(".select-target");
-	parent.find(".all-kind-wrap").addClass("hide");
+	var parent = jQuery(obj).parents("div[chooseDept='chooseDept']");
+	parent.find(".hair_content").addClass("hide");
 	parent.find("div[name='"+name+"'][categoryid='"+categoryid+"']").removeClass("hide");
 }
 
@@ -74,11 +102,11 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 					return;
 				}
 				var date = e.msg;
-				var projectDiv = jQuery("<div class='pay_detail_buy' name= 'projectNameLI' projectId = '"+date.projectId+"'></div>");
+				var projectDiv = jQuery("<div class='nav_content_div' name= 'projectNameLI' projectId = '"+date.projectId+"'></div>");
+				projectDiv.append("<span class='hand_close' onclick = 'deleteProject(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
+						     	  "<p><em>"+date.projectName+"</em><i>项目价格："+date.projectPrice+"</i></p>");
 				
-				projectDiv.append("<div class='pay_detail_buy_top'> <span class='delete_'>-</span>"+date.projectName+"<em>项目价格:￥"+date.projectPrice+"</em></div>");
-				
-				var  stepTable = jQuery("<table class='pay_detail_content_table'></table>");
+				var  stepTable = jQuery("<table></table>");
 				
 				var shiftStepDtoList = date.shiftStepDtoList;
 				for (var i = 0; i < shiftStepDtoList.length; i++) {
@@ -87,7 +115,7 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 					buzhou.append("<td>"+shiftStepDtoList[i].projectStepName+"</td>"+
 		                          "<td>"+shiftStepDtoList[i].shiftMahjongName+"</td>");
 					
-					var buzhouTD = jQuery("<td >选择员工:</td>");
+					var buzhouTD = jQuery("<td style='width:140px'>选择员工:</td>");
 					
 					var select = jQuery("<select name='employeeId' class='chzn-select mr5 input-medium'></select>")
 					select.append("<option value=''>请选择</option>");
@@ -113,18 +141,19 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 		});
 	}
 	else {
-		var str = "<p class='hand_2' goodsId = '"+projectId+"'>"+
-                     "<span class='delete_'>-</span><i>"+projectName+"</i>"+
-                     "<em>项目价格：￥"+projectPrice+"</em>"+
-                     "<em>提成员工:"+
+		var str = "<div class='nav_content_div_1' goodsId = '"+projectId+"'>"+
+		             "<span class='hand_close' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
+                     "<em>"+projectName+"</em>"+
+                     "<i>价格：￥"+projectPrice+"</i>"+
+                     "<span>提成员工:"+
                      "<select name='employeeId' id='' class='chzn-select mr5 input-medium'>"+
                         "<option value=''>请选择人员</option>";
 		for (var i = 0; i < employeeInfoList.length; i++) {
 			str += "<option value='"+employeeInfoList[i].employeeId+"'><span class='gp'>"+employeeInfoList[i].employeeCode+"</span> <span class='name'>"+employeeInfoList[i].name+"</span></option>";
 		}
-		str += "</select></em>"+
-	           "<em style='position:relative;top:10px' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/x.png'></em>"+
-	           "</p>";
+		str += "</select></span>"+
+	           "</div>";
+		
 		
 		if (type == 2) {
 			jQuery("div[name='goodsNameLI']").append(str);
@@ -167,11 +196,11 @@ function changeDiv(type) {
 }
 
 function deleteProject(obj) {
-	jQuery(obj).parents(".pay_detail_buy").remove();
+	jQuery(obj).parents(".nav_content_div").remove();
 }
 
 function deleteComboGoods(obj) {
-	jQuery(obj).parents(".hand_2").remove();
+	jQuery(obj).parents(".nav_content_div_1").remove();
 }
 
 function changeIsAppoint(obj) {
@@ -281,10 +310,14 @@ function changeMember(obj){
 	if (jQuery(obj).val() == "") {
 		jQuery("div[name='seekTD']").css("display", "inline-block");
 		jQuery("div[name='resultTD']").css("display", "none");
+		jQuery("div[name='sexDIV']").css("display", "inline-block");
+		jQuery(".fanhui").addClass("hide");
 	}
 	else {
 		jQuery("div[name='seekTD']").css("display", "none");
+		jQuery("div[name='sexDIV']").css("display", "none");
 		jQuery("div[name='resultTD']").css("display", "inline-block");
+		jQuery(".fanhui").removeClass("hide");
 	}
 }
 

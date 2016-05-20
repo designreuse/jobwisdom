@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.Page;
 
@@ -57,7 +58,7 @@ public interface MemberLevelMapper {
     * @param page   分页信息(页码、每页显示数量、查询条件)
     * @return   对应页码的查询结果列表
      */
-    List<MemberLevel> selectByPage(Page<MemberLevel> page);
+    List<MemberLevelDto> selectByPage(Page<MemberLevelDto> page);
     
     /**
      * 根据门店标识查询会员等级信息

@@ -1,90 +1,125 @@
+
+
+.hand_detail_left,.hand_detail_right{color:black;font-weight:normal}
+.hand_detail_left{margin-left:20px}
 .content_right{padding:20px}
 .content_right input[type='text']{  border-radius: 5px!important; box-shadow: 0 0 3px #ccc;margin-left:20px}
-.content_right_sex {display:inline-block;margin-left:300px}
-.content_right_sex i{display:inline-block;margin-left:40px}
-.content_right input[type='radio']{margin-left:5px}
-
-.all-kind-wrap {
-    float: left;
-    width: 815px!important;
-    height: 120px;
-    padding: 6px 0 6px 10px;
-    overflow: hidden;
-    overflow-y: auto;
+.input_search{position:relative}
+.input_search em{position:absolute;right:6px;top:1px}
+.single_account{display:inline-block;height:26px;width:100px;border-radius:10px;border:1px solid #ccc;margin-left:45px;text-align:center;line-height:26px;box-shadow: 0 0 3px #ccc;color:black }
+.content_right input[type='checkbox']{margin:0!important}
+em {
+    font-style: normal;
 }
-
-.all-kind-wrap .detail-item {
-    background-color: #eee;
-    margin: 0 4px 4px 0;
-    padding: 10px 0 9px 11px;
-    float: left;
-    width: 130px;
-    cursor: pointer;
-    box-sizing: border-box;
-}
-
-.all-kind-wrap .detail-item .item-price {
-    /* font-size: 13px; */
-    margin-top: 8px;
-}
-.select-list{height:auto!important}
-
-.kd-bmlist .active{
+.head_search{position:relative}
+.head_search_back{
+	position:absolute;
+	height:500px;width:300px;
+	background:white;
+	top:50px;
+	border-radius:10px;
+	z-index:20;
+	border: 1px solid #dbdce2;
+    box-shadow: 0 0 10px #ccc;
 	
-	background:#59688a!important
 }
-
-.kd-bmlist .active em{
+.arrow-up {
+    width:0; 
+    height:0; 
+    border-left:30px solid transparent;
+    border-right:30px solid transparent;
+    border-bottom:30px solid white;
 	
-border-color: #59688a transparent transparent!important;
+	position:relative;top:-20px;
+	left:100px
+	
 }
-
-.kd-select-content{margin-top:20px}
-
-.pay_detail_ul li{width:344px;float:left;height:36px;border:1px solid #dbdce2;text-align:center;line-height:36px}
-.pay_detail_ul li.active{background:#59688a;color:white}
-.pay_detail{margin:40px 0 10px 0}
-
-.pay_detail_ul{height:36px}
-.delete_{color:red;font-size:44px;cursor:pointer;display:inline-block;margin-right:4px;position:relative;top:10px}
-.pay_detail_buy_top{margin-top:10px}
-.pay_detail_buy{margin-bottom:20px}
-.pay_detail_buy_top em{display:inline-block;margin-left:40px}
-.pay_detail_content_table{margin-top:10px}
-.pay_detail_content_table td{
-   
-    height: 36px;
+.hand_table {
+    line-height: 40px;
+    width: 860px;
+    border: 1px solid #dbdce2;
+    box-shadow: 0 0 10px #ccc;
+    
+	margin:30px 20px;
+	
+}
+.hand_table_{
+	  line-height: 40px;
+    width: 660px;
+    border: 1px solid #dbdce2;
+    box-shadow: 0 0 10px #ccc;
+	display:none;
+    
+	margin:30px 20px;
+}
+.hand_table_ input{text-align:center;width:150px}
+.hand_table_ td span{display:inline-block;margin-right:12px}
+.hand_table_ td span input{margin-left:5px;vertical-align:middle}
+.hand_table_ tr td{
+	 width: 140px;
+    height: 40px;
     border: 1px solid #ccc;
-    line-height: 20px;
     text-align: center;
-	padding:0px 40px;
-	 vertical-align: middle;
-	 border:none
 }
-.pay_detail_content_table input[type='radio']{
-	display:inline-block;margin-left:4px;margin-right:4px
+.hand_table tr td{
+    width: 50px;
+    height: 40px;
+    border: 1px solid #ccc;
+    text-align: center;
 }
-.pay_detail_content_{border:1px solid #ccc;width: 1036px;height: 414px;
-    overflow: overlay;}
-
-.hand_time input{border-top:none!important;border-right:none!important;border-left:none!important;width:120px}
-.hand_time span{display:inline-block;margin-left:20px}
-.hand_time{position:relative;left:440px;top:10px}
-.hand_time button{border:none;width:130px;border-radius:40px;background:black;color:white;box-shadow:0 0 10px #ccc;text-align:center;height:36px;line-height:36px}
-
-.select-list .active{background:#59688a!important;color:white!important}
-.selected-child-select .active{background:#59688a!important;color:white!important}
-.kd-bmlist .bm{border:1px solid #ccc}
-
-::-webkit-scrollbar-thumb{background:#59688a!important}
-
-.focus_input{background:white;height:300px;width:800px;position:absolute;border-radius:8px;box-shadow:0 0 8px #ccc;display:none;z-index:2;    margin-left: 80px;
-    margin-top: 10px;padding:20px
+.hand_table tr:nth-child(1){
+	background:#e9ebf5
+} 
+.hand_table_ tr:nth-child(1){
+	background:#e9ebf5
+} 
+.nav_content_div table tr:nth-child(1){
+	font-weight:normal
 }
 
-.focus_input p{margin-bottom:20px;cursor:pointer;color:#b9b9bd;font-size:14px;}
+.hand_detail_left{float:left;width:395px;border:1px solid #ccc;box-shadow: 0 0 3px #ccc;border-radius:8px;height:525px}
+.hand_detail_right{float:left;width:555px;margin-left:45px;border:1px solid #ccc;box-shadow: 0 0 3px #ccc;border-radius:8px;height:525px;background:#e9ebf5}
+.select_part{height:53px;background:#e9ebf5;text-align:center;line-height:53px}
+.select_part_{width:120px;height:26px;border-radius:10px;padding-left:60px;font-size:16px}
+.hand_detail_content{margin-left:20px}
+.hand_project li{width:60px;height:30px;text-align:center;line-height:30px;float:left;cursor:pointer;margin-right:25px}
+.hand_project .active{border:1px solid #ccc;border-radius:10px}
+.hand_project{width:260px;margin:10px auto}
+.hair_series{width:345px;overflow:hidden;position:relative;margin-bottom:15px}
+.hair_series ul{width:4000px;height:36px;border-bottom:1px solid #ccc;margin-left:10px;position:relative}
+.hair_series ul li{float:left;height:20px;width:94px;text-align:center;line-height:20px;border-right:1px solid #ccc}
+.hand_left{position:absolute;left:5px;top:5px;z-index:2}
+.hand_right{position:absolute;right:5px;top:5px;z-index:2}
+.hair_series_{position:relative;padding-top:10px;border:1px solid #ccc;border-radius:10px;width:370px;margin:10px auto;height:395px;}
+.hair_content{height:335px;overflow:overlay}
+.hair_series li:last-child{border:none}
+.hair_content ul li{float:left;width:108px;height:44px;border-radius:8px;margin-left:4px;margin-bottom:13px;padding:5px 0 0 8px ;cursor:pointer;border:1px solid #ccc}
+.hair_series li{cursor:pointer}
+.hair_series .active{color:#ed4343}
+.hair_content .active{background:#dadce6}
+.nav{height:53px;border-bottom:1px solid #ccc}
+.nav li{float:left;height:53px;text-align:center;line-height:53px;width:185px;font-size:16px;cursor:pointer}
+.nav .active{background:#d7d9e3;}
 
-.focus_input p:hover{color:#474747!important}
-.rsearch{background:#2a3244;border:1px solid #ccc;width:180px;text-align:center;height:36px;line-height:36px;margin-left:200px;border-radius:8px;color:#d7d8da}
+.nav_content{width:510px;height:420px;overflow-y:scroll;margin:26px auto}
+.nav_content_div{height:110px;border-radius:10px;background:#dfe1e9;position:relative;margin-bottom:20px}
+.nav_content_div_1{height:40px;border-radius:10px;background:#dfe1e9;position:relative;margin-bottom:20px}
+.nav_content_div p,.nav_content_div_1 p{padding:10px}
+.nav_content_div_1 span{display:inline-block;margin-left:30px}
+.nav_content_div_1 select{width:120px;border-radius:8px;margin-left:10px;position:relative;top:-4px;height:20px}
+.nav_content_div p i,.nav_content_div_1 p i{display:inline-block;margin-left:22px }
+.nav_content table{width:470px;margin-left:20px;line-height:30px}
+.nav_content td{width:60px;text-align:center}
+.nav_content td select{width:100px;height:16px;border-radius:5px}
+.nav_content td input{position:relative;left:6px;vertical-align:middle}
+.hand_close{position:absolute;right:10px;top:10px}
+.nav_content_div_1 i,.nav_content_div_1 >em{width:120px;display:inline-block;text-align:center}
+.open_time{margin-top:150px}
+.open_time span{display:inline-block;width:190px;margin-right:20px}
+.open_time span input{width:120px;height:30px;border-bottom:1px solid #ccc;border-right:0;border-left:0;border-top:0;margin-left:10px}
+.open_time button{width:126px;height:30px;color:white;text-align:center;line-height:30px;background:#5b6080;border:none;border-radius:10px}
+.open_time button:hover{background:#434760}
 
-.hand_2{margin:30px 40px}
+.hand_ul li{padding-left:20px;height:40px;padding-right:20px}
+.head_search .active{border:1px solid #cb6262;color:#cb6262}
+.chzn-container-single .chzn-single{border-radius:8px!important}
