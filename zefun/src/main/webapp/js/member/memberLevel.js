@@ -251,8 +251,8 @@ function addOrEditMemberLevel(){
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "memberLevel/action/add",
-		contentType: "application/json",
-        data: JSON.stringify(data),
+		dataType : "json",
+        data: data,
 		success : function(e){
 			if(e.code != 0){
 				dialog(e.msg);

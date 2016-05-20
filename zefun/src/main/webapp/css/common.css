@@ -1,4 +1,4 @@
-/** Í·²¿ **/
+/** Í·ï¿½ï¿½ **/
 em,i{font-style:normal}
 .leftpanel .logo-wrap{text-align:left!important}
 .header_{
@@ -77,3 +77,6 @@ em,i{font-style:normal}
 .zzc_button button{width:76px;height:26px;line-height:26px;text-align:center;color:white;background:#3c4659;border-radius:12px;border:none;margin-right:8px}
 .support_hover{position:relative;display:inline-block}
 .header_1 span:hover{color:#f07373}
+
+table tr:nth-child(1){font-weight:bold;color:black}
+table tr:nth-child(n+2){color:black}

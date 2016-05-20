@@ -142,9 +142,7 @@
                                <c:if test="${hasModify == 1 }">
 	                               <td>
 	                                   <span class="iconfont icon-dizhixiugai" onclick="editMemberLevel(${memberLevel.levelId})"></span>
-	                                   <c:if test="${memberLevel.isDefault == 0 }">
-		                                   <span class="iconfont icon-xx ml10" onclick="deleteMemberLevel(${memberLevel.levelId})"></span>
-	                                   </c:if>
+		                               <span class="iconfont icon-xx ml10" onclick="deleteMemberLevel(${memberLevel.levelId})"></span>
 	                               </td>
                                </c:if>
                              </tr>

@@ -1,13 +1,13 @@
 package com.zefun.api.dto;
 
-import net.sf.json.JSONObject;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import net.sf.json.JSONObject;
+
 /**
  * 优惠券基础传输对象
-* @author 张进军
+* @author 老王
 * @date Oct 21, 2015 3:04:08 PM 
 */
 public class CouponBaseDto {

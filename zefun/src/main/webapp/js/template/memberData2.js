@@ -40,13 +40,13 @@ jQuery(document).ready(function(){
 function dimSelectMember (obj, str) {
 	var a = 1;
 	var parentsObj = jQuery(obj).parents("div[name='memberTR']");
-	parentsObj.find(".fuzzysearch").empty();
+	parentsObj.find(".hand_ul").empty();
 	for (var i = 0; i < inputMemberList.length; i++) {
 		var mMap = inputMemberList[i];
 		var name = mMap.name.toString();
 		var phone = mMap.phone.toString();
 		if (name.indexOf(str.toString()) != -1){
-			parentsObj.find(".fuzzysearch").append("<li onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
+			parentsObj.find(".hand_ul").append("<li onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
 			a++;
 			if (a == 10) {
 				break;
@@ -54,7 +54,7 @@ function dimSelectMember (obj, str) {
 			continue;
 		}
 		if (phone.indexOf(str) != -1) {
-			parentsObj.find(".fuzzysearch").append("<li onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
+			parentsObj.find(".hand_ul").append("<li onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
 			a++;
 			if (a == 10) {
 				break;
@@ -63,10 +63,7 @@ function dimSelectMember (obj, str) {
 		}
 		inputMemberList.splice(i,1);//从下标为i的元素开始，连续删除1个元素
         i--;//因为删除下标为i的元素后，该位置又被新的元素所占据，所以要重新检测该位置
-        
 	}
-	parentsObj.find(".fuzzysearch").append("<em class='t-border'></em>"+
-    										"<span class='t-content'></span>")
 }
 
 function choosePhone (obj, phone) {
@@ -76,7 +73,7 @@ function choosePhone (obj, phone) {
 
 jQuery("body").delegate("input[name='phoneNumber']","blur", function(event){
 	setTimeout(function () {
-		jQuery(".fuzzysearch").css("display", "none");
+		jQuery(".head_search_back").addClass("hide");
 	},500);
 });
 
@@ -86,7 +83,7 @@ jQuery("body").delegate("input[name='phoneNumber']","focus", function(event){
 	var obj = event.srcElement ? event.srcElement : event.target;
 	
 	if (isEmpty(jQuery(obj).val()) || obj != inputMemberObj) {
-		jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").empty();
+		jQuery(obj).parents("div[name='memberTR']").find(".hand_ul").empty();
 		inputMemberList = JSON.parse(JSON.stringify(memberList));
 		inputPhoneNum = 0;
 		inputMemberObj = obj;
@@ -96,7 +93,7 @@ jQuery("body").delegate("input[name='phoneNumber']","focus", function(event){
 
 	dimSelectMember(obj, jQuery(obj).val());
 	
-	jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").css("display", "block");
+	jQuery(obj).parents("div[name='memberTR']").find(".head_search_back").removeClass("hide");
 });
 
 //当前
@@ -110,12 +107,12 @@ jQuery(document).keyup(function(event){
 	if (jQuery(obj).attr("name") == "phoneNumber") {
 		
 		if (isEmpty(jQuery(obj).val())) {
-			jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").empty();
+			jQuery(obj).parents("div[name='memberTR']").find(".hand_ul").empty();
 			inputMemberList = JSON.parse(JSON.stringify(memberList));
 			return;
 		}
 		
-		jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").css("display", "block");
+		jQuery(obj).parents("div[name='memberTR']").find(".head_search_back").removeClass("hide");
 		
 		if (inputPhoneNum < jQuery(obj).val().length) {
 			dimSelectMember(obj, jQuery(obj).val());
@@ -226,12 +223,12 @@ function submitPhone (obj) {
 				jQuery(obj).parents("div[name='memberTR']").find("input[name='memberId']").val(memberBaseDto.memberId).change();
 				jQuery(obj).parents("div[name='memberTR']").find("input[name='levelId']").val(memberBaseDto.levelId);
 				
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberNameSpan']").text(memberBaseDto.name);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberPhoneSpan']").text(memberBaseDto.phone);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberSexSpan']").text(memberBaseDto.sex);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberBalanceAmountSpan']").text(zeroValue(memberBaseDto.balanceAmount));
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberBalanceGiftmoneyAmountSpan']").text(zeroValue(memberBaseDto.giftmoneyAmount));
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberBalanceIntegralSpan']").text(zeroValue(memberBaseDto.balanceIntegral));
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberNameSpan']").text(memberBaseDto.name);
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberPhoneSpan']").text(memberBaseDto.phone);
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberSexSpan']").text(memberBaseDto.sex);
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberBalanceAmountSpan']").text(zeroValue(memberBaseDto.balanceAmount));
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberBalanceGiftmoneyAmountSpan']").text(zeroValue(memberBaseDto.giftmoneyAmount));
+				jQuery(obj).parents("div[name='memberTR']").find("em[name='memberBalanceIntegralSpan']").text(zeroValue(memberBaseDto.balanceIntegral));
 				
 				jQuery("div[name='moreMemberInfoDIV']").find("span[name='totalConsumeAmountSpan']").text(zeroValue(memberBaseDto.totalConsumeAmount));
 				jQuery("div[name='moreMemberInfoDIV']").find("span[name='lastDayNumberSpan']").text(memberBaseDto.lastDayNumber);

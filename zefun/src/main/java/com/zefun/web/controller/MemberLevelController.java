@@ -1,13 +1,13 @@
 package com.zefun.web.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +19,7 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.MemberLevel;
+import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.service.MemberLevelService;
 
 /**
@@ -34,18 +35,48 @@ public class MemberLevelController extends BaseController {
 	
 	/**
 	 * 为某个门店新增会员等级
-	* @author 张进军
-	* @date Aug 5, 2015 6:35:37 PM
-	* @param memberLevel 会员等级
+	* @author 老王
+	* @date 2016年5月20日 下午4:52:08 
+	* @param levelId 会员等级标识
+	* @param levelName 会员等级
+	* @param discountId 折扣表
+	* @param projectDiscount 项目折扣
+	* @param goodsDiscount 商品折扣
+	* @param performanceDiscountPercent  业绩折扣比例(0-100)
+	* @param sellAmount 售卡开卡金额
+	* @param chargeMinMoney 最低充值金额
+	* @param cashDiscountType 现金是否打折(0:不打折，1:打折)
+	* @param integralUnit 消费积分单位
+	* @param integralNumber 单位积分数量
+	* @param levelNoticeArr 等级说明
 	* @param request 返回
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.MemberLevel.ACTION_ADD, method = RequestMethod.POST)
 	@ResponseBody
-	public BaseDto addAction(@RequestBody MemberLevel memberLevel, HttpServletRequest request){
+	public BaseDto addAction(Integer levelId, String levelName, Integer discountId, Integer projectDiscount, Integer goodsDiscount, 
+			  Integer performanceDiscountPercent, 
+			  BigDecimal sellAmount, BigDecimal chargeMinMoney, Integer cashDiscountType, Integer integralUnit, Integer integralNumber, 
+			  String[] levelNoticeArr, HttpServletRequest request){
+		MemberLevel memberLevel = new MemberLevel();
+		memberLevel.setLevelId(levelId);
+		memberLevel.setLevelName(levelName);
+		memberLevel.setLevelNoticeArr(levelNoticeArr);
+		
+		MemberLevelDiscount memberLevelDiscount = new MemberLevelDiscount();
+		memberLevelDiscount.setDiscountId(discountId);
+		memberLevelDiscount.setProjectDiscount(projectDiscount);
+		memberLevelDiscount.setGoodsDiscount(goodsDiscount);
+		memberLevelDiscount.setPerformanceDiscountPercent(performanceDiscountPercent);
+		memberLevelDiscount.setSellAmount(sellAmount);
+		memberLevelDiscount.setChargeMinMoney(chargeMinMoney);
+		memberLevelDiscount.setCashDiscountType(cashDiscountType);
+		memberLevelDiscount.setIntegralUnit(integralUnit);
+		memberLevelDiscount.setIntegralNumber(integralNumber);
 	    int storeId = getStoreId(request);
+	    memberLevelDiscount.setStoreId(storeId);
 	    Integer userId = getUserId(request);
-		return memberLevelService.addAction(storeId, userId, memberLevel);
+		return memberLevelService.addAction(storeId, userId, memberLevel, memberLevelDiscount);
 	}
 	
 	

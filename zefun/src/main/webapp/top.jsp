@@ -8,20 +8,19 @@ String topBasePath = request.getScheme()+"://"+request.getServerName()+":"+reque
         <div class="header_">
 		  <div class="header_1">
 		     <em >你好，${session_key_user_info.name }</em>
-			 <em class="support_hover"><span class="support"><img src="<%=basePath%>images/top1.png">在线支持</span>
+			 <em class="support_hover"><span class="support" name = "onlineSupport"><img src="<%=basePath%>images/top1.png">在线支持</span>
 			 
 			  <div class="ask_responsive">
-		      <div class="tool">
-			     <p><img src="<%=basePath%>images/top4.png"></p>
-				 <em class="ask">咨询</em>
-			  </div>
-			 
-			  <div class="tool">
-			     <p><img src="<%=basePath%>images/top5.png"></p>
-				 <em class="ask">咨询</em>
-			  </div>
-		   
-		   </div>
+			      <div class="tool">
+				     <p><img src="<%=basePath%>images/top4.png"></p>
+					 <em class="ask">咨询</em>
+				  </div>
+				 
+				  <div class="tool">
+				     <p><img src="<%=basePath%>images/top5.png"></p>
+					 <em class="ask">咨询</em>
+				  </div>
+		     </div>
 			 
 			 </em>
 			 <span style="border-right:1px solid #999da7" onclick = "updatePassword()"><img src="<%=basePath%>/images/top2.png">修改密码</span>

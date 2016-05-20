@@ -18,30 +18,6 @@ public class MemberLevel {
 	/** 等级名称 */
 	private String levelName;
 
-	/** 项目折扣 */
-	private Integer projectDiscount;
-
-	/** 商品折扣 */
-	private Integer goodsDiscount;
-
-	/** 售卡开卡金额 */
-	private Integer sellAmount;
-
-	/** 最低充值金额 */
-	private Integer chargeMinMoney;
-
-	/** 现金是否打折(0:不打折，1:打折) */
-	private Integer cashDiscountType;
-
-	/** 消费积分单位 */
-	private Integer integralUnit;
-
-	/** 单位积分数量 */
-	private Integer integralNumber;
-
-	/** 业绩折扣比例(0-100) */
-	private Integer performanceDiscountPercent;
-
 	/** 等级说明 */
 	private String levelNotice;
 
@@ -91,86 +67,6 @@ public class MemberLevel {
 	/** @return	等级名称 */
 	public String getLevelName(){
 		return levelName;
-	}
-
-	/** @param projectDiscount	项目折扣 */
-	public void setProjectDiscount(Integer projectDiscount){
-		this.projectDiscount = projectDiscount;
-	}
-
-	/** @return	项目折扣 */
-	public Integer getProjectDiscount(){
-		return projectDiscount;
-	}
-
-	/** @param goodsDiscount	商品折扣 */
-	public void setGoodsDiscount(Integer goodsDiscount){
-		this.goodsDiscount = goodsDiscount;
-	}
-
-	/** @return	商品折扣 */
-	public Integer getGoodsDiscount(){
-		return goodsDiscount;
-	}
-
-	/** @param sellAmount	售卡开卡金额 */
-	public void setSellAmount(Integer sellAmount){
-		this.sellAmount = sellAmount;
-	}
-
-	/** @return	售卡开卡金额 */
-	public Integer getSellAmount(){
-		return sellAmount;
-	}
-
-	/** @param chargeMinMoney	最低充值金额 */
-	public void setChargeMinMoney(Integer chargeMinMoney){
-		this.chargeMinMoney = chargeMinMoney;
-	}
-
-	/** @return	最低充值金额 */
-	public Integer getChargeMinMoney(){
-		return chargeMinMoney;
-	}
-
-	/** @param cashDiscountType	现金是否打折(0:不打折，1:打折) */
-	public void setCashDiscountType(Integer cashDiscountType){
-		this.cashDiscountType = cashDiscountType;
-	}
-
-	/** @return	现金是否打折(0:不打折，1:打折) */
-	public Integer getCashDiscountType(){
-		return cashDiscountType;
-	}
-
-	/** @param integralUnit	消费积分单位 */
-	public void setIntegralUnit(Integer integralUnit){
-		this.integralUnit = integralUnit;
-	}
-
-	/** @return	消费积分单位 */
-	public Integer getIntegralUnit(){
-		return integralUnit;
-	}
-
-	/** @param integralNumber	单位积分数量 */
-	public void setIntegralNumber(Integer integralNumber){
-		this.integralNumber = integralNumber;
-	}
-
-	/** @return	单位积分数量 */
-	public Integer getIntegralNumber(){
-		return integralNumber;
-	}
-
-	/** @param performanceDiscountPercent	业绩折扣比例(0-100) */
-	public void setPerformanceDiscountPercent(Integer performanceDiscountPercent){
-		this.performanceDiscountPercent = performanceDiscountPercent;
-	}
-
-	/** @return	业绩折扣比例(0-100) */
-	public Integer getPerformanceDiscountPercent(){
-		return performanceDiscountPercent;
 	}
 
 	/** @param levelNotice	等级说明 */

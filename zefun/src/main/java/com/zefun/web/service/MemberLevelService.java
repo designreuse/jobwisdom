@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONArray;
-
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -27,9 +25,14 @@ import com.zefun.common.consts.App;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.ExcleUtils;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.MemberLevel;
+import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.Page;
+import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
+
+import net.sf.json.JSONArray;
 
 
 /**
@@ -43,6 +46,9 @@ public class MemberLevelService {
     /** 会员等级数据操作对象 */
     @Autowired
     private MemberLevelMapper memberLevelMapper;
+    /** 会员折扣操作对象*/
+    @Autowired
+    private MemberLevelDiscountMapper memberLevelDiscountMapper;
     /***/
     private static Logger log = Logger.getLogger(MemberLevelService.class);
 
@@ -53,16 +59,17 @@ public class MemberLevelService {
     * @param storeId 门店id
     * @param userId 用户id
     * @param memberLevel 会员等级
+    * @param memberLevelDiscount 会员折扣
     * @return BaseDto
      */
     @Transactional
     public BaseDto addAction(Integer storeId, Integer userId,
-            MemberLevel memberLevel) {
+            MemberLevel memberLevel, MemberLevelDiscount memberLevelDiscount) {
     	memberLevel.setStoreId(storeId);
     	if (memberLevel != null) {
     		//会员卡增加折扣为零检测
-        	if (memberLevel.getProjectDiscount() == null || memberLevel.getProjectDiscount() == 0 
-        			  || memberLevel.getGoodsDiscount() == null || memberLevel.getGoodsDiscount() == 0) {
+        	if (memberLevelDiscount.getProjectDiscount() == null || memberLevelDiscount.getProjectDiscount() == 0 
+        			  || memberLevelDiscount.getGoodsDiscount() == null || memberLevelDiscount.getGoodsDiscount() == 0) {
         		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "添加失败:折扣不能为零");
         	}
     	}
@@ -104,6 +111,19 @@ public class MemberLevelService {
             memberLevel.setIsDeleted(0);
             memberLevelMapper.insert(memberLevel);
         }
+        
+        memberLevelDiscount.setUpdateTime(curTime);
+        memberLevelDiscount.setLevelId(memberLevel.getLevelId());
+        memberLevelDiscount.setLastOperatorId(userId);
+        
+        if (memberLevelDiscount.getDiscountId() != null) {
+        	memberLevelDiscountMapper.updateByPrimaryKey(memberLevelDiscount);
+        }
+        else {
+        	memberLevelDiscount.setCreateTime(curTime);
+            memberLevelDiscount.setIsDeleted(0);
+            memberLevelDiscountMapper.insert(memberLevelDiscount);
+        }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
                 App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
@@ -117,7 +137,7 @@ public class MemberLevelService {
     * @return ModelAndView
     */
     public ModelAndView listView(Integer storeId) {
-        Page<MemberLevel> page = selectPageForMemberLevel(storeId, 1, App.System.API_DEFAULT_PAGE_SIZE);
+        Page<MemberLevelDto> page = selectPageForMemberLevel(storeId, 1, App.System.API_DEFAULT_PAGE_SIZE);
         ModelAndView mav = new ModelAndView("member/memberLevel/list");
         mav.addObject("page", page);
         return mav;
@@ -133,7 +153,7 @@ public class MemberLevelService {
     * @return BaseDto
      */
     public BaseDto listAction(Integer storeId, int pageNo, int pageSize) {
-        Page<MemberLevel> page = selectPageForMemberLevel(storeId, pageNo,
+        Page<MemberLevelDto> page = selectPageForMemberLevel(storeId, pageNo,
                 pageSize);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
     }
@@ -147,15 +167,15 @@ public class MemberLevelService {
     * @param pageSize	每页显示数
     * @return Page<MemberLevel>
      */
-    private Page<MemberLevel> selectPageForMemberLevel(Integer storeId,
+    private Page<MemberLevelDto> selectPageForMemberLevel(Integer storeId,
             int pageNo, int pageSize) {
-        Page<MemberLevel> page = new Page<MemberLevel>();
+        Page<MemberLevelDto> page = new Page<MemberLevelDto>();
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("storeId", storeId);
         page.setParams(params);
-        List<MemberLevel> list = memberLevelMapper.selectByPage(page);
+        List<MemberLevelDto> list = memberLevelMapper.selectByPage(page);
         page.setResults(list);
         return page;
     }
@@ -277,11 +297,11 @@ public class MemberLevelService {
                         }
                         if (cellNum == 3) {
                             Integer projectDiscount = (int)Double.parseDouble(str)*10;
-                            level.setProjectDiscount(projectDiscount);
+                            /*level.setProjectDiscount(projectDiscount);*/
                         }
                         if (cellNum == 4) {
                             Integer goodsDiscount = (int)Double.parseDouble(str)*10;
-                            level.setGoodsDiscount(goodsDiscount);
+                            /*level.setGoodsDiscount(goodsDiscount);*/
                         }
                         level.setStoreId(storeId);
                         level.setLastOperatorId(lastOperatorId);
