@@ -14,5 +14,23 @@
   </head>
 <body class="gray-bg">
 <img src="<%=basePath %>qr_code.img?codeUrl= ${codeUrl}" style="width:300px;height:300px;"/>
+
+<input type="text" id="amount">
+<input type="button" onclick="pay()">
 </body>
+<script type="text/javascript" src="<%=jqueryJsPath %>"></script>
+<script type="text/javascript">
+function pay(){
+	var amount = jQuery("#amount").val();
+	jQuery.ajax({
+		type : "POST",
+		url : baseUrl + "app/pay/qr",
+		data : "amount="+amount,
+		dataType : "json",
+		success : function(data) {
+			jQuery("img").attr("src", baseUrl+"qr_code.img?codeUrl="+data.msg);
+		}
+	});
+}
+</script>
 </html>

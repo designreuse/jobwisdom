@@ -76,6 +76,24 @@ public class BaseController {
             return null;
         }
     }
+    
+    /**
+     * 获取当前用户所在的门店的企业代号
+    * @author 张进军
+    * @date Aug 17, 2015 6:49:50 PM
+    * @param request    请求对象
+    * @return           当前用户所在的门店id
+     */
+    public String getStoreAccount(HttpServletRequest request){
+        try {
+            String storeAccount = request.getSession().getAttribute(Session.STORE_ACCOUNT).toString();
+            return storeAccount;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     /**

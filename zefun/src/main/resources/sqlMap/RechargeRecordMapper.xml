@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.RechargeRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.RechargeRecord" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="enterprise_account_id" property="enterpriseAccountId" jdbcType="INTEGER" />
+    <result column="recharge_amount" property="rechargeAmount" jdbcType="DECIMAL" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, enterprise_account_id, recharge_amount, open_id, out_trade_no, status, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from recharge_record
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from recharge_record
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.RechargeRecord" >
+    insert into recharge_record (r_id, enterprise_account_id, recharge_amount, 
+      open_id, out_trade_no, status, 
+      create_time)
+    values (#{rId,jdbcType=INTEGER}, #{enterpriseAccountId,jdbcType=INTEGER}, #{rechargeAmount,jdbcType=DECIMAL}, 
+      #{openId,jdbcType=VARCHAR}, #{outTradeNo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.RechargeRecord" >
+    insert into recharge_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="enterpriseAccountId != null" >
+        enterprise_account_id,
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseAccountId != null" >
+        #{enterpriseAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeAmount != null" >
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null" >
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.RechargeRecord" >
+    update recharge_record
+    <set >
+      <if test="enterpriseAccountId != null" >
+        enterprise_account_id = #{enterpriseAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.RechargeRecord" >
+    update recharge_record
+    set enterprise_account_id = #{enterpriseAccountId,jdbcType=INTEGER},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      open_id = #{openId,jdbcType=VARCHAR},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByTradeNo" parameterType="com.zefun.web.entity.RechargeRecord" resultMap="BaseResultMap">
+  	select * from recharge_record where out_trade_no = #{outTradeNo,jdbcType=VARCHAR}
+  </select>
+</mapper>
