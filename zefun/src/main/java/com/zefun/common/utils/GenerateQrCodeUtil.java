@@ -131,7 +131,7 @@ public class GenerateQrCodeUtil {
      * @param response response
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static void encodeQrcode(String content, HttpServletResponse response) {
+    public static void encodeQrcode(String content, HttpServletResponse response, Integer width, Integer height) {
         if (org.apache.commons.lang.StringUtils.isBlank(content)){
             return ;
         }
@@ -140,7 +140,7 @@ public class GenerateQrCodeUtil {
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8"); // 设置字符集编码类型
         BitMatrix bitMatrix = null;
         try {
-            bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 300, 300, hints);
+            bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, width, height, hints);
             BufferedImage image = toBufferedImage(bitMatrix);
             try {
                 ImageIO.write(image, "png", response.getOutputStream());

@@ -65,7 +65,7 @@ public class WechatPayController extends BaseController{
     @RequestMapping(value = Url.AppPay.REQUEST_APP_PAY, method=RequestMethod.POST)
     @ResponseBody
     public BaseDto getNativeCode(HttpServletRequest request, HttpServletResponse response, Integer amount){
-        String googsName = "门店充值";
+        String googsName = "我道系统-门店充值";
         String outTradeNo = StringUtil.getKey(); 
         String callback = "/" + Url.AppPay.REQUEST_APP_PAY_CALLBACK.replace("{outTradeNo}", outTradeNo);
         String code = wechatCallService.payByQrCode(googsName, amount*100, outTradeNo, callback, request);
@@ -99,7 +99,7 @@ public class WechatPayController extends BaseController{
     @RequestMapping(value = "qr_code.img")
     @ResponseBody
     public void getQRCode(String codeUrl, HttpServletResponse response){
-        GenerateQrCodeUtil.encodeQrcode(codeUrl, response);
+        GenerateQrCodeUtil.encodeQrcode(codeUrl, response, 151, 151);
     }
     
 }
