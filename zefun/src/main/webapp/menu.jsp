@@ -73,6 +73,7 @@
 		</ul>
 		<ul index="2">
 			<a href="<%=menuBasePath%>storeinfo/view/storeSetting"><li><span><img src="<%=basePath%>images/left4.png">微门店设置</span></li></a>
+			<a href="<%=menuBasePath%>memberCenter/view/store/shop"><li><span><img src="<%=basePath%>images/left5.png">在线商城</span></li></a>
 			<a href="<%=menuBasePath%>wechat/items/manage"><li><span><img src="<%=basePath%>images/left5.png">营销方案库</span></li></a>
 			<a href="<%=menuBasePath%>view/coupons"><li><span><img src="<%=basePath%>images/left5.png">优惠券管理</span></li></a>
 		</ul>

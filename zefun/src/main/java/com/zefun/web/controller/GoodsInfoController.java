@@ -147,8 +147,10 @@ public class GoodsInfoController extends BaseController{
             GoodsInfoDto goodsInfo = (GoodsInfoDto) ((Map<String, Object>)baseDto.getMsg()).get("goodsInfo");
             List<GoodsDiscount> goodsDiscountList = (List<GoodsDiscount>) ((Map<String, Object>)baseDto.getMsg()).get("goodsDiscountList");
             
-            model.addObject("goodsInfo", JSONObject.fromObject(goodsInfo));
             model.addObject("goodsId", goodsInfo.getGoodsId());
+            model.addObject("goodsDesc", goodsInfo.getGoodsDesc());
+            goodsInfo.setGoodsDesc(null);
+            model.addObject("goodsInfo", JSONObject.fromObject(goodsInfo));
             model.addObject("goodsDiscountList", JSONArray.fromObject(goodsDiscountList));
         }
         

@@ -43,9 +43,9 @@
        <div class="project-detail-descript" style="height:230px;">
           <div class="swiper-container">
               <div class="swiper-wrapper">
-              		<c:forEach items="${fn:split(storeInfo.carouselPicture, ',') }" var="pic">
+              		<c:forEach items="${fn:split(storeShop.adsense, ',') }" var="pic">
 	                    <div class="swiper-slide">
-		            	    <img src="<%=picPath %>${pic}" />
+		            	    <img src="${pic}" />
 		                </div>
               		</c:forEach>
               </div>
@@ -53,17 +53,36 @@
        </div>
 
       <div class="img">
-        <div><img src="<%=basePath%>images/mobile/member/app_10.png" onclick="showConten(1)"><p>新品上市</p></div>
-        <div><img src="<%=basePath%>images/mobile/member/app_11.png" onclick="showConten(1)"><p>热销产品</p></div>
-        <div><img src="<%=basePath%>images/mobile/member/app_12.png" onclick="showConten(2)"><p>积分兑换</p></div>
+        <div><img src="<%=basePath%>images/mobile/member/app_10.png" onclick="showConten('aestSellers')"><p>新品上市</p></div>
+        <div><img src="<%=basePath%>images/mobile/member/app_11.png" onclick="showConten('bestSellers')"><p>热销产品</p></div>
+        <div><img src="<%=basePath%>images/mobile/member/app_12.png" onclick="showConten('coupon')"><p>积分兑换</p></div>
        </div>
-       <div id="ubox" style="margin-bottom: 7rem;">
+       <div id="aestSellers" style="margin-bottom: 7rem;">
 	       <div class="shop_content">
-	            <p><span class="recommend_">精品推荐</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_id}">更多>></a></p>
+	            <p><span class="recommend_">新品上市</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_id}">更多>></a></p>
 	        </div>
-        
           <div class="shop_content_  clearfix">
-          	<c:forEach items="${goodsList }" var="goodsList">
+          	<c:forEach items="${aestSellers }" var="goodsList">
+          	<a href="<%=basePath %>mobile/view/pay/goodsInfo?storeId=${goodsList.storeId }&storeGoodsId=${goodsList.goodsId }">
+                  <div class="recommend_shop">
+                  	 <div><img src="<%=picPath %>${goodsList.goodsImage}"></div>
+                  	 <span>${goodsList.goodsName }</span>
+                     <div class="al_sell">
+                         <span class="number_">已售0件</span>
+                         <span class="price_">¥ ${goodsList.goodsPrice }</span>
+                     </div>
+                  </div>
+             </a>
+             </c:forEach>
+           </div> 
+       </div>
+       
+       <div id="bestSellers" class="hide" style="margin-bottom: 7rem;">
+	       <div class="shop_content">
+	            <p><span class="recommend_">热销产品</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_id}">更多>></a></p>
+	        </div>
+          <div class="shop_content_  clearfix">
+          	<c:forEach items="${bestSellers }" var="goodsList">
           	<a href="<%=basePath %>mobile/view/pay/goodsInfo?storeId=${goodsList.storeId }&storeGoodsId=${goodsList.goodsId }">
                   <div class="recommend_shop">
                   	 <div><img src="<%=picPath %>${goodsList.goodsImage}"></div>
@@ -221,14 +240,10 @@
 	});
 
 	function showConten(type){
-		if (type == 1) {
-			$("#ubox").removeClass("hide");
-			$("#coupon").addClass("hide");
-		}
-		else {
-			$("#coupon").removeClass("hide");
-			$("#ubox").addClass("hide");
-		}
+		$("#coupon").addClass("hide");
+		$("#aestSellers").addClass("hide");
+		$("#bestSellers").addClass("hide");
+		$("#"+type).removeClass("hide");
 	}
 
     var couponId = '';

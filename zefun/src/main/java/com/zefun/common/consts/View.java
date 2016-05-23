@@ -243,6 +243,7 @@ public interface View {
 		public static final String EMPLOYEE_PROJECT = "mobile/member/employeeProject";
 		/** 门店特色服务*/
         public static final String STORE_SPE = "mobile/member/special";
+        public static final String ONLIONE_SHOP = "setting/storeShop";
 	}
 
 	/** 友宝商城模块 */

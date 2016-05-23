@@ -187,4 +187,13 @@ public interface GoodsInfoMapper {
     * @return         List<GoodsInfoDto>
      */
     List<GoodsInfoDto> selectAllGoodsInfoByStoreId(Integer storeId);
+
+    /**
+     * 给出参数 1,2,3,4 进行查找商品
+    * @author 高国藩
+    * @date 2016年5月21日 下午5:45:37
+    * @param params  goodsId
+    * @return         List<GoodsInfo> 
+     */ 
+    List<GoodsInfo> queryByGoodsIds(List<Integer> params);
 }

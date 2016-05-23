@@ -39,6 +39,7 @@ import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
+import com.zefun.web.entity.StoreShop;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -953,5 +954,16 @@ public class GoodsInfoService {
         returnDate.put("projectStep", goodsInfo.getProjectStep());
         redisService.hdel(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, goodsInfo.getDeptId());
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate);
+    }
+    
+    /**
+     * 给出一个集合,查询商品
+    * @author 高国藩
+    * @date 2016年5月21日 下午6:51:00
+    * @param params  params
+    * @return        params
+     */
+    public List<GoodsInfo> queryByGoodsIds(List<Integer> params){
+        return goodsInfoMapper.queryByGoodsIds(params);
     }
 }

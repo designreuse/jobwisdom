@@ -1,6 +1,7 @@
 package com.zefun.wechat.controller;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
@@ -25,6 +27,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.OrderEvaluateDto;
 import com.zefun.web.dto.OrderInfoSubmitDto;
 import com.zefun.web.entity.ProjectShare;
+import com.zefun.web.entity.StoreShop;
 import com.zefun.wechat.service.MemberCenterService;
 
 /**
@@ -174,6 +177,54 @@ public class MemberCenterController extends BaseController {
             return null;
         }
         return new ModelAndView(View.MemberCenter.SET_PWD);
+    }
+    
+    /**
+     * 门店在线商城设置页面
+    * @author 高国藩
+    * @date 2016年5月21日 上午10:35:34
+    * @param request   request
+    * @param response  response
+    * @return          设置页面
+     */
+    @RequestMapping(value = Url.MemberCenter.VIEW_SET_SHOP_ON)
+    public ModelAndView onlionShop(HttpServletRequest request, HttpServletResponse response){
+        Integer storeId = getStoreId(request);
+        return memberCenterService.onlionShopView(storeId);
+    }
+    
+    /**
+     * 设置在线商城
+    * @author 高国藩
+    * @date 2016年5月21日 下午3:55:37
+    * @param request  request
+    * @param data     data
+    * @return         BaseDto
+     */
+    @RequestMapping(value = Url.MemberCenter.ACTION_SET_PASSWORD_ACTION, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto onlionShopAction(HttpServletRequest request, @RequestBody net.sf.json.JSONObject data){
+        StoreShop storeShop = new StoreShop();
+        storeShop.setStoreId(getStoreId(request));
+        @SuppressWarnings("unchecked")
+        Set<String> keys = data.keySet();
+        if (keys.contains("xpsj")){
+            String newArrival = data.get("data").toString();
+            storeShop.setNewArrival(newArrival);
+            return memberCenterService.onlionShopAction(storeShop);
+        }
+        if (keys.contains("rxsp")){
+            String bestSellers = data.get("data").toString();
+            storeShop.setBestSellers(bestSellers);
+            return memberCenterService.onlionShopAction(storeShop);
+        }
+        if (keys.contains("adsense")){
+            String adsense = data.get("data").toString();
+            storeShop.setAdsense(adsense);
+            return memberCenterService.onlionShopAction(storeShop);
+        }
+        return null;
+                
     }
     
     
@@ -835,7 +886,7 @@ public class MemberCenterController extends BaseController {
     
     
     /**
-     * 查询门店下的优惠券
+     * 查询门店下商城
     * @author 张进军
     * @date Oct 21, 2015 10:00:34 AM
     * @param storeId    门店标识

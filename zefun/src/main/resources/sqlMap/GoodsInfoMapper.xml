@@ -872,4 +872,12 @@
   	left join dept_info df on gf.dept_id = df.dept_id
   	where gf.is_deleted = 0 and gf.store_id = #{storeId}
   </select>
+  
+  <select id="queryByGoodsIds" parameterType="list" resultMap="BaseResultMap">
+  	select * from goods_info where goods_id in 
+  	 <foreach item="item" collection="list" separator="," open="(" close=")" index="">  
+      #{item, jdbcType=INTEGER}  
+    </foreach>  
+  	and is_deleted = 0
+  </select>
 </mapper>

@@ -481,7 +481,7 @@
 		
 		jQuery("select[name='projectType']").val(project.projectType);
 		jQuery("input[name='projectName']").val(project.projectName);
-		jQuery("input[name='projectDesc']").val(project.projectDesc);
+		jQuery("textarea[name='projectDesc']").val(project.projectDesc);
 		jQuery("input[name='projectCodeSuffix']").val(project.projectCodeSuffix);
 		
 		/**锁定项目价格*/
