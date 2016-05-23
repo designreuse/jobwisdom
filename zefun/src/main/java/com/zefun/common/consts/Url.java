@@ -690,6 +690,10 @@ public interface Url {
         public static final String VIEW_SHOP_CENTER_LIST = "/memberCenter/view/shopCenter/list/{storeId}";
         /** 门店特色服务*/
         public static final String VIEW_STORE_INFO_SEPCIAL = "/memberCenter/view/store/special";
+        /** 在线商城设置pc*/
+        public static final String VIEW_SET_SHOP_ON = "/memberCenter/view/store/shop";
+        /** 商城设置*/
+        public static final String ACTION_SET_PASSWORD_ACTION = "/memberCenter/store/shop/action";
 	}
 
 	/** 友宝商城模块 */

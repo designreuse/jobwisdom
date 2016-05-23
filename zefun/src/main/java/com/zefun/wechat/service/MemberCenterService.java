@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -75,6 +77,7 @@ import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreSetting;
+import com.zefun.web.entity.StoreShop;
 import com.zefun.web.entity.StoreWechat;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatMember;
@@ -102,6 +105,7 @@ import com.zefun.web.mapper.ShiftMapper;
 import com.zefun.web.mapper.SpecialServiceMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
+import com.zefun.web.mapper.StoreShopMapper;
 import com.zefun.web.mapper.StoreWechatMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatMemberMapper;
@@ -269,11 +273,12 @@ public class MemberCenterService {
 	/** 商品列表 */
     @Autowired
     private GoodsInfoMapper goodsInfoMapper;
-    /**
-     * 特色服务
-     */
+    /**  特色服务 */
     @Autowired
     private SpecialServiceMapper specialServiceMapper;
+    /** 在线商城 */
+    @Autowired
+    private StoreShopMapper storeShopMapper;
     
 	/**
 	 * wifi主页
@@ -1344,21 +1349,21 @@ public class MemberCenterService {
         ModelAndView mav = new ModelAndView(View.MemberCenter.SHOP_CENTER);
         mav.addObject("page", page);
         
-        List<GoodsInfo> goodsList = goodsInfoService.queryGoodsInfos(ownerStoreId);
-        mav.addObject("goodsList", goodsList);
+        StoreShop storeShop = new StoreShop();
+        storeShop.setStoreId(ownerStoreId);
+        StoreShop shop = storeShopMapper.selectByProties(storeShop);
+        List<Integer> paramsAestSellers = Stream.of(shop.getNewArrival().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
+        List<Integer> paramsBestSellers = Stream.of(shop.getBestSellers().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
+        List<GoodsInfo> aestSellers = goodsInfoService.queryByGoodsIds(paramsAestSellers);
+        List<GoodsInfo> bestSellers = goodsInfoService.queryByGoodsIds(paramsBestSellers);
+        
+        mav.addObject("aestSellers", aestSellers);
+        mav.addObject("bestSellers", bestSellers);
+        mav.addObject("storeShop", shop);
         
         StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(ownerStoreId);
         mav.addObject("storeInfo", storeInfo);
         
-        //查询友宝商城
-//        List<UboxStoreGoodsDto> goodsList = uboxService.getGoodsListByStoreId(ownerStoreId);
-//        if (goodsList != null && goodsList.size() > 0) {
-//            mav.addObject("goodsList", goodsList);
-//            mav.addObject("hasUbox", 1);
-//        }
-//        else {
-//            mav.addObject("hasUbox", 0);
-//        }
         return mav;
     }
     
@@ -1925,6 +1930,47 @@ public class MemberCenterService {
         ModelAndView view = new ModelAndView(View.MemberCenter.STORE_SPE);
         view.addObject("specialService", specialService);
         return view;
+    }
+
+
+    /**
+     * 在线商城设置
+    * @author 高国藩
+    * @date 2016年5月21日 下午3:53:30
+    * @param storeId storeId
+    * @return        页面
+     */
+    public ModelAndView onlionShopView(Integer storeId) {
+        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByStoreId(storeId);
+        
+        StoreShop storeShop = new StoreShop();
+        storeShop.setStoreId(storeId);
+        StoreShop hasStoreShop = storeShopMapper.selectByProties(storeShop);
+        ModelAndView view = new ModelAndView(View.MemberCenter.ONLIONE_SHOP);
+        view.addObject("goodsInfos", goodsInfos);
+        view.addObject("hasStoreShop", JSONObject.fromObject(hasStoreShop));
+        return view;
+    }
+
+
+    /**
+     * 保存在线生成设置
+    * @author 高国藩
+    * @date 2016年5月21日 下午3:54:59
+    * @param storeShop 信息
+    * @return          状态吗
+     */
+    public BaseDto onlionShopAction(StoreShop storeShop) {
+        storeShop.setIsDeleted(0);
+        StoreShop hasStoreShop = storeShopMapper.selectByProties(storeShop);
+        if (hasStoreShop!=null){
+            storeShop.setsId(hasStoreShop.getsId());
+            storeShopMapper.updateByPrimaryKeySelective(storeShop);
+        }
+        else {
+            storeShopMapper.insertSelective(storeShop); 
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
     
