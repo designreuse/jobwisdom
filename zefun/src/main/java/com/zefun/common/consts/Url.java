@@ -31,7 +31,23 @@ public interface Url {
 		/** 显示搜索face的页面 */
 		public static final String VIEW_SEARCH = "face/view/search";
 	}
-
+    
+	/**
+	 * 企业模块
+	* @author 老王
+	* @date 2016年5月21日 下午7:15:43
+	 */
+	class Enterprise {
+		/**
+		 * 显示新增企业
+		 */
+		public static final String VIEW_SHOW_ENTERPRISE = "enterprise/view/showEnterprise";
+		/**
+		 * 新增企业
+		 */
+		public static final String ADD_ENTERPRISE = "enterprise/action/addEnterprise";
+	}
+	
 	/** 系统设置模块 */
 	class SystemSetting {
 		/** 访问个人设置页面 */

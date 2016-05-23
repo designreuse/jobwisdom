@@ -1,0 +1,53 @@
+.add_store_content{width:1000px;margin:40px auto;color:black}
+.add_store_button{float:left;width:150px}
+.add_store_button button{width:140px;height:32px;text-align:center;line-height:32px;color:white;border-radius:8px;border:none;background:#47536c;font-size:14px}
+.add_store_button button:hover{
+	background:#333c50
+}
+.add_store_span{float:right;width:340px;height:32px;}
+.add_store_span span{display:inline-block;margin-right:30px;font-size:14px}
+.add_store_span span em{color:#f25353;font-size:18px}
+.add_store_content_{height:60px;border-bottom:1px solid #c7cbd3}
+
+.dd_store_content_2{margin-top:40px;overflow:overlay;height:620px}
+.dd_store_content_2 li{width:304px;height:220px;background:url('../images/add_store.png') no-repeat;overflow:hidden;position:relative;float:left;margin:0 29px 40px 0}
+.shop_name{height:32px;text-align:center;font-size:20px;line-height:32px;width:260px;position:relative;top:-10px!important}
+
+.shop_pic{display:inline-block;height:80px;width:80px;border-radius:40px;overflow:hidden;box-shadow:0 0 10px #ccc;position:relative;top:20px;left:25px}
+.shop_pic img{height:80px;width:80px;border-radius:40px;transition: transform 1s ease-out;}
+.shop_pic img:hover{
+	 transform: rotate(360deg);
+}
+.store_right{float:right;width:100px;margin-top:15px;position:relative;right:44px}
+.connect_people{font-size:14px}
+.phone_number{margin-top:12px;font-size:14px;display:inline-block;position:relative;right:4px}
+.store_right p{margin-top:5px;}
+
+.add_1{width:27%;float:left;position:relative;left:60px;top:20px}
+.add_store_content_bottom{position:relative;top:30px;height:30px}
+.add_1 img{vertical-align:middle;margin-left:4px}
+.add_1:hover{color:red;cursor:pointer}
+.business{display:inline-block;position:absolute;right:8px;top:64px;width:20px;padding:10px 2px;border:1px dashed #4dde5b;border-radius:4px;text-align:center;color:#4dde5b;cursor:pointer}
+.dd_store_content_2  li  .active{
+	border:1px dashed red;
+	color:red
+}
+.zzc{
+	position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+	
+
+}
+.set_content{width:676px;height:565px;margin: 50px auto;background:white}
+
+.new_shop{height:56px;line-height:56px;text-align:center;color:white;font-size:16px;background:#323b4e}
+.shop_address_{font-size:14px}
+.select_city{width:200px;margin-left:50px}
+.detail_address{margin-top:25px}
+.select_city input{border-radius:8px}
+.detail_address input{margin-top:10px}

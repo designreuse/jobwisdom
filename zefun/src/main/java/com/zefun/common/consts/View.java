@@ -30,6 +30,15 @@ public interface View {
 	}
 
 	/**
+	 * 企业模块
+	* @author 老王
+	* @date 2016年5月21日 下午7:14:27
+	 */
+	class Enterprise {
+		/** 新增企业*/
+		public static final String ADD_ENTERPRISE = "enterprise/addEnterprise";
+	}
+	/**
 	 * 渠道会议
 	 * 
 	 * @author 高国藩

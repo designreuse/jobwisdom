@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.EnterpriseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.EnterpriseInfo" >
+    <id column="enterprise_info_id" property="enterpriseInfoId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+    <result column="enterprise_linkname" property="enterpriseLinkname" jdbcType="VARCHAR" />
+    <result column="enterprise_linkphone" property="enterpriseLinkphone" jdbcType="VARCHAR" />
+    <result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="enterprise_province" property="enterpriseProvince" jdbcType="VARCHAR" />
+    <result column="enterprise_address" property="enterpriseAddress" jdbcType="VARCHAR" />
+    <result column="enterprise_city" property="enterpriseCity" jdbcType="VARCHAR" />
+    <result column="enterprise_tel" property="enterpriseTel" jdbcType="VARCHAR" />
+    <result column="enterprise_status" property="enterpriseStatus" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    enterprise_info_id, store_account, enterprise_linkname, enterprise_linkphone, enterprise_name, 
+    enterprise_province, enterprise_address, enterprise_city, enterprise_tel, enterprise_status, 
+    update_time, create_time, last_operator_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_info
+    where enterprise_info_id = #{enterpriseInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from enterprise_info
+    where enterprise_info_id = #{enterpriseInfoId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.EnterpriseInfo" >
+    insert into enterprise_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseInfoId != null" >
+        enterprise_info_id,
+      </if>
+      <if test="storeAccount != null" >
+        store_account,
+      </if>
+      <if test="enterpriseLinkname != null" >
+        enterprise_linkname,
+      </if>
+      <if test="enterpriseLinkphone != null" >
+        enterprise_linkphone,
+      </if>
+      <if test="enterpriseName != null" >
+        enterprise_name,
+      </if>
+      <if test="enterpriseProvince != null" >
+        enterprise_province,
+      </if>
+      <if test="enterpriseAddress != null" >
+        enterprise_address,
+      </if>
+      <if test="enterpriseCity != null" >
+        enterprise_city,
+      </if>
+      <if test="enterpriseTel != null" >
+        enterprise_tel,
+      </if>
+      <if test="enterpriseStatus != null" >
+        enterprise_status,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseInfoId != null" >
+        #{enterpriseInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseLinkname != null" >
+        #{enterpriseLinkname,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseLinkphone != null" >
+        #{enterpriseLinkphone,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseName != null" >
+        #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseProvince != null" >
+        #{enterpriseProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseAddress != null" >
+        #{enterpriseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseCity != null" >
+        #{enterpriseCity,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseTel != null" >
+        #{enterpriseTel,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseStatus != null" >
+        #{enterpriseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.EnterpriseInfo" >
+    update enterprise_info
+    <set >
+      <if test="storeAccount != null" >
+        store_account = #{storeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseLinkname != null" >
+        enterprise_linkname = #{enterpriseLinkname,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseLinkphone != null" >
+        enterprise_linkphone = #{enterpriseLinkphone,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseName != null" >
+        enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseProvince != null" >
+        enterprise_province = #{enterpriseProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseAddress != null" >
+        enterprise_address = #{enterpriseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseCity != null" >
+        enterprise_city = #{enterpriseCity,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseTel != null" >
+        enterprise_tel = #{enterpriseTel,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseStatus != null" >
+        enterprise_status = #{enterpriseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where enterprise_info_id = #{enterpriseInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.EnterpriseInfo" >
+    update enterprise_info
+    set store_account = #{storeAccount,jdbcType=VARCHAR},
+      enterprise_linkname = #{enterpriseLinkname,jdbcType=VARCHAR},
+      enterprise_linkphone = #{enterpriseLinkphone,jdbcType=VARCHAR},
+      enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      enterprise_province = #{enterpriseProvince,jdbcType=VARCHAR},
+      enterprise_address = #{enterpriseAddress,jdbcType=VARCHAR},
+      enterprise_city = #{enterpriseCity,jdbcType=VARCHAR},
+      enterprise_tel = #{enterpriseTel,jdbcType=VARCHAR},
+      enterprise_status = #{enterpriseStatus,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
+    where enterprise_info_id = #{enterpriseInfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

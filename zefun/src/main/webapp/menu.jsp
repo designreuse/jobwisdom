@@ -31,12 +31,17 @@
 		<li>
 			<div class="nav_img">
 				<img src="<%=basePath%>images/left_3.png">
-			</div> <span>营业报表</span>
+			</div> <span>统计分析</span>
 		</li>
 		<li>
 			<div class="nav_img">
 				<img src="<%=basePath%>images/left_4.png">
 			</div> <span>服务设置</span>
+		</li>
+		<li>
+			<div class="nav_img">
+				<img src="<%=basePath%>images/left_4.png">
+			</div> <span>商品管理</span>
 		</li>
 		<li>
 			<div class="nav_img">
@@ -52,11 +57,11 @@
 
 	<div class="left_nav_2" style="height: 840px;">
 		<ul index="0">
-			<a href="<%=menuBasePath%>selfcashier/view/list"><li><span><img src="<%=basePath%>images/left0.png">自助收银</span></li></a>
-			<a href="<%=menuBasePath%>KeepAccounts/initializeManuallyOpenOrder"><li><span><img src="<%=basePath%>images/left1.png">手工开单</span></li></a>
-			<a href="<%=menuBasePath%>KeepAccounts/initializeStoreFlow"><li><span><img src="<%=basePath%>images/left4.png">开支记账</span></li></a>
+			<a href="<%=menuBasePath%>selfcashier/view/list"><li><span><img src="<%=basePath%>images/left0.png">消费收银</span></li></a>
+			<a href="<%=menuBasePath%>KeepAccounts/initializeManuallyOpenOrder"><li><span><img src="<%=basePath%>images/left1.png">无纸开单</span></li></a>
+			<a href="<%=menuBasePath%>KeepAccounts/initializeStoreFlow"><li><span><img src="<%=basePath%>images/left4.png">收支记账</span></li></a>
 			<a href="<%=menuBasePath%>daybook/view/index"><li><span><img src="<%=basePath%>images/left5.png">流水查询</span></li></a>
-			<a href="<%=menuBasePath%>KeepAccounts/initializeShiftMahjong"><li><span><img src="<%=basePath%>images/left5.png">员工轮牌</span></li></a>
+			<a href="<%=menuBasePath%>KeepAccounts/initializeShiftMahjong"><li><span><img src="<%=basePath%>images/left5.png">电子轮牌</span></li></a>
 		</ul>
 		<ul index="1">
 		    <a href="<%=menuBasePath%>KeepAccounts/initializeOpenCard"><li><span><img src="<%=basePath%>images/left2.png">开卡充值</span></li></a>
@@ -82,16 +87,18 @@
 			<a href="<%=menuBasePath%>businessAnalysis/view/payroll"><li><span><img src="<%=basePath%>images/left5.png">工资单</span></li></a>
 		</ul>
 		<ul index="4">
-			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span><img src="<%=basePath%>images/left0.png">项目列表</span></li></a>
-			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span><img src="<%=basePath%>images/left1.png">套餐列表</span></li></a>
+			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span><img src="<%=basePath%>images/left0.png">项目管理</span></li></a>
+			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span><img src="<%=basePath%>images/left1.png">套餐管理</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span><img src="<%=basePath%>images/left2.png">商品列表</span></li></a>
+		</ul>
+		<ul index="5">
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsStockList"><li class="active"><span><img src="<%=basePath%>images/left3.png">商品库存</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/purchase/records"><li><span><img src="<%=basePath%>images/left4.png">进货管理</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/shipment/record"><li><span><img src="<%=basePath%>images/left5.png">出货管理</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/brand"><li><span><img src="<%=basePath%>images/left5.png">商品品牌</span></li></a>
 			<a href="<%=menuBasePath%>supplierInfo/view/supplierInfoList"><li><span><img src="<%=basePath%>images/left5.png">供应商管理</span></li></a>
 		</ul>
-		<ul index="5">
+		<ul index="6">
 			<a href="<%=menuBasePath%>position/view/positioninfo"><li class=""><span><img src="<%=basePath%>images/left0.png">组织架构</span></li></a>
 			<a href="<%=menuBasePath%>employee/view/employee"><li><span><img src="<%=basePath%>images/left1.png">员工资料</span></li></a>
 			<a href="<%=menuBasePath%>storeManageRule/view/home"><li class=""><span><img src="<%=basePath%>images/left2.png">管理制度</span></li></a>
@@ -100,10 +107,11 @@
 			<a href="<%=menuBasePath%>objectiverule/view/objectiverule"><li><span><img src="<%=basePath%>images/left5.png">目标考核</span></li></a>
 			<a href="<%=menuBasePath%>attendance/view/attendance"><li><span><img src="<%=basePath%>images/left5.png">考勤记录</span></li></a>
 		</ul>
-		<ul index="6">
+		<ul index="7">
 			<a href="<%=menuBasePath%>system/view/person"><li class=""><span><img src="<%=basePath%>images/left0.png">账户设置</span></li></a>
 			<a href="<%=menuBasePath%>storeinfo/view/showStoreList"><li class="active"><span><img src="<%=basePath%>images/left3.png">门店管理</span></li></a>
 			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span><img src="<%=basePath%>images/left1.png">基础设置</span></li></a>
+			<a href="<%=menuBasePath%>enterprise/view/showEnterprise"><li><span><img src="<%=basePath%>images/left1.png">新增企业</span></li></a>
 			<a href="<%=menuBasePath%>system/view/share"><li class=""><span><img src="<%=basePath%>images/left2.png">分享拓客</span></li></a>
 			<a href="<%=menuBasePath%>system/view/storeUsage"><li class="active"><span><img src="<%=basePath%>images/left3.png">系统信息</span></li></a>
 		</ul>
