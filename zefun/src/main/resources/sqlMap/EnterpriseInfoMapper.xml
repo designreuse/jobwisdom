@@ -175,4 +175,10 @@
       last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
     where enterprise_info_id = #{enterpriseInfoId,jdbcType=INTEGER}
   </update>
+  <select id="selectByProperties" parameterType="com.zefun.web.entity.EnterpriseInfo" resultMap="BaseResultMap">
+  	select * from enterprise_info where 1=1
+  	<if test="storeAccount != null">
+  	and store_account = #{storeAccount, jdbcType=VARCHAR}
+  	</if>
+  </select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.zefun.wechat.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.socket.TextMessage;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
+import com.zefun.common.swagger.SystemWebSocketHandler;
 import com.zefun.common.utils.GenerateQrCodeUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.controller.BaseController;
@@ -32,6 +36,9 @@ public class WechatPayController extends BaseController{
     private WechatCallService wechatCallService;
     /**log*/
     private final Logger log = Logger.getLogger(WechatPayController.class);
+    /** 事件通知操作*/
+    @Autowired
+    private SystemWebSocketHandler systemWebSocketHandler;
     
     /**
      * 微信NATIVE扫码支付
@@ -43,13 +50,14 @@ public class WechatPayController extends BaseController{
      */
     @RequestMapping(value = Url.AppPay.REQUEST_APP_PAY, method=RequestMethod.GET)
     public ModelAndView getQRCodeUrl(HttpServletRequest request, HttpServletResponse response){
-        String googsName = "门店充值";
-        Integer totalFee = 1;
+        String googsName = "我道系统-门店充值";
         String outTradeNo = StringUtil.getKey(); 
         String callback = "/" + Url.AppPay.REQUEST_APP_PAY_CALLBACK.replace("{outTradeNo}", outTradeNo);
-        String codeUrl = wechatCallService.payByQrCode(googsName, totalFee, outTradeNo, callback, request);
+        String code = wechatCallService.payByQrCode(googsName, 300*100, outTradeNo, callback, request);
+        String storeAccount = getStoreAccount(request);
+        wechatCallService.updateRechargeRecord(storeAccount, 300, outTradeNo, 0, null);
         ModelAndView view = new ModelAndView("wechat/NATIVE");
-        view.addObject("codeUrl", codeUrl);
+        view.addObject("codeUrl", code);
         return view;
     }
     
@@ -64,12 +72,13 @@ public class WechatPayController extends BaseController{
      */
     @RequestMapping(value = Url.AppPay.REQUEST_APP_PAY, method=RequestMethod.POST)
     @ResponseBody
-    public BaseDto getNativeCode(HttpServletRequest request, HttpServletResponse response, Integer amount){
+    public BaseDto getNativeCode(HttpServletRequest request, HttpServletResponse response, Integer amount) {
         String googsName = "我道系统-门店充值";
         String outTradeNo = StringUtil.getKey(); 
         String callback = "/" + Url.AppPay.REQUEST_APP_PAY_CALLBACK.replace("{outTradeNo}", outTradeNo);
         String code = wechatCallService.payByQrCode(googsName, amount*100, outTradeNo, callback, request);
         String storeAccount = getStoreAccount(request);
+        wechatCallService.updateRechargeRecord(storeAccount, amount, outTradeNo, 0, null);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, code);
     }
     
@@ -81,11 +90,16 @@ public class WechatPayController extends BaseController{
     * @param response response
     * @param outTradeNo 订单标示
     * @return SUCCESS
+     * @throws UnsupportedEncodingException 异常处理
      */
     @RequestMapping(value = Url.AppPay.REQUEST_APP_PAY_CALLBACK)
     @ResponseBody
-    public String appCallBack(HttpServletRequest request, HttpServletResponse response, @PathVariable String outTradeNo){
-        log.info("...........................微信进行回调了...........................outTradeNo............."+outTradeNo);
+    public String appCallBack(HttpServletRequest request, HttpServletResponse response, 
+            @PathVariable String outTradeNo) throws UnsupportedEncodingException{
+        log.info("微信支付回调了,32位随机字码为:"+outTradeNo);
+        String storeAccount = getStoreAccount(request);
+        systemWebSocketHandler.sendMessageToUser(storeAccount, new TextMessage("充值成功".getBytes("UTF-8")));
+        wechatCallService.updateRechargeRecord(null, null, outTradeNo, 1, null);
         return "SUCCESS";
     }
     

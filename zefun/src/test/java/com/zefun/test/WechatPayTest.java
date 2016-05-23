@@ -2,9 +2,14 @@ package com.zefun.test;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.zefun.common.consts.Url;
 import com.zefun.common.utils.StringUtil;
+import com.zefun.wechat.controller.WechatPayController;
 import com.zefun.wechat.service.WechatCallService;
 
 /**
@@ -14,11 +19,16 @@ import com.zefun.wechat.service.WechatCallService;
  */
 public class WechatPayTest extends BaseTest {
 
+    @Autowired
+    private WechatPayController wechatPayController;
    /* *//** 微信支付服务对象 *//*
     @Autowired
     private WechatCallService wechatCallService;*/
     
-    
+    @Test  
+    public void testView() throws Exception {  
+        wechatPayController.appCallBack(request, response, "1464003619611956695");
+    }  
     /**
      * 退款操作测试
     * @author 张进军

@@ -129,6 +129,8 @@ public class GenerateQrCodeUtil {
      * 生成二维码图片 不存储 直接以流的形式输出到页面
      * @param content content
      * @param response response
+     * @param width width
+     * @param height height
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public static void encodeQrcode(String content, HttpServletResponse response, Integer width, Integer height) {
