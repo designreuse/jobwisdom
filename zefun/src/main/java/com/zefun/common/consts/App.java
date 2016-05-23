@@ -251,6 +251,8 @@ public interface App {
 		public static final String WECHAT_PAY_FOR_YOUMEI_OPEN_ID = "session_key_pay_for_youmei_open_id";
 		/** 当前用户的userid */
 		public static final String USER_ID = "session_key_user_id";
+		/** session中企业代号*/
+        public static final String STORE_ACCOUNT = "session_key_store_account";
 		/** 当前用户的roleid */
 		public static final String ROLE_ID = "session_key_role_id";
 		/** 当前用户所在门店id */

@@ -107,6 +107,7 @@ public class LoginService {
 		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
 		sessiion.setAttribute(App.Session.STORE_ID, employeeInfo.getStoreId());
 		sessiion.setAttribute(App.Session.STORE_NAME, employeeInfo.getStoreName());
+		sessiion.setAttribute(App.Session.STORE_ACCOUNT, storeAccount);
 		sessiion.setAttribute(App.Session.USER_INFO, employeeInfo);
 		sessiion.setAttribute(App.Session.ROLE_ID, roleId);
 		sessiion.setAttribute(App.Session.ONE_LOGIN_TIME, 1);

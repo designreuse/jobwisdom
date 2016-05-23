@@ -1512,12 +1512,13 @@ public interface Url {
 	    /** 发起NATIVE扫码支付请求 */
         public static final String REQUEST_APP_PAY = "app/pay/qr";
         /** NATIVE扫码支付请求回调 */
-        public static final String REQUEST_APP_PAY_CALLBACK = "app/pay/qr/call";
-        
+        public static final String REQUEST_APP_PAY_CALLBACK = "app/pay/qr/call/{outTradeNo}";
         /**商城吊起微信支付*/
         public static final String GOODSINFO_PAY = "app/goodsinfo/wechat/init/pay";
         /**支付成功回调接口*/
         public static final String GOODSINFO_PAY_CALLBACK = "app/goodsinfo/wechat/pay/callback/{transactionId}";
+        /** 微信支付统一下单api*/
+        public static final String WECHAT_SERVER_API = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 	}
 
 }

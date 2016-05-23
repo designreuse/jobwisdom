@@ -55,8 +55,10 @@ import com.zefun.common.utils.SignUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.common.utils.XmlUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.entity.RechargeRecord;
 import com.zefun.web.entity.TransactionInfo;
 import com.zefun.web.entity.UboxTransaction;
+import com.zefun.web.mapper.RechargeRecordMapper;
 import com.zefun.web.mapper.TransactionInfoMapper;
 import com.zefun.web.mapper.UboxTransactionMapper;
 import com.zefun.web.service.QiniuService;
@@ -84,6 +86,10 @@ public class WechatCallService {
     /** 友宝交易信息服务对象 */
     @Autowired
     private UboxTransactionMapper uboxTransactionMapper;
+    /** 门店充值交易 */
+    @Autowired
+    private RechargeRecordMapper rechargeRecordMapper;
+    
 
     /**
      *  微信授权回调处理
@@ -500,8 +506,7 @@ public class WechatCallService {
         StringBuffer resultXml = new StringBuffer();
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
-            HttpPost httpPost = new HttpPost(
-                    "https://api.mch.weixin.qq.com/pay/unifiedorder");
+            HttpPost httpPost = new HttpPost(Url.AppPay.WECHAT_SERVER_API);
             StringEntity myEntity = new StringEntity(xml.toString(), "utf-8");
             httpPost.addHeader("Content-Type", "text/xml");
             httpPost.setEntity(myEntity);
@@ -511,24 +516,11 @@ public class WechatCallService {
                 if (response.getStatusLine()
                         .getStatusCode() == HttpStatus.SC_OK) {
                     InputStream is = resEntity.getContent();
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(is, "UTF-8"));
-//                    StringBuffer buffer = new StringBuffer();
+                    BufferedReader in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                     String line = "";
                     while ((line = in.readLine()) != null) {
                         resultXml.append(line);
                     }
-                    // end 读取整个页面内容
-//                    String backContent = resultXml.toString();
-
-                    /*
-                     * InputStreamReader reader = new
-                     * InputStreamReader(resEntity.getContent(), "UTF-8");
-                     * char[] buff = new char[1024];
-                     * while ((reader.read(buff)) != -1) {
-                     * resultXml.append(buff);
-                     * }
-                     */
                 }
             } 
             finally {
@@ -634,5 +626,33 @@ public class WechatCallService {
         return qiniuService.fetch(mediaUrl, key);
     }
 
+    /**
+     * 门店充值,生成单据
+    * @author 高国藩
+    * @date 2016年5月23日 上午11:50:02
+    * @param enterpriseAccountId  门店账户
+    * @param openId       充值人员
+    * @param totalFee     金额
+    * @param outTradeNo   32Str
+    * @param i            0:入单,1:改单
+     */
+    public void updateRechargeRecord(Integer enterpriseAccountId, Integer totalFee, String outTradeNo, Integer i, String openId) {
+        if (i == 0){
+            RechargeRecord rechargeRecord = new RechargeRecord();
+            rechargeRecord.setCreateTime(DateUtil.getCurDate());
+            rechargeRecord.setEnterpriseAccountId(enterpriseAccountId);
+            rechargeRecord.setStatus(0);
+            rechargeRecord.setOutTradeNo(outTradeNo);
+            rechargeRecord.setRechargeAmount(new BigDecimal(totalFee/100));
+        }
+        if (i == 1){
+            RechargeRecord rechargeRecord2 = new RechargeRecord();
+            rechargeRecord2.setOutTradeNo(outTradeNo);
+            RechargeRecord rechargeRecord = rechargeRecordMapper.selectByTradeNo(rechargeRecord2);
+            rechargeRecord.setOpenId(openId);
+            rechargeRecord.setStatus(1);
+            rechargeRecordMapper.updateByPrimaryKeySelective(rechargeRecord);
+        }
+    }
     
 }
