@@ -2,25 +2,44 @@ package com.zefun.web.entity;
 
 import java.math.BigDecimal;
 
+/**
+ * 充值记录表
+* @author 高国藩
+* @date 2016年5月23日 下午8:08:54
+ */
 public class RechargeRecord {
+    
+    /***/
     private Integer rId;
-
+    /***/
     private Integer enterpriseAccountId;
-
+    /***/
     private BigDecimal rechargeAmount;
-
+    /***/
     private String openId;
-
+    /***/
     private String outTradeNo;
-
+    /***/
     private Integer status;
-
+    /***/
     private String createTime;
-
+    
+    /**
+     * df
+    * @author 高国藩
+    * @date 2016年5月23日 下午8:09:28
+    * @return df
+     */
     public Integer getrId() {
         return rId;
     }
 
+    /**
+     * 地方
+    * @author 高国藩
+    * @date 2016年5月23日 下午8:09:48
+    * @param rId 地方
+     */
     public void setrId(Integer rId) {
         this.rId = rId;
     }

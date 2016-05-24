@@ -115,6 +115,7 @@
 			<a href="<%=menuBasePath%>enterprise/view/showEnterprise"><li><span><img src="<%=basePath%>images/left1.png">新增企业</span></li></a>
 			<a href="<%=menuBasePath%>system/view/share"><li class=""><span><img src="<%=basePath%>images/left2.png">分享拓客</span></li></a>
 			<a href="<%=menuBasePath%>system/view/storeUsage"><li class="active"><span><img src="<%=basePath%>images/left3.png">系统信息</span></li></a>
+			<a href="<%=menuBasePath%>app/pay/qr"><li class="active"><span><img src="<%=basePath%>images/left3.png">门店充值</span></li></a>
 		</ul>
 	</div>
 </div>

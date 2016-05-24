@@ -52,4 +52,13 @@ public interface EnterpriseInfoMapper {
     * @return int
      */
     int updateByPrimaryKey(EnterpriseInfo record);
+
+    /**
+     * 根据属性查询信息
+    * @author 高国藩
+    * @date 2016年5月23日 下午5:59:21
+    * @param enterpriseInfo enterpriseInfo
+    * @return               enterpriseInfo
+     */
+    EnterpriseInfo selectByProperties(EnterpriseInfo enterpriseInfo);
 }

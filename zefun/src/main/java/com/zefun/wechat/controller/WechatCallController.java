@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
+import com.zefun.common.swagger.SystemWebSocketHandler;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.wechat.service.WechatCallService;

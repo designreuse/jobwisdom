@@ -43,6 +43,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,9 +56,15 @@ import com.zefun.common.utils.SignUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.common.utils.XmlUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.entity.EnterpriseAccount;
+import com.zefun.web.entity.EnterpriseAccountFlow;
+import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.RechargeRecord;
 import com.zefun.web.entity.TransactionInfo;
 import com.zefun.web.entity.UboxTransaction;
+import com.zefun.web.mapper.EnterpriseAccountFlowMapper;
+import com.zefun.web.mapper.EnterpriseAccountMapper;
+import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.RechargeRecordMapper;
 import com.zefun.web.mapper.TransactionInfoMapper;
 import com.zefun.web.mapper.UboxTransactionMapper;
@@ -89,6 +96,16 @@ public class WechatCallService {
     /** 门店充值交易 */
     @Autowired
     private RechargeRecordMapper rechargeRecordMapper;
+    /** 企业信息表操作*/
+    @Autowired
+    private EnterpriseInfoMapper enterpriseInfoMapper;
+    /** 企业信息表操作*/
+    @Autowired
+    private EnterpriseAccountFlowMapper enterpriseAccountFlowMapper;
+    /** 企业信息表操作*/
+    @Autowired
+    private EnterpriseAccountMapper enterpriseAccountMapper;
+    
     
 
     /**
@@ -630,20 +647,27 @@ public class WechatCallService {
      * 门店充值,生成单据
     * @author 高国藩
     * @date 2016年5月23日 上午11:50:02
-    * @param enterpriseAccountId  门店账户
+    * @param storeAccount storeAccount
     * @param openId       充值人员
     * @param totalFee     金额
     * @param outTradeNo   32Str
     * @param i            0:入单,1:改单
      */
-    public void updateRechargeRecord(Integer enterpriseAccountId, Integer totalFee, String outTradeNo, Integer i, String openId) {
+    @Transactional
+    public void updateRechargeRecord(String storeAccount, Integer totalFee, 
+            String outTradeNo, Integer i, String openId) {
         if (i == 0){
+            EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
+            enterpriseInfo.setStoreAccount(storeAccount);
+            enterpriseInfo = enterpriseInfoMapper.selectByProperties(enterpriseInfo);
+            
             RechargeRecord rechargeRecord = new RechargeRecord();
             rechargeRecord.setCreateTime(DateUtil.getCurDate());
-            rechargeRecord.setEnterpriseAccountId(enterpriseAccountId);
+            rechargeRecord.setEnterpriseAccountId(enterpriseInfo.getEnterpriseInfoId());
             rechargeRecord.setStatus(0);
             rechargeRecord.setOutTradeNo(outTradeNo);
-            rechargeRecord.setRechargeAmount(new BigDecimal(totalFee/100));
+            rechargeRecord.setRechargeAmount(new BigDecimal(totalFee));
+            rechargeRecordMapper.insert(rechargeRecord);
         }
         if (i == 1){
             RechargeRecord rechargeRecord2 = new RechargeRecord();
@@ -652,6 +676,22 @@ public class WechatCallService {
             rechargeRecord.setOpenId(openId);
             rechargeRecord.setStatus(1);
             rechargeRecordMapper.updateByPrimaryKeySelective(rechargeRecord);
+            
+            
+            EnterpriseInfo enterpriseInfo = enterpriseInfoMapper.selectByPrimaryKey(rechargeRecord.getEnterpriseAccountId());
+            EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByPrimaryKey(enterpriseInfo.getEnterpriseInfoId());
+            enterpriseAccount.setBalanceAmount(enterpriseAccount.getBalanceAmount().
+                    add(new BigDecimal(rechargeRecord.getRechargeAmount().intValue())));
+            enterpriseAccount.setTotalAmount(enterpriseAccount.getTotalAmount().add(new BigDecimal(rechargeRecord.getRechargeAmount().intValue())));
+            enterpriseAccountMapper.updateByPrimaryKey(enterpriseAccount);
+            
+            EnterpriseAccountFlow enterpriseAccountFlow = new EnterpriseAccountFlow();
+            enterpriseAccountFlow.setBusinessType("充值");
+            enterpriseAccountFlow.setEnterpriseAccountId(rechargeRecord.getEnterpriseAccountId());
+            enterpriseAccountFlow.setBalanceAmount(enterpriseAccount.getBalanceAmount().intValue());
+            enterpriseAccountFlow.setFlowAmount(rechargeRecord.getRechargeAmount().intValue());
+            enterpriseAccountFlowMapper.insert(enterpriseAccountFlow);
+            
         }
     }
     
