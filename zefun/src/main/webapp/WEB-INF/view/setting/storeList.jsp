@@ -29,50 +29,140 @@
     <div class="leftpanel" style="height: 840px; margin-left: 0px;">
         <%@include file="/menu.jsp"%>
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
-			<%@include file="/top.jsp"%>
-			<!-- 页面元素开始 -->
-			<div class='content_right'>
-		         <div class="add_store_content">
-				   <div class="add_store_content_ clearfix">
-				     <div class="add_store_button"> <button onclick="addStore()">新增</button></div>
-					  <div class="add_store_span"><span>已创建门店数：<em>3</em></span><span>剩余可创建门店数：<em>100</em></span></div>
-				   
-				   </div>
-				   <div class="dd_store_content_2">
-				     <ul class="clearfix">
-				       <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
-				           <li>
-						    <span class="business">营业</span>
-						      <p class="shop_name">${storeInfo.storeName}</p>
-							  <span class="shop_pic"><img src="<%=qiniuPath%>${storeInfo.storeLogo}"></span>
-							  <div class="store_right">
-							     <span class="connect_people">联系人</span>
-								 <p>${storeInfo.storeLinkname}</p>
-							      <span class="phone_number">电话号码</span>
-							      <p style="position:relative;right:16px">${storeInfo.storeLinkphone}</p>
-							  </div>
-							  <div class="clearfix add_store_content_bottom">
-							     <div class="add_1" style="border-right:1px solid #ccc">
-								        编辑<span><img src="<%=basePath%>images/add_store_1.png"></span>
-								 </div>
-								 <div class="add_1" style="position:relative;left:100px">
-								        删除<span><img src="<%=basePath%>images/add_store_2.png"></span>
-								 </div>
-							  </div>
-						   </li>
-				       </c:forEach>
-			       		 
-					 </ul>
-				   
-				   </div>
-				 
-				 </div>     
+			<%@include file="/top.jsp"%>  
+				 <div class='content_right' style="background:white">
+				   <div class="add_store_div">
+				      <ul class="clearfix add_store_back">
+					     <li class="active"><span>门店基本信息</span></li>
+					     <li><span style="position:relative;top:15px">门店授权码</span></li>
+					     <li><span style="position:relative;top:20px">门店短信</span></li>
+					  </ul>
+				
+				    <div class="add_store_include">
+				     <div class="add_store_content">
+					   <div class="add_store_content_ clearfix">
+					     <div class="add_store_button"> <button onclick="addStore()">新增</button> <button onclick="">升级续费</button> <button onclick="consumptionRecord()">消费记录</button></div>
+						  <div class="add_store_span"><span>已创建门店数：<em>3</em></span><span>剩余可创建门店数：<em>100</em></span><span>到期时间：<em>2005-02-31</em></span></div>
+					   
+					   </div>
+					   <div class="dd_store_content_2">
+					     <ul class="clearfix">
+						   <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
+					           <li>
+							    <span class="business">营业</span>
+							      <p class="shop_name">${storeInfo.storeName}</p>
+								  <span class="shop_pic"><img src="<%=qiniuPath%>${storeInfo.storeLogo}"></span>
+								  <div class="store_right">
+								     <span class="connect_people">联系人</span>
+									 <p>${storeInfo.storeLinkname}</p>
+								      <span class="phone_number">电话号码</span>
+								      <p style="position:relative;right:16px">${storeInfo.storeLinkphone}</p>
+								  </div>
+								  <div class="clearfix add_store_content_bottom">
+								     <div class="add_1" style="border-right:1px solid #ccc">
+									        编辑<span><img src="<%=basePath%>images/add_store_1.png"></span>
+									 </div>
+									 <div class="add_1" style="position:relative;left:100px">
+									        删除<span><img src="<%=basePath%>images/add_store_2.png"></span>
+									 </div>
+								  </div>
+							    </li>
+					       </c:forEach>
+						 </ul>
+					   </div>
+					 </div>
+					 <div class="add_store_content clearfix">
+					   <div class="add_store_two_left">
+					      <div class="left_detail">
+						     <p>门店<p>
+							 <select name = "storeSelect" onchange="changeStore()">
+							   <option>选择门店 </option>
+							   <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
+							       <option value="${storeInfo.storeId }">${storeInfo.storeName }</option>
+							   </c:forEach>
+				              </select>
+				           </div>
+						    <div class="left_detail">
+						     <p>员工<p>
+							 <select>
+							   <option>选择员工 </option>
+				              </select>
+				           </div>
+						   
+						    <div class="left_detail">
+						     <p>授权码<p>
+							 <input type="text" name = "authorityValue" style="width: 130px;height: 22px;">
+							  <span>*
+							    <em><i>请输入6位密码，
+				数字和字母组合。</i></em>
+							  </span>
+				           </div>
+						   
+						   
+						     <div class="left_detail">
+						      <button>新增</button>
+				           </div>
+				        </div>
+						
+						<div class="right_detail">
+						  <table>
+						    <tr>
+							   <td>门店名称</td>
+							   <td>授权码</td>
+							   <td>员工</td>
+							   <td>创建时间</td>
+							   <td>操作</td>
+							</tr>
+							
+							<c:forEach items="${enterpriseStoreAuthoritys}" var="enterpriseStoreAuthority" varStatus="status">
+							    <tr>
+								   <td>${enterpriseStoreAuthority.storeName }</td>
+								   <td>${enterpriseStoreAuthority.authorityValue }</td>
+								   <td>${enterpriseStoreAuthority.employeeCode } ${enterpriseStoreAuthority.name }</td>
+								   <td>${enterpriseStoreAuthority.createTime }</td>
+								   <td></td>
+								</tr>
+							</c:forEach>
+							
+						  </table>
+						
+						</div>
+					   
+					 
+					 </div>
+					 <div class="add_store_content">
+					   <div class="add_store_content_ clearfix">
+					     <div class="add_store_button"> <button>充值</button> <button>充值记录</button></div>
+						  <div class="add_store_span_1">可分配短信信息：<span>${enterpriseAccount.balanceMsnNum }</span></div>
+				       </div> 
+				         <div class="distribution clearfix">
+				           <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
+							    <div class="distribution_list">
+								   <p>${storeInfo.storeName}<span>分配</span></p>
+								   <div class="distribution_list_text">
+								     <p>累计短信数量：${storeInfo.totalSms}条</p>
+									  <p>剩余短信数量：${storeInfo.balanceSms}条</p>
+								   </div>
+								   <div class="distribution_alert">
+								     <p>拥有10000条</p>
+								     <p>增加<input type="text" ><span style="position:relative;right:20px;color:#9f9d9d">条</span></p>
+									 <div class="distribution_alert_button">
+									   <button>确认</button>
+									   <button>取消</button>
+									 </div>
+								   </div>
+								</div>
+					       </c:forEach>
+						 </div>	   
+					 </div>
+				  </div>	 
+				  </div>
 		    </div>
 		</div>
     </div>
 </div>
 
-<div class="zzc" style="display:none" id = "addOrUpdateStore">
+<div class="zzc" style="display:none" name = "modelDiv" id = "addOrUpdateStore">
  
 	<div class="set_content clearfix" >
 	   <p class="new_shop">新建店铺</p>
@@ -112,7 +202,7 @@
 		     <input type="text" placeholder="选择省/市/区" id="city-picker3">
 		     <div class="detail_address">
 			   <div>详细地址</div>
-			   <textarea style="height:86px;margin-top:10px;border-radius:8px;width:220px"></textarea>
+			   <textarea style="height:86px;margin-top:10px;border-radius:8px;width:220px" id = "searchtext"></textarea>
 			 </div>
 			 <div class="detail_address">
 			   <div>操作员工号</div>
@@ -127,15 +217,15 @@
 	 </div>
 	</div> 
 		 <div class="add_button">
-		  <button class="submit_">确认</button>
-		  <button class="cancel_">取消</button>
+		  <button class="submit_" onclick="saveStoreInfo()" >确认</button>
+		  <button class="cancel_" onclick="cancel()">取消</button>
 		 </div> 
    </div>
 
 </div>
 
 
-<div class="zzc" id = "pageUp" style="display:none">
+<div class="zzc" id = "pageUp" name = "modelDiv" style="display:none">
  <div class="photo_cut">
   <div id="clipArea"></div>
         <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
@@ -148,6 +238,129 @@
    </div>
 </div>
 
+<div class="zzc1" style="display:none" name = "modelDiv" id = "consumptionRecordDiv">
+    <div class="add_balance">
+	  <p>收支明细</p>
+	  <div class="add_balance_content">
+	     <table>
+		   <tr>
+		     <td>公司名称</td>
+			 <td style="color:black">收支金额（元）</td>
+			 <td>当前金额（元）</td>
+			 <td>收支类型</td>
+			 <td>消费时间</td>
+		   </tr>
+		   <tbody id = "consumptionRecordTBODY">
+		       <tr>
+			     <td>当当大</td>
+				 <td>1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+			      <tr>
+			     <td>当当大</td>
+				 <td style="color:green">1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+			      <tr>
+			     <td>当当大</td>
+				 <td>1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+			      <tr>
+			     <td>当当大</td>
+				 <td>1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+			      <tr>
+			     <td>当当大</td>
+				 <td>1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+			      <tr>
+			     <td>当当大</td>
+				 <td>1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+			      <tr>
+			     <td>当当大</td>
+				 <td>1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+			      <tr>
+			     <td>当当大</td>
+				 <td>1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+			      <tr>
+			     <td>当当大</td>
+				 <td>1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+			      <tr>
+			     <td>当当大</td>
+				 <td>1235</td>
+				 <td>120305</td>
+				 <td>账户充值</td>
+				 <td>1235-12-50</td>
+			   </tr>
+		   
+		   </tbody>
+		 </table>
+	  
+	  </div>
+	  <div class="add_balance_button">
+		 <button onclick = "cancel()">取消</button>
+	  </div>
+	</div>
+</div>
+	
+<div class="zzc2" style="display:none" name = "modelDiv">
+    <div class="add_balance" style="height:475px">
+	  <p>短信充值</p>
+	  <div class="add_balance_content" style="margin:20px auto;height:290px;overflow:visible">
+	    <p>门店：撒打算带娃的撒上打我</p>
+	    <p>账户余额(元)：1000000</p>
+	    <p>剩余短信（条）：105632155</p>
+		<div class="this_buy">
+		  <p>本次购买</p>
+		  <ul class="clearfix">
+		    <li><input type="radio"><span>1000条（97元）</span></li>
+			 <li><input type="radio"><span>1000条（97元）</span></li>
+			  <li><input type="radio"><span>1000条（97元）</span></li>
+			   <li><input type="radio"><span>1000条（97元）</span></li>
+			  <li><input type="radio"><span>1000条（97元）</span></li>
+			  <li>其他<em><input type="text" placeholder="输入购买数量"></em></li>
+			  
+		  </ul>
+		  <div class="total_price">总付：<span>60元</span></div>
+		</div>
+	  </div>
+	  <div class="add_balance_button" style="position:relative;top:20px">
+	    <button>确认</button>
+		 <button>取消</button>
+	  
+	  </div>
+	</div>
+</div>	
+
 <script type="text/javascript">
 var cssWidth = 200;
 var cssHeight = 200;
@@ -158,6 +371,7 @@ var imgObject;
 <script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>
 <script src="<%=basePath%>js/common/city-picker.data.js"></script>
 <script src="<%=basePath%>js/common/city-picker.js"></script>
+<script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 
 </body>
 </html>

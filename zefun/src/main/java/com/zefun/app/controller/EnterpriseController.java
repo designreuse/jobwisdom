@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.app.service.EnterpriseService;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
+import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 
 /**
@@ -21,7 +22,7 @@ import com.zefun.web.dto.BaseDto;
 * @date 2016年5月21日 下午7:07:12
  */
 @Controller
-public class EnterpriseController {
+public class EnterpriseController extends BaseController{
 	
     /**
      * 配置员工出勤
@@ -58,6 +59,11 @@ public class EnterpriseController {
 	public BaseDto addEnterprise (HttpServletRequest request, String enterpriseName, String enterpriseLinkphone, 
 			  String enterpriseLinkname, String storeAccount) {
 		return enterpriseService.addEnterprise(enterpriseName, enterpriseLinkphone, enterpriseLinkname, storeAccount);
+	}
+	
+	public BaseDto addStoreAuthority (HttpServletRequest request, Integer storeId, String storeName, String authorityValue, String employeeId, Integer employeeCode,
+			  String name, String enterpriseLinkname, String storeAccount) {
+		Integer storeAccount = getStoreAccount();
 	}
 }
   

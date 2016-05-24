@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.SpecialService;
@@ -50,43 +49,40 @@ public class StoreInfoController extends BaseController {
 	 */
 	@RequestMapping(value = Url.StoreInfo.SHOW_STORE_LIST, method = RequestMethod.GET)
 	public ModelAndView showStoreList(HttpServletRequest request) {
-		Integer storeId = getStoreId(request);
-		return storeInfoService.showStoreList(storeId);
+		String storeAccount = getStoreAccount(request);
+		return storeInfoService.showStoreList(storeAccount);
 	}
 
-	/**
-	 * 创建门店
-	* @author 老王
-	* @date 2016年4月28日 下午6:11:25 
-	* @param request 返回
-	* @param storeId 门店id
-	* @return ModelAndView
-	 */
-	@RequestMapping(value = Url.StoreInfo.ADD_STORE)
-	public ModelAndView addStore(HttpServletRequest request, Integer storeId) {
-		
-		return storeInfoService.addStore(storeId);
-	}
 	
 	/**
 	 * 创建分店
 	* @author 老王
 	* @date 2016年4月30日 下午4:52:22 
 	* @param storeInfo 门店信息
+	* @param userName 操作员
+	* @param userPwd 操作原密码
 	* @param request 返回
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.StoreInfo.SAVE_UPDATE_STORE)
-	public BaseDto saveUpdateStore (StoreInfo storeInfo, HttpServletRequest request) {
+	public BaseDto saveUpdateStore (StoreInfo storeInfo, Integer userName, String userPwd, HttpServletRequest request) {
 		if (storeInfo.getStoreId() == null) {
-			Integer storeId = getStoreId(request);
-			storeInfo.setHqStoreId(storeId);
+			String storeAccount = getStoreAccount(request);
+			storeInfo.setStoreAccount(storeAccount);
 			storeInfo.setStoreType(3);
-			return storeInfoService.saveStore(storeInfo);
+			
+			//新增操作员
+			
+			return storeInfoService.saveStore(storeInfo, userName, userPwd);
 		}
 		else {
 			return storeInfoService.storeSettingAction(storeInfo);
 		}
+	}
+	
+	public BaseDto selectConsumptionRecord (HttpServletRequest request) {
+		String storeAccount = getStoreAccount(request);
+		return storeInfoService.selectConsumptionRecord(storeAccount);
 	}
 	
 	/**
@@ -193,11 +189,11 @@ public class StoreInfoController extends BaseController {
 	 *            父级门店标识
 	 * @return 成功返回码为0，失败为其它返回码
 	 */
-	@RequestMapping(value = Url.StoreInfo.ACTION_ADD_STORE, method = RequestMethod.POST)
+	/*@RequestMapping(value = Url.StoreInfo.ACTION_ADD_STORE, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto addStoreInfo(String name, String phone, String storeName, Integer storeType, Integer parentId) {
 		return storeInfoService.addStoreInfo(name, phone, storeName, storeType, parentId);
-	}
+	}*/
 
 	/**
 	 * 初始化门店数据(部门-岗位-职位)

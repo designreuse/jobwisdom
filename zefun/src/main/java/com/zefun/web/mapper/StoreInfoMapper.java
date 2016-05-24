@@ -204,4 +204,13 @@ public interface StoreInfoMapper {
 	 * @return 数量
 	 */
 	int isExitsStoreAccount(String storeAccount);
+	
+	/**
+	 * 根据企业代号查出企业下所有门店
+	* @author 老王
+	* @date 2016年5月24日 上午12:06:39 
+	* @param storeAccount 企业代号
+	* @return List<StoreInfo>
+	 */
+	List<StoreInfo> selectByStoreAccount(String storeAccount);
 }

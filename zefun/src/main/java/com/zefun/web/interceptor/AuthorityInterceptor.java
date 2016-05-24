@@ -2,10 +2,13 @@ package com.zefun.web.interceptor;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.zefun.common.consts.App;
 
 /**
@@ -34,10 +37,10 @@ public class AuthorityInterceptor implements HandlerInterceptor {
             }
         }
 
-        Object userInfo = request.getSession()
-                .getAttribute(App.Session.USER_INFO);
+        Object storeAccount = request.getSession()
+                .getAttribute(App.Session.STORE_ACCOUNT);
         // 未登陆或者登陆超时
-        if (userInfo == null) {
+        if (storeAccount == null) {
             writeNoLoginResult(request, response,
                     App.System.ERROR_CODE_SESSION_INVALID);
             return false;

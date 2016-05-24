@@ -12,6 +12,32 @@ jQuery(function(){
    });
  });
 
+//切换
+jQuery(function(){
+   jQuery('.add_store_include .add_store_content:gt(0)').hide();
+   jQuery('.add_store_back li ').click(function(){
+	   jQuery(this).addClass('active').siblings().removeClass('active');
+	   jQuery('.add_store_include .add_store_content').eq(jQuery(this).index()).show().siblings().hide()
+	 
+  });
+});	
+
+//点击分配，弹出浮窗
+jQuery(function(){
+jQuery('.distribution_list>p span').click(function(){
+jQuery(this).parents('.distribution_list').find('.distribution_alert').fadeIn();
+})
+}) 
+
+//提示气泡
+jQuery(function(){
+jQuery('.left_detail span').hover(function(){
+jQuery(this).find('em').stop(true,true).fadeIn('normal');
+},function(){
+  jQuery(this).find('em').stop(true,true).fadeOut('normal');
+});
+}) 
+
 function addStore() {
 	jQuery("#addOrUpdateStore").show();
 }
@@ -66,7 +92,11 @@ function zccCallback(dataBase64){
 }
 
 function cancel() {
-	window.location.href = baseUrl + "storeinfo/view/showStoreList";
+	jQuery("div[name='modelDiv']").hide();
+}
+
+function consumptionRecord () {
+	jQuery("#consumptionRecordDiv").show();
 }
 
 //提交店铺信息
@@ -78,6 +108,12 @@ function saveStoreInfo(){
 	var storeProvince = addressList[0];
 	var storeCity = addressList[1];
 	var street = jQuery("#searchtext").val();
+	
+	var userName  = jQuery("#userName").val();
+	var userPwd  = jQuery("#userPwd").val();
+	
+	userPwd = CryptoJS.MD5(CryptoJS.MD5(userPwd).toString().toUpperCase()).toString().toUpperCase();
+	
 	if (isEmpty(storeProvince)) {
 		dialog("请选择省");
 		return;
@@ -136,7 +172,7 @@ function saveStoreInfo(){
 		return;
 	} */
 	var data = "storeLogo=" + storeLogo + "&storeName=" + storeName + "&storeTel=" + storeTel + "&storeAddress=" + storeAddress + "&storeProvince=" + storeProvince + "&storeCity=" + storeCity
-		+ "&storeLinkname=" + storeLinkname + "&storeLinkphone=" + storeLinkphone ;/* + "&latitude=" + latitude + "&longitude=" + longitude */
+		+ "&storeLinkname=" + storeLinkname + "&storeLinkphone=" + storeLinkphone +"&userName=" + userName + "&userPwd="+userPwd;/* + "&latitude=" + latitude + "&longitude=" + longitude */
 	submit(data, "保存成功，已更新您的店铺信息");
 }
 

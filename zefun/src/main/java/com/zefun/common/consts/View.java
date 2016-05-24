@@ -84,8 +84,6 @@ public interface View {
 		
 		/** 门店列表展示 */
 		public static final String STORE_LIST = "setting/storeList";
-		/** 创建门店*/
-		public static final String ADD_STORE =  "setting/addStore";
 		/** 店铺设置 */
 		public static final String STORE_SETTING = "setting/storeSetting";
 

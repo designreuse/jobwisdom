@@ -19,16 +19,20 @@
     <result column="technical" property="technical" jdbcType="LONGVARCHAR" />
     <result column="characteristic" property="characteristic" jdbcType="LONGVARCHAR" />
     <result column="teacher_introduction" property="teacherIntroduction" jdbcType="LONGVARCHAR" />
+    <result column="store_status" property="storeStatus" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="latitude" property="latitude" jdbcType="VARCHAR" />
     <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="total_sms" property="totalSms" jdbcType="INTEGER" />
+    <result column="balance_sms" property="balanceSms" jdbcType="INTEGER" />
   </resultMap>
 
   <sql id="Base_Column_List" >
     store_id, hq_store_id, store_type, store_name, store_linkname, store_account, store_linkphone,
     store_address, store_city, store_province, store_tel, store_logo, carousel_picture, store_desc,
-    technical, characteristic, teacher_introduction, create_time, update_time, latitude, longitude
+    technical, characteristic, teacher_introduction, store_status, create_time, update_time, latitude, longitude,
+    total_sms, balance_sms
   </sql>
   <select id="selectMainIdByStoreId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     select ifnull(hq_store_id, #{storeId}) from store_info where store_id = #{storeId}
@@ -118,6 +122,9 @@
       <if test="carouselPicture != null" >
         carousel_picture,
       </if>
+      <if test="storeStatus != null" >
+        store_status,
+      </if>
       <if test="createTime != null" >
         create_time,
       </if>
@@ -135,6 +142,12 @@
       </if>
       <if test="teacherIntroduction != null" >
         teacher_introduction,
+      </if>
+      <if test="totalSms != null" >
+        total_sms,
+      </if>
+      <if test="balanceSms != null" >
+        balance_sms,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -177,6 +190,9 @@
       <if test="carouselPicture != null" >
         #{carouselPicture,jdbcType=VARCHAR},
       </if>
+      <if test="storeStatus != null" >
+        #{storeStatus,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=CHAR},
       </if>
@@ -194,6 +210,12 @@
       </if>
       <if test="teacherIntroduction != null" >
         #{teacherIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="totalSms != null" >
+        #{totalSms,jdbcType=INTEGER},
+      </if>
+      <if test="balanceSms != null" >
+        #{balanceSms,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -234,6 +256,9 @@
       <if test="carouselPicture != null" >
         carousel_picture = #{carouselPicture,jdbcType=VARCHAR},
       </if>
+      <if test="storeStatus != null" >
+        store_status = #{storeStatus,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=CHAR},
       </if>
@@ -257,6 +282,12 @@
       </if>
       <if test="longitude != null">
         longitude = #{longitude}
+      </if>
+      <if test="totalSms != null">
+        total_sms = #{totalSms,jdbcType=INTEGER}
+      </if>
+      <if test="balanceSms != null">
+        balance_sms = #{balanceSms,jdbcType=INTEGER}
       </if>
     </set>
     where store_id = #{storeId,jdbcType=INTEGER}
@@ -347,5 +378,12 @@
     count(*)
     from store_info 
     where store_account =  #{storeAccount,jdbcType=VARCHAR} AND store_status = 5
+  </select>
+  
+  <select id="selectByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+      <include refid="Base_Column_List" />
+    from store_info 
+    where store_account =  #{storeAccount,jdbcType=VARCHAR} 
   </select>
 </mapper>

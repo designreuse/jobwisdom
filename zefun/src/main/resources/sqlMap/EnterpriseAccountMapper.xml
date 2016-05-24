@@ -28,22 +28,19 @@
     from enterprise_account
     where enterprise_account_id = #{enterpriseAccountId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_account a
+    where exists(select 1 from enterprise_info b where a.enterprise_account_id = b.enterprise_info_id and b.store_account = #{storeAccount,jdbcType=VARCHAR})
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from enterprise_account
     where enterprise_account_id = #{enterpriseAccountId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zefun.web.entity.EnterpriseAccount" >
-    insert into enterprise_account (enterprise_account_id, begin_time, finish_time, 
-      total_amount, balance_amount, total_msn_num, 
-      balance_msn_num, enterprise_edition, total_store_num, 
-      already_store_num, balance_store_num, update_time, 
-      create_time, last_operator_id)
-    values (#{enterpriseAccountId,jdbcType=INTEGER}, #{beginTime,jdbcType=CHAR}, #{finishTime,jdbcType=CHAR}, 
-      #{totalAmount,jdbcType=DECIMAL}, #{balanceAmount,jdbcType=DECIMAL}, #{totalMsnNum,jdbcType=INTEGER}, 
-      #{balanceMsnNum,jdbcType=INTEGER}, #{enterpriseEdition,jdbcType=VARCHAR}, #{totalStoreNum,jdbcType=INTEGER}, 
-      #{alreadyStoreNum,jdbcType=INTEGER}, #{balanceStoreNum,jdbcType=INTEGER}, #{updateTime,jdbcType=CHAR}, 
-      #{createTime,jdbcType=CHAR}, #{lastOperatorId,jdbcType=INTEGER})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.zefun.web.entity.EnterpriseAccount" >
     insert into enterprise_account
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -178,23 +175,6 @@
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
       </if>
     </set>
-    where enterprise_account_id = #{enterpriseAccountId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.EnterpriseAccount" >
-    update enterprise_account
-    set begin_time = #{beginTime,jdbcType=CHAR},
-      finish_time = #{finishTime,jdbcType=CHAR},
-      total_amount = #{totalAmount,jdbcType=DECIMAL},
-      balance_amount = #{balanceAmount,jdbcType=DECIMAL},
-      total_msn_num = #{totalMsnNum,jdbcType=INTEGER},
-      balance_msn_num = #{balanceMsnNum,jdbcType=INTEGER},
-      enterprise_edition = #{enterpriseEdition,jdbcType=VARCHAR},
-      total_store_num = #{totalStoreNum,jdbcType=INTEGER},
-      already_store_num = #{alreadyStoreNum,jdbcType=INTEGER},
-      balance_store_num = #{balanceStoreNum,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=CHAR},
-      create_time = #{createTime,jdbcType=CHAR},
-      last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
     where enterprise_account_id = #{enterpriseAccountId,jdbcType=INTEGER}
   </update>
 </mapper>

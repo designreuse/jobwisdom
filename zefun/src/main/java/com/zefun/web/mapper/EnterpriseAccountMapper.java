@@ -20,15 +20,6 @@ public interface EnterpriseAccountMapper {
     /**
      * 
     * @author 老王
-    * @date 2016年5月21日 下午6:51:12 
-    * @param record record
-    * @return int
-     */
-    int insert(EnterpriseAccount record);
-
-    /**
-     * 
-    * @author 老王
     * @date 2016年5月21日 下午6:51:15 
     * @param record record
     * @return int
@@ -44,6 +35,14 @@ public interface EnterpriseAccountMapper {
      */
     EnterpriseAccount selectByPrimaryKey(Integer enterpriseAccountId);
 
+    /**
+     * 根据企业代号查询企业账户信息
+    * @author 老王
+    * @date 2016年5月24日 下午12:11:28 
+    * @param storeAccount 企业代号
+    * @return List<EnterpriseAccount>
+     */
+    EnterpriseAccount selectByStoreAccount(String storeAccount);
     /**
      * 
     * @author 老王
