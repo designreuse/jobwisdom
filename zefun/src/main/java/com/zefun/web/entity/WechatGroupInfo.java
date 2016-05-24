@@ -10,7 +10,7 @@ public class WechatGroupInfo {
 	private Integer id;
 
 	/** 门店标识 */
-	private Integer storeId;
+	private String storeAccount;
 
 	/** 分组类型(1:会员，2:员工，3:老板，4:无身份) */
 	private Integer groupType;
@@ -34,14 +34,14 @@ public class WechatGroupInfo {
 	 * 初始化微信分组信息
 	* @author 张进军
 	* @date Jan 26, 2016 8:39:40 PM
-	* @param storeId   门店标识
+	* @param storeAccount   门店标识
 	* @param groupType 分组类型(1:会员，2:员工，3:老板，4:无身份)
 	* @param groupId   微信分组ID
 	* @param groupName 微信分组名称
 	 */
-	public WechatGroupInfo(Integer storeId, Integer groupType, Integer groupId, String groupName) {
+	public WechatGroupInfo(String storeAccount, Integer groupType, Integer groupId, String groupName) {
         super();
-        this.storeId = storeId;
+        this.storeAccount = storeAccount;
         this.groupType = groupType;
         this.groupId = groupId;
         this.groupName = groupName;
@@ -57,17 +57,15 @@ public class WechatGroupInfo {
 		return id;
 	}
 
-	/** @param storeId	门店标识 */
-	public void setStoreId(Integer storeId){
-		this.storeId = storeId;
-	}
+	public String getStoreAccount() {
+        return storeAccount;
+    }
 
-	/** @return	门店标识 */
-	public Integer getStoreId(){
-		return storeId;
-	}
+    public void setStoreAccount(String storeAccount) {
+        this.storeAccount = storeAccount;
+    }
 
-	/** @param groupType	分组类型(1:会员，2:员工，3:老板，4:无身份) */
+    /** @param groupType	分组类型(1:会员，2:员工，3:老板，4:无身份) */
 	public void setGroupType(Integer groupType){
 		this.groupType = groupType;
 	}

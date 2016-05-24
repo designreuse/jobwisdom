@@ -290,7 +290,7 @@ public class MemberCenterService {
 	* @param userId    用户标识
 	* @return  会员/员工/老板/门店信息页
 	 */
-	public ModelAndView wifiHome(int storeId, Integer ownerStoreId, String businessType, Integer userId){
+	public ModelAndView wifiHome(String storeId, Integer ownerStoreId, String businessType, Integer userId){
 	    if ("1".equals(businessType)) {
 	        return homeView(userId, ownerStoreId);
 	    }
@@ -359,8 +359,7 @@ public class MemberCenterService {
     * @param storeId        注册门店标识
     * @return   会员注册页面
      */
-    @RequestMapping(value = Url.MemberCenter.VIEW_REGISTER, method = RequestMethod.GET)
-    public ModelAndView registerView(@PathVariable int storeId){
+    public ModelAndView registerView(String storeId){
         ModelAndView mav = new ModelAndView(View.MemberCenter.REGISTER);
         StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(storeId);
         mav.addObject("storeInfo", storeInfo);

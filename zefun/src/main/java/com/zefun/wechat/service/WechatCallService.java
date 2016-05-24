@@ -129,7 +129,7 @@ public class WechatCallService {
      * @throws ServletException 
      */
     public void callback(String redirect, String code, String state,
-            String scope, String openidKey, int storeId, int businessType,
+            String scope, String openidKey, String storeId, int businessType,
             String appId, String appSecret, HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
         redirect = redirect.replace("__", "&");

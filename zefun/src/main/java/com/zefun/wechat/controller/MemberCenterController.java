@@ -60,7 +60,7 @@ public class MemberCenterController extends BaseController {
     * @return   会员/员工/老板/门店信息页
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_WECHAT_WIFI_HOME)
-    public ModelAndView wifiHome(@PathVariable int storeId,
+    public ModelAndView wifiHome(@PathVariable String storeId,
             HttpServletRequest request, HttpServletResponse response) {
         String openId = getOpenId(storeId, 3, request, response);
         if (openId == null) {
@@ -83,7 +83,7 @@ public class MemberCenterController extends BaseController {
     * @return           会员主页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_HOME, method = RequestMethod.GET)
-    public ModelAndView homeView(@PathVariable int storeId, @PathVariable int businessType, 
+    public ModelAndView homeView(@PathVariable String storeId, @PathVariable int businessType, 
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
@@ -130,8 +130,8 @@ public class MemberCenterController extends BaseController {
             return null;
         }
         int memberId = getUserIdByOpenId(openId);
-        int storeId = getStoreId(request);
-        setJsapiSignData(storeId, request);
+        String storeAccount = getStoreAccount(request);
+        setJsapiSignData(storeAccount, request);
         return memberCenterService.infoView(memberId);
     }
     
@@ -303,7 +303,7 @@ public class MemberCenterController extends BaseController {
     * @return           会员订单确认页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_ORDER_PAY, method = RequestMethod.GET)
-    public ModelAndView orderPayView(@PathVariable int storeId, @PathVariable int businessType, 
+    public ModelAndView orderPayView(@PathVariable String storeId, @PathVariable int businessType, 
             Integer orderId, HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
@@ -325,7 +325,7 @@ public class MemberCenterController extends BaseController {
     * @return   订单支付明细页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_PAYMENT_DETAIL, method = RequestMethod.GET)
-    public ModelAndView paymentDetailView(int orderId, @PathVariable int storeId, @PathVariable int businessType, 
+    public ModelAndView paymentDetailView(int orderId, @PathVariable String storeId, @PathVariable int businessType, 
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
@@ -429,7 +429,7 @@ public class MemberCenterController extends BaseController {
     * @return           会员预约列表页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_APPOINTMENT_LIST)
-    public ModelAndView appointmentListView(@PathVariable int storeId, @PathVariable int businessType, 
+    public ModelAndView appointmentListView(@PathVariable String storeId, @PathVariable int businessType, 
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
@@ -450,7 +450,7 @@ public class MemberCenterController extends BaseController {
     * @return   会员注册页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_REGISTER, method = RequestMethod.GET)
-    public ModelAndView registerView(@PathVariable int storeId, HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView registerView(@PathVariable String storeId, HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(1, request, response);
         if (openId == null) {
             return null;
@@ -490,7 +490,7 @@ public class MemberCenterController extends BaseController {
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_ACCOUNT, method = RequestMethod.GET)
     public String accountView(HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId("", 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -512,7 +512,7 @@ public class MemberCenterController extends BaseController {
         if (openId == null) {
             return null;
         }
-        setJsapiSignData(getStoreId(request), request);
+        setJsapiSignData(getStoreAccount(request), request);
         String accessToken = getAccessTokenByStore(request);
         return memberCenterService.registerInfoView(accessToken, openId);
     }
@@ -563,7 +563,7 @@ public class MemberCenterController extends BaseController {
         if (openId == null) {
             return null;
         }
-        Integer storeId = getStoreId(request);
+        String storeId = getStoreAccount(request);
         Integer memberId = getUserIdByOpenId(openId);
         setJsapiSignData(storeId, request);
         return memberCenterService.shareView(orderId, storeId, memberId);
@@ -604,16 +604,16 @@ public class MemberCenterController extends BaseController {
      * @throws Exception 	加密时抛出的异常
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_SHARE_INFO, method = RequestMethod.GET)
-    public ModelAndView shareInfoView(Integer mainStoreId, String code, Integer orderId,
+    public ModelAndView shareInfoView(String storeAccount, String code, Integer orderId,
             HttpServletRequest request, HttpServletResponse response) throws Exception{
-    	String openId = getOpenId(mainStoreId, 1, request, response);
+    	String openId = getOpenId(storeAccount, 1, request, response);
         if (openId == null) {
             return null;
         }
-        setJsapiSignData(mainStoreId, request);
+        setJsapiSignData(storeAccount, request);
         Integer memberId = getUserIdByOpenId(openId);
         Integer ownerMemberId = Integer.parseInt(code);
-        return memberCenterService.shareInfoView(code, ownerMemberId, memberId, orderId, ownerMemberId.equals(memberId), mainStoreId);
+        return memberCenterService.shareInfoView(code, ownerMemberId, memberId, orderId, ownerMemberId.equals(memberId), storeAccount);
     }
     
     
@@ -674,7 +674,7 @@ public class MemberCenterController extends BaseController {
     * @return               预约页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_ORDER_APPOINTMENT, method = RequestMethod.GET)
-    public ModelAndView orderAppointmentView(@PathVariable int storeId, @PathVariable int businessType, 
+    public ModelAndView orderAppointmentView(@PathVariable String storeId, @PathVariable int businessType, 
             @RequestParam(value = "selectStoreId", required = false) Integer selectStoreId,
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
@@ -696,7 +696,7 @@ public class MemberCenterController extends BaseController {
     * @return   项目详情页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_PROJECT_DETAIL, method = RequestMethod.GET)
-    public ModelAndView projectDetailView(int storeId, int projectId, 
+    public ModelAndView projectDetailView(String storeId, int projectId, 
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, 1, request, response);
         if (openId == null) {
@@ -896,7 +896,7 @@ public class MemberCenterController extends BaseController {
     * @return   积分商城页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_SHOP_CENTER)
-    public ModelAndView shopCenterView(@PathVariable int storeId, @PathVariable int businessType,
+    public ModelAndView shopCenterView(@PathVariable String storeId, @PathVariable int businessType,
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
@@ -916,7 +916,7 @@ public class MemberCenterController extends BaseController {
     * @return           积分商城页面(分类大全)
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_SHOP_CENTER_LIST)
-    public ModelAndView shopCenterViewList(@PathVariable int storeId, HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView shopCenterViewList(@PathVariable String storeId, HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, 1, request, response);
         if (openId == null) {
             return null;
@@ -959,7 +959,7 @@ public class MemberCenterController extends BaseController {
     * @return   店铺信息页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_STORE_INFO)
-    public ModelAndView storeInfoView(@PathVariable int storeId, @PathVariable int businessType, 
+    public ModelAndView storeInfoView(@PathVariable String storeId, @PathVariable int businessType, 
             @RequestParam(value = "selectStoreId", required = false) Integer selectStoreId, 
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
@@ -1085,7 +1085,7 @@ public class MemberCenterController extends BaseController {
     * @return   员工项目详情页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_EMPLOYEE_PROJECT)
-    public ModelAndView employeeProjectView(int storeId, int employeeId, int projectId,
+    public ModelAndView employeeProjectView(String storeId, int employeeId, int projectId,
             HttpServletRequest request, HttpServletResponse response) {
         String openId = getOpenId(storeId, 1, request, response);
         if (openId == null) {

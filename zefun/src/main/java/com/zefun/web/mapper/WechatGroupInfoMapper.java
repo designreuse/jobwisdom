@@ -18,7 +18,7 @@ public interface WechatGroupInfoMapper {
     * @param map    门店标识、分组类型
     * @return   微信分组ID
      */
-    Integer selectGroupIdByStoreIdAndGroupType(Map<String, Integer> map);
+    Integer selectGroupIdByStoreIdAndGroupType(Map<String, Object> map);
     
     /**
      * 根据分组标识删除分组信息

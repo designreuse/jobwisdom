@@ -172,19 +172,19 @@ public class BaseController {
 
     /**
      * 获取session中的openId
-     * @param storeId        门店标识
+     * @param storeAccount        门店标识
      * @param businessType   业务类型(1:会员,2:员工)
      * @param request        请求对象
      * @param response       返回对象
      * @return               当前用户的openId
      * @throws IOException   重定向失败时抛出的异常
      */
-    public String getOpenId(int storeId, int businessType, HttpServletRequest request, HttpServletResponse response) {
+    public String getOpenId(String storeAccount, int businessType, HttpServletRequest request, HttpServletResponse response) {
         try {
             //检查是否跨门店访问
-            int sid = Integer.parseInt(request.getSession().getAttribute(App.Session.STORE_ID).toString());
-            if (sid != storeId) {
-                sendRedirect(storeId, businessType, App.Session.WECHAT_OPEN_ID, request, response);
+            String storeAccountId = request.getSession().getAttribute(App.Session.STORE_ACCOUNT).toString();
+            if (!storeAccountId.equals(storeAccount)) {
+                sendRedirect(storeAccount, businessType, App.Session.WECHAT_OPEN_ID, request, response);
                 return null;
             }
             
@@ -276,7 +276,7 @@ public class BaseController {
             return openId;
         }
         catch (Exception e) {
-            sendRedirect(storeId, businessType, App.Session.WECHAT_OPEN_ID, request, response);
+            sendRedirect(storeAccount, businessType, App.Session.WECHAT_OPEN_ID, request, response);
         }
         return null;
     }
@@ -297,7 +297,7 @@ public class BaseController {
             return request.getSession().getAttribute(App.Session.WECHAT_PAY_FOR_ZEFUN_OPEN_ID).toString();
         }
         catch (Exception e) {
-            sendRedirect(App.System.WECHAT_ZEFUN_STORE_ID, businessType, App.Session.WECHAT_PAY_FOR_ZEFUN_OPEN_ID, request, response);
+            sendRedirect("jbwd", businessType, App.Session.WECHAT_PAY_FOR_ZEFUN_OPEN_ID, request, response);
         }
         return null;
     }
@@ -318,7 +318,7 @@ public class BaseController {
             return request.getSession().getAttribute(App.Session.WECHAT_PAY_FOR_YOUMEI_OPEN_ID).toString();
         }
         catch (Exception e) {
-            sendRedirect(App.System.WECHAT_YOUMEI_STORE_ID, businessType, App.Session.WECHAT_PAY_FOR_YOUMEI_OPEN_ID, request, response);
+            sendRedirect("jbwd", businessType, App.Session.WECHAT_PAY_FOR_YOUMEI_OPEN_ID, request, response);
         }
         return null;
     }
@@ -335,8 +335,8 @@ public class BaseController {
      */
     public String getOpenId(int businessType, HttpServletRequest request, HttpServletResponse response) {
         try {
-            int storeId = Integer.parseInt(request.getSession().getAttribute(App.Session.STORE_ID).toString());
-            return getOpenId(storeId, businessType, request, response);
+            String storeAccount = request.getSession().getAttribute(App.Session.STORE_ACCOUNT).toString();
+            return getOpenId(storeAccount, businessType, request, response);
         }
         catch (Exception e) {
             request.setAttribute("tip", "你在此页面停留时间太长啦，关闭重试一下吧！");
@@ -367,22 +367,22 @@ public class BaseController {
      * 发起微信授权请求
     * @author 张进军
     * @date Aug 17, 2015 4:35:42 PM
-    * @param storeId        门店标识
+    * @param storeAccount   门店代号
     * @param businessType   业务类型(1:会员,2:员工)
     * @param openidKey      存储openid的session key
     * @param request        请求对象
     * @param response       返回对象
     * @throws IOException   重定向失败时抛出的异常
      */
-    public void sendRedirect(int storeId, int businessType, String openidKey, 
+    public void sendRedirect(String storeAccount, int businessType, String openidKey, 
             HttpServletRequest request, HttpServletResponse response) {
         String redirectUrl = getRequstUri(request);
         redirectUrl = redirectUrl.replace("&", "__");
         try {
             redirectUrl = URLEncoder.encode(redirectUrl, "UTF-8");
-            String appId = getAppIdByStore(storeId);
+            String appId = getAppIdByStore(storeAccount);
             HttpSession session = request.getSession();
-            session.setAttribute(App.Session.STORE_ID, storeId);
+            session.setAttribute(App.Session.STORE_ACCOUNT, storeAccount);
             session.setAttribute(App.Session.WECHAT_BUSINESS_TYPE, businessType);
             String authUrl = App.Wechat.AUTH_REDIRECT_BASE_URL.replace("{app_id}", appId)
                     .replace("{redirect_uri}", redirectUrl)
@@ -408,16 +408,16 @@ public class BaseController {
      * 为当前地址进行微信js api授权
     * @author 张进军
     * @date Aug 17, 2015 4:44:46 PM
-    * @param storeId    门店标识
+    * @param storeAccount    门店标识
     * @param request    请求对象
      */
-    public void setJsapiSignData(Integer storeId, HttpServletRequest request) {
-    	if (storeId == null) {
+    public void setJsapiSignData(String storeAccount, HttpServletRequest request) {
+    	if (storeAccount == null||storeAccount.equals("")) {
     		return;
     	}
         String url = getRequstUri(request);
-        String appId = getAppIdByStore(storeId);
-        String jsapiTicket = getJsapiTicketByStore(storeId);
+        String appId = getAppIdByStore(storeAccount);
+        String jsapiTicket = getJsapiTicketByStore(storeAccount);
         Map<String, String> sign = SignUtil.jsSign(jsapiTicket, url, appId);
         logger.info("setJsapiSignData --> url : " + url + ", sign : " + sign);
         for (String key : sign.keySet()) {
@@ -430,12 +430,12 @@ public class BaseController {
      * 为当前地址进行微信地址api授权
     * @author 张进军
     * @date Aug 17, 2015 4:44:46 PM
-    * @param storeId    门店标识
+    * @param storeAccount    门店标识
     * @param request    请求对象
      */
-    public void setAddriSignData(int storeId, HttpServletRequest request) {
+    public void setAddriSignData(String storeAccount, HttpServletRequest request) {
         String url = getRequstUri(request);
-        String appId = getAppIdByStore(storeId);
+        String appId = getAppIdByStore(storeAccount);
         String accessToken = getAccessTokenByStore(request);
         Map<String, String> sign = SignUtil.addrSign(accessToken, url, appId);
         logger.info("setAddriSignData --> url : " + url + ", sign : " + sign);
@@ -449,11 +449,11 @@ public class BaseController {
      * 获取门店标识的微信应用id
     * @author 张进军
     * @date Aug 17, 2015 4:39:06 PM
-    * @param storeId    门店标识
+    * @param storeAccount    门店标识
     * @return           对应门店的微信应用id
      */
-    public String getAppIdByStore(int storeId){
-        return redisService.hget(App.Redis.STORE_WECHAT_APP_ID_KEY_HASH, storeId);
+    public String getAppIdByStore(String storeAccount){
+        return redisService.hget(App.Redis.STORE_WECHAT_APP_ID_KEY_HASH, storeAccount);
     }
 
 
@@ -461,11 +461,11 @@ public class BaseController {
      * 获取门店标识的微信密钥
     * @author 张进军
     * @date Aug 17, 2015 4:39:06 PM
-    * @param storeId    门店标识
+    * @param storeAccount    门店标识
     * @return           对应门店的微信密钥
      */
-    public String getAppSecretByStore(int storeId){
-        return redisService.hget(App.Redis.STORE_WECHAT_APP_SECRET_KEY_HASH, storeId);
+    public String getAppSecretByStore(String storeAccount){
+        return redisService.hget(App.Redis.STORE_WECHAT_APP_SECRET_KEY_HASH, storeAccount);
     }
 
 
@@ -485,11 +485,11 @@ public class BaseController {
      * 获取当前门店的微信JS接口的临时票据
     * @author 张进军
     * @date Aug 17, 2015 4:39:06 PM
-    * @param storeId    门店标识
+    * @param storeAccount    门店标识
     * @return           当前门店的微信JS接口的临时票据
      */
-    public String getJsapiTicketByStore(Integer storeId){
-        return redisService.hget(App.Redis.STORE_WECHAT_JSAPI_TICKET_KEY_HASH, storeId);
+    public String getJsapiTicketByStore(String storeAccount){
+        return redisService.hget(App.Redis.STORE_WECHAT_JSAPI_TICKET_KEY_HASH, storeAccount);
     }
 
 
@@ -508,27 +508,5 @@ public class BaseController {
         }
         return url;
     }
-    
 
-    
-/**
-     * 在运行前都加入客服信息
-    * @author 高国藩
-    * @date 2016年3月11日 下午4:51:44
-    * @param model    model
-    * @param request  request
-     */
-    /*
-    @ModelAttribute  
-    public void populateModel(Model model, HttpServletRequest request) {
-//        List<EmployeeAccountInfo> infos = employeeAccountInfoMapper.selectAll();
-        List<EmployeeAccountInfo> infos = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            EmployeeAccountInfo accountInfo = new EmployeeAccountInfo();
-            accountInfo.setEmployId(i);
-            accountInfo.setEmployAccount("客服 "+i+"号");
-            infos.add(accountInfo);
-        }
-        model.addAttribute("kfInfos", infos);
-    }  */
 }
