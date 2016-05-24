@@ -654,7 +654,8 @@ public class WechatCallService {
     * @param i            0:入单,1:改单
      */
     @Transactional
-    public void updateRechargeRecord(String storeAccount, Integer totalFee, String outTradeNo, Integer i, String openId) {
+    public void updateRechargeRecord(String storeAccount, Integer totalFee, 
+            String outTradeNo, Integer i, String openId) {
         if (i == 0){
             EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
             enterpriseInfo.setStoreAccount(storeAccount);

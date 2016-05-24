@@ -69,15 +69,16 @@ public class WechatPayController extends BaseController{
     * @param response response
     * @param amount   钱
     * @return SUCCESS
+     * @throws UnsupportedEncodingException e
      */
     @RequestMapping(value = Url.AppPay.REQUEST_APP_PAY, method=RequestMethod.POST)
     @ResponseBody
-    public BaseDto getNativeCode(HttpServletRequest request, HttpServletResponse response, Integer amount) {
+    public BaseDto getNativeCode(HttpServletRequest request, HttpServletResponse response, Integer amount) throws UnsupportedEncodingException {
+        String storeAccount = getStoreAccount(request);
         String googsName = "我道系统-门店充值";
         String outTradeNo = StringUtil.getKey(); 
-        String callback = "/" + Url.AppPay.REQUEST_APP_PAY_CALLBACK.replace("{outTradeNo}", outTradeNo);
+        String callback = "/" + Url.AppPay.REQUEST_APP_PAY_CALLBACK.replace("{outTradeNo}", outTradeNo).replace("{storeAccount}", storeAccount);
         String code = wechatCallService.payByQrCode(googsName, amount*100, outTradeNo, callback, request);
-        String storeAccount = getStoreAccount(request);
         wechatCallService.updateRechargeRecord(storeAccount, amount, outTradeNo, 0, null);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, code);
     }
@@ -89,17 +90,17 @@ public class WechatPayController extends BaseController{
     * @param request request
     * @param response response
     * @param outTradeNo 订单标示
+    * @param storeAccount 处理
     * @return SUCCESS
      * @throws UnsupportedEncodingException 异常处理
      */
     @RequestMapping(value = Url.AppPay.REQUEST_APP_PAY_CALLBACK)
     @ResponseBody
     public String appCallBack(HttpServletRequest request, HttpServletResponse response, 
-            @PathVariable String outTradeNo) throws UnsupportedEncodingException{
-        log.info("微信支付回调了,32位随机字码为:"+outTradeNo);
-        String storeAccount = getStoreAccount(request);
-        systemWebSocketHandler.sendMessageToUser(storeAccount, new TextMessage("充值成功".getBytes("UTF-8")));
+            @PathVariable String outTradeNo, @PathVariable String storeAccount) throws UnsupportedEncodingException{
+        log.info("微信支付回调了,32位随机字码为:"+outTradeNo+",store信息:"+storeAccount);
         wechatCallService.updateRechargeRecord(null, null, outTradeNo, 1, null);
+        systemWebSocketHandler.sendMessageToUser(storeAccount, new TextMessage("充值成功".getBytes("UTF-8")));
         return "SUCCESS";
     }
     

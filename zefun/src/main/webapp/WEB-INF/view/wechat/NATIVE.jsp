@@ -63,7 +63,9 @@
 
 	//处理从服务端发送过来的数据
 	function onMessage(event) {
-		alert("支付成功");
+		jQuery(".webchat_").click();
+		dialog("支付成功");
+		//alert("支付成功");
 	}
 	function onOpen(event) {
 		//alert(event.data);
