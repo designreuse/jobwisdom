@@ -94,7 +94,7 @@
   <!-- 根据门店查询员工  by DavidLiang -->
   <select id="selectEmployeeByStoreId" parameterType="int" resultMap="BaseResultMap">
   	select <include refid="Base_Column_List" /> 
-  	from employee_info where is_deleted = 0 and dept_id != 0 and store_id = ${storeId};
+  	from employee_info where is_deleted = 0 and store_id = ${storeId};
   </select>
   
   <select id="selectEmployeeListByList" resultType="com.zefun.web.dto.EmployeeBaseDto">

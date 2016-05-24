@@ -1,5 +1,7 @@
 package com.zefun.web.mapper;
 
+import java.util.List;
+
 import com.zefun.web.entity.EnterpriseStoreAuthority;
 
 /**
@@ -20,15 +22,6 @@ public interface EnterpriseStoreAuthorityMapper {
     /**
      * 
     * @author 老王
-    * @date 2016年5月21日 下午6:54:25 
-    * @param record record
-    * @return int
-     */
-    int insert(EnterpriseStoreAuthority record);
-
-    /**
-     * 
-    * @author 老王
     * @date 2016年5月21日 下午6:54:29 
     * @param record record
     * @return int
@@ -45,6 +38,15 @@ public interface EnterpriseStoreAuthorityMapper {
     EnterpriseStoreAuthority selectByPrimaryKey(Integer storeAuthorityId);
 
     /**
+     * 根据企业代号查出所有授权码集合
+    * @author 老王
+    * @date 2016年5月24日 上午12:45:17 
+    * @param storeAccount 企业代号
+    * @return List<EnterpriseStoreAuthority>
+     */
+    List<EnterpriseStoreAuthority> selectAuthorityByStoreAccount(String storeAccount); 
+    
+    /**
      * 
     * @author 老王
     * @date 2016年5月21日 下午6:54:35 
@@ -53,12 +55,4 @@ public interface EnterpriseStoreAuthorityMapper {
      */
     int updateByPrimaryKeySelective(EnterpriseStoreAuthority record);
 
-    /**
-     * 
-    * @author 老王
-    * @date 2016年5月21日 下午6:54:39 
-    * @param record record
-    * @return int
-     */
-    int updateByPrimaryKey(EnterpriseStoreAuthority record);
 }

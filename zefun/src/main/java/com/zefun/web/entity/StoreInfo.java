@@ -79,6 +79,34 @@ public class StoreInfo {
 
 	/** 经度 */
 	private String longitude;
+	
+	/**
+	 * 累计短信数量
+	 */
+	private Integer totalSms;
+	
+	/**
+	 * 剩余短信数量
+	 */
+	private Integer balanceSms;
+
+	
+	
+	public Integer getTotalSms() {
+		return totalSms;
+	}
+
+	public void setTotalSms(Integer totalSms) {
+		this.totalSms = totalSms;
+	}
+
+	public Integer getBalanceSms() {
+		return balanceSms;
+	}
+
+	public void setBalanceSms(Integer balanceSms) {
+		this.balanceSms = balanceSms;
+	}
 
 	public String getStoreAccount() {
 		return storeAccount;

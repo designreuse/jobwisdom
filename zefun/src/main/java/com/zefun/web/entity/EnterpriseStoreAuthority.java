@@ -46,6 +46,11 @@ public class EnterpriseStoreAuthority {
      * 姓名
      */
     private String name;
+    
+    /**
+     * 是否删除(0:未删除,1:已删除)
+     */
+    private Integer isDeleted;
 
     /**
      * 修改时间
@@ -62,7 +67,17 @@ public class EnterpriseStoreAuthority {
      */
     private Integer lastOperatorId;
 
-    public Integer getStoreAuthorityId() {
+    
+    
+    public Integer getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Integer isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public Integer getStoreAuthorityId() {
         return storeAuthorityId;
     }
 

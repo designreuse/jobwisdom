@@ -65,7 +65,10 @@ import com.zefun.web.entity.ComboGoods;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeLevel;
+import com.zefun.web.entity.EnterpriseAccount;
+import com.zefun.web.entity.EnterpriseStoreAuthority;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
@@ -93,6 +96,8 @@ import com.zefun.web.mapper.ComboProjectMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
+import com.zefun.web.mapper.EnterpriseAccountMapper;
+import com.zefun.web.mapper.EnterpriseStoreAuthorityMapper;
 import com.zefun.web.mapper.GoodsCategoryMapper;
 import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
@@ -299,6 +304,16 @@ public class StoreInfoService {
     /**特色服务*/
     @Autowired
     private SpecialServiceMapper specialServiceMapper;
+    /**
+     * 授权码对象
+     */
+    @Autowired 
+    private EnterpriseStoreAuthorityMapper enterpriseStoreAuthorityMapper;
+    /**
+     * 企业账户
+     */
+    @Autowired
+    private EnterpriseAccountMapper enterpriseAccountMapper;
     /**日志系统*/
     private Logger log = Logger.getLogger(StoreInfoService.class);
 
@@ -306,42 +321,53 @@ public class StoreInfoService {
      * 查询门店列表页面
     * @author 老王
     * @date 2016年4月28日 下午12:16:29 
-    * @param storeId 门店标识
+    * @param storeAccount 企业代号
     * @return ModelAndView
      */
-    public ModelAndView showStoreList(Integer storeId) {
+    public ModelAndView showStoreList(String storeAccount) {
     	ModelAndView mav = new ModelAndView(View.Setting.STORE_LIST);
-    	//判断当前登录是否为总店
+    	//查询企业下所有门店
+    	List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
     	
-    	StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+    	if (storeInfoList == null || storeInfoList.size() == 0) {
+    		return mav;
+    	}
     	
-    	List<StoreInfo> storeInfoList = new ArrayList<>();
-    	if (storeInfo.getStoreType() == 2) {
-    		//当为总店是   查询所有门店
-    		storeInfoList = storeInfoMapper.selectChainsByHQStoreId(storeId);
-    	}
-    	else {
-    		storeInfoList.add(storeInfo);
-    	}
     	mav.addObject("storeInfoList", storeInfoList);
+    	
+    	//查询企业下所有门店及门店下的员工
+    	List<Integer> storeIds = new ArrayList<>();
+    	List<Map<String, Object>> storeEmployeeList = new ArrayList<>();
+    	for (StoreInfo storeInfo : storeInfoList) {
+			List<EmployeeInfo> employeeInfos = employeeInfoMapper.selectEmployeeByStoreId(storeInfo.getStoreId());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("storeId", storeInfo.getStoreId());
+			map.put("employeeInfos", employeeInfos);
+			storeEmployeeList.add(map);
+			storeIds.add(storeInfo.getStoreId());
+		}
+    	mav.addObject("storeEmployeeList", storeEmployeeList);
+    	
+    	//根据企业代号查询出所有授权码
+    	List<EnterpriseStoreAuthority> enterpriseStoreAuthoritys = enterpriseStoreAuthorityMapper.selectAuthorityByStoreAccount(storeAccount);
+    	mav.addObject("enterpriseStoreAuthoritys", enterpriseStoreAuthoritys);
+    	
+    	EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeAccount);
+    	
+    	mav.addObject("enterpriseAccount", enterpriseAccount);
     	
     	return mav;
     }
-
+    
     /**
-     * 创建门店
+     * 查看企业消费记录
     * @author 老王
-    * @date 2016年4月28日 下午6:09:27 
-    * @param storeId 门店标识
-    * @return ModelAndView
+    * @date 2016年5月24日 下午3:08:11 
+    * @param storeAccount 企业代号
+    * @return BaseDto
      */
-    public ModelAndView addStore(Integer storeId) {
-    	ModelAndView mav = new ModelAndView(View.Setting.ADD_STORE);
-    	if (storeId  != null) {
-    		StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
-        	mav.addObject("storeInfo", storeInfo);
-    	}
-    	return mav;
+    public BaseDto selectConsumptionRecord (String storeAccount) {
+    	
     }
     
     /**
@@ -361,12 +387,12 @@ public class StoreInfoService {
     * @author 老王
     * @date 2016年4月30日 下午4:55:19 
     * @param storeInfo 门店信息
+    * @param userName 操作员名称
+    * @param userPwd 操作员密码
     * @return BaseDto
      */
-    public BaseDto saveStore (StoreInfo storeInfo) {
-    	StoreInfo hqStoreInfo = storeInfoMapper.selectByPrimaryKey(storeInfo.getHqStoreId());
-    	storeInfo.setStoreAccount(hqStoreInfo.getStoreAccount());
-    	storeInfoMapper.insert(storeInfo);
+    public BaseDto saveStore (StoreInfo storeInfo, Integer userName, String userPwd) {
+    	addStoreInfo(storeInfo, userName, userPwd);
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
@@ -451,27 +477,18 @@ public class StoreInfoService {
      * 新增门店
     * @author 张进军
     * @date Oct 29, 2015 11:45:28 AM
-    * @param name       用户姓名
-    * @param phone      门店电话
-    * @param storeName  门店名称
-    * @param storeType  门店类型(1:单店，2:连锁店总店，3:连锁店分店)
-    * @param parentId   父级门店标识
+    * @param storeInfo       用户姓名
+    * @param userName      门店电话
+    * @param userPwd  门店名称
     * @return   成功返回码为0，失败为其它返回码
      */
     @Transactional
-    public BaseDto addStoreInfo(String name, String phone, String storeName, Integer storeType, Integer parentId) {
-        StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setStoreName(storeName);
-        storeInfo.setStoreType(storeType);
-        if (parentId != null && parentId != 0) {
-            storeInfo.setHqStoreId(parentId);
-        }
-        storeInfo.setStoreLinkname(name);
-        storeInfo.setStoreLinkphone(phone);
+    public BaseDto addStoreInfo(StoreInfo storeInfo, Integer userName, String userPwd) {
+        
         storeInfo.setCreateTime(DateUtil.getCurTime());
         storeInfoMapper.insert(storeInfo);
 
-        initStoreData(storeInfo.getStoreId(), storeType, storeName, phone);
+        initStoreData(storeInfo.getStoreId(), userName, userPwd);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
 
@@ -481,43 +498,29 @@ public class StoreInfoService {
     * @author 张进军
     * @date Feb 22, 2016 2:18:30 PM
     * @param storeId    门店标识
-    * @param storeType  门店类型
-    * @param name       负责人姓名
-    * @param userName   登陆账号
+    * @param userName  门店类型
+    * @param userPwd       负责人姓名
      */
     @Transactional
-    public void initStoreData(int storeId, int storeType, String name, String userName){
-        
-        log.info("name:"+name+"userName:"+userName);
-        
+    public void initStoreData(int storeId, Integer userName, String userPwd){
+                
         EmployeeDto employeeDto=new EmployeeDto();
         employeeDto.setStoreId(storeId);
         employeeDto.setDeptId(0);
-        employeeDto.setName(name);
-        employeeDto.setSex("男");
+        employeeDto.setName("操作员");
         employeeDto.setHeadImage("pc/defaulf_male.png");
+        employeeDto.setIsDeleted(1);
         employeeInfoMapper.insert(employeeDto);
 
-        int roleId = App.System.SYSTEM_ROLE_STORE_BRANCH_OWNER;
-        if (storeType == 1) {
-            roleId = App.System.SYSTEM_ROLE_STORE_SINGLE_OWNER;
-        }
-        else if (storeType == 2) {
-            roleId = App.System.SYSTEM_ROLE_STORE_MAIN_OWNER;
-        }
-
-        int count = userAccountMapper.selectUserCountByUserName(userName);
-        String[] charArray
-                = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        int roleId = 2;
 
         UserAccount userAccount = new UserAccount();
         userAccount.setUserId(employeeDto.getEmployeeId());
-        userAccount.setUserName(userName + charArray[count]);
-        String password=StringUtil.md5(StringUtil.md5("123456"));
-        String hash = StringUtil.encryptPwd(password);
-        password = hash.split(":")[0];
+        userAccount.setUserName("操作员");
+        String hash = StringUtil.encryptPwd(userPwd);
+        userPwd = hash.split(":")[0];
         String passwordSalt = hash.split(":")[1];
-        userAccount.setUserPwd(password);
+        userAccount.setUserPwd(userPwd);
         userAccount.setPwdSalt(passwordSalt);
         userAccount.setRoleId(roleId);
         userAccount.setStoreId(storeId);
@@ -525,7 +528,7 @@ public class StoreInfoService {
         userAccountMapper.insert(userAccount);
 
         //如果是总店，添加默认等级
-        if (storeType != 3) {
+       /* if (storeType != 3) {
             //添加一个默认会员等级
             MemberLevel memberLevel = new MemberLevel();
             memberLevel.setStoreId(storeId);
@@ -542,8 +545,10 @@ public class StoreInfoService {
 
             //初始化门店管理制度
             storeManageRuleMapper.initStoreRuleByStoreId(storeId);
-        }
+        }*/
 
+        storeManageRuleMapper.initStoreRuleByStoreId(storeId);
+        
         //创建默认设置
         StoreSetting setting = new StoreSetting();
         setting.setStoreId(storeId);

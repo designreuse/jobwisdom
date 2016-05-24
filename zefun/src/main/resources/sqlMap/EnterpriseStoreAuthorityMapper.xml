@@ -10,13 +10,14 @@
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
     <result column="employee_code" property="employeeCode" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     store_authority_id, enterprise_info_id, store_id, store_name, authority_value, employee_id, 
-    employee_code, name, update_time, create_time, last_operator_id
+    employee_code, name, is_deleted, update_time, create_time, last_operator_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,22 +25,19 @@
     from enterprise_store_authority
     where store_authority_id = #{storeAuthorityId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectAuthorityByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_store_authority a
+    where exists (select 1 from enterprise_info b where a.enterprise_info_id = b.enterprise_info_id and b.store_account=#{storeAccount,jdbcType=VARCHAR})
+    and a.is_deleted = 0
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from enterprise_store_authority
     where store_authority_id = #{storeAuthorityId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zefun.web.entity.EnterpriseStoreAuthority" >
-    insert into enterprise_store_authority (store_authority_id, enterprise_info_id, 
-      store_id, store_name, authority_value, 
-      employee_id, employee_code, name, 
-      update_time, create_time, last_operator_id
-      )
-    values (#{storeAuthorityId,jdbcType=INTEGER}, #{enterpriseInfoId,jdbcType=INTEGER}, 
-      #{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{authorityValue,jdbcType=VARCHAR}, 
-      #{employeeId,jdbcType=INTEGER}, #{employeeCode,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=CHAR}, #{createTime,jdbcType=CHAR}, #{lastOperatorId,jdbcType=INTEGER}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.zefun.web.entity.EnterpriseStoreAuthority" >
     insert into enterprise_store_authority
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -66,6 +64,9 @@
       </if>
       <if test="name != null" >
         name,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
       </if>
       <if test="updateTime != null" >
         update_time,
@@ -102,6 +103,9 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=CHAR},
       </if>
@@ -137,6 +141,9 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=CHAR},
       </if>
@@ -149,18 +156,6 @@
     </set>
     where store_authority_id = #{storeAuthorityId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.EnterpriseStoreAuthority" >
-    update enterprise_store_authority
-    set enterprise_info_id = #{enterpriseInfoId,jdbcType=INTEGER},
-      store_id = #{storeId,jdbcType=INTEGER},
-      store_name = #{storeName,jdbcType=VARCHAR},
-      authority_value = #{authorityValue,jdbcType=VARCHAR},
-      employee_id = #{employeeId,jdbcType=INTEGER},
-      employee_code = #{employeeCode,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=CHAR},
-      create_time = #{createTime,jdbcType=CHAR},
-      last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
-    where store_authority_id = #{storeAuthorityId,jdbcType=INTEGER}
-  </update>
+  
+  
 </mapper>
