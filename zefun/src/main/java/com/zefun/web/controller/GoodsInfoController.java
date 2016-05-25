@@ -25,6 +25,7 @@ import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsBrandDto;
@@ -88,23 +89,23 @@ public class GoodsInfoController extends BaseController{
     public ModelAndView toGoodsInfoPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
         Integer storeId = getStoreId(request);
         
-//        List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
-//        model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
-//        model.addObject("js_deptGoodsBaseDto", JSONArray.fromObject(deptGoodsBaseDto));
-//    
-//        /**自己的品牌库*/
-//        List<GoodsBrand> brands =  goodsBrandMapper.selectByStoreId(storeId);
-//        model.addObject("brands", brands);
-//        /**智放品牌列表*/
-//        List<CodeLibrary> goodsBrands = goodsInfoService.selectGoodsBrandList();
-//        model.addObject("goodsBrandList", goodsBrands);
-//
-//        /** 会员等级列表 */
-//        List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
-//        model.addObject("memberLevels", memberLevelList);
-//        model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
-//        List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage(); //selectGoodsImage();
-//        model.addObject("images", images);
+        List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
+        model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
+        model.addObject("js_deptGoodsBaseDto", JSONArray.fromObject(deptGoodsBaseDto));
+    
+        /**自己的品牌库*/
+        List<GoodsBrand> brands =  goodsBrandMapper.selectByStoreId(storeId);
+        model.addObject("brands", brands);
+        /**智放品牌列表*/
+        List<CodeLibrary> goodsBrands = goodsInfoService.selectGoodsBrandList();
+        model.addObject("goodsBrandList", goodsBrands);
+
+        /** 会员等级列表 */
+        List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
+        model.addObject("memberLevels", memberLevelList);
+        model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
+        List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage(); //selectGoodsImage();
+        model.addObject("images", images);
         
         List<GoodsInfoDto> goodsInfos = goodsInfoService.selectGoodsInfosByStoreId(storeId);
         model.addObject("goodsInfos", goodsInfos);
@@ -159,7 +160,7 @@ public class GoodsInfoController extends BaseController{
 
     
     /**
-     * 保存项目
+     * 保存商品
     * @author 高国藩
     * @date 2016年4月25日 下午5:59:57
     * @param request   request

@@ -17,7 +17,7 @@
 <div class="content wrap">
     <div class="shop-select">
         <div class="shop-liansuo bsw" style="margin-bottom: .625rem">
-		   <span class="shop-name">${mainStoreInfo.storeName }</span>
+		   <%-- <span class="shop-name">${mainStoreInfo.storeName }</span> --%>
 		</div>
 	    <c:forEach items="${storeList }" var="store">
 	       <a href="<%=basePath %>${fn:replace(url, '_storeId_', store.storeId)}">

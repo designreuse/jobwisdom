@@ -54,6 +54,9 @@ public class MemberInfo {
 	/** 最后操作人标识 */
 	private Integer lastOperatorId;
 	
+	/** 门店代号*/
+	private String storeAccount;
+	
 	/** 默认构造函数 */
 	public MemberInfo() {
         super();
@@ -239,7 +242,15 @@ public class MemberInfo {
 		return lastOperatorId;
 	}
 	
-	@Override
+	public String getStoreAccount() {
+        return storeAccount;
+    }
+
+    public void setStoreAccount(String storeAccount) {
+        this.storeAccount = storeAccount;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }

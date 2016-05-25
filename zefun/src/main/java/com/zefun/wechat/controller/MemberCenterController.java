@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
@@ -93,6 +92,138 @@ public class MemberCenterController extends BaseController {
         int memberId = getUserIdByOpenId(openId);
         int ownerStoreId = getStoreIdByOpenId(openId);
         return memberCenterService.homeView(memberId, ownerStoreId);
+    }
+    
+    
+    
+    /**
+     * 访问会员注册页面
+    * @author 张进军
+    * @date Aug 19, 2015 7:08:55 PM
+    * @param storeId        注册门店标识
+    * @param request        请求对象
+    * @param response       返回对象
+    * @return   会员注册页面
+     */
+    @RequestMapping(value = Url.MemberCenter.VIEW_REGISTER, method = RequestMethod.GET)
+    public ModelAndView registerView(@PathVariable Integer storeId, HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(1, request, response);
+        if (openId == null) {
+            return null;
+        }
+        return memberCenterService.registerView(storeId);
+    }
+    
+    
+    /**
+     * 查看门店列表
+    * @author 张进军
+    * @date Nov 19, 2015 2:19:18 PM
+    * @param url            跳转地址
+    * @param request        请求对象
+    * @param response       相应对象
+    * @return   门店列表页面
+     */
+    @RequestMapping(value = Url.MemberCenter.VIEW_STORE_LIST)
+    public ModelAndView storeListView(String url, HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(1, request, response);
+        if (openId == null) {
+            return null;
+        }
+        String storeAccount = getStoreAccount(request);
+        return memberCenterService.storeListView(storeAccount, url);
+    }
+    
+    
+    /**
+     * 获取短信验证码
+    * @author 张进军
+    * @date Aug 19, 2015 7:08:55 PM
+    * @param storeId    注册门店标识
+    * @param phone  手机号
+    * @param request        请求对象
+    * @param response       返回对象
+    * @return       验证码
+     */
+    @RequestMapping(value = Url.MemberCenter.ACTION_GET_VERIFYCODE, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto getVerifyCodeAction(int storeId, String phone, HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(1, request, response);
+        if (openId == null) {
+            return null;
+        }
+        return memberCenterService.getVerifyCodeAction(storeId, phone);
+    }
+    
+    
+    /**
+     * 会员注册
+    * @author 张进军
+    * @date Aug 19, 2015 7:13:47 PM
+    * @param storeId        注册门店
+    * @param phone          手机号
+    * @param verifyCode     验证码
+    * @param request        请求对象
+    * @param response       返回对象
+    * @return               成功返回码0，返回值为跳转地址；失败返回其他错误码，返回值为提示语
+     */
+    @RequestMapping(value = Url.MemberCenter.ACTION_REGISTER, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto registerAction(int storeId, String phone, String verifyCode, HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(1, request, response);
+        if (openId == null) {
+            return null;
+        }
+        String storeAccount = getStoreAccount(request);
+        String accessToken = getAccessTokenByStore(request);
+        return memberCenterService.registerAction(storeId, storeAccount, phone, verifyCode, openId, accessToken, request, false);
+    }
+    
+    /**
+     * 访问完善会员资料页面
+    * @author 张进军
+    * @date Aug 19, 2015 7:08:55 PM
+    * @param request        请求对象
+    * @param response       返回对象
+    * @return   完善会员信息页面
+     */
+    @RequestMapping(value = Url.MemberCenter.VIEW_REGISTER_INFO, method = RequestMethod.GET)
+    public ModelAndView registerInfoView(HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(1, request, response);
+        if (openId == null) {
+            return null;
+        }
+        setJsapiSignData(getStoreAccount(request), request);
+        String accessToken = getAccessTokenByStore(request);
+        return memberCenterService.registerInfoView(accessToken, openId);
+    }
+    
+    
+    /**
+     * 访问完善会员资料页面
+     * @author 张进军
+     * @date Aug 19, 2015 7:08:55 PM
+     * @param nickname      昵称
+     * @param headUrl       头像
+     * @param sex           性别
+     * @param paycode       支付密码
+     * @param birthday      生日（月－日）
+     * @param request       请求对象
+     * @param response      返回对象
+     * @return              成功返回码0；失败返回其他错误码，返回值为提示语    
+     */
+    @RequestMapping(value = Url.MemberCenter.ACTION_REGISTER_INFO, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto registerInfoAction(String nickname, String headUrl, String sex, 
+            @RequestParam(value = "paycode", required = false) String paycode, 
+            @RequestParam(value = "birthday", required = false) String birthday,
+                HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(1, request, response);
+        if (openId == null) {
+            return null;
+        }
+        int userId = getUserIdByOpenId(openId);
+        return memberCenterService.registerInfoAction(userId, nickname, headUrl, sex, paycode, birthday);
     }
     
     
@@ -438,46 +569,7 @@ public class MemberCenterController extends BaseController {
         int memberId = getUserIdByOpenId(openId);
         return memberCenterService.appointmentListView(memberId);
     }
-    
-    
-    /**
-     * 访问会员注册页面
-    * @author 张进军
-    * @date Aug 19, 2015 7:08:55 PM
-    * @param storeId        注册门店标识
-    * @param request        请求对象
-    * @param response       返回对象
-    * @return   会员注册页面
-     */
-    @RequestMapping(value = Url.MemberCenter.VIEW_REGISTER, method = RequestMethod.GET)
-    public ModelAndView registerView(@PathVariable String storeId, HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(1, request, response);
-        if (openId == null) {
-            return null;
-        }
-        return memberCenterService.registerView(storeId);
-    }
-    
-    
-    /**
-     * 获取短信验证码
-    * @author 张进军
-    * @date Aug 19, 2015 7:08:55 PM
-    * @param storeId    注册门店标识
-    * @param phone  手机号
-    * @param request        请求对象
-    * @param response       返回对象
-    * @return       验证码
-     */
-    @RequestMapping(value = Url.MemberCenter.ACTION_GET_VERIFYCODE, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto getVerifyCodeAction(int storeId, String phone, HttpServletRequest request, HttpServletResponse response){
-    	String openId = getOpenId(1, request, response);
-        if (openId == null) {
-            return null;
-        }
-        return memberCenterService.getVerifyCodeAction(storeId, phone);
-    }
+
     
     
     /**
@@ -498,53 +590,7 @@ public class MemberCenterController extends BaseController {
     }
     
     
-    /**
-     * 访问完善会员资料页面
-    * @author 张进军
-    * @date Aug 19, 2015 7:08:55 PM
-    * @param request        请求对象
-    * @param response       返回对象
-    * @return   完善会员信息页面
-     */
-    @RequestMapping(value = Url.MemberCenter.VIEW_REGISTER_INFO, method = RequestMethod.GET)
-    public ModelAndView registerInfoView(HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(1, request, response);
-        if (openId == null) {
-            return null;
-        }
-        setJsapiSignData(getStoreAccount(request), request);
-        String accessToken = getAccessTokenByStore(request);
-        return memberCenterService.registerInfoView(accessToken, openId);
-    }
-    
-    
-    /**
-     * 访问完善会员资料页面
-     * @author 张进军
-     * @date Aug 19, 2015 7:08:55 PM
-     * @param nickname		昵称
-     * @param headUrl		头像
-     * @param sex			性别
-     * @param paycode		支付密码
-     * @param birthday      生日（月－日）
-     * @param request		请求对象
-     * @param response		返回对象
-     * @return				成功返回码0；失败返回其他错误码，返回值为提示语	
-     */
-    @RequestMapping(value = Url.MemberCenter.ACTION_REGISTER_INFO, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto registerInfoAction(String nickname, String headUrl, String sex, 
-            @RequestParam(value = "paycode", required = false) String paycode, 
-            @RequestParam(value = "birthday", required = false) String birthday,
-    		    HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(1, request, response);
-        if (openId == null) {
-            return null;
-        }
-        int userId = getUserIdByOpenId(openId);
-        return memberCenterService.registerInfoAction(userId, nickname, headUrl, sex, paycode, birthday);
-    }
-    
+
     
     /**
      * 访问分享发型的页面
@@ -557,8 +603,7 @@ public class MemberCenterController extends BaseController {
      * @throws Exception 加密时抛出的异常
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_SHARE, method = RequestMethod.GET)
-    public ModelAndView shareView(int orderId, 
-            HttpServletRequest request, HttpServletResponse response) throws Exception{
+    public ModelAndView shareView(int orderId, HttpServletRequest request, HttpServletResponse response) throws Exception{
         String openId = getOpenId(1, request, response);
         if (openId == null) {
             return null;
@@ -595,7 +640,7 @@ public class MemberCenterController extends BaseController {
      * 访问分享信息页面
     * @author 张进军
     * @date Aug 19, 2015 7:08:55 PM
-    * @param mainStoreId	分享着所属公众号门店标识
+    * @param storeAccount	分享着所属公众号门店标识
     * @param code   		分享者标识
     * @param orderId  		分享订单标识
     * @param request        请求对象
@@ -618,30 +663,6 @@ public class MemberCenterController extends BaseController {
     
     
     /**
-     * 会员注册
-    * @author 张进军
-    * @date Aug 19, 2015 7:13:47 PM
-    * @param storeId        注册门店
-    * @param phone          手机号
-    * @param verifyCode     验证码
-    * @param request        请求对象
-    * @param response       返回对象
-    * @return               成功返回码0，返回值为跳转地址；失败返回其他错误码，返回值为提示语
-     */
-    @RequestMapping(value = Url.MemberCenter.ACTION_REGISTER, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto registerAction(int storeId, String phone, String verifyCode, HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(1, request, response);
-        if (openId == null) {
-            return null;
-        }
-        int mainStoreId = getStoreId(request);
-        String accessToken = getAccessTokenByStore(request);
-        return memberCenterService.registerAction(mainStoreId, storeId, phone, verifyCode, openId, accessToken, request, false);
-    }
-    
-    
-    /**
      * 会员注销操作
     * @author 张进军
     * @date Dec 12, 2015 12:17:26 AM
@@ -656,9 +677,9 @@ public class MemberCenterController extends BaseController {
         if (openId == null) {
             return null;
         }
-        int storeId = getStoreId(request);
+        String storeAccount = getStoreAccount(request);
         int memberId = getUserIdByOpenId(openId);
-        return memberCenterService.logout(storeId, memberId, openId, request);
+        return memberCenterService.logout(storeAccount, memberId, openId, request);
     }
     
     
@@ -911,18 +932,20 @@ public class MemberCenterController extends BaseController {
     * @author 张进军
     * @date Oct 21, 2015 10:00:34 AM
     * @param storeId    门店标识
+    * @param selectStoreId selectStoreId
     * @param request        请求对象
     * @param response       相应对象
     * @return           积分商城页面(分类大全)
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_SHOP_CENTER_LIST)
-    public ModelAndView shopCenterViewList(@PathVariable String storeId, HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView shopCenterViewList(@PathVariable String storeId, Integer selectStoreId, 
+            HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, 1, request, response);
         if (openId == null) {
             return null;
         }
         Integer ownerStoreId = getStoreIdByOpenId(openId);
-        return memberCenterService.shopCenterViewList(storeId, ownerStoreId);
+        return memberCenterService.shopCenterViewList(storeId, ownerStoreId, selectStoreId);
     }
 
     
@@ -966,9 +989,11 @@ public class MemberCenterController extends BaseController {
         if (openId == null) {
             return null;
         }
+        
         if (selectStoreId == null) {
             selectStoreId = getStoreIdByOpenId(openId);
         }
+        
         return memberCenterService.storeInfoView(storeId, selectStoreId);
     }
     
@@ -1007,26 +1032,6 @@ public class MemberCenterController extends BaseController {
     
     
     /**
-     * 查看门店列表
-    * @author 张进军
-    * @date Nov 19, 2015 2:19:18 PM
-    * @param url            跳转地址
-    * @param request        请求对象
-    * @param response       相应对象
-    * @return   门店列表页面
-     */
-    @RequestMapping(value = Url.MemberCenter.VIEW_STORE_LIST)
-    public ModelAndView storeListView(String url, HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(1, request, response);
-        if (openId == null) {
-            return null;
-        }
-        int storeId = getStoreId(request);
-        return memberCenterService.storeListView(storeId, url);
-    }
-    
-    
-    /**
      * 新用户领取分享奖励
     * @author 张进军
     * @date Aug 19, 2015 7:13:47 PM
@@ -1047,10 +1052,11 @@ public class MemberCenterController extends BaseController {
         if (openId == null) {
             return null;
         }
-        int mainStoreId = getStoreId(request);
+//        int mainStoreId = getStoreId(request);
+        String storeAccount = getStoreAccount(request);
         Integer ownerMemberId = Integer.parseInt(code);
         String accessToken = getAccessTokenByStore(request);
-    	return memberCenterService.getRewardAction(ownerMemberId, mainStoreId, storeId, phone, verifyCode, openId, accessToken, request);
+    	return memberCenterService.getRewardAction(ownerMemberId, storeAccount, storeId, phone, verifyCode, openId, accessToken, request);
     }
     
     

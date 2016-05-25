@@ -20,7 +20,7 @@
 		            <span>微信配置(${session_key_user_info.storeName })</span>
 		        </div>
 		        <form id="storeWechatForm">
-		        	<input type="hidden" name="storeId" value="${storeWechat.storeId }" />
+		        	<input type="hidden" name="storeAccount" value="${storeWechat.storeAccount }" />
 			        <div class="border-content">
 			            <table class="table nobordered-table">
 			                <tr>

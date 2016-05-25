@@ -394,7 +394,7 @@ function notifyPayment(orderId, obj){
 
 function selectOrderDetail(orderId){
 	var temp = document.createElement("form");
-    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_id}/2";
+    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_account}/2";
     temp.method = "post";
     temp.style.display = "none";
     var opt = document.createElement("textarea");
@@ -433,7 +433,7 @@ function changeDiv(type, orderType) {
 	}
 	else {
 		var temp = document.createElement("form");
-	    temp.action = baseUrl + "staff/view/employeeOrderView/${session_key_store_id}/2";
+	    temp.action = baseUrl + "staff/view/employeeOrderView/${session_key_store_account}/2";
 	    temp.method = "post";
 	    temp.style.display = "none";
 	    var opt = document.createElement("textarea");

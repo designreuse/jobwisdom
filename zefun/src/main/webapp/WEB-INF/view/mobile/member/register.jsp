@@ -250,6 +250,7 @@
 		  data : "storeId=" + storeId + "&phone=" + phone + "&verifyCode=" + verifyCode,
 		  dataType : "json",
 		  success : function(e){
+			  console.log(e.msg);
 			  if (e.code != 0) {
 				  dialog(e.msg);
 				  return;

@@ -77,7 +77,7 @@
 	                                <ul>
 	                                   <c:forEach items="${projectCategory.projectList }" var="project">
 	                                       <c:if test="${project.isAppointment == 1 }">
-		                                       <a href="<%=basePath%>memberCenter/view/projectDetail?storeId=${session_key_store_id}&projectId=${project.projectId}">
+		                                       <a href="<%=basePath%>memberCenter/view/projectDetail?storeId=${session_key_store_account}&projectId=${project.projectId}">
 			                                       <li>
 			                                            <img src="<%=picPath%>${project.projectImage}?imageView2/1/w/220/h/220" width="109" height="109" alt=""/>
 			                                            <div class="item-desc">
@@ -105,22 +105,22 @@
 	</div>
 	
 	<ul class="bottom_fix clearfix">
- 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
+ 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
 	      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
 		      <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">我的</p>
 		  </li>
 	    </a>
-	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
+	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account}/1">
 	    	<li><img src="<%=basePath %>images/mobile/member/botton_2_2.png">
 		       <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">预约</p>
 		    </li>
 	    </a>
-	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
+	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account}/1">
 		  <li><img src="<%=basePath %>images/mobile/member/botton_3.png">
 		    <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">商城</p>
 		  </li>
 	    </a>
-	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
+	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_account}/1">
 	     <li><img src="<%=basePath %>images/mobile/member/botton_4.png">
 		     <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">门店</p>
 		  </li>
@@ -166,7 +166,7 @@
 	                </div>
 	                <ul>
 	                   <c:forEach items="${storeList }" var="store">
-	                       <a href="<%=basePath%>memberCenter/view/orderAppointment/${mainStore.storeId }/1?selectStoreId=${store.storeId}">
+	                       <a href="<%=basePath%>memberCenter/view/orderAppointment/${session_key_store_account }/1?selectStoreId=${store.storeId}">
 		                       <li>
 		                            <img src="<%=picPath %>${store.storeLogo}?imageView2/1/w/81/h/81"/>
 		                            <div class="dm dianmin fl">

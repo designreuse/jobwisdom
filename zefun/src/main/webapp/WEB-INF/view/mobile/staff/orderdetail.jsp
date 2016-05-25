@@ -665,7 +665,7 @@ function confirmHandUp() {
 			}
 			setTimeout(function(){
 				var temp = document.createElement("form");
-  			    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_id}/2";
+  			    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_account}/2";
   			    temp.method = "post";
   			    temp.style.display = "none";
   			    var opt = document.createElement("textarea");
@@ -736,7 +736,7 @@ function yijiaoConfirm(obj){
    				dialog("已完成, 1.5秒后刷新页面...");
    				setTimeout(function(){
    					var temp = document.createElement("form");
-       			    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_id}/2";
+       			    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_account}/2";
        			    temp.method = "post";
        			    temp.style.display = "none";
        			    var opt = document.createElement("textarea");
@@ -796,7 +796,7 @@ function deleteOrderDetail(){
 				dialog("删除成功, 1.5秒后刷新页面...");
 				setTimeout(function(){
 					var temp = document.createElement("form");
-				    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_id}/2";
+				    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_account}/2";
 				    temp.method = "post";
 				    temp.style.display = "none";
 				    var opt = document.createElement("textarea");
@@ -899,7 +899,7 @@ function deleteOrderDetail(){
             dialog("改单成功, 1.5秒后刷新页面...");
 			setTimeout(function(){
 				var temp = document.createElement("form");
-			    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_id}/2";
+			    temp.action = baseUrl + "staff/view/selectOrderDetail/${session_key_store_account}/2";
 			    temp.method = "post";
 			    temp.style.display = "none";
 			    var opt = document.createElement("textarea");

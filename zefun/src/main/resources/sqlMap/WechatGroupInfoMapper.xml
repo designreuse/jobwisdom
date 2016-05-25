@@ -13,7 +13,7 @@
     id, store_account, group_type, group_id, group_name
   </sql>
   
-  <select id="selectGroupIdBystoreAccountAndGroupType" resultType="java.lang.Integer" parameterType="java.util.Map">
+  <select id="selectGroupIdByStoreIdAndGroupType" resultType="java.lang.Integer" parameterType="java.util.Map">
   	select group_id from wechat_group_info where store_account = #{storeAccount} and group_type = #{groupType}
   </select>
   

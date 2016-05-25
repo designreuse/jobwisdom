@@ -59,7 +59,7 @@
        </div>
        <div id="aestSellers" style="margin-bottom: 7rem;">
 	       <div class="shop_content">
-	            <p><span class="recommend_">新品上市</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_id}">更多>></a></p>
+	            <p><span class="recommend_">新品上市</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_account}">更多>></a></p>
 	        </div>
           <div class="shop_content_  clearfix">
           	<c:forEach items="${aestSellers }" var="goodsList">
@@ -79,7 +79,7 @@
        
        <div id="bestSellers" class="hide" style="margin-bottom: 7rem;">
 	       <div class="shop_content">
-	            <p><span class="recommend_">热销产品</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_id}">更多>></a></p>
+	            <p><span class="recommend_">热销产品</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_account}">更多>></a></p>
 	        </div>
           <div class="shop_content_  clearfix">
           	<c:forEach items="${bestSellers }" var="goodsList">
@@ -147,22 +147,22 @@
 	    </div>
     </div>
  <ul class="bottom_fix clearfix">
- 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
+ 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
 	      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
 		      <p>我的</p>
 		  </li>
 	    </a>
-	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
+	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account}/1">
 	    	<li><img src="<%=basePath %>images/mobile/member/botton_2.png">
 		       <p>预约</p>
 		    </li>
 	    </a>
-	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
+	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account}/1">
 		  <li><img src="<%=basePath %>images/mobile/member/botton_3_3.png">
 		    <p>商城</p>
 		  </li>
 	    </a>
-	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
+	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_account}/1">
 	     <li><img src="<%=basePath %>images/mobile/member/botton_4.png">
 		     <p>门店</p>
 		  </li>

@@ -306,7 +306,7 @@ public class SystemSettingService {
         Integer bossGroupId = null;
         Integer noneGroupId = null;
         
-    	if (storeWechat.getStoreAccount() != null) {
+    	if (storeWechat.getStoreAccount() != null&&!storeWechat.getStoreAccount().equals("")) {
     		storeWechatMapper.updateByPrimaryKey(storeWechat);
     	}
     	else {

@@ -76,13 +76,13 @@ public class StaffCentreController extends BaseController{
     * @return ModelAndView
      */
     @RequestMapping(value = Url.Staff.VIEW_STAFF_CENTER)
-    public ModelAndView staffCenter(@PathVariable int storeId, @PathVariable int businessType,
+    public ModelAndView staffCenter(@PathVariable String storeId, @PathVariable int businessType,
             HttpServletRequest request, HttpServletResponse response) {
-        /*String openId = getOpenId(storeId, businessType, request, response);
+        String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
             return null;
         }
-        int employeeId = getUserIdByOpenId(openId);*/
+        int employeeId = getUserIdByOpenId(openId);
         return staffCentreService.staffCenter(employeeId);
     }
     
@@ -282,7 +282,7 @@ public class StaffCentreController extends BaseController{
     * @return   员工个人预约页面
      */
     @RequestMapping(value = Url.Staff.VIEW_STAFF_APPOINT)
-    public ModelAndView staffAppoint(@PathVariable int storeId, @PathVariable int businessType, @PathVariable int type,
+    public ModelAndView staffAppoint(@PathVariable String storeId, @PathVariable int businessType, @PathVariable int type,
             HttpServletRequest request, HttpServletResponse response) {
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {

@@ -198,18 +198,18 @@ public class WeixinMessageService {
 				    }
                     redisService.hset(App.Redis.WECHAT_SUBSCRIBE_KEY_HASH, fromUserName, "1");
                     
-					Map<String, Integer> map = new HashMap<String, Integer>();
-					map.put("storeId", storeWechat.getStoreId());
-					map.put("msgStatus", 1);
-					MsgReply msgReply =  msgReplyMapper.selectReplyByParam(map);
-					/**判断回复类型进行回复*/
-					if (msgReply!=null&&msgReply.getMsgType().equals("text")) {
-						return replyTextMessage(msgReply.getMsgText(), fromUserName, toUserName);
-					} 
-					else if (msgReply!=null&&msgReply.getMsgType().equals("news")) {
-						/**回复图文消息*/
-						return replyNewsMessage(msgReply.getMediaId(), fromUserName, toUserName);
-					}
+//					Map<String, Integer> map = new HashMap<String, Integer>();
+//					map.put("storeId", storeWechat.getStoreId());
+//					map.put("msgStatus", 1);
+//					MsgReply msgReply =  msgReplyMapper.selectReplyByParam(map);
+//					/**判断回复类型进行回复*/
+//					if (msgReply!=null&&msgReply.getMsgType().equals("text")) {
+//						return replyTextMessage(msgReply.getMsgText(), fromUserName, toUserName);
+//					} 
+//					else if (msgReply!=null&&msgReply.getMsgType().equals("news")) {
+//						/**回复图文消息*/
+//						return replyNewsMessage(msgReply.getMediaId(), fromUserName, toUserName);
+//					}
 				}
 				/** 取消订阅*/
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
@@ -262,19 +262,19 @@ public class WeixinMessageService {
 			else if (msgType.equals("text")||msgType.equals("voice")||msgType.equals("image")){
 				/**还没有成为会员,自动回复文字*/
                 /**根据微信开发者id进行查询门店设置内容*/
-                StoreWechat storeWechat = storeWechatMapper.selectByWechatId(toUserName);
-                Map<String, Integer> map = new HashMap<String, Integer>();
-                map.put("storeId", storeWechat.getStoreId());
-				map.put("msgStatus", 2);
-				MsgReply msgReply =  msgReplyMapper.selectReplyByParam(map);
-				/**判断回复类型进行回复*/
-				if (msgReply!=null&&msgReply.getMsgType().equals("text")){
-					return replyTextMessage(msgReply.getMsgText(), fromUserName, toUserName);
-				}
-				else if (msgReply!=null&&msgReply.getMsgType().equals("news")){
-					/**回复图文消息*/
-					return replyNewsMessage(msgReply.getMediaId(), fromUserName, toUserName);
-				}
+//                StoreWechat storeWechat = storeWechatMapper.selectByWechatId(toUserName);
+//                Map<String, Integer> map = new HashMap<String, Integer>();
+//                map.put("storeId", storeWechat.getStoreId());
+//				map.put("msgStatus", 2);
+//				MsgReply msgReply =  msgReplyMapper.selectReplyByParam(map);
+//				/**判断回复类型进行回复*/
+//				if (msgReply!=null&&msgReply.getMsgType().equals("text")){
+//					return replyTextMessage(msgReply.getMsgText(), fromUserName, toUserName);
+//				}
+//				else if (msgReply!=null&&msgReply.getMsgType().equals("news")){
+//					/**回复图文消息*/
+//					return replyNewsMessage(msgReply.getMediaId(), fromUserName, toUserName);
+//				}
 			}
 			/**查看响应信息*/
 			logger.info("respMessage" + respMessage);
@@ -290,7 +290,7 @@ public class WeixinMessageService {
 	 * 初始化门店菜单
 	* @author 张进军
 	* @date Jan 26, 2016 8:49:07 PM
-	* @param storeId   门店标识
+	* @param storeAccount   门店标识
 	* @return  成功返回true，失败返回false
 	 */
 	public boolean initNormalMenu(String storeAccount){
@@ -612,7 +612,7 @@ public class WeixinMessageService {
 	* @return  成功返回true，失败返回false
 	 */
 	public boolean moveGroup(String storeAccount, int groupId, String openId){
-	    storeId = storeInfoMapper.selectMainIdByStoreId(storeId);
+//	    storeId = storeInfoMapper.selectMainIdByStoreId(storeId);
         String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeAccount));
         String url = Url.Wechat.MOVE_GROUP_URL.replace("ACCESS_TOKEN", accessToken);
         JSONObject json = new JSONObject();

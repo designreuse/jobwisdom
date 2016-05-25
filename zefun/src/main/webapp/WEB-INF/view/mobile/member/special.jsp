@@ -18,7 +18,7 @@
 ${specialService.content }
  	<div id="footer">
  		<div class="f-con c">
-			<a class="btn btn-primary" href="<%=basePath %>memberCenter/view/projectDetail?storeId=${specialService.storeId }&projectId=${specialService.projectId }">立即预约</a>
+			<a class="btn btn-primary" href="<%=basePath %>memberCenter/view/projectDetail?storeId=${session_key_store_account }&projectId=${specialService.projectId }">立即预约</a>
  		</div>
  	</div>
 </body>

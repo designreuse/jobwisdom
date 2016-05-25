@@ -477,7 +477,7 @@ public class BaseController {
     * @return           当前门店的微信访问口令
      */
     public String getAccessTokenByStore(HttpServletRequest request){
-        return redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, getStoreId(request).toString());
+        return redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, getStoreAccount(request).toString());
     }
 
 
@@ -507,6 +507,19 @@ public class BaseController {
             url += "?" + params;
         }
         return url;
+    }
+    
+    /**
+     * 获取accessToken
+    * @author 高国藩
+    * @date 2016年5月25日 上午10:19:45
+    * @param request request
+    * @return        accessToken
+     */
+    public String getAccessToken(HttpServletRequest request){
+        String storeAccount = getStoreAccount(request);
+        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, storeAccount);
+        return accessToken;
     }
 
 }

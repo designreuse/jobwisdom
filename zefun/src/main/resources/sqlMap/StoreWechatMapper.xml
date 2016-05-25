@@ -161,4 +161,12 @@
       tm_coupon_overdue = #{tmCouponOverdue,jdbcType=VARCHAR}
     where store_account = #{storeAccount,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectByWechatId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	select 
+    <include refid="Base_Column_List" />
+    from store_wechat
+    where wechat_id = #{wechatId,jdbcType=VARCHAR}
+  </select>
+  
 </mapper>

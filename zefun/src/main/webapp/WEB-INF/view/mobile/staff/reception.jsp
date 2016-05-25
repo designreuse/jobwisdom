@@ -88,7 +88,7 @@
                 </a>
             </li>
             <li>
-                <a href="<%=basePath%>staff/view/employeeOrderView/${session_key_store_id}/2">
+                <a href="<%=basePath%>staff/view/employeeOrderView/${session_key_store_account}/2">
                     <span class="iconfont icon-dingdan"></span>
                     <span>订单</span>
                 </a>
@@ -100,7 +100,7 @@
                 </a>
             </li>
             <li>
-                <a href="<%=basePath%>staff/view/staffCenter/${session_key_store_id}/2">
+                <a href="<%=basePath%>staff/view/staffCenter/${session_key_store_account}/2">
                     <span class="iconfont icon-wode"></span>
                     <span>我的</span>
                 </a>

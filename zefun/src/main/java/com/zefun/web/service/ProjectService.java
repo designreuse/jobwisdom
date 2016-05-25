@@ -27,6 +27,7 @@ import com.zefun.web.dto.ProjectInfoDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.MemberLevel;
+import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
 import com.zefun.web.entity.ProjectDiscount;
@@ -34,6 +35,7 @@ import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
+import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectCommissionMapper;
@@ -77,6 +79,9 @@ public class ProjectService {
     @Autowired private EmployeeLevelMapper employeeLevelMapper;
     /** 会员等级操作对象 */
     @Autowired private MemberLevelMapper memberLevelMapper;
+    /** 会员等级折扣 */
+    @Autowired private MemberLevelDiscountMapper memberLevelDiscountMapper;
+    
     
     
     /**
@@ -797,8 +802,10 @@ public class ProjectService {
         ProjectDiscount discount = projectDiscountMapper.selectDiscountPorjectIdAndLevelId(map);
         //如果没有特定会员价，那么计算查找该会员的折扣去计算
         if (discount == null) {
-            MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
-            discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getProjectDiscount())).divide(new BigDecimal(100), 2);
+            MemberLevelDiscount memberLevelDiscount = memberLevelDiscountMapper.selectByPrimaryKey(levelId);
+            discountAmount = discountAmount.multiply(new BigDecimal(memberLevelDiscount.getProjectDiscount()).divide(new BigDecimal(100), 2));
+//            MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
+//            discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getProjectDiscount())).divide(new BigDecimal(100), 2);
         }
         else {
             discountAmount = discount.getDiscountAmount();

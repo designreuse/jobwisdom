@@ -90,7 +90,7 @@
 	        <div class="store-md">
 	           <span class="fl">${storeInfo.storeName }</span>
 	           <c:if test="${storeSize > 1 }">
-	           		<a style="color: #fff" href="<%=basePath %>memberCenter/view/storeList?url=/memberCenter/view/storeInfo/${session_key_store_id}/1?selectStoreId=_storeId_">
+	           		<a style="color: #fff" href="<%=basePath %>memberCenter/view/storeList?url=/memberCenter/view/storeInfo/${session_key_store_account}/1?selectStoreId=_storeId_">
 			           <span class="fr">查看 ${storeSize } 家分店>></span>
 	           		</a>
 	           </c:if> 
@@ -163,22 +163,22 @@
 	
 	</div>
 	<ul class="bottom_fix clearfix">
- 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
+ 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
 	      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
 		      <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">我的</p>
 		  </li>
 	    </a>
-	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
+	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account}/1">
 	    	<li><img src="<%=basePath %>images/mobile/member/botton_2.png">
 		       <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">预约</p>
 		    </li>
 	    </a>
-	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
+	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account}/1">
 		  <li><img src="<%=basePath %>images/mobile/member/botton_3.png">
 		    <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">商城</p>
 		  </li>
 	    </a>
-	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
+	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_account}/1">
 	     <li><img src="<%=basePath %>images/mobile/member/botton_4_4.png">
 		     <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">门店</p>
 		  </li>

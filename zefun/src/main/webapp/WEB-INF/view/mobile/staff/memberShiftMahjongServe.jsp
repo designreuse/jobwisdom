@@ -486,7 +486,7 @@
         		
         		if (datas.markTypeInteger == 1) {
     				setTimeout(function(){
-    					window.location.href = baseUrl + "staff/view/employeeOrderView/${session_key_store_id}/2";
+    					window.location.href = baseUrl + "staff/view/employeeOrderView/${session_key_store_account}/2";
     				}, 1500);
     			}
     			else {

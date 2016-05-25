@@ -41,7 +41,7 @@
 	    <div class="function-list-wrap mt2">
 	        <ul class="function-list">
 	            <li class="function-item normal-li">
-	                <a href="<%=basePath%>staff/view/staffAppoint/${session_key_store_id}/2/1">
+	                <a href="<%=basePath%>staff/view/staffAppoint/${session_key_store_account}/2/1">
 	                    <span><i class="iconfont icon-iconfontreneps"></i> <span class="ml">我的预约</span></span>
 	                    <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
 	                </a>
@@ -93,7 +93,7 @@
                 </a>
             </li>
             <li>
-                <a href="<%=basePath%>staff/view/employeeOrderView/${session_key_store_id}/2">
+                <a href="<%=basePath%>staff/view/employeeOrderView/${session_key_store_account}/2">
                     <span class="iconfont icon-dingdan"></span>
                     <span>订单</span>
                 </a>
@@ -105,7 +105,7 @@
                 </a>
             </li>
             <li class="active">
-                <a href="<%=basePath%>staff/view/staffCenter/${session_key_store_id}/2">
+                <a href="<%=basePath%>staff/view/staffCenter/${session_key_store_account}/2">
                     <span class="iconfont icon-wode"></span>
                     <span>我的</span>
                 </a>
