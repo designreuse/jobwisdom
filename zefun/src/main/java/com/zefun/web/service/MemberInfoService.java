@@ -298,7 +298,7 @@ public class MemberInfoService {
     * @param storeId 门店标识
     * @return           true:存在,false:不存在
      */
-    public boolean isExists(String phone, Integer storeId) {
+    public boolean isExists(String phone, String storeId) {
         Integer result = selectMemberIdByPhone(phone, storeId);
         if (result == null) {
             return false;

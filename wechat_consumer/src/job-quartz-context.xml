@@ -21,7 +21,7 @@
 	<!-- 微信api口令刷新定时任务 -->
 	<bean id="wechatTokenExpireTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
        <property name="jobDetail" ref="wechatTokenDetail"/>
-       <property name="cronExpression" value="0 0/5 * * * ?"/><!-- 	每30分执行一次   -->
+       <property name="cronExpression" value="0 0/30 * * * ?"/><!-- 	每30分执行一次   -->
 	</bean>
 
 	<bean id="wechatTokenDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

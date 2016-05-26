@@ -683,7 +683,7 @@ public class WechatCallService {
             enterpriseAccount.setBalanceAmount(enterpriseAccount.getBalanceAmount().
                     add(new BigDecimal(rechargeRecord.getRechargeAmount().intValue())));
             enterpriseAccount.setTotalAmount(enterpriseAccount.getTotalAmount().add(new BigDecimal(rechargeRecord.getRechargeAmount().intValue())));
-            enterpriseAccountMapper.updateByPrimaryKey(enterpriseAccount);
+            enterpriseAccountMapper.updateByPrimaryKeySelective(enterpriseAccount);
             
             EnterpriseAccountFlow enterpriseAccountFlow = new EnterpriseAccountFlow();
             enterpriseAccountFlow.setBusinessType("充值");

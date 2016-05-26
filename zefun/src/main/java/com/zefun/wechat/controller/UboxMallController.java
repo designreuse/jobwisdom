@@ -62,7 +62,8 @@ public class UboxMallController extends BaseController {
     @RequestMapping(value = Url.UboxMall.VIEW_GOODS_INFO)
     public ModelAndView goodsInfoView(int storeId, Integer storeGoodsId,
             HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(storeId, 1, request, response);
+        String storeAccount = getStoreAccount(request);
+        String openId = getOpenId(storeAccount, 1, request, response);
         if (openId == null) {
             return null;
         }
@@ -87,7 +88,8 @@ public class UboxMallController extends BaseController {
     @RequestMapping(value = Url.AppPay.GOODSINFO_PAY, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto goodsPayAction(Integer storeId, Integer goodsId, HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(storeId, 1, request, response);
+        String storeAccount = getStoreAccount(request);
+        String openId = getOpenId(storeAccount, 1, request, response);
         if (openId == null) {
             return null;
         }

@@ -306,6 +306,12 @@ public class ProjectInfoController extends BaseController {
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, categoryId);
     }
     
+    @RequestMapping(value = Url.Project.PROJECT_CATEGORY_VIEW)
+    public ModelAndView projectCategoryView(HttpServletRequest request, HttpServletResponse response) {
+        Integer storeId = getStoreId(request);
+        return projectService.projectCategoryView(storeId);
+    }
+    
     /**
      * 保存项目类别集合
     * @author 洪秋霞

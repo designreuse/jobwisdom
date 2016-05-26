@@ -259,6 +259,8 @@ public interface Url {
         public static final String PROJECT_SAVE_STEP = "project/save/by/step/{stepNum}/{status}";
         /** 项目列表*/
         public static final String PROJECT_INFO_LIST = "project/view/projects";
+        /** 项目商品系列列表*/
+        public static final String PROJECT_CATEGORY_VIEW = "project/view/categorys";
 	}
 
 	/** 套餐模块 */

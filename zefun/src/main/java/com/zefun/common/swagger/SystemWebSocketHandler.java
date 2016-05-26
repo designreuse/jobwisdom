@@ -45,8 +45,9 @@ public class SystemWebSocketHandler implements WebSocketHandler {
 
     /** 接收客户端发送过来的方法 */
     @Override
-    public void handleMessage(WebSocketSession session,
-            WebSocketMessage<?> message) throws Exception {
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+        
+        log.info("message"+message.getPayload().toString());
 //        String storeAccount = (String) session.getAttributes().get(App.Session.STORE_ACCOUNT);
 //        log.info(message.getPayload().toString());
 //        TextMessage message1 = new TextMessage("9999");
@@ -80,18 +81,17 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     * @author 高国藩
     * @date 2016年5月23日 下午4:33:51
     * @param message 消息
+     * @throws IOException 
      */
-    public void sendMessageToSTOREUSER(TextMessage message) {
-//        for (WebSocketSession user : STOREUSER) {
-//            try {
-//                if (user.isOpen()) {
-//                    user.sendMessage(message);
-//                }
-//            } 
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+    public void sendMessageToSTOREUSER(TextMessage message) throws IOException {
+        Set<String> keys = SOCKETS.keySet();
+        Iterator<String> it = keys.iterator();
+        while (it.hasNext()){
+            String storeAccount = it.next();
+            if (SOCKETS.get(storeAccount).isOpen()) {
+                SOCKETS.get(storeAccount).sendMessage(message);
+            }
+        }
     }
 
     /**
@@ -120,18 +120,5 @@ public class SystemWebSocketHandler implements WebSocketHandler {
                 break;
             }
         }
-        /*for (WebSocketSession user : STOREUSER) {
-            if (user.getAttributes().get(App.Session.STORE_ACCOUNT).equals(userName)) {
-                try {
-                    if (user.isOpen()) {
-                        user.sendMessage(message);
-                    }
-                } 
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-        }*/
     }
 }
