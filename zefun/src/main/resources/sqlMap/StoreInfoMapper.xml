@@ -281,13 +281,13 @@
         latitude = #{latitude},
       </if>
       <if test="longitude != null">
-        longitude = #{longitude}
+        longitude = #{longitude},
       </if>
       <if test="totalSms != null">
-        total_sms = #{totalSms,jdbcType=INTEGER}
+        total_sms = #{totalSms,jdbcType=INTEGER},
       </if>
       <if test="balanceSms != null">
-        balance_sms = #{balanceSms,jdbcType=INTEGER}
+        balance_sms = #{balanceSms,jdbcType=INTEGER},
       </if>
     </set>
     where store_id = #{storeId,jdbcType=INTEGER}

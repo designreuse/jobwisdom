@@ -52,7 +52,22 @@ public class StoreInfoController extends BaseController {
 		String storeAccount = getStoreAccount(request);
 		return storeInfoService.showStoreList(storeAccount);
 	}
-
+    
+	/**
+	 * 升级续费
+	* @author 老王
+	* @date 2016年5月26日 上午1:51:43 
+	* @param request 返回
+	* @param upgradeValue 选择版本
+	* @param renewDate 选择续费年数
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.StoreInfo.CONFIRM_UPGRADE_RENEW)
+	@ResponseBody
+	public BaseDto confirmUpgradeRenew (HttpServletRequest request, Integer upgradeValue, Integer renewDate) {
+		String storeAccount = getStoreAccount(request);
+		return storeInfoService.confirmUpgradeRenew(storeAccount, upgradeValue, renewDate);
+	}
 	
 	/**
 	 * 创建分店
@@ -65,6 +80,7 @@ public class StoreInfoController extends BaseController {
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.StoreInfo.SAVE_UPDATE_STORE)
+	@ResponseBody
 	public BaseDto saveUpdateStore (StoreInfo storeInfo, Integer userName, String userPwd, HttpServletRequest request) {
 		if (storeInfo.getStoreId() == null) {
 			String storeAccount = getStoreAccount(request);
@@ -80,9 +96,97 @@ public class StoreInfoController extends BaseController {
 		}
 	}
 	
+	/**
+	 * 查询企业消费流水
+	* @author 老王
+	* @date 2016年5月24日 下午4:31:24 
+	* @param request 返回
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.StoreInfo.SELECT_CONSUMPTION_RECORD)
+	@ResponseBody
 	public BaseDto selectConsumptionRecord (HttpServletRequest request) {
 		String storeAccount = getStoreAccount(request);
 		return storeInfoService.selectConsumptionRecord(storeAccount);
+	}
+	
+	/**
+	 * 查询企业消费流水
+	* @author 老王
+	* @date 2016年5月24日 下午4:31:24 
+	* @param request 返回
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.StoreInfo.SELECT_ENTERPRISE_ACCOUNT)
+	@ResponseBody
+	public BaseDto selectEnterpriseAccount (HttpServletRequest request) {
+		String storeAccount = getStoreAccount(request);
+		return storeInfoService.selectEnterpriseAccount(storeAccount);
+	}
+	
+	/**
+	 * 短信充值
+	* @author 老王
+	* @date 2016年5月24日 下午8:15:29 
+	* @param msnRechargeType 充值类型
+	* @param msnNumber 短信条数
+	* @param request 返回
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.StoreInfo.SAVE_MSN_RECHARGE)
+	@ResponseBody
+	public BaseDto saveMsnRecharge (Integer msnRechargeType, Integer msnNumber, HttpServletRequest request) {
+		String storeAccount = getStoreAccount(request);
+		return storeInfoService.saveMsnRecharge(storeAccount, msnRechargeType, msnNumber);
+	}
+	
+	/**
+	 * 分配短信
+	* @author 老王
+	* @date 2016年5月25日 上午12:55:48 
+	* @param storeId 门店标识
+	* @param distributionNum 分配数量
+	* @param request 返回
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.StoreInfo.DISTRIBUTION_MSN)
+	@ResponseBody
+	public BaseDto distributionMsn (Integer storeId, Integer distributionNum, HttpServletRequest request) {
+		String storeAccount = getStoreAccount(request);
+		return storeInfoService.distributionMsn(storeAccount, storeId, distributionNum);
+	}
+	
+	/**
+	 * 短信充值分配记录
+	* @author 老王
+	* @date 2016年5月25日 下午3:26:00 
+	* @param request 返回
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.StoreInfo.RECHARGE_FLOW)
+	@ResponseBody
+	public BaseDto rechargeFlow (HttpServletRequest request) {
+		String storeAccount = getStoreAccount(request);
+		return storeInfoService.rechargeFlow(storeAccount);
+	}
+	
+	/**
+	 * 新增或修改授权码
+	* @author 老王
+	* @date 2016年5月25日 下午4:58:53 
+	* @param request 返回
+	* @param storeAuthorityId 授权标识
+	* @param storeId 门店标识
+	* @param employeeId 员工标识
+	* @param authorityValue 授权码
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.StoreInfo.ADD_OR_UPDATE_AUTHORITY)
+	@ResponseBody
+	public BaseDto addOrUpdateAuthority (HttpServletRequest request, Integer storeAuthorityId, Integer storeId, Integer employeeId, 
+			  String authorityValue) {
+		String storeAccount = getStoreAccount(request);
+		return storeInfoService.addOrUpdateAuthority(storeAccount, storeAuthorityId, storeId, employeeId, authorityValue);
 	}
 	
 	/**

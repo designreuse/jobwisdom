@@ -26,6 +26,16 @@
     where store_authority_id = #{storeAuthorityId,jdbcType=INTEGER}
   </select>
   
+  <select id="selectByProperties" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.EnterpriseStoreAuthority" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_store_authority
+    where 1=1
+    <if test="employeeId != null">
+  		and employee_id = #{employeeId, jdbcType=VARCHAR}
+  	</if>
+  </select>
+  
   <select id="selectAuthorityByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -38,7 +48,7 @@
     delete from enterprise_store_authority
     where store_authority_id = #{storeAuthorityId,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.zefun.web.entity.EnterpriseStoreAuthority" >
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.EnterpriseStoreAuthority" useGeneratedKeys = "true" keyProperty="storeAuthorityId">
     insert into enterprise_store_authority
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="storeAuthorityId != null" >

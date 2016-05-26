@@ -1,5 +1,7 @@
 package com.zefun.web.entity;
 
+import java.math.BigDecimal;
+
 /**
  * 企业账户流水表
 * @author 老王
@@ -24,12 +26,12 @@ public class EnterpriseAccountFlow {
     /**
      * 流水金额
      */
-    private Integer flowAmount;
+    private BigDecimal flowAmount;
 
     /**
      * 当前余额
      */
-    private Integer balanceAmount;
+    private BigDecimal balanceAmount;
 
     /**
      * 业务类型
@@ -50,8 +52,39 @@ public class EnterpriseAccountFlow {
      * 最后操作人标识
      */
     private Integer lastOperatorId;
+    
+    /**
+     * 是否删除(0:未删除,1:已删除)
+     */
+    private Integer isDeleted;
 
-    public Integer getAccountFlowId() {
+    
+    
+    public BigDecimal getFlowAmount() {
+		return flowAmount;
+	}
+
+	public void setFlowAmount(BigDecimal flowAmount) {
+		this.flowAmount = flowAmount;
+	}
+
+	public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+
+	public Integer getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Integer isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public Integer getAccountFlowId() {
         return accountFlowId;
     }
 
@@ -73,22 +106,6 @@ public class EnterpriseAccountFlow {
 
     public void setFlowType(Integer flowType) {
         this.flowType = flowType;
-    }
-
-    public Integer getFlowAmount() {
-        return flowAmount;
-    }
-
-    public void setFlowAmount(Integer flowAmount) {
-        this.flowAmount = flowAmount;
-    }
-
-    public Integer getBalanceAmount() {
-        return balanceAmount;
-    }
-
-    public void setBalanceAmount(Integer balanceAmount) {
-        this.balanceAmount = balanceAmount;
     }
 
     public String getBusinessType() {

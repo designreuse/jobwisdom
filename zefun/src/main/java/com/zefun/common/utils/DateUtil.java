@@ -992,6 +992,28 @@ public class DateUtil {
 	}
 
 	/**
+	 * 获取传入时间对应的几年后时间
+	 * 
+	 * @author 高国藩
+	 * @date 2016年1月21日 下午3:29:12
+	 * @param dateTime 传入时间
+	 * @param yearNum 年数
+	 * @return yyyy-mm-dd
+	 */
+	public static String getCurrNumberYear(String dateTime, Integer yearNum) {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar calendar = Calendar.getInstance();
+		try {
+			calendar.setTime(sf.parse(dateTime));
+		} 
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		calendar.add(Calendar.YEAR, yearNum);
+		return sf.format(calendar.getTime());
+	}
+	
+	/**
 	 * 获取当前时间的去年对应时间
 	 * 
 	 * @author 高国藩
@@ -1399,4 +1421,28 @@ public class DateUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * 获取两个时间段相差的月数
+	* @author 老王
+	* @date 2016年5月26日 上午12:43:46 
+	* @param date1 时间1
+	* @param date2 时间2
+	* @return int
+	* @throws ParseException ParseException
+	 */
+	public static int getMonthSpace(String date1, String date2)
+            throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar cal1 = new GregorianCalendar();
+        cal1.setTime(sdf.parse(date1));
+        Calendar cal2 = new GregorianCalendar();
+        cal2.setTime(sdf.parse(date2));
+        int c = (cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR)) * 12 + cal1.get(Calendar.MONTH)
+            - cal2.get(Calendar.MONTH);
+        return c == 0 ? 1 : Math.abs(c);
+
+    }
 }

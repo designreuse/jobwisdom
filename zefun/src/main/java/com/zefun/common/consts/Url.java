@@ -1132,6 +1132,22 @@ public interface Url {
 		public static final String SHOW_STORE_LIST = "/storeinfo/view/showStoreList";
 		/** 新增修改门店*/
 		public static final String SAVE_UPDATE_STORE = "/storeinfo/action/saveUpdateStore";
+		/** 查询企业流水*/
+		public static final String SELECT_CONSUMPTION_RECORD = "/storeinfo/action/selectConsumptionRecord";
+		/**
+		 * 查询企业消费流水
+		 */
+		public static final String SELECT_ENTERPRISE_ACCOUNT = "/storeinfo/action/selectEnterpriseAccount";
+		/** 短信充值*/
+		public static final String SAVE_MSN_RECHARGE = "/storeinfo/action/saveMsnRecharge";
+		/** 分配短信*/
+		public static final String DISTRIBUTION_MSN = "/storeinfo/action/distributionMsn";
+		/** 短信充值分配记录*/
+		public static final String RECHARGE_FLOW = "/storeinfo/action/rechargeFlow";
+		/** 新增门店授权码*/
+		public static final String ADD_OR_UPDATE_AUTHORITY = "/storeinfo/action/addOrUpdateAuthority";
+		/** 升级续费*/
+		public static final String CONFIRM_UPGRADE_RENEW = "/storeinfo/action/confirmUpgradeRenew";
 		/** 增加门店 */
 		public static final String ACTION_ADD_STORE = "/storeinfo/action/addstore";
 		/** 显示店铺设置页面 */

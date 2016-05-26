@@ -49,6 +49,15 @@ public interface EnterpriseStoreAuthorityMapper {
     /**
      * 
     * @author 老王
+    * @date 2016年5月25日 下午7:59:29 
+    * @param record 授权对象
+    * @return List<EnterpriseStoreAuthority>
+     */
+    List<EnterpriseStoreAuthority> selectByProperties(EnterpriseStoreAuthority record);
+    
+    /**
+     * 
+    * @author 老王
     * @date 2016年5月21日 下午6:54:35 
     * @param record record
     * @return int

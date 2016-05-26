@@ -14,13 +14,12 @@
     background-color: #fff;
     color: #ccc;
     cursor: pointer;
-    position:reltive;
-    top:-84px;
-    left:120px;
-    width:380px!important;
-    height:26px!important;
+    position: reltive;
+    top: -10px;
+    left: -20px;
+    width: 210px!important;
+    height: 26px!important;
     border-radius: 6px!important;
-    
 }
 
 .city-picker-span > .placeholder {
@@ -55,25 +54,26 @@
 .city-picker-dropdown {
     position: absolute;
     width: 315px;
-    left: -9999px;
-    top: -9999px;
+    left: -95px!important;
+    top: -15px!important;
     outline: 0;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     z-index: 999999;
     display: none;
     min-width: 330px;
     margin-bottom: 20px;
+    
+    
 }
 
-.city-select-wrap {
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-}
 
 .city-select-tab {
     border-bottom: 1px solid #ccc;
     background: #f0f0f0;
     font-size: 13px;
-    margin-top:40px;
+    position:relative;
+    top:40px;
+    border:1px solid #ccc
 }
 
 .city-select-tab > a {
@@ -108,7 +108,7 @@
     width: 100%;
     min-height: 10px;
     background-color: #fff;
-    padding: 10px 15px;
+   
 }
 
 .city-select {
