@@ -369,6 +369,8 @@ public interface View {
 		 * 
 		 */
 		public static final String PROJECT_LIST = "commodity/projectInfoList";
+		/** 商品项目系列*/
+        public static final String CATEGORY = "commodity/category";
 	}
 
 	/**

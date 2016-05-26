@@ -285,8 +285,9 @@ function initPay(storeId, goodsId){
         "paySign" : rj.paySign
     }, function(res) {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
-            window.location.href = baseUrl + "uboxMall/view/goodsPayCallback/" + rj.transactionId;
-        } else {
+        	window.location.href = baseUrl + 'memberCenter/view/orderList';
+            //window.location.href = baseUrl + "uboxMall/view/goodsPayCallback/" + rj.transactionId;
+        } /* else {
         	$.ajax({
       		  type : "POST",
       		  url : baseUrl + "uboxMall/action/goodsPayCancel",
@@ -300,7 +301,7 @@ function initPay(storeId, goodsId){
       			  dialog("取消支付");
       		  }
       	  });
-        }
+        } */
     });
   }
 </script>

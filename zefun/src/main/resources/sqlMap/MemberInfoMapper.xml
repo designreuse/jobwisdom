@@ -114,8 +114,9 @@
   <select id="selectMemberIdByPhone" parameterType="com.zefun.web.entity.MemberInfo" resultType="java.lang.Integer" >
     select member_id from member_info a where a.phone = #{phone,jdbcType=CHAR} and a.is_deleted = 0
     and a.store_id in
-    (select store_id from store_info where hq_store_id = (select hq_store_id from store_info c where c.store_id = #{storeId}) or store_id = #{storeId})
+    (SELECT store_id FROM store_info WHERE store_account =  #{storeAccount})
   </select>
+  
 
   <select id="selectMemberInfoByPhone" parameterType="com.zefun.web.entity.MemberInfo" resultType="com.zefun.web.dto.MemberBaseDto" >
     select

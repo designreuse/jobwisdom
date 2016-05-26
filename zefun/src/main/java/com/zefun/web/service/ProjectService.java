@@ -17,6 +17,7 @@ import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.EntityJsonConverter;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.DeptMahjongDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
@@ -26,7 +27,9 @@ import com.zefun.web.dto.ProjectCommissionDto;
 import com.zefun.web.dto.ProjectInfoDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.MemberLevel;
+import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
 import com.zefun.web.entity.ProjectDiscount;
@@ -34,6 +37,8 @@ import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
+import com.zefun.web.mapper.GoodsCategoryMapper;
+import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectCommissionMapper;
@@ -77,6 +82,11 @@ public class ProjectService {
     @Autowired private EmployeeLevelMapper employeeLevelMapper;
     /** 会员等级操作对象 */
     @Autowired private MemberLevelMapper memberLevelMapper;
+    /** 会员等级折扣 */
+    @Autowired private MemberLevelDiscountMapper memberLevelDiscountMapper;
+    /** 商品系列操作 */
+    @Autowired private GoodsInfoService goodsInfoService;
+    
     
     
     /**
@@ -797,8 +807,10 @@ public class ProjectService {
         ProjectDiscount discount = projectDiscountMapper.selectDiscountPorjectIdAndLevelId(map);
         //如果没有特定会员价，那么计算查找该会员的折扣去计算
         if (discount == null) {
-            MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
-            discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getProjectDiscount())).divide(new BigDecimal(100), 2);
+            MemberLevelDiscount memberLevelDiscount = memberLevelDiscountMapper.selectByPrimaryKey(levelId);
+            discountAmount = discountAmount.multiply(new BigDecimal(memberLevelDiscount.getProjectDiscount()).divide(new BigDecimal(100), 2));
+//            MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
+//            discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getProjectDiscount())).divide(new BigDecimal(100), 2);
         }
         else {
             discountAmount = discount.getDiscountAmount();
@@ -1055,6 +1067,25 @@ public class ProjectService {
         List<DeptProjectBaseDto> deptProjectList = getDeptProjectByStoreId(storeId);
         view.addObject("deptProjectList", deptProjectList);
         
+        return view;
+    }
+
+
+    /**
+     * 展示项目商品系列页面
+    * @author 高国藩
+    * @date 2016年5月26日 上午10:01:42
+    * @param storeId storeId
+    * @return        页面
+     */
+    public ModelAndView projectCategoryView(Integer storeId) {
+        List<DeptProjectBaseDto> projectBaseDtos = getDeptProjectByStoreId(storeId);
+        List<DeptGoodsBaseDto> goodsBaseDtos = goodsInfoService.getDeptGoodsByStoreId(storeId);
+        ModelAndView view = new ModelAndView(View.Project.CATEGORY);
+        view.addObject("projectBaseDtos", projectBaseDtos);
+        view.addObject("goodsBaseDtos", goodsBaseDtos);
+        view.addObject("projectBaseDtosJs", JSONArray.fromObject(projectBaseDtos));
+        view.addObject("goodsBaseDtosJs", JSONArray.fromObject(goodsBaseDtos));
         return view;
     }
 }

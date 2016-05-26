@@ -20,11 +20,11 @@ public class WebSocketConfig extends WebMvcConfigurerAdapter implements WebSocke
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(systemWebSocketHandler(), "/websocket").addInterceptors(new WebSocketHandshakeInterceptor());
-//        registry.addHandler(systemWebSocketHandler(), "/sockjs/websocket").addInterceptors(new WebSocketHandshakeInterceptor());
+        registry.addHandler(echoWebSocketHandler(), "/sockjs/websocket").withSockJS();
     }
 
     /**
-     * ws系统集成模块
+     * google fireFox 
     * @author 高国藩
     * @date 2016年5月23日 下午4:32:31
     * @return  为spring创建实例
@@ -32,6 +32,17 @@ public class WebSocketConfig extends WebMvcConfigurerAdapter implements WebSocke
     @Bean
     public WebSocketHandler systemWebSocketHandler() {
         return new SystemWebSocketHandler();
+    }
+    
+    /**
+     * Ie socket.js
+    * @author 高国藩
+    * @date 2016年5月25日 下午7:42:26
+    * @return 为spring创建实例
+     */
+    @Bean
+    public WebSocketHandler echoWebSocketHandler() {
+        return new EchoWebSocketHandler();
     }
     
 }

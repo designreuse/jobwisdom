@@ -41,7 +41,7 @@ public class WechatPayController extends BaseController{
     private SystemWebSocketHandler systemWebSocketHandler;
     
     /**
-     * 微信NATIVE扫码支付
+     * 微信NATIVE扫码支付,门店充值
     * @author 高国藩
     * @date 2016年5月10日 下午4:52:22
     * @param request    request

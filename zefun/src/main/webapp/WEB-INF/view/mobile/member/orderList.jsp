@@ -14,7 +14,11 @@
 <body>
 
 <div class="content wrap">
-    <div class="my-order-doing">
+    
+    <c:choose>
+    	<c:when test="${empty orderList }"><div></c:when>
+    	<c:otherwise><div class="my-order-doing"></c:otherwise>
+    </c:choose>
         <c:forEach items="${orderList }" var="order">
             <ul class="order-ul bsw mb2">
 	            <li class="dingdan-danhao">

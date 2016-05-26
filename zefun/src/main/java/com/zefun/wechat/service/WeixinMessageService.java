@@ -198,18 +198,18 @@ public class WeixinMessageService {
 				    }
                     redisService.hset(App.Redis.WECHAT_SUBSCRIBE_KEY_HASH, fromUserName, "1");
                     
-					Map<String, Integer> map = new HashMap<String, Integer>();
-					map.put("storeId", storeWechat.getStoreId());
-					map.put("msgStatus", 1);
-					MsgReply msgReply =  msgReplyMapper.selectReplyByParam(map);
-					/**判断回复类型进行回复*/
-					if (msgReply!=null&&msgReply.getMsgType().equals("text")) {
-						return replyTextMessage(msgReply.getMsgText(), fromUserName, toUserName);
-					} 
-					else if (msgReply!=null&&msgReply.getMsgType().equals("news")) {
-						/**回复图文消息*/
-						return replyNewsMessage(msgReply.getMediaId(), fromUserName, toUserName);
-					}
+//					Map<String, Integer> map = new HashMap<String, Integer>();
+//					map.put("storeId", storeWechat.getStoreId());
+//					map.put("msgStatus", 1);
+//					MsgReply msgReply =  msgReplyMapper.selectReplyByParam(map);
+//					/**判断回复类型进行回复*/
+//					if (msgReply!=null&&msgReply.getMsgType().equals("text")) {
+//						return replyTextMessage(msgReply.getMsgText(), fromUserName, toUserName);
+//					} 
+//					else if (msgReply!=null&&msgReply.getMsgType().equals("news")) {
+//						/**回复图文消息*/
+//						return replyNewsMessage(msgReply.getMediaId(), fromUserName, toUserName);
+//					}
 				}
 				/** 取消订阅*/
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
@@ -262,19 +262,19 @@ public class WeixinMessageService {
 			else if (msgType.equals("text")||msgType.equals("voice")||msgType.equals("image")){
 				/**还没有成为会员,自动回复文字*/
                 /**根据微信开发者id进行查询门店设置内容*/
-                StoreWechat storeWechat = storeWechatMapper.selectByWechatId(toUserName);
-                Map<String, Integer> map = new HashMap<String, Integer>();
-                map.put("storeId", storeWechat.getStoreId());
-				map.put("msgStatus", 2);
-				MsgReply msgReply =  msgReplyMapper.selectReplyByParam(map);
-				/**判断回复类型进行回复*/
-				if (msgReply!=null&&msgReply.getMsgType().equals("text")){
-					return replyTextMessage(msgReply.getMsgText(), fromUserName, toUserName);
-				}
-				else if (msgReply!=null&&msgReply.getMsgType().equals("news")){
-					/**回复图文消息*/
-					return replyNewsMessage(msgReply.getMediaId(), fromUserName, toUserName);
-				}
+//                StoreWechat storeWechat = storeWechatMapper.selectByWechatId(toUserName);
+//                Map<String, Integer> map = new HashMap<String, Integer>();
+//                map.put("storeId", storeWechat.getStoreId());
+//				map.put("msgStatus", 2);
+//				MsgReply msgReply =  msgReplyMapper.selectReplyByParam(map);
+//				/**判断回复类型进行回复*/
+//				if (msgReply!=null&&msgReply.getMsgType().equals("text")){
+//					return replyTextMessage(msgReply.getMsgText(), fromUserName, toUserName);
+//				}
+//				else if (msgReply!=null&&msgReply.getMsgType().equals("news")){
+//					/**回复图文消息*/
+//					return replyNewsMessage(msgReply.getMediaId(), fromUserName, toUserName);
+//				}
 			}
 			/**查看响应信息*/
 			logger.info("respMessage" + respMessage);
@@ -290,14 +290,14 @@ public class WeixinMessageService {
 	 * 初始化门店菜单
 	* @author 张进军
 	* @date Jan 26, 2016 8:49:07 PM
-	* @param storeId   门店标识
+	* @param storeAccount   门店标识
 	* @return  成功返回true，失败返回false
 	 */
-	public boolean initNormalMenu(int storeId){
-	    String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeId));
+	public boolean initNormalMenu(String storeAccount){
+	    String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeAccount));
         
         JSONObject normalMemu = new JSONObject();
-        normalMemu.put("button", getNormalMenuList(storeId));
+        normalMemu.put("button", getNormalMenuList(storeAccount));
         
         String url = Url.Wechat.CREATE_NORMAL_MENU_URL.replace("ACCESS_TOKEN", accessToken);
         JSONObject resultJson = WeixinUploadService.httpRequest(url, "POST", normalMemu.toString());
@@ -317,7 +317,7 @@ public class WeixinMessageService {
     * @param groupId    微信分组ID
     * @return  成功返回true，失败返回false
      */
-    public boolean initConditionalMenu(int storeId, int groupType, int groupId){
+    public boolean initConditionalMenu(String storeId, int groupType, int groupId){
         String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeId));
         
         JSONObject conditionalMenu = new JSONObject();
@@ -494,7 +494,7 @@ public class WeixinMessageService {
     * @param storeId    门店标识
     * @return   微信默认菜单
      */
-    private JSONArray getNormalMenuList(int storeId){
+    private JSONArray getNormalMenuList(String storeId){
         JSONArray buttonList = new JSONArray();
         
         JSONObject wechatShopButton = new JSONObject();
@@ -569,10 +569,10 @@ public class WeixinMessageService {
 	 * 删除门店对应微信公众号的所有菜单，含个性化分组菜单
 	* @author 张进军
 	* @date Jan 26, 2016 7:25:31 PM
-	* @param storeId   门店标识
+	* @param storeAccount   门店标识
 	 */
-	public void deleteMenu(int storeId){
-	    String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeId));
+	public void deleteMenu(String storeAccount){
+	    String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeAccount));
 	    String url = Url.Wechat.DELETE_MENU_URL.replace("ACCESS_TOKEN", accessToken);
 	    WeixinUploadService.httpRequest(url, "GET", null);
 	}
@@ -582,12 +582,12 @@ public class WeixinMessageService {
 	 * 创建微信分组
 	* @author 张进军
 	* @date Jan 26, 2016 7:16:07 PM
-	* @param storeId   门店标识
+	* @param storeAccount   门店标识
 	* @param groupName 分组名称
 	* @return  成功返回分组ID，失败返回空
 	 */
-	public Integer createGroup(int storeId, String groupName){
-	    String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeId));
+	public Integer createGroup(String storeAccount, String groupName){
+	    String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeAccount));
 	    String url = Url.Wechat.CREATE_GROUP_URL.replace("ACCESS_TOKEN", accessToken);
         JSONObject json = new JSONObject();
         JSONObject group = new JSONObject();
@@ -606,14 +606,14 @@ public class WeixinMessageService {
 	 * 移动用户分组
 	* @author 张进军
 	* @date Jan 27, 2016 11:24:47 AM
-	* @param storeId   门店标识
-	* @param groupId   微信分组ID
-	* @param openId    微信用户ID
+	* @param storeAccount   门店标识
+	* @param groupId        微信分组ID
+	* @param openId         微信用户ID
 	* @return  成功返回true，失败返回false
 	 */
-	public boolean moveGroup(int storeId, int groupId, String openId){
-	    storeId = storeInfoMapper.selectMainIdByStoreId(storeId);
-        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeId));
+	public boolean moveGroup(String storeAccount, int groupId, String openId){
+//	    storeId = storeInfoMapper.selectMainIdByStoreId(storeId);
+        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, String.valueOf(storeAccount));
         String url = Url.Wechat.MOVE_GROUP_URL.replace("ACCESS_TOKEN", accessToken);
         JSONObject json = new JSONObject();
         json.put("to_groupid", groupId);
@@ -631,17 +631,17 @@ public class WeixinMessageService {
 	 * 根据分组类型移动分组
 	* @author 张进军
 	* @date Jan 27, 2016 11:27:27 AM
-	* @param storeId       门店标识
+	* @param storeAccount  门店标识
 	* @param groupType     分组类型(1:会员，2:员工，3:老板，4:无身份)
 	* @param openId        微信用户ID
 	 */
-	public void moveGroupByGroupType(int storeId, int groupType, String openId){
-	    Map<String, Integer> map = new HashMap<>();
-        map.put("storeId", storeId);
+	public void moveGroupByGroupType(String storeAccount, int groupType, String openId){
+	    Map<String, Object> map = new HashMap<>();
+        map.put("storeAccount", storeAccount);
         map.put("groupType", groupType);
         Integer groupId = wechatGroupInfoMapper.selectGroupIdByStoreIdAndGroupType(map);
         if (groupId != null) {
-            moveGroup(storeId, groupId, openId);
+            moveGroup(storeAccount, groupId, openId);
         }
 	}
 

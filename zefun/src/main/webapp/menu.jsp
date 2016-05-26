@@ -88,6 +88,7 @@
 			<a href="<%=menuBasePath%>businessAnalysis/view/payroll"><li><span><img src="<%=basePath%>images/left5.png">工资单</span></li></a>
 		</ul>
 		<ul index="4">
+			<a href="<%=menuBasePath%>project/view/categorys"><li class=""><span><img src="<%=basePath%>images/left0.png">系列展示</span></li></a>
 			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span><img src="<%=basePath%>images/left0.png">项目管理</span></li></a>
 			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span><img src="<%=basePath%>images/left1.png">套餐管理</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span><img src="<%=basePath%>images/left2.png">商品列表</span></li></a>

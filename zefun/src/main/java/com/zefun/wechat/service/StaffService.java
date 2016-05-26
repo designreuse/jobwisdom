@@ -187,7 +187,7 @@ public class StaffService {
     * @return               成功返回码0，返回值为跳转地址；失败返回其他错误码，返回值为提示语
      */
     @Transactional
-    public BaseDto login(int storeId, String phone, String password, String openId, HttpServletRequest request){
+    public BaseDto login(String storeId, String phone, String password, String openId, HttpServletRequest request){
         Map<String, String> params = new HashMap<>();
         params.put("userName", phone);
         UserAccount userAccount = userAccountMapper.selectByUserName(params);
@@ -248,7 +248,7 @@ public class StaffService {
     * @param request    请求对象
     * @return   成功返回码为0，失败为其他返回码
      */
-    public BaseDto logout(int storeId, int employeeId, HttpServletRequest request){
+    public BaseDto logout(String storeId, int employeeId, HttpServletRequest request){
         //将该用户移动到微信未绑定组中，刷新个性菜单
         String openId = redisService.hget(App.Redis.WECHAT_EMPLOYEEID_TO_OPENID_KEY_HASH, employeeId);
         weixinMessageService.moveGroupByGroupType(storeId, 4, openId);

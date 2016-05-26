@@ -139,8 +139,8 @@ public class SystemSettingController extends BaseController{
      */
     @RequestMapping(value = Url.SystemSetting.VIEW_STORE_WECHAT)
     public ModelAndView storeWechatView(HttpServletRequest request){
-    	int storeId = getStoreId(request);
-        return systemSettingService.storeWechatView(storeId);
+        String storeAccount = getStoreAccount(request);
+        return systemSettingService.storeWechatView(storeAccount);
     }
     
     
@@ -155,8 +155,8 @@ public class SystemSettingController extends BaseController{
     @RequestMapping(value = Url.SystemSetting.ACTION_STORE_WECHAT, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto storeWechatAction(StoreWechat storeWechat, HttpServletRequest request){
-    	int storeId = getStoreId(request);
-    	return systemSettingService.storeWechatAction(storeWechat, storeId);
+        String storeAccount = getStoreAccount(request);
+    	return systemSettingService.storeWechatAction(storeWechat, storeAccount);
     }
     
     

@@ -22,7 +22,7 @@
     <div class="tab">
         <ul >
             <li class="score-shop-li">
-                <a href="<%=basePath %>staff/view/staffAppoint/${session_key_store_id}/2/1">
+                <a href="<%=basePath %>staff/view/staffAppoint/${session_key_store_account}/2/1">
                     <img src="<%=basePath%>images/mobile/employee/active-new.png" class="hide" />
                     <div class="tab-word">
                         <span>新预约</span>
@@ -30,7 +30,7 @@
                 </a>
             </li>
             <li class="score-shop-li">
-                <a href="<%=basePath %>staff/view/staffAppoint/${session_key_store_id}/2/2">
+                <a href="<%=basePath %>staff/view/staffAppoint/${session_key_store_account}/2/2">
                     <img src="<%=basePath%>images/mobile/employee/active-new.png"  class="hide"/>
                     <div class="tab-word">
                         <span>已确认</span>
@@ -38,7 +38,7 @@
                 </a>
             </li>
             <li class="score-shop-li">
-                <a href="<%=basePath %>staff/view/staffAppoint/${session_key_store_id}/2/3">
+                <a href="<%=basePath %>staff/view/staffAppoint/${session_key_store_account}/2/3">
                     <img src="<%=basePath%>images/mobile/employee/active-new.png"  class="hide"/>
                     <div class="tab-word">
                         <span>已取消</span>
@@ -268,7 +268,7 @@ function startService(){
                 return;
             }
             dialog("开单成功");
-            window.location.href = baseUrl + "staff/view/selectOrderDetail/${session_key_store_id}/2?orderId=" + e.msg.orderId;
+            window.location.href = baseUrl + "staff/view/selectOrderDetail/${session_key_store_account}/2?orderId=" + e.msg.orderId;
         }
     });
 }

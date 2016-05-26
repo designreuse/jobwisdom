@@ -55,8 +55,9 @@ public class WechatCallController extends BaseController {
     @RequestMapping(value = Url.Wechat.CALL_BACK)
     public void callback(String redirect, String code, String state, String scope, @PathVariable String openidKey,
             HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Integer storeId = getStoreId(request);
-        if (storeId == null) {
+        String storeAccount = getStoreAccount(request);
+//        Integer storeId = getStoreId(request);
+        if (storeAccount == null||storeAccount.equals("")) {
             return;
         }
         String s = request.getSession().getAttribute(App.Session.WECHAT_BUSINESS_TYPE).toString();
@@ -64,9 +65,9 @@ public class WechatCallController extends BaseController {
             return;
         }
         int businessType = Integer.parseInt(s);
-        String appId = getAppIdByStore(storeId);
-        String appSecret = getAppSecretByStore(storeId);
-        wechatService.callback(redirect, code, state, scope, openidKey, storeId, businessType, appId, appSecret, request, response);
+        String appId = getAppIdByStore(storeAccount);
+        String appSecret = getAppSecretByStore(storeAccount);
+        wechatService.callback(redirect, code, state, scope, openidKey, storeAccount, businessType, appId, appSecret, request, response);
     }
     
     

@@ -298,7 +298,7 @@ public class MemberInfoService {
     * @param storeId 门店标识
     * @return           true:存在,false:不存在
      */
-    public boolean isExists(String phone, Integer storeId) {
+    public boolean isExists(String phone, String storeId) {
         Integer result = selectMemberIdByPhone(phone, storeId);
         if (result == null) {
             return false;
@@ -311,13 +311,14 @@ public class MemberInfoService {
     * @author 张进军
     * @date Aug 19, 2015 7:49:56 PM
     * @param phone  手机号码
-    * @param storeId 门店标识
+    * @param storeAccount 门店标识
     * @return       如果存在结果返回会员标识，不存在返回null
      */
-    public Integer selectMemberIdByPhone(String phone, Integer storeId) {
+    public Integer selectMemberIdByPhone(String phone, String storeAccount) {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setPhone(phone);
-        memberInfo.setStoreId(storeId);
+//        memberInfo.setStoreId(storeId);
+        memberInfo.setStoreAccount(storeAccount);
         return memberInfoMapper.selectMemberIdByPhone(memberInfo);
     }
 

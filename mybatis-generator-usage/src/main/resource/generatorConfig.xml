@@ -3,7 +3,7 @@
 <generatorConfiguration>
 	<!-- targetRuntime：代码生成目标，默认是MyBatis3 -->
 	<context id="DB2Tables" targetRuntime="MyBatis3">
-		<commentGenerator  type="com.github.abel533.mybatis.generator.DefaultCommentGenerator">
+		<commentGenerator  type="com.mybatis.generator.DefaultCommentGenerator">
 			<property name="suppressAllComments" value="true" />
 			<property name="suppressDate" value="true" />
 		</commentGenerator>

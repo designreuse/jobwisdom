@@ -3,18 +3,18 @@
 <mapper namespace="com.zefun.web.mapper.WechatGroupInfoMapper" >
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.WechatGroupInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <result column="group_type" property="groupType" jdbcType="INTEGER" />
     <result column="group_id" property="groupId" jdbcType="INTEGER" />
     <result column="group_name" property="groupName" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, store_id, group_type, group_id, group_name
+    id, store_account, group_type, group_id, group_name
   </sql>
   
   <select id="selectGroupIdByStoreIdAndGroupType" resultType="java.lang.Integer" parameterType="java.util.Map">
-  	select group_id from wechat_group_info where store_id = #{storeId} and group_type = #{groupType}
+  	select group_id from wechat_group_info where store_account = #{storeAccount} and group_type = #{groupType}
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -35,8 +35,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="storeId != null" >
-        store_id,
+      <if test="storeAccount != null" >
+        store_account,
       </if>
       <if test="groupType != null" >
         group_type,
@@ -52,8 +52,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="storeId != null" >
-        #{storeId,jdbcType=INTEGER},
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=VARCHAR},
       </if>
       <if test="groupType != null" >
         #{groupType,jdbcType=INTEGER},
@@ -70,8 +70,8 @@
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.WechatGroupInfo" >
     update wechat_group_info
     <set >
-      <if test="storeId != null" >
-        store_id = #{storeId,jdbcType=INTEGER},
+      <if test="storeAccount != null" >
+        store_account = #{storeAccount,jdbcType=VARCHAR},
       </if>
       <if test="groupType != null" >
         group_type = #{groupType,jdbcType=INTEGER},

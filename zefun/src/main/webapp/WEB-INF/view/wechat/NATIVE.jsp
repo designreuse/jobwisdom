@@ -49,8 +49,19 @@
 	</div>
 </body>
 <script type="text/javascript">
+	function toUrl(){
+		var url = baseUrl + "storeinfo/view/showStoreList";
+		window.location = url;
+	}
 	var storeAccount = '${session_key_store_account}';
-	var webSocket = new WebSocket("ws://job.jobwisdom.cn/jobwisdom/websocket?id=" + storeAccount);
+	var webSocket;
+	if ('WebSocket' in window) {
+		webSocket = new WebSocket("ws://job.jobwisdom.cn/jobwisdom/websocket?id=" + storeAccount);
+    } else if ('MozWebSocket' in window) {
+         websocket = new MozWebSocket("ws://job.jobwisdom.cn/jobwisdom/echo?id=" + storeAccount);
+    } else {
+    	webSocket = new SockJS("ws://job.jobwisdom.cn/jobwisdom/websocket?id=" + storeAccount);
+    }
 	webSocket.onerror = function(event) {
 		onError(event);
 	};
@@ -64,15 +75,16 @@
 	//处理从服务端发送过来的数据
 	function onMessage(event) {
 		jQuery(".webchat_").click();
-		dialog("支付成功");
-		//alert("支付成功");
+		dialog("支付成功,即将跳转...");
+		window.setTimeout(toUrl, 2000);
 	}
 	function onOpen(event) {
-		//alert(event.data);
+		console.log("ws onOpen");
 	}
 	function onError(event) {
-		//alert(event.data);
+		console.log("ws onError");
 	}
+	
 </script>
 <script>
 function changeAmount(amount){

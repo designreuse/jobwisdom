@@ -47,7 +47,7 @@
                 	dialog(e.msg);
                     return;
                 }
-                window.location.href = baseUrl + "staff/view/home/${session_key_store_id}/2";
+                window.location.href = baseUrl + "staff/view/home/${session_key_store_account}/2";
             }
         });
 	}

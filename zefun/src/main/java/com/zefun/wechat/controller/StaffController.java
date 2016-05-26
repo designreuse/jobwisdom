@@ -66,7 +66,7 @@ public class StaffController extends BaseController {
     * @return           员工主页面
      */
     @RequestMapping(value = Url.Staff.VIEW_HOME, method = RequestMethod.GET)
-    public ModelAndView homeView(@PathVariable int storeId, @PathVariable int businessType, 
+    public ModelAndView homeView(@PathVariable String storeId, @PathVariable int businessType, 
             HttpServletRequest request, HttpServletResponse response) {
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
@@ -129,8 +129,9 @@ public class StaffController extends BaseController {
         if (openId == null) {
             return null;
         }
-        int storeId = getStoreId(request);
-        return staffService.login(storeId, phone, password, openId, request);
+        String storeAccount = getStoreAccount(request);
+//        int storeId = getStoreId(request);
+        return staffService.login(storeAccount, phone, password, openId, request);
     }
     
     
@@ -149,9 +150,10 @@ public class StaffController extends BaseController {
         if (openId == null) {
             return null;
         }
-        int storeId = getStoreId(request);
+//        int storeId = getStoreId(request);
         Integer employeeId = getUserIdByOpenId(openId);
-        return staffService.logout(storeId, employeeId, request);
+        String storeAccount = getStoreAccount(request);
+        return staffService.logout(storeAccount, employeeId, request);
     }
     
     

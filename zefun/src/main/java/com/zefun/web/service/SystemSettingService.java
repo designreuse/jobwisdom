@@ -280,12 +280,12 @@ public class SystemSettingService {
      * 查看门店微信设置页面
     * @author 张进军
     * @date Dec 25, 2015 1:56:02 PM
-    * @param storeId	门店标识
+    * @param storeAccount	门店标识
     * @return	门店微信设置页面
      */
-    public ModelAndView storeWechatView(int storeId){
+    public ModelAndView storeWechatView(String storeAccount){
     	ModelAndView mav = new ModelAndView(View.Setting.STORE_WECHAT);
-    	StoreWechat storeWechat = storeWechatMapper.selectByPrimaryKey(storeId);
+    	StoreWechat storeWechat = storeWechatMapper.selectByPrimaryKey(storeAccount);
     	mav.addObject("storeWechat", storeWechat);
     	return mav;
     }
@@ -296,31 +296,31 @@ public class SystemSettingService {
     * @author 张进军
     * @date Dec 25, 2015 2:45:48 PM
     * @param storeWechat	门店微信关联信息
-    * @param storeId		门店标识
+    * @param storeAccount		门店标识
     * @return	成功返回码为0，失败为其他返回码
      */
     @Transactional
-    public BaseDto storeWechatAction(StoreWechat storeWechat, int storeId){
+    public BaseDto storeWechatAction(StoreWechat storeWechat, String storeAccount){
         Integer memberGroupId = null;
         Integer staffGroupId = null;
         Integer bossGroupId = null;
         Integer noneGroupId = null;
         
-    	if (storeWechat.getStoreId() != null) {
+    	if (storeWechat.getStoreAccount() != null&&!storeWechat.getStoreAccount().equals("")) {
     		storeWechatMapper.updateByPrimaryKey(storeWechat);
     	}
     	else {
-    		storeWechat.setStoreId(storeId);
+    		storeWechat.setStoreAccount(storeAccount);
     		storeWechatMapper.insert(storeWechat);
     	}
     	
-    	redisService.hset(App.Redis.STORE_WECHAT_APP_ID_KEY_HASH, storeId, storeWechat.getWechatAppid());
-    	redisService.hset(App.Redis.STORE_WECHAT_APP_SECRET_KEY_HASH, storeId, storeWechat.getWechatAppsecret());
+    	redisService.hset(App.Redis.STORE_WECHAT_APP_ID_KEY_HASH, storeAccount, storeWechat.getWechatAppid());
+    	redisService.hset(App.Redis.STORE_WECHAT_APP_SECRET_KEY_HASH, storeAccount, storeWechat.getWechatAppsecret());
     	String accessToken = weixinConfigService.getAccessToken(storeWechat.getWechatAppid(), storeWechat.getWechatAppsecret());
-        redisService.hset(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, storeId, accessToken);
+        redisService.hset(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, storeAccount, accessToken);
     	
-    	Map<String, Integer> map = new HashMap<>();
-        map.put("storeId", storeId);
+    	Map<String, Object> map = new HashMap<>();
+        map.put("storeAccount", storeAccount);
         map.put("groupType", 1);
         memberGroupId = wechatGroupInfoMapper.selectGroupIdByStoreIdAndGroupType(map);
         
@@ -336,42 +336,43 @@ public class SystemSettingService {
     	}
     	else {
     	    //首次配置微信功能，进行分组初始化
-            memberGroupId = weixinMessageService.createGroup(storeId, "会员_我道系统创建");
-            WechatGroupInfo membereGroup = new WechatGroupInfo(storeId, 1, memberGroupId, "会员_我道系统创建");
+            memberGroupId = weixinMessageService.createGroup(storeAccount, "会员_我道系统创建");
+            WechatGroupInfo membereGroup = new WechatGroupInfo(storeAccount, 1, memberGroupId, "会员_我道系统创建");
             wechatGroupInfoMapper.insert(membereGroup);
             
-            staffGroupId = weixinMessageService.createGroup(storeId, "员工_我道系统创建");
-            WechatGroupInfo staffGroup = new WechatGroupInfo(storeId, 2, staffGroupId, "员工_我道系统创建");
+            staffGroupId = weixinMessageService.createGroup(storeAccount, "员工_我道系统创建");
+            WechatGroupInfo staffGroup = new WechatGroupInfo(storeAccount, 2, staffGroupId, "员工_我道系统创建");
             wechatGroupInfoMapper.insert(staffGroup);
             
-            bossGroupId = weixinMessageService.createGroup(storeId, "老板_我道系统创建");
-            WechatGroupInfo bossGroup = new WechatGroupInfo(storeId, 3, bossGroupId, "老板_我道系统创建");
+            bossGroupId = weixinMessageService.createGroup(storeAccount, "老板_我道系统创建");
+            WechatGroupInfo bossGroup = new WechatGroupInfo(storeAccount, 3, bossGroupId, "老板_我道系统创建");
             wechatGroupInfoMapper.insert(bossGroup);
             
-            noneGroupId = weixinMessageService.createGroup(storeId, "未绑定_我道系统创建");
-            WechatGroupInfo noneGroup = new WechatGroupInfo(storeId, 4, noneGroupId, "未绑定_我道系统创建");
+            noneGroupId = weixinMessageService.createGroup(storeAccount, "未绑定_我道系统创建");
+            WechatGroupInfo noneGroup = new WechatGroupInfo(storeAccount, 4, noneGroupId, "未绑定_我道系统创建");
             wechatGroupInfoMapper.insert(noneGroup);
     	}
     	
         //先删除原有菜单
-        weixinMessageService.deleteMenu(storeId);
+        weixinMessageService.deleteMenu(storeAccount);
         
         //初始化标准菜单
-        weixinMessageService.initNormalMenu(storeWechat.getStoreId());
+        weixinMessageService.initNormalMenu(storeWechat.getStoreAccount());
         
         //初始化个性菜单
-        weixinMessageService.initConditionalMenu(storeId, 1, memberGroupId);
-        weixinMessageService.initConditionalMenu(storeId, 2, staffGroupId);
-        weixinMessageService.initConditionalMenu(storeId, 3, bossGroupId);
-        weixinMessageService.initConditionalMenu(storeId, 4, noneGroupId);
+        weixinMessageService.initConditionalMenu(storeAccount, 1, memberGroupId);
+        weixinMessageService.initConditionalMenu(storeAccount, 2, staffGroupId);
+        weixinMessageService.initConditionalMenu(storeAccount, 3, bossGroupId);
+        weixinMessageService.initConditionalMenu(storeAccount, 4, noneGroupId);
     	
-    	redisService.hset(App.Redis.WECHAT_TEMPLATE_APPOINTMENT_APPLY_HASH, storeId, storeWechat.getTmAppointApply().toString());
-    	redisService.hset(App.Redis.WECHAT_TEMPLATE_APPOINTMENT_RESULT_HASH, storeId, storeWechat.getTmAppointResult().toString());
-    	redisService.hset(App.Redis.WECHAT_TEMPLATE_MEMBER_CHARGE_HASH, storeId, storeWechat.getTmChargeResult().toString());
-    	redisService.hset(App.Redis.WECHAT_TEMPLATE_PAYMENT_HASH, storeId, storeWechat.getTmPaymentInfo().toString());
-    	redisService.hset(App.Redis.WECHAT_TEMPLATE_SERVICE_TURN_HASH, storeId, storeWechat.getTmServiceTurn().toString());
-    	redisService.hset(App.Redis.WECHAT_TEMPLATE_APPOINTMENT_REMIND_HASH, storeId, storeWechat.getTmAppointRemind().toString());
-    	redisService.hset(App.Redis.WECHAT_TEMPLATE_COUPON_OVERDUE_HASH, storeId, storeWechat.getTmCouponOverdue().toString());
+    	redisService.hset(App.Redis.WECHAT_TEMPLATE_APPOINTMENT_APPLY_HASH, storeAccount, storeWechat.getTmAppointApply().toString());
+    	redisService.hset(App.Redis.WECHAT_TEMPLATE_APPOINTMENT_RESULT_HASH, storeAccount, storeWechat.getTmAppointResult().toString());
+    	redisService.hset(App.Redis.WECHAT_TEMPLATE_MEMBER_CHARGE_HASH, storeAccount, storeWechat.getTmChargeResult().toString());
+    	redisService.hset(App.Redis.WECHAT_TEMPLATE_PAYMENT_HASH, storeAccount, storeWechat.getTmPaymentInfo().toString());
+    	redisService.hset(App.Redis.WECHAT_TEMPLATE_SERVICE_TURN_HASH, storeAccount, storeWechat.getTmServiceTurn().toString());
+    	redisService.hset(App.Redis.WECHAT_TEMPLATE_APPOINTMENT_REMIND_HASH, storeAccount, storeWechat.getTmAppointRemind().toString());
+    	redisService.hset(App.Redis.WECHAT_TEMPLATE_COUPON_OVERDUE_HASH, storeAccount, storeWechat.getTmCouponOverdue().toString());
+    	
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     

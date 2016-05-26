@@ -239,7 +239,7 @@
                     dialog(e.msg);
                     return;
                 }
-                window.location.href = baseUrl + "memberCenter/view/home/${session_key_store_id}/1";
+                window.location.href = baseUrl + "memberCenter/view/home/${session_key_store_account}/1";
             }
         });
     }

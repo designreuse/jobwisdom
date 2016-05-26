@@ -23,9 +23,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
@@ -290,7 +288,7 @@ public class MemberCenterService {
 	* @param userId    用户标识
 	* @return  会员/员工/老板/门店信息页
 	 */
-	public ModelAndView wifiHome(int storeId, Integer ownerStoreId, String businessType, Integer userId){
+	public ModelAndView wifiHome(String storeId, Integer ownerStoreId, String businessType, Integer userId){
 	    if ("1".equals(businessType)) {
 	        return homeView(userId, ownerStoreId);
 	    }
@@ -324,13 +322,6 @@ public class MemberCenterService {
         memberBaseInfo.setCouponCount(couponList.size());
         ModelAndView mav = new ModelAndView(View.MemberCenter.HOME);
         mav.addObject("memberBaseInfo", memberBaseInfo);
-        
-        //检查会员所属门店是否包含友宝机器
-//        String vmid = uboxMachineInfoMapper.selectVmidByStoreId(storeId);
-//        if (StringUtil.isNotEmpty(vmid)) {
-//            mav.addObject("hasUbox", 1);
-//        }
-        
         return mav;
     }
     
@@ -359,8 +350,7 @@ public class MemberCenterService {
     * @param storeId        注册门店标识
     * @return   会员注册页面
      */
-    @RequestMapping(value = Url.MemberCenter.VIEW_REGISTER, method = RequestMethod.GET)
-    public ModelAndView registerView(@PathVariable int storeId){
+    public ModelAndView registerView(Integer storeId){
         ModelAndView mav = new ModelAndView(View.MemberCenter.REGISTER);
         StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(storeId);
         mav.addObject("storeInfo", storeInfo);
@@ -540,7 +530,7 @@ public class MemberCenterService {
     * @param orderId        订单编号
     * @return           会员订单确认页面
      */
-    public ModelAndView orderPayView(int storeId, Integer orderId){
+    public ModelAndView orderPayView(String storeId, Integer orderId){
         ModelAndView mav = new ModelAndView(View.MemberCenter.ORDER_PAY);
         SelfCashierOrderDto orderDto = selfCashierService.queryOrderDetailAction(orderId);
         //检查订单付款状态，如果已付款，直接跳转到小票页面
@@ -691,7 +681,7 @@ public class MemberCenterService {
     * @author 张进军
     * @date Aug 19, 2015 7:43:51 PM
     * @param storeId        注册门店
-    * @param mainStoreId    总店标识
+    * @param storeAccount   总店代号 
     * @param phone          手机号
     * @param verifyCode     验证码
     * @param openId         微信id
@@ -701,7 +691,7 @@ public class MemberCenterService {
     * @return               成功返回码0，返回值为跳转地址；失败返回其他错误码，返回值为提示语
      */
     @Transactional
-    public BaseDto registerAction(int mainStoreId, int storeId, String phone, String verifyCode, String openId,
+    public BaseDto registerAction(int storeId, String storeAccount, String phone, String verifyCode, String openId,
             String accessToken, HttpServletRequest request, boolean checkExists){
         //校验验证码是否正确
         String code = redisService.get(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone);
@@ -709,7 +699,7 @@ public class MemberCenterService {
             return new BaseDto(10001, "验证码错误");
         }
         
-        Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeId);
+        Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeAccount);
         if (checkExists && memberId != null) {
         	return new BaseDto(10002, "该号码已是本店会员");
         }
@@ -722,7 +712,7 @@ public class MemberCenterService {
         //如果不存在，则需要新增会员数据、会员账户，跳转到完善会员信息页面
         if (memberId == null) {
             //查看店铺的默认会员等级
-            int memberLevel = memberLevelMapper.selectDefaultLevelIdByStoreId(mainStoreId);
+            int memberLevel = memberLevelMapper.selectDefaultLevelIdByStoreId(storeId);
             
             MemberInfo memberInfo = new MemberInfo();
             memberInfo.setStoreId(storeId);
@@ -758,7 +748,7 @@ public class MemberCenterService {
             MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
             if (StringUtils.isNotBlank(memberInfo.getName())) {
                 baseDto.setMsg(App.System.SERVER_BASE_URL + Url.MemberCenter.VIEW_HOME.replace("{storeId}", 
-                        String.valueOf(mainStoreId)).replace("{businessType}", "1"));
+                        String.valueOf(storeAccount)).replace("{businessType}", "1"));
             }
         }
         
@@ -798,7 +788,7 @@ public class MemberCenterService {
         }
         
         //将该用户移动到微信会员组中，刷新个性菜单
-        weixinMessageService.moveGroupByGroupType(mainStoreId, 1, openId);
+        weixinMessageService.moveGroupByGroupType(storeAccount, 1, openId);
         
         redisService.hset(App.Redis.WECHAT_SUBSCRIBE_KEY_HASH, openId, subscribe);
         redisService.hset(App.Redis.WECHAT_OPENID_TO_USERID_KEY_HASH, openId, memberId);
@@ -820,7 +810,7 @@ public class MemberCenterService {
     * @param request    请求对象
     * @return   成功返回码为0，失败为其他错误码
      */
-    public BaseDto logout(int storeId, int memberId, String openId, HttpServletRequest request) {
+    public BaseDto logout(String storeId, int memberId, String openId, HttpServletRequest request) {
         //将用户移动到未绑定分组，刷新个性菜单
         weixinMessageService.moveGroupByGroupType(storeId, 4, openId);
         
@@ -926,27 +916,25 @@ public class MemberCenterService {
      * 访问预约页面
     * @author 张进军
     * @date Sep 2, 2015 11:00:28 AM
-    * @param storeId        门店标识
+    * @param storeAccount   门店代号
     * @param selectStoreId  所选门店
     * @return               预约页面
      */
-    public ModelAndView orderAppointmentView(int storeId, Integer selectStoreId){
-        //检查是否有选择门店，如未选择跳转到门店列表
-//        if (selectStoreId == null) {
-//            return storeListView(storeId, Url.MemberCenter.VIEW_ORDER_APPOINTMENT.replace("{storeId}", String.valueOf(storeId))
-//                    .replace("{businessType}", "1") + "?selectStoreId={storeId}");
-//        }
+    public ModelAndView orderAppointmentView(String storeAccount, Integer selectStoreId){
         
         ModelAndView mav = new ModelAndView(View.MemberCenter.ORDER_APPOINTMENT);
-        List<StoreInfo> storeList = storeInfoMapper.selectBaseInfoByMainId(storeId);
-        
-        StoreInfo mainStore = storeInfoMapper.selectBaseInfoByStoreId(storeId);
-        mav.addObject("mainStore", mainStore);
+        List<StoreInfo> storeList = storeInfoMapper.selectByStoreAccount(storeAccount);
         
         if (storeList != null && storeList.size() > 1) {
             mav.addObject("storeList", storeList);
             mav.addObject("storeSize", storeList.size());
         }
+        
+//        StoreInfo mainStore = storeInfoMapper.selectBaseInfoByStoreId(storeId);
+//        mav.addObject("mainStore", mainStore);
+        
+        StoreInfo mainStore = storeList.get(0);
+        mav.addObject("mainStore", mainStore);
         
         StoreInfo selectStore = mainStore;
         if (selectStoreId == null) {
@@ -1327,13 +1315,13 @@ public class MemberCenterService {
      * 查询门店下的优惠券
     * @author 张进军
     * @date Oct 21, 2015 10:00:34 AM
-    * @param mainStoreId    门店标识（总店）
+    * @param storeAccount    门店标识（总店）
     * @param ownerStoreId   会员所属门店
     * @return   积分商城页面
      */
-    public ModelAndView shopCenterView(Integer mainStoreId, Integer ownerStoreId){
+    public ModelAndView shopCenterView(String storeAccount, Integer ownerStoreId){
         if (ownerStoreId == null) {
-            List<StoreInfo> storeList = storeInfoMapper.selectBaseInfoByMainId(mainStoreId);
+            List<StoreInfo> storeList = storeInfoMapper.selectByStoreAccount(storeAccount);
             ownerStoreId = storeList.get(0).getStoreId();
         }
         
@@ -1438,21 +1426,22 @@ public class MemberCenterService {
      * 查询门店信息
     * @author 张进军
     * @date Oct 21, 2015 10:00:34 AM
-    * @param mainStoreId    总店标识
-    * @param storeId    所选门店标识
+    * @param storeAccount    总店标识
+    * @param selectStoreId    所选门店标识
     * @return   积分商城页面
      */
-    public ModelAndView storeInfoView(int mainStoreId, Integer storeId){
+    public ModelAndView storeInfoView(String storeAccount, Integer selectStoreId){
         ModelAndView mav = new ModelAndView(View.MemberCenter.STORE_INFO);
         
-        List<StoreInfo> storeList = storeInfoMapper.selectBaseInfoByMainId(mainStoreId);
+        List<StoreInfo> storeList = storeInfoMapper.selectByStoreAccount(storeAccount);
         
         StoreInfo storeInfo = null;
-        if (storeId == null) {
+        if (selectStoreId == null) {
             storeInfo = storeList.get(0);
+            selectStoreId = storeList.get(0).getStoreId();
         }
         else {
-            storeInfo = storeInfoMapper.selectBaseInfoByStoreId(storeId);
+            storeInfo = storeInfoMapper.selectBaseInfoByStoreId(selectStoreId);
         }
         mav.addObject("storeInfo", storeInfo);
         mav.addObject("storeSize", storeList.size());
@@ -1470,11 +1459,11 @@ public class MemberCenterService {
             mav.addObject("employeeList", employeeList);
         }
         
-        List<SpecialService> specialServices = specialServiceMapper.selectByStoreId(storeId);
+        List<SpecialService> specialServices = specialServiceMapper.selectByStoreId(selectStoreId);
         mav.addObject("specialServices", specialServices);
         
+        mav.addObject("session_key_store_id", selectStoreId);
         
-        mav.addObject("session_key_store_id", storeId);
         return mav;
     }
     
@@ -1521,7 +1510,7 @@ public class MemberCenterService {
     * @return	订单未分享跳转到分享操作页面，订单已分享跳转到分享给好友的页面
      * @throws Exception 加密抛出的异常
      */
-    public ModelAndView shareView(int orderId, int storeId, int memberId) throws Exception{
+    public ModelAndView shareView(int orderId, String storeId, int memberId) throws Exception{
     	ModelAndView mav = new ModelAndView(View.MemberCenter.SHARE_SHOW);
     	OrderInfoBaseDto orderInfo = orderInfoMapper.selectOrderBaseByOrderId(orderId);
     	String code = String.valueOf(memberId);
@@ -1586,11 +1575,11 @@ public class MemberCenterService {
     * @param memberId	会员标识
     * @param orderId	分享订单标识
     * @param isOwner	是否为分享者
-    * @param mainStoreId	公众号对应门店标识
+    * @param storeAccount	公众号对应门店标识
     * @return	分享信息页面
      */
     public ModelAndView shareInfoView(String code, Integer ownerId, Integer memberId, Integer orderId, 
-    		    Boolean isOwner, Integer mainStoreId){
+    		    Boolean isOwner, String storeAccount){
     	ModelAndView mav = new ModelAndView(View.MemberCenter.SHARE_INFO);
     	Map<String, Integer> map = new HashMap<String, Integer>();
     	map.put("memberId", ownerId);
@@ -1656,7 +1645,7 @@ public class MemberCenterService {
     		mav.addObject("recommendCount", recommendList.size());
     	}
     	
-    	StoreWechat storeWechat = storeWechatMapper.selectByPrimaryKey(mainStoreId);
+    	StoreWechat storeWechat = storeWechatMapper.selectByPrimaryKey(storeAccount);
     	mav.addObject("qrcode", storeWechat.getWechatId());
     	
     	MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
@@ -1668,7 +1657,7 @@ public class MemberCenterService {
     	mav.addObject("projectShare", projectShare);
     	mav.addObject("ownerInfo", ownerInfo);
     	mav.addObject("storeInfo", storeInfo);
-    	mav.addObject("mainStoreId", mainStoreId);
+    	mav.addObject("mainStoreId", storeAccount);
     	mav.addObject("code", code);
     	mav.addObject("orderId", orderId);
     	return mav;
@@ -1727,16 +1716,18 @@ public class MemberCenterService {
      * 查看门店列表
     * @author 张进军
     * @date Nov 19, 2015 5:38:33 PM
-    * @param storeId    总店标识
+    * @param storeAccount    总店标识
     * @param url        跳转地址
     * @return   门店列表页面
     */
-    public ModelAndView storeListView(int storeId, String url) {
-        logger.debug("storeId : " + storeId + ", url : " + url);
+    public ModelAndView storeListView(String storeAccount, String url) {
+        logger.debug("storeId : " + storeAccount + ", url : " + url);
         if (url.startsWith("//")) {
             url = url.replaceFirst("/", "");
         }
-        List<StoreInfo> storeList = storeInfoMapper.selectBaseInfoByMainId(storeId);
+        
+        List<StoreInfo> storeList = storeInfoMapper.selectByStoreAccount(storeAccount);
+        
         //如果只有一个分店，那么直接跳转到对应的地址，即分店
         if (storeList.size() == 1) {
             return new ModelAndView("redirect:" + url.replace("_storeId_", String.valueOf(storeList.get(0).getStoreId())));
@@ -1750,8 +1741,8 @@ public class MemberCenterService {
         mav.addObject("url", url);
         mav.addObject("storeList", storeList);
         
-        StoreInfo mainStoreInfo = storeInfoMapper.selectBaseInfoByStoreId(storeId);
-        mav.addObject("mainStoreInfo", mainStoreInfo);
+//        StoreInfo mainStoreInfo = storeInfoMapper.selectBaseInfoByStoreId(storeId);
+//        mav.addObject("mainStoreInfo", mainStoreInfo);
         return mav;
     }
     
@@ -1770,9 +1761,9 @@ public class MemberCenterService {
     * @param request        请求对象
     * @return               成功返回码0，返回值为关注结果；失败返回其他错误码，返回值为提示语
      */
-    public BaseDto getRewardAction(int ownerMemberId, int mainStoreId, int storeId, String phone, String verifyCode, String openId,
+    public BaseDto getRewardAction(int ownerMemberId, String mainStoreId, int storeId, String phone, String verifyCode, String openId,
             String accessToken, HttpServletRequest request){
-    	BaseDto dto = registerAction(mainStoreId, storeId, phone, verifyCode, openId, accessToken, request, true);
+    	BaseDto dto = registerAction(storeId, mainStoreId, phone, verifyCode, openId, accessToken, request, true);
     	//如果会员录入成功
     	if (dto.getCode() == 0) {
     		int memberId = Integer.parseInt(redisService.hget(App.Redis.WECHAT_OPENID_TO_USERID_KEY_HASH, openId));
@@ -1900,16 +1891,24 @@ public class MemberCenterService {
      * 查询门店下商品分类大全
     * @author 小高
     * @date Oct 21, 2015 10:00:34 AM
-    * @param mainStoreId    门店标识（总店）
+    * @param storeAccount    门店标识（总店）
+    * @param selectStoreId   所选门店
     * @param ownerStoreId   会员所属门店
     * @return               商城分类页面
      */
-    public ModelAndView shopCenterViewList(int mainStoreId, Integer ownerStoreId) {
-        if (ownerStoreId == null) {
-            List<StoreInfo> storeList = storeInfoMapper.selectBaseInfoByMainId(mainStoreId);
-            ownerStoreId = storeList.get(0).getStoreId();
+    public ModelAndView shopCenterViewList(String storeAccount, Integer ownerStoreId, Integer selectStoreId) {
+        List<StoreInfo> storeList = storeInfoMapper.selectByStoreAccount(storeAccount);
+        Integer storeId = null;
+        if (ownerStoreId==null&&selectStoreId==null){
+            storeId = storeList.get(0).getStoreId();
         }
-        List<GoodsInfoCatagoryDto> goodsInfoCatagoryDtos =  goodsInfoMapper.selectCatagoryGoodsInfos(ownerStoreId);
+        if (ownerStoreId != null) {
+            storeId = ownerStoreId;
+        }
+        if (selectStoreId != null) {
+            storeId = selectStoreId;
+        }
+        List<GoodsInfoCatagoryDto> goodsInfoCatagoryDtos =  goodsInfoMapper.selectCatagoryGoodsInfos(storeId);
         
         ModelAndView view = new ModelAndView(View.MemberCenter.SHOP_CENTER_LIST);
         view.addObject("goodsInfoCatagoryDtos", goodsInfoCatagoryDtos);
