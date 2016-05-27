@@ -138,7 +138,7 @@
 						<div class="table_step">
 							<table class="table_s">
 								<tr>
-									<td style="border-right: 1px solid #dbdce2 !important; box-shadow: 0 0 10px #ccc;" class="color_">步骤顺序</td>
+									<td style="border-right: 1px solid #dbdce2 !important; " class="color_">步骤顺序</td>
 									<td class="color_">轮牌名称</td>
 									<td class="color_">步骤名称</td>
 									<td class="color_">业绩计算方式</td>
@@ -157,30 +157,30 @@
 						<div class="step_1" style="margin-left: 20px;">
 							<table style="border: 1px solid #dbdce2; box-shadow: 0 0 10px #ccc;width: 1028px">
 								<tr>
-									<td style="border-right: 1px solid #dbdce2 !important; color: #afb0b6; border-bottom: 1px solid #dbdce2 !important;">步骤顺序</td>
-									<td style="color: #afb0b6;">轮牌名称</td>
-									<td style="color: #afb0b6;">步骤名称</td>
-									<td style="color: #afb0b6;">业绩计算方式</td>
-									<td style="color: #afb0b6;">员工业绩</td>
-									<td style="color: #afb0b6;">是否可预约</td>
+									<td style="border-right: 1px solid #dbdce2 !important; border-bottom: 1px solid #dbdce2 !important;">步骤顺序</td>
+									<td >轮牌名称</td>
+									<td >步骤名称</td>
+									<td >业绩计算方式</td>
+									<td >员工业绩</td>
+									<td>是否可预约</td>
 								</tr>
 								<tr>
-									<td class="first" style="border-right: 1px solid #dbdce2 !important; color: #afb0b6">第一步</td>
-									<td td style="color: #afb0b6"><select class="cut_step" onchange="changeMahjongStep(this.value);" name="shiftMahjongId">
+									<td class="first" style="border-right: 1px solid #dbdce2 !important;">第一步</td>
+									<td td style=""><select class="cut_step" onchange="changeMahjongStep(this.value);" name="shiftMahjongId">
 											<c:if test="${!empty deptMahjongList }">
 												<c:forEach var="shiftMahjongDto" items="${deptMahjongList[0].mahjongLevelList }" varStatus="status">
 													<option value="${shiftMahjongDto.shiftMahjongId }">${shiftMahjongDto.shiftMahjongName }</option>
 												</c:forEach>
 											</c:if>
 									</select></td>
-									<td td style="color: #afb0b6"><input type="text" class="cut_step_1" maxlength="8" name="projectStepName"></td>
-									<td td style="color: #afb0b6"><select class="cut_step_2" name="stepPerformanceType">
+									<td ><input type="text" class="cut_step_1" maxlength="8" name="projectStepName"></td>
+									<td ><select class="cut_step_2" name="stepPerformanceType">
 											<option value="2">固定</option>
 											<option value="1">比例</option>
 
 									</select></td>
-									<td td style="color: #afb0b6"><input type="number" class="cut_step_3" name="stepPerformance"></td>
-									<td td style="color: #afb0b6">
+									<td ><input type="number" class="cut_step_3" name="stepPerformance"></td>
+									<td >
 										<div class="cut_step_4">
 											<input type="radio" onclick="chkRadio(this)" value="0" name="isDisable" style="width:18px">
 										</div>
@@ -193,11 +193,11 @@
 							<table class="step_2">
 								<tbody>
 									<tr>
-										<td style="color: #afb0b6; border-bottom: 1px solid #dbdce2 !important; border-right: 1px solid #dbdce2 !important;">职位名称</td>
-										<td style="color: #afb0b6">提成方式</td>
-										<td style="color: #afb0b6">指定提成</td>
-										<td style="color: #afb0b6">非指定提成</td>
-										<td style="color: #afb0b6">预约奖励</td>
+										<td style=" border-bottom: 1px solid #dbdce2 !important; border-right: 1px solid #dbdce2 !important;">职位名称</td>
+										<td >提成方式</td>
+										<td >指定提成</td>
+										<td >非指定提成</td>
+										<td >预约奖励</td>
 									</tr>
 									
 									<c:forEach var="employeeLevel1" items="${deptMahjongList[0].mahjongLevelList[0].employeeLevelList }" varStatus="status1">
@@ -366,11 +366,11 @@
 	 */
 	function changeMahjongStep(shiftMahjongId) {
 		var html = '<tr>'+
-						'<td style="color: #afb0b6; border-bottom: 1px solid #dbdce2 !important; border-right: 1px solid #dbdce2 !important;">职位名称</td>'+
-						'<td style="color: #afb0b6">提成方式</td>'+
-						'<td style="color: #afb0b6">指定提成</td>'+
-						'<td style="color: #afb0b6">非指定提成</td>'+
-						'<td style="color: #afb0b6">预约奖励</td>'+
+						'<td style=" border-bottom: 1px solid #dbdce2 !important; border-right: 1px solid #dbdce2 !important;">职位名称</td>'+
+						'<td>提成方式</td>'+
+						'<td >指定提成</td>'+
+						'<td >非指定提成</td>'+
+						'<td>预约奖励</td>'+
 					'</tr>';
 		jQuery(".step_2").children("tbody").empty();
 		jQuery(".step_2").children("tbody").append(jQuery(html));
@@ -538,7 +538,7 @@
 					var appointmentReward = projectCommissionList[isSame[j]].appointmentReward;
 					if (j == 0){
 						var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'+
-								'<td rowspan="'+rowspan+'" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;">'+
+								'<td rowspan="'+rowspan+'" style="border-right: 1px solid #dbdce2!important;">'+
 								'<span style="position:relative;top:50%">'+step+'</span>'+
 								'</td><td>'+shiftMahjongName+'</td>'+
 								'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
