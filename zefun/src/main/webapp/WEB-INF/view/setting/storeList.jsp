@@ -2,10 +2,12 @@
 <%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="java.util.Date" %>
 <link rel="stylesheet" href="<%=basePath%>css/add_store.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <link href="<%=basePath%>css/city-picker.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
+.shop_address_{position:relative;left:30px}
 
 	.rollBox{width:704px;padding:12px 0 5px 6px;}
 .rollBox .LeftBotton{height:70px;width:50px;background:url('./assets/images/left_click.png') no-repeat 11px 0;overflow:hidden;float:left;display:inline;margin:25px 0 0 0;cursor:pointer;background-size:40px;position:relative;top:290px;left:-90px}
@@ -41,8 +43,8 @@
 				    <div class="add_store_include">
 				     <div class="add_store_content">
 					   <div class="add_store_content_ clearfix">
-					     <div class="add_store_button"> <button onclick="addStore()">新增</button> <button onclick="">升级续费</button> <button onclick="consumptionRecord()">消费记录</button></div>
-						  <div class="add_store_span"><span>已创建门店数：<em>3</em></span><span>剩余可创建门店数：<em>100</em></span><span>到期时间：<em>2005-02-31</em></span></div>
+					     <div class="add_store_button"> <button onclick="addStore()">新增</button> <button onclick="upgradeRenew()">升级续费</button> <button onclick="consumptionRecord()">消费记录</button></div>
+						  <div class="add_store_span"><span>已创建门店数：<em>${enterpriseAccount.alreadyStoreNum }</em></span><span>剩余可创建门店数：<em>${enterpriseAccount.balanceStoreNum }</em></span><span>到期时间：<em>${enterpriseAccount.finishTime }</em></span></div>
 					   
 					   </div>
 					   <div class="dd_store_content_2">
@@ -51,7 +53,7 @@
 					           <li>
 							    <span class="business">营业</span>
 							      <p class="shop_name">${storeInfo.storeName}</p>
-								  <span class="shop_pic"><img src="<%=qiniuPath%>${storeInfo.storeLogo}"></span>
+								  <span class="shop_pic"><img  src="<%=qiniuPath%>${storeInfo.storeLogo}"></span>
 								  <div class="store_right">
 								     <span class="connect_people">联系人</span>
 									 <p>${storeInfo.storeLinkname}</p>
@@ -59,7 +61,7 @@
 								      <p style="position:relative;right:16px">${storeInfo.storeLinkphone}</p>
 								  </div>
 								  <div class="clearfix add_store_content_bottom">
-								     <div class="add_1" style="border-right:1px solid #ccc">
+								     <div class="add_1" style="border-right:1px solid #ccc" onclick="editStore(${storeInfo.storeId})" >
 									        编辑<span><img src="<%=basePath%>images/add_store_1.png"></span>
 									 </div>
 									 <div class="add_1" style="position:relative;left:100px">
@@ -73,9 +75,10 @@
 					 </div>
 					 <div class="add_store_content clearfix">
 					   <div class="add_store_two_left">
+					      <input type="hidden" name = "storeAuthorityId">
 					      <div class="left_detail">
 						     <p>门店<p>
-							 <select name = "storeSelect" onchange="changeStore()">
+							 <select name = "storeSelect" onchange="changeStore(this)">
 							   <option>选择门店 </option>
 							   <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
 							       <option value="${storeInfo.storeId }">${storeInfo.storeName }</option>
@@ -84,14 +87,14 @@
 				           </div>
 						    <div class="left_detail">
 						     <p>员工<p>
-							 <select>
+							 <select name = "employeeSelect" class='chzn-select mr5 input-medium'>
 							   <option>选择员工 </option>
 				              </select>
 				           </div>
 						   
 						    <div class="left_detail">
 						     <p>授权码<p>
-							 <input type="text" name = "authorityValue" style="width: 130px;height: 22px;">
+							 <input type="text" name = "authorityValue" class = ""  style="width: 130px;height: 22px;">
 							  <span>*
 							    <em><i>请输入6位密码，
 				数字和字母组合。</i></em>
@@ -100,17 +103,17 @@
 						   
 						   
 						     <div class="left_detail">
-						      <button>新增</button>
+						      <button onclick="addAuthority()">保存</button>
 				           </div>
 				        </div>
 						
 						<div class="right_detail">
-						  <table>
+						  <table id = "authorityTable">
 						    <tr>
 							   <td>门店名称</td>
 							   <td>授权码</td>
 							   <td>员工</td>
-							   <td>创建时间</td>
+							   <td>最后操作时间</td>
 							   <td>操作</td>
 							</tr>
 							
@@ -120,7 +123,7 @@
 								   <td>${enterpriseStoreAuthority.authorityValue }</td>
 								   <td>${enterpriseStoreAuthority.employeeCode } ${enterpriseStoreAuthority.name }</td>
 								   <td>${enterpriseStoreAuthority.createTime }</td>
-								   <td></td>
+								   <td><em onclick="updateAuthority(this, ${enterpriseStoreAuthority.storeAuthorityId }, ${enterpriseStoreAuthority.storeId }, ${enterpriseStoreAuthority.employeeId }, '${enterpriseStoreAuthority.authorityValue }')">修改</em></td>
 								</tr>
 							</c:forEach>
 							
@@ -132,8 +135,8 @@
 					 </div>
 					 <div class="add_store_content">
 					   <div class="add_store_content_ clearfix">
-					     <div class="add_store_button"> <button>充值</button> <button>充值记录</button></div>
-						  <div class="add_store_span_1">可分配短信信息：<span>${enterpriseAccount.balanceMsnNum }</span></div>
+					     <div class="add_store_button"> <button onclick = "msnRecharge()">充值</button> <button  onclick="rechargeFlow()">充值记录</button></div>
+						  <div class="add_store_span_1">可分配短信信息：<span name = "msnNumSpan" >${enterpriseAccount.balanceMsnNum }</span></div>
 				       </div> 
 				         <div class="distribution clearfix">
 				           <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
@@ -144,11 +147,11 @@
 									  <p>剩余短信数量：${storeInfo.balanceSms}条</p>
 								   </div>
 								   <div class="distribution_alert">
-								     <p>拥有10000条</p>
-								     <p>增加<input type="text" ><span style="position:relative;right:20px;color:#9f9d9d">条</span></p>
+								     <p>拥有${enterpriseAccount.balanceMsnNum }条</p>
+								     <p>增加<input type="text" name = "distributionNum"><span style="position:relative;right:20px;color:#9f9d9d">条</span></p>
 									 <div class="distribution_alert_button">
-									   <button>确认</button>
-									   <button>取消</button>
+									   <button onclick="distributionMsn(this, '${storeInfo.storeId}')">确认</button>
+									   <button onclick = "cancelAlert(this)">取消</button>
 									 </div>
 								   </div>
 								</div>
@@ -199,7 +202,8 @@
 	  <div class="content_right_">
 	     <P class="shop_address_">店铺地址</P>   
 		 <div class="select_city">
-		     <input type="text" placeholder="选择省/市/区" id="city-picker3">
+		     <input id="city-picker3" class="form-control" readonly type="text" value="${storeInfo.storeProvince}/${storeInfo.storeCity}" data-toggle="city-picker">
+		     
 		     <div class="detail_address">
 			   <div>详细地址</div>
 			   <textarea style="height:86px;margin-top:10px;border-radius:8px;width:220px" id = "searchtext"></textarea>
@@ -242,87 +246,14 @@
     <div class="add_balance">
 	  <p>收支明细</p>
 	  <div class="add_balance_content">
-	     <table>
+	     <table id = "consumptionRecordTBODY">
 		   <tr>
-		     <td>公司名称</td>
 			 <td style="color:black">收支金额（元）</td>
 			 <td>当前金额（元）</td>
 			 <td>收支类型</td>
 			 <td>消费时间</td>
 		   </tr>
-		   <tbody id = "consumptionRecordTBODY">
-		       <tr>
-			     <td>当当大</td>
-				 <td>1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-			      <tr>
-			     <td>当当大</td>
-				 <td style="color:green">1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-			      <tr>
-			     <td>当当大</td>
-				 <td>1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-			      <tr>
-			     <td>当当大</td>
-				 <td>1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-			      <tr>
-			     <td>当当大</td>
-				 <td>1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-			      <tr>
-			     <td>当当大</td>
-				 <td>1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-			      <tr>
-			     <td>当当大</td>
-				 <td>1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-			      <tr>
-			     <td>当当大</td>
-				 <td>1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-			      <tr>
-			     <td>当当大</td>
-				 <td>1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-			      <tr>
-			     <td>当当大</td>
-				 <td>1235</td>
-				 <td>120305</td>
-				 <td>账户充值</td>
-				 <td>1235-12-50</td>
-			   </tr>
-		   
-		   </tbody>
+
 		 </table>
 	  
 	  </div>
@@ -332,40 +263,108 @@
 	</div>
 </div>
 	
-<div class="zzc2" style="display:none" name = "modelDiv">
+<div class="zzc2" style="display:none" name = "modelDiv" id = "msnRechargeDIV">
     <div class="add_balance" style="height:475px">
 	  <p>短信充值</p>
 	  <div class="add_balance_content" style="margin:20px auto;height:290px;overflow:visible">
-	    <p>门店：撒打算带娃的撒上打我</p>
-	    <p>账户余额(元)：1000000</p>
-	    <p>剩余短信（条）：105632155</p>
+	    <p>账户余额(元)：<em name = "balanceAmountEM"></em></p>
+	    <p>剩余短信（条）：<em id = "balanceMsnNumEM"></em></p>
 		<div class="this_buy">
 		  <p>本次购买</p>
 		  <ul class="clearfix">
-		    <li><input type="radio"><span>1000条（97元）</span></li>
-			 <li><input type="radio"><span>1000条（97元）</span></li>
-			  <li><input type="radio"><span>1000条（97元）</span></li>
-			   <li><input type="radio"><span>1000条（97元）</span></li>
-			  <li><input type="radio"><span>1000条（97元）</span></li>
-			  <li>其他<em><input type="text" placeholder="输入购买数量"></em></li>
+		    <li><input type="radio" name = "msnRechargeType" value = "1"><span>100条（9元）</span></li>
+			 <li><input type="radio" name = "msnRechargeType" value = "2"><span>500条（45元）</span></li>
+			  <li><input type="radio" name = "msnRechargeType" value = "3"><span>1000条（90元）</span></li>
+			   <li><input type="radio" name = "msnRechargeType" value = "4"><span>2000条（180元）</span></li>
+			  <li><input type="radio" name = "msnRechargeType" value = "5"><span>10000条（900元）</span></li>
+			  <li><input type="radio" name = "msnRechargeType" value = "6">其他<em><input type="text" name = "msnNumber" onfocus="msnInputFocus()"  placeholder="输入购买数量"></em></li>
 			  
 		  </ul>
 		  <div class="total_price">总付：<span>60元</span></div>
 		</div>
 	  </div>
 	  <div class="add_balance_button" style="position:relative;top:20px">
-	    <button>确认</button>
-		 <button>取消</button>
+	    <button onclick="saveMsnRecharge()">确认</button>
+		 <button onclick = "cancel()">取消</button>
 	  
 	  </div>
 	</div>
 </div>	
+
+<div class="zzc3" style="display:none" name = "modelDiv" id = "rechargeFlow">
+  <div class="assigned">
+     <p>充值分配记录</p>
+     <div class="assigned_table">
+         <table id = "rechargeFlowTable">
+             <tr>
+			   <td>公司/门店</td>
+			   <td>时间</td>
+			   <td>当前余量（条）</td>
+			   <td>数量（条）</td>
+			 </tr>
+			
+      	 </table>  
+    </div> 
+	<div class="assigned_button">
+	  <button >确认</button>
+	  <button onclick = "cancel()">取消</button>
+	</div>
+  </div>
+</div>
+
+<div class="zzc4" style="display:none" name = "modelDiv" id = "upgradeRenew">
+  
+     <div class="assigned">
+      <p>升级 续费</p>
+	  <div class="assigned_table" style="overflow:visible">
+	    <span class="assigned_table_span"><em>当前版本</em><em name = "enterpriseEditionUpgradeRenew">${enterpriseAccount.enterpriseEdition }</em></span>
+		<span class="assigned_table_span" style="margin:0"><em>到期时间</em><em name = "finishTimeUpgradeRenew">${enterpriseAccount.finishTime }</em></span>
+		<span class="assigned_table_span">
+		    <em>升级版本</em>
+		    <select name = "upgradeValue" onchange="updateUpgradeValue(this)">
+		       <option value="0" >选择版本</option>
+		    </select>
+		</span>
+		<span class="assigned_table_span">
+		   <em>续加时间</em>
+		   <select name = "renewDate" onchange="updateUpgradeValue(this)">
+		      <option value="0">选择时常</option>
+		      <option value="1">1年</option>
+		      <option value="2">2年</option>
+		      <option value="3">3年</option>
+		      <option value="4">4年</option>
+		      <option value="5">5年</option>
+		   </select>
+		</span>
+		<span class="assigned_table_span"  style="margin:0">
+		   <em>缴费金额</em>
+		   <em name = "payableEM">0.00</em>
+		   <i style="position:relative;left:-25px">元</i>
+	    </span>
+	    
+		<div class="assigned_table_price_">当前余额：<em name = "balanceAmountEM">${enterpriseAccount.balanceAmount}</em>元</div>
+		<div class="assigned_table_sure_button">
+		  <button onclick= "confirmUpgradeRenew()">确认</button>
+		   <button onclick = "cancel()">取消</button>
+		</button>
+	  </div>
+    </div> 
+</div>
+</div>
 
 <script type="text/javascript">
 var cssWidth = 200;
 var cssHeight = 200;
 var qiniuUrl = '<%=qiniuPath%>';
 var imgObject;
+
+var storeEmployeeListStr =  '${storeEmployeeListStr}';
+var storeEmployeeList = eval("(" + storeEmployeeListStr + ")");
+
+var enterpriseEdition = '${enterpriseAccount.enterpriseEdition }';
+
+var priceMoneyOrTimeStr = '${priceMoneyOrTimeStr}';
+var priceMoneyOrTime = eval("(" + priceMoneyOrTimeStr + ")");
 </script>
 <script type="text/javascript" src="<%=basePath %>/js/setting/storeList.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>

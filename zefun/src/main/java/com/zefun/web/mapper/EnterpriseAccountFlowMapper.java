@@ -1,5 +1,7 @@
 package com.zefun.web.mapper;
 
+import java.util.List;
+
 import com.zefun.web.entity.EnterpriseAccountFlow;
 
 /**
@@ -17,16 +19,7 @@ public interface EnterpriseAccountFlowMapper {
 	* @return 是否成功
 	 */
     int deleteByPrimaryKey(Integer accountFlowId);
-   
-    /**
-     * 
-    * @author 老王
-    * @date 2016年5月21日 下午6:49:54 
-    * @param record record
-    * @return 是否成功
-     */
-    int insert(EnterpriseAccountFlow record);
-
+    
     /**
      * 
     * @author 老王
@@ -48,18 +41,19 @@ public interface EnterpriseAccountFlowMapper {
     /**
      * 
     * @author 老王
+    * @date 2016年5月24日 下午4:27:36 
+    * @param storeAccount 企业代号
+    * @return  List<EnterpriseAccountFlow>
+     */
+    List<EnterpriseAccountFlow> selectByStoreAccount(String storeAccount);
+    
+    /**
+     * 
+    * @author 老王
     * @date 2016年5月21日 下午6:50:34 
     * @param record record
     * @return 是否成功
      */
     int updateByPrimaryKeySelective(EnterpriseAccountFlow record);
 
-    /**
-     * 
-    * @author 老王
-    * @date 2016年5月21日 下午6:50:47 
-    * @param record record
-    * @return 是否成功
-     */
-    int updateByPrimaryKey(EnterpriseAccountFlow record);
 }

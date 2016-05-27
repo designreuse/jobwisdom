@@ -32,7 +32,7 @@
 	border:1px dashed red;
 	color:red
 }
-.zzc,.zzc1,.zzc2{
+.zzc,.zzc1,.zzc2,.zzc3,.zzc4{
 	position: fixed;
     top: 0px;
     height: 1090px;
@@ -46,8 +46,8 @@
 .set_content{width:676px;height:565px;margin: 50px auto;background:white}
 
 .new_shop{height:56px;line-height:56px;text-align:center;color:white;font-size:16px;background:#323b4e}
-.shop_address_{font-size:14px}
-.select_city{width:200px;margin-left:50px}
+
+.select_city{width:200px;margin-left:50px;position:relative}
 .detail_address{margin-top:25px}
 .select_city input{border-radius:8px}
 .detail_address input{margin-top:10px}
@@ -123,3 +123,21 @@
 .total_price span{font-size:18px;color:red}
 
 .this_buy input[type="text"]{width:120px;border-radius:8px;margin-left:2px;border:1px solid black}
+
+.assigned{width:610px;height:410px;margin:50px auto;background:white}
+.assigned p{height:64px;line-height:64px;text-align:center;background:#323b4e;color:white;font-size:16px}
+.assigned_table{width:562px;height:262px;margin:20px auto;overflow:overlay;}
+.assigned_table table{width:562px;box-shadow:0 0 10px #dbdce2;}
+.assigned_table td{height:38px;text-align:center;border:1px solid black;vertical-align:middle;padding:0 10px}
+.assigned_table tr:nth-child(1){background:#d7dcea;height:41px;font-size:14px}
+.assigned button{width:130px;height:28px;text-align:center;line-height:28px;color:white;font-size:16px;border-radius:16px;border:none;background:#59688a;position:relative;left:80px;margin-left:50px}
+.assigned button:hover{background:#3f4a64}
+
+.assigned_table_span input,.assigned_table_span select{width:100px;height:20px;border-radius:15px;border:1px solid black}
+.assigned_table_span em{display:inline-block;width:70px}
+.assigned_table_span{display:inline-block;margin-right:100px;color:black;height:50px;float:none!important}
+.assigned_table_price_{color:black;margin:100px 0 0 30px;font-size:14px}
+.assigned_table_price_ em{color:red;font-size:16px}
+.assigned_table_sure_button{position:relative;top:46px}
+
+.assigned_table_sure_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;border-radius}

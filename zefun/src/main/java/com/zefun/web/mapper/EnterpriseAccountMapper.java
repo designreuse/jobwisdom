@@ -53,11 +53,11 @@ public interface EnterpriseAccountMapper {
     int updateByPrimaryKeySelective(EnterpriseAccount record);
 
     /**
-     * 
+     * 短信充值
     * @author 老王
     * @date 2016年5月21日 下午6:51:28 
     * @param record record
     * @return int
      */
-    int updateByPrimaryKey(EnterpriseAccount record);
+    int updateSaveMsn(EnterpriseAccount record);
 }

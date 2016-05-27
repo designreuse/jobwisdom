@@ -55,8 +55,23 @@ public class EnterpriseMsnFlow {
 	 * 最后操作人标识
 	 */
     private Integer lastOperatorId;
+    
+    /**
+     * 是否删除(0:未删除,1:已删除)
+     */
+    private Integer isDeleted;
 
-    public Integer getMsnFlowId() {
+    
+    
+    public Integer getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Integer isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public Integer getMsnFlowId() {
         return msnFlowId;
     }
 

@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <link href="<%=basePath%>css/city-picker.css" rel="stylesheet" type="text/css" />
+
 <body>
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
     <div class="leftpanel" style="height: 840px; margin-left: 0px;">

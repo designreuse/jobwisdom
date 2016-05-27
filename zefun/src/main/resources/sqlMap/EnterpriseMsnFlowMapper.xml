@@ -12,10 +12,11 @@
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     msn_flow_id, enterprise_account_id, flow_type, flow_amount, balance_amount, store_id, 
-    store_name, update_time, create_time, last_operator_id
+    store_name, update_time, create_time, last_operator_id, is_deleted
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,20 +24,19 @@
     from enterprise_msn_flow
     where msn_flow_id = #{msnFlowId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_msn_flow a
+    where exists(select 1 from enterprise_info b where b.enterprise_info_id = a.enterprise_account_id and b.store_account = #{storeAccount,jdbcType=VARCHAR}) and a.is_deleted = 0
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from enterprise_msn_flow
     where msn_flow_id = #{msnFlowId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zefun.web.entity.EnterpriseMsnFlow" >
-    insert into enterprise_msn_flow (msn_flow_id, enterprise_account_id, flow_type, 
-      flow_amount, balance_amount, store_id, 
-      store_name, update_time, create_time, 
-      last_operator_id)
-    values (#{msnFlowId,jdbcType=INTEGER}, #{enterpriseAccountId,jdbcType=INTEGER}, #{flowType,jdbcType=INTEGER}, 
-      #{flowAmount,jdbcType=INTEGER}, #{balanceAmount,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
-      #{storeName,jdbcType=VARCHAR}, #{updateTime,jdbcType=CHAR}, #{createTime,jdbcType=CHAR}, 
-      #{lastOperatorId,jdbcType=INTEGER})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.zefun.web.entity.EnterpriseMsnFlow" >
     insert into enterprise_msn_flow
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -70,6 +70,9 @@
       <if test="lastOperatorId != null" >
         last_operator_id,
       </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="msnFlowId != null" >
@@ -101,6 +104,9 @@
       </if>
       <if test="lastOperatorId != null" >
         #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -134,20 +140,10 @@
       <if test="lastOperatorId != null" >
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
       </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
     </set>
-    where msn_flow_id = #{msnFlowId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.EnterpriseMsnFlow" >
-    update enterprise_msn_flow
-    set enterprise_account_id = #{enterpriseAccountId,jdbcType=INTEGER},
-      flow_type = #{flowType,jdbcType=INTEGER},
-      flow_amount = #{flowAmount,jdbcType=INTEGER},
-      balance_amount = #{balanceAmount,jdbcType=INTEGER},
-      store_id = #{storeId,jdbcType=INTEGER},
-      store_name = #{storeName,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=CHAR},
-      create_time = #{createTime,jdbcType=CHAR},
-      last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
     where msn_flow_id = #{msnFlowId,jdbcType=INTEGER}
   </update>
 </mapper>

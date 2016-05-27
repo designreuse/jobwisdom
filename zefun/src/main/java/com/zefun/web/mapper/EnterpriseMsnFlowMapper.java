@@ -1,5 +1,7 @@
 package com.zefun.web.mapper;
 
+import java.util.List;
+
 import com.zefun.web.entity.EnterpriseMsnFlow;
 /**
  * 
@@ -19,14 +21,6 @@ public interface EnterpriseMsnFlowMapper {
     /**
      * 
     * @author 老王
-    * @date 2016年5月21日 下午6:53:33 
-    * @param record record
-    * @return int
-     */
-    int insert(EnterpriseMsnFlow record);
-    /**
-     * 
-    * @author 老王
     * @date 2016年5月21日 下午6:53:42 
     * @param record record
     * @return int
@@ -40,6 +34,15 @@ public interface EnterpriseMsnFlowMapper {
     * @return EnterpriseMsnFlow
      */
     EnterpriseMsnFlow selectByPrimaryKey(Integer msnFlowId);
+    
+    /**
+     * 查询企业短信充值分配记录
+    * @author 老王
+    * @date 2016年5月25日 下午3:43:44 
+    * @param storeAccount 企业代号
+    * @return List<EnterpriseMsnFlow>
+     */
+    List<EnterpriseMsnFlow> selectByStoreAccount(String storeAccount);
     /**
      * 
     * @author 老王
@@ -48,12 +51,4 @@ public interface EnterpriseMsnFlowMapper {
     * @return int
      */
     int updateByPrimaryKeySelective(EnterpriseMsnFlow record);
-    /**
-     * 
-    * @author 老王
-    * @date 2016年5月21日 下午6:53:50 
-    * @param record record
-    * @return int
-     */
-    int updateByPrimaryKey(EnterpriseMsnFlow record);
 }

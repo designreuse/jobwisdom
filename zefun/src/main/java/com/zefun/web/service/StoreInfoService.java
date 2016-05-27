@@ -2,6 +2,7 @@ package com.zefun.web.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,6 +69,9 @@ import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeLevel;
 import com.zefun.web.entity.EnterpriseAccount;
+import com.zefun.web.entity.EnterpriseAccountFlow;
+import com.zefun.web.entity.EnterpriseInfo;
+import com.zefun.web.entity.EnterpriseMsnFlow;
 import com.zefun.web.entity.EnterpriseStoreAuthority;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
@@ -96,7 +100,10 @@ import com.zefun.web.mapper.ComboProjectMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
+import com.zefun.web.mapper.EnterpriseAccountFlowMapper;
 import com.zefun.web.mapper.EnterpriseAccountMapper;
+import com.zefun.web.mapper.EnterpriseInfoMapper;
+import com.zefun.web.mapper.EnterpriseMsnFlowMapper;
 import com.zefun.web.mapper.EnterpriseStoreAuthorityMapper;
 import com.zefun.web.mapper.GoodsCategoryMapper;
 import com.zefun.web.mapper.GoodsDiscountMapper;
@@ -314,6 +321,19 @@ public class StoreInfoService {
      */
     @Autowired
     private EnterpriseAccountMapper enterpriseAccountMapper;
+    /**
+     * 企业账户流水
+     */
+    @Autowired
+    private EnterpriseAccountFlowMapper enterpriseAccountFlowMapper;
+    /**
+     * 企业短信流水
+     */
+    @Autowired
+    private EnterpriseMsnFlowMapper enterpriseMsnFlowMapper;
+    /** 企业信息*/
+    @Autowired
+    private EnterpriseInfoMapper enterpriseInfoMapper;
     /**日志系统*/
     private Logger log = Logger.getLogger(StoreInfoService.class);
 
@@ -346,7 +366,7 @@ public class StoreInfoService {
 			storeEmployeeList.add(map);
 			storeIds.add(storeInfo.getStoreId());
 		}
-    	mav.addObject("storeEmployeeList", storeEmployeeList);
+    	mav.addObject("storeEmployeeListStr", JSONArray.fromObject(storeEmployeeList).toString());
     	
     	//根据企业代号查询出所有授权码
     	List<EnterpriseStoreAuthority> enterpriseStoreAuthoritys = enterpriseStoreAuthorityMapper.selectAuthorityByStoreAccount(storeAccount);
@@ -356,7 +376,138 @@ public class StoreInfoService {
     	
     	mav.addObject("enterpriseAccount", enterpriseAccount);
     	
+    	mav.addObject("priceMoneyOrTimeStr", JSONObject.fromObject(getPriceMoney(enterpriseAccount)).toString());
     	return mav;
+    }
+    
+    /**
+     * 抵多少钱
+    * @author 老王
+    * @date 2016年5月26日 上午1:58:35 
+    * @param enterpriseAccount  enterpriseAccount
+    * @return  BigDecimal
+     */
+    public Map<String, BigDecimal> getPriceMoney (EnterpriseAccount enterpriseAccount) {
+    	Integer betweNum = 0;
+    	try {
+    		betweNum = DateUtil.getMonthSpace(DateUtil.getCurDate(), enterpriseAccount.getFinishTime());
+		} 
+    	catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	//计算当前版本还能抵多少钱
+    	BigDecimal priceMoney = new BigDecimal(0);
+    	BigDecimal useTiem = div(betweNum);
+    	if (enterpriseAccount.getEnterpriseEdition().equals("单店版")) {
+    		priceMoney = div(betweNum*2400);
+    	}
+    	else if (enterpriseAccount.getEnterpriseEdition().equals("基础版")) {
+    		priceMoney = div(betweNum*3800);
+    	}
+        else if (enterpriseAccount.getEnterpriseEdition().equals("专业版")) {
+        	priceMoney = div(betweNum*5800);
+    	}
+    	Map<String, BigDecimal> map = new HashMap<>();
+    	map.put("priceMoney", priceMoney);
+    	map.put("useTiem", useTiem);
+    	return map;
+    }
+    
+    /**
+     * 
+    * @author 老王
+    * @date 2016年5月26日 下午12:10:30 
+    * @param v1 值
+    * @return BigDecimal
+     */
+    public BigDecimal div(Integer v1){     
+    	BigDecimal b1 = new BigDecimal(v1);   
+    	BigDecimal b2 = new BigDecimal(12);   
+    	return b1.divide(b2, 2, BigDecimal.ROUND_HALF_UP);   
+    }
+    
+    /**
+     * 
+    * @author 老王
+    * @date 2016年5月26日 上午1:54:34 
+    * @param storeAccount 企业代号
+    * @param upgradeValue 升级版本
+    * @param renewDate 续费时间数
+    * @return BaseDto
+     */
+    @Transactional
+    public BaseDto confirmUpgradeRenew (String storeAccount, Integer upgradeValue, Integer  renewDate) {
+    	EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeAccount);
+    	Map<String, BigDecimal> map = getPriceMoney(enterpriseAccount);
+    	BigDecimal priceMoney = map.get("priceMoney");
+    	BigDecimal useTiem = map.get("useTiem");
+    	BigDecimal payable = new BigDecimal(0);
+    	if (upgradeValue == 2) {
+    		BigDecimal tatailMoney = (new BigDecimal(3800).multiply(useTiem)).subtract(priceMoney);
+    		payable = tatailMoney.add(new BigDecimal(3800*renewDate));
+    	}
+    	else if (upgradeValue == 3){
+    		BigDecimal tatailMoney = (new BigDecimal(5800).multiply(useTiem)).subtract(priceMoney);
+    		payable = tatailMoney.add(new BigDecimal(5800*renewDate));
+    	}
+        else if (upgradeValue == 4){
+        	BigDecimal tatailMoney = (new BigDecimal(2400).multiply(useTiem)).subtract(priceMoney);
+    		payable = tatailMoney.add(new BigDecimal(8800*renewDate));
+    	}
+        else {
+        	if (enterpriseAccount.getEnterpriseEdition().equals("单店版")) {
+        		payable = new BigDecimal(2400*renewDate);
+        	}
+        	else if (enterpriseAccount.getEnterpriseEdition().equals("基础版")) {
+        		payable = new BigDecimal(3800*renewDate);
+        	}
+        	else if (enterpriseAccount.getEnterpriseEdition().equals("专业版")) {
+        		payable = new BigDecimal(5800*renewDate);
+        	}
+        	else if (enterpriseAccount.getEnterpriseEdition().equals("奢华版")) {
+        		payable = new BigDecimal(8800*renewDate); 
+        	}
+        }
+    	
+    	
+    	if (enterpriseAccount.getBalanceAmount().compareTo(payable) < 0) {
+    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "账户余额不足，操作失败");
+    	}
+    	EnterpriseAccount record = new EnterpriseAccount();
+    	record.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
+    	record.setBalanceAmount(enterpriseAccount.getBalanceAmount().subtract(payable));
+    	
+    	record.setFinishTime(DateUtil.getCurrNumberYear(enterpriseAccount.getFinishTime(), renewDate));
+    	if (upgradeValue == 2) {
+    		record.setEnterpriseEdition("普通版");
+    		record.setTotalStoreNum(5); 
+    		record.setBalanceStoreNum(5 - enterpriseAccount.getAlreadyStoreNum());
+    	}
+    	else if (upgradeValue == 3){
+    		record.setEnterpriseEdition("专业版");
+    		record.setTotalStoreNum(12); 
+    		record.setBalanceStoreNum(12 - enterpriseAccount.getAlreadyStoreNum());
+    	}
+        else if (upgradeValue == 4){
+        	record.setEnterpriseEdition("奢华版");
+        	record.setTotalStoreNum(999); 
+    		record.setBalanceStoreNum(999);
+    	}
+    	
+    	enterpriseAccountMapper.updateByPrimaryKeySelective(record);
+    	
+    	//增加账户流水
+    	EnterpriseAccountFlow enterpriseAccountFlow = new EnterpriseAccountFlow();
+    	enterpriseAccountFlow.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
+    	enterpriseAccountFlow.setFlowType(1);
+    	enterpriseAccountFlow.setFlowAmount(priceMoney);
+    	enterpriseAccountFlow.setBalanceAmount(enterpriseAccount.getBalanceAmount().subtract(payable));
+    	enterpriseAccountFlow.setBusinessType("升级续费");
+    	enterpriseAccountFlow.setCreateTime(DateUtil.getCurTime());
+    	
+    	enterpriseAccountFlowMapper.insertSelective(enterpriseAccountFlow);
+    	
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
     /**
@@ -367,7 +518,228 @@ public class StoreInfoService {
     * @return BaseDto
      */
     public BaseDto selectConsumptionRecord (String storeAccount) {
+    	List<EnterpriseAccountFlow> enterpriseAccountFlows = enterpriseAccountFlowMapper.selectByStoreAccount(storeAccount);
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, enterpriseAccountFlows);
+    }
+    
+    /**
+     *查询账户信息
+    * @author 老王
+    * @date 2016年5月24日 下午5:31:57 
+    * @param storeAccount 企业代号
+    * @return BaseDto
+     */
+    public BaseDto selectEnterpriseAccount (String storeAccount) {
+    	EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeAccount);
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, enterpriseAccount);
+    }
+    
+    /**
+     * 短信充值
+    * @author 老王
+    * @date 2016年5月24日 下午8:17:18 
+    * @param storeAccount 企业代号
+    * @param msnRechargeType 充值类型
+	* @param msnNumber 短信条数
+    * @return BaseDto
+     */
+    @Transactional
+    public BaseDto saveMsnRecharge (String storeAccount, Integer msnRechargeType, Integer msnNumber) {
+    	EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeAccount);
+
+    	EnterpriseAccount objAccount = new EnterpriseAccount();
+    	objAccount.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
     	
+    	BigDecimal balanceAmount = new BigDecimal(0);
+    	Integer msnNum = 0;
+    	if (msnRechargeType == 1) {
+    		balanceAmount = new BigDecimal(9);
+    		msnNum = 100;
+    	}
+    	else if (msnRechargeType == 2){
+    		balanceAmount = new BigDecimal(45);
+    		msnNum = 500;
+    	}
+        else if (msnRechargeType == 3){
+    		balanceAmount = new BigDecimal(90);
+    		msnNum = 1000;
+    	}
+		else if (msnRechargeType == 4){
+    		balanceAmount = new BigDecimal(180);
+    		msnNum = 2000;
+		}
+		else if (msnRechargeType == 5){
+    		balanceAmount = new BigDecimal(900);
+    		msnNum = 10000;
+		}
+		else if (msnRechargeType == 6){
+			balanceAmount = new BigDecimal(msnNumber * 9/10);
+			msnNum = msnNumber;
+		}
+		if (enterpriseAccount.getBalanceAmount().compareTo(balanceAmount) < 1) {
+			return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "您的余额不足！");
+		}
+		objAccount.setBalanceAmount(balanceAmount);
+		objAccount.setTotalMsnNum(msnNum);
+		objAccount.setBalanceMsnNum(msnNum);
+    	enterpriseAccountMapper.updateSaveMsn(objAccount);
+    	
+    	EnterpriseAccountFlow enterpriseAccountFlow = new EnterpriseAccountFlow();
+    	enterpriseAccountFlow.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
+    	enterpriseAccountFlow.setFlowType(1);
+    	enterpriseAccountFlow.setFlowAmount(balanceAmount);
+    	enterpriseAccountFlow.setBalanceAmount(enterpriseAccount.getBalanceAmount().subtract(balanceAmount));
+    	enterpriseAccountFlow.setBusinessType("短信充值");
+    	enterpriseAccountFlow.setCreateTime(DateUtil.getCurTime());
+    	
+    	enterpriseAccountFlowMapper.insertSelective(enterpriseAccountFlow);
+    	
+    	EnterpriseMsnFlow enterpriseMsnFlow = new EnterpriseMsnFlow();
+    	enterpriseMsnFlow.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
+    	enterpriseMsnFlow.setFlowType(2);
+    	enterpriseMsnFlow.setFlowAmount(msnNum);
+    	enterpriseMsnFlow.setBalanceAmount(enterpriseAccount.getBalanceMsnNum() + msnNum);
+    	enterpriseMsnFlow.setStoreName("短信充值");
+    	enterpriseMsnFlow.setCreateTime(DateUtil.getCurTime());
+    	enterpriseMsnFlowMapper.insertSelective(enterpriseMsnFlow);
+    	return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
+    
+    /**
+     * 短信充值
+    * @author 老王
+    * @date 2016年5月25日 上午12:57:50 
+    * @param storeAccount 企业标识
+    * @param storeId 门店标识
+    * @param distributionNum 充值数量
+    * @return BaseDto
+     */
+    @Transactional
+    public BaseDto distributionMsn (String storeAccount, Integer storeId, Integer distributionNum) {
+    	//修改企业短信数量
+    	EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeAccount);
+    	
+    	if (enterpriseAccount.getBalanceMsnNum() < distributionNum) {
+    		return  new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "短信数量不能小于分配数量");
+    	}
+    	
+    	EnterpriseAccount obj = new EnterpriseAccount();
+    	obj.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
+    	obj.setBalanceMsnNum(enterpriseAccount.getBalanceMsnNum() - distributionNum);
+    	obj.setUpdateTime(DateUtil.getCurTime());
+    	enterpriseAccountMapper.updateByPrimaryKeySelective(obj);
+    	
+    	StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+    	//修改门店短信数量
+    	StoreInfo storeObj = new StoreInfo();
+    	storeObj.setStoreId(storeInfo.getStoreId());
+    	storeObj.setTotalSms(storeInfo.getTotalSms() + distributionNum);
+    	storeObj.setBalanceSms(storeInfo.getBalanceSms() + distributionNum);
+    	storeObj.setUpdateTime(DateUtil.getCurTime());
+    	
+    	storeInfoMapper.updateByPrimaryKey(storeObj);
+    	
+    	EnterpriseMsnFlow enterpriseMsnFlow = new EnterpriseMsnFlow();
+    	enterpriseMsnFlow.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
+    	enterpriseMsnFlow.setFlowType(1);
+    	enterpriseMsnFlow.setFlowAmount(distributionNum);
+    	enterpriseMsnFlow.setBalanceAmount(enterpriseAccount.getBalanceMsnNum() - distributionNum);
+    	enterpriseMsnFlow.setStoreId(storeInfo.getStoreId());
+    	enterpriseMsnFlow.setStoreName(storeInfo.getStoreName());
+    	enterpriseMsnFlow.setCreateTime(DateUtil.getCurTime());
+    	enterpriseMsnFlowMapper.insertSelective(enterpriseMsnFlow);
+    	
+    	List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
+    	Integer msnNum = enterpriseAccount.getBalanceMsnNum() - distributionNum;
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("storeInfoList", storeInfoList);
+    	map.put("msnNum", msnNum);
+    	return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+    }
+    
+    /**
+     * 短信分配记录
+    * @author 老王
+    * @date 2016年5月25日 下午3:28:03 
+    * @param storeAccount 企业代号
+    * @return BaseDto
+     */
+    public BaseDto rechargeFlow (String storeAccount) {
+    	List<EnterpriseMsnFlow> enterpriseMsnFlowList = enterpriseMsnFlowMapper.selectByStoreAccount(storeAccount);
+    	return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, enterpriseMsnFlowList);
+    }
+    
+    /**
+     * 新增或修改授权码
+    * @author 老王
+    * @date 2016年5月25日 下午5:04:34 
+    * @param storeAccount 企业代号
+    * @param storeAuthorityId 授权标识
+	* @param storeId 门店标识
+	* @param employeeId 员工标识
+	* @param authorityValue 授权码
+    * @return BaseDto
+     */
+    @Transactional
+    public BaseDto addOrUpdateAuthority (String storeAccount, Integer storeAuthorityId, Integer storeId, Integer employeeId, String authorityValue) {
+    	EnterpriseStoreAuthority record = new EnterpriseStoreAuthority();
+    	record.setEmployeeId(employeeId);
+    	List<EnterpriseStoreAuthority> objList = enterpriseStoreAuthorityMapper.selectByProperties(record);
+    	if (objList == null || objList.size() == 0) {
+    		return  new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该员工已存在授权码，不能重复授权");
+    	}
+    	
+    	StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+    	EmployeeInfo employeeInfo = employeeInfoMapper.selectByPrimaryKey(employeeId);
+    	
+    	Map<String, Object> map = new HashMap<>();
+    	
+    	if (storeAuthorityId == null) {
+    		EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
+    		enterpriseInfo.setStoreAccount(storeAccount);
+    		EnterpriseInfo obj = enterpriseInfoMapper.selectByProperties(enterpriseInfo);
+    		EnterpriseStoreAuthority enterpriseStoreAuthority = new EnterpriseStoreAuthority();
+    		enterpriseStoreAuthority.setEnterpriseInfoId(obj.getEnterpriseInfoId());
+    		enterpriseStoreAuthority.setStoreId(storeId);
+    		enterpriseStoreAuthority.setStoreName(storeInfo.getStoreName());
+    		enterpriseStoreAuthority.setAuthorityValue(authorityValue);
+    		enterpriseStoreAuthority.setEmployeeId(employeeId);
+    		enterpriseStoreAuthority.setEmployeeCode(employeeInfo.getEmployeeCode());
+    		enterpriseStoreAuthority.setName(employeeInfo.getName());
+    		enterpriseStoreAuthority.setCreateTime(DateUtil.getCurTime());
+    		enterpriseStoreAuthorityMapper.insertSelective(enterpriseStoreAuthority);
+    		
+    		map.put("storeAuthorityId", enterpriseStoreAuthority.getStoreAuthorityId());
+    		map.put("storeId", storeId);
+    		map.put("storeName", storeInfo.getStoreName());
+    		map.put("authorityValue", authorityValue);
+    		map.put("employeeId", employeeId);
+    		map.put("employeeCode", employeeInfo.getEmployeeCode());
+    		map.put("name", employeeInfo.getName());
+    		map.put("createTime", DateUtil.getCurTime());
+    	}
+    	else {
+    		EnterpriseStoreAuthority enterpriseStoreAuthority = new EnterpriseStoreAuthority();
+    		enterpriseStoreAuthority.setStoreAuthorityId(storeAuthorityId);
+    		enterpriseStoreAuthority.setStoreId(storeId);
+    		enterpriseStoreAuthority.setStoreName(storeInfo.getStoreName());
+    		enterpriseStoreAuthority.setAuthorityValue(authorityValue);
+    		enterpriseStoreAuthority.setEmployeeId(employeeId);
+    		enterpriseStoreAuthority.setEmployeeCode(employeeInfo.getEmployeeCode());
+    		enterpriseStoreAuthority.setName(employeeInfo.getName());
+    		enterpriseStoreAuthority.setCreateTime(DateUtil.getCurTime());
+    		enterpriseStoreAuthorityMapper.updateByPrimaryKeySelective(enterpriseStoreAuthority);
+    		
+    		map.put("storeAuthorityId", enterpriseStoreAuthority.getStoreAuthorityId());
+    		map.put("storeId", storeId);
+    		map.put("storeName", storeInfo.getStoreName());
+    		map.put("authorityValue", authorityValue);
+    		map.put("employeeId", employeeId);
+    		map.put("employeeCode", employeeInfo.getEmployeeCode());
+    		map.put("name", employeeInfo.getName());
+    		map.put("createTime", DateUtil.getCurTime());
+    	}
+    	return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }
     
     /**
@@ -391,9 +763,9 @@ public class StoreInfoService {
     * @param userPwd 操作员密码
     * @return BaseDto
      */
+    @Transactional
     public BaseDto saveStore (StoreInfo storeInfo, Integer userName, String userPwd) {
-    	addStoreInfo(storeInfo, userName, userPwd);
-    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    	return addStoreInfo(storeInfo, userName, userPwd);
     }
     
 
@@ -487,8 +859,19 @@ public class StoreInfoService {
         
         storeInfo.setCreateTime(DateUtil.getCurTime());
         storeInfoMapper.insert(storeInfo);
-
-        initStoreData(storeInfo.getStoreId(), userName, userPwd);
+        
+        EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeInfo.getStoreAccount());
+        
+        if (enterpriseAccount.getBalanceStoreNum() <= 0) {
+        	return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "创建门店数已满，无法新增门店！请升级版本");
+        }
+        
+        EnterpriseAccount record = new EnterpriseAccount();
+        record.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
+        record.setAlreadyStoreNum(enterpriseAccount.getAlreadyStoreNum() + 1);
+        record.setBalanceStoreNum(enterpriseAccount.getBalanceStoreNum() - 1);
+        enterpriseAccountMapper.updateByPrimaryKeySelective(record);
+        initStoreData(storeInfo.getStoreId(), userName, userPwd, storeInfo.getStoreAccount());
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
 
@@ -500,10 +883,10 @@ public class StoreInfoService {
     * @param storeId    门店标识
     * @param userName  门店类型
     * @param userPwd       负责人姓名
+    * @param storeAccount 企业代号
      */
     @Transactional
-    public void initStoreData(int storeId, Integer userName, String userPwd){
-                
+    public void initStoreData(int storeId, Integer userName, String userPwd, String storeAccount){
         EmployeeDto employeeDto=new EmployeeDto();
         employeeDto.setStoreId(storeId);
         employeeDto.setDeptId(0);
@@ -516,7 +899,7 @@ public class StoreInfoService {
 
         UserAccount userAccount = new UserAccount();
         userAccount.setUserId(employeeDto.getEmployeeId());
-        userAccount.setUserName("操作员");
+        userAccount.setUserName(userName.toString());
         String hash = StringUtil.encryptPwd(userPwd);
         userPwd = hash.split(":")[0];
         String passwordSalt = hash.split(":")[1];
@@ -525,6 +908,7 @@ public class StoreInfoService {
         userAccount.setRoleId(roleId);
         userAccount.setStoreId(storeId);
         userAccount.setCreateTime(DateUtil.getCurTime());
+        userAccount.setStoreAccount(storeAccount);
         userAccountMapper.insert(userAccount);
 
         //如果是总店，添加默认等级
@@ -578,7 +962,7 @@ public class StoreInfoService {
         }
         Integer hqStoreId = null;
         if (storeType == 3) {
-            UserAccount hqAccount = userAccountMapper.selectByUserName(hqUserName);
+            UserAccount hqAccount = new UserAccount()/*userAccountMapper.selectByUserName(hqUserName)*/;
             if (hqAccount == null) {
                 return new BaseDto(4, "总店账号不可用");
             }
