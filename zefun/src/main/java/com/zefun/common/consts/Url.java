@@ -339,6 +339,8 @@ public interface Url {
         public static final String GOODSINFO_SETTING = "goodsInfo/view/setting";
         /** 商品步骤设置*/
         public static final String GOODS_SAVE_STEP = "goods/save/by/step/{stepNum}/{status}";
+        /** 新建商品基本信息*/
+        public static final String GOODS_SAVE_BASE = "goods/save/by/base";
 	}
 
 	/** 供应商模块 */

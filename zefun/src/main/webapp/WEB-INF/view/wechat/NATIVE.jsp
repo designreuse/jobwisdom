@@ -10,7 +10,7 @@
 
 				<div class="content_right clearfix">
 					<div class="pay_price">
-						<p>门店充值</p>
+						<p>企业充值</p>
 						<div class="pay_price_num">
 							<div class="pay_price_content">
 								<p>充值金额（元）</p>

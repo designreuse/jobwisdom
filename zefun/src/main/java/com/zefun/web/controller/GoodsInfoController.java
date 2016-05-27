@@ -7,10 +7,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSessionContext;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
+import com.zefun.common.swagger.SessionContextListener;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
@@ -60,7 +63,7 @@ import com.zefun.web.service.SupplierInfoService;
 *
  */
 @Controller
-public class GoodsInfoController extends BaseController{
+public class GoodsInfoController extends BaseController {
     /**商品*/
     @Autowired private GoodsInfoService goodsInfoService;
     /**会员等级*/
@@ -75,6 +78,8 @@ public class GoodsInfoController extends BaseController{
     @Autowired private CodeLibraryMapper codeLibraryMapper;
     /**套餐商品关联*/
     @Autowired private ComboGoodsMapper comboGoodsMapper;
+    /** 日志 */
+    private Logger logger = Logger.getLogger(SessionContextListener.class);
 
     /**
      * 进入商品设置页面
@@ -87,6 +92,8 @@ public class GoodsInfoController extends BaseController{
      */
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_LIST)
     public ModelAndView toGoodsInfoPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        logger.info("goods"+request.getSession().getServletContext());
+        logger.info("goods"+request.getSession().getId());
         Integer storeId = getStoreId(request);
         
         List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
@@ -122,7 +129,6 @@ public class GoodsInfoController extends BaseController{
     * @param goodsId    商品ID
     * @return           跳转页面 
      */
-    @SuppressWarnings("unchecked")
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_SETTING)
     public ModelAndView toGoodsInfoSeting(HttpServletRequest request, HttpServletResponse response, Integer goodsId) {
         ModelAndView model = new ModelAndView(View.GoodsInfo.GOODSETTING);
@@ -144,15 +150,10 @@ public class GoodsInfoController extends BaseController{
         model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
         
         if (goodsId!=null){
-            BaseDto baseDto = queryGoodsInfoById(request, response, goodsId);
-            GoodsInfoDto goodsInfo = (GoodsInfoDto) ((Map<String, Object>)baseDto.getMsg()).get("goodsInfo");
-            List<GoodsDiscount> goodsDiscountList = (List<GoodsDiscount>) ((Map<String, Object>)baseDto.getMsg()).get("goodsDiscountList");
-            
+            GoodsInfo goodsInfo = goodsInfoService.selectgoodsInfoByGoodsId(goodsId);
             model.addObject("goodsId", goodsInfo.getGoodsId());
             model.addObject("goodsDesc", goodsInfo.getGoodsDesc());
-            goodsInfo.setGoodsDesc(null);
             model.addObject("goodsInfo", JSONObject.fromObject(goodsInfo));
-            model.addObject("goodsDiscountList", JSONArray.fromObject(goodsDiscountList));
         }
         
         return model;
@@ -205,6 +206,24 @@ public class GoodsInfoController extends BaseController{
         }
         return null;
     }
+    
+    /**
+     * 新建商品的基本数据
+    * @author 高国藩
+    * @date 2016年5月26日 下午4:25:37
+    * @param request request
+    * @param response response
+    * @param data data
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.GoodsInfo.GOODS_SAVE_BASE, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto saveGoodsInfoBase(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject data) {
+        Integer storeId = getStoreId(request);
+        return goodsInfoService.saveGoodsInfoBase(storeId, data);
+    }
+    
+    
     /**
      * 保存商品类别
     * @author 洪秋霞
@@ -402,6 +421,7 @@ public class GoodsInfoController extends BaseController{
     @ResponseBody
     public BaseDto saveGoodsInfo(HttpServletRequest request, HttpServletResponse response, GoodsInfo goodsInfo, String[] levelId,
             String[] discountProportion, String[] discountAmount, String[] onlineAppointmentPrice) {
+        
         BaseDto baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
         goodsInfo.setStoreId(getStoreId(request));
         try {

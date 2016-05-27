@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="/head.jsp"%>
+
 <style>
 .item_list{margin-top:20px;height:310px}
 .item_list select{width:104px;height:22px;padding-left:50px;border-radius:10px;font-size:14px;color:black;border:1px solid black}
