@@ -102,14 +102,19 @@
 											</div>
 											<em class="boss_cut">${goodsInfos[status.count*2-2].goodsName }</em>
 											<p class="hair">
-												<img src="<%=basePath%>images/partment.png">${goodsInfos[status.count*2-2].deptName }
+												<img src="<%=basePath%>images/partment.png">
+												<c:if test="${empty goodsInfos[status.count*2-2].deptName }">暂无</c:if>
+												<c:if test="${! empty goodsInfos[status.count*2-2].deptName}">${goodsInfos[status.count*2-2].deptName }</c:if>
 											</p>
 											<ul class="clearfix shop_number">
 												<li><em class="number_">编号</em>
 													<p class="num_">11<%-- ${goodsInfos[status.count*2-2].projectCodeSuffix } --%></p>
 													<p></p></li>
 												<li><em class="shop_price">门店价格</em>
-													<p>${goodsInfos[status.count*2-2].goodsPrice }</p>
+													<p>
+													<c:if test="${empty goodsInfos[status.count*2-2].goodsPrice }">暂无</c:if>
+													<c:if test="${! empty goodsInfos[status.count*2-2].goodsPrice}">${goodsInfos[status.count*2-2].goodsPrice }</c:if>
+													</p>
 													<p></p></li>
 											</ul>
 										</div>
@@ -124,14 +129,19 @@
 											</div>
 											<em class="boss_cut">${goodsInfos[status.count*2-1].goodsName }</em>
 											<p class="hair">
-												<img src="<%=basePath%>images/partment.png">${goodsInfos[status.count*2-1].deptName }
+												<img src="<%=basePath%>images/partment.png">
+												<c:if test="${empty goodsInfos[status.count*2-1].deptName }">暂无</c:if>
+												<c:if test="${! empty goodsInfos[status.count*2-1].deptName}">${goodsInfos[status.count*2-1].deptName }</c:if>
 											</p>
 											<ul class="clearfix shop_number">
 												<li><em class="number_">编号</em>
 													<p class="num_">11<%-- ${goodsInfos[status.count*2-1].projectCodeSuffix } --%></p>
 													<p></p></li>
 												<li><em class="shop_price">门店价格</em>
-													<p>${goodsInfos[status.count*2-1].goodsPrice }</p>
+													<p>
+													<c:if test="${empty goodsInfos[status.count*2-1].goodsPrice }">暂无</c:if>
+													<c:if test="${! empty goodsInfos[status.count*2-1].goodsPrice}">${goodsInfos[status.count*2-1].goodsPrice }</c:if>
+													</p>
 													<p></p></li>
 											</ul>
 										</div>

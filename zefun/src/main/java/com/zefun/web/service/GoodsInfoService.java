@@ -966,4 +966,34 @@ public class GoodsInfoService {
     public List<GoodsInfo> queryByGoodsIds(List<Integer> params){
         return goodsInfoMapper.queryByGoodsIds(params);
     }
+
+    /**
+     * 新建商品基本数据
+    * @author 高国藩
+    * @date 2016年5月26日 下午3:33:46
+    * @param storeId storeId
+    * @param data    data
+    * @return        BaseDto
+     */
+    public BaseDto saveGoodsInfoBase(Integer storeId, JSONObject data) {
+        GoodsInfo goodsInfo = (GoodsInfo) JSONObject.toBean(data, GoodsInfo.class);
+        if (goodsInfo.getGoodsId()!=null){
+            goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
+        }
+        else {
+            goodsInfoMapper.insertSelective(goodsInfo);
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsInfo.getGoodsId());
+    }
+
+    /**
+     * 根据商品ID查询基本数据
+    * @author 高国藩
+    * @date 2016年5月26日 下午4:51:38
+    * @param goodsId   goodsId
+    * @return          GoodsInfoDto
+     */
+    public GoodsInfo selectgoodsInfoByGoodsId(Integer goodsId) {
+        return goodsInfoMapper.selectByPrimaryKey(goodsId);
+    }
 }
