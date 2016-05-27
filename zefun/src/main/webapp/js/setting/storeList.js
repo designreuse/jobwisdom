@@ -38,10 +38,10 @@ jQuery(function(){
 
 //提示气泡
 jQuery(function(){
-	jQuery('.left_detail span').hover(function(){
-	jQuery(this).find('em').stop(true,true).fadeIn('normal');
+	jQuery('.left_detail span a').hover(function(){
+	jQuery(this).parent().find('em').stop(true,true).fadeIn('normal');
 	},function(){
-	  jQuery(this).find('em').stop(true,true).fadeOut('normal');
+	  jQuery(this).parent().find('em').stop(true,true).fadeOut('normal');
 	});
 }) 
 
