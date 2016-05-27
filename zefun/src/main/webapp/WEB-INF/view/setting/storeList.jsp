@@ -176,7 +176,7 @@
 		   <div id="preview"><img border=0 affiliatedImage="" name="affiliatedImage" src="<%=qiniuPath%>system/profile/set_img.png" width="180" height="180" /></div>
 
 		  <P>*此logo用于移动端店铺介绍页面</P>
-	      <input type="text" class = "hide" name = "affiliated" style="width: 80px; height: 80px;top: -124px;opacity:0;cursor:pointer"/>
+	      <input type="text" class = "hide" name = "storeId" style="width: 80px; height: 80px;top: -124px;opacity:0;cursor:pointer"/>
 	     
 		<div class="set_name">
 		 <div class="shop_name_">
@@ -202,7 +202,7 @@
 	  <div class="content_right_">
 	     <P class="shop_address_">店铺地址</P>   
 		 <div class="select_city">
-		     <input id="city-picker3" class="form-control" readonly type="text" value="${storeInfo.storeProvince}/${storeInfo.storeCity}" data-toggle="city-picker">
+		     <input id="city-picker3" class="form-control" readonly type="text" value="" data-toggle="city-picker">
 		     
 		     <div class="detail_address">
 			   <div>详细地址</div>
@@ -210,11 +210,7 @@
 			 </div>
 			 <div class="detail_address">
 			   <div>操作员工号</div>
-			   <input type="text" id = "userName">         		   
-			 </div>
-			 <div class="detail_address">
-			   <div>操作员密码</div>
-			   <input type="text" id = "userPwd">         		   
+			   <input type="text" id = "userName" readonly>         		   
 			 </div>
 		 
 		 </div>
@@ -362,7 +358,7 @@ var storeEmployeeListStr =  '${storeEmployeeListStr}';
 var storeEmployeeList = eval("(" + storeEmployeeListStr + ")");
 
 var enterpriseEdition = '${enterpriseAccount.enterpriseEdition }';
-
+var alreadyStoreNum = '${enterpriseAccount.alreadyStoreNum}';
 var priceMoneyOrTimeStr = '${priceMoneyOrTimeStr}';
 var priceMoneyOrTime = eval("(" + priceMoneyOrTimeStr + ")");
 </script>

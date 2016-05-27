@@ -1134,11 +1134,11 @@ public interface Url {
 		public static final String SHOW_STORE_LIST = "/storeinfo/view/showStoreList";
 		/** 新增修改门店*/
 		public static final String SAVE_UPDATE_STORE = "/storeinfo/action/saveUpdateStore";
+		/** 查询门店信息*/
+		public static final String SELECT_STORE_INFO = "/storeinfo/action/selectStoreInfo";
 		/** 查询企业流水*/
 		public static final String SELECT_CONSUMPTION_RECORD = "/storeinfo/action/selectConsumptionRecord";
-		/**
-		 * 查询企业消费流水
-		 */
+		/** 查询企业消费流水*/
 		public static final String SELECT_ENTERPRISE_ACCOUNT = "/storeinfo/action/selectEnterpriseAccount";
 		/** 短信充值*/
 		public static final String SAVE_MSN_RECHARGE = "/storeinfo/action/saveMsnRecharge";

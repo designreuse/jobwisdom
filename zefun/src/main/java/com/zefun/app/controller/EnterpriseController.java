@@ -60,10 +60,6 @@ public class EnterpriseController extends BaseController{
 			  String enterpriseLinkname, String storeAccount) {
 		return enterpriseService.addEnterprise(enterpriseName, enterpriseLinkphone, enterpriseLinkname, storeAccount);
 	}
-	
-	public BaseDto addStoreAuthority (HttpServletRequest request, Integer storeId, String storeName, String authorityValue, String employeeId, Integer employeeCode,
-			  String name, String enterpriseLinkname, String storeAccount) {
-		Integer storeAccount = getStoreAccount();
-	}
+
 }
   

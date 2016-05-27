@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/head.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" href="<%=basePath%>css/payroll_6.css" type="text/css" />
 <body>
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -12,65 +11,89 @@
     <%@ include file="/top.jsp" %>
       <!--headerpanel-->
 
-<div class='content_right clearfix'>
-   <div class="content_right_pull_mould">
-    <div class="pull_mould">
-	   <button class="pull_mould_down" id="downLondimport">导入模板下载</button>
-	   <button class="pull_mould_" data-toggle="modal" data-target="#toLeadModal">导入</button>
-	</div>
-	
-	<div class="pull_mould_content">
-	   <div class="pull_mould_images clearfix">
-	       <span>部门</span>
-	       <span>岗位</span>
-		   <span>职位</span>
-	   </div>
-	   
-	   <div class="pull_mould_content_part clearfix">
-	     <div class="part_1">
-		    <c:forEach items="${list}" var="listlist">
-		        <div class="hair_part">
-			      ${listlist.deptCode}&nbsp;&nbsp;&nbsp;&nbsp;${listlist.deptName}
-				  <em><img src="<%=basePath%>images/pull_down.png"></em>
-				  <ul class="part_ul">
-					  <li onclick="updatedept('${listlist.deptId}','${listlist.deptName}','${listlist.deptCode}','${listlist.isResults}',this)"><img src="<%=basePath%>images/handle_2.png"></li>
-					  <li onclick="deletedept(${listlist.deptId},this)"><img src="<%=basePath%>images/handle_1.png"></li>
-				   </ul>
-			    </div>
-		    </c:forEach>
-			<div class="part_add" id="search-member" onclick="addDept()"><img src="<%=basePath%>images/money_add.png"></div>
-		 </div>
-		 
-		   <div class="part_1">
-		    <div class="hair_part">
-		                  美发部
-			  <em><img src="<%=basePath%>images/pull_down.png"></em>
-			  <ul class="part_ul">
-				  <li><img src="<%=basePath%>images/handle_2.png"></li>
-				  <li><img src="<%=basePath%>images/handle_1.png"></li>
-			    </ul>
-		    </div>
-			<div class="part_add"><img src="<%=basePath%>images/money_add.png"></div>
-		 </div>
-		 
-		   <div class="part_1" style="position:relative;left:10px">
-		    <div class="hair_part">
-		      美发部
-			  <em><img src="<%=basePath%>images/pull_down.png"></em>
-			  <ul class="part_ul">
-				  <li><img src="<%=basePath%>images/handle_2.png"></li>
-				  <li><img src="<%=basePath%>images/handle_1.png"></li>
-			    </ul>
-		    </div>
-			<div class="part_add"><img src="<%=basePath%>images/money_add.png"></div>
-		 </div>
-	   
-	   
-	   
-	   </div>
-	</div>
-   </div>		
- </div>
+<div class="maincontent">
+    <div class="contentinner">
+        <div class="project-list">
+            <div class="project-list-head">
+                <button type="button" class="btn wp49 fl" id="downLondimport">导入模板下载</button>
+                <button type="button" class="btn wp49 fr" data-toggle="modal" data-target="#toLeadModal">导入</button>
+                <div class="clearfix"></div>
+            </div>
+            <div class="project-list-head">
+                <button type="button" class="btn add-bumen" id="search-member" onclick="addDept()">
+                    <i class="iconfont icon-jiahao mt2 ml5"></i> 新增部门</button>
+                <!-- <div class="add-bumen hide">
+                    <select name="" id="" class="chzn-select input40">
+                        <option value="">1</option>
+                        <option value="">2</option>
+                    </select>
+                    <input type="text" class="bumen-input input70" placeholder="部门名称"/> <button class="baocun-btn btn">保存</button> <button class="quxiao-btn btn">取消</button>
+                </div> -->
+            </div>
+            <div class="project-list-ul">
+            <c:forEach items="${list}" var="listlist">
+                <div class="project-category" style="margin-bottom: 2px;">
+                    <div class="project-name">
+                       <i class="afont iconfont icon-iconfontxialaeps"></i>
+                        ${listlist.deptCode}&nbsp;&nbsp;&nbsp;&nbsp;${listlist.deptName}
+                        <div class="edit-group fr">
+                            <i class="iconfa-plus project-icon" onclick="addPosition('${listlist.deptId}',this)"></i>
+                            <i class="iconfa-pencil project-icon" onclick="updatedept('${listlist.deptId}','${listlist.deptName}','${listlist.deptCode}','${listlist.isResults}',this)"></i>
+                            <i class="iconfa-trash project-icon" onclick="deletedept(${listlist.deptId},this)"></i> 
+                        </div>
+                    </div>
+                    <c:forEach items="${listlist.positionInfo}" var="list">
+                    <ul class="project-sublist">
+                        <li class="project-sublist-title">
+                            <i class="afont iconfont icon-iconfontxialaeps"></i>
+                           ${list.positionCode}&nbsp;&nbsp;&nbsp;&nbsp;${list.positionName}
+                            <span class="fr">
+                                <i class="iconfa-plus project-icon" onclick="addlevel(${list.positionId})"></i>
+                                <i class="iconfa-pencil project-icon" onclick="updateposition('${listlist.deptId}','${list.positionName}','${list.positionCode}','${list.positionId}','${list.isDept}',this)"></i>
+                                <i class="iconfa-trash project-icon" onclick="deleteposition(${list.positionId})"></i>
+                            </span>
+                        </li>
+                        <c:forEach items="${list.employeeLeve}" var="listchild">
+                        <li class="project-sublist-content" onclick="getlevelemployee(${listchild.levelId})">${listchild.levelName}
+                            <span class="fr">
+                                <i class="iconfa-pencil project-icon" onclick="openupdatelevel('${listchild.levelId}','${list.positionId}','${listchild.levelName}')"></i>
+                                <i class="iconfa-trash project-icon" onclick="deletelevel(${listchild.levelId})"></i>
+                            </span>
+                        </li>
+                        </c:forEach>
+                    </ul>
+                    </c:forEach>
+                </div>
+               </c:forEach>
+            </div>
+        </div>
+        
+        <div class="project-setting" id="div1">
+            <img src="<%=basePath%>images/add-bumen.png" alt="" class="func-desc-img"/>
+        </div> 
+        <div class="project-setting" id="div2" style="display: none">
+            <span>职位下人员</span> <span style="margin-left: 580px;"><a href="<%=basePath%>employee/view/employee">跳转至人员管理页面</a></span>
+            <table class="table table-bordered table-striped member-list-table">
+            <thead>
+            <tr>
+                <th style="text-align: center">工号</th>
+                <th style="text-align: center">姓名</th>
+                <th style="text-align: center">性别</th>
+                <th style="text-align: center">部门</th>
+                <th style="text-align: center">岗位</th>
+                <th style="text-align: center">职位 </th>
+                <th style="text-align: center">手机号</th>
+                <th style="text-align: center">账号</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
 
 <div class="modal hide" id="add-bumen-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
@@ -319,20 +342,6 @@ jQuery(function(){
 
 })
 
-jQuery(document).ready(function() {     
-     jQuery('.hair_part em').click(function(){
-	   jQuery(this).parent().find('.part_ul').stop(true,true).toggle('normal');
- 	 })
-  });
-
-
-//是否切换
-jQuery(function(){
-   jQuery('.lcs_switch').click(function(){
-      jQuery(this).toggleClass('lcs_off');
-	 jQuery(this).toggleClass('lcs_on'); 
-   });
-})  
 
 </script>
 <script type="text/javascript" src="<%=basePath %>js/employee/positioninfo.js"></script>

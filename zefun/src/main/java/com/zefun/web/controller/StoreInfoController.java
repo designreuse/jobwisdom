@@ -70,6 +70,20 @@ public class StoreInfoController extends BaseController {
 	}
 	
 	/**
+	 * 查询门店信息
+	* @author 老王
+	* @date 2016年5月26日 下午3:17:02 
+	* @param request 返回
+	* @param storeId 门店标识
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.StoreInfo.SELECT_STORE_INFO)
+	@ResponseBody
+	public BaseDto selectStoreInfo (HttpServletRequest request, Integer storeId) {
+		return storeInfoService.selectStoreInfo(storeId);
+	}
+	
+	/**
 	 * 创建分店
 	* @author 老王
 	* @date 2016年4月30日 下午4:52:22 

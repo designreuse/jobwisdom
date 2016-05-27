@@ -376,6 +376,7 @@ public class StoreInfoService {
     	
     	mav.addObject("enterpriseAccount", enterpriseAccount);
     	
+    	
     	mav.addObject("priceMoneyOrTimeStr", JSONObject.fromObject(getPriceMoney(enterpriseAccount)).toString());
     	return mav;
     }
@@ -532,6 +533,22 @@ public class StoreInfoService {
     public BaseDto selectEnterpriseAccount (String storeAccount) {
     	EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeAccount);
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, enterpriseAccount);
+    }
+    
+    /**
+     * 查询门店信息
+    * @author 老王
+    * @date 2016年5月26日 下午3:16:45 
+    * @param storeId 门店标识
+    * @return BaseDto
+     */
+    public BaseDto selectStoreInfo (Integer storeId) {
+    	StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+    	UserAccount userAccount = userAccountMapper.selectSingleStoreAccount(storeId);
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("storeInfo", storeInfo);
+    	map.put("userName", userAccount.getUserName());
+    	return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }
     
     /**
@@ -856,15 +873,14 @@ public class StoreInfoService {
      */
     @Transactional
     public BaseDto addStoreInfo(StoreInfo storeInfo, Integer userName, String userPwd) {
-        
-        storeInfo.setCreateTime(DateUtil.getCurTime());
-        storeInfoMapper.insert(storeInfo);
-        
         EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeInfo.getStoreAccount());
-        
-        if (enterpriseAccount.getBalanceStoreNum() <= 0) {
+
+    	if (enterpriseAccount.getBalanceStoreNum() <= 0) {
         	return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "创建门店数已满，无法新增门店！请升级版本");
         }
+    	
+        storeInfo.setCreateTime(DateUtil.getCurTime());
+        storeInfoMapper.insert(storeInfo);
         
         EnterpriseAccount record = new EnterpriseAccount();
         record.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
