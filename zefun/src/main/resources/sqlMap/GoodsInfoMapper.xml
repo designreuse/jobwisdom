@@ -95,7 +95,7 @@
         <association property="goodsInfos" column="category_id" select="selectGoodsBaseByCategoryId" />
   </resultMap>
   <select id="selectCatagoryGoodsInfos" resultMap="catagoryGoodsInfos" parameterType="java.lang.Integer">
-  	SELECT category_id, store_id, category_name FROM goods_category WHERE store_id = #{storeId} AND is_deleted = 0
+  	SELECT category_id, store_id, category_name FROM goods_category WHERE store_id = #{storeId} AND is_deleted = 2
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -870,7 +870,7 @@
   	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId
   	from goods_info gf 
   	left join dept_info df on gf.dept_id = df.dept_id
-  	where gf.is_deleted = 0 and gf.store_id = #{storeId}
+  	where gf.is_deleted = 0 or gf.is_deleted = 2 and gf.store_id = #{storeId}
   </select>
   
   <select id="queryByGoodsIds" parameterType="list" resultMap="BaseResultMap">
@@ -879,5 +879,20 @@
       #{item, jdbcType=INTEGER}  
     </foreach>  
   	and is_deleted = 0
+  </select>
+  
+  <select id="selectByStoreIdIsOnLion" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_info
+    where is_deleted = 2 and store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllGoodsInfoByStoreIdAndNotPay" resultType="com.zefun.web.dto.GoodsInfoDto" parameterType="java.lang.Integer">
+  	SELECT gf.goods_id as goodsId, gf.goods_name as goodsName, gf.goods_price as goodsPrice,
+  	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId
+  	from goods_info gf 
+  	left join dept_info df on gf.dept_id = df.dept_id
+  	where gf.is_deleted = 0 or gf.is_deleted = 2 and gf.store_id = #{storeId} and gf.is_sell_product = 1
   </select>
 </mapper>

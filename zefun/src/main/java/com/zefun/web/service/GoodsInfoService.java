@@ -287,14 +287,11 @@ public class GoodsInfoService {
     * @date 2015年8月11日 上午11:48:17
     * @param goodsInfo 商品信息
     * @param levelId 会员等级id
-    * @param discountProportion 折扣比例
     * @param discountAmount 会员门店价
-    * @param onlineAppointmentPrice 在线预约价
     * @return Integer
      */
     @Transactional
-    public Integer saveGoodsInfo(GoodsInfo goodsInfo, String[] levelId, String[] discountProportion, String[] discountAmount,
-            String[] onlineAppointmentPrice) {
+    public Integer saveGoodsInfo(GoodsInfo goodsInfo, String[] levelId, String[] discountAmount) {
         goodsInfo.setCreateTime(DateUtil.getCurTime());
         goodsInfoMapper.insertSelective(goodsInfo);
         Integer goodsId = goodsInfo.getGoodsId();
@@ -338,14 +335,12 @@ public class GoodsInfoService {
     * @date 2015年8月11日 上午11:49:12
     * @param goodsInfo 商品信息
     * @param levelId 会员等级id
-    * @param discountProportion 折扣比例
     * @param discountAmount 会员门店价
-    * @param onlineAppointmentPrice 在线预约价
      */
     @Transactional
-    public void editGoodsInfo(GoodsInfo goodsInfo, String[] levelId, String[] discountProportion, String[] discountAmount,
-            String[] onlineAppointmentPrice) {
+    public void editGoodsInfo(GoodsInfo goodsInfo, String[] levelId, String[] discountAmount) {
         //更新商品
+        goodsInfo.setIsDeleted(2);
         goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
 
         GoodsDiscount goodsDiscount = new GoodsDiscount();
@@ -995,5 +990,16 @@ public class GoodsInfoService {
      */
     public GoodsInfo selectgoodsInfoByGoodsId(Integer goodsId) {
         return goodsInfoMapper.selectByPrimaryKey(goodsId);
+    }
+
+    /**
+     * 获取卖品
+    * @author 高国藩
+    * @date 2016年5月27日 下午7:07:51
+    * @param storeId storeId
+    * @return        List<GoodsInfoDto>
+     */
+    public List<GoodsInfoDto> selectGoodsInfosByStoreIdAndNotPay(Integer storeId) {
+        return goodsInfoMapper.selectAllGoodsInfoByStoreIdAndNotPay(storeId);
     }
 }

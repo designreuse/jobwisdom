@@ -83,6 +83,11 @@ public class LoginService {
 
 		// 登陆成功
 		Integer userId = userAccount.getUserId();
+		Integer isLogin = (Integer) request.getSession().getServletContext().getAttribute(userId.toString());
+		if (isLogin!=null){
+		    return new BaseDto(9003, "该账号已登录,不是本人操作,请及时修正密码");
+		}
+		request.getSession().getServletContext().setAttribute(userId.toString(), 1);
 		sessiion.setAttribute(App.Session.USER_ID, userId);
 
 		int roleId = userAccount.getRoleId();

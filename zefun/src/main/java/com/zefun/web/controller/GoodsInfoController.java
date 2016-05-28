@@ -1,13 +1,13 @@
 package com.zefun.web.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSessionContext;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -92,8 +92,6 @@ public class GoodsInfoController extends BaseController {
      */
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_LIST)
     public ModelAndView toGoodsInfoPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
-        logger.info("goods"+request.getSession().getServletContext());
-        logger.info("goods"+request.getSession().getId());
         Integer storeId = getStoreId(request);
         
         List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
@@ -156,6 +154,33 @@ public class GoodsInfoController extends BaseController {
             model.addObject("goodsInfo", JSONObject.fromObject(goodsInfo));
         }
         
+        return model;
+    }
+    
+    /**
+     * 商品详情设置
+    * @author 高国藩
+    * @date 2016年5月27日 上午11:37:26
+    * @param request     request
+    * @param response    response
+    * @param model       model
+    * @return            model
+     */
+    @RequestMapping(value = Url.GoodsInfo.GOODSINFO_SETTING_NEW)
+    public ModelAndView goodsInfoSeting(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+        Integer storeId = getStoreId(request);
+        
+        List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
+        model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
+        model.addObject("js_deptGoodsBaseDto", JSONArray.fromObject(deptGoodsBaseDto));
+    
+        /** 会员等级列表 */
+        List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
+        model.addObject("memberLevels", memberLevelList);
+        model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
+        List<GoodsInfoDto> goodsInfos = goodsInfoService.selectGoodsInfosByStoreIdAndNotPay(storeId);
+        model.addObject("goodsInfos", goodsInfos);
+        model.setViewName(View.GoodsInfo.SETTING_GOODS);
         return model;
     }
 
@@ -410,29 +435,27 @@ public class GoodsInfoController extends BaseController {
     * @date 2015年8月10日 上午10:13:22
     * @param request request
     * @param response response
-    * @param goodsInfo 商品信息
-    * @param levelId 等级id
-    * @param discountProportion 折扣比例
-    * @param discountAmount 会员门店价
-    * @param onlineAppointmentPrice 在线预约价
+    * @param jsonObject jsonObject 
     * @return BaseDto
      */
     @RequestMapping(value = Url.GoodsInfo.SAVE_GOODS_INFO)
     @ResponseBody
-    public BaseDto saveGoodsInfo(HttpServletRequest request, HttpServletResponse response, GoodsInfo goodsInfo, String[] levelId,
-            String[] discountProportion, String[] discountAmount, String[] onlineAppointmentPrice) {
-        
+    @SuppressWarnings("unchecked")
+    public BaseDto saveGoodsInfo(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObject) {
+        GoodsInfo goodsInfo = (GoodsInfo) JSONObject.toBean(jsonObject.getJSONObject("goodsInfo"), GoodsInfo.class);
+        String[] levelId = (String[]) JSONArray.toCollection(jsonObject.getJSONArray("levelId")).toArray(new String[]{});
+        String[] discountAmount = (String[]) JSONArray.toCollection(jsonObject.getJSONArray("discountAmount")).toArray(new String[]{});
         BaseDto baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
         goodsInfo.setStoreId(getStoreId(request));
         try {
             if (goodsInfo.getGoodsId() == null) {
                 // 新增
-                Integer goodsId = goodsInfoService.saveGoodsInfo(goodsInfo, levelId, discountProportion, discountAmount, onlineAppointmentPrice);
+                Integer goodsId = goodsInfoService.saveGoodsInfo(goodsInfo, levelId, discountAmount);
                 baseDto.setMsg(goodsId);
             }
             else {
                 // 编辑
-                goodsInfoService.editGoodsInfo(goodsInfo, levelId, discountProportion, discountAmount, onlineAppointmentPrice);
+                goodsInfoService.editGoodsInfo(goodsInfo, levelId, discountAmount);
             }
             return baseDto;
         }

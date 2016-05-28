@@ -196,4 +196,22 @@ public interface GoodsInfoMapper {
     * @return         List<GoodsInfo> 
      */ 
     List<GoodsInfo> queryByGoodsIds(List<Integer> params);
+
+    /**
+     * 获取已经上架的商品
+    * @author 高国藩
+    * @date 2016年5月27日 下午7:03:08
+    * @param storeId  storeId
+    * @return         List<GoodsInfo>
+     */
+    List<GoodsInfo> selectByStoreIdIsOnLion(Integer storeId);
+
+    /**
+     * 获取卖品
+    * @author 高国藩
+    * @date 2016年5月27日 下午7:07:32
+    * @param storeId storeId
+    * @return        List<GoodsInfoDto>
+     */
+    List<GoodsInfoDto> selectAllGoodsInfoByStoreIdAndNotPay(Integer storeId);
 }

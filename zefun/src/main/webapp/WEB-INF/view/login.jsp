@@ -280,7 +280,10 @@ jQuery('input[name="loginButton"]').click(function(){
                 jQuery('#loginStoreAccount').focus();
                 jQuery('#loginStoreAccount').addClass('error');
                 dialog(e.msg);
-              } else {
+              } 
+              if (e.code == 9003) {
+                  dialog(e.msg);
+              }else {
                 jQuery('#password').focus();
                 jQuery('#password').addClass('error');
                 dialog("对不起，您输入的密码错误");
