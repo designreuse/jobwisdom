@@ -100,6 +100,7 @@
 			<a href="<%=menuBasePath%>goodsInfo/view/shipment/record"><li><span><img src="<%=basePath%>images/left5.png">出货管理</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/brand"><li><span><img src="<%=basePath%>images/left5.png">商品品牌</span></li></a>
 			<a href="<%=menuBasePath%>supplierInfo/view/supplierInfoList"><li><span><img src="<%=basePath%>images/left5.png">供应商管理</span></li></a>
+			<a href="<%=menuBasePath%>view/storeAccount/suplier"><li><span><img src="<%=basePath%>images/left5.png">供应商管理</span></li></a>
 		</ul>
 		<ul index="6">
 			<a href="<%=menuBasePath%>position/view/positioninfo"><li class=""><span><img src="<%=basePath%>images/left0.png">组织架构</span></li></a>

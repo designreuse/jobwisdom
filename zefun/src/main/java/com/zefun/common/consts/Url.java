@@ -343,6 +343,8 @@ public interface Url {
         public static final String GOODS_SAVE_BASE = "goods/save/by/base";
         /** 商品详情设置*/
         public static final String GOODSINFO_SETTING_NEW = "goods/info/setting";
+        /** 供应商管理*/
+        public static final String VIEW_SUPPLIER = "view/storeAccount/suplier";
 	}
 
 	/** 供应商模块 */

@@ -1,7 +1,6 @@
 package com.zefun.web.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -153,7 +152,6 @@ public class GoodsInfoController extends BaseController {
             model.addObject("goodsDesc", goodsInfo.getGoodsDesc());
             model.addObject("goodsInfo", JSONObject.fromObject(goodsInfo));
         }
-        
         return model;
     }
     
@@ -420,8 +418,7 @@ public class GoodsInfoController extends BaseController {
     @ResponseBody
     public BaseDto deleteGoodsBrand(HttpServletRequest request, HttpServletResponse response, Integer brandId) {
         try {
-            goodsInfoService.deleteGoodsBrand(brandId);
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+            return goodsInfoService.deleteGoodsBrand(brandId);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -550,6 +547,20 @@ public class GoodsInfoController extends BaseController {
         goodsInfoService.deleteGoodsInfo(goodsId);
         goodsInfoService.deleteGoodsRedis(deptId.toString());
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
+    
+    /**
+     * 供应商管理
+    * @author 高国藩
+    * @date 2016年5月28日 下午2:24:15
+    * @param request    request
+    * @param response   response
+    * @return           ModelAndView
+     */
+    @RequestMapping(value = Url.GoodsInfo.VIEW_SUPPLIER)
+    public ModelAndView viewSupplier(HttpServletRequest request, HttpServletResponse response) {
+        String storeAccount = getStoreAccount(request);
+        return goodsInfoService.viewSupplier(storeAccount);
     }
 
     /**
@@ -809,11 +820,16 @@ public class GoodsInfoController extends BaseController {
     @RequestMapping(value = Url.GoodsInfo.SAVE_BRAND)
     @ResponseBody
     public BaseDto saveBrand(HttpServletRequest request, GoodsBrand goodsBrand){
-        Integer storeId = getStoreId(request);
-        goodsBrand.setStoreId(storeId);
-        goodsBrand.setCreateTime(DateUtil.getCurDate());
-        goodsBrand.setLastOperatorId((Integer)request.getSession().getAttribute(App.Session.USER_ID));
-        return goodsInfoService.saveBrand(goodsBrand, storeId);
+        if (goodsBrand.getBrandId()!=null){
+            goodsBrand.setLastOperatorId((Integer)request.getSession().getAttribute(App.Session.USER_ID));
+            return goodsInfoService.editGoodsBrand(goodsBrand);
+        }
+        else {
+            // 新增
+            goodsBrand.setCreateTime(DateUtil.getCurDate());
+            goodsBrand.setLastOperatorId((Integer)request.getSession().getAttribute(App.Session.USER_ID));
+            return goodsInfoService.saveBrand(goodsBrand);
+        }
     }
     
     /**

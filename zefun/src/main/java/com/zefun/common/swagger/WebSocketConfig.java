@@ -13,8 +13,8 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 * @author 高国藩
 * @date 2016年5月23日 下午4:32:17
  */
-/*@Configuration
-@EnableWebSocket*/
+@Configuration
+@EnableWebSocket
 public class WebSocketConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
     
     @Override

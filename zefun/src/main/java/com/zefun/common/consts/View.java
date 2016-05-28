@@ -405,6 +405,8 @@ public interface View {
 		public static final String GOODS_PURCHASE_RECORDS = "commodity/purchaseRecords";
 		/** 商品设置页面 */
         public static final String GOODSETTING = "commodity/goodsInfoSetting";
+        /** 供应商管理 */
+        public static final String SUPPLIER = "commodity/supplier";
 	}
 
 	/**

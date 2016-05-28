@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.AccountGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.AccountGoods" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_code_suffix" property="goodsCodeSuffix" jdbcType="CHAR" />
+    <result column="is_sell_product" property="isSellProduct" jdbcType="INTEGER" />
+    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+    <result column="goods_desc" property="goodsDesc" jdbcType="VARCHAR" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_id, supplier_id, brand_id, goods_name, goods_code_suffix, is_sell_product, 
+    cost_price, goods_desc, store_account
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from account_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.AccountGoods" >
+    insert into account_goods (goods_id, supplier_id, brand_id, 
+      goods_name, goods_code_suffix, is_sell_product, 
+      cost_price, goods_desc, store_account
+      )
+    values (#{goodsId,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, 
+      #{goodsName,jdbcType=VARCHAR}, #{goodsCodeSuffix,jdbcType=CHAR}, #{isSellProduct,jdbcType=INTEGER}, 
+      #{costPrice,jdbcType=DECIMAL}, #{goodsDesc,jdbcType=VARCHAR}, #{storeAccount,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.AccountGoods" >
+    insert into account_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsCodeSuffix != null" >
+        goods_code_suffix,
+      </if>
+      <if test="isSellProduct != null" >
+        is_sell_product,
+      </if>
+      <if test="costPrice != null" >
+        cost_price,
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc,
+      </if>
+      <if test="storeAccount != null" >
+        store_account,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCodeSuffix != null" >
+        #{goodsCodeSuffix,jdbcType=CHAR},
+      </if>
+      <if test="isSellProduct != null" >
+        #{isSellProduct,jdbcType=INTEGER},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsDesc != null" >
+        #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.AccountGoods" >
+    update account_goods
+    <set >
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCodeSuffix != null" >
+        goods_code_suffix = #{goodsCodeSuffix,jdbcType=CHAR},
+      </if>
+      <if test="isSellProduct != null" >
+        is_sell_product = #{isSellProduct,jdbcType=INTEGER},
+      </if>
+      <if test="costPrice != null" >
+        cost_price = #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAccount != null" >
+        store_account = #{storeAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.AccountGoods" >
+    update account_goods
+    set supplier_id = #{supplierId,jdbcType=INTEGER},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_code_suffix = #{goodsCodeSuffix,jdbcType=CHAR},
+      is_sell_product = #{isSellProduct,jdbcType=INTEGER},
+      cost_price = #{costPrice,jdbcType=DECIMAL},
+      goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      store_account = #{storeAccount,jdbcType=VARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,7 +1,12 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Select;
+
+import com.wordnik.swagger.annotations.Authorization;
+import com.zefun.web.dto.SupplierInfoDto;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.SupplierInfo;
 
@@ -64,5 +69,14 @@ public interface SupplierInfoMapper {
     * @return List<SupplierInfo>
      */
     List<SupplierInfo> selectByPropertyPage(Page<SupplierInfo> page);
+
+    /**
+     * 查询供应商对应品牌列表
+    * @author 高国藩
+    * @date 2016年5月28日 下午1:08:53
+    * @param storeAccount storeAccount
+    * @return             List<SupplierInfoDto>
+     */
+    List<SupplierInfoDto> selectInfoByAccount(SupplierInfo storeAccount);
 
 }

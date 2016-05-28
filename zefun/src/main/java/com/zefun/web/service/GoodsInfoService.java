@@ -27,6 +27,7 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.ShipmentRecordDto;
 import com.zefun.web.dto.SummaryResultDto;
+import com.zefun.web.dto.SupplierInfoDto;
 import com.zefun.web.dto.TrendDeptDataDto;
 import com.zefun.web.entity.CodeLibrary;
 import com.zefun.web.entity.DeptInfo;
@@ -40,6 +41,7 @@ import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.StoreShop;
+import com.zefun.web.entity.SupplierInfo;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -49,6 +51,7 @@ import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ShipmentRecordMapper;
+import com.zefun.web.mapper.SupplierInfoMapper;
 import com.zefun.web.vo.CardStoreSalesVo;
 import com.zefun.web.vo.CashStoreSalesVo;
 import net.sf.json.JSONArray;
@@ -100,6 +103,10 @@ public class GoodsInfoService {
     /** 会员等级操作对象 */
     @Autowired
     private MemberLevelMapper memberLevelMapper;
+    /** 供应商管理 */
+    @Autowired
+    private SupplierInfoMapper supplierInfoMapper;
+    
 
     /**
      * 获取品牌列表和商品列表
@@ -266,9 +273,11 @@ public class GoodsInfoService {
     * @author 洪秋霞
     * @date 2015年9月1日 下午2:53:23
     * @param goodsBrand 商品品牌
+    * @return BaseDto BaseDto
      */
-    public void editGoodsBrand(GoodsBrand goodsBrand) {
+    public BaseDto editGoodsBrand(GoodsBrand goodsBrand) {
         goodsBrandMapper.updateByPrimaryKeySelective(goodsBrand);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsBrand);
     }
 
     /**
@@ -276,9 +285,20 @@ public class GoodsInfoService {
     * @author 洪秋霞
     * @date 2015年9月1日 下午2:54:12
     * @param brandId 品牌id
+    * @return BaseDto BaseDto
      */
-    public void deleteGoodsBrand(Integer brandId) {
-        goodsBrandMapper.deleteByPrimaryKey(brandId);
+    public BaseDto deleteGoodsBrand(Integer brandId) {
+        GoodsInfo goodsInfo = new GoodsInfo();
+        goodsInfo.setBrandId(brandId.toString());
+        goodsInfo.setIsDeleted(0);
+        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
+        if (goodsInfos!=null && goodsInfos.size()>0){
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该品牌有商品关联"); 
+        }
+        else {
+            goodsBrandMapper.deleteByPrimaryKey(brandId);
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除成功"); 
+        }
     }
 
     /**
@@ -609,28 +629,19 @@ public class GoodsInfoService {
     * @param storeId    门店
     * @return 返回新增实体
      */
-    public BaseDto saveBrand(GoodsBrand goodsBrand, Integer storeId) {
-        List<GoodsBrand> brands = goodsBrandMapper.selectByStoreId(storeId);
-        for (int i = 0; i < brands.size(); i++) {
-            if (brands.get(i).getBrandName().equals(goodsBrand.getBrandName())){
-                return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该品牌已存在");
-            }
-        }
-        int ok = goodsBrandMapper.insertSelective(goodsBrand);
-        Page<GoodsBrandDto> page = new Page<>();
-        page.setPageNo(1);
-        page.setPageSize(5);
-        Map<String, Object> params = new HashMap<>();
-        params.put("brandId", goodsBrand.getBrandId());
-        page.setParams(params);
-        List<GoodsBrandDto> goodsBrands = goodsBrandMapper.selectByPage(page);
-        page.setResults(goodsBrands);
-        if (ok>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
+    public BaseDto saveBrand(GoodsBrand goodsBrand) {
+        goodsBrandMapper.insertSelective(goodsBrand);
+        Integer supplierId = goodsBrand.getSupplierId();
+        SupplierInfo supplierInfo = supplierInfoMapper.selectByPrimaryKey(supplierId);
+        String supplyBrand = supplierInfo.getSupplyBrand();
+        if (!StringUtils.isNotEmpty(supplyBrand)){
+            supplierInfo.setSupplyBrand(goodsBrand.getBrandId().toString());
         }
         else {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
+            supplierInfo.setSupplyBrand(supplierInfo.getSupplyBrand()+","+goodsBrand.getBrandId().toString()); 
         }
+        supplierInfoMapper.updateByPrimaryKeySelective(supplierInfo);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsBrand);
     }
 
     /**
@@ -1001,5 +1012,21 @@ public class GoodsInfoService {
      */
     public List<GoodsInfoDto> selectGoodsInfosByStoreIdAndNotPay(Integer storeId) {
         return goodsInfoMapper.selectAllGoodsInfoByStoreIdAndNotPay(storeId);
+    }
+
+    /**
+     * 
+    * @author 高国藩
+    * @date 2016年5月28日 下午12:12:09
+    * @param storeAccount
+    * @return
+     */
+    public ModelAndView viewSupplier(String storeAccount) {
+        SupplierInfo supplierInfo = new SupplierInfo();
+        supplierInfo.setStoreAccount(storeAccount);
+        List<SupplierInfoDto> supplierInfoDtos = supplierInfoMapper.selectInfoByAccount(supplierInfo);
+        ModelAndView view = new ModelAndView(View.GoodsInfo.SUPPLIER);
+        view.addObject("supplierInfoDtos", supplierInfoDtos);
+        return view;
     }
 }

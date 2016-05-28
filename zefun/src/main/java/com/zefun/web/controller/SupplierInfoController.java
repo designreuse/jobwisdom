@@ -123,19 +123,21 @@ public class SupplierInfoController extends BaseController {
     @RequestMapping(value = Url.SupplierInfo.SAVE_SUPPLIERINFO)
     @ResponseBody
     public BaseDto saveSupplierInfo(HttpServletRequest request, HttpServletResponse response, SupplierInfo supplierInfo) {
+        String storeAccount = getStoreAccount(request);
         try {
             if (supplierInfo.getSupplierId() == null) {
                 // 保存
                 supplierInfo.setStoreId(getStoreId(request));
                 supplierInfo.setThirtySales(0);
                 supplierInfo.setCreateTime(DateUtil.getCurTime());
+                supplierInfo.setStoreAccount(storeAccount);
                 supplierInfoService.saveSupplierInfo(supplierInfo);
-                return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+                return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, supplierInfo);
             }
             else {
                 // 编辑
                 supplierInfoService.editSupplierInfo(supplierInfo);
-                return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+                return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, supplierInfo);
             }
         }
         catch (Exception e) {

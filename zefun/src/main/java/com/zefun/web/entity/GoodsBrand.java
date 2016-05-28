@@ -23,8 +23,20 @@ public class GoodsBrand {
 
 	/** 最后操作人标识 */
 	private Integer lastOperatorId;
+	
+	/** 供应商标示*/
+	private Integer supplierId;
 
-	/** @param brandId	类别标识 */
+	
+	public Integer getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    /** @param brandId	类别标识 */
 	public void setBrandId(Integer brandId){
 		this.brandId = brandId;
 	}
