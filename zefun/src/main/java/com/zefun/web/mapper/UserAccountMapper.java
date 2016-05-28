@@ -113,7 +113,7 @@ public interface UserAccountMapper {
 	int insertlist(EmployeeDto list);
 
 	/**
-	 * 根据门店id查询单店的用户账号
+	 * 根据门店id查询门店操作员账号
 	 *
 	 * @author gebing
 	 * @date 2015年12月4日

@@ -386,4 +386,5 @@
     from store_info 
     where store_account =  #{storeAccount,jdbcType=VARCHAR} 
   </select>
+  
 </mapper>

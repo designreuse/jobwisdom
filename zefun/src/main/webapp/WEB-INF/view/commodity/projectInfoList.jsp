@@ -23,10 +23,10 @@
 <script>
  jQuery(function(){
     jQuery('.left_1').click(function(){
-       jQuery('.alertPanel').animate({
+       jQuery('.alertPanel').stop(true,true).animate({
     	    right:'0'
        })
-       jQuery('.left_1').animate({
+       jQuery('.left_1').stop(true,true).animate({
     	    right:'331'
        },function(){
     	   jQuery(this).addClass('b');
@@ -36,11 +36,11 @@
     });
     jQuery(document).on('click','.b',function(){
     	
-    	 jQuery('.alertPanel').animate({
+    	 jQuery('.alertPanel').stop(true,true).animate({
            right:'-331'
         });
     	 
-    	 jQuery('.left_1').animate({
+    	 jQuery('.left_1').stop(true,true).animate({
      	    right:'0'
          },function(){
      	   jQuery(this).removeClass('b');
@@ -63,7 +63,7 @@
 				<!--headerpanel-->
 				<div class="write_input">
 					<!-- <div class="div1">编辑</div> -->
-					<a href="<%=basePath%>project/view/projectList"><div class="write_5" style="background: white; float: left; top: 0px !important; left: 20px !important; width: 100px !important">
+					<a href="<%=basePath%>project/view/projectList"><div class="write_5" style="color:black;background: white; float: left; top: 0px !important; left: 20px !important; width: 100px !important">
 						<span class="add_step" style="position: relative; left: -10px">+</span>新增
 					</div></a>
 				</div>

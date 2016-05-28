@@ -32,7 +32,7 @@ input,button,select,textarea{outline:none}
     background: white;
     text-align: center;
     line-height: 35px;
-    color: #dddddd;
+    
     box-shadow: 0px 6px 10px #ccc;
     border: none;
 	
@@ -51,7 +51,7 @@ input,button,select,textarea{outline:none}
     text-align: center;
     line-height: 36px;
     cursor: pointer;
-    color: #afb0b6;
+   
     position: relative;
     top: 60px;
     left: 20px;}
@@ -59,20 +59,20 @@ input,button,select,textarea{outline:none}
 .textarea{height:100px;border:1px solid #ccc;position:relative;top: -20px!important;width:220px!important;
     left: 120px!important;}
 
-
+.rightpanel .left_1{background:url('../images/rotate.png') no-repeat;position:absolute;height:257px;width:50px;z-index:2;right:0;top:300px}
 .zzc{position: fixed; top: 0px;  height:1090px;left: 0px; width: 100%; z-index: 10000; background:rgba(102, 108, 121, 0.8);display:none}
  .save_{
-	height:30px;width:100px;border-radius:10px;box-shadow:0 0 20px #ccc;background:white;border:none;color:#afb0b6
+	height:30px;width:100px;border-radius:10px;box-shadow:0 0 20px #ccc;background:white;border:none;color:black
 	
 }
-
+.left_1 img{position:relative;top:95px;left:10px}
 .step_1{
 	margin-top:40px;
 	display:none
 	
 }
 .button_1,.button_2{
-	border:none;width:100px;height:30px;text-align:center;line-height:30px;margin-left:900px;margin-top:20px;background:white;box-shadow:0 0 15px #ccc;border-radius:10px;color:#ccc;
+	border:none;width:100px;height:30px;text-align:center;line-height:30px;margin-left:900px;margin-top:20px;background:white;box-shadow:0 0 15px #ccc;border-radius:10px;
 	
 }
 .editor{cursor:pointer}
@@ -86,7 +86,7 @@ input[type=radio] {
 .width_{display:inline-block;width:120px}
 .price_{display:inline-block;width:100px}
 .step_1  select{border:none;width:80px;}
-.step_1 td{width:100px;   border-bottom:1px solid #ccc;border-right:1px solid #fff
+.step_1 td{width:100px;   border-bottom:1px solid #ccc;border-right:1px solid #fff;line-height:40px;text-align:center
  }
 .cut_step_1,.cut_step_3{border:none!important}
 .step_1 input{border:none;width:80px}
@@ -105,7 +105,7 @@ input[type=radio] {
    
 }
 .table_s td{border-right:none!important;border-left:none!important;    border-right: none!important;
-    border-left: none!important;}
+    border-left: none!important;border:1px solid #ccc;vertical-align:middle;text-align:center}
 .table_s{margin-left:20px;line-height:40px;width:1030px}
 .table_s{border:1px solid #dbdce2;box-shadow:0 0 10px #ccc}
 .table_s tr{color:#383e52}
@@ -117,17 +117,22 @@ input[type=radio] {
 	
 	.table_ td{
 		width:130px;
-    box-shadow: 0 0 2px #ccc;
+   border:1px solid #ccc;
+    line-height:40px;
+    text-align:center
 	}
-.cash{margin-left:35px;width:400px;margin-top:30px;background:white;position:relative;z-index:10;height:300px;padding:20px;display:none;color:#afb0b6}
-.color_{color:#afb0b6}
+.cash{margin-left:35px;width:400px;margin-top:30px;background:white;position:relative;z-index:10;height:300px;padding:20px;display:none;color:black}
+
 
 
 
 
 .column_img_container{background:url('../images/back.png') no-repeat;padding-top:10px;padding-bottom:10px;background-size:210px 210px;height:190px;cursor:pointer}
 .column_img_container:hover{background:url('../images/back_.png');box-shadow:0 0 30px #ccc}
-.head_pic img{height:60px;width:60px}
+.head_pic img{height:60px;width:60px; transition: transform 1s ease-out;overflow:hidden;border-radius:30px}
+.head_pic img:hover{
+	transform: rotate(360deg);
+}
 .head_pic{height:60px;width:60px;border-radius:30px;overflow:hidden;box-shadow:0 0 20px #ccc;margin:15px auto}
 .shop_number li{width:93px;text-align:center;float:left;}
 .head_pic em img{height:20px;width:20px}	
@@ -155,7 +160,7 @@ em{font-style:normal}
 .write_input{position:relative;left:746px;color: #afb0b6;top:36px}
 
 
-.alertPanel{ background-color:rgba(105,111,124,0.9);position:absolute;bottom:0;right:0;color:white;height:750px;width:292px;z-index:10000;padding:10px 20px}
+.alertPanel{ background-color:rgba(105,111,124,0.9);position:absolute;bottom:0;right:0;color:white;height:750px;width:292px;z-index:10000;padding:10px 20px;right:-332px}
 .part_panel p{color:#dfe0e2;font-size:14px}
 .part_panel dt{margin:15px 40px 10px 40px}
 .part_panel dd{    width: 110px;
@@ -200,7 +205,7 @@ em{font-style:normal}
 .add_pic{width:400px}
 #clipArea {
     
-    height: 600px;
+    height: 500px;
 
 	}
 	#view {
@@ -215,7 +220,7 @@ em{font-style:normal}
     height: 102px;
     width: 102px;
 }
-.photo_cut{width:800px;margin:0 auto;position:relative}
+.photo_cut{width:700px;margin:20px auto;position:relative}
 .selectpic,.sureinput,.cancelinput{width:100px;height:40px;border:none;cursor:pointer}
 .button_panel{background:#dceceb;height:60px;line-height:60px}
 .button_panel{text-align:center}

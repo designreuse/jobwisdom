@@ -38,14 +38,15 @@ jQuery(function(){
 
 //提示气泡
 jQuery(function(){
-	jQuery('.left_detail span').hover(function(){
-	jQuery(this).find('em').stop(true,true).fadeIn('normal');
+	jQuery('.left_detail span a').hover(function(){
+	jQuery(this).parent().find('em').stop(true,true).fadeIn('normal');
 	},function(){
-	  jQuery(this).find('em').stop(true,true).fadeOut('normal');
+	  jQuery(this).parent().find('em').stop(true,true).fadeOut('normal');
 	});
 }) 
 
 function addStore() {
+	jQuery("#userName").val(new Big(10000).plus(new Big(alreadyStoreNum)).plus(new Big(1)));
 	jQuery("#addOrUpdateStore").show();
 }
 
@@ -225,10 +226,11 @@ function updateAuthority (obj, storeAuthorityId, storeId, employeeId, authorityV
 }
 
 function editStore (storeId) {
+	jQuery("#addOrUpdateStore").show();
 	jQuery.ajax({
         cache: true,
         type: "POST",
-        url: baseUrl + "storeinfo/action/addOrUpdateAuthority",
+        url: baseUrl + "storeinfo/action/selectStoreInfo",
         data: "storeId=" + storeId,
         async: false,
         success: function(data) {
@@ -236,18 +238,21 @@ function editStore (storeId) {
                 dialog(data.msg);
                 return;
             }
-        	var objData = data.msg;
-        	if (!isEmpty(storeAuthorityId)) {
-        		jQuery(authorityObj).parent().parent().remove();
-        	}
-        	jQuery("#authorityTable").append("<tr>"+
-											   "<td>"+objData.storeName+"</td>"+
-											   "<td>"+objData.authorityValue+"</td>"+
-											   "<td>"+objData.employeeCode+" "+objData.name+"</td>"+
-											   "<td>"+objData.createTime+"</td>"+
-											   "<td><em onclick='updateAuthority(this, "+objData.storeAuthorityId+", "+objData.storeId+", "+objData.employeeId+", \'"+objData.authorityValue+"\')''>修改</em></td>"+
-											"</tr>");
-        	dialog("新增授权码成功");
+        	var obj = data.msg;
+        	var storeInfo = obj.storeInfo;
+        	var userName = obj.userName;
+      
+        	imgKey = storeInfo.storeLogo;
+        	jQuery("img[name='affiliatedImage']").attr("src", qiniuUrl + storeInfo.storeLogo);
+        	jQuery("img[name='affiliatedImage']").attr("affiliatedImage", storeInfo.storeLogo);
+        	jQuery("#storeName").val(storeInfo.storeName);
+        	jQuery("#storeTel").val(storeInfo.storeTel);
+        	jQuery("#storeLinkname").val(storeInfo.storeLinkname);
+        	jQuery("#storeLinkphone").val(storeInfo.storeLinkphone);
+        	jQuery("#city-picker3").val(storeInfo.storeProvince + "/" + storeInfo.storeCity);
+        	jQuery("#searchtext").val(storeInfo.storeAddress);
+        	jQuery("#userName").val(userName);
+        	jQuery("input[name='storeId']").val(storeInfo.storeId);
         }
     });
 }
@@ -474,7 +479,9 @@ function saveStoreInfo(){
 	var street = jQuery("#searchtext").val();
 	
 	var userName  = jQuery("#userName").val();
-	var userPwd  = jQuery("#userPwd").val();
+	var userPwd  = "123456";
+	
+	var storeId = jQuery("input[name='storeId']").val();
 	
 	userPwd = CryptoJS.MD5(CryptoJS.MD5(userPwd).toString().toUpperCase()).toString().toUpperCase();
 	
@@ -535,7 +542,7 @@ function saveStoreInfo(){
 		dialog("店铺坐标获取失败，请刷新页面重新选取位置");
 		return;
 	} */
-	var data = "storeLogo=" + storeLogo + "&storeName=" + storeName + "&storeTel=" + storeTel + "&storeAddress=" + storeAddress + "&storeProvince=" + storeProvince + "&storeCity=" + storeCity
+	var data = "storeId="+storeId+"&storeLogo=" + storeLogo + "&storeName=" + storeName + "&storeTel=" + storeTel + "&storeAddress=" + storeAddress + "&storeProvince=" + storeProvince + "&storeCity=" + storeCity
 		+ "&storeLinkname=" + storeLinkname + "&storeLinkphone=" + storeLinkphone +"&userName=" + userName + "&userPwd="+userPwd;
 	submit(data, "保存成功，已更新您的店铺信息");
 }
@@ -550,7 +557,7 @@ function submit(data, msg){
         async: false,
         success: function(data) {
         	if (data.code != 0) {
-                dialog(e.msg);
+                dialog(data.msg);
                 return;
             }
         	dialog(msg);

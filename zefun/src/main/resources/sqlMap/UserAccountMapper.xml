@@ -114,7 +114,7 @@
     select
     <include refid="Base_Column_List" />
     from user_account
-    where store_id = #{storeId,jdbcType=INTEGER} and role_id = 103
+    where store_id = #{storeId,jdbcType=INTEGER} and role_id = 2
   </select>
     <select id="selectChainStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select

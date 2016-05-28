@@ -80,7 +80,8 @@
 .left_detail p{padding-left:30px}
 .left_detail select{width:130px;height:22px;border-radius:16px;}
 .left_detail>p{font-size:16px;margin-bottom:12px}
-.left_detail span{color:red;cursor:pointer;position:relative}
+.left_detail span{position:relative}
+.left_detail span a{color:red;cursor:pointer;position:relative}
 .left_detail em{display:inline-block;width:107px;height:63px;background:url('../images/pay_saying.png') no-repeat;   position: absolute;background-size:100%;
     top: -58px;
     left: -50px;font-size:10px;color:#2c2a2a;display:none}
@@ -112,7 +113,7 @@
 	color:red
 }
 .add_balance_button button{height:26px;width:130px;text-align:center;line-height:26px;color:white;border-radius:8px;border:none;background:#59688a;margin-right:50px}
-.add_balance_button {width:370px;margin:0 auto}
+.add_balance_button {width:370px;margin:0 auto;text-align:center}
 .add_balance_button button:hover{background:#3a4660}
 
 .add_balance_content>p{height:40px;font-size:14px}
@@ -135,8 +136,9 @@
 
 .assigned_table_span input,.assigned_table_span select{width:100px;height:20px;border-radius:15px;border:1px solid black}
 .assigned_table_span em{display:inline-block;width:70px}
-.assigned_table_span{display:inline-block;margin-right:100px;color:black;height:50px;float:none!important}
-.assigned_table_price_{color:black;margin:100px 0 0 30px;font-size:14px}
+.assigned_table_span{display:inline-block;margin-right:100px;color:black;height:50px;float:none!important;margin-top:15px}
+.assigned_table_price_{color:black;margin:35px 0 0 30px;font-size:14px}
+.assigned_table_span select{border-radius:8px!important}
 .assigned_table_price_ em{color:red;font-size:16px}
 .assigned_table_sure_button{position:relative;top:46px}
 

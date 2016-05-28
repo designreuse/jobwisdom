@@ -95,7 +95,7 @@
 						    <div class="left_detail">
 						     <p>授权码<p>
 							 <input type="text" name = "authorityValue" class = ""  style="width: 130px;height: 22px;">
-							  <span>*
+							  <span><a href="javascript:;">*</a>
 							    <em><i>请输入6位密码，
 				数字和字母组合。</i></em>
 							  </span>
@@ -176,7 +176,7 @@
 		   <div id="preview"><img border=0 affiliatedImage="" name="affiliatedImage" src="<%=qiniuPath%>system/profile/set_img.png" width="180" height="180" /></div>
 
 		  <P>*此logo用于移动端店铺介绍页面</P>
-	      <input type="text" class = "hide" name = "affiliated" style="width: 80px; height: 80px;top: -124px;opacity:0;cursor:pointer"/>
+	      <input type="text" class = "hide" name = "storeId" style="width: 80px; height: 80px;top: -124px;opacity:0;cursor:pointer"/>
 	     
 		<div class="set_name">
 		 <div class="shop_name_">
@@ -202,19 +202,15 @@
 	  <div class="content_right_">
 	     <P class="shop_address_">店铺地址</P>   
 		 <div class="select_city">
-		     <input id="city-picker3" class="form-control" readonly type="text" value="${storeInfo.storeProvince}/${storeInfo.storeCity}" data-toggle="city-picker">
+		     <input id="city-picker3" class="form-control" readonly type="text" value="" data-toggle="city-picker">
 		     
 		     <div class="detail_address">
 			   <div>详细地址</div>
 			   <textarea style="height:86px;margin-top:10px;border-radius:8px;width:220px" id = "searchtext"></textarea>
 			 </div>
 			 <div class="detail_address">
-			   <div>操作员工号</div>
-			   <input type="text" id = "userName">         		   
-			 </div>
-			 <div class="detail_address">
-			   <div>操作员密码</div>
-			   <input type="text" id = "userPwd">         		   
+			   <div>操作员工号<em style="color:red;font-size:16px;font-weight:bold;display:inline-block;margin-left:4px">1007</em></div>
+			  <!--  <input type="text" id = "userName" readonly>  -->       		   
 			 </div>
 		 
 		 </div>
@@ -319,13 +315,13 @@
 	  <div class="assigned_table" style="overflow:visible">
 	    <span class="assigned_table_span"><em>当前版本</em><em name = "enterpriseEditionUpgradeRenew">${enterpriseAccount.enterpriseEdition }</em></span>
 		<span class="assigned_table_span" style="margin:0"><em>到期时间</em><em name = "finishTimeUpgradeRenew">${enterpriseAccount.finishTime }</em></span>
-		<span class="assigned_table_span">
+		<span class="assigned_table_span" style="margin-right:20px">
 		    <em>升级版本</em>
 		    <select name = "upgradeValue" onchange="updateUpgradeValue(this)">
 		       <option value="0" >选择版本</option>
 		    </select>
 		</span>
-		<span class="assigned_table_span">
+		<span class="assigned_table_span" >
 		   <em>续加时间</em>
 		   <select name = "renewDate" onchange="updateUpgradeValue(this)">
 		      <option value="0">选择时常</option>
@@ -336,9 +332,9 @@
 		      <option value="5">5年</option>
 		   </select>
 		</span>
-		<span class="assigned_table_span"  style="margin:0">
+		<span class="assigned_table_span"  style="margin:0;position:relative;top:104px;left:350px;font-size:14px">
 		   <em>缴费金额</em>
-		   <em name = "payableEM">0.00</em>
+		   <em name = "payableEM" style="color:red;font-size:16px;">0.00</em>
 		   <i style="position:relative;left:-25px">元</i>
 	    </span>
 	    
@@ -362,7 +358,7 @@ var storeEmployeeListStr =  '${storeEmployeeListStr}';
 var storeEmployeeList = eval("(" + storeEmployeeListStr + ")");
 
 var enterpriseEdition = '${enterpriseAccount.enterpriseEdition }';
-
+var alreadyStoreNum = '${enterpriseAccount.alreadyStoreNum}';
 var priceMoneyOrTimeStr = '${priceMoneyOrTimeStr}';
 var priceMoneyOrTime = eval("(" + priceMoneyOrTimeStr + ")");
 </script>
