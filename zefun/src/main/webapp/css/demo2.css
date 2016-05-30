@@ -1,4 +1,4 @@
-.add_store_content{width:950px;color:black;height:705px}
+.add_store_content{width:910px;color:black;height:1115px}
 .add_store_button{float:left;width:400px}
 .add_store_button button{width:120px;height:30px;text-align:center;line-height:30px;color:white;border-radius:15px;border:none;background:#59688a;font-size:16px;margin-right:10px}
 .add_store_button button:hover{
@@ -46,18 +46,18 @@
 .set_content{width:676px;height:565px;margin: 50px auto;background:white}
 
 .new_shop{height:56px;line-height:56px;text-align:center;color:white;font-size:16px;background:#323b4e}
-
-.select_city{width:200px;margin-left:50px;position:relative}
+.shop_address_{font-size:14px}
+.select_city{width:200px;margin-left:50px}
 .detail_address{margin-top:25px}
 .select_city input{border-radius:8px}
 .detail_address input{margin-top:10px}
 
-.add_store_back li{width:40px;height:166px;background:url('../images/add_store_back.png') no-repeat;cursor:pointer}
-.add_store_back .active{width:40px;height:166px;background:url('../images/add_store_back_1.png') no-repeat;color:white!important}
-.add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:10px;font-size:16px;}
+.add_store_back li{width:40px;height:251px;background:url('../images/add_store_back.png') no-repeat;cursor:pointer;background-size:40px 251px}
+.add_store_back .active{width:40px;height:251px;background:url('../images/add_store_back_1.png') no-repeat;color:white!important;background-size:40px 251px}
+.add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:16px;}
 .add_store_back {float:left}
 .add_store_div{width:1000px;margin:70px auto}
-.add_store_content{float:left;border:1px solid black}
+.add_store_content{float:left;border:1px solid black;padding:20px;border-radius: 0 0 10px 10px}
 .add_store_span_1{float:right}
 .add_store_span_1 span{color:red;font-size:16px}
 .add_store_span_1{font-size:14px}
@@ -80,8 +80,7 @@
 .left_detail p{padding-left:30px}
 .left_detail select{width:130px;height:22px;border-radius:16px;}
 .left_detail>p{font-size:16px;margin-bottom:12px}
-.left_detail span{position:relative}
-.left_detail span a{color:red;cursor:pointer;position:relative}
+.left_detail span{color:red;cursor:pointer;position:relative}
 .left_detail em{display:inline-block;width:107px;height:63px;background:url('../images/pay_saying.png') no-repeat;   position: absolute;background-size:100%;
     top: -58px;
     left: -50px;font-size:10px;color:#2c2a2a;display:none}
@@ -113,7 +112,7 @@
 	color:red
 }
 .add_balance_button button{height:26px;width:130px;text-align:center;line-height:26px;color:white;border-radius:8px;border:none;background:#59688a;margin-right:50px}
-.add_balance_button {width:370px;margin:0 auto;text-align:center}
+.add_balance_button {width:370px;margin:0 auto}
 .add_balance_button button:hover{background:#3a4660}
 
 .add_balance_content>p{height:40px;font-size:14px}
@@ -136,10 +135,99 @@
 
 .assigned_table_span input,.assigned_table_span select{width:100px;height:20px;border-radius:15px;border:1px solid black}
 .assigned_table_span em{display:inline-block;width:70px}
-.assigned_table_span{display:inline-block;margin-right:100px;color:black;height:50px;float:none!important;margin-top:15px}
-.assigned_table_price_{color:black;margin:35px 0 0 30px;font-size:14px}
-.assigned_table_span select{border-radius:8px!important}
+.assigned_table_span{display:inline-block;margin-right:100px;color:black;height:50px;float:none!important}
+.assigned_table_price_{color:black;margin:100px 0 0 30px;font-size:14px}
 .assigned_table_price_ em{color:red;font-size:16px}
 .assigned_table_sure_button{position:relative;top:46px}
 
 .assigned_table_sure_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;border-radius}
+
+
+
+
+.add_store_sale{border-radius:10px;background:#d8deed;height:94px;padding:5px 20px}
+.add_store_sale span{display:inline-block;width:288px;height:50px;font-size:14px;}
+.add_store_sale span select{width:120px;height:22px;border:1px solid black;border-radius:10px!important;padding-left:30px}
+.add_store_sale span em{display:inline-block;width:100px}
+.add_pic_{
+	margin-top:20px
+}
+.add_pic_ p{font-size:16px;color:black}
+.add_pic_ ul{border-radius:10px;background:#d8deed;margin-top:10px}
+.add_pic_ ul li em img{width:150px}
+.add_pic_ ul li{width:150px;height:150px;position:relative;float:left;margin: 15px 43px 10px 34px;}
+.add_pic_ ul li span{position:absolute;right:-5px;top:-5px}
+
+.item_saying{margin-top:20px;}
+.item_saying p{font-size: 14px;
+    color: black;margin-bottom:10px;margin-left:10px}
+	
+.textarea1{
+	height:450px;background:#d8deed;
+	border-radius:10px
+}
+.textarea1 textarea	{
+	height:380px;
+	width:550px;
+	margin:10px;
+	border-radius:10px;
+	border:1px solid black;
+	overflow:overlay
+}
+.left_nav_2 ul{
+	height:1300px!important
+}
+.left_nav{
+	height:1300px!important
+}
+.item_button{text-align:center;margin-top:50px}
+.item_button button{width:130px;height:28px;color:white;border:none;border-radius:10px;text-align:center;line-height:28px;color:white;background:#59688a;margin-right:80px}
+.shop_price{height:100px;border-radius:10px;background:#d8deed;padding: 5px 20px;font-size:14px;color:black}
+.shop_price_1 input,.shop_price_2 span input{height:22px;width:120px;border-radius:12px!important;margin-left:26px;border:1px solid black;padding-right:20px}
+.shop_price_1 span,.shop_price_2 span{display:inline-block;position:relative}
+.shop_price_1 em,.shop_price_2 span em{position:absolute;right:10px;top:5px;color:#737373}
+.shop_price_2{margin-top:30px}
+.shop_price_2 i{display:inline-block;margin:0 20px 0 55px}
+.shop_price_2 i input{margin-right:15px}
+.percentage >p{font-size:16px;color:black;margin-top:20px}
+.percentage_content{border-radius:8px;    padding: 5px 20px;font-size:14px;background:#d8deed;height:60px;margin-top:10px}
+.percentage_content span{display:inline-block;margin-left:25px}
+.percentage_content span input{margin-right:10px}
+.item_button button:hover{background:#3c4861}
+
+.percentage span input[type='text'] {
+    height: 22px;
+    width: 120px;
+    border-radius: 12px!important;
+    margin-left: 26px;
+    border: 1px solid black;
+    padding-right: 20px;
+}
+.percentage span em {
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    color: #737373;
+}
+.vip_price{margin-top:20px}
+.vip_price>p{font-size:16px;color:black;margin-bottom:10px}
+.vip_roll{background:white;position:relative;border-radius:10px}
+.left_click{position:absolute;z-index:2;top:25px}
+.right_click{position:absolute;z-index:2;top:25px;right:8px}
+.right_click img,.left_click img{width:40px}
+.vip_price_content{font-size:14px;background:#d8deed;padding: 5px 20px 20px 20px;border-radius:10px}
+.vip_price_content input{width:70px;border:1px solid black;border-radius:8px;margin:0 5px;height:16px}
+.roll_ul{height:115px;width:820px;overflow:hidden;border-radius:10px;margin-top:4px;position:relative;}
+.roll_ul ul{width:4000px;position:relative}
+.roll_ul li{border:1px solid black;width:150px;height:90px;border-radius:10px;margin:15px 35px 15px 0;float:left}
+.roll_ul li select{width:70px;height:12px;border-radius:10px;border:1px solid black}
+.roll_ul li input{height:12px!important}
+.roll_ul ul{margin-left:40px}
+.roll_ul li p{margin-top:5px}
+.li_button{text-align:center;margin-top:5px}
+.li_button button{border:none;width:50px;height:22px;text-align:center;line-height:22px;border-radius:8px;color:white;background:#59688a;margin-right:5px}
+.demo2_button{text-align:center;margin-top:25px}
+.demo2_button button{border:none;width:130px;height:26px;text-align:center;line-height:26px;color:white;border-radius:8px;background:#59688a;color:white;margin-right:25px}
+.demo2_button button:hover{background:#475473}
+.add_store_back li i{display:inline-block;width:17px;height:8px}
+.textarea_text p{text-indent:1em;line-height:26px}

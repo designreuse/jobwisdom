@@ -1940,7 +1940,7 @@ public class MemberCenterService {
     * @return        页面
      */
     public ModelAndView onlionShopView(Integer storeId) {
-        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByStoreId(storeId);
+        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByStoreIdIsOnLion(storeId);
         
         StoreShop storeShop = new StoreShop();
         storeShop.setStoreId(storeId);

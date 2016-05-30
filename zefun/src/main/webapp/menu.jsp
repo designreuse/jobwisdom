@@ -92,6 +92,7 @@
 			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span><img src="<%=basePath%>images/left0.png">项目管理</span></li></a>
 			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span><img src="<%=basePath%>images/left1.png">套餐管理</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span><img src="<%=basePath%>images/left2.png">商品列表</span></li></a>
+			<a href="<%=menuBasePath%>goods/info/setting"><li class=""><span><img src="<%=basePath%>images/left2.png">商品设置</span></li></a>
 		</ul>
 		<ul index="5">
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsStockList"><li class="active"><span><img src="<%=basePath%>images/left3.png">商品库存</span></li></a>
@@ -99,6 +100,7 @@
 			<a href="<%=menuBasePath%>goodsInfo/view/shipment/record"><li><span><img src="<%=basePath%>images/left5.png">出货管理</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/brand"><li><span><img src="<%=basePath%>images/left5.png">商品品牌</span></li></a>
 			<a href="<%=menuBasePath%>supplierInfo/view/supplierInfoList"><li><span><img src="<%=basePath%>images/left5.png">供应商管理</span></li></a>
+			<a href="<%=menuBasePath%>view/storeAccount/suplier"><li><span><img src="<%=basePath%>images/left5.png">供应商管理</span></li></a>
 		</ul>
 		<ul index="6">
 			<a href="<%=menuBasePath%>position/view/positioninfo"><li class=""><span><img src="<%=basePath%>images/left0.png">组织架构</span></li></a>

@@ -688,9 +688,9 @@ public class WechatCallService {
             EnterpriseAccountFlow enterpriseAccountFlow = new EnterpriseAccountFlow();
             enterpriseAccountFlow.setBusinessType("充值");
             enterpriseAccountFlow.setEnterpriseAccountId(rechargeRecord.getEnterpriseAccountId());
-            enterpriseAccountFlow.setBalanceAmount(enterpriseAccount.getBalanceAmount().intValue());
-            enterpriseAccountFlow.setFlowAmount(rechargeRecord.getRechargeAmount().intValue());
-            enterpriseAccountFlowMapper.insert(enterpriseAccountFlow);
+//            enterpriseAccountFlow.setBalanceAmount(enterpriseAccount.getBalanceAmount().intValue());
+//            enterpriseAccountFlow.setFlowAmount(rechargeRecord.getRechargeAmount().intValue());
+//            enterpriseAccountFlowMapper.insert(enterpriseAccountFlow);
             
         }
     }

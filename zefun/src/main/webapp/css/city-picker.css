@@ -54,7 +54,7 @@
 .city-picker-dropdown {
     position: absolute;
     width: 315px;
-    left: -95px!important;
+    left: -85px!important;
     top: -15px!important;
     outline: 0;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

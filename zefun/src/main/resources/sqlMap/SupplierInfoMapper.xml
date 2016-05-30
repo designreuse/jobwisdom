@@ -31,7 +31,7 @@
     delete from supplier_info
     where supplier_id = #{supplierId,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.zefun.web.entity.SupplierInfo" useGeneratedKeys="true" keyProperty="supplier_id">
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.SupplierInfo" useGeneratedKeys="true" keyProperty="supplierId">
     insert into supplier_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="supplierId != null" >
@@ -76,6 +76,9 @@
       <if test="lastOperatorId != null" >
         last_operator_id,
       </if>
+      <if test="storeAccount != null" >
+        store_account,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="supplierId != null" >
@@ -119,6 +122,9 @@
       </if>
       <if test="lastOperatorId != null" >
         #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -214,4 +220,38 @@
       </if>
   </select>
   
+  <resultMap type="com.zefun.web.dto.SupplierInfoDto" id="selectInfoByAccount">
+  	<id column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="supply_brand" property="supplyBrand" jdbcType="VARCHAR" />
+    <result column="supply_brand_str" property="supplyBrandStr" jdbcType="VARCHAR" />
+    <result column="supply_category" property="supplyCategory" jdbcType="VARCHAR" />
+    <result column="supply_category_str" property="supplyCategoryStr" jdbcType="VARCHAR" />
+    <result column="link_name" property="linkName" jdbcType="VARCHAR" />
+    <result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
+    <result column="thirty_sales" property="thirtySales" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+    <association property="brands" column="{goodsBrandIds=supply_brand}" select="selectGoodsBrandBySupplier"></association>
+  </resultMap>
+  
+  <resultMap type="com.zefun.web.entity.GoodsBrand" id="selectBrandByAccount">
+  	<id column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="selectInfoByAccount" parameterType="com.zefun.web.entity.SupplierInfo" resultMap="selectInfoByAccount">
+  	SELECT * FROM supplier_info where store_account = #{storeAccount} and is_deleted = 0
+  </select>
+  <select id="selectGoodsBrandBySupplier" parameterType="java.util.Map" resultMap="selectBrandByAccount">
+    select * from goods_brand where brand_id in (${goodsBrandIds})
+  </select>
 </mapper>

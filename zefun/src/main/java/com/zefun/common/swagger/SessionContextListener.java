@@ -1,11 +1,15 @@
 package com.zefun.common.swagger;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-
 import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextListener;
+import com.zefun.common.consts.App;
 
 /**
  * session容器实例化
@@ -26,7 +30,10 @@ public class SessionContextListener extends RequestContextListener implements Ht
 
     @Override
     public void requestDestroyed(ServletRequestEvent requestEvent) {
-        // TODO Auto-generated method stub
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("localAddr", requestEvent.getServletRequest().getLocalAddr());
+        params.put("remoteAddr", requestEvent.getServletRequest().getRemoteAddr());
+//        logger.info(JSONObject.fromObject(params).toString());
         super.requestDestroyed(requestEvent);
     }
 
@@ -37,9 +44,10 @@ public class SessionContextListener extends RequestContextListener implements Ht
 
     @Override
     public void sessionDestroyed(HttpSessionEvent e) {
-        e.getSession().getLastAccessedTime();
+        ServletContext application  = e.getSession().getServletContext();
+        application.removeAttribute(e.getSession().getAttribute(App.Session.USER_ID).toString());
+        logger.info("{" + e.getSession().getId() + " : invalidate()}");
         e.getSession().invalidate();
-        logger.info("session Destroy and id is :" + e.getSession().getId());
     }
     
 }

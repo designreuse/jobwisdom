@@ -40,8 +40,18 @@ public class SupplierInfo {
 
 	/** 修改时间 */
 	private String updateTime;
+	
+	/** 企业代号*/
+	private String storeAccount;
 
-	/** 是否删除(0:未删除,1:已删除) */
+	public String getStoreAccount() {
+        return storeAccount;
+    }
+    public void setStoreAccount(String storeAccount) {
+        this.storeAccount = storeAccount;
+    }
+
+    /** 是否删除(0:未删除,1:已删除) */
 	private Integer isDeleted;
 
 	/** 最后操作人标识 */

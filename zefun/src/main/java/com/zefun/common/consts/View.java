@@ -393,6 +393,8 @@ public interface View {
 	class GoodsInfo {
 		/** 商品列表页面 */
 		public static final String GOODSINFO = "commodity/goodsInfoList";
+		/** 设置商品详情 */
+        public static final String SETTING_GOODS = "commodity/goodsSetting";
 		/** 商品库存页面 */
 		public static final String GOODSSTOCK = "commodity/goodsStock";
 		/** 商品出货记录 */
@@ -403,6 +405,8 @@ public interface View {
 		public static final String GOODS_PURCHASE_RECORDS = "commodity/purchaseRecords";
 		/** 商品设置页面 */
         public static final String GOODSETTING = "commodity/goodsInfoSetting";
+        /** 供应商管理 */
+        public static final String SUPPLIER = "commodity/supplier";
 	}
 
 	/**
