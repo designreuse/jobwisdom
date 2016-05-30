@@ -27,42 +27,58 @@
 	   </div>
 	   
 	   <div class="pull_mould_content_part clearfix">
-	     <div class="part_1">
-		    <c:forEach items="${list}" var="listlist">
-		        <div class="hair_part">
-			      ${listlist.deptCode}&nbsp;&nbsp;&nbsp;&nbsp;${listlist.deptName}
+	     <div class="part_1" id = "deptDIV">
+		    <c:forEach items="${list}" var="listlist" varStatus="deptIndex">
+		        <div class="hair_part <c:if test="${deptIndex.index == 0 }">active</c:if>" deptId = "${listlist.deptId}">
+			      <i name = "nameValue" onclick="chooseDept(${listlist.deptId}, this)">${listlist.deptCode}&nbsp;&nbsp;&nbsp;&nbsp;${listlist.deptName}</i>
 				  <em><img src="<%=basePath%>images/pull_down.png"></em>
 				  <ul class="part_ul">
-					  <li onclick="updatedept('${listlist.deptId}','${listlist.deptName}','${listlist.deptCode}','${listlist.isResults}',this)"><img src="<%=basePath%>images/handle_2.png"></li>
-					  <li onclick="deletedept(${listlist.deptId},this)"><img src="<%=basePath%>images/handle_1.png"></li>
+					  <li onclick="updatedept('${listlist.deptId}','${listlist.deptName}','${listlist.deptCode}','${listlist.isResults}',this)"><img src="<%=basePath%>images/handle_1.png"></li>
+					  <li onclick="deletedept(${listlist.deptId},this)"><img src="<%=basePath%>images/handle_2.png"></li>
 				   </ul>
 			    </div>
 		    </c:forEach>
 			<div class="part_add" id="search-member" onclick="addDept()"><img src="<%=basePath%>images/money_add.png"></div>
 		 </div>
 		 
-		   <div class="part_1">
-		    <div class="hair_part">
-		                  美发部
-			  <em><img src="<%=basePath%>images/pull_down.png"></em>
-			  <ul class="part_ul">
-				  <li><img src="<%=basePath%>images/handle_2.png"></li>
-				  <li><img src="<%=basePath%>images/handle_1.png"></li>
-			    </ul>
-		    </div>
-			<div class="part_add"><img src="<%=basePath%>images/money_add.png"></div>
+		   <div class="part_1" id = "positionDIV">
+		     <c:forEach items="${list}" var="listlist"  varStatus="deptIndex">
+		        <c:if test="${deptIndex.index == 0 }">
+		            <c:forEach items="${listlist.positionInfo}" var="list" varStatus="positionIndex">
+		                <div class="hair_part <c:if test="${positionIndex.index == 0 }">active</c:if>" positionId = "${list.positionId}">
+					      <i name = "nameValue" onclick="choosePosition(${listlist.deptId}, ${list.positionId}, this)">${list.positionCode}&nbsp;&nbsp;&nbsp;&nbsp;${list.positionName}</i>
+						  <em><img src="<%=basePath%>images/pull_down.png"></em>
+						  <ul class="part_ul">
+							  <li onclick="updateposition('${listlist.deptId}','${list.positionName}','${list.positionCode}','${list.positionId}','${list.isDept}',this)"><img src="<%=basePath%>images/handle_1.png"></li>
+							  <li onclick="deleteposition(${list.positionId})"><img src="<%=basePath%>images/handle_2.png"></li>
+						   </ul>
+					    </div>
+		            </c:forEach>
+	            </c:if>
+		    </c:forEach>
+		    <div class="part_add" id="search-member" onclick="addPosition(this)"><img src="<%=basePath%>images/money_add.png"></div>
 		 </div>
 		 
-		   <div class="part_1" style="position:relative;left:10px">
-		    <div class="hair_part">
-		      美发部
-			  <em><img src="<%=basePath%>images/pull_down.png"></em>
-			  <ul class="part_ul">
-				  <li><img src="<%=basePath%>images/handle_2.png"></li>
-				  <li><img src="<%=basePath%>images/handle_1.png"></li>
-			    </ul>
-		    </div>
-			<div class="part_add"><img src="<%=basePath%>images/money_add.png"></div>
+		   <div class="part_1" style="position:relative;left:10px" id = "employeeLeveDIV">
+		   <c:forEach items="${list}" var="listlist"  varStatus="deptIndex">
+		        <c:if test="${deptIndex.index == 0 }">
+		            <c:forEach items="${listlist.positionInfo}" var="list" varStatus="positionIndex">
+		                 <c:if test="${positionIndex.index == 0 }">
+		                     <c:forEach items="${list.employeeLeve}" var="listchild" >
+		                         <div class="hair_part">
+							         ${listchild.levelName}
+								  <em><img src="<%=basePath%>images/pull_down.png"></em>
+								  <ul class="part_ul">
+									  <li onclick="openupdatelevel('${listchild.levelId}','${list.positionId}','${listchild.levelName}')"><img src="<%=basePath%>images/handle_1.png"></li>
+									  <li onclick="deletelevel(${listchild.levelId})"><img src="<%=basePath%>images/handle_2.png"></li>
+								   </ul>
+							    </div>
+		                     </c:forEach>
+		                 </c:if>
+		            </c:forEach>
+	            </c:if>
+		    </c:forEach>
+			<div class="part_add" onclick="addEmployeeLeve(this)"><img src="<%=basePath%>images/money_add.png"></div>
 		 </div>
 	   
 	   
@@ -242,6 +258,10 @@
 </div>
 <script>
 
+var listStr = '${listStr}';
+
+var list = eval("(" + listStr + ")");
+
 jQuery('.lcs_check').lc_switch('是', '否');
 
 
@@ -277,53 +297,7 @@ jQuery(function(){
         }
     }
 
-    
-    
- 
-    /*项目的展示与隐藏*/
-    jQuery('.project-name').on("click", function(){
-        var th = jQuery(this);
-        var iconfont = th.find(".iconfont");
-        if(iconfont.hasClass("active")){
-            jQuery(iconfont).removeClass("active");
-        }else{
-            jQuery(iconfont).addClass("active");
-        }
-        var target = th.siblings("");
-        target.toggle();
-    });
-
-    jQuery('.project-sublist-title').on("click", function(){
-        var th = jQuery(this);
-        var iconfont = th.find(".iconfont");
-        if(iconfont.hasClass("active")){
-            jQuery(iconfont).removeClass("active");
-        }else{
-            jQuery(iconfont).addClass("active");
-        }
-        var target = th.nextUntil(".project-sublist-title");
-        target.toggle();
-    });
-
-    jQuery(".project-sublist-content").on("click", function () {
-        jQuery(".project-sublist-content").siblings().removeClass("active");
-        jQuery(".project-sublist-content").removeClass("active");
-        if(jQuery(this).hasClass("active")){
-            jQuery(this).removeClass("active");
-        }else{
-            jQuery(this).addClass("active");
-            window.scrollTo(0,0);
-        }
-    })
-    
-
 })
-
-jQuery(document).ready(function() {     
-     jQuery('.hair_part em').click(function(){
-	   jQuery(this).parent().find('.part_ul').stop(true,true).toggle('normal');
- 	 })
-  });
 
 
 //是否切换

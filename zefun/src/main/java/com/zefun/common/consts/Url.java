@@ -788,6 +788,8 @@ public interface Url {
 		public static final String ACTION_FIND_EMPLOYEE_BY_STORE = "employee/action/findEmployeeByStoreId";
 		/** 下载员工信息导入模板 */
 		public static final String ACTION_DOWNLOAD_IMPORTMODEL_EMPLOYEEINFO = "/importModelOfEmployeeInfo/action/download";
+		/** 根据门店部门职位查询员工*/
+		public static final String SELECT_EMPLOYEE_BY_DATETYPE = "employee/action/selectEmployeeBydateType";
 
 	}
 
