@@ -517,17 +517,11 @@ var storeDtoList= eval("("+storeDtoListStr+")");
 	});
 	
 
-	jQuery(function(){
-		for(i=0;i<=1000;i++){
-			jQuery('#treeDemo_'+i+'_ico').attr('style','background-position:-110px -16px');
-			
-		}
-	})
-	
+
 	//模拟用户点击
 	jQuery(function(){
-		for(i=0;i++;i<=1000){
-			alert(i)
+		for(i=0;i<=100;i++){
+			
 		jQuery('#treeDemo_1_span,#treeDemo_'+i+'_switch').click(function(){
 			
 				
@@ -536,6 +530,11 @@ var storeDtoList= eval("("+storeDtoListStr+")");
 		jQuery('#treeDemo_1_span,#treeDemo_'+i+'_switch').click()
 		}
 	})
+	
+	jQuery(function(){
+        jQuery('.ztree> li>ul>li>ul>li>a>span').attr('style','background-position:-110px -16px');	  
+	});
+	
 </script>
 <script type="text/javascript" src="<%=basePath %>js/employee/employee.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/common/jquery.ztree.core-3.5.js"></script>
