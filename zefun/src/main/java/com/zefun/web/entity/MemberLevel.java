@@ -12,8 +12,8 @@ public class MemberLevel {
 	/** 等级标识 */
 	private Integer levelId;
 
-	/** 门店标识 */
-	private Integer storeId;
+	/** 企业代号 */
+	private String storeAccount;
 
 	/** 等级名称 */
 	private String levelName;
@@ -49,14 +49,12 @@ public class MemberLevel {
 		return levelId;
 	}
 
-	/** @param storeId	门店标识 */
-	public void setStoreId(Integer storeId){
-		this.storeId = storeId;
+	public String getStoreAccount() {
+		return storeAccount;
 	}
 
-	/** @return	门店标识 */
-	public Integer getStoreId(){
-		return storeId;
+	public void setStoreAccount(String storeAccount) {
+		this.storeAccount = storeAccount;
 	}
 
 	/** @param levelName	等级名称 */

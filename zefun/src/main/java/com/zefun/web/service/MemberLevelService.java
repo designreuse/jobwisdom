@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.ExcleUtils;
 import com.zefun.web.dto.BaseDto;
@@ -52,6 +53,21 @@ public class MemberLevelService {
     /***/
     private static Logger log = Logger.getLogger(MemberLevelService.class);
 
+    /**
+     * 查询某个店铺的会员等级信息
+     * 默认返回该门店最前面10条数据
+    * @author 张进军
+    * @date Aug 5, 2015 7:58:33 PM
+    * @param storeAccount 企业代号
+    * @return ModelAndView
+    */
+    public ModelAndView enterpriseMemberLevelList(String storeAccount) {
+        /*Page<MemberLevelDto> page = selectPageForMemberLevel(storeId, 1, App.System.API_DEFAULT_PAGE_SIZE);*/
+        ModelAndView mav = new ModelAndView(View.MemberLevel.ENTERPRISE_MEMBER_LEVEL);
+        /*mav.addObject("page", page);*/
+        return mav;
+    }
+    
     /**
      * 为某个门店新增会员等级
     * @author 张进军

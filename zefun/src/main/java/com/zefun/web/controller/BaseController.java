@@ -61,7 +61,7 @@ public class BaseController {
 
     /**
      * 获取当前用户所在的门店
-    * @author 张进军
+    * @author 老王
     * @date Aug 17, 2015 6:49:50 PM
     * @param request    请求对象
     * @return           当前用户所在的门店id
@@ -79,7 +79,7 @@ public class BaseController {
     
     /**
      * 获取当前用户所在的门店的企业代号
-    * @author 张进军
+    * @author 老王
     * @date Aug 17, 2015 6:49:50 PM
     * @param request    请求对象
     * @return           当前用户所在的门店id
