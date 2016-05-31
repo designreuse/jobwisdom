@@ -34,6 +34,24 @@ public class AccountGoods {
 
     /** 企业代号 */
     private String storeAccount;
+    
+    /** 是否停止 */
+    private Integer isDeleted;
+    
+    /** 供应商 */
+    private String supplierName;
+
+    /** 品牌 */
+    private String brandName;
+
+    
+    public Integer getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 
     public Integer getGoodsId() {
         return goodsId;
@@ -106,4 +124,21 @@ public class AccountGoods {
     public void setStoreAccount(String storeAccount) {
         this.storeAccount = storeAccount == null ? null : storeAccount.trim();
     }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+    
 }

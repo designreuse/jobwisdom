@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,8 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.GoodsPurchaseRecordDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.ShipmentRecordDto;
+import com.zefun.web.dto.SupplierInfoDto;
+import com.zefun.web.entity.AccountGoods;
 import com.zefun.web.entity.CodeLibrary;
 import com.zefun.web.entity.ComboGoods;
 import com.zefun.web.entity.GoodsBrand;
@@ -47,9 +50,12 @@ import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.SupplierInfo;
+import com.zefun.web.mapper.AccountGoodsMapper;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.ComboGoodsMapper;
 import com.zefun.web.mapper.GoodsBrandMapper;
+import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.SupplierInfoMapper;
 import com.zefun.web.service.GoodsInfoService;
 import com.zefun.web.service.GoodsPurchaseRecordService;
 import com.zefun.web.service.MemberLevelService;
@@ -77,11 +83,17 @@ public class GoodsInfoController extends BaseController {
     @Autowired private CodeLibraryMapper codeLibraryMapper;
     /**套餐商品关联*/
     @Autowired private ComboGoodsMapper comboGoodsMapper;
+    /**供应商管理处理*/
+    @Autowired private SupplierInfoMapper supplierInfoMapper;
+    /**企业商品管理*/
+    @Autowired private AccountGoodsMapper accountGoodsMapper;
+    /**企业商品管理*/
+    @Autowired private GoodsInfoMapper goodsInfoMapper;
     /** 日志 */
     private Logger logger = Logger.getLogger(SessionContextListener.class);
 
     /**
-     * 进入商品设置页面
+     * 进入商品列表
     * @author 洪秋霞
     * @date 2015年8月10日 上午10:12:29
     * @param request request
@@ -128,46 +140,42 @@ public class GoodsInfoController extends BaseController {
      */
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_SETTING)
     public ModelAndView toGoodsInfoSeting(HttpServletRequest request, HttpServletResponse response, Integer goodsId) {
+        String storeAccount = getStoreAccount(request);
         ModelAndView model = new ModelAndView(View.GoodsInfo.GOODSETTING);
-        Integer storeId = getStoreId(request);
-        List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
-        model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
-        model.addObject("js_deptGoodsBaseDto", JSONArray.fromObject(deptGoodsBaseDto));
-
-        /**自己的品牌库*/
-        List<GoodsBrand> brands =  goodsBrandMapper.selectByStoreId(storeId);
-        model.addObject("brands", brands);
-        /**智放品牌列表*/
-        List<CodeLibrary> goodsBrands = goodsInfoService.selectGoodsBrandList();
-        model.addObject("goodsBrandList", goodsBrands);
-
-        /** 会员等级列表 */
-        List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
-        model.addObject("memberLevels", memberLevelList);
-        model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
+        SupplierInfo supplierInfo = new SupplierInfo();
+        supplierInfo.setStoreAccount(storeAccount);
         
-        if (goodsId!=null){
-            GoodsInfo goodsInfo = goodsInfoService.selectgoodsInfoByGoodsId(goodsId);
-            model.addObject("goodsId", goodsInfo.getGoodsId());
-            model.addObject("goodsDesc", goodsInfo.getGoodsDesc());
-            model.addObject("goodsInfo", JSONObject.fromObject(goodsInfo));
-        }
+        /** 供应商品牌库*/
+        List<SupplierInfoDto> supplierInfoDtos = supplierInfoMapper.selectInfoByAccount(supplierInfo);
+        List<GoodsBrand> brands = supplierInfoDtos.stream().flatMap(info -> info.getBrands().stream()).collect(Collectors.toList());
+        model.addObject("brands", brands);
+        
+        model.addObject("supplierInfoDtos", supplierInfoDtos);
+        model.addObject("supplierInfoDtosJs", JSONArray.fromObject(supplierInfoDtos));
+        
+        AccountGoods accountGoods = new AccountGoods();
+        accountGoods.setStoreAccount(storeAccount);
+        List<AccountGoods> list = accountGoodsMapper.selectByProperties(accountGoods);
+        
+        model.addObject("accountGoods", list);
+        
         return model;
     }
     
     /**
-     * 商品详情设置
+     * 商品上架操作页面
     * @author 高国藩
     * @date 2016年5月27日 上午11:37:26
     * @param request     request
     * @param response    response
     * @param model       model
+    * @param goodsId     goodsId
     * @return            model
      */
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_SETTING_NEW)
-    public ModelAndView goodsInfoSeting(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView goodsInfoSeting(HttpServletRequest request, HttpServletResponse response, ModelAndView model, Integer goodsId) {
         Integer storeId = getStoreId(request);
-        
+        String storeAccount = getStoreAccount(request);
         List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
         model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
         model.addObject("js_deptGoodsBaseDto", JSONArray.fromObject(deptGoodsBaseDto));
@@ -176,8 +184,17 @@ public class GoodsInfoController extends BaseController {
         List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
         model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
-        List<GoodsInfoDto> goodsInfos = goodsInfoService.selectGoodsInfosByStoreIdAndNotPay(storeId);
+        List<AccountGoods> goodsInfos = goodsInfoService.selectAccountGoodsInfo(storeAccount); 
+        //goodsInfoService.selectGoodsInfosByStoreIdAndNotPay(storeId);
         model.addObject("goodsInfos", goodsInfos);
+        
+        if (goodsId!=null){
+            GoodsInfo query = new GoodsInfo();
+            query.setaId(goodsId);
+            query = goodsInfoMapper.selectByPrimaryKey(goodsId);
+            model.addObject("aId", query.getaId());
+        }
+        
         model.setViewName(View.GoodsInfo.SETTING_GOODS);
         return model;
     }
@@ -242,8 +259,8 @@ public class GoodsInfoController extends BaseController {
     @RequestMapping(value = Url.GoodsInfo.GOODS_SAVE_BASE, method=RequestMethod.POST)
     @ResponseBody
     public BaseDto saveGoodsInfoBase(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject data) {
-        Integer storeId = getStoreId(request);
-        return goodsInfoService.saveGoodsInfoBase(storeId, data);
+        String storeAccount = getStoreAccount(request);
+        return goodsInfoService.saveGoodsInfoBase(storeAccount, data);
     }
     
     
@@ -453,6 +470,7 @@ public class GoodsInfoController extends BaseController {
             else {
                 // 编辑
                 goodsInfoService.editGoodsInfo(goodsInfo, levelId, discountAmount);
+                baseDto.setMsg(goodsInfo.getGoodsId());
             }
             return baseDto;
         }
@@ -509,15 +527,22 @@ public class GoodsInfoController extends BaseController {
     @RequestMapping(value = Url.GoodsInfo.QUERY_GOODSINFO_BYID)
     @ResponseBody
     public BaseDto queryGoodsInfoById(HttpServletRequest request, HttpServletResponse response, Integer goodsId) {
+        BaseDto baseDto = new BaseDto();
         try {
-            GoodsInfoDto goodsInfo = goodsInfoService.queryGoodsInfoById(goodsId);
-            GoodsDiscount goodsDiscount = new GoodsDiscount();
-            goodsDiscount.setGoodsId(goodsId);
-            List<GoodsDiscount> goodsDiscountList = goodsInfoService.queryGoodsDiscountList(goodsDiscount);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("goodsInfo", goodsInfo);
-            map.put("goodsDiscountList", goodsDiscountList);
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+            GoodsInfoDto goodsInfo = goodsInfoService.queryGoodsInfoById(goodsId, baseDto);
+            if (goodsInfo == null){
+                baseDto.setCode(3);
+                return baseDto;
+            }
+            else {
+                GoodsDiscount goodsDiscount = new GoodsDiscount();
+                goodsDiscount.setGoodsId(goodsInfo.getGoodsId());
+                List<GoodsDiscount> goodsDiscountList = goodsInfoService.queryGoodsDiscountList(goodsDiscount);
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("goodsInfo", goodsInfo);
+                map.put("goodsDiscountList", goodsDiscountList);
+                return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+            }
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -40,6 +40,7 @@ import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.DetailPaymentDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsInfoCatagoryDto;
+import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberComboDto;
 import com.zefun.web.dto.MemberOrderDto;
@@ -1940,7 +1941,7 @@ public class MemberCenterService {
     * @return        页面
      */
     public ModelAndView onlionShopView(Integer storeId) {
-        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByStoreIdIsOnLion(storeId);
+        List<GoodsInfoDto> goodsInfos = goodsInfoMapper.selectAllGoodsInfoByStoreId(storeId);
         
         StoreShop storeShop = new StoreShop();
         storeShop.setStoreId(storeId);

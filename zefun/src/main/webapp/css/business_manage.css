@@ -92,8 +92,9 @@
 .business_level_input_right i{display:inline-block;margin-right:16px;position:relative;top:-30px}
 .business_level_back>p{font-size:16px;margin-bottom:12px}
 .business_level_back  .business_level_back_ul{margin-right:-10px;overflow:hidden}
-.business_level_back_ul li{float:left;width:50px;height:30px;border-radius:8px;overflow:hidden;margin-right:12px}
-.business_level_back_ul li img{width:50px;height:30px;border-radius:8px;}
+.business_level_back_ul li{float:left;width:50px;height:30px;border-radius:8px;overflow:hidden;margin-right:12px;position:relative}
+.business_level_back_ul li span{position:absolute;top:0px;left:0;display:inline-block;background:white;border:1px solid black;width:12px;height:12px}
+.business_level_back_ul li >img{width:50px;height:30px;border-radius:8px;}
 .business_level_back_text_ul li{float:left;width:280px;margin-bottom:22px}
 .business_level_back_text_ul{padding:30px 25px}
 .business_level_back_text_ul li input{
@@ -115,7 +116,6 @@
 	height:180px;
 	overflow:hidden;
 	border-radius:8px;
-	background:url('../images/vip_card.png') no-repeat;
 	background-size:290px 180px;
 	margin:0 auto;
 	color:white;
@@ -131,3 +131,20 @@
 .demo_fade{width:30px;background:white}
 .demo_fade{position:absolute;z-index:2}
 .demo_fade li:hover{background:#ccc}
+.preview_2{
+	width:290px;
+	height:180px;
+	overflow:hidden;
+	border-radius:8px;
+	background-size:290px 180px;
+	margin:0 auto;
+	color:white;
+	margin-top:40px
+}
+.preview_2_top span{position:relative;left:200px;font-size:12px;top:10px;left:255px}
+.logo_img{width:110px;float:left;height:160px}
+.logo_img img{position:relative;top:55px;width:95px;height:95px}
+.preview_2_content_right{float:left;margin-top:54px;width:180px}
+.preview_2_content_right p{font-size:12px}
+.business_level_back_ul li span img{position:relative;top:-5px;}
+.business_level_back_ul li span{display:none}

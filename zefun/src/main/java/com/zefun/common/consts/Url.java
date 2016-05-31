@@ -106,6 +106,8 @@ public interface Url {
 
 	/** 会员等级模块 */
 	class MemberLevel {
+		/** 企业会员卡管理*/
+		public static final String ENTERPRISE_MEMBERLEVEL_LIST = "memberLevel/view/enterpriseMemberLevelList";
 		/** 添加等级 */
 		public static final String ACTION_ADD = "memberLevel/action/add";
 		/** 显示会员等级列表的页面 */

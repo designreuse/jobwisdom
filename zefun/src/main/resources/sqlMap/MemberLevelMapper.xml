@@ -3,7 +3,7 @@
 <mapper namespace="com.zefun.web.mapper.MemberLevelMapper" >
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.MemberLevel" >
     <id column="level_id" property="levelId" jdbcType="INTEGER" />
-    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
     <result column="level_notice" property="levelNotice" jdbcType="VARCHAR" />
     <result column="is_default" property="isDefault" jdbcType="INTEGER" />
@@ -31,7 +31,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    level_id, store_id, level_name, 
+    level_id, store_account, level_name, 
     level_notice, is_default, is_deleted, create_time, update_time, last_operator_id
   </sql>
   
@@ -60,6 +60,27 @@
     from member_level
     where level_id = #{levelId,jdbcType=INTEGER}
   </select>
+  
+  <!-- <select id="selectByPage" resultMap="MemberLevelDtoMap" parameterType="com.zefun.web.entity.Page">
+  	select 
+  		a.level_id as levelId, 
+  		a.store_id as storeId, 
+  		b.level_name as levelName, 
+    	b.level_notice as levelNotice, 
+    	b.is_default as isDefault,
+    	a.discount_id as discountId, 
+    	a.project_discount as projectDiscount, 
+    	a.goods_discount as goods_discount, 
+    	a.sell_amount as sellAmount, 
+    	a.charge_min_money as chargeMinMoney, 
+        a.cash_discount_type as cashDiscountType, 
+        a.integral_unit as integralUnit, 
+        a.integral_number as integralNumber, 
+        a.performance_discount_percent as performanceDiscountPercent
+  	from member_level_discount a
+  	left join member_level b on b.level_id = a.level_id 
+  	where a.is_deleted = 0 and a.store_id = #{params.storeId}  order by isDefault desc, projectDiscount asc
+  </select> -->
   
   <select id="selectByPage" resultMap="MemberLevelDtoMap" parameterType="com.zefun.web.entity.Page">
   	select 

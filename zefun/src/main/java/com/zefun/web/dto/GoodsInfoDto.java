@@ -132,7 +132,18 @@ public class GoodsInfoDto {
     /** 商品编码*/
     private String goodsCodeSuffix;
     
+    /**企业商品ID*/
+    private Integer aId;
     
+    
+    public Integer getaId() {
+        return aId;
+    }
+
+    public void setaId(Integer aId) {
+        this.aId = aId;
+    }
+
     public Integer getProjectStep() {
         return projectStep;
     }
