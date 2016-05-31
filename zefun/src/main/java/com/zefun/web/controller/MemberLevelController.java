@@ -34,6 +34,62 @@ public class MemberLevelController extends BaseController {
 	private MemberLevelService memberLevelService;
 	
 	/**
+	 * 企业查询所有会员卡信息
+	* @author 张进军
+	* @date Aug 5, 2015 7:58:33 PM
+	* @param request 返回
+	* @return ModelAndView
+	*/
+	@RequestMapping(value = Url.MemberLevel.ENTERPRISE_MEMBERLEVEL_LIST, method = RequestMethod.GET)
+	public ModelAndView enterpriseMemberLevelList(HttpServletRequest request){
+	    String storeAccount = getStoreAccount(request);
+		return memberLevelService.enterpriseMemberLevelList(storeAccount);
+	}
+	
+	/**
+	 * 企业保存会员卡信息
+	* @author 老王
+	* @date 2016年5月31日 上午12:09:09 
+	* @param levelId 会员等级标识
+	* @param levelName 会员等级
+	* @param discountId 折扣表
+	* @param projectDiscount 项目折扣
+	* @param goodsDiscount 商品折扣
+	* @param performanceDiscountPercent  业绩折扣比例(0-100)
+	* @param sellAmount 售卡开卡金额
+	* @param chargeMinMoney 最低充值金额
+	* @param cashDiscountType 现金是否打折(0:不打折，1:打折)
+	* @param integralUnit 消费积分单位
+	* @param integralNumber 单位积分数量
+	* @param levelNotice 等级说明
+	* @param request 返回
+	* @return BaseDto
+	 */
+	public BaseDto saveEnterpriseMemberLevel (Integer levelId, String levelName, Integer discountId, Integer projectDiscount, Integer goodsDiscount, 
+			  Integer performanceDiscountPercent, 
+			  BigDecimal sellAmount, BigDecimal chargeMinMoney, Integer cashDiscountType, Integer integralUnit, Integer integralNumber, 
+			  String levelNotice, HttpServletRequest request) {
+		
+		MemberLevel memberLevel = new MemberLevel();
+		memberLevel.setLevelId(levelId);
+		memberLevel.setLevelName(levelName);
+		memberLevel.setLevelNotice(levelNotice);
+		
+		MemberLevelDiscount memberLevelDiscount = new MemberLevelDiscount();
+		memberLevelDiscount.setDiscountId(discountId);
+		memberLevelDiscount.setProjectDiscount(projectDiscount);
+		memberLevelDiscount.setGoodsDiscount(goodsDiscount);
+		memberLevelDiscount.setPerformanceDiscountPercent(performanceDiscountPercent);
+		memberLevelDiscount.setSellAmount(sellAmount);
+		memberLevelDiscount.setChargeMinMoney(chargeMinMoney);
+		memberLevelDiscount.setCashDiscountType(cashDiscountType);
+		memberLevelDiscount.setIntegralUnit(integralUnit);
+		memberLevelDiscount.setIntegralNumber(integralNumber);
+		
+		
+	}
+	
+	/**
 	 * 为某个门店新增会员等级
 	* @author 老王
 	* @date 2016年5月20日 下午4:52:08 
