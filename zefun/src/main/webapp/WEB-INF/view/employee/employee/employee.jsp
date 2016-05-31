@@ -2,12 +2,13 @@
 <%@ include file="/head.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="<%=basePath %>editor/themes/default/default.css" />
-
+<link rel="stylesheet" href="<%=basePath %>css/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="<%=basePath %>css/payroll_2.css" type="text/css" />
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
-    <div class="leftpanel" style="height: 840px; margin-left: 0px;">
-    <%@ include file="/menu.jsp" %>
-    <%@ include file="/template/employeedetail.jsp" %>
- <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
+<div class="leftpanel" style="height: 840px; margin-left: 0px;">
+<%@ include file="/menu.jsp" %>
+<%@ include file="/template/employeedetail.jsp" %>
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script> 
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/wenben.js"></script>
@@ -18,117 +19,59 @@
     <div class="rightpanel" style="margin-left: 200px;">
     <%@ include file="/top.jsp" %>
     
-    <style>
-    #edui_fixedlayer{
-    	z-index:1059 !important;
-    }
-    	#edui79{
-    		z-index:1059 !important;
-    	}
-    	#edui79_content{
-    		z-index:1099 !important;
-    	}
-    	#edui1_iframeholder{
-    		width:920px !important;
-    	}
-    	#edui1{
-    	width: 920px !important;
-    	}
-    	.jietu{
-		height: auto;
-		}
-		.crop-container{
-			width: 1000px;
-			height: 580px;
-		} 
-		.jietu .modal-body{
-			padding: 0px;
-			overflow: hidden;		
-		}
-		.edui-default .edui-editor {
-	    	z-index: 100 !important;
-		}
-		.employee-data-modal .self-btn {
-			padding:14px 15px 15px;
-		}
-		.width97 {
-			width:95%;
-		}
-		.cropper-crop-box {
-			top:0px !important;
-		}
-		
-    </style>
-<div class="maincontent">
-    <div class="contentinner">
-<!--  <input type="button" value="详情" onclick="employeedetail(1)">  -->
-        <div class="more-toolbar" >
-            <div class="table-toolbar">
-                <button class="btn"  onclick="openadd()">添加员工</button>
-                <button class="btn" data-toggle="modal" data-target="#toLeadModal">导入</button>
-                <button class="btn" id="downLondimport">导入模板下载</button> 
-                <button class="btn" id="downLond">导出</button>
-                <input type="search" id="search" placeholder="员工姓名/工号/手机号"/>
-                <input type="hidden" id="querygangwei">
-                <!-- <button class="button-search btn width100 ml-10" onclick="changePage()">查询</button> -->
-                <button class="button-search btn width100 ml-10" onclick="findAllByNameOrCodeOrPhone()">查询</button>
-            </div><!--table-toolbar-->
-            <div class="clearfix"></div>
-        </div><!--more-toolbar-->
-
-        <table class="table table-bordered table-striped member-list-table">
-            <thead class="t-fix">
-            <tr>
-                <th style="text-align: center">工号</th>
-                <th style="text-align: center">姓名</th>
-                <th style="text-align: center">性别</th>
-                <th style="text-align: center">部门</th>
-                <th style="text-align: center" class="drop-th">
-                	<span class="dropdown-toggle" data-toggle="dropdown">岗位 <span class="caret"></span></span>
-                      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                      <li><a tabindex="-1" href="javascript:gangwei('')">全部</a></li>
-                      <c:forEach items="${positionlist }" var="position">
-                           <li><a tabindex="-1" href="javascript:gangwei(${position.positionId })">${position.positionName }</a></li>
-                      </c:forEach>
-                      </ul>
-				</th>
-                <th style="text-align: center">职位 </th>
-                <th style="text-align: center">员工账号</th>
-                <th style="text-align: center">手机号</th>
-                <!-- <th style="text-align: center">入职时间</th> -->
-               <!--  <th style="text-align: center">状态</th> -->
-                <th style="text-align: center">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <%-- <c:forEach items="${page.results }" var="employee"> --%>
-            <c:forEach items="${employeeDtoList }" var="employee" varStatus="index">
-            <c:if test="${index.index == 0 }">
-            	<tr id="${employee.employeeId}" class="t-table">
-            </c:if>
-            <c:if test="${index.index != 0 }">
-            	<tr id="${employee.employeeId}">
-            </c:if>
-                <td style="text-align: center">${employee.employeeCode }</td>
-                <td style="text-align: center">${employee.name }</td>
-                <td style="text-align: center">${employee.sex }</td>
-                <td style="text-align: center">${employee.deptName }</td>
-                <td style="text-align: center">${employee.positionName }</td>
-                <td style="text-align: center">${employee.levelName }</td>
-                <td style="text-align: center">${employee.userName }</td>
-                <td style="text-align: center">${employee.phone }</td>
-                <%-- <td style="text-align: center">${employee.entryDate }</td> --%>
-                <%-- <td style="text-align: center">${employee.employeeStatus }</td> --%>
-                <td>
-                    <span class="iconfa-pencil project-icon" onclick="openedit(${employee.employeeId})" ></span>
-				    <span class="iconfa-trash project-icon" onclick="deleteinfo(${employee.employeeId})"></span>
-                </td>
-            </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</div>
+<div class='content_right clearfix'>
+    <div class="payroll_2_head">
+	   <button id="downLondimport">导出模板下载</button><button id="downLond">导出</button><button data-toggle="modal" data-target="#toLeadModal">导入</button><button onclick="openadd()">添加员工</button>
+	   <span class="payroll_1_search">
+	     <input type="search" id="search" placeholder="员工姓名/工号/手机号"/>
+         <input type="hidden" id="querygangwei">
+         <!-- <button class="button-search btn width100 ml-10" onclick="changePage()">查询</button> -->
+         <button class="button-search btn width100 ml-10" onclick="findAllByNameOrCodeOrPhone()">查询</button>
+	   </span>
+	</div>
+	
+	<div class="payroll_2_content clearfix">
+	   <div class="payroll_2_left">
+	     <div class="content_wrap">
+	         <div class="zTreeDemoBackground left">
+		       <ul id="treeDemo" class="ztree"></ul>
+         	</div>
+         </div>
+	 
+	   </div>
+	   <div class="payroll_2_right">
+	     <table class="payroll_table">
+		    <tr>
+			  <td>工号</td>
+			  <td>姓名</td>
+			  <td>性别</td>
+			  <td>部门</td>
+			  <td>岗位</td>
+			  <td>职位</td>
+			  <td>员工账号</td>
+			  <td>手机号</td>
+			  <td>操作</td>
+			 
+	       </tr>
+	       <c:forEach items="${employeeDtoList }" var="employee" varStatus="index">
+	            <tr id="${employee.employeeId}">
+				  <td>${employee.employeeCode }</td>
+				  <td>${employee.name }</td>
+				  <td>${employee.sex }</td>
+				  <td>${employee.deptName }</td>
+				  <td>${employee.positionName }</td>
+				  <td>${employee.levelName }</td>
+				  <td>${employee.userName }</td>
+				  <td>${employee.phone }</td>
+				  <td><span onclick="openedit(${employee.employeeId})"><img src="<%=basePath %>images/handle_1.png" ></span><span onclick="deleteinfo(${employee.employeeId})"><img src="<%=basePath %>images/handle_2.png"></span></td>
+		        </tr>
+	       </c:forEach>
+	    </table>
+	   </div>
+	
+	</div>
+  
+ </div>
 <!--添加员工模态框-->
 <div class="modal hide" id="employee-add-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
     <div class="modal-dialog" role="document">
@@ -436,92 +379,7 @@
                             <button class="btn fr" onclick="updatecanse()">取消</button>
                         </div>
                     </div><!--tabs-1-->
-
-                    <!--tabs-1-->
-                    <!-- <div id="tabs-22">
-	                    <script id="editor1" type="text/plain" style="width:960px;height:300px;"></script>
-	                    <button class="btn fr" onclick="savedesc()">保存</button> 
-                    </div> -->
-                    <!--tabs-1-->
-                    
-                    <!--tabs-5-->
-                    <!-- <div id="tabs-55" style="height: 500px">
-                        <div id="custom-toolbar" class="clearfix">
-                            <select name="" id="querytype" class="chzn-select-search input80" data-placeholder="选择目标年" onchange="queryjcjl()">
-			                    <option value="1">处罚</option>
-			                    <option value="2">奖励</option>
-			                </select>
-                        </div>
-
-                        <table class="table table-bordered self-table-striped table55" >
-                            <thead>
-                            <tr>
-                                <th>时间 </th>
-                                <th>原因</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            
-                        </table>
-                    </div> -->
-                    <!--tabs-5-->
-
-                    <!-- <div id="tabs-66">
-                    <table class="table tuijie-table table661">
-                            <tbody>
-                            </tbody>
-                       </table>
-                       <table class="table tuijie-table table662">
-                            <tbody>
-                            </tbody>
-                       </table>
-                       <table class="table tuijie-table table663">
-                            <tbody>
-                            </tbody>
-                       </table>
-                    </div> --><!--tabs-6-->
-
-                    <%-- <div id="tabs-77">
-                        <div class="more-toolbar" >
-                            <div class="table-toolbar">
-                                <select name="" id="storeId" class="chzn-select-search">
-                                   <c:forEach items="${storelist }" var="storelist">
-                                    <option value="${storelist.storeId }">${storelist.storeName }</option>
-                                    </c:forEach>
-                                </select>
-                                <input type="text" class="" id="dispatch-start1"/>
-                                <div class="btn" onclick="pqsave()">确定调出</div>
-                                <div class="table-pagination fr">
-                                    <button data-toggle="dropdown" class="btn dropdown-toggle perpage">
-                                        10 <span class="iconfa-caret-down afont"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">10</a></li>
-                                        <li><a href="#">20</a></li>
-                                        <li><a href="#">50</a></li>
-                                        <li><a href="#">100</a></li>
-                                    </ul>
-                                    <div class="left-page"><i class="FontAwesome iconfa-caret-left afont"></i></div>
-                                    <div class="right-page"><i class="FontAwesome iconfa-caret-right afont"></i></div>
-                                </div>
-                            </div><!--table-toolbar-->
-                            <div class="clearfix"></div>
-                        </div><!--more-toolbar-->
-
-                        <table class="table table-bordered table-striped jifen-record-table table77">
-                            <thead>
-                            <tr>
-                                <th>调往门店 </th>
-                                <th>派遣时间</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="single">
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </div><!--tabs-7--> --%>
+                   
                 </div>
             </div><!--modal-body-->
         </div><!--modal-content-->
@@ -600,8 +458,66 @@
 var pageNo = "${page.pageNo}";
 var pageSize = "${page.pageSize}";
 var totalPage = "${page.totalPage}"
+
+var storeDtoListStr = '${storeDtoListStr}';
+var storeDtoList= eval("("+storeDtoListStr+")");
+	var setting = {
+	    view: {
+	        dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
+	        showLine: true,//是否显示节点之间的连线
+	        selectedMulti: false //设置是否允许同时选中多个节点
+	    },
+	    data: {
+	        simpleData: {//简单数据模式
+	            enable:true,
+	            deptIdKey: "dateId",
+	            dateKey: "dateType"
+	        }
+	    },
+	    callback: {
+	        beforeClick: function(treeId, treeNode) {
+	            var dateId = treeNode.dateId;
+	            var dateType = treeNode.dateType;
+	            jQuery.ajax({
+	        		type : "post",
+	        		url : baseUrl + "employee/action/selectEmployeeBydateType",
+	        		data : "dateId=" +dateId + "&dateType=" + dateType,
+	        		dataType : "json",
+	        		success : function(e){
+	        			if(e.code != 0){
+	        				dialog("系统繁忙！");
+	        			}
+	        			var list=e.msg;
+	        			jQuery(".payroll_table").find("tr:gt(0)").remove();
+	        			for (var i = 0; i < list.length; i++) {
+	        				var employeeDto = list[i];
+	        				jQuery(".payroll_table").append("<tr id='"+employeeDto.employeeId+"'>"+
+										      				  "<td>"+employeeDto.employeeCode+"</td>"+
+										    				  "<td>"+employeeDto.name+"</td>"+
+										    				  "<td>"+employeeDto.sex+"</td>"+
+										    				  "<td>"+employeeDto.deptName+"</td>"+
+										    				  "<td>"+employeeDto.positionName+"</td>"+
+										    				  "<td>"+employeeDto.levelName+"</td>"+
+										    				  "<td>"+employeeDto.userName+"</td>"+
+										    				  "<td>"+employeeDto.phone+"</td>"+
+										    				  "<td><span onclick='openedit("+employeeDto.employeeId+")'><img src='"+baseUrl+"images/handle_1.png' ></span><span onclick='deleteinfo("+employeeDto.employeeId+")'><img src='"+baseUrl+"images/handle_2.png'></span></td>"+
+										    		        "</tr>");
+	        			}
+	        		}
+	        		
+	        	});
+	        }
+	    }
+	};
+
+	var zNodes = storeDtoList;
+
+	jQuery(document).ready(function(){
+		jQuery.fn.zTree.init(jQuery("#treeDemo"), setting, zNodes);
+	});
 </script>
 <script type="text/javascript" src="<%=basePath %>js/employee/employee.js"></script>
+<script type="text/javascript" src="<%=basePath %>js/common/jquery.ztree.core-3.5.js"></script>
 </div>
 <!--RIGHT PANEL结束 -->
   </div>

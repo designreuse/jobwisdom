@@ -49,7 +49,9 @@ import com.zefun.common.utils.ExcelUtil;
 import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.dto.PositionInfoDto;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeLevel;
@@ -58,6 +60,7 @@ import com.zefun.web.entity.Page;
 import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.RoleInfo;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
+import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -66,8 +69,11 @@ import com.zefun.web.mapper.EmployeeObjectiveMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.RoleInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
+import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatEmployeeMapper;
+
+import net.sf.json.JSONArray;
 
 /**
  * 人员信息
@@ -131,6 +137,10 @@ public class EmployeeService {
 	/** 员工微信映射操作对象 */
 	@Autowired
 	private WechatEmployeeMapper wechatEmployeeMapper;
+	
+	/** 门店*/
+	@Autowired
+	private StoreInfoMapper storeInfoMapper;
 
 	/**
 	 * 查询某个店铺的职位信息 默认返回该门店最前面10条数据
@@ -164,6 +174,65 @@ public class EmployeeService {
 		// 获取人员角色
 		List<RoleInfo> rolelist = roleInfoMapper.selectAllRoles();
 		mav.addObject("rolelist", rolelist);
+		
+		List<Map<String, Object>> storeDtoList = new ArrayList<>();
+		
+		StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+		
+		Map<String, Object> storeMap = new HashMap<>();
+		storeMap.put("dateId", storeId);
+		storeMap.put("name", storeInfo.getStoreName());
+		storeMap.put("dateType", 0);
+		List<Map<String, Object>> deptDtoList = new ArrayList<>();
+		
+		List<DeptInfoDto> list =positioninfoMapper.getDetpInfo(storeId);
+		//组装组织架构树形图数据
+		if (list != null && list.size() > 0) {
+			for (DeptInfoDto deptInfoDto : list) {
+				Integer deptId = deptInfoDto.getDeptId();
+				String name = deptInfoDto.getDeptName();
+				Map<String, Object> deptMap = new HashMap<>();
+				deptMap.put("dateId", deptId);
+				deptMap.put("name", name);
+				deptMap.put("dateType", 1);
+				if (deptInfoDto.getPositionInfo()!= null && deptInfoDto.getPositionInfo().size() > 0) {
+					List<PositionInfoDto> positionInfos = deptInfoDto.getPositionInfo();
+					List<Map<String, Object>> positionDtoList = new ArrayList<>();
+					for (PositionInfoDto positionInfoDto : positionInfos) {
+						Integer positionId = positionInfoDto.getPositionId();
+						String positionName = positionInfoDto.getPositionName();
+						Map<String, Object> positionMap = new HashMap<>();
+						positionMap.put("dateId", positionId);
+						positionMap.put("name", positionName);
+						positionMap.put("dateType", 2);
+						
+						if (positionInfoDto.getEmployeeLeve()!= null && positionInfoDto.getEmployeeLeve().size() > 0) {
+							List<EmployeeLevel> employeeLevels = positionInfoDto.getEmployeeLeve();
+							List<Map<String, Object>> levelDtoList = new ArrayList<>();
+							for (EmployeeLevel employeeLevel : employeeLevels) {
+								Integer levelId = employeeLevel.getLevelId();
+								String levelName = employeeLevel.getLevelName();
+								Map<String, Object> levelMap = new HashMap<>();
+								levelMap.put("dateId", levelId);
+								levelMap.put("name", levelName);
+								levelMap.put("dateType", 3);
+								levelDtoList.add(levelMap);
+							}
+							positionMap.put("children", levelDtoList);
+						}
+						positionDtoList.add(positionMap);
+					}
+					deptMap.put("children", positionDtoList);
+				}
+				deptDtoList.add(deptMap);
+			}
+		}
+		storeMap.put("children", deptDtoList);
+		
+		storeDtoList.add(storeMap);
+		
+		mav.addObject("storeDtoListStr", JSONArray.fromObject(storeDtoList).toString());
+		
 		return mav;
 	}
 
@@ -185,6 +254,32 @@ public class EmployeeService {
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
 	}
 
+	/**
+	 * 查询员工
+	* @author 老王
+	* @date 2016年5月28日 下午6:54:58 
+	* @param dateType 部门 类型
+	* @param dateId 标识
+	* @return BaseDto
+	 */
+	public BaseDto selectEmployeeBydateType (Integer dateType, Integer dateId) {
+		Map<String, Integer> params =  new HashMap<>();
+		if (dateType == 0) {
+			params.put("storeId", dateId);
+		}
+		else if (dateType == 1) {
+			params.put("deptId", dateId);
+		}
+		else if (dateType == 2) {
+			params.put("positionId", dateId);
+		}
+		else {
+			params.put("levelId", dateId);
+		}
+		List<EmployeeDto> employeeDtoList = employeeInfoMapper.selectAllEmployeeByCondition(params);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, employeeDtoList);
+	}
+	
 	/**
 	 * 
 	 * @author chendb

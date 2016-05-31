@@ -1,0 +1,133 @@
+.content_right{
+	padding:27px 35px;
+	
+	
+}
+.new_vip{
+	border:none;width:130px;height:26px;
+	line-height:26px;text-align:center;border-radius:12px;
+	color:white;background:#59688a;
+	font-size:14px
+}
+.new_vip:hover{
+	background:#495879
+}
+.business_manage_table{
+	    box-shadow: 0 0 10px #dbdce2;
+    width: 1020px;
+    border-radius: 8px;
+    
+	margin-top:16px
+}
+.business_manage_table td{
+	    height: 40px;
+    text-align: center;
+    border: 1px solid #dbdce2;
+    vertical-align: middle;
+    padding: 0 10px;
+	position:relative
+
+}
+.business_manage_table tr:nth-child(odd){
+	background:#f6f8fc
+}
+.business_manage_table tr:nth-child(1){
+	background:#ebeff8;
+	font-size:14px;color:black
+}
+.manage_hover{
+	width:30px;height:25px;
+	position:absolute;
+	
+	
+}
+.manage_hover span:hover{background:#ccc}
+.manage_hover span{display:inline-block}
+.zzc{
+	position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+	
+}
+.zzc{font-size:14px}
+.zzc .business_level{
+	width:980px;
+	height:530px;
+	background:white;
+	margin:50px auto
+}
+.zzc .business_level>p{
+	height:66px;
+	text-align:center;
+	line-height:66px;
+	color:white;
+	font-size:18px;
+	background:#2a3244
+}
+.demo_fade{display:none}
+.business_level_content_left{padding:24px 30px;color:black}
+.business_level_content_left select{
+	width:130px;
+	height:22px;
+	border-radius:12px;
+	border:1px solid black;
+	margin:0 8px 0 24px
+}
+.business_level_content_left{width:610px;float:left}
+.business_level_input_left{width:270px;float:left}
+.business_level_input_left span{display:inline-block;margin-bottom:20px}
+.business_level_input_left span em{display:inline-block;width:16px;height:16px;border-radius:8px;background:red;color:white;text-align:center;line-height:16px;cursor:pointer;font-size:16px}
+.business_level_input_right{color:black;float:left;margin-left:28px}
+.business_level_input_right textarea{
+	width:238px;
+	height:78px;
+	overflow:overlay;
+	border-radius:12px;
+	border:1px solid black
+}
+.business_level_input_right i{display:inline-block;margin-right:16px;position:relative;top:-30px}
+.business_level_back>p{font-size:16px;margin-bottom:12px}
+.business_level_back  .business_level_back_ul{margin-right:-10px;overflow:hidden}
+.business_level_back_ul li{float:left;width:50px;height:30px;border-radius:8px;overflow:hidden;margin-right:12px}
+.business_level_back_ul li img{width:50px;height:30px;border-radius:8px;}
+.business_level_back_text_ul li{float:left;width:280px;margin-bottom:22px}
+.business_level_back_text_ul{padding:30px 25px}
+.business_level_back_text_ul li input{
+	width:120px;height:20px;border:1px solid black;
+	border-radius:12px;margin-left:30px
+}
+.business_level_button{text-align:center;}
+.business_level_button button{width:130px;height:28px;border:none;border-radius:15px;color:white;text-align:center;line-height:28px;background:#617195;margin-right:50px;font-size:14px}
+.business_level_button button:hover{
+	background:#525e7b
+}
+.business_level_content_right{float:left;border-left:1px solid black;width:309px;height:465px}
+.business_level_content_right>p{
+	color:black;font-size:16px;padding:13px 10px;
+	
+}
+.preview_1{
+	width:290px;
+	height:180px;
+	overflow:hidden;
+	border-radius:8px;
+	background:url('../images/vip_card.png') no-repeat;
+	background-size:290px 180px;
+	margin:0 auto;
+	color:white;
+}
+.preview_left{float:left;width:100px;position:relative;top:95px;left:70px;font-size:12px}
+
+.preview_right{float:left;width:160px}
+.preview_right ul{margin-top:60px;margin-left:34px}
+.preview_right ul li{height:50px}
+.preview_right span{font-size:12px;position:relative;width:180px;display:inline-block;left:8px;top:-8px}
+.preview_right span em{display:inline-block;height:20px;width:36px;text-align:center;line-height:20px;border:1px solid white;border-radius:12px;margin-left:12px}
+.demo_fade li{border:none;width:30px;}
+.demo_fade{width:30px;background:white}
+.demo_fade{position:absolute;z-index:2}
+.demo_fade li:hover{background:#ccc}

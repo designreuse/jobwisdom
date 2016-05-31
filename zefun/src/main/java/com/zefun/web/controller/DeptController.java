@@ -62,7 +62,7 @@ public class DeptController extends BaseController{
         if (result==2){
             return new BaseDto(-2, "部门名称已经存在！");
         }
-        return new BaseDto(0, "新增成功");
+        return new BaseDto(0, deptInfo.getDeptId());
     }
     /**
      * 修改部门信息

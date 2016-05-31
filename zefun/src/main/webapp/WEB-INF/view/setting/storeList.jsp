@@ -273,7 +273,7 @@
 			  <li><input type="radio" name = "msnRechargeType" value = "3"><span>1000条（90元）</span></li>
 			   <li><input type="radio" name = "msnRechargeType" value = "4"><span>2000条（180元）</span></li>
 			  <li><input type="radio" name = "msnRechargeType" value = "5"><span>10000条（900元）</span></li>
-			  <li><input type="radio" name = "msnRechargeType" value = "6">其他<em><input type="text" name = "msnNumber" onfocus="msnInputFocus()"  placeholder="输入购买数量"></em></li>
+			  <li><input type="radio" name = "msnRechargeType" value = "6">其他<em><input type="text" name = "msnNumber" onfocus="msnInputFocus(this)"  placeholder="输入购买数量"></em></li>
 			  
 		  </ul>
 		  <div class="total_price">总付：<span>60元</span></div>

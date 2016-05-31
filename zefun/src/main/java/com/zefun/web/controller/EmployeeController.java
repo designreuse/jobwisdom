@@ -93,6 +93,21 @@ public class EmployeeController extends BaseController{
 	}
 	
 	/**
+	 * 查询员工
+	* @author 老王
+	* @date 2016年5月30日 上午10:02:18 
+	* @param request 返回	
+	* @param dateType 部门 类型
+	* @param dateId 标识
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.Employee.SELECT_EMPLOYEE_BY_DATETYPE)
+	@ResponseBody
+	public BaseDto selectEmployeeBydateType (HttpServletRequest request, Integer dateType, Integer dateId) {
+		return employeeService.selectEmployeeBydateType(dateType, dateId);
+	}
+	
+	/**
 	 * 根据条件(姓名/工号/手机号)全查询员工信息
 	* @author DavidLiang
 	* @date 2016年1月20日 下午2:55:41

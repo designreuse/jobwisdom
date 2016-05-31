@@ -15,6 +15,8 @@ import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ShiftMahjong;
 import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
+
+import net.sf.json.JSONArray;
 /**
  * 岗位信息
 * @author 陈端斌
@@ -44,6 +46,7 @@ public class PositioninfoService {
 		int storeId=Integer.parseInt(params.get("storeId").toString());
 		List<DeptInfoDto>list=positioninfoMapper.getDetpInfo(storeId);
 		mav.addObject("list", list);
+		mav.addObject("listStr", JSONArray.fromObject(list).toString());
 		//获取岗位信息一起返回到页面
         PositionInfo positionInfo=new PositionInfo();
         positionInfo.setStoreId(storeId);

@@ -1,5 +1,5 @@
-jQuery(function() {
-	 /*表头置顶*/
+/*jQuery(function() {
+	 表头置顶
     var fix=jQuery(".t-fix").offset()
     var tableT=fix.top
     jQuery(window).scroll(function(event){
@@ -18,10 +18,10 @@ jQuery(function() {
     })
 
 	
-});
+});*/
 
 
-//上一页
+/*//上一页
 function previous(){
 	if(pageNo <= 1){
 		return;
@@ -37,7 +37,7 @@ function next(){
 	}
 	pageNo++;
 	changePage();
-}
+}*/
 
 //更改每页显示数量
 function changePageSize(size){
@@ -49,7 +49,7 @@ function changePageSize(size){
 
 
 //分页处理
-function changePage(){
+/*function changePage(){
 	var search=jQuery("#search").val();
 	var gangwei=jQuery("#querygangwei").val();
 	pageNo = 1;
@@ -68,7 +68,7 @@ function changePage(){
 			checkPageButton();
 		}
 	});
-}
+}*/
 
 //刷新表格数据
 function refreshTableData(page){

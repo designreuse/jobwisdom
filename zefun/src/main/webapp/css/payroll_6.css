@@ -16,9 +16,10 @@
 	margin-right:80px
 	
 }
+.pull_mould_content_part .active{border-left:3px solid #ff0000;}
 .hair_part img{position:relative;top:2px}
 .pull_mould_content_part{margin-right:-80px;overflow:hidden}
-.hair_part{width:236px;height:38px;text-align:center;border:1px solid #59688a;border-left:3px solid #ff0000;line-height:38px;color: black;position:relative;
+.hair_part{width:236px;height:38px;text-align:center;border:1px solid #59688a;line-height:38px;color: black;position:relative;
     font-size: 14px;margin:11px 0 0 4px}
 .hair_part em{display:inline-block;width:47px;height:30px;border-left:2px solid #989da6;line-height:30px;position:relative;left:72px}
 .part_ul{position:absolute;border-left:1px solid #565656;border-right:1px solid #565656;top:38px;border-bottom:1px solid #565656;border-top:1px solid white;z-index:2;display:none;right:-1px}

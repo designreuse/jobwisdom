@@ -153,6 +153,8 @@ public interface View {
 	 * @date Aug 5, 2015 7:49:53 PM
 	 */
 	class MemberLevel {
+		/** 企业新增会员卡类别*/
+		public static final String ENTERPRISE_MEMBER_LEVEL = "member/memberLevel/enterpriseMemberLevel";
 		/** 会员等级列表页面 */
 		public static final String LIST = "member/memberLevel/list";
 	}
