@@ -306,6 +306,14 @@ public class ProjectInfoController extends BaseController {
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, categoryId);
     }
     
+    /**
+     * 系列列表页面
+    * @author 高国藩
+    * @date 2016年5月30日 下午7:11:54
+    * @param request    request
+    * @param response   response
+    * @return           ModelAndView
+     */
     @RequestMapping(value = Url.Project.PROJECT_CATEGORY_VIEW)
     public ModelAndView projectCategoryView(HttpServletRequest request, HttpServletResponse response) {
         Integer storeId = getStoreId(request);

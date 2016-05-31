@@ -75,7 +75,7 @@ input[type=radio] {
 							<div class="add_store_content clearfix" style="display: ;">
 								<div class="add_store_sale">
 									<p>
-										<span><em>选择卖品商品</em><select name="" onchange="queryGoodsInfo(this.value)"><option>名称/编号</option>
+										<span><em>选择卖品商品</em><select name="aId" onchange="queryGoodsInfo(this.value)"><option value="0">名称/编号</option>
 																	<c:forEach items="${goodsInfos }" var="goodsInfo">
 																	<option value="${goodsInfo.goodsId }">${goodsInfo.goodsName }</option>
 																	</c:forEach>
@@ -245,17 +245,6 @@ input[type=radio] {
 	function zccCallback(dataBase64) {
 		if(type==1)imgObject.attr("src", dataBase64);
 		var key = "jobwisdom/goods/" + new Date().getTime();
-		if(type==1){
-			if ((typeof (imgObject.attr("goodsImage"))) != "undefined") {
-				imgObject.attr("goodsImage", key);
-				imgObject.attr("src", qiniu+key);
-			} else {
-				imgObject.attr("affiliatedImage", key);
-				imgObject.attr("src", qiniu+key);
-			}
-		}else{
-			u1.execCommand('insertHtml', '<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'+qiniu+key+'">');
-		}
 		var data = {
 			"stringBase64" : dataBase64,
 			"key" : key
@@ -280,9 +269,37 @@ input[type=radio] {
 			success : function(data) {
 				var imageUrl = data.msg.imageUrl;
 				var key = data.msg.key;
+				if(type==1){
+					if ((typeof (imgObject.attr("goodsImage"))) != "undefined") {
+						imgObject.attr("goodsImage", key);
+						imgObject.attr("src", qiniu+key);
+					} else {
+						imgObject.attr("affiliatedImage", key);
+						imgObject.attr("src", qiniu+key);
+					}
+				}else{
+					u1.execCommand('insertHtml', '<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'+qiniu+key+'">');
+				}
 				console.log(imageUrl);
 			}
 		});
+	}
+	var toolbars = {
+			toolbars: [
+			   		['fullscreen', 'source', '|', 'undo', 'redo', '|',
+			           'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript','|', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+			           'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+			           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+			           'directionalityltr', 'directionalityrtl', 'indent', '|',
+			           'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase','preview']
+			   	],maximumWords:3000,elementPathEnabled:false,imageScaleEnabled:false,wordCount:false,autoHeightEnabled:false};
+	var u1 = UE.getEditor('editor1', toolbars);
+	
+	function closeImage(span, id, event){
+		jQuery(span).parent("li").find("img").eq(0).attr(id, "system/profile/add_img.png");
+		jQuery(span).parent("li").find("img").eq(0).attr("src", qiniu+"system/profile/add_img.png");
+		event.stopPropagation();
+		return false;
 	}
 </script>
 <script type="text/javascript" src="<%=basePath%>js/base/zcc.js"></script>
@@ -294,8 +311,11 @@ input[type=radio] {
 	var deptId = deptGoodsBaseDtoList[0].deptId;
 
 	var goodsId = null;
+	var aId = null;
 	var goodsInfo = null;
 	var goodsDiscountList = null;
+	
+	var queryAID = '${aId}';
 
 	/**
 	 * 更换部门切换类别
@@ -316,16 +336,27 @@ input[type=radio] {
 		}
 	}
 	
+	
 	/**查找项目*/
 	function queryGoodsInfo(goodsIds){
-		goodsId = goodsIds;
+		if(goodsIds == "0")return;
+		aId = goodsIds;
+		console.log(aId);
 		jQuery.ajax({
 	        cache: true,
 	        type: "GET",
 	        async: false,
 	        url: baseUrl+"goodsInfo/queryGoodsInfoById?goodsId="+goodsIds,
 	        success: function(data) {
+	        	if (data.code == 3){
+	        		var goodsInfo = data.msg;
+	        		jQuery("i[name='goodsName']").text(goodsInfo.goodsName);
+		        	jQuery("i[name='goodsCodeSuffix']").text(goodsInfo.goodsCodeSuffix);
+		        	clearInput();
+	        		return;
+	        	}
 	        	var goodsInfo = data.msg.goodsInfo;
+	        	goodsId = goodsInfo.goodsId;
 	        	var goodsDiscountList = data.msg.goodsDiscountList;
 	        	console.log(goodsDiscountList);
 	        	jQuery("select[name='deptId']").val(goodsInfo.deptId);
@@ -361,7 +392,7 @@ input[type=radio] {
 	}
 	
 	function saveImage(){
-		if (goodsId==null){dialog("请先选择一个商品");return;}
+		if (aId==null){dialog("请先选择一个商品");return;}
 		var data = null;
 		var deptId = jQuery("select[name='deptId']").val();
 		var categoryId = jQuery("select[name='categoryId']").val();
@@ -377,6 +408,7 @@ input[type=radio] {
 		}
 		data = {
 			"storeId" : storeId,
+			"aId" : aId,
 			"goodsId" : goodsId,
 			"deptId" : deptId,
 			"categoryId" : categoryId,
@@ -393,6 +425,7 @@ input[type=radio] {
 			contentType : "application/json",
 			async : false,
 			success : function(data) {
+				goodsId = data.msg;
 				dialog(data.msg);
 			}
 		});
@@ -413,6 +446,7 @@ input[type=radio] {
 		data = {
 			"storeId" : storeId,
 			"goodsId" : goodsId,
+			"aId" : aId,
 			"deptId" : deptId,
 			"goodsPrice" : goodsPrice,
 			"isCashDeduction" : isCashDeduction,
@@ -441,7 +475,7 @@ input[type=radio] {
 			contentType : "application/json",
 			async : false,
 			success : function(data) {
-				dialog(data.msg);
+				goodsId = data.msg;
 			}
 		});
 	}
@@ -465,22 +499,21 @@ input[type=radio] {
 	function trim(t) {
 		return (t || "").replace(/^\s+|\s+$/g, "");
 	}
-	var toolbars = {
-			toolbars: [
-			   		['fullscreen', 'source', '|', 'undo', 'redo', '|',
-			           'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript','|', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
-			           'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-			           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-			           'directionalityltr', 'directionalityrtl', 'indent', '|',
-			           'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase','preview']
-			   	],maximumWords:3000,elementPathEnabled:false,imageScaleEnabled:false,wordCount:false,autoHeightEnabled:false};
-	var u1 = UE.getEditor('editor1', toolbars);
 	
-	function closeImage(span, id, event){
-		jQuery(span).parent("li").find("img").eq(0).attr(id, "system/profile/add_img.png");
-		jQuery(span).parent("li").find("img").eq(0).attr("src", qiniu+"system/profile/add_img.png");
-		 event.stopPropagation();
-		return false;
+	function clearInput(){
+		jQuery("img[name='goodsImage']").attr("goodsImage", "system/profile/add_img.png");
+    	jQuery("img[name='goodsImage']").attr("src", qiniu+"system/profile/add_img.png");
+		for (var i = 0; i < 6; i++) {
+			jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage", "system/profile/add_img.png");
+			jQuery("img[name='affiliatedImage']").eq(i).attr("src", qiniu + "system/profile/add_img.png");
+		}
+		jQuery("input[name='goodsPrice']").val("");
+		jQuery("input[name='highestDiscount']").val("");
+		jQuery("input[name='onlineShoppingPrice']").val("");
+		jQuery("input[name='commissionAmount']").val("");
+		jQuery("input[name='cardAmount']").val("");
+		u1.setContent("");
+		jQuery("#memberLevel").empty();
 	}
 </script>
 </html>
