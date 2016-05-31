@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -91,13 +92,14 @@ public class WechatPayController extends BaseController{
     * @param response response
     * @param outTradeNo 订单标示
     * @param storeAccount 处理
+    * @param data       微信处理回调数据
     * @return SUCCESS
      * @throws UnsupportedEncodingException 异常处理
      */
     @RequestMapping(value = Url.AppPay.REQUEST_APP_PAY_CALLBACK)
     @ResponseBody
     public String appCallBack(HttpServletRequest request, HttpServletResponse response, 
-            @PathVariable String outTradeNo, @PathVariable String storeAccount) throws UnsupportedEncodingException{
+            @PathVariable String outTradeNo, @PathVariable String storeAccount, @RequestBody String data) throws UnsupportedEncodingException{
         log.info("微信支付回调了,32位随机字码为:"+outTradeNo+",store信息:"+storeAccount);
         wechatCallService.updateRechargeRecord(null, null, outTradeNo, 1, null);
         systemWebSocketHandler.sendMessageToUser(storeAccount, new TextMessage("充值成功".getBytes("UTF-8")));

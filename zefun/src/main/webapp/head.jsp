@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="<%=basePath %>css/cropper.css" type="text/css" />
 	<%-- <link rel="stylesheet" href="<%=basePath %>css/cropper.min.css" type="text/css" /> --%>
     
-   <%--  <link href="<%=basePath %>images/favicon.ico" type="image/x-icon" rel="shortcut icon"/>
-	<link rel="shortcut icon" href="http://www.weather.com.cn/favicon.ico" type="image/x-icon" / --%>>
+    <link href="<%=basePath %>images/favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+	<%--  <link rel="shortcut icon" href="http://www.weather.com.cn/favicon.ico" type="image/x-icon" / --%>
     <script type="text/javascript" src="<%=basePath %>js/common/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="<%=basePath %>js/common/star-rating.min.js"></script>
     <script type="text/javascript" src="<%=basePath %>js/common/jquery.cookie.js"></script>

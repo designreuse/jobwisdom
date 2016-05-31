@@ -11,7 +11,6 @@
     <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
     <result column="goods_desc" property="goodsDesc" jdbcType="VARCHAR" />
     <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
-    
     <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
     <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
   </resultMap>

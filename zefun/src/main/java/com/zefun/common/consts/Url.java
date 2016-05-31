@@ -1547,4 +1547,20 @@ public interface Url {
         public static final String WECHAT_SERVER_API = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 	}
 
+	/**
+	 * 进销存管理
+	* @author 高国藩
+	* @date 2016年5月31日 下午3:59:46
+	 */
+	class GoodsStock {
+
+	    /** 进销存管理页面 */
+        public static final String VIEW_STOCK = "stock/view";
+        /** 库存设置*/
+        public static final String ACTION_STOCK = "stock/action";
+        /** 根据不同门店查询进销存*/
+        public static final String QUERY_STOCK_FLOW_BY_STORE = "stock/query/{storeId}";
+	    
+	}
+
 }

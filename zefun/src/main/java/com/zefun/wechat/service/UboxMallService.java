@@ -20,6 +20,7 @@ import com.zefun.common.utils.UboxApiUtil;
 import com.zefun.common.utils.XmlUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
+import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.ubox.UboxStoreGoodsDto;
 import com.zefun.web.dto.ubox.UboxTransactionDto;
@@ -399,7 +400,7 @@ public class UboxMallService {
             orderInfoMapper.insert(orderInfo);
             Integer orderId = orderInfo.getOrderId();
             //订单明细
-            GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(goodsId);
+            GoodsInfoDto goodsInfo = goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrderId(orderId);
             orderDetail.setOrderType(2);
@@ -411,6 +412,10 @@ public class UboxMallService {
             orderDetail.setProjectPrice(new BigDecimal(amount).divide(new BigDecimal(100)));
             orderDetailMapper.insert(orderDetail);
             //订单库存
+            GoodsInfo info = new GoodsInfo();
+            info.setGoodsId(goodsInfo.getGoodsId());
+            info.setSalesCount(goodsInfo.getSalesCount()+1);
+            goodsInfoMapper.updateByPrimaryKeySelective(info);
             return "SUCCESS";
         }
         return "FAILE";

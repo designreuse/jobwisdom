@@ -358,7 +358,7 @@ input[type=radio] {
 	        	var goodsInfo = data.msg.goodsInfo;
 	        	goodsId = goodsInfo.goodsId;
 	        	var goodsDiscountList = data.msg.goodsDiscountList;
-	        	console.log(goodsDiscountList);
+	        	console.log(goodsInfo);
 	        	jQuery("select[name='deptId']").val(goodsInfo.deptId);
 	        	choseCategory(goodsInfo.deptId);
 	        	jQuery("select[name='categoryId']").val(goodsInfo.categoryId);
