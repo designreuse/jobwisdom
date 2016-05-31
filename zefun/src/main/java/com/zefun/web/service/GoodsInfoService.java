@@ -639,7 +639,6 @@ public class GoodsInfoService {
     * @author 高国藩
     * @date 2015年11月14日 上午11:36:13
     * @param goodsBrand 实体
-    * @param storeId    门店
     * @return 返回新增实体
      */
     public BaseDto saveBrand(GoodsBrand goodsBrand) {

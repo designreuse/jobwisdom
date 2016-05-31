@@ -115,11 +115,22 @@ public class GoodsInfo {
 	/**企业商品ID*/
 	private Integer aId;
 
-	
+	/**
+	 * 获得ID
+	* @author 高国藩
+	* @date 2016年5月31日 上午9:42:41
+	* @return aId
+	 */
     public Integer getaId() {
         return aId;
     }
 
+    /**
+     * 设置ID
+    * @author 高国藩
+    * @date 2016年5月31日 上午9:43:34
+    * @param aId aId
+     */
     public void setaId(Integer aId) {
         this.aId = aId;
     }
