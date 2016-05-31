@@ -1,5 +1,10 @@
 package com.zefun.web.entity;
 
+/**
+ * 企业微信设置
+* @author 高国藩
+* @date 2016年5月31日 上午9:43:54
+ */
 public class StoreWechat {
     /** 企业账号 */
     private String storeAccount;

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="<%=basePath %>css/business_manage.css" type="text/css" />
-<<style>
+<style>
 .business_level_back_ul .active{
    display:block;
 }
@@ -171,11 +171,7 @@
 		     <span><i>使用须知</i><textarea id="levelNotice"></textarea></span>
 		  </div>
 		</div>
-		<div id="flashEditorOut">
-	        <div id="altContent2">
-	            <h1>美图秀秀2</h1>
-	        </div>
-		</div>
+		
 		<div class="business_level_back">
 		  <p>选择卡背</p>
 		   <ul class="business_level_back_ul clearfix">
@@ -222,8 +218,8 @@
 				 <li>商品折扣<input type="text" name="goodsDiscount"></li>
 				 <li>业绩折扣打折<input type="text" name="performanceDiscountPercent"></li>
 				 <li>开卡费用<input type="text" name="sellAmount"></li>
-				 <li>最低充值<input type="text" name="chargeMinMoney"></li>
-				 <li><span class="mr10 label12 font-bold">积分计算方式：</span>
+				 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:28px"></li>
+				 <li style="width:600px"><span class="mr10 label12 font-bold">积分计算方式：</span>
 				                            每消费<input type="number" name="integralUnit" class="input30" value="1"><span class="percent-symbol">元</span>
                      <span class="ml10">获得</span>
                      <input type="number" name="integralNumber" class="input30" value="1"><span class="percent-symbol">分</span>
@@ -255,7 +251,10 @@
 				   <span>卡上余额：12354651元<em>充值</em></span>
 	            </div>
          	 </div>  
-			 
+			 <div class="right_dir">
+			   <span><img src="<%=basePath %>images/face.png"></span>
+			   <span><img src="<%=basePath %>images/back_1.png"></span>
+			 </div>
 			 <div class="preview_2 clearfix" style="background:url('<%=basePath %>images/vip_card1.png') no-repeat;">
 			   <div class="preview_2_top"><span>5折卡</span></div>
 			   <div class="preview_2_content clearfix">
@@ -276,6 +275,16 @@
 	  
    </div>   
 </div>
+
+<!-- 美图秀秀 -->
+<div class="mask">
+   <div id="flashEditorOut" >
+	        <div id="altContent2">
+	            <h1>美图秀秀2</h1>
+	        </div>
+		</div>
+</div>
+
 <script type="text/javascript" src="<%=basePath %>js/member/enterpriseMemberLevel.js"></script>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script>

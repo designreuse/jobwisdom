@@ -1,5 +1,5 @@
 .content_right_pull_mould{width:930px;margin:60px auto}
-
+.content_right{background:white}
 .pull_mould_down{width:220px;height:34px;background:#59688a;border-radius:10px;color:white;border:none;text-align:center;line-height:34px}
 .pull_mould_{width:150px;background:#59688a;border-radius:10px;color:white;border:none;text-align:center;line-height:34px;height:34px;margin-left:20px}
 .pull_mould button:hover{background:#303a4f}
@@ -16,13 +16,14 @@
 	margin-right:80px
 	
 }
+.part_ul li img{top:0!important}
 .pull_mould_content_part .active{border-left:3px solid #ff0000;}
-.hair_part img{position:relative;top:2px}
+.hair_part img{position:relative;top:5px}
 .pull_mould_content_part{margin-right:-80px;overflow:hidden}
-.hair_part{width:236px;height:38px;text-align:center;border:1px solid #59688a;line-height:38px;color: black;position:relative;
+.hair_part{width:236px;height:38px;text-align:center;border:1px solid #59688a;line-height:38px;color: black;position:relative;cursor:pointer;
     font-size: 14px;margin:11px 0 0 4px}
-.hair_part em{display:inline-block;width:47px;height:30px;border-left:2px solid #989da6;line-height:30px;position:relative;left:72px}
-.part_ul{position:absolute;border-left:1px solid #565656;border-right:1px solid #565656;top:38px;border-bottom:1px solid #565656;border-top:1px solid white;z-index:2;display:none;right:-1px}
+.hair_part em{display:inline-block;width:47px;height:30px;border-left:2px solid #989da6;line-height:30px;position:absolute;left:190px;top:5px}
+.part_ul{position:absolute;border-left:1px solid #565656;border-right:1px solid #565656;top:38px;border-bottom:1px solid #565656;border-top:1px solid white;z-index:2;display:none;right:-1px;background:white}
 .part_ul li{width:46px;;text-align:center}
 .part_ul li:hover{background:#d8dbde}
 .part_ul li img{width:31px}
@@ -184,3 +185,4 @@
 
 .zzc2_post_content li span{font-size:14px;color:black;display:inline-block;position:relative;top:-4px;}
 .lcs_switch{position:relative;top:10px}
+.hair_part i{display:inline-block;width:190px;position:relative;left:-23px}

@@ -1,3 +1,5 @@
+
+
 jQuery('.part_1').delegate("em", "click", function(){
 	   jQuery(this).parent().find('.part_ul').stop(true,true).toggle('normal');
 })

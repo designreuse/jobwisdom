@@ -6,14 +6,14 @@
 <style>
 .item_list{margin-top:20px;height:310px}
 .item_list select{width:104px;height:22px;padding-left:50px;border-radius:10px;font-size:14px;color:black;border:1px solid black}
-.item_list button{border:none;border-radius:10px;color:white;background:#59688a;height:30px;text-align:center;line-height:30px;width:76px;margin:0 29px 0 95px}
-.item_list input{height:20px;width:120px;padding-left:10px;border-radius:10px 0 0 10px;border:1px solid black;margin-left:4px}
+.item_list button{border:none;border-radius:10px;color:white;background:#59688a;height:30px;text-align:center;line-height:30px;width:76px;margin:0 29px 0 5px}
+.item_list input{height:20px;width:120px;padding-left:10px;border-radius:10px 0 0 10px;border:1px solid black;margin-left:54px}
 .item_part{margin:20px 100px}
 .item_list button:hover{background:#495673}
 
 .item_part_content{margin-left:40px}
 .item_part_content_left{width:283px;height:200px;border-radius:8px;overflow:overlay;float:left;border:1px solid black;margin-right:30px}
-.item_part_content_right{float:left;border:1px solid black;border-radius:8px;width:700px;height:200px}
+.item_part_content_right{float:left;border:1px solid black;border-radius:8px;width:700px;height:200px;margin-left: 57px;}
 
 .hair_part{width:236px;height:38px;text-align:center;border:1px solid #59688a;border-left:3px solid #ff0000;line-height:38px;color: black;position:relative;
     font-size: 14px;margin:11px 0 0 4px}
@@ -56,17 +56,14 @@
 							<option value="${projectCategory.deptId }">${projectCategory.deptName }</option>
 							</c:forEach>
 							</select>
+							<input id="projectCategory" categoryId="" maxlength="8" type="text" placeholder="不超过八个字" style="border-radius: 10px">
 							<button onclick="saveProjectCategory(this)">添加</button>
-							<input id="projectCategory" categoryId="" type="text" placeholder="不超过八个字" style="border-radius: 10px">
 						</div>
 						<div class="item_part_content clearfix">
-							<div class="item_part_content_left">
-								
-							</div>
 							<div class="item_part_content_right">
 								<c:forEach items="${projectBaseDtos[0].projectCategoryList }" var="projectCategory">
 									<span id="${projectCategory.categoryId }"> 
-										<input type="text" value="${projectCategory.categoryName }" placeholder="${projectCategory.categoryName }" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px">
+										<input readonly="readonly" type="text" value="${projectCategory.categoryName }" placeholder="${projectCategory.categoryName }" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px">
 										<i><img src="<%=basePath%>images/demo2_down.png"></i>
 										<ul class="demo_fade" style="">
 											<li><img src="<%=basePath%>images/handle_2.png" onclick="deleted(1, ${projectCategory.categoryId }, this)"></li>
@@ -89,17 +86,14 @@
 							<option value="${goodsCategory.deptId }">${goodsCategory.deptName }</option>
 							</c:forEach>
 							</select>
+							<input id="goodsCategory" categoryId="" maxlength="8" type="text" placeholder="不超过八个字" style="border-radius: 10px">
 							<button onclick="saveGoodsCategory(this)">添加</button>
-							<input id="goodsCategory" categoryId="" type="text" placeholder="不超过八个字" style="border-radius: 10px">
 						</div>
 						<div class="item_part_content clearfix">
-							<div class="item_part_content_left">
-								
-							</div>
 							<div class="item_part_content_right">
 								<c:forEach items="${goodsBaseDtos[0].goodsCategoryBaseDto }" var="goodsCategory">
 									<span id="${goodsCategory.categoryId }"> 
-										<input type="text" value="${goodsCategory.categoryName }" placeholder="${goodsCategory.categoryName }" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px">
+										<input readonly="readonly" type="text" value="${goodsCategory.categoryName }" placeholder="${goodsCategory.categoryName }" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px">
 										<i><img src="<%=basePath%>images/demo2_down.png"></i>
 										<ul class="demo_fade" style="">
 											<li><img src="<%=basePath%>images/handle_2.png" onclick="deleted(2, ${goodsCategory.categoryId }, this)"></li>
@@ -127,9 +121,11 @@
 		}
 	});
 	function saveProjectCategory(btn){
-		var categoryName = jQuery(btn).next("input").val();
+		var categoryName = jQuery(btn).prev("input").val();
+		if (categoryName == ""){dialog("请填写系列名称");return;}
 		var deptId =  jQuery("select[name='projectCategory']").val();
-		var categoryId = jQuery(btn).next("input").attr("categoryId");
+		var categoryId = jQuery(btn).prev("input").attr("categoryId");
+		jQuery(btn).prev("input").var("");
 		if(categoryId == ""){
 			jQuery.ajax({
 				type: "POST",
@@ -138,13 +134,13 @@
 		        success: function(data) {
 		        	if(data.code==0){
 		        		var span = jQuery("")
-		        		var html = '<span id='+data.msg+'><input value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
+		        		var html = '<span id='+data.msg+'><input readonly="readonly" value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
 												'<ul class="demo_fade" style="display: none;">'+
 											'<li><img src="'+baseUrl+'images/handle_2.png" onclick="deleted(1, '+data.msg+', this)"></li>'+
 											'<li><img src="'+baseUrl+'images/handle_1.png" onclick="update(1, '+data.msg+', this)"></li>'+
 										'</ul>'+
 									'</span>';
-						jQuery(".item_part_content_left").eq(0).append(jQuery(html));
+						jQuery(".item_part_content_right").eq(0).append(jQuery(html));
 		        	}
 		        }
 			});
@@ -167,10 +163,11 @@
 		}
 	}
 	function saveGoodsCategory(btn){
-		var categoryName = jQuery(btn).next("input").val();
+		var categoryName = jQuery(btn).prev("input").val();
+		if (categoryName == ""){dialog("请填写系列名称");return;}
 		var deptId =  jQuery("select[name='goodsCategory']").val();
-		var categoryId = jQuery(btn).next("input").attr("categoryId");
-		jQuery(btn).next("input").val("");
+		var categoryId = jQuery(btn).prev("input").attr("categoryId");
+		jQuery(btn).prev("input").val("");
 		if(categoryId == ""){
 			jQuery.ajax({
 				type: "POST",
@@ -179,13 +176,13 @@
 		        success: function(data) {
 		        	if(data.code==0){
 		        		var span = jQuery("")
-		        		var html = '<span id='+data.msg+'><input value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
+		        		var html = '<span id='+data.msg+'><input readonly="readonly" value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
 												'<ul class="demo_fade" style="display: none;">'+
 											'<li><img src="'+baseUrl+'images/handle_2.png" onclick="deleted(1, '+data.msg+', this)"></li>'+
 											'<li><img src="'+baseUrl+'images/handle_1.png" onclick="update(1, '+data.msg+', this)"></li>'+
 										'</ul>'+
 									'</span>';
-						jQuery(".item_part_content_left").eq(1).append(jQuery(html));
+						jQuery(".item_part_content_right").eq(1).append(jQuery(html));
 		        	}
 		        }
 			});
@@ -262,7 +259,7 @@
 					for (var j = 0; j < projectBaseDtosJs[i].projectCategoryList.length; j++) {
 						var categoryName = projectBaseDtosJs[i].projectCategoryList[j].categoryName;
 						var categoryId = projectBaseDtosJs[i].projectCategoryList[j].categoryId;
-						var html = '<span id='+categoryId+'><input value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
+						var html = '<span id='+categoryId+'><input readonly="readonly" value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
 												'<ul class="demo_fade" style="display: none;">'+
 											'<li><img src="'+baseUrl+'images/handle_2.png" onclick="deleted(1, '+categoryId+', this)"></li>'+
 											'<li><img src="'+baseUrl+'images/handle_1.png" onclick="update(1, '+categoryId+', this)"></li>'+
@@ -281,7 +278,7 @@
 					for (var j = 0; j < goodsBaseDtos[i].goodsCategoryBaseDto.length; j++) {
 						var categoryName = goodsBaseDtos[i].goodsCategoryBaseDto[j].categoryName;
 						var categoryId = goodsBaseDtos[i].goodsCategoryBaseDto[j].categoryId;
-						var html = '<span id='+categoryId+'><input value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
+						var html = '<span id='+categoryId+'><input readonly="readonly" value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
 												'<ul class="demo_fade" style="display: none;">'+
 											'<li><img src="'+baseUrl+'images/handle_2.png" onclick="deleted(2, '+categoryId+', this)"></li>'+
 											'<li><img src="'+baseUrl+'images/handle_1.png" onclick="update(2, '+categoryId+', this)"></li>'+
