@@ -42,7 +42,7 @@
 					</ul>
 					<div class="right_button">
 						<button class="save" onclick="save()">保 存</button>
-						<button class="cancle" onclick='window.open("<%=basePath %>project/view/projectList","_self")'>取 消</button>
+						<button class="cancle" onclick='window.open("<%=basePath %>project/view/projects","_self")'>取 消</button>
 					</div>
 				</div>
 				<div class="tab_content">

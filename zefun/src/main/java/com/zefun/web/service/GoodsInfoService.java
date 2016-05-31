@@ -29,6 +29,7 @@ import com.zefun.web.dto.ShipmentRecordDto;
 import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.SupplierInfoDto;
 import com.zefun.web.dto.TrendDeptDataDto;
+import com.zefun.web.entity.AccountGoods;
 import com.zefun.web.entity.CodeLibrary;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
@@ -42,6 +43,7 @@ import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.StoreShop;
 import com.zefun.web.entity.SupplierInfo;
+import com.zefun.web.mapper.AccountGoodsMapper;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -106,6 +108,9 @@ public class GoodsInfoService {
     /** 供应商管理 */
     @Autowired
     private SupplierInfoMapper supplierInfoMapper;
+    /** 供应商管理 */
+    @Autowired
+    private AccountGoodsMapper accountGoodsMapper;
     
 
     /**
@@ -316,7 +321,7 @@ public class GoodsInfoService {
         goodsInfoMapper.insertSelective(goodsInfo);
         Integer goodsId = goodsInfo.getGoodsId();
         List<GoodsDiscount> discounts = new ArrayList<GoodsDiscount>();
-        if (levelId != null && !levelId.equals("")){
+        if (levelId.length>0){
             for (int i = 0; i < levelId.length; i++) {
                 GoodsDiscount goodsDiscount = new GoodsDiscount();
                 // 保存商品会员折扣
@@ -360,7 +365,6 @@ public class GoodsInfoService {
     @Transactional
     public void editGoodsInfo(GoodsInfo goodsInfo, String[] levelId, String[] discountAmount) {
         //更新商品
-        goodsInfo.setIsDeleted(2);
         goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
 
         GoodsDiscount goodsDiscount = new GoodsDiscount();
@@ -403,10 +407,19 @@ public class GoodsInfoService {
     * @author 洪秋霞
     * @date 2015年8月10日 下午2:33:52
     * @param goodsId 商品id
+    * @param baseDto baseDto
     * @return GoodsInfo
      */
-    public GoodsInfoDto queryGoodsInfoById(Integer goodsId) {
-        return goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
+    public GoodsInfoDto queryGoodsInfoById(Integer goodsId, BaseDto baseDto) {
+        GoodsInfo goodsInfo = goodsInfoMapper.selectByStoreAccount(goodsId);
+        if (goodsInfo == null){
+            AccountGoods accountGoods = accountGoodsMapper.selectByPrimaryKey(goodsId);
+            baseDto.setMsg(accountGoods);
+            return null;
+        }
+        else {
+            return goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsInfo.getGoodsId());
+        }
     }
 
     /**
@@ -977,19 +990,19 @@ public class GoodsInfoService {
      * 新建商品基本数据
     * @author 高国藩
     * @date 2016年5月26日 下午3:33:46
-    * @param storeId storeId
+    * @param storeAccount storeAccount
     * @param data    data
     * @return        BaseDto
      */
-    public BaseDto saveGoodsInfoBase(Integer storeId, JSONObject data) {
-        GoodsInfo goodsInfo = (GoodsInfo) JSONObject.toBean(data, GoodsInfo.class);
+    public BaseDto saveGoodsInfoBase(String storeAccount, JSONObject data) {
+        AccountGoods goodsInfo = (AccountGoods) JSONObject.toBean(data, AccountGoods.class);
         if (goodsInfo.getGoodsId()!=null){
-            goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
+            accountGoodsMapper.updateByPrimaryKeySelective(goodsInfo);
         }
         else {
-            goodsInfoMapper.insertSelective(goodsInfo);
+            accountGoodsMapper.insertSelective(goodsInfo);
         }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsInfo.getGoodsId());
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsInfo);
     }
 
     /**
@@ -1015,11 +1028,11 @@ public class GoodsInfoService {
     }
 
     /**
-     * 
+     * 供应商管理
     * @author 高国藩
     * @date 2016年5月28日 下午12:12:09
-    * @param storeAccount
-    * @return
+    * @param storeAccount storeAccount
+    * @return             ModelAndView
      */
     public ModelAndView viewSupplier(String storeAccount) {
         SupplierInfo supplierInfo = new SupplierInfo();
@@ -1028,5 +1041,19 @@ public class GoodsInfoService {
         ModelAndView view = new ModelAndView(View.GoodsInfo.SUPPLIER);
         view.addObject("supplierInfoDtos", supplierInfoDtos);
         return view;
+    }
+
+    /**
+     * 查询企业的商品
+    * @author 高国藩
+    * @date 2016年5月30日 下午2:11:27
+    * @param storeAccount  storeAccount
+    * @return              List<GoodsInfoDto>
+     */
+    public List<AccountGoods> selectAccountGoodsInfo(String storeAccount) {
+        AccountGoods accountGoods = new AccountGoods();
+        accountGoods.setStoreAccount(storeAccount);
+        accountGoods.setIsSellProduct(1);
+        return accountGoodsMapper.selectByProperties(accountGoods);
     }
 }

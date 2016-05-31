@@ -65,7 +65,7 @@
 					</div>
 					<div class="detail_text">
 						<h2>${goodsInfo.goodsName }</h2>
-						<p class="text_content">${goodsInfo.goodsDesc }</p>
+						<p class="text_content">商品简介</p>
 						<div class="list_money">
 							<span>¥${goodsInfo.goodsPrice }</span><em>已售122份</em>
 						</div>

@@ -94,7 +94,7 @@
 							<div id="List1">
 								<c:forEach items="${goodsInfos }" var="goodsInfo" step="2" varStatus="status">
 									<div class="pic">
-									<div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>goodsInfo/view/setting?goodsId=${goodsInfos[status.count*2-2].goodsId }","_self")'>
+									<div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>goods/info/setting?goodsId=${goodsInfos[status.count*2-2].goodsId }","_self")'>
 										<div class="column_img_container" style="position:relatiev">
 										   <span deptId="${goodsInfos[status.count*2-2].deptId}" goodsId="${goodsInfos[status.count*2-2].goodsId }" class="close1" style="position:absolute;right:25px;top:15px;"><img src="<%=basePath%>images/close1.png" style="width:20px"></span>
 											<div class="head_pic">

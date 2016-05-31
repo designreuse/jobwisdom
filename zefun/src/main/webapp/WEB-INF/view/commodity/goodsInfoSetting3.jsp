@@ -50,7 +50,8 @@
 					<div class="tab_content_div clearfix">
 						<div class="tab_content_div_left">
 							<div>
-								商品品牌： <input name="brandId" type="text" style="box-shadow: 0 0 3px #ccc;left: 53px">
+								商品品牌：<input name="brandName" onclick="jQuery('#select-brand').modal()" type="text" style="box-shadow: 0 0 3px #ccc;left: 53px"> 
+								<input name="brandId" type="hidden">
 							</div>
 							<div>
 								商品名称：<input name="goodsName" type="text" style="box-shadow: 0 0 3px #ccc;">
@@ -80,12 +81,54 @@
 		</div>
 	</div>
 	
+	<div class="modal hide" id="select-brand" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content select-wordimg-modal" style="width: 580px;">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">
+	                    	选择品牌
+	                </h4>
+	            </div>
+	            <div class="modal-body">
+	                <div class="border-head">
+	                    <input type="text" class="search-input">
+	                    <button type="button" class="btn search-button" id="search-brands" onclick="serchBrandByName(this)">搜索</button>
+	                </div>
+	                <div class="border-content">
+	                    <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+	                        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+	                            <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="false"><a href="#tabs-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">本店品牌</a></li>
+	                        </ul>
+	                        <!-- 自己的品牌 -->
+	                        <div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+	                            <c:forEach items="${brands }" var="brand">
+	                            <div class="brand" onclick="saveBrand(this)" brandId="${brand.brandId }" style="cursor: pointer;">
+	                                <span>${brand.brandName }</span>
+	                            </div>
+	                            </c:forEach>
+	                            <div class="clearfix"></div>
+	                        </div>
+	                        <!-- 自己的品牌 -->
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn" data-dismiss="modal">取消</button>
+	                <button type="button" class="btn " id="confirm-menu-url" data-dismiss="modal">确认</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
 	<div class="zzc">
 	      <div class="photo_cut">
-		   <div id="clipArea"></div>
-           <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
-		   <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
-		   <div class="button_panel"> 
+		    <div id="clipArea"></div>
+            <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
+		    <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
+		    <div class="button_panel"> 
 		    <button class="selectpic">选择图片</button>
 		    <button class="sureinput">确定上传</button>
 			<button class="cancelinput">取消</button>
@@ -246,6 +289,37 @@
 	
 	function trim(t){
 		return (t||"").replace(/^\s+|\s+$/g, "");
+	}
+	
+	
+	function selectBrand(){
+		jQuery("#select-brand").modal();
+	}
+	function saveBrand(obj){
+		var brandName = jQuery(obj).find("span").text();
+		var brandId = jQuery(obj).attr("brandId");
+		jQuery("input[name='brandId']").val(brandId);
+		jQuery("input[name='brandName']").val(brandName);
+		jQuery("#select-brand").modal('hide');
+	}
+	function serchBrandByName(obj){
+		var brandName = jQuery(obj).prev().val();
+		var brand1 = jQuery("#tabs-1").children("div[class='brand']");
+		var brand2 = jQuery("#tabs-2").children("div[class='brand']");
+		for (var i = 0; i < brand1.length; i++) {
+			brand1.eq(i).hide();
+			var name = brand1.eq(i).find("span").text();
+			if(name.indexOf(brandName)!=-1){
+				brand1.eq(i).show();
+			}
+		}
+		for (var i = 0; i < brand2.length; i++) {
+			brand2.eq(i).hide();
+			var name = brand2.eq(i).find("span").text();
+			if(name.indexOf(brandName)!=-1){
+				brand2.eq(i).show();
+			}
+		}
 	}
 </script>
 </html>

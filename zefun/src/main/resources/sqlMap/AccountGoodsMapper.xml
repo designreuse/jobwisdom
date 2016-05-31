@@ -11,6 +11,9 @@
     <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
     <result column="goods_desc" property="goodsDesc" jdbcType="VARCHAR" />
     <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+    
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     goods_id, supplier_id, brand_id, goods_name, goods_code_suffix, is_sell_product, 
@@ -36,7 +39,7 @@
       #{costPrice,jdbcType=DECIMAL}, #{goodsDesc,jdbcType=VARCHAR}, #{storeAccount,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zefun.web.entity.AccountGoods" >
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.AccountGoods" useGeneratedKeys="true" keyProperty="goodsId">
     insert into account_goods
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="goodsId != null" >
@@ -124,6 +127,9 @@
       <if test="storeAccount != null" >
         store_account = #{storeAccount,jdbcType=VARCHAR},
       </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
     </set>
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </update>
@@ -139,4 +145,16 @@
       store_account = #{storeAccount,jdbcType=VARCHAR}
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByProperties" parameterType="com.zefun.web.entity.AccountGoods" resultMap="BaseResultMap">
+    select 
+    ag.goods_id, ag.supplier_id, ag.brand_id, ag.goods_name, ag.goods_code_suffix, ag.is_sell_product, 
+    ag.cost_price, ag.goods_desc, ag.store_account, si.supplier_name, gb.brand_name
+    from account_goods ag
+    left join supplier_info si on si.supplier_id = ag.supplier_id
+    left join goods_brand gb on gb.brand_id = ag.brand_id
+    where ag.store_account = #{storeAccount,jdbcType=VARCHAR}
+    <if test="isSellProduct != null" > and ag.is_sell_product = #{isSellProduct,jdbcType=INTEGER}</if>
+  </select>
+  
 </mapper>

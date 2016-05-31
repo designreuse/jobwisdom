@@ -111,7 +111,18 @@ public class GoodsInfo {
 	private Integer projectStep;
 	/**商品编号*/
 	private String goodsCodeSuffix;
+	
+	/**企业商品ID*/
+	private Integer aId;
 
+	
+    public Integer getaId() {
+        return aId;
+    }
+
+    public void setaId(Integer aId) {
+        this.aId = aId;
+    }
 
     public Integer getProjectStep() {
         return projectStep;
