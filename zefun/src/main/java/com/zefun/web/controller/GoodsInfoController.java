@@ -130,7 +130,7 @@ public class GoodsInfoController extends BaseController {
     }
     
     /**
-     * 进入商品的新增页面
+     * 进入商品的新增页面-该页面权限,新增只允许企业
     * @author 高国藩
     * @date 2016年5月18日 下午5:43:27
     * @param request    请求
@@ -198,54 +198,6 @@ public class GoodsInfoController extends BaseController {
         model.setViewName(View.GoodsInfo.SETTING_GOODS);
         return model;
     }
-
-    
-    /**
-     * 保存商品
-    * @author 高国藩
-    * @date 2016年4月25日 下午5:59:57
-    * @param request   request
-    * @param response  response
-    * @param stepNum   编辑步骤
-    * @param data      数据
-    * @param status    0/1 新增/修改
-    * @return          状态
-     */
-    @RequestMapping(value = Url.GoodsInfo.GOODS_SAVE_STEP, method=RequestMethod.POST)
-    @ResponseBody
-    public BaseDto saveProjectByStep(HttpServletRequest request, HttpServletResponse response, 
-            @PathVariable("stepNum")Integer stepNum, @PathVariable("status")Integer status, 
-            @RequestBody JSONObject data) {
-        
-        // 初次创建项目
-        if (status==0&&stepNum==1){
-            return goodsInfoService.saveGoodsInfoByStep((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-        }
-        // 新增价格设置
-        if (status==0&&stepNum==2){
-            return goodsInfoService.saveGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-        }
-        // 销售提成新增
-        if (status==0&&stepNum==3){
-            return goodsInfoService.saveGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-        }
-        if (status==0&&stepNum==4){
-            return goodsInfoService.saveLevelDiscount(data);
-        }
-        if (status==1&&stepNum==1){
-            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-        }
-        if (status==1&&stepNum==2){
-            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-        }
-        if (status==1&&stepNum==3){
-            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-        }
-        if (status==1&&stepNum==4){
-            return goodsInfoService.saveLevelDiscount(data);
-        }
-        return null;
-    }
     
     /**
      * 新建商品的基本数据
@@ -262,6 +214,54 @@ public class GoodsInfoController extends BaseController {
         String storeAccount = getStoreAccount(request);
         return goodsInfoService.saveGoodsInfoBase(storeAccount, data);
     }
+
+    
+    /**
+     * 保存商品
+    * @author 高国藩
+    * @date 2016年4月25日 下午5:59:57
+    * @param request   request
+    * @param response  response
+    * @param stepNum   编辑步骤
+    * @param data      数据
+    * @param status    0/1 新增/修改
+    * @return          状态
+     */
+//    @RequestMapping(value = Url.GoodsInfo.GOODS_SAVE_STEP, method=RequestMethod.POST)
+//    @ResponseBody
+//    public BaseDto saveProjectByStep(HttpServletRequest request, HttpServletResponse response, 
+//            @PathVariable("stepNum")Integer stepNum, @PathVariable("status")Integer status, 
+//            @RequestBody JSONObject data) {
+//        
+//        // 初次创建项目
+//        if (status==0&&stepNum==1){
+//            return goodsInfoService.saveGoodsInfoByStep((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+//        }
+//        // 新增价格设置
+//        if (status==0&&stepNum==2){
+//            return goodsInfoService.saveGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+//        }
+//        // 销售提成新增
+//        if (status==0&&stepNum==3){
+//            return goodsInfoService.saveGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+//        }
+//        if (status==0&&stepNum==4){
+//            return goodsInfoService.saveLevelDiscount(data);
+//        }
+//        if (status==1&&stepNum==1){
+//            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+//        }
+//        if (status==1&&stepNum==2){
+//            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+//        }
+//        if (status==1&&stepNum==3){
+//            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
+//        }
+//        if (status==1&&stepNum==4){
+//            return goodsInfoService.saveLevelDiscount(data);
+//        }
+//        return null;
+//    }
     
     
     /**
