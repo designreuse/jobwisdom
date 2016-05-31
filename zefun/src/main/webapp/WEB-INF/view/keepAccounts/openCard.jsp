@@ -175,9 +175,7 @@
 	                        <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="kaidan-label" for="">手机号:</label>
 	                            <input type="text"  class="w185 jiaodian" name = "phoneNumber" placeholder="*"/>
-	                            <ul class="focus_input" >
-	
-			                    </ul>
+	                           
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 	                        </div>
 	                        <div class="p-part-first">
@@ -361,8 +359,7 @@
 	                        <div class="p-part-first ml10" name = "memberTR" selectType = "1">
 	                            <label class="w60" for="">搜索会员:</label>
 	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
-	                            <ul class="focus_input" >
-			                    </ul>
+	                           
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 	                        </div>
 	                    </div>
@@ -507,9 +504,7 @@
 	                        <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="w60:" for="">转出会员:</label>
 	                            <input type="text" name = "phoneNumber" class="w185" placeholder="会员手机号">
-	                            <ul class="focus_input" >
-	
-			                    </ul>
+	                           
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 	                        </div>
 	                    </div>
@@ -535,9 +530,7 @@
                             <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="w60:" for="">转入会员:</label>
 	                            <input type="text" name = "phoneNumber" class="w185" placeholder="会员手机号">
-	                            <ul class="focus_input" >
-	
-			                    </ul>
+	                           
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 	                        </div>
 	                    </div>
@@ -586,9 +579,7 @@
                             <label class="w60:" for="">升级会员:</label>
                             <div style="display: inline-block;" name= "seekTD">
                                <input type="text" class="w185 searchinpput" name = "phoneNumber" placeholder="会员手机号"/>
-                               <ul class="focus_input" >
-
-	                           </ul>
+                              
                                <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
                             </div>
                             <div  name="resultTD" style="display: none;">
@@ -727,9 +718,7 @@
 	                        <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="w60:" for="">搜索会员:</label>
 	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
-	                            <ul class="focus_input" >
-	
-			                    </ul>
+	                         
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 	                        </div>
 	                    </div>
@@ -811,9 +800,7 @@
 	                        <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="w60:" for="">搜索会员:</label>
 	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
-	                            <ul class="focus_input" >
-	
-			                    </ul>
+	                            
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 	                        </div>
 	                    </div>
