@@ -80,3 +80,14 @@ em,i{font-style:normal}
 
 table tr:nth-child(1){font-weight:bold;color:black}
 table tr:nth-child(n+2){color:black}
+
+.mask{
+	 position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+}
+#flashEditorOut{text-align:center;margin-top:50px}
