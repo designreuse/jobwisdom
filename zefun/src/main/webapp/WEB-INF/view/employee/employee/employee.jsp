@@ -515,6 +515,27 @@ var storeDtoList= eval("("+storeDtoListStr+")");
 	jQuery(document).ready(function(){
 		jQuery.fn.zTree.init(jQuery("#treeDemo"), setting, zNodes);
 	});
+	
+
+	jQuery(function(){
+		for(i=0;i<=1000;i++){
+			jQuery('#treeDemo_'+i+'_ico').attr('style','background-position:-110px -16px');
+			
+		}
+	})
+	
+	//模拟用户点击
+	jQuery(function(){
+		for(i=0;i++;i<=1000){
+			alert(i)
+		jQuery('#treeDemo_1_span,#treeDemo_'+i+'_switch').click(function(){
+			
+				
+		})
+	 
+		jQuery('#treeDemo_1_span,#treeDemo_'+i+'_switch').click()
+		}
+	})
 </script>
 <script type="text/javascript" src="<%=basePath %>js/employee/employee.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/common/jquery.ztree.core-3.5.js"></script>

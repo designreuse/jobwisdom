@@ -414,6 +414,7 @@ function saveUserInfo() {
 
 </script>
 <script type="text/javascript">
+
 var num = 200;
 var w = window.innerWidth;
 var h = window.innerHeight;
@@ -666,24 +667,14 @@ var trans = {
     this.rotObj.z += 0.1;
 
     for (var i = 0; i < this.varr.length; i++) {
-      for (var val in this.calc[i]) {
-        if (this.calc[i].hasOwnProperty(val)) {
-          this.calc[i][val] += this.vel;
-          if (this.calc[i][val] > this.lim) this.calc[i][val] = 0;
-        }
-      }
-
-      this.varr[i].transIn.pos = {
-        x: this.diff * Math.cos(this.calc[i].x * Math.PI / 180),
-        y: this.diff * Math.sin(this.calc[i].y * Math.PI / 180),
-        z: this.diff * Math.sin(this.calc[i].z * Math.PI / 180)
-      };
+ 
+    
       this.varr[i].transIn.rot = this.rotObj;
       this.varr[i].transIn.sz = this.objSz;
       this.varr[i].vupd();
       if (this.varr[i].transOut.p < 0) continue;
       var g = this.$.createRadialGradient(this.varr[i].transOut.x, this.varr[i].transOut.y, this.varr[i].transOut.p, this.varr[i].transOut.x, this.varr[i].transOut.y, this.varr[i].transOut.p * 2);
-      this.$.globalCompositeOperation = 'lighter';
+    
       g.addColorStop(0, 'hsla(255, 255%, 255%, 1)');
       g.addColorStop(.5, 'hsla(' + (i + 2) + ',85%, 40%,1)');
       g.addColorStop(1, 'hsla(' + (i) + ',85%, 40%,.5)');
@@ -712,26 +703,12 @@ var trans = {
   Build.prototype.run = function() {
     this.anim();
 
-    window.addEventListener('mousemove', function(e) {
-      this.toX = (e.clientX - this.canvas.width / 2) * -0.8;
-      this.toY = (e.clientY - this.canvas.height / 2) * 0.8;
-    }.bind(this));
     window.addEventListener('touchmove', function(e) {
       e.preventDefault();
       this.toX = (e.touches[0].clientX - this.canvas.width / 2) * -0.8;
       this.toY = (e.touches[0].clientY - this.canvas.height / 2) * 0.8;
     }.bind(this));
-    window.addEventListener('mousedown', function(e) {
-      for (var i = 0; i < 100; i++) {
-        this.add();
-      }
-    }.bind(this));
-    window.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-      for (var i = 0; i < 100; i++) {
-        this.add();
-      }
-    }.bind(this));
+
   };
   var app = new Build();
   app.run();
