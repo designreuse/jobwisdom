@@ -17,7 +17,15 @@ public class MemberLevel {
 
 	/** 等级名称 */
 	private String levelName;
+	/** 等级类型*/
+	private String levelType;
 
+	/** 背景logo*/
+	private String levelLogo;
+	
+	/** 图片模板*/
+	private String levelTemplate;
+	
 	/** 等级说明 */
 	private String levelNotice;
 
@@ -38,6 +46,30 @@ public class MemberLevel {
 	
 	/** 等级说明数组 */
     private String[] levelNoticeArr;
+
+	public String getLevelType() {
+		return levelType;
+	}
+
+	public void setLevelType(String levelType) {
+		this.levelType = levelType;
+	}
+
+	public String getLevelLogo() {
+		return levelLogo;
+	}
+
+	public void setLevelLogo(String levelLogo) {
+		this.levelLogo = levelLogo;
+	}
+
+	public String getLevelTemplate() {
+		return levelTemplate;
+	}
+
+	public void setLevelTemplate(String levelTemplate) {
+		this.levelTemplate = levelTemplate;
+	}
 
 	/** @param levelId	等级标识 */
 	public void setLevelId(Integer levelId){

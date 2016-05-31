@@ -5,6 +5,9 @@
     <id column="level_id" property="levelId" jdbcType="INTEGER" />
     <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
+    <result column="level_type" property="levelType" jdbcType="VARCHAR" />
+    <result column="level_logo" property="levelLogo" jdbcType="VARCHAR" />
+    <result column="level_template" property="levelTemplate" jdbcType="VARCHAR" />
     <result column="level_notice" property="levelNotice" jdbcType="VARCHAR" />
     <result column="is_default" property="isDefault" jdbcType="INTEGER" />
     <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
@@ -31,7 +34,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    level_id, store_account, level_name, 
+    level_id, store_account, level_name, level_type, level_logo, level_template,
     level_notice, is_default, is_deleted, create_time, update_time, last_operator_id
   </sql>
   
@@ -144,6 +147,15 @@
       <if test="levelName != null" >
         level_name,
       </if>
+      <if test="levelType != null" >
+        level_type,
+      </if>
+      <if test="levelLogo != null" >
+        level_logo,
+      </if>
+      <if test="levelTemplate != null" >
+        level_template,
+      </if>
       <if test="levelNotice != null" >
         level_notice,
       </if>
@@ -172,6 +184,15 @@
       </if>
       <if test="levelName != null" >
         #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelType != null" >
+        #{levelType,jdbcType=VARCHAR},
+      </if>
+      <if test="levelLogo != null" >
+        #{levelLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="levelTemplate != null" >
+        #{levelTemplate,jdbcType=VARCHAR},
       </if>
       <if test="levelNotice != null" >
         #{levelNotice,jdbcType=VARCHAR},
@@ -203,6 +224,15 @@
       <if test="levelName != null" >
         level_name = #{levelName,jdbcType=VARCHAR},
       </if>
+      <if test="levelType != null" >
+        level_type = #{levelType,jdbcType=VARCHAR},
+      </if>
+      <if test="levelLogo != null" >
+        level_logo = #{levelLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="levelTemplate != null" >
+        level_template = #{levelTemplate,jdbcType=VARCHAR},
+      </if>
       <if test="levelNotice != null" >
         level_notice = #{levelNotice,jdbcType=VARCHAR},
       </if>
@@ -227,7 +257,7 @@
   
   <!-- 根据店铺id和等级名称查询会员等级 -->
   <select id="selectMemberLevelBySotreIdAndLevelName" resultMap="BaseResultMap">
-  	select * from member_level where is_deleted = 0 and store_id = #{storeId} and level_name = #{levelName} limit 1
+  	select * from member_level where is_deleted = 0 and store_account = #{storeAccount} and level_name = #{levelName} limit 1
   </select>
   
 </mapper>

@@ -107,11 +107,11 @@ public interface MemberLevelMapper {
     
     /**
      * 根据店铺id和等级名称查询会员等级
-     * @param storeId  店铺id
+     * @param storeAccount  企业代号
      * @param levelName  等级名称
      * @return  会员等级
      */
-    MemberLevel selectMemberLevelBySotreIdAndLevelName(@Param(value="storeId")int storeId, @Param(value="levelName")String levelName);
+    MemberLevel selectMemberLevelBySotreIdAndLevelName(@Param(value="storeAccount")String storeAccount, @Param(value="levelName")String levelName);
     
     /**
      * 根据门店标识删除会员卡信息(非默认)

@@ -16,7 +16,7 @@
 	xiuxiu.onInit = function (id)
 	{
         xiuxiu.setUploadType(3);
-        xiuxiu.loadPhoto("http://7xuvif.com1.z0.glb.clouddn.com/vip_card.png", false);
+        /* xiuxiu.loadPhoto("http://7xuvif.com1.z0.glb.clouddn.com/vip_card.png", false); */
 	}
 	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
 	{
