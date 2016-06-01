@@ -5,6 +5,7 @@
 <%
     String qiniu = "http://7xss26.com1.z0.glb.clouddn.com/";
 %>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="<%=basePath%>css/data.css" type="text/css" />
 <style type="text/css">
 .border {
@@ -23,11 +24,11 @@
 						<button onclick="jQuery('.zzc1').modal()">新建</button>
 						<button>导入模块下载</button>
 						<button style="width: 60px">导入</button>
-						<button style="width: 60px">导出</button>
+						<button style="width: 60px" onclick="exportTable('ag')">导出</button>
 						<span class="data_number"> <input type="text" placeholder="名称/编号"> <em><img src="<%=basePath%>images/seach.png"></em>
 						</span>
 
-						<table>
+						<table id="ag">
 							<tbody>
 								<tr>
 									<td>商品编号</td>
@@ -62,7 +63,7 @@
 				<p>新建商品</p>
 				<div class="new_shop_content">
 					<p>
-						<span><em>商品编号</em><input type="text" name="goodsCodeSuffix"></span><span><em>商品名称</em><input name="goodsName" type="text"></span>
+						<span><em>商品编号</em><input type="text" maxlength="5" name="goodsCodeSuffix"></span><span><em>商品名称</em><input name="goodsName" type="text"></span>
 					</p>
 					<p>
 						是否非卖品<i><input type="radio" name="isSellProduct" value="1">是</i><i><input type="radio" value="0" name="isSellProduct">否</i>

@@ -20,6 +20,7 @@ import com.zefun.common.utils.XmlUtil;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.GoodsInfoDto;
+import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.service.GoodsInfoService;
 import com.zefun.wechat.service.UboxMallService;
 import com.zefun.wechat.service.WechatCallService;
@@ -44,6 +45,11 @@ public class UboxMallController extends BaseController {
     /** 商品 */
     @Autowired
     private GoodsInfoService goodsInfoService;
+    
+    /** 商品 */
+    @Autowired
+    private GoodsInfoMapper goodsInfoMapper;
+    
     
     /**日志*/
     private Logger logger = Logger.getLogger(UboxMallController.class);
@@ -99,7 +105,7 @@ public class UboxMallController extends BaseController {
         }*/
 //        Integer memberId = getUserIdByOpenId(openId);
         
-        GoodsInfoDto goodsInfoDto = goodsInfoService.queryGoodsInfoById(goodsId);
+        GoodsInfoDto goodsInfoDto = goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
         String callback = "/" + Url.AppPay.GOODSINFO_PAY_CALLBACK;
         return wechatCallService.wepayForZefun(storeId, 4, goodsId, goodsInfoDto.getGoodsName(), 
                 goodsInfoDto.getGoodsPrice().intValue(), openId, callback, request);

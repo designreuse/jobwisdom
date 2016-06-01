@@ -1,0 +1,135 @@
+.content_right{padding:32px;background:white}
+.out_roll li{width:138px;height:66px;border:1px solid black;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
+.click_left{position:absolute;z-index:2;top:2px;}
+.click_right{position:absolute;right:-50px;top:2px;z-index:2}
+.out_roll{width:960px;height:96px;position:relative;}
+.out_roll_ul{width:4000px;margin-left:2px;position:relative}
+.out_roll span img{height:55px}
+.out_roll_div{overflow:hidden}
+.out_roll_content{padding:20px 10px 0 0 ;border:1px solid black;border-radius:8px;background:#fbfbff}
+.out_roll_ul .active{background:#ecf7fe}
+.out_tab_content_{height:450px}
+.out_tab{height:512px;width:1014px;border:1px solid black;border-top:none;margin-top:50px;border-radius:8px}
+.out_tab li{width:336px;height:36px;float:left;border:1px solid black;border-radius:10px 10px 0 0;text-align:center;line-height:36px;font-size:16px;color:black;cursor:pointer;font-weight:bold}
+.out_tab .active{border-bottom:none}
+.out_tab ul{height:37px}
+.payroll_table td{height:40px;text-align:center;border:1px solid #dbdce2;vertical-align:middle;padding:0 10px;position:relative}
+.payroll_table td:nth-child(3){
+	cursor:pointer
+}
+.payroll_table{box-shadow:0 0 10px #dbdce2;width:960px;border-radius:8px;}
+.payroll_table_content{margin-top:20px;}
+.payroll_table tr:nth-child(odd){background:#f6f8fc}
+.payroll_table tr:nth-child(1){font-size:14px}
+.out_tab_content{padding:20px}
+.select_button{border:none;border-radius:8px;text-align:center;height:26px;width:130px;line-height:26px;color:white;background:#59688a;font-size:14px;}
+.select_button:hover{
+	background:#45516c
+}
+.out_tab_2{margin-bottom:15px}
+.out_tab_2 button{
+	 border: none;
+    border-radius: 8px;
+    text-align: center;
+    height: 26px;
+    width: 130px;
+    line-height: 26px;
+    color: white;
+    background: #59688a;
+    font-size: 14px;
+    
+}
+.out_tab_2 button:hover{
+	background:#45516c
+}
+.out_tab_2 input{width:140px;border-radius:10px;height:20px;position:relative;left:670px;border:1px solid black}
+.zzc,.zzc1,.zzc2{
+    position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+    
+}
+.out_goods{width:800px;height:570px;margin:20px auto;background:white}
+.out_goods>p{
+	height:70px;font-size:18px;color:white;text-align:center;line-height:70px;background:#384562
+}
+
+.out_goods_content{padding:0 25px;margin-right:-60px;overflow:hidden;margin-top:28px}
+.out_goods_content span{display:inline-block;color:black;margin-right:50px}
+.out_goods_content span input{width:130px;height:20px;border-radius:12px;margin-left:4px;border:1px solid black}
+.textarea_saying{margin-top:16px;color:black}
+.textarea_saying textarea{height:50px;width:665px;border-radius:12px;border:1px solid black;margin-left:25px}
+.allocation_left_table tr{position:relative;cursor:pointer}
+.allocation{margin-top:25px}
+.allocation>p{font-size:16px;color:black}
+.allocation_left{height:240px;float:left;border-radius:8px;margin-top:13px;border:1px solid black;border-radius:8px;margin-right:10px}
+.allocation_left select{width:94px;height:18px;border-radius:10px;border:1px solid black;margin:10px auto;padding-left:30px}
+.allocation_left td{border:1px solid black;text-align:center;height:39px;line-height:39px;border-left:none;}
+.allocation_left table{width:212px;}
+.allocation_left>p{text-align:center;background:#cfd7e8}
+.allocation_left_table{overflow-y:overlay;height:189px;position:relative}
+.allocation_right{width:500px;height:240px;border:1px solid black;border-radius:8px;overflow-y:overlay;margin-top: 13px;margin-left:30px}
+.out_number{height:60px;border-radius:10px;border:1px solid black;position:relative;float:left;margin:10px 0 0 5px;background:#f6f8fc}
+.out_number i{display:inline-block;position:absolute;right:-2px;top:-5px}
+.out_number span{display:inline-block;height:28px;width:64px;border-right:1px solid black;margin-right:0px!important;text-align:center;line-height:28px;color:black}
+em{font-style:normal;text-align:center;display:inline-block;width:90px;color:black}
+.out_number_1 input{width:80px;height:16px;border-radius:15px;border:1px solid black;margin-left:2px}
+.out_content{border-bottom:1px solid black}
+.out_number_1{text-align:center;position:relative;top:3px}
+.out_button button{width:132px;height:26px;border:none;border-radius:12px;text-align:center;line-height:26px;background:#59688a;color:white;font-size:14px;margin-right:56px}
+.out_button{text-align:center;margin-top:17px}
+.out_button button:hover{
+	background:#45526f
+}
+.out_tab_shop span input{width:90px;height:20px;border:1px solid black;border-radius:12px}
+.out_tab_shop span{color:black}
+.out_tab_shop{margin-bottom:15px}
+.out_tab_shop i{display:inline-block;font-style:normal;margin-left:200px}
+.out_tab_shop i span{display:inline-block;margin-right:20px}
+.out_tab_shop i span input{margin-left:13px}
+.out_tab_shop select{width:130px;height:20px;border:1px solid black;border-radius:12px}
+.query{width:110px;height:26px;border:none;color:white;text-align:center;line-height:26px;background:#59688a;border-radius:12px;margin-left:10px;font-size:14px}
+.payroll_table i{font-style:normal;}
+.payroll_table span{padding:20px}
+.payroll_table span i{color:#f01515}
+.overflow_text{
+	white-space: nowrap;
+    width: 450px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.fly_{position:absolute;text-align:left;width:500px;border-radius:8px;background:#fdfde0;box-shadow:0 0 10px #ccc;z-index:2;top:30px}
+.fly_ span{padding:0 2px!important;display:inline-block;width:160px;text-align:center;line-height:30px;height:30px;}
+.box1{width:0px;
+	height:0;
+	border-top:15px solid  transparent;
+	border-right:15px solid  transparent;
+	border-bottom:15px solid #fdfde0;
+	border-left:15px solid  transparent ;
+	display:inline-block;
+	position:absolute;
+	top:0px}
+.allocation_left_table table tr:nth-child(1){
+	font-weight:100!important
+}
+.textarea_saying select{
+	border:1px solid black;
+	border-radius:12px;
+	width: 110px;
+    height: 20px;
+	color:black;
+	padding-left:40px
+}
+.textarea_saying input{text-align:center}
+.zzc2 select{
+	border:1px solid black;
+	border-radius:12px;
+	width: 110px;
+    height: 20px;
+	color:black;
+	padding-left:40px
+}

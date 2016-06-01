@@ -1317,15 +1317,19 @@ public class MemberCenterService {
     * @author 张进军
     * @date Oct 21, 2015 10:00:34 AM
     * @param storeAccount    门店标识（总店）
-    * @param ownerStoreId   会员所属门店
+    * @param ownerStoreId    会员所属门店
+    * @param selectedStoreId 选中门店
     * @return   积分商城页面
      */
-    public ModelAndView shopCenterView(String storeAccount, Integer ownerStoreId){
-        if (ownerStoreId == null) {
-            List<StoreInfo> storeList = storeInfoMapper.selectByStoreAccount(storeAccount);
+    public ModelAndView shopCenterView(String storeAccount, Integer ownerStoreId, Integer selectedStoreId){
+        
+        List<StoreInfo> storeList = storeInfoMapper.selectByStoreAccount(storeAccount);
+        if (ownerStoreId == null && selectedStoreId == null) {
             ownerStoreId = storeList.get(0).getStoreId();
         }
-        
+        if (selectedStoreId != null){
+            ownerStoreId = selectedStoreId;
+        }
         Page<CouponBaseDto> page = new Page<CouponBaseDto>();
         page.setPageNo(1);
         page.setPageSize(10);
@@ -1352,6 +1356,7 @@ public class MemberCenterService {
         
         StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(ownerStoreId);
         mav.addObject("storeInfo", storeInfo);
+        mav.addObject("storeList", storeList);
         
         return mav;
     }

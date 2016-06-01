@@ -775,4 +775,19 @@ public interface View {
 		/** 商品编辑页面 */
 		public static final String GOODS_EDIT = "ubox/editGoods";
 	}
+	
+	/**
+     * 进销存
+     * @author 张进军
+     * @date Jan 28, 2016 5:09:16 PM
+     */
+    class Stock {
+
+        /**企业库存管理*/
+        public static final String VIEW_STOCK = "commodity/viewStock";
+        /**门店库存管理*/
+        public static final String VIEW_STORE_STOCK = "commodity/storeViewStock";
+        
+    }
+    
 }

@@ -43,7 +43,7 @@
             <div class="fl">
                 <h1>${goodsInfo.goodsName }</h1>
                 <div class="pro-others">
-                    <span class="item font-666">已售出：6</span>
+                    <span class="item font-666">已售出：${goodsInfo.salesCount }</span>
                 </div>
             </div>
             <div class="share1 fr">

@@ -912,19 +912,29 @@ public class MemberCenterController extends BaseController {
     * @date Oct 21, 2015 10:00:34 AM
     * @param storeId    门店标识
     * @param businessType   业务类型(1:会员,2:员工)
+    * @param selectedStoreId 选择门店
     * @param request        请求对象
     * @param response       相应对象
     * @return   积分商城页面
+     * @throws IOException 
+     * @throws ServletException 
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_SHOP_CENTER)
-    public ModelAndView shopCenterView(@PathVariable String storeId, @PathVariable int businessType,
-            HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView shopCenterView(@PathVariable String storeId, @PathVariable int businessType, Integer selectedStoreId, 
+            HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
             return null;
         }
         Integer ownerStoreId = getStoreIdByOpenId(openId);
-        return memberCenterService.shopCenterView(storeId, ownerStoreId);
+        try {
+            return memberCenterService.shopCenterView(storeId, ownerStoreId, selectedStoreId);
+        } 
+        catch (Exception e) {
+            request.setAttribute("tip", "该店铺未设置相关内容");
+            request.getRequestDispatcher("/500.jsp").forward(request, response);
+        }
+        return null;
     }
     
     /**

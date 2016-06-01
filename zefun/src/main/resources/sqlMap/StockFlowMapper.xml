@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.StockFlowMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.StockFlow" >
+    <id column="stock_flow_id" property="stockFlowId" jdbcType="INTEGER" />
+    <result column="stock_type" property="stockType" jdbcType="INTEGER" />
+    <result column="flow_type" property="flowType" jdbcType="VARCHAR" />
+    <result column="stock_count" property="stockCount" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="from_store" property="fromStore" jdbcType="INTEGER" />
+    <result column="to_store" property="toStore" jdbcType="INTEGER" />
+    <result column="a_ids" property="aIds" jdbcType="VARCHAR" />
+    <result column="operation_staff" property="operationStaff" jdbcType="INTEGER" />
+    <result column="library_object" property="libraryObject" jdbcType="INTEGER" />
+    <result column="stock_desc" property="stockDesc" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stock_flow_id, stock_type, flow_type, stock_count, create_time, from_store, to_store, 
+    a_ids, operation_staff, library_object, stock_desc, is_deleted, store_account
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock_flow
+    where stock_flow_id = #{stockFlowId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stock_flow
+    where stock_flow_id = #{stockFlowId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.StockFlow" >
+    insert into stock_flow (stock_flow_id, stock_type, flow_type, 
+      stock_count, create_time, from_store, 
+      to_store, a_ids, operation_staff, 
+      library_object, stock_desc, is_deleted, 
+      store_account)
+    values (#{stockFlowId,jdbcType=INTEGER}, #{stockType,jdbcType=INTEGER}, #{flowType,jdbcType=VARCHAR}, 
+      #{stockCount,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR}, #{fromStore,jdbcType=INTEGER}, 
+      #{toStore,jdbcType=INTEGER}, #{aIds,jdbcType=VARCHAR}, #{operationStaff,jdbcType=INTEGER}, 
+      #{libraryObject,jdbcType=INTEGER}, #{stockDesc,jdbcType=VARCHAR}, #{isDeleted,jdbcType=INTEGER}, 
+      #{storeAccount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.StockFlow" >
+    insert into stock_flow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockFlowId != null" >
+        stock_flow_id,
+      </if>
+      <if test="stockType != null" >
+        stock_type,
+      </if>
+      <if test="flowType != null" >
+        flow_type,
+      </if>
+      <if test="stockCount != null" >
+        stock_count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="fromStore != null" >
+        from_store,
+      </if>
+      <if test="toStore != null" >
+        to_store,
+      </if>
+      <if test="aIds != null" >
+        a_ids,
+      </if>
+      <if test="operationStaff != null" >
+        operation_staff,
+      </if>
+      <if test="libraryObject != null" >
+        library_object,
+      </if>
+      <if test="stockDesc != null" >
+        stock_desc,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="storeAccount != null" >
+        store_account,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockFlowId != null" >
+        #{stockFlowId,jdbcType=INTEGER},
+      </if>
+      <if test="stockType != null" >
+        #{stockType,jdbcType=INTEGER},
+      </if>
+      <if test="flowType != null" >
+        #{flowType,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCount != null" >
+        #{stockCount,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="fromStore != null" >
+        #{fromStore,jdbcType=INTEGER},
+      </if>
+      <if test="toStore != null" >
+        #{toStore,jdbcType=INTEGER},
+      </if>
+      <if test="aIds != null" >
+        #{aIds,jdbcType=VARCHAR},
+      </if>
+      <if test="operationStaff != null" >
+        #{operationStaff,jdbcType=INTEGER},
+      </if>
+      <if test="libraryObject != null" >
+        #{libraryObject,jdbcType=INTEGER},
+      </if>
+      <if test="stockDesc != null" >
+        #{stockDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.StockFlow" >
+    update stock_flow
+    <set >
+      <if test="stockType != null" >
+        stock_type = #{stockType,jdbcType=INTEGER},
+      </if>
+      <if test="flowType != null" >
+        flow_type = #{flowType,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCount != null" >
+        stock_count = #{stockCount,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="fromStore != null" >
+        from_store = #{fromStore,jdbcType=INTEGER},
+      </if>
+      <if test="toStore != null" >
+        to_store = #{toStore,jdbcType=INTEGER},
+      </if>
+      <if test="aIds != null" >
+        a_ids = #{aIds,jdbcType=VARCHAR},
+      </if>
+      <if test="operationStaff != null" >
+        operation_staff = #{operationStaff,jdbcType=INTEGER},
+      </if>
+      <if test="libraryObject != null" >
+        library_object = #{libraryObject,jdbcType=INTEGER},
+      </if>
+      <if test="stockDesc != null" >
+        stock_desc = #{stockDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="storeAccount != null" >
+        store_account = #{storeAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stock_flow_id = #{stockFlowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.StockFlow" >
+    update stock_flow
+    set stock_type = #{stockType,jdbcType=INTEGER},
+      flow_type = #{flowType,jdbcType=VARCHAR},
+      stock_count = #{stockCount,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      from_store = #{fromStore,jdbcType=INTEGER},
+      to_store = #{toStore,jdbcType=INTEGER},
+      a_ids = #{aIds,jdbcType=VARCHAR},
+      operation_staff = #{operationStaff,jdbcType=INTEGER},
+      library_object = #{libraryObject,jdbcType=INTEGER},
+      stock_desc = #{stockDesc,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      store_account = #{storeAccount,jdbcType=VARCHAR}
+    where stock_flow_id = #{stockFlowId,jdbcType=INTEGER}
+  </update>
+  
+  <resultMap id="ResultMap" type="com.zefun.web.entity.StockFlow" >
+    <id column="stock_flow_id" property="stockFlowId" jdbcType="INTEGER" />
+    <result column="stock_type" property="stockType" jdbcType="INTEGER" />
+    <result column="flow_type" property="flowType" jdbcType="VARCHAR" />
+    <result column="stock_count" property="stockCount" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="from_store" property="fromStore" jdbcType="INTEGER" />
+    <result column="to_store" property="toStore" jdbcType="INTEGER" />
+    <result column="a_ids" property="aIds" jdbcType="VARCHAR" />
+    <result column="operation_staff" property="operationStaff" jdbcType="INTEGER" />
+    <result column="library_object" property="libraryObject" jdbcType="INTEGER" />
+    <result column="stock_desc" property="stockDesc" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+    <result column="fromStoreName" property="fromStoreName" jdbcType="VARCHAR" />
+    <result column="toStoreName" property="toStoreName" jdbcType="VARCHAR" />
+    <association property="accountGoods" column="{aIds = a_ids}" select="selectGoodsIds" />
+  </resultMap>
+  
+  <resultMap id="ResultGoodsMap" type="com.zefun.web.entity.AccountGoods" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_code_suffix" property="goodsCodeSuffix" jdbcType="CHAR" />
+  </resultMap>
+  
+  <select id="selectByProperties" parameterType="com.zefun.web.entity.StockFlow" resultMap="ResultMap">
+  	select sf.stock_flow_id, sf.stock_type, sf.flow_type, sf.stock_count, sf.create_time, sf.from_store, sf.to_store, 
+    sf.a_ids, sf.operation_staff, sf.library_object, sf.stock_desc, sf.is_deleted, sf.store_account,
+    sio.store_name as fromStoreName, sif.store_name as toStoreName
+    from stock_flow sf 
+    left join store_info sio on sf.from_store = sio.store_id
+    left join store_info sif on sf.to_store = sif.store_id
+    where 1=1
+    <if test="storeAccount != null" >
+        and sf.store_account = #{storeAccount,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectGoodsIds" parameterType="java.util.Map" resultMap="ResultGoodsMap">
+  	select goods_id, goods_name, goods_code_suffix  from account_goods where goods_id in (${aIds})
+  </select>
+</mapper>

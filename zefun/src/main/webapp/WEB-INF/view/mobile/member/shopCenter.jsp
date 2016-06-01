@@ -23,7 +23,7 @@
 <body>
 <div class="con">
        <header  class="clearfix header_">
-       	  <div class="down_content">
+       	  <div class="down_content" onclick="$('.more_shop').show()">
        	     <img src="<%=basePath%>images/mobile/member/down_content.png">
        	  </div>
        	  <div class="search">
@@ -33,10 +33,8 @@
        	  <div class="more_shop">
              <p>更多店铺</p>
             <ul>
-               <li>广州分店<span>惠州旗舰店</span></li>
-
+            	<c:forEach items="${storeList }" var="store"><a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account }/1?selectedStoreId=${store.storeId }"><li>${store.storeCity }<span>${store.storeName }</span></li></a></c:forEach>
             </ul>
-
        	  </div>
        </header>
        

@@ -406,14 +406,14 @@ public class GoodsInfoService {
      * 根据id查询商品
     * @author 洪秋霞
     * @date 2015年8月10日 下午2:33:52
-    * @param goodsId 商品id
+    * @param aId     商品id
     * @param baseDto baseDto
     * @return GoodsInfo
      */
-    public GoodsInfoDto queryGoodsInfoById(Integer goodsId, BaseDto baseDto) {
-        GoodsInfo goodsInfo = goodsInfoMapper.selectByStoreAccount(goodsId);
+    public GoodsInfoDto queryGoodsInfoById(Integer aId, BaseDto baseDto) {
+        GoodsInfo goodsInfo = goodsInfoMapper.selectByStoreAccount(aId);
         if (goodsInfo == null){
-            AccountGoods accountGoods = accountGoodsMapper.selectByPrimaryKey(goodsId);
+            AccountGoods accountGoods = accountGoodsMapper.selectByPrimaryKey(aId);
             baseDto.setMsg(accountGoods);
             return null;
         }
