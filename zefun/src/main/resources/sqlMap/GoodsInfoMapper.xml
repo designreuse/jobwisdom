@@ -660,7 +660,7 @@
         goods.is_cash_deduction as isCashDeduction
     from goods_info goods 
     left join account_goods ag on ag.goods_id = goods.a_id
-    where category_id = #{categoryId} and goods.is_deleted = 0 order by goods.create_time asc
+    where category_id = #{categoryId} and (goods.is_deleted = 0 or goods.is_deleted = 2) order by goods.create_time asc
   </select>
   <!-- 查询部门下的项目信息，包括部门信息、项目类别、项目列表。 结束， by 张进军 -->
   
@@ -903,7 +903,7 @@
   	left join goods_stock gs on gf.a_id = gs.a_id and gf.store_id = gs.store_id
   	left join goods_brand gb on gb.brand_id = ag.brand_id
   	left join supplier_info si on ag.supplier_id = si.supplier_id
-  	where gf.is_deleted = 0 and gf.store_id = #{storeId} and ag.is_deleted = 0
+  	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{storeId} and ag.is_deleted = 0
   </select>
   
   <select id="queryByGoodsIds" parameterType="list" resultMap="BaseResultMap">
@@ -935,7 +935,7 @@
   	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId
   	from goods_info gf 
   	left join dept_info df on gf.dept_id = df.dept_id
-  	where gf.is_deleted = 0 or gf.is_deleted = 2 and gf.store_id = #{storeId} and gf.is_sell_product = 1
+  	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{storeId} and gf.is_sell_product = 1
   </select>
   
   <select id="selectByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

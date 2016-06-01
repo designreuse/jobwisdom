@@ -137,10 +137,22 @@ public class StockFlow {
         this.toStore = toStore;
     }
 
+    /**
+     * sdf
+    * @author 高国藩
+    * @date 2016年6月1日 下午3:08:18
+    * @return sdf 
+     */
     public String getaIds() {
         return aIds;
     }
 
+    /**
+     * sdf
+    * @author 高国藩
+    * @date 2016年6月1日 下午3:08:25
+    * @param aIds sdf
+     */
     public void setaIds(String aIds) {
         this.aIds = aIds == null ? null : aIds.trim();
     }

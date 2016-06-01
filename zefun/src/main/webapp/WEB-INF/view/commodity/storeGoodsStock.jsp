@@ -64,7 +64,7 @@
 									<td>成本价（元）</td>
 									<td>库存</td>
 									<td>品牌</td>
-									<td>操作</td>
+									<!-- <td>操作</td> -->
 								</tr>
 								<c:forEach items="${goodsInfoDtos }" var="accountGood">
 									<tr goodsStock="${accountGood.goodsStock }" goodsDesc="${accountGood.goodsDesc }" goodsId="${accountGood.aId }" isSellProduct="${accountGood.isSellProduct }"  supplierId="${accountGood.supplierId }" brandId="${accountGood.brandId }">
@@ -75,9 +75,9 @@
 										<td>${accountGood.costPrice }</td>
 										<td>${accountGood.goodsStock }</td>
 										<td>${accountGood.brandName }</td>
-										<td>
+										<%-- <td>
 										<span><img onclick="queryGoods(${accountGood.aId },this)" src="<%=basePath%>images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>
-										<i style="display: none;">停止</i></td>
+										<i style="display: none;">停止</i></td> --%>
 									</tr>
 								</c:forEach>
 							</tbody>

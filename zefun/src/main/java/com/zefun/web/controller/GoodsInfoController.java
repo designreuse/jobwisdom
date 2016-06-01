@@ -35,6 +35,7 @@ import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsBrandDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.GoodsPurchaseRecordDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.ShipmentRecordDto;
 import com.zefun.web.dto.SupplierInfoDto;
@@ -80,16 +81,10 @@ public class GoodsInfoController extends BaseController {
     @Autowired private GoodsPurchaseRecordService goodsPurchaseRecordService;
     /**供应商信息*/
     @Autowired private SupplierInfoService supplierInfoService;
-    /**自身的品牌库*/
-    @Autowired private GoodsBrandMapper goodsBrandMapper;
-    /**查询图库*/
-    @Autowired private CodeLibraryMapper codeLibraryMapper;
     /**套餐商品关联*/
     @Autowired private ComboGoodsMapper comboGoodsMapper;
     /**供应商管理处理*/
     @Autowired private SupplierInfoMapper supplierInfoMapper;
-    /**企业商品管理*/
-    @Autowired private AccountGoodsMapper accountGoodsMapper;
     /**企业商品管理*/
     @Autowired private GoodsInfoMapper goodsInfoMapper;
     /**企业门店管理*/
@@ -202,13 +197,13 @@ public class GoodsInfoController extends BaseController {
     }
     
     /**
-     * 
+     * 企业查询分店下商品库存
     * @author 高国藩
     * @date 2016年6月1日 下午1:51:14
-    * @param request
-    * @param response
-    * @param storeId
-    * @return
+    * @param request   request
+    * @param response  response
+    * @param storeId   storeId
+    * @return          BaseDto
      */
     @RequestMapping(value = Url.GoodsInfo.GOODS_QUERY_ACCOUNT, method=RequestMethod.POST)
     @ResponseBody
@@ -237,7 +232,7 @@ public class GoodsInfoController extends BaseController {
         model.addObject("js_deptGoodsBaseDto", JSONArray.fromObject(deptGoodsBaseDto));
     
         /** 会员等级列表 */
-        List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
+        List<MemberLevelDto> memberLevelList = memberLevelService.queryByStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
         model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
         List<AccountGoods> goodsInfos = goodsInfoService.selectAccountGoodsInfo(storeAccount); 

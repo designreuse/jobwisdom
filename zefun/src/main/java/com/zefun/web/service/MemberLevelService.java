@@ -333,7 +333,7 @@ public class MemberLevelService {
     * @param storeId 门店id
     * @return List<MemberLevel>
      */
-    public List<MemberLevel> queryByStoreId(Integer storeId) {
+    public List<MemberLevelDto> queryByStoreId(Integer storeId) {
         return memberLevelMapper.selectByStoreId(storeId);
     }
 

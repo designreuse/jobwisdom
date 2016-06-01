@@ -1,5 +1,6 @@
 package com.zefun.web.controller;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rabbitmq.tools.Tracer.Logger;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -34,6 +36,9 @@ public class LoginController extends BaseController {
 	/** 用户登陆操作 */
 	@Autowired
 	private LoginService loginService;
+	
+	/** 日志*/
+	private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(LoginController.class);
 
 	/**
 	 * 实现登陆¸
@@ -73,7 +78,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = Url.UserLogin.INDEX)
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
 		// 未登陆或者登陆超时
-		if (request.getSession().getAttribute(App.Session.USER_INFO) == null) {
+		if (request.getSession().getAttribute(App.Session.STORE_ACCOUNT) == null) {
 			return new ModelAndView(View.Index.LOGIN);
 		} 
 		else {
@@ -104,7 +109,10 @@ public class LoginController extends BaseController {
 			    @ApiResponse(code = 1, message = "" + "(系统错误)", response = String.class) })
 	@RequestMapping(value = Url.UserLogin.LOGOUT)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
-		request.getSession().invalidate();
+	    ServletContext application  = request.getSession().getServletContext();
+        application.removeAttribute(request.getSession().getAttribute(App.Session.USER_ID).toString());
+        logger.info("{" + request.getSession().getId() + " : invalidate()}");
+        request.getSession().invalidate();
 		return new ModelAndView("redirect:/" + Url.UserLogin.INDEX);
 	}
 

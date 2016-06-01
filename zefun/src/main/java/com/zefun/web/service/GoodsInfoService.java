@@ -1085,9 +1085,9 @@ public class GoodsInfoService {
      * 企业查询各门店
     * @author 高国藩
     * @date 2016年6月1日 下午1:45:14
-    * @param storeAccount
-    * @param storeId
-    * @return
+    * @param storeAccount storeAccount
+    * @param storeId      storeId
+    * @return             BaseDto
      */
     public BaseDto accountQueryGoodsInfo(String storeAccount, Integer storeId) {
         List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreId(storeId);

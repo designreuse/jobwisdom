@@ -1,10 +1,15 @@
 package com.zefun.web.entity;
 
+/**
+ * å•†å“åº“å­˜
+* @author é«˜å›½è—©
+* @date 2016å¹´6æœˆ1æ—¥ ä¸‹åˆ3:07:07
+ */
 public class GoodsStock extends GoodsStockKey {
-    /** ¿â´æÓàÁ¿ */
+    /** æ•°é‡ */
     private Integer count;
 
-    /** ¸üĞÂÊ±¼ä */
+    /** æ›´æ–°æ—¶é—´ */
     private String updateTime;
 
     public Integer getCount() {

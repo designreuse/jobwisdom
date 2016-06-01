@@ -1358,6 +1358,8 @@ public class MemberCenterService {
         mav.addObject("storeInfo", storeInfo);
         mav.addObject("storeList", storeList);
         
+        mav.addObject("storeId", ownerStoreId);
+        
         return mav;
     }
     
@@ -1918,7 +1920,7 @@ public class MemberCenterService {
         
         ModelAndView view = new ModelAndView(View.MemberCenter.SHOP_CENTER_LIST);
         view.addObject("goodsInfoCatagoryDtos", goodsInfoCatagoryDtos);
-        
+        view.addObject("storeId", storeId);
         return view;
     }
 

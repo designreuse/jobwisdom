@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.zefun.web.entity.GoodsBrand;
 
+/**
+ * 供应商管理
+* @author 高国藩
+* @date 2016年6月1日 下午3:06:32
+ */
 public class SupplierInfoDto {
 
     /** 供应商标识 */

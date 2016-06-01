@@ -135,11 +135,22 @@ public class GoodsInfoDto {
     /**企业商品ID*/
     private Integer aId;
     
-    
+    /**
+     * d
+    * @author 高国藩
+    * @date 2016年6月1日 下午3:06:10
+    * @return d
+     */
     public Integer getaId() {
         return aId;
     }
 
+    /**
+     * d
+    * @author 高国藩
+    * @date 2016年6月1日 下午3:06:15
+    * @param aId aId
+     */
     public void setaId(Integer aId) {
         this.aId = aId;
     }
