@@ -5,15 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.zefun.common.consts.View;
 import com.zefun.common.consts.App.Session;
 import com.zefun.common.utils.DateUtil;
@@ -24,9 +20,6 @@ import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.StockFlow;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.AccountGoodsMapper;
-import com.zefun.web.mapper.EnterpriseAccountMapper;
-import com.zefun.web.mapper.EnterpriseInfoMapper;
-import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.StockFlowMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
@@ -44,12 +37,6 @@ public class GoodsStockService {
     /** 企业商品 */
     @Autowired
     private AccountGoodsMapper accountGoodsMapper;
-    /** 企业管理  */
-    @Autowired
-    private EnterpriseAccountMapper enterpriseAccountMapper;
-    /** 企业管理  */
-    @Autowired
-    private EnterpriseInfoMapper enterpriseInfoMapper;
     /** 门店管理  */
     @Autowired
     private StoreInfoMapper storeInfoMapper;
@@ -59,9 +46,6 @@ public class GoodsStockService {
     /** 商品库存流水  */
     @Autowired
     private StockFlowMapper stockFlowMapper;
-    /** 商品表  */
-    @Autowired
-    private GoodsInfoMapper goodsInfoMapper;
     
     /**
      * 查看进销存页面

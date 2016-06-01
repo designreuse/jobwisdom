@@ -48,21 +48,7 @@
 				<%@include file="/top.jsp"%>
 				<div class="content_right clearfix">
 				
-					<div class="out_roll_content">
-					     <div class="out_roll">
-						  <span class="click_left"><img src="<%=basePath%>images/left_click.png"></span>
-					     <div class="out_roll_div">	  
-						  <ul class="clearfix out_roll_ul">
-						  	<c:forEach items="${storeInfos }" var="store"><li onclick="choseStore(this)" storeId="${store.storeId }">${store.storeName }</li></c:forEach>
-						   </ul>
-						   <script>jQuery(".out_roll_ul.clearfix").find("li").eq(0).addClass("active");</script>
-						  </div> 
-						   <span class="click_right"><img src="<%=basePath%>images/right_click.png"></span>
-						 </div>
-						</div>
-
 					<div class="new_data">
-						<button onclick="jQuery('.zzc1').modal()">新建</button>
 						<button>导入模块下载</button>
 						<button style="width: 60px">导入</button>
 						<button style="width: 60px" onclick="exportTable('ag')">导出</button>
@@ -179,17 +165,6 @@
 								'<i style="display: none;">停止</i></td>'+
 							'</tr>';
 				if (goodsId == null){
-					html = '<tr goodsDesc="'+accountGood.goodsDesc +'" goodsId="'+accountGood.goodsId +'" isSellProduct="'+accountGood.isSellProduct +'"  supplierId="'+accountGood.supplierId +'" brandId="'+accountGood.brandId +'">'+
-								'<td>'+accountGood.goodsCodeSuffix +'</td>'+
-								'<td>'+accountGood.goodsName +'</td>'+
-								'<td>'+brandList[accountGood.isSellProduct]+'</td>'+
-								'<td>'+accountGood.costPrice +'</td>'+
-								'<td>'+'</td>'+
-								'<td>'+brandName +'</td>'+
-								'<td>'+
-								'<span><img onclick="queryGoods('+accountGood.goodsId +',this)" src="'+baseUrl+'images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>'+
-								'<i style="display: none;">停止</i></td>'+
-							'</tr>';
 					jQuery("tbody").append(jQuery(html));
 				}else{
 					jQuery("tr[goodsId="+accountGood.goodsId+"]").replaceWith(html);

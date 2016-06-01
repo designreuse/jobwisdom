@@ -405,8 +405,10 @@ public interface View {
 		public static final String BRAND = "commodity/goodsBrand";
 		/** 商品进货页面 */
 		public static final String GOODS_PURCHASE_RECORDS = "commodity/purchaseRecords";
-		/** 商品设置页面 */
-        public static final String GOODSETTING = "commodity/addGoodsInfo";
+		/** 商品设置页面(企业) */
+        public static final String GOOD_SETTING = "commodity/addGoodsInfo";
+        /** 商品设置页面(门店) */
+        public static final String GOOD_SETTING_STORE = "commodity/storeGoodsStock";
         /** 供应商管理 */
         public static final String SUPPLIER = "commodity/supplier";
 	}

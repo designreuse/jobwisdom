@@ -891,12 +891,19 @@
   </select>
   
   <select id="selectAllGoodsInfoByStoreId" resultType="com.zefun.web.dto.GoodsInfoDto" parameterType="java.lang.Integer">
-  	SELECT gf.goods_id as goodsId, ag.goods_name as goodsName, gf.goods_price as goodsPrice,
-  	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId
+  	SELECT gf.goods_id as goodsId, ag.goods_name as goodsName, gf.goods_price as goodsPrice, ag.goods_desc as goodsDesc, 
+  	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId, gf.a_id as aId, 
+  	gs.count as goodsStock, ag.is_sell_product as isSellProduct, ag.cost_price as costPrice, ag.goods_code_suffix as goodsCodeSuffix, 
+  	gb.brand_id as brandId, gb.brand_name as brandName, cate.category_name as categoryName, si.supplier_id as supplierId, 
+  	si.supplier_name as supplierName
   	from goods_info gf 
   	left join dept_info df on gf.dept_id = df.dept_id
+  	left join goods_category cate on cate.category_id = gf.category_id
   	left join account_goods ag on ag.goods_id = gf.a_id
-  	where gf.is_deleted = 0 or gf.is_deleted = 2 and gf.store_id = #{storeId}
+  	left join goods_stock gs on gf.a_id = gs.a_id and gf.store_id = gs.store_id
+  	left join goods_brand gb on gb.brand_id = ag.brand_id
+  	left join supplier_info si on ag.supplier_id = si.supplier_id
+  	where gf.is_deleted = 0 and gf.store_id = #{storeId} and ag.is_deleted = 0
   </select>
   
   <select id="queryByGoodsIds" parameterType="list" resultMap="BaseResultMap">
@@ -906,14 +913,14 @@
 	    goods.sales_count, goods.sales_people, goods.is_wechat_sell, goods.is_disable, goods.is_deleted, goods.is_sell_product, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
 	    goods.is_cash_deduction, goods.highest_discount, goods.calculation_type, goods.project_step, ag.goods_code_suffix, goods.a_id,
 	    dept.dept_name,cate.category_name FROM goods_info goods
-  		LEFT JOIN account_goods ag ON ag.goods_id = goods.a_id AND ag.is_deleted = 0
+  		LEFT JOIN account_goods ag ON ag.goods_id = goods.a_id 
   		LEFT JOIN dept_info dept ON goods.dept_id = dept.dept_id
   		LEFT JOIN goods_category cate ON cate.category_id = goods.category_id
   	where goods.goods_id in 
-  	 <foreach item="item" collection="list" separator="," open="(" close=")" index="">  
+  	<foreach item="item" collection="list" separator="," open="(" close=")" index="">  
       #{item, jdbcType=INTEGER}  
     </foreach>  
-  	and goods.is_deleted = 0 or goods.is_deleted = 2
+  	and goods.is_deleted = 0 AND ag.is_deleted = 0
   </select>
   
   <select id="selectByStoreIdIsOnLion" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -933,5 +940,9 @@
   
   <select id="selectByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
   	select * from goods_info where a_id =  #{aId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByStoreAccountAndStoreId" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from goods_info where a_id =  #{aId,jdbcType=INTEGER} and store_id = #{storeId,jdbcType=INTEGER}
   </select>
 </mapper>

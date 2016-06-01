@@ -96,8 +96,7 @@
 			<a href="<%=menuBasePath%>goods/info/setting"><li class=""><span><img src="<%=basePath%>images/left2.png">商品上架</span></li></a>
 		</ul>
 		<ul index="5">
-			<a href="<%=menuBasePath%>goodsInfo/view/goodsStockList"><li class="active"><span><img src="<%=basePath%>images/left3.png">商品库存</span></li></a>
-			<a href="<%=menuBasePath%>stock/view"><li class="active"><span><img src="<%=basePath%>images/left3.png">商品管理</span></li></a>
+			<a href="<%=menuBasePath%>stock/view"><li class="active"><span><img src="<%=basePath%>images/left3.png">商品进出</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/brand"><li><span><img src="<%=basePath%>images/left5.png">商品品牌</span></li></a>
 			<a href="<%=menuBasePath%>view/storeAccount/suplier"><li><span><img src="<%=basePath%>images/left5.png">供应商管理</span></li></a>
 		</ul>
