@@ -140,4 +140,12 @@ public interface MemberLevelMapper {
      */
     List<MemberLevel> selectByAllStoreId(Integer storeId);
     
+    /**
+     * 企业查询会员等级
+    * @author 老王
+    * @date 2016年6月1日 上午1:22:00 
+    * @param levelId 会员等级标识
+    * @return MemberLevelDto
+     */
+    MemberLevelDto selectByEnterprise(Integer levelId);
 }

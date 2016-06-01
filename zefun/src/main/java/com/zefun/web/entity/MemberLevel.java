@@ -24,7 +24,7 @@ public class MemberLevel {
 	private String levelLogo;
 	
 	/** 图片模板*/
-	private String levelTemplate;
+	private Integer levelTemplate;
 	
 	/** 等级说明 */
 	private String levelNotice;
@@ -63,11 +63,11 @@ public class MemberLevel {
 		this.levelLogo = levelLogo;
 	}
 
-	public String getLevelTemplate() {
+	public Integer getLevelTemplate() {
 		return levelTemplate;
 	}
 
-	public void setLevelTemplate(String levelTemplate) {
+	public void setLevelTemplate(Integer levelTemplate) {
 		this.levelTemplate = levelTemplate;
 	}
 

@@ -30,10 +30,10 @@
     select 
     <include refid="Base_Column_List" />
     from member_level_discount
-    where level_id = #{levelId,jdbcType=INTEGER}
+    where discount_id = #{discountId,jdbcType=INTEGER}
   </select>
   
-  <insert id="insert" parameterType="com.zefun.web.entity.MemberLevelDiscount" keyProperty="levelId" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.zefun.web.entity.MemberLevelDiscount">
     insert into member_level_discount
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="discountId != null" >
@@ -180,4 +180,10 @@
     where discount_id = #{discountId,jdbcType=INTEGER}
   </update>
 
+  <select id="selectByStoreLevel" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_level_discount
+    where level_id = #{levelId,jdbcType=INTEGER} and store_id = #{storeId,jdbcType=INTEGER}
+  </select>
 </mapper>

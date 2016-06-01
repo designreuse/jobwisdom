@@ -1,5 +1,7 @@
 package com.zefun.web.mapper;
 
+import java.util.Map;
+
 import com.zefun.web.entity.MemberLevelDiscount;
 
 /**
@@ -36,4 +38,13 @@ public interface MemberLevelDiscountMapper {
     * @return   0:失败，1:成功
      */
     int updateByPrimaryKey(MemberLevelDiscount record);    
+    
+    /**
+     * 门店查询对应会员卡信息
+    * @author 老王
+    * @date 2016年5月31日 下午11:49:47 
+    * @param map 参数
+    * @return List<MemberLevelDiscount>
+     */
+    MemberLevelDiscount selectByStoreLevel(Map<String, Integer> map);
 }

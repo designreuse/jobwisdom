@@ -11,50 +11,43 @@
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
     <script type="text/javascript">
-    xiuxiu.embedSWF("altContent2", 1, 700, 500);
-	
-	xiuxiu.onInit = function (id)
-	{
-        xiuxiu.setUploadType(3);
-        /* xiuxiu.loadPhoto("http://7xuvif.com1.z0.glb.clouddn.com/vip_card.png", false); */
-	}
-	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
-	{
-        alert("保存为base64图片,大小:" + data.length + ",文件名:" + fileName + ",类型:" + fileType);
-        zccCallback(data);
-	}
-	
-	xiuxiu.onDebug = function (data)
-	{
-        alert("错误响应" + data);
-	}
-	
-	xiuxiu.onClose = function (id)
-	{
-        //alert(id + "关闭");
-        clearFlash();
-        jQuery(".flashEditorOut").addClass("hide");
-	}
-	
-	//清除flash
-    function clearFlash()
-    {
-        document.getElementById("flashEditorOut").innerHTML='<div id="flashEditorContent"><p><a href="http://www.adobe.com/go/getflashplayer"><img alt="Get Adobe Flash player" src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"></a></p></div>';
+    
+    function editPage (imgUrl) {
+    	xiuxiu.embedSWF("altContent2", 1, 700, 500);
+    	
+    	xiuxiu.onInit = function (id)
+    	{
+            xiuxiu.setUploadType(3);
+            if (imgUrl != null) {
+            	xiuxiu.loadPhoto(qiniuUrl + imgUrl, false);
+            }
+    	}
+    	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
+    	{
+            zccCallback(data);
+    	}
+    	
+    	xiuxiu.onDebug = function (data)
+    	{
+            dialog("网咯繁忙，请重试！");
+    	}
+    	
+    	xiuxiu.onClose = function (id)
+    	{
+            //alert(id + "关闭");
+            jQuery(".mask").hide();
+    	}
+    	
+    	/* //清除flash
+        function clearFlash()
+        {
+            document.getElementById("flashEditorOut").innerHTML='<div id="flashEditorContent"><p><a href="http://www.adobe.com/go/getflashplayer"><img alt="Get Adobe Flash player" src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"></a></p></div>';
+        } */
     }
 	
     var imgKey = "";
     function zccCallback(dataBase64){
-    	imgObject.children("img").attr("src", dataBase64);
     	var key = "jobwisdom/project/" + new Date().getTime();
-    	if ((typeof(imgObject.children("img").attr("projectImage")))!="undefined"){
-    		var url = qiniuUrl+key;
-    		imgKey = key;
-    		imgObject.children("img").attr("projectImage", url);
-    	}else {
-    		var url = qiniuUrl+key;
-    		imgKey = key;
-    		imgObject.children("img").attr("affiliatedImage", url);
-    	}
         var data = {"stringBase64":dataBase64,"key":key};
         jQuery('.cancelinput').click();
         jQuery.ajax({
@@ -76,7 +69,14 @@
     	       success: function(data) {
     		       	var imageUrl = data.msg.imageUrl;
     		       	var key = data.msg.key;
-    		       	console.log(imageUrl);
+    		       	if (chooseType == 1) {
+    		       		updatePositivePageUrl = key;
+    		       	}
+    		       	else {
+    		       		updateOppositePageUrl = key;
+    		       	}
+    		       	valueChooseMemberPage(updatePositivePageUrl, updateOppositePageUrl);
+    		       	jQuery(".mask").hide();
     	       }
      	});
     }
@@ -106,46 +106,49 @@
 		 <td>等级说明</td>
 		 <td>操作</td>
 	   </tr>
-	   <tr>
-	     <td>折扣卡</td>
-		 <td>三折卡</td>
-		 <td>10折</td>
-		 <td>15折</td>
-	     <td>5000元</td>
-		 <td>2000元</td>
-		 <td>不打折</td>
-		 <td>100%</td>
-		 <td>10元=1积分</td>
-		 <td>啊啊啊</td>
-		 <td> <span><img src="<%=basePath %>images/vip_manage.png"> </span>
-		  <div class="manage_hover">
-		    <ul class="demo_fade"><li style="border-bottom:1px solid black"><img src="<%=basePath %>images/handle_2.png"></li><li><img src="<%=basePath %>images/handle_1.png"></li></ul>
-		  </div>
-		   
-		 </td>
-	   </tr>
-	    <tr>
-	     <td>折扣卡</td>
-		 <td>三折卡</td>
-		 <td>10折</td>
-		 <td>15折</td>
-	     <td>5000元</td>
-		 <td>2000元</td>
-		 <td>不打折</td>
-		 <td>100%</td>
-		 <td>10元=1积分</td>
-		 <td>啊啊啊</td>
-		 <td> <span><img src="<%=basePath %>images/vip_manage.png"> </span>
-		  <div class="manage_hover">
-		    <ul class="demo_fade"><li style="border-bottom:1px solid black"><img src="<%=basePath %>images/handle_2.png"></li><li><img src="<%=basePath %>images/handle_1.png"></li></ul>
-		  </div>
-		   
-		 </td>
-	   </tr>
+	   
+	   <c:forEach items="${page.results }" var="memberLevel" varStatus="index">
+          <tr id="${memberLevel.levelId }">
+             <td>${memberLevel.levelType }</td>
+             <td>${memberLevel.levelName }
+              <c:if test="${memberLevel.isDefault == 1 }"><span class="font-999">默认等级</span></c:if>
+             </td>
+             <td>${memberLevel.projectDiscount }%</td>
+             <td>${memberLevel.goodsDiscount }%</td>
+             <td>${memberLevel.chargeMinMoney }元</td>
+             <td>
+             		${memberLevel.sellAmount }元
+             </td>
+             <td>
+             		<c:choose>
+             			<c:when test="${memberLevel.cashDiscountType == 0 }">
+             				不打折
+             			</c:when>
+             			<c:otherwise>
+             				打折
+             			</c:otherwise>
+             		</c:choose>
+             </td>
+             <td>
+             		${memberLevel.performanceDiscountPercent }%
+             </td>
+             <td>${memberLevel.integralUnit }元 = ${memberLevel.integralNumber }积分</td>
+             <td class="input80 ellipsis-text">
+             		${memberLevel.levelNotice }
+             </td>
+             
+             <td> <span><img src="<%=basePath %>images/vip_manage.png"> </span>
+			  <div class="manage_hover">
+			    <ul class="demo_fade"><li style="border-bottom:1px solid black" onclick="editMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_1.png"></li><li onclick="deleteMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_2.png"></li></ul>
+			  </div>
+			 </td>
+           </tr>
+          </c:forEach>
 	
 	
 	
 	</table>
+	<%@ include file="/template/page.jsp" %>
   </div>
     </div>
 </div>
@@ -159,7 +162,7 @@
 	    <div class="business_level_input clearfix">
 		  <div class="business_level_input_left">
 		     <span>会员卡种类
-			     <select name = "levleType" onchange="changeType(this)">
+			     <select name = "levelType">
 			        <option value="折扣卡">折扣卡</option>
 			        <option value="等级卡">等级卡</option>
 			     </select>
@@ -168,41 +171,41 @@
 			 <span>会员卡名称<input type="text" name="levelName" ></span>
 		  </div> 
 		  <div class="business_level_input_right">
-		     <span><i>使用须知</i><textarea id="levelNotice"></textarea></span>
+		     <span><i>使用须知</i><textarea name="levelNotice"></textarea></span>
 		  </div>
 		</div>
 		
 		<div class="business_level_back">
 		  <p>选择卡背</p>
 		   <ul class="business_level_back_ul clearfix">
-		     <li><img src="http://7xuvif.com1.z0.glb.clouddn.com/vip_card.png"  value = "1">
+		     <li onclick="chooseMemberPage(1, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=qiniuPath %>system/profile/vip_card.png">
 			    <span class = "active"><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(2, 'system/profile/vip_card_11.png', 'system/profile/vip_card_12.png')"><img src="<%=qiniuPath %>system/profile/vip_card_11.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(3, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(4, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(5, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(6, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(7, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(8, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(9, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(10, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
            </ul>
@@ -228,6 +231,7 @@
 		   </div>
 		</div>
 		<input type="hidden" name="levelId" style="width: 0px; height: 0px;" >
+		<input type="hidden" name="discountId" style="width: 0px; height: 0px;" >
 		<div class="business_level_button">
 		   <button>预览</button>
 		   <button onclick="addOrEditMemberLevel()">确认</button>
@@ -239,7 +243,7 @@
 		<div class="business_level_content_right">
 		  <p>效果图预览</p>
 		  <div class="preview">
-		     <div class="preview_1 clearfix" style="background:url('<%=basePath %>images/vip_card.png') no-repeat;">
+		     <div class="preview_1 clearfix"  style="background:url('<%=basePath %>images/vip_card.png') no-repeat;">
 			    <div class="preview_left">
 				   <span>5折卡</span>
             	</div>
@@ -252,19 +256,15 @@
 	            </div>
          	 </div>  
 			 <div class="right_dir">
-			   <span><img src="<%=basePath %>images/face.png"></span>
-			   <span><img src="<%=basePath %>images/back_1.png"></span>
+			   <span onclick="showMask(1)"><img src="<%=basePath %>images/face.png"></span>
+			   <span onclick="showMask(2)"><img src="<%=basePath %>images/back_1.png"></span>
 			 </div>
 			 <div class="preview_2 clearfix" style="background:url('<%=basePath %>images/vip_card1.png') no-repeat;">
 			   <div class="preview_2_top"><span>5折卡</span></div>
 			   <div class="preview_2_content clearfix">
 			     <div class="logo_img"><img src="<%=basePath %>images/vip_img.png"></div>
                  <div class="preview_2_content_right">
-                    <p>最低充值：5000元</p> 
-					<p>开卡费用：100元</p> 
-					<p>现金支付打折：不打折</p>
-					<p>业绩折扣比例：100%</p>
-					<p>积分计算方式：1元＝2积分</p>
+                    
                  </div> 			     
 			   </div>
          	 </div> 
@@ -277,7 +277,7 @@
 </div>
 
 <!-- 美图秀秀 -->
-<div class="mask">
+<div class="mask" style="display: none;">
    <div id="flashEditorOut" >
 	        <div id="altContent2">
 	            <h1>美图秀秀2</h1>
@@ -288,18 +288,27 @@
 <script type="text/javascript" src="<%=basePath %>js/member/enterpriseMemberLevel.js"></script>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script>
-   
+jQuery(document).ready(function() {    
+    jQuery('.business_manage_table td span').click(function(){
+    find=jQuery(this).parent().find('.demo_fade');
+  if(find.css('display')=='none'){
+     find.stop(true,true).slideDown('normal');
+  }    
+  else if(find.css('display')=='block'){
+     jQuery('.demo_fade').stop(true,true).slideUp('normal');
+   }	
+ 
+ })
+});
 
 	//VIP卡选择
 	jQuery(function(){
 		jQuery('.business_level_back_ul li').click(function(){
-		  jQuery(this).find('span').show();
-		  jQuery(this).siblings().find('span').hide();	
+		  jQuery(this).find('span').addClass("active");
+		  jQuery(this).siblings().find('span').removeClass("active");	
 		})
 	})
   
-	jQuery()
-	
   </script>
 
 </body>

@@ -68,8 +68,10 @@ public class MemberLevelController extends BaseController {
 	* @param request 返回
 	* @return BaseDto
 	 */
+	@RequestMapping(value = Url.MemberLevel.SAVE_ENTERPRISE_MEMBERLEVEL, method = RequestMethod.POST)
+	@ResponseBody
 	public BaseDto saveEnterpriseMemberLevel (Integer levelId, String levelName, Integer discountId, Integer projectDiscount, Integer goodsDiscount, 
-			  Integer performanceDiscountPercent, String levelTemplate, String levelLogo, String levelType,
+			  Integer performanceDiscountPercent, Integer levelTemplate, String levelLogo, String levelType,
 			  BigDecimal sellAmount, BigDecimal chargeMinMoney, Integer cashDiscountType, Integer integralUnit, Integer integralNumber, 
 			  String levelNotice, HttpServletRequest request) {
 		
@@ -98,6 +100,19 @@ public class MemberLevelController extends BaseController {
 		Integer userId = getUserId(request);
 		
 		return memberLevelService.saveEnterpriseMemberLevel(userId, memberLevel, memberLevelDiscount);
+	}
+	
+	/**
+	 * 根据会员级别查询会员数据
+	* @author 老王
+	* @date 2016年6月1日 上午1:15:14 
+	* @param levelId 会员等级标识
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.MemberLevel.SELECT_ENTERPRISE_MEMBER, method = RequestMethod.POST)
+	@ResponseBody
+	public BaseDto selectEnterpriseMember (Integer levelId) {
+		return memberLevelService.selectEnterpriseMember(levelId);
 	}
 	
 	/**
