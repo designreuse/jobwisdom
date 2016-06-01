@@ -46,35 +46,24 @@ jQuery(function(){
 }) 
 
 function addStore() {
-	jQuery("#userName").val(new Big(10000).plus(new Big(alreadyStoreNum)).plus(new Big(1)));
+	jQuery("#userName").text(new Big(10000).plus(new Big(alreadyStoreNum)).plus(new Big(1)));
 	jQuery("#addOrUpdateStore").show();
 }
 
  jQuery('#preview').click(function(){
 	imgObject = jQuery(this);
-    jQuery("#pageUp").show()
+	editPage();
+	jQuery(".mask").show();
  })
  
  jQuery('.cancelinput').click(function(){
-    jQuery("#pageUp").hide();
-    jQuery('.photo-clip-rotateLayer').html('');
+	 jQuery(".mask").hide();
  })
 
 var imgKey = "";
 function zccCallback(dataBase64){
-	imgObject.children("img").attr("src", dataBase64);
 	var key = "jobwisdom/project/" + new Date().getTime();
-	if ((typeof(imgObject.children("img").attr("projectImage")))!="undefined"){
-		var url = qiniuUrl+key;
-		imgKey = key;
-		imgObject.children("img").attr("projectImage", url);
-	}else {
-		var url = qiniuUrl+key;
-		imgKey = key;
-		imgObject.children("img").attr("affiliatedImage", url);
-	}
     var data = {"stringBase64":dataBase64,"key":key};
-    jQuery('.cancelinput').click();
     jQuery.ajax({
 		type: "POST",
 		url: baseUrl+"qiniu/base64",
@@ -94,7 +83,9 @@ function zccCallback(dataBase64){
 	       success: function(data) {
 		       	var imageUrl = data.msg.imageUrl;
 		       	var key = data.msg.key;
-		       	console.log(imageUrl);
+		       	imgObject.children("img").attr("src", imageUrl);
+		       	imgKey = key;
+		       	jQuery(".mask").hide();
 	       }
  	});
 }
@@ -251,7 +242,7 @@ function editStore (storeId) {
         	jQuery("#storeLinkphone").val(storeInfo.storeLinkphone);
         	jQuery("#city-picker3").val(storeInfo.storeProvince + "/" + storeInfo.storeCity);
         	jQuery("#searchtext").val(storeInfo.storeAddress);
-        	jQuery("#userName").val(userName);
+        	jQuery("#userName").text(userName);
         	jQuery("input[name='storeId']").val(storeInfo.storeId);
         }
     });
@@ -478,7 +469,7 @@ function saveStoreInfo(){
 	var storeCity = addressList[1];
 	var street = jQuery("#searchtext").val();
 	
-	var userName  = jQuery("#userName").val();
+	var userName  = jQuery("#userName").text();
 	var userPwd  = "123456";
 	
 	var storeId = jQuery("input[name='storeId']").val();

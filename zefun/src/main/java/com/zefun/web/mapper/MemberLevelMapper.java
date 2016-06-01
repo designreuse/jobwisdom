@@ -67,7 +67,7 @@ public interface MemberLevelMapper {
     * @param storeId    门店标识
     * @return   对应门店的查询结果列表
      */
-    List<MemberLevel> selectByStoreId(Integer storeId);
+    List<MemberLevelDto> selectByStoreId(Integer storeId);
     
     /**
      * 根据门店标识查询默认的会员等级

@@ -349,6 +349,10 @@ public class StoreInfoService {
     	//查询企业下所有门店
     	List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
     	
+    	EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeAccount);
+    	
+    	mav.addObject("enterpriseAccount", enterpriseAccount);
+    	
     	if (storeInfoList == null || storeInfoList.size() == 0) {
     		return mav;
     	}
@@ -371,11 +375,6 @@ public class StoreInfoService {
     	//根据企业代号查询出所有授权码
     	List<EnterpriseStoreAuthority> enterpriseStoreAuthoritys = enterpriseStoreAuthorityMapper.selectAuthorityByStoreAccount(storeAccount);
     	mav.addObject("enterpriseStoreAuthoritys", enterpriseStoreAuthoritys);
-    	
-    	EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeAccount);
-    	
-    	mav.addObject("enterpriseAccount", enterpriseAccount);
-    	
     	
     	mav.addObject("priceMoneyOrTimeStr", JSONObject.fromObject(getPriceMoney(enterpriseAccount)).toString());
     	return mav;
