@@ -30,8 +30,10 @@ import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.Page;
+import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
+import com.zefun.web.mapper.StoreInfoMapper;
 
 import net.sf.json.JSONArray;
 
@@ -50,6 +52,9 @@ public class MemberLevelService {
     /** 会员折扣操作对象*/
     @Autowired
     private MemberLevelDiscountMapper memberLevelDiscountMapper;
+    /** 门店信息*/
+    @Autowired
+    private StoreInfoMapper storeInfoMapper;
     /***/
     private static Logger log = Logger.getLogger(MemberLevelService.class);
 
@@ -62,10 +67,100 @@ public class MemberLevelService {
     * @return ModelAndView
     */
     public ModelAndView enterpriseMemberLevelList(String storeAccount) {
-        /*Page<MemberLevelDto> page = selectPageForMemberLevel(storeId, 1, App.System.API_DEFAULT_PAGE_SIZE);*/
+        Page<MemberLevelDto> page = selectPageForMemberLevel(storeAccount, 1, App.System.API_DEFAULT_PAGE_SIZE);
         ModelAndView mav = new ModelAndView(View.MemberLevel.ENTERPRISE_MEMBER_LEVEL);
-        /*mav.addObject("page", page);*/
+        mav.addObject("page", page);
         return mav;
+    }
+    
+    /**
+     * 企业保存会员等级
+    * @author 老王
+    * @date 2016年5月31日 上午11:34:38 
+    * @param userId 操作员标识
+    * @param memberLevel 会员等级
+    * @param memberLevelDiscount 会员等级折扣
+    * @return BaseDto
+     */
+    @Transactional
+    public BaseDto saveEnterpriseMemberLevel (Integer userId, MemberLevel memberLevel, MemberLevelDiscount memberLevelDiscount) {
+    	if (memberLevel.getLevelType() == "折扣卡") {
+    		//会员卡增加折扣为零检测
+        	if (memberLevelDiscount.getProjectDiscount() == null || memberLevelDiscount.getProjectDiscount() == 0 
+        			  || memberLevelDiscount.getGoodsDiscount() == null || memberLevelDiscount.getGoodsDiscount() == 0) {
+        		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "添加失败:折扣不能为零");
+        	}
+    	}
+        
+        String curTime = DateUtil.getCurTime();
+        memberLevel.setLastOperatorId(userId);
+        memberLevel.setUpdateTime(curTime);
+        //以供检验的会员等级对象
+        MemberLevel validatorOfMemberLevel = memberLevelMapper.selectMemberLevelBySotreIdAndLevelName(memberLevel.getStoreAccount(), 
+        			 memberLevel.getLevelName());
+        if (memberLevel.getLevelId() != null) { 
+        	//修改名称重复校验(需要多判断下是否本数据还是别条数据)
+        	if (validatorOfMemberLevel != null && memberLevel.getLevelId().intValue() != validatorOfMemberLevel.getLevelId().intValue()) {
+        		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "修改失败:该等级名称已存在");
+        	}
+            memberLevelMapper.updateByPrimaryKey(memberLevel);
+        } 
+        else {
+        	//新增名称重复校验
+        	if (validatorOfMemberLevel != null) {
+        		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "添加失败:该等级名称已存在");
+        	}
+            memberLevel.setCreateTime(curTime);
+            memberLevel.setIsDeleted(0);
+            memberLevelMapper.insert(memberLevel);
+        }
+        
+        List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(memberLevel.getStoreAccount());
+        
+        memberLevelDiscount.setUpdateTime(curTime);
+        memberLevelDiscount.setLevelId(memberLevel.getLevelId());
+        memberLevelDiscount.setLastOperatorId(userId);
+        memberLevelDiscount.setCreateTime(curTime);
+        
+        //保存或修改企业会员等级折扣
+        if (memberLevelDiscount.getDiscountId() != null) {
+            memberLevelDiscountMapper.updateByPrimaryKey(memberLevelDiscount);
+        }
+        else {
+        	memberLevelDiscount.setStoreId(0);
+        	memberLevelDiscountMapper.insert(memberLevelDiscount);
+        }
+                
+        if (storeInfoList != null && storeInfoList.size() > 0) {
+        	for (StoreInfo storeInfo : storeInfoList) {
+                if (memberLevelDiscount.getDiscountId() != null) {
+                	Map<String, Integer> map = new HashMap<>();
+                	map.put("levelId", memberLevel.getLevelId());
+                	map.put("storeId", storeInfo.getStoreId());
+                	MemberLevelDiscount discount = memberLevelDiscountMapper.selectByStoreLevel(map);
+                	memberLevelDiscount.setDiscountId(discount.getDiscountId());
+                	memberLevelDiscountMapper.updateByPrimaryKey(memberLevelDiscount);
+                }	
+                else {
+                	memberLevelDiscount.setStoreId(storeInfo.getStoreId());
+                    memberLevelDiscountMapper.insert(memberLevelDiscount);
+                }
+			}
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
+    
+    /**
+     * 根据会员级别查询会员数据
+    * @author 老王
+    * @date 2016年6月1日 上午1:23:38 
+    * @param levelId 会员等级标识
+    * @return BaseDto
+     */
+    public BaseDto selectEnterpriseMember (Integer levelId) {
+    	MemberLevelDto memberLevelDto = memberLevelMapper.selectByEnterprise(levelId);
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, memberLevelDto);
     }
     
     /**
@@ -178,18 +273,19 @@ public class MemberLevelService {
      * 分页查询某个门店的会员等级信息
     * @author 张进军
     * @date Aug 5, 2015 8:01:41 PM
-    * @param storeId	店铺标识
+    * @param storeAccount	企业标识
     * @param pageNo		页码
     * @param pageSize	每页显示数
     * @return Page<MemberLevel>
      */
-    private Page<MemberLevelDto> selectPageForMemberLevel(Integer storeId,
+    private Page<MemberLevelDto> selectPageForMemberLevel(String storeAccount,
             int pageNo, int pageSize) {
         Page<MemberLevelDto> page = new Page<MemberLevelDto>();
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("storeId", storeId);
+        params.put("storeId", 0);
+        params.put("storeAccount", storeAccount);
         page.setParams(params);
         List<MemberLevelDto> list = memberLevelMapper.selectByPage(page);
         page.setResults(list);

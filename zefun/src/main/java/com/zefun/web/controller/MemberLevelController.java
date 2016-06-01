@@ -56,6 +56,9 @@ public class MemberLevelController extends BaseController {
 	* @param projectDiscount 项目折扣
 	* @param goodsDiscount 商品折扣
 	* @param performanceDiscountPercent  业绩折扣比例(0-100)
+	* @param levelTemplate 图片模板
+	* @param levelLogo 背景logo
+	* @param levelType 等级类型
 	* @param sellAmount 售卡开卡金额
 	* @param chargeMinMoney 最低充值金额
 	* @param cashDiscountType 现金是否打折(0:不打折，1:打折)
@@ -65,15 +68,23 @@ public class MemberLevelController extends BaseController {
 	* @param request 返回
 	* @return BaseDto
 	 */
+	@RequestMapping(value = Url.MemberLevel.SAVE_ENTERPRISE_MEMBERLEVEL, method = RequestMethod.POST)
+	@ResponseBody
 	public BaseDto saveEnterpriseMemberLevel (Integer levelId, String levelName, Integer discountId, Integer projectDiscount, Integer goodsDiscount, 
-			  Integer performanceDiscountPercent, 
+			  Integer performanceDiscountPercent, Integer levelTemplate, String levelLogo, String levelType,
 			  BigDecimal sellAmount, BigDecimal chargeMinMoney, Integer cashDiscountType, Integer integralUnit, Integer integralNumber, 
 			  String levelNotice, HttpServletRequest request) {
+		
+		String storeAccount = getStoreAccount(request);
 		
 		MemberLevel memberLevel = new MemberLevel();
 		memberLevel.setLevelId(levelId);
 		memberLevel.setLevelName(levelName);
+		memberLevel.setLevelType(levelType);
+		memberLevel.setLevelLogo(levelLogo);
+		memberLevel.setLevelTemplate(levelTemplate);
 		memberLevel.setLevelNotice(levelNotice);
+		memberLevel.setStoreAccount(storeAccount);
 		
 		MemberLevelDiscount memberLevelDiscount = new MemberLevelDiscount();
 		memberLevelDiscount.setDiscountId(discountId);
@@ -86,7 +97,22 @@ public class MemberLevelController extends BaseController {
 		memberLevelDiscount.setIntegralUnit(integralUnit);
 		memberLevelDiscount.setIntegralNumber(integralNumber);
 		
+		Integer userId = getUserId(request);
 		
+		return memberLevelService.saveEnterpriseMemberLevel(userId, memberLevel, memberLevelDiscount);
+	}
+	
+	/**
+	 * 根据会员级别查询会员数据
+	* @author 老王
+	* @date 2016年6月1日 上午1:15:14 
+	* @param levelId 会员等级标识
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.MemberLevel.SELECT_ENTERPRISE_MEMBER, method = RequestMethod.POST)
+	@ResponseBody
+	public BaseDto selectEnterpriseMember (Integer levelId) {
+		return memberLevelService.selectEnterpriseMember(levelId);
 	}
 	
 	/**

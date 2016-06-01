@@ -1,26 +1,13 @@
 package com.zefun.test;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
-import com.zefun.common.utils.DateUtil;
 
 /**
  * 
@@ -57,9 +44,9 @@ public class QiniuTestUpload {
 
 	public static void main(String[] args) throws QiniuException {
 	    
-	    File file = new File("D:\\add_img.png");
+	    File file = new File("E:\\vip_card_12.png");
 	    Response response = uploadManager.put(file,
-              "system/profile/add_img.png", auth.uploadToken(QINIU_SCOPE));
+              "system/profile/vip_card_12.png", auth.uploadToken(QINIU_SCOPE));
           String key = response.jsonToMap().get("key").toString();
           System.out.println(key);
 	    

@@ -94,6 +94,24 @@ public class BaseController {
             return null;
         }
     }
+    
+    /**
+     * 获取角色权限
+    * @author 老王
+    * @date 2016年6月1日 下午2:57:04 
+    * @param request 返回
+    * @return Integer
+     */
+    public Integer getRoleId(HttpServletRequest request){
+        try {
+            Integer roleId = Integer.valueOf(request.getSession().getAttribute(Session.ROLE_ID).toString());
+            return roleId;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     /**

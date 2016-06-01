@@ -23,6 +23,7 @@ import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberBaseDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.MemberSubAccountDto;
 import com.zefun.web.dto.MoneyFlowDto;
 import com.zefun.web.entity.CouponInfo;
@@ -183,12 +184,12 @@ public class OpenCardService {
 	 */
 	public ModelAndView initializeOpenCard(Integer storeId, String phoneNum, Integer clickType) {
 		ModelAndView mav = new ModelAndView(View.KeepAccounts.OPEN_CARD);
-		List<MemberLevel> memberLevelList = memberLevelMapper.selectByStoreId(storeId);
+		List<MemberLevelDto> memberLevelList = memberLevelMapper.selectByStoreId(storeId);
 		List<EmployeeInfo> employeeInfoList = employeeInfoMapper.selectEmployeeList(storeId);
 		List<DeptInfo> deptInfoList = deptInfoMapper.getResultsDeptInfo(storeId);
 		mav.addObject("memberLevelList", memberLevelList);
 		if (memberLevelList.size() > 0) {
-			MemberLevel memberLevel = memberLevelList.get(0);
+			MemberLevelDto memberLevel = memberLevelList.get(0);
 			mav.addObject("memberLevels", memberLevel);
 		}
 		mav.addObject("memberLevelListStr", JSONArray.fromObject(memberLevelList).toString());

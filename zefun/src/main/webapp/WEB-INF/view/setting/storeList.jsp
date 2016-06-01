@@ -25,7 +25,39 @@
 #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width:80px;height:80px}
 
 </style>
-
+<head>
+    <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    
+    function editPage (imgUrl) {
+    	xiuxiu.embedSWF("altContent2", 5, 700, 500);
+    	
+    	xiuxiu.onInit = function (id)
+    	{
+            xiuxiu.setUploadType(3);
+            if (imgUrl != null) {
+            	xiuxiu.loadPhoto(qiniuUrl + imgUrl, false);
+            }
+    	}
+    	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
+    	{
+            zccCallback(data);
+    	}
+    	
+    	xiuxiu.onDebug = function (data)
+    	{
+            dialog("网咯繁忙，请重试！");
+    	}
+    	
+    	xiuxiu.onClose = function (id)
+    	{
+            jQuery(".mask").hide();
+    	}
+    	
+    }
+	
+    </script>
+</head>
 <body>
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
     <div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -209,7 +241,7 @@
 			   <textarea style="height:86px;margin-top:10px;border-radius:8px;width:220px" id = "searchtext"></textarea>
 			 </div>
 			 <div class="detail_address">
-			   <div>操作员工号<em style="color:red;font-size:16px;font-weight:bold;display:inline-block;margin-left:4px">1007</em></div>
+			   <div>操作员工号<em style="color:red;font-size:16px;font-weight:bold;display:inline-block;margin-left:4px" id = "userName">1007</em></div>
 			  <!--  <input type="text" id = "userName" readonly>  -->       		   
 			 </div>
 		 
@@ -222,20 +254,6 @@
 		 </div> 
    </div>
 
-</div>
-
-
-<div class="zzc" id = "pageUp" name = "modelDiv" style="display:none">
- <div class="photo_cut">
-  <div id="clipArea"></div>
-        <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
-    <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
-  	<div class="button_panel"> 
-	   <button class="selectpic">选择图片</button>
-	   <button class="sureinput">确定上传</button>
-		<button class="cancelinput">取消</button>
-	 </div>
-   </div>
 </div>
 
 <div class="zzc1" style="display:none" name = "modelDiv" id = "consumptionRecordDiv">
@@ -348,6 +366,15 @@
 </div>
 </div>
 
+<!-- 美图秀秀 -->
+<div class="mask" style="display: none;">
+   <div id="flashEditorOut" >
+        <div id="altContent2">
+            <h1>美图秀秀2</h1>
+        </div>
+	</div>
+</div>
+
 <script type="text/javascript">
 var cssWidth = 200;
 var cssHeight = 200;
@@ -355,12 +382,18 @@ var qiniuUrl = '<%=qiniuPath%>';
 var imgObject;
 
 var storeEmployeeListStr =  '${storeEmployeeListStr}';
-var storeEmployeeList = eval("(" + storeEmployeeListStr + ")");
+var storeEmployeeList;
+if (!isEmpty(storeEmployeeListStr)) {
+	storeEmployeeList = eval("(" + storeEmployeeListStr + ")");
+}
 
 var enterpriseEdition = '${enterpriseAccount.enterpriseEdition }';
 var alreadyStoreNum = '${enterpriseAccount.alreadyStoreNum}';
 var priceMoneyOrTimeStr = '${priceMoneyOrTimeStr}';
-var priceMoneyOrTime = eval("(" + priceMoneyOrTimeStr + ")");
+var priceMoneyOrTime;
+if (!isEmpty(priceMoneyOrTimeStr)) {
+	priceMoneyOrTime = eval("(" + priceMoneyOrTimeStr + ")");
+}
 </script>
 <script type="text/javascript" src="<%=basePath %>/js/setting/storeList.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>

@@ -2,10 +2,6 @@ package com.zefun.web.dto;
 
 import java.math.BigDecimal;
 
-import org.apache.commons.lang.StringUtils;
-
-import net.sf.json.JSONArray;
-
 /**
  * @author 张进军
  * @date 2016年03月12日 PM 19:45:30
@@ -16,6 +12,14 @@ public class MemberLevelDto {
 
 	/** 等级名称 */
 	private String levelName;
+    /** 企业代号*/
+	private String storeAccount;
+	/** 等级类型*/
+    private String levelType;
+    /** 背景logo*/
+    private String levelLogo;
+    /** 图片模板*/
+    private Integer levelTemplate;
 
 	/** 等级说明 */
 	private String levelNotice;
@@ -56,6 +60,38 @@ public class MemberLevelDto {
 
 	
 	
+	public String getStoreAccount() {
+		return storeAccount;
+	}
+
+	public void setStoreAccount(String storeAccount) {
+		this.storeAccount = storeAccount;
+	}
+
+	public String getLevelType() {
+		return levelType;
+	}
+
+	public void setLevelType(String levelType) {
+		this.levelType = levelType;
+	}
+
+	public String getLevelLogo() {
+		return levelLogo;
+	}
+
+	public void setLevelLogo(String levelLogo) {
+		this.levelLogo = levelLogo;
+	}
+
+	public Integer getLevelTemplate() {
+		return levelTemplate;
+	}
+
+	public void setLevelTemplate(Integer levelTemplate) {
+		this.levelTemplate = levelTemplate;
+	}
+
 	public Integer getDiscountId() {
 		return discountId;
 	}
@@ -177,18 +213,5 @@ public class MemberLevelDto {
 	public Integer getIsDefault(){
 		return isDefault;
 	}
-    
-    /**
-     * 以JSON数组的方式获取等级描述信息
-    * @author 张进军
-    * @date Jan 28, 2016 9:00:49 PM
-    * @return   等级描述信息
-     */
-    public JSONArray getLevelNoticeList(){
-        if (StringUtils.isNotBlank(getLevelNotice())) {
-            return JSONArray.fromObject(getLevelNotice());
-        }
-        return null;
-    }
 
 }

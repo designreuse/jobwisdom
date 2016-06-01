@@ -67,7 +67,7 @@ public interface MemberLevelMapper {
     * @param storeId    门店标识
     * @return   对应门店的查询结果列表
      */
-    List<MemberLevel> selectByStoreId(Integer storeId);
+    List<MemberLevelDto> selectByStoreId(Integer storeId);
     
     /**
      * 根据门店标识查询默认的会员等级
@@ -107,11 +107,11 @@ public interface MemberLevelMapper {
     
     /**
      * 根据店铺id和等级名称查询会员等级
-     * @param storeId  店铺id
+     * @param storeAccount  企业代号
      * @param levelName  等级名称
      * @return  会员等级
      */
-    MemberLevel selectMemberLevelBySotreIdAndLevelName(@Param(value="storeId")int storeId, @Param(value="levelName")String levelName);
+    MemberLevel selectMemberLevelBySotreIdAndLevelName(@Param(value="storeAccount")String storeAccount, @Param(value="levelName")String levelName);
     
     /**
      * 根据门店标识删除会员卡信息(非默认)
@@ -140,4 +140,12 @@ public interface MemberLevelMapper {
      */
     List<MemberLevel> selectByAllStoreId(Integer storeId);
     
+    /**
+     * 企业查询会员等级
+    * @author 老王
+    * @date 2016年6月1日 上午1:22:00 
+    * @param levelId 会员等级标识
+    * @return MemberLevelDto
+     */
+    MemberLevelDto selectByEnterprise(Integer levelId);
 }

@@ -5,6 +5,9 @@
     <id column="level_id" property="levelId" jdbcType="INTEGER" />
     <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
+    <result column="level_type" property="levelType" jdbcType="VARCHAR" />
+    <result column="level_logo" property="levelLogo" jdbcType="VARCHAR" />
+    <result column="level_template" property="levelTemplate" jdbcType="INTEGER" />
     <result column="level_notice" property="levelNotice" jdbcType="VARCHAR" />
     <result column="is_default" property="isDefault" jdbcType="INTEGER" />
     <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
@@ -15,8 +18,12 @@
   
   <resultMap id="MemberLevelDtoMap" type="com.zefun.web.dto.MemberLevelDto" >
     <result column="level_id" property="levelId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
     <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+    <result column="level_type" property="levelType" jdbcType="VARCHAR" />
+    <result column="level_logo" property="levelLogo" jdbcType="VARCHAR" />
+    <result column="level_template" property="levelTemplate" jdbcType="INTEGER" />
     <result column="level_notice" property="levelNotice" jdbcType="VARCHAR" />
     <result column="discount_id" property="discountId" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
@@ -31,7 +38,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    level_id, store_account, level_name, 
+    level_id, store_account, level_name, level_type, level_logo, level_template,
     level_notice, is_default, is_deleted, create_time, update_time, last_operator_id
   </sql>
   
@@ -61,13 +68,17 @@
     where level_id = #{levelId,jdbcType=INTEGER}
   </select>
   
-  <!-- <select id="selectByPage" resultMap="MemberLevelDtoMap" parameterType="com.zefun.web.entity.Page">
+  <select id="selectByEnterprise" resultMap="MemberLevelDtoMap" parameterType="java.lang.Integer">
   	select 
   		a.level_id as levelId, 
   		a.store_id as storeId, 
+  		b.store_account as storeAccount, 
   		b.level_name as levelName, 
     	b.level_notice as levelNotice, 
     	b.is_default as isDefault,
+    	b.level_type as levelType,
+    	b.level_logo as levelLogo,
+    	b.level_template as levelTemplate,
     	a.discount_id as discountId, 
     	a.project_discount as projectDiscount, 
     	a.goods_discount as goods_discount, 
@@ -79,16 +90,20 @@
         a.performance_discount_percent as performanceDiscountPercent
   	from member_level_discount a
   	left join member_level b on b.level_id = a.level_id 
-  	where a.is_deleted = 0 and a.store_id = #{params.storeId}  order by isDefault desc, projectDiscount asc
-  </select> -->
+  	where a.is_deleted = 0 and a.level_id = #{levelId} and a.store_id = 0
+  </select>
   
   <select id="selectByPage" resultMap="MemberLevelDtoMap" parameterType="com.zefun.web.entity.Page">
   	select 
   		a.level_id as levelId, 
   		a.store_id as storeId, 
+  		b.store_account as storeAccount, 
   		b.level_name as levelName, 
     	b.level_notice as levelNotice, 
     	b.is_default as isDefault,
+    	b.level_type as levelType,
+    	b.level_logo as levelLogo,
+    	b.level_template as levelTemplate,
     	a.discount_id as discountId, 
     	a.project_discount as projectDiscount, 
     	a.goods_discount as goods_discount, 
@@ -100,13 +115,36 @@
         a.performance_discount_percent as performanceDiscountPercent
   	from member_level_discount a
   	left join member_level b on b.level_id = a.level_id 
-  	where a.is_deleted = 0 and a.store_id = #{params.storeId}  order by isDefault desc, projectDiscount asc
+  	where a.is_deleted = 0 and a.store_id = #{params.storeId} 
+  	<if test="params.storeAccount != null" >
+        and b.store_account = #{params.storeAccount}
+    </if>   
+    order by b.is_default desc, a.project_discount asc
   </select>
   
-  <select id="selectByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-  	select 
-  	<include refid="Base_Column_List" />
-  	from member_level where is_deleted = 0 and store_id = (select ifnull(hq_store_id, #{storeId}) from store_info where store_id = #{storeId}) 
+  <select id="selectByStoreId" resultMap="MemberLevelDtoMap" parameterType="java.lang.Integer">
+    select 
+  		a.level_id as levelId, 
+  		a.store_id as storeId, 
+  		b.store_account as storeAccount, 
+  		b.level_name as levelName, 
+    	b.level_notice as levelNotice, 
+    	b.is_default as isDefault,
+    	b.level_type as levelType,
+    	b.level_logo as levelLogo,
+    	b.level_template as levelTemplate,
+    	a.discount_id as discountId, 
+    	a.project_discount as projectDiscount, 
+    	a.goods_discount as goods_discount, 
+    	a.sell_amount as sellAmount, 
+    	a.charge_min_money as chargeMinMoney, 
+        a.cash_discount_type as cashDiscountType, 
+        a.integral_unit as integralUnit, 
+        a.integral_number as integralNumber, 
+        a.performance_discount_percent as performanceDiscountPercent
+  	from member_level_discount a
+  	left join member_level b on b.level_id = a.level_id 
+  	where a.is_deleted = 0 and a.store_id = #{storeId} 
   </select>
   
   <select id="selectByAllStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -138,11 +176,20 @@
       <if test="levelId != null" >
         level_id,
       </if>
-      <if test="storeId != null" >
-        store_id,
+      <if test="storeAccount != null" >
+        store_account,
       </if>
       <if test="levelName != null" >
         level_name,
+      </if>
+      <if test="levelType != null" >
+        level_type,
+      </if>
+      <if test="levelLogo != null" >
+        level_logo,
+      </if>
+      <if test="levelTemplate != null" >
+        level_template,
       </if>
       <if test="levelNotice != null" >
         level_notice,
@@ -167,11 +214,20 @@
       <if test="levelId != null" >
         #{levelId,jdbcType=INTEGER},
       </if>
-      <if test="storeId != null" >
-        #{storeId,jdbcType=INTEGER},
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=VARCHAR},
       </if>
       <if test="levelName != null" >
         #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelType != null" >
+        #{levelType,jdbcType=VARCHAR},
+      </if>
+      <if test="levelLogo != null" >
+        #{levelLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="levelTemplate != null" >
+        #{levelTemplate,jdbcType=INTEGER},
       </if>
       <if test="levelNotice != null" >
         #{levelNotice,jdbcType=VARCHAR},
@@ -197,11 +253,20 @@
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.MemberLevel" >
     update member_level
     <set >
-      <if test="storeId != null" >
-        store_id = #{storeId,jdbcType=INTEGER},
+      <if test="storeAccount != null" >
+        store_account = #{storeAccount,jdbcType=INTEGER},
       </if>
       <if test="levelName != null" >
         level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelType != null" >
+        level_type = #{levelType,jdbcType=VARCHAR},
+      </if>
+      <if test="levelLogo != null" >
+        level_logo = #{levelLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="levelTemplate != null" >
+        level_template = #{levelTemplate,jdbcType=INTEGER},
       </if>
       <if test="levelNotice != null" >
         level_notice = #{levelNotice,jdbcType=VARCHAR},
@@ -227,7 +292,7 @@
   
   <!-- 根据店铺id和等级名称查询会员等级 -->
   <select id="selectMemberLevelBySotreIdAndLevelName" resultMap="BaseResultMap">
-  	select * from member_level where is_deleted = 0 and store_id = #{storeId} and level_name = #{levelName} limit 1
+  	select * from member_level where is_deleted = 0 and store_account = #{storeAccount} and level_name = #{levelName} limit 1
   </select>
   
 </mapper>

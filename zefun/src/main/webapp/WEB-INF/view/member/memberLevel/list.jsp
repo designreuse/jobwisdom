@@ -10,148 +10,158 @@
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
       	<!-- 页面代码 -->
-		<div class="maincontent">
-		    <div class="contentinner">
-		    	<c:set var="hasModify" value="0" />
-		    	<c:if test="${session_key_role_id == 101 || session_key_role_id == 103 }">
-		    		<c:set var="hasModify" value="1" />
-		    	</c:if>
-		         <c:if test="${hasModify != 1 }">
-			        <div class="widgetcontent">
-			            <div class="more-toolbar" >
-			                <div class="table-toolbar">
-			                    <span class="font-size-16 btn-color mr10">添加会员卡种类</span>
-			                    <button class="btn" data-toggle="modal" data-target="#toLeadModal">导入会员卡</button>
-			                </div>
-			                <div class="clearfix"></div>
-			            </div>
-			            <form class="editMemberLevelForm">
-				            <table class="table collect-money-table">
-				                <thead>
-				                <tr>
-				                    <th>会员卡名称</th>
-				                    <th>项目折扣<img src="<%=picPath %>help.png" alt="" class="ml5" data-toggle="tooltip" data-placement="top" title="" data-original-title="折后价为原价乘以设置的百分比，不打折请填写100"></th>
-				                    <th>商品折扣<img src="<%=picPath %>help.png" alt="" class="ml5" data-toggle="tooltip" data-placement="top" title="" data-original-title="折后价为原价乘以设置的百分比，不打折请填写100"></th>
-				                    <th>最低充值</th>
-				                    <th>开卡费用<img src="<%=picPath %>help.png" alt="" class="ml5" data-toggle="tooltip" data-placement="top" title="" data-original-title="类似折扣卡，开卡时需要支付该费用且不纳入充值金额"></th>
-				                    <th>现金支付打折<img src="<%=picPath %>help.png" alt="" class="ml5" data-toggle="tooltip" data-placement="top" title="" data-original-title="此卡会员在使用现金支付时是否享受折扣"></th>
-				                    <th>业绩折扣比例<img src="<%=picPath %>help.png" alt="" class="ml5" data-toggle="tooltip" data-placement="top" title="" data-original-title="类似原价卡需要扣减员工业绩与提成时设置此值，100为不减扣"></th>
-				                </tr>
-				                </thead>
-				                <tbody>
-				                <tr>
-				                    <td><input type="text" class="input80" name="levelName" /></td>
-				                    <td><input type="number" class="input80" name="projectDiscount" /><span class="percent-symbol">%</span></td>
-				                    <td><input type="number" class="input80" name="goodsDiscount" /><span class="percent-symbol">%</span></td>
-				                    <td><input type="number" class="input80" name="chargeMinMoney" /><span class="percent-symbol">元</span></td>
-				                    <td><input type="number" class="input80" value="0" name="sellAmount" /><span class="percent-symbol">元</span></td>
-				                    <td>
-				                    	<select name="cashDiscountType" class="chzn-select wthn100">
-					                        <option value="0">不打折</option>
-					                        <option value="1">打折</option>
-				                    	</select>
-				                    </td>
-				                    <td><input type="number" class="input80" value="100" name="performanceDiscountPercent" /><span class="percent-symbol">%</span></td>
-				                </tr>
-				                <tr>
-				                    <td colspan="8">
-				                        <div class="p-part-first">
-				                            <span class="mr10 label12 font-bold">积分计算方式：</span>
-				                            每消费<input type="number" name="integralUnit" class="input30" value="1"><span class="percent-symbol">元</span>
-				                            <span class="ml10">获得</span>
-				                            <input type="number" name="integralNumber" class="input30" value="1"><span class="percent-symbol">分</span>
-				                        </div>
-				                    </td>
-				                </tr>
-				                <tr>
-				                	<td colspan="6">
-				                        <span class="mr10 label12 font-bold">会员须知<img src="<%=picPath %>help.png" alt="" class="ml5" data-toggle="tooltip" data-placement="top" title="" data-original-title="会员须知在会员的等级信息中会显示，您可以设置类似本店不能退卡之类的说明">：</span>
-				                        <div id="editor_id" contenteditable="true" class="shuru"></div>
-				                    </td>
-				                    <td colspan="2">
-				                    	<a class="btn btn-primary fr" onclick="addOrEditMemberLevel()">&nbsp;保&nbsp;&nbsp;存&nbsp;</a>
-				                        <a class="btn btn-primary fr mr10" onclick="resetForm('.editMemberLevelForm');">&nbsp;清&nbsp;&nbsp;空&nbsp;</a>
-				                    </td>
-				                </tr>
-				                </tbody>
-				            </table>
-				            <input type="hidden" name="levelId" style="width: 0px; height: 0px;" >
-				        </form>
-			        </div>
-		        </c:if>
-		
-		        <div class="more-toolbar" >
-		            <div class="table-toolbar">
-		                <span class="font-size-16 btn-color mr10">当前会员卡种类</span>
-		            </div>
-		            <div class="clearfix"></div>
-		        </div>
-		
-		        <table class="table table-bordered table-striped member-card-table">
-		            <thead class="t-fix">
-		              <tr>
-		                  <th>会员卡名称</th>
-		                  <th>项目折扣</th>
-		                  <th>商品折扣</th>
-		                  <th>最低充值</th>
-		                  <th>开卡费用</th>
-		                  <th>现金支付打折</th>
-		                  <th>业绩折扣比例</th>
-		                  <th>积分计算方式</th>
-		                  <th>等级说明</th>
-		                  <c:if test="${hasModify == 1 }">
-		                      <th>操作</th>
-		                  </c:if>
-		              </tr>
-		            </thead>
-		            <tbody>
-			            <c:forEach items="${page.results }" var="memberLevel" varStatus="index">
-			            	 <c:if test="${index.index == 0 }"><tr id="${memberLevel.levelId }" class="t-table"></c:if>
-			            	 <c:if test="${index.index != 0 }"><tr id="${memberLevel.levelId }"></c:if>
-                               <td>${memberLevel.levelName }
-                                <c:if test="${memberLevel.isDefault == 1 }"><span class="font-999">默认等级</span></c:if>
-                               </td>
-                               <td>${memberLevel.projectDiscount }%</td>
-                               <td>${memberLevel.goodsDiscount }%</td>
-                               <td>${memberLevel.chargeMinMoney }元</td>
-                               <td>
-                               		${memberLevel.sellAmount }元
-                               </td>
-                               <td>
-                               		<c:choose>
-                               			<c:when test="${memberLevel.cashDiscountType == 0 }">
-                               				不打折
-                               			</c:when>
-                               			<c:otherwise>
-                               				打折
-                               			</c:otherwise>
-                               		</c:choose>
-                               </td>
-                               <td>
-                               		${memberLevel.performanceDiscountPercent }%
-                               </td>
-                               <td>${memberLevel.integralUnit }元 = ${memberLevel.integralNumber }积分</td>
-                               <td class="input80 ellipsis-text">
-                               		<c:if test="${not empty memberLevel.levelNoticeList }">
-                               			<c:forEach var="content" items="${memberLevel.levelNoticeList }">
-                               				${content.text }
-                               			</c:forEach>
-                               		</c:if>
-                               		&nbsp;
-                               </td>
-                               <c:if test="${hasModify == 1 }">
-	                               <td>
-	                                   <span class="iconfont icon-dizhixiugai" onclick="editMemberLevel(${memberLevel.levelId})"></span>
-		                               <span class="iconfont icon-xx ml10" onclick="deleteMemberLevel(${memberLevel.levelId})"></span>
-	                               </td>
-                               </c:if>
-                             </tr>
-			            </c:forEach>
-		            </tbody>
-		        </table>
-		        <%@ include file="/template/page.jsp" %>
-		    </div>
-		</div>
+		<div class='content_right clearfix'>
+		   <div class="out_roll_content">
+		     <div class="out_roll">
+			  <span class="click_left"><img src="assets/images/left_click.png"></span>
+		     <div class="out_roll_div">	  
+			  <ul class="clearfix out_roll_ul">
+			     <li class="active">没联网华南店</li>
+				 <li>没联网华南店</li>
+				 <li>没联网华南店</li>
+				 <li>没联网华南店</li>
+				 <li>没联网华南店</li>
+				 <li>没联网华南店</li>
+				 <li>没联网华南店</li>
+				 <li>没联网华南店</li>
+				 <li>没联网华南店</li>
+				 <li>没联网华南店</li>
+			   </ul>
+			  </div> 
+			   <span class="click_right"><img src="assets/images/right_click.png"></span>
+			 </div>
+			</div>
+			
+			<div class="new_data">
+			   <p>会员卡类型 <span><select><option>等级卡</option><option>折扣卡</option><option>全部</option></select></span></p>
+		     <div class="vip_card_table"> 	  
+			  <table>
+			     <tr>
+				   <td>会员卡名称</td>
+				   <td>项目折扣</td>
+				   <td>商品折扣</td>
+				   <td>最低充值</td>
+				   <td>开卡费用</td>
+				   <td>现金支付打折</td>
+				   <td>业绩折扣比例</td>
+				   <td>积分计算方式</td>
+				   <td>等级说明</td>
+				   <td>操作</td>
+				 </tr>
+			      <tr>
+				    <td>三折卡</td>
+				    <td>10折</td>
+				    <td>10折</td>
+				    <td>5000</td>
+					<td>50元</td>
+				    <td>不打折</td>
+					<td>10%</td>
+		            <td>1元=10积分</td>
+					<td>啊啊啊</td>
+					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
+		         </tr>
+				  <tr>
+				    <td>三折卡</td>
+				    <td>10折</td>
+				    <td>10折</td>
+				    <td>5000</td>
+					<td>50元</td>
+				    <td>不打折</td>
+					<td>10%</td>
+		            <td>1元=10积分</td>
+					<td>啊啊啊</td>
+					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
+		         </tr>
+				  <tr>
+				    <td>三折卡</td>
+				    <td>10折</td>
+				    <td>10折</td>
+				    <td>5000</td>
+					<td>50元</td>
+				    <td>不打折</td>
+					<td>10%</td>
+		            <td>1元=10积分</td>
+					<td>啊啊啊</td>
+					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
+		         </tr>
+				  <tr>
+				    <td>三折卡</td>
+				    <td>10折</td>
+				    <td>10折</td>
+				    <td>5000</td>
+					<td>50元</td>
+				    <td>不打折</td>
+					<td>10%</td>
+		            <td>1元=10积分</td>
+					<td>啊啊啊</td>
+					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
+		         </tr>
+				  <tr>
+				    <td>三折卡</td>
+				    <td>10折</td>
+				    <td>10折</td>
+				    <td>5000</td>
+					<td>50元</td>
+				    <td>不打折</td>
+					<td>10%</td>
+		            <td>1元=10积分</td>
+					<td>啊啊啊</td>
+					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
+		         </tr>
+				  <tr>
+				    <td>三折卡</td>
+				    <td>10折</td>
+				    <td>10折</td>
+				    <td>5000</td>
+					<td>50元</td>
+				    <td>不打折</td>
+					<td>10%</td>
+		            <td>1元=10积分</td>
+					<td>啊啊啊</td>
+					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
+		         </tr>
+				  <tr>
+				    <td>三折卡</td>
+				    <td>10折</td>
+				    <td>10折</td>
+				    <td>5000</td>
+					<td>50元</td>
+				    <td>不打折</td>
+					<td>10%</td>
+		            <td>1元=10积分</td>
+					<td>啊啊啊</td>
+					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
+		         </tr>
+				  <tr>
+				    <td>三折卡</td>
+				    <td>10折</td>
+				    <td>10折</td>
+				    <td>5000</td>
+					<td>50元</td>
+				    <td>不打折</td>
+					<td>10%</td>
+		            <td>1元=10积分</td>
+					<td>啊啊啊</td>
+					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
+		         </tr>
+				  <tr>
+				    <td>三折卡</td>
+				    <td>10折</td>
+				    <td>10折</td>
+				    <td>5000</td>
+					<td>50元</td>
+				    <td>不打折</td>
+					<td>10%</td>
+		            <td>1元=10积分</td>
+					<td>啊啊啊</td>
+					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
+		         </tr>
+				
+					  
+			   </table>
+			 </div>
+			</div>
+		  </div>
     </div>
 </div>
 </div><!--mainwrapper-->
@@ -179,80 +189,7 @@
         </div>
     </div>
 </div>
-<script>
-/*表头置顶*/
-jQuery(function(){
-  var a=[];
-    jQuery(".mainwrapper").show()
-    var tlength=jQuery(".t-fix th").length;
-        for(i=0;i<tlength;i++)  {
-        a[i]=jQuery(".t-fix th").eq(i).width();
-    }
 
-   function table() {
-       jQuery(".mainwrapper").show()
-       var fix=jQuery(".t-fix").offset()
-       var tableT=fix.top
-       jQuery(window).scroll(function(event){
-           var scH=jQuery(window).scrollTop()
-           if(scH>tableT){
-               jQuery(".t-fix").addClass("add-fix")
-               for(i=0;i<jQuery(".t-fix th").length;i++){
-                   var tdwidth=a[i];
-                   var tbwidth=a[i];
-                   jQuery(".t-fix th").eq(i).css("width",tdwidth)
-                   jQuery(".t-table td").eq(i).css("width",tbwidth)
-
-               }
-           }
-           else{
-               jQuery(".t-fix").removeClass("add-fix")
-           }
-       })
-   }
-    table();
-})
-    //获取加载页面时的页码信息
-    var pageNo = "${page.pageNo}";
-    var pageSize = "${page.pageSize}";
-    var totalPage = "${page.totalPage}"
-    //session中的角色id
-    var hasModify = "${hasModify}";
-</script>
 <script type="text/javascript" src="<%=basePath %>js/member/memberLevel.js"></script>
-<script type="text/javascript">
-	//手动更新选择项，两步顺序执行,
-	jQuery("#registerCommissionType").val(1);
-	jQuery("#registerCommissionType").trigger("liszt:updated");
-	//获取选择项的值
-	jQuery("#registerCommissionType :selected").val();
-	//参考api：http://harvesthq.github.io/chosen/#change-update-events
-	
-	
-function UpladFile() {
-    var fileObj = document.getElementById("file").files[0]; // 获取文件对象
-    var FileController = baseUrl +"memberLevel/action/importexcle";                    // 接收上传文件的后台地址 
-    // FormData 对象
-    var form = new FormData();
-    form.append("storeName", jQuery("select[name='storeName']").val());       
-    form.append("file", fileObj);    // 文件对象
-    var xhr = new XMLHttpRequest();
-    xhr.open("post", FileController, true);
-    xhr.onload = function (e) {
-    	/*dialog(xhr.responseText);*/
-    	var json = eval("("+xhr.responseText+")");
-    	if(json.code!=0){
-    		dialog(json.msg);
-    		return;
-    	}
-        dialog(json.msg);
-        setTimeout(function(){
-        	location.reload();
-    	},300);
-       
-    };
-    xhr.send(form);
-}
-</script>
 </body>
 </html>

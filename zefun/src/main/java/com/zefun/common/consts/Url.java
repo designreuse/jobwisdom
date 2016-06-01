@@ -108,6 +108,10 @@ public interface Url {
 	class MemberLevel {
 		/** 企业会员卡管理*/
 		public static final String ENTERPRISE_MEMBERLEVEL_LIST = "memberLevel/view/enterpriseMemberLevelList";
+		/** 企业会员卡管理*/
+		public static final String SAVE_ENTERPRISE_MEMBERLEVEL = "memberLevel/view/saveEnterpriseMemberLevel";
+		/** 企业查询单个会员卡*/
+		public static final String SELECT_ENTERPRISE_MEMBER = "memberLevel/view/selectEnterpriseMember";
 		/** 添加等级 */
 		public static final String ACTION_ADD = "memberLevel/action/add";
 		/** 显示会员等级列表的页面 */
