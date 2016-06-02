@@ -72,8 +72,8 @@
 				<div class="content_right clearfix">
 					<div class="out_tab">
 						<ul class="clearfix">
-							<li class="active">入库管理</li>
-							<li class="">出库管理</li>
+							<li style="width: 505px" class="active">入库管理</li>
+							<li style="width: 505px" class="">出库管理</li>
 						</ul>
 						<div class="out_tab_content">
 							<div class="out_tab_content_">
@@ -114,17 +114,17 @@
 								<table class="payroll_table">
 									<tbody>
 										<tr>
-											<td>调拨时间</td>
-											<td>出库门店</td>
-											<td>入库门店</td>
+											<td>出库时间</td>
+											<td>出库对象</td>
+											<td>出库方式</td>
 											<td>调拨明细</td>
 											<td>操作</td>
 										</tr>
 										<c:forEach items="${outFlows }" var="flow">
 										<tr>
 											<td>${flow.createTime }</td>
-											<td>${flow.fromStoreName }</td>
-											<td>${flow.toStoreName }</td>
+											<td>${flow.employeeName }</td>
+											<td>${flow.flowType }</td>
 											<td>
 												<div class="overflow_text">
 													<c:forEach varStatus="index" items="${flow.accountGoods }" var="goods"><span>${goods.goodsCodeSuffix } ${goods.goodsName } : <i>${fn:split(flow.stockCount, ',')[index.count-1] }</i></span></c:forEach>
@@ -192,9 +192,9 @@
 
 					<div class="out_goods_content">
 						<div class="textarea_saying">
-							<span>出库门店：<select name="toStore">
-									<c:forEach items="${storeInfos }" var="store">
-										<option value="${store.storeId }">${store.storeName }</option>
+							<span>出库对象：<select name="libraryObject">
+									<c:forEach items="${employeeInfos }" var="employeeInfo">
+										<option value="${employeeInfo.employeeId }">${employeeInfo.name }</option>
 									</c:forEach>
 							</select>
 							</span> <span>出库方式：<select name="flowType">
@@ -204,6 +204,10 @@
 									<option value="赠送">赠送</option>
 									<option value="领用">领用</option>
 							</select></span>
+							<div class="textarea_saying">
+								备注：
+								<textarea name="stockDesc"></textarea>
+							</div>
 						</div>
 
 						<div class="allocation">
@@ -296,6 +300,7 @@
 		if(type == 2){
 			var stockType = type;
 			var flowType = jQuery(modal).find("select[name='flowType']").val();
+			var stockDesc = jQuery(modal).find("textarea[name='stockDesc']").val();
 			var aIds = "";
 			var stockCount = "";
 			jQuery(modal).find(".allocation_right").children("div").each(function(){
@@ -305,9 +310,8 @@
 			aIds = aIds.substring(0,(aIds.length-1));
 			stockCount = stockCount.substring(0,(stockCount.length-1));
 			var fromStore = '${session_key_store_id}';
-			var toStore = jQuery(modal).find("select[name='toStore']").val();
-			if (fromStore == toStore){dialog('自己给自己出库啊?');return;}
-			var data = {"stockType":stockType, "flowType":flowType, "aIds":aIds, "stockCount":stockCount, "toStore":toStore, "fromStore":fromStore};
+			var libraryObject = jQuery("select[name='libraryObject']").val();
+			var data = {"stockType":stockType, "flowType":flowType, "stockDesc":stockDesc, "aIds":aIds, "stockCount":stockCount, "libraryObject":libraryObject, "fromStore":fromStore};
 			console.log(data);
 			jQuery.ajax({
 				type : "post",

@@ -1,0 +1,23 @@
+.trangle em {
+  display: block;
+  border-width: 10px;
+  position: absolute;
+  border-style: solid dashed dashed;
+  font-size: 0;
+  line-height: 0;
+  /*top: 30px;
+    left: -20px;
+    border-color: transparent #FFF68F transparent transparent;
+    */
+}
+.flex-box {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  justify-content: space-between;
+}
+.flex-item {
+  flex-grow: 1;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hc3NldHMvY3NzL2Jhc2UubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxRQUFTO0VBQ1AsY0FBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQ0FBQTtFQUNBLFlBQUE7RUFDQSxjQUFBOzs7Ozs7QUFPRjtFQUNFLGFBQUE7RUFDQSxxQkFBQTtFQUNBLGVBQUE7RUFDQSx1QkFBQTtFQUNBLDhCQUFBOztBQUdGO0VBQ0UsWUFBQSJ9 */

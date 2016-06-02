@@ -353,6 +353,8 @@ public interface Url {
         public static final String GOODSINFO_SETTING_NEW = "goods/info/setting";
         /** 供应商管理*/
         public static final String VIEW_SUPPLIER = "view/storeAccount/suplier";
+        /** 企业查看各门店商品数据*/
+        public static final String GOODS_QUERY_ACCOUNT = "view/storeAccount/store/goods/{storeId}";
 	}
 
 	/** 供应商模块 */

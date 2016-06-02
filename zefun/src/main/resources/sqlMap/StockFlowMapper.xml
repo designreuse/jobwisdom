@@ -214,10 +214,11 @@
   <select id="selectByProperties" parameterType="com.zefun.web.entity.StockFlow" resultMap="ResultMap">
   	select sf.stock_flow_id, sf.stock_type, sf.flow_type, sf.stock_count, sf.create_time, sf.from_store, sf.to_store, 
     sf.a_ids, sf.operation_staff, sf.library_object, sf.stock_desc, sf.is_deleted, sf.store_account,
-    sio.store_name as fromStoreName, sif.store_name as toStoreName
+    sio.store_name as fromStoreName, sif.store_name as toStoreName, ei.name as employeeName
     from stock_flow sf 
     left join store_info sio on sf.from_store = sio.store_id
     left join store_info sif on sf.to_store = sif.store_id
+    left join employee_info ei on ei.employee_id = sf.library_object
     where 1=1
     <if test="storeAccount != null" >
         and sf.store_account = #{storeAccount,jdbcType=VARCHAR}

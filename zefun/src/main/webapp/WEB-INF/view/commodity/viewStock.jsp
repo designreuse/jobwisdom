@@ -126,23 +126,23 @@
 							</div>
 							<div class="out_tab_content_" style="display: none;">
 								<div class="out_tab_2">
-									<button onclick="jQuery('.zzc1').show('800')">选择商品入库</button>
+									<button onclick="jQuery('.zzc1').show('800')">选择商品出库</button>
 									<input type="text" placeholder="名称/编码">
 								</div>
 								<table class="payroll_table">
 									<tbody>
 										<tr>
-											<td>调拨时间</td>
-											<td>出库门店</td>
-											<td>入库门店</td>
+											<td>出库时间</td>
+											<td>出库对象</td>
+											<td>出库方式</td>
 											<td>调拨明细</td>
 											<td>操作</td>
 										</tr>
 										<c:forEach items="${outFlows }" var="flow">
 										<tr>
 											<td>${flow.createTime }</td>
-											<td>${flow.fromStoreName }</td>
-											<td>${flow.toStoreName }</td>
+											<td>${flow.employeeName }</td>
+											<td>${flow.flowType }</td>
 											<td>
 												<div class="overflow_text">
 													<c:forEach varStatus="index" items="${flow.accountGoods }" var="goods"><span>${goods.goodsCodeSuffix } ${goods.goodsName } : <i>${fn:split(flow.stockCount, ',')[index.count-1] }</i></span></c:forEach>
@@ -295,12 +295,11 @@
 			<div class="zzc1" style="display: none">
 				<div class="out_goods">
 					<p>选择出库商品</p>
-
 					<div class="out_goods_content">
 						<div class="textarea_saying">
-							<span>出库门店：<select name="toStore">
-									<c:forEach items="${storeInfos }" var="store">
-										<option value="${store.storeId }">${store.storeName }</option>
+							<span>出库对象：<select name="libraryObject">
+									<c:forEach items="${employeeInfos }" var="employeeInfo">
+										<option value="${employeeInfo.employeeId }">${employeeInfo.name }</option>
 									</c:forEach>
 							</select>
 							</span> <span>出库方式：<select name="flowType">
@@ -310,6 +309,11 @@
 									<option value="赠送">赠送</option>
 									<option value="领用">领用</option>
 							</select></span>
+							<div class="textarea_saying">
+								备注：
+								<textarea name="stockDesc"></textarea>
+							</div>
+							
 						</div>
 
 						<div class="allocation">
@@ -402,6 +406,7 @@
 		if(type == 2){
 			var stockType = type;
 			var flowType = jQuery(modal).find("select[name='flowType']").val();
+			var stockDesc = jQuery(modal).find("textarea[name='stockDesc']").val();
 			var aIds = "";
 			var stockCount = "";
 			jQuery(modal).find(".allocation_right").children("div").each(function(){
@@ -411,9 +416,8 @@
 			aIds = aIds.substring(0,(aIds.length-1));
 			stockCount = stockCount.substring(0,(stockCount.length-1));
 			var fromStore = jQuery(".clearfix.out_roll_ul").children("li[class='active']").attr("storeId");
-			var toStore = jQuery(modal).find("select[name='toStore']").val();
-			if (fromStore == toStore){dialog('自己给自己出库啊?');return;}
-			var data = {"stockType":stockType, "flowType":flowType, "aIds":aIds, "stockCount":stockCount, "toStore":toStore, "fromStore":fromStore};
+			var libraryObject = jQuery("select[name='libraryObject']").val();
+			var data = {"stockType":stockType, "flowType":flowType, "stockDesc":stockDesc, "aIds":aIds, "stockCount":stockCount, "libraryObject":libraryObject, "fromStore":fromStore};
 			console.log(data);
 			jQuery.ajax({
 				type : "post",
@@ -479,11 +483,19 @@
 				showFlow(inFlows, 0);
 				var outFlows = data.msg.outFlows;
 				showFlow(outFlows, 1);
+				var employeeInfos = data.msg.employeeInfos;
+				queryEmployeeInfo(employeeInfos);
 			}
 		});
 	}
 	function showFlow(inFlows, index){
-		var html0 = '<tr><td>入库时间</td><td>入库方式</td><td>入库明细</td><td>操作</td></tr>';
+		var html0 = "";
+		if (index==0){
+			html0 = '<tr><td>入库时间</td><td>入库方式</td><td>入库明细</td><td>操作</td></tr>';
+		}else {
+			html0 = '<tr><td>出库时间</td><td>出库对象</td><td>出库方式</td><td>调拨明细</td><td>操作</td></tr>';
+		}
+		
 		jQuery(".payroll_table").eq(index).find("tbody").empty();
 		jQuery(".payroll_table").eq(index).find("tbody").append(jQuery(html0));
 		for (var i = 0; i < inFlows.length; i++) {
@@ -499,7 +511,7 @@
 				html1 = '<tr>'+
 						'<td>'+flow.createTime +'</td>'+
 						'<td>'+flow.fromStoreName +'</td>'+
-						'<td>'+flow.toStoreName +'</td>'+
+						'<td>'+flow.flowType +'</td>'+
 						'<td>'+
 							'<div class="overflow_text">';
 			} 
@@ -515,6 +527,16 @@
 						'</tr>';
 			var html = html1 + html2 + html3;
 			jQuery(".payroll_table").eq(index).find("tbody").append(jQuery(html));
+		}
+	}
+	/**更新员工信息*/
+	function queryEmployeeInfo(employeeInfos){
+		jQuery("select[name='libraryObject']").empty();
+		for (var i = 0; i < employeeInfos.length; i++) {
+			var employeeId = employeeInfos[i].employeeId;
+			var employeeName = employeeInfos[i].name;
+			var html = '<option value='+employeeId+'>'+employeeName+'</option>';
+			jQuery("select[name='libraryObject']").append(jQuery(html));
 		}
 	}
 </script>

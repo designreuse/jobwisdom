@@ -52,7 +52,6 @@
 				$(opt).siblings().removeClass("active");
 				$(".right_content").hide();
 				$(".right_content[catagoryId='"+catagoryId+"']").show();
-				
 			}
 		</script>
 		<c:forEach items="${goodsInfoCatagoryDtos }" var="goodsInfoCatagoryDto" varStatus="status">

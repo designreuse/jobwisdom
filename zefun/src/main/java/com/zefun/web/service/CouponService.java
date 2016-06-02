@@ -19,13 +19,13 @@ import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CouponInfoDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectInfoDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.MemberCoupon;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberScreening;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ProjectCategory;
@@ -109,7 +109,7 @@ public class CouponService {
         List<CouponInfoDto> cs = couponInfoMapper.selectByPage(page);
         page.setResults(cs);
         //会员卡
-        List<MemberLevel> memberLevels = memberLevelMapper.selectByStoreId(storeId);
+        List<MemberLevelDto> memberLevels = memberLevelMapper.selectByStoreId(storeId);
         //筛选器
         List<MemberScreening> memberScreenings = memberScreeningMapper.selectByStoreId(storeId);
         List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(storeId);

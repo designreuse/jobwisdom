@@ -5,28 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.zefun.common.consts.View;
 import com.zefun.common.consts.App.Session;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.AccountGoods;
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.GoodsStock;
 import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.StockFlow;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.AccountGoodsMapper;
-import com.zefun.web.mapper.EnterpriseAccountMapper;
-import com.zefun.web.mapper.EnterpriseInfoMapper;
-import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.StockFlowMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
@@ -44,12 +39,6 @@ public class GoodsStockService {
     /** 企业商品 */
     @Autowired
     private AccountGoodsMapper accountGoodsMapper;
-    /** 企业管理  */
-    @Autowired
-    private EnterpriseAccountMapper enterpriseAccountMapper;
-    /** 企业管理  */
-    @Autowired
-    private EnterpriseInfoMapper enterpriseInfoMapper;
     /** 门店管理  */
     @Autowired
     private StoreInfoMapper storeInfoMapper;
@@ -59,9 +48,9 @@ public class GoodsStockService {
     /** 商品库存流水  */
     @Autowired
     private StockFlowMapper stockFlowMapper;
-    /** 商品表  */
+    /** 门店员工  */
     @Autowired
-    private GoodsInfoMapper goodsInfoMapper;
+    private EmployeeInfoMapper employeeInfoMapper;
     
     /**
      * 查看进销存页面
@@ -86,9 +75,14 @@ public class GoodsStockService {
         
         StockFlow query = new StockFlow();
         query.setStoreAccount(storeAccount);
+        
         List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(query);
         
         final Integer queryStoreId = Integer.parseInt(storeId.toString());
+        
+        List<EmployeeInfo> employeeInfos = employeeInfoMapper.selectEmployeeByStoreId(queryStoreId);
+        model.addObject("employeeInfos", employeeInfos);
+        
         /**入库管理*/
         List<StockFlow> inFlows = stockFlows.stream()
                 .filter(flow -> flow.getStockType()==1&&flow.getToStore().equals(queryStoreId))
@@ -196,7 +190,6 @@ public class GoodsStockService {
     private BaseDto outStock(StockFlow stockFlow) {
         List<Integer> aIds = Arrays.asList(stockFlow.getaIds().split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
         List<Integer> count = Arrays.asList(stockFlow.getStockCount().split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
-        Integer toStore = stockFlow.getToStore();
         Integer fromStore = stockFlow.getFromStore();
         for (int i = 0; i < aIds.size(); i++) {
             GoodsStockKey key = new GoodsStockKey();
@@ -210,23 +203,6 @@ public class GoodsStockService {
             }
             else {
                 return new BaseDto(-1, "出库失败,商品没有库存");
-            }
-            GoodsStockKey key2 = new GoodsStockKey();
-            key2.setaId(aIds.get(i));
-            key2.setStoreId(toStore);
-            GoodsStock goodsStock2 = goodsStockMapper.selectByPrimaryKey(key2);
-            if (goodsStock2!=null){
-                goodsStock2.setCount(goodsStock2.getCount()+count.get(i));
-                goodsStock2.setUpdateTime(DateUtil.getCurDate());
-                goodsStockMapper.updateByPrimaryKeySelective(goodsStock2);
-            }
-            else {
-                goodsStock2 = new GoodsStock();
-                goodsStock2.setaId(aIds.get(i));
-                goodsStock2.setCount(count.get(i));
-                goodsStock2.setStoreId(toStore);
-                goodsStock2.setUpdateTime(DateUtil.getCurDate());
-                goodsStockMapper.insertSelective(goodsStock2);
             }
         }
         //流水
@@ -293,9 +269,12 @@ public class GoodsStockService {
         List<StockFlow> outFlows = stockFlows.stream()
                 .filter(flow -> flow.getStockType()==2&&flow.getFromStore().equals(storeId))
                 .collect(Collectors.toList());
-        Map<String , List<StockFlow>> map = new HashMap<>();
+        Map<String , Object> map = new HashMap<>();
         map.put("inFlows", inFlows);
         map.put("outFlows", outFlows);
+        
+        List<EmployeeInfo> employeeInfos = employeeInfoMapper.selectEmployeeByStoreId(storeId);
+        map.put("employeeInfos", employeeInfos);
         BaseDto baseDto = new BaseDto(0, map);
         return baseDto;
     }

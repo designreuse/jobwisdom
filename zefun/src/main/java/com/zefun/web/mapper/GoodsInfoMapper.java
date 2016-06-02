@@ -1,6 +1,7 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zefun.web.dto.DeptGoodSalesSummaryDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
@@ -222,5 +223,14 @@ public interface GoodsInfoMapper {
     * @param aId aId
     * @return    GoodsInfo
      */
-    GoodsInfo selectByStoreAccount(Integer aId);
+    List<GoodsInfo> selectByStoreAccount(Integer aId);
+
+    /**
+     * 通过企业ID和storeId进行查询,上架商品
+    * @author 高国藩
+    * @date 2016年6月1日 下午12:04:32
+    * @param query
+    * @return
+     */
+    GoodsInfo selectByStoreAccountAndStoreId(Map<String, Object> query);
 }

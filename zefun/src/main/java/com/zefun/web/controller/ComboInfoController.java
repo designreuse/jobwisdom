@@ -22,6 +22,7 @@ import com.zefun.common.consts.View;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptInfoDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectCommissionDto;
 import com.zefun.web.dto.ProjectInfoDto;
 import com.zefun.web.entity.ComboGoods;
@@ -31,7 +32,6 @@ import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.MemberComboRecord;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.MemberComboRecordMapper;
 import com.zefun.web.service.ComboInfoService;
@@ -105,7 +105,7 @@ public class ComboInfoController extends BaseController {
             model.addObject("goodsinfos", goodsinfos);
             model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
             // 会员等级列表
-            List<MemberLevel> memberLevelList = memberLevelService.queryByStoreId(storeId);
+            List<MemberLevelDto> memberLevelList = memberLevelService.queryByStoreId(storeId);
             model.addObject("memberLevels", memberLevelList);
             
             List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();

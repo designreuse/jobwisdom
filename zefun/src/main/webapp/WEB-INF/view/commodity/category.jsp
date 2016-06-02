@@ -125,7 +125,7 @@
 		if (categoryName == ""){dialog("请填写系列名称");return;}
 		var deptId =  jQuery("select[name='projectCategory']").val();
 		var categoryId = jQuery(btn).prev("input").attr("categoryId");
-		jQuery(btn).prev("input").var("");
+		jQuery(btn).prev("input").val("");
 		if(categoryId == ""){
 			jQuery.ajax({
 				type: "POST",

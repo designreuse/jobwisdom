@@ -96,9 +96,8 @@
 			<a href="<%=menuBasePath%>goods/info/setting"><li class=""><span><img src="<%=basePath%>images/left2.png">商品上架</span></li></a>
 		</ul>
 		<ul index="5">
-			<a href="<%=menuBasePath%>goodsInfo/view/goodsStockList"><li class="active"><span><img src="<%=basePath%>images/left3.png">商品库存</span></li></a>
-			<a href="<%=menuBasePath%>stock/view"><li class="active"><span><img src="<%=basePath%>images/left3.png">商品管理</span></li></a>
-			<a href="<%=menuBasePath%>goodsInfo/view/brand"><li><span><img src="<%=basePath%>images/left5.png">商品品牌</span></li></a>
+			<a href="<%=menuBasePath%>goodsInfo/view/setting"><li class="active"><span><img src="<%=basePath%>images/left3.png">库存管理</span></li></a>
+			<a href="<%=menuBasePath%>stock/view"><li class="active"><span><img src="<%=basePath%>images/left3.png">商品调遣</span></li></a>
 			<a href="<%=menuBasePath%>view/storeAccount/suplier"><li><span><img src="<%=basePath%>images/left5.png">供应商管理</span></li></a>
 		</ul>
 		<ul index="6">
@@ -112,6 +111,7 @@
 		</ul>
 		<ul index="7">
 			<a href="<%=menuBasePath%>system/view/person"><li class=""><span><img src="<%=basePath%>images/left0.png">账户设置</span></li></a>
+			<a href="<%=menuBasePath%>system/view/storeWechat"><li class="active"><span><img src="<%=basePath%>images/left3.png">微信设置</span></li></a>
 			<a href="<%=menuBasePath%>storeinfo/view/showStoreList"><li class="active"><span><img src="<%=basePath%>images/left3.png">门店管理</span></li></a>
 			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span><img src="<%=basePath%>images/left1.png">基础设置</span></li></a>
 			<a href="<%=menuBasePath%>enterprise/view/showEnterprise"><li><span><img src="<%=basePath%>images/left1.png">新增企业</span></li></a>

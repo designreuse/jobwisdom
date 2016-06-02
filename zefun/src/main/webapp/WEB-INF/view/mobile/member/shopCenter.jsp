@@ -57,7 +57,7 @@
        </div>
        <div id="aestSellers" style="margin-bottom: 7rem;">
 	       <div class="shop_content">
-	            <p><span class="recommend_">新品上市</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_account}">更多>></a></p>
+	            <p><span class="recommend_">新品上市</span><a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_account}?selectStoreId=${storeId}">更多>></a></p>
 	        </div>
           <div class="shop_content_  clearfix">
           	<c:forEach items="${aestSellers }" var="goodsList">

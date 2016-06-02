@@ -61,16 +61,16 @@
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
 				<!--headerpanel-->
-				<div class="write_input">
+				<%-- <div class="write_input">
 					<!-- <div class="div1">编辑</div> -->
 					<a href="<%=basePath%>goodsInfo/view/setting"><div class="write_5" style="background: white; float: left; top: 0px !important; left: 20px !important; width: 100px !important">
 						<span class="add_step" style="position: relative; left: -10px">+</span>新增
 					</div></a>
-				</div>
+				</div> --%>
 					
 				<!--项目设置 -->
 			
-				<span class="left_1"><img src="<%=basePath%>images/right_.png"></span>
+				<%-- <span class="left_1"><img src="<%=basePath%>images/right_.png"></span>
 				<div class="alertPanel">
 				<c:forEach items="${deptProjectList }" var="deptPorject">
 					<div class="part_panel">
@@ -85,7 +85,7 @@
 						</c:forEach>
 					</div>
 				</c:forEach>
-				</div>
+				</div> --%>
             
 				<div class="rollBox">
 					<div class="LeftBotton"></div>
@@ -121,7 +121,7 @@
 									</div>
 									
 									<c:if test="${(status.count*2-1)!=fn:length(goodsInfos) }">
-									<div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>goodsInfo/view/setting?goodsId=${goodsInfos[status.count*2-1].goodsId }","_self")'>
+									<div class="column_small_first " action-type="showdesc" onclick='window.open("<%=basePath %>goods/info/setting?goodsId=${goodsInfos[status.count*2-1].goodsId }","_self")'>
 										<div class="column_img_container">
 										<span deptId="${goodsInfos[status.count*2-1].deptId}" goodsId="${goodsInfos[status.count*2-1].goodsId }" class="close1" style="position:absolute;right:25px;top:275px;"><img src="<%=basePath%>images/close1.png" style="width:20px"></span>
 											<div class="head_pic">

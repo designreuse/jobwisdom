@@ -24,6 +24,7 @@ import com.zefun.web.dto.GoodSalesSummaryDto;
 import com.zefun.web.dto.GoodsBrandDto;
 import com.zefun.web.dto.GoodsCategoryDto;
 import com.zefun.web.dto.GoodsInfoDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.ShipmentRecordDto;
 import com.zefun.web.dto.SummaryResultDto;
@@ -37,11 +38,10 @@ import com.zefun.web.entity.GoodsBrand;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
-import com.zefun.web.entity.StoreShop;
+import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.SupplierInfo;
 import com.zefun.web.mapper.AccountGoodsMapper;
 import com.zefun.web.mapper.CodeLibraryMapper;
@@ -53,6 +53,7 @@ import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ShipmentRecordMapper;
+import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.SupplierInfoMapper;
 import com.zefun.web.vo.CardStoreSalesVo;
 import com.zefun.web.vo.CashStoreSalesVo;
@@ -111,6 +112,9 @@ public class GoodsInfoService {
     /** 供应商管理 */
     @Autowired
     private AccountGoodsMapper accountGoodsMapper;
+    /** 门店管理 */
+    @Autowired
+    private StoreInfoMapper storeInfoMapper;
     
 
     /**
@@ -318,6 +322,7 @@ public class GoodsInfoService {
     @Transactional
     public Integer saveGoodsInfo(GoodsInfo goodsInfo, String[] levelId, String[] discountAmount) {
         goodsInfo.setCreateTime(DateUtil.getCurTime());
+        goodsInfo.setIsDeleted(2);
         goodsInfoMapper.insertSelective(goodsInfo);
         Integer goodsId = goodsInfo.getGoodsId();
         List<GoodsDiscount> discounts = new ArrayList<GoodsDiscount>();
@@ -365,6 +370,7 @@ public class GoodsInfoService {
     @Transactional
     public void editGoodsInfo(GoodsInfo goodsInfo, String[] levelId, String[] discountAmount) {
         //更新商品
+        goodsInfo.setIsDeleted(2);
         goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
 
         GoodsDiscount goodsDiscount = new GoodsDiscount();
@@ -403,15 +409,19 @@ public class GoodsInfoService {
     }
 
     /**
-     * 根据id查询商品
+     * 根据企业ID查询商品
     * @author 洪秋霞
     * @date 2015年8月10日 下午2:33:52
     * @param aId     商品id
+    * @param storeId  storeId
     * @param baseDto baseDto
     * @return GoodsInfo
      */
-    public GoodsInfoDto queryGoodsInfoById(Integer aId, BaseDto baseDto) {
-        GoodsInfo goodsInfo = goodsInfoMapper.selectByStoreAccount(aId);
+    public GoodsInfoDto queryGoodsInfoById(Integer aId, Integer storeId, BaseDto baseDto) {
+        Map<String, Object> query = new HashMap<>();
+        query.put("aId", aId);
+        query.put("storeId", storeId);
+        GoodsInfo goodsInfo = goodsInfoMapper.selectByStoreAccountAndStoreId(query);
         if (goodsInfo == null){
             AccountGoods accountGoods = accountGoodsMapper.selectByPrimaryKey(aId);
             baseDto.setMsg(accountGoods);
@@ -699,7 +709,7 @@ public class GoodsInfoService {
         GoodsDiscount discount = goodsDiscountMapper.selectDiscountGoodsIdAndLevelId(map);
         //如果没有特定会员价，那么计算查找该会员的折扣去计算
         if (discount == null) {
-            MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
+            MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(levelId);
             discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getGoodsDiscount())).divide(new BigDecimal(100), 2);
         }
         else {
@@ -997,9 +1007,24 @@ public class GoodsInfoService {
         AccountGoods goodsInfo = (AccountGoods) JSONObject.toBean(data, AccountGoods.class);
         if (goodsInfo.getGoodsId()!=null){
             accountGoodsMapper.updateByPrimaryKeySelective(goodsInfo);
+            List<GoodsInfo> info = goodsInfoMapper.selectByStoreAccount(goodsInfo.getGoodsId());
+            for (int i = 0; i < info.size(); i++) {
+                info.get(i).setIsSellProduct(goodsInfo.getIsSellProduct());
+                goodsInfoMapper.updateByPrimaryKeySelective(info.get(i));
+            }
         }
         else {
             accountGoodsMapper.insertSelective(goodsInfo);
+            // 为每一个分店进行创建一个
+            List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
+            for (int i = 0; i < storeInfos.size(); i++) {
+                GoodsInfo info = new GoodsInfo();
+                info.setStoreId(storeInfos.get(i).getStoreId());
+                info.setaId(goodsInfo.getGoodsId());
+                info.setIsSellProduct(goodsInfo.getIsSellProduct());
+                info.setIsDeleted(0);
+                goodsInfoMapper.insertSelective(info);
+            }
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsInfo);
     }
@@ -1054,5 +1079,19 @@ public class GoodsInfoService {
         accountGoods.setStoreAccount(storeAccount);
         accountGoods.setIsSellProduct(1);
         return accountGoodsMapper.selectByProperties(accountGoods);
+    }
+
+    /**
+     * 企业查询各门店
+    * @author 高国藩
+    * @date 2016年6月1日 下午1:45:14
+    * @param storeAccount storeAccount
+    * @param storeId      storeId
+    * @return             BaseDto
+     */
+    public BaseDto accountQueryGoodsInfo(String storeAccount, Integer storeId) {
+        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreId(storeId);
+        BaseDto baseDto = new BaseDto(0, goodsInfoDtos);
+        return baseDto;
     }
 }

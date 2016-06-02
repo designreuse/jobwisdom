@@ -1,0 +1,8 @@
+.content_right{padding:40px}
+.payroll_list select{height:26px;width:90px;padding-left:12px;background:#59688a;color:white;border-radius:12px;margin-left:8px}
+.payroll_table td{width:72px;height:38px;text-align:center;border:1px solid #dbdce2;vertical-align:middle}
+.payroll_table{box-shadow:0 0 10px #dbdce2;}
+.payroll_table_content{margin-top:20px;}
+.payroll_table tr:nth-child(odd){background:#f6f8fc}
+.payroll_table tr:nth-child(2){background:#f6f8fc!important}
+

@@ -364,13 +364,15 @@ input[type=radio] {
 	        	jQuery("select[name='categoryId']").val(goodsInfo.categoryId);
 	        	jQuery("i[name='goodsName']").text(goodsInfo.goodsName);
 	        	jQuery("i[name='goodsCodeSuffix']").text(goodsInfo.goodsCodeSuffix);
-	        	jQuery("img[name='goodsImage']").attr("goodsImage", goodsInfo.goodsImage);
-	        	jQuery("img[name='goodsImage']").attr("src", qiniu+goodsInfo.goodsImage);
+	        	if (goodsInfo.goodsImage!=null){jQuery("img[name='goodsImage']").attr("goodsImage", goodsInfo.goodsImage);jQuery("img[name='goodsImage']").attr("src", qiniu+goodsInfo.goodsImage);}
+	        	
 	        	var affiliatedImage = goodsInfo.affiliatedImage;
-	    		for (var i = 0; i < affiliatedImage.split(",").length; i++) {
-	    			jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage", affiliatedImage.split(",")[i]);
-	    			jQuery("img[name='affiliatedImage']").eq(i).attr("src", qiniu + affiliatedImage.split(",")[i]);
-	    		}
+	        	if (affiliatedImage!=null){
+	        		for (var i = 0; i < affiliatedImage.split(",").length; i++) {
+		    			jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage", affiliatedImage.split(",")[i]);
+		    			jQuery("img[name='affiliatedImage']").eq(i).attr("src", qiniu + affiliatedImage.split(",")[i]);
+		    		}
+	        	}
 	    		jQuery("input[name='goodsPrice']").val(goodsInfo.goodsPrice);
 	    		jQuery("input[name='isCashDeduction'][value='"+ goodsInfo.isCashDeduction + "']").click();
 	    		jQuery("input[name='highestDiscount']").val(goodsInfo.highestDiscount);
@@ -379,7 +381,7 @@ input[type=radio] {
 	    		jQuery("input[name='commissionType'][value='"+ goodsInfo.commissionType + "']").click();
 	    		jQuery("input[name='commissionAmount']").val(goodsInfo.commissionAmount);
 	    		jQuery("input[name='cardAmount']").val(goodsInfo.cardAmount);
-	    		u1.setContent(goodsInfo.goodsDesc);
+	    		if(goodsInfo.goodsDesc!=null){u1.setContent(goodsInfo.goodsDesc);}
 	    		
 	    		for (var i = 0; i < goodsDiscountList.length; i++) {
 	    			addLevel();
@@ -497,7 +499,7 @@ input[type=radio] {
 	})
 
 	function trim(t) {
-		return (t || "").replace(/^\s+|\s+$/g, "");
+		if(t!=null)return (t || "").replace(/^\s+|\s+$/g, "");
 	}
 	
 	function clearInput(){
@@ -517,3 +519,12 @@ input[type=radio] {
 	}
 </script>
 </html>
+<script type="text/javascript">
+u1.ready(function() {
+	if (queryAID!=''){
+		jQuery("select[name='aId']").val(queryAID);
+		queryGoodsInfo(queryAID);
+	}
+});
+
+</script>
