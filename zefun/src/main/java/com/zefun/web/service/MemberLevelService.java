@@ -196,7 +196,7 @@ public class MemberLevelService {
     		mav.addObject("chooseStoreId", storeId);
     	}
     	mav.addObject("showType", showType);
-    	Page<MemberLevelDto> page = selectPageForMemberLevel(storeAccount, storeId, 1, 1, 16);
+    	Page<MemberLevelDto> page = selectPageForMemberLevel(storeAccount, storeId, 1, 1, 10);
         mav.addObject("page", page);
         return mav;
     }

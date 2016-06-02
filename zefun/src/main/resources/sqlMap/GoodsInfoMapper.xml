@@ -89,6 +89,16 @@
   	SELECT category_id, store_id, category_name FROM goods_category WHERE store_id = #{storeId} AND is_deleted = 0
   </select>
   
+  <select id="selectByDeptId" parameterType="java.lang.Integer" resultMap="GoodsInfoDtoMap">
+    SELECT 
+		  goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, 
+		  goods.goods_image, goods.goods_desc, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange,
+		  goods.sales_count, goods.is_deleted, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
+		  goods.is_cash_deduction, goods.highest_discount, goods.calculation_type, goods.project_step, ag.goods_code_suffix, goods.a_id FROM goods_info goods
+	  	LEFT JOIN account_goods ag ON ag.goods_id = goods.a_id AND ag.is_deleted = 0
+	   WHERE goods.dept_id = #{deptId}
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="GoodsInfoDtoMap" parameterType="java.lang.Integer" >
 	  SELECT 
 		  goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, 
