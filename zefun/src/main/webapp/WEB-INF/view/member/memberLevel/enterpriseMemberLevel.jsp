@@ -184,16 +184,16 @@
 			 <li onclick="chooseMemberPage(2, 'system/profile/vip_card_11.png', 'system/profile/vip_card_12.png')"><img src="<%=qiniuPath %>system/profile/vip_card_11.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li onclick="chooseMemberPage(3, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(3, 'system/profile/vip_card_21.png', 'system/profile/vip_card_22.png')"><img src="<%=qiniuPath %>system/profile/vip_card_21.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li onclick="chooseMemberPage(4, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
+			 <li onclick="chooseMemberPage(4, 'system/profile/vip_card_31.png', 'system/profile/vip_card_32.png')"><img src="<%=qiniuPath %>system/profile/vip_card_31.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
 			 <li onclick="chooseMemberPage(5, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li onclick="chooseMemberPage(6, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
+			 <%-- <li onclick="chooseMemberPage(6, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
 			 <li onclick="chooseMemberPage(7, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
@@ -207,7 +207,7 @@
 			 </li>
 			 <li onclick="chooseMemberPage(10, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
 			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
+			 </li> --%>
            </ul>
 		   <div class="business_level_back_text">
 		      <ul class="business_level_back_text_ul clearfix">
@@ -243,16 +243,16 @@
 		<div class="business_level_content_right">
 		  <p>效果图预览</p>
 		  <div class="preview">
-		     <div class="preview_1 clearfix"  style="background:url('<%=basePath %>images/vip_card.png') no-repeat;">
-			    <div class="preview_left">
-				   <span>5折卡</span>
+		     <div class="preview_1" name = "pagePreview" style="background:url('<%=basePath %>images/vip_card.png') no-repeat;">
+			    <div class="preview_left" name = "pagePreviewLeft">
+				   <span >5折卡</span>
             	</div>
-				<div class="preview_right">
-                   <ul>
+				<div class="preview_right" name = "pagePreviewRight">
+                   <ul class="clearfix">
 					  <li>项目折扣：5折</li>
 					  <li>项目折扣：6折</li>
                    </ul>
-				   <span>卡上余额：12354651元<em>充值</em></span>
+				   <span>卡上余额：88888元</span>
 	            </div>
          	 </div>  
 			 <div class="right_dir">

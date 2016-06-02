@@ -19,12 +19,41 @@ var levelTemplate = 1;
 function chooseMemberPage (type, positivePageUrl, oppositePageUrl) {
 	valueChooseMemberPage(positivePageUrl, oppositePageUrl);
 	levelTemplate = type;
+	
+	jQuery("div[name='pagePreview']").attr("class", "");
+	jQuery("div[name='pagePreviewLeft']").attr("class", "");
+	jQuery("div[name='pagePreviewRight']").attr("class", "");
+	if (type == 1) {
+		jQuery("div[name='pagePreview']").addClass("preview_1");
+		jQuery("div[name='pagePreviewLeft']").addClass("preview_left");
+		jQuery("div[name='pagePreviewRight']").addClass("preview_right");
+	}
+	else if (type == 2) {
+		jQuery("div[name='pagePreview']").addClass("vip_card_1");
+		jQuery("div[name='pagePreviewLeft']").addClass("vip_card_1_left");
+		jQuery("div[name='pagePreviewRight']").addClass("vip_card_1_content");
+	}
+	else if (type == 3) {
+		jQuery("div[name='pagePreview']").addClass("vip_card_2");
+		jQuery("div[name='pagePreviewLeft']").addClass("vip_card_2_left");
+		jQuery("div[name='pagePreviewRight']").addClass("vip_card_2_content");
+	}
+	else if (type == 4) {
+		jQuery("div[name='pagePreview']").addClass("vip_card_3");
+		jQuery("div[name='pagePreviewLeft']").addClass("vip_card_3_left");
+		jQuery("div[name='pagePreviewRight']").addClass("vip_card_3_content");
+	}
+	else if (type == 5) {
+		jQuery("div[name='pagePreview']").addClass("vip_card_4");
+		jQuery("div[name='pagePreviewLeft']").addClass("vip_card_4_left");
+		jQuery("div[name='pagePreviewRight']").addClass("vip_card_4_content");
+	}
 }
 
 function valueChooseMemberPage (positivePageUrl, oppositePageUrl) {
 	updatePositivePageUrl = positivePageUrl;
 	updateOppositePageUrl = oppositePageUrl;
-	jQuery(".preview_1").css("background", "url('"+qiniuUrl + positivePageUrl+"') no-repeat");
+	jQuery("div[name='pagePreview']").css("background", "url('"+qiniuUrl + positivePageUrl+"') no-repeat");
 	jQuery(".preview_2").css("background", "url('"+qiniuUrl + oppositePageUrl+"') no-repeat");
 }
 

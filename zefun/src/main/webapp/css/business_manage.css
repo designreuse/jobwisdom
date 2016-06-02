@@ -127,41 +127,15 @@
 	
 }
 .chzn-container{width:134px!important}
-.preview_1{
-	width:290px;
-	height:180px;
-	overflow:hidden;
-	border-radius:8px;
-	background-size:290px 180px;
-	margin:0 auto;
-	color:white;
-}
-.preview_left{float:left;width:100px;position:relative;top:105px;left:70px;font-size:12px}
 
-.preview_right{float:left;width:160px}
-.preview_right ul{margin-top:60px;margin-left:34px}
-.preview_right ul li{height:50px}
-.preview_right span{font-size:12px;position:relative;width:180px;display:inline-block;left:8px;top:-8px}
-.preview_right span em{display:inline-block;height:20px;width:36px;text-align:center;line-height:20px;border:1px solid white;border-radius:12px;margin-left:12px}
 .demo_fade li{border:none;width:30px;}
 .demo_fade{width:30px;background:white}
 .demo_fade{position:absolute;z-index:2}
 .demo_fade li:hover{background:#ccc}
-.preview_2{
-	width:290px;
-	height:180px;
-	overflow:hidden;
-	border-radius:8px;
-	background-size:290px 180px;
-	margin:0 auto;
-	color:white;
-	
-}
-.preview_2_top span{position:relative;font-size:12px;top:10px;left:260px}
+
 .logo_img{width:110px;float:left;height:160px}
 .logo_img img{position:relative;top:55px;width:95px;height:95px}
-.preview_2_content_right{float:left;margin-top:54px;width:180px}
-.preview_2_content_right p{font-size:12px}
+
 .business_level_back_ul li span img{position:relative;top:-5px;}
 .business_level_back_ul li span{display:none}
 
