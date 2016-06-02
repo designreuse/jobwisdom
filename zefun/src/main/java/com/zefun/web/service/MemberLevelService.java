@@ -264,8 +264,7 @@ public class MemberLevelService {
     * @return BaseDto
      */
     public BaseDto listAction(Integer storeId, int pageNo, int pageSize) {
-        Page<MemberLevelDto> page = selectPageForMemberLevel(storeId, pageNo,
-                pageSize);
+        Page<MemberLevelDto> page = selectPageForMemberLevel(storeId, pageNo, pageSize);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
     }
 

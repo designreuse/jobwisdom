@@ -519,3 +519,12 @@ input[type=radio] {
 	}
 </script>
 </html>
+<script type="text/javascript">
+u1.ready(function() {
+	if (queryAID!=''){
+		jQuery("select[name='aId']").val(queryAID);
+		queryGoodsInfo(queryAID);
+	}
+});
+
+</script>

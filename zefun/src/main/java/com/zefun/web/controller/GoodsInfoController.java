@@ -29,7 +29,6 @@ import com.zefun.common.consts.App.Session;
 import com.zefun.common.swagger.SessionContextListener;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsBrandDto;
@@ -40,23 +39,18 @@ import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.ShipmentRecordDto;
 import com.zefun.web.dto.SupplierInfoDto;
 import com.zefun.web.entity.AccountGoods;
-import com.zefun.web.entity.CodeLibrary;
 import com.zefun.web.entity.ComboGoods;
 import com.zefun.web.entity.GoodsBrand;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.GoodsPurchaseRecord;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.SupplierInfo;
-import com.zefun.web.mapper.AccountGoodsMapper;
-import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.ComboGoodsMapper;
-import com.zefun.web.mapper.GoodsBrandMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.SupplierInfoMapper;
@@ -243,7 +237,9 @@ public class GoodsInfoController extends BaseController {
             GoodsInfo query = new GoodsInfo();
             query.setaId(goodsId);
             query = goodsInfoMapper.selectByPrimaryKey(goodsId);
-            model.addObject("aId", query.getaId());
+            if (query.getIsSellProduct().equals(1)){
+                model.addObject("aId", query.getaId());
+            }
         }
         
         model.setViewName(View.GoodsInfo.SETTING_GOODS);

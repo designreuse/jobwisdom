@@ -295,12 +295,11 @@
 			<div class="zzc1" style="display: none">
 				<div class="out_goods">
 					<p>选择出库商品</p>
-
 					<div class="out_goods_content">
 						<div class="textarea_saying">
-							<span>出库门店：<select name="toStore">
-									<c:forEach items="${storeInfos }" var="store">
-										<option value="${store.storeId }">${store.storeName }</option>
+							<span>出库对象：<select name="libraryObject">
+									<c:forEach items="${employeeInfos }" var="employeeInfo">
+										<option value="${employeeInfo.employeeId }">${employeeInfo.name }</option>
 									</c:forEach>
 							</select>
 							</span> <span>出库方式：<select name="flowType">
@@ -310,6 +309,11 @@
 									<option value="赠送">赠送</option>
 									<option value="领用">领用</option>
 							</select></span>
+							<div class="textarea_saying">
+								备注：
+								<textarea name="stockDesc"></textarea>
+							</div>
+							
 						</div>
 
 						<div class="allocation">
@@ -402,6 +406,7 @@
 		if(type == 2){
 			var stockType = type;
 			var flowType = jQuery(modal).find("select[name='flowType']").val();
+			var stockDesc = jQuery(modal).find("textarea[name='stockDesc']").val();
 			var aIds = "";
 			var stockCount = "";
 			jQuery(modal).find(".allocation_right").children("div").each(function(){
@@ -411,9 +416,8 @@
 			aIds = aIds.substring(0,(aIds.length-1));
 			stockCount = stockCount.substring(0,(stockCount.length-1));
 			var fromStore = jQuery(".clearfix.out_roll_ul").children("li[class='active']").attr("storeId");
-			var toStore = jQuery(modal).find("select[name='toStore']").val();
-			if (fromStore == toStore){dialog('自己给自己出库啊?');return;}
-			var data = {"stockType":stockType, "flowType":flowType, "aIds":aIds, "stockCount":stockCount, "toStore":toStore, "fromStore":fromStore};
+			var libraryObject = jQuery("select[name='libraryObject']").val();
+			var data = {"stockType":stockType, "flowType":flowType, "stockDesc":stockDesc, "aIds":aIds, "stockCount":stockCount, "libraryObject":libraryObject, "fromStore":fromStore};
 			console.log(data);
 			jQuery.ajax({
 				type : "post",
@@ -479,6 +483,8 @@
 				showFlow(inFlows, 0);
 				var outFlows = data.msg.outFlows;
 				showFlow(outFlows, 1);
+				var employeeInfos = data.msg.employeeInfos;
+				queryEmployeeInfo(employeeInfos);
 			}
 		});
 	}
@@ -515,6 +521,16 @@
 						'</tr>';
 			var html = html1 + html2 + html3;
 			jQuery(".payroll_table").eq(index).find("tbody").append(jQuery(html));
+		}
+	}
+	/**更新员工信息*/
+	function queryEmployeeInfo(employeeInfos){
+		jQuery("select[name='libraryObject']").empty();
+		for (var i = 0; i < employeeInfos.length; i++) {
+			var employeeId = employeeInfos[i].employeeId;
+			var employeeName = employeeInfos[i].name;
+			var html = '<option value='+employeeId+'>'+employeeName+'</option>';
+			jQuery("select[name='libraryObject']").append(jQuery(html));
 		}
 	}
 </script>

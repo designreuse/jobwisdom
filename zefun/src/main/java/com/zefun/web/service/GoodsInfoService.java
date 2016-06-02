@@ -24,6 +24,7 @@ import com.zefun.web.dto.GoodSalesSummaryDto;
 import com.zefun.web.dto.GoodsBrandDto;
 import com.zefun.web.dto.GoodsCategoryDto;
 import com.zefun.web.dto.GoodsInfoDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.ShipmentRecordDto;
 import com.zefun.web.dto.SummaryResultDto;
@@ -37,12 +38,10 @@ import com.zefun.web.entity.GoodsBrand;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.StoreInfo;
-import com.zefun.web.entity.StoreShop;
 import com.zefun.web.entity.SupplierInfo;
 import com.zefun.web.mapper.AccountGoodsMapper;
 import com.zefun.web.mapper.CodeLibraryMapper;
@@ -414,6 +413,7 @@ public class GoodsInfoService {
     * @author 洪秋霞
     * @date 2015年8月10日 下午2:33:52
     * @param aId     商品id
+    * @param storeId  storeId
     * @param baseDto baseDto
     * @return GoodsInfo
      */
@@ -709,7 +709,7 @@ public class GoodsInfoService {
         GoodsDiscount discount = goodsDiscountMapper.selectDiscountGoodsIdAndLevelId(map);
         //如果没有特定会员价，那么计算查找该会员的折扣去计算
         if (discount == null) {
-            MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
+            MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(levelId);
             discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getGoodsDiscount())).divide(new BigDecimal(100), 2);
         }
         else {

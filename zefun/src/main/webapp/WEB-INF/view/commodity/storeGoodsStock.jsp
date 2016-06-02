@@ -291,5 +291,16 @@
 			}
 		});
 	}
+	
+	/**更新员工信息*/
+	function queryEmployeeInfo(employeeInfos){
+		jQuery("select[name='libraryObject']").empty();
+		for (var i = 0; i < employeeInfos.length; i++) {
+			var employeeId = employeeInfos[i].employeeId;
+			var employeeName = employeeInfos[i].name;
+			var html = '<option value='+employeeId+'>'+employeeName+'</option>';
+			jQuery("select[name='libraryObject']").append(jQuery(html));
+		}
+	}
 </script>
 </html>
