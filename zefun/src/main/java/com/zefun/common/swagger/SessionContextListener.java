@@ -44,10 +44,15 @@ public class SessionContextListener extends RequestContextListener implements Ht
 
     @Override
     public void sessionDestroyed(HttpSessionEvent e) {
-        ServletContext application  = e.getSession().getServletContext();
-        application.removeAttribute(e.getSession().getAttribute(App.Session.USER_ID).toString());
-        logger.info("{" + e.getSession().getId() + " : invalidate()}");
-        e.getSession().invalidate();
+        try {
+            ServletContext application  = e.getSession().getServletContext();
+            application.removeAttribute(e.getSession().getAttribute(App.Session.USER_ID).toString());
+            logger.info("{" + e.getSession().getId() + " : invalidate()}");
+            e.getSession().invalidate();
+        } 
+        catch (Exception e2) {
+            logger.info("sessionDestroyed : " + e2.getMessage().toString());
+        }
     }
     
 }

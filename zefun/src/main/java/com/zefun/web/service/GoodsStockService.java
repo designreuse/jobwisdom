@@ -75,6 +75,7 @@ public class GoodsStockService {
         
         StockFlow query = new StockFlow();
         query.setStoreAccount(storeAccount);
+        
         List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(query);
         
         final Integer queryStoreId = Integer.parseInt(storeId.toString());

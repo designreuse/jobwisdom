@@ -552,7 +552,7 @@ public class WechatCallService {
 
     /**
      * 微信退款操作
-    * @author 张进军
+    * @author 高国藩
     * @date Mar 11, 2016 4:39:12 PM
     * @param transactionId     交易标识
     * @return   退款结果
@@ -636,10 +636,8 @@ public class WechatCallService {
     * @param accessToken    微信api访问口令
     * @return               成功返回码0,失败返回其他错误码
      */
-    public BaseDto uploadMediaToQiniu(String mediaid, String key,
-            String accessToken) {
-        String mediaUrl = String.format(App.Wechat.FETCH_MEDIA_URL,
-                new Object[] { accessToken, mediaid });
+    public BaseDto uploadMediaToQiniu(String mediaid, String key, String accessToken) {
+        String mediaUrl = String.format(App.Wechat.FETCH_MEDIA_URL, new Object[] { accessToken, mediaid });
         return qiniuService.fetch(mediaUrl, key);
     }
 
@@ -688,9 +686,9 @@ public class WechatCallService {
             EnterpriseAccountFlow enterpriseAccountFlow = new EnterpriseAccountFlow();
             enterpriseAccountFlow.setBusinessType("充值");
             enterpriseAccountFlow.setEnterpriseAccountId(rechargeRecord.getEnterpriseAccountId());
-//            enterpriseAccountFlow.setBalanceAmount(enterpriseAccount.getBalanceAmount().intValue());
-//            enterpriseAccountFlow.setFlowAmount(rechargeRecord.getRechargeAmount().intValue());
-//            enterpriseAccountFlowMapper.insert(enterpriseAccountFlow);
+            enterpriseAccountFlow.setBalanceAmount(enterpriseAccount.getBalanceAmount());
+            enterpriseAccountFlow.setFlowAmount(rechargeRecord.getRechargeAmount());
+            enterpriseAccountFlowMapper.insertSelective(enterpriseAccountFlow);
             
         }
     }

@@ -114,17 +114,17 @@
 								<table class="payroll_table">
 									<tbody>
 										<tr>
-											<td>调拨时间</td>
-											<td>出库门店</td>
-											<td>入库门店</td>
+											<td>出库时间</td>
+											<td>出库对象</td>
+											<td>出库方式</td>
 											<td>调拨明细</td>
 											<td>操作</td>
 										</tr>
 										<c:forEach items="${outFlows }" var="flow">
 										<tr>
 											<td>${flow.createTime }</td>
-											<td>${flow.fromStoreName }</td>
-											<td>${flow.toStoreName }</td>
+											<td>${flow.employeeName }</td>
+											<td>${flow.flowType }</td>
 											<td>
 												<div class="overflow_text">
 													<c:forEach varStatus="index" items="${flow.accountGoods }" var="goods"><span>${goods.goodsCodeSuffix } ${goods.goodsName } : <i>${fn:split(flow.stockCount, ',')[index.count-1] }</i></span></c:forEach>

@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height = device-height" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>智放</title>
+
+    <!--模板样式-->
+    <link rel="stylesheet" href="assets/css/style.default.css" type="text/css" />
+    <!--jquery 时间选择器-->
+    <link rel="stylesheet" href="assets/css/jquery.datetimepicker.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/jquery.bxslider.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/star-font.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/star-rating.min.css" type="text/css" />
+	  <link rel="stylesheet" href="assets/css/roll.css" type="text/css" />
+ <link rel="stylesheet" href="assets/css/star-rating.min.css" type="text/css" />
+    <!--字体样式-->
+    <link rel="stylesheet" href="assets/css/iconfont.css" type="text/css" />
+    <!--字体样式-->
+    <link rel="stylesheet" href="assets/css/cropper.min.css" type="text/css" />
+    <!--ios switch-->
+    <link rel="stylesheet" href="assets/css/lc_switch.css" type="text/css" />
+	<link rel="stylesheet" href="assets/css/base_.css" type="text/css" />
+	<link rel="stylesheet" href="assets/css/common.css" type="text/css" />
+   
+    <!--favicon.ico-->
+    <link href="assets/images/favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+	<link href="assets/images/favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+    <!--自定义样式-->
+    <link rel="stylesheet" href="assets/css/zhifang.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/style_.css" type="text/css" />
+	<link rel="stylesheet" href="assets/css/supplier_manage.css" type="text/css" />
+   
+    <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/data.js"></script>
+    <script type="text/javascript" src="assets/js/project.js"></script>
+  
+   <script type="text/javascript" src="assets/js/slider_.js"></script>
+    <script type="text/javascript" src="assets/js/base_.js"></script> 
+	<script type="text/javascript" src="assets/js/jquery-ui-1.9.2.min.js"></script>
+   <script>
+     //轮播
+ 
+ 	jQuery(function(){
+	     var now_=0, count=jQuery('.out_roll_ul li').size();
+		 
+	  //向右走
+      jQuery('.click_right').click(function(){
+         if(now_<=count-6){
+		    now_+=1;
+	        jQuery(this).parent('').find('.out_roll_ul').stop(true,true).animate({
+		       left:-181*now_
+		   
+		       }) 
+			  }
+		  });
+	  //向左走
+	  
+	 jQuery('.click_left').click(function(){
+         if(now_>=1){
+		    now_-=1;
+	         jQuery(this).parent('').find('.out_roll_ul').stop(true,true).animate({
+		     left:-181*now_
+		   
+		     }) 
+		  }	
+        		
+	  });
+ });
+	
+	
+	//
+	
+  	jQuery(document).ready(function() {    
+       
+  	
+     jQuery('.add_supplier_content_right i').click(function(){
+	   find=jQuery(this).parent().find('.demo_fade');
+	   if(find.css('display')=='none'){
+	      find.stop(true,true).slideDown('normal');
+	   }    
+	   else if(find.css('display')=='block'){
+          jQuery('.demo_fade').stop(true,true).slideUp('normal');
+	    }	
+	  
+ 	 })
+  });
+  
+   
+   //点击操作，弹窗
+   jQuery(function(){
+      jQuery('.demo_fade li').eq(1).click(function(){
+	  
+	    jQuery('.zzc1').show();
+	  
+	  
+	  }) 
+   })
+   
+   </script>
+
+<body>
+<div class="zzc">
+  <div class="add_supplier_alert">
+     <p>添加加盟供应商</p>
+     <div class="add_supplier_alert_content">
+	   <p><em>供应商名称</em><input type="text"></p>
+	   <p><em>地址</em><input type="text" style="width:200px"></p>
+	   <p><em>联系方式</em><textarea style="border:1px solid black;width:212px;height:50px;border-radius:8px"></textarea></p>
+	 
+	  <div class="add_supplier_alert_sure">
+	    <button>确认</button>  
+		<button>取消</button>  
+	  </div>
+	 </div>
+  
+  
+  </div>
+</div>
+
+<div class="zzc1">
+  <div class="zzc1_div">
+    <p>商品品牌</p> 
+    <div><input type="text"></div>
+    <div class="zzc_div_button"> 
+     <button>确定</button> <button>取消</button>
+	</div> 
+</div>
+</div>
+<div class="loading">
+    <img src="assets/img/tb-loading.gif" alt="" style="width: 200px;margin-top: -100px;"/>
+</div>
+
+<!--loading end-->
+
+<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="display: none">
+
+    <!--left-panel start-->
+    <!-- LEFT PANEL 开始-->
+<div class="leftpanel">
+
+    <!--logo-->
+    <div class="logo-wrap">
+        <a href="index.html">
+            <img src="assets/images/logo_by.png" alt=""/>
+        </a>
+    </div>
+
+    <div class="leftmenu">
+       
+        <ul class="left_nav">
+		
+		   <li >
+		    <div class="nav_img"><img src="assets/images/left_1.png"></div>
+			<span>业务中心</span>
+		  </li>
+		  <li>
+		    <div class="nav_img"><img src="assets/images/left_2.png"></div>
+			<span>会员管理</span>
+		  </li>
+		  <li >
+		    <div class="nav_img"><img src="assets/images/left_3.png"></div>
+			<span>营销中心</span>
+		  </li>
+		  <li>
+		    <div class="nav_img"><img src="assets/images/left_4.png"></div>
+			<span>统计分析</span>
+		  </li>
+		  <li class="active1">
+		    <div class="nav_img"><img src="assets/images/left_5.png"></div>
+			<span>服务设置</span>
+		  </li>
+		  <li>
+		    <div class="nav_img"><img src="assets/images/left_6.png"></div>
+			<span>员工管理</span>
+		  </li>
+		 <li>
+		    <div class="nav_img"><img src="assets/images/left_7.png"></div>
+			<span>系统设置</span>
+		  </li>
+		</ul>
+		
+		<div class="left_nav_2">
+		   <ul >
+		     <li class="active"> 
+			    <span><img src="assets/images/left_1_1.png">自助收银</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left_1_2.png">手工开单</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left_1_3.png">开支记账</span>
+			 </li>
+			 <li> 
+			    <span ><img src="assets/images/left_1_4.png">流水查询</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left_1_5.png">员工轮牌</span>
+			 </li>
+			
+		  
+		</ul>
+		
+		  <ul >
+		     <li class="active"> 
+			    <span><img src="assets/images/left0.png">项目设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left1.png">疗程设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left2.png">商品设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left3.png">商品库存</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left4.png">进货管理</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left5.png">出货管理</span>
+			 </li>
+			  <li> 
+			    <span><img src="assets/images/left_70.png">商品品牌</span>
+			 </li>
+			  <li> 
+			    <span><img src="assets/images/left_71.png">供应商管理</span>
+			 </li>
+		  
+		</ul>
+		  <ul >
+		     <li class="active"> 
+			    <span><img src="assets/images/left0.png">微商店设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left1.png">营销方案库</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left2.png">优惠券管理</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left3.png">分享拓客</span>
+			 </li>
+		  
+		</ul>
+		  <ul >
+		     <li class="active"> 
+			    <span><img src="assets/images/left0.png">项目设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left1.png">疗程设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left2.png">商品设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left3.png">商品库存</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left4.png">进货管理</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left5.png">出货管理</span>
+			 </li>
+			  <li> 
+			    <span><img src="assets/images/left_70.png">商品品牌</span>
+			 </li>
+			  <li> 
+			    <span><img src="assets/images/left_71.png">供应商管理</span>
+			 </li>
+		  
+		</ul>
+		  <ul >
+		     <li class="active"> 
+			    <span><img src="assets/images/left0.png">账户设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left1.png">基础设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left2.png">系统配置</span>
+			 </li>
+			 
+		  
+		</ul>
+		  <ul >
+		     <li class="active"> 
+			    <span><img src="assets/images/left0.png">项目设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left1.png">疗程设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left2.png">商品设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left3.png">商品库存</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left4.png">进货管理</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left5.png">出货管理</span>
+			 </li>
+			  <li> 
+			    <span><img src="assets/images/left_70.png">商品品牌</span>
+			 </li>
+			  <li> 
+			    <span><img src="assets/images/left_71.png">供应商管理</span>
+			 </li>
+		  
+		</ul>
+		  <ul>
+		     <li class="active"> 
+			    <span><img src="assets/images/left0.png">项目设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left1.png">疗程设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left2.png">商品设置</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left3.png">商品库存</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left4.png">进货管理</span>
+			 </li>
+			 <li> 
+			    <span><img src="assets/images/left5.png">出货管理</span>
+			 </li>
+			  <li> 
+			    <span><img src="assets/images/left_70.png">商品品牌</span>
+			 </li>
+			  <li> 
+			    <span><img src="assets/images/left_71.png">供应商管理</span>
+			 </li>
+		  
+		</ul>
+		
+		</div>
+        <!--营业报表-->
+        
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li class="active" name="yingyehuizong">
+                <a href="report-yingyehuizong.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/kaika.png" alt=""/>-->
+                        <i class="iconfont icon-yingyehuizong1 left-icon"></i>
+                    </div>
+                    营业汇总
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li name="report-xianjinshouru">
+                <a href="report-xianjinshouru.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/kaika.png" alt=""/>-->
+                        <i class="iconfont icon-xianjin-SR left-icon"></i>
+                    </div>
+                    现金收入
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li name="report-card-income">
+                <a href="report-card-income.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-kaxiangxiaoshou left-icon"></i>
+                    </div>
+                    卡项销售
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="report-laodongyeji">
+                <a href="report-laodongyeji.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/kaizhijizhang.png" alt=""/>-->
+                        <i class="iconfont icon-laodongyeji left-icon"></i>
+                    </div>
+                    劳动业绩
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="report-huakaxiaofei">
+                <a href="report-huakaxiaofei.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/shouyin.png" alt=""/>-->
+                        <i class="iconfont icon-kajin-XF left-icon"></i>
+                    </div>
+                    划卡消费
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="report-taocan-sell">
+                <a href="report-taocan-sell.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/kaizhijizhang.png" alt=""/>-->
+                        <i class="iconfont icon-taocanxiaoshou1 left-icon"></i>
+                    </div>
+                    套餐销售
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="report-shops-sell">
+                <a href="report-shops-sell.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/kaizhijizhang.png" alt=""/>-->
+                        <i class="iconfont icon-shangpinxiaoshou1 left-icon"></i>
+                    </div>
+                    商品销售
+                </a>
+            </li>
+        </ul>
+        <!-- 经营分析 -->
+       
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="report-client-analyze">
+                <a href="report-client-analyze.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/lunzhipaiban.png" alt=""/>-->
+                        <i class="iconfont icon-keqingfenxi1 left-icon"></i>
+                    </div>
+                    客情分析
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="appointment-analyze">
+                <a href="appointment-analyze.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/lunzhipaiban.png" alt=""/>-->
+                        <i class="iconfont icon-yuyuefenxi1 left-icon"></i>
+                    </div>
+                    预约分析
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="report-emploee-analyze">
+                <a href="report-emploee-analyze.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-yuangongfenxi left-icon"></i>
+                    </div>
+                    员工分析
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="report-emploee-analyze">
+                <a href="report-business-status.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-yingyefenxi left-icon"></i>
+                    </div>
+                    营业分析
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="report-yingxiao">
+                <a href="report-yingxiao.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-yingxiaofenxi1 left-icon"></i>
+                    </div>
+                    营销分析
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li class="active" name="report-payroll">
+                <a href="report-payroll.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/kaika.png" alt=""/>-->
+                        <i class="iconfont icon-gongzidan4 left-icon"></i>
+                    </div>
+                    工资单
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="report-porfile">
+                <a href="report-profile.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-yuangong-FX left-icon"></i>
+                    </div>
+                    财务分析
+                </a>
+            </li>
+        </ul>
+        <!-- 服务设置模块 -->
+      
+		
+        <!-- 员工设置模块 -->
+      
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li class="active" name="gangwei-setting">
+                <a href="gangwei-setting.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/shouyin.png" alt=""/>-->
+                        <i class="iconfont icon-zuzhijiagou left-icon"></i>
+                    </div>
+                    组织架构
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="post-data">
+                <a href="post-data.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/lunzhipaiban.png" alt=""/>-->
+                        <i class="iconfont icon-yuangong-ZL left-icon"></i>
+                    </div>
+                    员工资料
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="award-punishment">
+                <a href="award-punishment.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/shouyin.png" alt=""/>-->
+                        <i class="iconfont icon-zhidu-KH left-icon"></i>
+                    </div>
+                    管理制度
+                </a>
+            </li>
+            <!--<img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="employee-leave">
+                <a href="employee-leave.html">
+                    <div class="img-wrap">
+                        &lt;!&ndash;<img src="assets/images/shouyin.png" alt=""/>&ndash;&gt;
+                        <i class="iconfont icon-qingjia-SP left-icon"></i>
+                    </div>
+                    请假审批
+                </a>
+            </li>-->
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="employee-shift">
+                <a href="employee-shift.html">
+                    <div class="img-wrap">
+                        <!--<img src="assets/images/shouyin.png" alt=""/>-->
+                        <i class="iconfont icon-yuangong-BC left-icon"></i>
+                    </div>
+                    排班设置
+                </a>
+            </li>
+
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="set-target">
+                <a href="set-target.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-mdmubiao left-icon"></i>
+                    </div>
+                    目标设置
+                </a>
+            </li>
+
+            <!--<img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="jingsai">
+                <a href="jingsai.html">
+                    <div class="img-wrap">
+                        &lt;!&ndash;<img src="assets/images/kaizhijizhang.png" alt=""/>&ndash;&gt;
+                        <i class="iconfont icon-wodebisai left-icon"></i>
+                    </div>
+                    组织比赛
+                </a>
+            </li>-->
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="target-assessment">
+                <a href="target-assessment.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-kaohechengji left-icon"></i>
+                    </div>
+                    目标考核
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img hide"/>
+            <li name="employee-attendance">
+                <a href="employee-attendance.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-kaiqin left-icon"></i>
+                    </div>
+                    考勤记录
+                </a>
+            </li>
+        </ul>
+        <!--系统设置-->
+     
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li class="active" name="jueseguanli">
+                <a href="jueseguanli.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-zuzhijiagou left-icon"></i>
+                    </div>
+                    角色管理
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li class="active" name="os-usage">
+                <a href="os-usage.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-iconfontxianshi4 left-icon"></i>
+                    </div>
+                    系统使用状况
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li class="active" name="zhanghuxinxi">
+                <a href="zhanghuxinxi.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-iconfontxianshi4 left-icon"></i>
+                    </div>
+                    账户信息
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li class="active" name="wodefendian">
+                <a href="member-xuzhi.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-iconfontxianshi4 left-icon"></i>
+                    </div>
+                    会员须知
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li class="active" name="wodefendian">
+                <a href="wodefendian.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-iconfontxianshi4 left-icon"></i>
+                    </div>
+                    我的分店
+                </a>
+            </li>
+            <img src="assets/images/left-active.png" alt="" class="left-active-img"/>
+            <li class="active" name="share-shezhi">
+                <a href="share-shezhi.html">
+                    <div class="img-wrap">
+                        <i class="iconfont icon-iconfontxianshi4 left-icon"></i>
+                    </div>
+                    分享者设置
+                </a>
+            </li>
+        </ul>
+    </div><!--leftmenu-->
+</div><!--mainleft-->
+
+<!--LEFT PANEL结束 -->
+
+    <!--left-panel end-->
+
+    <!--RIGHT PANEL开始 -->
+    <div class="rightpanel" style="margin-left: 200px;position:relative">
+	<!--<div class="alertPanel">
+	   <div class="part_panel">
+	       <p>美发部</p>
+		   <dl class="clearfix">
+		      <dt>洗剪吹系列</dt>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+		    
+		   
+		   </dl>
+		   
+		    <dl class="clearfix">
+		      <dt>洗剪吹系列</dt>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+		    
+		   
+		   </dl>
+		   
+		    <dl class="clearfix">
+		      <dt>洗剪吹系列</dt>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+		    
+		   
+		   </dl>
+	    </div> 
+		
+		<div class="part_panel">
+	       <p>美发部</p>
+		   <dl class="clearfix">
+		      <dt>洗剪吹系列</dt>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+			  <dd>店长洗剪吹</dd>
+		    
+		   
+		   </dl>
+		   
+		    
+	    </div> 
+		
+		<div class="part_panel">
+	       <p>美发部</p>
+		  
+		    
+	    </div>
+		
+		<div class="part_panel">
+	       <p>美发部</p>
+		 
+		    
+		   
+		   </dl>
+		   
+		    
+	    </div>
+	
+	
+	</div>-->
+  <div class="headerpanel">
+    <div class="headerlist">
+        <div class="header_">
+		  <div class="header_1">
+		     <em >你好，周杰伦</em>
+			 <em class="support_hover"><span class="support"><img src="./assets/images/top1.png">在线支持</span>
+			 
+			  <div class="ask_responsive">
+		      <div class="tool">
+			     <p><img src="./assets/images/top4.png"></p>
+				 <em class="ask">咨询</em>
+			  </div>
+			 
+			  <div class="tool">
+			     <p><img src="./assets/images/top5.png"></p>
+				 <em class="ask">咨询</em>
+			  </div>
+		   
+		   </div>
+			 
+			 </em>
+			 <span style="border-right:1px solid #999da7"><img src="./assets/images/top2.png">修改密码</span>
+			 <span class="out"><img src="./assets/images/top3.png">退出登录</span>
+           </div>
+		   
+		  
+		</div>
+		
+       
+    </div>
+    <div class="xuanfu hide">
+            <span class="yuan">
+               <img src="../../assets/images/kefu.png" alt="" class="kefu-icon">
+
+                <!--  <span class="xiaoxi">1</span>-->
+            </span>
+        <div class="xuanfu-main">
+            <div class="fl">
+                <div  class="kefu-status"><span>在线客服</span></div>
+                <ul class="kefu-people">
+                    <li style="height: 40px;line-height: 40px;color: #b2b2b2">客服列表</li>
+                    <li><span class="iconfont icon-xuanzhong"></span><img src="../../assets/images/dd-img.png" alt=""><span class="text-txt">客服0123</span></li>
+                    <li><span class="iconfont icon-xuanzhong"></span><img src="../../assets/images/dd-img.png" alt=""><span class="text-txt">客服0123</span></li>
+                    <li><span class="iconfont icon-xuanzhong"></span><img src="../../assets/images/dd-img.png" alt=""><span class="text-txt">客服0123</span></li>
+                    <li><span class="iconfont icon-xuanzhong"></span><img src="../../assets/images/dd-img.png" alt=""><span class="text-txt">客服0123</span></li>
+                    <li class="current"><span class="iconfont icon-xuanzhong"></span><img src="../../assets/images/dd-img.png" alt=""><span class="text-txt">客服0123</span></li>
+                    <li><span class="iconfont shanchu">&#xe625;</span><img src="../../assets/images/dd-img.png" alt=""><span class="text-txt">客服0123</span></li>
+                    <li><span class="iconfont icon-xuanzhong"></span><img src="../../assets/images/dd-img.png" alt=""><span class="text-txt">客服0123</span></li>
+
+                </ul>
+            </div>
+            <div class="fr">
+                <div class="xf-top">
+                    <span class="iconfont icon-xx fr"></span>
+                </div>
+                <div class="kefu">
+                    <ul class="bubble-main">
+
+                        <li class="media clearfix">
+                            <div class="media-left">
+                                <a href="javascript:void(0);" class="media-object">
+                                    <img src="../../assets/images/dd-img.png" alt="">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <p class="media-text media-arr">eros non enim commodo hendrerit.</p>
+                            </div>
+                        </li>
+                        <li class="media clearfix media1">
+                            <div class="media-right">
+                                <a href="javascript:void(0);" class="media-object">
+                                    <img src="../../assets/images/dd-img.png" alt="">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <p class="media-text media-arr">eros non enim commodo hendrerit.</p>
+                            </div>
+
+                        </li>
+                        <li class="media clearfix">
+                            <div class="media-left">
+                                <a href="javascript:void(0);" class="media-object">
+                                    <img src="../../assets/images/dd-img.png" alt="">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <p class="media-text media-arr">eros non enim commodo hendrerit.</p>
+
+                            </div>
+                        </li>
+                        <li class="media clearfix media1">
+                            <div class="media-right">
+                                <a href="javascript:void(0);" class="media-object">
+                                    <img src="../../assets/images/dd-img.png" alt="">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <p class="media-text media-arr">eros non enim commodo hendrerit.</p>
+                            </div>
+
+                        </li>
+
+                    </ul>
+                    <div class="bq-icon">
+                        <span class="iconfont icon-xiaolian"></span>
+                        <span class="iconfont icon-jietu"></span>
+                        <span class="iconfont icon-scissors"></span>
+                    </div>
+                    <div class="search-sent">
+                        <div>
+                            <textarea type="text" class="sent-txt"></textarea>
+                            <span class="send">发送</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div><!--headerpanel-->
+   <!--项目设置 -->
+  <div class='content_right clearfix'>
+     <div class="out_roll_content">
+     <div class="out_roll">
+	  <span class="click_left"><img src="assets/images/left_click.png"></span>
+     <div class="out_roll_div">	  
+	  <ul class="clearfix out_roll_ul">
+	     <li class="active">没联网华南店</li>
+		 <li>没联网华南店</li>
+		 <li>没联网华南店</li>
+		 <li>没联网华南店</li>
+		 <li>没联网华南店</li>
+		 <li>没联网华南店</li>
+		 <li>没联网华南店</li>
+		 <li>没联网华南店</li>
+		 <li>没联网华南店</li>
+		 <li>没联网华南店</li>
+	   </ul>
+	  </div> 
+	   <span class="click_right"><img src="assets/images/right_click.png"></span>
+	 </div>
+	</div>
+	
+	<div class="add_supplier">
+	   <p><button>添加加盟供应商</button><input type="text" placeholder="名称/品牌/号码"></p>
+	   <div class="add_supplier_content">
+	     <div class="add_supplier_content_padding clearfix">
+           <div class="add_supplier_content_left ">
+		     <p class="add_supplier_adjust">供应商：大撒完大餐<span>修改</span></p>
+			 <p style="margin:10px 0">地址：字宋丹丹飒飒大哇哦横扫次非农爱啊手机开 </p>
+			 <p>联系方式：134561031645616565  </p>
+		   </div>
+		   <div class="add_supplier_content_right">
+		     <span>
+			      <input type="text" placeholder="一二三四五六七八" style="height:14px;width:100px;margin-left:5px;padding-left:4px"><i><img src="assets/images/demo2_down.png"></i><ul class="demo_fade" style="display: none;"><li><img src="assets/images/handle_2.png"></li><li><img src="assets/images/handle_1.png"></li></ul>
+			 </span>
+			  <span>
+			      <input type="text" placeholder="一二三四五六七八" style="height:14px;width:100px;margin-left:5px;padding-left:4px"><i><img src="assets/images/demo2_down.png"></i><ul class="demo_fade" style="display: none;"><li><img src="assets/images/handle_2.png"></li><li><img src="assets/images/handle_1.png"></li></ul>
+			 </span>
+		    <span class="add_slide">
+			    <img src="assets/images/add_slide.png">
+			 </span>
+		   </div>
+         </div>
+		   <div class="add_supplier_content_padding clearfix">
+           <div class="add_supplier_content_left ">
+		     <p class="add_supplier_adjust">供应商：大撒完大餐<span>修改</span></p>
+			 <p style="margin:10px 0">地址：字宋丹丹飒飒大哇哦横扫次非农爱啊手机开 </p>
+			 <p>联系方式：134561031645616565  </p>
+		   </div>
+		   <div class="add_supplier_content_right">
+		     <span>
+			      <input type="text" placeholder="一二三四五六七八" style="height:14px;width:100px;margin-left:5px;padding-left:4px"><i><img src="assets/images/demo2_down.png"></i><ul class="demo_fade" style="display: none;"><li><img src="assets/images/handle_2.png"></li><li><img src="assets/images/handle_1.png"></li></ul>
+			 </span>
+			  <span>
+			      <input type="text" placeholder="一二三四五六七八" style="height:14px;width:100px;margin-left:5px;padding-left:4px"><i><img src="assets/images/demo2_down.png"></i><ul class="demo_fade" style="display: none;"><li><img src="assets/images/handle_2.png"></li><li><img src="assets/images/handle_1.png"></li></ul>
+			 </span>
+		    <span class="add_slide">
+			    <img src="assets/images/add_slide.png">
+			 </span>
+		   </div>
+         </div>
+		   <div class="add_supplier_content_padding clearfix">
+           <div class="add_supplier_content_left ">
+		     <p class="add_supplier_adjust">供应商：大撒完大餐<span>修改</span></p>
+			 <p style="margin:10px 0">地址：字宋丹丹飒飒大哇哦横扫次非农爱啊手机开 </p>
+			 <p>联系方式：134561031645616565  </p>
+		   </div>
+		   <div class="add_supplier_content_right">
+		     <span>
+			      <input type="text" placeholder="一二三四五六七八" style="height:14px;width:100px;margin-left:5px;padding-left:4px"><i><img src="assets/images/demo2_down.png"></i><ul class="demo_fade" style="display: none;"><li><img src="assets/images/handle_2.png"></li><li><img src="assets/images/handle_1.png"></li></ul>
+			 </span>
+			  <span>
+			      <input type="text" placeholder="一二三四五六七八" style="height:14px;width:100px;margin-left:5px;padding-left:4px"><i><img src="assets/images/demo2_down.png"></i><ul class="demo_fade" style="display: none;"><li><img src="assets/images/handle_2.png"></li><li><img src="assets/images/handle_1.png"></li></ul>
+			 </span>
+		    <span class="add_slide">
+			    <img src="assets/images/add_slide.png">
+			 </span>
+		   </div>
+         </div>
+
+       </div> 	   
+	
+	</div>
+   
+  
+  
+  
+  </div>
+
+       
+		
+    
+	
+
+
+    <!--<button class="btn" data-target="#jietu" data-toggle="modal">截图</button>-->
+    <!--RIGHT PANEL结束 -->
+
+    <div class="clearfix"></div>
+
+    <div id="star"></div>
+   <!-- <div class="left-show-btn">
+        <span class="iconfont icon-quanbu110"></span>
+    </div>-->
+    <a href="" class="showmenu"></a>
+
+    <i class="iconfont icon-fuzhi"></i>
+
+
+    <!--返回顶部-->
+<div id="return-top" class="return-top">
+  <span class="iconfont icon-huidaodingbu"></span>
+</div>
+
+<!--轮播-->
+
+
+</div><!--mainwrapper-->
+</body>
+</html>
+
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/online/jquery-plugin.min.js"></script>
+<script type="text/javascript" src="assets/js/online/hchart.min.js"></script>
+
+<script type="text/javascript" src="assets/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.twbsPagination.js"></script>
+<script type="text/javascript" src="assets/js/jquery.cookie.js"></script>
+
+<script type="text/javascript" src="assets/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="assets/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="assets/js/star-rating.min.js"></script>
+<script type="text/javascript" src="assets/js/lc_switch.min.js"></script>
+<script type="text/javascript" src="assets/js/cropper.js"></script>
+<script type="text/javascript" src="assets/js/plupload.full.min.js"></script>
+<script type="text/javascript" src="assets/js/qiniu.min.js"></script>
+
+<script type="text/javascript" src="assets/js/modernizr.js"></script>
+
+
+<!--highchart-->
+<script type="text/javascript" src="assets/js/highcharts.src.js"></script>
+<script type="text/javascript" src="assets/js/exporting.src.js"></script>
+
+<!--自定义-->
+<script type="text/javascript" src="assets/js/custom.js"></script>
+<script type="text/javascript" src="assets/js/zhifang.js"></script>
+
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="assets/js/excanvas.min.js"></script><![endif]-->
+

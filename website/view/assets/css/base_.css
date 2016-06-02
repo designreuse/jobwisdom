@@ -1,0 +1,61 @@
+.rightpanel{background:white}
+
+.base_table{border: 1px solid #dbdce2;
+box-shadow: 0 0 10px #ccc;
+margin:60px 50px 20px 50px
+
+}
+
+
+i,em{font-style:normal}
+input[type=radio]:checked {
+    background: #ff0242!important;
+}
+.base_table td{
+	
+    box-shadow: 0 0 2px #ccc;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 10px;
+	
+	vertical-align:middle
+}
+
+.base_table span{display:inline-block;margin-left:15px;margin-right:20px}
+.base_table span input{margin-right:4px}
+
+.base_table input[type='text']{
+	width:20px;margin-right:4px
+}
+
+.base_bottom p{width:500px;margin-left:100px;margin-bottom:10px}
+
+.base_bottom  .register,.base_bottom  .register_{
+	margin-left:50px;
+	margin-top:20px
+}
+.register_  input{width:30px;height:26px;text-align:center;line-height:26px;margin-left:12px;margin-right:6px}
+.register input{margin-right:6px;height:26px}
+
+.base_button button{
+	
+    width: 130px;
+    height: 35px;
+    border-radius: 20px;
+    background: #2a3244;
+    text-align: center;
+    line-height: 35px;
+    color: #dddddd;
+    box-shadow: 0px 6px 10px #ccc;
+    border: none;
+    margin-right: 10px;
+	
+}
+.hair_color{position:absolute;left:2px}
+.base_button{position:relative;left:700px;top:30px}
+.base_cancle{    color: #a1a1a1!important;background:white!important;margin-left:50px}
+.register input{width:890px!important;box-shadow:0 0 10px #ccc}
+.hair_color span{display:inline-block;background:#f1f1f1;height:22px;line-height:22px;padding:4px;border:1px solid #ccc;margin-top:2px;margin-right:2px;cursor:pointer}
+.hair_color em{display:inline-block;margin-left:4px}
+.input_content{position:relative}

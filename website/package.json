@@ -1,0 +1,11 @@
+{
+  "name": "chat2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.3"
+    "log4js": "^0.6.28"
+  },
+  "devDependencies": {}
+}

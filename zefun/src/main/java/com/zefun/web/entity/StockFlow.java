@@ -37,6 +37,9 @@ public class StockFlow {
 
     /** 出库员工 */
     private Integer libraryObject;
+    
+    /** 出库员工 */
+    private String employeeName;
 
     /** 备注信息 */
     private String stockDesc;
@@ -57,6 +60,14 @@ public class StockFlow {
     private List<AccountGoods> accountGoods;
     
     
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
     public List<AccountGoods> getAccountGoods() {
         return accountGoods;
     }

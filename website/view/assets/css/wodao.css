@@ -1,0 +1,38 @@
+li{list-style-type:none;}
+a{text-decoration:none;}
+a:link {text-decoration:none;}
+a:visited {text-decoration:none;}
+a:hover{text-decoration:none;}
+a:active{text-decoration:none;}
+
+/*限制*/
+.limit{width: 1280px;height: 1000px;background-color: #2a3244;margin: auto;}
+
+
+/*服务设置-项目设置-新增项目*/
+
+/*toP样式*/
+.pro_top{width: 1280px;height: 90px;position: relative;}
+.pro_logo{position: absolute;top:10px;}
+.pro_sousuo{position: absolute;width: 140px; height: 35px;border: 1px solid #dbdce2;border-radius: 25px;right: 250px;top:20px;}
+.pro_sousuo img{margin-top: 8px;margin-left: 5px;}
+.pro_sousuo input{width: 88px; height: 26px;border: none;background-color: transparent;margin-top: -50px;margin-left: 30px;font-size: 14px;color:#dbdce2;}
+
+.pro_hi{position: absolute;right: 30px;}
+.pro_hi img{float:left;margin-top: 14px;margin-right: 1px;}
+.pro_nic{float:right;width: 142px;height: 35px;border: 1px solid #dbdce2;border-radius: 25px;margin-top: 19px;margin-right:-10px;color:#dbdce2;font-size: 12px;text-align: center;line-height: 35px;}
+
+
+/*leftA样式*/
+.pro_left{width: 305px;height: 806px;background-color: #2a3244;position: relative;}
+.pro_leftA{width: 90px;height: 806px;position: absolute;left: 6px;}
+.Alei{width: 90px;height: 120px;cursor:pointer;text-align: center;margin: auto;}
+.Alei img{margin: auto;}
+.Alei span{color: #797e87;font-size: 14px;}
+
+/*leftB样式*/
+.list2,.list3,.list4,.list5,.list6,.list7{display:none;  }
+.listone{width: 215px;height: 850px;background-color: #323a4c;position: absolute;left:100px;}
+.Blei{width: 215px;height: 82px;cursor:pointer;text-align: center;margin: auto;border: 1px solid #ff0000;}
+.Blei img{float: left;}
+.Blei span{color: #797e87;font-size: 14px;float: right;}

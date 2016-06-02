@@ -126,23 +126,23 @@
 							</div>
 							<div class="out_tab_content_" style="display: none;">
 								<div class="out_tab_2">
-									<button onclick="jQuery('.zzc1').show('800')">选择商品入库</button>
+									<button onclick="jQuery('.zzc1').show('800')">选择商品出库</button>
 									<input type="text" placeholder="名称/编码">
 								</div>
 								<table class="payroll_table">
 									<tbody>
 										<tr>
-											<td>调拨时间</td>
-											<td>出库门店</td>
-											<td>入库门店</td>
+											<td>出库时间</td>
+											<td>出库对象</td>
+											<td>出库方式</td>
 											<td>调拨明细</td>
 											<td>操作</td>
 										</tr>
 										<c:forEach items="${outFlows }" var="flow">
 										<tr>
 											<td>${flow.createTime }</td>
-											<td>${flow.fromStoreName }</td>
-											<td>${flow.toStoreName }</td>
+											<td>${flow.employeeName }</td>
+											<td>${flow.flowType }</td>
 											<td>
 												<div class="overflow_text">
 													<c:forEach varStatus="index" items="${flow.accountGoods }" var="goods"><span>${goods.goodsCodeSuffix } ${goods.goodsName } : <i>${fn:split(flow.stockCount, ',')[index.count-1] }</i></span></c:forEach>
@@ -489,7 +489,13 @@
 		});
 	}
 	function showFlow(inFlows, index){
-		var html0 = '<tr><td>入库时间</td><td>入库方式</td><td>入库明细</td><td>操作</td></tr>';
+		var html0 = "";
+		if (index==0){
+			html0 = '<tr><td>入库时间</td><td>入库方式</td><td>入库明细</td><td>操作</td></tr>';
+		}else {
+			html0 = '<tr><td>出库时间</td><td>出库对象</td><td>出库方式</td><td>调拨明细</td><td>操作</td></tr>';
+		}
+		
 		jQuery(".payroll_table").eq(index).find("tbody").empty();
 		jQuery(".payroll_table").eq(index).find("tbody").append(jQuery(html0));
 		for (var i = 0; i < inFlows.length; i++) {
@@ -505,7 +511,7 @@
 				html1 = '<tr>'+
 						'<td>'+flow.createTime +'</td>'+
 						'<td>'+flow.fromStoreName +'</td>'+
-						'<td>'+flow.toStoreName +'</td>'+
+						'<td>'+flow.flowType +'</td>'+
 						'<td>'+
 							'<div class="overflow_text">';
 			} 
