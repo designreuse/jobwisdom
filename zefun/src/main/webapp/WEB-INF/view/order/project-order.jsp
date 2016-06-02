@@ -328,6 +328,15 @@ function checkGood(){
 	var storeId = jQuery("#storeTwo option:selected").attr("storeId");
 	var time = jQuery("#yearMonth1").val();
 	var timeType = jQuery("#yearMonth2").val();
+	
+	if(projectId1=="" || projectId1 ==null ){
+		dialog('没有项目');
+		return ;
+	}
+	if(categoryId1=="" || categoryId1 ==null ){
+		dialog('没有项目大项');
+		return ;
+	}
 	if(number==2){
 		time = timeType.substring(0,4);
 	}
