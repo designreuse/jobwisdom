@@ -101,7 +101,13 @@
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-  select * from goods_info where goods_id =  #{goodsId,jdbcType=INTEGER}
+	  SELECT 
+		  goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, goods.is_include_cost, 
+		  goods.goods_image, goods.goods_desc, goods.goods_stock, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
+		  goods.sales_count, goods.sales_people, goods.is_wechat_sell, goods.is_disable, goods.is_deleted, goods.is_sell_product, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
+		  goods.is_cash_deduction, goods.highest_discount, goods.calculation_type, goods.project_step, ag.goods_code_suffix, goods.a_id FROM goods_info goods
+	  	LEFT JOIN account_goods ag ON ag.goods_id = goods.a_id AND ag.is_deleted = 0
+	   WHERE goods.goods_id =  #{goodsId,jdbcType=INTEGER}
   </select>
   <select id="selectGoodsAllByPrimaryKey" resultMap="GoodsInfoDtoMap" parameterType="java.lang.Integer">
    SELECT 
@@ -446,95 +452,98 @@
   </update>
   
   <select id="selectByProperty" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.GoodsInfo" >
- 	select 
-    <include refid="Base_Column_List" />
-    from goods_info
-    where 1 = 1 and is_deleted = 0
+ 	select goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, goods.is_include_cost, 
+		   goods.goods_image, goods.goods_desc, goods.goods_stock, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
+		   goods.sales_count, goods.sales_people, goods.is_wechat_sell, goods.is_disable, goods.is_deleted, goods.is_sell_product, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
+		   goods.is_cash_deduction, goods.highest_discount, goods.calculation_type, goods.project_step, ag.goods_code_suffix, goods.a_id 
+    from goods_info goods
+    left join account_goods ag on ag.goods_id = goods.a_id and ag.is_deleted = 0
+    where 1 = 1 and goods.is_deleted != 1
       <if test="storeId != null" >
-        and store_id = #{storeId,jdbcType=INTEGER}
+        and goods.store_id = #{storeId,jdbcType=INTEGER}
       </if>
       <if test="categoryId != null" >
-        and category_id = #{categoryId,jdbcType=INTEGER}
+        and goods.category_id = #{categoryId,jdbcType=INTEGER}
       </if>
       <if test="brandId != null" >
-        and brand_id = #{brandId,jdbcType=VARCHAR}
+        and goods.brand_id = #{brandId,jdbcType=VARCHAR}
       </if>
       <if test="deptId != null" >
-        and dept_id = #{deptId,jdbcType=INTEGER}
+        and goods.dept_id = #{deptId,jdbcType=INTEGER}
       </if>
       <if test="goodsName != null" >
-        and goods_name = #{goodsName,jdbcType=VARCHAR}
+        and ag.goods_name = #{goodsName,jdbcType=VARCHAR}
       </if>
       <if test="goodsPrice != null" >
-        and goods_price = #{goodsPrice,jdbcType=DECIMAL}
+        and goods.goods_price = #{goodsPrice,jdbcType=DECIMAL}
       </if>
       <if test="costPrice != null" >
-        and cost_price = #{costPrice,jdbcType=DECIMAL}
+        and goods.cost_price = #{costPrice,jdbcType=DECIMAL}
       </if>
       <if test="onlineShoppingPrice != null" >
-        and online_shopping_price = #{onlineShoppingPrice,jdbcType=DECIMAL}
+        and goods.online_shopping_price = #{onlineShoppingPrice,jdbcType=DECIMAL}
       </if>
       <if test="isIncludeCost != null" >
-        and is_include_cost = #{isIncludeCost,jdbcType=INTEGER}
+        and goods.is_include_cost = #{isIncludeCost,jdbcType=INTEGER}
       </if>
       <if test="goodsImage != null" >
-        and goods_image = #{goodsImage,jdbcType=VARCHAR}
+        and goods.goods_image = #{goodsImage,jdbcType=VARCHAR}
       </if>
       <if test="goodsDesc != null" >
-        and goods_desc = #{goodsDesc,jdbcType=VARCHAR}
+        and goods.goods_desc = #{goodsDesc,jdbcType=VARCHAR}
       </if>
       <if test="goodsStock != null" >
-        and goods_stock = #{goodsStock,jdbcType=INTEGER}
+        and goods.goods_stock = #{goodsStock,jdbcType=INTEGER}
       </if>
       <if test="warnStock != null" >
-        and warn_stock = #{warnStock,jdbcType=INTEGER}
+        and goods.warn_stock = #{warnStock,jdbcType=INTEGER}
       </if>
       <if test="commissionType != null" >
-        and commission_type = #{commissionType,jdbcType=INTEGER}
+        and goods.commission_type = #{commissionType,jdbcType=INTEGER}
       </if>
       <if test="commissionAmount != null" >
-        and commission_amount = #{commissionAmount,jdbcType=INTEGER}
+        and goods.commission_amount = #{commissionAmount,jdbcType=INTEGER}
       </if>
       <if test="commissionCardType != null" >
-        and commission_card_type = #{commissionCardType,jdbcType=INTEGER}
+        and goods.commission_card_type = #{commissionCardType,jdbcType=INTEGER}
       </if>
       <if test="cardAmount != null" >
-        and card_amount = #{cardAmount,jdbcType=INTEGER}
+        and goods.card_amount = #{cardAmount,jdbcType=INTEGER}
       </if>
       <if test="integralExchange != null" >
-        and integral_exchange = #{integralExchange,jdbcType=INTEGER}
+        and goods.integral_exchange = #{integralExchange,jdbcType=INTEGER}
       </if>
       <if test="salesCount != null" >
-        and sales_count = #{salesCount,jdbcType=INTEGER}
+        and goods.sales_count = #{salesCount,jdbcType=INTEGER}
       </if>
       <if test="salesPeople != null" >
-        and sales_people = #{salesPeople,jdbcType=INTEGER}
+        and goods.sales_people = #{salesPeople,jdbcType=INTEGER}
       </if>
       <if test="isWechatSell != null" >
-        and is_wechat_sell = #{isWechatSell,jdbcType=INTEGER}
+        and goods.is_wechat_sell = #{isWechatSell,jdbcType=INTEGER}
       </if>
       <if test="isDisable != null" >
-        and is_disable = #{isDisable,jdbcType=INTEGER}
+        and goods.is_disable = #{isDisable,jdbcType=INTEGER}
       </if>
       <if test="isSellProduct != null" >
-        and is_sell_product = #{isSellProduct,jdbcType=INTEGER}
+        and goods.is_sell_product = #{isSellProduct,jdbcType=INTEGER}
       </if>
       <if test="affiliatedImage != null" >
-        and affiliated_image = #{affiliatedImage,jdbcType=VARCHAR}
+        and goods.affiliated_image = #{affiliatedImage,jdbcType=VARCHAR}
       </if>
       <if test="createTime != null" >
-        and create_time = #{createTime,jdbcType=CHAR}
+        and goods.create_time = #{createTime,jdbcType=CHAR}
       </if>
       <if test="updateTime != null" >
-        and update_time = #{updateTime,jdbcType=CHAR}
+        and goods.update_time = #{updateTime,jdbcType=CHAR}
       </if>
       <if test="lastOperatorId != null" >
-        and last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
+        and goods.last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
       </if>
       <if test="aId != null" >
-        and a_id = #{aId,jdbcType=INTEGER}
+        and goods.a_id = #{aId,jdbcType=INTEGER}
       </if>
-      order by sales_count desc
+      order by goods.sales_count desc
   </select>
   
   <select id="selectByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

@@ -26,6 +26,8 @@ import com.zefun.web.dto.ubox.UboxStoreGoodsDto;
 import com.zefun.web.dto.ubox.UboxTransactionDto;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.GoodsInfo;
+import com.zefun.web.entity.GoodsStock;
+import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.TransactionInfo;
@@ -34,6 +36,7 @@ import com.zefun.web.entity.UboxTransaction;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.TransactionInfoMapper;
@@ -98,7 +101,9 @@ public class UboxMallService {
     /**订单明细*/
     @Autowired
     private OrderDetailMapper orderDetailMapper;
-    
+    /**商品库存信息*/
+    @Autowired
+    private GoodsStockMapper goodsStockMapper;
     
     /**
      * 商品详情页面
@@ -110,8 +115,8 @@ public class UboxMallService {
      */
     public ModelAndView goodsInfoView(Integer storeGoodsId, Integer memberId){
         ModelAndView mav = new ModelAndView(View.UboxMall.GOODS_INFO);
-        UboxStoreGoodsDto goodsInfo = uboxStoreGoodsMapper.selectGoodsInfoByStoreGoodsId(storeGoodsId);
-        mav.addObject("storeGoods", goodsInfo);
+//        UboxStoreGoodsDto goodsInfo = uboxStoreGoodsMapper.selectGoodsInfoByStoreGoodsId(storeGoodsId);
+//        mav.addObject("storeGoods", goodsInfo);
         
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         mav.addObject("memberInfo", memberInfo);
@@ -119,6 +124,16 @@ public class UboxMallService {
         GoodsInfo info = goodsInfoMapper.selectByPrimaryKey(storeGoodsId);
         mav.addObject("goodsInfo", info);
         
+        mav.addObject("isBuy", true);
+        Integer storeId = info.getStoreId();
+        Integer aId = info.getaId();
+        GoodsStockKey key = new GoodsStockKey();
+        key.setaId(aId);
+        key.setStoreId(storeId);
+        GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
+        if (goodsStock==null||goodsStock.getCount()<=0){
+            mav.addObject("isBuy", false);
+        }
         return mav;
     }
     
@@ -411,11 +426,21 @@ public class UboxMallService {
             orderDetail.setCreateTime(DateUtil.getCurDate());
             orderDetail.setProjectPrice(new BigDecimal(amount).divide(new BigDecimal(100)));
             orderDetailMapper.insert(orderDetail);
-            //订单库存
+            
+            //商品销售
             GoodsInfo info = new GoodsInfo();
             info.setGoodsId(goodsInfo.getGoodsId());
             info.setSalesCount(goodsInfo.getSalesCount()+1);
             goodsInfoMapper.updateByPrimaryKeySelective(info);
+            
+            //商品库存
+            GoodsStockKey key = new GoodsStockKey();
+            key.setaId(goodsInfo.getaId());
+            key.setStoreId(goodsInfo.getStoreId());
+            GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
+            goodsStock.setCount(goodsStock.getCount()-1);
+            goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
+            
             return "SUCCESS";
         }
         return "FAILE";

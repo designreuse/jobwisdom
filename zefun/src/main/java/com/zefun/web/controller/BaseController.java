@@ -20,8 +20,10 @@ import com.zefun.common.consts.Url;
 import com.zefun.common.utils.SignUtil;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.entity.EmployeeInfo;
+import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.mapper.EmployeeInfoMapper;
+import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.RedisService;
@@ -47,6 +49,10 @@ public class BaseController {
     /** 用户账户操作对象 */
     @Autowired
     private UserAccountMapper userAccountMapper;
+    
+    /** 用户账户操作对象 */
+    @Autowired
+    private StoreInfoMapper storeInfoMapper;
     
     /** 客服账户操作对象 */
 /*    @Autowired
@@ -94,6 +100,19 @@ public class BaseController {
             return null;
         }
     }
+    
+    /**
+     * 通过门店ID获得企业代号
+    * @author 老王
+    * @date Aug 17, 2015 6:49:50 PM
+    * @param storeId    请求对象
+    * @return           当前用户所在的门店id
+     */
+    public String getStoreAccountByStoreId(Integer storeId) {
+        StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+        return storeInfo.getStoreAccount();
+    }
+    
     
     /**
      * 获取角色权限

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.Url;
+import com.zefun.common.consts.App.Session;
 import com.zefun.common.utils.XmlUtil;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
@@ -68,11 +69,18 @@ public class UboxMallController extends BaseController {
     @RequestMapping(value = Url.UboxMall.VIEW_GOODS_INFO)
     public ModelAndView goodsInfoView(int storeId, Integer storeGoodsId,
             HttpServletRequest request, HttpServletResponse response){
-        String storeAccount = getStoreAccount(request);
+        String storeAccount = "";
+        try {
+            storeAccount = request.getSession().getAttribute(Session.STORE_ACCOUNT).toString();
+        } 
+        catch (Exception e) {
+            storeAccount = getStoreAccountByStoreId(storeId);
+        }
         String openId = getOpenId(storeAccount, 1, request, response);
         if (openId == null) {
             return null;
         }
+        setJsapiSignData(storeAccount, request);
         /*String wechatPayOpenId = getOpenIdForYoumei(1, request, response);
         if (wechatPayOpenId == null) {
             return null;
@@ -81,6 +89,7 @@ public class UboxMallController extends BaseController {
         return uboxMallService.goodsInfoView(storeGoodsId, memberId);
     }
     
+
     /**
      * 发起微信支付
     * @author 高国藩
@@ -128,6 +137,8 @@ public class UboxMallController extends BaseController {
         String returnCode = map.get("return_code");
         String openId = map.get("openid");
         String outTradeNo = map.get("out_trade_no");
+        logger.info("微信回调,支付成功通知");
+        logger.info(data);
         return uboxMallService.callBackPayGoodsInfo(transactionId, outTradeNo, resultCode, returnCode, openId);
     }
     

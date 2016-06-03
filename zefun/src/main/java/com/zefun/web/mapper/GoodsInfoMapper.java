@@ -229,8 +229,8 @@ public interface GoodsInfoMapper {
      * 通过企业ID和storeId进行查询,上架商品
     * @author 高国藩
     * @date 2016年6月1日 下午12:04:32
-    * @param query
-    * @return
+    * @param query 参数
+    * @return      商品详情
      */
     GoodsInfo selectByStoreAccountAndStoreId(Map<String, Object> query);
 }

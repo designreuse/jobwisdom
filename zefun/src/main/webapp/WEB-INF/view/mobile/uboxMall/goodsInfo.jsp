@@ -17,11 +17,55 @@
     	.swiper-container img {
 	        -webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.4);
 	    }
+	    .s-modal-wrap{
+		  position: absolute;
+		  width: 100%;
+		  top:15%;
+		  left:50%;
+		  margin-left: -15rem;
+		}
+		.jd-wrap{
+		  /*width:36.6875rem;*/
+		  width: 30rem;
+		  position: fixed;
+		  margin: 0 auto;
+		}
+		.jd-wrap img{
+		  width: 26rem;
+		  /* height: 25.8125rem;*/
+		}
+		.jd-main{
+		  position: absolute;
+		  top: 19.5rem;
+		  width: 100%;
+		  background-color: #ffd83b;
+		  border-radius: 1.25rem;
+		  padding:1.75rem 1.25rem 1rem;
+		  box-sizing: border-box;
+		  font-size:2.5rem;
+		  text-align: left;
+		
+		}
+		.jd-main span{
+		  color: #f82727;
+		  font-size: 2.8rem;
+		
+		}
+		.jd-btn{
+		  width: 27.5625rem;
+		  height:5.1875rem;
+		  background: url(../../images/mobile/agent/btn-bg.png) no-repeat;
+		  border-radius: 10px;
+		  text-align: center;
+		  line-height:5.1875rem;
+		  margin-top: 1.875rem;
+		  margin: 0 auto;
+		}
     </style>
   </head>
 <body>
 
-<div class="content wrap">
+<div class="">
 	<div class="project-detail-descript">
 	    <div class="swiper-container">
 	        <div class="swiper-wrapper">
@@ -38,92 +82,37 @@
 	    </div>
 	</div>
 
-    <section class="box pro-desc">
+    <section class="box pro-desc" style="position:relatve">
         <div class="ovh">
             <div class="fl">
-                <h1>${goodsInfo.goodsName }</h1>
-                <div class="pro-others">
-                    <span class="item font-666">已售出：${goodsInfo.salesCount }</span>
+                <h1></h1>
+                <div class="pro-others" style="font-size:1.6rem;font-weight:bold">
+                    <span class="item font-666">${goodsInfo.goodsName }</span>
                 </div>
             </div>
-            <div class="share1 fr">
+            <div onclick="share()" class="share1 fr">
                 <span class="iconfont icon-iconfontfenxiang c999"></span>
                 <p class="c666">分享</p>
             </div>
         </div>
-        <div class="pro-money">
+        <div class="pro-money" style="position:relative;top:-2.5rem">
         	<span class="time">￥${goodsInfo.goodsPrice / 100}</span>
-        	<%-- <c:if test="${storeGoods.storeGoodsIntegral > 0 }">
-        		<span>或 </span><span class="time">￥${storeGoods.storeGoodsPrice / 100}+${storeGoods.storeGoodsIntegral }积分</span>
-        	</c:if> --%>
         </div>
-        <%-- <c:choose>
-        	<c:when test="${!empty storeGoods.rewardsCoupon and storeGoods.rewardsGiftAmount > 0 }">
-        		<p class="pro-yh"><span>送</span>${storeGoods.rewardsCoupon.couponPrice }元${storeGoods.rewardsCoupon.couponName }, 另送${storeGoods.rewardsGiftAmount }元礼金</p>
-        	</c:when>
-        	<c:when test="${!empty storeGoods.rewardsCoupon and storeGoods.rewardsGiftAmount <= 0 }">
-        		<p class="pro-yh"><span>送</span>${storeGoods.rewardsCoupon.couponPrice }元${storeGoods.rewardsCoupon.couponName }</p>
-        	</c:when>
-        	<c:when test="${empty storeGoods.rewardsCoupon and storeGoods.rewardsGiftAmount > 0 }">
-        		<p class="pro-yh"><span>送</span>${storeGoods.rewardsGiftAmount }元礼金</p>
-        	</c:when>
-        </c:choose> --%>
+        <span style="position:absolute;top:0px; position: absolute; top: 23rem;left: 65%;font-size: 1.2rem;color:#847F7F">已售: ${goodsInfo.salesCount }</span>
     </section>
-
-    <h2 class="box-title" style="background-color: #F7F7F7;">商品详情</h2>
-
-    <%-- <section class="box">
-
-        <div class="article">
-            <c:if test="${!empty storeGoods.goodsInfo.goodsContentList }">
-                   <c:forEach var="content" items="${storeGoods.goodsInfo.goodsContentList }">
-					<c:if test="${content.type == '1' }">
-						<p>${content.text }</p>
-					</c:if>
-					<c:if test="${content.type == '2' }">
-						<p><img style="max-width: 100%;max-height: 100%;" src="<%=picPath %>${content.text}"></p>
-					</c:if>
-				</c:forEach>
-				<p></p>
-			</c:if>
-        </div>
-
-    </section> --%>
-
-    <h3 class="box-title" style="font-size: 1.4rem;font-weight: normal;background-color: #F7F7F7;">${goodsInfo.goodsDesc}</h3>
-    <section class="box"></section>
-    <!-- <h2 class="box-title">订单&取货</h2> -->
-
-    <!-- <section class="box">
-
-        <div class="maker ovh">
-            <div class="pic fl">
-                <img src="../../assets/images/code.jpg" alt=""/>
-            </div>
-            <div class="fr wz">
-                <p>长按左侧图片</p>
-                <p>选择“识别图中二维码”</p>
-                <p>即可关注”智放“</p>
-            </div>
-        </div>
-
-        <div class="article " style="padding-bottom: 50px;">
-            <p class="c666"><span class="hot">取货号码</span><br />关注“智放”微信公众号，进入“友宝商城”，点击“订单列表”，即可看到订单的取货号码。
-            </p>
-            <p><span class="hot">取货地址</span><br /> <span class="iconfont c999">&#xe6e9</span>深圳市福田区家乐大厦508</p>
-        </div>
-
-    </section> -->
     
+   <div style="position:relative;top:-3rem"> ${goodsInfo.goodsDesc}</div>
+
  	<div id="footer">
  		<div class="f-con c">
-			<a class="btn btn-primary" onclick="initPay(${goodsInfo.storeId},${goodsInfo.goodsId})">立即购买</a>
+ 			<c:if test="${isBuy == true }"><a class="btn btn-primary" onclick="initPay(${goodsInfo.storeId},${goodsInfo.goodsId})">立即购买</a></c:if>
+			<c:if test="${isBuy == false }"><a class="btn btn-primary" onclick="dialog('库存不足')">库存不足</a></c:if>
  		</div>
  	</div>
 </div>  
 
 <div id="modalBuy-pop" class="modal fade">
-    <div class="box">
+    <div class="box" >
         <div class="deal-card">
             <div class="deal-img s"><img style="width: 100%;height: 100%;" src="<%=picPath %>${storeGoods.goodsInfo.uboxPicture }" alt=""></div>
             <div class="deal-con">
@@ -175,7 +164,18 @@
         </div>
     </div>
 </div>
-
+<div class="s-modal no-padding hide s-modal-miss" id="shareTip">
+    <div class="s-modal-wrap">
+        <div class="jd-wrap">
+            <img src="<%=picPath %>agent_share_tip.png" alt=""/>
+            <div class="jd-main">
+                	已为你生成该商品 的推广链接, 请点击右上角分享吧！
+                <div class="jd-btn">我知道了</div>
+            </div>
+        </div>
+    </div>
+</div>
+<%@include file="../wechatBase.jsp" %>
 <%@include file="../memberBase.jsp" %>
 <script type="text/javascript" src="<%=swiperJsPath%>"></script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/jquery.lazyload.min.js"></script>
@@ -221,7 +221,8 @@
  
  function checkPay() {
 	 if (isEmpty('${memberInfo.memberId}')) {
-		 $("#confirmWindow").removeClass("hide");
+		 $("#modalBuy-pop").addClass("in");
+		 //$("#confirmWindow").removeClass("hide");
 		 return false;
      }
 	 else {
@@ -304,6 +305,24 @@ function initPay(storeId, goodsId){
         } */
     });
   }
+  var title = '${goodsInfo.goodsName }';
+  var desc = '围观围观,新品上架,速速抢购';
+  var link = window.location.href;
+  var imgUrl = picUrl + '${goodsInfo.goodsImage }';
+  function share(){
+		$("#shareTip").removeClass("hide");
+		wx.onMenuShareAppMessage({
+			  title: title,
+			  desc: desc,
+			  link: link,
+			  imgUrl: imgUrl
+			});
+		wx.onMenuShareTimeline({
+		  title: title,
+		  link: link,
+		  imgUrl: imgUrl
+		});
+	}
 </script>
 </body>
 </html>
