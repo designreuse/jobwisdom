@@ -118,7 +118,15 @@
   	where a.is_deleted = 0 and a.store_id = #{params.storeId} 
   	<if test="params.storeAccount != null" >
         and b.store_account = #{params.storeAccount}
-    </if>   
+    </if>  
+    <if test="params.type != null" >
+        <if test="params.type == 1" >
+	        and b.level_type = '等级卡'
+	    </if> 
+	    <if test="params.type == 2" >
+	        and b.level_type = '折扣卡'
+	    </if> 
+    </if>  
     order by b.is_default desc, a.project_discount asc
   </select>
   
@@ -145,6 +153,31 @@
   	from member_level_discount a
   	left join member_level b on b.level_id = a.level_id 
   	where a.is_deleted = 0 and a.store_id = #{storeId} 
+  </select>
+  
+  <select id="selectByDiscountId" resultMap="MemberLevelDtoMap" parameterType="java.lang.Integer">
+    select 
+  		a.level_id as levelId, 
+  		a.store_id as storeId, 
+  		b.store_account as storeAccount, 
+  		b.level_name as levelName, 
+    	b.level_notice as levelNotice, 
+    	b.is_default as isDefault,
+    	b.level_type as levelType,
+    	b.level_logo as levelLogo,
+    	b.level_template as levelTemplate,
+    	a.discount_id as discountId, 
+    	a.project_discount as projectDiscount, 
+    	a.goods_discount as goods_discount, 
+    	a.sell_amount as sellAmount, 
+    	a.charge_min_money as chargeMinMoney, 
+        a.cash_discount_type as cashDiscountType, 
+        a.integral_unit as integralUnit, 
+        a.integral_number as integralNumber, 
+        a.performance_discount_percent as performanceDiscountPercent
+  	from member_level_discount a
+  	left join member_level b on b.level_id = a.level_id 
+  	where a.is_deleted = 0 and a.discount_id = #{discountId} 
   </select>
   
   <select id="selectByAllStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">

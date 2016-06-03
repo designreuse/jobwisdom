@@ -1,23 +1,19 @@
 package com.zefun.web.controller;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.service.MemberLevelService;
@@ -116,53 +112,6 @@ public class MemberLevelController extends BaseController {
 	}
 	
 	/**
-	 * 为某个门店新增会员等级
-	* @author 老王
-	* @date 2016年5月20日 下午4:52:08 
-	* @param levelId 会员等级标识
-	* @param levelName 会员等级
-	* @param discountId 折扣表
-	* @param projectDiscount 项目折扣
-	* @param goodsDiscount 商品折扣
-	* @param performanceDiscountPercent  业绩折扣比例(0-100)
-	* @param sellAmount 售卡开卡金额
-	* @param chargeMinMoney 最低充值金额
-	* @param cashDiscountType 现金是否打折(0:不打折，1:打折)
-	* @param integralUnit 消费积分单位
-	* @param integralNumber 单位积分数量
-	* @param levelNoticeArr 等级说明
-	* @param request 返回
-	* @return BaseDto
-	 */
-	@RequestMapping(value = Url.MemberLevel.ACTION_ADD, method = RequestMethod.POST)
-	@ResponseBody
-	public BaseDto addAction(Integer levelId, String levelName, Integer discountId, Integer projectDiscount, Integer goodsDiscount, 
-			  Integer performanceDiscountPercent, 
-			  BigDecimal sellAmount, BigDecimal chargeMinMoney, Integer cashDiscountType, Integer integralUnit, Integer integralNumber, 
-			  String[] levelNoticeArr, HttpServletRequest request){
-		MemberLevel memberLevel = new MemberLevel();
-		memberLevel.setLevelId(levelId);
-		memberLevel.setLevelName(levelName);
-		memberLevel.setLevelNoticeArr(levelNoticeArr);
-		
-		MemberLevelDiscount memberLevelDiscount = new MemberLevelDiscount();
-		memberLevelDiscount.setDiscountId(discountId);
-		memberLevelDiscount.setProjectDiscount(projectDiscount);
-		memberLevelDiscount.setGoodsDiscount(goodsDiscount);
-		memberLevelDiscount.setPerformanceDiscountPercent(performanceDiscountPercent);
-		memberLevelDiscount.setSellAmount(sellAmount);
-		memberLevelDiscount.setChargeMinMoney(chargeMinMoney);
-		memberLevelDiscount.setCashDiscountType(cashDiscountType);
-		memberLevelDiscount.setIntegralUnit(integralUnit);
-		memberLevelDiscount.setIntegralNumber(integralNumber);
-	    int storeId = getStoreId(request);
-	    memberLevelDiscount.setStoreId(storeId);
-	    Integer userId = getUserId(request);
-		return memberLevelService.addAction(storeId, userId, memberLevel, memberLevelDiscount);
-	}
-	
-	
-	/**
 	 * 查询某个店铺的会员等级信息
 	 * 默认返回该门店最前面10条数据
 	* @author 张进军
@@ -172,40 +121,57 @@ public class MemberLevelController extends BaseController {
 	*/
 	@RequestMapping(value = Url.MemberLevel.VIEW_LIST, method = RequestMethod.GET)
 	public ModelAndView listView(HttpServletRequest request){
-	    int storeId = getStoreId(request);
-		return memberLevelService.listView(storeId);
+	    int storeId = 0;
+	    int roleId = getRoleId(request);
+	    if (roleId != 1) {
+	    	storeId = getStoreId(request);
+	    }
+	    String storeAccount = getStoreAccount(request);
+		return memberLevelService.listView(storeId, roleId, storeAccount);
 	}
 	
-	
 	/**
-	 * 分页查询某个门店的会员等级信息
-	* @author 张进军
-	* @date Aug 5, 2015 7:58:53 PM
-	* @param pageNo		页码
-	* @param pageSize	每页显示数
+	 * 门店查询会员卡
+	* @author 老王
+	* @date 2016年6月1日 下午5:21:01 
 	* @param request 返回
+	* @param storeId 门店标识
+    * @param type 类型
+    * @param pageNo 页数
+    * @param pageSize 每一页数据条数
 	* @return BaseDto
 	 */
-	@RequestMapping(value = Url.MemberLevel.ACTION_LIST, method = RequestMethod.POST)
+	@RequestMapping(value = Url.MemberLevel.SELECT_STORE_MEMBER_LEVEL, method = RequestMethod.POST)
 	@ResponseBody
-	public BaseDto listAction(int pageNo, int pageSize, HttpServletRequest request){
-	    int storeId = getStoreId(request);
-		return memberLevelService.listAction(storeId, pageNo, pageSize);
+	public BaseDto selectStoreMemberLevel (HttpServletRequest request, Integer storeId, Integer type, int pageNo, int pageSize) {
+		return memberLevelService.selectStoreMemberLevel(storeId, type, pageNo, pageSize);
 	}
 	
 	/**
 	 * 根据等级标识查询等级信息
-	* @author 张进军
+	* @author 老王
 	* @date Aug 5, 2015 11:45:13 PM
-	* @param levelId	会员等级标识
+	* @param discountId	会员等级标识
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.MemberLevel.ACTION_INFO, method = RequestMethod.POST)
 	@ResponseBody
-	public BaseDto infoAction(Integer levelId){
-		return memberLevelService.infoAction(levelId);
+	public BaseDto infoAction(Integer discountId){
+		return memberLevelService.infoAction(discountId);
 	}
 	
+	/**
+	 * 编辑门店会员啦信息
+	* @author 老王
+	* @date 2016年6月2日 下午12:20:10 
+	* @param memberLevelDto 会员dto
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.MemberLevel.SAVE_EDIT_MEMBER_LEVEL, method = RequestMethod.POST)
+	@ResponseBody
+	public BaseDto saveEditMemberLevel (MemberLevelDto memberLevelDto) {
+		return memberLevelService.saveEditMemberLevel(memberLevelDto);
+	}
 	
 	/**
 	 * 根据等级标识删除等级信息
@@ -248,7 +214,7 @@ public class MemberLevelController extends BaseController {
     * @return               状态
     * @throws IOException   提倡处理
      */
-    @RequestMapping(value = Url.MemberLevel.IMPORTEXCLE, method = RequestMethod.POST)
+   /* @RequestMapping(value = Url.MemberLevel.IMPORTEXCLE, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto importExcle(@RequestParam("file") MultipartFile file, String storeName, 
               HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -260,5 +226,5 @@ public class MemberLevelController extends BaseController {
         else {
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "暂时不支持其他服务商数据导入");
         }
-    }
+    }*/
 }

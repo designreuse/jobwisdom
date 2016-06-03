@@ -2,6 +2,7 @@
 <%@ include file="/head.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<link rel="stylesheet" href="<%=basePath%>css/shop_vip_manage.css" type="text/css" />
 <body>
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -13,27 +14,27 @@
 		<div class='content_right clearfix'>
 		   <div class="out_roll_content">
 		     <div class="out_roll">
-			  <span class="click_left"><img src="assets/images/left_click.png"></span>
+			  <span class="click_left"><img src="<%=basePath%>images/left_click.png"></span>
 		     <div class="out_roll_div">	  
 			  <ul class="clearfix out_roll_ul">
-			     <li class="active">没联网华南店</li>
-				 <li>没联网华南店</li>
-				 <li>没联网华南店</li>
-				 <li>没联网华南店</li>
-				 <li>没联网华南店</li>
-				 <li>没联网华南店</li>
-				 <li>没联网华南店</li>
-				 <li>没联网华南店</li>
-				 <li>没联网华南店</li>
-				 <li>没联网华南店</li>
+			     <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
+			        <li <c:if test="${status.index == 0}"> class="active" </c:if> storeId = "${storeInfo.storeId }" onclick="chooseStore(this, ${storeInfo.storeId })">${storeInfo.storeName }</li>
+			     </c:forEach>
 			   </ul>
 			  </div> 
-			   <span class="click_right"><img src="assets/images/right_click.png"></span>
+			   <span class="click_right"><img src="<%=basePath%>images/right_click.png"></span>
 			 </div>
 			</div>
 			
 			<div class="new_data">
-			   <p>会员卡类型 <span><select><option>等级卡</option><option>折扣卡</option><option>全部</option></select></span></p>
+			   <p>会员卡类型 
+			      <span>
+				      <select name = "levelType" onchange="changeType()">
+					      <option value="1">等级卡</option>
+					      <option value="2">折扣卡</option>
+					      <option value="0">全部</option>
+				      </select>
+			      </span></p>
 		     <div class="vip_card_table"> 	  
 			  <table>
 			     <tr>
@@ -48,148 +49,173 @@
 				   <td>等级说明</td>
 				   <td>操作</td>
 				 </tr>
-			      <tr>
-				    <td>三折卡</td>
-				    <td>10折</td>
-				    <td>10折</td>
-				    <td>5000</td>
-					<td>50元</td>
-				    <td>不打折</td>
-					<td>10%</td>
-		            <td>1元=10积分</td>
-					<td>啊啊啊</td>
-					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
-		         </tr>
-				  <tr>
-				    <td>三折卡</td>
-				    <td>10折</td>
-				    <td>10折</td>
-				    <td>5000</td>
-					<td>50元</td>
-				    <td>不打折</td>
-					<td>10%</td>
-		            <td>1元=10积分</td>
-					<td>啊啊啊</td>
-					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
-		         </tr>
-				  <tr>
-				    <td>三折卡</td>
-				    <td>10折</td>
-				    <td>10折</td>
-				    <td>5000</td>
-					<td>50元</td>
-				    <td>不打折</td>
-					<td>10%</td>
-		            <td>1元=10积分</td>
-					<td>啊啊啊</td>
-					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
-		         </tr>
-				  <tr>
-				    <td>三折卡</td>
-				    <td>10折</td>
-				    <td>10折</td>
-				    <td>5000</td>
-					<td>50元</td>
-				    <td>不打折</td>
-					<td>10%</td>
-		            <td>1元=10积分</td>
-					<td>啊啊啊</td>
-					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
-		         </tr>
-				  <tr>
-				    <td>三折卡</td>
-				    <td>10折</td>
-				    <td>10折</td>
-				    <td>5000</td>
-					<td>50元</td>
-				    <td>不打折</td>
-					<td>10%</td>
-		            <td>1元=10积分</td>
-					<td>啊啊啊</td>
-					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
-		         </tr>
-				  <tr>
-				    <td>三折卡</td>
-				    <td>10折</td>
-				    <td>10折</td>
-				    <td>5000</td>
-					<td>50元</td>
-				    <td>不打折</td>
-					<td>10%</td>
-		            <td>1元=10积分</td>
-					<td>啊啊啊</td>
-					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
-		         </tr>
-				  <tr>
-				    <td>三折卡</td>
-				    <td>10折</td>
-				    <td>10折</td>
-				    <td>5000</td>
-					<td>50元</td>
-				    <td>不打折</td>
-					<td>10%</td>
-		            <td>1元=10积分</td>
-					<td>啊啊啊</td>
-					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
-		         </tr>
-				  <tr>
-				    <td>三折卡</td>
-				    <td>10折</td>
-				    <td>10折</td>
-				    <td>5000</td>
-					<td>50元</td>
-				    <td>不打折</td>
-					<td>10%</td>
-		            <td>1元=10积分</td>
-					<td>啊啊啊</td>
-					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
-		         </tr>
-				  <tr>
-				    <td>三折卡</td>
-				    <td>10折</td>
-				    <td>10折</td>
-				    <td>5000</td>
-					<td>50元</td>
-				    <td>不打折</td>
-					<td>10%</td>
-		            <td>1元=10积分</td>
-					<td>啊啊啊</td>
-					<td><em><img src="assets/images/demo2_down.png"></em><ul><li><img src="assets/images/handle_1.png"></li><li style="border-top:none"><img src="assets/images/shop_vip.png"></li></ul></td>
-		         </tr>
+			      <c:forEach items="${page.results }" var="memberLevel" varStatus="index">
+			          <tr id="${memberLevel.discountId }">
+			             <td>${memberLevel.levelName }
+			              <c:if test="${memberLevel.isDefault == 1 }"><span class="font-999">默认等级</span></c:if>
+			             </td>
+			             <td>${memberLevel.projectDiscount }%</td>
+			             <td>${memberLevel.goodsDiscount }%</td>
+			             <td>${memberLevel.chargeMinMoney }元</td>
+			             <td>
+			             		${memberLevel.sellAmount }元
+			             </td>
+			             <td>
+			             		<c:choose>
+			             			<c:when test="${memberLevel.cashDiscountType == 0 }">
+			             				不打折
+			             			</c:when>
+			             			<c:otherwise>
+			             				打折
+			             			</c:otherwise>
+			             		</c:choose>
+			             </td>
+			             <td>
+			             		${memberLevel.performanceDiscountPercent }%
+			             </td>
+			             <td>${memberLevel.integralUnit }元 = ${memberLevel.integralNumber }积分</td>
+			             <td class="input80 ellipsis-text">
+			             		${memberLevel.levelNotice }
+			             </td>
+			             
+			             <td> <em onclick="editMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/handle_1.png"></em><em onclick="showMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/shop_vip.png"></em>
+						 </td>
+			           </tr>
+			          </c:forEach>
 				
 					  
 			   </table>
+			   <%@ include file="/template/page.jsp" %>
 			 </div>
 			</div>
 		  </div>
     </div>
 </div>
 </div><!--mainwrapper-->
-<div class="modal hide in" id="toLeadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content add-account" style="width: 450px;height: 180px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h5 class="modal-title" id="myModalLabel">上传文件</h5>
-            </div>
-            <div class="modal-body" style="height: 150px;">
-                <form action="" class="editprofileform" method="post" enctype="multipart/form-data" id="excleForm">
-                    <p>
-                        <label>文件位置选择:</label>
-                        <input type="file" name="filename" id="file" class="input-large">
-                        <label>之前的服务商:</label>
-                        <select data-placeholder="服务商名称" class="chzn-select" name="storeName">
-			            		<option value="盛传">盛传服务商</option>
-			            </select>
-                </form>
-            </div><!--modal body-->
-            <div class="modal-footer">
-                <a class="btn btn-primary modal-confirm" href="#" id="confirm" data-dismiss="modal" onclick="UpladFile()">确定</a>
-            </div>
-        </div>
-    </div>
+
+<div class="zzc" style="display: none">
+   <div class="zzc_preview">
+	  <p>预览</p>
+	  <div class="preview_img clearfix">
+	    <div class="preview_img_left">
+		    <div class="preview_1" name = "pagePreview" style="background:url('<%=basePath %>images/vip_card.png') no-repeat;">
+			    <div class="preview_left" name = "pagePreviewLeft">
+				   <span><em id = "levelName"></em>折卡</span>
+            	</div>
+				<div class="preview_right" name = "pagePreviewRight">
+                   <ul class="clearfix">
+					  <li>项目折扣：<em id = "projectDiscount"></em>折</li>
+					  <li>商品折扣：<em id = "goodsDiscount"></em>折</li>
+                   </ul>
+				   <span>卡上余额：88888元</span>
+	            </div>
+         	 </div> 
+		</div>
+	    
+		<div class="preview_img_right">
+		     <div class="preview_2 clearfix" style="background:url('<%=basePath %>images/vip_card1.png') no-repeat;">
+			   <div class="preview_2_top">
+			       <span>5折卡</span>
+			   </div>
+			   <div class="preview_2_content clearfix">
+			     <div class="logo_img"><img src="<%=basePath %>images/vip_img.png"></div>
+                 <div class="preview_2_content_right">
+                    
+                 </div> 			     
+			   </div>
+         	 </div> 
+		</div>
+	  </div>
+	  <button onclick="cancelModal()">取消</button>
+   </div>
+
 </div>
 
+<div class="zzc1" style="display: none">
+   <div class="zzc1_adjust">
+	  <p>修改折扣</p>
+	  <div class="white_card">
+	    <p id = "levelNameP"></p>
+	    <div class="white_card_content">
+		   <ul class="clearfix">
+		      <li>项目折扣<input type="text" name="projectDiscount"></li>
+			  <li>现金支付打折
+			     <select name="cashDiscountType" class="chzn-select wthn100">
+                       <option value="0">不打折</option>
+                       <option value="1">打折</option>
+                 </select>
+                </li>
+			 <li>商品折扣<input type="text" name="goodsDiscount"></li>
+			 <li>业绩折扣打折<input type="text" name="performanceDiscountPercent"></li>
+			 <li>开卡费用<input type="text" name="sellAmount"></li>
+			 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:28px"></li>
+			 <li style="width:600px"><span class="mr10 label12 font-bold">积分计算方式：</span>
+			                            每消费<input type="number" name="integralUnit" class="input30" value="1"><span class="percent-symbol">元</span>
+                    <span class="ml10">获得</span>
+                    <input type="number" name="integralNumber" class="input30" value="1"><span class="percent-symbol">分</span>
+                </li>
+		   </ul>
+		</div>
+		<input type="hidden" name="discountId">
+	    <div class="zzc1_adjust_button">
+		  <button onclick="saveEditMemberLevel()">确认</button>
+		  <button onclick="cancelModal()">取消</button>
+		</div>
+	  </div>
+	  
+   </div>
+
+</div>
+
+<script>
+	 
+	 var showType = '${showType}';
+	 var chooseStoreId = '${chooseStoreId}';
+	//获取加载页面时的页码信息
+     var pageNo = "${page.pageNo}";
+     var pageSize = "${page.pageSize}";
+     var totalPage = "${page.totalPage}"
+ //轮播
+ 
+ 	jQuery(function(){
+ 		if (showType == '0') {
+ 			jQuery(".out_roll_content").remove();
+ 		}
+ 		
+	     var now_=0, count=jQuery('.out_roll_ul li').size();
+		 
+	  //向右走
+      jQuery('.click_right').click(function(){
+         if(now_<=count-6){
+		    now_+=1;
+	        jQuery(this).parent('').find('.out_roll_ul').stop(true,true).animate({
+		       left:-181*now_
+		   
+		       }) 
+			  }
+		  });
+	  //向左走
+	  
+	 jQuery('.click_left').click(function(){
+         if(now_>=1){
+		    now_-=1;
+	         jQuery(this).parent('').find('.out_roll_ul').stop(true,true).animate({
+		     left:-181*now_
+		   
+		     }) 
+		  }	
+        		
+	  });
+ });
+
+//显示隐藏‘停止’
+jQuery(function(){
+  jQuery('.new_data td em').click(function(){
+    jQuery(this).parent().find('ul').stop(true,true).toggle('normal');
+ 
+  });
+})
+</script>
 <script type="text/javascript" src="<%=basePath %>js/member/memberLevel.js"></script>
 </body>
 </html>

@@ -92,3 +92,148 @@ table tr:nth-child(n+2){color:black}
     background: rgba(102, 108, 121, 0.8);
 }
 #flashEditorOut{text-align:center;margin-top:50px}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+   }
+.clearfix {
+  zoom: 1;
+}
+em{font-style:normal}
+ul li{
+	list-style:none
+	 }
+
+
+.preview_1{
+	width:290px;
+	height:180px;
+	overflow:hidden;
+	border-radius:8px;
+	background-size:290px 180px;
+	margin:0 auto;
+	color:white;
+}
+.preview_left{float:left;width:100px;position:relative;top:105px;left:70px;font-size:12px}
+
+.preview_right{float:left;width:160px}
+.preview_right ul{margin-top:60px;margin-left:34px}
+.preview_right ul li{height:50px}
+.preview_right span{font-size:12px;position:relative;width:180px;display:inline-block;left:8px;top:-8px}
+.preview_right span em{display:inline-block;height:20px;width:36px;text-align:center;line-height:20px;border:1px solid white;border-radius:12px;margin-left:12px}
+
+.preview_2{
+	width:290px;
+	height:180px;
+	overflow:hidden;
+	border-radius:8px;
+	background-size:290px 180px;
+	margin:0 auto;
+	color:white;
+	
+}
+.preview_2_top span{position:relative;font-size:12px;top:10px;left:260px}
+.preview_2_content_right{float:left;margin-top:54px;width:180px}
+.preview_2_content_right p{font-size:12px}
+
+
+
+.vip_card_1 {
+    width: 290px;
+     height: 180px;
+     overflow: hidden;
+     border-radius: 8px;
+     background-size: 290px 180px;
+    margin: 0 auto;
+    color: #473f24;
+	font-weight:bold
+}
+.vip_card_1_left {
+    float: left;
+    width: 100px;
+    position: relative;
+    top: 30px;
+    left: 75px;
+    font-size: 12px;
+}
+.vip_card_1_content ul{width:290px; position:relative;left: -40px;
+    text-align: center;}
+.vip_card_1_content ul li{float:left;width:145px;font-size:14px}
+.vip_card_1_content{margin-top:90px}
+.vip_card_1_content span{font-size:12px;display:inline-block;position:relative;left:120px;top:30px}
+
+.vip_card_2 {
+    width: 290px;
+     height: 180px;
+     overflow: hidden;
+     border-radius: 8px;
+     background-size: 290px 180px;
+    margin: 0 auto;
+    color: #f6e2b1;
+}
+.vip_card_2_left {
+    float: left;
+    width: 100px;
+    position: relative;
+    top: 18px;
+    left: 58px;
+    font-size: 12px;
+}
+.vip_card_2_content ul{width:290px; position:relative;left: -40px;
+    text-align: center;}
+.vip_card_2_content ul li{width:145px;font-size:14px;height:40px}
+.vip_card_2_content{margin-top:70px}
+.vip_card_2_content span{font-size:12px;display:inline-block;position:relative;left:25px;top:-15px}
+
+.vip_card_3 {
+    width: 290px;
+     height: 180px;
+     overflow: hidden;
+     border-radius: 8px;
+     background-size: 290px 180px;
+    margin: 0 auto;
+    color:#505050;
+	font-weight:bold
+}
+.vip_card_3_left {
+    float: left;
+    width: 100px;
+    position: relative;
+    top: 25px;
+    left: 235px;
+    font-size: 12px;
+}
+.vip_card_3_content ul{width:290px; position:relative;left: -40px;
+    text-align: center;}
+.vip_card_3_content ul li{float:left;width:145px;font-size:14px}
+.vip_card_3_content{margin-top:90px}
+.vip_card_3_content span{font-size:12px;display:inline-block;position:relative;left:20px;top:30px}
+
+.vip_card_4 {
+    width: 290px;
+     height: 180px;
+     overflow: hidden;
+     border-radius: 8px;
+     background: url('./images/vip_4.png') no-repeat;
+     background-size: 290px 180px;
+    margin: 0 auto;
+    color:#897239;
+	font-weight:bold
+}
+.vip_card_4_left {
+    float: left;
+    width: 100px;
+    position: relative;
+    top: 42px;
+    left: 247px;
+    font-size: 12px;
+}
+.vip_card_4_content ul{width:290px; position:relative;left: -40px;
+    text-align: center;}
+.vip_card_4_content ul li{float:left;width:145px;font-size:14px}
+.vip_card_4_content{margin-top:75px}
+.vip_card_4_content span{font-size:12px;display:inline-block;position:relative;left:95px;}

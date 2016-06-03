@@ -148,4 +148,13 @@ public interface MemberLevelMapper {
     * @return MemberLevelDto
      */
     MemberLevelDto selectByEnterprise(Integer levelId);
+    
+    /**
+     * 折扣标识查询会员等级信息dto
+    * @author 老王
+    * @date 2016年6月2日 上午11:40:58 
+    * @param discountId 折扣标识
+    * @return MemberLevelDto
+     */
+    MemberLevelDto selectByDiscountId(Integer discountId);
 }

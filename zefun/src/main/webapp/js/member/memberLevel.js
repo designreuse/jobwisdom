@@ -1,163 +1,107 @@
-jQuery(function() {
-	/*表头置顶*/
-	var a=[];
-    jQuery(".mainwrapper").show()
-    var tlength=jQuery(".t-fix th").length;
-        for(i=0;i<tlength;i++)  {
-        a[i]=jQuery(".t-fix th").eq(i).width();
-    }
 
-   function table() {
-       jQuery(".mainwrapper").show()
-       var fix=jQuery(".t-fix").offset()
-       var tableT=fix.top
-       jQuery(window).scroll(function(event){
-           var scH=jQuery(window).scrollTop()
-           if(scH>tableT){
-               jQuery(".t-fix").addClass("add-fix")
-               for(i=0;i<jQuery(".t-fix th").length;i++){
-                   var tdwidth=a[i];
-                   var tbwidth=a[i];
-                   jQuery(".t-fix th").eq(i).css("width",tdwidth)
-                   jQuery(".t-table td").eq(i).css("width",tbwidth)
-
-               }
-           }
-           else{
-               jQuery(".t-fix").removeClass("add-fix")
-           }
-       })
-   }
-   table(); 
-});
-
-function saveSelection() {
-    if (window.getSelection) {
-        sel = window.getSelection();
-        if (sel.getRangeAt && sel.rangeCount) {
-            return sel.getRangeAt(0);
-        }
-    } else if (document.selection && document.selection.createRange) {
-        return document.selection.createRange();
-    }
-    return null;
-}
-
-var r = null;
-jQuery(function(){
-    jQuery('#editor_id').focus();
-    r = saveSelection();
-    window.scrollTo(0, 0);
-});
-
-function setEndOfContenteditable(){
-    var contentEditableElement = jQuery('#editor_id')[0];
-    var range = r,selection;
-    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
-    {
-        range.selectNodeContents(contentEditableElement);//Select the entire contents of the element with the range
-        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-    }
-    else if(document.selection)//IE 8 and lower
-    {
-        range.moveToElementText(contentEditableElement);//Select the entire contents of the element with the range
-        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-        range.select();//Select the range (make it the visible selection
-    }
-}
-
-function insertHtmlAtCaret(html) {
-    var range = r;
-    if (window.getSelection) {
-        if (sel.getRangeAt && sel.rangeCount) {
-            range.deleteContents();
-            var el = document.createElement("div");
-            el.innerHTML = html;
-            var frag = document.createDocumentFragment(), node, lastNode;
-            while ( (node = el.firstChild) ) {
-                lastNode = frag.appendChild(node);
-            }
-            range.insertNode(frag);
-            if (lastNode) {
-                range = range.cloneRange();
-                range.setStartAfter(lastNode);
-                range.collapse(true);
-                sel.removeAllRanges();
-                sel.addRange(range);
-            }
-        }
-    } else if (document.selection && document.selection.type != "Control") {
-        range.pasteHTML(html);
-    }
-    setEndOfContenteditable();
-    r = saveSelection();
-}
-
-jQuery(document).ready(function(){
-	jQuery(document).delegate('#editor_id', 'mouseup', function(e){
-	    if(e.target.id != 'editor_id') {
-	        return false;
-	    }
-	    r = saveSelection();
-	});
+function chooseStore(obj, storeId) {
+	jQuery(obj).addClass("active");
+	jQuery(obj).siblings().removeClass("active");
 	
-	jQuery(document).delegate('#editor_id', 'keyup', function(e){
-	    if(e.target.id != 'editor_id') {
-	        return false;
-	    }
-	    r = saveSelection();
-	});
-
-	jQuery('#editor_id').on('paste', function( evt ) {
-	    var ohml = jQuery(this).html();
-	    evt.preventDefault();
-	    var c = "";
-	    try {
-	    	c = evt.originalEvent.clipboardData.getData('Text');
-	    } catch(e) {
-		    c = window.clipboardData.getData('Text');
-	    }
-
-	    var vs = c.split('\n');
-	    for (var i = 0; i < vs.length; i++) {
-	    	var vv = vs[i];
-	    	insertHtmlAtCaret('<div>' + vv + '</div>');
-		}
-	    return false;
-	});
-});
-
-//===================内容编辑区域处理结束=============================================================================================================================
-
-//点击新增时的处理
-function showAddView(){
-	jQuery(".editMemberLevelForm")[0].reset();
-	jQuery('#add-member-card').modal({show:true, backdrop:"static"});
+	chooseStoreId = storeId;
+	
+	changePage();
 }
 
-//提交会员等级信息，存在等级标识则修改，不存在则新增
-function addOrEditMemberLevel(){
+function changeType () {
+	pageNo = 1;
+	changePage();
+}
+
+//分页处理
+function changePage(){
+	var type = jQuery("select[name='levelType']").val();
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "memberLevel/action/selectStoreMemberLevel",
+		data : "pageNo=" + pageNo + "&pageSize=" + pageSize + "&storeId=" +chooseStoreId+ "&type="+type,
+		dataType : "json",
+		success : function(e){
+			if(e.code != 0){
+				dialog(e.msg);
+				return;
+			}
+			refreshTableData(e.msg);
+			totalRecord = e.msg.totalRecord;
+		}
+	});
+}
+
+//刷新表格数据
+function refreshTableData(page){
+	pageNo = page.pageNo;
+	pageSize = page.pageSize;
+	totalPage = page.totalPage;
+	jQuery(".vip_card_table tr:gt(0)").remove();
+	var memberLevelDtoList = page.results;
+	for (var i = 0; i < memberLevelDtoList.length; i++) {
+		var memberLevelDto = memberLevelDtoList[i];
+		
+		var str = "<tr id='"+memberLevelDto.discountId+"'>"+
+			             "<td>"+memberLevelDto.levelName;
+	    if (memberLevelDto.isDefault == 1) {
+	    	str += "<span class='font-999'>默认等级</span>";
+	    }
+	    str +=   "</td>"+
+	             "<td>"+memberLevelDto.projectDiscount+"%</td>"+
+	             "<td>"+memberLevelDto.goodsDiscount+"%</td>"+
+	             "<td>"+memberLevelDto.chargeMinMoney+"元</td>"+
+	             "<td>"+memberLevelDto.sellAmount+"元</td>";
+	    
+	    if (memberLevelDto.cashDiscountType == 0) {
+	    	str += "<td>不打折</td>";
+	    }
+	    else {
+	    	str += "<td>打折</td>";
+	    }
+	    str += "<td>"+memberLevelDto.performanceDiscountPercent+"%</td>"+
+	             "<td>"+memberLevelDto.integralUnit+"元 = "+memberLevelDto.integralNumber+"积分</td>"+
+	             "<td class='input80 ellipsis-text'>"+memberLevelDto.levelNotice+"</td>"+
+	             "<td><em onclick='editMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/handle_1.png'></em><em onclick='showMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/shop_vip.png'></em></td>"+
+	           "</tr>";
+		
+		jQuery(".vip_card_table table").append(str);
+	}
+}
+
+function editMemberLevel (discountId) {
+	jQuery(".zzc1").show();
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "memberLevel/action/info",
+		data : "discountId=" + discountId,
+		dataType : "json",
+		success : function(e){
+			if(e.code != 0){
+				dialog(e.msg);
+				return;
+			}
+			dataToFormByName(e.msg);
+			jQuery("#levelNameP").append(e.msg.levelName);
+		}
+	});
+}
+
+function saveEditMemberLevel () {
 	var projectDiscountValue = jQuery("input[name='projectDiscount']").val();
 	var goodsDiscountValue = jQuery("input[name='goodsDiscount']").val();
 	var performanceDiscountPercentValue = jQuery("input[name='performanceDiscountPercent']").val();
 	var sellAmountValue = jQuery("input[name='sellAmount']").val();
 	var chargeMinMoneyValue = jQuery("input[name='chargeMinMoney']").val();
-	var levelName = jQuery("input[name='levelName']").val();
 	var cashDiscountType = jQuery("[name='cashDiscountType']").val();
-	var levelId = jQuery("[name='levelId']").val();
 	var integralUnit = jQuery("[name='integralUnit']").val();
 	var integralNumber = jQuery("[name='integralNumber']").val();
-	
+	var discountId = jQuery("[name='discountId']").val();
 	if (isEmpty(integralUnit)) {
 		integralUnit = 0;
 	}
 	if (isEmpty(integralNumber)) {
 		integralNumber = 0;
-	}
-	
-	if(levelName.length == 0) {
-		dialog("请填写会员卡名称");
-		return;
 	}
 	//判断项目折扣
 	if(projectDiscountValue.length == 0) {
@@ -214,27 +158,8 @@ function addOrEditMemberLevel(){
 		dialog("'最低充值'填写错误");
 		return;
 	}
-	
-	var contents = new Array();
-	var it_contents = function(cs){
-	    cs.each(function(){
-	        if(this.nodeName.toLowerCase() == '#text') {
-	            if(this.data && jQuery.trim(this.data)) {
-	                contents.push(this.data + "\001" + '1');
-	            }
-	        } else if(this.nodeName.toLowerCase() == 'div') {
-	            it_contents(jQuery(this).contents());
-	        } else if(this.nodeName.toLowerCase() == 'img') {
-	            var s = jQuery(this).attr('src').replace(picUrl, '');
-	            contents.push(s + "\001" + '2');
-	        }
-	    });
-	};
-	it_contents(jQuery('#editor_id').contents());
-	
+			
 	var data = {};
-	data["levelId"] = levelId;
-	data["levelName"] = levelName;
 	data["projectDiscount"] = projectDiscountValue;
 	data["goodsDiscount"] = goodsDiscountValue;
 	data["performanceDiscountPercent"] = performanceDiscountPercentValue;
@@ -243,227 +168,86 @@ function addOrEditMemberLevel(){
 	data["cashDiscountType"] = cashDiscountType;
 	data["integralUnit"] = integralUnit;
 	data["integralNumber"] = integralNumber;
-	
-	if(contents.length > 0) {
-	    data["levelNoticeArr"] = contents;
-	}
-	
+	data["discountId"] = discountId;
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "memberLevel/action/add",
+		url : baseUrl + "memberLevel/action/saveEditMemberLevel",
+		data : data,
 		dataType : "json",
-        data: data,
 		success : function(e){
 			if(e.code != 0){
 				dialog(e.msg);
 				return;
 			}
 			dialog("提交成功,即将刷新页面...");
-			resetForm(".editMemberLevelForm");
-			jQuery("#editor_id").html("");
-			pageNo = 1;
-			changePage();
-			unbuildPagination();
+			location.reload();
 		}
 	});
 }
 
-function czupdateDeptInfoId(obj){
-	var deptId = jQuery(obj).val();
-	var deptName = jQuery(obj).find("option[value='"+deptId+"']").text();
-	jQuery(obj).closest('td').append("<div class='p-part'>"+
-				                        "<div class='select-result'>"+
-				                            "<span name='czDeptId' value='"+deptId+"'>"+deptName+"：</span>"+
-				                            "<input type='text'/><span class='percent-symbol'>元</span>"+
-				                            "<span onclick='czdeleteDept(this)'>&nbsp;&nbsp;X</span>"+
-				                        "</div>"+
-				                   "</div>");
-	jQuery(obj).find("option[value='"+deptId+"']").remove();
-	jQuery(obj).trigger("liszt:updated");
-}
-
-function czdeleteDept(obj){
-	var deptId = jQuery(obj).parents(".p-part").find("span[name='czDeptId']").attr("value");
-	var deptName = jQuery.trim((jQuery(obj).parents(".p-part").find("span[name='czDeptId']").text()).replace("：",""));
-	
-	jQuery(obj).parents(".p-part").remove();
-	var select = jQuery(obj).closest("td").find('select');
-	
-	select.append("<option value='"+deptId+"'>"+deptName+"</option>");
-	select.trigger("liszt:updated");
-}
-
-//修改会员等级信息
-function editMemberLevel(levelId){
+function showMemberLevel (discountId) {
+	jQuery(".zzc").show();
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "memberLevel/action/info",
-		data : "levelId=" + levelId,
+		data : "discountId=" + discountId,
 		dataType : "json",
 		success : function(e){
 			if(e.code != 0){
 				dialog(e.msg);
 				return;
 			}
-			jQuery(".editMemberLevelForm [type=reset]").trigger("click");
-			dataToFormByName(e.msg);
-			
-			var list = e.msg.levelNoticeList;
-			var content = jQuery("#editor_id");
-			if (list != null) {
-				for (var i = 0; i < list.length; i++) {
-					content.append("<div>" + list[i].text + "</div>");
-				}
-			}
+			var data = e.msg;
+			var arrStr = data.levelLogo;
+			var arr = arrStr.split(",");
+			chooseMemberPage(data.levelType, arr[0], arr[1]);
+			jQuery("#levelName").text(data.levelName);
+			jQuery("#projectDiscount").text(data.projectDiscount);
+			jQuery("#goodsDiscount").text(data.goodsDiscount);
 		}
 	});
 }
 
-//删除会员等级信息
-function deleteMemberLevel(levelId){
-	jQuery.ajax({
-		type : "post",
-		url : baseUrl + "memberLevel/action/delete",
-		data : "levelId=" + levelId,
-		dataType : "json",
-		success : function(e){
-			if(e.code != 0){
-				dialog(e.msg);
-				return;
-			}
-			jQuery(".member-card-table tr[id='" + levelId + "']").fadeOut(500).remove();
-		}
-	});
-}
-
-
-//设置默认会员等级
-function setDefaultLevel(levelId){
-	jQuery.ajax({
-		type : "post",
-		url : baseUrl + "memberLevel/action/default",
-		data : "levelId=" + levelId,
-		dataType : "json",
-		success : function(e){
-			if(e.code != 0){
-				dialog(e.msg);
-				return;
-			}
-			dialog("提交成功,即将刷新页面...");
-			pageNo = 1;
-			changePage();
-		}
-	});
-}
-
-//分页处理
-function changePage(){
-	jQuery.ajax({
-		type : "post",
-		url : baseUrl + "memberLevel/action/list",
-		data : "pageNo=" + pageNo + "&pageSize=" + pageSize,
-		dataType : "json",
-		success : function(e){
-			if(e.code != 0){
-				dialog(e.msg);
-				return;
-			}
-			refreshTableData(e.msg);
-			totalRecord = e.msg.totalRecord;
-		}
-	});
-}
-
-//刷新表格数据
-function refreshTableData(page){
-	pageNo = page.pageNo;
-	pageSize = page.pageSize;
-	totalPage = page.totalPage;
+function chooseMemberPage (type, positivePageUrl, oppositePageUrl) {
+	valueChooseMemberPage(positivePageUrl, oppositePageUrl);
 	
-	var memberLevelList = page.results;
-	var tbody = document.createElement("tbody");
-	for (var i = 0; i < memberLevelList.length; i++) {
-		var memberLevel = memberLevelList[i];
-		
-		var tr = document.createElement("tr");
-		tr.setAttribute("id", memberLevel.levelId);
-		
-		var levelNameTd = document.createElement("td");
-		levelNameTd.innerHTML = memberLevel.levelName;
-		if (memberLevel.isDefault == 1) {
-			levelNameTd.innerHTML = memberLevel.levelName + ' <span class="font-999">默认等级</span>';
-		}
-		tr.appendChild(levelNameTd);
-		
-		var projectDiscountTd = document.createElement("td");
-		projectDiscountTd.innerHTML = memberLevel.projectDiscount + "%";
-		tr.appendChild(projectDiscountTd);
-		
-		var goodsDiscountTd = document.createElement("td");
-		goodsDiscountTd.innerHTML = memberLevel.goodsDiscount + "%";
-		tr.appendChild(goodsDiscountTd);
-		
-		var chargeMinMoneyTd = document.createElement("td");
-		chargeMinMoneyTd.innerHTML = memberLevel.chargeMinMoney + "元";
-		tr.appendChild(chargeMinMoneyTd);
-		
-		var sellAmountTd = document.createElement("td");
-		sellAmountTd.innerHTML = memberLevel.sellAmount + "元";
-		tr.appendChild(sellAmountTd);
-		
-		var sellAmountTd = document.createElement("td");
-		if (memberLevel.cashDiscountType == 0) {
-			sellAmountTd.innerHTML = "不打折";
-		} else {
-			sellAmountTd.innerHTML = "打折";
-		}
-		tr.appendChild(sellAmountTd);
-		
-		//业绩折扣比例
-		var performanceDiscountPercentTd = document.createElement("td");
-		if (memberLevel.performanceDiscountPercent === null) {
-			performanceDiscountPercentTd.innerHTML = 0 + "%";
-		} else {
-			performanceDiscountPercentTd.innerHTML = memberLevel.performanceDiscountPercent + "%";
-		}
-		tr.appendChild(performanceDiscountPercentTd);
-		
-		var integralNumberTd = document.createElement("td");
-		integralNumberTd.innerHTML = memberLevel.integralUnit + "元 = " + memberLevel.integralNumber + " 积分";
-		tr.appendChild(integralNumberTd);
-		
-		//等级描述
-		var levelNoticeTd = document.createElement("td");
-		var levelNotice = '';
-		if (memberLevel.levelNoticeList != null) {
-			for (var i = 0; i < memberLevel.levelNoticeList.length; i++) {
-				levelNotice += memberLevel.levelNoticeList[i].text + " ";
-			}
-		}
-		levelNoticeTd.innerHTML = levelNotice + "&nbsp;";
-		levelNoticeTd.setAttribute("class", "input80 ellipsis-text");
-		tr.appendChild(levelNoticeTd);
-        
-		if(hasModify == 1) {
-			var operateTd = document.createElement("td");
-			//根据权限页面显示修改按钮
-			var editSpan = document.createElement("span");
-			editSpan.setAttribute("class", "iconfont icon-dizhixiugai");
-			editSpan.setAttribute("onclick", "editMemberLevel(" + memberLevel.levelId + ")");
-			operateTd.appendChild(editSpan);
-			//根据权限页面显示删除按钮(默认等级任何等级都不能删除)
-			console.log("memberLevel.is_default: " + memberLevel.isDefault);
-			if (parseInt(memberLevel.isDefault) != 1) {
-				var removeSpan = document.createElement("span");
-				removeSpan.setAttribute("class", "iconfont icon-xx ml10");
-				removeSpan.setAttribute("onclick", "deleteMemberLevel(" + memberLevel.levelId + ")");
-				operateTd.appendChild(removeSpan);
-			}
-			tr.appendChild(operateTd);
-		}
-		
-		tbody.appendChild(tr);
+	jQuery("div[name='pagePreview']").attr("class", "");
+	jQuery("div[name='pagePreviewLeft']").attr("class", "");
+	jQuery("div[name='pagePreviewRight']").attr("class", "");
+	if (type == 1) {
+		jQuery("div[name='pagePreview']").addClass("preview_1");
+		jQuery("div[name='pagePreviewLeft']").addClass("preview_left");
+		jQuery("div[name='pagePreviewRight']").addClass("preview_right");
 	}
-	jQuery(".member-card-table tbody").remove();
-	jQuery(".member-card-table").append(tbody);
+	else if (type == 2) {
+		jQuery("div[name='pagePreview']").addClass("vip_card_1");
+		jQuery("div[name='pagePreviewLeft']").addClass("vip_card_1_left");
+		jQuery("div[name='pagePreviewRight']").addClass("vip_card_1_content");
+	}
+	else if (type == 3) {
+		jQuery("div[name='pagePreview']").addClass("vip_card_2");
+		jQuery("div[name='pagePreviewLeft']").addClass("vip_card_2_left");
+		jQuery("div[name='pagePreviewRight']").addClass("vip_card_2_content");
+	}
+	else if (type == 4) {
+		jQuery("div[name='pagePreview']").addClass("vip_card_3");
+		jQuery("div[name='pagePreviewLeft']").addClass("vip_card_3_left");
+		jQuery("div[name='pagePreviewRight']").addClass("vip_card_3_content");
+	}
+	else if (type == 5) {
+		jQuery("div[name='pagePreview']").addClass("vip_card_4");
+		jQuery("div[name='pagePreviewLeft']").addClass("vip_card_4_left");
+		jQuery("div[name='pagePreviewRight']").addClass("vip_card_4_content");
+	}
+}
+
+function valueChooseMemberPage (positivePageUrl, oppositePageUrl) {
+	jQuery("div[name='pagePreview']").css("background", "url('"+qiniuUrl + positivePageUrl+"') no-repeat");
+	jQuery(".preview_2").css("background", "url('"+qiniuUrl + oppositePageUrl+"') no-repeat");
+}
+
+function cancelModal () {
+	jQuery(".zzc1").hide();
+	jQuery(".zzc").hide();
+	jQuery(".zzc1").find("[type='text']").val('');
 }

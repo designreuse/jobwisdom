@@ -112,14 +112,16 @@ public interface Url {
 		public static final String SAVE_ENTERPRISE_MEMBERLEVEL = "memberLevel/view/saveEnterpriseMemberLevel";
 		/** 企业查询单个会员卡*/
 		public static final String SELECT_ENTERPRISE_MEMBER = "memberLevel/view/selectEnterpriseMember";
-		/** 添加等级 */
-		public static final String ACTION_ADD = "memberLevel/action/add";
+		/** 门店查询会员卡*/
+		public static final String SELECT_STORE_MEMBER_LEVEL = "memberLevel/action/selectStoreMemberLevel";
 		/** 显示会员等级列表的页面 */
 		public static final String VIEW_LIST = "memberLevel/view/list";
 		/** 分页查询会员等级信息 */
 		public static final String ACTION_LIST = "memberLevel/action/list";
 		/** 查询会员等级信息 */
 		public static final String ACTION_INFO = "memberLevel/action/info";
+		/** 门店会员卡修改*/
+		public static final String SAVE_EDIT_MEMBER_LEVEL = "memberLevel/action/saveEditMemberLevel";
 		/** 删除会员等级信息 */
 		public static final String ACTION_DELETE = "memberLevel/action/delete";
 		/** 设置默认等级 */
