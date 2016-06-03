@@ -2,13 +2,10 @@ package com.zefun.web.service;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,13 +25,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -65,6 +60,7 @@ import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberGroupDto;
 import com.zefun.web.dto.MemberInfoDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.MemberOrderDto;
 import com.zefun.web.dto.MemberSubAccountDto;
 import com.zefun.web.dto.OrderDetailDto;
@@ -295,11 +291,11 @@ public class MemberInfoService {
     * @author 张进军
     * @date Aug 19, 2015 7:54:03 PM
     * @param phone      手机号码
-    * @param storeId 门店标识
+    * @param storeAccount 门店标识
     * @return           true:存在,false:不存在
      */
-    public boolean isExists(String phone, String storeId) {
-        Integer result = selectMemberIdByPhone(phone, storeId);
+    public boolean isExists(String phone, String storeAccount) {
+        Integer result = selectMemberIdByPhone(phone, storeAccount);
         if (result == null) {
             return false;
         }
@@ -308,7 +304,7 @@ public class MemberInfoService {
 
     /**
      * 根据手机号码查询会员标识
-    * @author 张进军
+    * @author 老高
     * @date Aug 19, 2015 7:49:56 PM
     * @param phone  手机号码
     * @param storeAccount 门店标识
@@ -435,7 +431,7 @@ public class MemberInfoService {
         page.setParams(map);
         List<MemberInfoDto> memberInfoDtos = memberInfoMapper.selectMemberInfosByPage(page);
         page.setResults(memberInfoDtos);
-        List<MemberLevel> levels = memberLevelMapper.selectByStoreId(storeId);
+        List<MemberLevelDto> levels = memberLevelMapper.selectByStoreId(storeId);
         ModelAndView view = new ModelAndView(View.MemberInfo.MEMBER_LIST_VIEW);
         view.addObject("page", page);
         view.addObject("levels", levels);

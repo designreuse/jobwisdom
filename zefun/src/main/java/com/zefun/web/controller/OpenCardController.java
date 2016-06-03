@@ -364,7 +364,7 @@ public class OpenCardController extends BaseController {
 	@RequestMapping(value = Url.KeepAccounts.IS_CHECK_ACCOUNT, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto isCheckAccount(HttpServletRequest request, HttpServletResponse response, String phone) {
-		if (memberInfoService.isExists(phone, getStoreId(request))) {
+		if (memberInfoService.isExists(phone, getStoreAccount(request))) {
 			return new BaseDto(41007, "该手机号码已存在，请重新输入！");
 		}
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);

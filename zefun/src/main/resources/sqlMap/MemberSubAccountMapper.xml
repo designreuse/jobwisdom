@@ -42,21 +42,25 @@
   <select id="selectSubAccountListByAccountId" resultMap="SubAccountMap" parameterType="java.lang.Integer">
   	select 
 		msa.sub_account_id, msa.level_id, msa.total_amount, msa.total_present_amount, msa.balance_amount, msa.use_amount,
-		ml.level_name, ml.project_discount, ml.goods_discount, ml.cash_discount_type, ml.integral_unit, ml.integral_number, 
-		ml.performance_discount_percent, ml.level_notice
+		ml.level_name, mld.project_discount, mld.goods_discount, mld.cash_discount_type, mld.integral_unit, mld.integral_number, 
+		mld.performance_discount_percent, ml.level_notice
 	from member_sub_account msa
 	left join member_level ml on msa.level_id = ml.level_id
+	left join member_info mi on mi.member_id = msa.account_id
+	left join member_level_discount mld on mld.level_id = msa.level_id and mi.store_id = mld.store_id
 	where msa.account_id = #{accountId}
   </select>
   
   <select id="selectSubAccountBySubAccountId" resultMap="SubAccountMap" parameterType="java.lang.Integer">
   	select 
 		msa.sub_account_id, msa.level_id, msa.total_amount, msa.total_present_amount, msa.balance_amount, msa.use_amount,
-		ml.level_name, ml.project_discount, ml.goods_discount, ml.cash_discount_type, ml.integral_unit, ml.integral_number,
-		ml.performance_discount_percent, ml.level_notice
+		ml.level_name, mld.project_discount, mld.goods_discount, mld.cash_discount_type, mld.integral_unit, mld.integral_number,
+		mld.performance_discount_percent, ml.level_notice
 	from member_sub_account msa
 	left join member_level ml on msa.level_id = ml.level_id
-	where msa.sub_account_id = #{subAccountId}
+	left join member_info mi on mi.member_id = msa.account_id
+	left join member_level_discount mld on mld.level_id = msa.level_id and mi.store_id = mld.store_id
+	where msa.sub_account_id = #{subAccountId} 
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
