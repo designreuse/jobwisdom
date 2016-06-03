@@ -153,21 +153,21 @@ public class UboxMallController extends BaseController {
     * @param response       响应对象
     * @return   微信支付所需参数
      */
-    @RequestMapping(value = Url.UboxMall.ACTION_GOODS_PAY, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto goodsPayAction(int storeId, Integer storeGoodsId, int payType,
-            HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(storeId, 1, request, response);
-        if (openId == null) {
-            return null;
-        }
-        String wechatPayOpenId = getOpenIdForYoumei(1, request, response);
-        if (wechatPayOpenId == null) {
-            return null;
-        }
-        Integer memberId = getUserIdByOpenId(openId);
-        return uboxMallService.goodsPayAction(wechatPayOpenId, memberId, storeGoodsId, payType, request);
-    }
+//    @RequestMapping(value = Url.UboxMall.ACTION_GOODS_PAY, method = RequestMethod.POST)
+//    @ResponseBody
+//    public BaseDto goodsPayAction(int storeId, Integer storeGoodsId, int payType,
+//            HttpServletRequest request, HttpServletResponse response){
+//        String openId = getOpenId(storeId, 1, request, response);
+//        if (openId == null) {
+//            return null;
+//        }
+//        String wechatPayOpenId = getOpenIdForYoumei(1, request, response);
+//        if (wechatPayOpenId == null) {
+//            return null;
+//        }
+//        Integer memberId = getUserIdByOpenId(openId);
+//        return uboxMallService.goodsPayAction(wechatPayOpenId, memberId, storeGoodsId, payType, request);
+//    }
     
     
     /**
@@ -221,16 +221,16 @@ public class UboxMallController extends BaseController {
     * @param response   响应对象
     * @return   订单列表
      */
-    @RequestMapping(value = Url.UboxMall.VIEW_ORDER_LIST)
-    public ModelAndView orderListView(@PathVariable int storeId, 
-            HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(storeId, 3, request, response);
-        if (openId == null) {
-            return null;
-        }
-        Integer memberId = getUserIdByOpenId(openId);
-        return uboxMallService.orderListView(memberId);
-    }
+//    @RequestMapping(value = Url.UboxMall.VIEW_ORDER_LIST)
+//    public ModelAndView orderListView(@PathVariable int storeId, 
+//            HttpServletRequest request, HttpServletResponse response) {
+//        String openId = getOpenId(storeId, 3, request, response);
+//        if (openId == null) {
+//            return null;
+//        }
+//        Integer memberId = getUserIdByOpenId(openId);
+//        return uboxMallService.orderListView(memberId);
+//    }
     
     
     /**

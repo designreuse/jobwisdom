@@ -105,7 +105,7 @@ public class ComboInfoController extends BaseController {
             model.addObject("goodsinfos", goodsinfos);
             model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
             // 会员等级列表
-            List<MemberLevelDto> memberLevelList = memberLevelService.queryByStoreId(storeId);
+            List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
             model.addObject("memberLevels", memberLevelList);
             
             List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();

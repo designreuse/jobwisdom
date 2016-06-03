@@ -221,8 +221,8 @@
  
  function checkPay() {
 	 if (isEmpty('${memberInfo.memberId}')) {
-		 $("#modalBuy-pop").addClass("in");
-		 //$("#confirmWindow").removeClass("hide");
+		 //$("#modalBuy-pop").addClass("in");
+		 $("#confirmWindow").removeClass("hide");
 		 return false;
      }
 	 else {

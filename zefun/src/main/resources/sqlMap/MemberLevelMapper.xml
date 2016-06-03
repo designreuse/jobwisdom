@@ -57,8 +57,9 @@
   </select>
   
   <select id="selectDefaultLevelIdByStoreId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-    select level_id from member_level where is_default = 1 
-    and store_id = (select ifnull(hq_store_id, #{storeId}) from store_info where store_id = #{storeId}) 
+    SELECT mld.level_id FROM member_level_discount mld
+		LEFT JOIN member_level ml ON mld.level_id = ml.level_id 
+		WHERE mld.store_id = #{storeId} AND ml.is_default = 1
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

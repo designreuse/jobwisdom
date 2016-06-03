@@ -1,0 +1,192 @@
+ *{margin:0;padding:0}
+ html{
+   font-size:10px
+ }
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+   }
+.clearfix {
+  zoom: 1;
+}
+
+ul li{
+	list-style:none
+ }
+body{
+background:#fafafb;
+   font: 12px/1.5 tahoma,arial,\5b8b\4f53,sans-serif;
+    margin: 0 auto;
+    max-width: 640px;
+	
+}
+.vip{overflow:hidden;position:relative;margin-bottom:5rem}
+
+.vip1,.vip2,.vip3,.vip4,.vip5{margin-top:1rem}
+/*第一个VIP卡*/
+
+
+.vip2 .flip-container {perspective: 1000px}
+.vip2 .flipper {transition:transform 0.6s ease-out;display:block;position: relative;}
+.vip2 .active{transform:rotateY(0deg)!important;z-index:3!important}
+.vip2 .active1{transform:rotateY(180deg)!important;z-index:4!important}
+.vip2 .front, .back {backface-visibility: hidden;transition: 2.6s ease-out;-webkit-transition: 2.6s ease-out; -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d; -ms-transform-style: preserve-3d;-o-transform-style: preserve-3d;transform-style: preserve-3d;position: absolute;top: 0;left: 0;}
+.vip2 .front img, .back img{ overflow:hidden;}
+.vip2 .front{transform:rotateY(180deg)}
+.vip2 .item{font-size:1.4rem}
+.vip2 .front,.back{
+  width:305px;
+  height:196px;  
+}
+.vip2 .front{
+ background:url('./images/vip_1_1.png') no-repeat;
+ background-size:100% 100%;
+
+  }
+.vip2 .back{
+  background:url('./images/vip_1.png') no-repeat;
+  background-size:100% 100%;
+}
+.vip2 ul{ width:305px;height:196px;  margin:10px auto;color:#473f24;font-weight:bold}
+.vip2 .number{position:relative;top:2.4rem;left:7rem}
+.vip2 .item span{width:49%;text-align:center;display:inline-block;margin-top:7rem}
+.vip2 .back  .rest{
+position:relative;top:4rem;left:14.5rem
+}
+
+
+/*第二个VIP卡*/
+
+ 
+.vip3 .flip-container {perspective: 1000px}
+.vip3 .flipper {transition:transform 0.6s ease-out;display:block;position: relative;}
+.vip3 .active{transform:rotateY(0deg)!important;z-index:3!important}
+.vip3 .active1{transform:rotateY(180deg)!important;z-index:4!important}
+.vip3 .front, .back {backface-visibility: hidden;transition: 2.6s ease-out;-webkit-transition: 2.6s ease-out; -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d; -ms-transform-style: preserve-3d;-o-transform-style: preserve-3d;transform-style: preserve-3d;position: absolute;top: 0;left: 0;}
+.vip3 .front img, .back img{ overflow:hidden;}
+.vip3 .front{transform:rotateY(180deg)}
+
+.vip3 .front,.back{
+  width:305px;
+  height:196px;  
+}
+.vip3 .front{
+ background:url('./images/vip_2_1.png') no-repeat;
+ background-size:100% 100%;
+
+  }
+ .vip3 .item{font-size:1.4rem;margin-top:4rem} 
+.vip3 .back{
+  background:url('./images/vip_2.png') no-repeat;
+  background-size:100% 100%;
+}
+.vip3 ul{ width:305px;height:196px;  margin:10px auto;color:#f6e2b1;font-weight:bold}
+.vip3 .number{position:relative;top:1.3rem;left:5rem}
+.vip3 .item span{width:49%;text-align:center;display:inline-block;display:block;margin-top:1rem}
+.vip3 .back  .rest{
+position:relative;top:4rem;left:2rem
+}
+
+
+/*第三个VIP卡*/
+
+ 
+.vip3 .flip-container {perspective: 1000px}
+.vip3 .flipper {transition:transform 0.6s ease-out;display:block;position: relative;}
+.vip3 .active{transform:rotateY(0deg)!important;z-index:3!important}
+.vip3 .active1{transform:rotateY(180deg)!important;z-index:4!important}
+.vip3 .front, .back {backface-visibility: hidden;transition: 2.6s ease-out;-webkit-transition: 2.6s ease-out; -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d; -ms-transform-style: preserve-3d;-o-transform-style: preserve-3d;transform-style: preserve-3d;position: absolute;top: 0;left: 0;}
+.vip3 .front img, .back img{ overflow:hidden;}
+.vip3 .front{transform:rotateY(180deg)}
+.vip3 .item{font-size:1.4rem}
+.vip3 .front,.back{
+  width:305px;
+  height:196px;  
+}
+.vip3 .front{
+ background:url('./images/vip_3_1.png') no-repeat;
+ background-size:100% 100%;
+
+  }
+.vip3 .back{
+  background:url('./images/vip_3.png') no-repeat;
+  background-size:100% 100%;
+}
+.vip3 ul{ width:305px;height:196px;  margin:10px auto;color:#505050;font-weight:bold}
+.vip3 .number{position:relative;top:2rem;left:20.2rem}
+.vip3 .item span{width:49%;text-align:center;display:inline-block;margin-top:7rem}
+.vip3 .back  .rest{
+position:relative;top:4rem;left:2rem
+}
+
+
+
+/*第四个VIP卡*/
+
+ 
+.vip3 .flip-container {perspective: 1000px}
+.vip3 .flipper {transition:transform 0.6s ease-out;display:block;position: relative;}
+.vip3 .active{transform:rotateY(0deg)!important;z-index:3!important}
+.vip3 .active1{transform:rotateY(180deg)!important;z-index:4!important}
+.vip3 .front, .back {backface-visibility: hidden;transition: 2.6s ease-out;-webkit-transition: 2.6s ease-out; -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d; -ms-transform-style: preserve-3d;-o-transform-style: preserve-3d;transform-style: preserve-3d;position: absolute;top: 0;left: 0;}
+.vip3 .front img, .back img{ overflow:hidden;}
+.vip3 .front{transform:rotateY(180deg)}
+.vip3.item{font-size:1.4rem}
+.vip3 .front,.back{
+  width:305px;
+  height:196px;  
+}
+.vip3 .front{
+ background:url('./images/vip_4_1.png') no-repeat;
+ background-size:100% 100%;
+
+  }
+.vip3 .item{font-size:1.4rem}
+.vip3 .back{
+  background:url('./images/vip_4.png') no-repeat;
+  background-size:100% 100%;
+}
+.vip3 ul{ width:305px;height:196px;  margin:10px auto;color:#897239;font-weight:bold}
+.vip3 .number{position:relative;top:3.5rem;left:21.5rem}
+.vip3 .item span{width:49%;text-align:center;display:inline-block;margin-top:5.5rem}
+.vip3 .back  .rest{
+position:relative;top:1.5rem;left:11rem
+}
+
+
+/*第五个VIP卡*/
+ 
+.vip1 .flip-container {perspective: 1000px}
+.vip1 .flipper {transition:transform 0.6s ease-out;display:block;position: relative;}
+.vip1 .active{transform:rotateY(0deg)!important;z-index:3!important}
+.vip1 .active1{transform:rotateY(180deg)!important;z-index:4!important}
+.vip1 .front, .back {backface-visibility: hidden;transition: 2.6s ease-out;-webkit-transition: 2.6s ease-out; -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d; -ms-transform-style: preserve-3d;-o-transform-style: preserve-3d;transform-style: preserve-3d;position: absolute;top: 0;left: 0;}
+.vip1 .front img, .back img{ overflow:hidden;}
+.vip1 .front{transform:rotateY(180deg)}
+
+.vip1 .front,.back{
+  width:305px;
+  height:196px;  
+}
+.vip1 .front{
+
+ background-size:100% 100%;
+
+  }
+.vip1 .item{font-size:1.4rem;margin-top:4rem;position:relative;left:10rem} 
+.vip1 .back{
+
+  background-size:100% 100%;
+}
+.vip1 ul{ width:305px;height:196px;  margin:10px auto;color:#d3d3d3;font-weight:bold}
+.vip1 .number{position:relative;top:8.6rem;left:6rem}
+.vip1 .item span{width:49%;text-align:center;display:inline-block;display:block;margin-top:2rem}
+.vip1 .back  .rest{
+position:relative;top:3rem;left:12rem
+}
+.vip .fix{position:fixed;height:5rem;width:100%;bottom:0;left:0;background:white;text-align:center}
+.vip button{border:none;background:#dd6a16;border-radius:1rem;color:white;font-size:1.4rem;width:80%;height:3rem;line-height:2.4rem;text-align:center;position:relative;margin:1rem auto}
+ 

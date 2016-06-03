@@ -22,6 +22,8 @@
     <result column="balance_amount" property="balanceAmount" jdbcType="DECIMAL" />
     <result column="use_amount" property="useAmount" jdbcType="DECIMAL" />
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
+    <result column="level_logo" property="levelLogo" jdbcType="VARCHAR" />
+    <result column="level_template" property="levelTemplate" jdbcType="INTEGER" />
     <result column="project_discount" property="projectDiscount" jdbcType="INTEGER" />
     <result column="goods_discount" property="goodsDiscount" jdbcType="INTEGER" />
     <result column="cash_discount_type" property="cashDiscountType" jdbcType="INTEGER" />
@@ -42,7 +44,7 @@
   <select id="selectSubAccountListByAccountId" resultMap="SubAccountMap" parameterType="java.lang.Integer">
   	select 
 		msa.sub_account_id, msa.level_id, msa.total_amount, msa.total_present_amount, msa.balance_amount, msa.use_amount,
-		ml.level_name, mld.project_discount, mld.goods_discount, mld.cash_discount_type, mld.integral_unit, mld.integral_number, 
+		ml.level_name, ml.level_logo, ml.level_template, mld.project_discount, mld.goods_discount, mld.cash_discount_type, mld.integral_unit, mld.integral_number, 
 		mld.performance_discount_percent, ml.level_notice
 	from member_sub_account msa
 	left join member_level ml on msa.level_id = ml.level_id

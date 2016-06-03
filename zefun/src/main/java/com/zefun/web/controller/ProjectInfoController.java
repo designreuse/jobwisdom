@@ -32,10 +32,10 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptMahjongDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.EmployeeLevel;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
@@ -96,7 +96,7 @@ public class ProjectInfoController extends BaseController {
         model.addObject("mahjongList", JSONArray.fromObject(deptMahjongList).toString());
 
         // 会员等级列表
-        List<MemberLevel> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
+        List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
         model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList).toString());
         List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();
