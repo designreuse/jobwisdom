@@ -1948,7 +1948,10 @@ public class MemberCenterService {
     * @return        页面
      */
     public ModelAndView onlionShopView(Integer storeId) {
-        List<GoodsInfoDto> goodsInfos = goodsInfoMapper.selectAllGoodsInfoByStoreId(storeId);
+        GoodsInfo goodsInfo = new GoodsInfo();
+        goodsInfo.setStoreId(storeId);
+        goodsInfo.setIsSellProduct(1);
+        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
         
         StoreShop storeShop = new StoreShop();
         storeShop.setStoreId(storeId);
