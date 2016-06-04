@@ -37,7 +37,7 @@ public class BossCenterController extends BaseController {
     * @return   老板模块首页
      */
     @RequestMapping(value = Url.Boss.VIEW_BOSS_HOME)
-    public ModelAndView homeView(@PathVariable int storeId, @PathVariable int businessType,
+    public ModelAndView homeView(@PathVariable String storeId, @PathVariable int businessType,
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {

@@ -174,8 +174,8 @@ public class StaffController extends BaseController {
         if (openId == null) {
             return null;
         }
-        int storeId = getStoreIdByOpenId(openId);
-        Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeId);
+        String storeAccount = getAccessToken(request);
+        Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeAccount);
         if (memberId != null) {
             return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, memberId);
         }

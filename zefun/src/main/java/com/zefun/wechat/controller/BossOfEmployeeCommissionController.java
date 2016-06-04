@@ -49,7 +49,7 @@ public class BossOfEmployeeCommissionController extends BaseController {
 	 */
 	@RequestMapping(value = Url.Boss.VIEW_HOME_EMPLOYEE_COMMISSION, method = RequestMethod.GET)
 	public ModelAndView employeePerformanceHome(HttpServletRequest request, HttpServletResponse response, 
-			  @PathVariable(value = "storeId") Integer storeId, @PathVariable(value = "businessType") Integer businessType) {
+			  @PathVariable(value = "storeId") String storeId, @PathVariable(value = "businessType") Integer businessType) {
 		String openId = getOpenId(storeId, businessType, request, response);
 		if (openId == null) {
 			return null;

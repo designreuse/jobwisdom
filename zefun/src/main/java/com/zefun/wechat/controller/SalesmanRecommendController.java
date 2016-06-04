@@ -60,7 +60,7 @@ public class SalesmanRecommendController extends BaseController {
 	 */
 	@RequestMapping(value = Url.Salesman.VIEW_SALESMAN_STORE_NORMAL, method = RequestMethod.GET)
     public ModelAndView storeNormal(HttpServletRequest request, HttpServletResponse response, int salesmanId) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -76,7 +76,7 @@ public class SalesmanRecommendController extends BaseController {
 	 */
 	@RequestMapping(value = Url.Salesman.VIEW_SALESMAN_STORE_RENEW, method = RequestMethod.GET)
     public ModelAndView salesmanRecommendStoreRenew(HttpServletRequest request, HttpServletResponse response, int salesmanId) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -92,7 +92,7 @@ public class SalesmanRecommendController extends BaseController {
 	 */
 	@RequestMapping(value = Url.Salesman.VIEW_SALESMAN_STORE_OVER, method = RequestMethod.GET)
     public ModelAndView salesmanRecommendStoreOver(HttpServletRequest request, HttpServletResponse response, int salesmanId) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -110,7 +110,7 @@ public class SalesmanRecommendController extends BaseController {
      * @return type对应的业务员客户页面
      */
     private ModelAndView salesmanStoreList(HttpServletRequest request, HttpServletResponse response, int type, int salesmanId) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }

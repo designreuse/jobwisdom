@@ -97,7 +97,7 @@ public class StoreDetailController extends BaseController {
      */
     @RequestMapping(value = Url.StoreDetail.VIEW_DETAIL_INDEX, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -152,7 +152,7 @@ public class StoreDetailController extends BaseController {
      * @return 连锁分店首页
      */
     private ModelAndView chainStore(StoreInfo storeInfo, HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -179,7 +179,7 @@ public class StoreDetailController extends BaseController {
      * @return 连锁总店首页
      */
     private ModelAndView chainHQStore(StoreInfo storeInfo, HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -204,7 +204,7 @@ public class StoreDetailController extends BaseController {
      * @return 单店首页
      */
     private ModelAndView singleStore(StoreInfo storeInfo, HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -227,7 +227,7 @@ public class StoreDetailController extends BaseController {
      */
     @RequestMapping(value = Url.StoreDetail.VIEW_DETAIL_INFO, method = RequestMethod.GET)
     public ModelAndView info(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -282,7 +282,7 @@ public class StoreDetailController extends BaseController {
      */
     @RequestMapping(value = Url.StoreDetail.VIEW_DETAIL_HQ_CHAINS, method = RequestMethod.GET)
     public ModelAndView chains(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -348,7 +348,7 @@ public class StoreDetailController extends BaseController {
      */
     @RequestMapping(value = Url.StoreDetail.VIEW_DETAIL_OPEN_SYS, method = RequestMethod.GET)
     public ModelAndView openSysView(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -391,7 +391,7 @@ public class StoreDetailController extends BaseController {
     @ResponseBody
     public BaseDto openSysAction(Integer sysType, Integer smsType,
             HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -464,7 +464,7 @@ public class StoreDetailController extends BaseController {
     @RequestMapping(value = Url.StoreDetail.VIEW_DETAIL_CHARGE_SYS, method = RequestMethod.GET)
     public ModelAndView chargeSysView(Integer businessType,
             HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -505,7 +505,7 @@ public class StoreDetailController extends BaseController {
     @ResponseBody
     public BaseDto chargeSysAction(Integer businessType, Integer productType,
             HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }

@@ -67,7 +67,7 @@ public class SalesmanInfoController extends BaseController {
 	 */
 	@RequestMapping(value = Url.Salesman.ACTION_LOGIN_SALESMAN, method = RequestMethod.GET)
 	public ModelAndView salesmanLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}
@@ -106,7 +106,7 @@ public class SalesmanInfoController extends BaseController {
 			return null;
 		}
 		//微信分享注册
-		setJsapiSignData(App.System.WECHAT_ZEFUN_STORE_ID, request);
+		setJsapiSignData(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), request);
 		ModelAndView mav = new ModelAndView(View.Salesman.VIEW_SALESMAN_ACCOUNT);
 		mav.addObject("salesman", salesman);
 		//微信分享传递的微信标识参数
@@ -122,12 +122,12 @@ public class SalesmanInfoController extends BaseController {
 	 */
 	@RequestMapping(value = Url.Salesman.VIEW_ACCOUNT_SALESMAN, method = RequestMethod.GET)
 	public ModelAndView toSalesmanAccount(HttpServletRequest request, HttpServletResponse response) {
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}
 		//微信分享注册
-		setJsapiSignData(App.System.WECHAT_ZEFUN_STORE_ID, request);
+		setJsapiSignData(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), request);
 		ModelAndView mav = new ModelAndView(View.Salesman.VIEW_SALESMAN_ACCOUNT);
 		SalesmanInfo salesman = salesmanInfoMapper.selectSalesmanByOpenId(openId);
 		mav.addObject("salesman", salesman);
@@ -147,7 +147,7 @@ public class SalesmanInfoController extends BaseController {
 	@RequestMapping(value = Url.Salesman.VIEW_SALESMAN_LISTALL)
 	public ModelAndView salesmanListAll(HttpServletRequest request, HttpServletResponse response) {
 		//获得微信标识
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}
@@ -176,7 +176,7 @@ public class SalesmanInfoController extends BaseController {
 	@RequestMapping(value = Url.Salesman.VIEW_SALESMAN_HOME)
 	public ModelAndView salesmanList(HttpServletRequest request, HttpServletResponse response, SalesmanInfoVo salesmanInfoVo) throws IOException {
 		//获得微信标识
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}
@@ -209,7 +209,7 @@ public class SalesmanInfoController extends BaseController {
 	public BaseDto ajaxFindSalemanInfoByPage(HttpServletRequest request, HttpServletResponse response, 
 			  SalesmanInfoVo salesmanInfoVo, Page<SalesmanInfo> page) throws IOException {
 		//获得微信标识
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}
@@ -233,7 +233,7 @@ public class SalesmanInfoController extends BaseController {
 	 */
 	@RequestMapping(value = Url.Salesman.VIEW_TOADD_SALESMAN, method = RequestMethod.GET)
 	public ModelAndView toAddSalesman(HttpServletRequest request, HttpServletResponse response, Integer agentId) {
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}
@@ -253,7 +253,7 @@ public class SalesmanInfoController extends BaseController {
 	@RequestMapping(value = Url.Salesman.ACTION_ADD_SALESMAN, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto addSalesman(HttpServletRequest request, HttpServletResponse response, SalesmanInfo salesmanInfo, Integer agentId) {
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}
@@ -298,7 +298,7 @@ public class SalesmanInfoController extends BaseController {
 	 */
 	@RequestMapping(value = Url.Salesman.VIEW_SALESMAN_INFO, method = RequestMethod.GET)
 	public ModelAndView getSalesmanInfo(HttpServletRequest request, HttpServletResponse response, Integer salesmanId) {
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}

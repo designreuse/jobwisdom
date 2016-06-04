@@ -46,7 +46,7 @@ public class BossObjectiveController extends BaseController{
     * @return   全部订单页面
      */
     @RequestMapping(value = Url.Boss.VIEW_BOSS_OBJECTIVE)
-    public ModelAndView allOrderView(@PathVariable(value = "storeId") Integer storeId, 
+    public ModelAndView allOrderView(@PathVariable(value = "storeId") String storeId, 
             @PathVariable(value = "businessType") Integer businessType,
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
@@ -109,7 +109,7 @@ public class BossObjectiveController extends BaseController{
     * @return             跳转页面
      */
     @RequestMapping(value = Url.Boss.VIEW_CUSTOMER_ANALYSIS, method = RequestMethod.GET)
-    public ModelAndView viewCustomerAnalysis(@PathVariable(value = "storeId") Integer storeId, 
+    public ModelAndView viewCustomerAnalysis(@PathVariable(value = "storeId") String storeId, 
             @PathVariable(value = "businessType") Integer businessType,
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
@@ -152,7 +152,7 @@ public class BossObjectiveController extends BaseController{
      * @throws ParseException  ParseException
      */
     @RequestMapping(value = Url.Boss.VIEW_BUSINESS_ANALYSIS, method = RequestMethod.GET)
-    public ModelAndView viewBusinessAnalysis(@PathVariable int storeId, @PathVariable int businessType, 
+    public ModelAndView viewBusinessAnalysis(@PathVariable String storeId, @PathVariable int businessType, 
             HttpServletRequest request, HttpServletResponse response) throws ParseException{
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {

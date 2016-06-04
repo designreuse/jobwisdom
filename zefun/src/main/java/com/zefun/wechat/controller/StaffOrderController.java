@@ -67,7 +67,7 @@ public class StaffOrderController extends BaseController{
     * @return ModelAndView
      */
     @RequestMapping(value = Url.Staff.VIEW_EMPLOYEE_ORDER)
-    public ModelAndView employeeOrderView(@PathVariable int storeId, @PathVariable int businessType, 
+    public ModelAndView employeeOrderView(@PathVariable String storeId, @PathVariable int businessType, 
             HttpServletRequest request, HttpServletResponse response, Integer type) {
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
@@ -93,7 +93,7 @@ public class StaffOrderController extends BaseController{
     * @return ModelAndView
      */
     @RequestMapping(value = Url.Staff.VIEW_SELECT_ORDER_DETAIL)
-    public ModelAndView selectOrderDetail(@PathVariable int storeId, @PathVariable int businessType, Integer orderId, 
+    public ModelAndView selectOrderDetail(@PathVariable String storeId, @PathVariable int businessType, Integer orderId, 
             HttpServletRequest request, HttpServletResponse response) {
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
