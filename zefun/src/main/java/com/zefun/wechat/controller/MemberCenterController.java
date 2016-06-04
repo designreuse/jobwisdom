@@ -1036,7 +1036,7 @@ public class MemberCenterController extends BaseController {
      * 新用户领取分享奖励
     * @author 张进军
     * @date Aug 19, 2015 7:13:47 PM
-    * @param code		分享者标识
+    * @param code		         分享者标识
     * @param storeId        注册门店
     * @param phone          手机号
     * @param verifyCode     验证码

@@ -80,7 +80,7 @@ public class WechatController extends BaseController{
     }
 
     /**
-     * 消息回复
+     * 微信推送事件
     * @author 高国藩
     * @date 2015年8月11日 上午10:58:15
     * @param request 请求信息封装
