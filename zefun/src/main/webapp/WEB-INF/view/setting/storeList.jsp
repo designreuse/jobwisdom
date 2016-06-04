@@ -41,6 +41,7 @@
     	}
     	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
     	{
+    		data = "data:image/"+fileType+";base64," + data;
             zccCallback(data);
     	}
     	

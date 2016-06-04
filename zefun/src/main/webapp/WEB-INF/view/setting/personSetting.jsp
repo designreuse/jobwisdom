@@ -4,6 +4,40 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="<%=basePath %>css/account_set.css" />
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
+<head>
+    <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    
+    function editPage (imgUrl) {
+    	xiuxiu.embedSWF("altContent2", 5, 700, 500);
+    	
+    	xiuxiu.onInit = function (id)
+    	{
+            xiuxiu.setUploadType(3);
+            if (imgUrl != null) {
+            	xiuxiu.loadPhoto(qiniuUrl + imgUrl, false);
+            }
+    	}
+    	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
+    	{
+    		data = "data:image/"+fileType+";base64," + data;
+    		zccCallback(data);
+    	}
+    	
+    	xiuxiu.onDebug = function (data)
+    	{
+            dialog("网咯繁忙，请重试！");
+    	}
+    	
+    	xiuxiu.onClose = function (id)
+    	{
+            jQuery(".mask").hide();
+    	}
+    	
+    }
+	
+    </script>
+</head>
 <body>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -60,24 +94,16 @@
     </div>
 </div>
 </div>
-<div class="zzc">
- <div class="photo_cut">
-  <div id="clipArea"></div>
-        <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
-    <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
-  	<div class="button_panel"> 
-	   <button class="selectpic">选择图片</button>
-	   <button class="sureinput">确定上传</button>
-		<button class="cancelinput">取消</button>
-	 </div>
-   </div>
+<!-- 美图秀秀 -->
+<div class="mask" style="display: none;">
+   <div id="flashEditorOut" >
+        <div id="altContent2">
+            <h1>美图秀秀2</h1>
+        </div>
+	</div>
 </div>
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 <script type="text/javascript">
-
-var cssWidth = 200;
-var cssHeight = 200;
-var qiniuUrl = '<%=qiniuPath%>';
 
 function zccCallback(dataBase64){
 	jQuery(".account_set_head_").children("img").attr("src", dataBase64);
@@ -105,7 +131,7 @@ function zccCallback(dataBase64){
 	       success: function(data) {
 		       	var imageUrl = data.msg.imageUrl;
 		       	var key = data.msg.key;
-		       	console.log(imageUrl);
+		       	jQuery(".mask").hide();
 	       }
  	});
 }
@@ -115,11 +141,11 @@ jQuery(function(){
 });
 
 jQuery('.alter_head').click(function(){
-    jQuery('.zzc').show()
+	editPage();
+	jQuery(".mask").show();
  })
  jQuery('.cancelinput').click(function(){
-    jQuery('.zzc').hide();
-    jQuery('.photo-clip-rotateLayer').html('');
+	 jQuery(".mask").hide();
  })
 
 var audio = null;
@@ -127,7 +153,7 @@ function testVoice(per){
 	jQuery.ajax({
 	    url : baseUrl + "qiniu/textToVoice",
 	    type : "POST",
-	    data : "text=感谢您选择智放系统&per=" + per,
+	    data : "text=感谢您选择我道系统&per=" + per,
 	    beforeSend : function(){
 	    },
 	    complete : function(){
@@ -210,6 +236,5 @@ function save(){
 }
 
 </script>
-<script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>
 </body>
 </html>

@@ -23,6 +23,7 @@ import com.zefun.web.dto.DayBookQueryDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.MemberComboDto;
 import com.zefun.web.dto.MemberDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.OrderInfoBaseDto;
@@ -40,7 +41,6 @@ import com.zefun.web.entity.MemberComboProject;
 import com.zefun.web.entity.MemberComboRecord;
 import com.zefun.web.entity.MemberCoupon;
 import com.zefun.web.entity.MemberInfo;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.MoneyFlow;
 import com.zefun.web.entity.OrderDetail;
@@ -433,7 +433,7 @@ public class DayBookService {
             orderInfoMapper.updateByPrimaryKey(record);
             
             MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberId);
-            List<MemberLevel> memberLevelList = memberLevelMapper.selectByStoreId(storeId);
+            List<MemberLevelDto> memberLevelList = memberLevelMapper.selectByStoreId(storeId);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("memberId", memberId);
             map.put("levelId", memberInfo.getLevelId());

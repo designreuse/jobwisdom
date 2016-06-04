@@ -23,6 +23,7 @@ import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberBaseDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.MemberSubAccountDto;
 import com.zefun.web.dto.OrderDetaiSubmitDto;
 import com.zefun.web.dto.OrderInfoSubmitDto;
@@ -35,7 +36,6 @@ import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.MoneyFlow;
 import com.zefun.web.entity.OrderDetail;
@@ -211,7 +211,7 @@ public class SelfCashierService {
 
 	/**
 	 * 
-	 * @author 张进军
+	 * @author 老王
 	 * @date Nov 11, 2015 8:27:23 PM
 	 * @param employeeId
 	 *            操作人员标识
@@ -219,11 +219,12 @@ public class SelfCashierService {
 	 *            订单支付信息
 	 * @param memberId
 	 *            结账会员标识(会员自助结账时)
+	 * @param storeId 门店标识
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
 	 * @throws ServiceException ServiceException
 	 */
 	@Transactional
-	public BaseDto cashierSubmit(int employeeId, OrderInfoSubmitDto orderSubmit, Integer memberId)
+	public BaseDto cashierSubmit(int employeeId, OrderInfoSubmitDto orderSubmit, Integer memberId, Integer storeId)
 			throws ServiceException {
 		int orderId = orderSubmit.getOrderId();
 		SelfCashierOrderDto cashierDto = selectSelfCashierOrderDetail(orderId, true);
@@ -407,7 +408,10 @@ public class SelfCashierService {
 		if (orderSubmit.getCardAmount().compareTo(BigDecimal.ZERO) == 1) {
 
 			// 根据会员等级获取不同积分规则以计算应得积分
-			MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(memberInfo.getLevelId());
+			Map<String, Integer> map = new HashMap<>();
+			map.put("storeId", storeId);
+			map.put("levelId", memberInfo.getLevelId());
+			MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(map);
 			int integralAmount = 0;
 			if (memberLevel.getIntegralNumber() > 0 && memberLevel.getIntegralUnit() > 0) {
 				// 支付卡金金额 单位积分数量 * 单位获取积分, 每消费1元获取0.5分,消费100元 ＝ 100 / 1 * 0.5

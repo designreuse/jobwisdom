@@ -69,7 +69,7 @@
     where level_id = #{levelId,jdbcType=INTEGER}
   </select>
   
-  <select id="selectByEnterprise" resultMap="MemberLevelDtoMap" parameterType="java.lang.Integer">
+  <select id="selectByEnterprise" resultMap="MemberLevelDtoMap" parameterType="java.util.Map">
   	select 
   		a.level_id as levelId, 
   		a.store_id as storeId, 
@@ -91,7 +91,7 @@
         a.performance_discount_percent as performanceDiscountPercent
   	from member_level_discount a
   	left join member_level b on b.level_id = a.level_id 
-  	where a.is_deleted = 0 and a.level_id = #{levelId} and a.store_id = 0
+  	where a.is_deleted = 0 and a.level_id = #{levelId} and a.store_id = #{storeId}
   </select>
   
   <select id="selectByPage" resultMap="MemberLevelDtoMap" parameterType="com.zefun.web.entity.Page">

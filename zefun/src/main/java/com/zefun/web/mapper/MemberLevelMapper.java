@@ -1,6 +1,7 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -144,10 +145,10 @@ public interface MemberLevelMapper {
      * 企业查询会员等级
     * @author 老王
     * @date 2016年6月1日 上午1:22:00 
-    * @param levelId 会员等级标识
+    * @param map 会员等级标识
     * @return MemberLevelDto
      */
-    MemberLevelDto selectByEnterprise(Integer levelId);
+    MemberLevelDto selectByEnterprise(Map<String, Integer> map);
     
     /**
      * 折扣标识查询会员等级信息dto

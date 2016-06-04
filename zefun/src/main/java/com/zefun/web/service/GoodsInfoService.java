@@ -57,6 +57,7 @@ import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.SupplierInfoMapper;
 import com.zefun.web.vo.CardStoreSalesVo;
 import com.zefun.web.vo.CashStoreSalesVo;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -693,7 +694,7 @@ public class GoodsInfoService {
     /**
      * 查询会员对于商品的具体价格
      * 首先检查是否有设置该会员的特定价格，再通过会员等级的折扣去计算
-    * @author 张进军
+    * @author 王大爷
     * @date Nov 28, 2015 8:37:15 PM
     * @param levelId       会员等级标识
     * @param goodsId      商品标识

@@ -143,7 +143,10 @@ public class MemberLevelService {
     * @return BaseDto
      */
     public BaseDto selectEnterpriseMember (Integer levelId) {
-    	MemberLevelDto memberLevelDto = memberLevelMapper.selectByEnterprise(levelId);
+    	Map<String, Integer> map = new HashMap<>();
+    	map.put("levelId", levelId);
+    	map.put("storeId", 0);
+    	MemberLevelDto memberLevelDto = memberLevelMapper.selectByEnterprise(map);
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, memberLevelDto);
     }
 
