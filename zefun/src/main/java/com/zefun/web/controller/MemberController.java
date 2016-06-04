@@ -257,29 +257,30 @@ public class MemberController extends BaseController{
         Integer lastOperatorId = (Integer) request.getSession().getAttribute(App.Session.USER_ID);
         String storeName = request.getParameter("storeName");
         StoreSetting setting = storeSettingMapper.selectByPrimaryKey(storeId);
+        String storeAccount = getStoreAccount(request);
         if (setting.getLastFacilitator()!=null&&!"".equals(setting.getLastFacilitator())){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "不可重复导入");
         }
         if (storeName.equals("盛传")){
-            return memberInfoService.importExcleSc(file[0], file[1], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleSc(file[0], file[1], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("左右")){
-            return memberInfoService.importExcleZy(file[0], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleZy(file[0], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("云浩企汇通")){
-            return memberInfoService.importExcleHt(file[0], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleHt(file[0], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("博卡")){
-            return memberInfoService.importExcleBk(file[0], file[1], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleBk(file[0], file[1], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("耕宇")){
-            return memberInfoService.importExcleGy(file[0], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleGy(file[0], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("共赢")){
-            return memberInfoService.importExcleGi(file[0], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleGi(file[0], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("模板")){
-            return memberInfoService.importExcleMb(file[0], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleMb(file[0], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("蓝蝶")){
             Map<String, String> params = new HashMap<>();
@@ -290,16 +291,16 @@ public class MemberController extends BaseController{
             params.put("uid", loginName);
             params.put("pwd", loginPass);
             BasicCookieStore cookieStore = sendPostReq("http://vip.landee.com.cn/Home/SignIn", params, "UTF-8");
-            return memberInfoService.importExcleLd(storeId, lastOperatorId, response, storeName, cookieStore);
+            return memberInfoService.importExcleLd(storeId, storeAccount, lastOperatorId, response, storeName, cookieStore);
         }
         else if (storeName.equals("西沙龙")){
-            return memberInfoService.importExcleXsl(file[0], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleXsl(file[0], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("华拓美业")){
-            return memberInfoService.importExcleHtmy(file[0], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleHtmy(file[0], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("华彩")){
-            return memberInfoService.importExcleHc(file[0], file[1], storeId, lastOperatorId, response, storeName);
+            return memberInfoService.importExcleHc(file[0], file[1], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else {
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "暂不支持其他服务商数据导入");
@@ -373,7 +374,9 @@ public class MemberController extends BaseController{
     public BaseDto comboMemberMove(@RequestBody JSONObject jsonObject, HttpServletRequest request){
         Integer storeId=getStoreId(request);
         Integer lastOperatorId = (Integer) request.getSession().getAttribute(App.Session.USER_ID);
-        return memberInfoService.comboMemberMoveAll(storeId, lastOperatorId, (Integer)jsonObject.get("type"), jsonObject.getJSONArray("list"));
+        String storeAccount = getStoreAccount(request);
+        return memberInfoService.comboMemberMoveAll(storeId, storeAccount, lastOperatorId, 
+                (Integer)jsonObject.get("type"), jsonObject.getJSONArray("list"));
     }
     
     /**
