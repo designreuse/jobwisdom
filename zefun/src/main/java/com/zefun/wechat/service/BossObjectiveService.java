@@ -26,10 +26,10 @@ import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.ComboStatementDto;
 import com.zefun.web.dto.ComboStatementProjectDto;
 import com.zefun.web.dto.CustomerAnalysisDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.CodeLibrary;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.GoodsCategory;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.ComboInfoMapper;
@@ -1022,10 +1022,10 @@ public class BossObjectiveService {
     private void addCustomerAnalysisKdj(Integer storeId, Map<String, Object> paramFlow, ModelAndView view, JSONObject dto) {
         List<Integer> customerAnalysisKdj = new ArrayList<>();
         List<Integer> customerAnalysisKbt = new ArrayList<>();
-        List<MemberLevel> levels = memberLevelMapper.selectByStoreId(storeId);
+        List<MemberLevelDto> levels = memberLevelMapper.selectByStoreId(storeId);
         List<String> levelName = new ArrayList<>();
         Integer amount = 0;
-        for (MemberLevel memberLevel : levels) {
+        for (MemberLevelDto memberLevel : levels) {
             paramFlow.put("levelId", memberLevel.getLevelId());
             List<BigDecimal> bigDecimals = orderInfoMapper.selectCustomerAnalysisLevel(paramFlow);
             Integer temp = bigDecimals.stream().filter(num -> num != null).mapToInt(num -> num.intValue()).sum();

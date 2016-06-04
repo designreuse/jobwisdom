@@ -38,7 +38,6 @@ import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberCoupon;
 import com.zefun.web.entity.MemberInfo;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberPresentRecord;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.MoneyFlow;
@@ -417,7 +416,10 @@ public class OpenCardService {
 
 		Integer memberId = subAccount.getAccountId();
 
-		MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(subAccount.getLevelId());
+		Map<String, Integer> map = new HashMap<>();
+		map.put("levelId", subAccount.getLevelId());
+		map.put("storeId", storeId);
+		MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(map);
 
 		if (type == 1) {
 			if (Float.valueOf(memberLevel.getChargeMinMoney().toString()) > Float.valueOf(chargeAmount.toString())) {

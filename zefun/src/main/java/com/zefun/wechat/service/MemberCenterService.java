@@ -40,7 +40,6 @@ import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.DetailPaymentDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsInfoCatagoryDto;
-import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberComboDto;
 import com.zefun.web.dto.MemberOrderDto;
@@ -569,10 +568,11 @@ public class MemberCenterService {
     * @date Nov 11, 2015 8:23:17 PM
     * @param orderSubmit    订单支付信息
     * @param memberId		会员标识
+    * @param storeId 门店标识
     * @return   成功返回码0；失败返回其他错误码，返回值为提示语
      */
-    public BaseDto orderPayAction(OrderInfoSubmitDto orderSubmit, Integer memberId) {
-        return selfCashierService.cashierSubmit(0, orderSubmit, memberId);
+    public BaseDto orderPayAction(OrderInfoSubmitDto orderSubmit, Integer memberId, Integer storeId) {
+        return selfCashierService.cashierSubmit(0, orderSubmit, memberId, storeId);
     }
     
     

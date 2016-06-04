@@ -111,9 +111,9 @@ public class SelfCashierController extends BaseController {
 	public BaseDto selectSelfCashierMemberByStore(String phone, HttpServletRequest request,
 			    HttpServletResponse response) {
 		BaseDto baseDto = new BaseDto();
-		Integer storeId = getStoreId(request);
+		String storeAccount = getStoreAccount(request);
 
-		Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeId);
+		Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeAccount);
 		MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
 		if (memberInfo == null) {
 			baseDto.setCode(App.System.API_RESULT_CODE_FOR_FAIL);
@@ -174,7 +174,8 @@ public class SelfCashierController extends BaseController {
 	public BaseDto cashierSubmit(@RequestBody OrderInfoSubmitDto orderSubmit, HttpServletRequest request,
 			    HttpServletResponse response) throws ServiceException {
 		Integer employeeId = getUserId(request);
-		return selfCashierService.cashierSubmit(employeeId, orderSubmit, null);
+		Integer storeId = getStoreId(request);
+		return selfCashierService.cashierSubmit(employeeId, orderSubmit, null, storeId);
 	}
 
 	/**

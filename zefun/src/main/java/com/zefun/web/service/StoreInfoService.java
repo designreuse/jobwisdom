@@ -54,6 +54,7 @@ import com.zefun.web.dto.DeptSummaryDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.GoodSalesSummaryDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectLaborRank;
 import com.zefun.web.dto.ServiceReportDto;
 import com.zefun.web.dto.StoreIncomeDto;
@@ -78,7 +79,6 @@ import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberInfo;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
@@ -2075,7 +2075,7 @@ public class StoreInfoService {
         goodsInfo.setWarnStock(10);
         goodsInfo.setIsDeleted(0);
         goodsInfo.setStoreId(storeId);
-        Integer goodsId = goodsInfoService.saveGoodsInfo(goodsInfo, null, null, null, null);
+        Integer goodsId = goodsInfoService.saveGoodsInfo(goodsInfo, null, null);
         goodsInfo.setGoodsId(goodsId);
         return goodsInfo;
     }
@@ -2328,7 +2328,7 @@ public class StoreInfoService {
         List<ShiftMahjong> shiftMahjongs = shiftMahjongMapper.selectAllByStoreId(copyStoreId);
         List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByStoreId(copyStoreId);
         List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByStoreId(copyStoreId);
-        List<MemberLevel> memberLevels = memberLevelMapper.selectByStoreId(copyStoreId);
+        List<MemberLevelDto> memberLevels = memberLevelMapper.selectByStoreId(copyStoreId);
         List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(copyStoreId);
         List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(copyStoreId);
         ComboInfo comboInfo = new ComboInfo();

@@ -247,7 +247,7 @@ function save() {
 		arrayObj.push(projectObjStr);
 	}
 	//套餐
-	var comboObj = jQuery("li[name='comboNameLI']").find(".buzhou");
+	var comboObj = jQuery("div[name='comboNameLI']").find(".nav_content_div_1");
 	for (var i = 0; i < comboObj.length; i++) {
 		var comboId = jQuery(comboObj[i]).attr("comboId");
         var employeeId = jQuery(comboObj[i]).find("select[name='employeeId']").val();
@@ -255,7 +255,7 @@ function save() {
 		arrayObj.push(projectObjStr);
 	}
 	//商品
-	var goodsObj = jQuery("li[name='goodsNameLI']").find(".buzhou");
+	var goodsObj = jQuery("div[name='goodsNameLI']").find(".nav_content_div_1");
 	for (var i = 0; i < goodsObj.length; i++) {
 		var goodsId = jQuery(goodsObj[i]).attr("goodsId");
         var employeeId = jQuery(goodsObj[i]).find("select[name='employeeId']").val();

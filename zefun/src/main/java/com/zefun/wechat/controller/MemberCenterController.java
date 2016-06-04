@@ -476,7 +476,8 @@ public class MemberCenterController extends BaseController {
             return null;
         }
         Integer memberId = getUserIdByOpenId(openId);
-        return memberCenterService.orderPayAction(orderSubmit, memberId);
+        Integer storeId = getStoreId(request);
+        return memberCenterService.orderPayAction(orderSubmit, memberId, storeId);
     }
 	
 	

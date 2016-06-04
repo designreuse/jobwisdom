@@ -1369,7 +1369,7 @@ public class MemberInfoService {
      */
     public Map<String, Integer> packLevelMap(Integer storeId) {
         Map<String, Integer> map = new LinkedHashMap<>();
-        List<MemberLevel> levels = memberLevelMapper.selectByStoreId(storeId);
+        List<MemberLevelDto> levels = memberLevelMapper.selectByStoreId(storeId);
         for (int i = 0; i < levels.size(); i++) {
             map.put(levels.get(i).getLevelName(), levels.get(i).getLevelId());
         }
@@ -2193,7 +2193,7 @@ public class MemberInfoService {
         page.setParams(map);
         List<MemberInfoDto> memberInfoDtos = memberInfoMapper.selectMemberInfosByPage(page);
         page.setResults(memberInfoDtos);
-        List<MemberLevel> levels = memberLevelMapper.selectByStoreId(storeId);
+        List<MemberLevelDto> levels = memberLevelMapper.selectByStoreId(storeId);
         view.addObject("page", page);
         view.addObject("levels", levels);
         view.addObject("storeList", storeList);
@@ -2272,7 +2272,7 @@ public class MemberInfoService {
                 memberLevelMapper.insert(level);
             }
         }
-        List<MemberLevel> levels = memberLevelMapper.selectByStoreId(hsqStoreId);
+        List<MemberLevelDto> levels = memberLevelMapper.selectByStoreId(hsqStoreId);
         Map<String, Integer> map = new HashMap<>();
         //循环将会员卡和等级的id绑定好
         for (String key : levelMap.keySet()) {
