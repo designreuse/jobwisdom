@@ -28,6 +28,7 @@ import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.MemberBaseDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.ShiftMahjongDto;
@@ -36,7 +37,6 @@ import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ProjectDiscount;
@@ -694,8 +694,11 @@ public class StaffService {
                 
                 //该项目对应该会员的会员等级不存在特定价格
                 if (obj == null) {
+                	Map<String, Integer> memberMap = new HashMap<>();
+                	map.put("storeId", storeId);
+                	map.put("levelId", levelId);
                     //计算会员折扣价
-                    MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
+                    MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
                     discountAmount = projectInfo.getProjectPrice().multiply(new BigDecimal(memberLevel.getProjectDiscount()).divide(rate));
                 }
                 //该项目对应该会员的会员等级存在特定价格
@@ -729,8 +732,11 @@ public class StaffService {
                 
                 //该商品对应该会员的会员等级不存在特定价格
                 if (obj == null) {
+                	Map<String, Integer> memberMap = new HashMap<>();
+                	map.put("storeId", storeId);
+                	map.put("levelId", levelId);
                     //计算会员折扣价
-                    MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
+                    MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
                     discountAmount = goodsInfo.getGoodsPrice().multiply(new BigDecimal(memberLevel.getProjectDiscount()).divide(rate));
                 }
                 //该商品对应该会员的会员等级存在特定价格

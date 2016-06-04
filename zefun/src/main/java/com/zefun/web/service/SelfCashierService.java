@@ -199,10 +199,11 @@ public class SelfCashierService {
 	 * 
 	 * @param orderId
 	 *            订单标识
+	 * @param storeId 门店标识
 	 * @return SelfCashierResultDto
 	 */
-	public SelfCashierOrderDto queryOrderDetailAction(Integer orderId) {
-		SelfCashierOrderDto cashierDto = selectSelfCashierOrderDetail(orderId, true);
+	public SelfCashierOrderDto queryOrderDetailAction(Integer orderId, Integer storeId) {
+		SelfCashierOrderDto cashierDto = selectSelfCashierOrderDetail(orderId, true, storeId);
 		if (cashierDto == null) {
 			return cashierDto;
 		}
@@ -227,7 +228,7 @@ public class SelfCashierService {
 	public BaseDto cashierSubmit(int employeeId, OrderInfoSubmitDto orderSubmit, Integer memberId, Integer storeId)
 			throws ServiceException {
 		int orderId = orderSubmit.getOrderId();
-		SelfCashierOrderDto cashierDto = selectSelfCashierOrderDetail(orderId, true);
+		SelfCashierOrderDto cashierDto = selectSelfCashierOrderDetail(orderId, true, storeId);
 		List<SelfCashierDetailDto> ownerDetailList = cashierDto.getOrderDetails();
 		List<OrderDetaiSubmitDto> submitDetailList = orderSubmit.getDetailList();
 
@@ -285,7 +286,7 @@ public class SelfCashierService {
 				} 
 				else if (ownerDetail.getOrderType() == 2) {
 					tempAmount = goodsInfoService.getGoodsPriceByMember(memberSubAccount.getLevelId(),
-							ownerDetail.getProjectId(), ownerDetail.getProjectPrice());
+							ownerDetail.getProjectId(), ownerDetail.getProjectPrice(), storeId);
 				} 
 				else {
 					tempAmount = ownerDetail.getDiscountAmount();
@@ -619,7 +620,7 @@ public class SelfCashierService {
 		map.put("orderId", orderId);
 		int count = orderInfoMapper.updateOrderMemberInfo(map);
 		if (count == 1) {
-			openCardService.changeMemberOrder(memberId);
+			openCardService.changeMemberOrder(memberId, storeId);
 			return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "绑定会员成功");
 		}
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "绑定会员失败");
@@ -633,15 +634,16 @@ public class SelfCashierService {
 	 *            订单标识
 	 * @param queryOff
 	 *            是否查询优惠
+	 * @param storeId 门店标识
 	 * @return SelfCashierOrderDto
 	 */
-	public SelfCashierOrderDto selectSelfCashierOrderDetail(Integer orderId, boolean queryOff) {
+	public SelfCashierOrderDto selectSelfCashierOrderDetail(Integer orderId, boolean queryOff, Integer storeId) {
 		SelfCashierOrderDto orderInfo = orderInfoMapper.selectUnfinishedOrderDetail(orderId);
 		if (orderInfo == null || orderInfo.getMemberId() == null) {
 			return orderInfo;
 		}
 		if (queryOff) {
-			orderInfo = calculatePaymentOff(orderInfo);
+			orderInfo = calculatePaymentOff(orderInfo, storeId);
 		}
 		return orderInfo;
 	}
@@ -943,9 +945,10 @@ public class SelfCashierService {
 	 * @date Nov 10, 2015 3:04:29 PM
 	 * @param orderInfo
 	 *            订单信息
+	 *            @param storeId 门店标识
 	 * @return 注入优惠的订单信息
 	 */
-	private SelfCashierOrderDto calculatePaymentOff(SelfCashierOrderDto orderInfo) {
+	private SelfCashierOrderDto calculatePaymentOff(SelfCashierOrderDto orderInfo, Integer storeId) {
 		int memberId = orderInfo.getMemberId();
 		MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
 		orderInfo.setMemberInfo(memberInfo);
@@ -1024,7 +1027,7 @@ public class SelfCashierService {
 					} 
 					else if (detail.getOrderType() == 2) {
 						price = goodsInfoService.getGoodsPriceByMember(levelId, detail.getProjectId(),
-								detail.getProjectPrice());
+								detail.getProjectPrice(), storeId);
 					} 
 					else {
 						price = detail.getProjectPrice();

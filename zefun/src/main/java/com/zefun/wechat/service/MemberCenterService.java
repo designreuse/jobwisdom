@@ -532,7 +532,7 @@ public class MemberCenterService {
      */
     public ModelAndView orderPayView(String storeId, Integer orderId){
         ModelAndView mav = new ModelAndView(View.MemberCenter.ORDER_PAY);
-        SelfCashierOrderDto orderDto = selfCashierService.queryOrderDetailAction(orderId);
+        SelfCashierOrderDto orderDto = selfCashierService.queryOrderDetailAction(orderId, Integer.valueOf(storeId));
         //检查订单付款状态，如果已付款，直接跳转到小票页面
         if (orderDto.getOrderStatus() == 3 || orderDto.getOrderStatus() == 4) {
             return new ModelAndView("redirect:" + Url.MemberCenter.VIEW_PAYMENT_DETAIL

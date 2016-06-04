@@ -699,9 +699,10 @@ public class GoodsInfoService {
     * @param levelId       会员等级标识
     * @param goodsId      商品标识
     * @param goodsPrice   商品原价
+    * @param storeId 门店标识
     * @return   会员实际价格
      */
-    public BigDecimal getGoodsPriceByMember(int levelId, int goodsId, BigDecimal goodsPrice){
+    public BigDecimal getGoodsPriceByMember(int levelId, int goodsId, BigDecimal goodsPrice, Integer storeId){
         //计算会员折扣价
     	BigDecimal discountAmount = goodsPrice;
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -710,7 +711,10 @@ public class GoodsInfoService {
         GoodsDiscount discount = goodsDiscountMapper.selectDiscountGoodsIdAndLevelId(map);
         //如果没有特定会员价，那么计算查找该会员的折扣去计算
         if (discount == null) {
-            MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(levelId);
+        	Map<String, Integer> memberMap = new HashMap<>();
+        	memberMap.put("levelId", levelId);
+        	memberMap.put("storeId", storeId);
+            MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
             discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getGoodsDiscount())).divide(new BigDecimal(100), 2);
         }
         else {

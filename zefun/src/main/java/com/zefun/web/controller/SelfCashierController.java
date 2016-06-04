@@ -145,7 +145,7 @@ public class SelfCashierController extends BaseController {
 		BaseDto baseDto = null;
 		Integer storeId = getStoreId(request);
 		if (orderId != null && storeId != null) {
-			SelfCashierOrderDto selfCashierOrderDto = selfCashierService.queryOrderDetailAction(orderId);
+			SelfCashierOrderDto selfCashierOrderDto = selfCashierService.queryOrderDetailAction(orderId, storeId);
 			baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, selfCashierOrderDto);
 		} 
 		else {

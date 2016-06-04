@@ -1,9 +1,5 @@
 package com.zefun.web.entity;
 
-import org.apache.commons.lang.StringUtils;
-
-import net.sf.json.JSONArray;
-
 /**
  * @author 张进军
  * @date 2016年03月12日 PM 19:45:30
@@ -43,9 +39,7 @@ public class MemberLevel {
 
 	/** 最后操作人标识 */
 	private Integer lastOperatorId;
-	
-	/** 等级说明数组 */
-    private String[] levelNoticeArr;
+
 
 	public String getLevelType() {
 		return levelType;
@@ -159,25 +153,5 @@ public class MemberLevel {
 		return lastOperatorId;
 	}
 
-    public String[] getLevelNoticeArr() {
-        return levelNoticeArr;
-    }
-
-    public void setLevelNoticeArr(String[] levelNoticeArr) {
-        this.levelNoticeArr = levelNoticeArr;
-    }
-    
-    /**
-     * 以JSON数组的方式获取等级描述信息
-    * @author 张进军
-    * @date Jan 28, 2016 9:00:49 PM
-    * @return   等级描述信息
-     */
-    public JSONArray getLevelNoticeList(){
-        if (StringUtils.isNotBlank(getLevelNotice())) {
-            return JSONArray.fromObject(getLevelNotice());
-        }
-        return null;
-    }
 
 }
