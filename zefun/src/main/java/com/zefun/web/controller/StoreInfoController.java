@@ -23,7 +23,6 @@ import net.sf.json.JSONObject;
 
 /**
  * 门店信息服务
- * 
  * @author 张进军
  * @date Nov 9, 2015 11:20:50 AM
  */
@@ -219,13 +218,10 @@ public class StoreInfoController extends BaseController {
 
 	/**
 	 * 进行店铺设置操作
-	 * 
 	 * @author 张进军
 	 * @date Nov 9, 2015 11:19:28 AM
-	 * @param storeInfo
-	 *            店铺信息
-	 * @param request
-	 *            请求对象
+	 * @param storeInfo 店铺信息
+	 * @param request   请求对象
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
 	 */
 	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_SETTING, method = RequestMethod.POST)
@@ -335,15 +331,11 @@ public class StoreInfoController extends BaseController {
 
 	/**
 	 * 门店复制
-	 * 
 	 * @author 高国藩
 	 * @date 2016年3月2日 下午3:48:19
-	 * @param request
-	 *            request
-	 * @param response
-	 *            response
-	 * @param copyStoreId
-	 *            copyStoreId
+	 * @param request request
+	 * @param response response
+	 * @param copyStoreId copyStoreId
 	 * @return response
 	 */
 	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_COPY, method = RequestMethod.GET)

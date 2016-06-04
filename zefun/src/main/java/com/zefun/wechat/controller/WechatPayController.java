@@ -1,7 +1,6 @@
 package com.zefun.wechat.controller;
 
 import java.io.UnsupportedEncodingException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.socket.TextMessage;
-
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.swagger.SystemWebSocketHandler;

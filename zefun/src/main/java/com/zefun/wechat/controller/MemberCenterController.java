@@ -40,15 +40,6 @@ public class MemberCenterController extends BaseController {
     @Autowired
     private MemberCenterService memberCenterService;
     
-    /** 日志记录对象 */
-//    private final Logger logger = Logger.getLogger(MemberCenterController.class);
-    
-//    /**测试会员*/
-//    private int memberId = 43062;
-//    /**测试门店*/
-//    private int storeId = 1005;
-    
-    
     /**
      * wifi主页
     * @author 张进军
@@ -235,7 +226,7 @@ public class MemberCenterController extends BaseController {
     * @param response       返回对象
     * @return   会员等级信息页面
      */
-    @RequestMapping(value = Url.MemberCenter.VIEW_LEVEL_INFO)
+    @RequestMapping(value = Url.MemberCenter.VIEW_LEVEL_INFO, method=RequestMethod.GET)
     public ModelAndView levelInfoView(HttpServletRequest request, HttpServletResponse response) {
         String openId = getOpenId(1, request, response);
         if (openId == null) {

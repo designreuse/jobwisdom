@@ -22,6 +22,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
+import com.zefun.web.dto.MemberSubAccountDto;
 import com.zefun.web.dto.ubox.UboxStoreGoodsDto;
 import com.zefun.web.dto.ubox.UboxTransactionDto;
 import com.zefun.web.entity.CouponInfo;
@@ -37,6 +38,7 @@ import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.GoodsStockMapper;
+import com.zefun.web.mapper.MemberSubAccountMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.TransactionInfoMapper;
@@ -105,6 +107,11 @@ public class UboxMallService {
     @Autowired
     private GoodsStockMapper goodsStockMapper;
     
+    /**会员关注列表*/
+    @Autowired
+    private MemberSubAccountMapper memberSubAccountMapper;
+    
+    
     /**
      * 商品详情页面
     * @author 张进军
@@ -115,8 +122,6 @@ public class UboxMallService {
      */
     public ModelAndView goodsInfoView(Integer storeGoodsId, Integer memberId){
         ModelAndView mav = new ModelAndView(View.UboxMall.GOODS_INFO);
-//        UboxStoreGoodsDto goodsInfo = uboxStoreGoodsMapper.selectGoodsInfoByStoreGoodsId(storeGoodsId);
-//        mav.addObject("storeGoods", goodsInfo);
         
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         mav.addObject("memberInfo", memberInfo);
@@ -134,6 +139,12 @@ public class UboxMallService {
         if (goodsStock==null||goodsStock.getCount()<=0){
             mav.addObject("isBuy", false);
         }
+        
+        if (memberId!=null){
+            List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(memberId);
+            mav.addObject("subAccountList", subAccountList);
+        }
+        
         return mav;
     }
     

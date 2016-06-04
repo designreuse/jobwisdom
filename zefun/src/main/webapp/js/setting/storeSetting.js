@@ -436,7 +436,7 @@ function saveCarousel(){
         return;
     }
 	carousel = "";
-	for (var i = 0; i < carouselList.length; i++) {
+	for (var i = 0; i < 6; i++) {
 		carousel += jQuery(carouselList[i]).val() + ",";
 	}
 	carousel = carousel.substring(0, carousel.length - 1);

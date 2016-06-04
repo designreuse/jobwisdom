@@ -22,7 +22,6 @@ import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.mapper.GoodsInfoMapper;
-import com.zefun.web.service.GoodsInfoService;
 import com.zefun.wechat.service.UboxMallService;
 import com.zefun.wechat.service.WechatCallService;
 
@@ -45,12 +44,7 @@ public class UboxMallController extends BaseController {
     
     /** 商品 */
     @Autowired
-    private GoodsInfoService goodsInfoService;
-    
-    /** 商品 */
-    @Autowired
     private GoodsInfoMapper goodsInfoMapper;
-    
     
     /**日志*/
     private Logger logger = Logger.getLogger(UboxMallController.class);

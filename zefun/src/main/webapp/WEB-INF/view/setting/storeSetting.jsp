@@ -47,7 +47,7 @@
 								门店介绍<em><img src="<%=basePath%>images/webchat_right.png"></em>
 							</p>
 							<p>
-								特色服务<em><img src="<%=basePath%>images/webchat_right.png"></em>
+								作品展示<em><img src="<%=basePath%>images/webchat_right.png"></em>
 							</p>
 							<p>
 								名师介绍<em><img src="<%=basePath%>images/webchat_right.png"></em>
@@ -315,7 +315,7 @@ function zccCallback(dataBase64){
 		       	var key = data.msg.key;
 		       	if(imgType == "img"){
 		       		imgObject.empty();
-		       		var html = '<img style="width: 89px;height: 89px" onclick="zcc(this,"img")" src="'+qiniuUrl+key+'">'+
+		       		var html = '<img style="width: 89px;height: 89px" onclick="zcc(this,\'img\')" src="'+qiniuUrl+key+'">'+
                     		   '<input type="hidden" name="carouselPicture" value="'+key+'">';
 		       		imgObject.append(jQuery(html));
 		       	}else{
