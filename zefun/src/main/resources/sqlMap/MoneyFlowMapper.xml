@@ -203,7 +203,7 @@
 		'' as orderName, 
 		(select level_name from member_level where level_id = (select level_id from member_sub_account where sub_account_id = a.account_id)) as levelName,
 		(select h.name from employee_info h where h.employee_id = a.last_operator_id) as lastOperatorName
-	from 
+	FROM 
 	    money_flow a, store_info b, member_info c 
     where a.store_id = b.store_id and a.is_deleted = 0 and c.member_id = #{params.memberId}
 		  and exists(select 1 from member_sub_account d where d.sub_account_id = a.account_id and d.account_id = #{params.memberId}) 
@@ -217,7 +217,7 @@
   	    b.store_name as storeName, c.phone as name, c.sex as sex, 
 		'' as orderName, 
 		(select h.name from employee_info h where h.employee_id = a.last_operator_id) as lastOperatorName
-	from 
+	FROM 
 	    money_flow a, store_info b, member_info c 
     where a.store_id = b.store_id and a.is_deleted = 0 and a.business_type = #{businessType, jdbcType=INTEGER} and c.member_id = #{memberId, jdbcType=INTEGER}
 		  and exists(select 1 from member_account d where d.account_id = a.account_id and d.account_id = #{memberId, jdbcType=INTEGER}) 

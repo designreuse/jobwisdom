@@ -62,6 +62,7 @@ function addStore() {
 
 var imgKey = "";
 function zccCallback(dataBase64){
+	imgObject.children("img").attr("src", dataBase64);
 	var key = "jobwisdom/project/" + new Date().getTime();
     var data = {"stringBase64":dataBase64,"key":key};
     jQuery.ajax({
@@ -83,7 +84,6 @@ function zccCallback(dataBase64){
 	       success: function(data) {
 		       	var imageUrl = data.msg.imageUrl;
 		       	var key = data.msg.key;
-		       	imgObject.children("img").attr("src", imageUrl);
 		       	imgKey = key;
 		       	jQuery(".mask").hide();
 	       }

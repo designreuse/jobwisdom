@@ -70,7 +70,7 @@
         a.project_amount, a.project_count, a.remaining_count , a.overdue_time, a.create_time, 
         (select concat(IFNULL(d.employee_code,''), '  ', d.name) from employee_info d where d.employee_id = a.last_operator_id and d.is_deleted = 0) as lastOperatorName, 
         (select c.store_name from store_info c where c.store_id = a.store_id and c.store_status != 5) as storeName
-    from member_combo_record a
+    FROM member_combo_record a
     where a.member_id = #{params.memberId} and is_deleted = 0 order by a.create_time
   </select>
   
