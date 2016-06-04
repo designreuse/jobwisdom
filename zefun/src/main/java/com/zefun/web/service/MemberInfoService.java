@@ -21,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
@@ -89,6 +90,7 @@ import com.zefun.web.entity.MemberErrorXsl;
 import com.zefun.web.entity.MemberErrorZy;
 import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.MemberLevel;
+import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.MemberScreening;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.MoneyFlow;
@@ -247,6 +249,9 @@ public class MemberInfoService {
     /**会员导入自相*/
     @Autowired
     private MemberSubAccountMapper subAccountMapper;
+    /**会员等级*/
+    @Autowired
+    private MemberLevelService memberLevelService;
     
     
     
@@ -807,6 +812,7 @@ public class MemberInfoService {
     * @param file           文件
     * @param file2          疗程卡
     * @param storeId        门店
+    * @param storeAccount    企业代号
     * @param storeName      原服务商名称
     * @param lastOperatorId 最后操作人员ID
     * @param response       输出流 
@@ -814,7 +820,7 @@ public class MemberInfoService {
      * @throws Exception 
      */
     @Transactional
-    public BaseDto importExcleSc(MultipartFile file, MultipartFile file2, Integer storeId,
+    public BaseDto importExcleSc(MultipartFile file, MultipartFile file2, Integer storeId, String storeAccount, 
             Integer lastOperatorId, HttpServletResponse response, String storeName) throws Exception {
         updateStoreSet(storeId, storeName);
         importRumorsCourse(file2, storeId, lastOperatorId);
@@ -968,11 +974,12 @@ public class MemberInfoService {
         int hsqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
         //先插入会员卡等级数据
         for (String level : levels) {
-            MemberLevel level1 = new MemberLevel();
-            level1.setLevelName(level);
-            level1.setStoreId(hsqStoreId);
-            level1.setIsDeleted(0);
-            memberLevelMapper.insert(level1);
+            saveEnterpriseMemberLevel(lastOperatorId, level, storeAccount, storeId);
+//            MemberLevel level1 = new MemberLevel();
+//            level1.setLevelName(level);
+//            level1.setStoreId(hsqStoreId);
+//            level1.setIsDeleted(0);
+//            memberLevelMapper.insert(level1);
         }
         levelMap = packLevelMap(hsqStoreId);
         for (int k = 0; k < tableScs.size(); k++) {
@@ -1172,14 +1179,16 @@ public class MemberInfoService {
     * @date 2015年10月19日 上午9:37:26
     * @param file           文件
     * @param storeId        门店
+    * @param storeAccount    企业代号
+    * @param lastOperatorId   lastOperatorId
     * @param storeName      原服务商名称
-    * @param lastOperatorId 最后操作人员ID
     * @param response       输出流 
-    * @return BaseDto
-     * @throws Exception 
+    * @return BaseDto d
+     * @throws Exception  d
      */
     @Transactional
-    public BaseDto importExcleZy(MultipartFile file, Integer storeId, Integer lastOperatorId, HttpServletResponse response, String storeName)
+    public BaseDto importExcleZy(MultipartFile file, Integer storeId, String storeAccount, 
+            Integer lastOperatorId, HttpServletResponse response, String storeName)
                     throws Exception {
         updateStoreSet(storeId, storeName);
         List<TempTableZy> tableXies = new ArrayList<>();
@@ -1291,11 +1300,12 @@ public class MemberInfoService {
         }
         int hsqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
         for (String level : memberLevels) {
-            MemberLevel level1 = new MemberLevel();
-            level1.setLevelName(level);
-            level1.setStoreId(hsqStoreId);
-            level1.setIsDeleted(0);
-            memberLevelMapper.insert(level1);
+            saveEnterpriseMemberLevel(lastOperatorId, level, storeAccount, storeId);
+//            MemberLevel level1 = new MemberLevel();
+//            level1.setLevelName(level);
+//            level1.setStoreId(hsqStoreId);
+//            level1.setIsDeleted(0);
+//            memberLevelMapper.insert(level1);
         }
         levelMap = packLevelMap(hsqStoreId);
         for (int k = 0; k < infoDtos.size(); k++) {
@@ -1326,10 +1336,12 @@ public class MemberInfoService {
     * @author 高国藩
     * @date 2015年11月21日 下午8:18:32
     * @param tr     数据tr
+    * @param storeAccount storeAccount
+    * @param lastOperatorId lastOperatorId
     * @param levelMap  已存在等级
     * @param storeId   门店
      */
-    private void saveMemberLevel(Elements tr, Map<String, Integer> levelMap, Integer storeId) {
+    private void saveMemberLevel(Elements tr, Map<String, Integer> levelMap, Integer storeId, String storeAccount, Integer lastOperatorId) {
         Set<String> levelNames = new HashSet<>();
         for (int i = 0; i < tr.size(); i++) {
             Elements list = tr.get(i).getElementsByTag("td");
@@ -1352,11 +1364,12 @@ public class MemberInfoService {
             }
         }
         for (String str : levelNames) {
-            MemberLevel memberLevel = new MemberLevel();
-            memberLevel.setLevelName(str);
-            memberLevel.setStoreId(storeId);
-            log.info(JSONObject.fromObject(memberLevel).toString());
-            memberLevelMapper.insert(memberLevel);
+            saveEnterpriseMemberLevel(lastOperatorId, str, storeAccount, storeId);
+//            MemberLevel memberLevel = new MemberLevel();
+//            memberLevel.setLevelName(str);
+//            memberLevel.setStoreId(storeId);
+//            log.info(JSONObject.fromObject(memberLevel).toString());
+//            memberLevelMapper.insert(memberLevel);
         }
     }
 
@@ -1470,13 +1483,14 @@ public class MemberInfoService {
     * @date 2015年12月6日 下午4:53:17
     * @param file                  文件
     * @param storeId               门店
+    * @param storeAccount               门店
     * @param storeName             原服务商名称
     * @param lastOperatorId        最后操作人
     * @param response              结果
     * @return                      状态
      * @throws IOException         异常处理
      */
-    public BaseDto importExcleHt(MultipartFile file, Integer storeId,
+    public BaseDto importExcleHt(MultipartFile file, Integer storeId, String storeAccount, 
             Integer lastOperatorId, HttpServletResponse response, String storeName) throws IOException {
         updateStoreSet(storeId, storeName);
         int hsqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
@@ -1504,11 +1518,12 @@ public class MemberInfoService {
                 }
             }
             for (String levelName : initLevel) {
-                MemberLevel level = new MemberLevel();
-                level.setLevelName(levelName);
-                level.setStoreId(hsqStoreId);
-                level.setIsDeleted(0);
-                memberLevelMapper.insert(level);
+                saveEnterpriseMemberLevel(lastOperatorId, levelName, storeAccount, storeId);
+//                MemberLevel level = new MemberLevel();
+//                level.setLevelName(levelName);
+//                level.setStoreId(hsqStoreId);
+//                level.setIsDeleted(0);
+//                memberLevelMapper.insert(level);
             }
             Map<String, String> sexMap = new HashMap<>();
             sexMap.put("1", "男");
@@ -2208,6 +2223,7 @@ public class MemberInfoService {
     * @param multipartFile     消费余额统计表
     * @param multipartFile2    会员信息统计表
     * @param storeId           门店
+    * @param storeAccount               门店
     * @param storeName         原服务商名称
     * @param lastOperatorId    最后操作人
     * @param response          response
@@ -2216,10 +2232,10 @@ public class MemberInfoService {
     * @throws Exception        异常
      */
     public BaseDto importExcleBk(MultipartFile multipartFile,
-            MultipartFile multipartFile2, Integer storeId,
+            MultipartFile multipartFile2, Integer storeId, String storeAccount, 
             Integer lastOperatorId, HttpServletResponse response, String storeName) throws IOException, Exception {
         updateStoreSet(storeId, storeName);
-        Map<String, Integer> levelMap = getLevel(multipartFile.getInputStream(), storeId);
+        Map<String, Integer> levelMap = getLevel(multipartFile.getInputStream(), storeId, storeAccount, lastOperatorId);
         return readInfo(multipartFile2.getInputStream(), levelMap, storeId, lastOperatorId);
     }
     
@@ -2229,10 +2245,12 @@ public class MemberInfoService {
     * @date 2015年12月16日 下午7:34:43
     * @param is             文件流
     * @param storeId        门店
+    * @param storeAccount               门店
+    * @param lastOperatorId               门店
     * @return               会员等级hash
     * @throws Exception     异常
      */
-    public Map<String, Integer> getLevel(InputStream is, Integer storeId) throws Exception {
+    public Map<String, Integer> getLevel(InputStream is, Integer storeId, String storeAccount, Integer lastOperatorId) throws Exception {
         Set<String> set = new HashSet<String>();
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
         Map<String, String> levelMap = new HashMap<String, String>();
@@ -2266,10 +2284,11 @@ public class MemberInfoService {
         Map<String, Integer> hasLevelMap = packLevelMap(hsqStoreId);
         for (String levelName : set) {
             if (hasLevelMap.get(levelName)==null){
-                MemberLevel level = new MemberLevel();
-                level.setLevelName(levelName);
-                level.setStoreId(hsqStoreId);
-                memberLevelMapper.insert(level);
+                saveEnterpriseMemberLevel(lastOperatorId, levelName, storeAccount, storeId);
+//                MemberLevel level = new MemberLevel();
+//                level.setLevelName(levelName);
+//                level.setStoreId(hsqStoreId);
+//                memberLevelMapper.insert(level);
             }
         }
         List<MemberLevelDto> levels = memberLevelMapper.selectByStoreId(hsqStoreId);
@@ -3363,14 +3382,15 @@ public class MemberInfoService {
     * @author 高国藩
     * @date 2015年12月19日 下午1:47:11
     * @param storeId          门店信息
+    * @param storeAccount               门店
     * @param lastOperatorId   最后操作人
     * @param type             类型(1:盛传 2:左右 3:企汇通 4:博卡)
     * @param jsonArray        数据集合
     * @return                 状态
      */
-    public BaseDto comboMemberMoveAll(Integer storeId, Integer lastOperatorId, Integer type, JSONArray jsonArray) {
+    public BaseDto comboMemberMoveAll(Integer storeId, String storeAccount, Integer lastOperatorId, Integer type, JSONArray jsonArray) {
         switch(type){
-            case 1: return comboMemberMoveScAll(storeId, lastOperatorId, type, jsonArray);
+            case 1: return comboMemberMoveScAll(storeId, storeAccount, lastOperatorId, type, jsonArray);
             default:
                 break;
         }
@@ -3409,12 +3429,13 @@ public class MemberInfoService {
     * @author 高国藩
     * @date 2015年12月19日 下午1:47:11
     * @param storeId          门店信息
+    * @param storeAccount    企业代号
     * @param lastOperatorId   最后操作人
     * @param type             类型(1:盛传 2:左右 3:企汇通 4:博卡)
     * @param jsonArray        jsonArray
     * @return                 状态
      */
-    public BaseDto comboMemberMoveScAll(Integer storeId, Integer lastOperatorId,  Integer type, JSONArray jsonArray) {
+    public BaseDto comboMemberMoveScAll(Integer storeId, String storeAccount, Integer lastOperatorId,  Integer type, JSONArray jsonArray) {
         Map<String, Integer> map = new HashMap<>();
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject object = jsonArray.getJSONObject(i);
@@ -3440,7 +3461,7 @@ public class MemberInfoService {
                 info.setPhone(rumorsCourse.getPhone());
                 info.setIsDeleted(0);
                 info.setLastOperatorId(lastOperatorId);
-                MemberLevel memberLevel = memberLevelMapper.selectMemberLevelBySotreIdAndLevelName(storeId, rumorsCourse.getLevelName());
+                MemberLevel memberLevel = memberLevelMapper.selectMemberLevelBySotreIdAndLevelName(storeAccount, rumorsCourse.getLevelName());
                 if (memberLevel!=null){
                     info.setLevelId(memberLevel.getLevelId());
                 }
@@ -3641,13 +3662,14 @@ public class MemberInfoService {
     * @date 2016年1月13日 上午9:58:14
     * @param file               上传文件
     * @param storeId            门店ID
+    * @param storeAccount    企业代号
     * @param lastOperatorId     最后操作人
     * @param response           返回
     * @param storeName          原系统名称
     * @return                   导入状态
     * @throws IOException       抛出io读写异常 
      */
-    public BaseDto importExcleGy(MultipartFile file, Integer storeId,
+    public BaseDto importExcleGy(MultipartFile file, Integer storeId, String storeAccount, 
             Integer lastOperatorId, HttpServletResponse response,
             String storeName) throws IOException {
         updateStoreSet(storeId, storeName);
@@ -3796,12 +3818,13 @@ public class MemberInfoService {
         }
         int hsqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
         //先插入会员卡等级数据
-        for (String level : levels) {
-            MemberLevel level1 = new MemberLevel();
-            level1.setLevelName(level);
-            level1.setStoreId(hsqStoreId);
-            level1.setIsDeleted(0);
-            memberLevelMapper.insert(level1);
+        for (String levelName : levels) {
+            saveEnterpriseMemberLevel(lastOperatorId, levelName, storeAccount, storeId);
+//            MemberLevel level1 = new MemberLevel();
+//            level1.setLevelName(level);
+//            level1.setStoreId(hsqStoreId);
+//            level1.setIsDeleted(0);
+//            memberLevelMapper.insert(level1);
         }
         levelMap = packLevelMap(hsqStoreId);
         for (int k = 0; k < tableScs.size(); k++) {
@@ -3921,13 +3944,14 @@ public class MemberInfoService {
     * @author 高国藩
     * @date 2016年2月20日 下午3:12:53
     * @param storeId             门店
+    * @param storeAccount    企业代号
     * @param lastOperatorId      最后操作人
     * @param response            结果街
     * @param storeName           系统名称
     * @param cookieStore         session信息
     * @return                    结果状态
      */
-    public BaseDto importExcleLd(Integer storeId, Integer lastOperatorId,
+    public BaseDto importExcleLd(Integer storeId, String storeAccount, Integer lastOperatorId,
             HttpServletResponse response, String storeName, BasicCookieStore cookieStore) {
         updateStoreSet(storeId, storeName);
         List<MemberInfoDto> memberInfoDtos = memberInfoMapper.selectMemberByStoreId(storeId);
@@ -3955,11 +3979,12 @@ public class MemberInfoService {
         for (int i = 0; i < ad.size(); i++) {
             String memberLevelName = JSONObject.fromObject(ad.get(i)).get("CardName").toString();
             if (levelMap.get(memberLevelName)==null){
-                MemberLevel record = new MemberLevel();
-                record.setStoreId(hsqStoreId);
-                record.setIsDeleted(0);
-                record.setLevelName(memberLevelName);
-                memberLevelMapper.insert(record);
+                saveEnterpriseMemberLevel (lastOperatorId, memberLevelName, storeAccount, storeId);
+//                MemberLevel record = new MemberLevel();
+//                record.setStoreId(hsqStoreId);
+//                record.setIsDeleted(0);
+//                record.setLevelName(memberLevelName);
+//                memberLevelMapper.insert(record);
             }
         }
         levelMap = packLevelMap(storeId);
@@ -4106,13 +4131,14 @@ public class MemberInfoService {
     * @date 2016年3月2日 下午2:13:49
     * @param file              文件
     * @param storeId           门店
+    * @param storeAccount    企业代号
     * @param lastOperatorId    最后操作人
     * @param response          结果流
     * @param storeName         门店名称
     * @return                  状态
     * @throws IOException      异常
      */
-    public BaseDto importExcleGi(MultipartFile file, Integer storeId,
+    public BaseDto importExcleGi(MultipartFile file, Integer storeId, String storeAccount, 
             Integer lastOperatorId, HttpServletResponse response, String storeName) throws IOException {
         updateStoreSet(storeId, storeName);
         String name = file.getOriginalFilename();
@@ -4240,11 +4266,12 @@ public class MemberInfoService {
         int hsqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
         //先插入会员卡等级数据
         for (String level : levels) {
-            MemberLevel level1 = new MemberLevel();
-            level1.setLevelName(level);
-            level1.setStoreId(hsqStoreId);
-            level1.setIsDeleted(0);
-            memberLevelMapper.insert(level1);
+            saveEnterpriseMemberLevel (lastOperatorId, level, storeAccount, storeId);
+//            MemberLevel level1 = new MemberLevel();
+//            level1.setLevelName(level);
+//            level1.setStoreId(hsqStoreId);
+//            level1.setIsDeleted(0);
+//            memberLevelMapper.insert(level1);
         }
         levelMap = packLevelMap(hsqStoreId);
         for (int k = 0; k < tableScs.size(); k++) {
@@ -4339,13 +4366,14 @@ public class MemberInfoService {
     * @date 2016年3月2日 下午2:13:49
     * @param file              文件
     * @param storeId           门店
+    * @param storeAccount    企业代号
     * @param lastOperatorId    最后操作人
     * @param response          结果流
     * @param storeName         门店名称
     * @return                  状态
     * @throws IOException      异常
      */
-    public BaseDto importExcleMb(MultipartFile file, Integer storeId,
+    public BaseDto importExcleMb(MultipartFile file, Integer storeId, String storeAccount, 
             Integer lastOperatorId, HttpServletResponse response,
             String storeName) throws IOException {
         updateStoreSet(storeId, storeName);
@@ -4475,12 +4503,13 @@ public class MemberInfoService {
         }
         int hsqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
         //先插入会员卡等级数据
-        for (String level : levels) {
-            MemberLevel level1 = new MemberLevel();
-            level1.setLevelName(level);
-            level1.setStoreId(hsqStoreId);
-            level1.setIsDeleted(0);
-            memberLevelMapper.insert(level1);
+        for (String levelName : levels) {
+            saveEnterpriseMemberLevel(lastOperatorId, levelName, storeAccount, storeId);
+//            MemberLevel level1 = new MemberLevel();
+//            level1.setLevelName(level);
+//            level1.setStoreId(hsqStoreId);
+//            level1.setIsDeleted(0);
+//            memberLevelMapper.insert(level1);
         }
         levelMap = packLevelMap(hsqStoreId);
         for (int k = 0; k < tableScs.size(); k++) {
@@ -4578,13 +4607,14 @@ public class MemberInfoService {
     * @date 2016年3月2日 下午2:13:49
     * @param file              文件
     * @param storeId           门店
+    * @param storeAccount    企业代号
     * @param lastOperatorId    最后操作人
     * @param response          结果流
     * @param storeName         门店名称
     * @return                  状态
     * @throws Exception      异常
      */
-    public BaseDto importExcleXsl(MultipartFile file, Integer storeId,
+    public BaseDto importExcleXsl(MultipartFile file, Integer storeId, String storeAccount, 
             Integer lastOperatorId, HttpServletResponse response,
             String storeName) throws Exception{
         updateStoreSet(storeId, storeName);
@@ -4710,11 +4740,12 @@ public class MemberInfoService {
         int hsqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
         //先插入会员卡等级数据
         for (String level : levels) {
-            MemberLevel level1 = new MemberLevel();
-            level1.setLevelName(level);
-            level1.setStoreId(hsqStoreId);
-            level1.setIsDeleted(0);
-            memberLevelMapper.insert(level1);
+            saveEnterpriseMemberLevel(lastOperatorId, level, storeAccount, storeId);
+//            MemberLevel level1 = new MemberLevel();
+//            level1.setLevelName(level);
+//            level1.setStoreId(hsqStoreId);
+//            level1.setIsDeleted(0);
+//            memberLevelMapper.insert(level1);
         }
         levelMap = packLevelMap(hsqStoreId);
         for (int k = 0; k < tableScs.size(); k++) {
@@ -4800,13 +4831,14 @@ public class MemberInfoService {
     * @date 2016年3月15日 下午2:54:13
     * @param file     file
     * @param storeId  sdfsdf
+    * @param storeAccount    企业代号
     * @param lastOperatorId lastOperatorId
     * @param response response
     * @param storeName storeName
     * @return  baseDto
      * @throws Exception  IOException
      */
-    public BaseDto importExcleHtmy(MultipartFile file, Integer storeId,
+    public BaseDto importExcleHtmy(MultipartFile file, Integer storeId, String storeAccount, 
             Integer lastOperatorId, HttpServletResponse response,
             String storeName) throws Exception {
         updateStoreSet(storeId, storeName);
@@ -4835,11 +4867,12 @@ public class MemberInfoService {
                 }
             }
             for (String levelName : initLevel) {
-                MemberLevel level = new MemberLevel();
-                level.setLevelName(levelName);
-                level.setStoreId(hsqStoreId);
-                level.setIsDeleted(0);
-                memberLevelMapper.insert(level);
+                saveEnterpriseMemberLevel(lastOperatorId, levelName, storeAccount, storeId);
+//                MemberLevel level = new MemberLevel();
+//                level.setLevelName(levelName);
+//                level.setStoreId(hsqStoreId);
+//                level.setIsDeleted(0);
+//                memberLevelMapper.insert(level);
             }
             levelMap = packLevelMap(hsqStoreId);
             List<MemberInfo> memberInfos = new ArrayList<>();
@@ -4992,6 +5025,7 @@ public class MemberInfoService {
     * @param multipartFile   multipartFile
     * @param multipartFile2  multipartFile2
     * @param storeId         storeId
+    * @param storeAccount    企业代号
     * @param lastOperatorId lastOperatorId
     * @param response response
     * @param storeName storeName
@@ -4999,11 +5033,11 @@ public class MemberInfoService {
     * @throws Exception Exception
      */
     public BaseDto importExcleHc(MultipartFile multipartFile,
-            MultipartFile multipartFile2, Integer storeId,
+            MultipartFile multipartFile2, Integer storeId, String storeAccount, 
             Integer lastOperatorId, HttpServletResponse response,
             String storeName) throws Exception {
         updateStoreSet(storeId, storeName);
-        Map<String, Integer> levelMap = getLevelHc(multipartFile.getInputStream(), storeId);
+        Map<String, Integer> levelMap = getLevelHc(multipartFile.getInputStream(), storeId, storeAccount, lastOperatorId);
         return readInfoHc(multipartFile2.getInputStream(), levelMap, storeId, lastOperatorId);
     }
 
@@ -5125,10 +5159,12 @@ public class MemberInfoService {
     * @date 2016年3月16日 上午11:36:48
     * @param inputStream inputStream
     * @param storeId     storeId
+    * @param storeAccont 企业代号
+    * @param userId      操作人
     * @return            数据
     * @throws IOException IOException
      */
-    private Map<String, Integer> getLevelHc(InputStream inputStream, Integer storeId) throws IOException {
+    private Map<String, Integer> getLevelHc(InputStream inputStream, Integer storeId, String storeAccont, Integer userId) throws IOException {
         Map<String, Integer> levelMap = new HashMap<>();
         InputStreamReader isr = new InputStreamReader(inputStream, "UTF-8");
         BufferedReader br = new BufferedReader(isr);
@@ -5145,15 +5181,43 @@ public class MemberInfoService {
                 sql = sql.substring(0, sql.length()-1);
                 String levelName = sql.split(",")[1].replaceAll("'", "");
                 String levelId = sql.split(",")[0].replaceAll("'", "");
-                MemberLevel memberLevel = new MemberLevel();
-                memberLevel.setStoreId(storeId);
-                memberLevel.setCreateTime(DateUtil.getCurDate());
-                memberLevel.setLevelName(levelName);
-                memberLevelMapper.insert(memberLevel);
-                levelMap.put(levelId, memberLevel.getLevelId());
+                saveEnterpriseMemberLevel(userId, levelName, storeAccont, storeId);
+//                MemberLevel memberLevel = new MemberLevel();
+//                memberLevel.setStoreId(storeId);
+//                memberLevel.setCreateTime(DateUtil.getCurDate());
+//                memberLevel.setLevelName(levelName);
+//                memberLevelMapper.insert(memberLevel);
+//                levelMap.put(levelId, memberLevel.getLevelId());
             }
         }
         return levelMap;
+    }
+    
+    /**
+     * 创建会员卡
+    * @author 高国藩
+    * @date 2016年6月4日 下午2:49:49
+    * @param userId          userId
+    * @param levelName       levelName
+    * @param storeAccount    storeAccount
+    * @param storeId         门店信息
+    * @return                BaseDto
+     */
+    public BaseDto saveEnterpriseMemberLevel (Integer userId, String levelName, String storeAccount, Integer storeId) {
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setLevelName(levelName);
+        memberLevel.setLevelType("折扣卡");
+        memberLevel.setLevelLogo("system/profile/vip_card_11.png,system/profile/vip_card_12.png");
+        memberLevel.setLevelTemplate(1);
+        memberLevel.setLevelNotice("导入会员数据,自动创建会员卡");
+        memberLevel.setStoreAccount(storeAccount);
+        
+        MemberLevelDiscount memberLevelDiscount = new MemberLevelDiscount();
+        memberLevelDiscount.setStoreId(storeId);
+        memberLevelDiscount.setDiscountId(null);
+        memberLevelDiscount.setProjectDiscount(100);
+        memberLevelDiscount.setGoodsDiscount(100);
+        return memberLevelService.saveEnterpriseMemberLevel(userId, memberLevel, memberLevelDiscount);
     }
     
 }

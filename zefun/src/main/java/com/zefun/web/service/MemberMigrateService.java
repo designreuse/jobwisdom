@@ -390,7 +390,7 @@ public class MemberMigrateService {
         String curTime = DateUtil.getCurTime();
         for (String levelName : levelNameSet) {
             MemberLevel memberLevel = new MemberLevel();
-            memberLevel.setStoreId(mainStoreId);
+//            memberLevel.setStoreId(storeId);
             memberLevel.setLevelName(levelName);
             memberLevel.setCreateTime(curTime);
             memberLevel.setUpdateTime(levelName);

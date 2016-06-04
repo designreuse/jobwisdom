@@ -60,7 +60,7 @@ public class ConferenceController extends BaseController {
      */
     @RequestMapping(value = Url.Conference.VIEW_CONFERENCE, method = RequestMethod.GET)
     public ModelAndView appointView(HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -79,7 +79,7 @@ public class ConferenceController extends BaseController {
     @RequestMapping(value = Url.Conference.SAVE_CONFERENCE, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto actionSaveMetting(HttpServletRequest request, HttpServletResponse response, ConferenceInfo conferenceInfo){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -100,11 +100,11 @@ public class ConferenceController extends BaseController {
      */
     @RequestMapping(value = Url.Conference.VIEW_CONFERENCE_LIST, method = RequestMethod.GET)
     public ModelAndView conferenceListView(HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
-        setJsapiSignData(App.System.WECHAT_ZEFUN_STORE_ID, request);
+        setJsapiSignData(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), request);
         return conferenceService.conferenceListView(openId);
     }
     
@@ -123,11 +123,11 @@ public class ConferenceController extends BaseController {
     @RequestMapping(value = Url.Conference.VIEW_CONFERENCE_INFO, method = RequestMethod.GET)
     public ModelAndView conferenceInfoView(HttpServletRequest request, HttpServletResponse response, 
             Integer conferenceId, Integer status) throws ParseException {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
-        setJsapiSignData(App.System.WECHAT_ZEFUN_STORE_ID, request);
+        setJsapiSignData(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), request);
         return conferenceService.conferenceInfoView(conferenceId, status);
     }
     
@@ -143,7 +143,7 @@ public class ConferenceController extends BaseController {
     @RequestMapping(value = Url.Conference.UPDATE_CONFERENCE_INFO_VIEW, method = RequestMethod.GET)
     public ModelAndView updateConferenceInfoView(Integer conferenceId, 
             HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -163,7 +163,7 @@ public class ConferenceController extends BaseController {
     @ResponseBody
     public BaseDto actionUpdateMetting(ConferenceInfo conferenceInfo, 
             HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -184,11 +184,11 @@ public class ConferenceController extends BaseController {
     @RequestMapping(value = Url.Conference.VIEW_SHARE_CONFERENCE, method = RequestMethod.GET)
     public ModelAndView shareConferenceView(HttpServletRequest request, HttpServletResponse response, 
             Integer fromUser, Integer conferenceId) throws ParseException{
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
-        setJsapiSignData(App.System.WECHAT_ZEFUN_STORE_ID, request);
+        setJsapiSignData(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), request);
         conferenceId = 1;
         fromUser = 1;
         return conferenceService.shareConferenceView(conferenceId, fromUser, openId);
@@ -207,7 +207,7 @@ public class ConferenceController extends BaseController {
     @ResponseBody
     public BaseDto actionJoinMetting(EnrollInfo enrollInfo, 
             HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -226,7 +226,7 @@ public class ConferenceController extends BaseController {
     @RequestMapping(value = Url.Conference.VIEW_CONFERENCE_REGIST, method = RequestMethod.GET)
     public ModelAndView viewConferenceRegist(Integer conferenceId, 
             HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -246,7 +246,7 @@ public class ConferenceController extends BaseController {
     @RequestMapping(value = Url.Conference.VIEW_CONFERENCE_DETAILS, method = RequestMethod.GET)
     public ModelAndView viewConferenceDetails(Integer conferenceId, 
             HttpServletRequest request, HttpServletResponse response) throws ParseException{
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -265,7 +265,7 @@ public class ConferenceController extends BaseController {
     @RequestMapping(value = Url.Conference.VIEW_CONFERENCE_ADDMISSION, method = RequestMethod.GET)
     public ModelAndView viewConferenceAdmission(Integer conferenceId, 
             HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -285,7 +285,7 @@ public class ConferenceController extends BaseController {
     @ResponseBody
     public BaseDto actionAdmission(EnrollInfo enrollInfo, 
             HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -307,7 +307,7 @@ public class ConferenceController extends BaseController {
     @RequestMapping(value = Url.Conference.CONFERENCE_CREATE_PAY, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto wepay(HttpServletRequest request, HttpServletResponse response, String goodsName, Integer personnelId, Integer conferenceId){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -350,17 +350,17 @@ public class ConferenceController extends BaseController {
      */
     @RequestMapping(value = "mobile/pay/h5Pay")
     public ModelAndView h5Pay(HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
-        setJsapiSignData(App.System.WECHAT_ZEFUN_STORE_ID, request);
+        setJsapiSignData(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), request);
         /*Integer conferenceId = 1;
         String goodsName = "iphone 7s";
         Integer totalFee = 1;
         String callback = "/" + Url.Conference.WECHAT_CALLBACK_CONFERENCE_PAY.replace("{personnelId}", String.valueOf(1))
                 .replace("{conferenceId}", String.valueOf(2));
-        BaseDto baseDto = wechatService.wepayForZefun(App.System.WECHAT_ZEFUN_STORE_ID, 5, conferenceId, goodsName, 
+        BaseDto baseDto = wechatService.wepayForZefun(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 5, conferenceId, goodsName, 
                 totalFee, openId, callback, request);
         Map<String, String> payMap =  (Map<String, String>) baseDto.getMsg();
         */

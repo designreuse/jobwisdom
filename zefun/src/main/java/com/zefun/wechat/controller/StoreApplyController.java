@@ -52,7 +52,7 @@ public class StoreApplyController extends BaseController {
      */
     @RequestMapping(value=Url.StoreApply.VIEW_STORE_APPLY, method = RequestMethod.GET)
     public ModelAndView viewStoreApply(String code, HttpServletRequest request, HttpServletResponse response) throws IOException{
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }
@@ -97,7 +97,7 @@ public class StoreApplyController extends BaseController {
     public BaseDto actionStoreApply(String code, String name, String phone, 
             String verifyCode, Integer storeType, String hqUserName, String storeName, String province, String city, 
             HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 4, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
         if (openId == null) {
             return null;
         }

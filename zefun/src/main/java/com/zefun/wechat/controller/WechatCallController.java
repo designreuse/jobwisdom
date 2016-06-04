@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
-import com.zefun.common.swagger.SystemWebSocketHandler;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.wechat.service.WechatCallService;
@@ -81,6 +80,7 @@ public class WechatCallController extends BaseController {
     @RequestMapping(value = Url.Wechat.CALL_BACK_PAY)
     @ResponseBody
     public String payCallback(String data){
+        logger.info(data.toString());
         return wechatService.payCallback(data);
     }
     

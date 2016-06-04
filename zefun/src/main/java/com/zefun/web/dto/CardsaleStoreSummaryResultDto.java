@@ -33,7 +33,7 @@ public class CardsaleStoreSummaryResultDto extends SummaryResultDto {
     /**
      * 会员等级
      */
-    private List<MemberLevel> memberLevels = new ArrayList<MemberLevel>();
+    private List<MemberLevelDto> memberLevels = new ArrayList<MemberLevelDto>();
 
     /**
      * 新开会员金额汇总
@@ -103,10 +103,10 @@ public class CardsaleStoreSummaryResultDto extends SummaryResultDto {
     * @throws Exception 统计异常
      */
     public CardsaleStoreSummaryResultDto(Map<Integer, MemberAccount> memberAccounts, Map<Integer, Integer> memberLevelIds, 
-            List<MemberLevel> memberLevels, Integer dateType, String begin, String end, List<StoreSummaryDto> summaryDtos, 
+            List<MemberLevelDto> memberLevels, Integer dateType, String begin, String end, List<StoreSummaryDto> summaryDtos, 
             List<StoreSummaryDto> lastSummaryDtos) throws Exception {
         if (memberLevels == null) {
-            memberLevels = new ArrayList<MemberLevel>();
+            memberLevels = new ArrayList<MemberLevelDto>();
         }
         this.memberLevels = memberLevels;
         if (memberLevelIds == null) {
@@ -131,7 +131,7 @@ public class CardsaleStoreSummaryResultDto extends SummaryResultDto {
 
         computeMemberSums(summaryDtos, lastSummaryDtos, dateLen);
 
-        for (MemberLevel memberLevel : this.memberLevels) {
+        for (MemberLevelDto memberLevel : this.memberLevels) {
             Integer levelId = memberLevel.getLevelId();
 
             Map<String, StoreSummaryDto> cardsaleTypeSumDtos = cardsaleTypeSums.get(levelId);
@@ -185,7 +185,7 @@ public class CardsaleStoreSummaryResultDto extends SummaryResultDto {
             if (dateCardTypeSumDtos == null) {
                 dateCardTypeSumDtos = new HashMap<Integer, StoreSummaryDto>();
             }
-            for (MemberLevel memberLevel : this.memberLevels) {
+            for (MemberLevelDto memberLevel : this.memberLevels) {
                 Integer levelId = memberLevel.getLevelId();
                 StoreSummaryDto dateCardTypeSumDto = dateCardTypeSumDtos.get(levelId);
                 if (dateCardTypeSumDto == null) {
@@ -369,7 +369,7 @@ public class CardsaleStoreSummaryResultDto extends SummaryResultDto {
     }
 
 
-    public List<MemberLevel> getMemberLevels() {
+    public List<MemberLevelDto> getMemberLevels() {
         return memberLevels;
     }
 

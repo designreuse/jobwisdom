@@ -79,7 +79,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_INDEX, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString()).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -108,7 +108,7 @@ public class AgentDetailController extends BaseController {
         if (agentAccount.getAgentStatus() == 2) {
             mav.setViewName(View.AgentDetail.INDEX);
             mav.addObject("code", openId);
-            setJsapiSignData(App.System.WECHAT_ZEFUN_STORE_ID, request);
+            setJsapiSignData(new Integer(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString()).toString(), request);
         }
 
         return mav;
@@ -124,7 +124,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_INFO, method = RequestMethod.GET)
     public ModelAndView info(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -148,7 +148,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_NEW_STORE, method = RequestMethod.GET)
     public ModelAndView newStoreSelf(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -166,7 +166,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_NEW_STORE_OTHER, method = RequestMethod.GET)
     public ModelAndView newStoreOther(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -184,7 +184,7 @@ public class AgentDetailController extends BaseController {
      * @return 对应的响应页面
      */
     private ModelAndView newStore(HttpServletRequest request, HttpServletResponse response, int type) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -269,7 +269,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_STORE_NORMAL, method = RequestMethod.GET)
     public ModelAndView storeNormal(Integer page, String keyword, HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -352,7 +352,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_STORE_RENEW, method = RequestMethod.GET)
     public ModelAndView storeRenew(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -370,7 +370,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_STORE_OVER, method = RequestMethod.GET)
     public ModelAndView storeOver(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -388,7 +388,7 @@ public class AgentDetailController extends BaseController {
      * @return type对应的页面
      */
     private ModelAndView oldStore(HttpServletRequest request, HttpServletResponse response, int type) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -490,7 +490,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_SHARE_STORE, method = RequestMethod.GET)
     public ModelAndView myRecommendStore(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -554,7 +554,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_SHARE_AGENT, method = RequestMethod.GET)
     public ModelAndView myRecommendAgent(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -621,7 +621,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_SHARED_STORE, method = RequestMethod.GET)
     public ModelAndView recommendToMeStore(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -688,7 +688,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_STAT)
     public ModelAndView stat(String cityName, Integer orderType, HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }
@@ -712,7 +712,7 @@ public class AgentDetailController extends BaseController {
      */
     @RequestMapping(value = Url.AgentDetail.VIEW_DETAIL_INCOME, method = RequestMethod.GET)
     public ModelAndView income(HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }

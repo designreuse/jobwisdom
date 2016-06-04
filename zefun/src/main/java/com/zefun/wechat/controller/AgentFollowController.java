@@ -41,7 +41,7 @@ public class AgentFollowController extends BaseController {
 	@ResponseBody
 	public BaseDto addAgentFollow(HttpServletRequest request, HttpServletResponse response, AgentFollow agentFollow) {
 		//获得微信标识
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}
@@ -65,7 +65,7 @@ public class AgentFollowController extends BaseController {
 	@ResponseBody
 	public BaseDto deleteAgentFollow(HttpServletRequest request, HttpServletResponse response, Integer agentFollowId) {
 		//获得微信标识
-		String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+		String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
 		if (openId == null) {
 			return null;
 		}

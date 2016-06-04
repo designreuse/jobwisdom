@@ -74,12 +74,12 @@ public class CardconsumptionStoreSummaryResultDto extends SummaryResultDto {
     /**
      * 卡项信息
      */
-    private List<MemberLevel> memberLevels = new ArrayList<MemberLevel>();
+    private List<MemberLevelDto> memberLevels = new ArrayList<MemberLevelDto>();
 
     /**
      * 卡项信息
      */
-    private Map<Integer, MemberLevel> mMemberLevles = new LinkedHashMap<Integer, MemberLevel>();
+    private Map<Integer, MemberLevelDto> mMemberLevles = new LinkedHashMap<Integer, MemberLevelDto>();
 
     /**
      * 会员id与会员等级id对照
@@ -111,13 +111,13 @@ public class CardconsumptionStoreSummaryResultDto extends SummaryResultDto {
     * @param lastSummaryDtos    最后一次汇总数据
     * @throws Exception 统计异常
      */
-    public CardconsumptionStoreSummaryResultDto(Map<Integer, Integer> memberLevelIds, List<MemberLevel> memberLevels, List<DeptInfo> deptInfos,
+    public CardconsumptionStoreSummaryResultDto(Map<Integer, Integer> memberLevelIds, List<MemberLevelDto> memberLevels, List<DeptInfo> deptInfos,
             Integer dateType, String begin, String end, List<StoreSummaryDto> summaryDtos, List<StoreSummaryDto> lastSummaryDtos) throws Exception {
         if (memberLevels == null) {
-            memberLevels = new ArrayList<MemberLevel>();
+            memberLevels = new ArrayList<MemberLevelDto>();
         }
         this.memberLevels = memberLevels;
-        for (MemberLevel memberLevel : this.memberLevels) {
+        for (MemberLevelDto memberLevel : this.memberLevels) {
             mMemberLevles.put(memberLevel.getLevelId(), memberLevel);
         }
         if (memberLevelIds == null) {
@@ -167,7 +167,7 @@ public class CardconsumptionStoreSummaryResultDto extends SummaryResultDto {
                 cardTypeSumDtos = new HashMap<Integer, StoreSummaryDto>();
             }
             Map<Integer, StoreSummaryDto> sortCardTypeSumDtos = new LinkedHashMap<Integer, StoreSummaryDto>();
-            for (MemberLevel memberLevel : this.memberLevels) {
+            for (MemberLevelDto memberLevel : this.memberLevels) {
                 StoreSummaryDto dto = cardTypeSumDtos.get(memberLevel.getLevelId());
                 if (dto == null) {
                     dto = new StoreSummaryDto();
@@ -205,7 +205,7 @@ public class CardconsumptionStoreSummaryResultDto extends SummaryResultDto {
         }
         this.dateOrderTypeSums = sortDateOrderTypeSums;
 
-        for (MemberLevel memberLevel : this.memberLevels) {
+        for (MemberLevelDto memberLevel : this.memberLevels) {
             StoreSummaryDto cardTypeSumDto = cardTypeSums.get(memberLevel.getLevelId());
             if (cardTypeSumDto == null) {
                 cardTypeSums.put(memberLevel.getLevelId(), new StoreSummaryDto());
@@ -345,7 +345,7 @@ public class CardconsumptionStoreSummaryResultDto extends SummaryResultDto {
         return deptInfos;
     }
 
-    public List<MemberLevel> getMemberLevels() {
+    public List<MemberLevelDto> getMemberLevels() {
         return memberLevels;
     }
 
@@ -367,7 +367,7 @@ public class CardconsumptionStoreSummaryResultDto extends SummaryResultDto {
     * @date Jan 16, 2016 8:54:49 PM
     * @return   卡项信息列表
      */
-    public Map<Integer, MemberLevel> getmMemberLevles() {
+    public Map<Integer, MemberLevelDto> getmMemberLevles() {
         return mMemberLevles;
     }
 

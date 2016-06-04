@@ -54,7 +54,7 @@ public class AgentApplyController extends BaseController {
      */
     @RequestMapping(value=Url.AgentApply.VIEW_AGENT_APPLY, method = RequestMethod.GET)
     public ModelAndView viewChannelApply(String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (StringUtils.isBlank(openId)) {
             return null;
         }
@@ -98,7 +98,7 @@ public class AgentApplyController extends BaseController {
     public BaseDto actionStoreApply(String code, String name, String phone, 
             String verifyCode, Integer agentType, String company, String province, String city, 
             HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(App.System.WECHAT_ZEFUN_STORE_ID, 3, request, response);
+        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 3, request, response);
         if (openId == null) {
             return null;
         }

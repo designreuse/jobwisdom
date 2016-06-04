@@ -17,13 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.utils.SignUtil;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.mapper.StoreInfoMapper;
-import com.zefun.web.service.RedisService;
 import com.zefun.wechat.dto.ThumbDto;
 import com.zefun.wechat.dto.UpdateArticleDto;
 import com.zefun.wechat.dto.UpdateChangeThumb;
@@ -45,12 +42,6 @@ public class WechatController extends BaseController{
     /** 微信接口调用service*/
     @Autowired
     private WeixinUploadService weixinUploadService;
-    /** redis操作类 */
-    @Autowired
-    private RedisService redisService;
-    /**查询门店信息*/
-    @Autowired
-    private StoreInfoMapper storeInfoMapper;
     /** 日志 */
     private Logger logger = Logger.getLogger(WechatController.class);
 
@@ -150,7 +141,7 @@ public class WechatController extends BaseController{
     @RequestMapping(value = Url.Wechat.ITEM_PRER_VIEW, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto prevItems(HttpServletRequest request, String userName, String mediaId, Integer type) throws ClientProtocolException, IOException {
-        Integer storeId = getStoreId(request);
+//        Integer storeId = getStoreId(request);
         String accessToken = getAccessToken(request);
 //        Integer hqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
 //        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, hqStoreId.toString());
@@ -169,7 +160,7 @@ public class WechatController extends BaseController{
     @RequestMapping(value = Url.Wechat.UPLOAD_AREA, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto uploadImgForTextArea(HttpServletRequest request, String imgUrl) {
-        Integer storeId = getStoreId(request);
+//        Integer storeId = getStoreId(request);
         String accessToken = getAccessToken(request);
 //        Integer hqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
 //        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, hqStoreId.toString());
@@ -213,7 +204,7 @@ public class WechatController extends BaseController{
     @RequestMapping(value = Url.Wechat.CHANGE_THUMB_ID, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto changeThumbMediaId(String qiniuImg, HttpServletRequest request){
-        Integer storeId = getStoreId(request);
+//        Integer storeId = getStoreId(request);
         String accessToken = getAccessToken(request);
 //        Integer hqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
 //        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, hqStoreId.toString());
@@ -254,7 +245,7 @@ public class WechatController extends BaseController{
     @ResponseBody
     public BaseDto updateItmes(UpdateItemsDto updateItemsDto, UpdateArticleDto updateArticleDto, 
             UpdateChangeThumb updateChangeThumb, HttpServletRequest request, Integer itemNum) {
-        Integer storeId = getStoreId(request);
+//        Integer storeId = getStoreId(request);
         String accessToken = getAccessToken(request);
 //        Integer hqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
 //        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, hqStoreId.toString());
@@ -362,7 +353,7 @@ public class WechatController extends BaseController{
     @RequestMapping(value = Url.Wechat.SEND_MESSAGE_TEXT)
     @ResponseBody
     public BaseDto sendTextByOpenId(List<String> touser, String text, HttpServletRequest request) {
-        Integer storeId = getStoreId(request);
+//        Integer storeId = getStoreId(request);
         String accessToken = getAccessToken(request);
 //        Integer hqStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
 //        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, hqStoreId.toString());
