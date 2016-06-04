@@ -32,6 +32,12 @@ public class MemberSubAccountDto {
     
     /** 等级名称 */
     private String levelName;
+    
+    /** 卡logo*/
+    private String levelLogo;
+    
+    /** 卡模板*/
+    private Integer levelTemplate;
 
     /** 项目折扣 */
     private Integer projectDiscount;
@@ -53,6 +59,23 @@ public class MemberSubAccountDto {
     
     /** 等级说明 */
     private String levelNotice;
+
+    
+    public Integer getLevelTemplate() {
+        return levelTemplate;
+    }
+
+    public void setLevelTemplate(Integer levelTemplate) {
+        this.levelTemplate = levelTemplate;
+    }
+
+    public String getLevelLogo() {
+        return levelLogo;
+    }
+
+    public void setLevelLogo(String levelLogo) {
+        this.levelLogo = levelLogo;
+    }
 
     public Integer getSubAccountId() {
         return subAccountId;

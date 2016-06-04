@@ -562,26 +562,26 @@
   </select>
   
   <select id="selectByOrderProjectPage" resultType = "com.zefun.web.dto.OrderProjectPageDto" parameterType="com.zefun.web.entity.Page">
-    select a.detail_id as detailId, b.order_code orderCode, a.project_name projectName, a.discount_amount discountAmount, 
-	ifnull(a.real_price, 0) realPrice, a.create_time createTime, a.off_type offType, a.gift_amount as privilegeMoney,
-	(select c.store_name from store_info c where c.store_id = a.store_id and c.store_status != 5) as storeName
+    SELECT a.detail_id AS detailId, b.order_code orderCode, a.project_name projectName, a.discount_amount discountAmount, 
+	IFNULL(a.real_price, 0) realPrice, a.create_time createTime, a.off_type offType, a.gift_amount AS privilegeMoney,
+	(SELECT c.store_name FROM store_info c WHERE c.store_id = a.store_id AND c.store_status != 5) AS storeName
 	from order_detail a
-	left join order_info b on a.order_id = b.order_id
-	where a.order_type = 1 and a.is_deleted = 0 and b.is_deleted = 0
-	   and b.member_id = #{params.memberId} 
-	   order by a.create_time desc
+	LEFT JOIN order_info b ON a.order_id = b.order_id
+	WHERE a.order_type = 1 AND a.is_deleted = 0 AND b.is_deleted = 0
+	   AND b.member_id = #{params.memberId} 
+	   ORDER BY a.create_time DESC
   </select>
   
   <select id="selectByOrderGoodsPage" resultType = "com.zefun.web.dto.OrderProjectPageDto" parameterType="com.zefun.web.entity.Page">
-    select a.detail_id as detailId, b.order_code orderCode, a.project_name projectName,
-    (select concat(d.employee_code, '  ', d.name) from employee_info d where d.employee_id = a.last_operator_id and d.is_deleted = 0) as lastOperatorName, 
-    a.discount_amount discountAmount, ifnull(a.real_price, 0) realPrice, a.create_time createTime, a.off_type offType, a.gift_amount as privilegeMoney,
-	(select c.store_name from store_info c where c.store_id = a.store_id and c.store_status != 5) as storeName
+    SELECT a.detail_id AS detailId, b.order_code orderCode, a.project_name projectName,
+    (SELECT CONCAT(d.employee_code, '  ', d.name) FROM employee_info d WHERE d.employee_id = a.last_operator_id AND d.is_deleted = 0) AS lastOperatorName, 
+    a.discount_amount discountAmount, IFNULL(a.real_price, 0) realPrice, a.create_time createTime, a.off_type offType, a.gift_amount AS privilegeMoney,
+	(SELECT c.store_name FROM store_info c WHERE c.store_id = a.store_id AND c.store_status != 5) AS storeName
 	from order_detail a
-	left join order_info b on a.order_id = b.order_id
-	where a.order_type = 2 and a.is_deleted = 0 and b.is_deleted = 0  
-	   and b.member_id = #{params.memberId} 
-	   order by a.create_time desc
+	LEFT JOIN order_info b ON a.order_id = b.order_id
+	WHERE a.order_type = 2 AND a.is_deleted = 0 AND b.is_deleted = 0  
+	   AND b.member_id = #{params.memberId} 
+	   ORDER BY a.create_time DESC
   </select>
   
   <select id="selectComboNameByDetailId" parameterType="java.lang.Integer" resultType="java.lang.String">

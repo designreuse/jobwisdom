@@ -395,8 +395,9 @@ public class MemberLevelService {
     * @param storeId 门店id
     * @return List<MemberLevel>
      */
-    public List<MemberLevel> queryByAllStoreId(Integer storeId) {
-        return memberLevelMapper.selectByAllStoreId(storeId);
+    public List<MemberLevelDto> queryByAllStoreId(Integer storeId) {
+        return memberLevelMapper.selectByStoreId(storeId);
     }
+
     
 }

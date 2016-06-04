@@ -226,7 +226,7 @@ public class GoodsInfoController extends BaseController {
         model.addObject("js_deptGoodsBaseDto", JSONArray.fromObject(deptGoodsBaseDto));
     
         /** 会员等级列表 */
-        List<MemberLevelDto> memberLevelList = memberLevelService.queryByStoreId(storeId);
+        List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
         model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
         List<AccountGoods> goodsInfos = goodsInfoService.selectAccountGoodsInfo(storeAccount); 

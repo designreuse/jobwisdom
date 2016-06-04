@@ -198,16 +198,25 @@
   </update>
   
   <select id="selectByPage" resultMap="MoneyFlowDtoMap" parameterType="com.zefun.web.entity.Page">
+<<<<<<< HEAD
   	select 
   	    a.*,b.store_name as storeName, c.phone as name, c.sex as sex, 
 		'' as orderName, 
 		(select level_name from member_level where level_id = (select level_id from member_sub_account where sub_account_id = a.account_id)) as levelName,
 		(select h.name from employee_info h where h.employee_id = a.last_operator_id) as lastOperatorName
 	FROM 
+=======
+  	SELECT 
+  	    a.*,b.store_name AS storeName, c.phone AS NAME, c.sex AS sex, 
+		'' AS orderName, 
+		(SELECT level_name FROM member_level WHERE level_id = (SELECT level_id FROM member_sub_account WHERE sub_account_id = a.account_id)) AS levelName,
+		(SELECT h.name FROM employee_info h WHERE h.employee_id = a.last_operator_id) AS lastOperatorName
+	from 
+>>>>>>> b595d0efc11848434c33283d631d6f2aebe83e7a
 	    money_flow a, store_info b, member_info c 
-    where a.store_id = b.store_id and a.is_deleted = 0 and c.member_id = #{params.memberId}
-		  and exists(select 1 from member_sub_account d where d.sub_account_id = a.account_id and d.account_id = #{params.memberId}) 
-    order by flow_time desc
+    WHERE a.store_id = b.store_id AND a.is_deleted = 0 AND c.member_id = #{params.memberId}
+		  AND EXISTS(SELECT 1 FROM member_sub_account d WHERE d.sub_account_id = a.account_id AND d.account_id = #{params.memberId}) 
+    ORDER BY flow_time DESC
   </select>
   
   <!--  根据会员标识查询转出记录 -->

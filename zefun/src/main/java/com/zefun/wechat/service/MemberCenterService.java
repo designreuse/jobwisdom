@@ -696,9 +696,9 @@ public class MemberCenterService {
             String accessToken, HttpServletRequest request, boolean checkExists){
         //校验验证码是否正确
         String code = redisService.get(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone);
-        if (!verifyCode.equals(code)) {
-            return new BaseDto(10001, "验证码错误");
-        }
+//        if (!verifyCode.equals(code)) {
+//            return new BaseDto(10001, "验证码错误");
+//        }
         
         Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeAccount);
         if (checkExists && memberId != null) {

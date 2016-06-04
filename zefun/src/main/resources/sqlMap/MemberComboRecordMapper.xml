@@ -65,13 +65,13 @@
   
   
   <select id="selectComboListByMemberIdPage" resultMap="MemberComboResultMap" parameterType="com.zefun.web.entity.Page">
-    select 
+    SELECT 
         a.record_id, a.combo_id, a.combo_name, a.combo_price, a.combo_image, 
         a.project_amount, a.project_count, a.remaining_count , a.overdue_time, a.create_time, 
-        (select concat(IFNULL(d.employee_code,''), '  ', d.name) from employee_info d where d.employee_id = a.last_operator_id and d.is_deleted = 0) as lastOperatorName, 
-        (select c.store_name from store_info c where c.store_id = a.store_id and c.store_status != 5) as storeName
-    FROM member_combo_record a
-    where a.member_id = #{params.memberId} and is_deleted = 0 order by a.create_time
+        (SELECT CONCAT(IFNULL(d.employee_code,''), '  ', d.name) FROM employee_info d WHERE d.employee_id = a.last_operator_id AND d.is_deleted = 0) AS lastOperatorName, 
+        (SELECT c.store_name FROM store_info c WHERE c.store_id = a.store_id AND c.store_status != 5) AS storeName
+    from member_combo_record a
+    WHERE a.member_id = #{params.memberId} and is_deleted = 0 order by a.create_time
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

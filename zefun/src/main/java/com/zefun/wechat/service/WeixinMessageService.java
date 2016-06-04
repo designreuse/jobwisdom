@@ -27,6 +27,7 @@ import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.MessageUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberBaseDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ScreeningDto;
 import com.zefun.web.entity.AutomaticKey;
 import com.zefun.web.entity.AutomaticReply;
@@ -855,7 +856,7 @@ public class WeixinMessageService {
         for (int i = 0; i < ls.size(); i++) {
             ls.get(i).setCreateTime(DateUtil.getDate(ls.get(i).getCreateTime()));
         }
-        List<MemberLevel> level = memberLevelMapper.selectByStoreId(storeId);
+        List<MemberLevelDto> level = memberLevelMapper.selectByStoreId(storeId);
         List<MemberScreening> screen = memberScreeningMapper.selectByStoreId(storeId);
         ModelAndView view = new ModelAndView(View.Wechat.SEND_ITEMS);
         view.addObject("fatherMediaId", ls.get(0).getFatherMediaId());
