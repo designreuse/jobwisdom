@@ -70,7 +70,7 @@ public class MemberInfoDataService {
     * @return 会员信息及账户信息
      * @throws ParseException  异常
      */
-    public BaseDto selectByMemberDto(Integer memberId) throws ParseException {
+    public BaseDto selectByMemberDto(Integer memberId){
         MemberDto memberDto = memberInfoMapper
                 .selectByMemberResultMap(memberId);
         
@@ -111,6 +111,21 @@ public class MemberInfoDataService {
         map.put("pageGiftmoneyFlowDto", pageGiftmoneyFlowDto);
         map.put("pageDebtFlowDto", pageDebtFlowDto);
         map.put("subAccountList", subAccountList);
+        
+        /*ObjectMapper mapper=new ObjectMapper();
+        try {
+            String jsonString=mapper.writeValueAsString(map);
+            System.out.print(jsonString);
+        } 
+        catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } 
+        catch (JsonMappingException e) {
+            e.printStackTrace();
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }*/
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }

@@ -566,7 +566,7 @@ public class OpenCardService {
 		commissionAndGift(memberId, null, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 6, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId);
-		changeMemberOrder(memberId);
+		changeMemberOrder(memberId, storeId);
 		// 更新缓存中的会员数据
 		memberInfoService.wipeCache(memberId);
 		
@@ -579,8 +579,9 @@ public class OpenCardService {
 	 * @author 王大爷
 	 * @date 2015年11月27日 下午4:52:18
 	 * @param memberId 会员标识
+	 * @param storeId 门店标识
 	 */
-	public void changeMemberOrder(Integer memberId) {
+	public void changeMemberOrder(Integer memberId, Integer storeId) {
 		// 如果有未结账的订单，将其金额修改
 		List<OrderInfo> orderInfoList = orderInfoMapper.selectIsNotOver(memberId);
 		MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberId);
@@ -604,7 +605,7 @@ public class OpenCardService {
 				} 
 				else if (orderDetail.getOrderType() == 2) {
 					discountAmount = goodsInfoService.getGoodsPriceByMember(memberInfo.getLevelId(),
-							orderDetail.getProjectId(), orderDetail.getProjectPrice());
+							orderDetail.getProjectId(), orderDetail.getProjectPrice(), storeId);
 				}
 
 				BigDecimal zore = new BigDecimal(0);

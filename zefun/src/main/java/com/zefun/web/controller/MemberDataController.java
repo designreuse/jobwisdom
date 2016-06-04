@@ -1,8 +1,6 @@
 package com.zefun.web.controller;
 
 
-import java.text.ParseException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,11 +32,10 @@ public class MemberDataController extends BaseController{
     * @date 2015年9月12日 下午4:19:03
     * @param memberId 会员信息标识
     * @return 会员信息及账户信息
-     * @throws ParseException  异常
      */
-    @RequestMapping(value = Url.Member.SELECTBY_MEMBERDTO, method = RequestMethod.POST)
+    @RequestMapping(value = Url.Member.SELECTBY_MEMBERDTO)
     @ResponseBody
-    public BaseDto selectByMemberDto(Integer memberId) throws ParseException{
+    public BaseDto selectByMemberDto(Integer memberId){
         return memberInfoDataService.selectByMemberDto(memberId);
     }
     
