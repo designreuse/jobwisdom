@@ -289,7 +289,7 @@ public class WeixinMessageService {
 	
 	/**
 	 * 初始化门店菜单
-	* @author 张进军
+	* @author 高国藩
 	* @date Jan 26, 2016 8:49:07 PM
 	* @param storeAccount   门店标识
 	* @return  成功返回true，失败返回false
@@ -311,7 +311,7 @@ public class WeixinMessageService {
 	
 	/**
      * 初始化门店菜单
-    * @author 张进军
+    * @author 高国藩
     * @date Jan 26, 2016 8:49:07 PM
     * @param storeId    门店标识
     * @param groupType  分组类型(1:会员，2:员工，3:老板，4:无身份)
@@ -490,7 +490,7 @@ public class WeixinMessageService {
     
     /**
      * 获取微信默认菜单
-    * @author 张进军
+    * @author 高国藩
     * @date Jan 27, 2016 11:39:58 AM
     * @param storeId    门店标识
     * @return   微信默认菜单
@@ -568,7 +568,7 @@ public class WeixinMessageService {
 	
 	/**
 	 * 删除门店对应微信公众号的所有菜单，含个性化分组菜单
-	* @author 张进军
+	* @author 高国藩
 	* @date Jan 26, 2016 7:25:31 PM
 	* @param storeAccount   门店标识
 	 */
@@ -581,7 +581,7 @@ public class WeixinMessageService {
 	
 	/**
 	 * 创建微信分组
-	* @author 张进军
+	* @author 高国藩
 	* @date Jan 26, 2016 7:16:07 PM
 	* @param storeAccount   门店标识
 	* @param groupName 分组名称
@@ -605,7 +605,7 @@ public class WeixinMessageService {
 	
 	/**
 	 * 移动用户分组
-	* @author 张进军
+	* @author 高国藩
 	* @date Jan 27, 2016 11:24:47 AM
 	* @param storeAccount   门店标识
 	* @param groupId        微信分组ID
@@ -630,7 +630,7 @@ public class WeixinMessageService {
 	
 	/**
 	 * 根据分组类型移动分组
-	* @author 张进军
+	* @author 高国藩
 	* @date Jan 27, 2016 11:27:27 AM
 	* @param storeAccount  门店标识
 	* @param groupType     分组类型(1:会员，2:员工，3:老板，4:无身份)
