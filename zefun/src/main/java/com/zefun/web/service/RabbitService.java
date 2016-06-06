@@ -5,7 +5,6 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -15,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aliyun.openservices.ons.api.Message;
-import com.aliyun.openservices.ons.api.ONSFactory;
 import com.aliyun.openservices.ons.api.Producer;
-import com.aliyun.openservices.ons.api.PropertyKeyConst;
 import com.aliyun.openservices.ons.api.SendResult;
 import com.aliyun.openservices.ons.api.exception.ONSClientException;
 import com.zefun.common.consts.App;
@@ -79,13 +76,12 @@ public class RabbitService {
     public void send(String routingKey, Object object) {
     	
     	Producer producer = (Producer) ToolSpring.getBean("producer");
-    	Message msg = new Message("jobwisdom_Topic", routingKey, toByteArray(object));
+    	Message msg = new Message("jobwisdom_Topic_test", routingKey, toByteArray(object));
 
         msg.setKey("ORDERID_100");
         // 发送消息，只要不抛异常就是成功
         try {
             SendResult sendResult = producer.send(msg);
-            String msgId = sendResult.getMessageId();
             assert sendResult != null;
         }
         catch (ONSClientException e) {
@@ -441,38 +437,5 @@ public class RabbitService {
         record.put("overdue", overdue);
         record.put("remark", remark);
         send(App.Queue.MEMBER_REWARD_NOTICE, record);
-    }
-    
-    public static void main(String[] args) {
-        Properties properties = new Properties();
-        properties.put(PropertyKeyConst.ProducerId, "PID_jobwisdom_app");// ProducerId需要设置您自己的
-        properties.put(PropertyKeyConst.AccessKey,"uVrRDPBKu0DGqiHp");// AccessKey 需要设置您自己的
-        properties.put(PropertyKeyConst.SecretKey, "Hg1wsK0ZD9MemUJMQQCR8jmXJmVrs2");// SecretKey 需要设置您自己的
-        Producer producer = ONSFactory.createProducer(properties);
-        // 在发送消息前，必须调用start方法来启动Producer，只需调用一次即可。
-        producer.start();
-
-        //循环发送消息
-        while(true){
-            Message msg = new Message( //
-                // Message Topic
-                "jobwisdom_Topic",
-                // Message Tag,
-                // 可理解为Gmail中的标签，对消息进行再归类，方便Consumer指定过滤条件在ONS服务器过滤
-                "TagA",
-                // Message Body
-                // 任何二进制形式的数据， ONS不做任何干预，
-                // 需要Producer与Consumer协商好一致的序列化和反序列化方式
-                "Hello ONS".getBytes());
-            // 设置代表消息的业务关键属性，请尽可能全局唯一。
-            // 以方便您在无法正常收到消息情况下，可通过ONS Console查询消息并补发。
-            // 注意：不设置也不会影响消息正常收发
-            msg.setKey("ORDERID_100");
-            // 发送消息，只要不抛异常就是成功
-            SendResult sendResult = producer.send(msg);
-            System.out.println(sendResult);
-            
-        }
-
     }
 }

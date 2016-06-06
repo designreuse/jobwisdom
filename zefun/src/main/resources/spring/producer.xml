@@ -6,7 +6,7 @@
     <bean id="producer" class="com.aliyun.openservices.ons.api.bean.ProducerBean" init-method="start" destroy-method="shutdown">
         <property name="properties" > <!--生产者配置信息-->
             <props>
-                <prop key="ProducerId">PID_jobwisdom_app</prop> <!--请替换XXX-->
+                <prop key="ProducerId">PID_api_test</prop> <!--请替换XXX-->
                 <prop key="AccessKey">uVrRDPBKu0DGqiHp</prop>
                 <prop key="SecretKey">Hg1wsK0ZD9MemUJMQQCR8jmXJmVrs2</prop>
             </props>

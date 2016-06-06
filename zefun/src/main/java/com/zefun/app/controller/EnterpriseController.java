@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.app.service.EnterpriseService;
 import com.zefun.common.consts.Url;
-import com.zefun.common.consts.View;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 
@@ -31,7 +30,7 @@ public class EnterpriseController extends BaseController{
 	private EnterpriseService enterpriseService;
 	
 	/**
-	 * 
+	 * 查询所有的门店记录
 	* @author 老王
 	* @date 2016年5月21日 下午7:18:18 
 	* @param request 返回
@@ -40,7 +39,7 @@ public class EnterpriseController extends BaseController{
 	 */
 	@RequestMapping(value =  Url.Enterprise.VIEW_SHOW_ENTERPRISE, method = RequestMethod.GET)
     public ModelAndView showEnterprise(HttpServletRequest request, HttpServletResponse response){
-        return new ModelAndView(View.Enterprise.ADD_ENTERPRISE);
+        return enterpriseService.showEnterprise();
     }
 	
 	/**
@@ -52,13 +51,20 @@ public class EnterpriseController extends BaseController{
 	* @param enterpriseLinkphone  企业联系电话
 	* @param enterpriseLinkname 企业联系人
 	* @param storeAccount 企业代号
+	* @param enterpriseProvince 企业省份
+	* @param enterpriseCity 企业城市
+	* @param enterpriseAddress 企业详细地址
+	* @param enterpriseEdition 企业版本
+	* @param useTime 使用时间
 	* @return BaseDto
 	 */
 	@RequestMapping(value =  Url.Enterprise.ADD_ENTERPRISE, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto addEnterprise (HttpServletRequest request, String enterpriseName, String enterpriseLinkphone, 
-			  String enterpriseLinkname, String storeAccount) {
-		return enterpriseService.addEnterprise(enterpriseName, enterpriseLinkphone, enterpriseLinkname, storeAccount);
+			  String enterpriseLinkname, String storeAccount, String enterpriseProvince, String enterpriseCity, String enterpriseAddress,
+			  Integer enterpriseEdition, Integer useTime) {
+		return enterpriseService.addEnterprise(enterpriseName, enterpriseLinkphone, enterpriseLinkname, storeAccount, enterpriseProvince, 
+				enterpriseCity, enterpriseAddress, enterpriseEdition, useTime);
 	}
 
 }

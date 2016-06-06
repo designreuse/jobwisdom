@@ -1,6 +1,10 @@
 package com.zefun.web.mapper;
 
+import java.util.List;
+
+import com.zefun.web.dto.EnterpriseInfoDto;
 import com.zefun.web.entity.EnterpriseInfo;
+import com.zefun.web.entity.Page;
 
 /**
  * 
@@ -60,5 +64,14 @@ public interface EnterpriseInfoMapper {
     * @param enterpriseInfo enterpriseInfo
     * @return               enterpriseInfo
      */
-    EnterpriseInfo selectByProperties(EnterpriseInfo enterpriseInfo);
+    EnterpriseInfoDto selectByProperties(EnterpriseInfo enterpriseInfo);
+    
+    /**
+     * 分页查询门店信息
+    * @author 老王
+    * @date 2016年6月6日 下午2:12:19 
+    * @param page 页数信息
+    * @return List<EnterpriseInfoDto>
+     */
+    List<EnterpriseInfoDto> selectByPage(Page<EnterpriseInfoDto> page);
 }

@@ -8,7 +8,7 @@
     <bean id="consumer" class="com.aliyun.openservices.ons.api.bean.ConsumerBean" init-method="start" destroy-method="shutdown">
         <property name="properties" > <!--消费者配置信息-->
             <props>
-                <prop key="ConsumerId">CID_jobwisdom_app</prop> <!--请替换XXX-->
+                <prop key="ConsumerId">CID_api_test</prop> <!--请替换XXX-->
                 <prop key="AccessKey">uVrRDPBKu0DGqiHp</prop>
                 <prop key="SecretKey">Hg1wsK0ZD9MemUJMQQCR8jmXJmVrs2</prop>
             </props>
@@ -18,7 +18,7 @@
                 <entry value-ref="msgListener">
                     <key>
                         <bean class="com.aliyun.openservices.ons.api.bean.Subscription">
-                            <property name="topic" value="jobwisdom_Topic"/>
+                            <property name="topic" value="jobwisdom_Topic_test"/>
                             <property name="expression" value="*"/>
                         </bean>
                     </key>

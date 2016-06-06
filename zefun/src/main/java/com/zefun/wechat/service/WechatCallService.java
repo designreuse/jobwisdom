@@ -56,6 +56,7 @@ import com.zefun.common.utils.SignUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.common.utils.XmlUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.EnterpriseInfoDto;
 import com.zefun.web.entity.EnterpriseAccount;
 import com.zefun.web.entity.EnterpriseAccountFlow;
 import com.zefun.web.entity.EnterpriseInfo;
@@ -657,11 +658,12 @@ public class WechatCallService {
         if (i == 0){
             EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
             enterpriseInfo.setStoreAccount(storeAccount);
-            enterpriseInfo = enterpriseInfoMapper.selectByProperties(enterpriseInfo);
+            
+            EnterpriseInfoDto enterpriseInfoDto = enterpriseInfoMapper.selectByProperties(enterpriseInfo);
             
             RechargeRecord rechargeRecord = new RechargeRecord();
             rechargeRecord.setCreateTime(DateUtil.getCurDate());
-            rechargeRecord.setEnterpriseAccountId(enterpriseInfo.getEnterpriseInfoId());
+            rechargeRecord.setEnterpriseAccountId(enterpriseInfoDto.getEnterpriseInfoId());
             rechargeRecord.setStatus(0);
             rechargeRecord.setOutTradeNo(outTradeNo);
             rechargeRecord.setRechargeAmount(new BigDecimal(totalFee));

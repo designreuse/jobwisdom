@@ -18,6 +18,8 @@ var debtTypeArray = new Array("","挂账","还款");
 
 var memberList = "";
 
+var enterpriseMemberList = "";
+
 jQuery(document).ready(function(){
 	jQuery.ajax({
 		type : "post",
@@ -32,21 +34,58 @@ jQuery(document).ready(function(){
 				dialog(e.msg);
 				return;
 			}
-			memberList = e.msg;
+			memberList = e.msg.storeMemberList;
+			enterpriseMemberList = e.msg.enterpriseMemberList;
 		}
 	});
 });
 
+function changeAllEnterprise (obj) {
+	if (jQuery(obj).prop('checked')) {
+		
+	}
+	else {
+		
+	}
+}
+
 function dimSelectMember (obj, str) {
 	var a = 1;
 	var parentsObj = jQuery(obj).parents("div[name='memberTR']");
-	parentsObj.find(".fuzzysearch").empty();
+	parentsObj.find("div[name='memberListDIV']").show();
+	parentsObj.find("div[name='memberoverDIV']").find("table").remove();
+	parentsObj.find("div[name='memberoverDIV']").find(".content_none").remove();
 	for (var i = 0; i < inputMemberList.length; i++) {
 		var mMap = inputMemberList[i];
 		var name = mMap.name.toString();
 		var phone = mMap.phone.toString();
+		var sex = mMap.sex.toString();
+		var storeName = mMap.storeName.toString();
+		var headUrl = mMap.headUrl.toString();
 		if (name.indexOf(str.toString()) != -1){
-			parentsObj.find(".fuzzysearch").append("<li onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
+			var htmlstr = "";
+			if (a == 1) {
+				htmlstr = "<table class='active' onclick = choosePhone(this,'"+phone+"')>";
+			}
+			else {
+				htmlstr = "<table onclick = choosePhone(this,'"+phone+"')>";
+			}
+			htmlstr +="<tr>"+
+				   "<td rowspan='2'><img src='"+qiniuUrl + headUrl+"'></td>"+
+				   "<td>姓名</td>"+
+				   "<td>性别</td>"+
+				   "<td>手机号:</td>"+
+				   "<td>开卡门店</td>"+
+				 "</tr>"+
+				 "<tr>"+
+				   "<td>"+name+"</td>"+
+				   "<td>"+sex+"</td>"+
+				   "<td><img src='"+baseUrl+"images/common_phone.png'>"+phone+"</td>"+
+				   "<td>"+storeName+"</td>"+
+				 "</tr>"+
+		      "</table>"
+							         
+			parentsObj.find("div[name='memberoverDIV']").append(htmlstr);
 			a++;
 			if (a == 10) {
 				break;
@@ -54,7 +93,29 @@ function dimSelectMember (obj, str) {
 			continue;
 		}
 		if (phone.indexOf(str) != -1) {
-			parentsObj.find(".fuzzysearch").append("<li onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
+			var htmlstr = "";
+			if (a == 1) {
+				htmlstr = "<table class='active' onclick = choosePhone(this,'"+phone+"')>";
+			}
+			else {
+				htmlstr = "<table onclick = choosePhone(this,'"+phone+"')>";
+			}
+			htmlstr +="<tr>"+
+				   "<td rowspan='2'><img src='"+qiniuUrl + headUrl+"'></td>"+
+				   "<td>姓名</td>"+
+				   "<td>性别</td>"+
+				   "<td>手机号:</td>"+
+				   "<td>开卡门店</td>"+
+				 "</tr>"+
+				 "<tr>"+
+				   "<td>"+name+"</td>"+
+				   "<td>"+sex+"</td>"+
+				   "<td><img src='"+baseUrl+"images/common_phone.png'>"+phone+"</td>"+
+				   "<td>"+storeName+"</td>"+
+				 "</tr>"+
+		      "</table>"
+							         
+			parentsObj.find("div[name='memberoverDIV']").append(htmlstr);
 			a++;
 			if (a == 10) {
 				break;
@@ -65,8 +126,9 @@ function dimSelectMember (obj, str) {
         i--;//因为删除下标为i的元素后，该位置又被新的元素所占据，所以要重新检测该位置
         
 	}
-	parentsObj.find(".fuzzysearch").append("<em class='t-border'></em>"+
-    										"<span class='t-content'></span>")
+	parentsObj.find("i[name='conditionValue']").text(str);
+	var l = a -1;
+	parentsObj.find("i[name='showList']").text(l);
 }
 
 function choosePhone (obj, phone) {
@@ -126,9 +188,9 @@ jQuery(document).keyup(function(event){
 		}
 		inputPhoneNum = jQuery(obj).val().length;
 		//输入11位自动提交
-		/*if (jQuery(obj).val().length == 11) {
+		if (jQuery(obj).val().length == 11) {
 			submitPhone (obj);
-		}*/
+		}
 	}
 }); 
 
@@ -182,13 +244,17 @@ function submitPhone (obj) {
 			var memberBaseDto = e.msg;
 			if (jQuery(obj).parents("div[name='memberTR']").attr("selectType") == 1) {
 				var parentsObj = jQuery(obj).parents(".card-main").next();
-				parentsObj.find("span[name='memberNameSpan']").text(memberBaseDto.name);
-				parentsObj.find("span[name='memberPhoneSpan']").text(memberBaseDto.phone);
-				parentsObj.find("span[name='memberSexSpan']").text(memberBaseDto.sex);
-				parentsObj.find("span[name='memberBalanceAmountSpan']").text(zeroValue(memberBaseDto.balanceAmount));
-				parentsObj.find("input[name='memberId']").val(memberBaseDto.memberId).change();
-				parentsObj.find("span[name='subAccountNum']").text(memberBaseDto.subAccountNum);
-				parentsObj.find("span[name='needRefund']").text(zeroValue(memberBaseDto.debtAmount));
+				parentsObj.find("[name='memberImg']").attr("src", qiniuUrl + memberBaseDto.headUrl)
+				parentsObj.find("[name='memberNameSpan']").text(memberBaseDto.name);
+				parentsObj.find("[name='memberPhoneSpan']").text(memberBaseDto.phone);
+				parentsObj.find("[name='memberSexSpan']").text(memberBaseDto.sex);
+				parentsObj.find("[name='memberBalanceAmountSpan']").text(zeroValue(memberBaseDto.balanceAmount));
+				parentsObj.find("[name='memberBalanceGiftmoneyAmountSpan']").text(zeroValue(memberBaseDto.giftmoneyAmount));
+				parentsObj.find("[name='memberBalanceIntegralSpan']").text(zeroValue(memberBaseDto.balanceIntegral));
+				parentsObj.find("[name='memberStoreName']").text(memberBaseDto.storeName);
+				parentsObj.find("[name='memberId']").val(memberBaseDto.memberId).change();
+				parentsObj.find("[name='subAccountNum']").text(memberBaseDto.subAccountNum);
+				parentsObj.find("[name='needRefund']").text(zeroValue(memberBaseDto.debtAmount));
 				var subAccountDtoList = memberBaseDto.subAccountDtoList;
 				parentsObj.find("ul[name='subAccountUL']").empty();
 				

@@ -229,13 +229,11 @@ function changeMemberLevel(obj){
 	}
 }
 
-jQuery("div[name='memberTR']").delegate(".fanhui1","click", function(event){
-	event = event ? event : window.event; 
-	var obj = event.srcElement ? event.srcElement : event.target;
+function againSearch(obj) {
 	jQuery(obj).parents(".card-main1").find("input[name='memberId']").val("");
 	jQuery(obj).parents(".card-main1").prev().removeClass("hide");
 	jQuery(obj).parents(".card-main1").addClass("hide");
-});
+}
 
 jQuery('body').delegate('.lcs_check_assignType', 'lcs-statuschange', function() {
     var status = (jQuery(this).is(':checked')) ? 'checked' : 'unchecked';

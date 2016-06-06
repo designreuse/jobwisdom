@@ -53,7 +53,7 @@
   </div>
 
 
-  <div class="zzc">
+  <div class="zzc" name = "zzcDIV">
 	  <div class="adjust_list">
 	     <p class="adjust_1">调整轮牌</p>
 	     <div class="emplee_content_1">
@@ -77,7 +77,7 @@
 			</div>
 		</div>
 	     <div class="emplee_save_">
-		   <button>取消</button>
+		   <button onclick="canclezzc()">取消</button>
 		   <button id= "confirm">确认</button>
 		</div>
 	  </div>
@@ -85,9 +85,9 @@
 	</div>
 	</div>
 	
-	<div class="zzc1">
+	<div class="zzc1" name = "zzcDIV">
 	  <div class="adjust_list_">
-	     <p class="adjust_1">上牌<span class="close_1"><img src="<%=basePath%>images/close_1.png"></p>
+	     <p class="adjust_1">上牌<span class="close_1" onclick="canclezzc()"><img src="<%=basePath%>images/close_1.png"></p>
 	     <div class="emplee_content_1_">
 		    <ul class="emplee_content_2 clearfix">
 		    

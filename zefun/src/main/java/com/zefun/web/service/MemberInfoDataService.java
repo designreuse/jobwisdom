@@ -388,8 +388,16 @@ public class MemberInfoDataService {
     * @return BaseDto
      */
     public BaseDto selectStoreMemberInfo (Integer storeId) {
-        List<Map<String, Object>> memberList = memberInfoMapper.selectStoreNamePhone(storeId);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, memberList);
+    	Map<String, Integer> mapHash = new HashMap<>();
+    	mapHash.put("type", 1);
+    	mapHash.put("storeId", storeId);
+        List<Map<String, Object>> storeMemberList = memberInfoMapper.selectStoreNamePhone(mapHash);
+        mapHash.put("type", 2);
+        List<Map<String, Object>> enterpriseMemberList = memberInfoMapper.selectStoreNamePhone(mapHash);
+        Map<String, Object> map = new HashMap<>();
+        map.put("storeMemberList", storeMemberList);
+        map.put("enterpriseMemberList", enterpriseMemberList);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }
     
 }

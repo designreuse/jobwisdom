@@ -237,3 +237,34 @@ ul li{
 .vip_card_4_content ul li{float:left;width:145px;font-size:14px}
 .vip_card_4_content{margin-top:75px}
 .vip_card_4_content span{font-size:12px;display:inline-block;position:relative;left:95px;}
+
+
+
+.common_content{font-size:14px;color:black}
+.common_content>p{font-size:16px;color:black;padding-left:20px;margin-bottom:10px;padding-top:10px}
+.common_table table{width:1100px;background:#ebeff8;border-bottom:1px solid #e0e0e0;border-top:1px solid #e0e0e0;}
+.common_table table td{vertical-align:middle;text-align:center;padding:5px;width:50px}
+.common_table td img{width:50px;border-radius:25px}
+.common_table tr:nth-child(1){color:#75777c!important}
+.common_table tr button{width:130px;height:40px;line-height:40px;text-align:center;color:white;border:none;border-radius:8px;background:#5b6080;font-size:16px}
+.common_content .recharge{height:32px;font-size:16px;line-height:32px;padding:0 20px;background:#ebeff8}
+.recharge_person .recharge{margin-top:20px;border-top:1px solid #e0e0e0;border-bottom:1px solid #e0e0e0}
+.seach_person{width:470px;margin:10px auto;}
+.seach_person >p>input{border:1px solid black;width:200px;height:22px;}
+.seach_person button{width:130px;height:28px;border-radius:12px;color:white;text-align:center;line-height:28px;border:none;background:#5b6080;font-size:16px;margin-left:22px}
+.show_search{position:absolute;z-index:2;background:white;width:468px}
+.show_search ul{width:470px;height:400px;}
+.show_search{border:1px solid black;height:400px;left:110px}
+.show_search>p{padding:5px 10px;font-size:12px}
+.show_search>p i{color:#e77171;position:relative}
+.show_search>p em{display:inline-block;margin-left:100px;font-size:14px;position:absolute;right:45px}
+.show_search>p em input{position:relative;top:-3px;margin-right:5px;}
+.show_search>p em span{display:inline-block;width:15px;height:15px;border-radius:8px;text-align:center;line-height:15px;background:#e15213;color:white;margin-left:5px}
+.show_search .common_close{position:absolute;right:10px;top:5px}
+.show_search .common_close img{width:20px}
+.show_search table{width:468px;background:#f5f7f9;cursor:pointer;border-top:1px solid #ebecec;border-bottom:1px solid #ebecec}
+.show_search table td{height:26px;vertical-align:middle;}
+.show_search  .active{background:#e0dbd9}
+.show_search tr:nth-child(1){color:#75777c!important}
+.show_search table td img{display:inline-block;margin-left:4px;position:relative;top:2px;margin-right:2px}
+.seach_person .content_none{height:40px;line-height:40px;text-align:center;border-bottom:1px solid #ebecec}
