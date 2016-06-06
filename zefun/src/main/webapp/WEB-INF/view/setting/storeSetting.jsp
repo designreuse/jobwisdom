@@ -33,6 +33,35 @@
 }
 .add_serve:hover{background:#fcfbfb;}
 </style>
+<script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+<script type="text/javascript">
+    
+    function editPage (imgUrl) {
+    	xiuxiu.setLaunchVars("cropPresets", "375*200");
+    	xiuxiu.embedSWF("altContent2", 5, 700, 500);
+    	xiuxiu.onInit = function (id)
+    	{
+            xiuxiu.setUploadType(3);
+            if (imgUrl != null) {
+            	xiuxiu.loadPhoto(qiniuUrl + imgUrl, false);
+            }
+    	}
+    	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
+    	{
+            zccCallback(data);
+            xiuxiu.onClose();
+    	}
+    	
+    	xiuxiu.onDebug = function (data)
+    	{
+            dialog("网咯繁忙，请重试！");
+    	}
+    	xiuxiu.onClose = function (id)
+    	{
+            jQuery(".mask").hide();
+    	}
+    }
+</script>  
 <body>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -219,7 +248,13 @@
 		  </div>
          </div>
    </div>
-
+	<div class="mask" style="display: none;">
+		   <div id="flashEditorOut" >
+			        <div id="altContent2">
+			            <h1>美图秀秀</h1>
+			        </div>
+				</div>
+	</div>
 </body>
 <script>var specialServicesJs = ${specialServicesJs};</script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath%>js/setting/storeSetting.js"></script>
@@ -279,14 +314,10 @@ function zcc(opt,type){
 	}else {
 		imgObject = jQuery(opt).next();
 	}
-	/* if(type=="edit"){
-		imgObject = jQuery(opt).next();
-	} */
-	jQuery('.zzc').show();
+	jQuery(".mask").show();
+	editPage(null);
+	//jQuery('.zzc').show();
 }
-
-var width = 200;
-var height = 200;
 
 function zccCallback(dataBase64){
 	imgObject.children("img").attr("src", dataBase64);

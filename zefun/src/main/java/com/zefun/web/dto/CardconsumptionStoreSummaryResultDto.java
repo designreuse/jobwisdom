@@ -7,12 +7,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
-
 import com.zefun.web.entity.DeptInfo;
-import com.zefun.web.entity.MemberLevel;
 
 /**
  * 划卡消费汇总

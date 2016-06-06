@@ -156,15 +156,11 @@ public class SelfCashierController extends BaseController {
 
 	/**
 	 * 支付订单
-	 * 
 	 * @author 张进军
 	 * @date Nov 11, 2015 8:23:17 PM
-	 * @param orderSubmit
-	 *            订单支付信息
-	 * @param request
-	 *            请求对象
-	 * @param response
-	 *            响应对象
+	 * @param orderSubmit 订单支付信息
+	 * @param request 请求对象
+	 * @param response 响应对象
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
 	 * @throws ServiceException
 	 *             业务异常

@@ -25,11 +25,16 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     /** log */
     private Logger log = Logger.getLogger(SystemWebSocketHandler.class);
 
-    /** 创建一个集合存放websocketsession */
+    /** 创建一个集合存放websocketsession, 该变量服务于扫码支付提醒功能 */
     private static final Map<String, WebSocketSession> SOCKETS;
+    /** 创建一个集合存放websocketsession, 该变量服务于扫码支付提醒功能 */
+    private static final Map<String, WebSocketSession> LOGIN;
+    /** 登陆计时器的前缀 */
+    private static final String LOGIN_PREFIX = "login_";
 
     static {
         SOCKETS = new HashMap<>();
+        LOGIN = new HashMap<>();
     }
 
     /** 客户端连接后,将session存放,以便发送 */
@@ -38,6 +43,13 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         String storeAccount = (String) session.getAttributes().get(App.Session.STORE_ACCOUNT);
         SOCKETS.put(storeAccount, session);
         log.info("websocke connenct success, and the online storeAccout is " + storeAccount);
+        try {
+            Integer userId = Integer.parseInt(session.getAttributes().get(App.Session.USER_ID).toString());
+            LOGIN.put(LOGIN_PREFIX + userId, session);
+        } 
+        catch (Exception e) {
+            log.info("企业用户登陆,无需存放userId");
+        }
         if (storeAccount != null) {
             //历史消息
         }
@@ -62,6 +74,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
             session.close();
         }
         SOCKETS.remove(session);
+        LOGIN.remove(session);
     }
 
     /** 连接关闭时触发 */
@@ -69,6 +82,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session,
             CloseStatus closeStatus) throws Exception {
         SOCKETS.remove(session);
+        LOGIN.remove(session);
     }
 
     @Override
@@ -98,12 +112,11 @@ public class SystemWebSocketHandler implements WebSocketHandler {
      * message定向传输
     * @author 高国藩
     * @date 2016年5月23日 下午4:34:12
-    * @param userName userName
+    * @param userName storeAccount
     * @param message  message
      */
     public void sendMessageToUser(String userName, TextMessage message) {
         Set<String> keys = SOCKETS.keySet();
-        
         Iterator<String> it = keys.iterator();
         while (it.hasNext()){
             String storeAccount = it.next();
@@ -112,6 +125,33 @@ public class SystemWebSocketHandler implements WebSocketHandler {
                     if (SOCKETS.get(storeAccount).isOpen()) {
                         SOCKETS.get(storeAccount).sendMessage(message);
                         log.info("支付成功消息推送.");
+                    }
+                } 
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+    
+    /**
+     * 提示登陆下线消息推送
+    * @author 高国藩
+    * @date 2016年6月6日 上午10:10:15
+    * @param userId   userId
+    * @param message  message
+     */
+    public void loginOutMessageToUser(Integer userId, TextMessage message){
+        Set<String> keys = LOGIN.keySet();
+        Iterator<String> it = keys.iterator();
+        while (it.hasNext()){
+            String loginUser = it.next();
+            if (loginUser.equals((LOGIN_PREFIX + userId.toString()))) {
+                try {
+                    if (LOGIN.get(loginUser).isOpen()) {
+                        LOGIN.get(loginUser).sendMessage(message);
+                        log.info(userId+" , 通知强制下线,被人给干掉了.");
                     }
                 } 
                 catch (IOException e) {

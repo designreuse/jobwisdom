@@ -929,7 +929,7 @@
   	<foreach item="item" collection="list" separator="," open="(" close=")" index="">  
       #{item, jdbcType=INTEGER}  
     </foreach>  
-  	and goods.is_deleted = 0 AND ag.is_deleted = 0
+  	and (goods.is_deleted = 0 or goods.is_deleted = 2) AND ag.is_deleted = 0
   </select>
   
   <select id="selectByStoreIdIsOnLion" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
