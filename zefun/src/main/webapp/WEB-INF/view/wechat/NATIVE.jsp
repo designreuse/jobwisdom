@@ -54,13 +54,14 @@
 		window.location = url;
 	}
 	var storeAccount = '${session_key_store_account}';
+	var wsUrl = "ws://localhost/jobwisdom/websocket?storeAccount=";
 	var webSocket;
 	if ('WebSocket' in window) {
-		webSocket = new WebSocket("ws://job.jobwisdom.cn/jobwisdom/websocket?id=" + storeAccount);
+		webSocket = new WebSocket(wsUrl + storeAccount);
     } else if ('MozWebSocket' in window) {
-         websocket = new MozWebSocket("ws://job.jobwisdom.cn/jobwisdom/echo?id=" + storeAccount);
+         websocket = new MozWebSocket(wsUrl + storeAccount);
     } else {
-    	webSocket = new SockJS("ws://job.jobwisdom.cn/jobwisdom/websocket?id=" + storeAccount);
+    	webSocket = new SockJS(wsUrl + storeAccount);
     }
 	webSocket.onerror = function(event) {
 		onError(event);

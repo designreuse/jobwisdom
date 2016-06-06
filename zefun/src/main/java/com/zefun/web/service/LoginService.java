@@ -1,5 +1,6 @@
 package com.zefun.web.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.TextMessage;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
+import com.zefun.common.swagger.SystemWebSocketHandler;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
@@ -53,19 +56,17 @@ public class LoginService {
 	 * 
 	 * @author 高国藩
 	 * @date 2015年9月20日 上午10:14:39
-	 * @param request
-	 *            氢气
-	 * @param response
-	 *            结果封装
-	 * @param username
-	 *            用户名
+	 * @param request  氢气
+	 * @param response 结果封装
+	 * @param username 用户名
 	 * @param storeAccount 门店账号
-	 * @param password
-	 *            密码
+	 * @param password  密码
+	 * @param systemWebSocketHandler systemWebSocketHandler
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
+	 * @throws UnsupportedEncodingException  UnsupportedEncodingException
 	 */
 	public BaseDto login(HttpServletRequest request, HttpServletResponse response, String username, String storeAccount,
-			  String password) {
+			  String password, SystemWebSocketHandler systemWebSocketHandler) throws UnsupportedEncodingException {
 		Map<String, String> mapUser = new HashMap<String, String>();
 		mapUser.put("userName", username);
 		mapUser.put("storeAccount", storeAccount);
@@ -85,8 +86,16 @@ public class LoginService {
 		Integer userId = userAccount.getUserId();
 		Integer isLogin = (Integer) request.getSession().getServletContext().getAttribute(userId.toString());
 		if (isLogin!=null){
-		    return new BaseDto(9003, "该账号已登录,不是本人操作,请及时修正密码");
+		    systemWebSocketHandler.loginOutMessageToUser(userId, new TextMessage("账号异地登陆".getBytes("UTF-8")));
 		}
+		
+		// 确保另外登陆者安全退出
+		try {
+            Thread.sleep(1000);
+        } 
+		catch (Exception e) {
+            // TODO: handle exception
+        }
 		request.getSession().getServletContext().setAttribute(userId.toString(), 1);
 		sessiion.setAttribute(App.Session.USER_ID, userId);
 

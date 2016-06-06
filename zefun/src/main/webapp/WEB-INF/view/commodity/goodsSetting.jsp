@@ -16,6 +16,35 @@ input[type=radio] {
     margin-left: 0px!important;
 }
 </style>
+<script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+<script type="text/javascript">
+    
+    function editPage (imgUrl) {
+    	xiuxiu.setLaunchVars("cropPresets", "375*200");
+    	xiuxiu.embedSWF("altContent2", 5, 700, 500);
+    	xiuxiu.onInit = function (id)
+    	{
+            xiuxiu.setUploadType(3);
+            if (imgUrl != null) {
+            	xiuxiu.loadPhoto(qiniuUrl + imgUrl, false);
+            }
+    	}
+    	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
+    	{
+            zccCallback(data);
+            xiuxiu.onClose();
+    	}
+    	
+    	xiuxiu.onDebug = function (data)
+    	{
+            dialog("网咯繁忙，请重试！");
+    	}
+    	xiuxiu.onClose = function (id)
+    	{
+            jQuery(".mask").hide();
+    	}
+    }
+</script>  
 <script>
      //切换
       jQuery(function(){
@@ -192,6 +221,14 @@ input[type=radio] {
 			</div>
 		</div>
 
+		<div class="mask" style="display: none;">
+		   <div id="flashEditorOut" >
+			        <div id="altContent2">
+			            <h1>美图秀秀</h1>
+			        </div>
+				</div>
+		</div>
+
 		<div class="zzc one">
 			<div class="photo_cut">
 				<div id="clipArea"></div>
@@ -229,9 +266,11 @@ input[type=radio] {
 	var type = 1;
 	jQuery(function() {
 		jQuery('.add_pic_ img').click(function() {
+			jQuery(".mask").show();
+			editPage(jQuery(this).attr("goodsimage"));
 			imgObject = jQuery(this);
 			type=1;
-			jQuery('.zzc.one').show()
+			//jQuery('.zzc.one').show()
 		})
 		jQuery('.cancelinput').click(function() {
 			jQuery('.zzc.one').hide();
@@ -239,7 +278,9 @@ input[type=radio] {
 		})
 		jQuery('#editImage').click(function() {
 			type=2;
-			jQuery('.zzc.one').show()
+			jQuery(".mask").show();
+			editPage(null);
+			//jQuery('.zzc.one').show()
 		})
 	})
 	function zccCallback(dataBase64) {

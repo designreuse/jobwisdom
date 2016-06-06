@@ -18,7 +18,7 @@
                 <entry value-ref="msgListener">
                     <key>
                         <bean class="com.aliyun.openservices.ons.api.bean.Subscription">
-                            <property name="topic" value="Topic_api_test"/>
+                            <property name="topic" value="jobwisdom_Topic_test"/>
                             <property name="expression" value="*"/>
                         </bean>
                     </key>

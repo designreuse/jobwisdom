@@ -43,7 +43,7 @@ String topBasePath = request.getScheme()+"://"+request.getServerName()+":"+reque
 			<p class="ask_leave">确定要暂时离开了么</p>
 			<div class="zzc_button">
 			  <button onclick = "cantLoginOut()">留下</button>
-			  <button onclick="loginOut()" >再见</button>
+			  <button onclick="loginOut(null)" >再见</button>
 			
 			</div>
 		  </div>

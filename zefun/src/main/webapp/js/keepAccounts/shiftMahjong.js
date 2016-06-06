@@ -295,6 +295,10 @@ function showDoewEmployee() {
 	refreshShift(shiftMahjongIdDown, 2);
 }
 
+function canclezzc () {
+	jQuery("div[name='zzcDIV']").hide();
+}
+
 jQuery('.adjust_').click(function(){
 	var shiftMahjongIdDown = jQuery(".emploee_right_ul").find(".active").attr("shiftMahjongId");
 	refreshShift(shiftMahjongIdDown, 1);

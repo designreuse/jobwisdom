@@ -77,8 +77,8 @@ em {
 	font-weight:normal
 }
 
-.hand_detail_left{float:left;width:395px;border:1px solid #ccc;box-shadow: 0 0 3px #ccc;border-radius:8px;height:525px}
-.hand_detail_right{float:left;width:555px;margin-left:45px;border:1px solid #ccc;box-shadow: 0 0 3px #ccc;border-radius:8px;height:525px;background:#e9ebf5}
+.hand_detail_left{float:left;width:395px;border:1px solid #ccc;box-shadow: 0 0 3px #ccc;border-radius:8px;height:605px}
+.hand_detail_right{float:left;width:555px;margin-left:45px;border:1px solid #ccc;box-shadow: 0 0 3px #ccc;border-radius:8px;height:605px;background:#e9ebf5}
 .select_part{height:53px;background:#e9ebf5;text-align:center;line-height:53px}
 .select_part_{width:120px;height:26px;border-radius:10px;padding-left:60px;font-size:16px}
 .hand_detail_content{margin-left:20px}
@@ -90,7 +90,7 @@ em {
 .hair_series ul li{float:left;height:20px;width:94px;text-align:center;line-height:20px;border-right:1px solid #ccc}
 .hand_left{position:absolute;left:5px;top:5px;z-index:2}
 .hand_right{position:absolute;right:5px;top:5px;z-index:2}
-.hair_series_{position:relative;padding-top:10px;border:1px solid #ccc;border-radius:10px;width:370px;margin:10px auto;height:395px;}
+.hair_series_{position:relative;padding-top:10px;border:1px solid #ccc;border-radius:10px;width:370px;margin:10px auto;height:475px;}
 .hair_content{height:335px;overflow:overlay}
 .hair_series li:last-child{border:none}
 .hair_content ul li{float:left;width:108px;height:44px;border-radius:8px;margin-left:4px;margin-bottom:13px;padding:5px 0 0 8px ;cursor:pointer;border:1px solid #ccc}

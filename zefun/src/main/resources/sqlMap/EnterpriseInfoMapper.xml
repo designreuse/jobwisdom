@@ -16,6 +16,23 @@
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
   </resultMap>
+  
+  <resultMap id="ResultMapDto" type="com.zefun.web.dto.EnterpriseInfoDto" >
+    <id column="enterprise_info_id" property="enterpriseInfoId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+    <result column="enterprise_linkname" property="enterpriseLinkname" jdbcType="VARCHAR" />
+    <result column="enterprise_linkphone" property="enterpriseLinkphone" jdbcType="VARCHAR" />
+    <result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="enterprise_province" property="enterpriseProvince" jdbcType="VARCHAR" />
+    <result column="enterprise_address" property="enterpriseAddress" jdbcType="VARCHAR" />
+    <result column="enterprise_city" property="enterpriseCity" jdbcType="VARCHAR" />
+    <result column="enterprise_tel" property="enterpriseTel" jdbcType="VARCHAR" />
+    <result column="enterprise_status" property="enterpriseStatus" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <association property="enterpriseAccount" column="enterprise_info_id" select="com.zefun.web.mapper.EnterpriseAccountMapper.selectByPrimaryKey" />
+  </resultMap>
   <sql id="Base_Column_List" >
     enterprise_info_id, store_account, enterprise_linkname, enterprise_linkphone, enterprise_name, 
     enterprise_province, enterprise_address, enterprise_city, enterprise_tel, enterprise_status, 
@@ -180,5 +197,9 @@
   	<if test="storeAccount != null">
   	and store_account = #{storeAccount, jdbcType=VARCHAR}
   	</if>
+  </select>
+  
+  <select id="selectByPage" resultMap="ResultMapDto" parameterType="com.zefun.web.entity.Page">
+  	select * from enterprise_info where 1=1 order by create_time
   </select>
 </mapper>

@@ -4,6 +4,35 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="<%=basePath%>css/demo.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
+<script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+<script type="text/javascript">
+    
+    function editPage (imgUrl) {
+    	xiuxiu.setLaunchVars("cropPresets", "375*200");
+    	xiuxiu.embedSWF("altContent2", 5, 700, 500);
+    	xiuxiu.onInit = function (id)
+    	{
+            xiuxiu.setUploadType(3);
+            if (imgUrl != null) {
+            	xiuxiu.loadPhoto(qiniuUrl + imgUrl, false);
+            }
+    	}
+    	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
+    	{
+            zccCallback(data);
+            xiuxiu.onClose();
+    	}
+    	
+    	xiuxiu.onDebug = function (data)
+    	{
+            dialog("网咯繁忙，请重试！");
+    	}
+    	xiuxiu.onClose = function (id)
+    	{
+            jQuery(".mask").hide();
+    	}
+    }
+</script>  
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -88,7 +117,7 @@
 						</div>
 
 						<div id="gg" class="adjust_goods_1" style="display: block;">
-							<button class="adjust_goods_button" onclick="jQuery('.zzc').show()">添加图片</button>
+							<button class="adjust_goods_button" onclick="jQuery('.mask').show();editPage(null);">添加图片</button>
 							<ul class="add_pic clearfix">
 							
 							</ul>
@@ -163,6 +192,15 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="mask" style="display: none;">
+		   <div id="flashEditorOut" >
+			        <div id="altContent2">
+			            <h1>美图秀秀</h1>
+			        </div>
+				</div>
+	</div>
+	
 	
 	<div class="zzc">
 	     <div class="photo_cut">
@@ -272,7 +310,7 @@ function save(id){
 		dataType : "json",
 		contentType : "application/json",
 		success : function(data) {
-			dialog(data.msg);
+			dialog("设置成功");
 		}
 	});
 }

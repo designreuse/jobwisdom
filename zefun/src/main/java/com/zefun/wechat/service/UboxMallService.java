@@ -143,6 +143,8 @@ public class UboxMallService {
         if (memberId!=null){
             List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(memberId);
             mav.addObject("subAccountList", subAccountList);
+            
+            subAccountList.stream().filter(dto -> dto.getBalanceAmount()>=info.getGoodsPrice());
         }
         
         return mav;

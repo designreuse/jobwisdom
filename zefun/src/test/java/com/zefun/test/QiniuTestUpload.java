@@ -44,9 +44,9 @@ public class QiniuTestUpload {
 
 	public static void main(String[] args) throws QiniuException {
 	    
-	    File file = new File("E:\\vip_card_31.png");
+	    File file = new File("E:\\common_img_man.png");
 	    Response response = uploadManager.put(file,
-              "system/profile/vip_card_31.png", auth.uploadToken(QINIU_SCOPE));
+              "system/profile/common_img_man.png", auth.uploadToken(QINIU_SCOPE));
           String key = response.jsonToMap().get("key").toString();
           System.out.println(key);
 	    

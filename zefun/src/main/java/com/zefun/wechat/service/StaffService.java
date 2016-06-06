@@ -1606,7 +1606,10 @@ public class StaffService {
     * @return BaseDto
      */
     public BaseDto selectMemberList (Integer storeId) {
-        List<Map<String, Object>> memberList = memberInfoMapper.selectStoreNamePhone(storeId);
+    	Map<String, Integer> map = new HashMap<String, Integer>();
+    	map.put("type", 1);
+    	map.put("storeId", storeId);
+        List<Map<String, Object>> memberList = memberInfoMapper.selectStoreNamePhone(map);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, memberList);
     }
     
