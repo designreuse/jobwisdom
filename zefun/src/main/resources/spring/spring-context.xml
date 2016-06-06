@@ -18,13 +18,15 @@
 			http://www.springframework.org/schema/task/spring-task-3.1.xsd">
 	<!-- 添加注解驱动 -->
 	<context:annotation-config />
+	<!-- 支持异步方法执行 -->
+	<task:annotation-driven />
 	<!-- 自动扫描组件，此处为父容器，这里要把 controller去除，他们是spring-context.xml中配置的，如果不去除会影响事务管理的。 -->
 	<!-- <context:component-scan base-package="com.zefun.web,com.zefun.wechat"> -->
 	<context:component-scan base-package="com.zefun.web,com.zefun.wechat,com.zefun.app,com.zefun.common">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	<task:annotation-driven />
+	
 	<context:property-placeholder location="classpath*:properties/dev/*.properties" />
 	<import resource="datasource-context.xml" />
 	<!-- <import resource="redis-cluster.xml"/> -->

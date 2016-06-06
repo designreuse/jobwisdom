@@ -1,5 +1,8 @@
 package com.zefun.web.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
+import com.zefun.common.swagger.SystemWebSocketHandler;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.service.LoginService;
 
@@ -36,6 +40,10 @@ public class LoginController extends BaseController {
 	/** 用户登陆操作 */
 	@Autowired
 	private LoginService loginService;
+	/** 事件通知操作*/
+    @Autowired
+    private SystemWebSocketHandler systemWebSocketHandler;
+    
 	
 	/** 日志*/
 	private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(LoginController.class);
@@ -51,6 +59,7 @@ public class LoginController extends BaseController {
 	 * @param password 密码
 	 * @param storeAccount storeAccount
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
+	 * @throws UnsupportedEncodingException  UnsupportedEncodingException
 	 */
 	@ApiOperation(value = "用户登录管理", notes = "用户登录管理", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "用户登陆信息"),
@@ -59,8 +68,8 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = Url.UserLogin.LOGIN, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto userLogin(HttpServletRequest request, HttpServletResponse response, String username,
-			    String storeAccount, String password) {
-		return loginService.login(request, response, username, storeAccount, password);
+			    String storeAccount, String password) throws UnsupportedEncodingException {
+		return loginService.login(request, response, username, storeAccount, password, systemWebSocketHandler);
 	}
 
 	/**
@@ -111,7 +120,7 @@ public class LoginController extends BaseController {
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
 	    ServletContext application  = request.getSession().getServletContext();
         application.removeAttribute(request.getSession().getAttribute(App.Session.USER_ID).toString());
-        logger.info("{" + request.getSession().getId() + " : invalidate()}");
+        logger.info(new Date().getTime()+" , {" + request.getSession().getId() + " : invalidate()}");
         request.getSession().invalidate();
 		return new ModelAndView("redirect:/" + Url.UserLogin.INDEX);
 	}

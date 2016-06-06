@@ -63,30 +63,34 @@
 		  margin-top: 1.875rem;
 		  margin: 0 auto;
 		}
+		.pay_way_ input{position:relative;top:-5px}
     </style>
     <style>
-	.zzc{position:fixed;width:100%;height:100%;background:rgba(71,67,55,0.8);z-index:1000;display:none}
+    .pay_way_ i{position: relative; top: -1.4rem;left: 0.4rem;}
+	.zzc{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(71,67,55,0.8);z-index:1000;display:none}
     .zzc_div{width:82%;height:230px;background:white;margin:40% auto;padding:0 1rem;position:relative;border-radius:8px}
 	.zzc_div .name{font-size:16px;text-align:center;padding:2rem 0 1rem 0}
-	.zzc_div .price{color:#e61717;font-size:20px;font-weight:bold;text-align:center}
-	.zzc .way{margin-top:1.5rem;font-size:14px}
+	.zzc_div .price_{color:#e61717;font-size:20px;font-weight:bold;text-align:center}
+	.zzc .way{margin-top:0.5rem;font-size:14px}
 	.zzc .wx_pay{padding:0.5rem 0;border-top:1px solid #d9dce0;border-bottom:1px solid #d9dce0 ;}
 	.zzc .wx_pay>img{width:60px;margin-right:1rem}
 	.zzc_div>img{position:absolute;right:4px;top:4px;width:20px}
 	.zzc .wx_pay span img{width:20px;margin-top:4px;width:40px;margin-right:1rem}
 	.zzc .pay_button{text-align:center;margin-top:1rem}
 	.zzc .pay_button button{width:26%;height:2rem;text-align:center;line-height:2rem;border-radius:4px;color:white;background:#ed4f1e;border:none;margin:0 1rem;font-size:13px}
-	.zzc .way p{margin-bottom:0.5rem}
+	.zzc .way .p{margin-bottom:0.5rem}
 	.zzc_pay_way{width:82%;height:350px;background:white;margin:40% auto;padding:0 1rem;position:relative;border-radius:8px;position:relative;left:-300px;opacity:0;top:-375px}
 	.zzc_pay_way>p{color:#e26533;border-bottom:1px solid #d9dce0;padding: 0.5rem 0;font-size:16px}
-    .zzc .pay_way_ p{padding:1rem 0;border-bottom:1px solid #d9dce0}
-    .zzc  .pay_way_ p input{position:relative;top:0.2rem;left:1rem}
+    .zzc .pay_way_>div{padding:1rem 0;border-bottom:1px solid #d9dce0;font-size:14px}
+    .zzc  .pay_way_>div input{position:relative;top:-1rem;left:1rem}
     .pay_way_ .img{display:inline-block;width:5rem;padding-right:1rem}
+    .pay_way_ .img img{width:60px}
     .zzc .wx_img img{width:60px}
     .zzc .pay_way_{height:270px;overflow:overlay}
 	.zzc .pay_way_button{text-align:center;margin-top:1rem}
 	.zzc .pay_way_button button{width:26%;height:2rem;text-align:center;line-height:2rem;border-radius:4px;color:white;background:#ed4f1e;border:none;margin:0 1rem;font-size:14px}
 	.wx_pay  input{display:none}
+	.way i{position:relative;top:-5px}
 	</style>
   </head>
    
@@ -128,24 +132,24 @@
         <span style="position:absolute;top:0px; position: absolute; top: 23rem;left: 65%;font-size: 1.2rem;color:#847F7F">已售: ${goodsInfo.salesCount }</span>
     </section>
     
-   <div style="position:relative;top:-3rem"> ${goodsInfo.goodsDesc}</div>
+   <div  style="position:relative;top:-3rem"> ${goodsInfo.goodsDesc}</div>
 
  	<div id="footer">
- 		<div class="f-con c">
- 			<c:if test="${isBuy == true }"><a class="btn btn-primary" onclick="initPay(${goodsInfo.storeId},${goodsInfo.goodsId})">立即购买</a></c:if>
-			<c:if test="${isBuy == false }"><a class="btn btn-primary" onclick="dialog('库存不足')">库存不足</a></c:if>
- 		</div>
- 	</div>
-</div>  
+	 		<div class="f-con c">
+	 			<c:if test="${isBuy == true }"><a class="btn btn-primary" onclick="initPay(${goodsInfo.storeId},${goodsInfo.goodsId})">立即购买</a></c:if>
+				<c:if test="${isBuy == false }"><a class="btn btn-primary" onclick="dialog('库存不足')">库存不足</a></c:if>
+	 		</div>
+	 	</div>
+	</div>  
 
 	<div class="zzc">
 	     <div class="zzc_div">
-	     <p class="name">高档国外金扣蛇皮鳄鱼皮膏</p>
-	     <p class="price">¥80.00</p>
+	     <div class="name">高档国外金扣蛇皮鳄鱼皮膏</div>
+	     <div class="price_">¥80.00</div>
 		 <div class="way">
-		   <p>选择支付方式</p>
+		   <div class="p">选择支付方式</div>
 		   <div class="wx_pay">
-		      <p><em><span class="img"><img src="<%=basePath%>images/mobile/member/wx.png"> </span>微信支付</em><img src="<%=basePath%>images/mobile/member/right.png" style="position:absolute;right:10px;width:18px"></p>
+		      <div><em><span class="img"><img src="<%=basePath%>images/mobile/member/wx.png"> </span><i style="position:relative;top:-8px">微信支付</i></em><img src="<%=basePath%>images/mobile/member/right.png" style="position:absolute;right:10px;width:18px;margin-top:5px"></div>
 		   </div>
 		 </div>
 		 <div class="pay_button">
@@ -157,11 +161,11 @@
   <div class="zzc_pay_way" >
          <p>支付方式</p>
          <div class="pay_way_">
-	     <p><span class="img wx_img"><img src="<%=basePath%>images/mobile/member/wx.png"> </span>可使用微信中零钱进行支付<input type="radio" name="simple"></p>
-	     <p><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span>可使用微信中零钱进行支付<input type="radio" name="simple" ></p>
-	     <p><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span>可使用微信中零钱进行支付<input type="radio" name="simple"></p>
-		 <p><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span>可使用微信中零钱进行支付<input type="radio" name="simple"></p>
-		 <p><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span>可使用微信中零钱进行支付<input type="radio" name="simple"></p>
+	     <div><span class="img wx_img"><img src="<%=basePath%>images/mobile/member/wx.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple"></div>
+	     <div><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple" ></div>
+	     <div><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple"></div>
+		 <div><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple"></div>
+		 <div><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple"></div>
 	  </div>
 	  <div class="pay_way_button">
 	     <button class="sure">确认</button>
@@ -362,16 +366,15 @@
 	  
 	$(function(){
 	     $('.cancle').click(function(){
-		    $(this).parents('.zzc_div,.zzc_pay_way').fadeOut(1000);
+		    $(this).parents('.zzc').fadeOut(1000);
 			$('.zzc').fadeOut(1000);
      })
    })
   //点击确认
   $(function(){
     $('.pay_way_button .sure').click(function(){
-        var check=$('.pay_way_ input[name="simple"]:checked').parents('p').html();
+        var check=$('.pay_way_ input[name="simple"]:checked').parents('div').html();
 		if(check==null) return;
-		alert(check)
 		$('.wx_pay').html(check);
 	    $(this).parents('.zzc_pay_way').animate({
 		   left:-300,
@@ -384,6 +387,11 @@
 		})
 	});
   })
+  jQuery(function(){
+	    jQuery('.btn.btn-primary').click(function(){
+		  jQuery('.zzc').fadeIn('slow') ;       
+	  })
+  }) 
 </script>
 </body>
 </html>

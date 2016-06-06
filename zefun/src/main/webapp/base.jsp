@@ -35,6 +35,5 @@
 	var picUrl = "<%=picPath%>";
 	var qiniuUrl = "<%=qiniuPath%>";
 	var laowangUrl = "<%=laowangPath%>";
-	
 </script>
 

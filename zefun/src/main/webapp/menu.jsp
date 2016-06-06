@@ -6,6 +6,7 @@
     String menuPicPath = "7xss26.com1.z0.glb.clouddn.com";
 %>
 <%@include file="/loading.jsp" %>
+<%@include file="/abnormalLanding.jsp" %>
 <%-- <%@include file="chat.jsp" %> --%>
 <link rel="stylesheet" href="<%=basePath%>css/common.css" type="text/css" />
 <div class="logo-wrap">
@@ -168,8 +169,19 @@ function showLoginOut () {
 	jQuery(".top_zzc").show();
 }
 
-function loginOut() {
-	window.location.href = "http://"+location.host+"/jobwisdom/user/logout";
+function loginOut(isLoginAgain) {
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "user/logout",
+		data : null,
+		success : function(data) {
+			
+		}
+	});
+	//window.location.href = "http://"+location.host+"/jobwisdom/user/logout";
+	if (isLoginAgain!=null){
+		alert("您的账号在其他终端登陆,若非本人操作,请及时修改密码!");
+	}
 }
 
 function updatePassword () {
