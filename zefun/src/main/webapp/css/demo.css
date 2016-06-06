@@ -1,5 +1,5 @@
 .phone_goods{height:620px;width:1000px;margin:50px auto}
-.phone{width:290px;height:580px;float:left;border:1px solid #ccc;}
+.phone{width:290px;height:680px;float:left;background:url('../images/phone_shop.png') no-repeat;padding-top:94px;padding-right:10px;padding-left:8px;background-size:100% 95%}
 .phone_input{position:relative;top:-2px}
 .phone_input em{position:absolute;left:45px;top:2px}
 .phone_input input{width:166px;border-radius:16px;height:14px;padding-left:28px;margin:2px 0 0 40px}
@@ -35,7 +35,7 @@
 }
 .adjust_goods_1{display:none}
 .phone_content_{height:323px;width:100%;position:relative}
-.adjust_goods,.adjust_goods_1{width:620px;border:1px solid #ccc;border-radius:20px;height:520px;float:right;padding:30px 15px}
+.adjust_goods,.adjust_goods_1{width:620px;border:1px solid #ccc;border-radius:20px;height:670px;float:right;padding:30px 15px}
 .adjust_goods_span{font-size:20px;color:black}
 .adjust_goods_p{margin-bottom:20px}
 .adjust_goods_p em{display:inline-block;margin-left:20px}
