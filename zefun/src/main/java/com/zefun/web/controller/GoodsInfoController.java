@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +25,6 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.consts.App.Session;
-import com.zefun.common.swagger.SessionContextListener;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
@@ -83,9 +81,9 @@ public class GoodsInfoController extends BaseController {
     @Autowired private GoodsInfoMapper goodsInfoMapper;
     /**企业门店管理*/
     @Autowired private StoreInfoMapper storeInfoMapper;
-    
-    /** 日志 */
-    private Logger logger = Logger.getLogger(SessionContextListener.class);
+   /* 
+    *//** 日志 *//*
+    private Logger logger = Logger.getLogger(SessionContextListener.class);*/
 
     /**
      * 进入商品列表
