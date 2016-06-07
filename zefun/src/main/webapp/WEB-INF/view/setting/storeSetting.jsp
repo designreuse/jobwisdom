@@ -35,6 +35,12 @@
 }
 .add_serve:hover{background:#5e6b86;}
 .add_pic li{margin-left:40px}
+.edit-mingshi{
+  width:570px
+}
+.edit-mingshi .designer-list{
+    width: 268px;
+}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -152,16 +158,16 @@
 							    </div>
 							</div>
 						    <div style="display: none">
-						    	<div >
-						    	  输入特色名称: <input name="sName" type="text" style="box-shadow: 0 0 3px #ccc;"><br><br>
+						    	<div style="float: right;margin-right:40px" >
+						    	  输入特色名称: <input name="sName" type="text" style="box-shadow: 0 0 3px #ccc;width:160px;border-radius:8px!important;margin-left:5px"><br><br>
 								选择一个项目: 
-								<select data-placeholder="选择项目"  class="chzn-select input80" name="projectId" id="projectId">
+								<select data-placeholder="选择项目"  class="chzn-select input80" name="projectId" id="projectId" style="width:160px;border-radius:8px!important">
 									<c:forEach items="${projectInfos }" var="projectInfo">
 										<option value="${projectInfo.projectId }">${projectInfo.projectName }</option>
 									</c:forEach>
 		                        </select><br><br>
 		                                                       选择一个员工: 
-		                        <select data-placeholder="选择员工"  class="chzn-select input80" name="emp" id="emp">
+		                        <select data-placeholder="选择员工"  class="chzn-select input80" name="emp" id="emp" style="width:160px;border-radius:8px!important">
 									<c:forEach items="${storeEmployeeList }" var="storeEmployee">
 										<option value="${storeEmployee.employeeCode }">${storeEmployee.name }</option>
 									</c:forEach>
@@ -169,13 +175,17 @@
 		                        
 		                       </div> 
 		                        <br><br>
-		                        	选择一张图片:
-		                        	<li>
-		                        		<img style="width: 89px;height: 89px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
+		                        	<div style="position:relative;top:-40px;float:left">
+		                        	    <ul>
+		                        	<li >
+		                        		<img style="width: 200px;height: 123px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
+		                        		<p style="color:#b0b0b0">上传logo图片</p>
                                         <input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                     </li>
+                                   </ul> 
+                                 </div>  
 		                        <button class="insert_img" onclick="zcc(this,'editor2')">
-									<img src="<%=basePath%>images/webchat_add.png">插入图片
+									<img src="<%=basePath%>images/insert_img.png" title="插入图片">
 								</button><br>
 								<script id="editor2" type="text/plain" style="width:550px;height:400px;">
 

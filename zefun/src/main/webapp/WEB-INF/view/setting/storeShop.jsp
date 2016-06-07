@@ -56,11 +56,14 @@
 								<li><img src="<%=basePath%>images/phone_goods_3.png">
 									<div>积分兑换</div></li>
 							</ul>
-							<div class="phone_content">
+							<div class="phone_content" >
 								<p class="default">
 									<span>获取</span><a href="javascript:;">更多&gt;&gt;</a>
 								</p>
-								<div class="phone_content_">
+								
+								
+								<div class="phone_content_" style="position:relative">
+								   <div style=" position: absolute;top: 0px; height: 315px;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);"></div>
 									<div class="zzc">商品设置列表</div>
 									<ul class="clearfix">
 										<li>
@@ -118,7 +121,7 @@
 
 						<div id="gg" class="adjust_goods_1" style="display: block;">
 							<!-- <button class="adjust_goods_button" onclick="jQuery('.mask').show();editPage(null);">添加图片</button> -->
-							<ul class="add_pic clearfix">
+							<ul class="add_pic clearfix" style="width:570px">
 							   <li><img src="<%=basePath%>images/click_add.png"></li>
 							   <li><img src="<%=basePath%>images/click_add.png"></li>
 							   <li><img src="<%=basePath%>images/click_add.png"></li>
@@ -129,7 +132,7 @@
 							<button class="adjust_goods_button" onclick="save('adsense')">保存</button>
 						</div>
 						<div id="xpsj" class="adjust_goods" style="display: none;">
-							<div class="adjust_goods_p">
+							<div class="adjust_goods_p" style="margin-top:10px">
 								<span class="adjust_goods_span">调整货物</span><em>点击一个未选择商品，放入已选择吧！</em>
 								<button onclick="save('xpsj')">保存</button>
 							</div>
@@ -161,9 +164,9 @@
 						</div>
 						
 						<div id="rxsp" class="adjust_goods" style="display: none;">
-							<div class="adjust_goods_p">
+							<div class="adjust_goods_p" style="margin-top:10px">
 								<span class="adjust_goods_span">调整货物</span><em>点击一个未选择商品，放入已选择吧！</em>
-								<button onclick="save('rxsp')">保存</button>
+								<button onclick="save('rxsp')" >保存</button>
 							</div>
 
 							<div class="adjust_ul">
@@ -183,7 +186,7 @@
 								</div>
 							</div>
 
-							<span style="position: relative; top: 200px"> <img src="<%=basePath%>images/demo.png"></span>
+							<span style="position: relative; top: 200px"> <img src="<%=basePath%>images/demo.png" style="width:24px"></span>
 
 							<div class="adjust_ul_">
 								<p class="no_choose_">已选择</p>
