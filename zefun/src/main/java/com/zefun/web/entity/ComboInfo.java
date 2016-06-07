@@ -18,6 +18,9 @@ public class ComboInfo {
 	
 	/**部门标识*/
     private Integer deptId;
+    
+    /**部门名称*/
+    private String deptName;
 
 	/** 套餐名称 */
 	private String comboName;
@@ -94,8 +97,27 @@ public class ComboInfo {
 	/**套餐业绩计算*/
 	private BigDecimal comboPerformance;
 	
+	/**套餐编号*/
+	private String comboCodeSuffix;
 	
-	public Integer getIsCountLimit() {
+	
+	public String getComboCodeSuffix() {
+        return comboCodeSuffix;
+    }
+
+    public void setComboCodeSuffix(String comboCodeSuffix) {
+        this.comboCodeSuffix = comboCodeSuffix;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public Integer getIsCountLimit() {
         return isCountLimit;
     }
 

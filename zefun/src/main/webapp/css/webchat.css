@@ -1,14 +1,14 @@
 .rightpanel{background:white}
 .content_right{padding:40px 50px}
 
-.webchat{height:540px;width:260px;background:url('../images/phone_.png') no-repeat;background-size:260px;padding:0 10px;float:left}
-.webchat_p{position:relative;top:234px;}
-.webchat_p p{border-bottom:1px solid #ccc;margin-top:20px;cursor:pointer;width:240px;height:30px;}
-.webchat_p em{position:relative;    left: 160px;
+.webchat{height:700px;width:315px;background:url('../images/phone_.png') no-repeat;background-size:315px 700px;padding:0 10px;float:left}
+.webchat_p{position:relative;top:294px;}
+.webchat_p p{border-bottom:1px solid #ccc;margin-top:20px;cursor:pointer;width:296px;height:30px;}
+.webchat_p em{position:relative;    left: 210px;
     top: 8px;
 }
 
-.webchat_div_{float:left;width:600px;  margin: 30px 50px;}
+.webchat_div_{float:left;width:580px;  margin: 10px 20px;padding:10px;border:1px solid #ccc;height:670px}
 .webchat_div_ .insert_img{   
     width: 130px;
     height: 35px;
@@ -19,18 +19,25 @@
     margin-bottom:20px;
     box-shadow: 0px 6px 10px #ccc;
     border: none;}
-	.webchat_div_ img{position:relative;left:-10px}
+	.webchat_div_>span:hover{
+	   background-color: #fff5d4;
+       border: 1px solid #dcac6c;
+	}
+	
+	.webchat_div_>span{
+	  position: relative;left: 270px;top: 76px;z-index: 1000;width: 20px; height: 20px;text-align:center;line-height:20px;display:inline-block;border:1px solid #fafafa
+	}
 	.webchat_area{height:350px;width:600px;border:1px solid #ccc;resize:none;overflow-y: overlay;}
 	
-.webchat_div_ p{margin-bottom:20px}
+.webchat_div_ p{color:black}
 	
 .webchat_submit{
-	 width: 170px;
-    height: 35px;
+	 width: 130px;
+    height: 28px;
     border-radius: 10px;
-    background: #2a3244;
+    background: #7485a7;
     text-align: center;
-    line-height: 35px;
+    line-height: 28px;
     
     box-shadow: 0px 6px 10px #ccc;
     border: none;
@@ -40,8 +47,8 @@
 }
 
 
-.add_pic li{float:left;margin-top:20px;margin-right:20px}
-.add_pic{width:400px;border:1px solid #e7e7eb;background:#fafbff;padding: 20px 0px 20px 80px;}
+.add_pic li{float:left;margin-top:20px;margin-right:60px}
+.add_pic{width:400px;border:1px solid #e7e7eb;background:#fafbff;}
 .iconfont{top: 110px!important;   left: 340px;}
 .inner{height:540px!important}
 .tijiao{background:#323a4c!important}

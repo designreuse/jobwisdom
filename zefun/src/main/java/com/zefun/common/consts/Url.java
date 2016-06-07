@@ -293,6 +293,10 @@ public interface Url {
 		public static final String IS_WECHATSELL = "comboInfo/isWechatSell";
 		/** 是否禁用 */
 		public static final String IS_DISABLE = "comboInfo/isDisable";
+		/** 套餐设置页面*/
+        public static final String COMBOINFO_SETTING = "comboInfo/setting";
+        /** 套餐设置*/
+        public static final String SAVE_ALL_COMBOINFO = "comboInfo/save/all/setting";
 	}
 
 	/** 商品模块 */

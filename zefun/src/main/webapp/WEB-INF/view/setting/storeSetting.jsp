@@ -9,29 +9,32 @@
 	<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 	
 <style type="text/css">
-.special-sever_content{width:200px;height:230px;border:1px solid #ccc;border-radius:10px;overflow:hidden;box-shadow:0 0 10px #ccc;float:left;margin:0 45px 20px 30px}
+.special-sever_content{width:200px;height:200px;border:1px solid #ccc;border-radius:10px;overflow:hidden;box-shadow:0 0 10px #ccc;float:left;margin:0 45px 20px 30px}
 .special_sever_pic .serve_top img{width:200px;left:0!important;}
 .special_sever_text p{padding-left:20px;margin-bottom:0px!important}
-.special_sever_text{margin-top:10px;color:#7f7f7f}
+.special_sever_text{color:#7f7f7f}
 .special_sever_pic span{position:absolute;top:8px;right:8px;display:inline-block;z-index:10}
 .special_sever_pic{position:relative}
 .special_sever_pic span img{left:0!important}
-.special_sever{height:550px;overflow:overlay}
+.special_sever{height:570px;overflow:overlay;padding:10px;border:1px solid #ccc}
 .special_sever_text span{display:inline-block;margin-right:10px;}
 .special_sever_text em{color:black}
 .add_serve{    width: 130px;
-	    height: 35px;
+	    height: 26px;
 	    border-radius: 20px;
 	    background: white;
 	    text-align: center;
-	    line-height: 35px;
+	    line-height: 26px;
 	    margin-bottom: 20px;
 	    box-shadow: 0px 6px 10px #ccc;
 	    border: none;
 		position:relative;
-		left:30px
+		left:30px;
+		background:#7485a7;
+		color:white
 }
-.add_serve:hover{background:#fcfbfb;}
+.add_serve:hover{background:#5e6b86;}
+.add_pic li{margin-left:40px}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -87,31 +90,31 @@
 
 					<div class="webchat_div">
 						<div class="webchat_div_">
-							<ul class="add_pic clearfix">
+							<ul class="add_pic clearfix" style="width:570px">
 							    <c:if test="${!empty storeInfo.pictureArray }">
                                     <c:forEach items="${storeInfo.pictureArray}" var="picture">
-                                    		<li><img style="width: 89px;height: 89px" onclick="zcc(this,'img')" src="<%=qiniuPath %>${ picture }">
-	                                        <input type="hidden" name="carouselPicture" value="${ picture }">
-	                                        </li>
+	                                    <li><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>${ picture }">
+	                                	<input type="hidden" name="carouselPicture" value="${ picture }">
+	                                	</li>
                                     </c:forEach>
                                 </c:if>
                                 <c:if test="${empty storeInfo.pictureArray }">
-                                	<li><img style="width: 89px;height: 89px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
+                                	<li><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 89px;height: 89px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
+                                	<li><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 89px;height: 89px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
+                                	<li><img style="width: 220px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 89px;height: 89px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
+                                	<li><img style="width: 220px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 89px;height: 89px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
+                                	<li><img style="width: 220px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 89px;height: 89px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
+                                	<li><img style="width: 220px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
                                 </c:if>
@@ -119,10 +122,10 @@
 							<button class="webchat_submit" onclick="saveCarousel()">提交</button>
  						</div>
 						<div class="webchat_div_" style="display: none;">
-							<p>门店介绍：</p>
-							<button class="insert_img" onclick="zcc(this,'editor1')">
-								<img src="<%=basePath%>images/webchat_add.png">插入图片
-							</button>
+							<p style="font-size:16px">门店介绍：</p>
+							<span onclick="zcc(this,'editor1')" title="插入图片" >
+								<img src="<%=basePath%>images/insert_img.png" style="position:relative;left:1px;top:1px">
+							</span>
 							<script id="editor1" type="text/plain" style="width:550px;height:400px;">
 							${storeInfo.storeDesc }
 							</script>
@@ -131,7 +134,7 @@
 
 						<div class="webchat_div_" style="display: none;">
 						<div class="spe">
-							<button class="add_serve" onclick="addService(this)">添加服务</button>
+							<span style="font-size:16px;position:relative;top:-8px">作品展示：</span><button class="add_serve" onclick="addService(this)">添加</button>
 								<div class="special_sever clearfix">
 								<c:forEach items="${specialServices }" var="specialService">
 									<div id="${specialService.sId}" class="special-sever_content" onclick="editSpe(${specialService.sId}, this)">
@@ -149,7 +152,8 @@
 							    </div>
 							</div>
 						    <div style="display: none">
-						    	输入特色名称: <input name="sName" type="text" style="box-shadow: 0 0 3px #ccc;"><br><br>
+						    	<div >
+						    	  输入特色名称: <input name="sName" type="text" style="box-shadow: 0 0 3px #ccc;"><br><br>
 								选择一个项目: 
 								<select data-placeholder="选择项目"  class="chzn-select input80" name="projectId" id="projectId">
 									<c:forEach items="${projectInfos }" var="projectInfo">
@@ -162,6 +166,8 @@
 										<option value="${storeEmployee.employeeCode }">${storeEmployee.name }</option>
 									</c:forEach>
 		                        </select>
+		                        
+		                       </div> 
 		                        <br><br>
 		                        	选择一张图片:
 		                        	<li>
@@ -310,19 +316,17 @@ var imgType = null;
 function zcc(opt,type){
 	imgType = type;
 	if(type=="img"){
-		imgObject = jQuery(opt).parent("li");
+		imgObject = jQuery(opt);
 	}else {
 		imgObject = jQuery(opt).next();
 	}
 	jQuery(".mask").show();
 	editPage(null);
-	//jQuery('.zzc').show();
 }
 
 function zccCallback(dataBase64){
-	imgObject.children("img").attr("src", dataBase64);
-	var key = "jobwisdom/project/" + new Date().getTime();
 	
+	var key = "jobwisdom/project/" + new Date().getTime();
     var data = {"stringBase64":dataBase64,"key":key};
     jQuery('.cancelinput').click();
     jQuery.ajax({
@@ -345,14 +349,11 @@ function zccCallback(dataBase64){
 		       	var imageUrl = data.msg.imageUrl;
 		       	var key = data.msg.key;
 		       	if(imgType == "img"){
-		       		imgObject.empty();
-		       		var html = '<img style="width: 89px;height: 89px" onclick="zcc(this,\'img\')" src="'+qiniuUrl+key+'">'+
-                    		   '<input type="hidden" name="carouselPicture" value="'+key+'">';
-		       		imgObject.append(jQuery(html));
+		       		imgObject.attr("src", imageUrl);
+		       		jQuery(imgObject).next().val(key);
 		       	}else{
 		       		UE.getEditor(imgType).execCommand('insertHtml', '<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'+qiniuUrl+key+'">');
 		       	}
-		       	//imgObject.append(jQuery(html));
 	       }
  	});
 }

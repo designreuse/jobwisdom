@@ -30,6 +30,8 @@
     <result column="standard" property="standard" jdbcType="INTEGER" />
     <result column="is_attestation" property="isAttestation" jdbcType="INTEGER" />
     <result column="combo_performance" property="comboPerformance" jdbcType="DECIMAL" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="combo_code_suffix" property="comboCodeSuffix" jdbcType="CHAR" />
   </resultMap>
   
    <resultMap type="com.zefun.web.dto.TrendDeptDataDto" id="comboMap">
@@ -41,7 +43,8 @@
     combo_id, combo_parent_id, store_id, dept_id, combo_name, combo_image, combo_desc, project_count, 
     project_amount, combo_sale_price, commission_type, 
     cash_commission, card_commission, sales_count, sales_people, start_date, end_date, valid_date, is_count_limit,
-    is_wechat_sell, is_disable, is_deleted, create_time, update_time, last_operator_id, standard,is_attestation,combo_performance
+    is_wechat_sell, is_disable, is_deleted, create_time, update_time, last_operator_id, standard,is_attestation,combo_performance,
+    combo_code_suffix
   </sql>
   
   <!-- 根据门店标识查询套餐标识集合，by 张小胖 -->
@@ -148,6 +151,9 @@
       <if test="comboPerformance != null" >
         combo_performance,
       </if>
+      <if test="comboCodeSuffix != null" >
+        combo_code_suffix,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="comboId != null" >
@@ -233,6 +239,9 @@
       </if>
       <if test="comboPerformance != null" >
         #{comboPerformance,jdbcType=DECIMAL},
+      </if>
+      <if test="comboCodeSuffix != null" >
+        #{comboCodeSuffix,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
@@ -321,84 +330,96 @@
       <if test="comboPerformance != null" >
         combo_performance = #{comboPerformance,jdbcType=DECIMAL},
       </if>
+      <if test="comboCodeSuffix != null" >
+        combo_code_suffix = #{comboCodeSuffix,jdbcType=CHAR},
+      </if>
     </set>
     where combo_id = #{comboId,jdbcType=INTEGER}
   </update>
   
   <select id="selectByProperty" parameterType="com.zefun.web.entity.ComboInfo" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" />
-    from combo_info where is_deleted = 0 
+    select  cio.combo_id, cio.combo_parent_id, cio.store_id, cio.dept_id, cio.combo_name, cio.combo_image, cio.combo_desc, cio.project_count, 
+		    cio.project_amount, cio.combo_sale_price, cio.commission_type, cio.cash_commission, cio.card_commission, cio.sales_count, 
+		    cio.sales_people, cio.start_date, cio.end_date, cio.valid_date, cio.is_count_limit, cio.is_wechat_sell, cio.is_disable, 
+		    cio.is_deleted, cio.create_time, cio.update_time, cio.last_operator_id, cio.standard,cio.is_attestation,cio.combo_performance,
+		    cio.combo_code_suffix, dio.dept_name
+    from combo_info cio 
+    left join dept_info dio on cio.dept_id = dio.dept_id
+    where cio.is_deleted = 0 
       <if test="comboParentId != null" >
-        and combo_parent_id = #{comboParentId,jdbcType=INTEGER}
+        and cio.combo_parent_id = #{comboParentId,jdbcType=INTEGER}
       </if>
       <if test="storeId != null" >
-        and store_id = #{storeId,jdbcType=INTEGER}
+        and cio.store_id = #{storeId,jdbcType=INTEGER}
       </if>
       <if test="deptId != null" >
-        and dept_id = #{deptId,jdbcType=INTEGER}
+        and cio.dept_id = #{deptId,jdbcType=INTEGER}
       </if>
       <if test="comboName != null" >
-        and combo_name = #{comboName,jdbcType=VARCHAR}
+        and cio.combo_name = #{comboName,jdbcType=VARCHAR}
       </if>
       <if test="comboImage != null" >
-        and combo_image = #{comboImage,jdbcType=VARCHAR}
+        and cio.combo_image = #{comboImage,jdbcType=VARCHAR}
       </if>
       <if test="comboDesc != null" >
-        and combo_desc = #{comboDesc,jdbcType=VARCHAR}
+        and cio.combo_desc = #{comboDesc,jdbcType=VARCHAR}
       </if>
       <if test="projectCount != null" >
-        and project_count = #{projectCount,jdbcType=INTEGER}
+        and cio.project_count = #{projectCount,jdbcType=INTEGER}
       </if>
       <if test="projectAmount != null" >
-        and project_amount = #{projectAmount,jdbcType=DECIMAL}
+        and cio.project_amount = #{projectAmount,jdbcType=DECIMAL}
       </if>
       <if test="comboSalePrice != null" >
-        and combo_sale_price = #{comboSalePrice,jdbcType=DECIMAL}
+        and cio.combo_sale_price = #{comboSalePrice,jdbcType=DECIMAL}
       </if>
       <if test="commissionType != null" >
-        and commission_type = #{commissionType,jdbcType=INTEGER}
+        and cio.commission_type = #{commissionType,jdbcType=INTEGER}
       </if>
       <if test="cashCommission != null" >
-        and cash_commission = #{cashCommission,jdbcType=DECIMAL}
+        and cio.cash_commission = #{cashCommission,jdbcType=DECIMAL}
       </if>
       <if test="cardCommission != null" >
-        and card_commission = #{cardCommission,jdbcType=DECIMAL}
+        and cio.card_commission = #{cardCommission,jdbcType=DECIMAL}
       </if>
       <if test="salesCount != null" >
-        and sales_count = #{salesCount,jdbcType=INTEGER}
+        and cio.sales_count = #{salesCount,jdbcType=INTEGER}
       </if>
       <if test="salesPeople != null" >
-        and sales_people = #{salesPeople,jdbcType=INTEGER}
+        and cio.sales_people = #{salesPeople,jdbcType=INTEGER}
       </if>
       <if test="startDate != null" >
-        and start_date = #{startDate,jdbcType=CHAR}
+        and cio.start_date = #{startDate,jdbcType=CHAR}
       </if>
       <if test="endDate != null" >
-        and end_date = #{endDate,jdbcType=CHAR}
+        and cio.end_date = #{endDate,jdbcType=CHAR}
       </if>
       <if test="validDate != null" >
-        and valid_date = #{validDate,jdbcType=INTEGER}
+        and cio.valid_date = #{validDate,jdbcType=INTEGER}
       </if>
       <if test="isCountLimit != null" >
-        and is_count_limit = #{isCountLimit,jdbcType=INTEGER}
+        and cio.is_count_limit = #{isCountLimit,jdbcType=INTEGER}
       </if>
       <if test="isWechatSell != null" >
-        and is_wechat_sell = #{isWechatSell,jdbcType=INTEGER}
+        and cio.is_wechat_sell = #{isWechatSell,jdbcType=INTEGER}
       </if>
       <if test="isDisable != null" >
-        and is_disable = #{isDisable,jdbcType=INTEGER}
+        and cio.is_disable = #{isDisable,jdbcType=INTEGER}
       </if>
       <if test="isDeleted != null" >
-        and is_deleted = #{isDeleted,jdbcType=INTEGER}
+        and cio.is_deleted = #{isDeleted,jdbcType=INTEGER}
       </if>
       <if test="createTime != null" >
-        and create_time = #{createTime,jdbcType=CHAR}
+        and cio.create_time = #{createTime,jdbcType=CHAR}
       </if>
       <if test="updateTime != null" >
-        and update_time = #{updateTime,jdbcType=CHAR}
+        and cio.update_time = #{updateTime,jdbcType=CHAR}
       </if>
       <if test="lastOperatorId != null" >
-        and last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
+        and cio.last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
+      </if>
+      <if test="comboCodeSuffix != null" >
+        and cio.combo_code_suffix = #{comboCodeSuffix,jdbcType=CHAR}
       </if>
   </select>
   
