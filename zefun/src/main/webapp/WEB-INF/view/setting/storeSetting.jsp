@@ -91,14 +91,14 @@
 					<div class="webchat_div">
 						<div class="webchat_div_">
 							<ul class="add_pic clearfix" style="width:570px">
-							    <c:if test="${empty storeInfo.pictureArray }">
+							    <c:if test="${!empty storeInfo.pictureArray }">
                                     <c:forEach items="${storeInfo.pictureArray}" var="picture">
-                                    		<li style="margin-right:60px"><img style="width: 220px" onclick="zcc(this,'img')" src="<%=qiniuPath %>${ picture }">
-	                                        <input type="hidden" name="carouselPicture" value="${ picture }">
-	                                        </li>
+	                                    <li><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>${ picture }">
+	                                	<input type="hidden" name="carouselPicture" value="${ picture }">
+	                                	</li>
                                     </c:forEach>
                                 </c:if>
-                                <c:if test="${!empty storeInfo.pictureArray }">
+                                <c:if test="${empty storeInfo.pictureArray }">
                                 	<li><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
@@ -316,7 +316,7 @@ var imgType = null;
 function zcc(opt,type){
 	imgType = type;
 	if(type=="img"){
-		imgObject = jQuery(opt).parent("li");
+		imgObject = jQuery(opt);
 	}else {
 		imgObject = jQuery(opt).next();
 	}
@@ -326,9 +326,8 @@ function zcc(opt,type){
 }
 
 function zccCallback(dataBase64){
-	imgObject.children("img").attr("src", dataBase64);
-	var key = "jobwisdom/project/" + new Date().getTime();
 	
+	var key = "jobwisdom/project/" + new Date().getTime();
     var data = {"stringBase64":dataBase64,"key":key};
     jQuery('.cancelinput').click();
     jQuery.ajax({
@@ -351,14 +350,11 @@ function zccCallback(dataBase64){
 		       	var imageUrl = data.msg.imageUrl;
 		       	var key = data.msg.key;
 		       	if(imgType == "img"){
-		       		imgObject.empty();
-		       		var html = '<img style="width: 89px;height: 89px" onclick="zcc(this,\'img\')" src="'+qiniuUrl+key+'">'+
-                    		   '<input type="hidden" name="carouselPicture" value="'+key+'">';
-		       		imgObject.append(jQuery(html));
+		       		imgObject.attr("src", imageUrl);
+		       		jQuery(imgObject).next().val(key);
 		       	}else{
 		       		UE.getEditor(imgType).execCommand('insertHtml', '<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'+qiniuUrl+key+'">');
 		       	}
-		       	//imgObject.append(jQuery(html));
 	       }
  	});
 }

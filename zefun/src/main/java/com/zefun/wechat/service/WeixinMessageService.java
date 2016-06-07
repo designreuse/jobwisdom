@@ -33,7 +33,6 @@ import com.zefun.web.entity.AutomaticKey;
 import com.zefun.web.entity.AutomaticReply;
 import com.zefun.web.entity.ItemCensus;
 import com.zefun.web.entity.MemberInfo;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberScreening;
 import com.zefun.web.entity.MsgReply;
 import com.zefun.web.entity.PictureLibrary;
