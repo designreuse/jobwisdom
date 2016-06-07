@@ -144,8 +144,8 @@
 
 	<div class="zzc">
 	     <div class="zzc_div">
-	     <div class="name">高档国外金扣蛇皮鳄鱼皮膏</div>
-	     <div class="price_">¥80.00</div>
+	     <div class="name">${goodsInfo.goodsName }</div>
+	     <div class="price_">¥${goodsInfo.goodsPrice }</div>
 		 <div class="way">
 		   <div class="p">选择支付方式</div>
 		   <div class="wx_pay">
@@ -156,16 +156,14 @@
 		    <button>确认付款</button> <button class="cancle">取消</button>
 		 </div>
   </div>
-      
    
   <div class="zzc_pay_way" >
          <p>支付方式</p>
          <div class="pay_way_">
-	     <div><span class="img wx_img"><img src="<%=basePath%>images/mobile/member/wx.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple"></div>
-	     <div><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple" ></div>
-	     <div><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple"></div>
-		 <div><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple"></div>
-		 <div><span class="img"><img src="<%=basePath%>images/mobile/member/card.png"> </span><i>可使用微信中零钱进行支付</i><input type="radio" name="simple"></div>
+	     <div><span class="img wx_img"><img src="<%=basePath%>images/mobile/member/wx.png"> </span><i>可使用微信中零钱进行支付</i><input value="0" type="radio" name="simple"></div>
+	     <c:forEach items="${buySubAccountList }" var="buySubAccount">
+	     	<div goodsPrice="${goodsInfo.goodsPrice }"  goodsDiscount="${buySubAccount.goodsDiscount }"><span class="img"><img src="<%=qiniuPath%>${fn:split(buySubAccount.levelLogo, ',')[0]}"> </span><i>可使用${buySubAccount.levelName }进行支付</i><input value="${buySubAccount.subAccountId }" type="radio" name="simple" ></div>
+	     </c:forEach>
 	  </div>
 	  <div class="pay_way_button">
 	     <button class="sure">确认</button>
@@ -330,6 +328,7 @@
         } */
     });
   }
+  var goodsPrice = '${goodsInfo.goodsPrice }';
   var title = '${goodsInfo.goodsName }';
   var desc = '围观围观,新品上架,速速抢购';
   var link = window.location.href;
@@ -373,6 +372,14 @@
   //点击确认
   $(function(){
     $('.pay_way_button .sure').click(function(){
+    	var accountId = $('.pay_way_ input[name="simple"]:checked').val();
+    	if (accountId == 0){
+    		$(".zzc").find("div[name='price_']").text("¥$"+goodsPrice);
+    	}else {
+    		var goodsDiscount = $('.pay_way_ input[name="simple"]:checked').parents('div').attr("goodsDiscount");
+    		var goodsPrice = $('.pay_way_ input[name="simple"]:checked').parents('div').attr("goodsPrice");
+    		$(".zzc").find("div[name='price_']").text("¥$"+goodsPrice);
+    	}
         var check=$('.pay_way_ input[name="simple"]:checked').parents('div').html();
 		if(check==null) return;
 		$('.wx_pay').html(check);
@@ -387,11 +394,11 @@
 		})
 	});
   })
-  jQuery(function(){
+  /* jQuery(function(){
 	    jQuery('.btn.btn-primary').click(function(){
-		  jQuery('.zzc').fadeIn('slow') ;       
+		  jQuery('.zzc').fadeIn('slow') ;
 	  })
-  }) 
+  }) */
 </script>
 </body>
 </html>

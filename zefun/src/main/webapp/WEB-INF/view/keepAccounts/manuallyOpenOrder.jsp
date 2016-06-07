@@ -28,7 +28,7 @@ em {
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
 			<div class="more-toolbar" >
-	                <div class="table-toolbar" style="font-size: 14px" name = "memberTR" selectType = "1">
+	                <div class="table-toolbar" style="font-size: 14px" name = "memberTR" selectType = "2">
 	                    <div class="p-part-first">
 	                        <div style="display: inline-block;" name= "seekTD">
 	                           <span class="ml10">会员:</span>

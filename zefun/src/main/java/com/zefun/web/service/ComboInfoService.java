@@ -785,5 +785,45 @@ public class ComboInfoService {
         }
         return card;
     }
+
+    /**
+     * 新增或者修改套餐
+    * @author 高国藩
+    * @date 2016年6月7日 上午10:14:25
+    * @param comboInfo        comboInfo
+    * @param comboProjects    comboProjects
+    * @param comboGoods       comboGoods
+    * @return                 comboInfo
+     */
+    public BaseDto saveOrUpdate(ComboInfo comboInfo, List<ComboProject> comboProjects, List<ComboGoods> comboGoods) {
+        if (comboInfo.getComboId()!=null){
+            comboInfoMapper.updateByPrimaryKeySelective(comboInfo);
+        }
+        else {
+            comboInfoMapper.insertSelective(comboInfo);
+        }
+        ComboProject comboProject = new ComboProject();
+        comboProject.setComboId(comboInfo.getComboId());
+        comboProjectMapper.deleteByPrimaryKey(comboProject);
+        
+        ComboGoods goods = new ComboGoods();
+        goods.setComboId(comboInfo.getComboId());
+        comboGoodsMapper.deleteByPrimaryKey(goods);
+        
+        if (comboProjects!=null && comboProjects.size()>0){
+            for (int i = 0; i < comboProjects.size(); i++) {
+                comboProjects.get(i).setComboId(comboInfo.getComboId());
+            }
+            comboProjectMapper.insertComboProject(comboProjects);
+        }
+        
+        if (comboGoods!=null && comboGoods.size()>0){
+            for (int i = 0; i < comboGoods.size(); i++) {
+                comboGoods.get(i).setComboId(comboInfo.getComboId());
+                comboGoodsMapper.insertSelective(comboGoods.get(i));
+            }
+        }
+        return new BaseDto(0, comboInfo);
+    }
     
 }

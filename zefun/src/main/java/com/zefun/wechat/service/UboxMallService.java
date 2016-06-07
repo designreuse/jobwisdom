@@ -3,6 +3,7 @@ package com.zefun.wechat.service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -144,7 +145,10 @@ public class UboxMallService {
             List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(memberId);
             mav.addObject("subAccountList", subAccountList);
             
-            subAccountList.stream().filter(dto -> dto.getBalanceAmount()>=info.getGoodsPrice());
+            List<MemberSubAccountDto> buySubAccountList = subAccountList.stream()
+                .filter(dto -> dto.getBalanceAmount().intValue()>=info.getGoodsPrice().intValue())
+                .collect(Collectors.toList());
+            mav.addObject("buySubAccountList", buySubAccountList);
         }
         
         return mav;

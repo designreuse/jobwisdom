@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,8 +22,6 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.CodeLibraryDto;
-import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectCommissionDto;
 import com.zefun.web.dto.ProjectInfoDto;
@@ -32,7 +32,7 @@ import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.MemberComboRecord;
-import com.zefun.web.mapper.CodeLibraryMapper;
+import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.MemberComboRecordMapper;
 import com.zefun.web.service.ComboInfoService;
 import com.zefun.web.service.GoodsInfoService;
@@ -59,12 +59,12 @@ public class ComboInfoController extends BaseController {
     /**会员等级*/
     @Autowired 
     private MemberLevelService memberLevelService;
-    /**查询图库*/
-    @Autowired 
-    private CodeLibraryMapper codeLibraryMapper;
     /**会员套餐关联*/
     @Autowired
     private MemberComboRecordMapper memberComboRecordMapper;
+    /**套餐*/
+    @Autowired
+    private ComboInfoMapper comboInfoMapper;
 
     /**
      * 进入套餐页面
@@ -79,38 +79,42 @@ public class ComboInfoController extends BaseController {
     public ModelAndView toComboInfo(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
         try {
             Integer storeId = getStoreId(request);
+            ComboInfo comboInfo = new ComboInfo();
+            comboInfo.setStoreId(storeId);
+            List<ComboInfo> comboInfos = comboInfoMapper.selectByProperty(comboInfo);
 
-            // 部门，套餐列表
-            List<DeptInfoDto> deptInfoCmboInfoList = comboInfoService.getDetpInfoByCombo(storeId);
-            model.addObject("deptInfoCmboInfoList", deptInfoCmboInfoList);
-
-            // 部门列表
-            List<DeptInfo> deptInfoList = projectService.queryDeptInfoList(storeId);
-            model.addObject("deptInfoList", deptInfoList);
-            model.addObject("js_deptInfoList", JSONArray.fromObject(deptInfoList));
-
-            // 项目列表
-            ProjectInfoDto projectInfoDto = new ProjectInfoDto();
-            projectInfoDto.setStoreId(storeId);
-            projectInfoDto.setIsDeleted(0);
-            List<ProjectInfoDto> projectInfoDtoList = projectService.queryProjectInfoList(projectInfoDto);
-            model.addObject("projectInfoDtoList", projectInfoDtoList);
-            model.addObject("projectInfoList", JSONArray.fromObject(projectInfoDtoList));
+//            // 部门，套餐列表
+//            List<DeptInfoDto> deptInfoCmboInfoList = comboInfoService.getDetpInfoByCombo(storeId);
+//            model.addObject("deptInfoCmboInfoList", deptInfoCmboInfoList);
+//
+//            // 部门列表
+//            List<DeptInfo> deptInfoList = projectService.queryDeptInfoList(storeId);
+//            model.addObject("deptInfoList", deptInfoList);
+//            model.addObject("js_deptInfoList", JSONArray.fromObject(deptInfoList));
+//
+//            // 项目列表
+//            ProjectInfoDto projectInfoDto = new ProjectInfoDto();
+//            projectInfoDto.setStoreId(storeId);
+//            projectInfoDto.setIsDeleted(0);
+//            List<ProjectInfoDto> projectInfoDtoList = projectService.queryProjectInfoList(projectInfoDto);
+//            model.addObject("projectInfoDtoList", projectInfoDtoList);
+//            model.addObject("projectInfoList", JSONArray.fromObject(projectInfoDtoList));
+//            
+//            //商品列表
+//            GoodsInfo goodsInfo = new GoodsInfo();
+//            goodsInfo.setStoreId(storeId);
+//            goodsInfo.setIsDeleted(0);
+//            List<GoodsInfo> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
+//            model.addObject("goodsinfos", goodsinfos);
+//            model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
+//            // 会员等级列表
+//            List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
+//            model.addObject("memberLevels", memberLevelList);
+//            
+//            List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();
+//            model.addObject("images", images);
             
-            //商品列表
-            GoodsInfo goodsInfo = new GoodsInfo();
-            goodsInfo.setStoreId(storeId);
-            goodsInfo.setIsDeleted(0);
-            List<GoodsInfo> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
-            model.addObject("goodsinfos", goodsinfos);
-            model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
-            // 会员等级列表
-            List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
-            model.addObject("memberLevels", memberLevelList);
-            
-            List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();
-            model.addObject("images", images);
-
+            model.addObject("comboInfos", comboInfos);
             model.setViewName(View.ComboInfo.COMBOINFO);
             return model;
         }
@@ -119,6 +123,82 @@ public class ComboInfoController extends BaseController {
             return null;
         }
     }
+    
+    /**
+     * 新增套餐页面
+    * @author 高国藩
+    * @date 2016年6月6日 下午7:51:42
+    * @param request   request
+    * @param response  response
+    * @param comboId   comboId
+    * @param model     model
+    * @return          model
+     */
+    @RequestMapping(value = Url.ComboInfo.COMBOINFO_SETTING)
+    public ModelAndView viewComboInfoSetting(HttpServletRequest request, HttpServletResponse response, Integer comboId, ModelAndView model) {
+        
+        Integer storeId = getStoreId(request);
+        model.setViewName(View.ComboInfo.COMBO_SETTING);
+        // 部门列表
+        List<DeptInfo> deptInfoList = projectService.queryDeptInfoList(storeId);
+        model.addObject("deptInfoList", deptInfoList);
+        model.addObject("js_deptInfoList", JSONArray.fromObject(deptInfoList));
+
+        // 项目列表
+        ProjectInfoDto projectInfoDto = new ProjectInfoDto();
+        projectInfoDto.setStoreId(storeId);
+        projectInfoDto.setIsDeleted(0);
+        List<ProjectInfoDto> projectInfoDtoList = projectService.queryProjectInfoList(projectInfoDto);
+        model.addObject("projectInfoDtoList", projectInfoDtoList);
+        model.addObject("projectInfoList", JSONArray.fromObject(projectInfoDtoList));
+        
+        //商品列表
+        GoodsInfo goodsInfo = new GoodsInfo();
+        goodsInfo.setStoreId(storeId);
+        goodsInfo.setIsDeleted(0);
+        goodsInfo.setIsSellProduct(1);
+        List<GoodsInfo> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
+        model.addObject("goodsinfos", goodsinfos);
+        model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
+        // 会员等级列表
+        List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
+        model.addObject("memberLevels", memberLevelList);
+        
+        if (comboId!=null){
+            BaseDto baseDto = queryComboInfoById(request, response, comboId);
+            @SuppressWarnings("unchecked")
+            Map<String, Object> map = (Map<String, Object>) baseDto.getMsg();
+            model.addObject("comboId", ((ComboInfo)map.get("comboInfo")).getComboId());
+            model.addObject("comboInfo", JSONObject.fromObject(map.get("comboInfo")));
+            model.addObject("comboProjectList", JSONArray.fromObject(map.get("comboProjectList")));
+            model.addObject("comboGoods", JSONArray.fromObject(map.get("comboGoods")));
+            model.addObject("comboMemberLevel", JSONArray.fromObject(map.get("comboMemberLevel")));
+        }
+        
+        return model;
+    }
+    
+    /**
+     * 套餐的修改新增操作
+    * @author 高国藩
+    * @date 2016年6月7日 上午10:16:40
+    * @param request     request
+    * @param response    response
+    * @param jsonObject  jsonObject
+    * @return            comboInfo
+     */
+    @RequestMapping(value = Url.ComboInfo.SAVE_ALL_COMBOINFO)
+    @ResponseBody
+    @SuppressWarnings("unchecked")
+    public BaseDto saveAllComboInfo(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObject){
+        Integer storeId = getStoreId(request);
+        ComboInfo comboInfo = (ComboInfo) JSONObject.toBean(JSONObject.fromObject(jsonObject.get("comboInfo")), ComboInfo.class);
+        List<ComboProject> comboProjects = (List<ComboProject>) JSONArray.toCollection(jsonObject.getJSONArray("comboProject"), ComboProject.class);
+        List<ComboGoods> comboGoods = (List<ComboGoods>) JSONArray.toCollection(jsonObject.getJSONArray("comboGoods"), ComboGoods.class);
+        comboInfo.setStoreId(storeId);
+        return comboInfoService.saveOrUpdate(comboInfo, comboProjects, comboGoods);
+    }
+    
 
     /**
      * 保存套餐

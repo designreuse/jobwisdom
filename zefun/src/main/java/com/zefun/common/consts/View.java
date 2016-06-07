@@ -384,6 +384,8 @@ public interface View {
 	class ComboInfo {
 		/** 套餐设置页面 */
 		public static final String COMBOINFO = "commodity/comboInfo";
+		/** 套餐设置页面*/
+        public static final String COMBO_SETTING = "commodity/comboSetting";
 	}
 
 	/**
