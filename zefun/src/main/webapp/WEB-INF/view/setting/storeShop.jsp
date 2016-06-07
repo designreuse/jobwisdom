@@ -117,9 +117,14 @@
 						</div>
 
 						<div id="gg" class="adjust_goods_1" style="display: block;">
-							<button class="adjust_goods_button" onclick="jQuery('.mask').show();editPage(null);">添加图片</button>
+							<!-- <button class="adjust_goods_button" onclick="jQuery('.mask').show();editPage(null);">添加图片</button> -->
 							<ul class="add_pic clearfix">
-							
+							   <li><img src="<%=basePath%>images/click_add.png"></li>
+							   <li><img src="<%=basePath%>images/click_add.png"></li>
+							   <li><img src="<%=basePath%>images/click_add.png"></li>
+							   <li><img src="<%=basePath%>images/click_add.png"></li>
+							   <li><img src="<%=basePath%>images/click_add.png"></li>
+							   <li><img src="<%=basePath%>images/click_add.png"></li>
 							</ul>
 							<button class="adjust_goods_button" onclick="save('adsense')">保存</button>
 						</div>
@@ -327,7 +332,7 @@ jQuery.each(storeShop.bestSellers.split(","),function(i, value){
 	jQuery("#rxsp").find(".adjust_list.clearfix[goodsid="+value+"]").click();
 })
 jQuery.each(storeShop.adsense.split(","),function(i, value){
-	var html = '<li><img style="width: 89px; height: 89px" src="'+value+'"></li>';
+	var html = '<li><img style="width: 375px; " src="'+value+'"></li>';
    	jQuery(".add_pic.clearfix").append(jQuery(html));
 })
 </script>
