@@ -332,7 +332,6 @@ function zcc(opt,type){
 	}
 	jQuery(".mask").show();
 	editPage(null);
-	//jQuery('.zzc').show();
 }
 
 function zccCallback(dataBase64){
