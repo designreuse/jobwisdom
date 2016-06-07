@@ -95,6 +95,7 @@
 			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span><img src="<%=basePath%>images/left1.png">套餐管理</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span><img src="<%=basePath%>images/left2.png">商品列表</span></li></a>
 			<a href="<%=menuBasePath%>goods/info/setting"><li class=""><span><img src="<%=basePath%>images/left2.png">商品上架</span></li></a>
+			<a href="<%=menuBasePath%>comboInfo/setting"><li><span><img src="<%=basePath%>images/left1.png">套餐设置</span></li></a>
 		</ul>
 		<ul index="5">
 			<a href="<%=menuBasePath%>goodsInfo/view/setting"><li class="active"><span><img src="<%=basePath%>images/left3.png">库存管理</span></li></a>
