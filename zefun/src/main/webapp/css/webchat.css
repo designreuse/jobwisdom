@@ -1,6 +1,6 @@
 .rightpanel{background:white}
 .content_right{padding:40px 50px}
-
+ul li{list-style:none}
 .webchat{height:700px;width:315px;background:url('../images/phone_.png') no-repeat;background-size:315px 700px;padding:0 10px;float:left}
 .webchat_p{position:relative;top:294px;}
 .webchat_p p{border-bottom:1px solid #ccc;margin-top:20px;cursor:pointer;width:296px;height:30px;}

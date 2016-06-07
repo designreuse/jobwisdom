@@ -42,7 +42,7 @@
 .adjust_goods_span{font-size:20px;color:black}
 .adjust_goods_p{margin-bottom:20px}
 .adjust_goods_p em{display:inline-block;margin-left:20px}
-.adjust_goods_p button{height:26px;width:100px;border-radius:12px;border:none;background:#59688a;color:white;text-align:center;line-height:26px;position:relative;left:182px}
+.adjust_goods_p button{height:26px;width:100px;border-radius:12px;border:none;background:#59688a;color:white;text-align:center;line-height:26px;position:relative;left:162px}
 .adjust_goods_p button:hover{background:#3f4a62}
 
 .adjust_ul{height:470px;width:276px;border-radius:8px;border:1px solid #ccc;padding:5px;color:black;background:#ebeff8;float:left}
@@ -82,3 +82,4 @@
 .adjust_goods_button:hover{background:#5d6d8c}
 .add_pic li{width:220px;float:left;margin-left:40px;margin-bottom:20px;height:135px}
 .add_pic{width:400px;margin-top:30px}
+.adjust_goods img{width:24px}
