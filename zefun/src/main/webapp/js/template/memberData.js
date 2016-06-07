@@ -286,47 +286,21 @@ function submitPhone (obj) {
 				
 			}
 			else {
-				jQuery(obj).parents("div[name='memberTR']").find(".can-click").text(memberBaseDto.name+"  "+memberBaseDto.sex+"  "+memberBaseDto.phone);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='levelName']").text("会员等级："+memberBaseDto.levelName);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='balance']").text("余额："+memberBaseDto.balanceAmount);
-				jQuery(obj).parents("div[name='memberTR']").find("input[name='memberId']").val(memberBaseDto.memberId).change();
-				jQuery(obj).parents("div[name='memberTR']").find("input[name='levelId']").val(memberBaseDto.levelId);
+				var parentsObj = jQuery(obj).parents("div[name='memberTR']").next();
+				parentsObj.find("[name='memberImg']").attr("src", qiniuUrl + memberBaseDto.headUrl)
+				parentsObj.find("[name='memberNameSpan']").text(memberBaseDto.name);
+				parentsObj.find("[name='memberPhoneSpan']").text(memberBaseDto.phone);
+				parentsObj.find("[name='memberSexSpan']").text(memberBaseDto.sex);
+				parentsObj.find("[name='memberBalanceAmountSpan']").text(zeroValue(memberBaseDto.balanceAmount));
+				parentsObj.find("[name='memberBalanceGiftmoneyAmountSpan']").text(zeroValue(memberBaseDto.giftmoneyAmount));
+				parentsObj.find("[name='memberBalanceIntegralSpan']").text(zeroValue(memberBaseDto.balanceIntegral));
+				parentsObj.find("[name='memberStoreName']").text(memberBaseDto.storeName);
+				parentsObj.find("[name='memberId']").val(memberBaseDto.memberId).change();
+				parentsObj.find("[name='subAccountNum']").text(memberBaseDto.subAccountNum);
+				parentsObj.find("[name='needRefund']").text(zeroValue(memberBaseDto.debtAmount));
 				
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberNameSpan']").text(memberBaseDto.name);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberPhoneSpan']").text(memberBaseDto.phone);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberSexSpan']").text(memberBaseDto.sex);
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberBalanceAmountSpan']").text(zeroValue(memberBaseDto.balanceAmount));
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberBalanceGiftmoneyAmountSpan']").text(zeroValue(memberBaseDto.giftmoneyAmount));
-				jQuery(obj).parents("div[name='memberTR']").find("span[name='memberBalanceIntegralSpan']").text(zeroValue(memberBaseDto.balanceIntegral));
-				
-				jQuery("div[name='moreMemberInfoDIV']").find("span[name='totalConsumeAmountSpan']").text(zeroValue(memberBaseDto.totalConsumeAmount));
-				jQuery("div[name='moreMemberInfoDIV']").find("span[name='lastDayNumberSpan']").text(memberBaseDto.lastDayNumber);
-				jQuery("div[name='moreMemberInfoDIV']").find("span[name='projectNameSpan']").text(memberBaseDto.lastProjectName);
-				
-				var projectStepList = memberBaseDto.projectStepList;
-				
-				var str = "";
-				
-				for (var i = 0; i < projectStepList.length; i++) {
-					var projectStep = projectStepList[i];
-					if (i == 0) {
-						str = "(" + projectStep.shiftMahjongName + " " + projectStep.employeeCode+ " " + projectStep.employeeName;
-					}
-					else {
-						str = str + " " + projectStep.shiftMahjongName + " " + projectStep.employeeCode+ " " + projectStep.employeeName;
-					}
-					
-					if (i + 1 == projectStepList.length) {
-						str = str + ")";
-					}
-				}
-				
-				jQuery("div[name='moreMemberInfoDIV']").find("span[name='projectStepSpan']").text(str);
-				
-			    jQuery(obj).parents("div[name='memberTR']").find("div[name='resultTD']").css("display", "inline-block");
-			    jQuery(obj).parents("div[name='memberTR']").find("div[name='seekTD']").css("display","none");
-			    
-			    jQuery(obj).parents(".tab-form1").find("span[name='needRefund']").text(zeroValue(memberBaseDto.debtAmount));
+				parentsObj.removeClass("hide");
+				jQuery(obj).parents("div[name='memberTR']").addClass("hide");
 			}
 			
 		}

@@ -960,7 +960,7 @@
 								</div>
 	                        </div>
 	                    </div>
-	                    <div class="card-main1 clearfix hide" name = "memberTR">
+	                    <div class="card-main clearfix hide" name = "memberTR">
 	                        <div class="common_table">   
 						  	   <table>
 							     <tr>
