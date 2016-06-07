@@ -152,7 +152,8 @@
 							    </div>
 							</div>
 						    <div style="display: none">
-						    	输入特色名称: <input name="sName" type="text" style="box-shadow: 0 0 3px #ccc;"><br><br>
+						    	<div >
+						    	  输入特色名称: <input name="sName" type="text" style="box-shadow: 0 0 3px #ccc;"><br><br>
 								选择一个项目: 
 								<select data-placeholder="选择项目"  class="chzn-select input80" name="projectId" id="projectId">
 									<c:forEach items="${projectInfos }" var="projectInfo">
@@ -165,6 +166,8 @@
 										<option value="${storeEmployee.employeeCode }">${storeEmployee.name }</option>
 									</c:forEach>
 		                        </select>
+		                        
+		                       </div> 
 		                        <br><br>
 		                        	选择一张图片:
 		                        	<li>
