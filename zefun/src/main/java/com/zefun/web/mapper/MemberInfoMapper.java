@@ -241,10 +241,10 @@ public interface MemberInfoMapper {
      * 查询本店会员，名称，手机号
     * @author 王大爷
     * @date 2016年1月5日 下午6:32:11
-    * @param storeId 门店标识
+    * @param map 门店标识
     * @return Map<String, Object>
      */
-    List<Map<String, Object>> selectStoreNamePhone(Integer storeId);
+    List<Map<String, Object>> selectStoreNamePhone(Map<String, Integer> map);
 
     /**
      * 根据会员id查询会员信息

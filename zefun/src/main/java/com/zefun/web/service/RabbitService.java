@@ -76,7 +76,7 @@ public class RabbitService {
     public void send(String routingKey, Object object) {
     	
     	Producer producer = (Producer) ToolSpring.getBean("producer");
-    	Message msg = new Message("Topic_api_test", routingKey, toByteArray(object));
+    	Message msg = new Message("jobwisdom_Topic_test", routingKey, toByteArray(object));
 
         msg.setKey("ORDERID_100");
         // 发送消息，只要不抛异常就是成功

@@ -53,6 +53,7 @@ import com.zefun.web.dto.DeptLaborSummaryDto;
 import com.zefun.web.dto.DeptSummaryDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.dto.EnterpriseInfoDto;
 import com.zefun.web.dto.GoodSalesSummaryDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectLaborRank;
@@ -401,10 +402,10 @@ public class StoreInfoService {
     	if (enterpriseAccount.getEnterpriseEdition().equals("单店版")) {
     		priceMoney = div(betweNum*2400);
     	}
-    	else if (enterpriseAccount.getEnterpriseEdition().equals("基础版")) {
+    	else if (enterpriseAccount.getEnterpriseEdition().equals("5店版")) {
     		priceMoney = div(betweNum*3800);
     	}
-        else if (enterpriseAccount.getEnterpriseEdition().equals("专业版")) {
+        else if (enterpriseAccount.getEnterpriseEdition().equals("10店版")) {
         	priceMoney = div(betweNum*5800);
     	}
     	Map<String, BigDecimal> map = new HashMap<>();
@@ -458,13 +459,13 @@ public class StoreInfoService {
         	if (enterpriseAccount.getEnterpriseEdition().equals("单店版")) {
         		payable = new BigDecimal(2400*renewDate);
         	}
-        	else if (enterpriseAccount.getEnterpriseEdition().equals("基础版")) {
+        	else if (enterpriseAccount.getEnterpriseEdition().equals("5店版")) {
         		payable = new BigDecimal(3800*renewDate);
         	}
-        	else if (enterpriseAccount.getEnterpriseEdition().equals("专业版")) {
+        	else if (enterpriseAccount.getEnterpriseEdition().equals("10店版")) {
         		payable = new BigDecimal(5800*renewDate);
         	}
-        	else if (enterpriseAccount.getEnterpriseEdition().equals("奢华版")) {
+        	else if (enterpriseAccount.getEnterpriseEdition().equals("无限版")) {
         		payable = new BigDecimal(8800*renewDate); 
         	}
         }
@@ -484,12 +485,12 @@ public class StoreInfoService {
     		record.setBalanceStoreNum(5 - enterpriseAccount.getAlreadyStoreNum());
     	}
     	else if (upgradeValue == 3){
-    		record.setEnterpriseEdition("专业版");
+    		record.setEnterpriseEdition("5店版");
     		record.setTotalStoreNum(12); 
     		record.setBalanceStoreNum(12 - enterpriseAccount.getAlreadyStoreNum());
     	}
         else if (upgradeValue == 4){
-        	record.setEnterpriseEdition("奢华版");
+        	record.setEnterpriseEdition("10店版");
         	record.setTotalStoreNum(999); 
     		record.setBalanceStoreNum(999);
     	}
@@ -713,7 +714,7 @@ public class StoreInfoService {
     	if (storeAuthorityId == null) {
     		EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
     		enterpriseInfo.setStoreAccount(storeAccount);
-    		EnterpriseInfo obj = enterpriseInfoMapper.selectByProperties(enterpriseInfo);
+    		EnterpriseInfoDto obj = enterpriseInfoMapper.selectByProperties(enterpriseInfo);
     		EnterpriseStoreAuthority enterpriseStoreAuthority = new EnterpriseStoreAuthority();
     		enterpriseStoreAuthority.setEnterpriseInfoId(obj.getEnterpriseInfoId());
     		enterpriseStoreAuthority.setStoreId(storeId);

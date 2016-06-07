@@ -175,8 +175,14 @@
 	                        <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="kaidan-label" for="">手机号:</label>
 	                            <input type="text"  class="w185 jiaodian" name = "phoneNumber" placeholder="*"/>
-	                           
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
+		                        
+		                        <div class="show_search" name = "memberListDIV" style="display: none;">
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
+								    
+								    </div>  
+								</div>
 	                        </div>
 	                        <div class="p-part-first">
 	                            <label class="kaidan-label" for="">开卡类型:</label>
@@ -227,15 +233,35 @@
 	                        </div>
 	                    </div>
 	                    <div class="card-main1 clearfix hide" name = "memberTR">
-	                        <div class="member-zilian">
-	                            <span>手机号: <span class="color-g cursor" name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>姓名:<span class="color-g cursor" name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>性别:<span name = "memberSexSpan"></span></span>
-	                            <span>账户余额: <span class="red" name = "memberBalanceAmountSpan"></span></span>
-	                            <span>已有<span class="blue" name = "subAccountNum"></span>张会员卡</span>
-	                            <span class="btn fanhui1" >返回</span>
-	                            <input type="hidden" name = "memberId">
-	                        </div>
+	                        <div class="common_table">   
+						  	   <table>
+							     <tr>
+								   <td rowspan="2"><img src="" name = "memberImg"></td>
+								   <td>手机号</td>
+								   <td>姓名</td>
+								   <td>性别</td>
+								   <td>开卡门店</td>
+								   <td>余额</td>
+								   <td>礼金</td>
+								   <td>欠款</td>
+								   <td>会员卡</td>
+								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+								 </tr>
+								 <tr>
+								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberSexSpan">男</td>
+								   <td name = "memberStoreName">华南美联店</td>
+								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
+								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
+								   <td style="color:#eb4749" name = "needRefund"></td>
+								   <td ><span name = "subAccountNum"></span>张</td>
+								 </tr>
+								 <input type="hidden" name = "memberId">
+							   </table>
+						    </div>
+	                        <ul class="member-card" name = "subAccountUL">
+	                        </ul>
 	                        <div class="p-part-first fl">
 	                            <label class="kaidan-label" for="">开卡类型:</label>
 	                            <select name="kkLevelIdToo" class="chzn-select w185" onchange="changeMemberLevel(this)">
@@ -359,20 +385,43 @@
 	                        <div class="p-part-first ml10" name = "memberTR" selectType = "1">
 	                            <label class="w60" for="">搜索会员:</label>
 	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
-	                           
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
+		                        <div class="show_search" name = "memberListDIV" style="display: none;">
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
+								    
+								    </div>  
+								</div>
 	                        </div>
 	                    </div>
 	                    <div class="card-main1 clearfix hide" name = "memberTR">
-	                        <div class="member-zilian">
-	                            <span>手机号: <span class="color-g cursor" name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>姓名:   <span class="color-g cursor" name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>性别: <span name = "memberSexSpan"></span></span>
-	                            <span>账户余额: <span class="red" name = "memberBalanceAmountSpan">696</span></span>
-	                            <span>已有<span class="blue" name = "subAccountNum"></span>张会员卡</span>
-	                            <span class="btn fanhui1" >返回</span>
-	                            <input type="hidden" name = "memberId">
-	                        </div>
+	                        <div class="common_table">   
+						  	   <table>
+							     <tr>
+								   <td rowspan="2"><img src="" name = "memberImg"></td>
+								   <td>手机号</td>
+								   <td>姓名</td>
+								   <td>性别</td>
+								   <td>开卡门店</td>
+								   <td>余额</td>
+								   <td>礼金</td>
+								   <td>欠款</td>
+								   <td>会员卡</td>
+								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+								 </tr>
+								 <tr>
+								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberSexSpan">男</td>
+								   <td name = "memberStoreName">华南美联店</td>
+								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
+								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
+								   <td style="color:#eb4749" name = "needRefund"></td>
+								   <td ><span name = "subAccountNum"></span>张</td>
+								 </tr>
+								 <input type="hidden" name = "memberId">
+							   </table>
+						    </div>
 	                        <ul class="member-card" name = "subAccountUL">
 	                        </ul>
 	                    </div>
@@ -504,20 +553,44 @@
 	                        <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="w60:" for="">转出会员:</label>
 	                            <input type="text" name = "phoneNumber" class="w185" placeholder="会员手机号">
-	                           
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
+		                        
+		                        <div class="show_search" name = "memberListDIV" style="display: none;">
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
+								    
+								    </div>  
+								</div>
 	                        </div>
 	                    </div>
 	                    <div class="card-main1 clearfix hide" id = "outDIV"  name = "memberTR">
-	                        <div class="member-zilian">
-	                            <span>手机号: <span class="color-g cursor" name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>姓名:   <span class="color-g cursor" name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>性别: <span name = "memberSexSpan"></span></span>
-	                            <span>账户余额: <span class="red" name = "memberBalanceAmountSpan">696</span></span>
-	                            <span>已有<span class="blue" name = "subAccountNum"></span>张会员卡</span>
-	                            <span class="btn fanhui1" >返回</span>
-	                            <input type="hidden" name = "memberId">
-	                        </div>
+	                        <div class="common_table">   
+						  	   <table>
+							     <tr>
+								   <td rowspan="2"><img src="" name = "memberImg"></td>
+								   <td>手机号</td>
+								   <td>姓名</td>
+								   <td>性别</td>
+								   <td>开卡门店</td>
+								   <td>余额</td>
+								   <td>礼金</td>
+								   <td>欠款</td>
+								   <td>会员卡</td>
+								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+								 </tr>
+								 <tr>
+								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberSexSpan">男</td>
+								   <td name = "memberStoreName">华南美联店</td>
+								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
+								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
+								   <td style="color:#eb4749" name = "needRefund"></td>
+								   <td ><span name = "subAccountNum"></span>张</td>
+								 </tr>
+								 <input type="hidden" name = "memberId">
+							   </table>
+						    </div>
 	                        <ul class="member-card" name = "subAccountUL">
 	
 	                        </ul>
@@ -530,21 +603,45 @@
                             <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="w60:" for="">转入会员:</label>
 	                            <input type="text" name = "phoneNumber" class="w185" placeholder="会员手机号">
-	                           
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
+		                        
+		                        <div class="show_search" name = "memberListDIV" style="display: none;">
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
+								    
+								    </div>  
+								</div>
 	                        </div>
 	                    </div>
 	                    
 	                    <div class="card-main1 clearfix bdb ptb hide" id = "inDIV" name = "memberTR">
-	                        <div class="member-zilian">
-	                            <span>手机号: <span class="color-g cursor" name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>姓名:   <span class="color-g cursor" name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>性别: <span name = "memberSexSpan"></span></span>
-	                            <span>账户余额: <span class="red" name = "memberBalanceAmountSpan">696</span></span>
-	                            <span>已有<span class="blue" name = "subAccountNum"></span>张会员卡</span>
-	                            <span class="btn fanhui1" >返回</span>
-	                            <input type="hidden" name = "memberId">
-	                        </div>
+	                        <div class="common_table">   
+						  	   <table>
+							     <tr>
+								   <td rowspan="2"><img src="" name = "memberImg"></td>
+								   <td>手机号</td>
+								   <td>姓名</td>
+								   <td>性别</td>
+								   <td>开卡门店</td>
+								   <td>余额</td>
+								   <td>礼金</td>
+								   <td>欠款</td>
+								   <td>会员卡</td>
+								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+								 </tr>
+								 <tr>
+								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberSexSpan">男</td>
+								   <td name = "memberStoreName">华南美联店</td>
+								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
+								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
+								   <td style="color:#eb4749" name = "needRefund"></td>
+								   <td ><span name = "subAccountNum"></span>张</td>
+								 </tr>
+								 <input type="hidden" name = "memberId">
+							   </table>
+						    </div>
 	                        <ul class="member-card" name = "subAccountUL">
 	
 	                        </ul>
@@ -579,18 +676,47 @@
                             <label class="w60:" for="">升级会员:</label>
                             <div style="display: inline-block;" name= "seekTD">
                                <input type="text" class="w185 searchinpput" name = "phoneNumber" placeholder="会员手机号"/>
-                              
                                <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
-                            </div>
-                            <div  name="resultTD" style="display: none;">
-                                <span data-toggle="modal" data-target="#member-data" class="can-click"></span>
-                                <input type="hidden" name = "memberId">
-                                <input type="hidden" name = "levelId">
-                                <span class="ml10" name = "levelName"></span>
-                                <span class="ml10" name = "balance"></span>
-                                <span class="iconsweets-magnifying: mt-5" name="breakName"></span>
+		                        <div class="show_search" name = "memberListDIV" style="display: none;">
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
+								    
+								    </div>  
+								</div>
                             </div>
                         </div>
+                        <div class="card-main1 clearfix bdb ptb hide" id = "inDIV" name = "memberTR">
+	                        <div class="common_table">   
+						  	   <table>
+							     <tr>
+								   <td rowspan="2"><img src="" name = "memberImg"></td>
+								   <td>手机号</td>
+								   <td>姓名</td>
+								   <td>性别</td>
+								   <td>开卡门店</td>
+								   <td>余额</td>
+								   <td>礼金</td>
+								   <td>欠款</td>
+								   <td>会员卡</td>
+								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+								 </tr>
+								 <tr>
+								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberSexSpan">男</td>
+								   <td name = "memberStoreName">华南美联店</td>
+								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
+								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
+								   <td style="color:#eb4749" name = "needRefund"></td>
+								   <td ><span name = "subAccountNum"></span>张</td>
+								 </tr>
+								 <input type="hidden" name = "memberId">
+							   </table>
+						    </div>
+	                        <ul class="member-card" name = "subAccountUL">
+	
+	                        </ul>
+	                    </div>
                         <div class = "fl">
 	                        <div class="p-part-first">
 		                        <label class="w60:" for="">升级级别:</label>
@@ -718,20 +844,44 @@
 	                        <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="w60:" for="">搜索会员:</label>
 	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
-	                         
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
+		                        
+		                        <div class="show_search" name = "memberListDIV" style="display: none;">
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
+								    
+								    </div>  
+								</div>
 	                        </div>
 	                    </div>
 	                    <div class="card-main1 clearfix hide" name = "memberTR">
-	                        <div class="member-zilian">
-	                            <span>手机号: <span class="color-g cursor" name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>姓名:   <span class="color-g cursor" name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>性别: <span name = "memberSexSpan"></span></span>
-	                            <span>账户余额: <span class="red" name = "memberBalanceAmountSpan">696</span></span>
-	                            <span>已有<span class="blue" name = "subAccountNum"></span>张会员卡</span>
-	                            <span class="btn fanhui1" >返回</span>
-	                            <input type="hidden" name = "memberId">
-	                        </div>
+	                        <div class="common_table">   
+						  	   <table>
+							     <tr>
+								   <td rowspan="2"><img src="" name = "memberImg"></td>
+								   <td>手机号</td>
+								   <td>姓名</td>
+								   <td>性别</td>
+								   <td>开卡门店</td>
+								   <td>余额</td>
+								   <td>礼金</td>
+								   <td>欠款</td>
+								   <td>会员卡</td>
+								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+								 </tr>
+								 <tr>
+								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberSexSpan">男</td>
+								   <td name = "memberStoreName">华南美联店</td>
+								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
+								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
+								   <td style="color:#eb4749" name = "needRefund"></td>
+								   <td ><span name = "subAccountNum"></span>张</td>
+								 </tr>
+								 <input type="hidden" name = "memberId">
+							   </table>
+						    </div>
 	                        <ul class="member-card" name = "subAccountUL">
 	
 	                        </ul>
@@ -800,20 +950,44 @@
 	                        <div class="p-part-first" name = "memberTR" selectType = "1">
 	                            <label class="w60:" for="">搜索会员:</label>
 	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
-	                            
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
+		                        
+		                        <div class="show_search" name = "memberListDIV" style="display: none;">
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
+								    
+								    </div>  
+								</div>
 	                        </div>
 	                    </div>
-	                    <div class="card-main1 clearfix hide" name = "memberTR">
-	                        <div class="member-zilian">
-	                            <span>手机号: <span class="color-g cursor" name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>姓名:   <span class="color-g cursor" name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-	                            <span>性别: <span name = "memberSexSpan"></span></span>
-	                            <span>账户余额: <span class="red" name = "memberBalanceAmountSpan"></span></span>
-	                            <span>已有<span class="blue" name = "subAccountNum"></span>张会员卡</span>
-	                            <span class="btn fanhui1" >返回</span>
-	                            <input type="hidden" name = "memberId">
-	                        </div>
+	                    <div class="card-main clearfix hide" name = "memberTR">
+	                        <div class="common_table">   
+						  	   <table>
+							     <tr>
+								   <td rowspan="2"><img src="" name = "memberImg"></td>
+								   <td>手机号</td>
+								   <td>姓名</td>
+								   <td>性别</td>
+								   <td>开卡门店</td>
+								   <td>余额</td>
+								   <td>礼金</td>
+								   <td>欠款</td>
+								   <td>会员卡</td>
+								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+								 </tr>
+								 <tr>
+								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberSexSpan">男</td>
+								   <td name = "memberStoreName">华南美联店</td>
+								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
+								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
+								   <td style="color:#eb4749" name = "needRefund"></td>
+								   <td ><span name = "subAccountNum"></span>张</td>
+								 </tr>
+								 <input type="hidden" name = "memberId">
+							   </table>
+						    </div>
 	                        <div style="height: 40px;line-height: 40px;padding-left: 20px; font-size: 14px">需还款:<span class="red" name="needRefund"></span></div>
 	                    </div>
 	
@@ -904,6 +1078,13 @@
 	   var memberLevelList = eval("(" + memberLevelListStr + ")");
 	   var phoneNum = '${phoneNum}';
 	   var clickType = '${clickType}';
+	   
+	   jQuery(function(){
+		    jQuery('.show_search table').click(function(){
+			  jQuery(this).addClass('active').siblings('table').removeClass('active')
+	
+			});
+	   })
 	</script>	
 	<script type="text/javascript" src="<%=basePath %>js/keepAccounts/openCard.js?date=<%=new Date().getTime() %>"></script>
    </div>

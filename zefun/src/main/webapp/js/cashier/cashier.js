@@ -25,11 +25,15 @@ var totalReceivableMoney = new Big(0);
 var allOffMap = null;
 var discountMap = null;
 var subAccountMap = new Object();
+
 var detailOffMap = new Object();
+
 var selectOffList = new Array();
 var balanceAmount = 0;
 var appointOff = 0;
 var appointOffList = new Object();
+//订单明细
+var orderDetails = new Object();
 
 function changeMoney(orderId) {
 	
@@ -267,7 +271,7 @@ function addCashierDetail(orderInfo){
 	
 	orderId = orderInfo.orderId;
 	
-	var orderDetails = orderInfo.orderDetails;
+	orderDetails = orderInfo.orderDetails;
 	allOffMap = orderInfo.allOffMap;
 	discountMap = orderInfo.discountMap;
 	
@@ -289,7 +293,6 @@ function addCashierDetail(orderInfo){
 				 "<td>实收金额</td>"+
 			  "</tr>");
 	}
-	
 	for (var i = 0; i < orderDetails.length; i++){
 		var detail = orderDetails[i];
 		var tmpDiscountAmount = new Big(detail.discountAmount);
@@ -874,7 +877,7 @@ var deleteOrderObj = "";
 function deleteOrder (obj, deleteOrderIds) {
 	jQuery("#deleteOrderModal").modal("show");
 	deleteOrderId = deleteOrderIds;
-	deleteOrderObj = jQuery(obj).parents(".column_small_first");
+	deleteOrderObj = jQuery(obj).parents(".money_content");
 }
 
 function deleteOrderModalCancel () {
@@ -898,4 +901,24 @@ function rechargeDeleteOrder () {
 			deleteOrderModalCancel ();
 		}
 	});
+}
+
+function updatePric () {
+	jQuery("select[name='projectSelect']").empty();
+	for (var i = 0; i < orderDetails.length; i++) {
+		var detail = orderDetails[i];
+		jQuery("select[name='projectSelect']").append("<option value = '"+detail.detailId+"'>"+detail.projectName+"<option>");
+		if (i == 0) {
+			if (isMember) {
+				
+			}
+			else {
+				
+			}
+		}
+	}
+}
+
+function cancleSure() {
+	jQuery(".change_price_content").hide();
 }

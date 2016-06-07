@@ -72,6 +72,12 @@ function changeType(obj, name) {
 	}
 }
 
+function againSearch(obj) {
+	jQuery(obj).parents("[name='memberTR']").find("input[name='memberId']").val("");
+	jQuery(obj).parents("[name='memberTR']").prev().removeClass("hide");
+	jQuery(obj).parents("[name='memberTR']").addClass("hide");
+}
+
 function changeCategory(obj, categoryid, name) {
 	jQuery(obj).siblings().removeClass("active");
 	jQuery(obj).addClass("active");

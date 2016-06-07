@@ -127,6 +127,7 @@
         (select d.balance_amount from member_account d where d.account_id = a.member_id) as balanceAmount,
         a.name as name,
         a.sex as sex,
+        a.head_url as headUrl,
         a.birthday as birthday,
         a.phone as phone,
         a.community as community,
@@ -658,13 +659,24 @@
     WHERE account_id IN (SELECT member_id from member_info WHERE store_id = #{storeId} and is_deleted = 0)
   </select>
 
-  <select id="selectStoreNamePhone" parameterType="java.lang.Integer" resultType="java.util.Map">
+  <select id="selectStoreNamePhone" parameterType="java.util.Map" resultType="java.util.Map">
     SELECT
       ifnull(a.name, "未填写") as name,
-      a.phone as phone
+      a.phone as phone,
+      a.sex as sex,
+      b.store_name as storeName,
+      a.head_url as headUrl
     from member_info a
-    WHERE is_deleted = 0 and a.store_id in
-      (select b.store_id from store_info b where b.hq_store_id = (select c.hq_store_id from store_info c where c.store_id = #{storeId}) or b.store_id = #{storeId})
+    left join store_info b on a.store_id = b.store_id
+    WHERE is_deleted = 0 
+    <choose>
+		<when test="type == 1">
+	       and a.store_id = #{storeId}
+		</when>
+		<when test="type == 2">
+		   and a.store_id in (select store_id from store_info c where exists(select 1 from store_info d where c.store_account = d.store_account and d.store_status = 1 and d.store_id = #{storeId}))
+		</when>
+	 </choose>
   </select>
 
   <select id="selectByMemberIds" parameterType="java.util.List" resultMap="BaseResultMap">

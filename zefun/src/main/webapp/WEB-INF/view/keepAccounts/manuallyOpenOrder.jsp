@@ -27,67 +27,22 @@ em {
 		<%@include file="/menu.jsp"%>
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
-            <%-- <div class="content_right" name = "memberTR">
-			    <div class="head_search" >
-			      <div class="head_search_back hide">
-				    <div class="arrow-up">
-			        </div>
-					<ul class="hand_ul">
-					    
-					</ul>
-				  </div>
-				  <span class="input_search"> <input type="text" placeholder="会员开单" name = "phoneNumber"><em><img src="<%=basePath%>images/seach.png"></em></span>
-				  <span class="single_account">散客开单 <input type="checkbox" name = "fitOpenOrder" checked="checked"></span>
-				</div>
-			    
-				<table class="hand_table">
-				   <tr>
-				     <td>名称</td>
-				     <td>手机号</td>
-					 <td>性别</td>
-					 <td>门店</td>
-					 <td>余额</td>
-				     <td>礼金</td>
-				     <td>欠款</td>
-				   </tr>
-				    <tr>
-				     <td name = "memberNameTD"></td>
-				     <td name = "memberPhoneTD"></td>
-					 <td name = "memberSexTD"></td>
-					 <td name = "memberStoreNameTD"></td>
-					 <td name = "memberBalanceAmountTD"></td>
-				     <td name = "memberBalanceGiftmoneyAmountTD"></td>
-				     <td name = "memberDebtAmountTD"></td>
-				   </tr>
-			
-				</table>
-				
-				<table class="hand_table_">
-				    <tr>
-				     <td>姓名</td>
-					 <td>性别</td>
-					 <td>手机号</td>	 
-				   </tr>
-				    <tr>
-				     <td><input type="text" name = "fitName"></td>
-					 <td><span>男<input type="radio" name="sex"></span><span>女<input type="radio"  name="sex"></span></td>
-					 <td><input type="text" name = "fitPhone"></td>	 
-				   </tr>
-				</table>
-				
-			</div> --%>
 			<div class="more-toolbar" >
-	                <div class="table-toolbar" style="font-size: 14px" name = "memberTR">
+	                <div class="table-toolbar" style="font-size: 14px" name = "memberTR" selectType = "2">
 	                    <div class="p-part-first">
 	                        <div style="display: inline-block;" name= "seekTD">
 	                           <span class="ml10">会员:</span>
 	                           <input type="text" class="w185 searchinpput" name = "phoneNumber" placeholder="会员手机号"/>
-	                           <ul class="fuzzysearch" >
-
-		                       </ul>
 	                           <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
+	                           
+	                           <div class="show_search" name = "memberListDIV" style="display: none;">
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
+								    
+								    </div>  
+							   </div>
 	                        </div>
-	                        <div  name="resultTD" style="display: none;">
+	                        <!-- <div  name="resultTD" style="display: none;">
                                 <span class="mr30">会员名：<span class="color-g cursor" name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
 			                    <span class="mr30">手机号：<span class="color-g cursor" name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
 			                    <span class="mr30">性别：<span class="color-g" name = "memberSexSpan"></span></span>
@@ -95,7 +50,7 @@ em {
 			                    <span class="mr30">可用礼金：<span  class="cred" name = "memberBalanceGiftmoneyAmountSpan"></span></span>
 			                    <span class="mr30">剩余积分：<span  class="cred" name = "memberBalanceIntegralSpan"></span></span>
 			                    <input type="hidden" name = "memberId" onchange="changeMember(this)">
-                            </div>
+                            </div> -->
 	                    </div>
 	                    <div class="sex-select ml30" name='sexDIV'>
 	                        <span class="ml10">散客:</span>
@@ -108,18 +63,45 @@ em {
 	                    </div>
 	                </div>
 	                
-	                <span class="btn fanhui hide">返回</span>
-	                
+	                <div class="card-main1 clearfix hide" name = "memberTR">
+	                        <div class="common_table">   
+						  	   <table>
+							     <tr>
+								   <td rowspan="2"><img src="" name = "memberImg"></td>
+								   <td>手机号</td>
+								   <td>姓名</td>
+								   <td>性别</td>
+								   <td>开卡门店</td>
+								   <td>余额</td>
+								   <td>礼金</td>
+								   <td>欠款</td>
+								   <td>会员卡</td>
+								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+								 </tr>
+								 <tr>
+								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+								   <td name = "memberSexSpan">男</td>
+								   <td name = "memberStoreName">华南美联店</td>
+								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
+								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
+								   <td style="color:#eb4749" name = "needRefund"></td>
+								   <td ><span name = "subAccountNum"></span>张</td>
+								 </tr>
+								 <input type="hidden" name = "memberId">
+							   </table>
+						    </div>
+	                    </div>
 	            </div><!--more-toolbar-->
 	            
-	            <div class="more-toolbar hide" name = "moreMemberInfoDIV" style="border-top: 0;font-size: 14px;margin-bottom: 10px;" >
+	            <!-- <div class="more-toolbar hide" name = "moreMemberInfoDIV" style="border-top: 0;font-size: 14px;margin-bottom: 10px;" >
 	                <div class="table-toolbar">
 	                    <span class="mr30">消费总额：<span name = "totalConsumeAmountSpan"></span></span>
 	                    <span class="mr30">上次来店：<span><span class="color-g" name = "lastDayNumberSpan"></span> 天前</span></span>
 	                    <span>上次消费：<span name = "projectNameSpan"></span><span style="font-size: 12px" name = "projectStepSpan"></span></span>
 	                </div>
 	                <div class="clearfix"></div>
-	            </div>
+	            </div> -->
 				<div class="hand_detail_content clearfix">
 				   <div class="hand_detail_left">
 				      <div class="select_part">

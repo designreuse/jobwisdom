@@ -33,7 +33,7 @@
 			   <div class="clearfix seo_first">
 			       <c:forEach var="selfCashier" items="${cashierDtoList}" varStatus="status">
 			         <div class="money_content" orderId = "${selfCashier.orderId}">
-					    <p class="money_title">${selfCashier.orderCode}<em class="money_close"><img src="<%=basePath %>images/money_close.png"></em></p>
+					    <p class="money_title">${selfCashier.orderCode}<em class="money_close" onclick="deleteOrder(this, ${selfCashier.orderId})"><img src="<%=basePath %>images/money_close.png"></em></p>
 						<c:choose>
 							<c:when test="${selfCashier.memberName == null}">
 								<div class="money_head_pic clearfix">
@@ -177,10 +177,10 @@
 				<td>商品折扣</td>
 			  </tr>
 			  <tr name = "nextLevelId" levelId = "">
-                <td name = "nextLevelName">原价卡</td>
-				<td name = "nextBalanceAmount">1231</td>
-				<td name = "nextProjectDiscount">10</td>
-				<td name = "nextGoodsDiscount">10</td>
+                <td name = "nextLevelName"></td>
+				<td name = "nextBalanceAmount"></td>
+				<td name = "nextProjectDiscount"></td>
+				<td name = "nextGoodsDiscount"></td>
 			  </tr>
 			</table>
 	   
@@ -195,7 +195,7 @@
                 <td name = "nextOldPric"></td>
 				<td name = "discountPric"></td>
 				<td name = "nextNewPric"></td>
-				<td><span class="change_price_red">改价</span></td>
+				<td><span class="change_price_red" onclick="updatePric()">改价</span></td>
 			  </tr>
 			</table>
 		    <ul class="how_pay clearfix">
@@ -213,25 +213,24 @@
 		   <div class="change_price_content">
 		   <span class="money_add"><img src="<%=basePath %>images/money_add.png"></span>
 		   <div class="triangle"><img src="<%=basePath %>images/triangle.png"></div>
-		     <button class="sure_change_price_">取消</button>
+		     <button class="sure_change_price_" onclick = "cancleSure()">取消</button>
 		      <button class="sure_change_price">确认</button>
 			  <table class="sure_table">
 			     <tr>
 				  <td>项目名称</td>
-				  <td>项目金额</td>
-				  <td>改价金额</td>
+				  <td>需支付金额</td>
+				  <td>改价后金额</td>
 			     </tr>
 				 <tr>
 				   <td>
-				      <select>
-					     <option>店长洗剪吹<option>
+				      <select name = "projectSelect">
 					  </select>	 
 				   </td>
 				   <td>12214</td>
-				   <td><input type="text"></td>
+				   <td><input type="text" name = "updatePricValue"></td>
 			     </tr>
 			  </table>
-		   
+		      <div>改叫说明<input type="text" name = "upRemark"></div>
 		   </div>
         </div>
    </div>
