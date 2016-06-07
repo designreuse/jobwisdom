@@ -307,6 +307,12 @@ public class OpenCardService {
 			memberInfo.setLevelId(levelId);
 			memberInfo.setName(name);
 			memberInfo.setSex(sex);
+			if (sex == "男") {
+				memberInfo.setHeadUrl("system/profile/common_img_man.png");
+			}
+			else {
+				memberInfo.setHeadUrl("system/profile/common_img_gril.png");
+			}
 			memberInfo.setPhone(phone);
 			memberInfo.setMessageType(messageType);
 			memberInfo.setCreateTime(DateUtil.getCurTime());

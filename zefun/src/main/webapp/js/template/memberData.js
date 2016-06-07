@@ -873,6 +873,11 @@ function addDisable(name) {
 function removeDisable(name) {
 	jQuery("#" + name).removeClass("page-disable");
 }
+
+function cancleMemberSelect (obj) {
+	jQuery(obj).parents("[name='memberListDIV']").hide();
+}
+
 //实例化分页插件
 function paginationDemo(pageId,page,type){
 	
