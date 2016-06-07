@@ -171,8 +171,8 @@
 													<td rowspan="2"><button onclick="saveProject()">确认</button></td>
 												</tr>
 												<tr>
-													<td><select name="projectId"><c:forEach items="${projectInfoDtoList }" var="projectInfo"><option projectPrice="${projectInfo.projectPrice }" value="${projectInfo.projectId }">${projectInfo.projectName }</option></c:forEach></select></td>
-													<td>0.00元</td>
+													<td><select onchange="descProjectPrice(this)" name="projectId"><c:forEach items="${projectInfoDtoList }" var="projectInfo"><option projectPrice="${projectInfo.projectPrice }" value="${projectInfo.projectId }">${projectInfo.projectName }</option></c:forEach></select></td>
+													<td>0.00 元</td>
 													<td><input type="text" name="projectCount" value="0"></td>
 													<td><input type="text" name="comboPerformance" value="0" style="padding-right: 20px; width: 106px"><i>元</i></td>
 												</tr>
@@ -202,7 +202,7 @@
 													<td rowspan="2"><button onclick="saveGoods()">创建</button></td>
 												</tr>
 												<tr>
-													<td><select name="goodsId"><c:forEach items="${goodsinfos }" var="goodsinfo"><option goodsPrice="${goodsinfo.goodsPrice }" value="${goodsinfo.goodsId }">${goodsinfo.goodsName }</option></c:forEach></select></td>
+													<td><select onchange="descGoodsPrice(this)" name="goodsId"><c:forEach items="${goodsinfos }" var="goodsinfo"><option goodsPrice="${goodsinfo.goodsPrice }" value="${goodsinfo.goodsId }">${goodsinfo.goodsName }</option></c:forEach></select></td>
 													<td>0.00元</td>
 													<td><input type="text" name="goodsCounts" value="0"></td>
 													<td><input type="text" name="comboPerformanceCal" value="0" style="padding-right: 20px; width: 106px"><i style="right: 48px">元</i></td>
@@ -454,6 +454,15 @@
 				}
 			}
 		});
+	}
+	
+	function descProjectPrice(select){
+		var projectPrice = jQuery("select[name='projectId']").children("option:selected").attr("projectPrice");
+		jQuery(select).parent().next().text(projectPrice+" 元");
+	}
+	function descGoodsPrice(select){
+		var goodsPrice = jQuery("select[name='goodsId']").children("option:selected").attr("goodsPrice");
+		jQuery(select).parent().next().text(goodsPrice+" 元");
 	}
 </script>
 </body>

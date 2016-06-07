@@ -41,7 +41,9 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session)throws Exception {
         String storeAccount = (String) session.getAttributes().get(App.Session.STORE_ACCOUNT);
-        SOCKETS.put(storeAccount, session);
+        if (storeAccount!=null){
+            SOCKETS.put(storeAccount, session);
+        }
         log.info("websocke connenct success, and the online storeAccout is " + storeAccount);
         try {
             Integer userId = Integer.parseInt(session.getAttributes().get(App.Session.USER_ID).toString());
@@ -50,9 +52,8 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         catch (Exception e) {
             log.info("企业用户登陆,无需存放userId");
         }
-        if (storeAccount != null) {
-            //历史消息
-        }
+        log.info("当前聊天室存放的值为 , " + SOCKETS.toString());
+        log.info("当前聊天室存放的值为 , " + LOGIN.toString());
     }
 
     /** 接收客户端发送过来的方法 */
@@ -73,16 +74,20 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         if (session.isOpen()) {
             session.close();
         }
-        SOCKETS.remove(session);
-        LOGIN.remove(session);
+        removeMapKeyValue(SOCKETS, session);
+        removeMapKeyValue(LOGIN, session);
+//        SOCKETS.remove(session);
+//        LOGIN.remove(session);
     }
 
     /** 连接关闭时触发 */
     @Override
     public void afterConnectionClosed(WebSocketSession session,
             CloseStatus closeStatus) throws Exception {
-        SOCKETS.remove(session);
-        LOGIN.remove(session);
+        removeMapKeyValue(SOCKETS, session);
+        removeMapKeyValue(LOGIN, session);
+//        SOCKETS.remove(session);
+//        LOGIN.remove(session);
     }
 
     @Override
@@ -161,4 +166,25 @@ public class SystemWebSocketHandler implements WebSocketHandler {
             }
         }
     }
+    
+    /**
+     * 移除map中的值
+    * @author 高国藩
+    * @date 2016年6月7日 下午4:31:12
+    * @param map      map
+    * @param session  session
+     */
+    public void removeMapKeyValue(Map<String, WebSocketSession> map, WebSocketSession session){
+        if (map.containsValue(session)){
+            Iterator<String> iterator = map.keySet().iterator();
+            while (iterator.hasNext()) {
+                String key = (String) iterator.next();
+                if (map.get(key) == session){
+                    iterator.remove();
+                    map.remove(key);
+                }
+            } 
+        }
+    }
+    
 }
