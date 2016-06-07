@@ -978,8 +978,8 @@
 								 <tr>
 								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
 								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan">男</td>
-								   <td name = "memberStoreName">华南美联店</td>
+								   <td name = "memberSexSpan"></td>
+								   <td name = "memberStoreName"></td>
 								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
 								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
 								   <td style="color:#eb4749" name = "needRefund"></td>
