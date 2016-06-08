@@ -70,11 +70,11 @@ public interface MemberSubAccountMapper {
 	/**
 	 * 根据账户ID查询子账户列表
 	 * 
-	 * @param accountId
+	 * @param map
 	 *            账户ID
 	 * @return 子账户列表
 	 */
-	List<MemberSubAccountDto> selectSubAccountListByAccountId(int accountId);
+	List<MemberSubAccountDto> selectSubAccountListByAccountId(Map<String, Integer> map);
 
 	/**
 	 * 根据子账户ID查询子账户信息

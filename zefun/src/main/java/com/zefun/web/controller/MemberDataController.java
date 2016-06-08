@@ -31,12 +31,14 @@ public class MemberDataController extends BaseController{
     * @author 王大爷
     * @date 2015年9月12日 下午4:19:03
     * @param memberId 会员信息标识
+    * @param request 返回
     * @return 会员信息及账户信息
      */
     @RequestMapping(value = Url.Member.SELECTBY_MEMBERDTO)
     @ResponseBody
-    public BaseDto selectByMemberDto(Integer memberId){
-        return memberInfoDataService.selectByMemberDto(memberId);
+    public BaseDto selectByMemberDto(Integer memberId, HttpServletRequest request){
+    	Integer storeId = getStoreId(request);
+        return memberInfoDataService.selectByMemberDto(memberId, storeId);
     }
     
     /**

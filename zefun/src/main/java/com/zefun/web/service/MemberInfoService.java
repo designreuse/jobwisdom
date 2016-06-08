@@ -21,7 +21,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
@@ -339,7 +338,10 @@ public class MemberInfoService {
         MemberBaseDto dto = memberInfoMapper.selectMemberInfoByPhone(memberInfo);
         
         if (dto != null) {
-            List<MemberSubAccountDto> subAccountDtoList = subAccountMapper.selectSubAccountListByAccountId(dto.getMemberId());
+        	Map<String, Integer> map = new HashMap<>();
+        	map.put("accountId", dto.getMemberId());
+        	map.put("storeId", storeId);
+            List<MemberSubAccountDto> subAccountDtoList = subAccountMapper.selectSubAccountListByAccountId(map);
             dto.setSubAccountDtoList(subAccountDtoList);
         }
         
@@ -785,7 +787,7 @@ public class MemberInfoService {
     * @date Mar 21, 2016 12:03:25 PM
     * @param memberId   会员标识
      */
-    public void syncLevelId(int memberId) {
+   /* public void syncLevelId(int memberId) {
         List<MemberSubAccountDto> accountDtos = subAccountMapper.selectSubAccountListByAccountId(memberId);
         BigDecimal balanceAmount = accountDtos.get(0).getBalanceAmount();
         int levelId = accountDtos.get(0).getLevelId();
@@ -803,7 +805,7 @@ public class MemberInfoService {
         memberInfoMapper.updateByPrimaryKey(memberInfo);
         
         wipeCache(memberId);
-    }
+    }*/
 
     /**
      * 盛传数据格式导入会员数据

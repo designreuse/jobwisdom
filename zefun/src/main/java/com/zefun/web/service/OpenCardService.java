@@ -246,7 +246,10 @@ public class OpenCardService {
 
 	    if (memberId != null) {
 	        //校验是否存在同样的卡，存在则返回错误代码
-	        List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(memberId);
+	    	Map<String, Integer> map = new HashMap<>();
+        	map.put("accountId", memberId);
+        	map.put("storeId", storeId);
+	        List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(map);
 	        for (MemberSubAccountDto subAccount : subAccountList) {
 	            if (subAccount.getLevelId().intValue() == levelId.intValue()) {
 	                return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "你已经存在一张(" + subAccount.getLevelName() + ")卡");
@@ -276,7 +279,7 @@ public class OpenCardService {
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 4, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId);
 		
-		memberInfoService.syncLevelId(memberId);
+		/*memberInfoService.syncLevelId(memberId);*/
 
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}
@@ -451,7 +454,7 @@ public class OpenCardService {
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 5, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId);
 		
-		memberInfoService.syncLevelId(memberId);
+		/*memberInfoService.syncLevelId(memberId);*/
 
 		// 更新缓存中的会员数据
 		memberInfoService.wipeCache(memberId);
@@ -576,7 +579,7 @@ public class OpenCardService {
 		// 更新缓存中的会员数据
 		memberInfoService.wipeCache(memberId);
 		
-		memberInfoService.syncLevelId(memberId);
+		/*memberInfoService.syncLevelId(memberId);*/
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}
 
