@@ -17,43 +17,62 @@
 		<li class="active_1_2 border">
 			<div class="nav_img">
 				
-			</div> 
+			</div>
+			
 		</li>
 		<li class="active_2_1">
 			<div class="nav_img">
 				
 			</div> 
+			
 		</li>
 		<li class="active_3_1">
 			<div class="nav_img">
 				
 			</div> 
+			 
 		</li>
 		<li class="active_4_1">
 			<div class="nav_img">
 				
 			</div>
+			
 		</li>
 		<li class="active_5_1">
 			<div class="nav_img">
 				
 			</div>
+			
 		</li>
 		<li class="active_6_1">
 			<div class="nav_img">
 				
 			</div> 
+			
 		</li>
 		<li class="active_7_1">
 			<div class="nav_img">
 				
 			</div>
+			
 		</li>
 		<li class="active_8_1">
 			<div class="nav_img">
 				
 			</div> 
 		</li>
+	</ul>
+	
+	<ul class="left_title">
+	   <li style="top:20px"><span></span>业务中心</li>
+	   <li style="top:90px"><span></span>会员管理</li>
+	   <li style="top:160px"><span></span>营销中心</li>
+	   <li style="top:230px"><span></span>统计分析</li>
+	   <li style="top:300px"><span></span>服务设置</li>
+	   <li style="top:370px"><span></span>商品管理</li>
+	   <li style="top:440px"><span></span>员工管理</li>
+       <li style="top:510px"><span></span>企业管理</li>
+       <li style="top:580px"><span></span>系统设置</li>
 	</ul>
 
 	<div class="left_nav_2" style="height: 840px;">
@@ -123,7 +142,9 @@
 		</ul>
 		
 	</div>
+
 </div>
+
 <!--leftmenu-->
 </div>
 <script>
@@ -246,4 +267,19 @@ jQuery(function(){
 		    jQuery(this).find('.ask_responsive').hide()
 		 })
   })
+  
+  
+  
+ jQuery(function(){
+	 jQuery('.left_nav li').hover(function(){
+		 
+		 jQuery('.left_title li').eq(jQuery(this).index()).stop(true,true).fadeIn('slow');	 
+		 
+	 },function(){
+		 
+		 jQuery('.left_title li').eq(jQuery(this).index()).stop(true,true).fadeOut('slow');
+		 		 
+	 })
+ 
+ })
 </script>
