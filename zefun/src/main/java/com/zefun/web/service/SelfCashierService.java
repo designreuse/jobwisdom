@@ -453,7 +453,7 @@ public class SelfCashierService {
 			}
 
 			memberInfoService.wipeCache(ownerMemberId);
-			memberInfoService.syncLevelId(ownerMemberId);
+			/*memberInfoService.syncLevelId(ownerMemberId);*/
 		}
 
 		// 检查该会员是否为首次消费
@@ -1011,7 +1011,10 @@ public class SelfCashierService {
 		orderInfo.setAllOffMap(allOffMap);
 
 		// 查询所有会员子账户信息
-		List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(memberId);
+		Map<String, Integer> selectMap = new HashMap<>();
+        selectMap.put("accountId", memberId);
+        selectMap.put("storeId", storeId);
+		List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(selectMap);
 		orderInfo.setSubAccountList(subAccountList);
 		if (subAccountList.size() > 1) {
 			orderInfo.setSubAccountList(subAccountList);

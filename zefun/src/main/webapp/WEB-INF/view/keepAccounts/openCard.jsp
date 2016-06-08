@@ -178,7 +178,7 @@
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 		                        
 		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
 								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
 								    
 								    </div>  
@@ -387,7 +387,7 @@
 	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" name = "enterpriseCheck" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
 								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
 								    
 								    </div>  
@@ -556,7 +556,7 @@
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 		                        
 		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
 								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
 								    
 								    </div>  
@@ -606,7 +606,7 @@
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 		                        
 		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
 								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
 								    
 								    </div>  
@@ -678,7 +678,7 @@
                                <input type="text" class="w185 searchinpput" name = "phoneNumber" placeholder="会员手机号"/>
                                <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
 								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
 								    
 								    </div>  
@@ -847,7 +847,7 @@
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 		                        
 		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
 								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
 								    
 								    </div>  
@@ -953,7 +953,7 @@
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 		                        
 		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close"><img src="<%=basePath %>images/emploee_3.png"></div></p>
+								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
 								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
 								    
 								    </div>  
@@ -978,8 +978,8 @@
 								 <tr>
 								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
 								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan">男</td>
-								   <td name = "memberStoreName">华南美联店</td>
+								   <td name = "memberSexSpan"></td>
+								   <td name = "memberStoreName"></td>
 								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
 								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
 								   <td style="color:#eb4749" name = "needRefund"></td>

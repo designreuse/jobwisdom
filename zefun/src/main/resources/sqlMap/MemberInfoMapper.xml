@@ -144,8 +144,7 @@
     inner join member_account m
     on a.member_id = m.account_id
     where a.phone = #{phone,jdbcType=CHAR}
-         and a.is_deleted = 0 and a.store_id in
-         (select store_id from store_info where hq_store_id = (select hq_store_id from store_info c where c.store_id = #{storeId}) or store_id = #{storeId})
+         and a.is_deleted = 0 and a.store_id in (select store_id from store_info c where exists(select 1 from store_info d where c.store_account = d.store_account and d.store_status = 1 and d.store_id = #{storeId}))
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

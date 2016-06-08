@@ -40,13 +40,19 @@ jQuery(document).ready(function(){
 	});
 });
 
+//当前
+var inputMemberObj = "";
+var inputPhoneNum = 0;
+var inputMemberList = "";
+
 function changeAllEnterprise (obj) {
 	if (jQuery(obj).prop('checked')) {
-		
+		inputMemberList = JSON.parse(JSON.stringify(enterpriseMemberList));
 	}
 	else {
-		
+		inputMemberList = JSON.parse(JSON.stringify(memberList));
 	}
+	jQuery(obj).parents("div[name='memberTR']").find("input[name='phoneNumber']").focus();
 }
 
 function dimSelectMember (obj, str) {
@@ -138,8 +144,8 @@ function choosePhone (obj, phone) {
 
 jQuery("body").delegate("input[name='phoneNumber']","blur", function(event){
 	setTimeout(function () {
-		jQuery(".fuzzysearch").css("display", "none");
-	},500);
+		jQuery("div[name='memberListDIV']").hide();
+	},300);
 });
 
 jQuery("body").delegate("input[name='phoneNumber']","focus", function(event){
@@ -148,8 +154,14 @@ jQuery("body").delegate("input[name='phoneNumber']","focus", function(event){
 	var obj = event.srcElement ? event.srcElement : event.target;
 	
 	if (isEmpty(jQuery(obj).val()) || obj != inputMemberObj) {
-		jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").empty();
-		inputMemberList = JSON.parse(JSON.stringify(memberList));
+		jQuery(obj).parents("div[name='memberTR']").find("div[name='memberoverDIV']").empty();
+		
+		if (jQuery(obj).parents("div[name='memberTR']").find("[name='enterpriseCheck']").prop('checked')) {
+			inputMemberList = JSON.parse(JSON.stringify(enterpriseMemberList));
+		}
+		else {
+			inputMemberList = JSON.parse(JSON.stringify(memberList));
+		}
 		inputPhoneNum = 0;
 		inputMemberObj = obj;
 		jQuery(obj).val("");
@@ -158,13 +170,17 @@ jQuery("body").delegate("input[name='phoneNumber']","focus", function(event){
 
 	dimSelectMember(obj, jQuery(obj).val());
 	
-	jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").css("display", "block");
+	setTimeout(function () {
+		jQuery(obj).parents("div[name='memberTR']").find("div[name='memberListDIV']").show();
+	},300);
 });
 
-//当前
-var inputMemberObj = "";
-var inputPhoneNum = 0;
-var inputMemberList = "";
+jQuery("div[name='memberoverDIV']").delegate("table", "mouseover", function (event) {
+	event = event ? event : window.event; 
+	var obj = event.srcElement ? event.srcElement : event.target;
+	jQuery(obj).parents("div[name='memberTR']").find("table").removeClass("active");
+	jQuery(obj).parents("table").addClass("active");
+})
 
 jQuery(document).keyup(function(event){ 
 	event = event ? event : window.event; 
@@ -172,18 +188,28 @@ jQuery(document).keyup(function(event){
 	if (jQuery(obj).attr("name") == "phoneNumber") {
 		
 		if (isEmpty(jQuery(obj).val())) {
-			jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").empty();
-			inputMemberList = JSON.parse(JSON.stringify(memberList));
+			jQuery(obj).parents("div[name='memberTR']").find("div[name='memberoverDIV']").empty();
+			if (jQuery(obj).parents("div[name='memberTR']").find("[name='enterpriseCheck']").prop('checked')) {
+				inputMemberList = JSON.parse(JSON.stringify(enterpriseMemberList));
+			}
+			else {
+				inputMemberList = JSON.parse(JSON.stringify(memberList));
+			}
 			return;
 		}
 		
-		jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").css("display", "block");
+		jQuery(obj).parents("div[name='memberTR']").find("div[name='memberListDIV']").css("display", "block");
 		
 		if (inputPhoneNum < jQuery(obj).val().length) {
 			dimSelectMember(obj, jQuery(obj).val());
 		}
 		else {
-			inputMemberList = JSON.parse(JSON.stringify(memberList));
+			if (jQuery(obj).parents("div[name='memberTR']").find("[name='enterpriseCheck']").prop('checked')) {
+				inputMemberList = JSON.parse(JSON.stringify(enterpriseMemberList));
+			}
+			else {
+				inputMemberList = JSON.parse(JSON.stringify(memberList));
+			}
 			dimSelectMember(obj, jQuery(obj).val());
 		}
 		inputPhoneNum = jQuery(obj).val().length;
@@ -873,6 +899,11 @@ function addDisable(name) {
 function removeDisable(name) {
 	jQuery("#" + name).removeClass("page-disable");
 }
+
+function cancleMemberSelect (obj) {
+	jQuery(obj).parents("[name='memberListDIV']").hide();
+}
+
 //实例化分页插件
 function paginationDemo(pageId,page,type){
 	

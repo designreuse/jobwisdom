@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script type="text/javascript">
 var userId = '${session_key_user_id}';
-var wsUrl = "ws://192.168.3.27/jobwisdom/websocket?userId=";
+var wsUrl = "ws://job.jobwisdom.cn/jobwisdom/websocket?userId=";
 var webSocket;
 if ('WebSocket' in window) {
 	webSocket = new WebSocket(wsUrl + userId);
