@@ -27,8 +27,6 @@ import com.zefun.web.dto.ProjectCommissionDto;
 import com.zefun.web.dto.ProjectInfoDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.DeptInfo;
-import com.zefun.web.entity.GoodsCategory;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
@@ -37,9 +35,7 @@ import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
-import com.zefun.web.mapper.GoodsCategoryMapper;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
-import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectCommissionMapper;
 import com.zefun.web.mapper.ProjectDiscountMapper;
@@ -80,8 +76,6 @@ public class ProjectService {
     @Autowired private RedisService redisService;
     /** redis api 操作服务对象 */
     @Autowired private EmployeeLevelMapper employeeLevelMapper;
-    /** 会员等级操作对象 */
-    @Autowired private MemberLevelMapper memberLevelMapper;
     /** 会员等级折扣 */
     @Autowired private MemberLevelDiscountMapper memberLevelDiscountMapper;
     /** 商品系列操作 */

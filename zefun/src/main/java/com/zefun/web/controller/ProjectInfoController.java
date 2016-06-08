@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptMahjongDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
+import com.zefun.web.dto.EmployeeLevelBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.ComboProject;
@@ -95,6 +97,13 @@ public class ProjectInfoController extends BaseController {
         model.addObject("deptMahjongList", deptMahjongList);
         model.addObject("mahjongList", JSONArray.fromObject(deptMahjongList).toString());
 
+        List<EmployeeLevelBaseDto> employeeLevelList = deptMahjongList.stream()
+            .flatMap(dml -> dml.getMahjongLevelList()
+            .stream().flatMap(mll -> mll.getEmployeeLevelList()
+            .stream())).collect(Collectors.toList());
+        
+        model.addObject("employeeLevelList", JSONArray.fromObject(employeeLevelList));
+        
         // 会员等级列表
         List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
@@ -109,6 +118,8 @@ public class ProjectInfoController extends BaseController {
             List<ProjectCommission> projectCommissionList = (List<ProjectCommission>) map.get("projectCommissionList");
             List<ProjectDiscount> projectDiscountList = (List<ProjectDiscount>) map.get("projectDiscountList");
             List<ProjectStep> projectStepList = (List<ProjectStep>) map.get("projectStepList");
+            model.addObject("projectDesc", projectInfo.getProjectDesc());
+            projectInfo.setProjectDesc(null);
             model.addObject("projectInfo", JSONObject.fromObject(projectInfo));
             model.addObject("projectCommissionList", JSONArray.fromObject(projectCommissionList));
             model.addObject("projectDiscountList", JSONArray.fromObject(projectDiscountList));

@@ -159,7 +159,7 @@
 				              <div class="clearfix">
 									<script id="editor1" type="text/plain" style="width:550px;height:322px;float: left"></script>
 									<div style="float: left; width: 320px; height: 420px; margin-top: 25px" class="textarea_text">
-										<p>在此编辑的内容，将会在移动端－在线商城－商品详情中展示。</p>
+										<p>在此编辑的内容，将会在移动端－在线预约－项目详情中展示。</p>
 										<p></p>
 										<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
 										<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
@@ -391,6 +391,17 @@
      	});
 	}
 	
+	var toolbars = {
+			toolbars: [
+			   		['fullscreen', 'source', '|', 'undo', 'redo', '|',
+			           'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript','|', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+			           'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+			           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+			           'directionalityltr', 'directionalityrtl', 'indent', '|',
+			           'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase','preview']
+			   	],maximumWords:3000,elementPathEnabled:false,imageScaleEnabled:false,wordCount:false,autoHeightEnabled:false};
+	var u1 = UE.getEditor('editor1', toolbars);
+	
 </script>
 
 <script>
@@ -398,6 +409,7 @@
 	var deptProjectList = ${js_deptProjectList};
 	var deptMahjongList = ${mahjongList};
 	var memberLevelList = ${memberLevelList};
+	var employeeLevelList = ${employeeLevelList};
 	
 	var storeId = '${session_key_store_id}';
 	var projectId = '${projectId}';
@@ -501,7 +513,6 @@
 	 * 保存数据,根据步骤去保存数据
 	 */
 	function save3(){
-		alert();
 		var data = coverDate();
 		jQuery.ajax({
 			type : "post",
@@ -512,6 +523,7 @@
 			async : false,
 			success : function(data) {
 				projectId = data.msg.projectId;
+				dialog("该项目已更新");
 			}
 		});
 	}
@@ -611,8 +623,9 @@
 	})
 	
 	
-	jQuery(function(){
+	u1.ready(function(){
 		if (projectId != '') {
+			var projectDesc = '${projectDesc}';
 			project = eval('('+'${projectInfo}'+')');
 			projectCommissionList = eval('('+'${projectCommissionList}'+')');
 			projectDiscountList = eval('('+'${projectDiscountList}'+')');
@@ -641,7 +654,8 @@
 			/**锁定项目价格*/
 			jQuery("select[name='projectType']").val(project.projectType);
 			jQuery("input[name='projectName']").val(project.projectName);
-			jQuery("textarea[name='projectDesc']").val(project.projectDesc);
+			u1.setContent(projectDesc);
+			//jQuery("textarea[name='projectDesc']").val(project.projectDesc);
 			jQuery("input[name='projectCodeSuffix']").val(project.projectCodeSuffix);
 			
 			jQuery("input[name='projectPrice']").val(project.projectPrice);
@@ -670,7 +684,7 @@
 					var rowspan = 0;
 					var isSame = [];
 					
-					var disableList = ['比例','固定'];
+					var disableList = ['否','是'];
 					var assignTypeList = ['','比例','固定'];
 					var projectStepName = projectStepList[i].projectStepName;
 					var stepPerformanceType = projectStepList[i].stepPerformanceType;
@@ -686,7 +700,12 @@
 					
 					for (var j = 0; j < isSame.length; j++) {
 						var levelId = projectCommissionList[isSame[j]].levelId;
-						var levelName = "sd";
+						var levelName = null;
+						for (var m = 0; m < employeeLevelList.length; m++) {
+							if (employeeLevelList[m].levelId == levelId){
+								levelName = employeeLevelList[m].levelName;
+							}
+						}
 						var assignType = projectCommissionList[isSame[j]].assignCashType;
 						var assignCash = projectCommissionList[isSame[j]].assignCash;
 						var assignCard = projectCommissionList[isSame[j]].assignCard;
@@ -724,7 +743,7 @@
 						}
 					}
 			}
-			console.log(projectDiscountList);
+			
 			for (var i = 0; i < projectDiscountList.length; i++) {
 				var levelId = projectDiscountList[i].levelId;
 				var projectPrice = project.projectPrice;
@@ -931,15 +950,5 @@
 		jQuery("input").focus(function(){jQuery(this).removeClass("border")});
 	})
 	
-	var toolbars = {
-			toolbars: [
-			   		['fullscreen', 'source', '|', 'undo', 'redo', '|',
-			           'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript','|', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
-			           'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-			           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-			           'directionalityltr', 'directionalityrtl', 'indent', '|',
-			           'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase','preview']
-			   	],maximumWords:3000,elementPathEnabled:false,imageScaleEnabled:false,wordCount:false,autoHeightEnabled:false};
-	var u1 = UE.getEditor('editor1', toolbars);
 </script>
 </html>
