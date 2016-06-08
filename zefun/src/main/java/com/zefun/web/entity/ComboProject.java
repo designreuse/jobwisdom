@@ -39,6 +39,9 @@ public class ComboProject {
 
 	/** 最后操作人标识 */
 	private Integer lastOperatorId;
+	
+	/** 是否次数限制*/
+	private Integer isCountLimit;
 
     public BigDecimal getRoyaltyRate() {
         return royaltyRate;
@@ -147,5 +150,14 @@ public class ComboProject {
 	public Integer getLastOperatorId(){
 		return lastOperatorId;
 	}
+
+    public Integer getIsCountLimit() {
+        return isCountLimit;
+    }
+
+    public void setIsCountLimit(Integer isCountLimit) {
+        this.isCountLimit = isCountLimit;
+    }
+	
 
 }

@@ -166,6 +166,7 @@
 												<tr>
 													<td>项目名称</td>
 													<td>门店价格</td>
+													<td>是否有次数限制</td>
 													<td>疗程内项目数量</td>
 													<td>疗程单次服务业绩计算</td>
 													<td rowspan="2"><button onclick="saveProject()">确认</button></td>
@@ -173,6 +174,7 @@
 												<tr>
 													<td><select onchange="descProjectPrice(this)" name="projectId"><c:forEach items="${projectInfoDtoList }" var="projectInfo"><option projectPrice="${projectInfo.projectPrice }" value="${projectInfo.projectId }">${projectInfo.projectName }</option></c:forEach></select></td>
 													<td>0.00 元</td>
+													<td><span><input type="radio" name="isCountLimit" value="1" checked="checked">是</span><span><input type="radio" name="isCountLimit" value="0">否</span></td>
 													<td><input type="text" name="projectCount" value="0"></td>
 													<td><input type="text" name="comboPerformance" value="0" style="padding-right: 20px; width: 106px"><i>元</i></td>
 												</tr>
@@ -230,13 +232,11 @@
 											<tbody>
 												<tr>
 													<td>项目原总价</td>
-													<td>是否次数限制</td>
 													<td>是否有时间限制</td>
 													<td>有效期</td>
 												</tr>
 												<tr>
 													<td>0.00元</td>
-													<td><span><input type="radio" name="isCountLimit" value="1" checked="checked">是</span><span><input type="radio" name="isCountLimit" value="0">否</span></td>
 													<td><span><input type="radio" checked="checked" name="standard" value="1">是</span><span><input type="radio" name="standard" value="0">否</span></td>
 													<td><input type="text" name="validDate" value="0" style="width: 80px; padding-right: 20px"><i>天</i></td>
 												</tr>
@@ -304,7 +304,7 @@
 		jQuery("input[name='cashCommission']").val(comboInfo.cashCommission);
 		jQuery("input[name='cardCommission']").val(comboInfo.cardCommission);
 		jQuery("input[name='saleComboPerformance']").val(comboInfo.comboPerformance);
-		jQuery("input[name='isCountLimit'][value='"+comboInfo.isCountLimit+"']").click();
+		
 		jQuery("textarea[name='comboDesc']").val(comboInfo.comboDesc);
 		jQuery("input[name='comboCodeSuffix']").val(comboInfo.comboCodeSuffix);
 		
@@ -312,9 +312,10 @@
 			var projectId = comboProjectList[i].projectId;
 			var projectName = comboProjectList[i].projectName;
 			var projectPrice = comboProjectList[i].projectPrice;
+			var isCountLimit = comboProjectList[i].isCountLimit;
 			var projectCount = comboProjectList[i].projectCount;
 			var comboPerformanceCal = comboProjectList[i].comboPerformanceCal;
-			saveShowProject(comboId, projectId, projectName, projectPrice, projectCount, comboPerformanceCal);
+			saveShowProject(comboId, projectId, projectName, projectPrice, isCountLimit, projectCount, comboPerformanceCal);
 		}
 		
 		for (var i = 0; i < comboGoods.length; i++) {
@@ -335,11 +336,12 @@
 		var projectPrice = jQuery("select[name='projectId']").children("option:selected").attr("projectPrice");
 		var projectCount = jQuery("input[name='projectCount']").val();
 		var comboPerformanceCal = jQuery("input[name='comboPerformance']").val();
-		saveShowProject(comboId, projectId, projectName, projectPrice, projectCount, comboPerformanceCal);
+		var isCountLimit = jQuery("input[name='isCountLimit']:checked").val();
+		saveShowProject(comboId, projectId, projectName, projectPrice, isCountLimit, projectCount, comboPerformanceCal);
 	}
 	/**保存项目展示*/
-	function saveShowProject(comboId, projectId, projectName, projectPrice, projectCount, comboPerformanceCal){
-		var html = '<li comboId="'+comboId+'" projectId="'+projectId+'" projectName="'+projectName+'" projectPrice="'+projectPrice+'" projectCount="'+projectCount+'" comboPerformanceCal="'+comboPerformanceCal+'">'+
+	function saveShowProject(comboId, projectId, projectName, projectPrice, isCountLimit, projectCount, comboPerformanceCal){
+		var html = '<li comboId="'+comboId+'" projectId="'+projectId+'" projectName="'+projectName+'" projectPrice="'+projectPrice+'" isCountLimit="'+isCountLimit+'" projectCount="'+projectCount+'" comboPerformanceCal="'+comboPerformanceCal+'">'+
 						'<p>名称：'+projectName+'</p>'+
 						'<p>'+
 							'<span>数量：'+projectCount+'</span> <span>价格'+projectPrice+'元</span>'+
@@ -405,9 +407,10 @@
 			var projectId = jQuery(this).attr("projectId");
 			var projectName = jQuery(this).attr("projectName");
 			var projectPrice = jQuery(this).attr("projectPrice");
+			var isCountLimit = jQuery(this).attr("isCountLimit");
 			var projectCount = jQuery(this).attr("projectCount");
 			var comboPerformanceCal = jQuery(this).attr("comboPerformanceCal");
-			var comboProject = {"projectId":projectId,"projectName":projectName,"projectPrice":projectPrice,"projectCount":projectCount,"comboPerformanceCal":comboPerformanceCal};
+			var comboProject = {"projectId":projectId,"projectName":projectName,"projectPrice":projectPrice,"isCountLimit":isCountLimit,"projectCount":projectCount,"comboPerformanceCal":comboPerformanceCal};
 			data1.push(comboProject);
 		});
 		var data2 = [];
@@ -431,12 +434,12 @@
 		var cashCommission = jQuery("input[name='cashCommission']").val();
 		var cardCommission = jQuery("input[name='cardCommission']").val();
 		var comboPerformance = jQuery("input[name='saleComboPerformance']").val();
-		var isCountLimit = jQuery("input[name='isCountLimit']:checked").val();
+		
 		var comboDesc = jQuery("textarea[name='comboDesc']").val();
 		var comboCodeSuffix = jQuery("input[name='comboCodeSuffix']").val();
 		var comboInfo = {"comboId":comboId,"comboImage":comboImage,"deptId":deptId,"validDate":validDate,"standard":standard,"comboCodeSuffix":comboCodeSuffix,
 				"comboSalePrice":comboSalePrice,"commissionType":commissionType,"cashCommission":cashCommission,"comboName":comboName,
-				"cardCommission":cardCommission,"comboPerformance":comboPerformance,"comboDesc":comboDesc,"isCountLimit":isCountLimit};
+				"cardCommission":cardCommission,"comboPerformance":comboPerformance,"comboDesc":comboDesc};
 
 		var data ={"comboInfo":comboInfo,"comboProject":data1,"comboGoods":data2};
 		console.log(JSON.stringify(data));
