@@ -104,7 +104,6 @@ public class ProjectInfoController extends BaseController {
         
         if (projectId!=null){
             BaseDto baseDto = queryProjectInfoById(request, response, projectId);
-            
             Map<String, Object> map = (Map<String, Object>) baseDto.getMsg();
             ProjectInfo projectInfo = (ProjectInfo) map.get("projectInfo");
             List<ProjectCommission> projectCommissionList = (List<ProjectCommission>) map.get("projectCommissionList");
@@ -181,6 +180,30 @@ public class ProjectInfoController extends BaseController {
             return projectService.saveLevelDiscount(data);
         }
         return null;
+    }
+    
+    /**
+     * 保存或者修改操作
+    * @author 高国藩
+    * @date 2016年6月8日 下午2:44:16
+    * @param request  request
+    * @param response response
+    * @param jsonObject {"projectInfo":data, "projectLevel":projectLevel, "projectShit":{"projectId":projectId,"step":data1,"commission":data2}}
+    * @return 新增状态(返回项目信息)
+     */
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = Url.Project.PROJECT_SAVE_NEW, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto saveProjectOrUpdate(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObject) {
+        Integer storeId = getStoreId(request);
+        ProjectInfo projectInfo = (ProjectInfo) JSONObject.toBean(jsonObject.getJSONObject("projectInfo"), ProjectInfo.class);
+        List<ProjectDiscount> discounts = (List<ProjectDiscount>) JSONArray
+                .toCollection(jsonObject.getJSONArray("projectLevel"), ProjectDiscount.class);
+        List<ProjectStep> projectSteps = (List<ProjectStep>) JSONArray
+                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("step"), ProjectStep.class);
+        List<ProjectCommission> projectCommission = (List<ProjectCommission>) JSONArray
+                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("commission"), ProjectCommission.class);
+        return projectService.saveProjectOrUpdate(storeId, projectInfo, discounts, projectSteps, projectCommission);
     }
 
     /**

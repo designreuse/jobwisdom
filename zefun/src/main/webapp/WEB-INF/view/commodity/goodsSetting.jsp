@@ -96,7 +96,7 @@ input[type=radio] {
 					<div class="add_store_div clearfix">
 						<ul class="clearfix add_store_back">
 							<li class="active"><span>上架商品</span></li>
-							<li class=""><span style="position: relative; top: 4px">价格<i style="transform: rotate(-45deg);">\</i>提成会员<i style="transform: rotate(-45deg);">\</i>价格
+							<li class=""><span style="position: relative; top: 4px">价格<i style="transform: rotate(-45deg);">\</i>提成<i style="transform: rotate(-45deg);">\</i>价格会员
 							</span></li>
 						</ul>
 
@@ -270,7 +270,6 @@ input[type=radio] {
 			editPage(jQuery(this).attr("goodsimage"));
 			imgObject = jQuery(this);
 			type=1;
-			//jQuery('.zzc.one').show()
 		})
 		jQuery('.cancelinput').click(function() {
 			jQuery('.zzc.one').hide();
@@ -280,7 +279,6 @@ input[type=radio] {
 			type=2;
 			jQuery(".mask").show();
 			editPage(null);
-			//jQuery('.zzc.one').show()
 		})
 	})
 	function zccCallback(dataBase64) {

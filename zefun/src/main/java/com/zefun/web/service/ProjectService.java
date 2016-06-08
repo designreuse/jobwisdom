@@ -1088,4 +1088,77 @@ public class ProjectService {
         view.addObject("goodsBaseDtosJs", JSONArray.fromObject(goodsBaseDtos));
         return view;
     }
+
+
+    /**
+     * 保存或者新增项目
+    * @author 高国藩
+    * @date 2016年6月8日 下午2:57:45
+    * @param storeId                   门店信息
+    * @param projectInfo               项目信息
+    * @param discounts                 会员等级
+    * @param projectSteps              项目步骤
+    * @param projectCommission         职位提成
+    * @return                          新增状态(返回项目信息)
+     */
+    public BaseDto saveProjectOrUpdate(Integer storeId, ProjectInfo projectInfo,
+            List<ProjectDiscount> discounts, List<ProjectStep> projectSteps,
+            List<ProjectCommission> projectCommission) {
+        
+        if (projectInfo.getProjectId()!=null){
+            projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
+        }
+        else {
+            projectInfoMapper.insertSelective(projectInfo);
+        }
+        
+        //会员折扣计算
+        ProjectDiscount projectDiscount = new ProjectDiscount();
+        projectDiscount.setProjectId(projectInfo.getProjectId());
+        List<ProjectDiscount> hasDiscounts = projectDiscountMapper.selectByProperty(projectDiscount);
+        
+        for (int i = 0; i < hasDiscounts.size(); i++) {
+            hasDiscounts.get(i).setIsDeleted(1);
+            projectDiscountMapper.updateByPrimaryKeySelective(hasDiscounts.get(i));
+        }
+        for (int i = 0; i < discounts.size(); i++) {
+            discounts.get(i).setIsDeleted(0);
+            discounts.get(i).setProjectId(projectInfo.getProjectId());
+        }
+        if (discounts!=null && discounts.size()>0){
+            projectDiscountMapper.insertProjectDiscountList(discounts);
+        }
+        
+        //轮拍步骤
+        List<ProjectStep> oldProjectSteps = projectStepMapper.queryProjectStepByPIdList(projectInfo.getProjectId());
+        for (int i = 0; i < oldProjectSteps.size(); i++) {
+            oldProjectSteps.get(i).setIsDeleted(1);
+            projectStepMapper.updateByPrimaryKey(oldProjectSteps.get(i));
+        }
+        
+        ProjectCommission hasProjectCommission = new ProjectCommission();
+        hasProjectCommission.setProjectId(projectInfo.getProjectId());
+        List<ProjectCommission> hasProjectCommissions = projectCommissionMapper.selectByProperty(hasProjectCommission);
+        for (int i = 0; i < hasProjectCommissions.size(); i++) {
+            hasProjectCommissions.get(i).setIsDeleted(1);
+            projectCommissionMapper.updateByPrimaryKeySelective(hasProjectCommissions.get(i));
+        }
+        
+        for (int i = 0; i < projectSteps.size(); i++) {
+            projectSteps.get(i).setProjectId(projectInfo.getProjectId());
+            projectSteps.get(i).setIsDeleted(0);
+            projectStepMapper.insert(projectSteps.get(i));
+        }
+        for (int i = 0; i < projectCommission.size(); i++) {
+            projectCommission.get(i).setIsDeleted(0);
+            projectCommission.get(i).setProjectId(projectInfo.getProjectId());
+        }
+        if (projectCommission!=null && projectCommission.size()>0){
+            projectCommissionMapper.insertProjectCommissionList(projectCommission);
+        }
+        
+        redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, projectInfo.getDeptId());
+        
+        return new BaseDto(0, projectInfo);
+    }
 }
