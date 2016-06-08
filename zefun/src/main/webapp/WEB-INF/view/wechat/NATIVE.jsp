@@ -54,7 +54,7 @@
 		window.location = url;
 	}
 	var storeAccount = '${session_key_store_account}';
-	var wsUrl = "ws://localhost/jobwisdom/websocket?storeAccount=";
+	var wsUrl = "ws://job.jobwisdom.cn/jobwisdom/websocket?storeAccount=";
 	var webSocket;
 	if ('WebSocket' in window) {
 		webSocket = new WebSocket(wsUrl + storeAccount);

@@ -61,6 +61,13 @@
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
             
+           		<div class="write_input">
+					<!-- <div class="div1">编辑</div> -->
+					<a href="<%=basePath%>comboInfo/setting"><div class="write_5" style="color:black;background: white; float: left; top: 0px !important; left: 20px !important; width: 100px !important">
+						<span class="add_step" style="position: relative; left: -10px">+</span>新增
+					</div></a>
+				</div>
+				
 				<div class="rollBox">
 					<div class="LeftBotton"></div>
 					<div class="Cont" id="ISL_Cont">

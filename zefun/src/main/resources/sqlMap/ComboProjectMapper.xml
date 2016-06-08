@@ -13,10 +13,11 @@
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="is_count_limit" property="isCountLimit" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     combo_id, project_id, project_name, project_price, project_image, project_count, combo_performance_cal, royalty_rate,
-    create_time, update_time, last_operator_id
+    create_time, update_time, last_operator_id, is_count_limit
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.ComboProject" >
     select 
@@ -124,6 +125,9 @@
       <if test="lastOperatorId != null" >
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
       </if>
+      <if test="isCountLimit != null" >
+        is_count_limit = #{isCountLimit,jdbcType=INTEGER},
+      </if>
     </set>
     where combo_id = #{comboId,jdbcType=INTEGER}
      <!--  and project_id = #{projectId,jdbcType=INTEGER} -->
@@ -162,17 +166,21 @@
       <if test="lastOperatorId != null" >
         and last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
       </if>
+      <if test="isCountLimit != null" >
+        and is_count_limit = #{isCountLimit,jdbcType=INTEGER}
+      </if>
   </select>
   
   <insert id="insertComboProject" parameterType="java.util.List">  
   	insert into combo_project 
-  	(combo_id, project_id, project_name, project_price, project_image, project_count, combo_performance_cal, royalty_rate, create_time, update_time, last_operator_id)
+  	(combo_id, project_id, project_name, project_price, project_image, project_count, combo_performance_cal, royalty_rate, create_time, update_time, last_operator_id, is_count_limit)
     values 
     <foreach collection="list" item="item" index="index" separator=",">
     	( #{item.comboId,jdbcType=INTEGER}, #{item.projectId,jdbcType=INTEGER},
 	      #{item.projectName,jdbcType=VARCHAR}, #{item.projectPrice,jdbcType=INTEGER}, #{item.projectImage,jdbcType=INTEGER},
 	      #{item.projectCount,jdbcType=INTEGER}, #{item.comboPerformanceCal,jdbcType=INTEGER}, #{item.royaltyRate,jdbcType=INTEGER}, 
-	      #{item.createTime,jdbcType=CHAR}, #{item.updateTime,jdbcType=CHAR}, #{item.lastOperatorId,jdbcType=INTEGER})
+	      #{item.createTime,jdbcType=CHAR}, #{item.updateTime,jdbcType=CHAR}, #{item.lastOperatorId,jdbcType=INTEGER}, 
+	      #{item.isCountLimit,jdbcType=INTEGER})
     </foreach>
   </insert>
 </mapper>
