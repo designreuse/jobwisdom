@@ -158,6 +158,8 @@
 							    </div>
 							</div>
 						    <div style="display: none">
+						    	<div class="clearfix">
+						    	
 						    	<div style="float: right;margin-right:40px" >
 						    	  输入特色名称: <input name="sName" type="text" style="box-shadow: 0 0 3px #ccc;width:160px;border-radius:8px!important;margin-left:5px"><br><br>
 								选择一个项目: 
@@ -174,19 +176,20 @@
 		                        </select>
 		                        
 		                       </div> 
-		                        <br><br>
-		                        	<div style="position:relative;top:-40px;float:left">
-		                        	    <ul>
+		                       
+		                        	<div style="position:relative;float:left">
+		                        	   <ul>
 		                        	<li >
 		                        		<img style="width: 200px;height: 123px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
 		                        		<p style="color:#b0b0b0">上传logo图片</p>
                                         <input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                     </li>
                                    </ul> 
-                                 </div>  
-		                        <button class="insert_img" onclick="zcc(this,'editor2')">
-									<img src="<%=basePath%>images/insert_img.png" title="插入图片">
-								</button><br>
+                                 </div>
+                               </div>    
+		                        <span class="insert_img" onclick="zcc(this,'editor2')" title="插入图片" >
+									<img src="<%=basePath%>images/insert_img.png" >
+								</span>
 								<script id="editor2" type="text/plain" style="width:550px;height:400px;">
 
 								</script>
@@ -265,7 +268,9 @@
          </div>
    </div>
 	<div class="mask" style="display: none;">
-		   <div id="flashEditorOut" >
+	   
+		   <div id="flashEditorOut" style="position:relative">
+		     <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img src="<%=basePath %>images/seo_close.png"></span>
 			        <div id="altContent2">
 			            <h1>美图秀秀</h1>
 			        </div>

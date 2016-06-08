@@ -487,7 +487,7 @@ public class DayBookService {
         if (memberId  != null) {
            //更新缓存中的会员数据
             memberInfoService.wipeCache(memberId);
-            memberInfoService.syncLevelId(memberId);
+            /*memberInfoService.syncLevelId(memberId);*/
         }
             
         OrderInfo record = new  OrderInfo();

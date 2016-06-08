@@ -41,7 +41,7 @@
   	select sub_account_id from member_sub_account where account_id = #{accountId} and (total_amount + balance_amount) &lt;= 0 
   </select>
   
-  <select id="selectSubAccountListByAccountId" resultMap="SubAccountMap" parameterType="java.lang.Integer">
+  <select id="selectSubAccountListByAccountId" resultMap="SubAccountMap" parameterType="java.util.Map">
   	select 
 		msa.sub_account_id, msa.level_id, msa.total_amount, msa.total_present_amount, msa.balance_amount, msa.use_amount,
 		ml.level_name, ml.level_logo, ml.level_template, mld.project_discount, mld.goods_discount, mld.cash_discount_type, mld.integral_unit, mld.integral_number, 
@@ -49,8 +49,8 @@
 	from member_sub_account msa
 	left join member_level ml on msa.level_id = ml.level_id
 	left join member_info mi on mi.member_id = msa.account_id
-	left join member_level_discount mld on mld.level_id = msa.level_id and mi.store_id = mld.store_id
-	where msa.account_id = #{accountId}
+	left join member_level_discount mld on mld.level_id = msa.level_id 
+	where msa.account_id = #{accountId} and mld.store_id = #{storeId}
   </select>
   
   <select id="selectSubAccountBySubAccountId" resultMap="SubAccountMap" parameterType="java.lang.Integer">

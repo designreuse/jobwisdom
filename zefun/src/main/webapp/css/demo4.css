@@ -160,13 +160,13 @@
     border-radius: 8px;
     background: #d8deed;}
 .add_store_content_price table{
-	width:450px;
+	width:720px;
 	margin-top:5px
 }
 .add_store_content_price table td{
-	vertical-align:middle;position:relative;width:50px;padding-left:5px;text-align:center;height:30px
+	vertical-align:middle;position:relative;width:110px;padding-left:5px;text-align:center;height:30px
 }
-.add_store_content_price span{display:inline-block;margin-left:12px}
+.add_store_content_price span{display:inline-block;width:66px}
 .add_store_content_price span input{margin-right:5px}
 .add_store_content_price table  input[type='text']{
 	width:100px;height:20px;border-radius:12px;border:1px solid black

@@ -2,7 +2,7 @@ i,em{font-style:normal}
 
 .emploee_head{margin:53px 50px}
 .rightpanel{background:white}
-.emploee_ul{height:142px;width:150px;overflow:overlay;float:left}
+.emploee_ul{height:142px;width:136px;overflow:overlay;float:left;border:1px solid #ccc}
 .emploee_ul li{height:34px;text-align:center;line-height:34px;border:1px solid #c3c9d5;cursor:pointer}
 .emploee_ul .active{border-left:3px solid #ff0000}
 .emploee_right{float:left;border:1px solid #c3c9d5;margin-left:10px;width:838px;height:135px;position:relative;overflow:hidden}
@@ -26,7 +26,7 @@ i,em{font-style:normal}
    .roll_right{float:left;margin-left:30px;width:3000px;position:relative}
    .roll_right em{display:inline-block;margin-left:8px}
     .roll_right p{text-align:center}
-	.state{text-align:center;color:black;border:1px solid #dbdce2;position:relative;width:130px;margin:0px auto;height:34px}
+	.state{text-align:center;color:black;position:relative;width:130px;margin:0px auto;height:34px}
 	.state i{display:inline-block;border:1px solid  #dbdce2;position:absolute;left:0 ;    width: 18px;
     height: 24px;
     line-height: 24px;text-align:center;color:red}
@@ -49,7 +49,7 @@ i,em{font-style:normal}
 		transform:rotate(360deg);
     }
 	.brick p{position:relative;top:-5px}
-.gridly li{width:140px!important}
+.gridly li{width:130px!important}
 .gridly .active{ animation: animation-shake infinite linear 0.2s;position:relative;}
 	
 @keyframes animation-shake {
@@ -206,3 +206,7 @@ transform: rotate(1deg);
 .right_click{position:absolute;top:30px;right:5px;z-index:20}
 .left_click{position:absolute;top:30px;left:5px;z-index:20}
 .left_click img,.right_click img{width:40px}
+
+.example li{
+	box-shadow:0 0 10px #a8a6a6
+}

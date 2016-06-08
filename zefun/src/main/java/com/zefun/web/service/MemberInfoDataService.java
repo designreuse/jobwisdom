@@ -67,10 +67,11 @@ public class MemberInfoDataService {
     * @author 王大爷
     * @date 2015年9月12日 下午4:19:03
     * @param memberId 会员信息标识
+    * @param storeId 门店标识
     * @return 会员信息及账户信息
      * @throws ParseException  异常
      */
-    public BaseDto selectByMemberDto(Integer memberId){
+    public BaseDto selectByMemberDto(Integer memberId, Integer storeId){
         MemberDto memberDto = memberInfoMapper
                 .selectByMemberResultMap(memberId);
         
@@ -99,7 +100,11 @@ public class MemberInfoDataService {
         
         Page<DebtFlow> pageDebtFlowDto = selectPageForDebtFlow(1, 5, memberId);
         
-        List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(memberId);
+        Map<String, Integer> selectMap = new HashMap<>();
+        selectMap.put("accountId", memberId);
+        selectMap.put("storeId", storeId);
+        
+        List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(selectMap);
         
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("memberDto", memberDto);

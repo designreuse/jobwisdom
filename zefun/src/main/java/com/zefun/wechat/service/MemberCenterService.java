@@ -331,12 +331,16 @@ public class MemberCenterService {
     * @author 张进军
     * @date Mar 8, 2016 4:04:03 PM
     * @param memberId        会员标识
+    * @param storeId 门店标识
     * @return   会员等级信息页面
      */
-    public ModelAndView levelInfoView(int memberId) {
+    public ModelAndView levelInfoView(int memberId, Integer storeId) {
         ModelAndView mav = new ModelAndView(View.MemberCenter.LEVEL_INFO);
         MemberBaseDto memberBaseInfo = memberInfoService.getMemberBaseInfo(memberId, false);
-        List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(memberId);
+        Map<String, Integer> selectMap = new HashMap<>();
+        selectMap.put("accountId", memberId);
+        selectMap.put("storeId", storeId);
+        List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(selectMap);
         mav.addObject("memberInfo", memberBaseInfo);
         mav.addObject("subAccountList", subAccountList);
         return mav;

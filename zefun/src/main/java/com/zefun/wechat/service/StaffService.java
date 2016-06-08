@@ -695,8 +695,8 @@ public class StaffService {
                 //该项目对应该会员的会员等级不存在特定价格
                 if (obj == null) {
                 	Map<String, Integer> memberMap = new HashMap<>();
-                	map.put("storeId", storeId);
-                	map.put("levelId", levelId);
+                	memberMap.put("storeId", storeId);
+                	memberMap.put("levelId", levelId);
                     //计算会员折扣价
                     MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
                     discountAmount = projectInfo.getProjectPrice().multiply(new BigDecimal(memberLevel.getProjectDiscount()).divide(rate));

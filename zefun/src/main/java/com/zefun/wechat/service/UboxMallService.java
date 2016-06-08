@@ -1,6 +1,7 @@
 package com.zefun.wechat.service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -142,7 +143,12 @@ public class UboxMallService {
         }
         
         if (memberId!=null){
-            List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(memberId);
+        	
+        	Map<String, Integer> selectMap = new HashMap<>();
+            selectMap.put("accountId", memberId);
+            selectMap.put("storeId", storeId);
+            
+            List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(selectMap);
             mav.addObject("subAccountList", subAccountList);
             
             List<MemberSubAccountDto> buySubAccountList = subAccountList.stream()
