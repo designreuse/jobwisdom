@@ -1,236 +1,170 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/base.jsp" %>
+<%@include file="/base.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, height = device-height">
-    <meta content="telephone=no" name="format-detection" />
-    <title>预约服务</title>
-    <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
-    <link rel="stylesheet" href="<%=memberCssPath%>"/>
-    <link rel="stylesheet" href="<%=swiperCssPath%>"/>
-    <style type="text/css">
-    .bottom_fix{width:100%;background:white;position:fixed;bottom:0;height:6rem;z-index:2}
-	.bottom_fix li{float:left;width:25%;text-align:center;line-height:3rem;margin-top:0.5rem}
-	.bottom_fix img{width:3rem}
-    </style>
-  </head>
-  
-<body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, height = device-height">
+<meta content="telephone=no" name="format-detection" />
+<title>预约服务</title>
+<link rel="stylesheet" href="<%=basePath%>css/mobile/shop.css" />
+<link rel="stylesheet" href="<%=basePath%>css/mobile/style.css" />
+<script type="text/javascript" src="<%=basePath%>js/mobile/jquery.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/mobile/base.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/mobile/zepto.min.js"></script>
+</head>
+  <script>
+    jQuery(function(){
+	    var count=jQuery('nav li').size();
+		jQuery('nav ul').css('width',count*72);
+	 })
 
-<div class="content wrap">
-    <c:if test="${storeSize > 0 }">
-	    <div class="head">
-		    <div class="tmain">
-		        <i>
-		            <img src="<%=picPath %>${selectStore.storeLogo}?imageView2/1/w/63/h/63"/>
-		        </i>
-		        <div class="dianmin">
-		            <span class="h-title">${selectStore.storeName }</span>
-		        </div>
-		        <div class="liansuo fr s-modal-control" data-target="#liansuo-modal">
-		            <span>查看${storeSize }家分店</span>
-		        </div>
-		    </div>
-		</div>
-	</c:if>
-    <div class="bd-white bodyoh">
-		<c:if test="${typeNumber >= 2 }">
-	       <div class="swiper-container-daohang tab">
-	            <div class="swiper-wrapper">
-	                <c:forEach items="${serviceList }" var="service" varStatus="status">
-	                    <div class="swiper-slide score-shop-li" onclick="chooseDept('${service.deptId }')">
-	                        <img src="<%=basePath%>/images/mobile/member/active-new.png" class="hide"/>
-	                        <div class="tab-word">
-	                            <div class="medium-font line-height80">${service.deptName }</div>
-	                        </div>
-	                    </div>
-	                </c:forEach>
-	            </div>
-	        </div>
-	    </c:if>
-		<c:forEach items="${serviceList }" var="service" varStatus="status">
-            <div class="d-select-project hide" deptService="${service.deptId }">
-	            <div class="d-content">
-	                <div class="project-type">
-	                    <ul class="project-type-ul">
-	                       <c:forEach items="${service.projectCategoryList }" var="projectCategory">
-	                            <li class="type-item j-tab" categoryTitle="${projectCategory.categoryId }" >
-	                                <span>${projectCategory.categoryName }</span>
-	                            </li>
-	                       </c:forEach>
-	                       <li class="type-item j-tab" >
-                               <span></span>
-                           </li>
-	                    </ul>
-	                </div>
-	                
-	                <div class="project-list j-tab">
-	                   <c:forEach items="${service.projectCategoryList }" var="projectCategory">
-	                       <div class="project-list-part" categoryContent="${projectCategory.categoryId }">
-	                            <div class="list-part-title">
-	                                <span>${projectCategory.categoryName }</span>
-	                            </div>
-	                            <div class="list-item">
-	                                <ul>
-	                                   <c:forEach items="${projectCategory.projectList }" var="project">
-	                                       <c:if test="${project.isAppointment == 1 }">
-		                                       <a href="<%=basePath%>memberCenter/view/projectDetail?storeId=${session_key_store_account}&projectId=${project.projectId}">
-			                                       <li>
-			                                            <img src="<%=picPath%>${project.projectImage}?imageView2/1/w/220/h/220" width="109" height="109" alt=""/>
-			                                            <div class="item-desc">
-			                                                <div class="name">${project.projectName}</div>
-			                                                <div class="d-price font-666">已服务：${project.salesCount}</div>
-			                                                <div class="origin-price"><span class="text-through">价格: ￥${project.projectPrice}</span></div>
-			                                            </div>
-			            
-			                                            <div class="shop-num-control">
-			                                                <span class="num-emphasie">￥${project.projectPrice - project.appointmentPrice}</span>
-			                                            </div>
-			                                        </li>
-		                                        </a>
-	                                        </c:if>
-	                                   </c:forEach>
-	                                </ul>
-	                            </div>
-	                        </div>
-	                   </c:forEach>
-	                   <div class="h15r"></div>
-	                </div>
-	            </div>
-	        </div>               
-        </c:forEach>
-	</div>
+  jQuery(function(){    
+	jQuery('.swiper').click(function(){
+	    jQuery('body').animate({left:'80%'})
+	   });
+    })
 	
-	<ul class="bottom_fix clearfix">
- 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
-	      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
-		      <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">我的</p>
-		  </li>
-	    </a>
-	    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account}/1">
-	    	<li><img src="<%=basePath %>images/mobile/member/botton_2_2.png">
-		       <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">预约</p>
-		    </li>
-	    </a>
-	    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account}/1">
-		  <li><img src="<%=basePath %>images/mobile/member/botton_3.png">
-		    <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">商城</p>
-		  </li>
-	    </a>
-	    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_account}/1">
-	     <li><img src="<%=basePath %>images/mobile/member/botton_4.png">
-		     <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">门店</p>
-		  </li>
-	    </a>
- 	</ul>
- 
-	<%-- <div>
-      <ul class="footer">
-        <li>
-          <a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
-            <span class="iconfont icon-wode"></span>
-            <span class="word">我的</span>
-          </a>
-        </li>
-        <li class="active">
-          <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
-            <span class="iconfont icon-yuyue5"></span>
-            <span>预约</span>
-          </a>
-        </li>
-        <li >
-          <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
-            <span class="iconfont icon-jifen"></span>
-            <span>商城</span>
-          </a>
-        </li>
-        <li >
-          <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
-            <span class="iconfont icon-dianpu2"></span>
-            <span>门店</span>
-          </a>
-        </li>
-      </ul>
-    </div> --%>
-    
-    <c:if test="${!empty storeList }">
-        <div class="s-modal share-modal s-modal-miss hide" id="liansuo-modal">
-	        <div class="s-modal-wrap  liansuo-modal-content">
-	            <div class="liansuo-drowndown">
-	                <div class="ls-logo">
-	                       <img src="<%=picPath %>${mainStore.storeLogo}?imageView2/1/w/40/h/45"/>
-	                       <span>${mainStore.storeName }</span>
-	                </div>
-	                <ul>
-	                   <c:forEach items="${storeList }" var="store">
-	                       <a href="<%=basePath%>memberCenter/view/orderAppointment/${session_key_store_account }/1?selectStoreId=${store.storeId}">
-		                       <li>
-		                            <img src="<%=picPath %>${store.storeLogo}?imageView2/1/w/81/h/81"/>
-		                            <div class="dm dianmin fl">
-		                                <span class="ls-dianmin">${store.storeName }</span><br/>
-		                                <span>${store.storeAddress }</span><br/>
-		                                <span>电话：${store.storeTel }</span>
-		                            </div>
-		                        </li>
-	                        </a>
-	                   </c:forEach>
-	                </ul>
-	            </div>
-	        </div>
-	    </div>
-    </c:if>
-</div>
-<%@include file="../memberBase.jsp" %>
-<script type="text/javascript" src="<%=swiperJsPath%>"></script>
-<script type="text/javascript">
-    $(function(){
-    	$(".swiper-slide:first").addClass("active").find("img").removeClass("hide");
-    	$(".d-select-project:first").removeClass("hide");
-    	$(".project-type-ul").find("li:first").addClass("active");
-    	
-        var swiper = new Swiper('.swiper-container-daohang', {
-            pagination: '.swiper-pagination',
-            slidesPerView: '${typeNumber}',
-            paginationClickable: true,
-            spaceBetween: 0,
-            freeMode: true
-        });
+  jQuery(function(){ 
+    jQuery('.name_shop:eq(0)').find('p img').css('transform','rotate(90deg)')  
+	jQuery('.name_shop p').click(function(){
+	     if(jQuery(this).parent().find('ul').css('display')=='none'){
+		    jQuery(this).parent().find('ul').slideDown();
+			jQuery(this).find('img').css('transform','rotate(90deg)')
+		 }
+		 else{
+		    jQuery('.name_shop').find('ul').slideUp();
+			jQuery('.name_shop p').find('img').css('transform','rotate(0deg)')
+		 }
+	   }); 
+	   
+	  jQuery('.name_shop ul li').click(function(){
+	     jQuery(this).addClass('active').siblings('li').removeClass('active');
+	   }); 
+    })
+	
+	//第一个展开
+	jQuery(function(){    
+	   jQuery('.name_shop').eq(0).find('ul').show();
+	   
+    })
+	//向左滑。关闭
+   zepto(function(){    
+	 zepto('html').swipeLeft(function(){
+	     zepto('body').animate({left:'0%'})
+	   }); 
+    })
+	
+   </script>
+<body style="overflow:hidden">
+	<div class="order_left">
+		<c:forEach items="${storeList }" var="store" varStatus="index">
+			<div class="name_shop">
+				<p>
+					${store.storeName }<span><img src="<%=basePath%>images/mobile/member/right.png"></span>
+				</p>
+				<ul>
+					<c:forEach items="${storeDepts[index.count-1] }" var="dept">
+						<a href="<%=basePath%>memberCenter/view/orderAppointment/${session_key_store_account }/1?selectStoreId=${store.storeId }&selectDeptId=${dept.deptId }"><li>${dept.deptName }<span><img src="<%=basePath%>images/mobile/member/right.png"></span></li></a>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:forEach>
+	</div>
+	<div class="order_right" style="position: relative">
+		<div class="con">
+			<header class="order_top">
+				<div class="swiper">
+					<img src="<%=basePath%>images/mobile/member/down_content.png">
+				</div>
+				<div class="header_select">
+					<span>${storeInfo.storeName }</span><select onchange="changeDept(this.value)" name="dept"><c:forEach items="${deptInfos }" var="deptInfo"><option value="${deptInfo.deptId }">${deptInfo.deptName }</option></c:forEach></select>
+				</div>
+			</header>
+			<nav>
+				<c:forEach items="${serviceList }" var="servie" varStatus="index">
+					<ul value="${servie.deptId }" class="clearfix order_ul" style="display: none">
+						<c:forEach items="${serviceList[index.count-1].projectCategoryList }" var="projectCategory">
+							<li onclick="changeCategory(this.value)" value="${projectCategory.categoryId }">${projectCategory.categoryName }</li>
+						</c:forEach>
+						<script>
+							jQuery(".clearfix.order_ul").children("li").eq(0).addClass("active");
+						</script>
+					</ul>
+				</c:forEach>
+				<script>
+					jQuery(".clearfix.order_ul").eq(0).show();
+				</script>
+			</nav>
+			<c:forEach items="${serviceList }" var="servie" varStatus="index">
+				<c:forEach items="${serviceList[index.count-1].projectCategoryList }" var="projectCategory">
+					<div class="order_content" value="${projectCategory.categoryId }" style="display: none">
+						<ul>
+							<c:forEach items="${projectCategory.projectList }" var="project">
+								<li class="clearfix">
+									<div class="mall_good">
+										<img src="<%=basePath%>images/mobile/member/mall_good.png">
+									</div>
+									<div class="mall_item">
+										<p>${project.projectName }</p>
+										<span>已服务:${project.salesCount }</span>
+										<div class="level">
+											<em><img src="<%=basePath%>images/mobile/member/level.png"></em><em><img src="<%=basePath%>images/mobile/member/level.png"></em><em><img src="<%=basePath%>images/mobile/member/level.png"></em><em><img src="<%=basePath%>images/mobile/member/level_.png"></em>
+										</div>
+									</div>
+									<div class="order_price">
+										<h2>¥ ${project.projectPrice }</h2>
+										<span>预约立减${project.appointmentPrice }元</span>
+									</div>
+									<div class="special">预约</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</c:forEach>
+			</c:forEach>
+			<script>jQuery(".order_content").eq(0).show();</script>
+		</div>
 
-        $('.swiper-slide').click(function(){
-            $(".swiper-slide").removeClass("active");
-            $(".swiper-slide img").addClass("hide");
-            $(this).addClass("active");
-            $(this).find("img").removeClass("hide");
-        });
-
-        var contentHeight = function(){
-            var height = document.documentElement.clientHeight;
-            var projectUlHeight = height;
-            $(".project-list").css("height", projectUlHeight);
-            $(".project-type-ul").css("height", projectUlHeight);
-        }
-
-        contentHeight();
-        
-        var offset = $(".d-content").offset().top;
-        var top = offset;
-        $(".type-item").click(function(){
-            $(this).addClass("active").siblings().removeClass("active");
-            var sub = $("[categoryContent='" + $(this).attr("categorytitle") + "']");
-            var container = sub.parent();
-            offset = sub.offset().top - container.offset().top + container.scrollTop();
-            container.scrollTop(offset);
-        });
-    });
-    
-    
-    function chooseDept(deptId){
-        $(".d-select-project").addClass("hide");
-        $("[deptService='" + deptId + "']").removeClass("hide");
-    }
-</script>
+		<ul class="bottom_fix clearfix">
+			<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
+				<li><img src="<%=basePath%>images/mobile/member/botton_1_1.png">
+					<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">我的</p></li>
+			</a>
+			<a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account}/1">
+				<li><img src="<%=basePath%>images/mobile/member/botton_2_2.png">
+					<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">预约</p></li>
+			</a>
+			<a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account}/1">
+				<li><img src="<%=basePath%>images/mobile/member/botton_3.png">
+					<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">商城</p></li>
+			</a>
+			<a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_account}/1">
+				<li><img src="<%=basePath%>images/mobile/member/botton_4.png">
+					<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">门店</p></li>
+			</a>
+		</ul>
 </body>
+<script type="text/javascript">
+var serviceList = ${js_serviceList};
+var selectDeptId = '${selectDeptId}';
+function changeDept(deptId){
+	jQuery(".clearfix.order_ul").hide();
+	jQuery(".clearfix.order_ul[value='"+deptId+"']").show();
+	for (var i = 0; i < serviceList.length; i++) {
+		if (serviceList[i].deptId == deptId){
+			changeCategory(serviceList[i].projectCategoryList[0].categoryId);
+		}
+	}
+}
+function changeCategory(categoryId){
+	jQuery(".order_content").hide();
+	jQuery(".order_content[value='"+categoryId+"']").show();
+}
+jQuery(function(){
+	jQuery("select[name='dept']").val(selectDeptId);
+	changeDept(selectDeptId);
+})
+</script>
 </html>
