@@ -15,7 +15,7 @@
 							<div class="pay_price_content">
 								<p>充值金额（元）</p>
 								<ul class="clearfix">
-									<li><input type="radio" name="amount" onclick="changeAmount(300)"><span>300</span></li>
+									<li><input type="radio" name="amount" onclick="changeAmount(300)" checked="checked"><span>300</span></li>
 									<li><input type="radio" name="amount" onclick="changeAmount(500)"><span>500</span></li>
 									<li><input type="radio" name="amount" onclick="changeAmount(800)"><span>800</span></li>
 									<li><input type="radio" name="amount" onclick="changeAmount(2000)"><span>2000</span></li>
@@ -36,7 +36,7 @@
 											</div></li>
 									</ul>
 									<div class="payfor">
-										应付金额<span id="amount">100.00</span>元
+										应付金额<span id="amount">300</span>元
 									</div>
 								</div>
 							</div>

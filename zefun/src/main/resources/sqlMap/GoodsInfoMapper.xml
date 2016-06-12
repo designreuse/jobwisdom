@@ -940,10 +940,13 @@
   </select>
   
   <select id="selectAllGoodsInfoByStoreIdAndNotPay" resultType="com.zefun.web.dto.GoodsInfoDto" parameterType="java.lang.Integer">
-  	SELECT gf.goods_id as goodsId, gf.goods_name as goodsName, gf.goods_price as goodsPrice,
-  	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId
+  	SELECT gf.goods_id as goodsId, ag.goods_name as goodsName, gf.goods_price as goodsPrice,
+  	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId,
+  	gc.category_name as categoryName
   	from goods_info gf 
   	left join dept_info df on gf.dept_id = df.dept_id
+  	left join goods_category gc on gc.category_id = gf.category_id
+  	left join account_goods ag on ag.goods_id = gf.a_id 
   	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{storeId} and gf.is_sell_product = 1
   </select>
   

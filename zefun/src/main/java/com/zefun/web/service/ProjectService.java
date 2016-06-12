@@ -1080,6 +1080,10 @@ public class ProjectService {
         List<DeptProjectBaseDto> projectBaseDtos = getDeptProjectByStoreId(storeId);
         List<DeptGoodsBaseDto> goodsBaseDtos = goodsInfoService.getDeptGoodsByStoreId(storeId);
         ModelAndView view = new ModelAndView(View.Project.CATEGORY);
+        projectBaseDtos.stream().forEach(d -> d.getProjectCategoryList()
+                .stream().forEach(m -> m.getProjectList().stream().forEach(p -> p.setProjectDesc(null))));
+        goodsBaseDtos.stream().forEach(d -> d.getGoodsCategoryBaseDto()
+                .stream().forEach(m -> m.getGoodsBaseDtos().stream().forEach(p -> p.setGoodsDesc(null))));
         view.addObject("projectBaseDtos", projectBaseDtos);
         view.addObject("goodsBaseDtos", goodsBaseDtos);
         view.addObject("projectBaseDtosJs", JSONArray.fromObject(projectBaseDtos));
