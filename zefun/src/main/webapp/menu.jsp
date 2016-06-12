@@ -14,61 +14,65 @@
 </div>
 <div class="leftmenu">
 	<ul class="left_nav">
-		<a href="<%=menuBasePath%>selfcashier/view/list"><li class="active_1_2 border">
+		<li class="active_1_2 border">
 			<div class="nav_img">
+				
 			</div>
-		</li></a>
-		<a href="<%=menuBasePath%>KeepAccounts/initializeOpenCard"><li class="active_2_1">
+			
+		</li>
+		<li class="active_2_1">
 			<div class="nav_img">
 				
 			</div> 
 			
-		</li></a>
-		<a href="<%=menuBasePath%>storeinfo/view/storeSetting"><li class="active_3_1">
+		</li>
+		<li class="active_3_1">
 			<div class="nav_img">
 				
 			</div> 
 			 
-		</li></a>
-		<a href="<%=menuBasePath%>summary/view/summary"><li class="active_4_1">
-			<div class="nav_img">
-				
-			</div>
-			</a>
 		</li>
-		<a href="<%=menuBasePath%>project/view/categorys"><li class="active_5_1">
+		<li class="active_4_1">
 			<div class="nav_img">
 				
 			</div>
 			
-		</li></a>
-		<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class="active_6_1">
+		</li>
+		<li class="active_5_1">
+			<div class="nav_img">
+				
+			</div>
+			
+		</li>
+		<li class="active_6_1">
 			<div class="nav_img">
 				
 			</div> 
 			
-		</li></a>
-		<a href="<%=menuBasePath%>position/view/positioninfo"><li class="active_7_1">
+		</li>
+		<li class="active_7_1">
 			<div class="nav_img">
+				
 			</div>
-		</li></a>
-		<a href="<%=menuBasePath%>system/view/person"><li class="active_8_1">
+			
+		</li>
+		<li class="active_8_1">
 			<div class="nav_img">
 				
 			</div> 
-		</li></a>
+		</li>
 	</ul>
 	
 	<ul class="left_title">
-	   <li style="top:20px"><span></span>业务中心</li></a>
-	   <li style="top:90px"><span></span>会员管理</li></a>
-	   <li style="top:160px"><span></span>营销中心</li></a>
-	   <li style="top:230px"><span></span>统计分析</li></a>
-	   <li style="top:300px"><span></span>服务设置</li></a>
-	   <li style="top:370px"><span></span>商品管理</li></a>
-	   <li style="top:440px"><span></span>员工管理</li></a>
-       <li style="top:510px"><span></span>企业管理</li></a>
-       <li style="top:580px"><span></span>系统设置</li></a>
+	   <li style="top:20px"><span></span>业务中心</li>
+	   <li style="top:90px"><span></span>会员管理</li>
+	   <li style="top:160px"><span></span>营销中心</li>
+	   <li style="top:230px"><span></span>统计分析</li>
+	   <li style="top:300px"><span></span>服务设置</li>
+	   <li style="top:370px"><span></span>商品管理</li>
+	   <li style="top:440px"><span></span>员工管理</li>
+       <li style="top:510px"><span></span>企业管理</li>
+       <li style="top:580px"><span></span>系统设置</li>
 	</ul>
 
 	<div class="left_nav_2" style="height: 840px;">
@@ -135,6 +139,7 @@
 			<a href="<%=menuBasePath%>system/view/storeUsage"><li class="active"><span>系统信息</span></li></a>
 			<a href="<%=menuBasePath%>app/pay/qr"><li class="active"><span>门店充值</span></li></a>
 		</ul>
+		
 	</div>
 
 </div>
@@ -156,35 +161,43 @@ jQuery(function(){
 jQuery(function(){
     jQuery('.left_nav li').eq(0).click(function(){
 		jQuery(this).addClass('active_1_2').siblings().removeClass('active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8');
+		window.location.href = '<%=menuBasePath%>' + 'selfcashier/view/list';
 		
 	});
     jQuery('.left_nav li').eq(1).click(function(){
 		jQuery(this).addClass('active_2_2').siblings().removeClass('active_1_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1')
+		jQuery('.left_nav li').eq(0).addClass('active_1_1');
+		window.location.href = '<%=menuBasePath%>' + 'KeepAccounts/initializeOpenCard';
 	});
     jQuery('.left_nav li').eq(2).click(function(){
 		jQuery(this).addClass('active_3_3').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1')
+		jQuery('.left_nav li').eq(0).addClass('active_1_1');
+		window.location.href = '<%=menuBasePath%>' + 'storeinfo/view/storeSetting';
 	});
     jQuery('.left_nav li').eq(3).click(function(){
 		jQuery(this).addClass('active_4_4').siblings().removeClass('active_2_2 active_1_2 active_3_3 active_5_5 active_6_6 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1')
+		jQuery('.left_nav li').eq(0).addClass('active_1_1');
+		window.location.href = '<%=menuBasePath%>' + 'summary/view/summary';
 	});
     jQuery('.left_nav li').eq(4).click(function(){
 		jQuery(this).addClass('active_5_5').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_3_3 active_6_6 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1')
+		jQuery('.left_nav li').eq(0).addClass('active_1_1');
+		window.location.href = '<%=menuBasePath%>' + 'project/view/categorys';
 	});
     jQuery('.left_nav li').eq(5).click(function(){
 		jQuery(this).addClass('active_6_6').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_3_3 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1')
+		jQuery('.left_nav li').eq(0).addClass('active_1_1');
+		window.location.href = '<%=menuBasePath%>' + 'goodsInfo/view/goodsInfoList';
 	});
     jQuery('.left_nav li').eq(6).click(function(){
 		jQuery(this).addClass('active_7_7').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_6_6 active_3_3 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1')
+		jQuery('.left_nav li').eq(0).addClass('active_1_1');
+		window.location.href = '<%=menuBasePath%>' + 'position/view/positioninfo';
 	});
     jQuery('.left_nav li').eq(7).click(function(){
 		jQuery(this).addClass('active_8_8').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_6_6 active_7_7 active_3_3');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1')
+		jQuery('.left_nav li').eq(0).addClass('active_1_1');
+		window.location.href = '<%=menuBasePath%>' + 'system/view/person';
 	});
    
 })
@@ -206,11 +219,16 @@ jQuery(function(){
 	})
 })
 function choseMenu(url){
+	//二级菜单
 	jQuery(".left_nav_2").find("li").removeClass("active");
 	jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").show().siblings().hide();
 	jQuery(".left_nav_2").find("a[href='"+url+"']").children("li").addClass("active");
-	jQuery(".left_nav li").removeClass("active1");
-	jQuery(".left_nav li").eq(jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").attr("index")).addClass("active1");
+	//1级菜单
+	jQuery(".left_nav li").siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_6_6 active_7_7 active_3_3 border');
+	jQuery('.left_nav li').eq(0).addClass('active_1_1');
+	var index = jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").attr("index");
+	var index_ = Number(index)+1;
+	jQuery(".left_nav li").eq(index).addClass("active_"+(index_)+"_"+(index_)+" border");
 	
 }
 
