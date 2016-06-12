@@ -20,7 +20,7 @@
 									<li><input type="radio" name="amount" onclick="changeAmount(800)"><span>800</span></li>
 									<li><input type="radio" name="amount" onclick="changeAmount(2000)"><span>2000</span></li>
 									<li><input type="radio" name="amount" onclick="changeAmount(5000)"><span>5000</span></li>
-									<li>其他<input type="text" onblur="changeAmount(this.value)" placeholder="输入充值金额"></li>
+									<li>其他<input type="text" onclick="random()" onblur="changeAmount(this.value)" placeholder="输入充值金额"></li>
 								</ul>
 							</div>
 							<div class="pay_way">
@@ -88,8 +88,18 @@
 	
 </script>
 <script>
+function random(){
+	jQuery('.webchat_').slideUp('slow',function(){
+	     jQuery('.ul_li').slideUp('normal');
+    });
+	jQuery("input[name='amount']").removeAttr("checked");
+}
 function changeAmount(amount){
+	jQuery('.webchat_').slideUp('slow',function(){
+	     jQuery('.ul_li').slideUp('normal');
+    });
 	jQuery("#amount").text(amount);
+	if (amount == null || amount == "" || amount == "0")return;
 	jQuery.ajax({
 		type : "POST",
 		url : baseUrl + "app/pay/qr",

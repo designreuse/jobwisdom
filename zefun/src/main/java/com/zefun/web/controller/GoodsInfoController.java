@@ -95,7 +95,7 @@ public class GoodsInfoController extends BaseController {
     * @return ModelAndView
      */
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_LIST)
-    public ModelAndView toGoodsInfoPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView toGoodsInfoPage(HttpServletRequest request, HttpServletResponse response, Integer categoryId, ModelAndView model) {
         Integer storeId = getStoreId(request);
         
         /*List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
@@ -116,7 +116,18 @@ public class GoodsInfoController extends BaseController {
         List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage(); //selectGoodsImage();
         model.addObject("images", images);*/
         
+        List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
+        model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
+        model.addObject("deptGoodsBaseDtoJs", JSONArray.fromObject(deptGoodsBaseDto));
+        
         List<GoodsInfoDto> goodsInfos = goodsInfoService.selectGoodsInfosByStoreId(storeId);
+        if (categoryId!=null){
+            goodsInfos = goodsInfos.stream().filter(g -> g.getCategoryId().equals(categoryId)).collect(Collectors.toList());
+        }
+        
+        Long hasFinish = goodsInfos.stream().filter(g -> g.getGoodsPrice()!=null).count();
+        model.addObject("hasFinish", hasFinish);
+        
         model.addObject("goodsInfos", goodsInfos);
         model.setViewName(View.GoodsInfo.GOODSINFO);
         return model;

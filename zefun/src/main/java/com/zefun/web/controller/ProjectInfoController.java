@@ -137,13 +137,14 @@ public class ProjectInfoController extends BaseController {
     * @date 2016年4月27日 下午5:48:49
     * @param request    request
     * @param response   response
+    * @param categoryId categoryId
     * @return           ModelAndView
      * @throws IOException 
      */
     @RequestMapping(value = Url.Project.PROJECT_INFO_LIST)
-    public ModelAndView viewProjects(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ModelAndView viewProjects(HttpServletRequest request, HttpServletResponse response, Integer categoryId) throws IOException {
         Integer storeId = getStoreId(request);
-        return projectService.viewProjects(storeId);
+        return projectService.viewProjects(storeId, categoryId);
     }
     
     /**

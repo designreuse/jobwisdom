@@ -34,7 +34,8 @@
     <result column="affiliated_image" property="affiliatedImage" jdbcType="VARCHAR" />
     <result column="highest_discount" property="highestDiscount" jdbcType="DECIMAL" />
     <result column="project_step" property="projectStep" jdbcType="INTEGER" />
-    <result column="dept_name" property="deptName" jdbcType="CHAR" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
     <result column="project_code_suffix" property="projectCodeSuffix" jdbcType="CHAR" />
   </resultMap>
   
@@ -752,7 +753,9 @@
   </select>
   
   <select id="selectByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    SELECT po.*, di.dept_name FROM project_info po LEFT JOIN dept_info di ON di.dept_id = po.dept_id
+    SELECT po.*, di.dept_name, pc.category_name FROM project_info po 
+    LEFT JOIN dept_info di ON di.dept_id = po.dept_id
+    LEFT JOIN project_category pc ON pc.category_id = po.category_id
     where po.store_id = #{storeId,jdbcType=INTEGER} and po.is_deleted = 0 
   </select>
   

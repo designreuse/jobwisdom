@@ -3,6 +3,7 @@ package com.zefun.web.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,11 +72,12 @@ public class ComboInfoController extends BaseController {
     * @date 2015年8月11日 上午10:13:25
     * @param request request
     * @param response response
+    * @param deptId comboId
     * @param model 视图模型
     * @return ModelAndView
      */
     @RequestMapping(value = Url.ComboInfo.COMBOINFO_LIST)
-    public ModelAndView toComboInfo(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
+    public ModelAndView toComboInfo(HttpServletRequest request, HttpServletResponse response, Integer deptId, ModelAndView model) {
         try {
             Integer storeId = getStoreId(request);
             ComboInfo comboInfo = new ComboInfo();
@@ -112,6 +114,17 @@ public class ComboInfoController extends BaseController {
 //            
 //            List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();
 //            model.addObject("images", images);
+            
+//            List<DeptInfo> deptInfoList = projectService.queryDeptInfoList(storeId);
+//            model.addObject("deptInfoList", deptInfoList);
+//            model.addObject("deptInfoListJs", JSONArray.fromObject(deptInfoList));
+            
+            if (deptId!=null){
+                comboInfos = comboInfos.stream().filter(c -> c.getDeptId().equals(deptId)).collect(Collectors.toList());
+            }
+            
+            Long hasFinish = comboInfos.stream().filter(c -> c.getComboSalePrice()!=null).count();
+            model.addObject("hasFinish", hasFinish);
             
             model.addObject("comboInfos", comboInfos);
             model.setViewName(View.ComboInfo.COMBOINFO);

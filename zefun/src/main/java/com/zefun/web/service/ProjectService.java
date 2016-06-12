@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1055,16 +1056,23 @@ public class ProjectService {
     * @author 高国藩
     * @date 2016年4月27日 下午5:50:18
     * @param storeId storeId
+    * @param categoryId categoryId
     * @return        ModelAndView
      */
-    public ModelAndView viewProjects(Integer storeId) {
+    public ModelAndView viewProjects(Integer storeId, Integer categoryId) {
         List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(storeId);
         ModelAndView view = new ModelAndView(View.Project.PROJECT_LIST);
+        if (categoryId!=null){
+            projectInfos = projectInfos.stream().filter(p -> p.getCategoryId().equals(categoryId)).collect(Collectors.toList());
+        }
         view.addObject("projectInfos", projectInfos);
+        
+        Long hasFinish = projectInfos.stream().filter(p -> p.getProjectPrice()!=null).count();
+        view.addObject("hasFinish", hasFinish);
         
         List<DeptProjectBaseDto> deptProjectList = getDeptProjectByStoreId(storeId);
         view.addObject("deptProjectList", deptProjectList);
-        
+        view.addObject("deptProjectListJs", JSONArray.fromObject(deptProjectList));
         return view;
     }
 
