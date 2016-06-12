@@ -14,65 +14,61 @@
 </div>
 <div class="leftmenu">
 	<ul class="left_nav">
-		<li class="active_1_2 border">
+		<a href="<%=menuBasePath%>selfcashier/view/list"><li class="active_1_2 border">
 			<div class="nav_img">
-				
 			</div>
-			
-		</li>
-		<li class="active_2_1">
+		</li></a>
+		<a href="<%=menuBasePath%>KeepAccounts/initializeOpenCard"><li class="active_2_1">
 			<div class="nav_img">
 				
 			</div> 
 			
-		</li>
-		<li class="active_3_1">
+		</li></a>
+		<a href="<%=menuBasePath%>storeinfo/view/storeSetting"><li class="active_3_1">
 			<div class="nav_img">
 				
 			</div> 
 			 
+		</li></a>
+		<a href="<%=menuBasePath%>summary/view/summary"><li class="active_4_1">
+			<div class="nav_img">
+				
+			</div>
+			</a>
 		</li>
-		<li class="active_4_1">
+		<a href="<%=menuBasePath%>project/view/categorys"><li class="active_5_1">
 			<div class="nav_img">
 				
 			</div>
 			
-		</li>
-		<li class="active_5_1">
-			<div class="nav_img">
-				
-			</div>
-			
-		</li>
-		<li class="active_6_1">
+		</li></a>
+		<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class="active_6_1">
 			<div class="nav_img">
 				
 			</div> 
 			
-		</li>
-		<li class="active_7_1">
+		</li></a>
+		<a href="<%=menuBasePath%>position/view/positioninfo"><li class="active_7_1">
 			<div class="nav_img">
-				
 			</div>
-			
-		</li>
-		<li class="active_8_1">
+		</li></a>
+		<a href="<%=menuBasePath%>system/view/person"><li class="active_8_1">
 			<div class="nav_img">
 				
 			</div> 
-		</li>
+		</li></a>
 	</ul>
 	
 	<ul class="left_title">
-	   <li style="top:20px"><span></span>业务中心</li>
-	   <li style="top:90px"><span></span>会员管理</li>
-	   <li style="top:160px"><span></span>营销中心</li>
-	   <li style="top:230px"><span></span>统计分析</li>
-	   <li style="top:300px"><span></span>服务设置</li>
-	   <li style="top:370px"><span></span>商品管理</li>
-	   <li style="top:440px"><span></span>员工管理</li>
-       <li style="top:510px"><span></span>企业管理</li>
-       <li style="top:580px"><span></span>系统设置</li>
+	   <li style="top:20px"><span></span>业务中心</li></a>
+	   <li style="top:90px"><span></span>会员管理</li></a>
+	   <li style="top:160px"><span></span>营销中心</li></a>
+	   <li style="top:230px"><span></span>统计分析</li></a>
+	   <li style="top:300px"><span></span>服务设置</li></a>
+	   <li style="top:370px"><span></span>商品管理</li></a>
+	   <li style="top:440px"><span></span>员工管理</li></a>
+       <li style="top:510px"><span></span>企业管理</li></a>
+       <li style="top:580px"><span></span>系统设置</li></a>
 	</ul>
 
 	<div class="left_nav_2" style="height: 840px;">
@@ -109,15 +105,15 @@
 			<a href="<%=menuBasePath%>businessAnalysis/view/payroll"><li><span>工资单</span></li></a>
 		</ul>
 		<ul index="4">
-			<a href="<%=menuBasePath%>project/view/categorys"><li class=""><span><img src="<%=basePath%>images/left0.png">新增系列</span></li></a>
-			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span><img src="<%=basePath%>images/left0.png">项目列表</span></li></a>
-			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span><img src="<%=basePath%>images/left2.png">商品列表</span></li></a>
-			<a href="<%=menuBasePath%>goods/info/setting"><li class=""><span><img src="<%=basePath%>images/left2.png">商品上架</span></li></a>
-			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span><img src="<%=basePath%>images/left1.png">套餐列表</span></li></a>
+			<a href="<%=menuBasePath%>project/view/categorys"><li class=""><span>新增系列</span></li></a>
+			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span>项目列表</span></li></a>
+			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span>套餐列表</span></li></a>
 		</ul>
 		<ul index="5">
-			<a href="<%=menuBasePath%>goodsInfo/view/setting"><li class="active"><span>库存管理</span></li></a>
-			<a href="<%=menuBasePath%>stock/view"><li class="active"><span>商品调遣</span></li></a>
+			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span>商品列表</span></li></a>
+			<a href="<%=menuBasePath%>goods/info/setting"><li class=""><span>商品上架</span></li></a>
+			<a href="<%=menuBasePath%>goodsInfo/view/setting"><li><span>商品库管理</span></li></a>
+			<a href="<%=menuBasePath%>stock/view"><li><span>商品调遣单</span></li></a>
 			<a href="<%=menuBasePath%>view/storeAccount/suplier"><li><span>供应商管理</span></li></a>
 		</ul>
 		<ul index="6">
@@ -139,7 +135,6 @@
 			<a href="<%=menuBasePath%>system/view/storeUsage"><li class="active"><span>系统信息</span></li></a>
 			<a href="<%=menuBasePath%>app/pay/qr"><li class="active"><span>门店充值</span></li></a>
 		</ul>
-		
 	</div>
 
 </div>

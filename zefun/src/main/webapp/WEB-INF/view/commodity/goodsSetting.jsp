@@ -96,7 +96,7 @@ input[type=radio] {
 					<div class="add_store_div clearfix">
 						<ul class="clearfix add_store_back">
 							<li class="active"><span>上架商品</span></li>
-							<li class=""><span style="position: relative; top: 4px">价格<i style="transform: rotate(-45deg);">\</i>提成<i style="transform: rotate(-45deg);">\</i>价格会员
+							<li class=""><span style="position: relative; top: 4px">价格<i style="transform: rotate(-45deg);">\</i>提成<i style="transform: rotate(-45deg);">\</i>会员价格
 							</span></li>
 						</ul>
 

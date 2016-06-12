@@ -905,7 +905,7 @@ public class GoodsInfoService {
     * @return        List<GoodsInfoDto>  
      */
     public List<GoodsInfoDto> selectGoodsInfosByStoreId(Integer storeId) {
-        return goodsInfoMapper.selectAllGoodsInfoByStoreId(storeId);
+        return goodsInfoMapper.selectAllGoodsInfoByStoreIdAndNotPay(storeId);
     }
 
     /**

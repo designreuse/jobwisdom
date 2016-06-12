@@ -60,6 +60,11 @@
 			<%@include file="/menu.jsp"%>
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
+				<div class="write_input">
+					<a href="<%=basePath%>goods/info/setting"><div class="write_5" style="background: white; float: left; top: 0px !important; left: 20px !important; width: 100px !important">
+						<span class="add_step" style="position: relative; left: -10px">+</span>上架
+					</div></a>
+				</div>
 				<!--headerpanel-->
 				<%-- <div class="write_input">
 					<!-- <div class="div1">编辑</div> -->
