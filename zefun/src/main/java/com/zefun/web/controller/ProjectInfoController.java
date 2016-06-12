@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
 import com.zefun.web.dto.DeptMahjongDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
+import com.zefun.web.dto.EmployeeLevelBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.ComboProject;
@@ -95,6 +97,13 @@ public class ProjectInfoController extends BaseController {
         model.addObject("deptMahjongList", deptMahjongList);
         model.addObject("mahjongList", JSONArray.fromObject(deptMahjongList).toString());
 
+        List<EmployeeLevelBaseDto> employeeLevelList = deptMahjongList.stream()
+            .flatMap(dml -> dml.getMahjongLevelList()
+            .stream().flatMap(mll -> mll.getEmployeeLevelList()
+            .stream())).collect(Collectors.toList());
+        
+        model.addObject("employeeLevelList", JSONArray.fromObject(employeeLevelList));
+        
         // 会员等级列表
         List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
@@ -104,12 +113,13 @@ public class ProjectInfoController extends BaseController {
         
         if (projectId!=null){
             BaseDto baseDto = queryProjectInfoById(request, response, projectId);
-            
             Map<String, Object> map = (Map<String, Object>) baseDto.getMsg();
             ProjectInfo projectInfo = (ProjectInfo) map.get("projectInfo");
             List<ProjectCommission> projectCommissionList = (List<ProjectCommission>) map.get("projectCommissionList");
             List<ProjectDiscount> projectDiscountList = (List<ProjectDiscount>) map.get("projectDiscountList");
             List<ProjectStep> projectStepList = (List<ProjectStep>) map.get("projectStepList");
+            model.addObject("projectDesc", projectInfo.getProjectDesc());
+            projectInfo.setProjectDesc(null);
             model.addObject("projectInfo", JSONObject.fromObject(projectInfo));
             model.addObject("projectCommissionList", JSONArray.fromObject(projectCommissionList));
             model.addObject("projectDiscountList", JSONArray.fromObject(projectDiscountList));
@@ -181,6 +191,30 @@ public class ProjectInfoController extends BaseController {
             return projectService.saveLevelDiscount(data);
         }
         return null;
+    }
+    
+    /**
+     * 保存或者修改操作
+    * @author 高国藩
+    * @date 2016年6月8日 下午2:44:16
+    * @param request  request
+    * @param response response
+    * @param jsonObject {"projectInfo":data, "projectLevel":projectLevel, "projectShit":{"projectId":projectId,"step":data1,"commission":data2}}
+    * @return 新增状态(返回项目信息)
+     */
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = Url.Project.PROJECT_SAVE_NEW, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto saveProjectOrUpdate(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObject) {
+        Integer storeId = getStoreId(request);
+        ProjectInfo projectInfo = (ProjectInfo) JSONObject.toBean(jsonObject.getJSONObject("projectInfo"), ProjectInfo.class);
+        List<ProjectDiscount> discounts = (List<ProjectDiscount>) JSONArray
+                .toCollection(jsonObject.getJSONArray("projectLevel"), ProjectDiscount.class);
+        List<ProjectStep> projectSteps = (List<ProjectStep>) JSONArray
+                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("step"), ProjectStep.class);
+        List<ProjectCommission> projectCommission = (List<ProjectCommission>) JSONArray
+                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("commission"), ProjectCommission.class);
+        return projectService.saveProjectOrUpdate(storeId, projectInfo, discounts, projectSteps, projectCommission);
     }
 
     /**

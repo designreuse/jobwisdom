@@ -56,6 +56,7 @@ import com.zefun.web.dto.ProjectEvaluateDto;
 import com.zefun.web.dto.SelfCashierDetailDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.entity.CouponInfo;
+import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
 import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.GoodsInfo;
@@ -80,6 +81,7 @@ import com.zefun.web.entity.StoreWechat;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatMember;
 import com.zefun.web.mapper.CouponInfoMapper;
+import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeEvaluateMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
@@ -277,6 +279,9 @@ public class MemberCenterService {
     /** 在线商城 */
     @Autowired
     private StoreShopMapper storeShopMapper;
+    /** 部门信息*/
+    @Autowired
+    private DeptInfoMapper deptInfoMapper;
     
 	/**
 	 * wifi主页
@@ -699,10 +704,10 @@ public class MemberCenterService {
     public BaseDto registerAction(int storeId, String storeAccount, String phone, String verifyCode, String openId,
             String accessToken, HttpServletRequest request, boolean checkExists){
         //校验验证码是否正确
-        String code = redisService.get(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone);
-        if (!verifyCode.equals(code)) {
-            return new BaseDto(10001, "验证码错误");
-        }
+//        String code = redisService.get(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone);
+//        if (!verifyCode.equals(code)) {
+//            return new BaseDto(10001, "验证码错误");
+//        }
         
         Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeAccount);
         if (checkExists && memberId != null) {
@@ -921,38 +926,59 @@ public class MemberCenterService {
      * 访问预约页面
     * @author 张进军
     * @date Sep 2, 2015 11:00:28 AM
+    * @param memberId       门店会员
     * @param storeAccount   门店代号
     * @param selectStoreId  所选门店
+    * @param selectDeptId   所选部门
     * @return               预约页面
      */
-    public ModelAndView orderAppointmentView(String storeAccount, Integer selectStoreId){
+    public ModelAndView orderAppointmentView(Integer memberId, String storeAccount, Integer selectStoreId, Integer selectDeptId){
         
         ModelAndView mav = new ModelAndView(View.MemberCenter.ORDER_APPOINTMENT);
+        /** 企业下所有门店信息,部门信息*/
         List<StoreInfo> storeList = storeInfoMapper.selectByStoreAccount(storeAccount);
-        
-        if (storeList != null && storeList.size() > 1) {
+        List<List<DeptInfo>> storeDepts = new ArrayList<>();
+        for (int i = 0; i < storeList.size(); i++) {
+            List<DeptInfo> deptInfos = deptInfoMapper.selectDeptByStoreId(storeList.get(i).getStoreId());
+            storeDepts.add(deptInfos);
+        }
+        if (storeList != null) {
             mav.addObject("storeList", storeList);
+            mav.addObject("storeDepts", storeDepts);
             mav.addObject("storeSize", storeList.size());
         }
         
-//        StoreInfo mainStore = storeInfoMapper.selectBaseInfoByStoreId(storeId);
-//        mav.addObject("mainStore", mainStore);
-        
-        StoreInfo mainStore = storeList.get(0);
-        mav.addObject("mainStore", mainStore);
-        
-        StoreInfo selectStore = mainStore;
-        if (selectStoreId == null) {
-            selectStoreId = storeList.get(0).getStoreId();
-            selectStore = storeList.get(0);
+        /** 查看是否选择了其中的门店*/
+        if (selectStoreId!=null&&selectDeptId!=null){
+//            StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(selectStoreId);
+//            List<DeptInfo> deptInfo = deptInfoMapper.selectDeptByStoreId(selectDeptId);
+//            mav.addObject("storeInfo", storeInfo);
+//            mav.addObject("deptInfo", deptInfo);
+//            mav.addObject("selectDeptId", selectDeptId);
         }
         else {
-            selectStore = storeInfoMapper.selectBaseInfoByStoreId(selectStoreId);
+            /**将会员所属的门店展示*/
+            if (memberId!=null){
+                MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
+                selectStoreId = memberInfo.getStoreId();
+            }
+            else {
+                selectStoreId = storeList.get(0).getStoreId();
+            }
+            List<DeptInfo> deptInfo = deptInfoMapper.selectDeptByStoreId(selectStoreId);
+            selectDeptId = deptInfo.get(0).getDeptId();
         }
-        mav.addObject("selectStore", selectStore);
+        
+        StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(selectStoreId);
+        List<DeptInfo> deptInfos = deptInfoMapper.selectDeptByStoreId(selectStoreId);
+        mav.addObject("storeInfo", storeInfo);
+        mav.addObject("deptInfos", deptInfos);
+        mav.addObject("selectDeptId", selectDeptId);
+        
         
         List<DeptProjectBaseDto> serviceList = projectService.getDeptProjectByStoreId(selectStoreId);
         mav.addObject("serviceList", serviceList);
+        mav.addObject("js_serviceList", JSONArray.fromObject(serviceList));
         mav.addObject("typeNumber", serviceList == null ? 0 : serviceList.size());
         
         return mav;
@@ -1188,7 +1214,7 @@ public class MemberCenterService {
         memberAppointment.setAppointmentTime(appointTime);
         ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
         memberAppointment.setAppointmentPrice(projectService.getProjectPriceByMember(memberInfo.getLevelId(), 
-                projectId, projectInfo.getProjectPrice()));//这个地方要从页面传个门店标识过来
+                projectId, projectInfo.getProjectPrice(), memberInfo.getStoreId()));
         String curTime = DateUtil.getCurTime();
         memberAppointment.setCreateTime(curTime);
         memberAppointment.setUpdateTime(curTime);

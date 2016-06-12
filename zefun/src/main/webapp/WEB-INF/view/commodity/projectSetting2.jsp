@@ -1,141 +1,208 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <%@ include file="/head.jsp"%>
 <%
     String qiniu = "http://7xss26.com1.z0.glb.clouddn.com/";
 %>
-<link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
+<link rel="stylesheet" href="<%=basePath%>css/demo3.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/roll.css" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <style type="text/css">
 	.border {border:1px solid red!important}
 </style>
+<script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+<script type="text/javascript">
+    
+    function editPage (imgUrl) {
+    	xiuxiu.setLaunchVars("cropPresets", "200*200");
+    	xiuxiu.embedSWF("altContent2", 5, 700, 500);
+    	xiuxiu.onInit = function (id)
+    	{
+            xiuxiu.setUploadType(3);
+            if (imgUrl != null) {
+            	xiuxiu.loadPhoto(qiniuUrl + imgUrl, false);
+            }
+    	}
+    	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
+    	{
+            zccCallback(data);
+            xiuxiu.onClose();
+    	}
+    	
+    	xiuxiu.onDebug = function (data)
+    	{
+            dialog("网咯繁忙，请重试！");
+    	}
+    	xiuxiu.onClose = function (id)
+    	{
+            jQuery(".mask").hide();
+    	}
+    }
+</script>  
+ <script>
+     //切换
+      jQuery(function(){
+	     jQuery('.add_store_include .add_store_content:gt(0)').hide();
+	     jQuery('.add_store_back li ').click(function(){
+		   jQuery(this).addClass('active').siblings().removeClass('active');
+		   jQuery('.add_store_include .add_store_content').eq(jQuery(this).index()).show().siblings().hide()
+		 
+        });
+	  });	
+
+	  
+	   //轮播
+ 
+ 	jQuery(function(){
+	     var now_=0, count=jQuery('.roll_ul li').size();
+		 
+	  //向右走
+      jQuery('.right_click').click(function(){
+         if(now_<=count-5){
+		    now_+=1;
+	        jQuery(this).parent('').find('.roll_ul ul').stop(true,true).animate({
+		       left:-187*now_
+		       }) 
+			  }
+		  });
+	  //向左走
+	  
+	  	//向左走
+	 jQuery('.left_click').click(function(){
+         if(now_>=1){
+		    now_-=1;
+	         jQuery(this).parent('').find('.roll_ul ul').stop(true,true).animate({
+		     left:-187*now_
+		     }) 
+		  }	
+	  });
+ });
+	
+   //接受预约是否
+   
+    jQuery(function(){
+     jQuery('.shop_price_2 input[type="radio"]').click(function(){
+	   if(jQuery(this).hasClass('deny_')){
+	     jQuery(this).parents('.shop_price_2').find('input[type="text"]').css('background','#eff0f2').attr('disabled','true');
+	   }
+	   else{
+	     jQuery(this).parents('.shop_price_2').find('input[type="text"]').css('background','white').removeAttr('disabled');
+	   }
+      });
+   })
+   
+   jQuery(function(){
+     jQuery('.add_step_content_left input[type="radio"]').click(function(){
+	   if(jQuery(this).hasClass('deny')){
+	     jQuery(this).parents('span').find('input[type="text"]').css('background','#eff0f2').attr('disabled','true');
+	   }
+	   else{
+	     jQuery(this).parents('span').find('input[type="text"]').css('background','white').removeAttr('disabled');
+	   }
+      });
+   })
+   </script>
 <body>
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
 		<%@include file="/menu.jsp"%>
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
-			<div class='content_right'>
-				<div class="right_head clearfix">
-					<ul class="right_ul">
-						<li step="1" class="active">
-							<div>
-								<img src="<%=basePath%>/images/tab_1.png">
-							</div> <span>新增项目</span>
-						</li>
-						<li step="2">
-							<div>
-								<img src="<%=basePath%>/images/tab_2.png">
-							</div> <span>设置价格</span>
-						</li>
-						<li step="3">
-							<div>
-								<img src="<%=basePath%>/images/tab_4.png">
-							</div> <span>添加职位</span>
-						</li>
-						<li step="4">
-							<div>
-								<img src="<%=basePath%>/images/tab_3.png">
-							</div> <span>会员折扣</span>
-						</li>
-					</ul>
-					<div class="right_button">
-						<button class="save" onclick="save()">保 存</button>
-						<button class="cancle" onclick='window.open("<%=basePath %>project/view/projects","_self")'>取 消</button>
-					</div>
-				</div>
-				<div class="tab_content">
-					<!--新增项目-->
-					<div class="tab_content_div clearfix">
-						<div class="tab_content_div_left">
-							<div>
-								项目所属部门： 
-								<select name="deptId" style="box-shadow: 0 0 3px #ccc;" onchange="choseCategory(this.value)">
+			<div class="content_right clearfix">
+			    <div class="add_store_div clearfix">
+			      <ul class="clearfix add_store_back">
+				     <li class="active"><span>新增项目</span></li>
+			         <li class=""><span style="position:relative;top:20px">价格<i style="transform:rotate(-45deg);">\</i>会员价格</span></li>
+					 <li class=""><span>添加步骤</span></li>
+				  </ul>
+			
+			    <div class="add_store_include">
+			       <div class="add_store_content clearfix" style="display: block;">
+				       <div class="add_store_sale">
+					     <p>
+						   <span><em>所属部门</em><select name="deptId" onchange="choseCategory(this.value)">
 									<c:forEach var="deptProject" items="${deptProjectList }">
 										<option value="${deptProject.deptId }">${deptProject.deptName }</option>
 									</c:forEach>
-								</select>
-
-							</div>
-							<div>
-								设置项目类别： <select name="categoryId" style="box-shadow: 0 0 3px #ccc;">
+								</select></span><span>商品系列：<i></i><select name="categoryId" style="position:relative;left:8px">
 									<c:forEach var="projectCategoryList" items="${deptProjectList[0].projectCategoryList }">
 										<option value="${projectCategoryList.categoryId }">${projectCategoryList.categoryName }</option>
 									</c:forEach>
-								</select>
+								</select></span>
+						 </p>
+					     <p>
+						   <span><em>商品名称</em><input type="text" name="projectName" style="width: 145px;"></span><span>商品编号<input type="text" name="projectCodeSuffix" style="width: 145px;"></span>
+						 </p>
+					   </div>
+					   
+					   <div class="add_pic_">
+					      <p>添加图片</p>
+					      <ul class="clearfix">
+						     <li><em><img onclick="uploadImage(this)" projectImage="system/profile/add_img.png" name="projectImage" src="<%=qiniu%>system/profile/add_img.png"></em><span><img src="<%=basePath%>images/pay_close.png"></span></li>
+							 <li><em><img onclick="uploadImage(this)" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span><img src="<%=basePath%>images/pay_close.png"></span></li>
+							 <li><em><img onclick="uploadImage(this)" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span><img src="<%=basePath%>images/pay_close.png"></span></li>
+							 <li><em><img onclick="uploadImage(this)" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span><img src="<%=basePath%>images/pay_close.png"></span></li>
+							 <li><em><img onclick="uploadImage(this)" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span><img src="<%=basePath%>images/pay_close.png"></span></li>
+							 <li><em><img onclick="uploadImage(this)" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span><img src="<%=basePath%>images/pay_close.png"></span></li>
+						  </ul>
+					   </div>   
+					   
+					   <div class="item_saying">
+					     <p>项目描述</p>
+					      <div class="textarea1">
+						      <div><button id="editImage" style="width:130px;height:26px;line-height:26px;text-align:center;border:none;background:#617195;color:white;border-radius:10px;margin-top:10px;margin-left:10px">插入图片</button></div>
+				              <P></P>
+				              <div class="clearfix">
+									<script id="editor1" type="text/plain" style="width:550px;height:322px;float: left"></script>
+									<div style="float: left; width: 320px; height: 420px; margin-top: 25px" class="textarea_text">
+										<p>在此编辑的内容，将会在移动端－在线预约－项目详情中展示。</p>
+										<p></p>
+										<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
+										<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
+										<p>如若无法预览或全屏编辑或出现其他编辑问题。请更换谷歌浏览器，体验更佳。</p>
+									</div>
+								</div>	
+				            </div>
+					   </div>
+					 <div class="item_button">  
+					   <button>保存</button>
+					   <button>取消</button>
+					  </div>
+				    </div>
+				    <div class="add_store_content clearfix" style="display: none;">
+				      <div class="shop_price">
+					    <p class="shop_price_1">门店价格<span><input name="projectPrice" type="number"><em>元</em></span><i style="display:inline-block;width:105px;margin-left:72px">成本价格</i><span><input name="projectPrice" type="costPrice"><em>元</em></span></p>  
+					    <p class="shop_price_2">接受礼金<i><input type="radio" name="isGiftCash" checked="checked" value="1">是</i><i><input type="radio" name="isGiftCash"  value="1">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="number"><em>元</em></span></p>
+						<p class="shop_price_2">接受预约<i><input type="radio" name="isAppointment" checked="checked" value="1">是</i><i><input type="radio" name="isAppointment"  value="0">否</i><i>预约优惠价格</i><span><input name="appointmentPrice" type="number" class="input_3"><em>元</em></span></p>
+					  </div>	 
+			          <div class="vip_price">
+					    <p>会员价格</p>
+						<div class="vip_price_content">
+						  <p>为不同会员设置折扣，会员低于<input type="text">％设置固定价格<span style="display:inline-block;width:16px;height:16px;background:#ef4f4f;color:white;border-radius:16px;line-height:16px;text-align:center;margin-left:5px;font-size:16px">?</span><button onclick="addLevel()" style="width:126px;height:26px;text-align:center;line-height:26px;border-radius:10px;color:white;border:none;background:#657392;position:relative;left:330px">新建</button></p>
+						  <div class="vip_roll">
+						    <span class="left_click"><img src="<%=basePath%>images/left_click.png"></span>
+			               <div class="roll_ul">			    
+							 <ul class="clearfix" id="projectLevel">
+								<!-- 会员等级 -->
+			                 </ul>
 							</div>
-							<div>
-								设置项目规格： <select name="projectType" style="box-shadow: 0 0 3px #ccc;">
-									<option value="1">大项</option>
-									<option value="2">小项</option>
-								</select>
-							</div>
-							<div>
-								项目名称：<input name="projectName" type="text" style="box-shadow: 0 0 3px #ccc;">
-
-							</div>
-							<div>
-								项目编号：<input placeholder="五位编码,例如 : 11223" name="projectCodeSuffix" type="text" maxlength="5" style="box-shadow: 0 0 3px #ccc;">
-
-							</div>
-							<div style="position: relative; top: -30px">
-								项目描述：<textarea name="projectDesc" type="textarea" class="textarea" style="position: relative; top: 40px !important; left: 60px !important; box-shadow: 0 0 3px #ccc;border-radius:8px!important;width:206px!important"></textarea>
-							</div>
+							<span class="right_click"><img src="<%=basePath%>images/right_click.png"></span>
+						  </div>
 						</div>
-
-						<div class="tab_content_div_right" style="margin-left:160px">
-								添加图片：
-				              <ul class="add_pic clearfix">
-							    <li><img projectImage="system/profile/set_img.png" name="projectImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							    <li><img affiliatedImage="system/profile/set_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/set_img.png" style="width: 89px;height: 89px"></li>
-							  </ul>
-						</div>
-
-					</div>
-
-					<!--价格-->
-					<div class="tab_content_div clearfix">
-
-						<div class="tab_content_div_left">
-							<div>
-								<span class="shopp"> 门店价格：</span><input name="projectPrice" type="number" style="box-shadow: 0 0 3px #ccc;">
-
-							</div>
-							<div>
-								<span class="shopp"> 成本金额：</span><input name="costPrice" type="number" style="box-shadow: 0 0 3px #ccc;">
-
-							</div>
-							<div>
-								<span class="shopp"> 预约优惠金额：</span><input name="appointmentPrice" type="number" style="position: relative; left: 34px; box-shadow: 0 0 3px #ccc;">
-
-							</div>
-							<div>
-								<span class="shopp"> 最大抵扣礼金：</span><input name="highestDiscount" type="number" style="position: relative; left: 34px; box-shadow: 0 0 3px #ccc;">
-							</div>
-						</div>
-
-
-						<div class="tab_content_div_right">
-							<div class="choose">
-								<span class="width_"> 是否抵扣礼金：</span> <input type="radio" name="isGiftCash" class="yes" value="1" style="margin-left: 20px">是 <input type="radio" value="0" name="isGiftCash" class="yes"
-									style="margin-left: 20px">否
-							</div>
-							<div class="choose">
-								<span class="width_">接受预约：</span> <input type="radio" name="isAppointment" class="yes" value="1" style="margin-left: 20px">是 <input type="radio" name="isAppointment" value="0"
-									class="yes" style="margin-left: 20px">否
-							</div>
-						</div>
-					</div>
-
-
-					<!--职位-->
-					<div class="tab_content_div clearfix">
-						<div class="table_step">
+					  </div>	
+			
+				     <div class="demo2_button">
+				     <button onclick="save3()">保存</button>
+					  <button>取消</button>
+				   </div>		  
+				  </div>
+				  
+				  <div class="add_store_content clearfix" style="display: none;">
+			        <div class="table_step">
 							<table class="table_s">
 								<tr>
 									<td style="border-right: 1px solid #dbdce2 !important; " class="color_">步骤顺序</td>
@@ -155,7 +222,7 @@
 						</div>
 
 						<div class="step_1" style="margin-left: 20px;">
-							<table style="border: 1px solid #dbdce2; box-shadow: 0 0 10px #ccc;width: 1028px">
+							<table style="border: 1px solid #dbdce2; box-shadow: 0 0 10px #ccc;width: 900px">
 								<tr>
 									<td style="border-right: 1px solid #dbdce2 !important; border-bottom: 1px solid #dbdce2 !important;">步骤顺序</td>
 									<td >轮牌名称</td>
@@ -186,7 +253,6 @@
 										</div>
 
 									</td>
-
 								</tr>
 							</table>
 
@@ -233,88 +299,61 @@
 						<div class="write_4">
 							<span class="add_step" style="position: relative; left: -10px">+</span>添加轮牌
 						</div>
-					</div>
-
-					<!--会员种类-->
-					<div class="tab_content_div clearfix">
-						<table class="table_" style="position: relative; left: 160px">
-							<tr>
-								<td>会员卡种类</td>
-								<td>会员门店价</td>
-								<td>门店价格</td>
-								<td>会员成本金额</td>
-							<tr>
-						</table>
-						<div class="tab_content_div_left cash">
-							<div>
-								<span class="price_">会员种类：</span> 
-								<select name="discountLevel" class="select_" style="box-shadow: 0 0 2px #ccc; left: 26px">
+			   </div>
+			  </div>	 
+			</div>
+		</div>
+	</div>
+</div>
+<div class="mask" style="display: none;">
+   <div id="flashEditorOut" >
+	        <div id="altContent2">
+	            <h1>美图秀秀</h1>
+	        </div>
+		</div>
+</div>
+</body>
+<script type="text/html" id="li">
+                               <li>
+							      <p>会员等级
+								<select name="discountLevel">
 								<c:forEach items="${memberLevels }" var="memberLevel">
 									<option value="${memberLevel.levelId }">${memberLevel.levelName }</option>
 								</c:forEach>
-								</select>
-							</div>
-							<div>
-								<span class="price_"> 会员门店价格：</span><input name="discountAmount" type="number" class="vip" style="box-shadow: 0 0 2px #ccc; left: 28px">
-							</div>
-							<div>
-								<span class="price_">会员成本金额：</span><input name="memberCostPrice" type="number" class="vipcoin" style="box-shadow: 0 0 2px #ccc; left: 28px">
-
-							</div>
-
-
-							<button class="save_">添加</button>
-						</div>
-						<div class="write_3" style="position: relative; left: 60px;width: 120px;">
-							<img src="<%=basePath %>images/webchat_add.png"><em style="position:relative;left:4px">编辑</em>
-						</div>
-						<div class="tab_content_div_right"></div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-			
-		</div>
-	</div>
-	
-	<div class="zzc">
-	      <div class="photo_cut">
-		   <div id="clipArea"></div>
-           <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
-		   <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
-		   <div class="button_panel"> 
-		    <button class="selectpic">选择图片</button>
-		    <button class="sureinput">确定上传</button>
-			<button class="cancelinput">取消</button>
-		  </div>
-         </div>
-   </div>
-
-</body>
-
+								</select></p>
+							      <p>会员价格<input type="text" name="discountAmount"></p>
+			                      <div class="li_button">
+								    <button>编辑</button><button onclick="jQuery(this).parents('li').remove();">删除</button>
+								  </div>
+							   </li>
+</script>
 <script>
-	var cssWidth = 200;
-	var cssHeight = 200;
 	var qiniu = '<%=qiniu %>';
 	var imgObject;
-	jQuery(function(){
-	     jQuery('.add_pic li').click(function(){
-	    	imgObject = jQuery(this);
-		    jQuery('.zzc').show()
-		 })
-		 jQuery('.cancelinput').click(function(){
-		    jQuery('.zzc').hide();
-		    jQuery('.photo-clip-rotateLayer').html('');
-		 })
+	var type = 1;
+	jQuery(function() {
+		jQuery('.add_pic_ img').click(function() {
+			jQuery(".mask").show();
+			editPage(null);
+			imgObject = jQuery(this);
+			type=1;
+		})
+		jQuery('.cancelinput').click(function() {
+			jQuery('.zzc.one').hide();
+			jQuery('.photo-clip-rotateLayer').html('');
+		})
+		jQuery('#editImage').click(function() {
+			type=2;
+			jQuery(".mask").show();
+			editPage(null);
+		})
 	})
 	function zccCallback(dataBase64){
-		imgObject.children("img").attr("src", dataBase64);
 		var key = "jobwisdom/project/" + new Date().getTime();
-		if ((typeof(imgObject.children("img").attr("projectImage")))!="undefined"){
-			imgObject.children("img").attr("projectImage", key);
+		if ((typeof(imgObject.attr("projectImage")))!="undefined"){
+			imgObject.attr("projectImage", key);
 		}else {
-			imgObject.children("img").attr("affiliatedImage", key);
+			imgObject.attr("affiliatedImage", key);
 		}
 	    var data = {"stringBase64":dataBase64,"key":key};
 	    jQuery('.cancelinput').click();
@@ -337,21 +376,41 @@
 		       success: function(data) {
 			       	var imageUrl = data.msg.imageUrl;
 			       	var key = data.msg.key;
-			       	console.log(imageUrl);
+			       	if(type==1){
+						if ((typeof (imgObject.attr("projectimage"))) != "undefined") {
+							imgObject.attr("projectimage", key);
+							imgObject.attr("src", qiniu+key);
+						} else {
+							imgObject.attr("affiliatedImage", key);
+							imgObject.attr("src", qiniu+key);
+						}
+					}else{
+						u1.execCommand('insertHtml', '<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'+qiniu+key+'">');
+					}
 		       }
      	});
 	}
+	
+	var toolbars = {
+			toolbars: [
+			   		['fullscreen', 'source', '|', 'undo', 'redo', '|',
+			           'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript','|', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+			           'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+			           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+			           'directionalityltr', 'directionalityrtl', 'indent', '|',
+			           'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase','preview']
+			   	],maximumWords:3000,elementPathEnabled:false,imageScaleEnabled:false,wordCount:false,autoHeightEnabled:false};
+	var u1 = UE.getEditor('editor1', toolbars);
+	
 </script>
-<script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>
+
 <script>
 	
 	var deptProjectList = ${js_deptProjectList};
 	var deptMahjongList = ${mahjongList};
 	var memberLevelList = ${memberLevelList};
+	var employeeLevelList = ${employeeLevelList};
 	
-	var status = 0;
-	var stepNum = 1;
-
 	var storeId = '${session_key_store_id}';
 	var projectId = '${projectId}';
 	var deptId = deptProjectList[0].deptId;
@@ -450,42 +509,154 @@
 		checkUpdateLevel(deptId);
 	}
 	
-	var projectStep = 0;
-	if (projectId != '') {
-		project = eval('('+'${projectInfo}'+')');
-		projectCommissionList = eval('('+'${projectCommissionList}'+')');
-		projectDiscountList = eval('('+'${projectDiscountList}'+')');
-		projectStepList = eval('('+'${projectStepList}'+')');
-		projectStep = project.projectStep;
-		deptId = project.deptId;
-		status = 1;
-		
-		/**锁定项目基本信息*/
-		var deptName = jQuery("select[name='deptId']").find("option[value='"+deptId+"']").text();
-		jQuery("select[name='deptId']").empty();
-		jQuery("select[name='deptId']").append(jQuery('<option value="'+deptId+'">'+deptName+'</option>'));
-		jQuery("select[name='deptId']").val(deptId);
-		
-		var categoryId = project.categoryId;
-		choseCategory(deptId);
-		jQuery("select[name='categoryId']").val(categoryId);
-		
-		var projectImage = project.projectImage;
-		jQuery("img[name='projectImage']").attr("projectImage", projectImage);
-		jQuery("img[name='projectImage']").attr("src",  qiniu+projectImage);
-		var affiliatedImage = project.affiliatedImage;
-		for (var i = 0; i < affiliatedImage.split(",").length; i++) {
-			jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage", affiliatedImage.split(",")[i]);
-			jQuery("img[name='affiliatedImage']").eq(i).attr("src", qiniu+affiliatedImage.split(",")[i]);
+	/**
+	 * 保存数据,根据步骤去保存数据
+	 */
+	function save3(){
+		var data = coverDate();
+		jQuery.ajax({
+			type : "post",
+			url : baseUrl + "project/view/save",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType : "application/json",
+			async : false,
+			success : function(data) {
+				projectId = data.msg.projectId;
+				dialog("该项目已更新");
+			}
+		});
+	}
+	
+	/**
+	 * 拼装后台数据
+	 */
+	function coverDate() {
+		var data = null;
+		var projectName = jQuery("input[name='projectName']").val();
+		var deptId = jQuery("select[name='deptId']").val();
+		var categoryId = jQuery("select[name='categoryId']").val();
+		var projectName = jQuery("input[name='projectName']").val();
+		var projectType = jQuery("select[name='projectType']").val();
+		var projectDesc = u1.getContent();
+		var projectCodeSuffix = jQuery("input[name='projectCodeSuffix']").val();
+		var projectImage = jQuery("img[name='projectImage']").attr("projectImage");
+		var affiliatedImage = "";
+		for (var i = 0; i < jQuery("img[name='affiliatedImage']").length; i++) {
+			if (i == (jQuery("img[name='affiliatedImage']").length-1)){
+				affiliatedImage = affiliatedImage + jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage");
+			}else {
+				affiliatedImage = affiliatedImage + jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage")+ ",";
+			}
 		}
+		var projectPrice = jQuery("input[name='projectPrice']").val();
+		var costPrice = jQuery("input[name='costPrice']").val();
+		var appointmentPrice = jQuery("input[name='appointmentPrice']").val();
+		var highestDiscount = jQuery("input[name='highestDiscount']").val();
+		var isGiftCash = jQuery('input:radio[name="isGiftCash"]:checked').val();
+		var isAppointment = jQuery('input:radio[name="isAppointment"]:checked').val();
+		data = {
+			"storeId" : storeId,
+			"projectId" : projectId,
+			"deptId" : deptId,
+			"categoryId" : categoryId,
+			"projectName" : projectName,
+			"projectType" : projectType,
+			"projectDesc" : projectDesc,
+			"projectCodeSuffix" : projectCodeSuffix,
+			"projectImage" : projectImage,
+			"affiliatedImage" : affiliatedImage,
+			"projectId" : projectId,
+			"projectPrice" : projectPrice,
+			"costPrice" : costPrice,
+			"appointmentPrice" : appointmentPrice,
+			"highestDiscount" : highestDiscount,
+			"isGiftCash" : isGiftCash,
+			"isAppointment" : isAppointment
+		};
 		
-		jQuery("select[name='projectType']").val(project.projectType);
-		jQuery("input[name='projectName']").val(project.projectName);
-		jQuery("textarea[name='projectDesc']").val(project.projectDesc);
-		jQuery("input[name='projectCodeSuffix']").val(project.projectCodeSuffix);
+		var projectLevel = [];
+		jQuery("#projectLevel").find("li").each(function(){
+			var projectId = projectId;
+			var discountLevel = jQuery(this).find("select[name='discountLevel']").val();
+			var discountAmount = jQuery(this).find("input[name='discountAmount']").val();
+			projectLevel.push({"projectId":projectId,"levelId":discountLevel,"discountAmount":discountAmount});
+		});
 		
-		/**锁定项目价格*/
-		if(projectStep>=2){
+		var data1 = [];
+		var data2 = [];
+		for (var i = 0; i < jQuery('.table_s').find("td[rowspan]").length; i++) {
+			var shiftMahjongId = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").attr("shiftmahjongid");
+			var projectStepOrder = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").attr("step");
+			var projectStepName = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[projectstepname]").attr("projectstepname");
+			var stepPerformance = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[stepperformance]").attr("stepperformance");
+			var stepPerformanceType = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[stepperformancetype]").attr("stepperformancetype");
+			var isDisable = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[isdisable]").attr("isdisable");
+			var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"projectStepOrder":projectStepOrder,"projectStepName":projectStepName,"stepPerformance":stepPerformance,"stepPerformanceType":stepPerformanceType,"isDisable":isDisable,"isDeleted":0};
+			data1.push(jsonObject);
+		}
+		for (var i = 1; i < jQuery('.table_s').find("tr").length; i++) {
+			var levelId = jQuery('.table_s').find("tr").eq(i).children("td[levelid]").attr("levelid");
+			var assignCashType = jQuery('.table_s').find("tr").eq(i).children("td[assigntype]").attr("assigntype");
+			var assignCash = jQuery('.table_s').find("tr").eq(i).children("td[assigncash]").attr("assigncash");
+			var assignCardType = jQuery('.table_s').find("tr").eq(i).children("td[assigntype]").attr("assigntype");
+			var assignCard = jQuery('.table_s').find("tr").eq(i).children("td[assigncard]").attr("assigncard");
+			var appointmentRewardType = jQuery('.table_s').find("tr").eq(i).children("td[assigntype]").attr("assigntype");
+			var appointmentReward = jQuery('.table_s').find("tr").eq(i).children("td[appointmentreward]").attr("appointmentreward");
+			var shiftMahjongId = jQuery('.table_s').find("tr").eq(i).attr("shiftmahjongid");
+			var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"levelId":levelId,"assignCashType":assignCashType,"assignCash":assignCash,"assignCardType":assignCardType,"assignCard":assignCard,"appointmentRewardType":appointmentRewardType,"appointmentReward":appointmentReward,"isDeleted":0};
+			data2.push(jsonObject);
+		}
+		var dataStep = {"projectId":projectId,"step":data1,"commission":data2};
+		
+		deptId = deptId;
+		return {"projectInfo":data, "projectLevel":projectLevel, "projectShit":dataStep};
+	}
+	
+
+	/**
+	*　为项目table添加步骤和职位信息
+	*/
+	jQuery('.button_1').click(function(){
+		var shiftMahjongId = jQuery("select[name='shiftMahjongId']").val();
+		var shiftMahjongName = jQuery("select[name='shiftMahjongId']").find("option:selected").text();
+	})
+	
+	
+	u1.ready(function(){
+		if (projectId != '') {
+			var projectDesc = '${projectDesc}';
+			project = eval('('+'${projectInfo}'+')');
+			projectCommissionList = eval('('+'${projectCommissionList}'+')');
+			projectDiscountList = eval('('+'${projectDiscountList}'+')');
+			projectStepList = eval('('+'${projectStepList}'+')');
+			projectStep = project.projectStep;
+			deptId = project.deptId;
+			
+			/**锁定项目基本信息*/
+			var deptName = jQuery("select[name='deptId']").find("option[value='"+deptId+"']").text();
+			jQuery("select[name='deptId']").empty();
+			jQuery("select[name='deptId']").append(jQuery('<option value="'+deptId+'">'+deptName+'</option>'));
+			jQuery("select[name='deptId']").val(deptId);
+			
+			var categoryId = project.categoryId;
+			choseCategory(deptId);
+			jQuery("select[name='categoryId']").val(categoryId);
+			
+			var projectImage = project.projectImage;
+			jQuery("img[name='projectImage']").attr("projectImage", projectImage);
+			jQuery("img[name='projectImage']").attr("src",  qiniu+projectImage);
+			var affiliatedImage = project.affiliatedImage;
+			for (var i = 0; i < affiliatedImage.split(",").length; i++) {
+				jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage", affiliatedImage.split(",")[i]);
+				jQuery("img[name='affiliatedImage']").eq(i).attr("src", qiniu+affiliatedImage.split(",")[i]);
+			}
+			/**锁定项目价格*/
+			jQuery("select[name='projectType']").val(project.projectType);
+			jQuery("input[name='projectName']").val(project.projectName);
+			u1.setContent(projectDesc);
+			//jQuery("textarea[name='projectDesc']").val(project.projectDesc);
+			jQuery("input[name='projectCodeSuffix']").val(project.projectCodeSuffix);
 			
 			jQuery("input[name='projectPrice']").val(project.projectPrice);
 			jQuery("input[name='costPrice']").val(project.costPrice);
@@ -494,83 +665,85 @@
 			
 			jQuery("input[name='isGiftCash'][value='"+project.isGiftCash+"']").click();
 			jQuery("input[name='isAppointment'][value='"+project.isAppointment+"']").click();
-		}
-		
-		/**锁定轮牌职位信息*/
-		if(projectStep>=3){
+			
+			/**锁定轮牌职位信息*/
 			for (var i = 0; i < projectStepList.length; i++) {
-				var shiftMahjongId = projectStepList[i].shiftMahjongId;
-				var shiftMahjongName = null;
-				for (var m = 0; m < deptMahjongList.length; m++) {
-					if (deptMahjongList[m].deptId == deptId){
-						for (var r = 0; r < deptMahjongList[m].mahjongLevelList.length; r++) {
-							if (deptMahjongList[m].mahjongLevelList[r].shiftMahjongId == shiftMahjongId){
-								shiftMahjongName = deptMahjongList[m].mahjongLevelList[r].shiftMahjongName;
+					var shiftMahjongId = projectStepList[i].shiftMahjongId;
+					var shiftMahjongName = null;
+					for (var m = 0; m < deptMahjongList.length; m++) {
+						if (deptMahjongList[m].deptId == deptId){
+							for (var r = 0; r < deptMahjongList[m].mahjongLevelList.length; r++) {
+								if (deptMahjongList[m].mahjongLevelList[r].shiftMahjongId == shiftMahjongId){
+									shiftMahjongName = deptMahjongList[m].mahjongLevelList[r].shiftMahjongName;
+								}
 							}
 						}
 					}
-				}
-				
-				var step = projectStepList[i].projectStepOrder;
-				var rowspan = 0;
-				var isSame = [];
-				
-				var disableList = ['比例','固定'];
-				var assignTypeList = ['','比例','固定'];
-				var projectStepName = projectStepList[i].projectStepName;
-				var stepPerformanceType = projectStepList[i].stepPerformanceType;
-				var stepPerformanceTypeName = assignTypeList[stepPerformanceType];
-				var stepPerformance = projectStepList[i].stepPerformance;
-				var isDisable = projectStepList[i].isDisable;
-				for (var j = 0; j < projectCommissionList.length; j++) {
-					if(shiftMahjongId == projectCommissionList[j].shiftMahjongId){
-						rowspan += 1;
-						isSame.push(j);
+					
+					var step = projectStepList[i].projectStepOrder;
+					var rowspan = 0;
+					var isSame = [];
+					
+					var disableList = ['否','是'];
+					var assignTypeList = ['','比例','固定'];
+					var projectStepName = projectStepList[i].projectStepName;
+					var stepPerformanceType = projectStepList[i].stepPerformanceType;
+					var stepPerformanceTypeName = assignTypeList[stepPerformanceType];
+					var stepPerformance = projectStepList[i].stepPerformance;
+					var isDisable = projectStepList[i].isDisable;
+					for (var j = 0; j < projectCommissionList.length; j++) {
+						if(shiftMahjongId == projectCommissionList[j].shiftMahjongId){
+							rowspan += 1;
+							isSame.push(j);
+						}
 					}
-				}
-				
-				for (var j = 0; j < isSame.length; j++) {
-					var levelId = projectCommissionList[isSame[j]].levelId;
-					var levelName = "sd";
-					var assignType = projectCommissionList[isSame[j]].assignCashType;
-					var assignCash = projectCommissionList[isSame[j]].assignCash;
-					var assignCard = projectCommissionList[isSame[j]].assignCard;
-					var appointmentReward = projectCommissionList[isSame[j]].appointmentReward;
-					if (j == 0){
-						var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'+
-								'<td rowspan="'+rowspan+'" style="border-right: 1px solid #dbdce2!important;">'+
-								'<span style="position:relative;top:50%">'+step+'</span>'+
-								'</td><td>'+shiftMahjongName+'</td>'+
-								'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
-								'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
-								'<td stepPerformance="'+stepPerformance+'">'+stepPerformance+'</td>'+
-								'<td isDisable="'+isDisable+'">'+disableList[isDisable]+'</td>'+
-								'<td levelId="'+levelId+'">'+levelName+'</td>'+
-								'<td assignType="'+assignType+'">'+assignTypeList[assignType]+'</td>'+
-								'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
-								'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
-								'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
-								'</tr>');
-						jQuery('.table_s').append(tr);
-					}else {
-						var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'+
-								'<td>'+shiftMahjongName+'</td>'+
-								'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
-								'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
-								'<td stepPerformance="'+stepPerformance+'">'+stepPerformance+'</td>'+
-								'<td isDisable="'+isDisable+'">'+disableList[isDisable]+'</td>'+
-								'<td levelId="'+levelId+'">'+levelName+'</td>'+
-								'<td assignType="'+assignType+'">'+assignTypeList[assignType]+'</td>'+
-								'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
-								'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
-								'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
-								'</tr>');
-						jQuery('.table_s').append(tr);
+					
+					for (var j = 0; j < isSame.length; j++) {
+						var levelId = projectCommissionList[isSame[j]].levelId;
+						var levelName = null;
+						for (var m = 0; m < employeeLevelList.length; m++) {
+							if (employeeLevelList[m].levelId == levelId){
+								levelName = employeeLevelList[m].levelName;
+							}
+						}
+						var assignType = projectCommissionList[isSame[j]].assignCashType;
+						var assignCash = projectCommissionList[isSame[j]].assignCash;
+						var assignCard = projectCommissionList[isSame[j]].assignCard;
+						var appointmentReward = projectCommissionList[isSame[j]].appointmentReward;
+						if (j == 0){
+							var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'+
+									'<td rowspan="'+rowspan+'" style="border-right: 1px solid #dbdce2!important;">'+
+									'<span style="position:relative;top:50%">'+step+'</span>'+
+									'</td><td>'+shiftMahjongName+'</td>'+
+									'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
+									'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
+									'<td stepPerformance="'+stepPerformance+'">'+stepPerformance+'</td>'+
+									'<td isDisable="'+isDisable+'">'+disableList[isDisable]+'</td>'+
+									'<td levelId="'+levelId+'">'+levelName+'</td>'+
+									'<td assignType="'+assignType+'">'+assignTypeList[assignType]+'</td>'+
+									'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
+									'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
+									'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
+									'</tr>');
+							jQuery('.table_s').append(tr);
+						}else {
+							var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'+
+									'<td>'+shiftMahjongName+'</td>'+
+									'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
+									'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
+									'<td stepPerformance="'+stepPerformance+'">'+stepPerformance+'</td>'+
+									'<td isDisable="'+isDisable+'">'+disableList[isDisable]+'</td>'+
+									'<td levelId="'+levelId+'">'+levelName+'</td>'+
+									'<td assignType="'+assignType+'">'+assignTypeList[assignType]+'</td>'+
+									'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
+									'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
+									'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
+									'</tr>');
+							jQuery('.table_s').append(tr);
+						}
 					}
-				}
 			}
-		}
-		if(projectStep>=4){
+			
 			for (var i = 0; i < projectDiscountList.length; i++) {
 				var levelId = projectDiscountList[i].levelId;
 				var projectPrice = project.projectPrice;
@@ -582,166 +755,14 @@
 						levelName = memberLevelList[j].levelName;
 					}
 				}
-				var html = '<tr>'+
-							'<td levelid="'+levelId+'">'+levelName+
-							'</td><td>'+projectPrice+
-							'</td><td discountamount="'+discountAmount+'">'+discountAmount+
-							'</td><td membercostprice="'+memberCostPrice+'">'+memberCostPrice+'</td></tr>';
-				jQuery(".table_").children("tbody").append(jQuery(html));
+				jQuery("#projectLevel").append(jQuery("#li").html());
+				jQuery("#projectLevel").children("li").eq(i).find("select[name='discountLevel']").val(levelId);
+				jQuery("#projectLevel").children("li").eq(i).find("input[name='discountAmount']").val(discountAmount);
 			}
 		}
-	}
-	else {
-		projectId = null;
-	}
-
-	/**
-	 * 保存数据,根据步骤去保存数据
-	 */
-	function save(){
-		var data = coverDate(stepNum);
-		console.log(data);
-		var isOk = true;
-		if (stepNum <= 2){
-			jQuery.each(data,function(name,value) {
-				if(!isNotNull(value) && name!="projectId"){
-					if(name=="projectDesc"){
-						jQuery("textarea[name='"+name+"']").addClass("border");
-					}else{
-						jQuery("input[name='"+name+"']").addClass("border");
-					}
-					isOk = false;
-					return false;
-				}
-			});
+		else {
+			projectId = null;
 		}
-		if(!isOk){
-			return ;
-		}
-		jQuery.ajax({
-			type : "post",
-			url : baseUrl + "project/save/by/step/" + stepNum + "/" + status,
-			data : JSON.stringify(data),
-			dataType : "json",
-			contentType : "application/json",
-			async : false,
-			success : function(data) {
-				projectId = data.msg.projectId;
-				stepNum = data.msg.projectStep;
-				projectStep = data.msg.projectStep;
-				if (projectStep == 4){
-					jQuery("li[step="+(projectStep)+"]").click();
-				}
-				else {
-					jQuery("li[step="+(projectStep+1)+"]").click();
-				}
-			}
-		});
-	}
-	//jQuery(".save").on("click", function() {})
-	/**
-	 * 拼装后台数据
-	 */
-	function coverDate(step) {
-		if (step == 1) {
-			var data = null;
-			var projectName = jQuery("input[name='projectName']").val();
-			var deptId = jQuery("select[name='deptId']").val();
-			var categoryId = jQuery("select[name='categoryId']").val();
-			var projectName = jQuery("input[name='projectName']").val();
-			var projectType = jQuery("select[name='projectType']").val();
-			var projectDesc = jQuery("textarea[name='projectDesc']").val();
-			var projectCodeSuffix = jQuery("input[name='projectCodeSuffix']").val();
-			var projectImage = jQuery("img[name='projectImage']").attr("projectImage");
-			var affiliatedImage = "";
-			for (var i = 0; i < jQuery("img[name='affiliatedImage']").length; i++) {
-				if (i == (jQuery("img[name='affiliatedImage']").length-1)){
-					affiliatedImage = affiliatedImage + jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage");
-				}else {
-					affiliatedImage = affiliatedImage + jQuery("img[name='affiliatedImage']").eq(i).attr("affiliatedImage")+ ",";
-				}
-			}
-			data = {
-				"storeId" : storeId,
-				"projectId" : projectId,
-				"deptId" : deptId,
-				"categoryId" : categoryId,
-				"projectName" : projectName,
-				"projectType" : projectType,
-				"projectDesc" : projectDesc,
-				"projectCodeSuffix" : projectCodeSuffix,
-				"projectImage" : projectImage,
-				"affiliatedImage" : affiliatedImage
-			};
-			deptId = deptId;
-			return data;
-		} else if (step == 2) {
-			var projectPrice = jQuery("input[name='projectPrice']").val();
-			var costPrice = jQuery("input[name='costPrice']").val();
-			var appointmentPrice = jQuery("input[name='appointmentPrice']").val();
-			var highestDiscount = jQuery("input[name='highestDiscount']").val();
-			var isGiftCash = jQuery('input:radio[name="isGiftCash"]:checked').val();
-			var isAppointment = jQuery('input:radio[name="isAppointment"]:checked').val();
-			data = {
-				"projectId" : projectId,
-				"projectPrice" : projectPrice,
-				"costPrice" : costPrice,
-				"appointmentPrice" : appointmentPrice,
-				"highestDiscount" : highestDiscount,
-				"isGiftCash" : isGiftCash,
-				"isAppointment" : isAppointment
-			};
-			return data;
-		} else if (step == 3) {
-			var data1 = [];
-			var data2 = [];
-			for (var i = 0; i < jQuery('.table_s').find("td[rowspan]").length; i++) {
-				var shiftMahjongId = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").attr("shiftmahjongid");
-				var projectStepOrder = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").attr("step");
-				var projectStepName = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[projectstepname]").attr("projectstepname");
-				var stepPerformance = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[stepperformance]").attr("stepperformance");
-				var stepPerformanceType = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[stepperformancetype]").attr("stepperformancetype");
-				var isDisable = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[isdisable]").attr("isdisable");
-				var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"projectStepOrder":projectStepOrder,"projectStepName":projectStepName,"stepPerformance":stepPerformance,"stepPerformanceType":stepPerformanceType,"isDisable":isDisable,"isDeleted":0};
-				data1.push(jsonObject);
-			}
-			for (var i = 1; i < jQuery('.table_s').find("tr").length; i++) {
-				var levelId = jQuery('.table_s').find("tr").eq(i).children("td[levelid]").attr("levelid");
-				var assignCashType = jQuery('.table_s').find("tr").eq(i).children("td[assigntype]").attr("assigntype");
-				var assignCash = jQuery('.table_s').find("tr").eq(i).children("td[assigncash]").attr("assigncash");
-				var assignCardType = jQuery('.table_s').find("tr").eq(i).children("td[assigntype]").attr("assigntype");
-				var assignCard = jQuery('.table_s').find("tr").eq(i).children("td[assigncard]").attr("assigncard");
-				var appointmentRewardType = jQuery('.table_s').find("tr").eq(i).children("td[assigntype]").attr("assigntype");
-				var appointmentReward = jQuery('.table_s').find("tr").eq(i).children("td[appointmentreward]").attr("appointmentreward");
-				var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"levelId":levelId,"assignCashType":assignCashType,"assignCash":assignCash,"assignCardType":assignCardType,"assignCard":assignCard,"appointmentRewardType":appointmentRewardType,"appointmentReward":appointmentReward,"isDeleted":0};
-				data2.push(jsonObject);
-			}
-			var data = {"projectId":projectId,"step":data1,"commission":data2};
-			return data;
-
-		} else if (step == 4) {
-				var data1 = [];
-				var table = jQuery(".table_");
-				for (var i = 2; i < table.find("tr").length; i++) {
-					var levelId = table.find("tr").eq(i).children("td[levelid]").attr("levelid");
-					var discountAmount = table.find("tr").eq(i).children("td[discountamount]").attr("discountamount");
-					var memberCostPrice = table.find("tr").eq(i).children("td[membercostprice]").attr("membercostprice");
-					var data = {"projectId":projectId,"levelId":levelId,"discountAmount":discountAmount,"memberCostPrice":memberCostPrice,"isDeleted":0};
-					data1.push(data);
-				}
-				var data = {"data":data1,"projectId":projectId};
-				return data;
-		}
-	}
-	
-
-	/**
-	*　为项目table添加步骤和职位信息
-	*/
-	jQuery('.button_1').click(function(){
-		var shiftMahjongId = jQuery("select[name='shiftMahjongId']").val();
-		var shiftMahjongName = jQuery("select[name='shiftMahjongId']").find("option:selected").text();
-		
 	})
 	
 	/**
@@ -884,6 +905,9 @@
 		});
 	})
 
+	function addLevel(){
+		jQuery("#projectLevel").append(jQuery("#li").html());
+	}
 
 	//会员种类
 	jQuery(function(){
@@ -925,5 +949,6 @@
 	jQuery(function(){
 		jQuery("input").focus(function(){jQuery(this).removeClass("border")});
 	})
+	
 </script>
 </html>
