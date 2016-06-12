@@ -467,7 +467,7 @@
     <result column="debt_amount" property="debtAmount" jdbcType="DECIMAL" />
     <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="VARCHAR" />
-    <association property="memberName" column="member_id" select="com.zefun.web.mapper.MemberInfoMapper.selectMemberNameByMemberId"></association>
+    <association property="memberInfo" column="member_id" select="com.zefun.web.mapper.MemberInfoMapper.selectMemberBaseInfo"></association>
     <association property="operateEmployee" column="last_operator_id" select="com.zefun.web.mapper.EmployeeInfoMapper.selectBaseInfoByEmployeeId" />
     <association property="serverEmployee" column="last_server_id" select="com.zefun.web.mapper.EmployeeInfoMapper.selectBaseInfoByEmployeeId" />
     <collection property="orderDetails" column="order_id" select="com.zefun.web.mapper.OrderDetailMapper.selectSelfCashierDetailMahjong" />

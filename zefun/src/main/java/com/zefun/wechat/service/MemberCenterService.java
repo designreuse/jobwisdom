@@ -966,9 +966,10 @@ public class MemberCenterService {
     * @param projectId  项目编号
     * @param memberId   会员标识
     * @param type   项目查询类型(1、查询所有可服务员工，2、不查询员工)
+    * @param storeId 门店标识
     * @return   项目详情页面
      */
-    public ModelAndView projectDetailView(int projectId, Integer memberId, int type) {
+    public ModelAndView projectDetailView(int projectId, Integer memberId, int type, String storeId) {
         ModelAndView mav = new ModelAndView(View.MemberCenter.PROJECT_DETAIL);
         
         BigDecimal projectPrice = new BigDecimal(0);
@@ -988,7 +989,8 @@ public class MemberCenterService {
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         if (memberInfo != null) {
             mav.addObject("levelName", memberInfo.getLevelName());
-            mav.addObject("discountAmount", projectService.getProjectPriceByMember(memberInfo.getLevelId(), projectId, projectPrice));
+            mav.addObject("discountAmount", 
+            		  projectService.getProjectPriceByMember(memberInfo.getLevelId(), projectId, projectPrice, Integer.valueOf(storeId)));
         }
         else {
             mav.addObject("discountAmount", projectPrice);
@@ -1186,7 +1188,7 @@ public class MemberCenterService {
         memberAppointment.setAppointmentTime(appointTime);
         ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
         memberAppointment.setAppointmentPrice(projectService.getProjectPriceByMember(memberInfo.getLevelId(), 
-                projectId, projectInfo.getProjectPrice()));
+                projectId, projectInfo.getProjectPrice()));//这个地方要从页面传个门店标识过来
         String curTime = DateUtil.getCurTime();
         memberAppointment.setCreateTime(curTime);
         memberAppointment.setUpdateTime(curTime);
@@ -1821,10 +1823,11 @@ public class MemberCenterService {
     * @param employeeId     员工标识
     * @param projectId      项目标识
     * @param memberId       访问会员标识
+    * @param storeId 门店标识
     * @return   员工项目详情页面
      */
-    public ModelAndView employeeProjectView(int employeeId, int projectId, Integer memberId) {
-        ModelAndView mav = projectDetailView(projectId, memberId, 2);
+    public ModelAndView employeeProjectView(int employeeId, int projectId, Integer memberId, String storeId) {
+        ModelAndView mav = projectDetailView(projectId, memberId, 2, storeId);
         mav.setViewName(View.MemberCenter.EMPLOYEE_PROJECT);
         
         ProjectStep projectStep = projectStepMapper.selectAppointStepByProjectId(projectId);

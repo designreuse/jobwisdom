@@ -295,7 +295,8 @@ function addCashierDetail(orderInfo){
 	}
 	for (var i = 0; i < orderDetails.length; i++){
 		var detail = orderDetails[i];
-		var tmpDiscountAmount = new Big(detail.discountAmount);
+		var subAccountId = jQuery("#memberListUL").find(".active").attr("levelid");
+		var tmpDiscountAmount = new Big(discountMap[detail.detailId + "_" + subAccountId]);
 		var realMoney = tmpDiscountAmount;
 		
 		var tr = document.createElement("tr");
@@ -829,9 +830,9 @@ function initHead(orderInfo){
 		memberName = "散客";
 		memberLevel = orderInfo.sex;
 		if (memberLevel == "男") {
-			memberImg = "pc/userhead/default/male.png";
+			memberImg = "system/profile/common_img_man.png";
 		} else {
-			memberImg = "pc/userhead/default/female.png";
+			memberImg = "system/profile/common_img_gril.png";
 		}
 		isMember = false;
 	}
