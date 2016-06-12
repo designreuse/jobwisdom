@@ -282,7 +282,7 @@ public class SelfCashierService {
 				BigDecimal tempAmount = null;
 				if (ownerDetail.getOrderType() == 1) {
 					tempAmount = projectService.getProjectPriceByMember(memberSubAccount.getLevelId(),
-							ownerDetail.getProjectId(), ownerDetail.getProjectPrice());
+							ownerDetail.getProjectId(), ownerDetail.getProjectPrice(), storeId);
 				} 
 				else if (ownerDetail.getOrderType() == 2) {
 					tempAmount = goodsInfoService.getGoodsPriceByMember(memberSubAccount.getLevelId(),
@@ -1026,7 +1026,7 @@ public class SelfCashierService {
 					BigDecimal price = null;
 					if (detail.getOrderType() == 1) {
 						price = projectService.getProjectPriceByMember(levelId, detail.getProjectId(),
-								detail.getProjectPrice());
+								detail.getProjectPrice(), storeId);
 					} 
 					else if (detail.getOrderType() == 2) {
 						price = goodsInfoService.getGoodsPriceByMember(levelId, detail.getProjectId(),

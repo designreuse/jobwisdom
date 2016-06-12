@@ -785,7 +785,7 @@ public class ProjectService {
     /**
      * 查询会员对于项目的具体价格
      * 首先检查是否有设置该会员的特定价格，再通过会员等级的折扣去计算
-    * @author 张进军
+    * @author 王大爷
     * @date Nov 28, 2015 8:37:15 PM
     * @param storeId        门店ID
     * @param levelId        会员等级标识
@@ -793,7 +793,7 @@ public class ProjectService {
     * @param projectPrice   项目原价
     * @return   会员实际价格
      */
-    public BigDecimal getProjectPriceByMember(Integer storeId, Integer levelId, int projectId, BigDecimal projectPrice){
+    public BigDecimal getProjectPriceByMember(int levelId, int projectId, BigDecimal projectPrice, Integer storeId){
         //计算会员折扣价
     	BigDecimal discountAmount = projectPrice;
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -802,11 +802,11 @@ public class ProjectService {
         ProjectDiscount discount = projectDiscountMapper.selectDiscountPorjectIdAndLevelId(map);
         //如果没有特定会员价，那么计算查找该会员的折扣去计算
         if (discount == null) {
-            Map<String, Integer> query = new HashMap<>();
-            query.put("storeId", storeId);
-            query.put("levelId", levelId);
-            MemberLevelDiscount memberLevelDiscount = memberLevelDiscountMapper.selectByStoreLevel(query);
-            discountAmount = discountAmount.multiply(new BigDecimal(memberLevelDiscount.getProjectDiscount()).divide(new BigDecimal(100), 2));
+        	Map<String, Integer> levelMap = new HashMap<>();
+        	levelMap.put("levelId", levelId);
+        	levelMap.put("storeId", storeId);
+            MemberLevelDiscount memberLevelDiscount = memberLevelDiscountMapper.selectByStoreLevel(levelMap);
+            discountAmount = discountAmount.multiply(new BigDecimal(memberLevelDiscount.getProjectDiscount())).divide(new BigDecimal(100), 2);
 //            MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
 //            discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getProjectDiscount())).divide(new BigDecimal(100), 2);
         }

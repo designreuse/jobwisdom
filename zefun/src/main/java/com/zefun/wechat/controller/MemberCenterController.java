@@ -721,7 +721,7 @@ public class MemberCenterController extends BaseController {
         }
         Integer memberId = getUserId(request);
         setJsapiSignData(storeId, request);
-        return memberCenterService.projectDetailView(projectId, memberId, 1);
+        return memberCenterService.projectDetailView(projectId, memberId, 1, storeId);
     }
     
     
@@ -1105,7 +1105,7 @@ public class MemberCenterController extends BaseController {
         }
         Integer memberId = getUserId(request);
         setJsapiSignData(storeId, request);
-        return memberCenterService.employeeProjectView(employeeId, projectId, memberId);
+        return memberCenterService.employeeProjectView(employeeId, projectId, memberId, storeId);
     }
     
     

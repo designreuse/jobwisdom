@@ -2,7 +2,7 @@ i,em{font-style:normal}
 
 .emploee_head{margin:53px 50px}
 .rightpanel{background:white}
-.emploee_ul{height:142px;width:136px;overflow:overlay;float:left;border:1px solid #ccc}
+.emploee_ul{height:136px;width:136px;overflow:overlay;float:left;border:1px solid #ccc}
 .emploee_ul li{height:34px;text-align:center;line-height:34px;border:1px solid #c3c9d5;cursor:pointer}
 .emploee_ul .active{border-left:3px solid #ff0000}
 .emploee_right{float:left;border:1px solid #c3c9d5;margin-left:10px;width:838px;height:135px;position:relative;overflow:hidden}

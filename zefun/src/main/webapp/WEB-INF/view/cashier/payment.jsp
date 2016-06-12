@@ -35,14 +35,21 @@
 			         <div class="money_content" orderId = "${selfCashier.orderId}">
 					    <p class="money_title">${selfCashier.orderCode}<em class="money_close" onclick="deleteOrder(this, ${selfCashier.orderId})"><img src="<%=basePath %>images/money_close.png"></em></p>
 						<c:choose>
-							<c:when test="${selfCashier.memberName == null}">
+							<c:when test="${selfCashier.memberInfo == null}">
 								<div class="money_head_pic clearfix">
 									<div class="head_pic_1eft">
-						              
+						                 <c:choose>
+											<c:when test="${selfCashier.sex == '男'}">
+												<img src="<%=qiniuPath %>system/profile/common_img_man.png">
+											</c:when>
+											<c:when test="${selfCashier.sex == '女'}">
+												<img src="<%=qiniuPath %>system/profile/common_img_gril.png">
+											</c:when>
+										</c:choose>
 						            </div>	
 						            <div class="head_pic_right">
 						                <div class="please">拖拽至 目标单 合并</div>
-						                <p>顾客：散户</p>
+						                <p>顾客：散客</p>
 										<p>性别：${selfCashier.sex }</p>
 						            </div>	
 					            	<div class="refrush"><img src="<%=basePath %>images/freshen.png"></div>			 
@@ -55,7 +62,7 @@
 						            </div>	
 						            <div class="head_pic_right">
 						                <div class="please">拖拽至 目标单 合并</div>
-						                <p>顾客：${selfCashier.memberName}</p>
+						                <p>顾客：${selfCashier.memberInfo.name}</p>
 										 <p>性别：${selfCashier.sex }</p>
 						            </div>	
 					            	<div class="refrush"><img src="<%=basePath %>images/freshen.png"></div>			 
