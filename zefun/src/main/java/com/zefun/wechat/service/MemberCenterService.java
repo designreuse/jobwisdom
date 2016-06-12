@@ -926,6 +926,7 @@ public class MemberCenterService {
      * 访问预约页面
     * @author 张进军
     * @date Sep 2, 2015 11:00:28 AM
+    * @param memberId       门店会员
     * @param storeAccount   门店代号
     * @param selectStoreId  所选门店
     * @param selectDeptId   所选部门
@@ -1013,7 +1014,8 @@ public class MemberCenterService {
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         if (memberInfo != null) {
             mav.addObject("levelName", memberInfo.getLevelName());
-            mav.addObject("discountAmount", projectService.getProjectPriceByMember(memberInfo.getLevelId(), projectId, projectPrice));
+            mav.addObject("discountAmount", projectService.getProjectPriceByMember(memberInfo.getStoreId(), 
+                    memberInfo.getLevelId(), projectId, projectPrice));
         }
         else {
             mav.addObject("discountAmount", projectPrice);
@@ -1210,7 +1212,7 @@ public class MemberCenterService {
         memberAppointment.setAppointmentDate(appointDate);
         memberAppointment.setAppointmentTime(appointTime);
         ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
-        memberAppointment.setAppointmentPrice(projectService.getProjectPriceByMember(memberInfo.getLevelId(), 
+        memberAppointment.setAppointmentPrice(projectService.getProjectPriceByMember(memberInfo.getStoreId(), memberInfo.getLevelId(), 
                 projectId, projectInfo.getProjectPrice()));
         String curTime = DateUtil.getCurTime();
         memberAppointment.setCreateTime(curTime);

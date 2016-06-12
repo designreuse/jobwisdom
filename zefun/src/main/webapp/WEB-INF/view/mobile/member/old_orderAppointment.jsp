@@ -126,35 +126,6 @@
 		  </li>
 	    </a>
  	</ul>
- 
-	<%-- <div>
-      <ul class="footer">
-        <li>
-          <a href="<%=basePath %>memberCenter/view/home/${session_key_store_id}/1">
-            <span class="iconfont icon-wode"></span>
-            <span class="word">我的</span>
-          </a>
-        </li>
-        <li class="active">
-          <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_id}/1">
-            <span class="iconfont icon-yuyue5"></span>
-            <span>预约</span>
-          </a>
-        </li>
-        <li >
-          <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_id}/1">
-            <span class="iconfont icon-jifen"></span>
-            <span>商城</span>
-          </a>
-        </li>
-        <li >
-          <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_id}/1">
-            <span class="iconfont icon-dianpu2"></span>
-            <span>门店</span>
-          </a>
-        </li>
-      </ul>
-    </div> --%>
     
     <c:if test="${!empty storeList }">
         <div class="s-modal share-modal s-modal-miss hide" id="liansuo-modal">

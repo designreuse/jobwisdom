@@ -86,7 +86,7 @@
 				<c:forEach items="${serviceList }" var="servie" varStatus="index">
 					<ul value="${servie.deptId }" class="clearfix order_ul" style="display: none">
 						<c:forEach items="${serviceList[index.count-1].projectCategoryList }" var="projectCategory">
-							<li onclick="changeCategory(this.value)" value="${projectCategory.categoryId }">${projectCategory.categoryName }</li>
+							<li onclick="changeCategory(this.value, this)" value="${projectCategory.categoryId }">${projectCategory.categoryName }</li>
 						</c:forEach>
 						<script>
 							jQuery(".clearfix.order_ul").children("li").eq(0).addClass("active");
@@ -104,10 +104,10 @@
 							<c:forEach items="${projectCategory.projectList }" var="project">
 								<li class="clearfix">
 									<div class="mall_good">
-										<img src="<%=basePath%>images/mobile/member/mall_good.png">
+										<img src="<%=qiniuPath%>${project.projectImage }">
 									</div>
 									<div class="mall_item">
-										<p>${project.projectName }</p>
+										<p style="padding: 0 0px">${project.projectName }</p>
 										<span>已服务:${project.salesCount }</span>
 										<div class="level">
 											<em><img src="<%=basePath%>images/mobile/member/level.png"></em><em><img src="<%=basePath%>images/mobile/member/level.png"></em><em><img src="<%=basePath%>images/mobile/member/level.png"></em><em><img src="<%=basePath%>images/mobile/member/level_.png"></em>
@@ -117,7 +117,7 @@
 										<h2>¥ ${project.projectPrice }</h2>
 										<span>预约立减${project.appointmentPrice }元</span>
 									</div>
-									<div class="special">预约</div>
+									<a href="<%=basePath%>memberCenter/view/projectDetail?storeId=${session_key_store_account}&projectId=${project.projectId}"><div class="special">预约</div></a>
 								</li>
 							</c:forEach>
 						</ul>
@@ -154,11 +154,15 @@ function changeDept(deptId){
 	jQuery(".clearfix.order_ul[value='"+deptId+"']").show();
 	for (var i = 0; i < serviceList.length; i++) {
 		if (serviceList[i].deptId == deptId){
-			changeCategory(serviceList[i].projectCategoryList[0].categoryId);
+			changeCategory(serviceList[i].projectCategoryList[0].categoryId, null);
 		}
 	}
 }
-function changeCategory(categoryId){
+function changeCategory(categoryId, li){
+	if (li!=null){
+		jQuery(li).siblings().removeClass("active");
+		jQuery(li).addClass("active");
+	}
 	jQuery(".order_content").hide();
 	jQuery(".order_content[value='"+categoryId+"']").show();
 }

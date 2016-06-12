@@ -148,9 +148,9 @@ nav ul li{float:left;width:72px;text-align:center;line-height:3.9rem;height:3.9r
 .mall_good{float:left;width:22%}
 .mall_item{float:left;width:26%;margin:0 1%}
 .order_price{float:left;width:24%;position:relative;top:1rem;}
-.special{float:right;width:22%;padding:0.4rem;border:1px solid #f0a42a;color:#f0a42a;text-align:center;position:relative;top:2rem}
+.special{float:right;width:14%;padding:0.4rem;border:1px solid #f0a42a;color:#f0a42a;text-align:center;position:relative;top:2rem}
 .order_content ul li{padding:3%;border-bottom:1px solid #ccc}
-.mall_item>p{height:2rem;font-size:14px;color:black}
+.mall_item>p{height:2rem;color:black}
 .mall_item>span{height:2rem;font-size:14px;display:inline-block}
 .mall_good img{width:6rem}
 .level img{width:1.5rem}
