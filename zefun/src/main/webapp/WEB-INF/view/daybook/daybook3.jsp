@@ -3,12 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
-<link rel="stylesheet" href="<%=basePath%>css/water_search.css" type="text/css" />
-<<style>
-.water_search_top_content ul li .active{
-	color:#e41d1d
-}
-</style>
+<link rel="stylesheet" href="<%=basePath%>css/water.css" type="text/css" />
 <body>
 
 <div class="zzc" style="display:none">
@@ -57,87 +52,87 @@
     <!--RIGHT PANEL开始 -->
     <div class="rightpanel" style="margin-left: 200px;">
       	<%@ include file="/top.jsp" %>
-        <div class='content_right'>
-	     <div class="water_search_top">
-		    <div class="water_search_top_input">
-			   <input type="text" id="ipt-search-phone" placeholder="水单号/手机号/员工工号">
-			   <span><input type="text" id = "startDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">至<input type="text" id="endDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></span>
-			   <button onclick="btnSearchTime();">查询</button>
-			  <em> <button >今天</button> <button>昨天</button></em>
-			</div>
-			<div class="clearfix water_search_top_content">
-			  <ul>
-			   <li id = "orderType">
-			    <em>类型：<em>
-				<span class = "active" value = "0">全部</span>
-				<span value = "1">项目</span>
-				<span value = "2">商品</span>
-				<span value = "3">疗程</span>
-				<span value = "4">开卡</span>
-				<span value = "5">充值</span>
-				<span value = "6">升级</span>
-				<span value = "7">赠送</span>
-				<span value = "8">还款</span>
-			  </li>
-			  <li id = "moneyWay">
-			    <em>方式：<em>
-				<span class = "active" value = "0">全部</span>
-				<span value = "1">现金</span>
-				<span value = "2">银联</span>
-				<span value = "3">团购</span>
-				<span value = "4">微信</span>
-				<span value = "5">支付宝</span>
-				<span value = "6">卡金</span>
-				<span value = "7">礼金</span>
-				<span value = "8">疗程</span>
-				<span value = "9">优惠券</span>
-				<span value = "10">挂账</span>
-			 </li>
-			  <li id = "orderState">
-			    <em>状态：<em>
-				<span class = "active" value = "0">全部</span>
-				<span value = "1">正常</span>
-				<span value = "2">退单</span>
-			  </li>
-			  <li id = "deptId">
-			    <em>部门：<em>
-				<span class = "active">全部</span>
-				<c:forEach var="deptInfo" items="${deptInfoList}" varStatus="status">
-				     <span value = "${deptInfo.deptId }">${deptInfo.deptName }</span>
-				</c:forEach>
-			  </li>
-			 </ul>
-	          <div class="water_search_top_total">
-	             <div class="water_search_top_total_top">
-				    <p><span>总客数：${countBook.count }</span><span>应收款：${countBook.receivableAmount }</span></p>
-					<p><span>礼金折扣：${countBook.giftAmount }</span><span>划卡：${countBook.cardAmount }</span></p>
-				    <p><span>套餐折扣：${countBook.comboAmount }</span><span>优惠券抵扣：${countBook.couponAmount }</span></p>
-				 </div>
-				 <div class="water_search_top_total_price">
-				    <span>现金实收：</span>
-				    <em>${countBook.realPrice }</em>
-				 </div>
+        <div class='content_right' >
+ 	请输入单号：<input type="text" id="ipt-search-phone" class="simgle" placeholder="水单号/手机号/员工工号">
+	<input type="datetime-local"  id = "startDate" value="2014-03-15T08:00" style="color:#d7d8da;border:1px solid #d7d8da;width:160px">
+
+    <span style="display:inline-block;margin:0 10px;color:#ccc">-——</span>
+
+	<input type="datetime-local" id="endDate" class="datetime_" style="color:#d7d8da;border:1px solid #d7d8da;width:160px">
+ 
+    <button class="search_" onclick="btnSearchTime();">立刻查询</button>
+	<div class="income_">营业收入：</div>
+	<table class="income">
+	  <tr>
+	    <td>现钞</td>
+	    <td>银联</td>
+		<td>微信支付</td>
+		<td>支付宝付</td>
+		<td>团购支付</td>
+		<td>疗程消费</td>
+		<td>划卡消费</td>
+	  </tr>
+	   <tr>
+	    <td id="cashAmount">${countBook.cashAmount}</td>
+	    <td id="unionpayAmount">${countBook.unionpayAmount}</td>
+		<td id="wechatAmount">${countBook.wechatAmount}</td>
+		<td id="alipayAmount">${countBook.alipayAmount }</td>
+	    <td id="groupAmount">${countBook.groupAmount }</td>
+	    <td id="debtAmount">${countBook.debtAmount }</td>
+		<td id="cardAmount">${countBook.cardAmount }</td>
+	  </tr>
+	</table>
+
 	
-	         </div>		
-			</div>
-		 </div>
-		<div class="search_table_content"> 
-		 <table class="search_table">
-		   <tr>
-		     <td>水单号</td>
-			 <td>顾客</td>
-			 <td>消费时间</td>
-			 <td>服务内容</td>
-			 <td>应收</td>
-			 <td>消费金额</td>
-			 <td>抵扣</td>
-			 <td>挂账</td>
-			 <td>实收</td>
-			 <td>状态</td>
-			 <td>操作</td>
-		   </tr>
-		   <c:forEach var="daybook" items="${page.results}" varStatus="status">
-		       <tr>
+	
+	<div class="income_">收入来源：</div>
+	<table class="income">
+	  <tr>
+	    <td>服务项目（<span id="projectSalesCount">${detailCount.projectSalesCount}</span>单）</td>
+	    <td>商品销售（<span id="goodsSalesCount">${detailCount.goodsSalesCount}</span>单）</td>
+		<td>疗程销售（<span id="comboSalesCount">${detailCount.comboSalesCount}</span>单）</td>
+		<td>开卡充值（<span id="cardSalesCount">${detailCount.cardSalesCount}</span>单）</td>
+		<td>卡金赠送（<span id="presentCount">${detailCount.presentCount}</span>单）</td>
+		
+	  </tr>
+	   <tr>
+	    <td id="projectSalesAmount">${detailCount.projectSalesAmount}</td>
+	    <td id="goodsSalesAmount">${detailCount.goodsSalesAmount}</td>
+		<td id="comboSalesAmount">${detailCount.comboSalesAmount}</td>
+	    <td id="cardSalesAmount">${detailCount.cardSalesAmount}</td>
+	    <td id="presentAmount">${detailCount.presentAmount}</td>
+		
+	  </tr>
+	</table>
+	<div class="total">
+	  <span>总客数：<em id="totalPersonCount">${countBook.count }</em></span>
+	  <span>应收款：<em id="receivableAmount">${countBook.receivableAmount}</em></span>
+	  <span>礼金抵扣：<em id="giftAmount">${countBook.giftAmount }</em></span>
+	  <span>优惠券抵扣：<em id="couponAmount">${countBook.couponAmount }</em></span>
+	  <span>套餐抵扣：<em id="comboAmount">${countBook.comboAmount }</em></span>
+	  <span>划卡：<em id="cardAmount">${countBook.cardAmount }</em></span>
+	  <span>现金实收：<em id="realPrice">${countBook.realPrice }</em></span>
+	</div>
+	
+	
+		<table class="income_1">
+		   <thead>
+			  <tr>
+			    <td class="water_" style="cursor:pointer">水单号</td>
+			    <td>顾客</td>
+				<td>消费时间</td>
+				<td>服务内容</td>
+				<td>应收</td>
+				<td>消费金额</td>
+				<td>抵扣</td>
+				<td>挂账</td>
+				<td>实收</td>
+				<td>操作</td>
+			  </tr>
+	      </thead>
+	      <tbody id="tbody-data">
+	          <c:forEach var="daybook" items="${page.results}" varStatus="status">
+		        <tr>
 		            <td onclick="updateSelectOrder(${daybook.orderId})"><a class="can-click">${daybook.orderCode}</a></td>
 		            <c:choose>
 		                 <c:when test="${daybook.memberId == null}">
@@ -196,15 +191,13 @@
 	                </td>
 	                <td>${daybook.debtAmount}</td>
 	                <td>${daybook.realAmount}</td>
-	                <td>正常</td>
-			        <td><button onclick="deleteOrder(${daybook.orderId}, this)">退单</button></td>
+			        <td><span class="iconfa-trash project-icon" onclick="deleteOrder(${daybook.orderId}, this)"></span></td>
 		        </tr> 
-		   </c:forEach>
-		 </table>
-		 <%@ include file="/template/page.jsp" %>
-	  </div>
-		
-	  </div>
+	  </c:forEach>
+	      </tbody>
+	</table>
+	<%@ include file="/template/page.jsp" %>
+  </div>
 	    
 
   </div>
@@ -230,10 +223,9 @@
         
     var nowDate = nowYear+"-"+nowMonth+"-"+nowDay ;
         
-    jQuery("#startDate").val(nowDate + " 00:00:00") ;
-    jQuery("#endDate").val(nowDate + " 23:59:59") ;
+    jQuery("#startDate").val(nowDate + "T00:00") ;
+    jQuery("#endDate").val(nowDate + "T23:59") ;
 </script>
 <script type="text/javascript" src="<%=basePath %>js/daybook/daybook.js"></script>
-<script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
 </body>
 </html>

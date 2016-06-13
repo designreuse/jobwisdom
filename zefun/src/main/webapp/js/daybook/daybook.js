@@ -3,7 +3,7 @@ var isAppointArray =new Array("未预约","预约", "");
 
 var curDate = getCurDate();
 
-function btnSearchPhone() {
+/*function btnSearchPhone() {
 	var queryCode = jQuery("#ipt-search-phone").val();
 	if (isEmpty(queryCode)) {
 		dialog("请填写完整的订单号或者手机号码");
@@ -12,12 +12,19 @@ function btnSearchPhone() {
 	
 	pageNo = 1;
 	changePage(queryCode);
-}
+}*/
 
 function btnSearchTime () {
 	pageNo = 1;
 	changePage();
 }
+
+jQuery("#orderType, #moneyWay, #orderState, #deptId").delegate("span", "click", function () {
+	event = event ? event : window.event; 
+	var obj = event.srcElement ? event.srcElement : event.target;
+	jQuery(obj).siblings().removeClass("active");
+	jQuery(obj).addClass("active");
+})
 
 //根据不同类型进行排序
 function changeOrderByType(typeName, obj){
@@ -61,7 +68,7 @@ function changeOrderByType(typeName, obj){
 function changePage(queryCode){
 	var data = queryParams;
 	//如果查询内容不为空，为精准查询
-	if (isEmpty(queryCode)) {
+	/*if (isEmpty(queryCode)) {*/
 		var beginTimes = jQuery("#startDate").val();
 		var endTimes = jQuery("#endDate").val();
 		var d1 = new Date(beginTimes);
@@ -70,8 +77,12 @@ function changePage(queryCode){
 			dialog("开始时间不能大于结束时间");
 			return;
 		}
-		
-		var isDeleted = 0;
+		var queryCode = jQuery("#ipt-search-phone").val();
+		var orderType = jQuery("#orderType").find("active").attr("value");
+		var moneyWay = jQuery("#moneyWay").find("active").attr("value");
+		var orderState = jQuery("#orderState").find("active").attr("value");
+		var deptId = jQuery("#deptId").find("active").attr("value");
+		/*var isDeleted = 0;
 		var isDeletedValue = jQuery("input[name='isDeletedValue']:checked");
 		
 		if (isDeletedValue.length == 0) {
@@ -82,21 +93,23 @@ function changePage(queryCode){
 			isDeleted = 1;
 			jQuery(".ls-detai-table").addClass("hide");
 			jQuery(".more-toolbar").addClass("hide");
-		}
+		}*/
 		
 		beginTime = beginTimes.replace(/\//g,"-");
 		endTime = endTimes.replace(/\//g,"-");
-		beginTime = beginTime.replace("T", " ");
-		endTimes = endTimes.replace("T", " ");
 		queryParams["beginTime"] = beginTime;
 		queryParams["endTime"] = endTime;
 		queryParams["pageNo"] = pageNo;
-		queryParams["isDeleted"] = isDeleted;
-		queryParams["queryCode"] = null;
-	}
+		/*queryParams["isDeleted"] = isDeleted;*/
+		queryParams["queryCode"] = queryCode;
+		queryParams["orderType"] = orderType;
+		queryParams["moneyWay"] = moneyWay;
+		queryParams["orderState"] = orderState;
+		queryParams["deptId"] = deptId;
+/*	}
 	else {
 		data = {"queryCode":queryCode, "pageNo":pageNo, "isDeleted":0};
-	}
+	}*/
 	
 	jQuery.ajax({
 		type : "post",
@@ -112,9 +125,10 @@ function changePage(queryCode){
 			queryParams = obj.queryParams;
 			
 			refreshTableData(obj.page);
-			if (isDeleted == 0) {
+			refreshStatData(obj.page.totalRecord, obj);
+			/*if (isDeleted == 0) {
 				refreshStatData(obj.page.totalRecord, obj);
-			}
+			}*/
 		}
 	});
 }

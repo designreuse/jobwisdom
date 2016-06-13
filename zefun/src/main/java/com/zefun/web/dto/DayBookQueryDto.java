@@ -50,6 +50,18 @@ public class DayBookQueryDto implements Serializable {
 	/** 删除标识*/
 	private Integer isDeleted;
 	
+	/** 项目类型*/
+	private Integer orderType;
+	
+	/** 付款方式*/
+	private Integer moneyWay;
+	
+	/** 订单状态*/
+	private Integer orderState;
+	
+	/** 选择部门*/
+	private Integer deptId;
+	
 	/** pageNo */
 	private Integer pageNo = 1;
 	
@@ -81,6 +93,42 @@ public class DayBookQueryDto implements Serializable {
     /** 实收金额排序，1:升序，2:降序 */
     private Integer realOrder;
     
+    
+    
+
+	public Integer getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(Integer orderType) {
+		this.orderType = orderType;
+	}
+
+	public Integer getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
+	}
+
+	public Integer getMoneyWay() {
+		return moneyWay;
+	}
+
+	public void setMoneyWay(Integer moneyWay) {
+		this.moneyWay = moneyWay;
+	}
+
+	public Integer getOrderState() {
+		return orderState;
+	}
+
+	public void setOrderState(Integer orderState) {
+		this.orderState = orderState;
+	}
+
+
 	public Integer getIsDeleted() {
 		return isDeleted;
 	}

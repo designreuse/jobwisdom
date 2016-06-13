@@ -40,8 +40,9 @@ var nowMonth = now.getMonth()+1<10?"0"+(now.getMonth()+1):now.getMonth() ; //月
 var nowDay = now.getDate()<10?"0"+now.getDate():now.getDate() ; //日期
 var nowHour = now.getHours()<10?"0"+now.getHours():now.getHours() ; //时
 var nowMinute = now.getMinutes()<10?"0"+now.getMinutes():now.getMinutes() ; //分
+var nowSeconds = now.getSeconds()<10?"0"+now.getSeconds():now.getSeconds() ; //秒
 
-var nowDate = nowYear+"-"+nowMonth+"-"+nowDay+" "+nowHour+":"+nowMinute;
+var nowDate = nowYear+"-"+nowMonth+"-"+nowDay+" "+nowHour+":"+nowMinute+":"+nowSeconds;
 jQuery("input[name='openOrderDate']").val(nowDate) ;
 
 function changeDept(obj) {

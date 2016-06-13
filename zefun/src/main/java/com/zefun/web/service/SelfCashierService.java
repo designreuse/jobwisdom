@@ -453,7 +453,7 @@ public class SelfCashierService {
 			}
 
 			memberInfoService.wipeCache(ownerMemberId);
-			/*memberInfoService.syncLevelId(ownerMemberId);*/
+			memberInfoService.syncLevelId(ownerMemberId);
 		}
 
 		// 检查该会员是否为首次消费

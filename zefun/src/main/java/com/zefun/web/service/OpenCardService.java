@@ -279,7 +279,7 @@ public class OpenCardService {
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 4, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId);
 		
-		/*memberInfoService.syncLevelId(memberId);*/
+		memberInfoService.syncLevelId(memberId);
 
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}
@@ -454,7 +454,7 @@ public class OpenCardService {
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 5, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId);
 		
-		/*memberInfoService.syncLevelId(memberId);*/
+		memberInfoService.syncLevelId(memberId);
 
 		// 更新缓存中的会员数据
 		memberInfoService.wipeCache(memberId);
@@ -579,7 +579,7 @@ public class OpenCardService {
 		// 更新缓存中的会员数据
 		memberInfoService.wipeCache(memberId);
 		
-		/*memberInfoService.syncLevelId(memberId);*/
+		memberInfoService.syncLevelId(memberId);
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}
 

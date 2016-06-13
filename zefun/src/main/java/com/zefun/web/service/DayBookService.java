@@ -13,8 +13,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.Url;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
@@ -29,6 +31,7 @@ import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.OrderInfoBaseDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.DebtFlow;
+import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeCommission;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeObjective;
@@ -48,6 +51,7 @@ import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
 import com.zefun.web.mapper.DebtFlowMapper;
+import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeCommissionMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeObjectiveMapper;
@@ -155,7 +159,38 @@ public class DayBookService {
 	@Autowired
 	private MemberSubAccountMapper memberSubAccountMapper;
 	
-    
+	/** 部门*/
+	@Autowired
+	private DeptInfoMapper deptInfoMapper;
+	
+    /**
+     * 
+    * @author 老王
+    * @date 2016年6月13日 上午12:55:56 
+    * @param storeId 门店标识
+    * @return ModelAndView
+     */
+	public ModelAndView dayBookIndex (Integer storeId) {
+		ModelAndView mav = new ModelAndView();
+    	if (storeId != null) {
+			// 开始时间不能大于结束时
+    	    String beginTime = DateUtil.getCurDate() + " 00:00";
+    	    String endTime = DateUtil.getCurDate() + " 23:59";
+    	    DayBookQueryDto params = new DayBookQueryDto(storeId, beginTime, endTime, 0);
+    	    params.setTimeOrder(2);
+    		Map<String, Object> map = querydaybookInfo(storeId, params);
+    		if (map != null) {
+    			mav.setViewName(Url.DayBook.VIEW_HOME);
+    			mav.addAllObjects(map);
+    		}
+    		mav.addObject("beginTime", beginTime);
+    		mav.addObject("endTime", endTime);
+    	}
+    	List<DeptInfo> deptInfoList = deptInfoMapper.getDeptIdAndNameByStoreId(storeId);
+    	mav.addObject("deptInfoList", deptInfoList);
+        return mav;
+	}
+	
 	/**
 	 * 根据查询条件查询流水
 	 * @param storeId 门店标识
@@ -173,14 +208,21 @@ public class DayBookService {
 		page.setParams(params);
 		
 		//统计各类型收入
-		if (queryParams.getIsDeleted() == 0) {
+		/*if (queryParams.getIsDeleted() == 0) {
 		    DayBookDto countBook = orderInfoMapper.selectDayBookInfoCount(queryParams);
             map.put("countBook", countBook);
             
 		    Map<String, Object> detailCount = new HashMap<String, Object>();
 			detailCount = orderInfoMapper.selectDetailCountForType(queryParams);
 			map.put("detailCount", detailCount);
-		}
+		}*/
+		
+		DayBookDto countBook = orderInfoMapper.selectDayBookInfoCount(queryParams);
+        map.put("countBook", countBook);
+        
+	    /*Map<String, Object> detailCount = new HashMap<String, Object>();
+		detailCount = orderInfoMapper.selectDetailCountForType(queryParams);
+		map.put("detailCount", detailCount);*/
 		
 		List<DayBookDto> dayBookInfos = orderInfoMapper.selectByPage(page);
 		for (DayBookDto dayBookDto : dayBookInfos) {
@@ -487,7 +529,7 @@ public class DayBookService {
         if (memberId  != null) {
            //更新缓存中的会员数据
             memberInfoService.wipeCache(memberId);
-            /*memberInfoService.syncLevelId(memberId);*/
+            memberInfoService.syncLevelId(memberId);
         }
             
         OrderInfo record = new  OrderInfo();
