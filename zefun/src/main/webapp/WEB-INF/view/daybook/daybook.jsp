@@ -109,9 +109,9 @@
 			 </ul>
 	          <div class="water_search_top_total">
 	             <div class="water_search_top_total_top">
-				    <p><span>总客数：${countBook.count }</span><span>应收款：${countBook.receivableAmount }</span></p>
-					<p><span>礼金折扣：${countBook.giftAmount }</span><span>划卡：${countBook.cardAmount }</span></p>
-				    <p><span>套餐折扣：${countBook.comboAmount }</span><span>优惠券抵扣：${countBook.couponAmount }</span></p>
+				    <p><span>总客数：<em id="totalPersonCount">${countBook.count }</em></span><span>应收款：<em id="receivableAmount">${countBook.receivableAmount }</em></span></p>
+					<p><span>礼金折扣：<em id="giftAmount">${countBook.giftAmount }</em></span><span>划卡：<em id="cardAmount">${countBook.cardAmount }</em></span></p>
+				    <p><span>套餐折扣：<em id="comboAmount">${countBook.comboAmount }</em></span><span>优惠券抵扣：<em id="couponAmount">${countBook.couponAmount }</em></span></p>
 				 </div>
 				 <div class="water_search_top_total_price">
 				    <span>现金实收：</span>

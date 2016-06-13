@@ -681,7 +681,8 @@ public class StaffService {
         //项目
         if (orderType == 1) {
             ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
-            
+            //添加明细部门选择
+            orderDetail.setDeptId(projectInfo.getDeptId());
             BigDecimal discountAmount = projectInfo.getProjectPrice();
             BigDecimal rate = new BigDecimal(100);
             
@@ -720,6 +721,8 @@ public class StaffService {
         //商品
         else if (orderType == 2) {
             GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(projectId);
+            //添加明细部门选择
+            orderDetail.setDeptId(goodsInfo.getDeptId());
             BigDecimal discountAmount = goodsInfo.getGoodsPrice();
             BigDecimal rate = new BigDecimal(100);
             
@@ -749,6 +752,9 @@ public class StaffService {
             orderDetail.setOrderStatus(3);
         } 
         else {
+        	ComboInfo comboInfo = comboInfoMapper.selectByPrimaryKey(projectId);
+        	//添加明细部门选择
+            orderDetail.setDeptId(comboInfo.getDeptId());
             orderDetail.setDiscountAmount(projectPrice);
             orderDetail.setOrderStatus(3);
         }

@@ -601,7 +601,7 @@
 	  left join order_detail od on oi.order_id = od.order_id 
 	  left join employee_commission ec on od.detail_id = ec.detail_id
       <where>
-        oi.store_id = #{params.daybook.storeId} and (oi.order_status = 3 or oi.order_status = 4) and oi.is_deleted = #{params.daybook.isDeleted}
+        oi.store_id = #{params.daybook.storeId} and (oi.order_status = 3 or oi.order_status = 4) 
 		      	<if test="params.daybook.queryCode != null and params.daybook.queryCode != ''">
 		      		and (oi.order_code = #{params.daybook.queryCode} 
 		      			or oi.member_id = (select member_id from member_info 
@@ -770,32 +770,93 @@
   
   <select id="selectDayBookInfoCount" parameterType="com.zefun.web.dto.DayBookQueryDto" resultType="com.zefun.web.dto.DayBookDto" >
     select
-     ifnull(sum(discount_amount), 0) as receivableAmount,
-     ifnull(sum(real_amount), 0) as realPrice,
-     ifnull(sum(cash_amount), 0) as cashAmount,
-     ifnull(sum(unionpay_amount), 0) as unionpayAmount,
-     ifnull(sum(card_amount), 0) as cardAmount,
-     ifnull(sum(wechat_amount), 0) as wechatAmount,
-     ifnull(sum(alipay_amount), 0) as alipayAmount,
-     ifnull(sum(group_amount), 0) as groupAmount,
-     ifnull(sum(combo_amount), 0) as comboAmount,
-     ifnull(sum(gift_amount), 0) as giftAmount,
-     ifnull(sum(coupon_amount), 0) as couponAmount,
-     ifnull(sum(free_amount), 0) as freeAmount,
-     ifnull(sum(debt_amount), 0) as debtAmount,
+     ifnull(sum(oi.discount_amount), 0) as receivableAmount,
+     ifnull(sum(oi.real_amount), 0) as realPrice,
+     ifnull(sum(oi.cash_amount), 0) as cashAmount,
+     ifnull(sum(oi.unionpay_amount), 0) as unionpayAmount,
+     ifnull(sum(oi.card_amount), 0) as cardAmount,
+     ifnull(sum(oi.wechat_amount), 0) as wechatAmount,
+     ifnull(sum(oi.alipay_amount), 0) as alipayAmount,
+     ifnull(sum(oi.group_amount), 0) as groupAmount,
+     ifnull(sum(oi.combo_amount), 0) as comboAmount,
+     ifnull(sum(oi.gift_amount), 0) as giftAmount,
+     ifnull(sum(oi.coupon_amount), 0) as couponAmount,
+     ifnull(sum(oi.free_amount), 0) as freeAmount,
+     ifnull(sum(oi.debt_amount), 0) as debtAmount,
      count(1) as count
-     from order_info
+     from order_info oi
+     left join order_detail od on oi.order_id = od.order_id 
+	  left join employee_commission ec on od.detail_id = ec.detail_id
      <where>
-       store_id = #{storeId}
-       and (order_status = 3 or order_status = 4)
-       and is_deleted = 0
-          <if test="beginTime != null">
-              and create_time &gt;= #{beginTime}
-          </if>
-          <if test="endTime != null">
-              and create_time &lt;= #{endTime}
-          </if>
-     </where>
+        oi.store_id = #{storeId} and (oi.order_status = 3 or oi.order_status = 4) 
+		      	<if test="queryCode != null and queryCode != ''">
+		      		and (oi.order_code = #{queryCode} 
+		      			or oi.member_id = (select member_id from member_info 
+		      				where store_id = #{storeId} and phone = #{queryCode} and is_deleted = 0)
+		      				or exists(select 1 from employee_info ei 
+		      				where ei.employee_code=#{queryCode} 
+		      				and ei.store_id = #{storeId} 
+		      				and ei.is_deleted = 0 
+		      				and ei.employee_id = ec.employee_id)
+		            )
+		      	</if>
+		      	<if test="orderType != null and orderType != '' and orderType != 0">
+		      		 and od.order_type = #{orderType} 
+		      	</if>
+		      	<if test="moneyWay != null and moneyWay != '' and moneyWay != 0">
+		      		 <choose>
+				      	<when test="moneyWay == 1">
+				      		and oi.cash_amount &gt; 0 
+				      	</when>
+				      	<when test="moneyWay == 2">
+				      		and oi.unionpay_amount &gt; 0
+				      	</when>
+				      	<when test="moneyWay == 3">
+				      		and oi.group_amount &gt; 0
+				      	</when>
+				      	<when test="moneyWay == 4">
+				      		and oi.wechat_amount &gt; 0
+				      	</when>
+				      	<when test="moneyWay == 5">
+				      		and oi.alipay_amount &gt; 0
+				      	</when>
+				      	<when test="moneyWay == 6">
+				      		and oi.card_amount &gt; 0
+				      	</when>
+				      	<when test="moneyWay == 7">
+				      		and oi.gift_amount &gt; 0
+				      	</when>
+				      	<when test="moneyWay == 8">
+				      		and oi.combo_amount &gt; 0
+				      	</when>
+				      	<when test="moneyWay == 9">
+				      		and oi.coupon_amount &gt; 0
+				      	</when>
+				      	<when test="moneyWay == 10">
+				      		and oi.debt_amount &gt; 0
+				      	</when>
+				     </choose>
+		      	</if>
+		      	<if test="orderState != null and orderState != '' and orderState != 0">
+		           <choose>
+			      	<when test="orderState == 1">
+			      		 and oi.is_deleted = 0
+			      	</when>
+			      	<when test="orderState == 2">
+			      		 and oi.is_deleted = 1
+			      	</when>
+			      </choose>
+		        </if>
+		        <if test="deptId != null and deptId != '' and deptId != 0">
+		            and od.dept_id = #{deptId}
+		        </if>
+	      		<if test="beginTime != null">
+		           and oi.create_time &gt;= #{beginTime}
+		        </if>
+		        <if test="endTime != null">
+		           and oi.create_time &lt;= #{endTime}
+		        </if>
+      </where>
   </select>
 
   <select id="selectDetailCountForType" parameterType="com.zefun.web.dto.DayBookQueryDto" resultType="java.util.Map">
