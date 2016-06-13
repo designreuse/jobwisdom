@@ -134,6 +134,15 @@
     	position:relative;
     }
 
+  .member-card li.current dl{
+    background:#f6f6d7
+     }
+     
+     .member-card li dt{color:#f9dd48}
+     .member-card li.current dt{border-bottom:1px solid #f9dd48;color:#727272}
+     .member-card li.current dl{border:1px solid black}
+     .member-card li .iconfont{color:#f9dd48}
+     .member-card li dt{color:#727272;border-bottom:1px solid #f9dd48;}
 </style>
 <body>
 
@@ -394,7 +403,7 @@
 								</div>
 	                        </div>
 	                    </div>
-	                    <div class="card-main1 clearfix hide" name = "memberTR">
+	                    <div class="card-main1 clearfix hide" name = "memberTR" style="overflow:hidden">
 	                        <div class="common_table">   
 						  	   <table>
 							     <tr>
