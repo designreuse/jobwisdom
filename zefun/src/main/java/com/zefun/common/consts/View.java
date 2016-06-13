@@ -366,7 +366,7 @@ public interface View {
 	 */
 	class Project {
 		/** 项目价格设置页面 */
-		public static final String PROJECTSETTING = "commodity/projectSetting2";
+		public static final String PROJECTSETTING = "commodity/projectSetting";
 		/**
 		 * 
 		 */

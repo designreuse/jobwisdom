@@ -5,6 +5,21 @@
     String qiniu = "http://7xss26.com1.z0.glb.clouddn.com/";
 %>
 <link rel="stylesheet" href="<%=basePath%>css/demo4.css" type="text/css" />
+<style>
+.bt{
+    width: 130px;
+    height: 28px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 28px;
+    color: white;
+    background: #59688a;
+    margin-right: 80px;
+    margin-top: 20px;
+    }
+</style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
     
@@ -222,6 +237,10 @@
 										</div>
 									</div>
 								</div>
+								<div class="item_button" style="text-align: center;">  
+									   <button class="bt" onclick="coverData()">保存</button>
+									   <button class="bt">取消</button>
+								</div>
 							</div>
 
 							<div class="add_store_content clearfix" style="display: none;">
@@ -268,11 +287,14 @@
 										<textarea name="comboDesc"></textarea>
 									</div>
 								</div>
+								<div class="item_button" style="text-align: center;">  
+								   <button class="bt" onclick="coverData()">保存</button>
+								   <button class="bt">取消</button>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
