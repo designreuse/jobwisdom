@@ -604,7 +604,7 @@ public class OpenCardService {
 
 				if (orderDetail.getOrderType() == 1) {
 					discountAmount = projectService.getProjectPriceByMember(memberInfo.getLevelId(),
-							orderDetail.getProjectId(), orderDetail.getProjectPrice());
+							orderDetail.getProjectId(), orderDetail.getProjectPrice(), storeId);
 
 					// 扣除预约优惠
 					if (orderDetail.getIsAppoint() == 1) {

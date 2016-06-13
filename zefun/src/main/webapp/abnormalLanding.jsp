@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%  String host = request.getHeader("host"); 
+	String contextName = request.getContextPath(); 
+	String ws = new String(host+contextName);
+	%>
 <script type="text/javascript">
+console.log('<%=host%>'+'<%=contextName%>');
 var userId = '${session_key_user_id}';
-var wsUrl = "ws://job.jobwisdom.cn/jobwisdom/websocket?userId=";
+var wsUrl = "ws://"+"<%=ws%>"+"/websocket?userId=";
 var webSocket;
 if ('WebSocket' in window) {
 	webSocket = new WebSocket(wsUrl + userId);

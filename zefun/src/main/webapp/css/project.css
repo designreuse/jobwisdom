@@ -176,58 +176,50 @@ em{font-style:normal}
 	input[type=radio]:checked{background:#ff0242!important;width:18px}
 
 	
-	
-	.shop_bottom div{float:left;width:93px;text-align:center;color:#afb0b6;}
-.shop_bottom .writting{border-right:1px solid #ccc}
-.shop_bottom{margin-top:8px}
-.writting:hover{color:red}
-.delete:hover{color:red}
-.shop_name{margin-top:20px}
-.content_left{width:260px;margin-top:16px;margin-left:40px}
-.content_left p{margin-bottom:12px}
-.set_name{position:relative;top:-80px}
-.set_name input{border-radius:6px!important;}
-
-
-
-.content_left{float:left}
-.content_right_{float:left;width:300px;height:400px;margin-top:16px;margin-left:20px}
-.submit_{width:150px;height:32px;background:#47536c;border-radius:10px;color:white;text-align:center;line-height:32px;border:none;box-shadow:0 0 10px #ccc}
-.content_right_ p{margin:0 20px 20px 20px}
-.address{margin:0px 0px 10px 20px}
-.address_search input{position:relative;left:20px;font-size:12px;text-align:center}
-.address_search img{position:relative;z-index:10;top:5px;left:-10px}
-.cancel_{width:150px;height:32px;background:#47536c;border-radius:10px;color:#ccc;text-align:center;line-height:32px;border:none;box-shadow:0 0 10px #ccc;margin-left:50px}
-.add_button{position:relative;top:-50px;left:150px}
-.add_button button:hover{background:#2f384b}
-
-.add_pic li{float:left;margin-top:20px;margin-right:20px}
-.add_pic{width:470px}
-#clipArea {
-    
-    height: 500px;
-
-	}
-	#view {
-    margin: 0 auto;
-    width: 200px;
-    height: 200px;
+.rollBox_content li{width:180px;height:190px;border-radius:8px ;box-shadow:0 0 10px #ccc;float:left;position:relative;margin:0 32px 20px 0}
+.rollBox_top{height:80px;}
+.rollBox_top> img{height:80px;width:180px;border-radius:8px 8px 0 0 }
+.rollBox_center{padding-left:20px}
+.rollBox_center p{font-size:10px;color:black}
+.rollBox_bottom{border-top:1px solid #ccc;width:140px;margin:0px auto;padding:5px 0;height:30px;text-align:center}
+.rollBox_bottom_num{width:50%;float:left;border-right:1px solid #ccc}
+.rollBox_bottom p{text-align:center}
+.rollBox_bottom span{display:inline-block;text-align:cente;color:black}
+.rollBox{width:1000px;height:720px;border:1px solid #ccc;border-radius:8px;margin-top:12px}
+.content_right>.setting_first button{
+	width:130px;height:28px;border:none;border-radius:12px;text-align:center;line-height:28px;color:white;font-size:16px;background:#59688a
 }
-    .iconfont{cursor: pointer;
-    position: absolute;right:0
-   }
-	.file-box img {
-    height: 102px;
-    width: 102px;
+.rollBox_content ul{float:left;width:850px;margin-right:50px}
+.content_right{padding:25px 30px;position:relative}
+.LeftButton{position:absolute;top:45%;z-index:2}
+.RightButton{position:absolute;right:50px;top:45%;z-index:2}
+.rollBox_content{width:850px;margin:50px auto;padding-left:25px;overflow:hidden}
+.setting_close{position:absolute;right:3px;top:3px}
+.setting_mask{position:absolute;width:180px;height:110px;bottom:0;right:0;background:rgba(0,0,0,0.6);font-size:18px;text-align:center;line-height:110px;color:white}
+.rollBox_content_ul{position:relative}
+.content_right>.setting_first>span{position:relative;display:inline-block;color:black;font-size:14px;margin-left:44px}
+.content_right>.setting_first>span  .setting_all{position:absolute;left:0px;top:28px}
+.content_right>.setting_first>span select{
+	width:100px;height:22px;padding-left:50px;margin-left:12px;font-size:14px
 }
-.photo_cut{width:700px;margin:20px auto;position:relative}
-.selectpic,.sureinput,.cancelinput{width:100px;height:40px;border:none;cursor:pointer}
-.button_panel{background:#dceceb;height:60px;line-height:60px}
-.button_panel{text-align:center}
-.selectpic{margin-right:30px}
-.cancelinput{margin-left:40px}
-
-#List1 .pic{position:relative}
-.hand_2 em{display:inline-block;margin-left:40px}
-.hand_2 select{    border-radius: 5px!important;
-    box-shadow: 0 0 3px #ccc;}
+.setting_all{position:absolute;width:300px;height:90px;border:1px solid #e6461b;z-index:3;background:white;padding:10px 5px;display:none}
+.setting_all li{float:left;padding: 0 5px;height:26px;text-align:center;line-height:26px;font-size:12px;color:#646464;}
+.content_right>.setting_first em{display:inline-block;width:150px;height:28px;text-align:center;line-height:28px;margin-left:12px;position:relative;z-index:10;cursor:pointer}
+.setting_first .active{border:1px solid #e6461b!important;border-bottom:1px solid white!important;z-index:10;position:relative}
+.content_right>.setting_first em i{display:inline-block;width:150px;height:28px;z-index:10;border:1px solid #ccc;position;relative}
+.total_text i{color:#e6461b}
+.rollBox_top_mask{
+	position: absolute;
+    width: 180px;
+    height: 80px;
+    top: 0;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    font-size: 18px;
+    text-align: center;
+    line-height:80px;
+    color: white;
+	display:none
+}
+.rollBox_top_mask span{display:inline-block;width:50%;text-align:center;position:relative;top:-25px}
+.setting_write{position:absolute;left:3px;top:3px}

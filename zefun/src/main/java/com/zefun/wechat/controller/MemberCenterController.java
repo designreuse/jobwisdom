@@ -682,6 +682,7 @@ public class MemberCenterController extends BaseController {
     * @date Sep 2, 2015 11:00:28 AM
     * @param storeId        店铺标识
     * @param selectStoreId  所选门店
+    * @param selectDeptId   所选部门
     * @param businessType   业务类型(1:会员,2:员工)
     * @param request        请求对象
     * @param response       响应对象
@@ -690,12 +691,14 @@ public class MemberCenterController extends BaseController {
     @RequestMapping(value = Url.MemberCenter.VIEW_ORDER_APPOINTMENT, method = RequestMethod.GET)
     public ModelAndView orderAppointmentView(@PathVariable String storeId, @PathVariable int businessType, 
             @RequestParam(value = "selectStoreId", required = false) Integer selectStoreId,
+            @RequestParam(value = "selectDeptId", required = false) Integer selectDeptId,
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
             return null;
         }
-        return memberCenterService.orderAppointmentView(storeId, selectStoreId);
+        Integer memberId = getUserIdByOpenId(openId);
+        return memberCenterService.orderAppointmentView(memberId, storeId, selectStoreId, selectDeptId);
     }
     
     
@@ -718,7 +721,7 @@ public class MemberCenterController extends BaseController {
         }
         Integer memberId = getUserId(request);
         setJsapiSignData(storeId, request);
-        return memberCenterService.projectDetailView(projectId, memberId, 1);
+        return memberCenterService.projectDetailView(projectId, memberId, 1, storeId);
     }
     
     
@@ -1102,7 +1105,7 @@ public class MemberCenterController extends BaseController {
         }
         Integer memberId = getUserId(request);
         setJsapiSignData(storeId, request);
-        return memberCenterService.employeeProjectView(employeeId, projectId, memberId);
+        return memberCenterService.employeeProjectView(employeeId, projectId, memberId, storeId);
     }
     
     

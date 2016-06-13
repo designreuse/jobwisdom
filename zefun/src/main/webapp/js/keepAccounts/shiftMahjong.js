@@ -24,11 +24,6 @@ var count= 0;
 
 jQuery(document).ready(function(){
 	updatePage();
-	var obj = jQuery(".s-slider-wrap");
-	for (var i = 0; i < obj.length; i++) {
-		var num = jQuery(obj[i]).attr("num");
-		renewalShift(num, 0);
-	}
 });
 
 //向右走
@@ -54,20 +49,6 @@ jQuery('.left_click').click(function(){
 	  }	
   		
 });
-
-function renewalShift(num, locationNum) {
-	var tmpSlide = jQuery(".s-slider-wrap[num = '"+num+"'] .slider4").bxSlider({
-      slideWidth: 108,
-      minSlides: 1,
-      maxSlides: 15,
-      moveSlides: 1,
-      async:false,
-      slideMargin: 0,
-      pager: false,
-      infiniteLoop: false
-    });
-	tmpSlide.goToSlide(locationNum);
-}
 
 //初始化轮牌新增model
 jQuery(".emploee_right_ul").delegate("#shiftModel", "click",function(){
@@ -160,11 +141,6 @@ function updateDept(obj, deptIds){
 	deptId = deptIds;
 	updatePage();
 	
-	var obj = jQuery(".s-slider-wrap");
-	for (var i = 0; i < obj.length; i++) {
-		var num = jQuery(obj[i]).attr("num");
-		renewalShift(num, 0);
-	}
 }
 
 //新增或设置轮牌model
@@ -281,6 +257,11 @@ function updatePage(){
 							"</li>");
 				}
 			}
+			
+			if (isEmpty(shiftMahjongDtoList)) {
+				jQuery(".gridly").empty();
+			}
+			
 			jQuery(".emploee_right_ul").append("<li id = 'shiftModel' name ='addemployee' >"+
 			        "<img src='"+baseUrl+"images/emploee_1.png'>"+
 			   "</li>")
@@ -356,7 +337,7 @@ function infoDIV(shiftMahjongEmployeeList){
 						          "</li>");
 	}
 	jQuery(".gridly").append("<li class='brick small' onclick = 'showDoewEmployee()' name = 'addEmployeeState'>"+
-		      "<img src='"+baseUrl+"images/emploee_10.png'>"+
+		      "<img src='"+baseUrl+"images/emploee_10.png' style='width:130px;height:152px;position:relative;top:-16px'>"+
           "</li>")
 }
 
@@ -449,139 +430,6 @@ function refreshShift(shiftMahjongIds, stateType) {
 		}
 	});
 }
-
-
-//上移
-function upwardIMG(obj){
-	moveShiftMahjongEmployeeId = jQuery(obj).parents(".slider-title").attr("shiftMahjongEmployeeId");
-
-	moveShiftMahjongId = jQuery(obj).parents(".slider-title").attr("shiftMahjongId");
-
-	moveObj = jQuery(obj).parents(".s-slider-wrap");
-	
-	refreshShift(moveShiftMahjongId);
-	
-	moveShiftMahjongOrder = jQuery(moveObj).find(".slider-title[shiftMahjongEmployeeId='"+moveShiftMahjongEmployeeId+"']").attr("shiftMahjongOrder");
-	
-	if (moveShiftMahjongOrder == "999" || isEmpty(moveShiftMahjongOrder)) {
-		dialog("页面信息已失效，请刷新页面！");
-		return;
-	}
-	
-	jQuery.ajax({
-		type : "post",
-		url : baseUrl + "KeepAccounts/upwardIMG",
-		data : "shiftMahjongEmployeeId="+moveShiftMahjongEmployeeId+"&shiftMahjongId="+moveShiftMahjongId+"&shiftMahjongOrder="+moveShiftMahjongOrder,
-		async:false,//使用同步的Ajax请求 
-		dataType : "json",
-		success : function(e){
-			if(e.code != 0){
-				dialog(e.msg);
-				return;
-			}
-			var employeeObj = infoDIV(moveShiftMahjongId, e.msg);
-			moveObj.empty();
-			moveObj.append(employeeObj);
-			
-			var showNum = jQuery(moveObj).find(".slider-title[shiftMahjongEmployeeId='"+moveShiftMahjongEmployeeId+"']").parents(".slider-part").attr("name");
-			showShift(showNum);
-		}
-	});
-}
-
-function showShift(showNum) {
-	var num = jQuery(moveObj).attr("num");
-	var showObj = jQuery(moveObj).find(".slider4 .slider-part");
-	
-	var locationNum = 0;
-	
-	if (showNum == totailNum) {
-		locationNum = totailNum - 8;
-	}
-	else {
-		locationNum = showNum - 8;
-	}
-	renewalShift(num, locationNum);
-}
-
-//下移
-function nextIMG(obj){
-	moveShiftMahjongEmployeeId = jQuery(obj).parents(".slider-title").attr("shiftMahjongEmployeeId");
-
-	moveShiftMahjongId = jQuery(obj).parents(".slider-title").attr("shiftMahjongId");
-
-	moveObj = jQuery(obj).parents(".s-slider-wrap");
-	
-    refreshShift(moveShiftMahjongId);
-	
-    moveShiftMahjongOrder = jQuery(moveObj).find(".slider-title[shiftMahjongEmployeeId='"+moveShiftMahjongEmployeeId+"']").attr("shiftMahjongOrder");
-	
-	if (moveShiftMahjongOrder == "999" || isEmpty(moveShiftMahjongOrder)) {
-		dialog("页面信息已失效，请重试！");
-		return;
-	}
-	
-	jQuery.ajax({
-		type : "post",
-		url : baseUrl + "KeepAccounts/nextIMG",
-		data : "shiftMahjongEmployeeId="+moveShiftMahjongEmployeeId+"&shiftMahjongId="+moveShiftMahjongId+"&shiftMahjongOrder="+moveShiftMahjongOrder,
-		async:false,//使用同步的Ajax请求 
-		dataType : "json",
-		success : function(e){
-			if(e.code != 0){
-				dialog(e.msg);
-				return;
-			}
-			var employeeObj = infoDIV(moveShiftMahjongId, e.msg);
-			moveObj.empty();
-			moveObj.append(employeeObj);
-
-			var showNum = jQuery(moveObj).find(".slider-title[shiftMahjongEmployeeId='"+moveShiftMahjongEmployeeId+"']").parents(".slider-part").attr("name");
-			showShift(showNum);
-		}
-	});
-}
-
-/*jQuery("body").delegate(".slider-foot", "click", function () {
-    	moveObj = jQuery(this).parents(".s-slider-wrap");
-    	
-    	moveShiftMahjongEmployeeId = jQuery(this).attr("shiftMahjongEmployeeId");
-    	
-    	moveShiftMahjongId = jQuery(this).attr("shiftMahjongId");
-    	
-    	refreshShift(moveShiftMahjongId);
-    	
-    	var showNum = jQuery(moveObj).find(".slider-title[shiftMahjongEmployeeId='"+moveShiftMahjongEmployeeId+"']").parents(".slider-part").attr("name");
-		
-    	showShift(showNum);
-    	
-    	var showType = 0;
-    	
-    	var parentObj = jQuery(moveObj).find(".slider-foot[shiftMahjongEmployeeId='"+moveShiftMahjongEmployeeId+"']");
-    	
-    	var state = jQuery(parentObj).find(".zhuangtai-word").text();
-		
-		if (state == "工作中" || state == "指定服务") {
-			return;
-		}
-    	
-    	jQuery(moveObj).find(".slider4").on(transitionEnd, function() {
-        	
-        	var left = jQuery(parentObj).offset().left + 10;
-            var top = jQuery(parentObj).offset().top + 20;
-            
-            jQuery(".select-zhuangtai").removeClass("hide").css({"left":left, "top":top});
-            
-            showType = 1;
-    	});
-    	
-    	if (showType == 0) {
-        	var left = jQuery(parentObj).offset().left + 10;
-            var top = jQuery(parentObj).offset().top + 20;
-            
-            jQuery(".select-zhuangtai").removeClass("hide").css({"left":left, "top":top});
-    	}
-});*/
 
 
 function transitionEndEventName () {

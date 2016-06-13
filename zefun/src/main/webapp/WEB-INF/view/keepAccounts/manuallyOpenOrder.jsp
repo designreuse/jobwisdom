@@ -63,7 +63,7 @@ em {
 	                    </div>
 	                </div>
 	                
-	                <div class="card-main1 clearfix hide" name = "memberTR">
+	                <div class="card-main1 clearfix hide" name = "memberTR" style="height: 70px;">
 	                        <div class="common_table">   
 						  	   <table>
 							     <tr>

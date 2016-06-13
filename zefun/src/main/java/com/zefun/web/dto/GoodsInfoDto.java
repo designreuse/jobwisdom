@@ -24,7 +24,7 @@ public class GoodsInfoDto {
     /** 供应商标识 */
     private Integer supplierId;
     
-    /**部门标识*/
+    /** 部门标识*/
     private Integer deptId;
 
     /** 商品名称 */

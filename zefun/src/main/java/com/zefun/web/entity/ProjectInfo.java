@@ -120,8 +120,19 @@ public class ProjectInfo {
 	/** 项目所在的部门名称*/
 	private String deptName;
 	
+	/** 项目所在的系列名称*/
+    private String categoryName;
 	
-	public String getDeptName() {
+	
+	public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getDeptName() {
         return deptName;
     }
 

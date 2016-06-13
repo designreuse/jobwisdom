@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,6 @@ import com.zefun.web.dto.ProjectCommissionDto;
 import com.zefun.web.dto.ProjectInfoDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.DeptInfo;
-import com.zefun.web.entity.GoodsCategory;
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
@@ -37,9 +36,7 @@ import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
-import com.zefun.web.mapper.GoodsCategoryMapper;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
-import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectCommissionMapper;
 import com.zefun.web.mapper.ProjectDiscountMapper;
@@ -80,8 +77,6 @@ public class ProjectService {
     @Autowired private RedisService redisService;
     /** redis api 操作服务对象 */
     @Autowired private EmployeeLevelMapper employeeLevelMapper;
-    /** 会员等级操作对象 */
-    @Autowired private MemberLevelMapper memberLevelMapper;
     /** 会员等级折扣 */
     @Autowired private MemberLevelDiscountMapper memberLevelDiscountMapper;
     /** 商品系列操作 */
@@ -791,14 +786,15 @@ public class ProjectService {
     /**
      * 查询会员对于项目的具体价格
      * 首先检查是否有设置该会员的特定价格，再通过会员等级的折扣去计算
-    * @author 张进军
+    * @author 王大爷
     * @date Nov 28, 2015 8:37:15 PM
-    * @param levelId       会员等级标识
+    * @param storeId        门店ID
+    * @param levelId        会员等级标识
     * @param projectId      项目标识
     * @param projectPrice   项目原价
     * @return   会员实际价格
      */
-    public BigDecimal getProjectPriceByMember(int levelId, int projectId, BigDecimal projectPrice){
+    public BigDecimal getProjectPriceByMember(int levelId, int projectId, BigDecimal projectPrice, Integer storeId){
         //计算会员折扣价
     	BigDecimal discountAmount = projectPrice;
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -807,8 +803,11 @@ public class ProjectService {
         ProjectDiscount discount = projectDiscountMapper.selectDiscountPorjectIdAndLevelId(map);
         //如果没有特定会员价，那么计算查找该会员的折扣去计算
         if (discount == null) {
-            MemberLevelDiscount memberLevelDiscount = memberLevelDiscountMapper.selectByPrimaryKey(levelId);
-            discountAmount = discountAmount.multiply(new BigDecimal(memberLevelDiscount.getProjectDiscount()).divide(new BigDecimal(100), 2));
+        	Map<String, Integer> levelMap = new HashMap<>();
+        	levelMap.put("levelId", levelId);
+        	levelMap.put("storeId", storeId);
+            MemberLevelDiscount memberLevelDiscount = memberLevelDiscountMapper.selectByStoreLevel(levelMap);
+            discountAmount = discountAmount.multiply(new BigDecimal(memberLevelDiscount.getProjectDiscount())).divide(new BigDecimal(100), 2);
 //            MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
 //            discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getProjectDiscount())).divide(new BigDecimal(100), 2);
         }
@@ -1057,16 +1056,23 @@ public class ProjectService {
     * @author 高国藩
     * @date 2016年4月27日 下午5:50:18
     * @param storeId storeId
+    * @param categoryId categoryId
     * @return        ModelAndView
      */
-    public ModelAndView viewProjects(Integer storeId) {
+    public ModelAndView viewProjects(Integer storeId, Integer categoryId) {
         List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(storeId);
         ModelAndView view = new ModelAndView(View.Project.PROJECT_LIST);
+        if (categoryId!=null){
+            projectInfos = projectInfos.stream().filter(p -> p.getCategoryId().equals(categoryId)).collect(Collectors.toList());
+        }
         view.addObject("projectInfos", projectInfos);
+        
+        Long hasFinish = projectInfos.stream().filter(p -> p.getProjectPrice()!=null).count();
+        view.addObject("hasFinish", hasFinish);
         
         List<DeptProjectBaseDto> deptProjectList = getDeptProjectByStoreId(storeId);
         view.addObject("deptProjectList", deptProjectList);
-        
+        view.addObject("deptProjectListJs", JSONArray.fromObject(deptProjectList));
         return view;
     }
 
@@ -1082,10 +1088,87 @@ public class ProjectService {
         List<DeptProjectBaseDto> projectBaseDtos = getDeptProjectByStoreId(storeId);
         List<DeptGoodsBaseDto> goodsBaseDtos = goodsInfoService.getDeptGoodsByStoreId(storeId);
         ModelAndView view = new ModelAndView(View.Project.CATEGORY);
+        projectBaseDtos.stream().forEach(d -> d.getProjectCategoryList()
+                .stream().forEach(m -> m.getProjectList().stream().forEach(p -> p.setProjectDesc(null))));
+        goodsBaseDtos.stream().forEach(d -> d.getGoodsCategoryBaseDto()
+                .stream().forEach(m -> m.getGoodsBaseDtos().stream().forEach(p -> p.setGoodsDesc(null))));
         view.addObject("projectBaseDtos", projectBaseDtos);
         view.addObject("goodsBaseDtos", goodsBaseDtos);
         view.addObject("projectBaseDtosJs", JSONArray.fromObject(projectBaseDtos));
         view.addObject("goodsBaseDtosJs", JSONArray.fromObject(goodsBaseDtos));
         return view;
+    }
+
+
+    /**
+     * 保存或者新增项目
+    * @author 高国藩
+    * @date 2016年6月8日 下午2:57:45
+    * @param storeId                   门店信息
+    * @param projectInfo               项目信息
+    * @param discounts                 会员等级
+    * @param projectSteps              项目步骤
+    * @param projectCommission         职位提成
+    * @return                          新增状态(返回项目信息)
+     */
+    public BaseDto saveProjectOrUpdate(Integer storeId, ProjectInfo projectInfo,
+            List<ProjectDiscount> discounts, List<ProjectStep> projectSteps,
+            List<ProjectCommission> projectCommission) {
+        
+        if (projectInfo.getProjectId()!=null){
+            projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
+        }
+        else {
+            projectInfoMapper.insertSelective(projectInfo);
+        }
+        
+        //会员折扣计算
+        ProjectDiscount projectDiscount = new ProjectDiscount();
+        projectDiscount.setProjectId(projectInfo.getProjectId());
+        List<ProjectDiscount> hasDiscounts = projectDiscountMapper.selectByProperty(projectDiscount);
+        
+        for (int i = 0; i < hasDiscounts.size(); i++) {
+            hasDiscounts.get(i).setIsDeleted(1);
+            projectDiscountMapper.updateByPrimaryKeySelective(hasDiscounts.get(i));
+        }
+        for (int i = 0; i < discounts.size(); i++) {
+            discounts.get(i).setIsDeleted(0);
+            discounts.get(i).setProjectId(projectInfo.getProjectId());
+        }
+        if (discounts!=null && discounts.size()>0){
+            projectDiscountMapper.insertProjectDiscountList(discounts);
+        }
+        
+        //轮拍步骤
+        List<ProjectStep> oldProjectSteps = projectStepMapper.queryProjectStepByPIdList(projectInfo.getProjectId());
+        for (int i = 0; i < oldProjectSteps.size(); i++) {
+            oldProjectSteps.get(i).setIsDeleted(1);
+            projectStepMapper.updateByPrimaryKey(oldProjectSteps.get(i));
+        }
+        
+        ProjectCommission hasProjectCommission = new ProjectCommission();
+        hasProjectCommission.setProjectId(projectInfo.getProjectId());
+        List<ProjectCommission> hasProjectCommissions = projectCommissionMapper.selectByProperty(hasProjectCommission);
+        for (int i = 0; i < hasProjectCommissions.size(); i++) {
+            hasProjectCommissions.get(i).setIsDeleted(1);
+            projectCommissionMapper.updateByPrimaryKeySelective(hasProjectCommissions.get(i));
+        }
+        
+        for (int i = 0; i < projectSteps.size(); i++) {
+            projectSteps.get(i).setProjectId(projectInfo.getProjectId());
+            projectSteps.get(i).setIsDeleted(0);
+            projectStepMapper.insert(projectSteps.get(i));
+        }
+        for (int i = 0; i < projectCommission.size(); i++) {
+            projectCommission.get(i).setIsDeleted(0);
+            projectCommission.get(i).setProjectId(projectInfo.getProjectId());
+        }
+        if (projectCommission!=null && projectCommission.size()>0){
+            projectCommissionMapper.insertProjectCommissionList(projectCommission);
+        }
+        
+        redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, projectInfo.getDeptId());
+        
+        return new BaseDto(0, projectInfo);
     }
 }
