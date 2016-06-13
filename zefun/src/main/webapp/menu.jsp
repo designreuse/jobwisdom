@@ -7,7 +7,7 @@
 %>
 <%@include file="/loading.jsp" %>
 <%@include file="/abnormalLanding.jsp" %>
-<%-- <%@include file="chat.jsp" %> --%>
+<%@include file="chat.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/common.css" type="text/css" />
 <div class="logo-wrap">
 	<a href="index.html"> <img src="<%=basePath%>images/logo_by.png" alt=""></a>

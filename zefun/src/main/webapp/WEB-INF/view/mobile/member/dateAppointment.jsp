@@ -149,7 +149,7 @@
     			if (e.code != 0) {
     				dialog(e.msg);
     			}
-    			window.location.href = baseUrl + "memberCenter/view/appointmentList/${session_key_store_id}/1";
+    			window.location.href = baseUrl + "memberCenter/view/appointmentList/${session_key_store_account}/1";
     		}
     	});
     }
