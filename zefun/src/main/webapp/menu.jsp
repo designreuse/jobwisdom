@@ -208,9 +208,9 @@ function choseMenu(url){
 	jQuery(".left_nav li").eq(index).addClass("active_"+(index_)+"_2  border").siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10');
 }
 
-jQuery(".leftmenu").mouseleave(function(){
+/* jQuery(".leftmenu").mouseleave(function(){
 	choseMenu(requestUrl);
-});
+}); */
 
 choseMenu(requestUrl);
 

@@ -903,14 +903,10 @@ input[type="search"] {
 }
 .more-toolbar .table-toolbar {
   position:relative;
-  width: 94%;
+  width: 100%;
   line-height: 30px;
-  border:1px solid #ccc;
+ 
   border-radius:8px;
-  margin-bottom:40px;
-  padding-top:20px;
-  margin-left:30px;
-  padding-bottom:10px
 }
 .more-toolbar .table-toolbar .icon-guolvhuihua {
   color: #fbd04d;

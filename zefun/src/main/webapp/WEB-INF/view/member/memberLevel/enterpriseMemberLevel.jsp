@@ -233,9 +233,8 @@
 		<input type="hidden" name="levelId" style="width: 0px; height: 0px;" >
 		<input type="hidden" name="discountId" style="width: 0px; height: 0px;" >
 		<div class="business_level_button">
-		   <button>预览</button>
 		   <button onclick="addOrEditMemberLevel()">确认</button>
-		  <button onclick="cancelModal()">取消</button>
+		   <button onclick="cancelModal()">取消</button>
 		</div>
 		
 		</div>
@@ -260,11 +259,11 @@
 			   <span onclick="showMask(2)"><img src="<%=basePath %>images/back_1.png"></span>
 			 </div>
 			 <div class="preview_2 clearfix" style="background:url('<%=basePath %>images/vip_card1.png') no-repeat;">
-			   <div class="preview_2_top"><span>5折卡</span></div>
+			   <div class="preview_2_top"></div>
 			   <div class="preview_2_content clearfix">
 			     <div class="logo_img"><img src="<%=basePath %>images/vip_img.png"></div>
                  <div class="preview_2_content_right">
-                    
+                    黄金八折卡黄金八折卡黄金八折卡黄金八折</br>黄金八折卡黄金八折卡黄金八</br>黄金八折卡黄金八折卡黄金八折卡</br>黄金八折卡黄金八折卡黄金八折卡黄金八折
                  </div> 			     
 			   </div>
          	 </div> 
