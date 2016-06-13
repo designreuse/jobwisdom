@@ -24,6 +24,8 @@ jQuery("#orderType, #moneyWay, #orderState, #deptId").delegate("span", "click", 
 	var obj = event.srcElement ? event.srcElement : event.target;
 	jQuery(obj).siblings().removeClass("active");
 	jQuery(obj).addClass("active");
+	
+	changePage();
 })
 
 //根据不同类型进行排序
@@ -78,10 +80,10 @@ function changePage(queryCode){
 			return;
 		}
 		var queryCode = jQuery("#ipt-search-phone").val();
-		var orderType = jQuery("#orderType").find("active").attr("value");
-		var moneyWay = jQuery("#moneyWay").find("active").attr("value");
-		var orderState = jQuery("#orderState").find("active").attr("value");
-		var deptId = jQuery("#deptId").find("active").attr("value");
+		var orderType = jQuery("#orderType").find(".active").attr("value");
+		var moneyWay = jQuery("#moneyWay").find(".active").attr("value");
+		var orderState = jQuery("#orderState").find(".active").attr("value");
+		var deptId = jQuery("#deptId").find(".active").attr("value");
 		/*var isDeleted = 0;
 		var isDeletedValue = jQuery("input[name='isDeletedValue']:checked");
 		
@@ -142,8 +144,8 @@ function refreshTableData(page){
 		unbuildPagination();
 	}
 	
-	var $tbody = jQuery("#tbody-data");
-	$tbody.empty();
+	var $tbody = jQuery(".search_table");
+	$tbody.find("tr:gt(0)").remove();
 	var daybookDatas = page.results;
 	for (var i = 0; i < daybookDatas.length; i++) {
 		$tbody.append(spellTableData(daybookDatas[i]));
@@ -170,7 +172,7 @@ function refreshStatData(totalCount, obj) {
 	jQuery("#debtAmount").text(new Big(statInfo.debtAmount).toFixed(2));
 	jQuery("#cardAmount").text(new Big(statInfo.cardAmount).toFixed(2));
 	
-	var detailCount = obj.detailCount;
+	/*var detailCount = obj.detailCount;
 	jQuery("#projectSalesAmount").text(new Big(detailCount.projectSalesAmount).toFixed(2));
 	jQuery("#goodsSalesAmount").text(new Big(detailCount.goodsSalesAmount).toFixed(2));
 	jQuery("#comboSalesAmount").text(new Big(detailCount.comboSalesAmount).toFixed(2));
@@ -181,7 +183,7 @@ function refreshStatData(totalCount, obj) {
 	jQuery("#goodsSalesCount").text(detailCount.goodsSalesCount);
 	jQuery("#comboSalesCount").text(detailCount.comboSalesCount);
 	jQuery("#cardSalesCount").text(detailCount.cardSalesCount);
-	jQuery("#presentCount").text(detailCount.presentCount);
+	jQuery("#presentCount").text(detailCount.presentCount);*/
 }
 
 function spellTableData(data) {
@@ -205,19 +207,19 @@ function spellTableData(data) {
 		str += 0.00;
 	} 
 	if (data.cashAmount != 0) {
-		str += '<span>'+data.cashAmount+'<em style="color:red">现金</em></span>';
+		str += '<p>'+data.cashAmount+'<em style="color:red">现金</em></p>';
 	} 
 	if (data.unionpayAmount != 0){
-		str += '<span>'+data.unionpayAmount+'<em style="color:blue">银联</em></span>';
+		str += '<p>'+data.unionpayAmount+'<em style="color:blue">银联</em></p>';
 	}
 	if (data.wechatAmount != 0){
-		str += '<span>'+data.wechatAmount+'<em style="color:#59688a">微信</em></span>';
+		str += '<p>'+data.wechatAmount+'<em style="color:#59688a">微信</em></p>';
 	}
 	if (data.alipayAmount != 0){
-		str += '<span>'+data.alipayAmount+'<em style="color:green">支付宝</em></span>';
+		str += '<p>'+data.alipayAmount+'<em style="color:green">支付宝</em></p>';
 	}
 	if (data.cardAmount != 0){
-		str += '<span>'+data.cardAmount+'<em style="color:pink">卡金</em></span>';
+		str += '<p>'+data.cardAmount+'<em style="color:pink">卡金</em></p>';
 	}
 	str += '</td><td>';
 	
@@ -239,7 +241,8 @@ function spellTableData(data) {
 	str += '</td>'
 		+ '<td>' + data.debtAmount + '</td>'
 		+ '<td>' + data.realAmount + '</td>'
-		+ '<td><span class="iconfa-trash project-icon" onclick="deleteOrder('+ data.orderId + ', this)"></span></td>'
+		+ '<td>正常</td>'
+		+ '<td><button onclick="deleteOrder('+ data.orderId + ', this)">退单</button></td>'
 		+ '</tr>';
 	return str;
 }

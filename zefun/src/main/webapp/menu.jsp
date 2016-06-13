@@ -104,7 +104,11 @@
 			<a href="<%=menuBasePath%>memberLevel/view/list"><li class="active"><span>门店会员卡</span></li></a>
 		</ul>
 		<ul index="2">
-			<a href="<%=menuBasePath%>view/coupons"><li><span>优惠券管理</span></li></a>
+			<a href="<%=menuBasePath%>view/coupons"><li><span>优惠券</span></li></a>
+			<a href="<%=menuBasePath%>marketing/view/showMinBargain"><li><span>微砍价</span></li></a>
+			<a href="<%=menuBasePath%>marketing/view/showBigTurntable"><li><span>大转盘</span></li></a>
+			<a href="<%=menuBasePath%>marketing/view/showLantern"><li><span>点灯笼</span></li></a>
+			<a href="<%=menuBasePath%>marketing/view/showMinVote"><li><span>微投票</span></li></a>
 		</ul>
 		<ul index="3">
 			<a href="<%=menuBasePath%>summary/view/summary"><li class=""><span>营业汇总</span></li></a>

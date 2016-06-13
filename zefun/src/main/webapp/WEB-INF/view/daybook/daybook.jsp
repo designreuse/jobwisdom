@@ -63,7 +63,7 @@
 			   <input type="text" id="ipt-search-phone" placeholder="水单号/手机号/员工工号">
 			   <span><input type="text" id = "startDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">至<input type="text" id="endDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></span>
 			   <button onclick="btnSearchTime();">查询</button>
-			  <em> <button >今天</button> <button>昨天</button></em>
+			  <!-- <em> <button >今天</button> <button>昨天</button></em> -->
 			</div>
 			<div class="clearfix water_search_top_content">
 			  <ul>
@@ -103,7 +103,7 @@
 			    <em>部门：<em>
 				<span class = "active">全部</span>
 				<c:forEach var="deptInfo" items="${deptInfoList}" varStatus="status">
-				     <span value = "${deptInfo.deptId }">${deptInfo.deptName }</span>
+				     <span value = "${deptInfo.deptId }" style="width: 100px">${deptInfo.deptName }</span>
 				</c:forEach>
 			  </li>
 			 </ul>
@@ -161,19 +161,19 @@
 		                   0.00
 		               </c:if>
 		               <c:if test="${daybook.cashAmount != 0}">
-		                   <span>${daybook.cashAmount}<em style="color:red">现金</em></span>
+		                   <p>${daybook.cashAmount}<em style="color:red">现金</em></p>
 		               </c:if>
 		               <c:if test="${daybook.unionpayAmount != '0.00'}">
-		                   <span>${daybook.unionpayAmount}<em style="color:blue">银联</em></span>
+		                   <p>${daybook.unionpayAmount}<em style="color:blue">银联</em></p>
 		               </c:if>
 		               <c:if test="${daybook.wechatAmount != '0.00'}">
-		                   <span>${daybook.wechatAmount}<em style="color:#59688a">微信</em></span>
+		                   <p>${daybook.wechatAmount}<em style="color:#59688a">微信</em></p>
 		               </c:if>
 		               <c:if test="${daybook.alipayAmount != '0.00'}">
-		                   <span>${daybook.alipayAmount}<em style="color:green">支付宝</em></span>
+		                   <p>${daybook.alipayAmount}<em style="color:green">支付宝</em></p>
 		               </c:if>
 		               <c:if test="${daybook.cardAmount != '0.00'}">
-		                   <span>${daybook.cardAmount}<em style="color:pink">卡金</em></span>
+		                   <p>${daybook.cardAmount}<em style="color:pink">卡金</em></p>
 		               </c:if>
 	                </td>
                   
@@ -201,9 +201,8 @@
 		        </tr> 
 		   </c:forEach>
 		 </table>
-		 <%@ include file="/template/page.jsp" %>
 	  </div>
-		
+		<%@ include file="/template/page.jsp" %>
 	  </div>
 	    
 

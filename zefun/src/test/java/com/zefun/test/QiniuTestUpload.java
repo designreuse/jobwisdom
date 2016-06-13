@@ -44,9 +44,9 @@ public class QiniuTestUpload {
 
 	public static void main(String[] args) throws QiniuException {
 	    
-	    File file = new File("D:\\121212.gif");
+	    File file = new File("E:\\vote_6.png");
 	    Response response = uploadManager.put(file,
-              "loadData.gif", auth.uploadToken(QINIU_SCOPE));
+              "system/profile/vote_6.png", auth.uploadToken(QINIU_SCOPE));
           String key = response.jsonToMap().get("key").toString();
           System.out.println(key);
 	    

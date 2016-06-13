@@ -1,0 +1,36 @@
+.content_right{padding:45px 25px;font-size:14px;color:black}
+.lantern_top_img{float:left;width:96px}
+.lantern_right{float:left;margin-left:12px;width:910px;}
+.lantern_right>p em{font-size:16px;color:#e14e21}
+.lantern_right>p span{display:inline-block;width:60px;height:20px;text-align:center;border-radius:4px;background:#f0a42a;color:white;margin-left:8px;}
+.lantern_content{margin-top:12px;line-height:24px}
+.lantern_right .note{color:#f0a42a;font-size:10px}
+.lantern_top{height:180px}
+
+.lantern_content_pic{padding:35px;border:1px solid #b8b8b8;background:#f5f5f5;border-radius:12px;height:285px;overflow:hidden}
+.lantern_content_pic ul li{float:left;margin-right:40px}
+.lantern_content_pic ul{margin-right:-100px}
+.zzc{
+	position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+	display:none;
+	
+	}
+.lantern_alert{
+	animation:fly 1s ease-out;
+}
+@keyframes fly{
+	0%{
+		transform: rotate(0deg);
+	}
+	
+	100%{
+		transform: rotate(360deg);
+	}
+}
+.zzc .lantern_alert{width:947px;margin:16% auto;position:relative}

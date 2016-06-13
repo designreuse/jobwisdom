@@ -33,3 +33,60 @@
 .search_table tr:nth-child(1){
 	background:#ebeff8
 }
+
+.zzc_content{background:white;width:1100px;margin:40px auto;height:540px;box-shadow:0 0 20px black; }
+.zzc_content .zzc_1 td{border:none}
+.zzc_content input {
+    width: 80px;
+    border: none;
+    text-align: center;
+    color: #c1c6d3;
+}
+.water_number{font-size:20px;color:white;background:#2a3244;height:50px;text-align:center;line-height:50px}
+.boss_{background:#edf1f5;padding:12px 20px;font-size:14px}
+.boss_ span{display:inline-block;margin-left:680px}
+.boss_cut{width:1080px;margin-left:10px;border:1px solid #dbdce2;margin-top:20px;}
+.boss_cut select {
+    border: none;
+    width: 80px;
+	color:#c7c7cd;
+}
+
+
+.Korea{width:1080px;margin-left:10px;margin-top:40px;}
+.Korea_{background:#edf1f5;padding:12px 20px;font-size:14px}
+.Korea tr rd{border:none!important}
+.Korea span{display:inline-block;margin-left:790px}
+.Korea select {
+
+    width: 400px;
+    color: #c7c7cd;
+	margin-left:20px;
+	border-radius:5px;
+	box-shadow:0 0 4px #ccc
+}
+.Korea td{width:500px;border:none;text-align:left;padding-left:10px;padding-top:10px}
+.Korea tr{margin-top:10px}
+.water_button button{  
+    width: 220px;
+    height: 40px;
+    border-radius: 8px;
+    background: #2a3244;
+    text-align: center;
+    line-height: 40px;
+    color: #dddddd;
+    box-shadow: 0px 6px 10px #ccc;
+    border: none;
+    margin-right: 10px;
+	font-size:16px;}
+.accounts{margin-left:40px}
+.water_button{width:510px;margin:40px auto;}
+.close_zzc img{height:25px}
+.close_zzc{display:inline-block;position:relative;left:450px;top:2px}
+.boss_ em{padding-left:20px}
+.Korea em{padding-left:20px}
+
+.income_1 span em{display:inline-block;margin-left:8px}
+.income_1 tr td{
+	    vertical-align: middle;
+}
