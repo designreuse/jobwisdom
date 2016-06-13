@@ -1991,7 +1991,6 @@ public class MemberCenterService {
         StoreShop hasStoreShop = storeShopMapper.selectByProties(storeShop);
         ModelAndView view = new ModelAndView(View.MemberCenter.ONLIONE_SHOP);
         view.addObject("goodsInfos", goodsInfos);
-        view.addObject("storeShop", storeShop);
         view.addObject("hasStoreShop", JSONObject.fromObject(hasStoreShop));
         return view;
     }
