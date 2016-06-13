@@ -598,25 +598,71 @@
       ifnull(oi.group_amount, 0) as group_amount, ifnull(oi.real_amount, 0) as real_amount,
       DATE_FORMAT(oi.create_time,'%Y-%m-%d %H:%i') as create_time
       from order_info oi 
-      <if test="params.daybook.queryCode != null and params.daybook.queryCode != ''">
-		  left join order_detail od on oi.order_id = od.order_id 
-		  left join employee_commission ec on od.detail_id = ec.detail_id
-	  </if>
+	  left join order_detail od on oi.order_id = od.order_id 
+	  left join employee_commission ec on od.detail_id = ec.detail_id
       <where>
         oi.store_id = #{params.daybook.storeId} and (oi.order_status = 3 or oi.order_status = 4) and oi.is_deleted = #{params.daybook.isDeleted}
-	      <choose>
-	      	<when test="params.daybook.queryCode != null and params.daybook.queryCode != ''">
-	      		and (oi.order_code = #{params.daybook.queryCode} 
-	      			or oi.member_id = (select member_id from member_info 
-	      				where store_id = #{params.daybook.storeId} and phone = #{params.daybook.queryCode} and is_deleted = 0)
-	      				or exists(select 1 from employee_info ei 
-	      				where ei.employee_code=#{params.daybook.queryCode} 
-	      				and ei.store_id = #{params.daybook.storeId} 
-	      				and ei.is_deleted = 0 
-	      				and ei.employee_id = ec.employee_id)
-	            )
-	      	</when>
-	      	<otherwise>
+		      	<if test="params.daybook.queryCode != null and params.daybook.queryCode != ''">
+		      		and (oi.order_code = #{params.daybook.queryCode} 
+		      			or oi.member_id = (select member_id from member_info 
+		      				where store_id = #{params.daybook.storeId} and phone = #{params.daybook.queryCode} and is_deleted = 0)
+		      				or exists(select 1 from employee_info ei 
+		      				where ei.employee_code=#{params.daybook.queryCode} 
+		      				and ei.store_id = #{params.daybook.storeId} 
+		      				and ei.is_deleted = 0 
+		      				and ei.employee_id = ec.employee_id)
+		            )
+		      	</if>
+		      	<if test="params.daybook.orderType != null and params.daybook.orderType != '' and params.daybook.orderType != 0">
+		      		 and od.order_type = #{params.daybook.orderType} 
+		      	</if>
+		      	<if test="params.daybook.moneyWay != null and params.daybook.moneyWay != '' and params.daybook.moneyWay != 0">
+		      		 <choose>
+				      	<when test="params.daybook.moneyWay == 1">
+				      		and oi.cash_amount &gt; 0 
+				      	</when>
+				      	<when test="params.daybook.moneyWay == 2">
+				      		and oi.unionpay_amount &gt; 0
+				      	</when>
+				      	<when test="params.daybook.moneyWay == 3">
+				      		and oi.group_amount &gt; 0
+				      	</when>
+				      	<when test="params.daybook.moneyWay == 4">
+				      		and oi.wechat_amount &gt; 0
+				      	</when>
+				      	<when test="params.daybook.moneyWay == 5">
+				      		and oi.alipay_amount &gt; 0
+				      	</when>
+				      	<when test="params.daybook.moneyWay == 6">
+				      		and oi.card_amount &gt; 0
+				      	</when>
+				      	<when test="params.daybook.moneyWay == 7">
+				      		and oi.gift_amount &gt; 0
+				      	</when>
+				      	<when test="params.daybook.moneyWay == 8">
+				      		and oi.combo_amount &gt; 0
+				      	</when>
+				      	<when test="params.daybook.moneyWay == 9">
+				      		and oi.coupon_amount &gt; 0
+				      	</when>
+				      	<when test="params.daybook.moneyWay == 10">
+				      		and oi.debt_amount &gt; 0
+				      	</when>
+				     </choose>
+		      	</if>
+		      	<if test="params.daybook.orderState != null and params.daybook.orderState != '' and params.daybook.orderState != 0">
+		           <choose>
+			      	<when test="params.daybook.orderState == 1">
+			      		 and oi.is_deleted = 0
+			      	</when>
+			      	<when test="params.daybook.orderState == 2">
+			      		 and oi.is_deleted = 1
+			      	</when>
+			      </choose>
+		        </if>
+		        <if test="params.daybook.deptId != null and params.daybook.deptId != '' and params.daybook.deptId != 0">
+		            and od.dept_id = #{params.daybook.deptId}
+		        </if>
 	      		<if test="params.daybook.beginTime != null">
 		           and oi.create_time &gt;= #{params.daybook.beginTime}
 		        </if>
@@ -719,8 +765,6 @@
 			      		order by oi.real_amount desc
 			      	</when>
 			      </choose>
-	      	</otherwise>
-	      </choose>
       </where>
   </select>
   

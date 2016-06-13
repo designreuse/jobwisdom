@@ -122,4 +122,13 @@ public interface MemberSubAccountMapper {
 	* @return  无余额的子账户标识列表
 	 */
 	List<Integer> selectNoMoneyAccountId(Integer accountId);
+
+	/**
+	 * 根据账户标识查询会员子账户
+	* @author 老王
+	* @date 2016年6月12日 下午7:56:28 
+	* @param accountId 会员标识
+	* @return List<MemberSubAccount>
+	 */
+	List<MemberSubAccount> selectListByAccountId(Integer accountId);
 }

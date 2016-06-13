@@ -73,7 +73,23 @@ public interface View {
 		/** 管理规则页面 */
 		public static final String RULE = "employee/manage/rule";
 	}
-
+	
+	/**
+	 * 营销中心
+	* @author 老王
+	* @date 2016年6月13日 下午1:42:19
+	 */
+	class Marketing {
+		/** 打转盘*/
+		public static final String SHOW_BIG_TURNTABLE = "marketing/bigTurntable";
+		/** 微砍价*/
+		public static final String SHOW_MIN_BARGAIN = "marketing/minBargain";
+		/** 点灯笼*/
+		public static final String SHOW_LANTERN = "marketing/lantern";
+		/** 微投票*/
+		public static final String SHOW_MIN_VOTE = "marketing/minVote";
+	}
+	
 	/**
 	 * 设置类模块
 	 * 

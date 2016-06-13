@@ -787,12 +787,12 @@ public class MemberInfoService {
     * @date Mar 21, 2016 12:03:25 PM
     * @param memberId   会员标识
      */
-   /* public void syncLevelId(int memberId) {
-        List<MemberSubAccountDto> accountDtos = subAccountMapper.selectSubAccountListByAccountId(memberId);
+    public void syncLevelId(int memberId) {
+        List<MemberSubAccount> accountDtos = subAccountMapper.selectListByAccountId(memberId);
         BigDecimal balanceAmount = accountDtos.get(0).getBalanceAmount();
         int levelId = accountDtos.get(0).getLevelId();
         for (int i = 1; i < accountDtos.size(); i++) {
-            MemberSubAccountDto subAccount = accountDtos.get(i);
+        	MemberSubAccount subAccount = accountDtos.get(i);
             if (balanceAmount.compareTo(subAccount.getBalanceAmount()) < 1) {
                 balanceAmount = subAccount.getBalanceAmount();
                 levelId = subAccount.getLevelId();
@@ -805,7 +805,7 @@ public class MemberInfoService {
         memberInfoMapper.updateByPrimaryKey(memberInfo);
         
         wipeCache(memberId);
-    }*/
+    }
 
     /**
      * 盛传数据格式导入会员数据

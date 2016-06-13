@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
-import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DayBookQueryDto;
 import com.zefun.web.entity.OrderInfo;
@@ -41,24 +40,8 @@ public class DayBookController extends BaseController {
 	 */
     @RequestMapping(value = View.DayBook.VIEW_DAYBOOK_INDEX, method = RequestMethod.GET)
     public ModelAndView dayBookIndex(HttpServletRequest request, HttpServletResponse response){
-    	ModelAndView mav = new ModelAndView();
     	Integer storeId = getStoreId(request);
-    	
-    	if (storeId != null) {
-			// 开始时间不能大于结束时
-    	    String beginTime = DateUtil.getCurDate() + " 00:00";
-    	    String endTime = DateUtil.getCurDate() + " 23:59";
-    	    DayBookQueryDto params = new DayBookQueryDto(storeId, beginTime, endTime, 0);
-    	    params.setTimeOrder(2);
-    		Map<String, Object> map = dayBookService.querydaybookInfo(storeId, params);
-    		if (map != null) {
-    			mav.setViewName(Url.DayBook.VIEW_HOME);
-    			mav.addAllObjects(map);
-    		}
-    		mav.addObject("beginTime", beginTime);
-    		mav.addObject("endTime", endTime);
-    	}
-        return mav;
+        return dayBookService.dayBookIndex(storeId);
     }
     
     /**
@@ -72,7 +55,7 @@ public class DayBookController extends BaseController {
     @ResponseBody
     @RequestMapping(value = View.DayBook.ACTION_DAYBOOK_LIST, method = RequestMethod.POST)
     public BaseDto dayBookView(DayBookQueryDto params, HttpServletRequest request, HttpServletResponse response) throws ParseException{
-    	Integer storeId = 1005/*getStoreId(request)*/;
+    	Integer storeId = getStoreId(request);
     	params.setStoreId(storeId);
 		
 		Map<String, Object> map = dayBookService.querydaybookInfo(storeId, params);
@@ -91,7 +74,7 @@ public class DayBookController extends BaseController {
     @ResponseBody
     @RequestMapping(value = Url.DayBook.SELECT_ORDER_BY_UPDATE, method = RequestMethod.POST)
     public BaseDto selectOrderByUpdate(HttpServletRequest request, HttpServletResponse response, Integer orderId) {
-    	Integer storeId = 1005/*getStoreId(request)*/;
+    	Integer storeId = getStoreId(request);
         return dayBookService.selectOrderByUpdate(orderId, storeId);
     }
     
