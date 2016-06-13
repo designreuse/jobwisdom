@@ -14,49 +14,59 @@
 </div>
 <div class="leftmenu">
 	<ul class="left_nav">
-		<li class="active_1_2 border">
+		<li class="active_1_2 border" index="1" url="<%=menuBasePath%>selfcashier/view/list">
 			<div class="nav_img">
 				
 			</div>
 			
 		</li>
-		<li class="active_2_1">
+		<li class="active_2_1" index="2" url="<%=menuBasePath%>KeepAccounts/initializeOpenCard">
 			<div class="nav_img">
 				
 			</div> 
 			
 		</li>
-		<li class="active_3_1">
+		<li class="active_3_1" index="3" url="<%=menuBasePath%>view/coupons">
 			<div class="nav_img">
 				
 			</div> 
 			 
 		</li>
-		<li class="active_4_1">
+		<li class="active_4_1" index="4" url="<%=menuBasePath%>summary/view/summary">
 			<div class="nav_img">
 				
 			</div>
 			
 		</li>
-		<li class="active_5_1">
+		<li class="active_5_1" index="5" url="<%=menuBasePath%>project/view/categorys">
 			<div class="nav_img">
 				
 			</div>
 			
 		</li>
-		<li class="active_6_1">
+		<li class="active_6_1" index="6" url="<%=menuBasePath%>goodsInfo/view/goodsInfoList">
 			<div class="nav_img">
 				
 			</div> 
 			
 		</li>
-		<li class="active_7_1">
+		<li class="active_7_1" index="7" url="<%=menuBasePath%>position/view/positioninfo">
 			<div class="nav_img">
 				
 			</div>
 			
 		</li>
-		<li class="active_8_1">
+		<li class="active_8_1" index="8" url="<%=menuBasePath%>system/view/storeWechat">
+			<div class="nav_img">
+				
+			</div> 
+		</li>
+		<li class="active_9_1" index="9" url="<%=menuBasePath%>system/view/person">
+			<div class="nav_img">
+				
+			</div> 
+		</li>
+		<li class="active_10_1" index="10" url="<%=menuBasePath%>storeinfo/view/storeSetting">
 			<div class="nav_img">
 				
 			</div> 
@@ -73,6 +83,7 @@
 	   <li style="top:440px"><span></span>员工管理</li>
        <li style="top:510px"><span></span>企业管理</li>
        <li style="top:580px"><span></span>系统设置</li>
+       <li style="top:580px"><span></span>微信设置</li>
 	</ul>
 
 	<div class="left_nav_2" style="height: 840px;">
@@ -93,9 +104,6 @@
 			<a href="<%=menuBasePath%>memberLevel/view/list"><li class="active"><span>门店会员卡</span></li></a>
 		</ul>
 		<ul index="2">
-			<a href="<%=menuBasePath%>storeinfo/view/storeSetting"><li><span>微门店设置</span></li></a>
-			<a href="<%=menuBasePath%>memberCenter/view/store/shop"><li><span>在线商城</span></li></a>
-			<a href="<%=menuBasePath%>wechat/items/manage"><li><span>营销方案库</span></li></a>
 			<a href="<%=menuBasePath%>view/coupons"><li><span>优惠券管理</span></li></a>
 		</ul>
 		<ul index="3">
@@ -130,16 +138,22 @@
 			<a href="<%=menuBasePath%>attendance/view/attendance"><li><span>考勤记录</span></li></a>
 		</ul>
 		<ul index="7">
-			<a href="<%=menuBasePath%>system/view/person"><li class=""><span>账户设置</span></li></a>
 			<a href="<%=menuBasePath%>system/view/storeWechat"><li class="active"><span>微信设置</span></li></a>
 			<a href="<%=menuBasePath%>storeinfo/view/showStoreList"><li class="active"><span>门店管理</span></li></a>
-			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span>基础设置</span></li></a>
 			<a href="<%=menuBasePath%>enterprise/view/showEnterprise"><li><span>新增企业</span></li></a>
 			<a href="<%=menuBasePath%>system/view/share"><li class=""><span>分享拓客</span></li></a>
 			<a href="<%=menuBasePath%>system/view/storeUsage"><li class="active"><span>系统信息</span></li></a>
-			<a href="<%=menuBasePath%>app/pay/qr"><li class="active"><span>门店充值</span></li></a>
+			<a href="<%=menuBasePath%>app/pay/qr"><li class="active"><span>企业充值</span></li></a>
 		</ul>
-		
+		<ul index="8">
+			<a href="<%=menuBasePath%>system/view/person"><li class=""><span>账户设置</span></li></a>
+			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span>基础设置</span></li></a>
+		</ul>
+		<ul index="9">
+			<a href="<%=menuBasePath%>storeinfo/view/storeSetting"><li><span>微门店设置</span></li></a>
+			<a href="<%=menuBasePath%>memberCenter/view/store/shop"><li><span>在线商城</span></li></a>
+			<a href="<%=menuBasePath%>wechat/items/manage"><li><span>营销方案库</span></li></a>
+		</ul>
 	</div>
 
 </div>
@@ -159,52 +173,12 @@ jQuery(function(){
 
 //点击换图
 jQuery(function(){
-    jQuery('.left_nav li').eq(0).click(function(){
-		jQuery(this).addClass('active_1_2').siblings().removeClass('active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8');
-		window.location.href = '<%=menuBasePath%>' + 'selfcashier/view/list';
-		
+	jQuery('.left_nav li').on("click", function(){
+		var index = jQuery(this).attr("index");
+		jQuery(this).addClass('active_'+index+'_2 border').siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10');
+		window.location.href = jQuery(this).attr("url");
 	});
-    jQuery('.left_nav li').eq(1).click(function(){
-		jQuery(this).addClass('active_2_2').siblings().removeClass('active_1_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1');
-		window.location.href = '<%=menuBasePath%>' + 'KeepAccounts/initializeOpenCard';
-	});
-    jQuery('.left_nav li').eq(2).click(function(){
-		jQuery(this).addClass('active_3_3').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1');
-		window.location.href = '<%=menuBasePath%>' + 'storeinfo/view/storeSetting';
-	});
-    jQuery('.left_nav li').eq(3).click(function(){
-		jQuery(this).addClass('active_4_4').siblings().removeClass('active_2_2 active_1_2 active_3_3 active_5_5 active_6_6 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1');
-		window.location.href = '<%=menuBasePath%>' + 'summary/view/summary';
-	});
-    jQuery('.left_nav li').eq(4).click(function(){
-		jQuery(this).addClass('active_5_5').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_3_3 active_6_6 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1');
-		window.location.href = '<%=menuBasePath%>' + 'project/view/categorys';
-	});
-    jQuery('.left_nav li').eq(5).click(function(){
-		jQuery(this).addClass('active_6_6').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_3_3 active_7_7 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1');
-		window.location.href = '<%=menuBasePath%>' + 'goodsInfo/view/goodsInfoList';
-	});
-    jQuery('.left_nav li').eq(6).click(function(){
-		jQuery(this).addClass('active_7_7').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_6_6 active_3_3 active_8_8');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1');
-		window.location.href = '<%=menuBasePath%>' + 'position/view/positioninfo';
-	});
-    jQuery('.left_nav li').eq(7).click(function(){
-		jQuery(this).addClass('active_8_8').siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_6_6 active_7_7 active_3_3');
-		jQuery('.left_nav li').eq(0).addClass('active_1_1');
-		window.location.href = '<%=menuBasePath%>' + 'system/view/person';
-	});
-   
 })
-
-
-
-
 
 
 jQuery(function(){
@@ -218,18 +192,17 @@ jQuery(function(){
 		jQuery(".left_nav_2").find("a[href='"+requestUrl+"']").children("li").addClass("active");
 	})
 })
+
 function choseMenu(url){
 	//二级菜单
 	jQuery(".left_nav_2").find("li").removeClass("active");
 	jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").show().siblings().hide();
 	jQuery(".left_nav_2").find("a[href='"+url+"']").children("li").addClass("active");
 	//1级菜单
-	jQuery(".left_nav li").siblings().removeClass('active_2_2 active_1_2 active_4_4 active_5_5 active_6_6 active_7_7 active_3_3 border');
 	jQuery('.left_nav li').eq(0).addClass('active_1_1');
 	var index = jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").attr("index");
 	var index_ = Number(index)+1;
-	jQuery(".left_nav li").eq(index).addClass("active_"+(index_)+"_"+(index_)+" border");
-	
+	jQuery(".left_nav li").eq(index).addClass("active_"+(index_)+"_2  border").siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10');
 }
 
 jQuery(".leftmenu").mouseleave(function(){

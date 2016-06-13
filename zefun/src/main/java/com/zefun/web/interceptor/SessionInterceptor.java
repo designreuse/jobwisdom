@@ -100,6 +100,7 @@ public class SessionInterceptor implements HandlerInterceptor {
      */
     private String getRequstParams(HttpServletRequest request) {
         StringBuffer sb = new StringBuffer("");
+        @SuppressWarnings("unchecked")
         Map<String, String[]> params = request.getParameterMap();
         for (String key : params.keySet()) {
             String[] values = params.get(key);
