@@ -55,7 +55,7 @@
 	        <ul class="famous-js">
 	        	<c:forEach items="${projectList }" var="project">
 	        		<li>
-		                <a href="<%=basePath %>memberCenter/view/employeeProject?storeId=${session_key_store_account}&employeeId=${employeeInfo.employeeId}&projectId=${project.projectId}">
+		                <a href="<%=basePath %>memberCenter/view/employeeProject?storeId=${session_key_store_account}&employeeId=${employeeInfo.employeeId}&projectId=${project.projectId}&selectStoreId=${project.storeId}">
 		                    <img class="lazy" name="lazyImage" src="<%=picPath %>img_lazy_loding.png" data-original="<%=picPath %>${project.projectImage}"/>
 		                    <div class="famous-wz">
 		                        <p>${project.projectName }</p>

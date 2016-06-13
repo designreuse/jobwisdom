@@ -247,6 +247,7 @@
         project_image as projectImage,
         project_desc as projectDesc,
         project_price as projectPrice,
+        store_id as storeId,
         appointment_price as appointmentPrice,
         sales_count as salesCount,
         sales_people as salesPeople
@@ -262,6 +263,7 @@
         project_image as projectImage,
         project_desc as projectDesc,
         project_price as projectPrice,
+        store_id as storeId,
         is_appointment as isAppointment,
         appointment_price as appointmentPrice,
         sales_count as salesCount,
