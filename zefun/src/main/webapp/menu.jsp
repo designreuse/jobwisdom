@@ -127,7 +127,6 @@
 		</ul>
 		<ul index="5">
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span>商品列表</span></li></a>
-			<a href="<%=menuBasePath%>goods/info/setting"><li class=""><span>商品上架</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/setting"><li><span>商品库管理</span></li></a>
 			<a href="<%=menuBasePath%>stock/view"><li><span>商品调遣单</span></li></a>
 			<a href="<%=menuBasePath%>view/storeAccount/suplier"><li><span>供应商管理</span></li></a>

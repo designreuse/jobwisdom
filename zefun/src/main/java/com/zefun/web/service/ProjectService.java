@@ -807,9 +807,9 @@ public class ProjectService {
         	levelMap.put("levelId", levelId);
         	levelMap.put("storeId", storeId);
             MemberLevelDiscount memberLevelDiscount = memberLevelDiscountMapper.selectByStoreLevel(levelMap);
-            discountAmount = discountAmount.multiply(new BigDecimal(memberLevelDiscount.getProjectDiscount())).divide(new BigDecimal(100), 2);
-//            MemberLevel memberLevel = memberLevelMapper.selectByPrimaryKey(levelId);
-//            discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getProjectDiscount())).divide(new BigDecimal(100), 2);
+            if (memberLevelDiscount!=null){
+                discountAmount = discountAmount.multiply(new BigDecimal(memberLevelDiscount.getProjectDiscount())).divide(new BigDecimal(100), 2);
+            }
         }
         else {
             discountAmount = discount.getDiscountAmount();

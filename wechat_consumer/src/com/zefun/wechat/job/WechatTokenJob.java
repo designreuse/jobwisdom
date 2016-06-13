@@ -1,7 +1,6 @@
 package com.zefun.wechat.job;
 
 import java.util.List;
-import java.util.Set;
 
 import net.sf.json.JSONObject;
 

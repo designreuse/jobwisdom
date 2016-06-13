@@ -99,28 +99,28 @@
 							<ul class="add_pic clearfix" style="width:570px">
 							    <c:if test="${!empty storeInfo.pictureArray }">
                                     <c:forEach items="${storeInfo.pictureArray}" var="picture">
-	                                    <li><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>${ picture }">
+	                                    <li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>${ picture }">
 	                                	<input type="hidden" name="carouselPicture" value="${ picture }">
 	                                	</li>
                                     </c:forEach>
                                 </c:if>
                                 <c:if test="${empty storeInfo.pictureArray }">
-                                	<li><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
+                                	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
+                                	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 220px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
+                                	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 220px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
+                                	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 220px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
+                                	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
-                                	<li><img style="width: 220px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
+                                	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
                                 	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
                                 	</li>
                                 </c:if>
@@ -399,7 +399,7 @@ function editSpe(sIds, opt){
 			jQuery("select[name='projectId']").val(projectId);
 			jQuery("select[name='emp']").val(emp);
 			jQuery("input[name='carouselPicture']").last().val(sImage);
-			jQuery("input[name='carouselPicture']").last().prev().attr("src", qiniuUrl+sImage);
+			jQuery("input[name='carouselPicture']").last().prev().prev().attr("src", qiniuUrl+sImage);
 			UE.getEditor("editor2").setContent(content);
 		}
 	}

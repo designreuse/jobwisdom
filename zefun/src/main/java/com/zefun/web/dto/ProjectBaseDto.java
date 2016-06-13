@@ -32,8 +32,20 @@ public class ProjectBaseDto {
     /** 销售人数 */
     private Integer salesPeople;
     
+    /** 么电*/
+    private Integer storeId;
+    
     /** 是否接受预约(0:否,1:是) */
     private Integer isAppointment;
+
+    
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
+    }
 
     public Integer getProjectId() {
         return projectId;
