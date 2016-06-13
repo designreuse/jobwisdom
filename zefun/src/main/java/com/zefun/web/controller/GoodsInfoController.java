@@ -91,6 +91,7 @@ public class GoodsInfoController extends BaseController {
     * @date 2015年8月10日 上午10:12:29
     * @param request request
     * @param response response
+    * @param categoryId categoryId
     * @param model 视图模型
     * @return ModelAndView
      */

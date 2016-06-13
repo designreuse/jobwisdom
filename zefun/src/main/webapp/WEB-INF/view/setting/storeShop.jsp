@@ -122,12 +122,12 @@
 						<div id="gg" class="adjust_goods_1" style="display: block;">
 							<!-- <button class="adjust_goods_button" onclick="jQuery('.mask').show();editPage(null);">添加图片</button> -->
 							<ul class="add_pic clearfix" style="width:570px">
-							   <li><img src="<%=basePath%>images/click_add.png"></li>
-							   <li><img src="<%=basePath%>images/click_add.png"></li>
-							   <li><img src="<%=basePath%>images/click_add.png"></li>
-							   <li><img src="<%=basePath%>images/click_add.png"></li>
-							   <li><img src="<%=basePath%>images/click_add.png"></li>
-							   <li><img src="<%=basePath%>images/click_add.png"></li>
+							   <%-- <li><img src="<%=qiniuPath%>click_add.png"></li>
+							   <li><img src="<%=qiniuPath%>click_add.png"></li>
+							   <li><img src="<%=qiniuPath%>click_add.png"></li>
+							   <li><img src="<%=qiniuPath%>click_add.png"></li>
+							   <li><img src="<%=qiniuPath%>click_add.png"></li>
+							   <li><img src="<%=qiniuPath%>click_add.png"></li> --%>
 							</ul>
 							<button class="adjust_goods_button" onclick="save('adsense')">保存</button>
 						</div>
@@ -142,7 +142,7 @@
 								<div class="adjust_list_1">
 									<c:forEach items="${goodsInfos }" var="goodsInfo">
 										<div class="adjust_list clearfix" goodsId="${goodsInfo.goodsId }">
-											<em class="shoes_">鞋子</em>
+											<em class="shoes_">商品</em>
 											<div class="shoes_right">
 												<span class="shoes_right_new">${goodsInfo.goodsName }</span>
 											</div>
@@ -174,7 +174,7 @@
 								<div class="adjust_list_1">
 									<c:forEach items="${goodsInfos }" var="goodsInfo">
 										<div class="adjust_list clearfix" goodsId="${goodsInfo.goodsId }">
-											<em class="shoes_">鞋子</em>
+											<em class="shoes_">商品</em>
 											<div class="shoes_right">
 												<span class="shoes_right_new">${goodsInfo.goodsName }</span>
 											</div>
@@ -203,30 +203,18 @@
 	
 	<div class="mask" style="display: none;">
 		   <div id="flashEditorOut" >
-			        <div id="altContent2">
-			            <h1>美图秀秀</h1>
-			        </div>
-				</div>
+		   <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
+		        <div id="altContent2">
+		            <h1>美图秀秀</h1>
+		        </div>
+		   </div>
 	</div>
 	
-	
-	<div class="zzc">
-	     <div class="photo_cut">
-		   <div id="clipArea"></div>
-	          <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
-		   <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
-		   <div class="button_panel"> 
-		    <button class="selectpic">选择图片</button>
-		    <button class="sureinput">确定上传</button>
-			<button class="cancelinput">取消</button>
-		  </div>
-        </div>
-   </div>
-   
 </body>
 <script>
 	var cssWidth = 375;
 	var cssHeight = 230;
+	var imageObject = null;
 	function zccCallback(dataBase64){
 		var key = "jobwisdom/project/" + new Date().getTime();
 	    var data = {"stringBase64":dataBase64,"key":key};
@@ -249,10 +237,11 @@
 		       },
 		       success: function(data) {
 			       	var imageUrl = data.msg.imageUrl;
+			       	imageObject.attr("src", imageUrl);
 			       	var html = '<li><img style="width: 89px; height: 89px" src="'+imageUrl+'"></li>';
-			       	jQuery(".add_pic.clearfix").append(jQuery(html));
+			       	/* jQuery(".add_pic.clearfix").append(jQuery(html));
 			       	var key = data.msg.key;
-			       	console.log(imageUrl);
+			       	console.log(imageUrl); */
 		       }
      	});
 	}
@@ -335,7 +324,7 @@ jQuery.each(storeShop.bestSellers.split(","),function(i, value){
 	jQuery("#rxsp").find(".adjust_list.clearfix[goodsid="+value+"]").click();
 })
 jQuery.each(storeShop.adsense.split(","),function(i, value){
-	var html = '<li><img style="width: 375px; " src="'+value+'"></li>';
+	var html = '<li><img onclick="jQuery(\'.mask\').show();editPage(null);imageObject=jQuery(this);" style="width: 375px; " src="'+value+'"></li>';
    	jQuery(".add_pic.clearfix").append(jQuery(html));
 })
 </script>
