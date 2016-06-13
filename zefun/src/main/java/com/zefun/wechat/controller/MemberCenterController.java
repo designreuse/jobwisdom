@@ -708,12 +708,13 @@ public class MemberCenterController extends BaseController {
     * @date Oct 18, 2015 7:21:19 PM
     * @param storeId    微信对应门店标识
     * @param projectId  项目编号
+    * @param selectStoreId  项目对应门店
     * @param request        请求对象
     * @param response       响应对象
     * @return   项目详情页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_PROJECT_DETAIL, method = RequestMethod.GET)
-    public ModelAndView projectDetailView(String storeId, int projectId, 
+    public ModelAndView projectDetailView(String storeId, int projectId, Integer selectStoreId, 
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, 1, request, response);
         if (openId == null) {
@@ -721,7 +722,7 @@ public class MemberCenterController extends BaseController {
         }
         Integer memberId = getUserId(request);
         setJsapiSignData(storeId, request);
-        return memberCenterService.projectDetailView(projectId, memberId, 1, storeId);
+        return memberCenterService.projectDetailView(projectId, memberId, 1, selectStoreId);
     }
     
     
@@ -1092,12 +1093,13 @@ public class MemberCenterController extends BaseController {
     * @param storeId        微信对应门店标识
     * @param employeeId     员工标识
     * @param projectId      项目标识
+    * @param selectStoreId  项目对应的门店
     * @param request        请求对象    
     * @param response       响应对象
     * @return   员工项目详情页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_EMPLOYEE_PROJECT)
-    public ModelAndView employeeProjectView(String storeId, int employeeId, int projectId,
+    public ModelAndView employeeProjectView(String storeId, int employeeId, int projectId, Integer selectStoreId, 
             HttpServletRequest request, HttpServletResponse response) {
         String openId = getOpenId(storeId, 1, request, response);
         if (openId == null) {
@@ -1105,7 +1107,7 @@ public class MemberCenterController extends BaseController {
         }
         Integer memberId = getUserId(request);
         setJsapiSignData(storeId, request);
-        return memberCenterService.employeeProjectView(employeeId, projectId, memberId, storeId);
+        return memberCenterService.employeeProjectView(employeeId, projectId, memberId, selectStoreId);
     }
     
     

@@ -296,8 +296,7 @@ function addCashierDetail(orderInfo){
 	for (var i = 0; i < orderDetails.length; i++){
 		var detail = orderDetails[i];
 		var subAccountId = jQuery("#memberListUL").find(".active").attr("levelid");
-		var tmpDiscountAmount = new Big(discountMap[detail.detailId + "_" + subAccountId]);
-		var realMoney = tmpDiscountAmount;
+		var realMoney = detail.discountAmount;
 		
 		var tr = document.createElement("tr");
 		tr.setAttribute("detailId", detail.detailId)

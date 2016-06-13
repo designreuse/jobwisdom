@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="format-detection" content="email=no"/>
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+        <title>多人聊天室</title>
+        <!--[if lt IE 8]><script src="./json3.min.js"></script><![endif]-->
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://120.25.254.164:3000/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+    <script>
+        $(function(){
+		    var onlineUsers;
+		    var socket;
+			var userName = "小高";
+			    socket = io.connect('ws://localhost:3000');
+				socket.on('connect', function (data) {
+                alert('聊天室加入成功');				
+				socket.emit('initUser',userName);
+				//接受聊天信息
+				socket.on('getMessage', function (data) {
+				    alert("来消息了"+data.mess);
+					console.log("来消息了"+data.mess);
+                    $message_list.append('<li>'+data.from+'说'+data.message+'</li><li>');
+                });
+				//获得当前在线人员
+				socket.on("onlineUsers",function(data){
+				   onlineUsers = data;
+				   console.log("刷新在线人数");
+				   $("#select").empty();
+				   for(var j=0; j< onlineUsers.length; j++){
+				       if(onlineUsers[j]!=userName){				   
+				       var option = $("<option value='"+onlineUsers[j]+"'>"+onlineUsers[j]+"</option>");
+					   $("#select").append(option);
+					   }
+				   }
+				   
+				});
+              });
+				
+             $("#send").click(function(e){     
+                  var msg  = $('#message').val(),
+                      to = $('#select').val(),
+                 $message_list = $('#message_list');
+				 var msgType = 1;
+				 var toUser = to;
+                 socket.emit('sendMsg',userName,toUser,msg,msgType);
+              
+             });
+        });
+    </script>
+	
+	<div id="div">
+	在线用户:<select id="select"></select><br>
+    消息内容:<input type="text" id="message"><button type="button" id="send">发送</button>
+	</div>
+   
+    <ul id="message_list">
+         
+    </ul>
+    </body>
+</html>

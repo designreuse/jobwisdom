@@ -995,7 +995,7 @@ public class MemberCenterService {
     * @param storeId 门店标识
     * @return   项目详情页面
      */
-    public ModelAndView projectDetailView(int projectId, Integer memberId, int type, String storeId) {
+    public ModelAndView projectDetailView(int projectId, Integer memberId, int type, Integer storeId) {
         ModelAndView mav = new ModelAndView(View.MemberCenter.PROJECT_DETAIL);
         
         BigDecimal projectPrice = new BigDecimal(0);
@@ -1015,8 +1015,8 @@ public class MemberCenterService {
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         if (memberInfo != null) {
             mav.addObject("levelName", memberInfo.getLevelName());
-            mav.addObject("discountAmount", 
-            		  projectService.getProjectPriceByMember(memberInfo.getLevelId(), projectId, projectPrice, Integer.valueOf(storeId)));
+            mav.addObject("discountAmount", projectService.getProjectPriceByMember(memberInfo.getLevelId(), 
+                    projectId, projectPrice, Integer.valueOf(storeId)));
         }
         else {
             mav.addObject("discountAmount", projectPrice);
@@ -1852,7 +1852,7 @@ public class MemberCenterService {
     * @param storeId 门店标识
     * @return   员工项目详情页面
      */
-    public ModelAndView employeeProjectView(int employeeId, int projectId, Integer memberId, String storeId) {
+    public ModelAndView employeeProjectView(int employeeId, int projectId, Integer memberId, Integer storeId) {
         ModelAndView mav = projectDetailView(projectId, memberId, 2, storeId);
         mav.setViewName(View.MemberCenter.EMPLOYEE_PROJECT);
         
@@ -1991,7 +1991,6 @@ public class MemberCenterService {
         StoreShop hasStoreShop = storeShopMapper.selectByProties(storeShop);
         ModelAndView view = new ModelAndView(View.MemberCenter.ONLIONE_SHOP);
         view.addObject("goodsInfos", goodsInfos);
-        view.addObject("storeShop", storeShop);
         view.addObject("hasStoreShop", JSONObject.fromObject(hasStoreShop));
         return view;
     }

@@ -117,7 +117,7 @@
 										<h2>¥ ${project.projectPrice }</h2>
 										<span>预约立减${project.appointmentPrice }元</span>
 									</div>
-									<a href="<%=basePath%>memberCenter/view/projectDetail?storeId=${session_key_store_account}&projectId=${project.projectId}"><div class="special">预约</div></a>
+									<a href="<%=basePath%>memberCenter/view/projectDetail?storeId=${session_key_store_account}&projectId=${project.projectId}&selectStoreId=${project.projectId}"><div class="special">预约</div></a>
 								</li>
 							</c:forEach>
 						</ul>

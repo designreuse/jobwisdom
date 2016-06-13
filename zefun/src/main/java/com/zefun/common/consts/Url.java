@@ -47,6 +47,29 @@ public interface Url {
 		 */
 		public static final String ADD_ENTERPRISE = "enterprise/action/addEnterprise";
 	}
+	/**
+	 * 营销中心
+	* @author 老王
+	* @date 2016年6月13日 下午1:54:23
+	 */
+	class Marketing {
+		/**
+		 * 大转盘
+		 */
+		public static final String VIEW_SHOW_BIG_TURNTABLE = "marketing/view/showBigTurntable";
+		/**
+		 * 微砍价
+		 */
+		public static final String VIEW_SHOW_MIN_BARGAIN = "marketing/view/showMinBargain";
+		/**
+		 * 点灯笼
+		 */
+		public static final String VIEW_SHOW_LANTERN = "marketing/view/showLantern";
+		/**
+		 * 微投票
+		 */
+		public static final String VIEW_SHOW_MIN_VOTE = "marketing/view/showMinVote";
+	}
 	
 	/** 系统设置模块 */
 	class SystemSetting {

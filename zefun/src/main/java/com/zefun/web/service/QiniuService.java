@@ -14,7 +14,6 @@ import java.util.Set;
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qiniu.common.QiniuException;
@@ -63,10 +62,6 @@ public class QiniuService {
     /**七牛空间管理者*/
     private final BucketManager bucketManager = new BucketManager(auth);
 
-    /** redis api服务对象 */
-    @Autowired
-    private RedisService redisService;
-    
     /**
      * 获取默认上传策略的token
     * @author 张进军

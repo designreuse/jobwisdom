@@ -7,7 +7,7 @@
 %>
 <%@include file="/loading.jsp" %>
 <%@include file="/abnormalLanding.jsp" %>
-<%-- <%@include file="chat.jsp" %> --%>
+<%@include file="chat.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/common.css" type="text/css" />
 <div class="logo-wrap">
 	<a href="index.html"> <img src="<%=basePath%>images/logo_by.png" alt=""></a>
@@ -104,7 +104,11 @@
 			<a href="<%=menuBasePath%>memberLevel/view/list"><li class="active"><span>门店会员卡</span></li></a>
 		</ul>
 		<ul index="2">
-			<a href="<%=menuBasePath%>view/coupons"><li><span>优惠券管理</span></li></a>
+			<a href="<%=menuBasePath%>view/coupons"><li><span>优惠券</span></li></a>
+			<a href="<%=menuBasePath%>marketing/view/showMinBargain"><li><span>微砍价</span></li></a>
+			<a href="<%=menuBasePath%>marketing/view/showBigTurntable"><li><span>大转盘</span></li></a>
+			<a href="<%=menuBasePath%>marketing/view/showLantern"><li><span>点灯笼</span></li></a>
+			<a href="<%=menuBasePath%>marketing/view/showMinVote"><li><span>微投票</span></li></a>
 		</ul>
 		<ul index="3">
 			<a href="<%=menuBasePath%>summary/view/summary"><li class=""><span>营业汇总</span></li></a>
@@ -123,7 +127,6 @@
 		</ul>
 		<ul index="5">
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span>商品列表</span></li></a>
-			<a href="<%=menuBasePath%>goods/info/setting"><li class=""><span>商品上架</span></li></a>
 			<a href="<%=menuBasePath%>goodsInfo/view/setting"><li><span>商品库管理</span></li></a>
 			<a href="<%=menuBasePath%>stock/view"><li><span>商品调遣单</span></li></a>
 			<a href="<%=menuBasePath%>view/storeAccount/suplier"><li><span>供应商管理</span></li></a>
@@ -205,9 +208,9 @@ function choseMenu(url){
 	jQuery(".left_nav li").eq(index).addClass("active_"+(index_)+"_2  border").siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10');
 }
 
-jQuery(".leftmenu").mouseleave(function(){
+/* jQuery(".leftmenu").mouseleave(function(){
 	choseMenu(requestUrl);
-});
+}); */
 
 choseMenu(requestUrl);
 

@@ -183,7 +183,7 @@
   	select 
   	   <include refid="Base_Column_List" /> 
   	from project_discount
-  	where project_id = #{projectId} and level_id = #{levelId}
+  	where project_id = #{projectId} and level_id = #{levelId} and is_deleted = 0
   </select>
   
 </mapper>
