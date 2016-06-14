@@ -780,8 +780,8 @@ public class MemberCenterController extends BaseController {
             return null;
         }
         int memberId = getUserIdByOpenId(openId);
-        int mainStoreId = getStoreId(request);
-        return memberCenterService.orderAppointmentAction(memberId, mainStoreId, appointDate, appointTime, projectId, projectName, 
+        String storeAccount = getStoreAccount(request);
+        return memberCenterService.orderAppointmentAction(memberId, storeAccount, appointDate, appointTime, projectId, projectName, 
                 projectStepOrder, shiftMahjongId, employeeId);
     }
     

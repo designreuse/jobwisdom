@@ -286,7 +286,7 @@ public class RabbitService {
     * @param projectName    服务项目
     * @param appointTime    预约时间
      */
-    public void sendAppointmentApplyNotice(int storeId, int mainStoreId, String url, int employeeId, String openId, String memberName, 
+    public void sendAppointmentApplyNotice(int storeId, String mainStoreId, String url, int employeeId, String openId, String memberName, 
             String memberLevel, String projectName, String appointTime) {
         logger.info("sendAppointmentApplyNotice -- > storeId : " + storeId + ", mainStoreId : " + mainStoreId + ", url : "
                 + url + ", employeeId : " + employeeId + ", openId : " + openId);

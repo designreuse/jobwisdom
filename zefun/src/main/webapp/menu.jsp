@@ -56,17 +56,17 @@
 			</div>
 			
 		</li>
-		<li class="active_8_1" index="8" url="<%=menuBasePath%>system/view/storeWechat">
+		<li class="active_8_1" index="8" url="<%=menuBasePath%>storeinfo/view/showStoreList">
 			<div class="nav_img">
 				
 			</div> 
 		</li>
-		<li class="active_9_1" index="9" url="<%=menuBasePath%>system/view/person">
+		<li class="active_9_1" index="9" url="<%=menuBasePath%>storeinfo/view/storeSetting">
 			<div class="nav_img">
 				
 			</div> 
 		</li>
-		<li class="active_10_1" index="10" url="<%=menuBasePath%>storeinfo/view/storeSetting">
+		<li class="active_10_1" index="10" url="<%=menuBasePath%>system/view/person">
 			<div class="nav_img">
 				
 			</div> 
@@ -82,8 +82,8 @@
 	   <li style="top:370px"><span></span>商品管理</li>
 	   <li style="top:440px"><span></span>员工管理</li>
        <li style="top:510px"><span></span>企业管理</li>
+       <li style="top:580px"><span></span>微信管理</li>
        <li style="top:580px"><span></span>系统设置</li>
-       <li style="top:580px"><span></span>微信设置</li>
 	</ul>
 
 	<div class="left_nav_2" style="height: 840px;">
@@ -141,7 +141,6 @@
 			<a href="<%=menuBasePath%>attendance/view/attendance"><li><span>考勤记录</span></li></a>
 		</ul>
 		<ul index="7">
-			<a href="<%=menuBasePath%>system/view/storeWechat"><li class="active"><span>微信设置</span></li></a>
 			<a href="<%=menuBasePath%>storeinfo/view/showStoreList"><li class="active"><span>门店管理</span></li></a>
 			<a href="<%=menuBasePath%>enterprise/view/showEnterprise"><li><span>新增企业</span></li></a>
 			<a href="<%=menuBasePath%>system/view/share"><li class=""><span>分享拓客</span></li></a>
@@ -149,13 +148,14 @@
 			<a href="<%=menuBasePath%>app/pay/qr"><li class="active"><span>企业充值</span></li></a>
 		</ul>
 		<ul index="8">
-			<a href="<%=menuBasePath%>system/view/person"><li class=""><span>账户设置</span></li></a>
-			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span>基础设置</span></li></a>
+			<a href="<%=menuBasePath%>storeinfo/view/storeSetting"><li><span>微网站</span></li></a>
+			<a href="<%=menuBasePath%>memberCenter/view/store/shop"><li><span>在线商城</span></li></a>
+			<a href="<%=menuBasePath%>wechat/items/manage"><li><span>营销中心</span></li></a>
+			<a href="<%=menuBasePath%>system/view/storeWechat"><li class="active"><span>微信设置</span></li></a>
 		</ul>
 		<ul index="9">
-			<a href="<%=menuBasePath%>storeinfo/view/storeSetting"><li><span>微门店设置</span></li></a>
-			<a href="<%=menuBasePath%>memberCenter/view/store/shop"><li><span>在线商城</span></li></a>
-			<a href="<%=menuBasePath%>wechat/items/manage"><li><span>营销方案库</span></li></a>
+			<a href="<%=menuBasePath%>system/view/person"><li class=""><span>账户设置</span></li></a>
+			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span>基础设置</span></li></a>
 		</ul>
 	</div>
 

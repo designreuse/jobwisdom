@@ -134,7 +134,7 @@
         });
     });
     
-    var data = "projectId=${projectId}&projectStepOrder=${projectStepOrder}&shiftMahjongId=${shiftMahjongId}&employeeId=${employeeId}&projectName=${projectName}";
+    var data = "projectId=${projectId}&projectStepOrder=${projectStepOrder}&shiftMahjongId=${shiftMahjongId}&employeeId=${employeeId}&projectName=${projectName}&mainStoreId=${mainStoreId}";
     var year = new Date().getFullYear();
     function appoint(){
     	if (isEmpty(time)) {

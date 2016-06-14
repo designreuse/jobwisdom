@@ -1052,7 +1052,9 @@ public class MemberCenterService {
             int employeeId, String employeeName, String levelName, 
             HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         ModelAndView mav = new ModelAndView(View.MemberCenter.DATE_APPOINTMENT);
+        
         mav.addObject("projectId", projectId);
+        mav.addObject("mainStoreId", projectInfoMapper.selectByPrimaryKey(projectId).getStoreId());
         mav.addObject("projectName", projectName);
         mav.addObject("projectStepOrder", projectStepOrder);
         mav.addObject("shiftMahjongId", shiftMahjongId);
@@ -1195,7 +1197,7 @@ public class MemberCenterService {
     * @param employeeId     员工标识
     * @return   成功返回码0；失败返回其他错误码，返回值为提示语
      */
-    public BaseDto orderAppointmentAction(int memberId, int mainStoreId, String appointDate, String appointTime, int projectId, 
+    public BaseDto orderAppointmentAction(int memberId, String mainStoreId, String appointDate, String appointTime, int projectId, 
             String projectName, int projectStepOrder, int shiftMahjongId, int employeeId){
         //获取预约员工的门店标识
         int storeId = employeeInfoMapper.selectByPrimaryKey(employeeId).getStoreId();
