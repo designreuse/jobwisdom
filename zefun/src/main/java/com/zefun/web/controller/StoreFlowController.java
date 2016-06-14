@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.common.consts.Url;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.entity.RevenueCategories;
 import com.zefun.web.entity.StoreFlow;
 import com.zefun.web.service.StoreFlowService;
 
