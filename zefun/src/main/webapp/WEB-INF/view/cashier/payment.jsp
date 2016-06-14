@@ -29,7 +29,7 @@
 		            	</c:otherwise>
 	            	</c:choose>
 				 </p>
-			    
+			    <div style="font-size:12px;margin-left:24px"><img src="<%=basePath %>images/bulb.jpg" style="width:20px;position:relative;top:6px;">注：拖拽流水单到目标单可实现流水单合并</div>
 			   <div class="clearfix seo_first">
 			       <c:forEach var="selfCashier" items="${cashierDtoList}" varStatus="status">
 			         <div class="money_content" orderId = "${selfCashier.orderId}">
