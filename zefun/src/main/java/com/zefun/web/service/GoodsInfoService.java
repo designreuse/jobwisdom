@@ -38,6 +38,8 @@ import com.zefun.web.entity.GoodsBrand;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
+import com.zefun.web.entity.GoodsStock;
+import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
@@ -51,6 +53,7 @@ import com.zefun.web.mapper.GoodsBrandMapper;
 import com.zefun.web.mapper.GoodsCategoryMapper;
 import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ShipmentRecordMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
@@ -116,6 +119,9 @@ public class GoodsInfoService {
     /** 门店管理 */
     @Autowired
     private StoreInfoMapper storeInfoMapper;
+    /** 商品库存管理 */
+    @Autowired
+    private GoodsStockMapper goodsStockMapper;
     
 
     /**
@@ -162,43 +168,6 @@ public class GoodsInfoService {
         return goodsInfoMapper.selectByStoreId(storeId);
     }
 
-    /**
-     * 商品列表 change 分页
-    * @author 洪秋霞
-    * @date 2015年8月7日 下午5:46:26
-    * @param goodsInfo 商品信息
-    * @param pageNo 页码
-    * @param pageSize 每页显示数
-    * @param orderBy  排序方式
-    * @return BaseDto
-     */
-    public BaseDto listAction(GoodsInfoDto goodsInfo, int pageNo, int pageSize, String orderBy) {
-        Page<GoodsInfoDto> page = queryGoodsInfoPageList(goodsInfo, pageNo, pageSize, orderBy);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
-    }
-
-    /**
-     * 查询商品列表 分页
-    * @author 洪秋霞
-    * @date 2015年8月7日 下午5:45:13
-    * @param goodsInfo 商品信息
-    * @param pageNo 页码
-    * @param pageSize 每页显示数
-    * @param orderBy  排序方式
-    * @return Page<GoodsInfoDto>
-     */
-    public Page<GoodsInfoDto> queryGoodsInfoPageList(GoodsInfoDto goodsInfo, int pageNo, int pageSize, String orderBy) {
-        Page<GoodsInfoDto> page = new Page<GoodsInfoDto>();
-        page.setPageNo(pageNo);
-        page.setPageSize(pageSize);
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("goodsInfo", goodsInfo);
-        params.put("orderBy", orderBy);
-        page.setParams(params);
-        List<GoodsInfoDto> list = goodsInfoMapper.selectGoodsInfoPage(page);
-        page.setResults(list);
-        return page;
-    }
 
     /**
      * 查询商品类别
@@ -299,7 +268,7 @@ public class GoodsInfoService {
      */
     public BaseDto deleteGoodsBrand(Integer brandId) {
         GoodsInfo goodsInfo = new GoodsInfo();
-        goodsInfo.setBrandId(brandId.toString());
+//        goodsInfo.setBrandId(brandId.toString());
         goodsInfo.setIsDeleted(0);
         List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
         if (goodsInfos!=null && goodsInfos.size()>0){
@@ -583,15 +552,21 @@ public class GoodsInfoService {
      * @return  成功返回码为0，失败为其他返回码
      */
     public BaseDto saveShipmentRecord(ShipmentRecord shipmentRecord) {
-      //修改商品库存数量
+        //修改商品库存数量
         GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(shipmentRecord.getGoodsId());
-        Integer goodsStock = goodsInfo.getGoodsStock();
+        GoodsStockKey key = new GoodsStockKey();
+        key.setaId(goodsInfo.getaId());
+        key.setStoreId(shipmentRecord.getStoreId());;
+        GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
+        Integer count = goodsStock.getCount();
         Integer shipmentCount = shipmentRecord.getShipmentCount();
-        if (goodsStock<shipmentCount){
+        if (count<shipmentCount){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "库存不足");
         }
-        goodsInfo.setGoodsStock(goodsStock - shipmentCount);
-        goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
+        goodsStock.setCount(count - shipmentCount);
+        goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
+//        goodsInfo.setGoodsStock(count - shipmentCount);
+//        goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
         int ok = shipmentRecordMapper.insertSelective(shipmentRecord);
         if (ok>0){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shipmentRecord);
@@ -1014,7 +989,7 @@ public class GoodsInfoService {
             accountGoodsMapper.updateByPrimaryKeySelective(goodsInfo);
             List<GoodsInfo> info = goodsInfoMapper.selectByStoreAccount(goodsInfo.getGoodsId());
             for (int i = 0; i < info.size(); i++) {
-                info.get(i).setIsSellProduct(goodsInfo.getIsSellProduct());
+//                info.get(i).setIsSellProduct(goodsInfo.getIsSellProduct());
                 goodsInfoMapper.updateByPrimaryKeySelective(info.get(i));
             }
         }
@@ -1026,7 +1001,7 @@ public class GoodsInfoService {
                 GoodsInfo info = new GoodsInfo();
                 info.setStoreId(storeInfos.get(i).getStoreId());
                 info.setaId(goodsInfo.getGoodsId());
-                info.setIsSellProduct(goodsInfo.getIsSellProduct());
+//                info.setIsSellProduct(goodsInfo.getIsSellProduct());
                 info.setIsDeleted(0);
                 goodsInfoMapper.insertSelective(info);
             }

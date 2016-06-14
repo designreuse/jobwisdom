@@ -531,6 +531,8 @@ public interface Url {
 		public static final String MANUALLY_OPEN_ORDER_SAVE = "KeepAccounts/manuallyOpenOrderSave";
 		/** 刷新轮牌 */
 		public static final String REFRESH_SHIFTMAHJONG_EMPLOYEE = "staff/action/refreshShiftMahjongEmployee";
+		/** 开支记账类别管理页面*/
+        public static final String VIEW_ADD_INITIALIZE_TYPE = "KeepAccounts/type";
 	}
 
 	/** 微信接口 */

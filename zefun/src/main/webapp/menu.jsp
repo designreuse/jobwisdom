@@ -90,6 +90,7 @@
 		<ul index="0">
 			<a href="<%=menuBasePath%>selfcashier/view/list"><li><span>消费收银</span></li></a>
 			<a href="<%=menuBasePath%>KeepAccounts/initializeManuallyOpenOrder"><li><span>无纸开单</span></li></a>
+			<a href="<%=menuBasePath%>KeepAccounts/type"><li><span>收支类别</span></li></a>
 			<a href="<%=menuBasePath%>KeepAccounts/initializeStoreFlow"><li><span>收支记账</span></li></a>
 			<a href="<%=menuBasePath%>daybook/view/index"><li><span>流水查询</span></li></a>
 			<a href="<%=menuBasePath%>KeepAccounts/initializeShiftMahjong"><li><span>电子轮牌</span></li></a>

@@ -1,0 +1,22 @@
+.content_right{color:black;font-size:14px}
+
+.add_store_back li{width:40px;height:251px;background:url('../images/add_store_back.png') no-repeat;cursor:pointer;background-size:40px 251px;font-size:16px}
+.add_store_back .active{width:40px;height:251px;background:url('../images/add_store_back_1.png') no-repeat;color:white!important;background-size:40px 251px}
+.add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:16px;}
+.add_store_back {float:left}
+.add_store_div{width:1000px;margin:70px auto}
+
+.add_store_back li i{display:inline-block;width:17px;height:8px}
+
+.system_manage_content{border:1px solid black;height:670px;width:920px;float:left;border-radius:0 0 12px 12px;padding:20px 15px}
+.income_way{
+height:670px;width:950px;	
+}
+.income_out_way{margin-bottom:50px}
+.income_out_way_content{width:900px;height:230px;background:#d8deed;border-radius:12px;margin-top:10px;padding:10px}
+.income_out_way_content>p input{width:150px;height:20px;border:1px solid black;border-radius:12px}
+.income_out_way_content>p button{width:98px;height:28px;text-align:center;line-height:28px;border:none;background:#555f75;color:white;border-radius:12px;margin-left:20px}
+.income_out_way_write{width:875px;height:160px;border:1px solid black;border-radius:12px;margin-top:15px;background:white;padding:10px}
+.write_delete{width:150px;height:26px;border:1px solid black;border-radius:12px;text-align:center;line-height:26px;font-size:16px;position:relative;float:left;overflow:hidden;margin-right:15px}
+.write_delete_mask{width:100%;height:100%;position:absolute;left:0;top:0;background:rgba(0,0,0,0.8);border-radius:10px;display:none;cursor:pointer}
+.write_delete_mask span{display:inline-block;width:50%;height:100%;color:white;font-size:15px;line-height:100%;text-align:center}
