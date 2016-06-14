@@ -56,7 +56,7 @@ public interface CouponInfoMapper {
     
     /**
      * 根据会员标识查询优惠券信息
-    * @author 张进军
+    * @author 小高
     * @date Oct 21, 2015 6:18:03 PM
     * @param memberId   会员标识
     * @return   优惠券列表
@@ -65,7 +65,7 @@ public interface CouponInfoMapper {
     
     /**
      * 根据优惠券标识查询优惠券信息
-    * @author 张进军
+    * @author 小高
     * @date Oct 22, 2015 4:24:47 PM
     * @param couponId   优惠券标识
     * @return   优惠券信息
@@ -88,7 +88,7 @@ public interface CouponInfoMapper {
     
     /**
      * 查询门店下所有未过期的优惠券(包括上架/未上架)
-    * @author 张进军
+    * @author 小高
     * @date Nov 25, 2015 7:46:50 PM
     * @param storeId    门店标识
     * @return   优惠券列表

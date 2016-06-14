@@ -26,7 +26,7 @@ import com.zefun.api.utils.DateUtil;
 
 /**
  * 员工考勤定时任务
-* @author 张进军
+* @author 小高
 * @date Dec 6, 2015 2:45:29 PM 
 */
 public class EmployeeAttendanceJob {
@@ -60,7 +60,7 @@ public class EmployeeAttendanceJob {
 
     /**
      * 考勤处理函数(检查旷工和自动签退)
-    * @author 张进军
+    * @author 小高
     * @date Dec 6, 2015 2:50:29 PM
      */
     public void execute() {

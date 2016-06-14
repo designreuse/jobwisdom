@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 系统业务常量类
  *
- * @author 张进军
+ * @author 小高
  * @date Aug 4, 2015 9:19:50 AM
  */
 public interface App {
@@ -371,7 +371,7 @@ public interface App {
 	/**
 	 * 友宝常量类
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jan 28, 2016 6:06:39 PM
 	 */
 	class Ubox {

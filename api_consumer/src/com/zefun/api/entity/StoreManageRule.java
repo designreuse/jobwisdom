@@ -3,7 +3,7 @@ package com.zefun.api.entity;
 import java.math.BigDecimal;
 
 /**
- * @author 张进军
+ * @author 小高
  * @date 2015年12月05日 PM 18:57:32
  */
 public class StoreManageRule {

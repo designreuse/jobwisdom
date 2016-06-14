@@ -16,7 +16,7 @@ import com.zefun.api.entity.Page;
 public interface EmployeeInfoMapper {
     /**
      * 新增员工资料
-    * @author 张进军
+    * @author 小高
     * @date Nov 20, 2015 7:49:06 PM
     * @param employeeInfo   员工资料
     * @return   0:失败，1:成功
@@ -25,7 +25,7 @@ public interface EmployeeInfoMapper {
     
     /**
      * 修改员工资料
-    * @author 张进军
+    * @author 小高
     * @date Nov 20, 2015 7:51:50 PM
     * @param employeeInfo   员工资料
     * @return   0:失败，1:成功
@@ -315,7 +315,7 @@ public interface EmployeeInfoMapper {
     
     /**
      * 根据员工标识查询员工基本信息
-    * @author 张进军
+    * @author 小高
     * @date Oct 24, 2015 5:46:34 PM
     * @param employeeId     员工标识
     * @return   员工信息
@@ -324,7 +324,7 @@ public interface EmployeeInfoMapper {
     
     /**
      * 根据门店查询员工列表
-    * @author 张进军
+    * @author 小高
     * @date Oct 31, 2015 2:36:20 PM
     * @param storeId    门店标识
     * @return   员工列表
@@ -333,7 +333,7 @@ public interface EmployeeInfoMapper {
     
     /**
      * 根据员工ID列表查询员工信息
-    * @author 张进军
+    * @author 小高
     * @date Oct 31, 2015 2:44:59 PM
     * @param list   员工ID列表
     * @return   员工列表

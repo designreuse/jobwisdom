@@ -7,7 +7,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 
 /**
- * @author 张进军
+ * @author 小高
  * @date 2015年11月20日 PM 15:24:14
  */
 public class EmployeeInfo {

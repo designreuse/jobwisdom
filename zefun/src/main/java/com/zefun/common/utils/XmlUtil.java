@@ -10,7 +10,7 @@ import org.dom4j.Element;
 
 /**
  * xml操作工具类
-* @author 张进军
+* @author 小高
 * @date Mar 11, 2016 3:31:26 PM
  */
 public class XmlUtil {
@@ -18,7 +18,7 @@ public class XmlUtil {
     
     /**
      * 根据xml字符串获取map对象
-    * @author 张进军
+    * @author 小高
     * @date Mar 11, 2016 3:48:00 PM
     * @param xmlString  xml字符串
     * @return   map
@@ -44,7 +44,7 @@ public class XmlUtil {
     
     /**
      * 根据map获取xml字符串
-    * @author 张进军
+    * @author 小高
     * @date Mar 16, 2016 9:50:13 PM
     * @param map    map对象
     * @return   xml字符串

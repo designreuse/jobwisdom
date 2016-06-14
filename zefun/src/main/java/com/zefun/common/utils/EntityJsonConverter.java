@@ -6,7 +6,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * 实体与json字符串转换工具类
-* @author 张进军
+* @author 小高
 * @date Aug 19, 2015 5:33:27 PM
  */
 public class EntityJsonConverter {
@@ -20,7 +20,7 @@ public class EntityJsonConverter {
 
 	/**
 	 * json字符串转为实体对象
-	* @author 张进军
+	* @author 小高
 	* @date Aug 19, 2015 5:36:12 PM
 	* @param json  json字符串
 	* @param clz   目标对象类
@@ -43,7 +43,7 @@ public class EntityJsonConverter {
 	
 	/**
 	 * 实体对象转换为json字符串
-	* @author 张进军
+	* @author 小高
 	* @date Aug 19, 2015 5:36:58 PM
 	* @param e     实体对象
 	* @param <E>   泛型

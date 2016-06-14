@@ -357,7 +357,7 @@ public interface ShiftMahjongEmployeeMapper {
     
     /**
      * 会员门店轮牌状态(清除测试数据)
-    * @author 张进军
+    * @author 小高
     * @date Dec 25, 2015 8:47:18 PM
     * @param storeId	门店标识
     * @return	更新数量

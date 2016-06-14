@@ -3,7 +3,7 @@ package com.zefun.common.consts;
 /**
  * 接口地址常量类，定义时使用根目录下的绝对地址
  *
- * @author 张进军
+ * @author 小高
  * @date Aug 4, 2015 9:20:30 AM
  */
 public interface Url {
@@ -102,7 +102,7 @@ public interface Url {
 	/**
 	 * 预约管理
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Nov 23, 2015 10:10:37 PM
 	 */
 	class AppointManage {
@@ -1175,7 +1175,7 @@ public interface Url {
 	/**
 	 * 门店信息
 	 *
-	 * @author 张进军
+	 * @author 小高
 	 * @date Nov 9, 2015 11:14:30 AM
 	 */
 	class StoreInfo {
@@ -1292,7 +1292,7 @@ public interface Url {
 	/**
 	 * 经营分析
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jan 13, 2016 8:36:36 PM
 	 */
 	class BusinessAnalysis {
@@ -1552,7 +1552,7 @@ public interface Url {
 	/**
 	 * 友宝商城
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jan 28, 2016 5:09:16 PM
 	 */
 	class Ubox {

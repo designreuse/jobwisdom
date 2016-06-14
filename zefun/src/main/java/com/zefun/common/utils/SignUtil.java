@@ -72,7 +72,7 @@ public class SignUtil {
 
     /**
      * 微信js api签名
-    * @author 张进军
+    * @author 小高
     * @date Aug 17, 2015 4:30:08 PM
     * @param jsapiTicket    js api票据
     * @param url            需要使用js api的地址路径
@@ -115,7 +115,7 @@ public class SignUtil {
 
     /**
      * 微信 地址api签名
-    * @author 张进军
+    * @author 小高
     * @date Aug 17, 2015 4:31:27 PM
     * @param accessToken        口令
     * @param url            需要使用地址api的地址路径
@@ -158,7 +158,7 @@ public class SignUtil {
 
     /**
      * 生成支付签名
-    * @author 张进军
+    * @author 小高
     * @date Sep 23, 2015 8:35:46 PM
     * @param params     支付参数
     * @param payKey     微信商户支付密钥
@@ -209,7 +209,7 @@ public class SignUtil {
 
     /**
      * 将map参数转为url参数并排序
-    * @author 张进军
+    * @author 小高
     * @date Sep 23, 2015 8:36:18 PM
     * @param params     map参数
     * @return           排序后的参数字符串
@@ -243,7 +243,7 @@ public class SignUtil {
 
     /**
      * 获取uuid随机字符串
-    * @author 张进军
+    * @author 小高
     * @date Aug 17, 2015 4:23:52 PM
     * @return   uuid随机字符串
      */
@@ -253,7 +253,7 @@ public class SignUtil {
 
     /**
      * 获取时间戳
-    * @author 张进军
+    * @author 小高
     * @date Aug 17, 2015 4:24:12 PM
     * @return   当前秒数
      */
@@ -263,7 +263,7 @@ public class SignUtil {
 
     /**
      * byte数组转16进制字符串
-    * @author 张进军
+    * @author 小高
     * @date Aug 17, 2015 4:24:48 PM
     * @param hash   byte数组
     * @return       字符串
