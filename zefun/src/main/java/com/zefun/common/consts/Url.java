@@ -338,14 +338,10 @@ public interface Url {
 		public static final String SAVE_GOODS_CATEGORY_LIST = "goodsInfo/saveGoodsCategorys";
 		/** 编辑商品类别 */
 		public static final String EDIT_GOODS_CATEGORY = "/goodsInfo/editGoodsCategory";
-		/** 删除商品类别 */
-		public static final String DELETE_GOODS_CATEGORY = "/goodsInfo/deleteGoodsCategory";
 		/** 保存品牌 */
 		public static final String SAVE_GOODS_BRAND = "goodsInfo/saveGoodsBrand";
 		/** 编辑品牌 */
 		public static final String EDIT_GOODS_BRAND = "/goodsInfo/editGoodsBrand";
-		/** 删除品牌 */
-		public static final String DELETE_GOODS_BRAND = "/goodsInfo/deleteGoodsBrand";
 		/** 保存商品 */
 		public static final String SAVE_GOODS_INFO = "goodsInfo/saveGoodsInfo";
 		/** 根据id查询商品 */

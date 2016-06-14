@@ -331,35 +331,6 @@ public class GoodsInfoController extends BaseController {
         }
     }
 
-    /**
-     * 删除商品类别
-    * @author 洪秋霞
-    * @date 2015年9月16日 下午3:38:44
-    * @param request request
-    * @param response response
-    * @param categoryId 类别Id
-    * @param deptId 部门ID
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.GoodsInfo.DELETE_GOODS_CATEGORY)
-    @ResponseBody
-    public BaseDto deleteGoodsCategory(HttpServletRequest request, HttpServletResponse response, Integer categoryId, Integer deptId) {
-        String[] goodsIds = request.getParameterValues("goodsId");
-        if (goodsIds!=null&&goodsIds.length>0){
-            for (int j = 0; j < goodsIds.length; j++) {
-                ComboGoods comboGoods = new ComboGoods();
-                comboGoods.setGoodsId(Integer.parseInt(goodsIds[j]));
-                List<ComboGoods> comboGoodss = comboGoodsMapper.selectByPrimaryKey(comboGoods);
-                if (comboGoodss!=null&&comboGoodss.size()>0){
-                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该系列下商品在套餐中引用不可删除");
-                }
-                goodsInfoService.deleteGoodsInfo(Integer.parseInt(goodsIds[j]));
-            }
-        }
-        goodsInfoService.deleteGoodsCategory(categoryId);
-        goodsInfoService.deleteGoodsRedis(deptId.toString());
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-    }
 
     /**
      * 保存品牌
@@ -411,30 +382,10 @@ public class GoodsInfoController extends BaseController {
         }
     }
 
-    /**
-     * 删除品牌
-    * @author 洪秋霞
-    * @date 2015年9月1日 下午2:59:21
-    * @param request request
-    * @param response response
-    * @param brandId 品牌id
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.GoodsInfo.DELETE_GOODS_BRAND)
-    @ResponseBody
-    public BaseDto deleteGoodsBrand(HttpServletRequest request, HttpServletResponse response, Integer brandId) {
-        try {
-            return goodsInfoService.deleteGoodsBrand(brandId);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-        }
-    }
 
     /**
      * 保存商品
-    * @author 洪秋霞
+    * @author 高国藩
     * @date 2015年8月10日 上午10:13:22
     * @param request request
     * @param response response

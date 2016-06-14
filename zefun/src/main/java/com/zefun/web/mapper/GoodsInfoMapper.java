@@ -11,7 +11,6 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.TrendDeptDataDto;
 import com.zefun.web.entity.GoodsInfo;
-import com.zefun.web.entity.Page;
 import com.zefun.web.vo.CardStoreSalesVo;
 import com.zefun.web.vo.CashStoreSalesVo;
 
@@ -64,7 +63,7 @@ public interface GoodsInfoMapper {
     * @param goodsInfo 商品信息
     * @return List<GoodsInfo>
      */
-    List<GoodsInfo> selectByProperty(GoodsInfo goodsInfo);
+    List<GoodsInfo> selectByProperty(GoodsInfoDto goodsInfo);
     
     /**
      * 根据门店id查询

@@ -215,27 +215,6 @@ public class GoodsInfoService {
         goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
     }
     
-    /**
-     * 删除商品类别
-    * @author 洪秋霞
-    * @date 2015年9月16日 下午3:34:32
-    * @param categoryId 商品类别Id
-     */
-    public void deleteGoodsCategory(Integer categoryId){
-        GoodsInfo goodsInfo = new GoodsInfo();
-        goodsInfo.setCategoryId(categoryId);
-        List<GoodsInfo> ls = goodsInfoMapper.selectByProperty(goodsInfo);
-        for (int i = 0; i < ls.size(); i++) {
-            ls.get(i).setIsDeleted(1);
-            goodsInfoMapper.updateByPrimaryKeySelective(ls.get(i));
-        }
-        //goodsInfoMapper.deleteByCategoryId(categoryId);
-        GoodsCategory category = new GoodsCategory();
-        category.setCategoryId(categoryId);
-        category.setIsDeleted(1);
-        goodsCategoryMapper.updateByPrimaryKeySelective(category);
-        //goodsCategoryMapper.deleteByPrimaryKey(categoryId);
-    }
     
     /**
      * 保存品牌
@@ -259,26 +238,6 @@ public class GoodsInfoService {
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsBrand);
     }
 
-    /**
-     * 删除商品品牌
-    * @author 洪秋霞
-    * @date 2015年9月1日 下午2:54:12
-    * @param brandId 品牌id
-    * @return BaseDto BaseDto
-     */
-    public BaseDto deleteGoodsBrand(Integer brandId) {
-        GoodsInfo goodsInfo = new GoodsInfo();
-//        goodsInfo.setBrandId(brandId.toString());
-        goodsInfo.setIsDeleted(0);
-        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
-        if (goodsInfos!=null && goodsInfos.size()>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该品牌有商品关联"); 
-        }
-        else {
-            goodsBrandMapper.deleteByPrimaryKey(brandId);
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除成功"); 
-        }
-    }
 
     /**
      * 保存商品
@@ -516,7 +475,7 @@ public class GoodsInfoService {
     * @param goodsInfo 实体属性
     * @return 集合
      */
-    public List<GoodsInfo> selectGoodsInfos(GoodsInfo goodsInfo) {
+    public List<GoodsInfo> selectGoodsInfos(GoodsInfoDto goodsInfo) {
         return goodsInfoMapper.selectByProperty(goodsInfo);
     }
 

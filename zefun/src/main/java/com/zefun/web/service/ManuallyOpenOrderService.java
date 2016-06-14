@@ -17,11 +17,11 @@ import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
+import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.ProjectMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.EmployeeInfo;
-import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ProjectInfo;
@@ -219,7 +219,7 @@ public class ManuallyOpenOrderService {
             }
             else if (orderType == 2) {
                 
-                GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(projectId);
+                GoodsInfoDto goodsInfo = goodsInfoMapper.selectByPrimaryKey(projectId);
                 String employeeIds = jsonObj.getString("projectStepArrayObjStr");
                 Integer employeeId = null;
                 if (!StringUtil.isEmpty(employeeIds)) {
