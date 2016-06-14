@@ -555,58 +555,7 @@ public class GoodsInfoController extends BaseController {
         }
     }
 
-    /**
-     * 进货记录分页 change
-    * @author 洪秋霞
-    * @date 2015年9月6日 下午5:48:33
-    * @param request request
-    * @param response response
-    * @param pageNo 页码
-    * @param pageSize 每页显示数
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.GoodsPurchaseRecord.ACTION_LIST)
-    @ResponseBody
-    public BaseDto listActionGoodsPurchase(HttpServletRequest request, HttpServletResponse response, int pageNo, int pageSize) {
-        try {
-            String goodsName = request.getParameter("goodsName");
-            GoodsPurchaseRecordDto goodsPurchaseRecordDto = new GoodsPurchaseRecordDto();
-            goodsPurchaseRecordDto.setStoreId(getStoreId(request));
-            if (!"".equals(goodsName)) {
-                goodsPurchaseRecordDto.setGoodsName(goodsName);
-            }
-            return goodsPurchaseRecordService.listAction(goodsPurchaseRecordDto, pageNo, pageSize);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-        }
-    }
 
-    /**
-     * 保存进货记录
-    * @author 洪秋霞
-    * @date 2015年9月7日 上午11:14:30
-    * @param request request
-    * @param response response
-    * @param goodsPurchaseRecord 进货记录
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.GoodsPurchaseRecord.SAVE_PURCHASERECORDS)
-    @ResponseBody
-    public BaseDto savePurchaseRecords(HttpServletRequest request, HttpServletResponse response, GoodsPurchaseRecord goodsPurchaseRecord) {
-        try {
-            goodsPurchaseRecord.setStoreId(getStoreId(request));
-            goodsPurchaseRecord.setOperatorId(Integer.parseInt(request.getSession().getAttribute(App.Session.USER_ID).toString()));
-            goodsPurchaseRecordService.savePurchaseRecords(goodsPurchaseRecord);
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-        }
-    }
-    
     /**
      * 根据部门查询商品类别
     * @author 高国藩

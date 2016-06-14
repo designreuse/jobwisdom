@@ -398,13 +398,6 @@ public interface Url {
 		public static final String DELETE_SUPPLIERINFO = "supplierInfo/deleteSupplierInfo";
 	}
 
-	/** 进货记录模块 */
-	class GoodsPurchaseRecord {
-		/** 分页查询进货记录 */
-		public static final String ACTION_LIST = "goodsPurchaseRecord/action/list";
-		/** 保存进货记录 */
-		public static final String SAVE_PURCHASERECORDS = "goodsPurchaseRecord/savePurchaseRecords";
-	}
 
 	/** 岗位信息模块 */
 	class Position {
