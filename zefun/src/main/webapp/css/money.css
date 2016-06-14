@@ -14,10 +14,10 @@ em,i{font-style:normal}
     height: 20px;
    
 }
- .seo_first{height:600px; margin: 50px 30px;margin-right:-30px;overflow:overlay}
+ .seo_first{height:500px; margin: 50px 30px;margin-right:-30px;overflow:overlay}
 
  .column_img_container:hover{background:url('../images/back_.png');box-shadow:0 0 30px #ccc;}
-
+ 
  .head_pic {
     height: 60px;
     width: 60px;
@@ -253,10 +253,9 @@ padding-left:114px
 input[type=radio]:checked {
     background: #ff0242!important;
 }
-.change_price_content{background:#f8f9fc;border:1px solid #ccc;box-shadow:0 4px 10px #ccc;border-radius:4px;position:absolute;top:194px;width:600px;display:none}
+.change_price_content{background:#f8f9fc;border:1px solid #ccc;box-shadow:0 4px 10px #ccc;border-radius:4px;position:absolute;top:280px;width:600px;display:none}
 .triangle{width:22px;height:15px;position:relative;left:516px;top:-15px}
-.sure_change_price{width:68px;height:24px;text-align:center;line-height:24px;color:white;background:#2a3244;border:none;border-radius:5px}
-.sure_change_price_{width:68px;height:24px;text-align:center;line-height:24px;color:white;background:#2a3244;border:none;margin-left:400px;margin-right:20px;border-radius:5px}
+.sure_change_price{width:95px;height:24px;text-align:center;line-height:24px;color:white;background:#545678;border:none;border-radius:12px}
 .sure_table td{width:180px;text-align:center;border:1px solid #ccc;;height:38px;vertical-align:middle;box-shadow:0 0 10px #dddddd}
 .sure_table{margin:20px 10px}
 .sure_table select,.sure_table input{width:126px;border-radius:4px;height:16px}
@@ -273,3 +272,10 @@ input[type=radio]:checked {
 .copy_text{position:absolute;background:#f8f9fa;top:30px;background:#ccc;width:180px;border-radius:8px;margin-left:5px;font-size:13px;padding:0 10px;}
 
 .please{position:absolute;width:210px;height:40px;color:white;font-size:14px;text-align:center;line-height:40px;top:-36px;left:-11px;border-radius:10px;background:rgba(50,58,76,0.8);display:none}
+
+
+.change_price_content .money_close_{position:absolute;right:2px;top:2px}
+.add_to{display:inline-block;width:40px;height:20px;border-radius:12px;background:#545678;color:white}
+.adjust_price_saying input{width:380px;height:12px;border:1px solid black;border-radius:12px;margin:0 25px 0 10px}
+.adjust_price_saying span{display:inline-block;margin-left:20px}
+.adjust_price_saying{padding}

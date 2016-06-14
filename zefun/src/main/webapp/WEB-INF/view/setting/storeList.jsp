@@ -65,7 +65,7 @@
         <%@include file="/menu.jsp"%>
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>  
-				 <div class='content_right' style="background:white">
+				 <div class='content_right clearfix' style="background:white">
 				   <div class="add_store_div">
 				      <ul class="clearfix add_store_back">
 					     <li class="active"><span>门店基本信息</span></li>

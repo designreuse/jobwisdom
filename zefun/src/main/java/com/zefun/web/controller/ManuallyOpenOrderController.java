@@ -30,7 +30,7 @@ public class ManuallyOpenOrderController extends BaseController{
 	private ManuallyOpenOrderService manuallyOpenOrderService;
 	
 	/**
-	 * 初始化轮职排班界面
+	 * 手工开单页面
 	* @author 王大爷
 	* @date 2015年8月11日 上午11:10:16
 	* @param request 返回
