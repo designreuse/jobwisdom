@@ -44,12 +44,10 @@ import com.zefun.web.dto.StoreFlowBaseDto;
 import com.zefun.web.dto.StoreFlowDto;
 import com.zefun.web.entity.CodeLibrary;
 import com.zefun.web.entity.Page;
-import com.zefun.web.entity.RevenueCategories;
 import com.zefun.web.entity.StoreFlow;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
-import com.zefun.web.mapper.RevenueCategoriesMapper;
 import com.zefun.web.mapper.StoreFlowMapper;
 
 /**
@@ -79,10 +77,7 @@ public class StoreFlowService {
 	/**员工数据*/
 	@Autowired
 	private EmployeeInfoMapper employeeInfoMapper;
-	
-	/** 开支记账*/
-    @Autowired
-    private RevenueCategoriesMapper revenueCategoriesMapper;
+
 	
 	/**
 	 * 保存开支记账
