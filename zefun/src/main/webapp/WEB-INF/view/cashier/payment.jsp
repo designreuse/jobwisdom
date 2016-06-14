@@ -118,7 +118,7 @@
             </div>
 
             <div class="modal-body confirm-body">
-                取消该笔订单将直接删除，确认进行此操作吗？
+                                         取消该笔订单将直接删除，确认进行此操作吗？
             </div><!--modal-body-->
 
             <div class="modal-footer">
@@ -271,8 +271,7 @@
       
      
       //点击下一步,关闭图标
-      
-      jQuery(function(){
+     jQuery(function(){
         jQuery('.money_close_').click(function(){
    	    	jQuery('.zzc').hide();
         });
