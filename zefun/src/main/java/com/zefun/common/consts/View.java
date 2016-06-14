@@ -481,6 +481,8 @@ public interface View {
 		public static final String OPEN_CARD = "keepAccounts/openCard";
 		/** 手工收银 */
 		public static final String MANUALLY_OPEN_ORDER = "keepAccounts/manuallyOpenOrder";
+		/**类别管理*/
+        public static final String ADD_INITILIZE_TYPE = "keepAccounts/type";
 	}
 
 	/**

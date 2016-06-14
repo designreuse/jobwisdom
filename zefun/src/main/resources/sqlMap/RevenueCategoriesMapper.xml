@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.RevenueCategoriesMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.RevenueCategories" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="r_type" property="rType" jdbcType="INTEGER" />
+    <result column="r_name" property="rName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="personnel_id" property="personnelId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, r_type, r_name, create_time, personnel_id, store_id, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from revenue_categories
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from revenue_categories
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.RevenueCategories" >
+    insert into revenue_categories (r_id, r_type, r_name, 
+      create_time, personnel_id, store_id, 
+      is_deleted)
+    values (#{rId,jdbcType=INTEGER}, #{rType,jdbcType=INTEGER}, #{rName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=CHAR}, #{personnelId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{isDeleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.RevenueCategories" useGeneratedKeys="true" keyProperty="rId">
+    insert into revenue_categories
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="rType != null" >
+        r_type,
+      </if>
+      <if test="rName != null" >
+        r_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="personnelId != null" >
+        personnel_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="rType != null" >
+        #{rType,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null" >
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="personnelId != null" >
+        #{personnelId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.RevenueCategories" >
+    update revenue_categories
+    <set >
+      <if test="rType != null" >
+        r_type = #{rType,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null" >
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="personnelId != null" >
+        personnel_id = #{personnelId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.RevenueCategories" >
+    update revenue_categories
+    set r_type = #{rType,jdbcType=INTEGER},
+      r_name = #{rName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      personnel_id = #{personnelId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>

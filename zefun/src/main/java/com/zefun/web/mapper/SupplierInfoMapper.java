@@ -1,11 +1,6 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Select;
-
-import com.wordnik.swagger.annotations.Authorization;
 import com.zefun.web.dto.SupplierInfoDto;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.SupplierInfo;

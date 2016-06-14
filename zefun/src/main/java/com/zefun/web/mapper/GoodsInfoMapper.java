@@ -76,15 +76,6 @@ public interface GoodsInfoMapper {
     List<GoodsInfo> selectByStoreId(Integer storeId);
 
     /**
-     * 查询商品库存分页
-    * @author 洪秋霞
-    * @date 2015年8月11日 上午11:01:43
-    * @param page 分页对象
-    * @return List<GoodsInfoDto>
-     */
-    List<GoodsInfoDto> selectGoodsInfoPage(Page<GoodsInfoDto> page);
-
-    /**
      * 根据部门标识查询商品信息
     * @author 高国藩
     * @date Oct 15, 2015 12:02:09 AM
