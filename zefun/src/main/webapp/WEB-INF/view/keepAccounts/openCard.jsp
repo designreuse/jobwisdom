@@ -7,7 +7,8 @@
         background-color: #fff;
 
     }
-
+   .card-main1{overflow:hidden}
+   .card-main{padding:20px 0;overflow:hidden}
     .tab-form1 {
         padding:0 0;
         padding-top:20px;
@@ -15,7 +16,7 @@
     .n-tab{
         border-right:1px solid #bbbbbb;
     }
-
+ .card-main{padding:20px 0}
     .n-tab li.active {
         border-radius: 0;
         border-bottom: 1px solid #fff;
@@ -134,6 +135,15 @@
     	position:relative;
     }
 
+  .member-card li.current dl{
+    background:#f6f6d7
+     }
+     
+     .member-card li dt{color:#f9dd48}
+     .member-card li.current dt{border-bottom:1px solid #f9dd48;color:#727272}
+     .member-card li.current dl{border:1px solid black}
+     .member-card li .iconfont{color:#f9dd48}
+     .member-card li dt{color:#727272;border-bottom:1px solid #f9dd48;}
 </style>
 <body>
 
@@ -177,7 +187,7 @@
 	                            <input type="text"  class="w185 jiaodian" name = "phoneNumber" placeholder="*"/>
 		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 		                        
-		                        <div class="show_search" name = "memberListDIV" style="display: none;">
+		                        <div class="show_search" name = "memberListDIV" style="display: none; position:relaitve;left:120px">
 								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
 								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
 								    
@@ -394,7 +404,7 @@
 								</div>
 	                        </div>
 	                    </div>
-	                    <div class="card-main1 clearfix hide" name = "memberTR">
+	                    <div class="card-main1 clearfix hide" name = "memberTR" style="overflow:hidden">
 	                        <div class="common_table">   
 						  	   <table>
 							     <tr>
