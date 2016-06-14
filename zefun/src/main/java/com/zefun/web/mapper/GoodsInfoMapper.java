@@ -46,7 +46,7 @@ public interface GoodsInfoMapper {
     * @param goodsId 商品id
     * @return GoodsInfo
      */
-    GoodsInfo selectByPrimaryKey(Integer goodsId);
+    GoodsInfoDto selectByPrimaryKey(Integer goodsId);
 
     /**
      * 更新
@@ -187,7 +187,7 @@ public interface GoodsInfoMapper {
     * @param params  goodsId
     * @return         List<GoodsInfo> 
      */ 
-    List<GoodsInfo> queryByGoodsIds(List<Integer> params);
+    List<GoodsInfoDto> queryByGoodsIds(List<Integer> params);
 
     /**
      * 获取已经上架的商品
