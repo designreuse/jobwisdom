@@ -99,7 +99,7 @@ public interface ShiftMapper {
     
     /**
      * 根据员工查询班次信息
-    * @author 张进军
+    * @author 小高
     * @date Oct 19, 2015 3:21:12 PM
     * @param employeeId 员工标识
     * @return   员工班次信息

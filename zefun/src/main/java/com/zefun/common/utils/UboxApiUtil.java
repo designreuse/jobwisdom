@@ -16,7 +16,7 @@ import net.sf.json.JSONObject;
 
 /**
  * 友宝API工具类
-* @author 张进军
+* @author 小高
 * @date Jan 28, 2016 5:59:18 PM
  */
 public class UboxApiUtil {
@@ -27,7 +27,7 @@ public class UboxApiUtil {
     
     /**
      * 根据售货机编码、商品标识查询商品库存
-    * @author 张进军
+    * @author 小高
     * @date Mar 9, 2016 5:21:30 PM
     * @param vmid       售货机编码
     * @param goodsId    商品标识
@@ -46,7 +46,7 @@ public class UboxApiUtil {
     
     /**
      * 根据售货机标识查询售货机信息
-    * @author 张进军
+    * @author 小高
     * @date Mar 4, 2016 10:33:15 PM
     * @param vmid   售货机标识
     * @return   售货机信息
@@ -70,7 +70,7 @@ public class UboxApiUtil {
     
     /**
      * 根据售货机编码获取商品列表
-    * @author 张进军
+    * @author 小高
     * @date Jan 28, 2016 6:01:58 PM
     * @param vmid   售货机编码
     * @return   商品列表
@@ -115,7 +115,7 @@ public class UboxApiUtil {
     
     /**
      * 根据商品和售货机买码接口
-    * @author 张进军
+    * @author 小高
     * @date Jan 28, 2016 7:02:45 PM
     * @param vmid       售货机标识
     * @param goodsId    商品标识
@@ -140,7 +140,7 @@ public class UboxApiUtil {
     
     /**
      * 出货操作
-    * @author 张进军
+    * @author 小高
     * @date Jan 28, 2016 7:11:56 PM
     * @param tranId 友宝交易ID
     * @return   出货状态码：200、出货成功，500、出货失败，202、出货确认中
@@ -158,7 +158,7 @@ public class UboxApiUtil {
     
     /**
      * 发送API请求
-    * @author 张进军
+    * @author 小高
     * @date Jan 28, 2016 6:09:48 PM
     * @param url        接口地址
     * @param params     接口参数

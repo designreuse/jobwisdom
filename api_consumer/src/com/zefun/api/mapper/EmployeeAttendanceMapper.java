@@ -6,14 +6,14 @@ import com.zefun.api.entity.EmployeeAttendance;
 
 /**
  * 员工考勤操作对象
-* @author 张进军
+* @author 小高
 * @date Dec 6, 2015 12:07:41 PM
  */
 public interface EmployeeAttendanceMapper {
     
     /**
      * 根据考勤标识删除考勤记录
-    * @author 张进军
+    * @author 小高
     * @date Dec 6, 2015 12:07:53 PM
     * @param recordId   考勤标识
     * @return   0:失败，1:成功
@@ -23,7 +23,7 @@ public interface EmployeeAttendanceMapper {
     
     /**
      * 新增考勤
-    * @author 张进军
+    * @author 小高
     * @date Dec 6, 2015 12:08:26 PM
     * @param record 考勤信息
     * @return   0:失败，1:成功
@@ -32,7 +32,7 @@ public interface EmployeeAttendanceMapper {
 
     /**
      * 根据考勤标识查询考勤信息
-    * @author 张进军
+    * @author 小高
     * @date Dec 6, 2015 12:08:41 PM
     * @param recordId   考勤标识
     * @return   考勤信息
@@ -42,7 +42,7 @@ public interface EmployeeAttendanceMapper {
     
     /**
      * 修改考勤信息
-    * @author 张进军
+    * @author 小高
     * @date Dec 6, 2015 12:09:01 PM
     * @param record 考勤信息
     * @return   0:失败，1:成功
@@ -51,7 +51,7 @@ public interface EmployeeAttendanceMapper {
     
     /**
      * 员工签退
-    * @author 张进军
+    * @author 小高
     * @date Dec 6, 2015 2:21:57 PM
     * @param record 签退信息
     * @return   0:失败，1:成功
@@ -60,7 +60,7 @@ public interface EmployeeAttendanceMapper {
     
     /**
      * 根据员工标识查询当日考勤情况
-    * @author 张进军
+    * @author 小高
     * @date Dec 6, 2015 1:04:56 PM
     * @param employeeId 员工标识
     * @return   考勤情况

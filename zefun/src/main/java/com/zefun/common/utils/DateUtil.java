@@ -221,7 +221,7 @@ public class DateUtil {
 	/**
 	 * 当前日期，yyyy-MM
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jan 13, 2016 11:47:34 PM
 	 * @param date
 	 *            date
@@ -766,7 +766,7 @@ public class DateUtil {
 	/**
 	 * unix时间戳转指定格式时间字符串
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Mar 21, 2016 11:48:09 PM
 	 * @param unixTime
 	 *            unix时间戳
@@ -804,7 +804,7 @@ public class DateUtil {
 	/**
 	 * 根据周几数字获得汉字
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Oct 19, 2015 6:40:23 PM
 	 * @param weekNumber
 	 *            周几数字

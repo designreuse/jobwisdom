@@ -24,7 +24,7 @@
     <result column="employee_id" property="employeeId" jdbcType="INTEGER"/>
   </resultMap>
   
-  <!-- 根据员工查询班次信息, by 张进军 -->
+  <!-- 根据员工查询班次信息, by 小高 -->
   <select id="selectShiftByEmployeeId" resultType="java.util.Map" parameterType="java.lang.Integer">
     select 
 	    (select CONCAT(start_time, ',', end_time) from shift_info where shif_id = es.shif_ida ) '2',

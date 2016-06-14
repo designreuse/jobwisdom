@@ -1,7 +1,7 @@
 package com.zefun.api.entity;
 
 /**
- * @author 张进军
+ * @author 小高
  * @date 2015年12月06日 PM 12:02:16
  */
 public class EmployeeAttendance {

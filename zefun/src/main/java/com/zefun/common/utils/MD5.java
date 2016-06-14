@@ -49,7 +49,7 @@ public class MD5 {
     
     /**
      * 获取字符串的字节数组
-    * @author 张进军
+    * @author 小高
     * @date Sep 23, 2015 5:06:37 PM
     * @param content    字符串
     * @param charset    编码格式

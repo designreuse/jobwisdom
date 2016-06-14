@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * 分页实体类
-* @author 张进军
+* @author 小高
 * @date Aug 10, 2015 10:45:36 PM
 * @param <T>    需要分页的实体对象
  */
@@ -58,7 +58,7 @@ public class Page<T> {
 
     /**
      * 计算总记录数
-    * @author 张进军
+    * @author 小高
     * @date Aug 10, 2015 10:59:46 PM
     * @param totalRecord    总记录数
      */

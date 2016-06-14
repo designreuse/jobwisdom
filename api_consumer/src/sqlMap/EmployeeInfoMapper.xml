@@ -41,7 +41,7 @@
     accredit_code, username, password, salt
   </sql>
   
-  <!-- 根据员工标识查询员工基础信息 by 张进军 -->
+  <!-- 根据员工标识查询员工基础信息 by 小高 -->
   <select id="selectBaseInfoByEmployeeId" resultType="com.zefun.api.dto.EmployeeBaseDto" parameterType="java.lang.Integer">
     select 
 	    e.employee_id as employeeId,

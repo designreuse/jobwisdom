@@ -38,7 +38,7 @@ import com.zefun.web.service.RedisService;
 /**
  * 用户账户基本模块服务类
  * 
- * @author 张进军
+ * @author 小高
  * @date Sep 18, 2015 4:54:45 PM
  */
 @Service

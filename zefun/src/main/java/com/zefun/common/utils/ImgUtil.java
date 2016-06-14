@@ -11,14 +11,14 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * 图片相关工具类
- * @author 张进军
+ * @author 小高
  * @date Jul 1, 2015 8:45:58 PM 
  */
 public class ImgUtil {
 
     /**
      * 将base64位字符串转换成图片
-    * @author 张进军
+    * @author 小高
     * @date Jul 1, 2015 8:46:22 PM
     * @param baseStr		base64图片字符串
     * @param imgFilePath	要保存到图片地址
@@ -50,7 +50,7 @@ public class ImgUtil {
 
     /**
      * 将图片转换成base64位字符串
-    * @author 张进军
+    * @author 小高
     * @date Jul 1, 2015 8:47:37 PM
     * @param imgFilePath 图片路径
     * @return String

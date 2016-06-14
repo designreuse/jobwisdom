@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * @author 张进军
+ * @author 小高
  * @date 2015年08月10日 PM 22:38:58
  */
 public class EmployeeCommission implements Serializable {

@@ -3,14 +3,14 @@ package com.zefun.common.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
-
 import org.apache.commons.lang.StringUtils;
 
 import com.zefun.common.exception.ServiceException;
 
+import net.sf.json.JSONObject;
+
 /**
- * @author 张进军
+ * @author 小高
  * @date Jun 30, 2015 6:15:43 PM 
  */
 public final class FaceUtil {
@@ -30,7 +30,7 @@ public final class FaceUtil {
 
     /**
      * 检测给定图片url中的最大一张人脸(Face)的位置和相应的面部属性
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:22:41 PM
     * @param url		待检测图片的URL
     * @param attribute	可以是none或者由逗号分割的属性列表。默认为gender, age, race, smiling。
@@ -75,7 +75,7 @@ public final class FaceUtil {
     /**
      * 未通过测试
      * 检测给定base64位的图片字符串中的最大一张人脸(Face)的位置和相应的面部属性
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:22:41 PM
     * @param baseStr	待检测图片的URL
     * @param attribute	可以是none或者由逗号分割的属性列表。默认为gender, age, race, smiling。
@@ -119,7 +119,7 @@ public final class FaceUtil {
 
     /**
      * 根据faceset id搜索匹配的face
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:22:41 PM
     * @param faceId			待搜索的Face的face_id
     * @param facesetId		指定搜索范围为此Faceset
@@ -140,7 +140,7 @@ public final class FaceUtil {
 
     /**
      * 根据faceset name搜索匹配的face
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:22:41 PM
     * @param faceId			待搜索的Face的face_id
     * @param facesetName	指定搜索范围为此Faceset
@@ -161,7 +161,7 @@ public final class FaceUtil {
 
     /**
      * 创建faceset
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:22:41 PM
     * @param facesetName	可选,Faceset的Name信息，必须在App中全局唯一。Name不能包含^@,&=*'"等非法字符，且长度不得超过255。
     * 						Name也可以不指定，此时系统将产生一个随机的name。
@@ -190,7 +190,7 @@ public final class FaceUtil {
 
     /**
      * 创建faceset
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:22:41 PM
     * @param faceId			可选,一组用逗号分隔的face_id, 表示将这些Face加入到该Faceset中
     * @return				
@@ -211,7 +211,7 @@ public final class FaceUtil {
 
     /**
      * 根据faceset name添加一个或多个face
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:55:23 PM
     * @param facesetName	相应Faceset的name
     * @param faceId		一组用逗号分隔的face_id,表示将这些Face加入到相应Faceset中
@@ -229,7 +229,7 @@ public final class FaceUtil {
 
     /**
      * 根据faceset id添加一个或多个face
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:55:23 PM
     * @param facesetId		相应Faceset的id
     * @param faceId		一组用逗号分隔的face_id,表示将这些Face加入到相应Faceset中
@@ -247,7 +247,7 @@ public final class FaceUtil {
 
     /**
      * 根据faceset name删除一个或多个face
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:55:23 PM
     * @param facesetName	相应Faceset的name
     * @param faceId		一组用逗号分隔的face_id列表，表示将这些face从该faceset中删除。也可以指定face_id=all, 表示删除该faceset所有相关Face。
@@ -265,7 +265,7 @@ public final class FaceUtil {
 
     /**
      * 根据faceset id删除一个或多个face
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:55:23 PM
     * @param facesetId		相应Faceset的id
     * @param faceId		一组用逗号分隔的face_id列表，表示将这些face从该faceset中删除。也可以指定face_id=all, 表示删除该faceset所有相关Face。
@@ -283,7 +283,7 @@ public final class FaceUtil {
 
     /**
      * 根据name删除一个或多个faceset
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:55:23 PM
     * @param facesetName	用逗号隔开的待删除的faceset name列表
     * @return
@@ -301,7 +301,7 @@ public final class FaceUtil {
 
     /**
      * 根据id删除一个或多个faceset
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:55:23 PM
     * @param facesetId	用逗号隔开的待删除的faceset id列表
     * @return
@@ -324,7 +324,7 @@ public final class FaceUtil {
      * <pre>当一个faceset内的数据被修改后(例如增删Face等)，为使这些修改生效，faceset应当被重新Train</pre>
      * <pre>Train所花费的时间较长, 因此该调用是异步的，仅返回session_id。</pre>
      * <pre>训练的结果可以通过/info/get_session查询。当训练完成时，返回值中将包含{"success": true}</pre>
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:55:23 PM
     * @param facesetName	用逗号隔开的待删除的faceset name列表
     * @return
@@ -346,7 +346,7 @@ public final class FaceUtil {
      * <pre>当一个faceset内的数据被修改后(例如增删Face等)，为使这些修改生效，faceset应当被重新Train</pre>
      * <pre>Train所花费的时间较长, 因此该调用是异步的，仅返回session_id。</pre>
      * <pre>训练的结果可以通过调用getSession方法查询。当训练完成时，返回值中将包含{"success": true}</pre>
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:55:23 PM
     * @param facesetId	用逗号隔开的待删除的faceset name列表
     * @return
@@ -365,7 +365,7 @@ public final class FaceUtil {
      * 获取session相关状态和结果
        <pre>可能的status：INQUEUE(队列中), SUCC(成功) 和FAILED(失败)</pre>
        <pre>当status是SUCC时，返回结果中还包含session对应的结果</pre>
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 7:55:23 PM
     * @param sessionId		由/detection或/recognition中的API调用产生的session_id
     * @return
@@ -384,7 +384,7 @@ public final class FaceUtil {
 
     /** 获取所有Faceset
      * 
-     * @author 张进军
+     * @author 小高
      * @date Jun 30, 2015 7:55:23 PM
      * @return <pre>tag	string	faceset相关的tag</pre>
      * 
@@ -399,7 +399,7 @@ public final class FaceUtil {
 
     /**
      * 调用face++ api
-    * @author 张进军
+    * @author 小高
     * @date Jun 30, 2015 8:00:36 PM
     * @param api		api地址
     * @param param		参数
