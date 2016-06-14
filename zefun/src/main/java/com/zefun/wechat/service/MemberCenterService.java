@@ -40,6 +40,7 @@ import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.DetailPaymentDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsInfoCatagoryDto;
+import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberComboDto;
 import com.zefun.web.dto.MemberOrderDto;
@@ -1370,8 +1371,8 @@ public class MemberCenterService {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("storeId", ownerStoreId);
         page.setParams(params);
-        List<CouponBaseDto> couponList = couponInfoMapper.selectBaseByStoreId(page);
-        page.setResults(couponList);
+//        List<CouponBaseDto> couponList = couponInfoMapper.selectBaseByStoreId(page);
+//        page.setResults(couponList);
         
         ModelAndView mav = new ModelAndView(View.MemberCenter.SHOP_CENTER);
         mav.addObject("page", page);
@@ -1381,8 +1382,8 @@ public class MemberCenterService {
         StoreShop shop = storeShopMapper.selectByProties(storeShop);
         List<Integer> paramsAestSellers = Stream.of(shop.getNewArrival().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
         List<Integer> paramsBestSellers = Stream.of(shop.getBestSellers().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
-        List<GoodsInfo> aestSellers = goodsInfoService.queryByGoodsIds(paramsAestSellers);
-        List<GoodsInfo> bestSellers = goodsInfoService.queryByGoodsIds(paramsBestSellers);
+        List<GoodsInfoDto> aestSellers = goodsInfoService.queryByGoodsIds(paramsAestSellers);
+        List<GoodsInfoDto> bestSellers = goodsInfoService.queryByGoodsIds(paramsBestSellers);
         
         mav.addObject("aestSellers", aestSellers);
         mav.addObject("bestSellers", bestSellers);
@@ -1985,7 +1986,7 @@ public class MemberCenterService {
     public ModelAndView onlionShopView(Integer storeId) {
         GoodsInfo goodsInfo = new GoodsInfo();
         goodsInfo.setStoreId(storeId);
-        goodsInfo.setIsSellProduct(1);
+//        goodsInfo.setIsSellProduct(1);
         List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
         
         StoreShop storeShop = new StoreShop();

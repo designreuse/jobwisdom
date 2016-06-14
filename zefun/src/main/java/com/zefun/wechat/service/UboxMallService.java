@@ -128,7 +128,7 @@ public class UboxMallService {
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         mav.addObject("memberInfo", memberInfo);
         
-        GoodsInfo info = goodsInfoMapper.selectByPrimaryKey(storeGoodsId);
+        GoodsInfoDto info = goodsInfoMapper.selectByPrimaryKey(storeGoodsId);
         mav.addObject("goodsInfo", info);
         
         mav.addObject("isBuy", true);

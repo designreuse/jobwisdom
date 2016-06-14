@@ -553,7 +553,7 @@ public class GoodsInfoService {
      */
     public BaseDto saveShipmentRecord(ShipmentRecord shipmentRecord) {
         //修改商品库存数量
-        GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(shipmentRecord.getGoodsId());
+        GoodsInfoDto goodsInfo = goodsInfoMapper.selectByPrimaryKey(shipmentRecord.getGoodsId());
         GoodsStockKey key = new GoodsStockKey();
         key.setaId(goodsInfo.getaId());
         key.setStoreId(shipmentRecord.getStoreId());;
@@ -933,36 +933,6 @@ public class GoodsInfoService {
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, data);
     }
 
-    /**
-     * 根据步骤进行保存商品
-    * @author 高国藩
-    * @date 2016年5月19日 上午10:46:19
-    * @param data  goodsInfo
-    * @return           状态吗
-     */
-    @SuppressWarnings("unchecked")
-    public BaseDto saveLevelDiscount(JSONObject data) {
-        Integer goodsId = data.getInt("goodsId");
-        GoodsDiscount goodsDiscount = new GoodsDiscount();
-        goodsDiscount.setGoodsId(goodsId);
-        List<GoodsDiscount> goodsDiscounts = goodsDiscountMapper.selectByProperty(goodsDiscount);
-        
-        for (int i = 0; i < goodsDiscounts.size(); i++) {
-            goodsDiscountMapper.deleteByPrimaryKey(goodsDiscounts.get(i).getDiscountId());
-        }
-        
-        goodsDiscounts = (List<GoodsDiscount>) JSONArray.toCollection(data.getJSONArray("data"), GoodsDiscount.class);
-        goodsDiscountMapper.insertGoodsDiscountList(goodsDiscounts);
-        GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(goodsId);
-        goodsInfo.setProjectStep(4);
-        goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
-        
-        JSONObject returnDate = new JSONObject();
-        returnDate.put("goodsId", goodsInfo.getGoodsId());
-        returnDate.put("projectStep", goodsInfo.getProjectStep());
-        redisService.hdel(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, goodsInfo.getDeptId());
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate);
-    }
     
     /**
      * 给出一个集合,查询商品
@@ -971,7 +941,7 @@ public class GoodsInfoService {
     * @param params  params
     * @return        params
      */
-    public List<GoodsInfo> queryByGoodsIds(List<Integer> params){
+    public List<GoodsInfoDto> queryByGoodsIds(List<Integer> params){
         return goodsInfoMapper.queryByGoodsIds(params);
     }
 
@@ -1007,17 +977,6 @@ public class GoodsInfoService {
             }
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsInfo);
-    }
-
-    /**
-     * 根据商品ID查询基本数据
-    * @author 高国藩
-    * @date 2016年5月26日 下午4:51:38
-    * @param goodsId   goodsId
-    * @return          GoodsInfoDto
-     */
-    public GoodsInfo selectgoodsInfoByGoodsId(Integer goodsId) {
-        return goodsInfoMapper.selectByPrimaryKey(goodsId);
     }
 
     /**

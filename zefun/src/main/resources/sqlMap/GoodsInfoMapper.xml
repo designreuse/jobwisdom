@@ -83,13 +83,13 @@
         <result column="category_id" property="categoryId" jdbcType="INTEGER" />
         <result column="store_id" property="storeId" jdbcType="INTEGER" />
         <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
-        <association property="goodsInfos" column="category_id" select="selectGoodsBaseByCategoryId" />
+        <association property="goodsInfos" column="{categoryId=category_id,storeId=store_id}" select="selectGoodsBaseByCategoryId" />
   </resultMap>
   <select id="selectCatagoryGoodsInfos" resultMap="catagoryGoodsInfos" parameterType="java.lang.Integer">
   	SELECT category_id, store_id, category_name FROM goods_category WHERE store_id = #{storeId} AND is_deleted = 0
   </select>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="GoodsInfoDtoMap" parameterType="java.lang.Integer" >
 	  SELECT 
 		  goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, 
 		  goods.goods_image, goods.goods_desc, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange,
@@ -478,7 +478,7 @@
   <resultMap id="DeptCategoryResultMap" type="com.zefun.web.dto.GoodsCategoryBaseDto">
     <id column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
-    <association property="goodsBaseDtos" column="category_id" select="selectGoodsBaseByCategoryId" />
+    <association property="goodsBaseDtos" column="{categoryId=category_id}" select="selectGoodsBaseByCategoryId" />
   </resultMap>
   <!-- 查询部门下的项目信息，包括部门信息、项目类别、项目列表。 开始， by 张进军 -->
   <select id="selectDeptGoodsByDeptId" resultMap="DeptGoodsResultMap" parameterType="java.lang.Integer">
@@ -488,7 +488,7 @@
     select category_id, category_name from goods_category where dept_id = #{deptId} and is_deleted = 0
   </select>
   
-  <select id="selectGoodsBaseByCategoryId" resultType="com.zefun.web.dto.GoodsBaseDto" parameterType="java.lang.Integer">
+  <select id="selectGoodsBaseByCategoryId" resultType="com.zefun.web.dto.GoodsBaseDto" parameterType="java.util.Map">
     select
         goods.goods_id as goodsId,
         ag.goods_name as goodsName,
@@ -502,7 +502,7 @@
     from goods_info goods 
     left join account_goods ag on ag.goods_id = goods.a_id
     left join goods_stock gs on ag.goods_id = gs.a_id
-    where category_id = #{categoryId} and goods.is_deleted = 2 and goods_price > 0 order by goods.create_time asc
+    where category_id = #{categoryId} and goods.is_deleted = 2 and goods.store_id = #{storeId} and goods_price > 0 order by goods.create_time asc
   </select>
   <!-- 查询部门下的项目信息，包括部门信息、项目类别、项目列表。 结束， by 张进军 -->
   
@@ -748,7 +748,7 @@
   	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{storeId} and ag.is_deleted = 0
   </select>
   
-  <select id="queryByGoodsIds" parameterType="list" resultMap="BaseResultMap">
+  <select id="queryByGoodsIds" parameterType="list" resultMap="GoodsInfoDtoMap">
   	select 
   		goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, 
 	    goods.goods_image, goods.goods_desc, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
