@@ -22,6 +22,8 @@ var useOffObject = new Object();
 var totalRealMoney = new Big(0);
 //订单原价
 var totalReceivableMoney = new Big(0);
+//订单折扣价
+var totalDiscountAmount = new Big(0);
 var allOffMap = null;
 var discountMap = null;
 var subAccountMap = new Object();
@@ -335,6 +337,7 @@ function addCashierDetail(orderInfo){
 			
 			var tdDiscount = document.createElement("td");
 			tdDiscount.innerHTML = detail.discountAmount;
+			totalDiscountAmount = totalDiscountAmount.plus(new Big(detail.discountAmount));
 			if (detail.appointOff > 0) {
 				tdDiscount.innerHTML = detail.discountAmount + " (预约-" + detail.appointOff + ")";
 			}
@@ -507,6 +510,7 @@ jQuery("#cashier").delegate("[name='selectOff']", "change", function(event){
 
 //支付会员卡变更时的处理
 jQuery(".money_card_content").delegate("li", "click", function(event){
+	totalDiscountAmount = new Big(0);
 	jQuery(this).find('.circle_pic').show();
 	jQuery(this).siblings().find('.circle_pic').hide();
 	jQuery(this).addClass('active');
@@ -514,13 +518,13 @@ jQuery(".money_card_content").delegate("li", "click", function(event){
 	var subAccountId = jQuery(this).attr("levelid");
 	//第二页显示选择的会员信息
 	var levelName = jQuery(this).attr("levelName");
-	var balanceAmount = jQuery(this).attr("balanceAmount");
+	var nextBalanceAmount = jQuery(this).attr("balanceAmount");
 	var projectDiscount = jQuery(this).attr("projectDiscount");
 	var goodsDiscount = jQuery(this).attr("goodsDiscount");
     
 	jQuery("tr[name = 'nextLevelId']").attr("levelId", subAccountId);
 	jQuery("td[name = 'nextLevelName']").text(levelName);
-	jQuery("td[name = 'nextBalanceAmount']").text(balanceAmount);
+	jQuery("td[name = 'nextBalanceAmount']").text(nextBalanceAmount);
 	jQuery("td[name = 'nextProjectDiscount']").text(projectDiscount);
 	jQuery("td[name = 'nextGoodsDiscount']").text(goodsDiscount);
 	
@@ -534,6 +538,7 @@ jQuery(".money_card_content").delegate("li", "click", function(event){
 			if (detailType != 3) {
 				//更新折扣价格
 				var discountAmount = discountMap[detailId + "_" + subAccountId];
+				totalDiscountAmount = totalDiscountAmount.plus(new Big(discountAmount));
 				$this.attr("discountAmount", discountAmount);
 				var appointOffStr = appointOffList[detailId];
 				if (appointOffStr > 0) {
@@ -568,14 +573,37 @@ jQuery(".money_card_content").delegate("li", "click", function(event){
 });
 
 function nextCheckout() {
-	jQuery("td[name='nextNewPric']").text(totalRealMoney);
-	jQuery("td[name='discountPric']").text(appointOff);
-	jQuery("td[name='nextOldPric']").text(totalReceivableMoney);
+	jQuery(".zzc_1_card1").empty();
 	if (isMember) {
-		
+		jQuery(".zzc_1_card1").append('<tr>'+
+						                '<td>订单原价</td>'+
+						                '<td>会员价格</td>'+
+										'<td>抵扣金额</td>'+
+										'<td>实收金额</td>'+
+										'<td>操作</td>'+
+									  '</tr>'+
+									  '<tr>'+
+									    '<td>'+totalReceivableMoney+'</td>'+
+						                '<td>'+totalDiscountAmount+'</td>'+
+						                '<td >'+appointOff+'</td>'+
+										'<td >'+totalRealMoney+'</td>'+
+										'<td><span class="change_price_red" onclick="updatePric()">改价</span></td>'+
+									  '</tr>');
 	}
 	else {
 		jQuery(".zzc_1_card").addClass("hide");
+		jQuery(".zzc_1_card1").append('<tr>'+
+						                '<td>订单原价</td>'+
+										'<td>抵扣金额</td>'+
+										'<td>实收金额</td>'+
+										'<td>操作</td>'+
+									  '</tr>'+
+									  '<tr>'+
+						                '<td >'+totalReceivableMoney+'</td>'+
+										'<td >'+appointOff+'</td>'+
+										'<td >'+totalRealMoney+'</td>'+
+										'<td><span class="change_price_red" onclick="updatePric()">改价</span></td>'+
+									  '</tr>');
 	}
 }
 
@@ -904,6 +932,7 @@ function rechargeDeleteOrder () {
 }
 
 function updatePric () {
+	jQuery(".change_price_content").show();
 	jQuery("select[name='projectSelect']").empty();
 	for (var i = 0; i < orderDetails.length; i++) {
 		var detail = orderDetails[i];
