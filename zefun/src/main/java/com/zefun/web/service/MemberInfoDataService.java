@@ -1,7 +1,6 @@
 package com.zefun.web.service;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +68,6 @@ public class MemberInfoDataService {
     * @param memberId 会员信息标识
     * @param storeId 门店标识
     * @return 会员信息及账户信息
-     * @throws ParseException  异常
      */
     public BaseDto selectByMemberDto(Integer memberId, Integer storeId){
         MemberDto memberDto = memberInfoMapper
