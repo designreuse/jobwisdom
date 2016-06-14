@@ -1,2 +1,1 @@
-forever start index.js
-
+forever start server.js
