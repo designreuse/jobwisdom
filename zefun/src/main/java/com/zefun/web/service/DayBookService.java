@@ -23,6 +23,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DayBookDto;
 import com.zefun.web.dto.DayBookQueryDto;
 import com.zefun.web.dto.EmployeeBaseDto;
+import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberComboDto;
 import com.zefun.web.dto.MemberDto;
 import com.zefun.web.dto.MemberLevelDto;
@@ -37,7 +38,8 @@ import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeObjective;
 import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
-import com.zefun.web.entity.GoodsInfo;
+import com.zefun.web.entity.GoodsStock;
+import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberComboProject;
@@ -58,6 +60,7 @@ import com.zefun.web.mapper.EmployeeObjectiveMapper;
 import com.zefun.web.mapper.GiftmoneyDetailMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.IntegralFlowMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberComboProjectMapper;
@@ -162,6 +165,11 @@ public class DayBookService {
 	/** 部门*/
 	@Autowired
 	private DeptInfoMapper deptInfoMapper;
+	
+	/** 商品库存*/
+    @Autowired
+    private GoodsStockMapper goodsStockMapper;
+	
 	
     /**
      * 
@@ -578,11 +586,18 @@ public class DayBookService {
         }
         //商品
         else if (orderDetail.getOrderType() == 2){
+            GoodsInfoDto goodsInfo = goodsInfoMapper.selectByPrimaryKey(orderDetail.getProjectId());
+            GoodsStockKey key = new GoodsStockKey();
+            key.setaId(goodsInfo.getaId());
+            key.setStoreId(orderInfoBaseDto.getStoreId());
+            GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
+            goodsStock.setCount(goodsStock.getCount()+orderDetail.getProjectCount());
+            goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
             //增加删除商品库存
-            GoodsInfo goodsInfo = new GoodsInfo();
-            goodsInfo.setGoodsId(orderDetail.getProjectId());
-            goodsInfo.setGoodsStock(orderDetail.getProjectCount());
-            goodsInfoMapper.updateGoodsStock(goodsInfo);
+//            GoodsInfo goodsInfo = new GoodsInfo();
+//            goodsInfo.setGoodsId(orderDetail.getProjectId());
+//            goodsInfo.setGoodsStock(orderDetail.getProjectCount());
+//            goodsInfoMapper.updateGoodsStock(goodsInfo);
         }
         else if (orderDetail.getOrderType() == 3) {
             //清除员工套餐

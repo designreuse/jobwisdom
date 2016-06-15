@@ -110,7 +110,7 @@ public class QiniuService {
         params.put("cuid", "zefun");
         params.put("ctp", "1");
         params.put("per", "" + per);
-        params.put("tok", "24.803bd627c8d6f9299230f5809cffefe2.2592000.1465960194.282335-7977080");
+        params.put("tok", App.System.SYSTEM_VOICE);
 //        params.put("tok", redisService.get(App.Redis.BAIDU_TEXT_TO_VOICE_ACCESS_TOKEN_KEY));
         byte[] data = HttpClientUtil.downloadPost("http://tsn.baidu.com/text2audio", params);
         String key = "zefun/voice/" + System.nanoTime() + ".mp3";
