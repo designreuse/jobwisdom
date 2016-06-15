@@ -20,7 +20,7 @@ var userType = 'emp';
 var user = {"userId" : userId, "storeId" : storeId, "storeName" : storeName, "userType" : userType};
 var socket = null;
 if(!isEmpty(userId)){
-	socket = io.connect('ws://120.24.165.15:80');
+	socket = io.connect('ws://120.24.165.15:443');
     	//登录聊天室
     socket.emit('initUser', user);
 	//接收消息

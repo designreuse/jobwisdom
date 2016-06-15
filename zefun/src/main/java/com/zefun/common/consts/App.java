@@ -148,12 +148,6 @@ public interface App {
 		public static final String WECHAT_OPENID_TO_BUSINESS_TYPE_KEY_HASH = "wechat_openid_to_business_type_key_hash";
 		/** 微信openid对应所属门店的hash key */
 		public static final String WECHAT_OPENID_TO_STORE_KEY_HASH = "wechat_openid_to_store_key_hash";
-		// /**微信openid对应首次关注优惠券奖励(临存)的hash key*/
-		// public static final String WECHAT_OPENID_TO_SUBSCRIBE_COUPON_KEY_HASH
-		// = "wechat_openid_to_subscribe_coupon_key_hash";
-		// /**微信openid对应首次关注礼金奖励(临存)的hash key*/
-		// public static final String WECHAT_OPENID_TO_SUBSCRIBE_GIFT_KEY_HASH =
-		// "wechat_openid_to_subscribe_gift_key_hash";
 		/** 微信openid对应首次关注奖励的临存记录，set */
 		public static final String WECHAT_OPENID_TO_SUBSCRIBE_AWARD_SET = "wechat_openid_to_subscribe_award_set";
 		/** 会员标识对应微信openid的hash key */

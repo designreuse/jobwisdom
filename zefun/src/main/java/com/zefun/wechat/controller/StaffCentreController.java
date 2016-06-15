@@ -316,7 +316,7 @@ public class StaffCentreController extends BaseController{
             return null;
         }
         int employeeId = getUserIdByOpenId(openId);
-        int storeId = getStoreId(request);
+        int storeId = getStoreIdByOpenId(openId);
         return staffCentreService.appointOperate(type, storeId, employeeId, appointmentId, memberId, projectName, appointTime, reason);
     }
     
