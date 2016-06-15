@@ -1,4 +1,4 @@
-var PORT = 443;       //端口
+var PORT = 80;       //端口
 var DIR = 'view';     //用于存放html的目录
 
 var http = require('http');
@@ -11,7 +11,7 @@ var logger = require("./log").logger("server");
 var server = http.createServer(function (request, response) {
     var pathname = url.parse(request.url).pathname;
     if (pathname == "/"){
-    	pathname = "/c.html";
+    	pathname = "/jobvisdom.html";
     }
     var realPath = path.join(DIR, pathname);
     
