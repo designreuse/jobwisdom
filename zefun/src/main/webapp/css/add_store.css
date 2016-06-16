@@ -152,3 +152,4 @@
 .add_button button{width:130px;height:26px;border:none;color:white;border-radius:12px;text-align:center;line-height:26px;background:#47536c;font-size:16px;margin:0 30px}
 .shop_name_{margin-bottom:10px}
 .shop_name_ p{margin-bottom:5px}
+.city-picker-span{box-shadow:0 0 0 white!important;border:1px solid #ccc }
