@@ -2407,7 +2407,6 @@ public class StoreInfoService {
         for (int i = 0; i < goodsInfos.size(); i++) {
             Integer goodsInfoId = goodsInfos.get(i).getGoodsId();
             goodsInfos.get(i).setStoreId(storeId);
-            goodsInfos.get(i).setGoodsStock(0);
             goodsInfos.get(i).setCategoryId(goodsCategorieKv.get(goodsInfos.get(i).getCategoryId()));
             goodsInfos.get(i).setGoodsId(null);
             goodsInfoMapper.insertSelective(goodsInfos.get(i));

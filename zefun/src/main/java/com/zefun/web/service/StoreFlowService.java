@@ -77,6 +77,7 @@ public class StoreFlowService {
 	/**员工数据*/
 	@Autowired
 	private EmployeeInfoMapper employeeInfoMapper;
+
 	
 	/**
 	 * 保存开支记账
@@ -579,4 +580,17 @@ public class StoreFlowService {
 		
 		return map;
 	}
+
+	/**
+	 * 进入开支记账类别管理页面
+	* @author 高国藩
+	* @date 2016年6月14日 下午1:54:33
+	* @param storeId   门店数据
+	* @return          返回页面
+	 */
+    public ModelAndView viewAddInitialize(Integer storeId) {
+        ModelAndView view = new ModelAndView(View.KeepAccounts.ADD_INITILIZE_TYPE);
+        return view;
+    }
+
 }

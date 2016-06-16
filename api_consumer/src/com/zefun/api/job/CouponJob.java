@@ -2,6 +2,7 @@ package com.zefun.api.job;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.zefun.api.mapper.CouponInfoMapper;
 
 /**
@@ -17,7 +18,7 @@ public class CouponJob {
     
     /**
      * 定时器执行内容
-    * @author 张进军
+    * @author 小高
     * @date Aug 23, 2015 9:04:47 PM
      */
 	public void execute() {

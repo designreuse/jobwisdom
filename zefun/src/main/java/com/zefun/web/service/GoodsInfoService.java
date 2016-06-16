@@ -38,6 +38,8 @@ import com.zefun.web.entity.GoodsBrand;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
+import com.zefun.web.entity.GoodsStock;
+import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
@@ -51,6 +53,7 @@ import com.zefun.web.mapper.GoodsBrandMapper;
 import com.zefun.web.mapper.GoodsCategoryMapper;
 import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ShipmentRecordMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
@@ -116,6 +119,9 @@ public class GoodsInfoService {
     /** 门店管理 */
     @Autowired
     private StoreInfoMapper storeInfoMapper;
+    /** 商品库存管理 */
+    @Autowired
+    private GoodsStockMapper goodsStockMapper;
     
 
     /**
@@ -162,43 +168,6 @@ public class GoodsInfoService {
         return goodsInfoMapper.selectByStoreId(storeId);
     }
 
-    /**
-     * 商品列表 change 分页
-    * @author 洪秋霞
-    * @date 2015年8月7日 下午5:46:26
-    * @param goodsInfo 商品信息
-    * @param pageNo 页码
-    * @param pageSize 每页显示数
-    * @param orderBy  排序方式
-    * @return BaseDto
-     */
-    public BaseDto listAction(GoodsInfoDto goodsInfo, int pageNo, int pageSize, String orderBy) {
-        Page<GoodsInfoDto> page = queryGoodsInfoPageList(goodsInfo, pageNo, pageSize, orderBy);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
-    }
-
-    /**
-     * 查询商品列表 分页
-    * @author 洪秋霞
-    * @date 2015年8月7日 下午5:45:13
-    * @param goodsInfo 商品信息
-    * @param pageNo 页码
-    * @param pageSize 每页显示数
-    * @param orderBy  排序方式
-    * @return Page<GoodsInfoDto>
-     */
-    public Page<GoodsInfoDto> queryGoodsInfoPageList(GoodsInfoDto goodsInfo, int pageNo, int pageSize, String orderBy) {
-        Page<GoodsInfoDto> page = new Page<GoodsInfoDto>();
-        page.setPageNo(pageNo);
-        page.setPageSize(pageSize);
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("goodsInfo", goodsInfo);
-        params.put("orderBy", orderBy);
-        page.setParams(params);
-        List<GoodsInfoDto> list = goodsInfoMapper.selectGoodsInfoPage(page);
-        page.setResults(list);
-        return page;
-    }
 
     /**
      * 查询商品类别
@@ -246,27 +215,6 @@ public class GoodsInfoService {
         goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
     }
     
-    /**
-     * 删除商品类别
-    * @author 洪秋霞
-    * @date 2015年9月16日 下午3:34:32
-    * @param categoryId 商品类别Id
-     */
-    public void deleteGoodsCategory(Integer categoryId){
-        GoodsInfo goodsInfo = new GoodsInfo();
-        goodsInfo.setCategoryId(categoryId);
-        List<GoodsInfo> ls = goodsInfoMapper.selectByProperty(goodsInfo);
-        for (int i = 0; i < ls.size(); i++) {
-            ls.get(i).setIsDeleted(1);
-            goodsInfoMapper.updateByPrimaryKeySelective(ls.get(i));
-        }
-        //goodsInfoMapper.deleteByCategoryId(categoryId);
-        GoodsCategory category = new GoodsCategory();
-        category.setCategoryId(categoryId);
-        category.setIsDeleted(1);
-        goodsCategoryMapper.updateByPrimaryKeySelective(category);
-        //goodsCategoryMapper.deleteByPrimaryKey(categoryId);
-    }
     
     /**
      * 保存品牌
@@ -290,26 +238,6 @@ public class GoodsInfoService {
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsBrand);
     }
 
-    /**
-     * 删除商品品牌
-    * @author 洪秋霞
-    * @date 2015年9月1日 下午2:54:12
-    * @param brandId 品牌id
-    * @return BaseDto BaseDto
-     */
-    public BaseDto deleteGoodsBrand(Integer brandId) {
-        GoodsInfo goodsInfo = new GoodsInfo();
-        goodsInfo.setBrandId(brandId.toString());
-        goodsInfo.setIsDeleted(0);
-        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
-        if (goodsInfos!=null && goodsInfos.size()>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该品牌有商品关联"); 
-        }
-        else {
-            goodsBrandMapper.deleteByPrimaryKey(brandId);
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除成功"); 
-        }
-    }
 
     /**
      * 保存商品
@@ -547,7 +475,7 @@ public class GoodsInfoService {
     * @param goodsInfo 实体属性
     * @return 集合
      */
-    public List<GoodsInfo> selectGoodsInfos(GoodsInfo goodsInfo) {
+    public List<GoodsInfoDto> selectGoodsInfos(GoodsInfoDto goodsInfo) {
         return goodsInfoMapper.selectByProperty(goodsInfo);
     }
 
@@ -583,15 +511,21 @@ public class GoodsInfoService {
      * @return  成功返回码为0，失败为其他返回码
      */
     public BaseDto saveShipmentRecord(ShipmentRecord shipmentRecord) {
-      //修改商品库存数量
-        GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(shipmentRecord.getGoodsId());
-        Integer goodsStock = goodsInfo.getGoodsStock();
+        //修改商品库存数量
+        GoodsInfoDto goodsInfo = goodsInfoMapper.selectByPrimaryKey(shipmentRecord.getGoodsId());
+        GoodsStockKey key = new GoodsStockKey();
+        key.setaId(goodsInfo.getaId());
+        key.setStoreId(shipmentRecord.getStoreId());;
+        GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
+        Integer count = goodsStock.getCount();
         Integer shipmentCount = shipmentRecord.getShipmentCount();
-        if (goodsStock<shipmentCount){
+        if (count<shipmentCount){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "库存不足");
         }
-        goodsInfo.setGoodsStock(goodsStock - shipmentCount);
-        goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
+        goodsStock.setCount(count - shipmentCount);
+        goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
+//        goodsInfo.setGoodsStock(count - shipmentCount);
+//        goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
         int ok = shipmentRecordMapper.insertSelective(shipmentRecord);
         if (ok>0){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shipmentRecord);
@@ -958,36 +892,6 @@ public class GoodsInfoService {
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, data);
     }
 
-    /**
-     * 根据步骤进行保存商品
-    * @author 高国藩
-    * @date 2016年5月19日 上午10:46:19
-    * @param data  goodsInfo
-    * @return           状态吗
-     */
-    @SuppressWarnings("unchecked")
-    public BaseDto saveLevelDiscount(JSONObject data) {
-        Integer goodsId = data.getInt("goodsId");
-        GoodsDiscount goodsDiscount = new GoodsDiscount();
-        goodsDiscount.setGoodsId(goodsId);
-        List<GoodsDiscount> goodsDiscounts = goodsDiscountMapper.selectByProperty(goodsDiscount);
-        
-        for (int i = 0; i < goodsDiscounts.size(); i++) {
-            goodsDiscountMapper.deleteByPrimaryKey(goodsDiscounts.get(i).getDiscountId());
-        }
-        
-        goodsDiscounts = (List<GoodsDiscount>) JSONArray.toCollection(data.getJSONArray("data"), GoodsDiscount.class);
-        goodsDiscountMapper.insertGoodsDiscountList(goodsDiscounts);
-        GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(goodsId);
-        goodsInfo.setProjectStep(4);
-        goodsInfoMapper.updateByPrimaryKeySelective(goodsInfo);
-        
-        JSONObject returnDate = new JSONObject();
-        returnDate.put("goodsId", goodsInfo.getGoodsId());
-        returnDate.put("projectStep", goodsInfo.getProjectStep());
-        redisService.hdel(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, goodsInfo.getDeptId());
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, returnDate);
-    }
     
     /**
      * 给出一个集合,查询商品
@@ -996,7 +900,7 @@ public class GoodsInfoService {
     * @param params  params
     * @return        params
      */
-    public List<GoodsInfo> queryByGoodsIds(List<Integer> params){
+    public List<GoodsInfoDto> queryByGoodsIds(List<Integer> params){
         return goodsInfoMapper.queryByGoodsIds(params);
     }
 
@@ -1014,7 +918,7 @@ public class GoodsInfoService {
             accountGoodsMapper.updateByPrimaryKeySelective(goodsInfo);
             List<GoodsInfo> info = goodsInfoMapper.selectByStoreAccount(goodsInfo.getGoodsId());
             for (int i = 0; i < info.size(); i++) {
-                info.get(i).setIsSellProduct(goodsInfo.getIsSellProduct());
+//                info.get(i).setIsSellProduct(goodsInfo.getIsSellProduct());
                 goodsInfoMapper.updateByPrimaryKeySelective(info.get(i));
             }
         }
@@ -1026,23 +930,12 @@ public class GoodsInfoService {
                 GoodsInfo info = new GoodsInfo();
                 info.setStoreId(storeInfos.get(i).getStoreId());
                 info.setaId(goodsInfo.getGoodsId());
-                info.setIsSellProduct(goodsInfo.getIsSellProduct());
+//                info.setIsSellProduct(goodsInfo.getIsSellProduct());
                 info.setIsDeleted(0);
                 goodsInfoMapper.insertSelective(info);
             }
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsInfo);
-    }
-
-    /**
-     * 根据商品ID查询基本数据
-    * @author 高国藩
-    * @date 2016年5月26日 下午4:51:38
-    * @param goodsId   goodsId
-    * @return          GoodsInfoDto
-     */
-    public GoodsInfo selectgoodsInfoByGoodsId(Integer goodsId) {
-        return goodsInfoMapper.selectByPrimaryKey(goodsId);
     }
 
     /**

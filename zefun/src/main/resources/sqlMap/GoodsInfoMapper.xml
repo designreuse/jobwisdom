@@ -5,17 +5,10 @@
     <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
-    <result column="brand_id" property="brandId" jdbcType="VARCHAR" />
-    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
     <result column="dept_id" property="deptId" jdbcType="INTEGER" />
-    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
     <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
-    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
-    <result column="online_shopping_price" property="onlineShoppingPrice" jdbcType="DECIMAL" />
-    <result column="is_include_cost" property="isIncludeCost" jdbcType="INTEGER" />
     <result column="goods_image" property="goodsImage" jdbcType="VARCHAR" />
     <result column="goods_desc" property="goodsDesc" jdbcType="VARCHAR" />
-    <result column="goods_stock" property="goodsStock" jdbcType="INTEGER" />
     <result column="warn_stock" property="warnStock" jdbcType="INTEGER" />
     <result column="commission_type" property="commissionType" jdbcType="INTEGER" />
     <result column="commission_amount" property="commissionAmount" jdbcType="INTEGER" />
@@ -23,20 +16,16 @@
     <result column="card_amount" property="cardAmount" jdbcType="INTEGER" />
     <result column="integral_exchange" property="integralExchange" jdbcType="INTEGER" />
     <result column="sales_count" property="salesCount" jdbcType="INTEGER" />
-    <result column="sales_people" property="salesPeople" jdbcType="INTEGER" />
-    <result column="is_wechat_sell" property="isWechatSell" jdbcType="INTEGER" />
-    <result column="is_disable" property="isDisable" jdbcType="INTEGER" />
     <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
-    <result column="is_sell_product" property="isSellProduct" jdbcType="INTEGER" />
     <result column="affiliated_image" property="affiliatedImage" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
     <result column="is_cash_deduction" property="isCashDeduction" jdbcType="INTEGER" />
     <result column="highest_discount" property="highestDiscount" jdbcType="DECIMAL" />
+    <result column="online_shopping_price" property="onlineShoppingPrice" jdbcType="DECIMAL" />
     <result column="calculation_type" property="calculationType" jdbcType="INTEGER" />
     <result column="project_step" property="projectStep" jdbcType="INTEGER" />
-    <result column="goods_code_suffix" property="goodsCodeSuffix" jdbcType="VARCHAR" />
     <result column="a_id" property="aId" jdbcType="INTEGER" />
   </resultMap>
   
@@ -84,36 +73,36 @@
     <result column="a_id" property="aId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    goods_id, store_id, category_id, brand_id, dept_id, goods_name, goods_price, cost_price, online_shopping_price, is_include_cost, 
-    goods_image, goods_desc, goods_stock, warn_stock, commission_type, commission_amount, commission_card_type, card_amount, integral_exchange ,
-    sales_count, sales_people, is_wechat_sell, is_disable, is_deleted, is_sell_product, affiliated_image, create_time, update_time, last_operator_id,
-    is_cash_deduction, highest_discount, calculation_type, project_step, goods_code_suffix, a_id
+    goods_id, store_id, category_id, dept_id, goods_price, online_shopping_price, 
+    goods_image, goods_desc, warn_stock, commission_type, commission_amount, commission_card_type, card_amount, integral_exchange ,
+    sales_count, is_deleted, affiliated_image, create_time, update_time, last_operator_id,
+    is_cash_deduction, highest_discount, calculation_type, project_step, a_id
   </sql>
   
   <resultMap type="com.zefun.web.dto.GoodsInfoCatagoryDto" id="catagoryGoodsInfos">
         <result column="category_id" property="categoryId" jdbcType="INTEGER" />
         <result column="store_id" property="storeId" jdbcType="INTEGER" />
         <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
-        <association property="goodsInfos" column="category_id" select="selectGoodsBaseByCategoryId" />
+        <association property="goodsInfos" column="{categoryId=category_id,storeId=store_id}" select="selectGoodsBaseByCategoryId" />
   </resultMap>
   <select id="selectCatagoryGoodsInfos" resultMap="catagoryGoodsInfos" parameterType="java.lang.Integer">
   	SELECT category_id, store_id, category_name FROM goods_category WHERE store_id = #{storeId} AND is_deleted = 0
   </select>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="GoodsInfoDtoMap" parameterType="java.lang.Integer" >
 	  SELECT 
-		  goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, goods.is_include_cost, 
-		  goods.goods_image, goods.goods_desc, goods.goods_stock, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
-		  goods.sales_count, goods.sales_people, goods.is_wechat_sell, goods.is_disable, goods.is_deleted, goods.is_sell_product, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
+		  goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, 
+		  goods.goods_image, goods.goods_desc, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange,
+		  goods.sales_count, goods.is_deleted, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
 		  goods.is_cash_deduction, goods.highest_discount, goods.calculation_type, goods.project_step, ag.goods_code_suffix, goods.a_id FROM goods_info goods
 	  	LEFT JOIN account_goods ag ON ag.goods_id = goods.a_id AND ag.is_deleted = 0
 	   WHERE goods.goods_id =  #{goodsId,jdbcType=INTEGER}
   </select>
   <select id="selectGoodsAllByPrimaryKey" resultMap="GoodsInfoDtoMap" parameterType="java.lang.Integer">
    SELECT 
-	  goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, goods.is_include_cost, 
-	  goods.goods_image, goods.goods_desc, goods.goods_stock, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
-	  goods.sales_count, goods.sales_people, goods.is_wechat_sell, goods.is_disable, goods.is_deleted, goods.is_sell_product, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
+	  goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, 
+	  goods.goods_image, goods.goods_desc, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
+	  goods.sales_count, goods.is_deleted, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id, ag.is_sell_product, 
 	  goods.is_cash_deduction, goods.highest_discount, goods.calculation_type, goods.project_step, ag.goods_code_suffix, goods.a_id,
 	  dept.dept_name,cate.category_name FROM goods_info goods
   	LEFT JOIN account_goods ag ON ag.goods_id = goods.a_id AND ag.is_deleted = 0
@@ -137,35 +126,17 @@
       <if test="categoryId != null" >
         category_id,
       </if>
-      <if test="brandId != null" >
-        brand_id,
-      </if>
       <if test="deptId != null" >
         dept_id,
       </if>
-      <if test="goodsName != null" >
-        goods_name,
-      </if>
       <if test="goodsPrice != null" >
         goods_price,
-      </if>
-      <if test="costPrice != null" >
-        cost_price,
-      </if>
-      <if test="onlineShoppingPrice != null" >
-        online_shopping_price,
-      </if>
-      <if test="isIncludeCost != null" >
-        is_include_cost,
       </if>
       <if test="goodsImage != null" >
         goods_image,
       </if>
       <if test="goodsDesc != null" >
         goods_desc,
-      </if>
-      <if test="goodsStock != null" >
-        goods_stock,
       </if>
       <if test="warnStock != null" >
         warn_stock,
@@ -188,20 +159,8 @@
       <if test="salesCount != null" >
         sales_count,
       </if>
-      <if test="salesPeople != null" >
-        sales_people,
-      </if>
-      <if test="isWechatSell != null" >
-        is_wechat_sell,
-      </if>
-      <if test="isDisable != null" >
-        is_disable,
-      </if>
       <if test="isDeleted != null" >
         is_deleted,
-      </if>
-      <if test="isSellProduct != null" >
-        is_sell_product,
       </if>
       <if test="affiliatedImage != null" >
         affiliated_image,
@@ -218,6 +177,9 @@
       <if test="isCashDeduction != null" >
         is_cash_deduction,
       </if>
+      <if test="onlineShoppingPrice != null" >
+        online_shopping_price,
+      </if>
       <if test="highestDiscount != null" >
         highest_discount,
       </if>
@@ -226,9 +188,6 @@
       </if>
       <if test="projectStep != null" >
         project_step,
-      </if>
-      <if test="goodsCodeSuffix != null" >
-        goods_code_suffix,
       </if>
       <if test="aId != null" >
         a_id,
@@ -244,35 +203,17 @@
       <if test="categoryId != null" >
         #{categoryId,jdbcType=INTEGER},
       </if>
-      <if test="brandId != null" >
-        #{brandId,jdbcType=VARCHAR},
-      </if>
       <if test="deptId != null" >
         #{deptId,jdbcType=INTEGER},
       </if>
-      <if test="goodsName != null" >
-        #{goodsName,jdbcType=VARCHAR},
-      </if>
       <if test="goodsPrice != null" >
         #{goodsPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="costPrice != null" >
-        #{costPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="onlineShoppingPrice != null" >
-        #{onlineShoppingPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="isIncludeCost != null" >
-        #{isIncludeCost,jdbcType=INTEGER},
       </if>
       <if test="goodsImage != null" >
         #{goodsImage,jdbcType=VARCHAR},
       </if>
       <if test="goodsDesc != null" >
         #{goodsDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsStock != null" >
-        #{goodsStock,jdbcType=INTEGER},
       </if>
       <if test="warnStock != null" >
         #{warnStock,jdbcType=INTEGER},
@@ -295,20 +236,8 @@
       <if test="salesCount != null" >
         #{salesCount,jdbcType=INTEGER},
       </if>
-      <if test="salesPeople != null" >
-        #{salesPeople,jdbcType=INTEGER},
-      </if>
-      <if test="isWechatSell != null" >
-        #{isWechatSell,jdbcType=INTEGER},
-      </if>
-      <if test="isDisable != null" >
-        #{isDisable,jdbcType=INTEGER},
-      </if>
       <if test="isDeleted != null" >
         #{isDeleted,jdbcType=INTEGER},
-      </if>
-      <if test="isSellProduct != null" >
-        #{isSellProduct,jdbcType=INTEGER},
       </if>
       <if test="affiliatedImage != null" >
         #{affiliatedImage,jdbcType=VARCHAR},
@@ -325,6 +254,9 @@
       <if test="isCashDeduction != null" >
         #{isCashDeduction,jdbcType=INTEGER},
       </if>
+      <if test="onlineShoppingPrice != null" >
+      	#{onlineShoppingPrice,jdbcType=DECIMAL},
+      </if>
       <if test="highestDiscount != null" >
        #{highestDiscount,jdbcType=DECIMAL},
       </if>
@@ -333,9 +265,6 @@
       </if>
       <if test="projectStep != null" >
        #{projectStep,jdbcType=INTEGER},
-      </if>
-      <if test="goodsCodeSuffix != null" >
-       #{goodsCodeSuffix,jdbcType=VARCHAR},
       </if>
       <if test="aId != null" >
        #{aId,jdbcType=INTEGER},
@@ -351,35 +280,17 @@
       <if test="categoryId != null" >
         category_id = #{categoryId,jdbcType=INTEGER},
       </if>
-      <if test="brandId != null" >
-        brand_id = #{brandId,jdbcType=VARCHAR},
-      </if>
       <if test="deptId != null" >
         dept_id = #{deptId,jdbcType=INTEGER},
       </if>
-      <if test="goodsName != null" >
-        goods_name = #{goodsName,jdbcType=VARCHAR},
-      </if>
       <if test="goodsPrice != null" >
         goods_price = #{goodsPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="costPrice != null" >
-        cost_price = #{costPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="onlineShoppingPrice != null" >
-        online_shopping_price = #{onlineShoppingPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="isIncludeCost != null" >
-        is_include_cost = #{isIncludeCost,jdbcType=INTEGER},
       </if>
       <if test="goodsImage != null" >
         goods_image = #{goodsImage,jdbcType=VARCHAR},
       </if>
       <if test="goodsDesc != null" >
         goods_desc = #{goodsDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsStock != null" >
-        goods_stock = #{goodsStock,jdbcType=INTEGER},
       </if>
       <if test="warnStock != null" >
         warn_stock = #{warnStock,jdbcType=INTEGER},
@@ -402,20 +313,8 @@
       <if test="integralExchange != null" >
         integral_exchange = #{integralExchange,jdbcType=INTEGER},
       </if>
-      <if test="salesPeople != null" >
-        sales_people = #{salesPeople,jdbcType=INTEGER},
-      </if>
-      <if test="isWechatSell != null" >
-        is_wechat_sell = #{isWechatSell,jdbcType=INTEGER},
-      </if>
-      <if test="isDisable != null" >
-        is_disable = #{isDisable,jdbcType=INTEGER},
-      </if>
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=INTEGER},
-      </if>
-      <if test="isSellProduct != null" >
-        is_sell_product = #{isSellProduct,jdbcType=INTEGER},
       </if>
       <if test="affiliatedImage != null" >
         affiliated_image = #{affiliatedImage,jdbcType=VARCHAR},
@@ -432,6 +331,9 @@
       <if test="isCashDeduction != null" >
         is_cash_deduction = #{isCashDeduction,jdbcType=INTEGER},
       </if>
+      <if test="onlineShoppingPrice != null" >
+      	online_shopping_price = #{onlineShoppingPrice,jdbcType=DECIMAL},
+      </if>
       <if test="highestDiscount != null" >
         highest_discount = #{highestDiscount,jdbcType=DECIMAL},
       </if>
@@ -441,9 +343,6 @@
       <if test="projectStep != null" >
         project_step = #{projectStep,jdbcType=INTEGER},
       </if>
-      <if test="goodsCodeSuffix != null" >
-        goods_code_suffix = #{goodsCodeSuffix,jdbcType=VARCHAR},
-      </if>
       <if test="aId != null" >
         a_id = #{aId,jdbcType=INTEGER},
       </if>
@@ -451,10 +350,10 @@
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </update>
   
-  <select id="selectByProperty" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.GoodsInfo" >
- 	select goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, goods.is_include_cost, 
-		   goods.goods_image, goods.goods_desc, goods.goods_stock, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
-		   goods.sales_count, goods.sales_people, goods.is_wechat_sell, goods.is_disable, goods.is_deleted, goods.is_sell_product, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
+  <select id="selectByProperty" resultMap="GoodsInfoDtoMap" parameterType="com.zefun.web.dto.GoodsInfoDto" >
+ 	select goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, 
+		   goods.goods_image, goods.goods_desc, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
+		   goods.sales_count, goods.is_deleted, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
 		   goods.is_cash_deduction, goods.highest_discount, goods.calculation_type, goods.project_step, ag.goods_code_suffix, goods.a_id 
     from goods_info goods
     left join account_goods ag on ag.goods_id = goods.a_id and ag.is_deleted = 0
@@ -465,35 +364,17 @@
       <if test="categoryId != null" >
         and goods.category_id = #{categoryId,jdbcType=INTEGER}
       </if>
-      <if test="brandId != null" >
-        and goods.brand_id = #{brandId,jdbcType=VARCHAR}
-      </if>
       <if test="deptId != null" >
         and goods.dept_id = #{deptId,jdbcType=INTEGER}
       </if>
-      <if test="goodsName != null" >
-        and ag.goods_name = #{goodsName,jdbcType=VARCHAR}
-      </if>
       <if test="goodsPrice != null" >
         and goods.goods_price = #{goodsPrice,jdbcType=DECIMAL}
-      </if>
-      <if test="costPrice != null" >
-        and goods.cost_price = #{costPrice,jdbcType=DECIMAL}
-      </if>
-      <if test="onlineShoppingPrice != null" >
-        and goods.online_shopping_price = #{onlineShoppingPrice,jdbcType=DECIMAL}
-      </if>
-      <if test="isIncludeCost != null" >
-        and goods.is_include_cost = #{isIncludeCost,jdbcType=INTEGER}
       </if>
       <if test="goodsImage != null" >
         and goods.goods_image = #{goodsImage,jdbcType=VARCHAR}
       </if>
       <if test="goodsDesc != null" >
         and goods.goods_desc = #{goodsDesc,jdbcType=VARCHAR}
-      </if>
-      <if test="goodsStock != null" >
-        and goods.goods_stock = #{goodsStock,jdbcType=INTEGER}
       </if>
       <if test="warnStock != null" >
         and goods.warn_stock = #{warnStock,jdbcType=INTEGER}
@@ -515,18 +396,6 @@
       </if>
       <if test="salesCount != null" >
         and goods.sales_count = #{salesCount,jdbcType=INTEGER}
-      </if>
-      <if test="salesPeople != null" >
-        and goods.sales_people = #{salesPeople,jdbcType=INTEGER}
-      </if>
-      <if test="isWechatSell != null" >
-        and goods.is_wechat_sell = #{isWechatSell,jdbcType=INTEGER}
-      </if>
-      <if test="isDisable != null" >
-        and goods.is_disable = #{isDisable,jdbcType=INTEGER}
-      </if>
-      <if test="isSellProduct != null" >
-        and goods.is_sell_product = #{isSellProduct,jdbcType=INTEGER}
       </if>
       <if test="affiliatedImage != null" >
         and goods.affiliated_image = #{affiliatedImage,jdbcType=VARCHAR}
@@ -593,43 +462,7 @@
 	    <result column="a_id" property="aId" jdbcType="INTEGER" />
         <association property="goodsPurchaseRecordDto" column="{goodsId=goodsId,storeId=storeId}" select="getGoodsInfoAss" />
   </resultMap>
-  <select id="selectGoodsInfoPage" resultMap="GoodsInfoStockMap" parameterType="com.zefun.web.entity.Page" >
-  	SELECT gi.goods_id goodsId, gi.store_id storeId, gi.category_id, gi.brand_id, gi.dept_id, gi.supplier_id, gi.goods_name, gi.goods_price, gi.cost_price, gi.online_shopping_price, 
-		   gi.is_include_cost, gi.goods_image, gi.goods_desc, gi.goods_stock, gi.warn_stock, gi.commission_type, gi.commission_amount, gi.commission_card_type, gi.card_amount, 
-		   gi.integral_exchange, gi.sales_count, gi.sales_people, gi.is_wechat_sell, gi.is_disable, gi.is_deleted, gi.is_sell_product, gi.last_operator_id, 
-		   gc.category_name, si.supplier_name, IFNULL(si.thirty_sales,0) AS thirty_sales, gi.affiliated_image
-	from goods_info gi
-	LEFT JOIN supplier_info si ON gi.supplier_id = si.supplier_id
-	<!-- LEFT JOIN code_library gb ON gi.brand_id = gb.code_no -->
-	LEFT JOIN goods_category gc ON gc.category_id = gi.category_id
-	WHERE gi.is_deleted = 0 
-	<if test="params.goodsInfo.storeId != null" >
-		and gi.store_id = #{params.goodsInfo.storeId}
-	</if>
-	<if test="params.goodsInfo.goodsName != null" >
-        and (
-	        gi.goods_name like concat('%',#{params.goodsInfo.goodsName,jdbcType=VARCHAR},'%')
-	        or gi.brand_id like concat('%',#{params.goodsInfo.goodsName,jdbcType=VARCHAR},'%')
-	        or gc.category_name like concat('%',#{params.goodsInfo.goodsName,jdbcType=VARCHAR},'%')
-        )
-    </if>
-    <if test="params.goodsInfo.goodsStock != null" >
-    	and gi.goods_stock = 0
-    </if>
-    <if test="params.goodsInfo.warnStock != null" >
-    	<![CDATA[ and gi.goods_stock <= gi.warn_stock ]]>
-    </if>
-    <if test="params.goodsInfo.isSellProduct != null" >
-    	and gi.is_sell_product = #{params.goodsInfo.isSellProduct,jdbcType=INTEGER}
-    </if>
-    <if test="params.goodsInfo.brandId != null" >
-    	and gi.brand_id = #{params.goodsInfo.brandId,jdbcType=VARCHAR}
-    </if>
-    <if test="params.goodsInfo.categoryId != null" >
-    	and gi.category_id = #{params.goodsInfo.categoryId,jdbcType=INTEGER}
-    </if>
-    ORDER BY gi.${params.orderBy}
-  </select>
+ 
   <select id="getGoodsInfoAss" resultType="com.zefun.web.dto.GoodsPurchaseRecordDto" parameterType="java.util.Map">
 		select a.goods_id goodsId, ifnull((b.totalAmount / count(a.goods_id)),0) avgCost, ifnull(c.purchase_price,0) prevCost from goods_purchase_record a
 		left join (select goods_id, sum(purchase_price) totalAmount from goods_purchase_record where goods_id = 25 and store_id = 1) b on a.goods_id = b.goods_id
@@ -645,7 +478,7 @@
   <resultMap id="DeptCategoryResultMap" type="com.zefun.web.dto.GoodsCategoryBaseDto">
     <id column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
-    <association property="goodsBaseDtos" column="category_id" select="selectGoodsBaseByCategoryId" />
+    <association property="goodsBaseDtos" column="{categoryId=category_id}" select="selectGoodsBaseByCategoryId" />
   </resultMap>
   <!-- 查询部门下的项目信息，包括部门信息、项目类别、项目列表。 开始， by 张进军 -->
   <select id="selectDeptGoodsByDeptId" resultMap="DeptGoodsResultMap" parameterType="java.lang.Integer">
@@ -655,21 +488,21 @@
     select category_id, category_name from goods_category where dept_id = #{deptId} and is_deleted = 0
   </select>
   
-  <select id="selectGoodsBaseByCategoryId" resultType="com.zefun.web.dto.GoodsBaseDto" parameterType="java.lang.Integer">
+  <select id="selectGoodsBaseByCategoryId" resultType="com.zefun.web.dto.GoodsBaseDto" parameterType="java.util.Map">
     select
         goods.goods_id as goodsId,
         ag.goods_name as goodsName,
         goods.goods_price as goodsPrice,
         goods.goods_image as goodsImage,
         goods.goods_desc as goodsDesc,
-        goods.goods_stock as goodsStock,
+        gs.count as goodsStock,
         goods.sales_count as salesCount,
-        goods.sales_people as salesPeople,
         goods.affiliated_image as affiliatedImage,
         goods.is_cash_deduction as isCashDeduction
     from goods_info goods 
     left join account_goods ag on ag.goods_id = goods.a_id
-    where category_id = #{categoryId} and (goods.is_deleted = 0 or goods.is_deleted = 2) order by goods.create_time asc
+    left join goods_stock gs on ag.goods_id = gs.a_id and gs.store_id = goods.store_id
+    where category_id = #{categoryId} and goods.is_deleted = 2 and goods.store_id = #{storeId} and goods_price > 0 order by goods.create_time asc
   </select>
   <!-- 查询部门下的项目信息，包括部门信息、项目类别、项目列表。 结束， by 张进军 -->
   
@@ -915,11 +748,11 @@
   	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{storeId} and ag.is_deleted = 0
   </select>
   
-  <select id="queryByGoodsIds" parameterType="list" resultMap="BaseResultMap">
+  <select id="queryByGoodsIds" parameterType="list" resultMap="GoodsInfoDtoMap">
   	select 
-  		goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, goods.online_shopping_price, goods.is_include_cost, 
-	    goods.goods_image, goods.goods_desc, goods.goods_stock, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
-	    goods.sales_count, goods.sales_people, goods.is_wechat_sell, goods.is_disable, goods.is_deleted, goods.is_sell_product, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
+  		goods.goods_id, goods.store_id, goods.category_id, ag.brand_id, goods.dept_id, ag.goods_name, goods.goods_price, ag.cost_price, 
+	    goods.goods_image, goods.goods_desc, goods.warn_stock, goods.commission_type, goods.commission_amount, goods.commission_card_type, goods.card_amount, goods.integral_exchange ,
+	    goods.sales_count, goods.is_deleted, ag.is_sell_product, goods.affiliated_image, goods.create_time, goods.update_time, goods.last_operator_id,
 	    goods.is_cash_deduction, goods.highest_discount, goods.calculation_type, goods.project_step, ag.goods_code_suffix, goods.a_id,
 	    dept.dept_name,cate.category_name FROM goods_info goods
   		LEFT JOIN account_goods ag ON ag.goods_id = goods.a_id 
@@ -947,7 +780,7 @@
   	left join dept_info df on gf.dept_id = df.dept_id
   	left join goods_category gc on gc.category_id = gf.category_id
   	left join account_goods ag on ag.goods_id = gf.a_id 
-  	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{storeId} and gf.is_sell_product = 1
+  	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{storeId} and ag.is_sell_product = 1
   </select>
   
   <select id="selectByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

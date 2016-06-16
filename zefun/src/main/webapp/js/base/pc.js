@@ -67,7 +67,7 @@ function textToVoice(per, text){
 	jQuery.ajax({
 	    url : baseUrl + "qiniu/textToVoice",
 	    type : "POST",
-	    data : "text=" + text + "&per=" + per,
+	    data : "text=" + text + "&per=" + 0,
 	    beforeSend : function(){
 	    },
 	    complete : function(){
@@ -77,11 +77,14 @@ function textToVoice(per, text){
 	    		return;
 	    	}
 	    	if(audio != null) audio.pause();
+	    	var dingdong = new Audio();
+	    	dingdong.src = baseUrl + "music/voice.mp3";
 	    	
             audio = new Audio();
             console.log(picUrl + e.msg);
             audio.src = picUrl + e.msg;
-            audio.play();
+            dingdong.play();
+            setTimeout("audio.play();",1000); 
             console.log("语音播放结束");
 	    }
 	});

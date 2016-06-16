@@ -316,7 +316,7 @@ public class StaffCentreController extends BaseController{
             return null;
         }
         int employeeId = getUserIdByOpenId(openId);
-        int storeId = getStoreId(request);
+        int storeId = getStoreIdByOpenId(openId);
         return staffCentreService.appointOperate(type, storeId, employeeId, appointmentId, memberId, projectName, appointTime, reason);
     }
     
@@ -484,20 +484,5 @@ public class StaffCentreController extends BaseController{
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, 
     			staffCentreService.myAttendancdFindByPage(page, pageSize, employeeId));
     }
-    
-    //从员工"个人表现"点击"工作态度"查看奖惩明细
-    /*public ModelAndView findRewardDetailFromIndividualPerformance(HttpServletRequest request, HttpServletResponse response, String time) {
-    	String openId = getOpenId(2, request, response);
-        if (openId == null || time == null) {
-            return null;
-        }
-		int ownerStoreId = getStoreIdByOpenId(openId);
-    	if (time != null && "month".equals(time)) {
-    		time = DateUtil.getCurMonth();
-    	} 
-    	else if (time != null && "day".equals(time)) {
-    		time = DateUtil.getCurDate();
-    	}
-    }*/
     
 }

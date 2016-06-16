@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 系统业务常量类
  *
- * @author 张进军
+ * @author 小高
  * @date Aug 4, 2015 9:19:50 AM
  */
 public interface App {
@@ -74,6 +74,9 @@ public interface App {
 
 		/** 系统角色：门店普通员工 */
 		public static final int SYSTEM_ROLE_STORE_EMPLOYEE = 4;
+		
+		/** 百度语音token*/
+		public static final String SYSTEM_VOICE = "24.2abdf97e9f4bd52a623fd025346673e6.2592000.1468641911.282335-7977080";
 	}
 
 	/** 队列通道常量 */
@@ -145,12 +148,6 @@ public interface App {
 		public static final String WECHAT_OPENID_TO_BUSINESS_TYPE_KEY_HASH = "wechat_openid_to_business_type_key_hash";
 		/** 微信openid对应所属门店的hash key */
 		public static final String WECHAT_OPENID_TO_STORE_KEY_HASH = "wechat_openid_to_store_key_hash";
-		// /**微信openid对应首次关注优惠券奖励(临存)的hash key*/
-		// public static final String WECHAT_OPENID_TO_SUBSCRIBE_COUPON_KEY_HASH
-		// = "wechat_openid_to_subscribe_coupon_key_hash";
-		// /**微信openid对应首次关注礼金奖励(临存)的hash key*/
-		// public static final String WECHAT_OPENID_TO_SUBSCRIBE_GIFT_KEY_HASH =
-		// "wechat_openid_to_subscribe_gift_key_hash";
 		/** 微信openid对应首次关注奖励的临存记录，set */
 		public static final String WECHAT_OPENID_TO_SUBSCRIBE_AWARD_SET = "wechat_openid_to_subscribe_award_set";
 		/** 会员标识对应微信openid的hash key */
@@ -371,7 +368,7 @@ public interface App {
 	/**
 	 * 友宝常量类
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jan 28, 2016 6:06:39 PM
 	 */
 	class Ubox {

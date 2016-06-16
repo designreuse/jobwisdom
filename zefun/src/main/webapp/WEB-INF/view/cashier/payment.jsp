@@ -118,7 +118,7 @@
             </div>
 
             <div class="modal-body confirm-body">
-                取消该笔订单将直接删除，确认进行此操作吗？
+                                         取消该笔订单将直接删除，确认进行此操作吗？
             </div><!--modal-body-->
 
             <div class="modal-footer">
@@ -192,18 +192,7 @@
 			</table>
 	   
 	       <table class="zzc_1_card1">
-			  <tr>
-                <td>订单原价</td>
-				<td>抵扣金额</td>
-				<td>实收金额</td>
-				<td>操作</td>
-			  </tr>
-			  <tr>
-                <td name = "nextOldPric"></td>
-				<td name = "discountPric"></td>
-				<td name = "nextNewPric"></td>
-				<td><span class="change_price_red" onclick="updatePric()">改价</span></td>
-			  </tr>
+
 			</table>
 		    <ul class="how_pay clearfix">
 			  <li> 卡金支付<input type="text" id="cardpayAmount"></li>
@@ -218,26 +207,27 @@
 			
 			<button class="money_over" onclick="submitOrderInfo()">结账</button>
 		   <div class="change_price_content">
-		   <span class="money_add"><img src="<%=basePath %>images/money_add.png"></span>
-		   <div class="triangle"><img src="<%=basePath %>images/triangle.png"></div>
-		     <button class="sure_change_price_" onclick = "cancleSure()">取消</button>
-		      <button class="sure_change_price">确认</button>
+		      <div class="triangle"><img src="<%=basePath %>images/triangle.png"></div>
+		      <div class="money_close_" onclick = "cancleSure()"><img src="<%=basePath %>images/pay_close.png"></div>
 			  <table class="sure_table">
 			     <tr>
 				  <td>项目名称</td>
-				  <td>需支付金额</td>
-				  <td>改价后金额</td>
+				  <td>项目金额</td>
+				  <td>改价金额</td>
+				  <td><span class="add_to">追加</span></td>
 			     </tr>
 				 <tr>
 				   <td>
 				      <select name = "projectSelect">
+				         
 					  </select>	 
 				   </td>
-				   <td>12214</td>
-				   <td><input type="text" name = "updatePricValue"></td>
+				   <td >12214</td>
+				   <td><input type="text"  name = "updatePricValue"></td>
+				   <td><img src="<%=basePath %>images/append_add.png" style="width:20px"></td>
 			     </tr>
 			  </table>
-		      <div>改叫说明<input type="text" name = "upRemark"></div>
+		   	  <p class="adjust_price_saying"><span>改价说明<input type="text" name = "upRemark"></span><button class="sure_change_price">确认</button></p>
 		   </div>
         </div>
    </div>
@@ -281,8 +271,7 @@
       
      
       //点击下一步,关闭图标
-      
-      jQuery(function(){
+     jQuery(function(){
         jQuery('.money_close_').click(function(){
    	    	jQuery('.zzc').hide();
         });
@@ -298,9 +287,7 @@
       
       //点击改价
       jQuery(function(){
-         jQuery('.change_price_red').click(function(){
-   	     jQuery(this).parents('.money_head_content').find('.change_price_content').show();
-          });
+
    	   //点击改价页面的关闭
    	   
    	    jQuery('.money_close_1').click(function(){

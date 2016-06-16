@@ -3,7 +3,7 @@ package com.zefun.common.consts;
 /**
  * 视图地址常量类，定义时使用根目录/WEB-INF/view/下对绝对地址
  * 
- * @author 张进军
+ * @author 小高
  * @date Aug 4, 2015 9:21:29 AM
  */
 public interface View {
@@ -66,7 +66,7 @@ public interface View {
 	/**
 	 * 门店管理制度模块
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Dec 5, 2015 7:17:45 PM
 	 */
 	class StoreManageRule {
@@ -93,7 +93,7 @@ public interface View {
 	/**
 	 * 设置类模块
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Nov 9, 2015 11:36:48 AM
 	 */
 	class Setting {
@@ -125,7 +125,7 @@ public interface View {
 	/**
 	 * 人脸模块相关页面
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jul 2, 2015 2:57:02 PM
 	 */
 	class Face {
@@ -165,7 +165,7 @@ public interface View {
 	/**
 	 * 会员等级相关页面
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Aug 5, 2015 7:49:53 PM
 	 */
 	class MemberLevel {
@@ -195,7 +195,7 @@ public interface View {
 	/**
 	 * 微信会员中心相关页面
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Aug 19, 2015 5:46:43 PM
 	 */
 	class MemberCenter {
@@ -481,6 +481,8 @@ public interface View {
 		public static final String OPEN_CARD = "keepAccounts/openCard";
 		/** 手工收银 */
 		public static final String MANUALLY_OPEN_ORDER = "keepAccounts/manuallyOpenOrder";
+		/**类别管理*/
+        public static final String ADD_INITILIZE_TYPE = "keepAccounts/type";
 	}
 
 	/**
@@ -767,7 +769,7 @@ public interface View {
 	/**
 	 * 营业分析模块
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jan 13, 2016 7:47:45 PM
 	 */
 	class BusinessAnalysis {
@@ -786,7 +788,7 @@ public interface View {
 	/**
 	 * 友宝商城
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jan 28, 2016 5:09:16 PM
 	 */
 	class Ubox {
@@ -798,7 +800,7 @@ public interface View {
 	
 	/**
      * 进销存
-     * @author 张进军
+     * @author 小高
      * @date Jan 28, 2016 5:09:16 PM
      */
     class Stock {

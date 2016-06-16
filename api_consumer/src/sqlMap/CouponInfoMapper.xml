@@ -38,7 +38,7 @@
     where coupon_id = #{couponId,jdbcType=INTEGER}
   </select>
   
-  <!-- 根据会员标识查询优惠券信息，by 张进军 -->
+  <!-- 根据会员标识查询优惠券信息，by 小高 -->
   <select id="selectBaseByMemberId" resultType="com.zefun.api.dto.CouponBaseDto" parameterType="java.lang.Integer" >
     SELECT 
     	mc.relevance_id as relevanceId,

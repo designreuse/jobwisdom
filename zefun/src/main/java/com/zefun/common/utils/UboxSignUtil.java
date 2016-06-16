@@ -13,7 +13,7 @@ import com.zefun.common.consts.App;
 
 /**
  * 友宝签名工具类
-* @author 张进军
+* @author 小高
 * @date Jan 21, 2016 2:15:16 PM
  */
 public class UboxSignUtil {
@@ -21,7 +21,7 @@ public class UboxSignUtil {
     
     /**
      * 签名
-    * @author 张进军
+    * @author 小高
     * @date Jan 21, 2016 2:14:23 PM
     * @param params 请求参数
     * @return   签名

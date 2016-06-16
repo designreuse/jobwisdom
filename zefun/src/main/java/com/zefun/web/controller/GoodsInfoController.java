@@ -31,7 +31,6 @@ import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsBrandDto;
 import com.zefun.web.dto.GoodsInfoDto;
-import com.zefun.web.dto.GoodsPurchaseRecordDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.ShipmentRecordDto;
@@ -42,9 +41,7 @@ import com.zefun.web.entity.GoodsBrand;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
-import com.zefun.web.entity.GoodsPurchaseRecord;
 import com.zefun.web.entity.OrderDetail;
-import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.SupplierInfo;
@@ -53,9 +50,7 @@ import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.SupplierInfoMapper;
 import com.zefun.web.service.GoodsInfoService;
-import com.zefun.web.service.GoodsPurchaseRecordService;
 import com.zefun.web.service.MemberLevelService;
-import com.zefun.web.service.SupplierInfoService;
 
 /**
  * 商品
@@ -69,10 +64,6 @@ public class GoodsInfoController extends BaseController {
     @Autowired private GoodsInfoService goodsInfoService;
     /**会员等级*/
     @Autowired private MemberLevelService memberLevelService;
-    /**进货记录*/
-    @Autowired private GoodsPurchaseRecordService goodsPurchaseRecordService;
-    /**供应商信息*/
-    @Autowired private SupplierInfoService supplierInfoService;
     /**套餐商品关联*/
     @Autowired private ComboGoodsMapper comboGoodsMapper;
     /**供应商管理处理*/
@@ -246,63 +237,15 @@ public class GoodsInfoController extends BaseController {
         if (goodsId!=null){
             GoodsInfo query = new GoodsInfo();
             query.setaId(goodsId);
-            query = goodsInfoMapper.selectByPrimaryKey(goodsId);
-            if (query.getIsSellProduct().equals(1)){
-                model.addObject("aId", query.getaId());
+            GoodsInfoDto goodsInfoDto = goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
+            if (goodsInfoDto.getIsSellProduct().equals(1)){
+                model.addObject("aId", goodsInfoDto.getaId());
             }
         }
         
         model.setViewName(View.GoodsInfo.SETTING_GOODS);
         return model;
     }
-    
-    
-    /**
-     * 保存商品
-    * @author 高国藩
-    * @date 2016年4月25日 下午5:59:57
-    * @param request   request
-    * @param response  response
-    * @param stepNum   编辑步骤
-    * @param data      数据
-    * @param status    0/1 新增/修改
-    * @return          状态
-     */
-//    @RequestMapping(value = Url.GoodsInfo.GOODS_SAVE_STEP, method=RequestMethod.POST)
-//    @ResponseBody
-//    public BaseDto saveProjectByStep(HttpServletRequest request, HttpServletResponse response, 
-//            @PathVariable("stepNum")Integer stepNum, @PathVariable("status")Integer status, 
-//            @RequestBody JSONObject data) {
-//        
-//        // 初次创建项目
-//        if (status==0&&stepNum==1){
-//            return goodsInfoService.saveGoodsInfoByStep((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-//        }
-//        // 新增价格设置
-//        if (status==0&&stepNum==2){
-//            return goodsInfoService.saveGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-//        }
-//        // 销售提成新增
-//        if (status==0&&stepNum==3){
-//            return goodsInfoService.saveGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-//        }
-//        if (status==0&&stepNum==4){
-//            return goodsInfoService.saveLevelDiscount(data);
-//        }
-//        if (status==1&&stepNum==1){
-//            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-//        }
-//        if (status==1&&stepNum==2){
-//            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-//        }
-//        if (status==1&&stepNum==3){
-//            return goodsInfoService.updateGoodsInfoPrice((GoodsInfo)JSONObject.toBean(data, GoodsInfo.class), stepNum);
-//        }
-//        if (status==1&&stepNum==4){
-//            return goodsInfoService.saveLevelDiscount(data);
-//        }
-//        return null;
-//    }
     
     
     /**
@@ -383,35 +326,6 @@ public class GoodsInfoController extends BaseController {
         }
     }
 
-    /**
-     * 删除商品类别
-    * @author 洪秋霞
-    * @date 2015年9月16日 下午3:38:44
-    * @param request request
-    * @param response response
-    * @param categoryId 类别Id
-    * @param deptId 部门ID
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.GoodsInfo.DELETE_GOODS_CATEGORY)
-    @ResponseBody
-    public BaseDto deleteGoodsCategory(HttpServletRequest request, HttpServletResponse response, Integer categoryId, Integer deptId) {
-        String[] goodsIds = request.getParameterValues("goodsId");
-        if (goodsIds!=null&&goodsIds.length>0){
-            for (int j = 0; j < goodsIds.length; j++) {
-                ComboGoods comboGoods = new ComboGoods();
-                comboGoods.setGoodsId(Integer.parseInt(goodsIds[j]));
-                List<ComboGoods> comboGoodss = comboGoodsMapper.selectByPrimaryKey(comboGoods);
-                if (comboGoodss!=null&&comboGoodss.size()>0){
-                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该系列下商品在套餐中引用不可删除");
-                }
-                goodsInfoService.deleteGoodsInfo(Integer.parseInt(goodsIds[j]));
-            }
-        }
-        goodsInfoService.deleteGoodsCategory(categoryId);
-        goodsInfoService.deleteGoodsRedis(deptId.toString());
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-    }
 
     /**
      * 保存品牌
@@ -463,30 +377,10 @@ public class GoodsInfoController extends BaseController {
         }
     }
 
-    /**
-     * 删除品牌
-    * @author 洪秋霞
-    * @date 2015年9月1日 下午2:59:21
-    * @param request request
-    * @param response response
-    * @param brandId 品牌id
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.GoodsInfo.DELETE_GOODS_BRAND)
-    @ResponseBody
-    public BaseDto deleteGoodsBrand(HttpServletRequest request, HttpServletResponse response, Integer brandId) {
-        try {
-            return goodsInfoService.deleteGoodsBrand(brandId);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-        }
-    }
 
     /**
      * 保存商品
-    * @author 洪秋霞
+    * @author 高国藩
     * @date 2015年8月10日 上午10:13:22
     * @param request request
     * @param response response
@@ -546,7 +440,6 @@ public class GoodsInfoController extends BaseController {
             goodsInfo.setStoreId(getStoreId(request));
             goodsInfo.setDeptId(deptId);
             goodsInfo.setCategoryId(categoryId);
-            goodsInfo.setGoodsName(goodsInfoName[i]);
             Integer goodsId =  goodsInfoService.saveGoodsInfos(goodsInfo);
             goodsInfo.setGoodsId(goodsId);
             ls.add(goodsInfo);
@@ -630,97 +523,6 @@ public class GoodsInfoController extends BaseController {
         return goodsInfoService.viewSupplier(storeAccount);
     }
 
-    /**
-     * 进入商品库存页面
-    * @author 洪秋霞
-    * @date 2015年9月10日 上午10:22:31
-    * @param request request
-    * @param response response
-    * @param model model
-    * @return ModelAndView
-     */
-    @RequestMapping(value = Url.GoodsInfo.GOODSSTOCK_LIST)
-    public ModelAndView togoodsStockPage(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
-        try {
-            Integer storeId = getStoreId(request);
-            String goodsName = request.getParameter("goodsName");
-            String isSellProduct = request.getParameter("isSellProduct");
-            String goodsStock = request.getParameter("goodsStock");
-            String warnStock = request.getParameter("warnStock");
-
-            GoodsInfoDto goodsInfoDto = new GoodsInfoDto();
-            goodsInfoDto.setStoreId(storeId);
-            goodsInfoDto.setGoodsName(goodsName);
-            if (isSellProduct != null && !"".equals(isSellProduct)) {
-                goodsInfoDto.setIsSellProduct(Integer.parseInt(isSellProduct));
-            }
-            if (goodsStock != null && !"".equals(goodsStock) && !"undefined".equals(goodsStock)) {
-                goodsInfoDto.setGoodsStock(Integer.parseInt(goodsStock));
-            }
-            if (warnStock != null && !"".equals(warnStock) && !"undefined".equals(warnStock)) {
-                goodsInfoDto.setWarnStock(Integer.parseInt(warnStock));
-            }
-
-            /** 进货记录 */
-            Page<GoodsInfoDto> page = goodsInfoService.queryGoodsInfoPageList(goodsInfoDto, 1, App.System.API_DEFAULT_PAGE_SIZE, "goods_price");
-            model.addObject("page", page);
-
-            GoodsPurchaseRecordDto goodsPurchaseRecordDto = new GoodsPurchaseRecordDto();
-            goodsPurchaseRecordDto.setStoreId(storeId);
-            Page<GoodsPurchaseRecordDto> goodsPurchasePage = goodsPurchaseRecordService.queryGoodsPurchaseRecordDtoPage(goodsPurchaseRecordDto, 1,
-                    App.System.API_DEFAULT_PAGE_SIZE);
-            model.addObject("purchaseRecordsPage", goodsPurchasePage);
-
-            // 供应商列表
-            List<SupplierInfo> supplierInfoList = supplierInfoService.querySupplierInfoByStoreId(storeId);
-            model.addObject("supplierInfoList", supplierInfoList);
-            // 商品列表
-            List<GoodsInfo> goodsInfoList = goodsInfoService.queryGoodsInfos(storeId);
-            model.addObject("goodsInfoList", goodsInfoList);
-            //商品类别
-            List<GoodsCategory> goodsCategoryList = goodsInfoService.queryGoodsCategoryList(storeId);
-            model.addObject("goodsCategoryList", goodsCategoryList);
-//            //品牌列表
-//            List<GoodsBrand> goodsBrandList = goodsInfoService.queryGoodsBrandList(storeId);
-//            model.addObject("goodsBrandList", goodsBrandList);
-            
-            model.setViewName(View.GoodsInfo.GOODSSTOCK);
-            return model;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * 商品库存分页 change
-    * @author 洪秋霞
-    * @date 2015年8月11日 下午6:11:33
-    * @param request request
-    * @param response response
-    * @param pageNo 页码
-    * @param pageSize 每页显示数
-    * @param orderBy  排序方式
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.GoodsInfo.ACTION_LIST)
-    @ResponseBody
-    public BaseDto listActionGoodsStock(HttpServletRequest request, HttpServletResponse response, int pageNo, int pageSize, String orderBy) {
-        try {
-            String goodsName = request.getParameter("goodsName");
-            GoodsInfoDto goodsInfoDto = new GoodsInfoDto();
-            goodsInfoDto.setStoreId(getStoreId(request));
-            if (!"".equals(goodsName)) {
-                goodsInfoDto.setGoodsName(goodsName);
-            }
-            return goodsInfoService.listAction(goodsInfoDto, pageNo, pageSize, orderBy);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     /**
      * 查询商品30天销售量
@@ -748,58 +550,7 @@ public class GoodsInfoController extends BaseController {
         }
     }
 
-    /**
-     * 进货记录分页 change
-    * @author 洪秋霞
-    * @date 2015年9月6日 下午5:48:33
-    * @param request request
-    * @param response response
-    * @param pageNo 页码
-    * @param pageSize 每页显示数
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.GoodsPurchaseRecord.ACTION_LIST)
-    @ResponseBody
-    public BaseDto listActionGoodsPurchase(HttpServletRequest request, HttpServletResponse response, int pageNo, int pageSize) {
-        try {
-            String goodsName = request.getParameter("goodsName");
-            GoodsPurchaseRecordDto goodsPurchaseRecordDto = new GoodsPurchaseRecordDto();
-            goodsPurchaseRecordDto.setStoreId(getStoreId(request));
-            if (!"".equals(goodsName)) {
-                goodsPurchaseRecordDto.setGoodsName(goodsName);
-            }
-            return goodsPurchaseRecordService.listAction(goodsPurchaseRecordDto, pageNo, pageSize);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-        }
-    }
 
-    /**
-     * 保存进货记录
-    * @author 洪秋霞
-    * @date 2015年9月7日 上午11:14:30
-    * @param request request
-    * @param response response
-    * @param goodsPurchaseRecord 进货记录
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.GoodsPurchaseRecord.SAVE_PURCHASERECORDS)
-    @ResponseBody
-    public BaseDto savePurchaseRecords(HttpServletRequest request, HttpServletResponse response, GoodsPurchaseRecord goodsPurchaseRecord) {
-        try {
-            goodsPurchaseRecord.setStoreId(getStoreId(request));
-            goodsPurchaseRecord.setOperatorId(Integer.parseInt(request.getSession().getAttribute(App.Session.USER_ID).toString()));
-            goodsPurchaseRecordService.savePurchaseRecords(goodsPurchaseRecord);
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-        }
-    }
-    
     /**
      * 根据部门查询商品类别
     * @author 高国藩
@@ -916,65 +667,4 @@ public class GoodsInfoController extends BaseController {
         return goodsInfoService.serchBrand(goodsBrandDto, pageNo, pageSize);
     }
     
-    /**
-     * 进入商品进货记录页面
-    * @author 洪秋霞
-    * @date 2015年9月10日 上午10:22:31
-    * @param request  request
-    * @param response response
-    * @param model    model
-    * @return         ModelAndView
-     */
-    @RequestMapping(value = Url.GoodsInfo.GOODS_PURCHASE_RECORDS)
-    public ModelAndView goodsPurchaseRecords(HttpServletRequest request, HttpServletResponse response, ModelAndView model) {
-        try {
-            Integer storeId = getStoreId(request);
-            String goodsName = request.getParameter("goodsName");
-            String isSellProduct = request.getParameter("isSellProduct");
-            String goodsStock = request.getParameter("goodsStock");
-            String warnStock = request.getParameter("warnStock");
-
-            GoodsInfoDto goodsInfoDto = new GoodsInfoDto();
-            goodsInfoDto.setStoreId(storeId);
-            goodsInfoDto.setGoodsName(goodsName);
-            if (isSellProduct != null && !"".equals(isSellProduct)) {
-                goodsInfoDto.setIsSellProduct(Integer.parseInt(isSellProduct));
-            }
-            if (goodsStock != null && !"".equals(goodsStock) && !"undefined".equals(goodsStock)) {
-                goodsInfoDto.setGoodsStock(Integer.parseInt(goodsStock));
-            }
-            if (warnStock != null && !"".equals(warnStock) && !"undefined".equals(warnStock)) {
-                goodsInfoDto.setWarnStock(Integer.parseInt(warnStock));
-            }
-
-            /** 进货记录 */
-            Page<GoodsInfoDto> page = goodsInfoService.queryGoodsInfoPageList(goodsInfoDto, 1, 5, "goods_price");
-            model.addObject("goodsStockPage", page);
-
-            GoodsPurchaseRecordDto goodsPurchaseRecordDto = new GoodsPurchaseRecordDto();
-            goodsPurchaseRecordDto.setStoreId(storeId);
-            Page<GoodsPurchaseRecordDto> goodsPurchasePage = goodsPurchaseRecordService.queryGoodsPurchaseRecordDtoPage(goodsPurchaseRecordDto, 1,
-                    App.System.API_DEFAULT_PAGE_SIZE);
-            model.addObject("purchaseRecordsPage", goodsPurchasePage);
-
-            // 供应商列表
-            List<SupplierInfo> supplierInfoList = supplierInfoService.querySupplierInfoByStoreId(storeId);
-            model.addObject("supplierInfoList", supplierInfoList);
-            // 商品列表
-            List<GoodsInfo> goodsInfoList = goodsInfoService.queryGoodsInfos(storeId);
-            model.addObject("goodsInfoList", goodsInfoList);
-            //商品类别
-            List<GoodsCategory> goodsCategoryList = goodsInfoService.queryGoodsCategoryList(storeId);
-            model.addObject("goodsCategoryList", goodsCategoryList);
-            
-            model.setViewName(View.GoodsInfo.GOODS_PURCHASE_RECORDS);
-            return model;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
 }

@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
 
 /**
  * http请求工具类
-* @author 张进军
+* @author 小高
 * @date Nov 23, 2015 9:44:49 AM
  */
 public class HttpClientUtil {
@@ -187,7 +187,7 @@ public class HttpClientUtil {
     
     /**
      * 发送POST请求，支持HTTP与HTTPS
-    * @author 张进军
+    * @author 小高
     * @date Mar 11, 2016 4:22:11 PM
     * @param url        请求地址
     * @param params     请求参数
@@ -287,7 +287,7 @@ public class HttpClientUtil {
     
     /**
      * 以post的方式下载文件，返回文件的字节数组
-    * @author 张进军
+    * @author 小高
     * @date Nov 23, 2015 9:59:03 AM
     * @param url    下载地址
     * @param params 请求参数
@@ -344,7 +344,7 @@ public class HttpClientUtil {
     
     /**
      * 将map参数转换为http参数
-    * @author 张进军
+    * @author 小高
     * @date Nov 23, 2015 9:49:53 AM
     * @param params 请求参数对象
     * @return   http请求参数对象
@@ -366,7 +366,7 @@ public class HttpClientUtil {
     
     /**
      * 根据请求地址获取端口
-    * @author 张进军
+    * @author 小高
     * @date Nov 23, 2015 9:46:57 AM
     * @param url    请求地址
     * @return   端口
@@ -395,13 +395,16 @@ public class HttpClientUtil {
         try {
             sslContext = SSLContext.getInstance("SSL");
             final X509TrustManager trustManager = new X509TrustManager() {
-                public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                @Override
+				public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
                 }
 
-                public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                @Override
+				public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
                 }
 
-                public X509Certificate[] getAcceptedIssuers() {
+                @Override
+				public X509Certificate[] getAcceptedIssuers() {
                     return null;
                 }
             };

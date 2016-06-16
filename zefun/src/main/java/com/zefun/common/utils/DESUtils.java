@@ -15,7 +15,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * 加密解密工具类
-* @author 张进军
+* @author 小高
 * @date Jan 16, 2016 8:35:52 PM
  */
 public final class DESUtils {
@@ -185,15 +185,15 @@ public final class DESUtils {
             for (int i = 0, index = 0; i < data.length; i += 3, index += 4) {
                 boolean quad = false;
                 boolean trip = false;
-                int val = (0xFF & (int) data[i]);
+                int val = (0xFF & data[i]);
                 val <<= 8;
                 if ((i + 1) < data.length) {
-                    val |= (0xFF & (int) data[i + 1]);
+                    val |= (0xFF & data[i + 1]);
                     trip = true;
                 }
                 val <<= 8;
                 if ((i + 2) < data.length) {
-                    val |= (0xFF & (int) data[i + 2]);
+                    val |= (0xFF & data[i + 2]);
                     quad = true;
                 }
                 out[index + 3] = mAlphabetArray[(quad ? (val & 0x3F) : 64)];

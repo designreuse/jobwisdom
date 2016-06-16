@@ -17,32 +17,32 @@ public class GoodsInfo {
 	/** 类别标识 */
 	private Integer categoryId;
 
-	/** 品牌标识 */
-	private String brandId;
-	
-	/** 供应商标识 */
-	private Integer supplierId;
+//	/** 品牌标识 */
+//	private String brandId;
+//	
+//	/** 供应商标识 */
+//	private Integer supplierId;
 
 	/** 部门标识*/
     private Integer deptId;
 	
-	/** 商品名称 */
-	private String goodsName;
+//	/** 商品名称 */
+//	private String goodsName;
 
 	/** 商品价格 */
 	private BigDecimal goodsPrice;
 
-	/** 成本价格 */
-	private BigDecimal costPrice;
+//	/** 成本价格 */
+//	private BigDecimal costPrice;
 	
 	/** 员工业绩提成方式1:比例2:固定*/
 	private Integer calculationType;
 	
-	/** 网购价 */
+	/** 员工销售业绩值 */
 	private BigDecimal onlineShoppingPrice;
 
-	/** 提成是否包含成本(0:否,1:是) */
-	private Integer isIncludeCost;
+//	/** 提成是否包含成本(0:否,1:是) */
+//	private Integer isIncludeCost;
 
 	/** 商品图片 */
 	private String goodsImage;
@@ -50,8 +50,8 @@ public class GoodsInfo {
 	/** 商品描述 */
 	private String goodsDesc;
 
-	/** 商品库存 */
-	private Integer goodsStock;
+//	/** 商品库存 */
+//	private Integer goodsStock;
 
 	/** 告警库存 */
 	private Integer warnStock;
@@ -74,20 +74,20 @@ public class GoodsInfo {
 	/** 销售次数 */
 	private Integer salesCount;
 
-	/** 销售人数 */
-	private Integer salesPeople;
+//	/** 销售人数 */
+//	private Integer salesPeople;
 
-	/** 是否微信销售(0:否,1:是) */
-	private Integer isWechatSell;
-
-	/** 是否禁用(0:未禁用,1:已禁用) */
-	private Integer isDisable;
+//	/** 是否微信销售(0:否,1:是) */
+//	private Integer isWechatSell;
+//
+//	/** 是否禁用(0:未禁用,1:已禁用) */
+//	private Integer isDisable;
 
 	/** 是否删除(0:未删除,1:已删除) */
 	private Integer isDeleted;
 	
-	/** 是否卖品(0:否,1:是) */
-	private Integer isSellProduct;
+//	/** 是否卖品(0:否,1:是) */
+//	private Integer isSellProduct;
 	
 	/** 附属图片 */
 	private String affiliatedImage;
@@ -109,8 +109,8 @@ public class GoodsInfo {
 	
 	/**商品步骤*/
 	private Integer projectStep;
-	/**商品编号*/
-	private String goodsCodeSuffix;
+//	/**商品编号*/
+//	private String goodsCodeSuffix;
 	
 	/**企业商品ID*/
 	private Integer aId;
@@ -134,6 +134,14 @@ public class GoodsInfo {
     public void setaId(Integer aId) {
         this.aId = aId;
     }
+    
+    public BigDecimal getOnlineShoppingPrice() {
+        return onlineShoppingPrice;
+    }
+
+    public void setOnlineShoppingPrice(BigDecimal onlineShoppingPrice) {
+        this.onlineShoppingPrice = onlineShoppingPrice;
+    }
 
     public Integer getProjectStep() {
         return projectStep;
@@ -141,14 +149,6 @@ public class GoodsInfo {
 
     public void setProjectStep(Integer projectStep) {
         this.projectStep = projectStep;
-    }
-
-    public String getGoodsCodeSuffix() {
-        return goodsCodeSuffix;
-    }
-
-    public void setGoodsCodeSuffix(String goodsCodeSuffix) {
-        this.goodsCodeSuffix = goodsCodeSuffix;
     }
 
     public Integer getCalculationType() {
@@ -205,24 +205,6 @@ public class GoodsInfo {
 		return categoryId;
 	}
 	
-    public String getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(String brandId) {
-        this.brandId = brandId;
-    }
-
-    /** @param supplierId  供应商标识 */
-    public void setSupplierId(Integer supplierId){
-        this.supplierId = supplierId;
-    }
-
-    /** @return 供应商标识 */
-    public Integer getSupplierId(){
-        return supplierId;
-    }
-    
     /**@return 部门标识*/
     public Integer getDeptId() {
         return deptId;
@@ -233,16 +215,6 @@ public class GoodsInfo {
         this.deptId = deptId;
     }
 
-	/** @param goodsName	商品名称 */
-	public void setGoodsName(String goodsName){
-		this.goodsName = goodsName;
-	}
-
-	/** @return	商品名称 */
-	public String getGoodsName(){
-		return goodsName;
-	}
-
 	/** @param goodsPrice	商品价格 */
 	public void setGoodsPrice(BigDecimal goodsPrice){
 		this.goodsPrice = goodsPrice;
@@ -251,36 +223,6 @@ public class GoodsInfo {
 	/** @return	商品价格 */
 	public BigDecimal getGoodsPrice(){
 		return goodsPrice;
-	}
-
-	/** @param costPrice	成本价格 */
-	public void setCostPrice(BigDecimal costPrice){
-		this.costPrice = costPrice;
-	}
-
-	/** @return	成本价格 */
-	public BigDecimal getCostPrice(){
-		return costPrice;
-	}
-	
-	/** @return 网购价 */
-	public BigDecimal getOnlineShoppingPrice() {
-        return onlineShoppingPrice;
-    }
-
-	/** @param onlineShoppingPrice 网购价 */
-    public void setOnlineShoppingPrice(BigDecimal onlineShoppingPrice) {
-        this.onlineShoppingPrice = onlineShoppingPrice;
-    }
-
-    /** @param isIncludeCost	提成是否包含成本(0:否,1:是) */
-	public void setIsIncludeCost(Integer isIncludeCost){
-		this.isIncludeCost = isIncludeCost;
-	}
-
-	/** @return	提成是否包含成本(0:否,1:是) */
-	public Integer getIsIncludeCost(){
-		return isIncludeCost;
 	}
 
 	/** @param goodsImage	商品图片 */
@@ -301,16 +243,6 @@ public class GoodsInfo {
 	/** @return	商品描述 */
 	public String getGoodsDesc(){
 		return goodsDesc;
-	}
-
-	/** @param goodsStock	商品库存 */
-	public void setGoodsStock(Integer goodsStock){
-		this.goodsStock = goodsStock;
-	}
-
-	/** @return	商品库存 */
-	public Integer getGoodsStock(){
-		return goodsStock;
 	}
 
 	/** @param warnStock	告警库存 */
@@ -363,36 +295,6 @@ public class GoodsInfo {
 		return salesCount;
 	}
 
-	/** @param salesPeople	销售人数 */
-	public void setSalesPeople(Integer salesPeople){
-		this.salesPeople = salesPeople;
-	}
-
-	/** @return	销售人数 */
-	public Integer getSalesPeople(){
-		return salesPeople;
-	}
-
-	/** @param isWechatSell	是否微信销售(0:否,1:是) */
-	public void setIsWechatSell(Integer isWechatSell){
-		this.isWechatSell = isWechatSell;
-	}
-
-	/** @return	是否微信销售(0:否,1:是) */
-	public Integer getIsWechatSell(){
-		return isWechatSell;
-	}
-
-	/** @param isDisable	是否禁用(0:未禁用,1:已禁用) */
-	public void setIsDisable(Integer isDisable){
-		this.isDisable = isDisable;
-	}
-
-	/** @return	是否禁用(0:未禁用,1:已禁用) */
-	public Integer getIsDisable(){
-		return isDisable;
-	}
-
 	/** @param isDeleted 是否删除(0:未删除,1:已删除) */
 	public void setIsDeleted(Integer isDeleted){
 		this.isDeleted = isDeleted;
@@ -403,16 +305,6 @@ public class GoodsInfo {
 		return isDeleted;
 	}
 	
-	/** @return 是否卖品(0:否,1:是) */
-	public Integer getIsSellProduct() {
-        return isSellProduct;
-    }
-
-	/** @param isSellProduct 是否卖品(0:否,1:是) */
-    public void setIsSellProduct(Integer isSellProduct) {
-        this.isSellProduct = isSellProduct;
-    }
-    
     /** @return 附属图片 */
     public String getAffiliatedImage() {
         return affiliatedImage;

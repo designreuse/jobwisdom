@@ -27,6 +27,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
+import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
@@ -36,7 +37,6 @@ import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.GoodsDiscount;
-import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ProjectDiscount;
@@ -720,7 +720,7 @@ public class StaffService {
         
         //商品
         else if (orderType == 2) {
-            GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(projectId);
+            GoodsInfoDto goodsInfo = goodsInfoMapper.selectByPrimaryKey(projectId);
             //添加明细部门选择
             orderDetail.setDeptId(goodsInfo.getDeptId());
             BigDecimal discountAmount = goodsInfo.getGoodsPrice();

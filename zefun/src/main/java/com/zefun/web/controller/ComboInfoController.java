@@ -22,6 +22,7 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectCommissionDto;
 import com.zefun.web.dto.ProjectInfoDto;
@@ -165,11 +166,11 @@ public class ComboInfoController extends BaseController {
         model.addObject("projectInfoList", JSONArray.fromObject(projectInfoDtoList));
         
         //商品列表
-        GoodsInfo goodsInfo = new GoodsInfo();
+        GoodsInfoDto goodsInfo = new GoodsInfoDto();
         goodsInfo.setStoreId(storeId);
         goodsInfo.setIsDeleted(0);
         goodsInfo.setIsSellProduct(1);
-        List<GoodsInfo> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
+        List<GoodsInfoDto> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
         model.addObject("goodsinfos", goodsinfos);
         model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
         // 会员等级列表

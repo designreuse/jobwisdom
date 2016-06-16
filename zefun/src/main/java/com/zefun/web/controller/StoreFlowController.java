@@ -85,6 +85,21 @@ public class StoreFlowController extends BaseController{
 	}
 	
 	/**
+	 * 进入开支记账类别管理页面
+    * @author 王大爷
+    * @date 2015年8月11日 上午10:51:46
+    * @param request 返回
+    * @param response 请求
+    * @return ModelAndView
+     */
+    @RequestMapping(value = Url.KeepAccounts.VIEW_ADD_INITIALIZE_TYPE, method = RequestMethod.GET)
+    public ModelAndView viewAddInitialize(HttpServletRequest request, HttpServletResponse response){
+        Integer storeId = getStoreId(request);
+        return storeFlowService.viewAddInitialize(storeId);
+    }
+    
+	
+	/**
 	 * 动态生成项目类别
 	* @author 王大爷
 	* @date 2015年8月11日 上午10:52:59

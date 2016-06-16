@@ -33,7 +33,6 @@ public class SessionContextListener extends RequestContextListener implements Ht
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("localAddr", requestEvent.getServletRequest().getLocalAddr());
         params.put("remoteAddr", requestEvent.getServletRequest().getRemoteAddr());
-//        logger.info(JSONObject.fromObject(params).toString());
         super.requestDestroyed(requestEvent);
     }
 
@@ -51,7 +50,7 @@ public class SessionContextListener extends RequestContextListener implements Ht
             e.getSession().invalidate();
         } 
         catch (Exception e2) {
-            logger.info("sessionDestroyed : " + e2.getMessage().toString());
+            logger.info("sessionDestroyed : session has bean destroyed");
         }
     }
     

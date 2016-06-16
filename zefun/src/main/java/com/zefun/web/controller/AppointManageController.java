@@ -17,7 +17,7 @@ import com.zefun.web.service.AppointManageService;
 
 /**
  * 预约管理控制类
-* @author 张进军
+* @author 小高
 * @date Nov 23, 2015 9:25:48 PM 
 */
 @Controller
@@ -30,7 +30,7 @@ public class AppointManageController extends BaseController {
     
     /**
      * 查看预约列表
-    * @author 张进军
+    * @author 小高
     * @date Nov 23, 2015 10:17:35 PM
     * @param request    请求对象
     * @return   预约列表
@@ -44,7 +44,7 @@ public class AppointManageController extends BaseController {
     
     /**
      * 分页查询某个门店的预约信息
-    * @author 张进军
+    * @author 小高
     * @date Aug 5, 2015 7:58:53 PM
     * @param pageNo     页码
     * @param pageSize   每页显示数
@@ -61,7 +61,7 @@ public class AppointManageController extends BaseController {
     
     /**
      * 取消预约
-    * @author 张进军
+    * @author 小高
     * @date Aug 5, 2015 7:58:53 PM
     * @param appointmentId  预约标识
     * @return           预约列表

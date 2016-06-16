@@ -11,7 +11,6 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.TrendDeptDataDto;
 import com.zefun.web.entity.GoodsInfo;
-import com.zefun.web.entity.Page;
 import com.zefun.web.vo.CardStoreSalesVo;
 import com.zefun.web.vo.CashStoreSalesVo;
 
@@ -46,7 +45,7 @@ public interface GoodsInfoMapper {
     * @param goodsId 商品id
     * @return GoodsInfo
      */
-    GoodsInfo selectByPrimaryKey(Integer goodsId);
+    GoodsInfoDto selectByPrimaryKey(Integer goodsId);
 
     /**
      * 更新
@@ -64,7 +63,7 @@ public interface GoodsInfoMapper {
     * @param goodsInfo 商品信息
     * @return List<GoodsInfo>
      */
-    List<GoodsInfo> selectByProperty(GoodsInfo goodsInfo);
+    List<GoodsInfoDto> selectByProperty(GoodsInfoDto goodsInfo);
     
     /**
      * 根据门店id查询
@@ -74,15 +73,6 @@ public interface GoodsInfoMapper {
     * @return List<GoodsInfo>
      */
     List<GoodsInfo> selectByStoreId(Integer storeId);
-
-    /**
-     * 查询商品库存分页
-    * @author 洪秋霞
-    * @date 2015年8月11日 上午11:01:43
-    * @param page 分页对象
-    * @return List<GoodsInfoDto>
-     */
-    List<GoodsInfoDto> selectGoodsInfoPage(Page<GoodsInfoDto> page);
 
     /**
      * 根据部门标识查询商品信息
@@ -196,7 +186,7 @@ public interface GoodsInfoMapper {
     * @param params  goodsId
     * @return         List<GoodsInfo> 
      */ 
-    List<GoodsInfo> queryByGoodsIds(List<Integer> params);
+    List<GoodsInfoDto> queryByGoodsIds(List<Integer> params);
 
     /**
      * 获取已经上架的商品

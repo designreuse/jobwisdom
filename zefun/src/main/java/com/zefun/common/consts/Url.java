@@ -3,7 +3,7 @@ package com.zefun.common.consts;
 /**
  * 接口地址常量类，定义时使用根目录下的绝对地址
  *
- * @author 张进军
+ * @author 小高
  * @date Aug 4, 2015 9:20:30 AM
  */
 public interface Url {
@@ -102,7 +102,7 @@ public interface Url {
 	/**
 	 * 预约管理
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Nov 23, 2015 10:10:37 PM
 	 */
 	class AppointManage {
@@ -338,14 +338,10 @@ public interface Url {
 		public static final String SAVE_GOODS_CATEGORY_LIST = "goodsInfo/saveGoodsCategorys";
 		/** 编辑商品类别 */
 		public static final String EDIT_GOODS_CATEGORY = "/goodsInfo/editGoodsCategory";
-		/** 删除商品类别 */
-		public static final String DELETE_GOODS_CATEGORY = "/goodsInfo/deleteGoodsCategory";
 		/** 保存品牌 */
 		public static final String SAVE_GOODS_BRAND = "goodsInfo/saveGoodsBrand";
 		/** 编辑品牌 */
 		public static final String EDIT_GOODS_BRAND = "/goodsInfo/editGoodsBrand";
-		/** 删除品牌 */
-		public static final String DELETE_GOODS_BRAND = "/goodsInfo/deleteGoodsBrand";
 		/** 保存商品 */
 		public static final String SAVE_GOODS_INFO = "goodsInfo/saveGoodsInfo";
 		/** 根据id查询商品 */
@@ -402,13 +398,6 @@ public interface Url {
 		public static final String DELETE_SUPPLIERINFO = "supplierInfo/deleteSupplierInfo";
 	}
 
-	/** 进货记录模块 */
-	class GoodsPurchaseRecord {
-		/** 分页查询进货记录 */
-		public static final String ACTION_LIST = "goodsPurchaseRecord/action/list";
-		/** 保存进货记录 */
-		public static final String SAVE_PURCHASERECORDS = "goodsPurchaseRecord/savePurchaseRecords";
-	}
 
 	/** 岗位信息模块 */
 	class Position {
@@ -531,6 +520,8 @@ public interface Url {
 		public static final String MANUALLY_OPEN_ORDER_SAVE = "KeepAccounts/manuallyOpenOrderSave";
 		/** 刷新轮牌 */
 		public static final String REFRESH_SHIFTMAHJONG_EMPLOYEE = "staff/action/refreshShiftMahjongEmployee";
+		/** 开支记账类别管理页面*/
+        public static final String VIEW_ADD_INITIALIZE_TYPE = "KeepAccounts/type";
 	}
 
 	/** 微信接口 */
@@ -1173,7 +1164,7 @@ public interface Url {
 	/**
 	 * 门店信息
 	 *
-	 * @author 张进军
+	 * @author 小高
 	 * @date Nov 9, 2015 11:14:30 AM
 	 */
 	class StoreInfo {
@@ -1290,7 +1281,7 @@ public interface Url {
 	/**
 	 * 经营分析
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jan 13, 2016 8:36:36 PM
 	 */
 	class BusinessAnalysis {
@@ -1550,7 +1541,7 @@ public interface Url {
 	/**
 	 * 友宝商城
 	 * 
-	 * @author 张进军
+	 * @author 小高
 	 * @date Jan 28, 2016 5:09:16 PM
 	 */
 	class Ubox {

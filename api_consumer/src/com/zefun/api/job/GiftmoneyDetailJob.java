@@ -11,7 +11,7 @@ import com.zefun.api.mapper.EmployeeObjectiveMapper;
 import com.zefun.api.utils.DateUtil;
 
 /**
-* @author 张进军
+* @author 小高
 * @date Aug 23, 2015 9:03:36 PM 
 */
 public class GiftmoneyDetailJob {
@@ -20,7 +20,7 @@ public class GiftmoneyDetailJob {
     
     /**
      * 定时器执行内容
-    * @author 张进军
+    * @author 小高
     * @date Aug 23, 2015 9:04:47 PM
      */
 	public void execute() {
