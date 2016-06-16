@@ -31,7 +31,6 @@ import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsBrandDto;
 import com.zefun.web.dto.GoodsInfoDto;
-import com.zefun.web.dto.GoodsPurchaseRecordDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.ShipmentRecordDto;
@@ -42,7 +41,6 @@ import com.zefun.web.entity.GoodsBrand;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
-import com.zefun.web.entity.GoodsPurchaseRecord;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.StoreInfo;
@@ -52,7 +50,6 @@ import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.SupplierInfoMapper;
 import com.zefun.web.service.GoodsInfoService;
-import com.zefun.web.service.GoodsPurchaseRecordService;
 import com.zefun.web.service.MemberLevelService;
 
 /**
@@ -67,8 +64,6 @@ public class GoodsInfoController extends BaseController {
     @Autowired private GoodsInfoService goodsInfoService;
     /**会员等级*/
     @Autowired private MemberLevelService memberLevelService;
-    /**进货记录*/
-    @Autowired private GoodsPurchaseRecordService goodsPurchaseRecordService;
     /**套餐商品关联*/
     @Autowired private ComboGoodsMapper comboGoodsMapper;
     /**供应商管理处理*/

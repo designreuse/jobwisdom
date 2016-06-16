@@ -11,7 +11,7 @@ import org.apache.log4j.net.SyslogAppender;
  */
 public class AccessLog {
     /**
-     * 
+     * log 日志
      */
     public static final int LOG_LEVEL = 20050;
 

@@ -74,6 +74,9 @@ public interface App {
 
 		/** 系统角色：门店普通员工 */
 		public static final int SYSTEM_ROLE_STORE_EMPLOYEE = 4;
+		
+		/** 百度语音token*/
+		public static final String SYSTEM_VOICE = "24.803bd627c8d6f9299230f5809cffefe2.2592000.1465960194.282335-7977080";
 	}
 
 	/** 队列通道常量 */
@@ -145,12 +148,6 @@ public interface App {
 		public static final String WECHAT_OPENID_TO_BUSINESS_TYPE_KEY_HASH = "wechat_openid_to_business_type_key_hash";
 		/** 微信openid对应所属门店的hash key */
 		public static final String WECHAT_OPENID_TO_STORE_KEY_HASH = "wechat_openid_to_store_key_hash";
-		// /**微信openid对应首次关注优惠券奖励(临存)的hash key*/
-		// public static final String WECHAT_OPENID_TO_SUBSCRIBE_COUPON_KEY_HASH
-		// = "wechat_openid_to_subscribe_coupon_key_hash";
-		// /**微信openid对应首次关注礼金奖励(临存)的hash key*/
-		// public static final String WECHAT_OPENID_TO_SUBSCRIBE_GIFT_KEY_HASH =
-		// "wechat_openid_to_subscribe_gift_key_hash";
 		/** 微信openid对应首次关注奖励的临存记录，set */
 		public static final String WECHAT_OPENID_TO_SUBSCRIBE_AWARD_SET = "wechat_openid_to_subscribe_award_set";
 		/** 会员标识对应微信openid的hash key */

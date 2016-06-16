@@ -809,7 +809,7 @@ public class MemberCenterController extends BaseController {
             return null;
         }
         int memberId = getUserIdByOpenId(openId);
-        int storeId = getStoreId(request);
+        int storeId = getStoreIdByOpenId(openId);
         return memberCenterService.cancelAppoinmentAction(memberId, storeId, appointmentId, 
                 employeeId, projectName, appointmentTime, reason);
     }
