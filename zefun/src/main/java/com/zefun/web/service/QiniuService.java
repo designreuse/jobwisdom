@@ -28,7 +28,7 @@ import com.zefun.web.dto.BaseDto;
 
 /**
  * 七牛api接口服务类
-* @author 张进军
+* @author 高国藩
 * @date Aug 21, 2015 5:49:35 PM 
 */
 @Service
@@ -64,7 +64,7 @@ public class QiniuService {
 
     /**
      * 获取默认上传策略的token
-    * @author 张进军
+    * @author 高国藩
     * @date Nov 23, 2015 10:02:10 AM
     * @return   token
      */
@@ -78,7 +78,7 @@ public class QiniuService {
    
     /**
      * 抓取网络资源上传到七牛
-    * @author 张进军
+    * @author 高国藩
     * @date Aug 22, 2015 11:36:03 AM
     * @param fromUrl       资源文件地址
     * @param key           七牛目标地址
@@ -97,7 +97,7 @@ public class QiniuService {
     
     /**
      * 文字转语音
-    * @author 张进军
+    * @author 高国藩
     * @date Nov 23, 2015 10:59:06 AM
     * @param text   需要转换的文字
     * @param per    发音人，1:男性，0:女性
@@ -110,6 +110,7 @@ public class QiniuService {
         params.put("cuid", "zefun");
         params.put("ctp", "1");
         params.put("per", "" + per);
+        params.put("vol", "9");
         params.put("tok", App.System.SYSTEM_VOICE);
 //        params.put("tok", redisService.get(App.Redis.BAIDU_TEXT_TO_VOICE_ACCESS_TOKEN_KEY));
         byte[] data = HttpClientUtil.downloadPost("http://tsn.baidu.com/text2audio", params);
@@ -128,7 +129,7 @@ public class QiniuService {
     
     /**
      * 上传文件到七牛
-    * @author 张进军
+    * @author 高国藩
     * @date Nov 23, 2015 11:33:39 AM
     * @param file   需上传的文件   
     * @param key    七牛目标地址
@@ -142,7 +143,7 @@ public class QiniuService {
     
     /**
      * 上传文件到七牛
-    * @author 张进军
+    * @author 高国藩
     * @date Nov 23, 2015 11:33:39 AM
     * @param data   字节数组  
     * @param key    七牛目标地址
@@ -156,7 +157,7 @@ public class QiniuService {
     
     /**
      * 上传文件到七牛
-    * @author 张进军
+    * @author 高国藩
     * @date Nov 23, 2015 11:33:39 AM
     * @param filepath   需上传的文件路径   
     * @param key    七牛目标地址
@@ -276,7 +277,7 @@ public class QiniuService {
     
     /**
      * 获取上传默认策略的token
-    * @author 张进军
+    * @author 高国藩
     * @date Nov 22, 2015 10:33:30 PM
     * @return   token
      */
@@ -287,7 +288,7 @@ public class QiniuService {
     
     /**
      * 
-    * @author 张进军
+    * @author 高国藩
     * @date Nov 23, 2015 5:37:54 PM
     * @param args       参数
     * @throws QiniuException    异常

@@ -170,7 +170,7 @@ public class ComboInfoController extends BaseController {
         goodsInfo.setStoreId(storeId);
         goodsInfo.setIsDeleted(0);
         goodsInfo.setIsSellProduct(1);
-        List<GoodsInfo> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
+        List<GoodsInfoDto> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
         model.addObject("goodsinfos", goodsinfos);
         model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
         // 会员等级列表

@@ -475,7 +475,7 @@ public class GoodsInfoService {
     * @param goodsInfo 实体属性
     * @return 集合
      */
-    public List<GoodsInfo> selectGoodsInfos(GoodsInfoDto goodsInfo) {
+    public List<GoodsInfoDto> selectGoodsInfos(GoodsInfoDto goodsInfo) {
         return goodsInfoMapper.selectByProperty(goodsInfo);
     }
 

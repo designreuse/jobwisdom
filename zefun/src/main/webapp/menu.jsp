@@ -116,7 +116,7 @@
 			<a href="<%=menuBasePath%>cashreceipts/view/cashreceipts"><li><span>现金收入</span></li></a>
 			<a href="<%=menuBasePath%>cardsales/view/cardsales"><li class=""><span>卡项销售</span></li></a>
 			<a href="<%=menuBasePath%>laborperformance/view/laborperformance"><li class="active"><span>劳动业绩</span></li></a>
-			<a href="<%=menuBasePath%>packagesales/view/packagesales"><li><span>套餐销售</span></li></a>
+			<a href="<%=menuBasePath%>packagesales/view/packagesales"><li><span>疗程销售</span></li></a>
 			<a href="<%=menuBasePath%>commoditysales/view/commoditysales"><li><span>商品销售</span></li></a>
 			<a href="<%=menuBasePath%>reconciliation/view/crossReconciliation"><li><span>跨店对账</span></li></a>
 			<a href="<%=menuBasePath%>businessAnalysis/view/payroll"><li><span>工资单</span></li></a>
@@ -124,7 +124,7 @@
 		<ul index="4">
 			<a href="<%=menuBasePath%>project/view/categorys"><li class=""><span>新增系列</span></li></a>
 			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span>项目列表</span></li></a>
-			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span>套餐列表</span></li></a>
+			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span>疗程列表</span></li></a>
 		</ul>
 		<ul index="5">
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span>商品列表</span></li></a>

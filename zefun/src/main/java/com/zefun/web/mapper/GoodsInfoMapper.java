@@ -63,7 +63,7 @@ public interface GoodsInfoMapper {
     * @param goodsInfo 商品信息
     * @return List<GoodsInfo>
      */
-    List<GoodsInfo> selectByProperty(GoodsInfoDto goodsInfo);
+    List<GoodsInfoDto> selectByProperty(GoodsInfoDto goodsInfo);
     
     /**
      * 根据门店id查询
