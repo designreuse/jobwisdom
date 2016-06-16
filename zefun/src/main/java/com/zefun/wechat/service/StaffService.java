@@ -37,7 +37,6 @@ import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.GoodsDiscount;
-import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ProjectDiscount;
@@ -737,11 +736,11 @@ public class StaffService {
                 //该商品对应该会员的会员等级不存在特定价格
                 if (obj == null) {
                 	Map<String, Integer> memberMap = new HashMap<>();
-                	map.put("storeId", storeId);
-                	map.put("levelId", levelId);
+                	memberMap.put("storeId", storeId);
+                	memberMap.put("levelId", levelId);
                     //计算会员折扣价
                     MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
-                    discountAmount = goodsInfo.getGoodsPrice().multiply(new BigDecimal(memberLevel.getProjectDiscount()).divide(rate));
+                    discountAmount = goodsInfo.getGoodsPrice().multiply(new BigDecimal(memberLevel.getGoodsDiscount()).divide(rate));
                 }
                 //该商品对应该会员的会员等级存在特定价格
                 else {
