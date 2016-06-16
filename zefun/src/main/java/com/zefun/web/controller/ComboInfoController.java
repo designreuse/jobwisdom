@@ -22,6 +22,7 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectCommissionDto;
@@ -119,6 +120,10 @@ public class ComboInfoController extends BaseController {
 //            List<DeptInfo> deptInfoList = projectService.queryDeptInfoList(storeId);
 //            model.addObject("deptInfoList", deptInfoList);
 //            model.addObject("deptInfoListJs", JSONArray.fromObject(deptInfoList));
+            
+            List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
+            model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
+            model.addObject("deptGoodsBaseDtoJs", JSONArray.fromObject(deptGoodsBaseDto));
             
             if (deptId!=null){
                 comboInfos = comboInfos.stream().filter(c -> c.getDeptId().equals(deptId)).collect(Collectors.toList());
