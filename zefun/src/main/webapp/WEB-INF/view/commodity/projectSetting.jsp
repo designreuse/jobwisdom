@@ -169,7 +169,7 @@
 				            </div>
 					   </div>
 					 <div class="item_button">  
-					   <button>保存</button>
+					   <button onclick="save3()">保存</button>
 					   <button>取消</button>
 					  </div>
 				    </div>
@@ -299,8 +299,15 @@
 						<div class="write_4">
 							<span class="add_step" style="position: relative; left: -10px">+</span>添加轮牌
 						</div>
+						<br>
+					  <div class="item_button">  
+					   <button onclick="save3()">保存</button>
+					   <button>取消</button>
+					  </div>
 			   </div>
+			   
 			  </div>	 
+			   
 			</div>
 		</div>
 	</div>
