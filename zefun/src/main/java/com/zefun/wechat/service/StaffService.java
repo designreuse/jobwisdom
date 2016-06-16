@@ -37,7 +37,6 @@ import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.GoodsDiscount;
-import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ProjectDiscount;

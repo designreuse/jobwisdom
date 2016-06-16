@@ -35,7 +35,6 @@ import com.zefun.web.mapper.MemberErrorDataMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.MemberSubAccountMapper;
-import com.zefun.web.mapper.StoreInfoMapper;
 
 /**
  * 会员数据移植处理类
@@ -64,10 +63,6 @@ public class MemberMigrateService {
     /** 会员异常数据操作对象 */
     @Autowired
     private MemberErrorDataMapper memberErrorDataMapper;
-    
-    /** 门店信息操作对象 */
-    @Autowired
-    private StoreInfoMapper storeInfoMapper;
     
     /** 会员信息服务对象 */
     @Autowired
@@ -382,8 +377,6 @@ public class MemberMigrateService {
     * @return   会员名称对应会员等级ID的映射
      */
     private Map<String, Integer> insertMemberLevel(int storeId, Set<String> levelNameSet) {
-        //查询该门店的总店标识，如果为连锁，会员卡归属于总部
-        int mainStoreId = storeInfoMapper.selectMainIdByStoreId(storeId);
         
         //以遍历的形式增加会员卡，方便映射
         Map<String, Integer> levelMap = new HashMap<>(levelNameSet.size());
