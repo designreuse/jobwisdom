@@ -116,7 +116,7 @@
 			<a href="<%=menuBasePath%>cashreceipts/view/cashreceipts"><li><span>现金收入</span></li></a>
 			<a href="<%=menuBasePath%>cardsales/view/cardsales"><li class=""><span>卡项销售</span></li></a>
 			<a href="<%=menuBasePath%>laborperformance/view/laborperformance"><li class="active"><span>劳动业绩</span></li></a>
-			<a href="<%=menuBasePath%>packagesales/view/packagesales"><li><span>套餐销售</span></li></a>
+			<a href="<%=menuBasePath%>packagesales/view/packagesales"><li><span>疗程销售</span></li></a>
 			<a href="<%=menuBasePath%>commoditysales/view/commoditysales"><li><span>商品销售</span></li></a>
 			<a href="<%=menuBasePath%>reconciliation/view/crossReconciliation"><li><span>跨店对账</span></li></a>
 			<a href="<%=menuBasePath%>businessAnalysis/view/payroll"><li><span>工资单</span></li></a>
@@ -124,7 +124,7 @@
 		<ul index="4">
 			<a href="<%=menuBasePath%>project/view/categorys"><li class=""><span>新增系列</span></li></a>
 			<a href="<%=menuBasePath%>project/view/projects"><li class=""><span>项目列表</span></li></a>
-			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span>套餐列表</span></li></a>
+			<a href="<%=menuBasePath%>comboInfo/view/comboInfoList"><li><span>疗程列表</span></li></a>
 		</ul>
 		<ul index="5">
 			<a href="<%=menuBasePath%>goodsInfo/view/goodsInfoList"><li class=""><span>商品列表</span></li></a>
@@ -197,7 +197,27 @@ jQuery(function(){
 	})
 })
 
+var menu = {"goods":"goodsInfo/view/goodsInfoList", "project":"project/view/projects", "comboInfo":"comboInfo/view/comboInfoList"};
 function choseMenu(url){
+	if (typeof(jQuery(".left_nav_2").find("a[href='"+url+"']").html()) == 'undefined'){
+		if (url.indexOf("goods")!=-1){
+			url = baseUrl + menu["goods"];
+			
+		}
+		if (url.indexOf("project")!=-1){
+			url = baseUrl + menu["project"];
+		}
+		if (url.indexOf("comboInfo")!=-1){
+			url = baseUrl + menu["comboInfo"];
+		}
+		url = url.replace(":80","");
+		choseIcon(url);
+	}
+	else {
+		choseIcon(url);
+	}
+}
+function choseIcon(url){
 	//二级菜单
 	jQuery(".left_nav_2").find("li").removeClass("active");
 	jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").show().siblings().hide();
@@ -209,17 +229,7 @@ function choseMenu(url){
 	jQuery(".left_nav li").eq(index).addClass("active_"+(index_)+"_2  border").siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10');
 }
 
-/* jQuery(".leftmenu").mouseleave(function(){
-	choseMenu(requestUrl);
-}); */
-
 choseMenu(requestUrl);
-
-var tmp = "http://"+location.host+location.pathname;
-if(tmp.indexOf("project")!=-1){
-	tmp = "http://"+location.host+"/jobwisdom/project/view/projects";
-	choseMenu(tmp);
-}
 
 function showLoginOut () {
 	jQuery(".top_zzc").show();
