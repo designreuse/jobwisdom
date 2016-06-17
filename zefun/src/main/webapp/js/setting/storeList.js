@@ -1,8 +1,8 @@
 var enterpriseList = new Array();
 enterpriseList[0] = "单店版";
-enterpriseList[1] = "基础版";
-enterpriseList[2] = "专业版";
-enterpriseList[3] = "奢华版";
+enterpriseList[1] = "5店版";
+enterpriseList[2] = "10版";
+enterpriseList[3] = "无限版";
 
 
 jQuery(function(){
@@ -130,13 +130,13 @@ function updateUpgradeValue () {
     	if (enterpriseEdition == "单店版") {
     		payableEM = new Big(2400*renewDate);
     	}
-    	else if (enterpriseEdition == "基础版") {
+    	else if (enterpriseEdition == "5店版") {
     		payableEM = new Big(3800*renewDate);
     	}
-    	else if (enterpriseEdition == "专业版") {
+    	else if (enterpriseEdition == "10店版") {
     		payableEM = new Big(5800*renewDate);
     	}
-    	else if (enterpriseEdition == "奢华版") {
+    	else if (enterpriseEdition == "无限版") {
     		payableEM = new Big(8800*renewDate); 
     	}
     }

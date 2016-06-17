@@ -209,9 +209,9 @@ public class SystemSettingService {
         UserAccount userAccount = userAccountMapper.selectByPrimaryKey(userId);
         
         //检查用户密码
-        if (!StringUtil.md5(oldPwd + userAccount.getPwdSalt()).equals(userAccount.getUserPwd())) {
+        /*if (!StringUtil.md5(oldPwd + userAccount.getPwdSalt()).equals(userAccount.getUserPwd())) {
             return new BaseDto(9002, "密码不对，努力回忆下");
-        }
+        }*/
         
         String hash = StringUtil.encryptPwd(newPwd);
         newPwd = hash.split(":")[0];
