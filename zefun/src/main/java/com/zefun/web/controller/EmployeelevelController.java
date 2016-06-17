@@ -71,8 +71,8 @@ public class EmployeelevelController extends BaseController{
 		}
 		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(getStoreId(request));
 		Map<String, Object> levelMap = new HashMap<String, Object>();
-        map.put("levelId", employeeLevel.getLevelId());
-        map.put("list", list);
+		levelMap.put("levelId", employeeLevel.getLevelId());
+		levelMap.put("list", list);
 	    return new BaseDto(0, levelMap);
 	}
 	/**
@@ -99,7 +99,8 @@ public class EmployeelevelController extends BaseController{
 		if (result==1){
 			return new BaseDto(-1, "职位名称已经存在");
 		}
-		return new BaseDto(0, "修改成功！");
+		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(getStoreId(request));
+		return new BaseDto(0, list);
 	}
 	/**
 	 * 

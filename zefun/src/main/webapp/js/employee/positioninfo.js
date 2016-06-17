@@ -49,7 +49,8 @@ function addsavedept(){
 			dialog("新增部门成功");
 			var addDeptId = e.msg.deptId;
 			list = e.msg.list;
-            jQuery("#deptDIV").find(".part_add").before('<div class="hair_part" deptId = "'+addDeptId+'">'+
+			jQuery("#deptDIV").find(".hair_part").removeClass("active");
+            jQuery("#deptDIV").find(".part_add").before('<div class="hair_part active" deptId = "'+addDeptId+'">'+
 													      '<i name = "nameValue" onclick="chooseDept('+addDeptId+', this)">'+deptCode+'&nbsp;&nbsp;&nbsp;&nbsp;'+deptName+'</i>'+
 														  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
 														  '<ul class="part_ul">'+
@@ -57,6 +58,9 @@ function addsavedept(){
 															  '<li onclick="deletedept('+addDeptId+',this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
 														   '</ul>'+
 													    '</div>');
+            jQuery("#positionDIV").find(".hair_part").remove();
+            jQuery("#employeeLeveDIV").find(".hair_part").remove();
+            
             quxiaoadddept();
 		}
 	});
@@ -164,6 +168,7 @@ function addPosition(obj){
 	jQuery("#positionCode").val("");
 	jQuery("#positionCode").trigger("liszt:updated");
 	jQuery("#positionName").val("");
+	jQuery('#isDept').lcs_off();
 	jQuery("#gangwei1").show();
 	jQuery("#gangwei2").hide();
 	jQuery("#gangwei11").show();
@@ -207,7 +212,8 @@ jQuery.ajax({
 		dialog("岗位新增成功！");
 		var addPositionId = e.msg.positionId;
 		list = e.msg.list;
-		jQuery("#positionDIV").find(".part_add").before('<div class="hair_part" positionId = "'+addPositionId+'">'+
+		jQuery("#positionDIV").find(".hair_part").removeClass("active");
+		jQuery("#positionDIV").find(".part_add").before('<div class="hair_part active" positionId = "'+addPositionId+'">'+
 														      '<i name = "nameValue" onclick="choosePosition('+deptId+', '+addPositionId+', this)">'+positionCode+'&nbsp;&nbsp;&nbsp;&nbsp;'+positionName+'</i>'+
 															  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
 															  '<ul class="part_ul">'+
@@ -215,6 +221,7 @@ jQuery.ajax({
 																  '<li onclick="deleteposition('+addPositionId+',this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
 															   '</ul>'+
 														 '</div>');
+        jQuery("#employeeLeveDIV").find(".hair_part").remove();
 		quxiaoposition();
 	}
 });
@@ -227,7 +234,6 @@ function quxiaoposition(){
 
 var positionObj = "";
 function updateposition(deptId,name,code,id,isDept,obj){
-	stopBubble(obj);
 	positionObj = jQuery(obj).parents(".hair_part");
 	jQuery("#gangwei1").hide();
 	jQuery("#gangwei2").show();
@@ -322,6 +328,10 @@ function addEmployeeLeve(){
 	jQuery('#zhiwei11').show();
 	jQuery('#zhiwei22').hide();
 	var id = jQuery("#positionDIV").find(".active").attr("positionId");
+	if (isEmpty(id)) {
+		 dialog("请先填写岗位！");
+		 return;
+	}
 	jQuery('#zhiwei_positionid').val(id);
 	jQuery("#zhiwei_positionid").trigger("liszt:updated");
 	jQuery('#levelName').val("");
@@ -370,7 +380,7 @@ function levelsave(){
 						  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
 						  '<ul class="part_ul">'+
 							  '<li onclick="openupdatelevel('+addLevelId+','+positionId+',\''+levelName+'\',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-							  '<li onclick="deletelevel('+addLevelId+')"><img src="'+baseUrl+'images/handle_2.png"></li>'+
+							  '<li onclick="deletelevel('+addLevelId+', this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
 						   '</ul>'+
 					    '</div>');
 				jQuery('#add-zhiwei-modal').modal("hide");
@@ -378,9 +388,9 @@ function levelsave(){
 		});
 	
 }
-
-function openupdatelevel(id,positionId,name){
-	
+var levelObj = "";
+function openupdatelevel(id,positionId,name, obj){
+	levelObj = jQuery(obj).parents(".hair_part");
 	jQuery('#zhiwei1').hide();
 	jQuery('#zhiwei2').show();
 	jQuery('#zhiwei11').hide();
@@ -422,13 +432,21 @@ function updatelevel(){
 			dialog(e.msg);
 			return;
 		}
-		dialog(e.msg);
-		location.reload();
+		dialog("职位修改成功！");
+		jQuery(levelObj).empty();
+		list = e.msg;
+		jQuery(levelObj).append('<i name = "nameValue">'+levelName+'</i>'+
+								'<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
+								'<ul class="part_ul">'+
+									 '<li onclick="openupdatelevel('+levelId+','+positionId+',\''+levelName+'\',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
+									 '<li onclick="deletelevel('+levelId+', this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
+								'</ul>');
+		jQuery('#add-zhiwei-modal').modal("hide");
 	}
 });	
 }
 
-function deletelevel(levelId){
+function deletelevel(levelId,obj){
 if(confirm("确认要删除该条职位信息吗？")){ 
 	jQuery.ajax({
 		type : "post",
@@ -440,8 +458,9 @@ if(confirm("确认要删除该条职位信息吗？")){
 				dialog(e.msg);
 				return;
 			}
-			dialog(e.msg);
-			location.reload();
+			dialog("删除职位成功！");
+			jQuery(obj).parents(".hair_part").remove();
+			list = e.msg;
 		}
 	});
 	}
@@ -553,8 +572,8 @@ function chooseDept (deptId, obj) {
 								  '<i name = "nameValue">'+employeeLeve.levelName+'</i>'+
 								  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
 								  '<ul class="part_ul">'+
-									  '<li onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\')"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-									  '<li onclick="deletelevel('+employeeLeve.levelId+')"><img src="'+baseUrl+'images/handle_2.png"></li>'+
+									  '<li onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
+									  '<li onclick="deletelevel('+employeeLeve.levelId+', this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
 								   '</ul>'+
 							    '</div>');									  
 					}
@@ -595,8 +614,8 @@ function choosePosition (deptId, positionId, obj) {
 															  '<i name = "nameValue">'+employeeLeve.levelName+'</i>'+
 															  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
 															  '<ul class="part_ul">'+
-																  '<li onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\')"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-																  '<li onclick="deletelevel('+employeeLeve.levelId+')"><img src="'+baseUrl+'images/handle_2.png"></li>'+
+																  '<li onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
+																  '<li onclick="deletelevel('+employeeLeve.levelId+', this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
 															   '</ul>'+
 														    '</div>');
 					}

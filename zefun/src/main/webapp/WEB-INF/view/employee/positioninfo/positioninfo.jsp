@@ -275,7 +275,7 @@ jQuery('body').delegate('.lcs_check', 'lcs-statuschange', function() {
 });
 jQuery('.lcs_check1').lc_switch('是', '否');
 
-jQuery('body').delegate('.lcs_check_type', 'lcs-statuschange', function() {
+jQuery('body').delegate('.lcs_check1', 'lcs-statuschange', function() {
     var status = (jQuery(this).is(':checked')) ? 'checked' : 'unchecked';
     if(status == 'checked'){
     	jQuery(this).val(0);
@@ -300,13 +300,13 @@ jQuery(function(){
 })
 
 
-//是否切换
+/* //是否切换
 jQuery(function(){
    jQuery('.lcs_switch').click(function(){
       jQuery(this).toggleClass('lcs_off');
 	 jQuery(this).toggleClass('lcs_on'); 
    });
-})  
+}) */  
 
 
 
