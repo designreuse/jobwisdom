@@ -128,14 +128,15 @@
 									<c:forEach var="deptProject" items="${deptProjectList }">
 										<option value="${deptProject.deptId }">${deptProject.deptName }</option>
 									</c:forEach>
-								</select></span><span>商品系列：<i></i><select name="categoryId" style="position:relative;left:8px">
+								</select></span><span>项目系列：<i></i><select name="categoryId" style="position:relative;left:8px">
 									<c:forEach var="projectCategoryList" items="${deptProjectList[0].projectCategoryList }">
 										<option value="${projectCategoryList.categoryId }">${projectCategoryList.categoryName }</option>
 									</c:forEach>
 								</select></span>
 						 </p>
 					     <p>
-						   <span><em>商品名称</em><input type="text" name="projectName" style="width: 145px;"></span><span>商品编号<input type="text" name="projectCodeSuffix" style="width: 145px;"></span>
+						   <span><em>项目名称</em><input type="text" name="projectName" style="width: 145px;"></span><span><em>项目编号</em><input type="text" name="projectCodeSuffix" style="width: 145px;"></span>
+						   <span><em>项目类型</em><select name="projectType"><option value="1">大项</option><option value="2">小项</option></select></span>
 						 </p>
 					   </div>
 					   
@@ -297,7 +298,7 @@
 							<button class="button_1" onclick="uploadMessageLevel()">保存</button>
 						</div>
 						<div class="write_4">
-							<span class="add_step" style="position: relative; left: -10px">+</span>添加轮牌
+							<span class="add_step" style="position: relative; left: -10px">+</span>添加步骤
 						</div>
 						<br>
 					  <div class="item_button">  
@@ -542,9 +543,9 @@
 		var data = null;
 		var projectName = jQuery("input[name='projectName']").val();
 		var deptId = jQuery("select[name='deptId']").val();
+		var projectType = jQuery("select[name='projectType']").val();
 		var categoryId = jQuery("select[name='categoryId']").val();
 		var projectName = jQuery("input[name='projectName']").val();
-		var projectType = jQuery("select[name='projectType']").val();
 		var projectDesc = u1.getContent();
 		var projectCodeSuffix = jQuery("input[name='projectCodeSuffix']").val();
 		var projectImage = jQuery("img[name='projectImage']").attr("projectImage");
@@ -649,6 +650,8 @@
 			var categoryId = project.categoryId;
 			choseCategory(deptId);
 			jQuery("select[name='categoryId']").val(categoryId);
+			
+			jQuery("select[name='projectType']").val(project.projectType);
 			
 			var projectImage = project.projectImage;
 			jQuery("img[name='projectImage']").attr("projectImage", projectImage);

@@ -357,7 +357,7 @@
 		   goods.is_cash_deduction, goods.highest_discount, goods.calculation_type, goods.project_step, ag.goods_code_suffix, goods.a_id 
     from goods_info goods
     left join account_goods ag on ag.goods_id = goods.a_id and ag.is_deleted = 0
-    where 1 = 1 and goods.is_deleted != 1
+    where 1 = 1 and goods.is_deleted = 2
       <if test="storeId != null" >
         and goods.store_id = #{storeId,jdbcType=INTEGER}
       </if>
