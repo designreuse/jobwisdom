@@ -60,7 +60,6 @@ import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
 import com.zefun.web.entity.GiftmoneyFlow;
-import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberAppointment;
@@ -1987,7 +1986,7 @@ public class MemberCenterService {
         GoodsInfoDto goodsInfo = new GoodsInfoDto();
         goodsInfo.setStoreId(storeId);
         goodsInfo.setIsSellProduct(1);
-        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
+        List<GoodsInfoDto> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
         
         StoreShop storeShop = new StoreShop();
         storeShop.setStoreId(storeId);

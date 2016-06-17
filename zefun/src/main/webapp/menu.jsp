@@ -13,7 +13,8 @@
 	<a href="index.html"> <img src="<%=basePath%>images/logo_by.png" alt=""></a>
 </div>
 <div class="leftmenu">
-	<ul class="left_nav">
+${session_key_system_head_menu }
+	<%-- <ul class="left_nav">
 		<li class="active_1_2 border" index="1" url="<%=menuBasePath%>selfcashier/view/list">
 			<div class="nav_img">
 				
@@ -84,9 +85,9 @@
        <li style="top:510px"><span></span>企业管理</li>
        <li style="top:580px"><span></span>微信管理</li>
        <li style="top:580px"><span></span>系统设置</li>
-	</ul>
-
-	<div class="left_nav_2" style="height: 840px;">
+	</ul> --%>
+	${session_key_system_left_submenu }
+	<%-- <div class="left_nav_2" style="height: 840px;">
 		<ul index="0">
 			<a href="<%=menuBasePath%>selfcashier/view/list"><li><span>消费收银</span></li></a>
 			<a href="<%=menuBasePath%>KeepAccounts/initializeManuallyOpenOrder"><li><span>无纸开单</span></li></a>
@@ -99,7 +100,7 @@
 		    <a href="<%=menuBasePath%>KeepAccounts/initializeOpenCard"><li><span>开卡充值</span></li></a>
 			<a href="<%=menuBasePath%>appoint/view/list"><li><span>预约中心</span></li></a>
 			<a href="<%=menuBasePath%>member/view/list"><li class=""><span>会员数据</span></li></a>
-			<%-- <a href="<%=menuBasePath%>member/view/error/member/info"><li><span>异常会员数据</span></li></a> --%>
+			<a href="<%=menuBasePath%>member/view/error/member/info"><li><span>异常会员数据</span></li></a>
 			<a href="<%=menuBasePath%>member/view/census/list"><li class=""><span>会员分组</span></li></a>
 			<a href="<%=menuBasePath%>memberLevel/view/enterpriseMemberLevelList"><li class="active"><span>企业会员卡</span></li></a>
 			<a href="<%=menuBasePath%>memberLevel/view/list"><li class="active"><span>门店会员卡</span></li></a>
@@ -158,7 +159,7 @@
 			<a href="<%=menuBasePath%>system/view/person"><li class=""><span>账户设置</span></li></a>
 			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span>基础设置</span></li></a>
 		</ul>
-	</div>
+	</div> --%>
 
 </div>
 
@@ -226,7 +227,7 @@ function choseIcon(url){
 	jQuery('.left_nav li').eq(0).addClass('active_1_1');
 	var index = jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").attr("index");
 	var index_ = Number(index)+1;
-	jQuery(".left_nav li").eq(index).addClass("active_"+(index_)+"_2  border").siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10');
+	jQuery(".left_nav li[index='"+index_+"']").addClass("active_"+(index_)+"_2  border").siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10');
 }
 
 choseMenu(requestUrl);
