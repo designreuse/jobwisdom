@@ -83,7 +83,7 @@
 	   <li style="top:440px"><span></span>员工管理</li>
        <li style="top:510px"><span></span>企业管理</li>
        <li style="top:580px"><span></span>微信管理</li>
-       <li style="top:580px"><span></span>系统设置</li>
+       <li style="top:650px"><span></span>系统设置</li>
 	</ul>
 
 	<div class="left_nav_2" style="height: 840px;">
