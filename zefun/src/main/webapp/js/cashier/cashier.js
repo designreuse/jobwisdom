@@ -491,7 +491,7 @@ function syncCardAmount(){
 }
 
 //优惠选项改变时的处理
-jQuery("#cashier").delegate("[name='selectOff']", "change", function(event){
+jQuery("#projectTbody").delegate("[name='selectOff']", "change", function(event){
 	var selectOff = jQuery(this).children('option:selected');
 	var id = selectOff.val();
 	

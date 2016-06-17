@@ -2,7 +2,9 @@ package com.zefun.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.zefun.common.consts.Url;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.service.DeptService;
 
 /**
@@ -33,6 +37,9 @@ public class DeptController extends BaseController{
      */
     @Autowired
     private DeptService deptService;
+    /** 岗位 */
+    @Autowired
+    private PositioninfoMapper positioninfoMapper;
     
     /**
      * 新增部门
@@ -48,6 +55,7 @@ public class DeptController extends BaseController{
     @RequestMapping(value = Url.Dept.ADD_DEPT)
     @ResponseBody
     public BaseDto adddDept(HttpServletRequest request, HttpServletResponse response, Integer deptCode, String deptName, Integer isResults){
+    	Integer storeId = getStoreId(request);
         DeptInfo deptInfo=new DeptInfo();
         deptInfo.setDeptCode(deptCode);
         deptInfo.setDeptName(deptName);
@@ -62,7 +70,12 @@ public class DeptController extends BaseController{
         if (result==2){
             return new BaseDto(-2, "部门名称已经存在！");
         }
-        return new BaseDto(0, deptInfo.getDeptId());
+        List<DeptInfoDto>list=positioninfoMapper.getDetpInfo(storeId);
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("deptId", deptInfo.getDeptId());
+        map.put("list", list);
+        return new BaseDto(0, map);
     }
     /**
      * 修改部门信息
@@ -110,6 +123,7 @@ public class DeptController extends BaseController{
     @ResponseBody
     public BaseDto deleteDept(Integer deptId, HttpServletRequest request, HttpServletResponse response){
         int result=deptService.deleteDept(deptId, getStoreId(request));
+        Integer storeId = getStoreId(request);
         if (result==1){
             return new BaseDto(-1, "部门已经被岗位引用，请先删除岗位！");
         }
@@ -125,7 +139,9 @@ public class DeptController extends BaseController{
         if (result==5){
             return new BaseDto(-1, "部门已经被商品类别引用，请先删除商品类别！");
         }
-        return new BaseDto(0, "删除成功！");
+        List<DeptInfoDto>list=positioninfoMapper.getDetpInfo(storeId);
+        
+        return new BaseDto(0, list);
     }
     /**
      * 

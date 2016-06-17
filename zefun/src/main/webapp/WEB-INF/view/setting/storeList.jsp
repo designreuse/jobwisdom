@@ -202,14 +202,14 @@
  
 	<div class="set_content clearfix" >
 	   <p class="new_shop">新建店铺</p>
-	  <div class="clearfix"> 
+	  <div class="clearfix add_store_content_1"> 
 	   <div class="content_left" > 
 	     <p style="font-size:14px">设置店铺LOGO:</p>
 
 		   <div id="preview"><img border=0 affiliatedImage="" name="affiliatedImage" src="<%=qiniuPath%>system/profile/set_img.png" width="180" height="180" /></div>
 
 		  <P>*此logo用于移动端店铺介绍页面</P>
-	      <input type="text" class = "hide" name = "storeId" style="width: 80px; height: 80px;top: -124px;opacity:0;cursor:pointer"/>
+	      <input type="hidden" class = "hide" name = "storeId" style="width: 80px; height: 80px;top: -124px;opacity:0;cursor:pointer"/>
 	     
 		<div class="set_name">
 		 <div class="shop_name_">
@@ -239,7 +239,7 @@
 		     
 		     <div class="detail_address">
 			   <div>详细地址</div>
-			   <textarea style="height:86px;margin-top:10px;border-radius:8px;width:220px" id = "searchtext"></textarea>
+			   <textarea style="height:86px;margin-top:10px;border-radius:8px!important;width:220px;position:relative;left:10px" id = "searchtext"></textarea>
 			 </div>
 			 <div class="detail_address">
 			   <div>操作员工号<em style="color:red;font-size:16px;font-weight:bold;display:inline-block;margin-left:4px" id = "userName">1007</em></div>

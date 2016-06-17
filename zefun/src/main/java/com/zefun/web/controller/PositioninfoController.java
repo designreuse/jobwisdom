@@ -8,8 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zefun.common.utils.DateUtil;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.Url;
+import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.entity.PositionInfo;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.service.PositioninfoService;
 
 
@@ -35,6 +36,10 @@ public class PositioninfoController extends BaseController{
      */
 	@Autowired
 	private PositioninfoService positioninfoService;
+	/**
+	 */
+	@Autowired
+	private PositioninfoMapper positioninfoMapper;
 
 	/**
 	 * 岗位(组织架构)信息列表
@@ -84,6 +89,7 @@ public class PositioninfoController extends BaseController{
 	@ResponseBody
 	public BaseDto addPositioninfo(HttpServletRequest request, HttpServletResponse response, 
 	        Integer positionCode, String positionName, Integer deptId , Integer isDept){
+		Integer storeId = getStoreId(request);
 		//相关参数进行封装
 		PositionInfo positioninfo=new PositionInfo();
 		positioninfo.setStoreId(getStoreId(request));
@@ -101,7 +107,12 @@ public class PositioninfoController extends BaseController{
 		if (result==2){
 			return new BaseDto(-2, "岗位名称已经存在");
 		}
-		return new BaseDto(0, "新增成功！");
+		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(storeId);
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("positionId", positioninfo.getPositionId());
+        map.put("list", list);
+        
+		return new BaseDto(0, map);
 	}
 	/**
 	 * 修改
@@ -116,7 +127,7 @@ public class PositioninfoController extends BaseController{
 	@ResponseBody
 	public BaseDto updatePositioninfo(HttpServletRequest request, HttpServletResponse response, 
 	        PositionInfo positioninfo){
-
+		Integer storeId = getStoreId(request);
 		int result=positioninfoService.updatePositioninfo(positioninfo);
 		if (result==1){
 			return new BaseDto(-3, "岗位编码已经存在");
@@ -127,7 +138,8 @@ public class PositioninfoController extends BaseController{
 		if (result == 3) {
 		    return new BaseDto(-4, "岗位已被其他部门轮牌引用");
 		}
-		return new BaseDto(0, "修改成功！");
+		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(storeId);
+		return new BaseDto(0, list);
 	}
 	/**
 	 * 删除岗位信息
@@ -141,7 +153,7 @@ public class PositioninfoController extends BaseController{
 	@RequestMapping(value = Url.Position.DELETE)
 	@ResponseBody
 	public BaseDto deleteposition(HttpServletRequest request, HttpServletResponse response, Integer positionId){
-		
+		Integer storeId = getStoreId(request);
 		PositionInfo positioninfo=new PositionInfo();
 		positioninfo.setStoreId(getStoreId(request));
 		positioninfo.setPositionId(positionId);
@@ -149,7 +161,8 @@ public class PositioninfoController extends BaseController{
 		if (result==1){
 			return new BaseDto(-1, "该岗位已被职位引用，请先删除职位");
 		}
-		return new BaseDto(0, "删除成功！");
+		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(storeId);
+		return new BaseDto(0, list);
 	}
 	/**
 	 * 获取下拉框岗位信息

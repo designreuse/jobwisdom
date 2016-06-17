@@ -34,17 +34,20 @@ import com.zefun.web.dto.SelfCashierStatDto;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
+import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.MoneyFlow;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
+import com.zefun.web.entity.ProjectDiscount;
 import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.GiftmoneyDetailMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
+import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.IntegralFlowMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberComboProjectMapper;
@@ -56,13 +59,14 @@ import com.zefun.web.mapper.MemberSubAccountMapper;
 import com.zefun.web.mapper.MoneyFlowMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.ProjectDiscountMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 
 import net.sf.json.JSONObject;
 
 /**
  * 
- * @author 张进军
+ * @author laowang
  * @date Oct 22, 2015 10:27:15 AM
  */
 @Service
@@ -155,6 +159,13 @@ public class SelfCashierService {
 	/** 商品信息服务对象 */
 	@Autowired
 	private GoodsInfoService goodsInfoService;
+	
+	/** 项目折扣*/
+	@Autowired
+	private ProjectDiscountMapper projectDiscountMapper;
+	/** 商品折扣*/
+	@Autowired
+	private GoodsDiscountMapper goodsDiscountMapper;
 
 	/** 日志操作对象 */
 	// private Logger logger = Logger.getLogger(SelfCashierService.class);
@@ -790,9 +801,80 @@ public class SelfCashierService {
 	public BaseDto mergeOrder(Integer mainOrderId, Integer removeOrderId) {
 		orderInfoMapper.deleteByPrimaryKey(removeOrderId);
 		List<OrderDetail> orderDetailList = orderDetailMapper.selectOrderDetail(removeOrderId);
-		for (OrderDetail orderDetail : orderDetailList) {
+		
+		OrderInfo orderInfo = orderInfoMapper.selectByPrimaryKey(mainOrderId);
+		
+		MemberBaseDto memberBaseDto = new MemberBaseDto();
+		
+		if (orderInfo.getMemberId() != null) {
+			memberBaseDto = memberInfoService.getMemberBaseInfo(orderInfo.getMemberId(), true);
+		}
+		
+		for (OrderDetail objDetail : orderDetailList) {
+			
 			OrderDetail record = new OrderDetail();
-			record.setDetailId(orderDetail.getDetailId());
+			
+			//项目
+	        if (objDetail.getOrderType() == 1) {
+	            BigDecimal discountAmount = objDetail.getProjectPrice();
+	            BigDecimal rate = new BigDecimal(100);
+	            
+	            //计算折扣价
+	            if (orderInfo.getMemberId() != null) {
+	            	
+	                Map<String, Integer> map = new HashMap<String, Integer>();
+	                map.put("levelId", memberBaseDto.getLevelId());
+	                map.put("projectId", objDetail.getProjectId());
+	                ProjectDiscount obj = projectDiscountMapper.selectDiscountPorjectIdAndLevelId(map);
+	                
+	                //该项目对应该会员的会员等级不存在特定价格
+	                if (obj == null) {
+	                	Map<String, Integer> memberMap = new HashMap<>();
+	                	memberMap.put("storeId", orderInfo.getStoreId());
+	                	memberMap.put("levelId", memberBaseDto.getLevelId());
+	                    //计算会员折扣价
+	                    MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
+	                    discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getProjectDiscount()).divide(rate));
+	                }
+	                //该项目对应该会员的会员等级存在特定价格
+	                else {
+	                    discountAmount = obj.getDiscountAmount();
+	                }
+	            }
+	            record.setDiscountAmount(discountAmount);
+	        }
+	        
+	        //商品
+	        else if (objDetail.getOrderType() == 2) {
+	        	BigDecimal discountAmount = objDetail.getProjectPrice();
+	            BigDecimal rate = new BigDecimal(100);
+	            
+	            //计算折扣价
+	            if (orderInfo.getMemberId() != null) {
+	                Map<String, Integer> map = new HashMap<String, Integer>();
+	                map.put("levelId", memberBaseDto.getLevelId());
+	                map.put("projectId", objDetail.getProjectId());
+	                GoodsDiscount obj = goodsDiscountMapper.selectDiscountGoodsIdAndLevelId(map);
+	                
+	                //该商品对应该会员的会员等级不存在特定价格
+	                if (obj == null) {
+	                	Map<String, Integer> memberMap = new HashMap<>();
+	                	memberMap.put("storeId", orderInfo.getStoreId());
+	                	memberMap.put("levelId", memberBaseDto.getLevelId());
+	                    //计算会员折扣价
+	                    MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
+	                    discountAmount = discountAmount.multiply(new BigDecimal(memberLevel.getGoodsDiscount()).divide(rate));
+	                }
+	                //该商品对应该会员的会员等级存在特定价格
+	                else {
+	                    discountAmount = obj.getDiscountAmount();
+	                }
+	            } 
+	            
+	            record.setDiscountAmount(discountAmount);
+	        }
+			
+			record.setDetailId(objDetail.getDetailId());
 			record.setOrderId(mainOrderId);
 			orderDetailMapper.updateByPrimaryKey(record);
 		}
