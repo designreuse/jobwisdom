@@ -502,7 +502,7 @@
     from goods_info goods 
     left join account_goods ag on ag.goods_id = goods.a_id
     left join goods_stock gs on ag.goods_id = gs.a_id and gs.store_id = goods.store_id
-    where category_id = #{categoryId} and goods.is_deleted = 2 and goods.store_id = #{storeId} and goods_price > 0 order by goods.create_time asc
+    where category_id = #{categoryId} and goods.is_deleted = 2 and goods_price > 0 order by goods.create_time asc
   </select>
   <!-- 查询部门下的项目信息，包括部门信息、项目类别、项目列表。 结束， by 张进军 -->
   

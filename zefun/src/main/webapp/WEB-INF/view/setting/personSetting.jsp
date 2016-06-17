@@ -172,12 +172,6 @@ function testVoice(per){
 	});
 }
 
-function showUpdatePassword(){
-	jQuery("#oldPwd").val('');
-    jQuery("#newPwd").val('');
-    jQuery("#repeatPwd").val('');
-}
-
 function updatePassword(){
 	var oldPwd = jQuery("#oldPwd").val();
 	var newPwd = jQuery("#newPwd").val();
@@ -211,7 +205,7 @@ function updatePassword(){
             }
             dialog("密码修改成功");
             console.log("密码修改成功");
-            showUpdatePassword();
+            window.location.reload();
         }
     });
 }
@@ -231,6 +225,7 @@ function save(){
                 return;
             }
 			dialog("更新成功");
+			window.location.reload();
 		}
 	});
 }

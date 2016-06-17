@@ -9,8 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +19,14 @@ import com.zefun.common.consts.Url;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.EntityJsonConverter;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.EmployeeLevelDto;
 import com.zefun.web.entity.EmployeeLevel;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.service.EmployeelevelService;
+
+import net.sf.json.JSONObject;
 
 /**
  * 职位信息
@@ -39,7 +41,10 @@ public class EmployeelevelController extends BaseController{
      */
 	@Autowired
 	private EmployeelevelService employeelevelService;
-
+	/**
+	 */
+    @Autowired
+    private PositioninfoMapper positioninfoMapper;
 
 	/**
 	 * 新增职位
@@ -55,7 +60,7 @@ public class EmployeelevelController extends BaseController{
 	public BaseDto addEmployeelevel(HttpServletRequest request, HttpServletResponse response, String addData){
 	    JSONObject  jasonObject = JSONObject.fromObject(addData);
         @SuppressWarnings("unchecked")
-        Map<String, Object> map = (Map<String, Object>)jasonObject;
+        Map<String, Object> map = jasonObject;
         map.put("storeId", getStoreId(request));
         map.put("createTime", DateUtil.getCurTime());
         map.put("lastOperatorId", getUserId(request));
@@ -64,8 +69,11 @@ public class EmployeelevelController extends BaseController{
 		if (result==1){
 			return new BaseDto(-1, "职位名称已经存在");
 		}
-
-	    return new BaseDto(0, "新增成功！");
+		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(getStoreId(request));
+		Map<String, Object> levelMap = new HashMap<String, Object>();
+        map.put("levelId", employeeLevel.getLevelId());
+        map.put("list", list);
+	    return new BaseDto(0, levelMap);
 	}
 	/**
 	 * 修改职位
@@ -81,7 +89,7 @@ public class EmployeelevelController extends BaseController{
 	public BaseDto updateEmployeelevel(HttpServletRequest request, HttpServletResponse response, String addData){
 	    JSONObject  jasonObject = JSONObject.fromObject(addData);
         @SuppressWarnings("unchecked")
-        Map<String, Object> map = (Map<String, Object>)jasonObject;
+        Map<String, Object> map = jasonObject;
         map.put("storeId", getStoreId(request));
         map.put("createTime", DateUtil.getCurTime());
         map.put("lastOperatorId", getUserId(request));

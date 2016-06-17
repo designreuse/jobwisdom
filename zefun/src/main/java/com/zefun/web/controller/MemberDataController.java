@@ -34,7 +34,7 @@ public class MemberDataController extends BaseController{
     * @param request 返回
     * @return 会员信息及账户信息
      */
-    @RequestMapping(value = Url.Member.SELECTBY_MEMBERDTO)
+    @RequestMapping(value = Url.Member.SELECTBY_MEMBERDTO, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto selectByMemberDto(Integer memberId, HttpServletRequest request){
     	Integer storeId = getStoreId(request);
