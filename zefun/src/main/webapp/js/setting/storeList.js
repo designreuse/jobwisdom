@@ -47,6 +47,11 @@ jQuery(function(){
 
 function addStore() {
 	jQuery("#userName").text(new Big(10000).plus(new Big(alreadyStoreNum)).plus(new Big(1)));
+	jQuery("#addOrUpdateStore").find("[type='hidden']").val('');
+	jQuery("#addOrUpdateStore").find("[type='text']").val('');
+	jQuery("#addOrUpdateStore").find("[type='checkbox']").removeAttr("checked");
+	jQuery("img[name='affiliatedImage']").attr("src", qiniuUrl + "system/profile/set_img.png");
+	jQuery("#searchtext").val("");
 	jQuery("#addOrUpdateStore").show();
 }
 
