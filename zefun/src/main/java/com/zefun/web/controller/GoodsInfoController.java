@@ -42,6 +42,7 @@ import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.OrderDetail;
+import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.SupplierInfo;
@@ -163,15 +164,50 @@ public class GoodsInfoController extends BaseController {
         model.addObject("supplierInfoDtos", supplierInfoDtos);
         model.addObject("supplierInfoDtosJs", JSONArray.fromObject(supplierInfoDtos));
         
-        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreId(queryStoreId);
-        model.addObject("goodsInfoDtos", goodsInfoDtos);
+        Page<GoodsInfoDto> page = new Page<>();
+        page.setPageNo(1);
+        page.setPageSize(1);
+        Map<String, Object> params = new HashMap<>();
+        params.put("storeId", queryStoreId);
+        page.setParams(params);
+        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreIdByPage(page);
+        page.setResults(goodsInfoDtos);
+        model.addObject("page", page);
+//        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreId(queryStoreId);
+//        model.addObject("goodsInfoDtos", goodsInfoDtos);
 //        AccountGoods accountGoods = new AccountGoods();
 //        accountGoods.setStoreAccount(storeAccount);
 //        List<AccountGoods> list = accountGoodsMapper.selectByProperties(accountGoods);
 //        model.addObject("accountGoods", list);
-        
-        
         return model;
+    }
+    
+    /**
+     * 查询商品库的分页信息
+    * @author 高国藩
+    * @date 2016年6月18日 下午12:15:15
+    * @param request    request
+    * @param response   response
+    * @param pageNo     pageNo
+    * @param pageSize   pageSize
+    * @param storeId    storeId
+    * @return           BaseDto
+     */
+    @RequestMapping(value = Url.GoodsInfo.GOODSINFO_SETTING_PAGE)
+    @ResponseBody
+    public BaseDto toGoodsInfoSeting(HttpServletRequest request, HttpServletResponse response, Integer pageNo, Integer pageSize, Integer storeId) {
+        if (storeId == null){
+            storeId = getStoreId(request);
+        }
+        Page<GoodsInfoDto> page = new Page<>();
+        page.setPageNo(pageNo);
+        page.setPageSize(pageSize);
+        Map<String, Object> params = new HashMap<>();
+        params.put("storeId", storeId);
+        page.setParams(params);
+        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreIdByPage(page);
+        page.setResults(goodsInfoDtos);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
     }
     
     

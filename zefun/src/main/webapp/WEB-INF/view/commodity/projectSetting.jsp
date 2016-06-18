@@ -12,7 +12,7 @@
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <style type="text/css">
-	.border {border:1px solid red!important}
+	.bordererror {border:1px solid red!important}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -177,8 +177,8 @@
 				    <div class="add_store_content clearfix" style="display: none;">
 				      <div class="shop_price">
 					    <p class="shop_price_1">门店价格<span><input name="projectPrice" type="number"><em>元</em></span><i style="display:inline-block;width:105px;margin-left:72px">成本价格</i><span><input name="projectPrice" type="costPrice"><em>元</em></span></p>  
-					    <p class="shop_price_2">接受礼金<i><input type="radio" name="isGiftCash" checked="checked" value="1">是</i><i><input type="radio" name="isGiftCash"  value="1">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="number"><em>元</em></span></p>
-						<p class="shop_price_2">接受预约<i><input type="radio" name="isAppointment" checked="checked" value="1">是</i><i><input type="radio" name="isAppointment"  value="0">否</i><i>预约优惠价格</i><span><input name="appointmentPrice" type="number" class="input_3"><em>元</em></span></p>
+					    <p class="shop_price_2">接受礼金<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio" name="isGiftCash" checked="checked" value="1">是</i><i><input onclick="jQuery('input[name=\'highestDiscount\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isGiftCash"  value="0">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="number"><em>元</em></span></p>
+						<p class="shop_price_2">接受预约<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio" name="isAppointment" checked="checked" value="1">是</i><i><input onclick="jQuery('input[name=\'appointmentPrice\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isAppointment"  value="0">否</i><i>预约优惠价格</i><span><input name="appointmentPrice" type="number" class="input_3"><em>元</em></span></p>
 					  </div>	 
 			          <div class="vip_price">
 					    <p>会员价格</p>
@@ -265,6 +265,7 @@
 										<td >指定提成</td>
 										<td >非指定提成</td>
 										<td >预约奖励</td>
+										<td >操作</td>
 									</tr>
 									
 									<c:forEach var="employeeLevel1" items="${deptMahjongList[0].mahjongLevelList[0].employeeLevelList }" varStatus="status1">
@@ -291,6 +292,7 @@
 										<td><input type="number" name="assignCash" class="cut_step_11"></td>
 										<td><input type="number" name="assignCard" class="cut_step_11"></td>
 										<td><input type="number" name="appointmentReward" class="cut_step_11"></td>
+										<td><span onclick="jQuery(this).parents('tr').remove();">删除</span></td>
 		                                </tr>
 		                            </c:forEach>
 								</tbody>
@@ -314,7 +316,8 @@
 	</div>
 </div>
 <div class="mask" style="display: none;">
-   <div id="flashEditorOut" >
+   <div id="flashEditorOut" style="position: relative;">
+   <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
 	        <div id="altContent2">
 	            <h1>美图秀秀</h1>
 	        </div>
@@ -435,9 +438,10 @@
 		var html = '<tr>'+
 						'<td style=" border-bottom: 1px solid #dbdce2 !important; border-right: 1px solid #dbdce2 !important;">职位名称</td>'+
 						'<td>提成方式</td>'+
-						'<td >指定提成</td>'+
-						'<td >非指定提成</td>'+
+						'<td>指定提成</td>'+
+						'<td>非指定提成</td>'+
 						'<td>预约奖励</td>'+
+						'<td>操作</td>'+
 					'</tr>';
 		jQuery(".step_2").children("tbody").empty();
 		jQuery(".step_2").children("tbody").append(jQuery(html));
@@ -469,6 +473,7 @@
 					'<td><input type="number" name="assignCash" class="cut_step_11"></td>'+
 					'<td><input type="number" name="assignCard" class="cut_step_11"></td>'+
 					'<td><input type="number" name="appointmentReward" class="cut_step_11"></td>'+
+					'<td><span onclick="jQuery(this).parents(\'tr\').remove()">删除</span></td>'+
 		         '</tr>';
 		         jQuery(".step_2").append(jQuery(str));
 		}
@@ -959,6 +964,22 @@
 	jQuery(function(){
 		jQuery("input").focus(function(){jQuery(this).removeClass("border")});
 	})
+	
+	var number = 323413290907;
+	var N = [
+	    "零", "一", "二", "三", "四", "五", "六", "七", "八", "九"
+	];
+	function convertToChinese(num){
+	    var str = num.toString();
+	    var len = num.toString().length;
+	    var C_Num = [];
+	    for(var i = 0; i < len; i++){
+	        C_Num.push(N[str.charAt(i)]);
+	    }
+	    return C_Num.join('');
+	}
+	 
+	var chinese = convertToChinese(number);
 	
 </script>
 </html>

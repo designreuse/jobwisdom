@@ -1,4 +1,4 @@
-html { font-family: '方正黑体简体';font-size: 62.5% }
+html { font-size: 62.5% }
 body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd { margin: 0; padding: 0; border: 0; }
 
 body { background: #f7f7f7; color: #555;  margin: 0 auto; max-width: 640px; }
@@ -89,7 +89,7 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 .person_{
 	height:210px;
 	width:100%;
-	background:url('../../images/mobile/member/back.png') no-repeat;
+	background:url('../images/back.png') no-repeat;
 	position:relative;
 	width:100%;
 	position:relative
@@ -110,7 +110,7 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 
 .head_pic{width:7rem;height:7rem;border-radius:7rem;margin:0 auto;padding-top:3rem;overflow:hidden}
 .head_pic img{width:7rem;height:7rem;border-radius:7rem;}
-.vip{display:inline-block;position:absolute;left:2rem;background:url(../../images/mobile/member/vip.png);height:5.2rem;width:3.2rem;background-size:cover;text-align:center;color:black;font-weight:bold;font-size:1.4rem;line-height:5rem}
+.vip{display:inline-block;position:absolute;left:2rem;background:url(../images/vip.png);height:5.2rem;width:3.2rem;background-size:cover;text-align:center;color:black;font-weight:bold;font-size:1.4rem;line-height:5rem}
 .person_ul li{height:4.2rem;border-bottom:1px solid #ccc!important;line-height:4.2rem;color:#210a0a;font-size:1.4rem}
 .person_ul{padding:1rem 1rem ;background:white;margin-bottom:7rem}
 .person_ul li img{margin-right:1rem}
@@ -148,9 +148,9 @@ nav ul li{float:left;width:72px;text-align:center;line-height:3.9rem;height:3.9r
 .mall_good{float:left;width:22%}
 .mall_item{float:left;width:26%;margin:0 1%}
 .order_price{float:left;width:24%;position:relative;top:1rem;}
-.special{float:right;width:14%;padding:0.4rem;border:1px solid #f0a42a;color:#f0a42a;text-align:center;position:relative;top:2rem}
+.special{float:right;width:22%;padding:0.4rem;border:1px solid #f0a42a;color:#f0a42a;text-align:center;position:relative;top:2rem}
 .order_content ul li{padding:3%;border-bottom:1px solid #ccc}
-.mall_item>p{height:2rem;color:black}
+.mall_item>p{height:2rem;font-size:14px;color:black}
 .mall_item>span{height:2rem;font-size:14px;display:inline-block}
 .mall_good img{width:6rem}
 .level img{width:1.5rem}
@@ -169,4 +169,20 @@ nav ul li{float:left;width:72px;text-align:center;line-height:3.9rem;height:3.9r
 .name_shop ul .active{color:white}
 .name_shop ul{display:none}
 
+/*登录注册*/
 
+.login{height:100%;width:100%;color:#a8a2ac;padding-top:15%;}
+.login_content>p{width:10rem;border-radius:10rem;height:10rem;margin:0 auto;background:rgba(255,255,255,0.1);overflow:hidden;margin-bottom:12rem}
+.login_imformation{width:80%;margin:0 auto}
+.business_no input{height:3rem;width:100%;    box-shadow: 0 0 8px 0 white inset;background:rgba(255,255,255,0.2);margin-bottom:1.5rem;border-radius:5px;padding-left:12%;color:#a2a1a9;border:none}
+.business_no{position:relative}
+.business_no span img{position:absolute;left:8px;top:8px;width:22px}
+.login_imformation button{width:100%;height:3rem;border-radius:5px;color:white;border:none;background:#dd6e24;font-size:1.6rem}
+.login_imformation a{float:right;color:#437fbb;text-decoration:underline}
+.login_imformation p{margin-top:2px}
+.login_content >p img{width: 10rem;
+    border-radius: 10rem;
+    height: 10rem;
+        position: absolute;
+    top: 0;
+    left: 0;}
