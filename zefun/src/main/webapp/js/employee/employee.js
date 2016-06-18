@@ -1,43 +1,4 @@
-/*jQuery(function() {
-	 表头置顶
-    var fix=jQuery(".t-fix").offset()
-    var tableT=fix.top
-    jQuery(window).scroll(function(event){
-        var scH=jQuery(window).scrollTop()
-        if(scH>tableT){
-            jQuery(".t-fix").addClass("add-fix")
-            for(i=0;i<jQuery(".t-fix th").length;i++){
-                var thwidth=jQuery(".t-fix th").eq(i).width();
-                var tdwidth=jQuery(".t-table td").eq(i).width();
-                jQuery(".t-fix th").eq(i).css("width",tdwidth)
-            }
-        }
-        else{
-            jQuery(".t-fix").removeClass("add-fix")
-        }
-    })
 
-	
-});*/
-
-
-/*//上一页
-function previous(){
-	if(pageNo <= 1){
-		return;
-	}
-	pageNo--;
-	changePage();
-}
-
-//下一页
-function next(){
-	if(pageNo >= totalPage){
-		return;
-	}
-	pageNo++;
-	changePage();
-}*/
 
 //更改每页显示数量
 function changePageSize(size){
@@ -46,29 +7,6 @@ function changePageSize(size){
 	jQuery(".perpage").html(size + "<span class='caret'></span>");
 	changePage();
 }
-
-
-//分页处理
-/*function changePage(){
-	var search=jQuery("#search").val();
-	var gangwei=jQuery("#querygangwei").val();
-	pageNo = 1;
-	pageSize = 1000;
-	jQuery.ajax({
-		type : "post",
-		url : baseUrl + "employee/action/list",
-		data : "pageNo=" + pageNo + "&pageSize=" + pageSize+ "&search=" + search+ "&gangwei=" + gangwei,
-		dataType : "json",
-		success : function(e){
-			if(e.code != 0){
-				dialog(e.msg);
-				return;
-			}
-			refreshTableData(e.msg);
-			checkPageButton();
-		}
-	});
-}*/
 
 //刷新表格数据
 function refreshTableData(page){
@@ -1811,179 +1749,68 @@ function savedesc(){
 		}
 	});
 }
+ 
+ jQuery('.cancelinput').click(function(){
+	 jQuery(".mask").hide();
+ })
 
-/**加入裁剪*/
-var $image, cropBoxData, canvasData;
-var options = {
-	viewMode: 1,
-	aspectRatio: 1/1,
-	autoCropArea: 1,
-	minContainerWidth: 1000,
-    minContainerHeight: 580,
-    minCropBoxWidth: 580,
-    minCropBoxHeight: 580,
-    width:580,
-    height:580,
-    responsive:false,
-    cropBoxMovable: false,
-    cropBoxResizable: false,
-    dragMode: 'move'
-};
-
-var $image = jQuery('.crop-container > img');
-$image.cropper(options);
-/** 新增员工,图片截取 */
-function cavsenSave(obj){
-  jQuery("#cropbox").attr("src", baseUrl+"images/pic_none.gif");
-  $image.cropper('reset').cropper('replace', baseUrl+"images/pic_none.gif");
-  jQuery(".cropper-view-box img").attr("src", baseUrl+"images/pic_none.gif");
-  jQuery("#jietu").modal(); 
-  
-  /*启用截图*/
-  var $inputImage = jQuery('.inputfile');
-  var URL = window.URL || window.webkitURL;
-  var blobURL;
-
-  if (URL) {
-    $inputImage.change(function () {
-      var files = this.files;
-      var file;
-
-      if (!$image.data('cropper')) {
-        return;
-      }
-
-      if (files && files.length) {
-        file = files[0];
-
-        if (/^image\/\w+$/.test(file.type)) {
-            blobURL = URL.createObjectURL(file);
-            $image.one('built.cropper', function () {
-              URL.revokeObjectURL(blobURL);
-            }).cropper('reset').cropper('replace', blobURL);
-            $inputImage.val('');
-          } else {
-            window.alert('请选择一张图片');
-          }
-      }
-    });
-  } else {
-    $inputImage.prop('disabled', true).parent().addClass('disabled');
-  }
-  jQuery(".btn.save").one("click", function () {
-	  var result = $image.cropper('getCroppedCanvas', options);
-	  var base64Str = result.toDataURL("image/png");
-	  var key = "zefun/project/" + new Date().getTime();
-	  
-	  jQuery("img[name='headImg']").attr("src",base64Str);
-	  jQuery("input[name='hiddenheadImg']").val(key);
-	  
-	  var data = {"stringBase64":base64Str,"key":key};
-	  jQuery("#jietu").modal('hide');
-	  jQuery.ajax({
-			type: "POST",
-			url: baseUrl+"qiniu/base64",
-		       data: JSON.stringify(data),
-		       contentType: "application/json",
-		       dataType: "json",
-		       async:true, 
-		       beforeSend:function(){
-		       	  console.log("beforeSend upload image");
-		       },
-		       error:function (){
-		       	  console.log("upload image error");
-		       },
-		       complete :function (){
-		       	  console.log("complete upload image");
-		       },
-		       success: function(data) {
+ var chooseType = 0;
+ 
+function zccCallback(dataBase64){
+	if (chooseType == 0) {
+		jQuery("#headImage").attr("src", dataBase64);
+	}
+	else {
+		jQuery("#updateheadImage").attr("src", dataBase64);
+	}
+	var key = "jobwisdom/project/" + new Date().getTime();
+    var data = {"stringBase64":dataBase64,"key":key};
+    jQuery.ajax({
+		type: "POST",
+		url: baseUrl+"qiniu/base64",
+	       data: JSON.stringify(data),
+	       contentType: "application/json",
+	       dataType: "json",
+	       async:true,  
+	       beforeSend:function(){
+	       	console.log("beforeSend upload image");
+	       },
+	       error:function (){
+	       	console.log("upload image error");
+	       },
+	       complete :function (){
+	       	console.log("complete upload image");
+	       },
+	       success: function(data) {
 		       	var imageUrl = data.msg.imageUrl;
 		       	var key = data.msg.key;
-		       	jQuery("input[name='hiddenheadImg']").val(key);
-		       }
-     });
-});
+		       	if (chooseType == 0) {
+		       		jQuery("input[name='hiddenheadImg']").val(key);
+		       	}
+		       	else {
+		       		jQuery("input[name='hiddenupdateheadImage']").val(key);
+		       	}
+		       	jQuery(".mask").hide();
+	       }
+ 	});
+}
+
+
+/** 新增员工,图片截取 */
+function cavsenSave(){
+	chooseType = 0;
+	editPage();
+	jQuery(".mask").show();
 }
 
 /** 修改员工,图片截取 */
-function cavsenEdit(obj){
-  jQuery("#cropbox").attr("src", baseUrl+"images/pic_none.gif");
-  $image.cropper('reset').cropper('replace', baseUrl+"images/pic_none.gif");
-  jQuery(".cropper-view-box img").attr("src", baseUrl+"images/pic_none.gif");
-  jQuery("#jietu").modal(); 
-  
-  /*启用截图*/
-  var $inputImage = jQuery('.inputfile');
-  var URL = window.URL || window.webkitURL;
-  var blobURL;
-
-  if (URL) {
-    $inputImage.change(function () {
-      var files = this.files;
-      var file;
-
-      if (!$image.data('cropper')) {
-        return;
-      }
-
-      if (files && files.length) {
-        file = files[0];
-
-        if (/^image\/\w+$/.test(file.type)) {
-            blobURL = URL.createObjectURL(file);
-            $image.one('built.cropper', function () {
-              URL.revokeObjectURL(blobURL);
-            }).cropper('reset').cropper('replace', blobURL);
-            $inputImage.val('');
-          } else {
-            window.alert('请选择一张图片');
-          }
-      }
-    });
-  } else {
-    $inputImage.prop('disabled', true).parent().addClass('disabled');
-  }
-  jQuery(".btn.save").one("click", function () {
-	  var result = $image.cropper('getCroppedCanvas', options);
-	  var base64Str = result.toDataURL("image/png");
-	  var key = "zefun/project/" + new Date().getTime();
-	  
-	  jQuery("img[name='updateheadImg']").attr("src",base64Str);
-	  jQuery("input[name='hiddenupdateheadImage']").val(key);
-	  
-	  var data = {"stringBase64":base64Str,"key":key};
-	  jQuery("#jietu").modal('hide');
-	  jQuery.ajax({
-			type: "POST",
-			url: baseUrl+"qiniu/base64",
-		       data: JSON.stringify(data),
-		       contentType: "application/json",
-		       dataType: "json",
-		       async:true, 
-		       beforeSend:function(){
-		       	  console.log("beforeSend upload image");
-		       },
-		       error:function (){
-		       	  console.log("upload image error");
-		       },
-		       complete :function (){
-		       	  console.log("complete upload image");
-		       },
-		       success: function(data) {
-		       	var imageUrl = data.msg.imageUrl;
-		       	var key = data.msg.key;
-		       	jQuery("input[name='hiddenupdateheadImage']").val(key);
-		       }
-	  	});
-  	});
+function cavsenEdit(){
+	chooseType = 1;
+	var image = jQuery("input[name='hiddenupdateheadImage']").val();
+	editPage(image);
+	jQuery(".mask").show();
 }
 
-jQuery('#jietu').on('hidden.bs.modal', function () {
-      cropBoxData = $image.cropper('getCropBoxData');
-      canvasData = $image.cropper('getCanvasData');
-      $image.cropper('clear').cropper('reset');
-      jQuery(".btn.save").unbind("click");
-});
 
 /** 
  * 点击查询进行条件全查询
