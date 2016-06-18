@@ -29,7 +29,7 @@
 				<div class="content_right clearfix">
 					<div class="add_supplier">
 						<p>
-							<button onclick="jQuery('.zzc').show('800')">添加加盟供应商</button>
+							<button onclick="jQuery('.zzc').show('800');jQuery('.zzc').find('input[type=\'text\']').val('');">添加加盟供应商</button>
 							<input type="text" placeholder="名称/品牌/号码">
 						</p>
 						<div class="add_supplier_content">

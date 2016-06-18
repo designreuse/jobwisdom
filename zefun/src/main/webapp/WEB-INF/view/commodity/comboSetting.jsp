@@ -133,7 +133,8 @@
    </script>
 <body>
 	<div class="mask" style="display: none;">
-		   <div id="flashEditorOut" >
+		   <div id="flashEditorOut" style="position: relative;">
+		   <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
 			        <div id="altContent2">
 			            <h1>美图秀秀</h1>
 			        </div>

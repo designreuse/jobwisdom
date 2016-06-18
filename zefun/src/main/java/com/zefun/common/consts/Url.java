@@ -1169,7 +1169,7 @@ public interface Url {
 	 */
 	class StoreInfo {
 		/** 查询门店列表 */
-		public static final String SHOW_STORE_LIST = "/storeinfo/view/showStoreList";
+		public static final String SHOW_STORE_LIST = "storeinfo/view/showStoreList";
 		/** 新增修改门店*/
 		public static final String SAVE_UPDATE_STORE = "/storeinfo/action/saveUpdateStore";
 		/** 查询门店信息*/
