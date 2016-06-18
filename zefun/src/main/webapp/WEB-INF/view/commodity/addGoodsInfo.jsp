@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="<%=basePath%>css/data.css" type="text/css" />
 <style type="text/css">
-.border {
+.bordererror {
 	border: 1px solid !important
 }
 </style>
@@ -62,7 +62,7 @@
 						</div>
 
 					<div class="new_data">
-						<button onclick="jQuery('.zzc1').modal()">新建</button>
+						<button onclick="jQuery('.zzc1').modal();jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
 						<button>导入模块下载</button>
 						<button style="width: 60px">导入</button>
 						<button style="width: 60px" onclick="exportTable('ag')">导出</button>
@@ -110,7 +110,7 @@
 						<span><em>商品编号</em><input type="text" maxlength="5" name="goodsCodeSuffix"></span><span><em>商品名称</em><input name="goodsName" type="text"></span>
 					</p>
 					<p>
-						是否非卖品<i><input type="radio" name="isSellProduct" checked="checked" value="1">是</i><i><input type="radio" value="0" name="isSellProduct">否</i>
+						是否卖品<i><input type="radio" name="isSellProduct" checked="checked" value="1">是</i><i><input type="radio" value="0" name="isSellProduct">否</i>
 					</p>
 					<p>
 						<span><em>成本价</em><input type="text" name="costPrice" style="padding-right: 20px; width: 105px"><a href="javascript:;" class="money">元</a></span>
@@ -237,7 +237,7 @@
 	/** 重新获取焦点的时候,去掉校验的红色框 */
 	jQuery(function() {
 		jQuery("input").focus(function() {
-			jQuery(this).removeClass("border")
+			jQuery(this).removeClass("bordererror")
 		});
 	})
 

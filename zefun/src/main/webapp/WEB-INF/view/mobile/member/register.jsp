@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/base.jsp"%>
-<html lang="en" style="background:url('<%=basePath%>images/mobile/member/login_back.png') no-repeat;background-size:100% 100%;height:100%">
+<html lang="en" style="background:url('<%=basePath%>images/mobile/member/login_back.jpg') no-repeat;background-size:100% 100%;height:100%">
 <link rel="stylesheet" href="<%=basePath%>css/mobile/style.css" />
 <link rel="stylesheet" href="<%=basePath%>css/mobile/shop.css" />
 <head>
@@ -19,15 +19,15 @@
 				<p>
 					<img src="<%=picPath %>${storeInfo.storeLogo }">
 				</p>
+				<div class="login_shop_name">${storeInfo.storeName }</div>
 				<div class="login_imformation second" style="position: relative; top: 1rem;">
-					<div class="business_no">
-						<span><img src="<%=basePath%>images/mobile/member/phone.png"><input id="phone" type="text" placeholder="手机号"></span>
-					</div>
-					<div class="business_no" style="margin: 1rem 0">
-						<span><input type="text" id="verifyCode" placeholder="输入六位数验证码" style="width: 50%"><input id="getDiv" onclick="getVerifyCode()" type="button" value="领取验证码"
-							style="width: 30%; margin-left: 7%; background: #4b596a; text-align: center; padding: 0"></span>
-					</div>
-					<button onclick="register();">注册</button>
+				   <div class="business_no"> 
+				     <span><img src="<%=basePath%>images/mobile/member/phone.png"><input type="text" id="phone" placeholder="输入手机号"></span>
+				   </div>
+				    <div class="business_no" style="margin:1rem 0"> 
+				     <span><input type="text" id="verifyCode" placeholder="输入六位数验证码" style="width:50%"><input id="getDiv" onclick="getVerifyCode()" type="button" value="重新发送" style="width:30%;margin-left:7%;background:#4b596a;text-align:center;padding:0;color:white"></span>
+				   </div> 
+				   <button onclick="register();">绑定</button>
 				</div>
 			</div>
 		</div>
@@ -43,7 +43,22 @@
 			var timer = null;
 			var time = $("#time");
 			function clock() {
-				
+				var time=30; 
+				 jQuery('input[type="button"]').val('30');
+				  var a=setInterval(function(){
+				    if(time>1){
+					
+					 jQuery('input[type="button"]').val(time-1);
+					 time--;
+					  jQuery('input[type="button"]').attr('disabled','true')
+					 
+					}
+					else{
+					   jQuery('input[type="button"]').val('重新发送');
+					   jQuery('input[type="button"]').attr('disabled',false);
+						clearInterval(a)		
+					} 
+				  },1000)
 			}
 
 			function getVerifyCode() {
@@ -53,10 +68,7 @@
 					dialog("请输入正确的手机号码!");
 					return;
 				}
-
-				$("#getDiv").addClass("hide");
-				$("#timeDiv").removeClass("hide");
-				timer = setInterval("clock()", 1000);
+				clock();
 				$.ajax({
 						type : "POST",
 						url : baseUrl + "memberCenter/action/getVerifyCode",

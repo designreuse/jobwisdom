@@ -15,23 +15,23 @@
   <context:annotation-config />
   <mvc:annotation-driven />
   
-  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" p:useCacheControlNoStore="true" p:cacheSeconds="0">
+<!--   <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" p:useCacheControlNoStore="true" p:cacheSeconds="0">
     <property name="messageConverters">
       <list>
         <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
       </list>
     </property>
-  </bean>
+  </bean> -->
 
 
-  <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+  <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" >
     <property name="messageConverters">
       <list>
         <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
         <bean class="com.zefun.common.utils.UTF8StringHttpMessageConverter" />
         <bean class="org.springframework.http.converter.FormHttpMessageConverter" />
         <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
-        <!-- <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />  -->
+        <!-- <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />  AnnotationMethodHandlerAdapter 使用的是这个,spring3.1后提升了版本-->
         <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>         
       </list>
     </property>
