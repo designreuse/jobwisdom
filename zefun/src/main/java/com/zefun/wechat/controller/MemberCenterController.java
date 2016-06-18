@@ -233,7 +233,7 @@ public class MemberCenterController extends BaseController {
             return null;
         }
         int memberId = getUserIdByOpenId(openId);
-        Integer storeId = getStoreId(request);
+        Integer storeId = getStoreIdByOpenId(openId);
         return memberCenterService.levelInfoView(memberId, storeId);
     }
     

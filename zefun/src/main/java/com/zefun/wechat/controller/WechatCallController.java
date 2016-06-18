@@ -18,6 +18,7 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.entity.XmlElementBean;
 import com.zefun.wechat.service.WechatCallService;
 
 /**
@@ -99,5 +100,22 @@ public class WechatCallController extends BaseController {
     public BaseDto uploadMediaToQiniu(String mediaid, String key, HttpServletRequest request){
         String accessToken = getAccessTokenByStore(request);
         return wechatService.uploadMediaToQiniu(mediaid, key, accessToken);
+    }
+    
+    /**
+     * 返回xml数据,使用微信支付成功返回
+    * @author 高国藩
+    * @date 2016年6月18日 下午5:10:03
+    * @return   xml数据
+     */
+    @RequestMapping(value = "/doXMLJaxb2", produces = "application/xml")
+    @ResponseBody
+    public XmlElementBean doXMLJaxb2View(){
+        XmlElementBean xmlElementBean = new XmlElementBean();
+        xmlElementBean.setAddress("深圳");
+        xmlElementBean.setEmail("faceBook@.com");
+        xmlElementBean.setId(2);
+        xmlElementBean.setName("xml");
+        return xmlElementBean;
     }
 }

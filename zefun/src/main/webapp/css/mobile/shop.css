@@ -89,7 +89,7 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 .person_{
 	height:210px;
 	width:100%;
-	background:url('../images/back.png') no-repeat;
+	background:url('../../images/mobile/member/back.png') no-repeat;
 	position:relative;
 	width:100%;
 	position:relative
@@ -110,7 +110,7 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 
 .head_pic{width:7rem;height:7rem;border-radius:7rem;margin:0 auto;padding-top:3rem;overflow:hidden}
 .head_pic img{width:7rem;height:7rem;border-radius:7rem;}
-.vip{display:inline-block;position:absolute;left:2rem;background:url(../images/vip.png);height:5.2rem;width:3.2rem;background-size:cover;text-align:center;color:black;font-weight:bold;font-size:1.4rem;line-height:5rem}
+.vip{display:inline-block;position:absolute;left:2rem;background:url(../../images/mobile/member/vip.png);height:5.2rem;width:3.2rem;background-size:cover;text-align:center;color:black;font-weight:bold;font-size:1.4rem;line-height:5rem}
 .person_ul li{height:4.2rem;border-bottom:1px solid #ccc!important;line-height:4.2rem;color:#210a0a;font-size:1.4rem}
 .person_ul{padding:1rem 1rem ;background:white;margin-bottom:7rem}
 .person_ul li img{margin-right:1rem}
@@ -172,17 +172,15 @@ nav ul li{float:left;width:72px;text-align:center;line-height:3.9rem;height:3.9r
 /*登录注册*/
 
 .login{height:100%;width:100%;color:#a8a2ac;padding-top:15%;}
-.login_content>p{width:10rem;border-radius:10rem;height:10rem;margin:0 auto;background:rgba(255,255,255,0.1);overflow:hidden;margin-bottom:12rem}
+.login_content>p{width:10rem;border-radius:10rem;height:10rem;margin:0 auto;background:rgba(255,255,255,0.1);overflow:hidden;margin-bottom:1.2rem;position:relative}
+.login_shop_name{text-align:center;font-size:2.2rem;margin-bottom:10rem;color:white}
 .login_imformation{width:80%;margin:0 auto}
-.business_no input{height:3rem;width:100%;    box-shadow: 0 0 8px 0 white inset;background:rgba(255,255,255,0.2);margin-bottom:1.5rem;border-radius:5px;padding-left:12%;color:#a2a1a9;border:none}
+.business_no input{height:3.5rem;width:88%;background:rgba(255,255,255,0.2);margin-bottom:1.5rem;border-radius:5px;padding-left:12%;color:#a2a1a9;border:none;background:white;font-size:16px;}
 .business_no{position:relative}
 .business_no span img{position:absolute;left:8px;top:8px;width:22px}
 .login_imformation button{width:100%;height:3rem;border-radius:5px;color:white;border:none;background:#dd6e24;font-size:1.6rem}
 .login_imformation a{float:right;color:#437fbb;text-decoration:underline}
-.login_imformation p{margin-top:2px}
+.login_imformation p{margin-top:2px;position:relative}
 .login_content >p img{width: 10rem;
     border-radius: 10rem;
-    height: 10rem;
-        position: absolute;
-    top: 0;
-    left: 0;}
+    height: 10rem;position:absolute;left:0;top:0}
