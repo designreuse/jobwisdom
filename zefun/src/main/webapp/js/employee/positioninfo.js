@@ -50,14 +50,15 @@ function addsavedept(){
 			var addDeptId = e.msg.deptId;
 			list = e.msg.list;
 			jQuery("#deptDIV").find(".hair_part").removeClass("active");
-            jQuery("#deptDIV").find(".part_add").before('<div class="hair_part active" deptId = "'+addDeptId+'">'+
-													      '<i name = "nameValue" onclick="chooseDept('+addDeptId+', this)">'+deptCode+'&nbsp;&nbsp;&nbsp;&nbsp;'+deptName+'</i>'+
-														  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-														  '<ul class="part_ul">'+
-															  '<li onclick="updatedept('+addDeptId+',\''+deptName+'\',\''+deptCode+'\','+isResults+',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-															  '<li onclick="deletedept('+addDeptId+',this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-														   '</ul>'+
-													    '</div>');
+            jQuery("#deptDIV").find(".part_add").before('<div class="architecture_new hair_part active" deptId = "'+addDeptId+'" onclick="chooseDept('+addDeptId+', this)">'+
+											                    '<span>'+
+											                    '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+deptCode+'</i><i>'+deptName+'</i></span>'+
+											                     '<em><i onclick="updatedept('+addDeptId+',\''+deptName+'\',\''+deptCode+'\','+isResults+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+											                         '<i onclick="deletedept('+addDeptId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+											                     '</em>'+
+											                  '</span>'+   
+											             '</div>');
+            
             jQuery("#positionDIV").find(".hair_part").remove();
             jQuery("#employeeLeveDIV").find(".hair_part").remove();
             
@@ -125,12 +126,13 @@ function editsavedept(){
 			}
 			dialog(e.msg);
 			jQuery(deptObj).empty();
-			jQuery(deptObj).append('<i name = "nameValue" onclick="chooseDept('+id+', this)">'+deptCode+'&nbsp;&nbsp;&nbsp;&nbsp;'+deptName+'</i>'+
-								  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-								  '<ul class="part_ul">'+
-									  '<li onclick="updatedept('+id+',\''+deptName+'\',\''+deptCode+'\','+isResults+',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-									  '<li onclick="deletedept('+id+',this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-								   '</ul>');
+			jQuery(deptObj).append('<span>'+
+					                    '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+deptCode+'</i><i>'+deptName+'</i></span>'+
+					                    '<em>'+
+					                        '<i onclick="updatedept('+id+',\''+deptName+'\',\''+deptCode+'\','+isResults+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+					                        '<i onclick="deletedept('+id+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+					                    '</em>'+
+				                   '</span>');
 			quxiaoadddept();
 		}
 	});
@@ -213,14 +215,16 @@ jQuery.ajax({
 		var addPositionId = e.msg.positionId;
 		list = e.msg.list;
 		jQuery("#positionDIV").find(".hair_part").removeClass("active");
-		jQuery("#positionDIV").find(".part_add").before('<div class="hair_part active" positionId = "'+addPositionId+'">'+
-														      '<i name = "nameValue" onclick="choosePosition('+deptId+', '+addPositionId+', this)">'+positionCode+'&nbsp;&nbsp;&nbsp;&nbsp;'+positionName+'</i>'+
-															  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-															  '<ul class="part_ul">'+
-																  '<li onclick="updateposition('+deptId+',\''+positionName+'\',\''+positionCode+'\','+addPositionId+','+isDept+',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-																  '<li onclick="deleteposition('+addPositionId+',this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-															   '</ul>'+
-														 '</div>');
+		jQuery("#positionDIV").find(".part_add").before('<div class="architecture_new hair_part active" positionId = "'+addPositionId+'" onclick="choosePosition('+deptId+', '+addPositionId+', this)">'+
+														    '<span>'+
+														      '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+positionCode+'</i><i>'+positionName+'</i></span>'+
+														      '<em>'+
+														          '<i onclick="updateposition('+deptId+',\''+positionName+'\',\''+positionCode+'\','+addPositionId+','+isDept+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+														          '<i onclick="deleteposition('+addPositionId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+														      '</em>'+
+														   '</span>'+   
+														'</div>');
+		
         jQuery("#employeeLeveDIV").find(".hair_part").remove();
 		quxiaoposition();
 	}
@@ -290,12 +294,13 @@ function positioneditsave(){
 			dialog("岗位修改成功！");
 			list = e.msg;
 			jQuery(positionObj).empty();
-			jQuery(positionObj).append('<i name = "nameValue" onclick="choosePosition('+deptId+', '+positionId+', this)">'+positionCode+'&nbsp;&nbsp;&nbsp;&nbsp;'+positionName+'</i>'+
-									  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-									  '<ul class="part_ul">'+
-										  '<li onclick="updateposition('+deptId+',\''+positionName+'\',\''+positionCode+'\','+positionId+','+isDept+',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-										  '<li onclick="deleteposition('+positionId+',this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-									   '</ul>');
+			jQuery(positionObj).append('<span>'+
+					                      '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+positionCode+'</i><i>'+positionName+'</i></span>'+
+									      '<em>'+
+									          '<i onclick="updateposition('+deptId+',\''+positionName+'\',\''+positionCode+'\','+positionId+','+isDept+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+									          '<i onclick="deleteposition('+positionId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+									      '</em>'+
+									   '</span>');
 			quxiaoposition();
 		}
 	});
@@ -375,14 +380,12 @@ function levelsave(){
 				dialog("职位新增成功！");
 				var addLevelId = e.msg.levelId;
 				list = e.msg.list;
-				jQuery("#employeeLeveDIV").find(".part_add").before('<div class="hair_part">'+
-						  '<i name = "nameValue">'+levelName+'</i>'+
-						  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-						  '<ul class="part_ul">'+
-							  '<li onclick="openupdatelevel('+addLevelId+','+positionId+',\''+levelName+'\',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-							  '<li onclick="deletelevel('+addLevelId+', this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-						   '</ul>'+
-					    '</div>');
+				jQuery("#employeeLeveDIV").find(".part_add").before('<div class="architecture_new hair_part" >'+
+														                '<span><span style="display:inline-block;width:130px;position:relative;left:10px">'+levelName+'</span><em>'+
+														                  '<i onclick="openupdatelevel('+addLevelId+','+positionId+',\''+levelName+'\',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+														                  '<i onclick="deletelevel('+addLevelId+', this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+														                 '</em></span>'+   
+														            '</div>');
 				jQuery('#add-zhiwei-modal').modal("hide");
 			}
 		});
@@ -435,12 +438,10 @@ function updatelevel(){
 		dialog("职位修改成功！");
 		jQuery(levelObj).empty();
 		list = e.msg;
-		jQuery(levelObj).append('<i name = "nameValue">'+levelName+'</i>'+
-								'<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-								'<ul class="part_ul">'+
-									 '<li onclick="openupdatelevel('+levelId+','+positionId+',\''+levelName+'\',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-									 '<li onclick="deletelevel('+levelId+', this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-								'</ul>');
+		jQuery(levelObj).append('<span><span style="display:inline-block;width:130px;position:relative;left:10px">'+levelName+'</span><em>'+
+				                '<i onclick="openupdatelevel('+levelId+','+positionId+',\''+levelName+'\',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+				                '<i onclick="deletelevel('+levelId+', this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+				               '</em></span>');
 		jQuery('#add-zhiwei-modal').modal("hide");
 	}
 });	
@@ -544,7 +545,7 @@ function getlevelemployee(id){
 
 function chooseDept (deptId, obj) {
 	jQuery("#deptDIV").find(".hair_part").removeClass("active");
-	jQuery(obj).parent().addClass("active");
+	jQuery(obj).addClass("active");
 	jQuery("#positionDIV").find(".hair_part").remove();
 	jQuery("#employeeLeveDIV").find(".hair_part").remove();
 	for (var i = 0; i < list.length; i++) {
@@ -556,37 +557,37 @@ function chooseDept (deptId, obj) {
 				var positionInfo = positionInfos[j];
 				
 				if (j == 0) {
-					jQuery("#positionDIV").find(".part_add").before('<div class="hair_part active" positionId = "'+positionInfo.positionId+'">'+
-						      '<i name = "nameValue" onclick="choosePosition('+deptId+', '+positionInfo.positionId+', this)">'+positionInfo.positionCode+'&nbsp;&nbsp;&nbsp;&nbsp;'+positionInfo.positionName+'</i>'+
-							  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-							  '<ul class="part_ul">'+
-								  '<li onclick="updateposition('+deptId+',\''+positionInfo.positionName+'\',\''+positionInfo.positionCode+'\','+positionInfo.positionId+','+positionInfo.isDept+',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-								  '<li onclick="deleteposition('+positionInfo.positionId+',this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-							   '</ul>'+
-						    '</div>');
+					jQuery("#positionDIV").find(".part_add").before('<div class="architecture_new hair_part active" positionId = "'+positionInfo.positionId+'" onclick="choosePosition('+deptId+', '+positionInfo.positionId+', this)">'+
+																	    '<span>'+
+																	      '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+positionInfo.positionCode+'</i><i>'+positionInfo.positionName+'</i></span>'+
+																	      '<em>'+
+																	          '<i onclick="updateposition('+deptId+',\''+positionInfo.positionName+'\',\''+positionInfo.positionCode+'\','+positionInfo.positionId+','+positionInfo.isDept+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+																	          '<i onclick="deleteposition('+positionInfo.positionId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+																	      '</em>'+
+																	   '</span>'+   
+																	'</div>');
 					var employeeLeves = positionInfo.employeeLeve;
 					
 					for (var k = 0; k < employeeLeves.length; k++) {
 						var employeeLeve = employeeLeves[k];
-					    jQuery("#employeeLeveDIV").find(".part_add").before('<div class="hair_part">'+
-								  '<i name = "nameValue">'+employeeLeve.levelName+'</i>'+
-								  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-								  '<ul class="part_ul">'+
-									  '<li onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-									  '<li onclick="deletelevel('+employeeLeve.levelId+', this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-								   '</ul>'+
-							    '</div>');									  
+					    jQuery("#employeeLeveDIV").find(".part_add").before('<div class="architecture_new hair_part" >'+
+																                '<span><span style="display:inline-block;width:130px;position:relative;left:10px">'+employeeLeve.levelName+'</span><em>'+
+																                  '<i onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+																                  '<i onclick="deletelevel('+employeeLeve.levelId+', this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+																                 '</em></span>'+   
+																            '</div>');
 					}
 				}
 				else {
-					jQuery("#positionDIV").find(".part_add").before('<div class="hair_part" positionId = "'+positionInfo.positionId+'">'+
-												      '<i name = "nameValue" onclick="choosePosition('+deptId+', '+positionInfo.positionId+', this)">'+positionInfo.positionCode+'&nbsp;&nbsp;&nbsp;&nbsp;'+positionInfo.positionName+'</i>'+
-													  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-													  '<ul class="part_ul">'+
-														  '<li onclick="updateposition('+deptId+',\''+positionInfo.positionName+'\',\''+positionInfo.positionCode+'\','+positionInfo.positionId+','+positionInfo.isDept+',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-														  '<li onclick="deleteposition('+positionInfo.positionId+',this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-													   '</ul>'+
-												    '</div>');
+					jQuery("#positionDIV").find(".part_add").before('<div class="architecture_new hair_part" positionId = "'+positionInfo.positionId+'" onclick="choosePosition('+deptId+', '+positionInfo.positionId+', this)">'+
+						    '<span>'+
+						      '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+positionInfo.positionCode+'</i><i>'+positionInfo.positionName+'</i></span>'+
+						      '<em>'+
+						          '<i onclick="updateposition('+deptId+',\''+positionInfo.positionName+'\',\''+positionInfo.positionCode+'\','+positionInfo.positionId+','+positionInfo.isDept+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+						          '<i onclick="deleteposition('+positionInfo.positionId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+						      '</em>'+
+						   '</span>'+   
+						'</div>');
 				}
 			}
 			return;
@@ -596,7 +597,7 @@ function chooseDept (deptId, obj) {
 
 function choosePosition (deptId, positionId, obj) {
 	jQuery("#positionDIV").find(".hair_part").removeClass("active");
-	jQuery(obj).parent().addClass("active");
+	jQuery(obj).addClass("active");
 	jQuery("#employeeLeveDIV").find(".hair_part").remove();
 	for (var i = 0; i < list.length; i++) {
 		var deptInfo = list[i];
@@ -610,14 +611,12 @@ function choosePosition (deptId, positionId, obj) {
 					
 					for (var k = 0; k < employeeLeves.length; k++) {
 						var employeeLeve = employeeLeves[k];
-						jQuery("#employeeLeveDIV").find(".part_add").before('<div class="hair_part">'+
-															  '<i name = "nameValue">'+employeeLeve.levelName+'</i>'+
-															  '<em><img src="'+baseUrl+'images/pull_down.png"></em>'+
-															  '<ul class="part_ul">'+
-																  '<li onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\',this)"><img src="'+baseUrl+'images/handle_1.png"></li>'+
-																  '<li onclick="deletelevel('+employeeLeve.levelId+', this)"><img src="'+baseUrl+'images/handle_2.png"></li>'+
-															   '</ul>'+
-														    '</div>');
+						jQuery("#employeeLeveDIV").find(".part_add").before('<div class="architecture_new hair_part" >'+
+																				  '<span><span style="display:inline-block;width:130px;position:relative;left:10px">'+employeeLeve.levelName+'</span><em>'+
+																                  '<i onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+																                  '<i onclick="deletelevel('+employeeLeve.levelId+', this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+																                 '</em></span>'+   
+																            '</div>');
 					}
 				}
 			}
