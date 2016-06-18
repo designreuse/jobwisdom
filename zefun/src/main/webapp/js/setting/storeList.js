@@ -16,7 +16,7 @@ jQuery(function(){
 		    jQuery(this).text('停业');
 			jQuery(this).addClass('active');
 		 }
-   });
+    });
  });
 
 //切换
@@ -53,6 +53,7 @@ function addStore() {
 	jQuery("img[name='affiliatedImage']").attr("src", qiniuUrl + "system/profile/set_img.png");
 	jQuery("#searchtext").val("");
 	jQuery("#addOrUpdateStore").show();
+	jQuery("#city-picker3").citypicker('destroy');
 }
 
  jQuery('#preview').click(function(){
@@ -245,7 +246,8 @@ function editStore (storeId) {
         	jQuery("#storeTel").val(storeInfo.storeTel);
         	jQuery("#storeLinkname").val(storeInfo.storeLinkname);
         	jQuery("#storeLinkphone").val(storeInfo.storeLinkphone);
-        	jQuery("#city-picker3").val(storeInfo.storeProvince + "/" + storeInfo.storeCity);
+        	jQuery("#city-picker3").citypicker('destroy');
+        	jQuery("#city-picker3").citypicker({province: storeInfo.storeProvince, city: storeInfo.storeCity});
         	jQuery("#searchtext").val(storeInfo.storeAddress);
         	jQuery("#userName").text(userName);
         	jQuery("input[name='storeId']").val(storeInfo.storeId);
@@ -493,7 +495,7 @@ function saveStoreInfo(){
 		dialog("请选择街道");
 		return;
 	}
-	var storeAddress = jQuery("#city-picker3").val() + street;
+	var storeAddress = street;
 	if (typeof storeAddress === 'undefined') {
 		dialog("请选择地址");
 		return;
