@@ -177,8 +177,8 @@
 				    <div class="add_store_content clearfix" style="display: none;">
 				      <div class="shop_price">
 					    <p class="shop_price_1">门店价格<span><input name="projectPrice" type="number"><em>元</em></span><i style="display:inline-block;width:105px;margin-left:72px">成本价格</i><span><input name="projectPrice" type="costPrice"><em>元</em></span></p>  
-					    <p class="shop_price_2">接受礼金<i><input type="radio" name="isGiftCash" checked="checked" value="1">是</i><i><input onclick="jQuery('input[name=\'highestDiscount\']').val(0);" type="radio" name="isGiftCash"  value="1">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="number"><em>元</em></span></p>
-						<p class="shop_price_2">接受预约<i><input type="radio" name="isAppointment" checked="checked" value="1">是</i><i><input type="radio" name="isAppointment"  value="0">否</i><i>预约优惠价格</i><span><input name="appointmentPrice" type="number" class="input_3"><em>元</em></span></p>
+					    <p class="shop_price_2">接受礼金<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio" name="isGiftCash" checked="checked" value="1">是</i><i><input onclick="jQuery('input[name=\'highestDiscount\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isGiftCash"  value="0">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="number"><em>元</em></span></p>
+						<p class="shop_price_2">接受预约<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio" name="isAppointment" checked="checked" value="1">是</i><i><input onclick="jQuery('input[name=\'appointmentPrice\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isAppointment"  value="0">否</i><i>预约优惠价格</i><span><input name="appointmentPrice" type="number" class="input_3"><em>元</em></span></p>
 					  </div>	 
 			          <div class="vip_price">
 					    <p>会员价格</p>

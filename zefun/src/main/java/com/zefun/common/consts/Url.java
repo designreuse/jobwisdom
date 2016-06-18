@@ -380,6 +380,8 @@ public interface Url {
         public static final String VIEW_SUPPLIER = "view/storeAccount/suplier";
         /** 企业查看各门店商品数据*/
         public static final String GOODS_QUERY_ACCOUNT = "view/storeAccount/store/goods/{storeId}";
+        /** 分页查询*/
+        public static final String GOODSINFO_SETTING_PAGE = "goodsInfo/view/setting/page";
 	}
 
 	/** 供应商模块 */

@@ -80,7 +80,15 @@
 	     jQuery('.add_store_include .add_store_content:gt(0)').hide();
 	     jQuery('.add_store_back li ').click(function(){
 		   jQuery(this).addClass('active').siblings().removeClass('active');
-		   jQuery('.add_store_include .add_store_content').eq(jQuery(this).index()).show().siblings().hide()
+		   jQuery('.add_store_include .add_store_content').eq(jQuery(this).index()).show().siblings().hide();
+		   // 计算项目价格
+		   var price = 0;
+		   jQuery("#project").children("li").each(function (){
+				var projectPrice = jQuery(this).attr("projectPrice");
+				var projectCount = jQuery(this).attr("projectCount");
+				price += Number(projectPrice)*Number(projectCount);
+			});
+		   jQuery("#allProjectPrice").text(price+"元");
         });
 	  });	
 	  
@@ -256,7 +264,7 @@
 													<td>有效期</td>
 												</tr>
 												<tr>
-													<td>0.00元</td>
+													<td id="allProjectPrice">0.00元</td>
 													<td><span><input type="radio" checked="checked" name="standard" value="1">是</span><span><input type="radio" name="standard" value="0">否</span></td>
 													<td><input type="text" name="validDate" value="0" style="width: 80px; padding-right: 20px"><i>天</i></td>
 												</tr>

@@ -11,6 +11,7 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.TrendDeptDataDto;
 import com.zefun.web.entity.GoodsInfo;
+import com.zefun.web.entity.Page;
 import com.zefun.web.vo.CardStoreSalesVo;
 import com.zefun.web.vo.CashStoreSalesVo;
 
@@ -178,6 +179,15 @@ public interface GoodsInfoMapper {
     * @return         List<GoodsInfoDto>
      */
     List<GoodsInfoDto> selectAllGoodsInfoByStoreId(Integer storeId);
+    
+    /**
+     * 用于商品列表展示数据
+    * @author 高国藩
+    * @date 2016年5月18日 上午10:09:27
+    * @param goodsInfoDto  goodsInfoDto
+    * @return         List<GoodsInfoDto>
+     */
+    List<GoodsInfoDto> selectAllGoodsInfoByStoreIdByPage(Page<GoodsInfoDto> goodsInfoDto);
 
     /**
      * 给出参数 1,2,3,4 进行查找商品
