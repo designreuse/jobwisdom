@@ -137,17 +137,18 @@
 .select_item_content td i{position:absolute;right:34px;top:10px}
 .select_item_content table td input[type="text"]{border-radius:12px;width:126px;height:20px;border:1px solid black}
 .select_item_content table td button{width:100px;height:28px;text-align:center;line-height:28px;border:none;color:white;background:#59688a;border-radius:12px}
-.select_item_content_roll{width:880px;height:150px;border-radius:8px;border:1px solid black;background:white;margin: 10px auto;position:relative;overflow:hidden}
+.select_item_content_roll{width:880px;height:150px;border-radius:8px;border:1px solid black;background:white;margin: 10px auto;position:relative;}
 .select_item_content_roll .left_click{position:absolute;top:40px;left:10px;z-index:2}
 .select_item_content_roll .right_click{position:absolute;right:10px;top:40px;z-index:2}
 .select_item_content_roll .left_click img,.select_item_content_roll .right_click img{width:40px}
-.select_item_content_roll_ul{margin-top:10px;overflow:hidden;width:820px;}
+.select_item_content_roll_ul{margin-top:10px;overflow-x:hidden;width:820px;}
 .select_item_content_roll_ul ul{width:3000px;margin-left:50px;position:absolute}
 .select_item_content_roll_ul li{float:left;width:210px;height:130px;border-radius:8px;border:1px solid black;border-radius:8px;margin-right:40px}
 .select_item_content_roll_ul li>p{height:30px;line-height:30px;padding:0px 10px 0px 10px}
 .select_item_content_roll_ul_button button{border-radius:8px;width:50px;height:20px;text-align:center;line-height:20px;border:none;margin:0 10px;background:#d8deec}
 .select_item_content_roll_ul_button {text-align:center;margin-top:10px;color:black;}
-
+.select_de{width:882px;height:264px;margin:0 auto;overflow:hidden}
+.select_de table{width:880px}
 .select_item>p{
 	font-size:16px;
 	color:black;
