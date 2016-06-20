@@ -808,6 +808,7 @@
 	*/
 	function uploadMessageLevel(){
 		var shiftMahjongId = jQuery("select[name='shiftMahjongId']").val();
+		if (jQuery("tr[shiftmahjongid='"+shiftMahjongId+"']").length >0){dialog("请不要设置重复牌位");return;}
 		var shiftMahjongName = jQuery("select[name='shiftMahjongId']").find("option:selected").text();
 		var projectStepName = jQuery("input[name='projectStepName']").val();
 		var stepPerformanceType = jQuery("select[name='stepPerformanceType']").val();
