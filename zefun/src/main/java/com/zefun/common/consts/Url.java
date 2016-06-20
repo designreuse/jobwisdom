@@ -448,6 +448,10 @@ public interface Url {
 		/* 开卡记账 */
 		/** 初始化开卡记账页面 */
 		public static final String INITIALIZESTOREFLOW = "KeepAccounts/initializeStoreFlow";
+		/**收支记账新增*/
+		public static final String INITIALIZESTOREFLOWADD = "KeepAccounts/initializeStoreFlow/add";
+		/** 初始化开卡记账页面条件查询 */
+		public static final String INITIALIZESTOREFLOWSELECT = "KeepAccounts/initializeStoreFlowSelect";
 		/** 读取上传excle */
 		public static final String READEXCLE = "KeepAccounts/readExcle";
 		/** 导出excle */
@@ -514,6 +518,7 @@ public interface Url {
 
 		/** 初始化手工开单界面 */
 		public static final String INITIALIZE_MANUALLY_OPEN_ORDER = "KeepAccounts/initializeManuallyOpenOrder";
+		
 		/** 根据项目标识查询想轮牌信息及步骤对应员工 */
 		public static final String SELECT_PROJECT_SHIFT_STEP = "KeepAccounts/selectProjectShiftStep";
 		/** 手动开单 */
@@ -522,6 +527,9 @@ public interface Url {
 		public static final String REFRESH_SHIFTMAHJONG_EMPLOYEE = "staff/action/refreshShiftMahjongEmployee";
 		/** 开支记账类别管理页面*/
         public static final String VIEW_ADD_INITIALIZE_TYPE = "KeepAccounts/type";
+        /** 开支记账类别新增页面*/
+        public static final String VIEW_ADD_INITIALIZE_TYPEADD = "KeepAccounts/type/add";
+        
 	}
 
 	/** 微信接口 */
