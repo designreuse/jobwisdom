@@ -152,7 +152,7 @@
 	  });	
 	  
 	//轮播
- 	jQuery(function(){   
+ 	jQuery(function(){
 	  //向右走
 	  var now_=0;
       jQuery(document).on('click','.right_click',function(){
@@ -373,12 +373,6 @@
 										</div>	
 						            </div>
 							    </div>
-								<!-- <div class="add_store_content_2_saying">
-									<p>疗程描述</p>
-									<div class="add_store_content_textarea">
-										<textarea name="comboDesc"></textarea>
-									</div>
-								</div> -->
 								<div class="item_button" style="text-align: center;">  
 								   <button class="bt" onclick="coverData()">保存</button>
 								   <button class="bt">取消</button>

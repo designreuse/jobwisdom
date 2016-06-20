@@ -261,9 +261,9 @@
            <input type="file" id="file" style="position:absolute;width: 100px;height: 40px;left: 212px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">
 		   <button id="clipBtn" style="position:absolute;width: 100px;height: 40px;left: 346px;bottom:8px;opacity:0;cursor:pointer;filter:alpha(opacity=0);">截取</button>
 		   <div class="button_panel"> 
-		    <button class="selectpic">选择图片</button>
-		    <button class="sureinput">确定上传</button>
-			<button class="cancelinput">取消</button>
+		   <button class="selectpic">选择图片</button>
+		   <button class="sureinput">确定上传</button>
+		   <button class="cancelinput">取消</button>
 		  </div>
          </div>
    </div>
