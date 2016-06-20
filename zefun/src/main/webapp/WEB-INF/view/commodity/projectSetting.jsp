@@ -13,6 +13,22 @@
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <style type="text/css">
 	.bordererror {border:1px solid red!important}
+	.addImage{
+    position: relative;
+    left: -604px;
+    top: 54px;
+    z-index: 1000;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    display: inline-block;
+    border: 1px solid #fafafa;
+    }
+.addImage:hover {
+    background-color: #fff5d4;
+    border: 1px solid #dcac6c;
+}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -155,14 +171,16 @@
 					   <div class="item_saying">
 					     <p>项目描述</p>
 					      <div class="textarea1">
-						      <div><button id="editImage" style="width:130px;height:26px;line-height:26px;text-align:center;border:none;background:#617195;color:white;border-radius:10px;margin-top:10px;margin-left:10px">插入图片</button></div>
+						      <!-- <div><button id="editImage" style="width:130px;height:26px;line-height:26px;text-align:center;border:none;background:#617195;color:white;border-radius:10px;margin-top:10px;margin-left:10px">插入图片</button></div> -->
 				              <P></P>
 				              <div class="clearfix">
+				              		<span id="editImage" class="addImage" title="插入图片" >
+										<img src="<%=basePath%>images/insert_img.png" style="position:relative;left:1px;top:1px">
+									</span>
 									<script id="editor1" type="text/plain" style="width:550px;height:322px;float: left"></script>
 									<div style="float: left; width: 320px; height: 420px; margin-top: 25px" class="textarea_text">
 										<p>在此编辑的内容，将会在移动端－在线预约－项目详情中展示。</p>
 										<p></p>
-										<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
 										<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
 										<p>如若无法预览或全屏编辑或出现其他编辑问题。请更换谷歌浏览器，体验更佳。</p>
 									</div>
@@ -179,7 +197,7 @@
 					    <p class="shop_price_1">门店价格<span><input name="projectPrice" type="number"><em>元</em></span><i style="display:inline-block;width:105px;margin-left:72px">成本价格</i><span><input name="projectPrice" type="costPrice"><em>元</em></span></p>  
 					    <p class="shop_price_2">接受礼金<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio" name="isGiftCash" checked="checked" value="1">是</i><i><input onclick="jQuery('input[name=\'highestDiscount\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isGiftCash"  value="0">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="number"><em>元</em></span></p>
 						<p class="shop_price_2">接受预约<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio" name="isAppointment" checked="checked" value="1">是</i><i><input onclick="jQuery('input[name=\'appointmentPrice\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isAppointment"  value="0">否</i><i>预约优惠价格</i><span><input name="appointmentPrice" type="number" class="input_3"><em>元</em></span></p>
-					  </div>	 
+					  </div>
 			          <div class="vip_price">
 					    <p>会员价格</p>
 						<div class="vip_price_content">

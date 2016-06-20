@@ -19,12 +19,43 @@
     margin-right: 80px;
     margin-top: 20px;
     }
+.addImage{
+    position: relative;
+    left: -604px;
+    top: 54px;
+    z-index: 1000;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    display: inline-block;
+    border: 1px solid #fafafa;
+    }
+.addImage:hover {
+    background-color: #fff5d4;
+    border: 1px solid #dcac6c;
+}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
-    
+	var type = 1;
+	jQuery(function() {
+		jQuery("img[name='comboImage']").click(function() {
+			jQuery(".mask").show();
+			editPage(null);
+			type=1;
+		})
+		jQuery('#editImage').click(function() {
+			jQuery(".mask").show();
+			editPage(null);
+			type=2;
+		})
+	})
     function editPage (imgUrl) {
-    	xiuxiu.setLaunchVars("cropPresets", "162*162");
+    	xiuxiu.setLaunchVars("cropPresets", "375*200");
     	xiuxiu.embedSWF("altContent2", 5, 700, 500);
     	xiuxiu.onInit = function (id)
     	{
@@ -69,7 +100,13 @@
 		       	console.log("complete upload image");
 		       },
 		       success: function(data) {
-		    	   jQuery("img[name='comboImage']").attr("src", qiniuUrl+data.msg.key);
+		    	   if (type == 1){
+		    		   jQuery("img[name='comboImage']").attr("comboImage", data.msg.key);
+		    		   jQuery("img[name='comboImage']").attr("src", qiniuUrl+data.msg.key);
+		    	   }
+		    	   else {
+		    		   u1.execCommand('insertHtml', '<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'+qiniuUrl+data.msg.key+'">');
+		    	   }
 		       }
      	});
 	}
@@ -166,7 +203,7 @@
 							<div class="add_store_content clearfix" style="display: block;">
 								<div class="add_store_content_1_content clearfix">
 									<div class="add_store_content_1_left">
-										<img onclick="jQuery('.mask').show();editPage(null);" name="comboImage" comboImage="system/profile/combo.png" src="<%=qiniu%>system/profile/combo.png">
+										<img style="width: 270px;height: 144px;" name="comboImage" comboImage="system/profile/combo.png" src="<%=qiniu%>system/profile/combo.png">
 									</div>
 									<div class="add_store_content_1_center">
 										<p>
@@ -290,12 +327,32 @@
 										</table>
 									</div>
 								</div>
-								<div class="add_store_content_2_saying">
+								
+								<div class="item_saying">
+							      <p>疗程描述</p>
+							      <div class="textarea1">
+								      <!-- <div><button id="editImage" style="width:130px;height:26px;line-height:26px;text-align:center;border:none;background:#617195;color:white;border-radius:10px;margin-top:10px;margin-left:10px">插入图片</button></div> -->
+						              <P></P>
+						              <div class="clearfix">
+						              		<span id="editImage" class="addImage" title="插入图片" >
+												<img src="<%=basePath%>images/insert_img.png" style="position:relative;left:1px;top:1px">
+											</span>
+											<script id="editor1" type="text/plain" style="width:550px;height:322px;float: left"></script>
+											<div style="float: left; width: 320px; height: 420px; margin-top: 25px" class="textarea_text">
+												<p>在此编辑的内容，将会在移动端－在线预约－项目详情中展示。</p>
+												<p></p>
+												<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
+												<p>如若无法预览或全屏编辑或出现其他编辑问题。请更换谷歌浏览器，体验更佳。</p>
+											</div>
+										</div>	
+						            </div>
+							    </div>
+								<!-- <div class="add_store_content_2_saying">
 									<p>疗程描述</p>
 									<div class="add_store_content_textarea">
 										<textarea name="comboDesc"></textarea>
 									</div>
-								</div>
+								</div> -->
 								<div class="item_button" style="text-align: center;">  
 								   <button class="bt" onclick="coverData()">保存</button>
 								   <button class="bt">取消</button>
@@ -308,7 +365,17 @@
 		</div>
 	</div>
 
-	<script id="projectCommission" type="text/html">
+<script type="text/javascript">
+var toolbars = {
+		toolbars: [
+		   		['fullscreen', 'source', '|', 'undo', 'redo', '|',
+		           'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript','|', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+		           'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+		           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+		           'directionalityltr', 'directionalityrtl', 'indent', '|',
+		           'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase','preview']
+		   	],maximumWords:3000,elementPathEnabled:false,imageScaleEnabled:false,wordCount:false,autoHeightEnabled:false};
+var u1 = UE.getEditor('editor1', toolbars);
 </script>
 
 <script>
@@ -318,6 +385,7 @@
 	var goodsinfos = eval(<%=request.getAttribute("goodsinfos_js")%>);
 	
 	// 选择查看了一个套餐
+	u1.ready(function(){
 	if (!'${comboId}' == ""){
 		comboId = '${comboId}';
 		var comboInfo = eval(<%=request.getAttribute("comboInfo")%>);
@@ -335,8 +403,7 @@
 		jQuery("input[name='cashCommission']").val(comboInfo.cashCommission);
 		jQuery("input[name='cardCommission']").val(comboInfo.cardCommission);
 		jQuery("input[name='saleComboPerformance']").val(comboInfo.comboPerformance);
-		
-		jQuery("textarea[name='comboDesc']").val(comboInfo.comboDesc);
+		u1.setContent(comboInfo.comboDesc);
 		jQuery("input[name='comboCodeSuffix']").val(comboInfo.comboCodeSuffix);
 		
 		for (var i = 0; i < comboProjectList.length; i++) {
@@ -359,7 +426,7 @@
 		}
 		console.log(comboId);
 	}
-	
+	})
 	/**保存套餐内的项目*/
 	function saveProject(){
 		var projectId = jQuery("select[name='projectId']").val();
@@ -466,7 +533,7 @@
 		var cardCommission = jQuery("input[name='cardCommission']").val();
 		var comboPerformance = jQuery("input[name='saleComboPerformance']").val();
 		
-		var comboDesc = jQuery("textarea[name='comboDesc']").val();
+		var comboDesc = u1.getContent();;
 		var comboCodeSuffix = jQuery("input[name='comboCodeSuffix']").val();
 		var comboInfo = {"comboId":comboId,"comboImage":comboImage,"deptId":deptId,"validDate":validDate,"standard":standard,"comboCodeSuffix":comboCodeSuffix,
 				"comboSalePrice":comboSalePrice,"commissionType":commissionType,"cashCommission":cashCommission,"comboName":comboName,
