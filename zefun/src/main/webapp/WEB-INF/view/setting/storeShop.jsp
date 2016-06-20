@@ -34,7 +34,6 @@
     }
 </script>  
 <body>
-
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
 			<%@include file="/menu.jsp"%>
@@ -202,7 +201,7 @@
 	</div>
 	
 	<div class="mask" style="display: none;">
-		   <div id="flashEditorOut" >
+		   <div id="flashEditorOut" style="position:relative">
 		   <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
 		        <div id="altContent2">
 		            <h1>美图秀秀</h1>
@@ -323,9 +322,18 @@ jQuery.each(storeShop.newArrival.split(","),function(i, value){
 jQuery.each(storeShop.bestSellers.split(","),function(i, value){
 	jQuery("#rxsp").find(".adjust_list.clearfix[goodsid="+value+"]").click();
 })
-jQuery.each(storeShop.adsense.split(","),function(i, value){
-	var html = '<li><img onclick="jQuery(\'.mask\').show();editPage(null);imageObject=jQuery(this);" style="width: 375px; " src="'+value+'"></li>';
-   	jQuery(".add_pic.clearfix").append(jQuery(html));
-})
+/**显示*/
+if (storeShop.adsense == ""){
+	for (var i = 0; i < 6; i++) {
+		var html = '<li><img onclick="jQuery(\'.mask\').show();editPage(null);imageObject=jQuery(this);" style="width: 375px; " src="'+qiniuUrl+'click_add.png"></li>';
+	   	jQuery(".add_pic.clearfix").append(jQuery(html));
+	} 
+}
+else {
+	jQuery.each(storeShop.adsense.split(","),function(i, value){
+		var html = '<li><img onclick="jQuery(\'.mask\').show();editPage(null);imageObject=jQuery(this);" style="width: 375px; " src="'+value+'"></li>';
+	   	jQuery(".add_pic.clearfix").append(jQuery(html));
+	})
+}
 </script>
 </html>

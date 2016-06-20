@@ -12,7 +12,40 @@
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script> 
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/wenben.js"></script>
-
+<head>
+    <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    
+    function editPage (imgUrl) {
+    	xiuxiu.embedSWF("altContent2", 5, 700, 500);
+    	
+    	xiuxiu.onInit = function (id)
+    	{
+            xiuxiu.setUploadType(3);
+            if (imgUrl != null) {
+            	xiuxiu.loadPhoto(qiniuUrl + imgUrl, false);
+            }
+    	}
+    	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
+    	{
+    		data = "data:image/"+fileType+";base64," + data;
+            zccCallback(data);
+    	}
+    	
+    	xiuxiu.onDebug = function (data)
+    	{
+            dialog("网咯繁忙，请重试！");
+    	}
+    	
+    	xiuxiu.onClose = function (id)
+    	{
+            jQuery(".mask").hide();
+    	}
+    	
+    }
+	
+    </script>
+</head>
   
    
     <!--RIGHT PANEL开始 -->
@@ -408,27 +441,16 @@
 </div>
 
 
-<div class="modal hide in" id="add-content-image1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content select-wordimg-modal" style="width: 480px;height: 320px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    	选择图片
-                </h4>
-            </div>
-            
-            <div id="modal-body" style="height:400px;line-height:300px;stext-align:center;">
-            	<div id="contentImage1" style="width:200px;height:200px;line-height:200px;border:1px solid #ccc;margin:auto; text-align:center;margin-top:30px;">
-            		<span class="iconfont icon-jiahao" style="font-size:50px;margin-left:-25px;"></span>
-            	</div>
-            </div>
-            
+<!-- 美图秀秀 -->
+<div class="mask" style="display: none;">
+   <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
+   <div id="flashEditorOut" >
+        <div id="altContent2">
+            <h1>美图秀秀2</h1>
         </div>
-    </div>
+	</div>
 </div>
+
 <div class="modal hide" id="jietu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content jietu ">

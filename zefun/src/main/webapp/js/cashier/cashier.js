@@ -941,21 +941,80 @@ function rechargeDeleteOrder () {
 		}
 	});
 }
-
 function updatePric () {
 	jQuery(".change_price_content").show();
-	jQuery("select[name='projectSelect']").empty();
-	for (var i = 0; i < orderDetails.length; i++) {
-		var detail = orderDetails[i];
-		jQuery("select[name='projectSelect']").append("<option value = '"+detail.detailId+"'>"+detail.projectName+"<option>");
-		if (i == 0) {
-			if (isMember) {
-				
+	jQuery("#updatePricTable").find("tr:gt(0)").remove();
+	jQuery("select[name='projectSelectUpdatePric']").empty();
+	jQuery("select[name='projectSelectUpdatePric']").append("<option>请选择改价项目</option>")
+	var type = 0;
+	for (var i = 0; i < detailList.length; i++) {
+		var detail = detailList[i];
+		for (var j = 0; j < updatePricArray.length; j++) {
+			if (updatePricArray[j].detailId == detail.detailId) {
+				addStr(detail.detailId, updatePricArray[j].updatePricValue);
+				type = 1;
 			}
 			else {
-				
+				type = 0;
 			}
 		}
+		if (type == 0) {
+			jQuery("select[name='projectSelectUpdatePric']").append("<option value = '"+detail.detailId+"'>"+detail.projectName+"</option>");
+		}
+	}
+}
+
+function onchangeUpdatePric (obj) {
+	var detailId = jQuery(obj).val();
+	addStr(detailId, 0);
+	jQuery(obj).find("option[value='"+detailId+"']").remove();
+}
+
+function addStr(detailId, updatePricValue) {
+	for (var i = 0; i < detailList.length; i++) {
+		if (detailList[i].detailId == detailId) {
+			var str = '<tr detailId = "'+detailList[i].detailId+'">'+
+				       '<td>'+detailList[i].projectName+'</td>'+
+			           '<td >'+detailList[i].realMoney+'</td>'+
+					   '<td><input type="text" onkeyup="value=value.replace(/^((\d*[1-9])|(0?\.\d{2}))$/g,\'\')"  name = "updatePricValue" value = "'+updatePricValue+'"></td>'+
+					   '<td onclick="deleteUpdatePricd(this, '+detailList[i].detailId+', \''+detailList[i].projectName+'\')"><img src="'+baseUrl+'images/append_add.png" style="width:20px"></td>'+
+				      '</tr>';
+			jQuery("#updatePricTable").append(str);
+		}
+	}
+}
+
+function deleteUpdatePricd (obj, detailId, projectName) {
+	jQuery("select[name='projectSelectUpdatePric']").append("<option value = '"+detailId+"'>"+projectName+"</option>");
+	jQuery(obj).parent().remove();
+}
+
+var updatePricArray = "";
+var upRemark = "";
+function saveUpdatePric () {
+	updatePricArray = new Array();
+	jQuery("input[name='updatePricValue']").each(function() {
+		var updatePricValue = jQuery(this).val();
+		if (isEmpty(updatePricValue)) {
+			dialog("改价金额不能为空！");
+			return;
+		}
+		if (updatePricValue <= 0) {
+			dialog("改价金额大于0！");
+			return;
+		}
+		var detailId = jQuery(this).parent().parent().attr("detailId");
+		var updatePricObj = {"detailId" : detailId, "updatePricValue" : updatePricValue};
+		updatePricArray.push(updatePricObj);
+	});
+	upRemark = jQuery("input[name='upRemark']").val();
+	if (isEmpty(upRemark)) {
+		dialog("改价说明不能为空！");
+		return;
+	}
+	if (updatePricArray.length == 0) {
+		dialog("请选择改价项目！");
+		return;
 	}
 }
 

@@ -167,14 +167,14 @@ input[type=radio] {
 										门店价格<span><input name="goodsPrice" type="text"><em>元</em></span>
 									</p>
 									<p class="shop_price_2">
-										是否接受礼金<i><input type="radio"  name="isCashDeduction" value="1">是</i><i><input type="radio" name="isCashDeduction" value="0">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="text"><em>元</em></span>
+										是否接受礼金<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio"  name="isCashDeduction" value="1">是</i><i><input onclick="jQuery('input[name=\'highestDiscount\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isCashDeduction" value="0">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="text"><em>元</em></span>
 									</p>
 								</div>
 
 								<div class="percentage">
 									<p>业绩</p>
 									<div class="percentage_content" style="height: 40px; padding-top: 10px">
-										员工销售业绩方式<span><input type="radio" name="calculationType" value="2">固定</span><span style="margin-left: 67px"><input type="radio" name="calculationType" value="1">比例</span><span
+										员工销售业绩方式<span><input onclick="jQuery(this).parents('.percentage_content').find('em').text('元')" type="radio" name="calculationType" value="2">固定</span><span style="margin-left: 67px"><input onclick="jQuery(this).parents('.percentage_content').find('em').text('%')" type="radio" name="calculationType" value="1">比例</span><span
 											style="margin-left: 64px; position: relative">员工销售业绩值<input name="onlineShoppingPrice" type="text"><em>元</em></span>
 									</div>
 								</div>
@@ -182,7 +182,7 @@ input[type=radio] {
 								<div class="percentage">
 									<p>提成</p>
 									<div class="percentage_content" style="height: 40px; padding-top: 10px">
-										提成方式<span style="margin-left: 80px"><input type="radio" name="commissionType" value="2">固定</span><span style="margin-left: 67px"><input type="radio" name="commissionType" value="1">比例</span><span
+										提成方式<span style="margin-left: 80px"><input onclick="jQuery(this).parents('.percentage_content').find('em').text('元')" type="radio" name="commissionType" value="2">固定</span><span style="margin-left: 67px"><input onclick="jQuery(this).parents('.percentage_content').find('em').text('%')" type="radio" name="commissionType" value="1">比例</span><span
 											style="margin-left: 64px; position: relative">现金提成<input name="commissionAmount" type="text"><em>元</em></span><span style="margin-left: 11px; position: relative">卡金提成<input name="cardAmount" type="text"><em>元</em></span>
 									</div>
 								</div>
@@ -222,7 +222,8 @@ input[type=radio] {
 		</div>
 
 		<div class="mask" style="display: none;">
-		   <div id="flashEditorOut" >
+		   <div id="flashEditorOut" style="position: relative;">
+		   <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
 			        <div id="altContent2">
 			            <h1>美图秀秀</h1>
 			        </div>
@@ -467,7 +468,7 @@ input[type=radio] {
 			async : false,
 			success : function(data) {
 				goodsId = data.msg;
-				dialog(data.msg);
+				dialog("该商品更新");
 			}
 		});
 	}

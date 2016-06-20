@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/head.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" href="<%=basePath%>css/payroll_6.css" type="text/css" />
+<link rel="stylesheet" href="<%=basePath%>css/architecture.css" type="text/css" />
 <body>
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -12,7 +12,7 @@
     <%@ include file="/top.jsp" %>
       <!--headerpanel-->
 
-<div class='content_right clearfix'>
+<%-- <div class='content_right clearfix'>
    <div class="content_right_pull_mould">
     <div class="pull_mould">
 	   <button class="pull_mould_down" id="downLondimport">导入模板下载</button>
@@ -86,7 +86,86 @@
 	   </div>
 	</div>
    </div>		
- </div>
+ </div> --%>
+ 
+  <!--项目设置 -->
+  <div class="content_right clearfix">
+     <p><button>导入模板下载</button><button>导入</button></p>
+     <div class="architecture_content clearfix">
+        <div class="architecture_detail" id = "deptDIV">
+		   <div class="architecture_detail_top">新增部门</div>
+		   <div class="architecture_detail_bottom">
+		       <c:forEach items="${list}" var="listlist" varStatus="deptIndex">
+			    <div class="architecture_new hair_part <c:if test="${deptIndex.index == 0 }">active</c:if>" deptId = "${listlist.deptId}" onclick="chooseDept(${listlist.deptId}, this)">
+                    <span>
+                      <span style="display:inline-block;width:130px;position:relative;left:10px"> <i style="display:inline-block;margin-right:10px">${listlist.deptCode}</i><i>${listlist.deptName}</i></span>
+                       <em><i onclick="updatedept('${listlist.deptId}','${listlist.deptName}','${listlist.deptCode}','${listlist.isResults}',this)"><img src="<%=basePath%>images/architecture_edit.png"></i>
+                           <i onclick="deletedept(${listlist.deptId},this)"><img src="<%=basePath%>images/architecture_delete.png"></i>
+                       </em>
+                    </span>   
+                 </div>
+		       </c:forEach>
+
+               <div class="architecture_new part_add" id="search-member" onclick="addDept()" style="text-align:center">
+                   <img src="<%=basePath%>images/architecture_add.png" style="position:relative;top:5px">  
+               </div>  			   
+		   </div>
+		</div>
+		
+		<p><img src="<%=basePath%>images/architecture_next.png"></p>
+		
+		<div class="architecture_detail" id = "positionDIV">
+		   <div class="architecture_detail_top">新增岗位</div>
+		   <div class="architecture_detail_bottom">
+		       <c:forEach items="${list}" var="listlist"  varStatus="deptIndex">
+			        <c:if test="${deptIndex.index == 0 }">
+			            <c:forEach items="${listlist.positionInfo}" var="list" varStatus="positionIndex">
+						    <div class="architecture_new hair_part <c:if test="${positionIndex.index == 0 }">active</c:if>" positionId = "${list.positionId}" onclick="choosePosition('${listlist.deptId}', '${list.positionId}', this)">
+			                    <span>
+			                      <span style="display:inline-block;width:130px;position:relative;left:10px"> <i style="display:inline-block;margin-right:10px">${list.positionCode}</i><i>${list.positionName}</i></span>
+			                      <em>
+			                          <i onclick="updateposition('${listlist.deptId}','${list.positionName}','${list.positionCode}','${list.positionId}','${list.isDept}',this)"><img src="<%=basePath%>images/architecture_edit.png"></i>
+			                          <i onclick="deleteposition(${list.positionId}, this)"><img src="<%=basePath%>images/architecture_delete.png"></i>
+			                      </em>
+			                   </span>   
+			                </div>
+			            </c:forEach>
+		            </c:if>
+			    </c:forEach>
+
+                 <div class="architecture_new part_add" onclick="addPosition(this)" style="text-align:center">
+                   <img src="<%=basePath%>images/architecture_add.png" style="position:relative;top:5px">  
+               </div>  			   
+		   </div>
+		</div>
+		<p><img src="<%=basePath%>images/architecture_next.png"></p>
+		
+		<div class="architecture_detail" id = "employeeLeveDIV">
+		   <div class="architecture_detail_top">新增职位</div>
+		   <div class="architecture_detail_bottom">
+		       <c:forEach items="${list}" var="listlist"  varStatus="deptIndex">
+			        <c:if test="${deptIndex.index == 0 }">
+			            <c:forEach items="${listlist.positionInfo}" var="list" varStatus="positionIndex">
+			                 <c:if test="${positionIndex.index == 0 }">
+			                     <c:forEach items="${list.employeeLeve}" var="listchild" >
+								    <div class="architecture_new hair_part" >
+					                    <span><span style="display:inline-block;width:130px;position:relative;left:10px">${listchild.levelName}</span><em>
+					                      <i onclick="openupdatelevel('${listchild.levelId}','${list.positionId}','${listchild.levelName}')"><img src="<%=basePath%>images/architecture_edit.png"></i>
+					                      <i onclick="deletelevel(${listchild.levelId}, this)"><img src="<%=basePath%>images/architecture_delete.png"></i>
+					                     </em></span>   
+					                </div>
+			                     </c:forEach>
+			                 </c:if>
+			            </c:forEach>
+		            </c:if>
+			    </c:forEach>
+                 <div class="architecture_new part_add" onclick="addEmployeeLeve(this)" style="text-align:center">
+                   <img src="<%=basePath%>images/architecture_add.png" style="position:relative;top:5px">  
+               </div>  			   
+		   </div>
+		</div>
+     </div>	 
+  </div> 
 
 <div class="modal hide" id="add-bumen-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >

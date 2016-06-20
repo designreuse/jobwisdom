@@ -79,7 +79,7 @@ public class LoginService {
 		if (!StringUtil.md5(password + userAccount.getPwdSalt()).equals(userAccount.getUserPwd())) {
 			return new BaseDto(9002, "密码不对，努力回忆下");
 		}
-
+		
 		HttpSession sessiion = request.getSession();
 
 		// 登陆成功

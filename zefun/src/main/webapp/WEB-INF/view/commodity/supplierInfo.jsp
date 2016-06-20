@@ -30,7 +30,7 @@
 				                    	<input type="hidden" class="input80" name="supplierId" id="supplierId"/>
 				                    </td>
 				                    <td>
-				                        <select style="width:185px" data-placeholder="选择品牌" class="chzn-select input-xlarge" name="supplyBrand" id="supplyBrand" multiple="multiple" ">
+				                        <select style="width:185px" data-placeholder="选择品牌" class="chzn-select input-xlarge" name="supplyBrand" id="supplyBrand" multiple="multiple">
 				                            <c:forEach var="goodsBrand" items="${goodsBrandList }" varStatus="status">
 				                        		<option value="${goodsBrand.codeNo }">${goodsBrand.codeName }</option>
 				                        	</c:forEach>

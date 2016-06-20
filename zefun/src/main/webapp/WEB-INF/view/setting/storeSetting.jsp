@@ -181,8 +181,8 @@
 		                        	   <ul>
 		                        	<li >
 		                        		<img style="width: 200px;height: 123px" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/set_img.png">
-		                        		<p style="color:#b0b0b0">上传logo图片</p>
                                         <input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
+		                        		<p style="color:#b0b0b0;text-align: center;">上传logo图片</p>
                                     </li>
                                    </ul> 
                                  </div>
@@ -268,7 +268,6 @@
          </div>
    </div>
 	<div class="mask" style="display: none;">
-	   
 		   <div id="flashEditorOut" style="position:relative">
 		     <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
 			        <div id="altContent2">
