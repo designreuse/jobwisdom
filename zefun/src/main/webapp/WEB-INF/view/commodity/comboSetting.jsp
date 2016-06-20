@@ -6,6 +6,8 @@
 %>
 <link rel="stylesheet" href="<%=basePath%>css/demo4.css" type="text/css" />
 <style>
+.select_item_content_roll_ul li{position:relative;}
+
 .bt{
     width: 130px;
     height: 28px;
@@ -53,6 +55,7 @@
     color: black;
     margin-bottom: 10px;
 }
+
 .textarea1{height:450px;background:#d8deed;border-radius:10px}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
@@ -219,7 +222,7 @@
 						</ul>
 
 						<div class="add_store_include">
-							<div class="add_store_content clearfix" style="display: block;">
+                        	<div class="add_store_content clearfix" style="display: block;">
 								<div class="add_store_content_1_content clearfix">
 									<div class="add_store_content_1_left">
 										<img style="width: 270px;height: 144px;" name="comboImage" comboImage="system/profile/combo.png" src="<%=qiniu%>system/profile/combo.png">
@@ -241,6 +244,7 @@
 								<div class="select_item">
 									<p>为疗程选择项目</p>
 									<div class="select_item_content">
+									  <div class="select_de">	
 										<table>
 											<tbody>
 												<tr>
@@ -262,18 +266,20 @@
 										</table>
 										<div class="select_item_content_roll">
 											<span class="left_click"><img src="<%=basePath%>images/left_click.png"></span>
-											<div class="select_item_content_roll_ul">
+											<div class="select_item_content_roll_ul clearfix">
 												<ul id="project" class="clearfix">
 												</ul>
 											</div>
 											<span class="right_click"><img src="<%=basePath%>images/right_click.png"></span>
 										</div>
 									</div>
+								  </div>	
 								</div>
 
 								<div class="select_item">
 									<p>为疗程选择商品</p>
 									<div class="select_item_content">
+									  <div class="select_de">	
 										<table>
 											<tbody>
 												<tr>
@@ -293,13 +299,14 @@
 										</table>
 										<div class="select_item_content_roll">
 											<span class="left_click"><img src="<%=basePath%>images/left_click.png"></span>
-											<div class="select_item_content_roll_ul">
+											<div class="select_item_content_roll_ul clearfix">
 												<ul id="goods" class="clearfix">
 													
 												</ul>
 											</div>
 											<span class="right_click"><img src="<%=basePath%>images/right_click.png"></span>
 										</div>
+									  </div>	
 									</div>
 								</div>
 								<div class="item_button" style="text-align: center;">  
@@ -505,8 +512,12 @@ var u1 = UE.getEditor('editor1', toolbars);
 		jQuery("select[name='projectId']").val(projectId);
 		jQuery("input[name='projectCount']").val(projectCount);
 		jQuery("input[name='comboPerformance']").val(comboPerformanceCal);
-		jQuery(but).parents("li").remove();
-	}
+		jQuery(but).parents("li").animate({
+			top:-80
+				},1000,function(){
+			jQuery(but).parents("li").remove()
+              })
+     	}
 	/**编辑商品*/
 	function editGoods(but){
 		var goodsId = jQuery(but).parents("li").attr("goodsId");
@@ -515,7 +526,11 @@ var u1 = UE.getEditor('editor1', toolbars);
 		jQuery("select[name='goodsId']").val(goodsId);
 		jQuery("input[name='goodsCounts']").val(goodsCounts);
 		jQuery("input[name='comboPerformanceCal']").val(comboPerformanceCal);
-		jQuery(but).parents("li").remove();
+		jQuery(but).parents("li").animate({
+			top:-80
+				},1000,function(){
+			jQuery(but).parents("li").remove()
+              })
 	}
 	
 	function coverData(){
