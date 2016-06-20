@@ -97,7 +97,7 @@
 									<c:if test="${fn:length(projectInfos) >= (count-i)}">
 									<li>
 										<div class="setting_write">
-											<a href="<%=basePath %>project/view/projectList?projectId=${projectInfos[count-i-1].projectId }"><img src="<%=basePath%>images/setting_close.png"></a>
+											<a href="<%=basePath %>project/view/projectList?projectId=${projectInfos[count-i-1].projectId }"><img src="<%=basePath%>images/coupon_write.png"></a>
 										</div>
 										<div class="setting_close">
 											<img class="close1" projectId="${projectInfos[count-i-1].projectId }" deptId="${projectInfos[count-i-1].deptId }" src="<%=basePath%>images/setting_close.png">
