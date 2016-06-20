@@ -35,7 +35,7 @@ var balanceAmount = 0;
 var appointOff = 0;
 var appointOffList = new Object();
 //订单明细
-var orderDetails = new Object();
+var detailList = new Array();
 
 function changeMoney(orderId) {
 	
@@ -273,7 +273,7 @@ function addCashierDetail(orderInfo){
 	
 	orderId = orderInfo.orderId;
 	
-	orderDetails = orderInfo.orderDetails;
+	var orderDetails = orderInfo.orderDetails;
 	allOffMap = orderInfo.allOffMap;
 	discountMap = orderInfo.discountMap;
 	
@@ -434,6 +434,10 @@ function addCashierDetail(orderInfo){
             }
 		}
 		
+		//组装明细时候价格
+		var detailObj = {"detailId":detail.detailId, "projectName" : detail.projectName, "realMoney" : realMoney};
+		detailList.push(detailObj);
+		
 		//实收金额
 		var tdReal = document.createElement("td");
 		tdReal.innerHTML = realMoney;
@@ -491,7 +495,7 @@ function syncCardAmount(){
 }
 
 //优惠选项改变时的处理
-jQuery("#cashier").delegate("[name='selectOff']", "change", function(event){
+jQuery("#projectTbody").delegate("[name='selectOff']", "change", function(event){
 	var selectOff = jQuery(this).children('option:selected');
 	var id = selectOff.val();
 	
@@ -562,6 +566,13 @@ jQuery(".money_card_content").delegate("li", "click", function(event){
 					totalRealMoney = totalRealMoney.minus(realObj.html()).plus(realAmount);
 					syncRealMoney();
 					realObj.html(realAmount.toFixed(2));
+					
+					for (var i = 0; i < detailList.length; i++) {
+						var detailObj = detailList[i];
+						if (detailObj.detailId == detailId) {
+							detailObj.realMoney = realAmount;
+						}
+					}
 				}
 			}
 		}

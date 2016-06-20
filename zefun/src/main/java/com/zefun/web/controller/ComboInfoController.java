@@ -32,7 +32,6 @@ import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.ComboMemberLevel;
 import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.DeptInfo;
-import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.MemberComboRecord;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.MemberComboRecordMapper;

@@ -114,9 +114,8 @@ public class LoginService {
 				  + (request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + path + "/";
 		// 查询出该用户所拥有的菜单权限,将其放入session中
 		MemberMenu memberMenu = memberMenuMapper.selectMenuByRoleId(userAccount.getRoleId());
-		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("{hostname}", basePath));
-		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU,
-				  memberMenu.getSecontMenu().replace("{hostname}", basePath));
+		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("<%=menuBasePath%>", basePath));
+		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, memberMenu.getSecontMenu().replace("<%=menuBasePath%>", basePath));
 
 		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
 		
@@ -132,7 +131,10 @@ public class LoginService {
 		BaseDto dto = new BaseDto();
 		dto.setCode(App.System.API_RESULT_CODE_FOR_SUCCEES);
 
-		if (roleId == App.System.SYSTEM_ROLE_STORE_EMPLOYEE) {
+		if (roleId == App.System.SYSTEM_ROLE_STORE_BOSS) {
+            dto.setMsg(Url.StoreInfo.SHOW_STORE_LIST);
+        } 
+		else if (roleId == App.System.SYSTEM_ROLE_STORE_EMPLOYEE) {
 			dto.setMsg(Url.SystemSetting.VIEW_PERSON_SETTING);
 		} 
 		else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {

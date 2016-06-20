@@ -155,7 +155,7 @@
 				       
 			</table>
 			
-			<p class="money_get"><span>应收：<em name="totalReceivableMoney"></em></span><em>应收：<i name="totalRealMoney"></i></em></p>	
+			<p class="money_get"><span>应收：<em name="totalReceivableMoney"></em></span><em>实收：<i name="totalRealMoney"></i></em></p>	
 			<button class="money_next" onclick="nextCheckout()" >下一步</button>
 		
         </div>

@@ -8,7 +8,7 @@
 
     }
    .card-main1{overflow:hidden}
-   .card-main{padding:20px 0;overflow:hidden}
+   .card-main{padding:20px 0;}
     .tab-form1 {
         padding:0 0;
         padding-top:20px;

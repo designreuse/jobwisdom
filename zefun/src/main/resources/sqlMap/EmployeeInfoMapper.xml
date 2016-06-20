@@ -68,7 +68,7 @@
         e.service_score as serviceScore,
 	    e.employee_desc as employeeDesc 
 	from employee_info e 
-	inner join store_info s
+	left join store_info s
 	on e.store_id = s.store_id
 	where e.employee_id = #{employeeId,jdbcType=INTEGER}
   </select>

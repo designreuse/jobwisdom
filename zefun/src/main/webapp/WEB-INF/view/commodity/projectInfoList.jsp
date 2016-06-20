@@ -71,7 +71,7 @@
 				<%@include file="/top.jsp"%>
 				<div class="content_right">
 					<div class="setting_first">
-						<a href="<%=basePath %>project/view/projectList"><button>上架</button></a>
+						<a href="<%=basePath %>project/view/projectList"><button>新增</button></a>
 						<span>部门 <em><i class="" id="dept">全部<img src="<%=basePath%>images/setting_down.png" style="position: relative; left: 10px; top: 1px; width: 15px"></i>
 								<ul class="setting_all clearfix" style="display: none;">
 									<li onclick="changeDept(0, this)">全部</li>

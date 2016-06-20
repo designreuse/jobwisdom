@@ -91,7 +91,10 @@ public class LoginController extends BaseController {
 		} 
 		else {
 			Integer roleId = (Integer) request.getSession().getAttribute(App.Session.ROLE_ID);
-			if (roleId == App.System.SYSTEM_ROLE_STORE_EMPLOYEE) {
+			if (roleId == App.System.SYSTEM_ROLE_STORE_BOSS) {
+                return new ModelAndView("redirect:/" + Url.StoreInfo.SHOW_STORE_LIST);
+            } 
+			else if (roleId == App.System.SYSTEM_ROLE_STORE_EMPLOYEE) {
 				return new ModelAndView("redirect:/" + Url.SystemSetting.VIEW_PERSON_SETTING);
 			} 
 			else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {
