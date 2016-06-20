@@ -84,7 +84,7 @@
 									<c:if test="${fn:length(comboInfos) >= (count-i)}">
 									<li>
 										<div class="setting_write">
-											<a href="<%=basePath %>comboInfo/setting?comboId=${comboInfos[count-i-1].comboId }"><img src="<%=basePath%>images/setting_close.png"></a>
+											<a href="<%=basePath %>comboInfo/setting?comboId=${comboInfos[count-i-1].comboId }"><img style="width: 18px;height: 18px" src="<%=basePath%>images/Edit.png"></a>
 										</div>
 										<div class="rollBox_top">
 											<img src="<%=qiniuPath%>${comboInfos[count-i-1].comboImage }">
