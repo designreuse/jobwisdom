@@ -272,7 +272,7 @@ ul li{
 
 .common_content{font-size:14px;color:black}
 .common_content>p{font-size:16px;color:black;padding-left:20px;margin-bottom:10px;padding-top:10px}
-.common_table table{width:1100px;background:#ebeff8;border-bottom:1px solid #e0e0e0;border-top:1px solid #e0e0e0;}
+.common_table table{width:1048px;background:#ebeff8;border-bottom:1px solid #e0e0e0;border-top:1px solid #e0e0e0;}
 .common_table table td{vertical-align:middle;text-align:center;padding:5px;}
 .common_table td img{width:50px;border-radius:25px}
 .common_table tr:nth-child(1){color:#75777c!important}
