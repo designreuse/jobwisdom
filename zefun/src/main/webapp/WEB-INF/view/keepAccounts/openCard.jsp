@@ -19,7 +19,7 @@
         padding:0 0;
         padding-top:20px;
     }
-    .common_table{position:relative;left:-20px}
+    .common_table{position:relative;}
     .n-tab{
         border-right:1px solid #bbbbbb;
     }
@@ -153,6 +153,7 @@
      .member-card li dt{color:#727272;border-bottom:1px solid #f9dd48;}
      
      .card-main1{overflow:visible}
+     #tab6 .common_table{left:-20px}
 </style>
 <body>
 
