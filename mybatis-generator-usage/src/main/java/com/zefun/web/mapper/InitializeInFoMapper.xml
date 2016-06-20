@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.InitializeInFoMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.InitializeInFo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="CHAR" />
+    <result column="goods_price" property="goodsPrice" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="type_name" property="typeName" jdbcType="CHAR" />
+    <result column="note" property="note" jdbcType="CHAR" />
+    <result column="date" property="date" jdbcType="CHAR" />
+    <result column="incometype_type" property="incometypeType" jdbcType="INTEGER" />
+    <result column="isDeleted" property="isdeleted" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="price_name" property="priceName" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dept_name, goods_price, type, type_name, note, date, incometype_type, isDeleted, 
+    store_id, price_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from initialize_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from initialize_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.InitializeInFo" >
+    insert into initialize_info (id, dept_name, goods_price, 
+      type, type_name, note, date, 
+      incometype_type, isDeleted, store_id, 
+      price_name)
+    values (#{id,jdbcType=INTEGER}, #{deptName,jdbcType=CHAR}, #{goodsPrice,jdbcType=INTEGER}, 
+      #{type,jdbcType=CHAR}, #{typeName,jdbcType=CHAR}, #{note,jdbcType=CHAR}, #{date,jdbcType=CHAR}, 
+      #{incometypeType,jdbcType=INTEGER}, #{isdeleted,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{priceName,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.InitializeInFo" >
+    insert into initialize_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deptName != null" >
+        dept_name,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="incometypeType != null" >
+        incometype_type,
+      </if>
+      <if test="isdeleted != null" >
+        isDeleted,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="priceName != null" >
+        price_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deptName != null" >
+        #{deptName,jdbcType=CHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=CHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=CHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=CHAR},
+      </if>
+      <if test="incometypeType != null" >
+        #{incometypeType,jdbcType=INTEGER},
+      </if>
+      <if test="isdeleted != null" >
+        #{isdeleted,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="priceName != null" >
+        #{priceName,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.InitializeInFo" >
+    update initialize_info
+    <set >
+      <if test="deptName != null" >
+        dept_name = #{deptName,jdbcType=CHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=CHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=CHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=CHAR},
+      </if>
+      <if test="incometypeType != null" >
+        incometype_type = #{incometypeType,jdbcType=INTEGER},
+      </if>
+      <if test="isdeleted != null" >
+        isDeleted = #{isdeleted,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="priceName != null" >
+        price_name = #{priceName,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.InitializeInFo" >
+    update initialize_info
+    set dept_name = #{deptName,jdbcType=CHAR},
+      goods_price = #{goodsPrice,jdbcType=INTEGER},
+      type = #{type,jdbcType=CHAR},
+      type_name = #{typeName,jdbcType=CHAR},
+      note = #{note,jdbcType=CHAR},
+      date = #{date,jdbcType=CHAR},
+      incometype_type = #{incometypeType,jdbcType=INTEGER},
+      isDeleted = #{isdeleted,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      price_name = #{priceName,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectByListStoreId" resultMap="BaseResultMap" parameterType="com.zefun.web.dto.InitializeInFoDto"  >
+    select s.* from initialize_info s
+    	where 
+   		s.isDeleted = 0 
+   		and   s.store_id = #{storeId,jdbcType=INTEGER} 
+        and s.type = #{type,jdbcType=CHAR}
+        and s.dept_name = #{deptName,jdbcType=CHAR}
+       <if test="date1 != ''" >
+        and s.date  &gt;= #{date1,jdbcType=CHAR}
+       </if>
+       <if test="date2 != ''" >
+        and s.date &lt;  #{date2,jdbcType=CHAR}
+       </if>
+       
+  </select>
+  
+   <select id="selectByListStore" resultMap="BaseResultMap" parameterType="java.lang.Integer"  >
+    select 
+    <include refid="Base_Column_List" />
+ 	from initialize_info 
+    where isDeleted = 0 and   store_id = #{storeId} 
+  </select>
+</mapper>

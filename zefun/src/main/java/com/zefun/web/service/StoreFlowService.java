@@ -29,6 +29,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,17 +39,22 @@ import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.ExcelUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
-import com.zefun.web.dto.DeptInfoDto;
-import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.dto.IncometypeDto;
 import com.zefun.web.dto.StoreFlowBaseDto;
 import com.zefun.web.dto.StoreFlowDto;
 import com.zefun.web.entity.CodeLibrary;
+import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.entity.Incometype;
+import com.zefun.web.entity.InitializeInFo;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.StoreFlow;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
-import com.zefun.web.mapper.EmployeeInfoMapper;
+import com.zefun.web.mapper.IncometypeMapper;
+import com.zefun.web.mapper.InitializeInFoMapper;
 import com.zefun.web.mapper.StoreFlowMapper;
+
+import net.sf.json.JSONArray;
 
 /**
  * 开支记账Service
@@ -74,11 +80,24 @@ public class StoreFlowService {
 	@Autowired
 	private DeptInfoMapper deptInfoMapper;
 	
-	/**员工数据*/
-	@Autowired
-	private EmployeeInfoMapper employeeInfoMapper;
+//	/**员工数据*/
+//	@Autowired
+//	private EmployeeInfoMapper employeeInfoMapper;
 
-	
+    /**
+     * 收支类别mapper
+     */
+    @Autowired 
+    private IncometypeMapper incometypeMapper;
+
+    
+    /**
+     * 收支记账mapper
+     */
+    @Autowired 
+    private InitializeInFoMapper initializeInFoMapper;
+
+ 
 	/**
 	 * 保存开支记账
 	* @author laowang
@@ -443,38 +462,38 @@ public class StoreFlowService {
 	* @param endTime 结束时间
 	* @return ModelAndView
 	 */
-	public ModelAndView initializeStoreFlow(Integer storeId, Integer beginTime, Integer endTime){
-		
-		Page<StoreFlowBaseDto> page = selectPageForMemberLevel(storeId, 1, App.System.API_DEFAULT_PAGE_SIZE, beginTime, endTime);
-		ModelAndView mav = new ModelAndView();
-		List<CodeLibrary> businessTypeList =  codeLibraryMapper.selectByTypeNo(101);
-		List<CodeLibrary> flowSourceList = codeLibraryMapper.selectByTypeNo(103);
-		List<DeptInfoDto> deptInfoDtoList = deptInfoMapper.selectByshiftMahjong(storeId);
-		CodeLibraryDto codeLibraryDto =  new CodeLibraryDto();
-		codeLibraryDto.setFatherCodeNo(1001);
-		codeLibraryDto.setTypeNo(102);
-		List<CodeLibrary> businessProjectList = codeLibraryMapper.selectBySunCodeName(codeLibraryDto);
-		mav.addObject("page", page);
-		mav.addObject("businessTypeList", businessTypeList);
-		mav.addObject("businessProjectList", businessProjectList);
-		mav.addObject("flowSourceList", flowSourceList);
-		mav.addObject("beginDate", DateUtil.getMinMonthDateStr());
-		mav.addObject("endDate", DateUtil.getMaxMonthDateStr());
-		mav.addObject("toDate", DateUtil.getCurDateChine());
-		mav.addObject("deptInfoDtoList", deptInfoDtoList);
-		
-		List<EmployeeDto> employeeDtos = employeeInfoMapper.getDeptEmployee(deptInfoDtoList.get(0).getDeptId());
-		mav.addObject("employeeDtos", employeeDtos);
-		
-		Map<String, Object> map = selectCome(storeId, beginTime, endTime);
-		
-		mav.addObject("outComeAll", map.get("outComeAll"));
-		mav.addObject("inComeAll", map.get("inComeAll"));
-		
-		mav.setViewName(View.KeepAccounts.STOREFLOW);
-		
-		return mav;
-	}
+//	public ModelAndView initializeStoreFlow(Integer storeId, Integer beginTime, Integer endTime){
+//		
+//		Page<StoreFlowBaseDto> page = selectPageForMemberLevel(storeId, 1, App.System.API_DEFAULT_PAGE_SIZE, beginTime, endTime);
+//		ModelAndView mav = new ModelAndView();
+//		List<CodeLibrary> businessTypeList =  codeLibraryMapper.selectByTypeNo(101);
+//		List<CodeLibrary> flowSourceList = codeLibraryMapper.selectByTypeNo(103);
+//		List<DeptInfoDto> deptInfoDtoList = deptInfoMapper.selectByshiftMahjong(storeId);
+//		CodeLibraryDto codeLibraryDto =  new CodeLibraryDto();
+//		codeLibraryDto.setFatherCodeNo(1001);
+//		codeLibraryDto.setTypeNo(102);
+//		List<CodeLibrary> businessProjectList = codeLibraryMapper.selectBySunCodeName(codeLibraryDto);
+//		mav.addObject("page", page);
+//		mav.addObject("businessTypeList", businessTypeList);
+//		mav.addObject("businessProjectList", businessProjectList);
+//		mav.addObject("flowSourceList", flowSourceList);
+//		mav.addObject("beginDate", DateUtil.getMinMonthDateStr());
+//		mav.addObject("endDate", DateUtil.getMaxMonthDateStr());
+//		mav.addObject("toDate", DateUtil.getCurDateChine());
+//		mav.addObject("deptInfoDtoList", deptInfoDtoList);
+//		
+//		List<EmployeeDto> employeeDtos = employeeInfoMapper.getDeptEmployee(deptInfoDtoList.get(0).getDeptId());
+//		mav.addObject("employeeDtos", employeeDtos);
+//		
+//		Map<String, Object> map = selectCome(storeId, beginTime, endTime);
+//		
+//		mav.addObject("outComeAll", map.get("outComeAll"));
+//		mav.addObject("inComeAll", map.get("inComeAll"));
+//		
+//		mav.setViewName(View.KeepAccounts.STOREFLOW);
+//		
+//		return mav;
+//	}
 	
 	/**
 	 * 动态生成项目类别
@@ -581,16 +600,156 @@ public class StoreFlowService {
 		return map;
 	}
 
+
 	/**
-	 * 进入开支记账类别管理页面
-	* @author 高国藩
-	* @date 2016年6月14日 下午1:54:33
-	* @param storeId   门店数据
-	* @return          返回页面
-	 */
-    public ModelAndView viewAddInitialize(Integer storeId) {
-        ModelAndView view = new ModelAndView(View.KeepAccounts.ADD_INITILIZE_TYPE);
+     * 新增支付类型
+    * @author 骆峰
+    * @date 2016年6月17日 13:39:36
+    * @param incometyped 实体类
+    * @param storeId 门店
+    * @return BaseDto
+     */
+	@Transactional
+    public BaseDto viewAddInComeType(IncometypeDto incometyped, Integer storeId){
+        Incometype incometype = new Incometype();
+        incometype.setIsDeleted(incometyped.getIsDeleted());
+        incometype.setName(incometyped.getName());
+        incometype.setStoreId(storeId);
+        incometype.setType(incometyped.getType());
+        /* 新增方式*/
+        if (incometyped.getTypes()== 1){
+            incometypeMapper.insert(incometype);
+        }
+        /* 删除方式*/
+        if (incometyped.getTypes()== 2){
+            incometype.setIncometypeId(incometyped.getIncometypeId());
+            incometypeMapper.updateByPrimaryKey(incometype);
+        }
+        
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, incometype);
+    }
+  
+    /**
+     * 支付类型管理页面
+    * @author 骆峰
+    * @date 2016年6月17日 13:39:36
+    * @param storeId 
+    * @return BaseDto
+     */
+    public ModelAndView viewSelectInComeType(Integer storeId){
+        Incometype income = new Incometype();
+        income.setStoreId(storeId);
+        income.setType(1);
+        List<Incometype> incometype = incometypeMapper.selectByListStoreId(income);
+        income.setType(2);
+        List<Incometype> incometypeto = incometypeMapper.selectByListStoreId(income);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("incometype", incometype);
+        mav.addObject("incometypeto", incometypeto);
+        mav.setViewName(View.KeepAccounts.ADD_INITILIZE_TYPE);
+        return mav;
+    }
+
+    /**
+     * 收支记账管理页面
+    * @author 骆峰
+    * @date 22016年6月18日 10:48:27
+    * @param storeId  
+    * @return ModelAndView
+     */
+    @Transactional
+    public ModelAndView initializeStoreFlow(Integer storeId) {
+        ModelAndView view = new ModelAndView(View.KeepAccounts.INITIALIZE);
+        //部门
+        List<DeptInfo> deptInfos = deptInfoMapper.selectDeptByStoreId(storeId);
+        view.addObject("deptInfos", deptInfos);
+        //收支记账全部数据
+        Page<InitializeInFo> page = new Page<>();
+        page.setPageNo(1);
+        page.setPageSize(20);
+        
+        Map<String, Object> params = new HashMap<>();
+        params.put("storeId", storeId);
+        
+        page.setParams(params);
+        
+        List<InitializeInFo> initializ = initializeInFoMapper.selectByPage(page);
+        page.setResults(initializ);
+        view.addObject("page", page);
+        //收支类型
+        List<Incometype> incomename = incometypeMapper.selectByListStore(storeId);
+        view.addObject("incomename", incomename);
+        view.addObject("incomenamez", JSONArray.fromObject(incomename));
+        
+        Incometype income = new Incometype();
+        income.setStoreId(storeId);
+        income.setType(1);
+        //收入
+        List<Incometype> incometype = incometypeMapper.selectByListStoreId(income);
+        view.addObject("incometype", incometype);
+        income.setType(2);
+        //支出
+        List<Incometype> incometypes = incometypeMapper.selectByListStoreId(income);
+        view.addObject("incometypes", incometypes);
+        
+        //收支方式
+       
         return view;
+    }
+    /**
+     * 收支记账新增
+    * @author 骆峰
+    * @date 2016年6月18日 下午3:28:43
+    * @param initialize 收支记账实体类
+    * @param storeId  门店
+    * @return BaseDto
+     */
+    @Transactional
+    public BaseDto viewAddInitilLize(InitializeInFo initialize, Integer storeId) {
+        initialize.setStoreId(storeId);
+        initializeInFoMapper.insert(initialize);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, initialize);
+    }
+
+    /**
+     * 收支记账条件查询
+    * @author 骆峰
+    * @date 2016年6月20日 下午2:50:41
+    * @param pageNo pageNo
+    * @param storeId storeId
+    * @param type type
+    * @param deptName deptName
+    * @param priceName priceName
+    * @param date1 date1
+    * @param date2 date2
+    * @return BaseDto
+     */
+    public BaseDto viewSelectInitilLize(Integer pageNo, Integer storeId, String type, String deptName, String priceName, String date1, String date2) {
+        Page<InitializeInFo> page = new Page<>();
+        page.setPageNo(pageNo);
+        page.setPageSize(20);
+        Map<String, Object> params = new HashMap<>();
+        if (!type.equals("")){
+            params.put("type", type);
+        }
+        if (!deptName.equals("")){
+            params.put("deptName", deptName);
+        }
+        if (!priceName.equals("")){
+            params.put("priceName", priceName);
+        }
+        if (!date1.equals("")){
+            params.put("date1", date1);
+        }
+        if (!date2.equals("")){
+            params.put("date2", date2);
+        }
+        
+        params.put("storeId", storeId);
+        page.setParams(params);
+        List<InitializeInFo> initializ = initializeInFoMapper.selectByListStoreId(page);
+        page.setResults(initializ);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
     }
 
 }

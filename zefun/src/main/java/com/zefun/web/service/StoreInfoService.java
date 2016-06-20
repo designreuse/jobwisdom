@@ -22,7 +22,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -977,9 +976,6 @@ public class StoreInfoService {
         Integer hqStoreId = null;
         if (storeType == 3) {
             UserAccount hqAccount = new UserAccount()/*userAccountMapper.selectByUserName(hqUserName)*/;
-            if (hqAccount == null) {
-                return new BaseDto(4, "总店账号不可用");
-            }
             StoreInfo hqStoreInfo = storeInfoMapper.selectByPrimaryKey(hqAccount.getStoreId());
             if (hqStoreInfo == null || hqStoreInfo.getStoreType() != 2) {
                 return new BaseDto(4, "总店账号不可用");

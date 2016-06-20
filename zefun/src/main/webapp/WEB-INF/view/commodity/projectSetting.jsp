@@ -214,7 +214,7 @@
 						</div>
 					  </div>	
 			
-				     <div class="demo2_button">
+				     <div class="demo2_button" >
 				     <button onclick="save3()">保存</button>
 					  <button>取消</button>
 				   </div>		  
@@ -235,6 +235,7 @@
 									<td class="color_">指定提成</td>
 									<td class="color_">非指定提成</td>
 									<td class="color_">预约奖励</td>
+									<td class="color_">编辑操作</td>
 								</tr>
 							</table>
 
@@ -321,7 +322,7 @@
 							<span class="add_step" style="position: relative; left: -10px">+</span>添加步骤
 						</div>
 						<br>
-					  <div class="item_button">  
+					  <div class="item_button" style="margin-top: 150px">  
 					   <button onclick="save3()">保存</button>
 					   <button>取消</button>
 					  </div>
@@ -616,12 +617,13 @@
 		
 		var data1 = [];
 		var data2 = [];
-		for (var i = 0; i < jQuery('.table_s').find("td[rowspan]").length; i++) {
-			var shiftMahjongId = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").attr("shiftmahjongid");
-			var projectStepOrder = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").attr("step");
-			var projectStepName = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[projectstepname]").attr("projectstepname");
-			var stepPerformance = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[stepperformance]").attr("stepperformance");
-			var stepPerformanceType = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[stepperformancetype]").attr("stepperformancetype");
+		for (var i = 0; i < jQuery('.table_s').find("td[rowspan][date]").length; i++) {
+			var shift = jQuery('.table_s').find("td[rowspan][date]").eq(i);
+			var shiftMahjongId = shift.parent("tr").attr("shiftmahjongid");
+			var projectStepOrder = shift.parent("tr").attr("step");
+			var projectStepName = shift.parent("tr").children("td[projectstepname]").attr("projectstepname");
+			var stepPerformance = shift.parent("tr").children("td[stepperformance]").attr("stepperformance");
+			var stepPerformanceType = shift.parent("tr").children("td[stepperformancetype]").attr("stepperformancetype");
 			var isDisable = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[isdisable]").attr("isdisable");
 			var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"projectStepOrder":projectStepOrder,"projectStepName":projectStepName,"stepPerformance":stepPerformance,"stepPerformanceType":stepPerformanceType,"isDisable":isDisable,"isDeleted":0};
 			data1.push(jsonObject);
@@ -745,7 +747,7 @@
 						var appointmentReward = projectCommissionList[isSame[j]].appointmentReward;
 						if (j == 0){
 							var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'+
-									'<td rowspan="'+rowspan+'" style="border-right: 1px solid #dbdce2!important;">'+
+									'<td rowspan="'+rowspan+'" date="1" style="border-right: 1px solid #dbdce2!important;">'+
 									'<span style="position:relative;top:50%">'+step+'</span>'+
 									'</td><td>'+shiftMahjongName+'</td>'+
 									'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
@@ -757,6 +759,9 @@
 									'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
 									'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
 									'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
+									'<td rowspan="'+rowspan+'" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;" onclick="updateProjectLevelStep(this)">'+
+									'<span>编辑</span>'+
+									'</td>'+
 									'</tr>');
 							jQuery('.table_s').append(tr);
 						}else {
@@ -803,6 +808,7 @@
 	*/
 	function uploadMessageLevel(){
 		var shiftMahjongId = jQuery("select[name='shiftMahjongId']").val();
+		if (jQuery("tr[shiftmahjongid='"+shiftMahjongId+"']").length >0){dialog("请不要设置重复牌位");return;}
 		var shiftMahjongName = jQuery("select[name='shiftMahjongId']").find("option:selected").text();
 		var projectStepName = jQuery("input[name='projectStepName']").val();
 		var stepPerformanceType = jQuery("select[name='stepPerformanceType']").val();
@@ -814,14 +820,18 @@
 		var isOk = true;
 		jQuery.each(checkJson,function(name,value) {
 			if(!isNotNull(value)){
-				jQuery("input[name='"+name+"']").addClass("border");
+				jQuery("input[name='"+name+"']").addClass("bordererror");
 				isOk = false;
 				return false;
 			}
 		});
 		if(!isOk)return;
 		
-		var hasStep = jQuery(".table_s").find("td[rowspan]");
+		var hasStep = jQuery(".table_s").find("td[rowspan][date]");
+		var stepNum = hasStep.length + 1;
+		if (eltNum != null){
+			stepNum = eltNum;
+		}
 		var disableList = ['比例','固定'];
 		var assignTypeList = ['','比例','固定'];
 		
@@ -849,10 +859,11 @@
 			if(!isOk)return;
 			
 			if(i==0){
-				var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+(hasStep.length+1)+'>'+
-						'<td rowspan="'+jQuery(".empLevel").length+'" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;">'+
-						'<span style="position:relative;top:50%">'+(hasStep.length+1)+'</span>'+
-						'</td><td>'+shiftMahjongName+'</td>'+
+				var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+(stepNum)+'>'+
+						'<td rowspan="'+jQuery(".empLevel").length+'" date="1" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;">'+
+						'<span style="position:relative;top:50%">'+(stepNum)+'</span>'+
+						'</td>'+
+						'<td>'+shiftMahjongName+'</td>'+
 						'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
 						'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
 						'<td stepPerformance="'+stepPerformance+'">'+stepPerformance+'</td>'+
@@ -862,10 +873,13 @@
 						'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
 						'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
 						'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
+						'<td rowspan="'+jQuery(".empLevel").length+'" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;" onclick="updateProjectLevelStep(this)">'+
+						'<span>编辑</span>'+
+						'</td>'+
 						'</tr>');
-				jQuery('.table_s').append(tr);
+				addElmt(tr);
 			}else {
-				var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+(hasStep.length+1)+'>'+
+				var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+(stepNum)+'>'+
 						'<td>'+shiftMahjongName+'</td>'+
 						'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
 						'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
@@ -877,12 +891,27 @@
 						'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
 						'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
 						'</tr>');
-				jQuery('.table_s').append(tr);
+				addElmt(tr);
 			}
 		}
 		if(isHide){
 			jQuery('.step_1').hide();
 			jQuery('.write_4').show();
+		}
+		eltNum = null;
+	}
+	/** 想表格中添加步骤信息,但是,此处要看是否是编辑*/
+	function addElmt(tr){
+		if (eltNum != null){
+			if (jQuery("tr[step='"+(Number(eltNum)+1)+"']").length == 0){
+				jQuery('.table_s').append(tr);
+			}else {
+				console.log(jQuery("tr[step='"+(Number(eltNum)+1)+"']").eq(0).html());
+				jQuery("tr[step='"+(Number(eltNum)+1)+"']").eq(0).before(tr);
+			}
+		}
+		else {
+			jQuery('.table_s').append(tr);
 		}
 	}
 	
@@ -950,9 +979,14 @@
 		});	
 	})
 
+	
 	//职位
 	 jQuery(function(){
 		 jQuery('.write_4').click(function(){
+			 var step = jQuery(".table_s").children("tbody").children("tr").last().attr("step");
+			 if (typeof(step)!="undefined"){
+				 jQuery(".first").text("第"+N[Number(step)+1]+"步");
+			 }
 		     jQuery('.step_1').fadeIn('1000');
 			 jQuery(this).hide();
 		});
@@ -983,21 +1017,52 @@
 		jQuery("input").focus(function(){jQuery(this).removeClass("border")});
 	})
 	
-	var number = 323413290907;
-	var N = [
-	    "零", "一", "二", "三", "四", "五", "六", "七", "八", "九"
-	];
-	function convertToChinese(num){
-	    var str = num.toString();
-	    var len = num.toString().length;
-	    var C_Num = [];
-	    for(var i = 0; i < len; i++){
-	        C_Num.push(N[str.charAt(i)]);
-	    }
-	    return C_Num.join('');
-	}
-	 
-	var chinese = convertToChinese(number);
+	var N = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"];
 	
+	/**修改后重新放到*/
+	var eltNum = null;
+	/**修改某个步骤*/
+	function updateProjectLevelStep(td){
+		jQuery(".write_4").hide();
+		var shiftmahjongid = jQuery(td).parents("tr").attr("shiftmahjongid");
+		var step = jQuery(td).parents("tr").attr("step");
+		eltNum = step;
+		jQuery(".first").text("第"+N[Number(step)]+"步");
+		jQuery('.step_1').fadeIn('1000');
+		/**显示轮拍*/
+		jQuery("select[name='shiftMahjongId']").val(shiftmahjongid);
+		changeMahjongStep(shiftmahjongid);
+		/**存放要删除的职位*/
+		var emt = [];
+		jQuery(".empLevel").each(function(index){
+			if ((Number(index)+1)>jQuery("tr[shiftmahjongid='"+shiftmahjongid+"']").length){
+				emt.push(jQuery(this));
+			}
+		});
+		for (var i = 0; i < emt.length; i++) {
+			emt[i].remove();
+		}
+		jQuery("tr[shiftmahjongid='"+shiftmahjongid+"']").each(function(index){
+			var projectstepname = jQuery(this).children("td[projectstepname]").attr("projectstepname");
+			jQuery("input[name='projectStepName']").val(projectstepname);
+			var stepperformancetype = jQuery(this).children("td[stepperformancetype]").attr("stepperformancetype");
+			jQuery("select[name='stepPerformanceType']").val(stepperformancetype);
+			var stepperformance = jQuery(this).children("td[stepperformance]").attr("stepperformance");
+			jQuery("input[name='stepPerformance']").val(stepperformance);
+			var isdisable = jQuery(this).children("td[isdisable]").attr("isdisable");
+			if (isdisable != jQuery("input[name='isDisable']").val()){jQuery("input[name='isDisable']").click();}
+			var levelid = jQuery(this).children("td[levelid]").attr("levelid");
+			var assigntype = jQuery(this).children("td[assigntype]").attr("assigntype");
+			var assigncash = jQuery(this).children("td[assigncash]").attr("assigncash");
+			var assigncard = jQuery(this).children("td[assigncard]").attr("assigncard");
+			var appointmentreward = jQuery(this).children("td[appointmentreward]").attr("appointmentreward");
+			jQuery("select[name='levelId']").eq(index).val(levelid);
+			jQuery("select[name='assignType']").eq(index).val(assigntype);
+			jQuery("input[name='assignCash']").eq(index).val(assigncash);
+			jQuery("input[name='assignCard']").eq(index).val(assigncard);
+			jQuery("input[name='appointmentReward']").eq(index).val(appointmentreward);
+	    });
+		jQuery("tr[shiftmahjongid='"+shiftmahjongid+"']").remove();
+	}
 </script>
 </html>

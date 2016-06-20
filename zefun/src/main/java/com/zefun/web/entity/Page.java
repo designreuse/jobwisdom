@@ -10,7 +10,7 @@ import java.util.Map;
 * @date Aug 10, 2015 10:45:36 PM
 * @param <T>    需要分页的实体对象
  */
-public class Page<T> {
+public class Page<T> { 
     /**
      * 页码，默认是第一页
      */

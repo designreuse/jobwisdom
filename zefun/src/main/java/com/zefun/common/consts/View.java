@@ -483,6 +483,8 @@ public interface View {
 		public static final String MANUALLY_OPEN_ORDER = "keepAccounts/manuallyOpenOrder";
 		/**类别管理*/
         public static final String ADD_INITILIZE_TYPE = "keepAccounts/type";
+        /**开支记账*/
+        public static final String INITIALIZE = "keepAccounts/initillize";
 	}
 
 	/**
