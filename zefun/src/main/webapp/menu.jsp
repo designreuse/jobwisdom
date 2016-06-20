@@ -198,18 +198,20 @@ jQuery(function(){
 	})
 })
 
-var menu = {"goods":"goodsInfo/view/goodsInfoList", "project":"project/view/projects", "comboInfo":"comboInfo/view/comboInfoList"};
+var menu = {"goods":"goodsInfo/view/goodsInfoList", "project":"project/view/projects", "comboInfo":"comboInfo/view/comboInfoList", "KeepAccounts" : "KeepAccounts/initializeStoreFlow"};
 function choseMenu(url){
 	if (typeof(jQuery(".left_nav_2").find("a[href='"+url+"']").html()) == 'undefined'){
 		if (url.indexOf("goods")!=-1){
 			url = baseUrl + menu["goods"];
-			
 		}
 		if (url.indexOf("project")!=-1){
 			url = baseUrl + menu["project"];
 		}
 		if (url.indexOf("comboInfo")!=-1){
 			url = baseUrl + menu["comboInfo"];
+		}
+		if (url.indexOf("KeepAccounts")!=-1){
+			url = baseUrl + menu["KeepAccounts"];
 		}
 		url = url.replace(":80","");
 		choseIcon(url);
