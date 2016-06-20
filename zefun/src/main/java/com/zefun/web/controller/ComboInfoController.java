@@ -22,6 +22,7 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectCommissionDto;
@@ -31,7 +32,6 @@ import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.ComboMemberLevel;
 import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.DeptInfo;
-import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.MemberComboRecord;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.MemberComboRecordMapper;
@@ -120,6 +120,10 @@ public class ComboInfoController extends BaseController {
 //            model.addObject("deptInfoList", deptInfoList);
 //            model.addObject("deptInfoListJs", JSONArray.fromObject(deptInfoList));
             
+            List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
+            model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);
+            model.addObject("deptGoodsBaseDtoJs", JSONArray.fromObject(deptGoodsBaseDto));
+            
             if (deptId!=null){
                 comboInfos = comboInfos.stream().filter(c -> c.getDeptId().equals(deptId)).collect(Collectors.toList());
             }
@@ -170,7 +174,7 @@ public class ComboInfoController extends BaseController {
         goodsInfo.setStoreId(storeId);
         goodsInfo.setIsDeleted(0);
         goodsInfo.setIsSellProduct(1);
-        List<GoodsInfo> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
+        List<GoodsInfoDto> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
         model.addObject("goodsinfos", goodsinfos);
         model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
         // 会员等级列表

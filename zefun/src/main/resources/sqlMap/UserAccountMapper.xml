@@ -84,7 +84,9 @@
   </update>
 
   <select id="countUserName" parameterType="com.zefun.web.entity.UserAccount" resultType="java.lang.Integer">
-  select count(0) from user_account where status=0 and user_name=#{userName}
+  select count(0) from user_account a where a.status=0 and a.user_name=#{userName}
+  and a.store_id in (select b.store_id from store_info b where 
+  exists(select 1 from store_info c where c.store_account = b.store_account and c.store_id = #{storeId})) 
   <if test="userId != '' and userId != null">
   and user_id=#{userId}
   </if>

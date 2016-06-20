@@ -8,8 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="<%=basePath%>css/data.css" type="text/css" />
 <style type="text/css">
-.border {
-	border: 1px solid red !important
+.bordererror {
+	border: 1px solid !important
 }
 </style>
 <script>
@@ -62,7 +62,7 @@
 						</div>
 
 					<div class="new_data">
-						<button onclick="jQuery('.zzc1').modal()">新建</button>
+						<button onclick="jQuery('.zzc1').modal();jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
 						<button>导入模块下载</button>
 						<button style="width: 60px">导入</button>
 						<button style="width: 60px" onclick="exportTable('ag')">导出</button>
@@ -80,7 +80,7 @@
 									<td>品牌</td>
 									<td>操作</td>
 								</tr>
-								<c:forEach items="${goodsInfoDtos }" var="accountGood">
+								<c:forEach items="${page.results }" var="accountGood">
 									<tr goodsStock="${accountGood.goodsStock }" goodsDesc="${accountGood.goodsDesc }" goodsId="${accountGood.aId }" isSellProduct="${accountGood.isSellProduct }"  supplierId="${accountGood.supplierId }" brandId="${accountGood.brandId }">
 										<td>${accountGood.goodsCodeSuffix }</td>
 										<td>${accountGood.goodsName }</td>
@@ -96,6 +96,7 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						<%@ include file="/template/page.jsp" %>
 					</div>
 				</div>
 			</div>
@@ -109,7 +110,7 @@
 						<span><em>商品编号</em><input type="text" maxlength="5" name="goodsCodeSuffix"></span><span><em>商品名称</em><input name="goodsName" type="text"></span>
 					</p>
 					<p>
-						是否非卖品<i><input type="radio" name="isSellProduct" value="1">是</i><i><input type="radio" value="0" name="isSellProduct">否</i>
+						是否卖品<i><input type="radio" name="isSellProduct" checked="checked" value="1">是</i><i><input type="radio" value="0" name="isSellProduct">否</i>
 					</p>
 					<p>
 						<span><em>成本价</em><input type="text" name="costPrice" style="padding-right: 20px; width: 105px"><a href="javascript:;" class="money">元</a></span>
@@ -236,7 +237,7 @@
 	/** 重新获取焦点的时候,去掉校验的红色框 */
 	jQuery(function() {
 		jQuery("input").focus(function() {
-			jQuery(this).removeClass("border")
+			jQuery(this).removeClass("bordererror")
 		});
 	})
 
@@ -279,8 +280,9 @@
 		jQuery('input:radio[name="isSellProduct"][value="'+isSellProduct+'"]').click();
 		jQuery(".zzc1").modal();
 	}
-	
+	var isStore = false;
 	function choseStore(li){
+		isStore = true;
 		var storeId = jQuery(li).attr("storeId");
 		jQuery(li).siblings().removeClass("active");
 		jQuery(li).addClass("active");
@@ -292,7 +294,11 @@
 			dataType : "json",
 			async : false,
 			success : function(data) {
-				var goodsInfoDtos = data.msg;
+				if(isStore){
+					isStore = false;
+					unbuildPagination();
+				}
+				var goodsInfoDtos = data.msg.results;
 				var htmltr = '<tr><td>商品编号</td><td>商品名称</td><td>是否卖品</td><td>成本价（元）</td><td>库存</td><td>品牌</td><td>操作</td></tr>';
 				jQuery("#ag").children().empty();
 				jQuery("#ag").children().append(jQuery(htmltr));
@@ -315,6 +321,65 @@
 				}
 			}
 		});
+	}
+	
+	/**分页查询*/
+	function changePage(){
+		var selectStoreId = jQuery(".clearfix.out_roll_ul").children("li[class='active']").attr("storeid");
+		var data = "pageNo="+pageNo+"&pageSize="+pageSize+"&storeId="+selectStoreId;
+		jQuery.ajax({
+			type : "post",
+			url : baseUrl + "goodsInfo/view/setting/page",
+			data : data,
+			dataType : "json",
+			success : function(e){
+				if(e.code == 0){
+					initTable(e);
+					pageNo = e.msg.pageNo;
+					pageSize = e.msg.pageSize;
+					totalPage = e.msg.totalPage;
+					totalRecord = e.msg.totalRecord;
+				}else{
+					dialog('查询错误,请稍后重试');
+				}
+			}
+		});
+	}
+	function initTable(e){
+		jQuery("tbody").empty();
+		var tr = '<tr>'+
+					'<td>商品编号</td>'+
+					'<td>商品名称</td>'+
+					'<td>是否卖品</td>'+
+					'<td>成本价（元）</td>'+
+					'<td>库存</td>'+
+					'<td>品牌</td>'+
+				'</tr>';
+		jQuery("tbody").append(jQuery(tr));
+		var isSell = ['否','是'];
+		for (var i = 0; i < e.msg.results.length; i++) {
+			var goodsCodeSuffix = e.msg.results[i].goodsCodeSuffix;
+			var goodsStock = e.msg.results[i].goodsStock;
+			var goodsDesc = e.msg.results[i].goodsDesc;
+			var goodsPrice = e.msg.results[i].goodsPrice;
+			var goodsName = e.msg.results[i].goodsName;
+			var goodsId = e.msg.results[i].goodsId;
+			var costPrice = e.msg.results[i].costPrice;
+			var isSellProduct = e.msg.results[i].isSellProduct;
+			var supplierId = e.msg.results[i].supplierId;
+			var supplierName = e.msg.results[i].supplierName;
+			var brandId = e.msg.results[i].brandId;
+			var brandName = e.msg.results[i].brandName;
+			var html = '<tr goodsstock="'+goodsStock+'" goodsdesc="'+goodsDesc+'" goodsid="'+goodsId+'" issellproduct="'+isSellProduct+'" supplierid="'+supplierId+'" brandid="'+brandId+'">'+
+							'<td>'+goodsCodeSuffix+'</td>'+
+							'<td>'+goodsName+'</td>'+
+							'<td>'+isSell[isSellProduct]+'</td>'+
+							'<td>'+costPrice+'</td>'+
+							'<td>'+goodsStock+'</td>'+
+							'<td>'+brandName+'</td>'+
+						'</tr>';
+			jQuery("tbody").append(jQuery(html));
+		}
 	}
 </script>
 </html>

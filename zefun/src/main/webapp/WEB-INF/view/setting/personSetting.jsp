@@ -96,7 +96,8 @@
 </div>
 <!-- 美图秀秀 -->
 <div class="mask" style="display: none;">
-   <div id="flashEditorOut" >
+   <div id="flashEditorOut" style="position:relative">
+   <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
         <div id="altContent2">
             <h1>美图秀秀2</h1>
         </div>
@@ -172,12 +173,6 @@ function testVoice(per){
 	});
 }
 
-function showUpdatePassword(){
-	jQuery("#oldPwd").val('');
-    jQuery("#newPwd").val('');
-    jQuery("#repeatPwd").val('');
-}
-
 function updatePassword(){
 	var oldPwd = jQuery("#oldPwd").val();
 	var newPwd = jQuery("#newPwd").val();
@@ -211,7 +206,7 @@ function updatePassword(){
             }
             dialog("密码修改成功");
             console.log("密码修改成功");
-            showUpdatePassword();
+            window.location.reload();
         }
     });
 }
@@ -231,6 +226,7 @@ function save(){
                 return;
             }
 			dialog("更新成功");
+			window.location.reload();
 		}
 	});
 }

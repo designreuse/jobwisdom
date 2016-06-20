@@ -42,6 +42,10 @@ public class WebSocketHandshakeInterceptor
     public boolean beforeHandshake(ServerHttpRequest request,
             ServerHttpResponse arg1, WebSocketHandler handler,
             Map<String, Object> attribute) throws Exception {
+        /** 在拦截器内强行修改websocket协议，将部分浏览器不支持的 x-webkit-deflate-frame 扩展修改成 permessage-deflate */
+        if (request.getHeaders().containsKey("Sec-WebSocket-Extensions")){
+            request.getHeaders().set("Sec-WebSocket-Extensions", "permessage-deflate");
+        }
         if (request instanceof ServerHttpRequest) {
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             Map<String, String> mapRequest = urlRequest(servletRequest.getURI().toString());

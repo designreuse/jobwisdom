@@ -49,7 +49,7 @@
     where enterprise_info_id = #{enterpriseInfoId,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.zefun.web.entity.EnterpriseInfo" >
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.EnterpriseInfo" useGeneratedKeys = "true" keyProperty="enterpriseInfoId">
     insert into enterprise_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="enterpriseInfoId != null" >

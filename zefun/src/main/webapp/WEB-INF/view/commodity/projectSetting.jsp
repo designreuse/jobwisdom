@@ -12,7 +12,23 @@
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <style type="text/css">
-	.border {border:1px solid red!important}
+	.bordererror {border:1px solid red!important}
+	.addImage{
+    position: relative;
+    left: -604px;
+    top: 54px;
+    z-index: 1000;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    display: inline-block;
+    border: 1px solid #fafafa;
+    }
+.addImage:hover {
+    background-color: #fff5d4;
+    border: 1px solid #dcac6c;
+}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -128,14 +144,15 @@
 									<c:forEach var="deptProject" items="${deptProjectList }">
 										<option value="${deptProject.deptId }">${deptProject.deptName }</option>
 									</c:forEach>
-								</select></span><span>商品系列：<i></i><select name="categoryId" style="position:relative;left:8px">
+								</select></span><span>项目系列：<i></i><select name="categoryId" style="position:relative;left:8px">
 									<c:forEach var="projectCategoryList" items="${deptProjectList[0].projectCategoryList }">
 										<option value="${projectCategoryList.categoryId }">${projectCategoryList.categoryName }</option>
 									</c:forEach>
 								</select></span>
 						 </p>
 					     <p>
-						   <span><em>商品名称</em><input type="text" name="projectName" style="width: 145px;"></span><span>商品编号<input type="text" name="projectCodeSuffix" style="width: 145px;"></span>
+						   <span><em>项目名称</em><input type="text" name="projectName" style="width: 145px;"></span><span><em>项目编号</em><input type="text" name="projectCodeSuffix" style="width: 145px;"></span>
+						   <span><em>项目类型</em><select name="projectType"><option value="1">大项</option><option value="2">小项</option></select></span>
 						 </p>
 					   </div>
 					   
@@ -154,14 +171,16 @@
 					   <div class="item_saying">
 					     <p>项目描述</p>
 					      <div class="textarea1">
-						      <div><button id="editImage" style="width:130px;height:26px;line-height:26px;text-align:center;border:none;background:#617195;color:white;border-radius:10px;margin-top:10px;margin-left:10px">插入图片</button></div>
+						      <!-- <div><button id="editImage" style="width:130px;height:26px;line-height:26px;text-align:center;border:none;background:#617195;color:white;border-radius:10px;margin-top:10px;margin-left:10px">插入图片</button></div> -->
 				              <P></P>
 				              <div class="clearfix">
+				              		<span id="editImage" class="addImage" title="插入图片" >
+										<img src="<%=basePath%>images/insert_img.png" style="position:relative;left:1px;top:1px">
+									</span>
 									<script id="editor1" type="text/plain" style="width:550px;height:322px;float: left"></script>
 									<div style="float: left; width: 320px; height: 420px; margin-top: 25px" class="textarea_text">
 										<p>在此编辑的内容，将会在移动端－在线预约－项目详情中展示。</p>
 										<p></p>
-										<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
 										<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
 										<p>如若无法预览或全屏编辑或出现其他编辑问题。请更换谷歌浏览器，体验更佳。</p>
 									</div>
@@ -169,16 +188,16 @@
 				            </div>
 					   </div>
 					 <div class="item_button">  
-					   <button>保存</button>
+					   <button onclick="save3()">保存</button>
 					   <button>取消</button>
 					  </div>
 				    </div>
 				    <div class="add_store_content clearfix" style="display: none;">
 				      <div class="shop_price">
 					    <p class="shop_price_1">门店价格<span><input name="projectPrice" type="number"><em>元</em></span><i style="display:inline-block;width:105px;margin-left:72px">成本价格</i><span><input name="projectPrice" type="costPrice"><em>元</em></span></p>  
-					    <p class="shop_price_2">接受礼金<i><input type="radio" name="isGiftCash" checked="checked" value="1">是</i><i><input type="radio" name="isGiftCash"  value="1">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="number"><em>元</em></span></p>
-						<p class="shop_price_2">接受预约<i><input type="radio" name="isAppointment" checked="checked" value="1">是</i><i><input type="radio" name="isAppointment"  value="0">否</i><i>预约优惠价格</i><span><input name="appointmentPrice" type="number" class="input_3"><em>元</em></span></p>
-					  </div>	 
+					    <p class="shop_price_2">接受礼金<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio" name="isGiftCash" checked="checked" value="1">是</i><i><input onclick="jQuery('input[name=\'highestDiscount\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isGiftCash"  value="0">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="number"><em>元</em></span></p>
+						<p class="shop_price_2">接受预约<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio" name="isAppointment" checked="checked" value="1">是</i><i><input onclick="jQuery('input[name=\'appointmentPrice\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isAppointment"  value="0">否</i><i>预约优惠价格</i><span><input name="appointmentPrice" type="number" class="input_3"><em>元</em></span></p>
+					  </div>
 			          <div class="vip_price">
 					    <p>会员价格</p>
 						<div class="vip_price_content">
@@ -195,7 +214,7 @@
 						</div>
 					  </div>	
 			
-				     <div class="demo2_button">
+				     <div class="demo2_button" >
 				     <button onclick="save3()">保存</button>
 					  <button>取消</button>
 				   </div>		  
@@ -216,6 +235,7 @@
 									<td class="color_">指定提成</td>
 									<td class="color_">非指定提成</td>
 									<td class="color_">预约奖励</td>
+									<td class="color_">编辑操作</td>
 								</tr>
 							</table>
 
@@ -264,6 +284,7 @@
 										<td >指定提成</td>
 										<td >非指定提成</td>
 										<td >预约奖励</td>
+										<td >操作</td>
 									</tr>
 									
 									<c:forEach var="employeeLevel1" items="${deptMahjongList[0].mahjongLevelList[0].employeeLevelList }" varStatus="status1">
@@ -290,6 +311,7 @@
 										<td><input type="number" name="assignCash" class="cut_step_11"></td>
 										<td><input type="number" name="assignCard" class="cut_step_11"></td>
 										<td><input type="number" name="appointmentReward" class="cut_step_11"></td>
+										<td><span onclick="jQuery(this).parents('tr').remove();">删除</span></td>
 		                                </tr>
 		                            </c:forEach>
 								</tbody>
@@ -297,16 +319,24 @@
 							<button class="button_1" onclick="uploadMessageLevel()">保存</button>
 						</div>
 						<div class="write_4">
-							<span class="add_step" style="position: relative; left: -10px">+</span>添加轮牌
+							<span class="add_step" style="position: relative; left: -10px">+</span>添加步骤
 						</div>
+						<br>
+					  <div class="item_button" style="margin-top: 150px">  
+					   <button onclick="save3()">保存</button>
+					   <button>取消</button>
+					  </div>
 			   </div>
+			   
 			  </div>	 
+			   
 			</div>
 		</div>
 	</div>
 </div>
 <div class="mask" style="display: none;">
-   <div id="flashEditorOut" >
+   <div id="flashEditorOut" style="position: relative;">
+   <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
 	        <div id="altContent2">
 	            <h1>美图秀秀</h1>
 	        </div>
@@ -427,9 +457,10 @@
 		var html = '<tr>'+
 						'<td style=" border-bottom: 1px solid #dbdce2 !important; border-right: 1px solid #dbdce2 !important;">职位名称</td>'+
 						'<td>提成方式</td>'+
-						'<td >指定提成</td>'+
-						'<td >非指定提成</td>'+
+						'<td>指定提成</td>'+
+						'<td>非指定提成</td>'+
 						'<td>预约奖励</td>'+
+						'<td>操作</td>'+
 					'</tr>';
 		jQuery(".step_2").children("tbody").empty();
 		jQuery(".step_2").children("tbody").append(jQuery(html));
@@ -461,6 +492,7 @@
 					'<td><input type="number" name="assignCash" class="cut_step_11"></td>'+
 					'<td><input type="number" name="assignCard" class="cut_step_11"></td>'+
 					'<td><input type="number" name="appointmentReward" class="cut_step_11"></td>'+
+					'<td><span onclick="jQuery(this).parents(\'tr\').remove()">删除</span></td>'+
 		         '</tr>';
 		         jQuery(".step_2").append(jQuery(str));
 		}
@@ -535,9 +567,9 @@
 		var data = null;
 		var projectName = jQuery("input[name='projectName']").val();
 		var deptId = jQuery("select[name='deptId']").val();
+		var projectType = jQuery("select[name='projectType']").val();
 		var categoryId = jQuery("select[name='categoryId']").val();
 		var projectName = jQuery("input[name='projectName']").val();
-		var projectType = jQuery("select[name='projectType']").val();
 		var projectDesc = u1.getContent();
 		var projectCodeSuffix = jQuery("input[name='projectCodeSuffix']").val();
 		var projectImage = jQuery("img[name='projectImage']").attr("projectImage");
@@ -585,12 +617,13 @@
 		
 		var data1 = [];
 		var data2 = [];
-		for (var i = 0; i < jQuery('.table_s').find("td[rowspan]").length; i++) {
-			var shiftMahjongId = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").attr("shiftmahjongid");
-			var projectStepOrder = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").attr("step");
-			var projectStepName = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[projectstepname]").attr("projectstepname");
-			var stepPerformance = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[stepperformance]").attr("stepperformance");
-			var stepPerformanceType = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[stepperformancetype]").attr("stepperformancetype");
+		for (var i = 0; i < jQuery('.table_s').find("td[rowspan][date]").length; i++) {
+			var shift = jQuery('.table_s').find("td[rowspan][date]").eq(i);
+			var shiftMahjongId = shift.parent("tr").attr("shiftmahjongid");
+			var projectStepOrder = shift.parent("tr").attr("step");
+			var projectStepName = shift.parent("tr").children("td[projectstepname]").attr("projectstepname");
+			var stepPerformance = shift.parent("tr").children("td[stepperformance]").attr("stepperformance");
+			var stepPerformanceType = shift.parent("tr").children("td[stepperformancetype]").attr("stepperformancetype");
 			var isDisable = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[isdisable]").attr("isdisable");
 			var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"projectStepOrder":projectStepOrder,"projectStepName":projectStepName,"stepPerformance":stepPerformance,"stepPerformanceType":stepPerformanceType,"isDisable":isDisable,"isDeleted":0};
 			data1.push(jsonObject);
@@ -642,6 +675,8 @@
 			var categoryId = project.categoryId;
 			choseCategory(deptId);
 			jQuery("select[name='categoryId']").val(categoryId);
+			
+			jQuery("select[name='projectType']").val(project.projectType);
 			
 			var projectImage = project.projectImage;
 			jQuery("img[name='projectImage']").attr("projectImage", projectImage);
@@ -712,7 +747,7 @@
 						var appointmentReward = projectCommissionList[isSame[j]].appointmentReward;
 						if (j == 0){
 							var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'+
-									'<td rowspan="'+rowspan+'" style="border-right: 1px solid #dbdce2!important;">'+
+									'<td rowspan="'+rowspan+'" date="1" style="border-right: 1px solid #dbdce2!important;">'+
 									'<span style="position:relative;top:50%">'+step+'</span>'+
 									'</td><td>'+shiftMahjongName+'</td>'+
 									'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
@@ -724,6 +759,9 @@
 									'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
 									'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
 									'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
+									'<td rowspan="'+rowspan+'" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;" onclick="updateProjectLevelStep(this)">'+
+									'<span>编辑</span>'+
+									'</td>'+
 									'</tr>');
 							jQuery('.table_s').append(tr);
 						}else {
@@ -781,14 +819,18 @@
 		var isOk = true;
 		jQuery.each(checkJson,function(name,value) {
 			if(!isNotNull(value)){
-				jQuery("input[name='"+name+"']").addClass("border");
+				jQuery("input[name='"+name+"']").addClass("bordererror");
 				isOk = false;
 				return false;
 			}
 		});
 		if(!isOk)return;
 		
-		var hasStep = jQuery(".table_s").find("td[rowspan]");
+		var hasStep = jQuery(".table_s").find("td[rowspan][date]");
+		var stepNum = hasStep.length + 1;
+		if (eltNum != null){
+			stepNum = eltNum;
+		}
 		var disableList = ['比例','固定'];
 		var assignTypeList = ['','比例','固定'];
 		
@@ -816,10 +858,11 @@
 			if(!isOk)return;
 			
 			if(i==0){
-				var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+(hasStep.length+1)+'>'+
-						'<td rowspan="'+jQuery(".empLevel").length+'" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;">'+
-						'<span style="position:relative;top:50%">'+(hasStep.length+1)+'</span>'+
-						'</td><td>'+shiftMahjongName+'</td>'+
+				var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+(stepNum)+'>'+
+						'<td rowspan="'+jQuery(".empLevel").length+'" date="1" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;">'+
+						'<span style="position:relative;top:50%">'+(stepNum)+'</span>'+
+						'</td>'+
+						'<td>'+shiftMahjongName+'</td>'+
 						'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
 						'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
 						'<td stepPerformance="'+stepPerformance+'">'+stepPerformance+'</td>'+
@@ -829,10 +872,13 @@
 						'<td assignCash="'+assignCash+'">'+assignCash+'</td>'+
 						'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
 						'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
+						'<td rowspan="'+jQuery(".empLevel").length+'" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;" onclick="updateProjectLevelStep(this)">'+
+						'<span>编辑</span>'+
+						'</td>'+
 						'</tr>');
-				jQuery('.table_s').append(tr);
+				addElmt(tr);
 			}else {
-				var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+(hasStep.length+1)+'>'+
+				var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+(stepNum)+'>'+
 						'<td>'+shiftMahjongName+'</td>'+
 						'<td projectStepName="'+projectStepName+'">'+projectStepName+'</td>'+
 						'<td stepPerformanceType="'+stepPerformanceType+'">'+stepPerformanceTypeName+'</td>'+
@@ -844,12 +890,27 @@
 						'<td assignCard="'+assignCard+'">'+assignCard+'</td>'+
 						'<td appointmentReward="'+appointmentReward+'">'+appointmentReward+'</td>'+
 						'</tr>');
-				jQuery('.table_s').append(tr);
+				addElmt(tr);
 			}
 		}
 		if(isHide){
 			jQuery('.step_1').hide();
 			jQuery('.write_4').show();
+		}
+		eltNum = null;
+	}
+	/** 想表格中添加步骤信息,但是,此处要看是否是编辑*/
+	function addElmt(tr){
+		if (eltNum != null){
+			if (jQuery("tr[step='"+(Number(eltNum)+1)+"']").length == 0){
+				jQuery('.table_s').append(tr);
+			}else {
+				console.log(jQuery("tr[step='"+(Number(eltNum)+1)+"']").eq(0).html());
+				jQuery("tr[step='"+(Number(eltNum)+1)+"']").eq(0).before(tr);
+			}
+		}
+		else {
+			jQuery('.table_s').append(tr);
 		}
 	}
 	
@@ -917,9 +978,14 @@
 		});	
 	})
 
+	
 	//职位
 	 jQuery(function(){
 		 jQuery('.write_4').click(function(){
+			 var step = jQuery(".table_s").children("tbody").children("tr").last().attr("step");
+			 if (typeof(step)!="undefined"){
+				 jQuery(".first").text("第"+N[Number(step)+1]+"步");
+			 }
 		     jQuery('.step_1').fadeIn('1000');
 			 jQuery(this).hide();
 		});
@@ -950,5 +1016,52 @@
 		jQuery("input").focus(function(){jQuery(this).removeClass("border")});
 	})
 	
+	var N = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"];
+	
+	/**修改后重新放到*/
+	var eltNum = null;
+	/**修改某个步骤*/
+	function updateProjectLevelStep(td){
+		jQuery(".write_4").hide();
+		var shiftmahjongid = jQuery(td).parents("tr").attr("shiftmahjongid");
+		var step = jQuery(td).parents("tr").attr("step");
+		eltNum = step;
+		jQuery(".first").text("第"+N[Number(step)]+"步");
+		jQuery('.step_1').fadeIn('1000');
+		/**显示轮拍*/
+		jQuery("select[name='shiftMahjongId']").val(shiftmahjongid);
+		changeMahjongStep(shiftmahjongid);
+		/**存放要删除的职位*/
+		var emt = [];
+		jQuery(".empLevel").each(function(index){
+			if ((Number(index)+1)>jQuery("tr[shiftmahjongid='"+shiftmahjongid+"']").length){
+				emt.push(jQuery(this));
+			}
+		});
+		for (var i = 0; i < emt.length; i++) {
+			emt[i].remove();
+		}
+		jQuery("tr[shiftmahjongid='"+shiftmahjongid+"']").each(function(index){
+			var projectstepname = jQuery(this).children("td[projectstepname]").attr("projectstepname");
+			jQuery("input[name='projectStepName']").val(projectstepname);
+			var stepperformancetype = jQuery(this).children("td[stepperformancetype]").attr("stepperformancetype");
+			jQuery("select[name='stepPerformanceType']").val(stepperformancetype);
+			var stepperformance = jQuery(this).children("td[stepperformance]").attr("stepperformance");
+			jQuery("input[name='stepPerformance']").val(stepperformance);
+			var isdisable = jQuery(this).children("td[isdisable]").attr("isdisable");
+			if (isdisable != jQuery("input[name='isDisable']").val()){jQuery("input[name='isDisable']").click();}
+			var levelid = jQuery(this).children("td[levelid]").attr("levelid");
+			var assigntype = jQuery(this).children("td[assigntype]").attr("assigntype");
+			var assigncash = jQuery(this).children("td[assigncash]").attr("assigncash");
+			var assigncard = jQuery(this).children("td[assigncard]").attr("assigncard");
+			var appointmentreward = jQuery(this).children("td[appointmentreward]").attr("appointmentreward");
+			jQuery("select[name='levelId']").eq(index).val(levelid);
+			jQuery("select[name='assignType']").eq(index).val(assigntype);
+			jQuery("input[name='assignCash']").eq(index).val(assigncash);
+			jQuery("input[name='assignCard']").eq(index).val(assigncard);
+			jQuery("input[name='appointmentReward']").eq(index).val(appointmentreward);
+	    });
+		jQuery("tr[shiftmahjongid='"+shiftmahjongid+"']").remove();
+	}
 </script>
 </html>

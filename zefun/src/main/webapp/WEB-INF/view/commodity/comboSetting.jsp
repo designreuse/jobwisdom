@@ -6,6 +6,8 @@
 %>
 <link rel="stylesheet" href="<%=basePath%>css/demo4.css" type="text/css" />
 <style>
+.select_item_content_roll_ul li{position:relative;}
+
 .bt{
     width: 130px;
     height: 28px;
@@ -19,12 +21,63 @@
     margin-right: 80px;
     margin-top: 20px;
     }
+.addImage{
+    position: relative;
+    left: -604px;
+    top: 54px;
+    z-index: 1000;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    display: inline-block;
+    border: 1px solid #fafafa;
+    }
+.addImage:hover {
+    background-color: #fff5d4;
+    border: 1px solid #dcac6c;
+    
+}
+.item_saying {
+    margin-top: 20px;
+}
+.item_saying p {
+    font-size: 16px;
+    color: black;
+    margin-bottom: 10px;
+}
+.textarea_text p {
+    text-indent: 1em;
+    line-height: 26px;
+}
+.item_saying p {
+    font-size: 16px;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.textarea1{height:450px;background:#d8deed;border-radius:10px}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
-    
+	var type = 1;
+	jQuery(function() {
+		jQuery("img[name='comboImage']").click(function() {
+			jQuery(".mask").show();
+			editPage(null);
+			type=1;
+		})
+		jQuery('#editImage').click(function() {
+			jQuery(".mask").show();
+			editPage(null);
+			type=2;
+		})
+	})
     function editPage (imgUrl) {
-    	xiuxiu.setLaunchVars("cropPresets", "162*162");
+    	xiuxiu.setLaunchVars("cropPresets", "375*200");
     	xiuxiu.embedSWF("altContent2", 5, 700, 500);
     	xiuxiu.onInit = function (id)
     	{
@@ -69,7 +122,13 @@
 		       	console.log("complete upload image");
 		       },
 		       success: function(data) {
-		    	   jQuery("img[name='comboImage']").attr("src", qiniuUrl+data.msg.key);
+		    	   if (type == 1){
+		    		   jQuery("img[name='comboImage']").attr("comboImage", data.msg.key);
+		    		   jQuery("img[name='comboImage']").attr("src", qiniuUrl+data.msg.key);
+		    	   }
+		    	   else {
+		    		   u1.execCommand('insertHtml', '<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'+qiniuUrl+data.msg.key+'">');
+		    	   }
 		       }
      	});
 	}
@@ -80,7 +139,15 @@
 	     jQuery('.add_store_include .add_store_content:gt(0)').hide();
 	     jQuery('.add_store_back li ').click(function(){
 		   jQuery(this).addClass('active').siblings().removeClass('active');
-		   jQuery('.add_store_include .add_store_content').eq(jQuery(this).index()).show().siblings().hide()
+		   jQuery('.add_store_include .add_store_content').eq(jQuery(this).index()).show().siblings().hide();
+		   // 计算项目价格
+		   var price = 0;
+		   jQuery("#project").children("li").each(function (){
+				var projectPrice = jQuery(this).attr("projectPrice");
+				var projectCount = jQuery(this).attr("projectCount");
+				price += Number(projectPrice)*Number(projectCount);
+			});
+		   jQuery("#allProjectPrice").text(price+"元");
         });
 	  });	
 	  
@@ -133,7 +200,8 @@
    </script>
 <body>
 	<div class="mask" style="display: none;">
-		   <div id="flashEditorOut" >
+		   <div id="flashEditorOut" style="position: relative;">
+		   <span class="mask_close" style="position:absolute;right:-5px;top:-5px"><img onclick="xiuxiu.onClose();" src="<%=basePath %>images/seo_close.png"></span>
 			        <div id="altContent2">
 			            <h1>美图秀秀</h1>
 			        </div>
@@ -154,10 +222,10 @@
 						</ul>
 
 						<div class="add_store_include">
-							<div class="add_store_content clearfix" style="display: block;">
+                        	<div class="add_store_content clearfix" style="display: block;">
 								<div class="add_store_content_1_content clearfix">
 									<div class="add_store_content_1_left">
-										<img onclick="jQuery('.mask').show();editPage(null);" name="comboImage" comboImage="system/profile/combo.png" src="<%=qiniu%>system/profile/combo.png">
+										<img style="width: 270px;height: 144px;" name="comboImage" comboImage="system/profile/combo.png" src="<%=qiniu%>system/profile/combo.png">
 									</div>
 									<div class="add_store_content_1_center">
 										<p>
@@ -176,6 +244,7 @@
 								<div class="select_item">
 									<p>为疗程选择项目</p>
 									<div class="select_item_content">
+									  <div class="select_de">	
 										<table>
 											<tbody>
 												<tr>
@@ -190,25 +259,27 @@
 													<td><select onchange="descProjectPrice(this)" name="projectId"><c:forEach items="${projectInfoDtoList }" var="projectInfo"><option projectPrice="${projectInfo.projectPrice }" value="${projectInfo.projectId }">${projectInfo.projectName }</option></c:forEach></select></td>
 													<td>0.00 元</td>
 													<td><span><input type="radio" name="isCountLimit" value="1" checked="checked">是</span><span><input type="radio" name="isCountLimit" value="0">否</span></td>
-													<td><input type="text" name="projectCount" value="0"></td>
+													<td><input type="text" name="projectCount" value="0"><i>个</i></td>
 													<td><input type="text" name="comboPerformance" value="0" style="padding-right: 20px; width: 106px"><i>元</i></td>
 												</tr>
 											</tbody>
 										</table>
 										<div class="select_item_content_roll">
 											<span class="left_click"><img src="<%=basePath%>images/left_click.png"></span>
-											<div class="select_item_content_roll_ul">
+											<div class="select_item_content_roll_ul clearfix">
 												<ul id="project" class="clearfix">
 												</ul>
 											</div>
 											<span class="right_click"><img src="<%=basePath%>images/right_click.png"></span>
 										</div>
 									</div>
+								  </div>	
 								</div>
 
 								<div class="select_item">
 									<p>为疗程选择商品</p>
 									<div class="select_item_content">
+									  <div class="select_de">	
 										<table>
 											<tbody>
 												<tr>
@@ -221,20 +292,21 @@
 												<tr>
 													<td><select onchange="descGoodsPrice(this)" name="goodsId"><c:forEach items="${goodsinfos }" var="goodsinfo"><option goodsPrice="${goodsinfo.goodsPrice }" value="${goodsinfo.goodsId }">${goodsinfo.goodsName }</option></c:forEach></select></td>
 													<td>0.00元</td>
-													<td><input type="text" name="goodsCounts" value="0"></td>
+													<td><input type="text" name="goodsCounts" value="0"><i>个</i></td>
 													<td><input type="text" name="comboPerformanceCal" value="0" style="padding-right: 20px; width: 106px"><i style="right: 48px">元</i></td>
 												</tr>
 											</tbody>
 										</table>
 										<div class="select_item_content_roll">
 											<span class="left_click"><img src="<%=basePath%>images/left_click.png"></span>
-											<div class="select_item_content_roll_ul">
+											<div class="select_item_content_roll_ul clearfix">
 												<ul id="goods" class="clearfix">
 													
 												</ul>
 											</div>
 											<span class="right_click"><img src="<%=basePath%>images/right_click.png"></span>
 										</div>
+									  </div>	
 									</div>
 								</div>
 								<div class="item_button" style="text-align: center;">  
@@ -255,9 +327,9 @@
 													<td>有效期</td>
 												</tr>
 												<tr>
-													<td>0.00元</td>
-													<td><span><input type="radio" checked="checked" name="standard" value="1">是</span><span><input type="radio" name="standard" value="0">否</span></td>
-													<td><input type="text" name="validDate" value="0" style="width: 80px; padding-right: 20px"><i>天</i></td>
+													<td id="allProjectPrice">0.00元</td>
+													<td><span><input onclick="jQuery(this).parent().parent().next().show();" type="radio" checked="checked" name="standard" value="1">是</span><span><input onclick="jQuery('input[name=\'validDate\']').val('0');jQuery(this).parent().parent().next().hide();" type="radio" name="standard" value="0">否</span></td>
+													<td><input type="number" name="validDate" value="0" style="width: 80px; padding-right: 20px"><i>天</i></td>
 												</tr>
 											</tbody>
 										</table>
@@ -271,22 +343,42 @@
 													<td>员工销售业绩计算</td>
 												</tr>
 												<tr>
-													<td><input type="text" name="comboSalePrice" value="0"><i>元</i></td>
-													<td><span><input type="radio" name="commissionType" checked="checked" value="2">固定</span><span><input type="radio" name="commissionType" value="1">比例</span></td>
-													<td><input type="text" name="cashCommission" value="0" style="width: 80px; padding-right: 20px"></td>
-													<td><input type="text" name="cardCommission" value="0" style="width: 80px; padding-right: 20px"></td>
-													<td><input type="text" name="saleComboPerformance" value="0" style="width: 80px; padding-right: 20px"></td>
+													<td><input type="number" name="comboSalePrice" value="0"><i style="right: 40px">元</i></td>
+													<td><span><input onclick="jQuery(this).parents('tr').find('i').text('元');jQuery(this).parents('tr').find('i').eq(0).text('元')" type="radio" name="commissionType" checked="checked" value="2">固定</span><span><input onclick="jQuery(this).parents('tr').find('i').text('%');jQuery(this).parents('tr').find('i').eq(0).text('元')" type="radio" name="commissionType" value="1">比例</span></td>
+													<td><input type="number" name="cashCommission" value="0" style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
+													<td><input type="number" name="cardCommission" value="0" style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
+													<td><input type="number" name="saleComboPerformance" value="0" style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<div class="add_store_content_2_saying">
+								
+								<div class="item_saying">
+							      <p>疗程描述</p>
+							      <div class="textarea1">
+								      <!-- <div><button id="editImage" style="width:130px;height:26px;line-height:26px;text-align:center;border:none;background:#617195;color:white;border-radius:10px;margin-top:10px;margin-left:10px">插入图片</button></div> -->
+						              <P></P>
+						              <div class="clearfix">
+						              		<span id="editImage" class="addImage" title="插入图片" >
+												<img src="<%=basePath%>images/insert_img.png" style="position:relative;left:1px;top:1px">
+											</span>
+											<script id="editor1" type="text/plain" style="width:550px;height:322px;float: left"></script>
+											<div style="float: left; width: 320px; height: 420px; margin-top: 25px" class="textarea_text">
+												<p>在此编辑的内容，将会在移动端－在线预约－项目详情中展示。</p>
+												<p></p>
+												<p>插入图片后，请保持图片的原样。切勿拖拽图片大小。自动生成的图片可自动适配所有手机显示。</p>
+												<p>如若无法预览或全屏编辑或出现其他编辑问题。请更换谷歌浏览器，体验更佳。</p>
+											</div>
+										</div>	
+						            </div>
+							    </div>
+								<!-- <div class="add_store_content_2_saying">
 									<p>疗程描述</p>
 									<div class="add_store_content_textarea">
 										<textarea name="comboDesc"></textarea>
 									</div>
-								</div>
+								</div> -->
 								<div class="item_button" style="text-align: center;">  
 								   <button class="bt" onclick="coverData()">保存</button>
 								   <button class="bt">取消</button>
@@ -299,7 +391,17 @@
 		</div>
 	</div>
 
-	<script id="projectCommission" type="text/html">
+<script type="text/javascript">
+var toolbars = {
+		toolbars: [
+		   		['fullscreen', 'source', '|', 'undo', 'redo', '|',
+		           'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript','|', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+		           'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+		           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+		           'directionalityltr', 'directionalityrtl', 'indent', '|',
+		           'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase','preview']
+		   	],maximumWords:3000,elementPathEnabled:false,imageScaleEnabled:false,wordCount:false,autoHeightEnabled:false};
+var u1 = UE.getEditor('editor1', toolbars);
 </script>
 
 <script>
@@ -309,6 +411,7 @@
 	var goodsinfos = eval(<%=request.getAttribute("goodsinfos_js")%>);
 	
 	// 选择查看了一个套餐
+	u1.ready(function(){
 	if (!'${comboId}' == ""){
 		comboId = '${comboId}';
 		var comboInfo = eval(<%=request.getAttribute("comboInfo")%>);
@@ -326,8 +429,7 @@
 		jQuery("input[name='cashCommission']").val(comboInfo.cashCommission);
 		jQuery("input[name='cardCommission']").val(comboInfo.cardCommission);
 		jQuery("input[name='saleComboPerformance']").val(comboInfo.comboPerformance);
-		
-		jQuery("textarea[name='comboDesc']").val(comboInfo.comboDesc);
+		u1.setContent(comboInfo.comboDesc);
 		jQuery("input[name='comboCodeSuffix']").val(comboInfo.comboCodeSuffix);
 		
 		for (var i = 0; i < comboProjectList.length; i++) {
@@ -350,7 +452,7 @@
 		}
 		console.log(comboId);
 	}
-	
+	})
 	/**保存套餐内的项目*/
 	function saveProject(){
 		var projectId = jQuery("select[name='projectId']").val();
@@ -410,8 +512,12 @@
 		jQuery("select[name='projectId']").val(projectId);
 		jQuery("input[name='projectCount']").val(projectCount);
 		jQuery("input[name='comboPerformance']").val(comboPerformanceCal);
-		jQuery(but).parents("li").remove();
-	}
+		jQuery(but).parents("li").animate({
+			top:-80
+				},1000,function(){
+			jQuery(but).parents("li").remove()
+              })
+     	}
 	/**编辑商品*/
 	function editGoods(but){
 		var goodsId = jQuery(but).parents("li").attr("goodsId");
@@ -420,7 +526,11 @@
 		jQuery("select[name='goodsId']").val(goodsId);
 		jQuery("input[name='goodsCounts']").val(goodsCounts);
 		jQuery("input[name='comboPerformanceCal']").val(comboPerformanceCal);
-		jQuery(but).parents("li").remove();
+		jQuery(but).parents("li").animate({
+			top:-80
+				},1000,function(){
+			jQuery(but).parents("li").remove()
+              })
 	}
 	
 	function coverData(){
@@ -457,7 +567,7 @@
 		var cardCommission = jQuery("input[name='cardCommission']").val();
 		var comboPerformance = jQuery("input[name='saleComboPerformance']").val();
 		
-		var comboDesc = jQuery("textarea[name='comboDesc']").val();
+		var comboDesc = u1.getContent();;
 		var comboCodeSuffix = jQuery("input[name='comboCodeSuffix']").val();
 		var comboInfo = {"comboId":comboId,"comboImage":comboImage,"deptId":deptId,"validDate":validDate,"standard":standard,"comboCodeSuffix":comboCodeSuffix,
 				"comboSalePrice":comboSalePrice,"commissionType":commissionType,"cashCommission":cashCommission,"comboName":comboName,

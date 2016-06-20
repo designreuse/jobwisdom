@@ -15,7 +15,7 @@ function addDept(){
 	
 	jQuery("#bumen1").show();
 	jQuery("#bumen2").hide();
-	jQuery('#add-bumen-modal').modal();
+	jQuery('#add-bumen-modal').modal("show");
 	
 	
 }
@@ -43,13 +43,26 @@ function addsavedept(){
 		dataType : "json",
 		success : function(e){
 			if(e.code != 0){
-				/*dialog(e.msg);*/
 				dialog(e.msg);
 				return;
 			}
 			dialog("新增部门成功");
-			location.reload();
-
+			var addDeptId = e.msg.deptId;
+			list = e.msg.list;
+			jQuery("#deptDIV").find(".hair_part").removeClass("active");
+            jQuery("#deptDIV").find(".part_add").before('<div class="architecture_new hair_part active" deptId = "'+addDeptId+'" onclick="chooseDept('+addDeptId+', this)">'+
+											                    '<span>'+
+											                    '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+deptCode+'</i><i>'+deptName+'</i></span>'+
+											                     '<em><i onclick="updatedept('+addDeptId+',\''+deptName+'\',\''+deptCode+'\','+isResults+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+											                         '<i onclick="deletedept('+addDeptId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+											                     '</em>'+
+											                  '</span>'+   
+											             '</div>');
+            
+            jQuery("#positionDIV").find(".hair_part").remove();
+            jQuery("#employeeLeveDIV").find(".hair_part").remove();
+            
+            quxiaoadddept();
 		}
 	});
 }
@@ -96,8 +109,8 @@ function editsavedept(){
 		dialog("部门名称不能为空！");
 		return;
 	}
-	if(deptName.length>10){
-		dialog("部门名称长达不能超过10个字符！");
+	if(deptName.length>8){
+		dialog("部门名称长达不能超过8个字符！");
 		return;
 	}
 	var isResults=jQuery("#isResults").val();
@@ -108,12 +121,19 @@ function editsavedept(){
 		dataType : "json",
 		success : function(e){
 			if(e.code != 0){
-				/*dialog(e.msg);*/
 				dialog(e.msg);
 				return;
 			}
 			dialog(e.msg);
-			location.reload();
+			jQuery(deptObj).empty();
+			jQuery(deptObj).append('<span>'+
+					                    '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+deptCode+'</i><i>'+deptName+'</i></span>'+
+					                    '<em>'+
+					                        '<i onclick="updatedept('+id+',\''+deptName+'\',\''+deptCode+'\','+isResults+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+					                        '<i onclick="deletedept('+id+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+					                    '</em>'+
+				                   '</span>');
+			quxiaoadddept();
 		}
 	});
 }
@@ -133,8 +153,9 @@ function deletedept(id,obj){
 					dialog(e.msg);
 					return;
 				}
-				dialog(e.msg);
-				location.reload();
+				dialog("删除成功！");
+				list = e.msg;
+				jQuery(obj).parents(".hair_part").remove();
 			}
 		});
 		}
@@ -149,6 +170,7 @@ function addPosition(obj){
 	jQuery("#positionCode").val("");
 	jQuery("#positionCode").trigger("liszt:updated");
 	jQuery("#positionName").val("");
+	jQuery('#isDept').lcs_off();
 	jQuery("#gangwei1").show();
 	jQuery("#gangwei2").hide();
 	jQuery("#gangwei11").show();
@@ -189,8 +211,22 @@ jQuery.ajax({
 			dialog(e.msg);
 			return;
 		}
-		dialog(e.msg);
-		location.reload();
+		dialog("岗位新增成功！");
+		var addPositionId = e.msg.positionId;
+		list = e.msg.list;
+		jQuery("#positionDIV").find(".hair_part").removeClass("active");
+		jQuery("#positionDIV").find(".part_add").before('<div class="architecture_new hair_part active" positionId = "'+addPositionId+'" onclick="choosePosition('+deptId+', '+addPositionId+', this)">'+
+														    '<span>'+
+														      '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+positionCode+'</i><i>'+positionName+'</i></span>'+
+														      '<em>'+
+														          '<i onclick="updateposition('+deptId+',\''+positionName+'\',\''+positionCode+'\','+addPositionId+','+isDept+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+														          '<i onclick="deleteposition('+addPositionId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+														      '</em>'+
+														   '</span>'+   
+														'</div>');
+		
+        jQuery("#employeeLeveDIV").find(".hair_part").remove();
+		quxiaoposition();
 	}
 });
 }
@@ -200,8 +236,9 @@ function quxiaoposition(){
 	jQuery('#add-gangwei-modal').modal("hide");
 }
 
+var positionObj = "";
 function updateposition(deptId,name,code,id,isDept,obj){
-	stopBubble(obj);
+	positionObj = jQuery(obj).parents(".hair_part");
 	jQuery("#gangwei1").hide();
 	jQuery("#gangwei2").show();
 	jQuery("#positionCode").val(code);
@@ -254,13 +291,21 @@ function positioneditsave(){
 				dialog(e.msg);
 				return;
 			}
-			jQuery('#update-gangwei-modal').modal('hide');
-			dialog(e.msg);
-			location.reload();
+			dialog("岗位修改成功！");
+			list = e.msg;
+			jQuery(positionObj).empty();
+			jQuery(positionObj).append('<span>'+
+					                      '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+positionCode+'</i><i>'+positionName+'</i></span>'+
+									      '<em>'+
+									          '<i onclick="updateposition('+deptId+',\''+positionName+'\',\''+positionCode+'\','+positionId+','+isDept+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+									          '<i onclick="deleteposition('+positionId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+									      '</em>'+
+									   '</span>');
+			quxiaoposition();
 		}
 	});
 }
-function deleteposition(positionId){
+function deleteposition(positionId, obj){
 if(confirm("确认要删除该条岗位信息吗？")){ 
 	jQuery.ajax({
 		type : "post",
@@ -272,8 +317,9 @@ if(confirm("确认要删除该条岗位信息吗？")){
 				dialog(e.msg);
 				return;
 			}
-			dialog(e.msg);
-			location.reload();
+			dialog("删除岗位成功！");
+			list = e.msg;
+			jQuery(obj).parents(".hair_part").remove();
 		}
 	});
 	}
@@ -287,6 +333,10 @@ function addEmployeeLeve(){
 	jQuery('#zhiwei11').show();
 	jQuery('#zhiwei22').hide();
 	var id = jQuery("#positionDIV").find(".active").attr("positionId");
+	if (isEmpty(id)) {
+		 dialog("请先填写岗位！");
+		 return;
+	}
 	jQuery('#zhiwei_positionid').val(id);
 	jQuery("#zhiwei_positionid").trigger("liszt:updated");
 	jQuery('#levelName').val("");
@@ -325,18 +375,25 @@ function levelsave(){
 			success : function(e){
 				if(e.code != 0){
 					dialog(e.msg);
-					dialog(e.msg);
 					return;
 				}
-				dialog(e.msg);
-				location.reload();
+				dialog("职位新增成功！");
+				var addLevelId = e.msg.levelId;
+				list = e.msg.list;
+				jQuery("#employeeLeveDIV").find(".part_add").before('<div class="architecture_new hair_part" >'+
+														                '<span><span style="display:inline-block;width:130px;position:relative;left:10px">'+levelName+'</span><em>'+
+														                  '<i onclick="openupdatelevel('+addLevelId+','+positionId+',\''+levelName+'\',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+														                  '<i onclick="deletelevel('+addLevelId+', this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+														                 '</em></span>'+   
+														            '</div>');
+				jQuery('#add-zhiwei-modal').modal("hide");
 			}
 		});
 	
 }
-
-function openupdatelevel(id,positionId,name){
-	
+var levelObj = "";
+function openupdatelevel(id,positionId,name, obj){
+	levelObj = jQuery(obj).parents(".hair_part");
 	jQuery('#zhiwei1').hide();
 	jQuery('#zhiwei2').show();
 	jQuery('#zhiwei11').hide();
@@ -378,13 +435,19 @@ function updatelevel(){
 			dialog(e.msg);
 			return;
 		}
-		dialog(e.msg);
-		location.reload();
+		dialog("职位修改成功！");
+		jQuery(levelObj).empty();
+		list = e.msg;
+		jQuery(levelObj).append('<span><span style="display:inline-block;width:130px;position:relative;left:10px">'+levelName+'</span><em>'+
+				                '<i onclick="openupdatelevel('+levelId+','+positionId+',\''+levelName+'\',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+				                '<i onclick="deletelevel('+levelId+', this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+				               '</em></span>');
+		jQuery('#add-zhiwei-modal').modal("hide");
 	}
 });	
 }
 
-function deletelevel(levelId){
+function deletelevel(levelId,obj){
 if(confirm("确认要删除该条职位信息吗？")){ 
 	jQuery.ajax({
 		type : "post",
@@ -396,8 +459,9 @@ if(confirm("确认要删除该条职位信息吗？")){
 				dialog(e.msg);
 				return;
 			}
-			dialog(e.msg);
-			location.reload();
+			dialog("删除职位成功！");
+			jQuery(obj).parents(".hair_part").remove();
+			list = e.msg;
 		}
 	});
 	}
@@ -481,51 +545,51 @@ function getlevelemployee(id){
 
 function chooseDept (deptId, obj) {
 	jQuery("#deptDIV").find(".hair_part").removeClass("active");
-	jQuery(obj).parent().addClass("active");
+	jQuery(obj).addClass("active");
+	jQuery("#positionDIV").find(".hair_part").remove();
+	jQuery("#employeeLeveDIV").find(".hair_part").remove();
 	for (var i = 0; i < list.length; i++) {
 		var deptInfo = list[i];
 		if (deptInfo.deptId == deptId) {
 			var positionInfos = deptInfo.positionInfo;
-			jQuery("#positionDIV").empty();
+			
 			for (var j = 0; j < positionInfos.length; j++) {
 				var positionInfo = positionInfos[j];
 				
 				if (j == 0) {
-					jQuery("#positionDIV").append("<div class='hair_part active' positionId = '"+positionInfo.positionId+"'>"+
-												      "<i name = 'nameValue' onclick='choosePosition("+deptId+", "+positionInfo.positionId+", this)'>"+positionInfo.positionCode+"&nbsp;&nbsp;&nbsp;&nbsp;"+positionInfo.positionName+"</i>"+
-													  "<em><img src='"+baseUrl+"images/pull_down.png'></em>"+
-													  "<ul class='part_ul'>"+
-														  "<li onclick='updateposition("+deptId+",'"+positionInfo.positionName+"','"+positionInfo.positionCode+"',"+positionInfo.positionId+","+positionInfo.isDept+",this)'><img src='"+baseUrl+"images/handle_1.png'></li>"+
-														  "<li onclick='deleteposition("+positionInfo.positionId+")'><img src='"+baseUrl+"images/handle_2.png'></li>"+
-													   "</ul>"+
-												    "</div>");
+					jQuery("#positionDIV").find(".part_add").before('<div class="architecture_new hair_part active" positionId = "'+positionInfo.positionId+'" onclick="choosePosition('+deptId+', '+positionInfo.positionId+', this)">'+
+																	    '<span>'+
+																	      '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+positionInfo.positionCode+'</i><i>'+positionInfo.positionName+'</i></span>'+
+																	      '<em>'+
+																	          '<i onclick="updateposition('+deptId+',\''+positionInfo.positionName+'\',\''+positionInfo.positionCode+'\','+positionInfo.positionId+','+positionInfo.isDept+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+																	          '<i onclick="deleteposition('+positionInfo.positionId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+																	      '</em>'+
+																	   '</span>'+   
+																	'</div>');
 					var employeeLeves = positionInfo.employeeLeve;
-					jQuery("#employeeLeveDIV").empty();
+					
 					for (var k = 0; k < employeeLeves.length; k++) {
 						var employeeLeve = employeeLeves[k];
-						jQuery("#employeeLeveDIV").append("<div class='hair_part'>"+
-															  "<i name = 'nameValue'>"+employeeLeve.levelName+"</i>"+
-															  "<em><img src='"+baseUrl+"images/pull_down.png'></em>"+
-															  "<ul class='part_ul'>"+
-																  "<li onclick='openupdatelevel("+employeeLeve.levelId+","+positionInfo.positionId+",'"+employeeLeve.levelName+"')'><img src='"+baseUrl+"images/handle_1.png'></li>"+
-																  "<li onclick='deletelevel("+employeeLeve.levelId+")'><img src='"+baseUrl+"images/handle_2.png'></li>"+
-															   "</ul>"+
-														    "</div>");
+					    jQuery("#employeeLeveDIV").find(".part_add").before('<div class="architecture_new hair_part" >'+
+																                '<span><span style="display:inline-block;width:130px;position:relative;left:10px">'+employeeLeve.levelName+'</span><em>'+
+																                  '<i onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+																                  '<i onclick="deletelevel('+employeeLeve.levelId+', this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+																                 '</em></span>'+   
+																            '</div>');
 					}
-					jQuery("#employeeLeveDIV").append("<div class='part_add' onclick='addEmployeeLeve(this)'><img src='"+baseUrl+"images/money_add.png'></div>");
 				}
 				else {
-					jQuery("#positionDIV").append("<div class='hair_part' positionId = '"+positionInfo.positionId+"'>"+
-												      "<i name = 'nameValue' onclick='choosePosition("+deptId+", "+positionInfo.positionId+", this)'>"+positionInfo.positionCode+"&nbsp;&nbsp;&nbsp;&nbsp;"+positionInfo.positionName+"</i>"+
-													  "<em><img src='"+baseUrl+"images/pull_down.png'></em>"+
-													  "<ul class='part_ul'>"+
-														  "<li onclick='updateposition("+deptId+",'"+positionInfo.positionName+"','"+positionInfo.positionCode+"',"+positionInfo.positionId+","+positionInfo.isDept+",this)'><img src='"+baseUrl+"images/handle_1.png'></li>"+
-														  "<li onclick='deleteposition("+positionInfo.positionId+")'><img src='"+baseUrl+"images/handle_2.png'></li>"+
-													   "</ul>"+
-												    "</div>");
+					jQuery("#positionDIV").find(".part_add").before('<div class="architecture_new hair_part" positionId = "'+positionInfo.positionId+'" onclick="choosePosition('+deptId+', '+positionInfo.positionId+', this)">'+
+						    '<span>'+
+						      '<span style="display:inline-block;width:130px;position:relative;left:10px"><i style="display:inline-block;margin-right:10px">'+positionInfo.positionCode+'</i><i>'+positionInfo.positionName+'</i></span>'+
+						      '<em>'+
+						          '<i onclick="updateposition('+deptId+',\''+positionInfo.positionName+'\',\''+positionInfo.positionCode+'\','+positionInfo.positionId+','+positionInfo.isDept+',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+						          '<i onclick="deleteposition('+positionInfo.positionId+',this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+						      '</em>'+
+						   '</span>'+   
+						'</div>');
 				}
 			}
-			jQuery("#positionDIV").append("<div class='part_add' id='search-member' onclick='addPosition(this)'><img src='"+baseUrl+"images/money_add.png'></div>")
 			return;
 		}
 	}
@@ -533,7 +597,8 @@ function chooseDept (deptId, obj) {
 
 function choosePosition (deptId, positionId, obj) {
 	jQuery("#positionDIV").find(".hair_part").removeClass("active");
-	jQuery(obj).parent().addClass("active");
+	jQuery(obj).addClass("active");
+	jQuery("#employeeLeveDIV").find(".hair_part").remove();
 	for (var i = 0; i < list.length; i++) {
 		var deptInfo = list[i];
 		if (deptInfo.deptId == deptId) {
@@ -543,19 +608,16 @@ function choosePosition (deptId, positionId, obj) {
 				
 				if (positionInfo.positionId == positionId) {
 					var employeeLeves = positionInfo.employeeLeve;
-					jQuery("#employeeLeveDIV").empty();
+					
 					for (var k = 0; k < employeeLeves.length; k++) {
 						var employeeLeve = employeeLeves[k];
-						jQuery("#employeeLeveDIV").append("<div class='hair_part'>"+
-															  "<i name = 'nameValue' onclick='chooseDept(${listlist.deptId}, 3)'>"+employeeLeve.levelName+"</i>"+
-															  "<em><img src='"+baseUrl+"images/pull_down.png'></em>"+
-															  "<ul class='part_ul'>"+
-																  "<li onclick='openupdatelevel("+employeeLeve.levelId+","+positionInfo.positionId+",'"+employeeLeve.levelName+"')'><img src='"+baseUrl+"images/handle_1.png'></li>"+
-																  "<li onclick='deletelevel("+employeeLeve.levelId+")'><img src='"+baseUrl+"images/handle_2.png'></li>"+
-															   "</ul>"+
-														    "</div>");
+						jQuery("#employeeLeveDIV").find(".part_add").before('<div class="architecture_new hair_part" >'+
+																				  '<span><span style="display:inline-block;width:130px;position:relative;left:10px">'+employeeLeve.levelName+'</span><em>'+
+																                  '<i onclick="openupdatelevel('+employeeLeve.levelId+','+positionInfo.positionId+',\''+employeeLeve.levelName+'\',this)"><img src="'+baseUrl+'images/architecture_edit.png"></i>'+
+																                  '<i onclick="deletelevel('+employeeLeve.levelId+', this)"><img src="'+baseUrl+'images/architecture_delete.png"></i>'+
+																                 '</em></span>'+   
+																            '</div>');
 					}
-					jQuery("#employeeLeveDIV").append("<div class='part_add' onclick='addEmployeeLeve(this)'><img src='"+baseUrl+"images/money_add.png'></div>");
 				}
 			}
 			return;

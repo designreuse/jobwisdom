@@ -485,19 +485,4 @@ public class StaffCentreController extends BaseController{
     			staffCentreService.myAttendancdFindByPage(page, pageSize, employeeId));
     }
     
-    //从员工"个人表现"点击"工作态度"查看奖惩明细
-    /*public ModelAndView findRewardDetailFromIndividualPerformance(HttpServletRequest request, HttpServletResponse response, String time) {
-    	String openId = getOpenId(2, request, response);
-        if (openId == null || time == null) {
-            return null;
-        }
-		int ownerStoreId = getStoreIdByOpenId(openId);
-    	if (time != null && "month".equals(time)) {
-    		time = DateUtil.getCurMonth();
-    	} 
-    	else if (time != null && "day".equals(time)) {
-    		time = DateUtil.getCurDate();
-    	}
-    }*/
-    
 }

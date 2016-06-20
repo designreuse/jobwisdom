@@ -63,12 +63,12 @@
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
 				<div class="content_right">
-					<div class="setting_first">
+					<div class="setting_first">${deptInfoList }
 						<a href="<%=basePath %>comboInfo/setting"><button>新增</button></a>
 						<span>部门 <em><i class="" id="dept">全部<img src="<%=basePath%>images/setting_down.png" style="position: relative; left: 10px; top: 1px; width: 15px"></i>
 								<ul class="setting_all clearfix" style="display: none;">
 									<li onclick="changeDept(0, this)">全部</li>
-									<c:forEach items="${deptInfoList }" var="deptInfoList"><li onclick="changeDept(${deptInfoList.deptId }, this)" deptId="${deptInfoList.deptId }">${deptInfoList.deptName }</li></c:forEach>
+									<c:forEach items="${deptGoodsBaseDto }" var="deptInfoList"><li onclick="changeDept(${deptInfoList.deptId }, this)" deptId="${deptInfoList.deptId }">${deptInfoList.deptName }</li></c:forEach>
 								</ul> </em></span> <span class="total_text">共<i>${fn:length(comboInfos) }个</i>项目，已完成创建<i>${hasFinish }个</i>，未完成创建<i>${fn:length(comboInfos)-hasFinish }个</i></span>
 					</div>
 					<div class="rollBox">
@@ -84,7 +84,7 @@
 									<c:if test="${fn:length(comboInfos) >= (count-i)}">
 									<li>
 										<div class="setting_write">
-											<a href="<%=basePath %>comboInfo/setting?comboId=${comboInfos[count-i-1].comboId }"><img src="<%=basePath%>images/setting_close.png"></a>
+											<a href="<%=basePath %>comboInfo/setting?comboId=${comboInfos[count-i-1].comboId }"><img style="width: 18px;height: 18px" src="<%=basePath%>images/Edit.png"></a>
 										</div>
 										<div class="rollBox_top">
 											<img src="<%=qiniuPath%>${comboInfos[count-i-1].comboImage }">

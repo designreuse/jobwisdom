@@ -60,7 +60,6 @@ import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
 import com.zefun.web.entity.GiftmoneyFlow;
-import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberAppointment;
@@ -705,10 +704,10 @@ public class MemberCenterService {
     public BaseDto registerAction(int storeId, String storeAccount, String phone, String verifyCode, String openId,
             String accessToken, HttpServletRequest request, boolean checkExists){
         //校验验证码是否正确
-//        String code = redisService.get(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone);
-//        if (!verifyCode.equals(code)) {
-//            return new BaseDto(10001, "验证码错误");
-//        }
+        String code = redisService.get(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone);
+        if (!verifyCode.equals(code)) {
+            return new BaseDto(10001, "验证码错误");
+        }
         
         Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeAccount);
         if (checkExists && memberId != null) {
@@ -1987,7 +1986,7 @@ public class MemberCenterService {
         GoodsInfoDto goodsInfo = new GoodsInfoDto();
         goodsInfo.setStoreId(storeId);
         goodsInfo.setIsSellProduct(1);
-        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
+        List<GoodsInfoDto> goodsInfos = goodsInfoMapper.selectByProperty(goodsInfo);
         
         StoreShop storeShop = new StoreShop();
         storeShop.setStoreId(storeId);

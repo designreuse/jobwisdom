@@ -380,6 +380,8 @@ public interface Url {
         public static final String VIEW_SUPPLIER = "view/storeAccount/suplier";
         /** 企业查看各门店商品数据*/
         public static final String GOODS_QUERY_ACCOUNT = "view/storeAccount/store/goods/{storeId}";
+        /** 分页查询*/
+        public static final String GOODSINFO_SETTING_PAGE = "goodsInfo/view/setting/page";
 	}
 
 	/** 供应商模块 */
@@ -1177,7 +1179,7 @@ public interface Url {
 	 */
 	class StoreInfo {
 		/** 查询门店列表 */
-		public static final String SHOW_STORE_LIST = "/storeinfo/view/showStoreList";
+		public static final String SHOW_STORE_LIST = "storeinfo/view/showStoreList";
 		/** 新增修改门店*/
 		public static final String SAVE_UPDATE_STORE = "/storeinfo/action/saveUpdateStore";
 		/** 查询门店信息*/

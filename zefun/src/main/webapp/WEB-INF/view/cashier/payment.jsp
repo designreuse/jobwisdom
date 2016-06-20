@@ -155,7 +155,7 @@
 				       
 			</table>
 			
-			<p class="money_get"><span>应收：<em name="totalReceivableMoney"></em></span><em>应收：<i name="totalRealMoney"></i></em></p>	
+			<p class="money_get"><span>应收：<em name="totalReceivableMoney"></em></span><em>实收：<i name="totalRealMoney"></i></em></p>	
 			<button class="money_next" onclick="nextCheckout()" >下一步</button>
 		
         </div>
@@ -209,25 +209,15 @@
 		   <div class="change_price_content">
 		      <div class="triangle"><img src="<%=basePath %>images/triangle.png"></div>
 		      <div class="money_close_" onclick = "cancleSure()"><img src="<%=basePath %>images/pay_close.png"></div>
-			  <table class="sure_table">
+			  <table class="sure_table" id = "updatePricTable">
 			     <tr>
 				  <td>项目名称</td>
 				  <td>项目金额</td>
 				  <td>改价金额</td>
-				  <td><span class="add_to">追加</span></td>
-			     </tr>
-				 <tr>
-				   <td>
-				      <select name = "projectSelect">
-				         
-					  </select>	 
-				   </td>
-				   <td >12214</td>
-				   <td><input type="text"  name = "updatePricValue"></td>
-				   <td><img src="<%=basePath %>images/append_add.png" style="width:20px"></td>
+				  <td><select name = 'projectSelectUpdatePric'  onchange="onchangeUpdatePric(this)"></select></td>
 			     </tr>
 			  </table>
-		   	  <p class="adjust_price_saying"><span>改价说明<input type="text" name = "upRemark"></span><button class="sure_change_price">确认</button></p>
+		   	  <p class="adjust_price_saying"><span>改价说明<input type="text" name = "upRemark"></span><button class="sure_change_price" onclick="saveUpdatePric()" >确认</button></p>
 		   </div>
         </div>
    </div>

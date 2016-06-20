@@ -475,7 +475,7 @@ public class GoodsInfoService {
     * @param goodsInfo 实体属性
     * @return 集合
      */
-    public List<GoodsInfo> selectGoodsInfos(GoodsInfoDto goodsInfo) {
+    public List<GoodsInfoDto> selectGoodsInfos(GoodsInfoDto goodsInfo) {
         return goodsInfoMapper.selectByProperty(goodsInfo);
     }
 
@@ -988,8 +988,17 @@ public class GoodsInfoService {
     * @return             BaseDto
      */
     public BaseDto accountQueryGoodsInfo(String storeAccount, Integer storeId) {
-        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreId(storeId);
-        BaseDto baseDto = new BaseDto(0, goodsInfoDtos);
+        Page<GoodsInfoDto> page = new Page<>();
+        page.setPageNo(1);
+        page.setPageSize(1);
+        Map<String, Object> params = new HashMap<>();
+        params.put("storeId", storeId);
+        page.setParams(params);
+        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreIdByPage(page);
+        page.setResults(goodsInfoDtos);
+        BaseDto baseDto = new BaseDto(0, page);
+//        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreId(storeId);
+//        BaseDto baseDto = new BaseDto(0, goodsInfoDtos);
         return baseDto;
     }
 }

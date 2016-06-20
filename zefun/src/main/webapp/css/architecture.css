@@ -1,0 +1,12 @@
+.content_right{padding:30px;font-size:14px;color:black}
+.content_right>p button{width:130px;height:28px;text-align:center;line-height:28px;border-radius:8px;color:white;border:none;background:#59688a;font-size:16px;margin-right:30px}
+.content_right>p button:hover{background:#4e5b77}
+.architecture_content{margin-top:30px}
+.architecture_detail{width:280px;height:606px;border-radius:12px;background:#d8deed;float:left}
+.architecture_detail_top{border:1px solid black;border-radius:12px 12px 0 0;height:40px;line-height:40px;text-align:center;font-size:18px;background:#ebeff8}
+.architecture_new{width:250px;height:38px;border:1px solid black;border-radius:8px;background:white;margin:15px auto;line-height:38px;cursor:pointer}
+.architecture_new span{font-size:16px;display:inline-block;}
+.architecture_new span em{display:inline-block;border-left:1px solid #ccc;height:26px;margin-left:40px;line-height:26px}
+.architecture_new span em img{vertical-align:middle;margin-left:10px;}
+.architecture_content>p{float:left;width:80px;text-align:center;height:476px;line-height:476px}
+.active{box-shadow:0 0 20px #676767}

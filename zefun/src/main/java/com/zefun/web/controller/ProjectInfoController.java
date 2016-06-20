@@ -102,7 +102,9 @@ public class ProjectInfoController extends BaseController {
             .stream().flatMap(mll -> mll.getEmployeeLevelList()
             .stream())).collect(Collectors.toList());
         
-        model.addObject("employeeLevelList", JSONArray.fromObject(employeeLevelList));
+        if (employeeLevelList!=null){
+            model.addObject("employeeLevelList", JSONArray.fromObject(employeeLevelList));
+        }
         
         // 会员等级列表
         List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
