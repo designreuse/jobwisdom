@@ -34,7 +34,26 @@
 .addImage:hover {
     background-color: #fff5d4;
     border: 1px solid #dcac6c;
+    
 }
+.item_saying {
+    margin-top: 20px;
+}
+.item_saying p {
+    font-size: 16px;
+    color: black;
+    margin-bottom: 10px;
+}
+.textarea_text p {
+    text-indent: 1em;
+    line-height: 26px;
+}
+.item_saying p {
+    font-size: 16px;
+    color: black;
+    margin-bottom: 10px;
+}
+.textarea1{height:450px;background:#d8deed;border-radius:10px}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
