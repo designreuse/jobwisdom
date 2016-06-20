@@ -28,7 +28,9 @@
 .addImage:hover {
     background-color: #fff5d4;
     border: 1px solid #dcac6c;
+    
 }
+
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
