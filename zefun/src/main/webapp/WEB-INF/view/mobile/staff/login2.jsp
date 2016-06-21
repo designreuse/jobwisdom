@@ -2,42 +2,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@include file="/base.jsp" %>
-<html lang="en" style="background:url('<%=basePath%>images/mobile/newemployee/login_back.jpg') no-repeat;background-size:100% 100%;height:100%">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, height = device-height">
     <meta content="telephone=no" name="format-detection" />
     <title>内部登录</title>
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/shop.css">
+    <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
+    <link rel="stylesheet" href="<%=employeeCssPath%>"/>
 </head>
-<style>
-#loadingWrap{position:absolute;top:30%;left:40%}
-
-.alertWrap{ position: absolute;
-    top: 40%;
-    left: 30%;}
-</style>
-<body style="background:none;height:100%">
-	<div class="con">
-       <div class="login">
-	     <div class="login_content " >
-		    <p><img src="<%=basePath%>images/login_logo.png"></p>
-			<div class="login_shop_name">${enterpriseName}</div>
-			<div class="login_imformation first">
-			   <div class="business_no"> 
-			     <span><img src="<%=basePath%>images/mobile/newemployee/employee_no.png"><input type="tel" id="phone" placeholder="手机号"></span>
-			   </div>
-			    <div class="business_no"> 
-			     <span><img src="<%=basePath%>images/mobile/newemployee/password.png"><input type="password" id="password" placeholder="密码"></span>
-			   </div>
-			   
-			   <button onclick="javascript:login();">登录</button>
+<body>
+	<div class="wrap">
+		<div class="content">
+			<div class="register">
+				<div class="input-wrap mt2">
+					<input type="tel" id="phone" placeholder="账号" />
+				</div>
+				<div class="input-wrap mt">
+					<input type="password" id="password" placeholder="密码" />
+				</div>
+				<div class="btn-group" onclick="javascript:login();">
+					<div class="normal-btn btn w100p">登录</div>
+				</div>
 			</div>
-		 </div>	
-		 
-		   
-	   </div>
-     </div>
+		</div>
+	</div>
 <script type="text/javascript" src="<%=jqueryJsPath%>"> </script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"></script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"> </script>

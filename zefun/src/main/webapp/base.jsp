@@ -28,7 +28,6 @@
 	String businessAnalysis = basePath + "css/mobile/business-analysis.css";
 	String employee = basePath + "js/mobile/employee.js";
 	String highcharts = basePath + "js/mobile/highcharts.src.js";
-	
 %>
 <script type="text/javascript">
 	var baseUrl = "<%=basePath%>";

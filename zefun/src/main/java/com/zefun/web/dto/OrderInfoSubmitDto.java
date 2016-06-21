@@ -41,8 +41,33 @@ public class OrderInfoSubmitDto {
     
     /** 明细支付信息 */
     private List<OrderDetaiSubmitDto> detailList;
+    
+    /** 改价集合*/
+    private String updatePricArray;
+    /** 改价备注*/
+    private String upRemark;
 
-    public Integer getOrderId() {
+    
+    
+
+
+	public String getUpdatePricArray() {
+		return updatePricArray;
+	}
+
+	public void setUpdatePricArray(String updatePricArray) {
+		this.updatePricArray = updatePricArray;
+	}
+
+	public String getUpRemark() {
+		return upRemark;
+	}
+
+	public void setUpRemark(String upRemark) {
+		this.upRemark = upRemark;
+	}
+
+	public Integer getOrderId() {
         return orderId;
     }
 

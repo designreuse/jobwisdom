@@ -71,7 +71,7 @@
   <select id="selectAllRoles" resultMap="BaseResultMap">
    	select 
     <include refid="Base_Column_List" />
-    from role_info where role_id != 100 and role_id != 101 and role_id != 102 and role_id != 103
+    from role_info where role_id != 100 and role_id != 1 and role_id != 2
   </select>
   
   <select id="getRoleInfo" resultType="java.lang.Integer" parameterType="java.lang.String">

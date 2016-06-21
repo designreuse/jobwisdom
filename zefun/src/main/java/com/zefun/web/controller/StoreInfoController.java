@@ -201,6 +201,19 @@ public class StoreInfoController extends BaseController {
 		String storeAccount = getStoreAccount(request);
 		return storeInfoService.addOrUpdateAuthority(storeAccount, storeAuthorityId, storeId, employeeId, authorityValue);
 	}
+	/**
+	 * 删除门店授权码
+	* @author 老王
+	* @date 2016年6月20日 下午4:45:27 
+	* @param request request
+	* @param storeAuthorityId storeAuthorityId
+	* @return storeAuthorityId
+	 */
+	@RequestMapping(value = Url.StoreInfo.DELETE_AUTHORITY)
+	@ResponseBody
+	public BaseDto deleteAuthority (HttpServletRequest request, Integer storeAuthorityId) {
+		return storeInfoService.deleteAuthority(storeAuthorityId);
+	}
 	
 	/**
 	 * 进入店铺设置页面

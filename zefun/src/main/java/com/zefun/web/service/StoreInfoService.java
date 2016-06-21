@@ -22,7 +22,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -335,8 +334,6 @@ public class StoreInfoService {
     /** 企业信息*/
     @Autowired
     private EnterpriseInfoMapper enterpriseInfoMapper;
-    /**日志系统*/
-    private Logger log = Logger.getLogger(StoreInfoService.class);
 
     /**
      * 查询门店列表页面
@@ -699,11 +696,14 @@ public class StoreInfoService {
      */
     @Transactional
     public BaseDto addOrUpdateAuthority (String storeAccount, Integer storeAuthorityId, Integer storeId, Integer employeeId, String authorityValue) {
-    	EnterpriseStoreAuthority record = new EnterpriseStoreAuthority();
-    	record.setEmployeeId(employeeId);
-    	List<EnterpriseStoreAuthority> objList = enterpriseStoreAuthorityMapper.selectByProperties(record);
-    	if (objList == null || objList.size() == 0) {
-    		return  new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该员工已存在授权码，不能重复授权");
+    	
+    	EnterpriseStoreAuthority objRecord = new EnterpriseStoreAuthority();
+    	objRecord.setStoreId(storeId);
+    	objRecord.setAuthorityValue(authorityValue);
+    	Integer a = enterpriseStoreAuthorityMapper.selectIsExistsAuthorityValue(objRecord);
+    	
+    	if (a != null && a > 0) {
+    		return  new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该授权码，不能重复设置！");
     	}
     	
     	StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
@@ -712,6 +712,14 @@ public class StoreInfoService {
     	Map<String, Object> map = new HashMap<>();
     	
     	if (storeAuthorityId == null) {
+    		
+    		EnterpriseStoreAuthority record = new EnterpriseStoreAuthority();
+        	record.setEmployeeId(employeeId);
+        	List<EnterpriseStoreAuthority> objList = enterpriseStoreAuthorityMapper.selectByProperties(record);
+        	if (objList != null && objList.size() > 0) {
+        		return  new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该员工已存在授权码，不能重复授权");
+        	}
+    		
     		EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
     		enterpriseInfo.setStoreAccount(storeAccount);
     		EnterpriseInfoDto obj = enterpriseInfoMapper.selectByProperties(enterpriseInfo);
@@ -757,6 +765,22 @@ public class StoreInfoService {
     		map.put("createTime", DateUtil.getCurTime());
     	}
     	return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+    }
+    
+    /**
+     * 删除授权码
+    * @author 老王
+    * @date 2016年6月20日 下午4:43:50 
+    * @param storeAuthorityId 授权码标识
+    * @return BaseDto
+     */
+    public BaseDto deleteAuthority (Integer storeAuthorityId) {
+    	EnterpriseStoreAuthority enterpriseStoreAuthority = new EnterpriseStoreAuthority();
+    	enterpriseStoreAuthority.setStoreAuthorityId(storeAuthorityId);
+    	enterpriseStoreAuthority.setIsDeleted(1);
+    	
+    	enterpriseStoreAuthorityMapper.updateByPrimaryKeySelective(enterpriseStoreAuthority);
+    	return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
     /**

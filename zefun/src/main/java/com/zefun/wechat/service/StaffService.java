@@ -27,6 +27,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
+import com.zefun.web.dto.EnterpriseInfoDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
@@ -36,6 +37,7 @@ import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
@@ -50,6 +52,7 @@ import com.zefun.web.entity.WechatEmployee;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
+import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
@@ -160,6 +163,9 @@ public class StaffService {
     /** 微信api服务对象 */
     @Autowired
     private WeixinMessageService weixinMessageService;
+    /** 企业信息*/
+    @Autowired
+    private EnterpriseInfoMapper enterpriseInfoMapper;
     
     /**
      * 查看员工主页
@@ -173,6 +179,22 @@ public class StaffService {
         ModelAndView mav = new ModelAndView();
         mav.addObject("employeeDto", employeeMap);
         return mav;
+    }
+    
+    /**
+     * 员工登录界面
+    * @author 老王
+    * @date 2016年6月20日 下午8:11:37 
+    * @param storeAccount 企业代号
+    * @return ModelAndView
+     */
+    public ModelAndView registerView (String storeAccount) {
+    	ModelAndView mav = new ModelAndView(View.StaffPage.STAFF_LOGIN);
+    	EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
+    	enterpriseInfo.setStoreAccount(storeAccount);
+    	EnterpriseInfoDto obj = enterpriseInfoMapper.selectByProperties(enterpriseInfo);
+    	mav.addObject("enterpriseName", obj.getEnterpriseName());
+    	return mav;
     }
     
     /**

@@ -30,10 +30,19 @@
     select 
     <include refid="Base_Column_List" />
     from enterprise_store_authority
-    where 1=1
+    where 1=1 and is_deleted = 0
     <if test="employeeId != null">
   		and employee_id = #{employeeId, jdbcType=VARCHAR}
   	</if>
+  </select>
+  
+  <select id="selectIsExistsAuthorityValue" resultType="java.lang.Integer" parameterType="com.zefun.web.entity.EnterpriseStoreAuthority" >
+    select 
+    count(*)
+    from enterprise_store_authority a
+    where a.store_id in (select b.store_id from store_info b where exists(select 1 from store_info c where b.store_account = c.store_account and c.store_id = #{storeId}))
+    and a.authority_value = #{authorityValue}
+    and a.is_deleted = 0
   </select>
   
   <select id="selectAuthorityByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >

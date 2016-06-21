@@ -29,7 +29,7 @@
 				<div class="content_right clearfix">
 					<div class="add_supplier">
 						<p>
-							<button onclick="jQuery('.zzc').show('800');jQuery('.zzc').find('input[type=\'text\']').val('');">添加加盟供应商</button>
+							<button onclick="jQuery('.zzc').show('800');jQuery('.zzc').find('input[type=\'text\']').val('');">添加供应商</button>
 							<input type="text" placeholder="名称/品牌/号码">
 						</p>
 						<div class="add_supplier_content">
@@ -64,7 +64,7 @@
 
 	<div class="zzc hide">
 	  <div class="add_supplier_alert">
-	     <p>添加加盟供应商</p>
+	     <p>添加供应商</p>
 	     <div class="add_supplier_alert_content">
 		   <p><em>供应商名称</em><input type="hidden" name="supplierId"><input type="text" name="supplierName"></p>
 		   <p><em>地址</em><input type="text" style="width:200px" name="linkName"></p>

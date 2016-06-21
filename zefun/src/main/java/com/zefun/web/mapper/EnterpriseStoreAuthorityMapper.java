@@ -54,7 +54,7 @@ public interface EnterpriseStoreAuthorityMapper {
     * @return List<EnterpriseStoreAuthority>
      */
     List<EnterpriseStoreAuthority> selectByProperties(EnterpriseStoreAuthority record);
-    
+     
     /**
      * 
     * @author 老王
@@ -64,4 +64,13 @@ public interface EnterpriseStoreAuthorityMapper {
      */
     int updateByPrimaryKeySelective(EnterpriseStoreAuthority record);
 
+    /**
+     * 判断授权码是否存在
+    * @author 老王
+    * @date 2016年6月20日 下午3:25:39 
+    * @param record record
+    * @return int
+     */
+    Integer selectIsExistsAuthorityValue(EnterpriseStoreAuthority record);
+    
 }

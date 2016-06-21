@@ -180,7 +180,7 @@ function confirmUpgradeRenew () {
 function changeStore (obj) {
 	var storeId = jQuery(obj).val();
 	jQuery("select[name='employeeSelect']").empty();
-	jQuery("select[name='employeeSelect']").append("<option>选择员工 </option>")
+	jQuery("select[name='employeeSelect']").append("<option name = 'employee'>选择员工 </option>")
 	for (var i = 0; i < storeEmployeeList.length; i++) {
 		if (storeId == storeEmployeeList[i].storeId) {
 			var employeeInfos = storeEmployeeList[i].employeeInfos;
@@ -195,13 +195,20 @@ function changeStore (obj) {
 
 var authorityObj = "";
 function updateAuthority (obj, storeAuthorityId, storeId, employeeId, authorityValue) {
+	if (!isEmpty(jQuery("input[name='storeAuthorityId']").val())) {
+		if(confirm("正在编辑授权码，需要取消编辑吗？")){
+			clinAuthority();
+		}
+	}
+	
 	authorityObj = obj;
 	jQuery("input[name='storeAuthorityId']").val(storeAuthorityId);
 	jQuery("select[name='storeSelect']").val(storeId);
-	jQuery("select[name='employeeSelect']").find("option[value='"+employeeId+"']").attr("selected", "selected");
+	jQuery("select[name='storeSelect']").attr("disabled", "disabled");
 	
+	jQuery("select[name='employeeSelect']").attr("disabled", "disabled");
 	jQuery("select[name='employeeSelect']").empty();
-	jQuery("select[name='employeeSelect']").append("<option>选择员工 </option>")
+	jQuery("select[name='employeeSelect']").append("<option name = 'employee'>选择员工 </option>")
 	for (var i = 0; i < storeEmployeeList.length; i++) {
 		if (storeId == storeEmployeeList[i].storeId) {
 			var employeeInfos = storeEmployeeList[i].employeeInfos;
@@ -216,7 +223,8 @@ function updateAuthority (obj, storeAuthorityId, storeId, employeeId, authorityV
 			}
 		}
 	}
-	jQuery("select[name='employeeSelect']").trigger("liszt:updated");
+	
+	jQuery("select[name='storeSelect']").trigger("liszt:updated");
 	
 	jQuery("input[name='authorityValue']").val(authorityValue);
 	jQuery("select[name='employeeSelect']").trigger("liszt:updated");
@@ -251,6 +259,7 @@ function editStore (storeId) {
         	jQuery("#searchtext").val(storeInfo.storeAddress);
         	jQuery("#userName").text(userName);
         	jQuery("input[name='storeId']").val(storeInfo.storeId);
+        	
         }
     });
 }
@@ -262,22 +271,26 @@ function addAuthority () {
 	var employeeId = jQuery("select[name='employeeSelect']").val();
 	var authorityValue = jQuery("input[name='authorityValue']").val();
 	
-	if (isEmpty(employeeId)) {
-		dialog("员工不能为空");
+	if (isEmpty(storeId) || storeId == "选择门店") {
+		dialog("门店不能为空");
 		return;
 	}
 	
-	if (isEmpty(storeId)) {
-		dialog("门店不能为空");
+	if (isEmpty(employeeId) || employeeId == "选择员工") {
+		dialog("员工不能为空");
 		return;
 	}
 	var reg = /^\w+$/;
 	if (!reg.test(authorityValue)) {
 		// 如果验证失败给出警告
-		dialog("用户名限定为字母、数字或下划线的组合");
+		dialog("授权码限定为字母、数字或下划线的组合");
 		return;
 	}
-	
+	if (authorityValue.length != 6) {
+		// 如果验证失败给出警告
+		dialog("请输入6位授权码");
+		return;
+	}
 	jQuery.ajax({
         cache: true,
         type: "POST",
@@ -293,16 +306,60 @@ function addAuthority () {
         	if (!isEmpty(storeAuthorityId)) {
         		jQuery(authorityObj).parent().parent().remove();
         	}
-        	jQuery("#authorityTable").append("<tr>"+
-											   "<td>"+objData.storeName+"</td>"+
-											   "<td>"+objData.authorityValue+"</td>"+
-											   "<td>"+objData.employeeCode+" "+objData.name+"</td>"+
-											   "<td>"+objData.createTime+"</td>"+
-											   "<td><em onclick='updateAuthority(this, "+objData.storeAuthorityId+", "+objData.storeId+", "+objData.employeeId+", \'"+objData.authorityValue+"\')''>修改</em></td>"+
-											"</tr>");
-        	dialog("新增授权码成功");
+        	jQuery("#authorityTable").append('<tr>'+
+											   '<td>'+objData.storeName+'</td>'+
+											   '<td>'+objData.authorityValue+'</td>'+
+											   '<td>'+objData.employeeCode+' '+objData.name+'</td>'+
+											   '<td>'+objData.createTime+'</td>'+
+											   '<td>' +
+											      '<em onclick="updateAuthority(this, '+objData.storeAuthorityId+', '+objData.storeId+', '+objData.employeeId+', \''+objData.authorityValue+'\')"><img src="'+baseUrl+'images/architecture_edit.png"></em>' +
+											      '<em onclick="deleteAuthority(this, '+objData.storeAuthorityId+')"><img src="'+baseUrl+'images/architecture_delete.png"></em>' +
+											   '</td>'+
+											'</tr>');
+        	clinAuthority();
+        	dialog("授权码操作成功");
         }
     });
+}
+
+function clinAuthority () {
+	jQuery("input[name='storeAuthorityId']").val("");
+	jQuery("input[name='authorityValue']").val("");
+	jQuery("select[name='storeSelect']").find("[name='store']").attr("selected", "selected");
+	jQuery("select[name='employeeSelect']").find("[name='employee']").attr("selected", "selected");
+	jQuery("select[name='storeSelect']").removeAttr("disabled");
+	jQuery("select[name='employeeSelect']").removeAttr("disabled");
+	jQuery("select[name='storeSelect']").trigger("liszt:updated");
+	jQuery("select[name='employeeSelect']").trigger("liszt:updated");
+}
+
+function deleteAuthority (obj, storeAuthorityId) {
+	if (!isEmpty(jQuery("input[name='storeAuthorityId']").val())) {
+		if(confirm("正在编辑授权码，需要取消编辑吗？")){
+			clinAuthority();
+		}
+	}
+	else {
+		return;
+	}
+	
+	if(confirm("确认要删除该条授权码吗？")){
+		jQuery.ajax({
+	        cache: true,
+	        type: "POST",
+	        url: baseUrl + "storeinfo/action/deleteAuthority",
+	        data: "storeAuthorityId=" + storeAuthorityId,
+	        async: false,
+	        success: function(data) {
+	        	if (data.code != 0) {
+	                dialog(data.msg);
+	                return;
+	            }
+	        	jQuery(obj).parent().parent().remove();
+	        	dialog("授权码删除成功");
+	        }
+	    });
+	}
 }
 
 function msnRecharge () {
