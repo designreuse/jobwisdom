@@ -253,9 +253,10 @@
 													<td>是否有次数限制</td>
 													<td>疗程内项目数量</td>
 													<td>疗程单次服务业绩计算</td>
-													<td rowspan="2"><button onclick="saveProject()">确认</button></td>
+													<td rowspan="2"><button onclick="jQuery(this).hide();jQuery(this).next().show();jQuery(this).parents('tr').next().show();">新增</button>
+													<button style="display: none" onclick="saveProject(this)">保存</button></td>
 												</tr>
-												<tr>
+												<tr style="display: none">
 													<td><select onchange="descProjectPrice(this)" name="projectId"><c:forEach items="${projectInfoDtoList }" var="projectInfo"><option projectPrice="${projectInfo.projectPrice }" value="${projectInfo.projectId }">${projectInfo.projectName }</option></c:forEach></select></td>
 													<td>0.00 元</td>
 													<td><span><input type="radio" name="isCountLimit" value="1" checked="checked">是</span><span><input type="radio" name="isCountLimit" value="0">否</span></td>
@@ -287,12 +288,12 @@
 													<td>商品原价</td>
 													<td>疗程内商品数量</td>
 													<td>疗程商品业绩计算</td>
-													<td rowspan="2"><button onclick="saveGoods()">创建</button></td>
+													<td rowspan="2"><button onclick="jQuery(this).hide();jQuery(this).next().show();jQuery(this).parents('tr').next().show();">新增</button><button style="display: none" onclick="saveGoods(this)">保存</button></td>
 												</tr>
-												<tr>
+												<tr style="display: none">
 													<td><select onchange="descGoodsPrice(this)" name="goodsId"><c:forEach items="${goodsinfos }" var="goodsinfo"><option goodsPrice="${goodsinfo.goodsPrice }" value="${goodsinfo.goodsId }">${goodsinfo.goodsName }</option></c:forEach></select></td>
 													<td>0.00元</td>
-													<td><input type="text" name="goodsCounts" value="0"><i>个</i></td>
+													<td><input type="text" name="goodsCounts" value="0"><i style="right: 50px;">个</i></td>
 													<td><input type="text" name="comboPerformanceCal" value="0" style="padding-right: 20px; width: 106px"><i style="right: 48px">元</i></td>
 												</tr>
 											</tbody>
@@ -448,7 +449,7 @@ var u1 = UE.getEditor('editor1', toolbars);
 	}
 	})
 	/**保存套餐内的项目*/
-	function saveProject(){
+	function saveProject(tr){
 		var projectId = jQuery("select[name='projectId']").val();
 		var projectName = jQuery("select[name='projectId']").children("option:selected").text();
 		var projectPrice = jQuery("select[name='projectId']").children("option:selected").attr("projectPrice");
@@ -456,6 +457,9 @@ var u1 = UE.getEditor('editor1', toolbars);
 		var comboPerformanceCal = jQuery("input[name='comboPerformance']").val();
 		var isCountLimit = jQuery("input[name='isCountLimit']:checked").val();
 		saveShowProject(comboId, projectId, projectName, projectPrice, isCountLimit, projectCount, comboPerformanceCal);
+		jQuery(tr).prev().show();
+		jQuery(tr).hide();
+		jQuery(tr).parents("tr").next().hide();
 	}
 	/**保存项目展示*/
 	function saveShowProject(comboId, projectId, projectName, projectPrice, isCountLimit, projectCount, comboPerformanceCal){
@@ -473,13 +477,16 @@ var u1 = UE.getEditor('editor1', toolbars);
 		jQuery("#project").append(jQuery(html));
 	}
 	
-	function saveGoods(){
+	function saveGoods(tr){
 		var goodsId = jQuery("select[name='goodsId']").val();
 		var goodsName = jQuery("select[name='goodsId']").children("option:selected").text();
 		var goodsPrice = jQuery("select[name='goodsId']").children("option:selected").attr("goodsPrice");
 		var goodsCounts = jQuery("input[name='goodsCounts']").val();
 		var comboPerformanceCal = jQuery("input[name='comboPerformanceCal']").val();
 		saveShowGoods(comboId, goodsId, goodsName, goodsPrice, goodsCounts, comboPerformanceCal);
+		jQuery(tr).prev().show();
+		jQuery(tr).hide();
+		jQuery(tr).parents("tr").next().hide();
 	}
 	/**保存商品展示*/
 	function saveShowGoods(comboId, goodsId, goodsName, goodsPrice, goodsCounts, comboPerformanceCal){
@@ -511,7 +518,10 @@ var u1 = UE.getEditor('editor1', toolbars);
 				},1000,function(){
 			jQuery(but).parents("li").remove()
               })
-     	}
+        jQuery(".select_de").eq(0).find("tr").eq(1).show();
+		jQuery(".select_de").eq(0).find("tr").eq(0).find("button").eq(0).hide();
+		jQuery(".select_de").eq(0).find("tr").eq(0).find("button").eq(1).show();
+    }
 	/**编辑商品*/
 	function editGoods(but){
 		var goodsId = jQuery(but).parents("li").attr("goodsId");
@@ -525,6 +535,9 @@ var u1 = UE.getEditor('editor1', toolbars);
 				},1000,function(){
 			jQuery(but).parents("li").remove()
               })
+        jQuery(".select_de").eq(1).find("tr").eq(1).show();
+		jQuery(".select_de").eq(1).find("tr").eq(0).find("button").eq(0).hide();
+		jQuery(".select_de").eq(1).find("tr").eq(0).find("button").eq(1).show();
 	}
 	
 	function coverData(){

@@ -378,7 +378,7 @@ input[type=radio] {
 .step_1 td{width:100px;   border-bottom:1px solid #ccc;border-right:1px solid #fff;line-height:40px;text-align:center
  }
 .cut_step_1,.cut_step_3{border:none!important}
-.step_1 input{border:none;width:80px}
+.step_1 input{width:80px}
 
 .step_2{margin-top:40px;width:900px}
 .step_2  select{width:158px}

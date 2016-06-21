@@ -530,7 +530,7 @@
 		deptId = deptIds;
 		for (var int = 0; int < deptProjectList.length; int++) {
 			if (deptProjectList[int].deptId == deptId) {
-				jQuery("select[name='categoryId']").empty()
+				jQuery("select[name='categoryId']").empty();
 				for (var j = 0; j < deptProjectList[int].projectCategoryList.length; j++) {
 					var categoryId = deptProjectList[int].projectCategoryList[j].categoryId
 					var categoryName = deptProjectList[int].projectCategoryList[j].categoryName
@@ -546,8 +546,11 @@
 	/**
 	 * 保存数据,根据步骤去保存数据
 	 */
+	// 是否存在异常数据,可允许提交
+	var isCommit = false;
 	function save3(){
 		var data = coverDate();
+		if (!isCommit){dialog("当前项目为可预约项目,请至少设置一个可预约的步骤!");return;}
 		jQuery.ajax({
 			type : "post",
 			url : baseUrl + "project/view/save",
@@ -619,6 +622,8 @@
 		
 		var data1 = [];
 		var data2 = [];
+		/**是否有可预约的步骤*/
+		var isHasDIsable = false;
 		for (var i = 0; i < jQuery('.table_s').find("td[rowspan][date]").length; i++) {
 			var shift = jQuery('.table_s').find("td[rowspan][date]").eq(i);
 			var shiftMahjongId = shift.parent("tr").attr("shiftmahjongid");
@@ -627,8 +632,15 @@
 			var stepPerformance = shift.parent("tr").children("td[stepperformance]").attr("stepperformance");
 			var stepPerformanceType = shift.parent("tr").children("td[stepperformancetype]").attr("stepperformancetype");
 			var isDisable = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[isdisable]").attr("isdisable");
+			if (isDisable == 1){isHasDIsable = true;}
 			var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"projectStepOrder":projectStepOrder,"projectStepName":projectStepName,"stepPerformance":stepPerformance,"stepPerformanceType":stepPerformanceType,"isDisable":isDisable,"isDeleted":0};
 			data1.push(jsonObject);
+		}
+		if (isAppointment == 1 && isHasDIsable == false){
+			isCommit = false;
+		}
+		else {
+			isCommit = true;
 		}
 		for (var i = 1; i < jQuery('.table_s').find("tr").length; i++) {
 			var levelId = jQuery('.table_s').find("tr").eq(i).children("td[levelid]").attr("levelid");
