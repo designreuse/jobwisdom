@@ -135,7 +135,7 @@
        
 	     <div class="money_head_content">
 	        <div class="money_head clearfix">
-				<p class="money_head_p"><img src="assets/images/money_head.png"></p>
+				<p class="money_head_p"><img src=""></p>
 				<div class="boss_number_">
 				  <span class="boss_sex"></span>
 				  <span class="order_number"><em name="orderNumber"></em></span>

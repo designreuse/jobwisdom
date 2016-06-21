@@ -19,12 +19,9 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
-import com.zefun.common.utils.EmployeeAttendanceDateUtil;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.EmployeeCommissionMapper;
-import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.service.EmployeeAttendanceService;
 import com.zefun.wechat.service.BossOfEmployeeCommissionService;
 import com.zefun.wechat.service.StaffCentreService;
@@ -53,17 +50,10 @@ public class StaffCentreController extends BaseController{
 	@Autowired
 	private EmployeeCommissionMapper employeeCommissionMapper;
 	
-	/** 店铺信息映射 */
-	@Autowired
-	private StoreInfoMapper storeInfoMapper;
 	
 	/**签到距离*/
 	private static final int SIGN_IN_DISTANCE = 200;
     
-    /**测试门店*/
-    private int storeId = 1005;
-    /**测试员工*/
-    private int employeeId = 522;
     
     /**
      * 个人中心
@@ -92,20 +82,18 @@ public class StaffCentreController extends BaseController{
     * @date Oct 28, 2015 6:10:05 PM
     * @param request 返回
     * @param response 请求
-    * @param longitude 员工当前位置经度
-    * @param latitude 员工当前位置纬度
     * @return   打卡成功返回0；失败返回其它错误码。
      */
     @RequestMapping(value = Url.Staff.ACTION_SIGN_OPERATE, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto signOperate(HttpServletRequest request, HttpServletResponse response, Double longitude, Double latitude){
-        /*String openId = getOpenId(2, request, response);
+    public BaseDto signOperate(HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
         int employeeId = getUserIdByOpenId(openId);
-        int storeId = getStoreIdByOpenId(openId);*/
-        //首先根据经纬度判断该员工是否在店铺附近
+        int storeId = getStoreIdByOpenId(openId);
+        /*//首先根据经纬度判断该员工是否在店铺附近
         StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
         if (storeInfo == null || storeInfo.getLatitude() == null || storeInfo.getLongitude() == null) {
         	return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "您所在店铺还未设置坐标，暂无法签到");
@@ -114,7 +102,7 @@ public class StaffCentreController extends BaseController{
         		  Double.parseDouble(storeInfo.getLatitude()), Double.parseDouble(storeInfo.getLongitude()));
         if (SIGN_IN_DISTANCE < distance) {
         	return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "请在店铺内进行签到");
-        }
+        }*/
         return employeeAttendanceService.signOperate(storeId, employeeId);
     }
     

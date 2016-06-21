@@ -23,7 +23,18 @@
 .rollBox #List1,.rollBox #List2{float:left;}
 #preview{width:100px;border:none;overflow:hidden;}
 #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width:80px;height:80px}
-
+.tishi {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background: red;
+    color: white;
+    text-align: center;
+    line-height: 16px;
+    cursor: pointer;
+    font-size: 16px;
+}
 </style>
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
@@ -111,8 +122,8 @@
 					      <input type="hidden" name = "storeAuthorityId">
 					      <div class="left_detail">
 						     <p>门店<p>
-							 <select name = "storeSelect" onchange="changeStore(this)">
-							   <option>选择门店 </option>
+							 <select name = "storeSelect" class='chzn-select mr5 input-medium' onchange="changeStore(this)">
+							   <option name = 'store'>选择门店 </option>
 							   <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
 							       <option value="${storeInfo.storeId }">${storeInfo.storeName }</option>
 							   </c:forEach>
@@ -128,7 +139,7 @@
 						    <div class="left_detail">
 						     <p>授权码<p>
 							 <input type="text" name = "authorityValue" class = ""  style="width: 130px;height: 22px;">
-							  <span><a href="javascript:;">*</a>
+							  <span><a href="javascript:;" class= "tishi">?</a>
 							    <em><i>请输入6位密码，
 				数字和字母组合。</i></em>
 							  </span>
@@ -156,7 +167,10 @@
 								   <td>${enterpriseStoreAuthority.authorityValue }</td>
 								   <td>${enterpriseStoreAuthority.employeeCode } ${enterpriseStoreAuthority.name }</td>
 								   <td>${enterpriseStoreAuthority.createTime }</td>
-								   <td><em onclick="updateAuthority(this, ${enterpriseStoreAuthority.storeAuthorityId }, ${enterpriseStoreAuthority.storeId }, ${enterpriseStoreAuthority.employeeId }, '${enterpriseStoreAuthority.authorityValue }')">修改</em></td>
+								   <td>
+								      <em onclick="updateAuthority(this, ${enterpriseStoreAuthority.storeAuthorityId }, ${enterpriseStoreAuthority.storeId }, ${enterpriseStoreAuthority.employeeId }, '${enterpriseStoreAuthority.authorityValue }')"><img src="<%=basePath%>images/architecture_edit.png"></em>
+								      <em onclick="deleteAuthority(this, ${enterpriseStoreAuthority.storeAuthorityId })"><img src="<%=basePath%>images/architecture_delete.png"></em>
+								   </td>
 								</tr>
 							</c:forEach>
 							

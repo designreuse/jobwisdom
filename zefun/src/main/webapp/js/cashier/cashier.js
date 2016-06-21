@@ -235,14 +235,14 @@ function submitOrderInfo() {
 	var data = {'orderId':orderId,'cardAmount':cardAmount,'cashAmount':cashAmount,
         	'unionpayAmount':unionpayAmount,'wechatAmount':wechatAmount,'alipayAmount':alipayAmount,
         	'groupAmount':groupAmount,'debtAmount':debtAmount,'detailList':details,'isNotify':isNotify,
-        	'subAccountId':jQuery("[name='nextLevelId']").attr("levelId")};
+        	'subAccountId':jQuery("[name='nextLevelId']").attr("levelId"), 'updatePricArray' : JSON.stringify(updatePricArray), 'upRemark' : upRemark};
 	
 	jQuery.ajax({
         type: "POST",
         url: baseUrl + "selfcashier/action/submitorder",
         contentType: "application/json",
         data: JSON.stringify(data),
-		success: function(data) {
+        success: function(data) {
 			if(data.code != 0) {
 				dialog(data.msg);
 			} else {
@@ -973,10 +973,10 @@ function onchangeUpdatePric (obj) {
 function addStr(detailId, updatePricValue) {
 	for (var i = 0; i < detailList.length; i++) {
 		if (detailList[i].detailId == detailId) {
-			var str = '<tr detailId = "'+detailList[i].detailId+'">'+
+			var str = '<tr detailId = "'+detailList[i].detailId+'" realMoney = "'+detailList[i].realMoney+'">'+
 				       '<td>'+detailList[i].projectName+'</td>'+
 			           '<td >'+detailList[i].realMoney+'</td>'+
-					   '<td><input type="text" onkeyup="value=value.replace(/^((\d*[1-9])|(0?\.\d{2}))$/g,\'\')"  name = "updatePricValue" value = "'+updatePricValue+'"></td>'+
+					   '<td><input type="text"  name = "updatePricValue" value = "'+updatePricValue+'"></td>'+
 					   '<td onclick="deleteUpdatePricd(this, '+detailList[i].detailId+', \''+detailList[i].projectName+'\')"><img src="'+baseUrl+'images/append_add.png" style="width:20px"></td>'+
 				      '</tr>';
 			jQuery("#updatePricTable").append(str);
@@ -993,8 +993,9 @@ var updatePricArray = "";
 var upRemark = "";
 function saveUpdatePric () {
 	updatePricArray = new Array();
-	jQuery("input[name='updatePricValue']").each(function() {
-		var updatePricValue = jQuery(this).val();
+	var objArray = jQuery("input[name='updatePricValue']");
+	for (var i = 0; i < objArray.length; i++) {
+		var updatePricValue = jQuery(objArray[i]).val();
 		if (isEmpty(updatePricValue)) {
 			dialog("改价金额不能为空！");
 			return;
@@ -1003,10 +1004,11 @@ function saveUpdatePric () {
 			dialog("改价金额大于0！");
 			return;
 		}
-		var detailId = jQuery(this).parent().parent().attr("detailId");
-		var updatePricObj = {"detailId" : detailId, "updatePricValue" : updatePricValue};
+		var detailId = jQuery(objArray[i]).parent().parent().attr("detailId");
+		var realMoney = jQuery(objArray[i]).parent().parent().attr("realMoney");
+		var updatePricObj = {"detailId" : detailId, "realMoney" : realMoney, "updatePricValue" : updatePricValue};
 		updatePricArray.push(updatePricObj);
-	});
+	}
 	upRemark = jQuery("input[name='upRemark']").val();
 	if (isEmpty(upRemark)) {
 		dialog("改价说明不能为空！");
@@ -1016,6 +1018,7 @@ function saveUpdatePric () {
 		dialog("请选择改价项目！");
 		return;
 	}
+	jQuery(".change_price_content").hide();
 }
 
 function cancleSure() {

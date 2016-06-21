@@ -1198,6 +1198,8 @@ public interface Url {
 		public static final String RECHARGE_FLOW = "/storeinfo/action/rechargeFlow";
 		/** 新增门店授权码*/
 		public static final String ADD_OR_UPDATE_AUTHORITY = "/storeinfo/action/addOrUpdateAuthority";
+		/** 删除授权码*/
+		public static final String DELETE_AUTHORITY = "/storeinfo/action/deleteAuthority";
 		/** 升级续费*/
 		public static final String CONFIRM_UPGRADE_RENEW = "/storeinfo/action/confirmUpgradeRenew";
 		/** 增加门店 */

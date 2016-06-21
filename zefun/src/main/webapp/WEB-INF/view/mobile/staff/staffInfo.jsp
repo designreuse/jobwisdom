@@ -19,7 +19,7 @@
 		        <li class="avatar normal-li">
 		            <span class="list-name li-name dep-blue-font-color">头像</span>
 		            <span class="fr iconfont icon-right"></span>
-		            <img src="<%=picPath %>${employeeInfo.headImage}?imageView2/1/w/230/h/230" alt="" class="fr mr2"/>
+		            <img src="<%=picPath %>${employeeInfo.headImage}?imageView2/1/w/230/h/230" onclick="chooseImgage()" alt="" class="fr mr2"/>
 		        </li>
 		        <li class="name normal-li">
 		            <span class="li-name dep-blue-font-color">姓名</span>
@@ -77,6 +77,8 @@
 	    </div>
 	</div>
 </div>
+<%@include file="../wechatBase.jsp" %>
+<script src="<%=basePath%>js/qiniu/qiniu.min.js"></script>
 <script type="text/javascript" src="<%=jqueryJsPath%>"></script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"></script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"> </script>
@@ -99,6 +101,41 @@ function logout(){
         }
     });
 }
+
+function chooseImgage(){
+    wx.chooseImage({
+        count: 1,
+        sizeType: ['original'],
+        sourceType: ['album', 'camera'], 
+        success: function (res) {
+            var localIds = res.localIds; 
+            wx.uploadImage({
+                localId: localIds[0], 
+                isShowProgressTips: 1,
+                success: function (res) {
+                    var serverId = res.serverId;
+                    var key = "userhead/" + userId + "/" + new Date().getTime();
+                    $.ajax({
+                        type : "post",
+                        url : baseUrl + "wechat/fetch/media",
+                        data : "mediaid=" + serverId + "&key=" + key,
+                        dataType : "json",
+                        success : function(e){
+                            if (e.code != 0) {
+                                dialog(e.msg);
+                                return;
+                            }
+                            headUrl = key;
+                            $("#headImg").attr("src", picUrl + key + "?imageView2/1/w/220/h/220");
+                            updateInfo(null);
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
 </script>
 </body>
 </html>

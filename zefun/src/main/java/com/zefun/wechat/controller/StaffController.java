@@ -104,12 +104,13 @@ public class StaffController extends BaseController {
     * @return   会员注册页面
      */
     @RequestMapping(value = Url.Staff.VIEW_REGISTER, method = RequestMethod.GET)
-    public String registerView(HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView registerView(HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
-        return View.StaffPage.STAFF_LOGIN;
+        String storeAccount = getStoreAccount(request);
+        return staffService.registerView(storeAccount);
     }
 
     /**
