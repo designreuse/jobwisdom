@@ -7,7 +7,6 @@ import org.mybatis.generator.api.dom.java.Field;
 public class DefaultCommentGenerator
         extends org.mybatis.generator.internal.DefaultCommentGenerator {
 
-    @Override
     public void addFieldComment(Field field,
             IntrospectedTable introspectedTable,
             IntrospectedColumn introspectedColumn) {

@@ -84,7 +84,7 @@ ${session_key_system_head_menu }
 	   <li style="top:440px"><span></span>员工管理</li>
        <li style="top:510px"><span></span>企业管理</li>
        <li style="top:580px"><span></span>微信管理</li>
-       <li style="top:580px"><span></span>系统设置</li>
+       <li style="top:650px"><span></span>系统设置</li>
 	</ul> --%>
 	${session_key_system_left_submenu }
 	<%-- <div class="left_nav_2" style="height: 840px;">
@@ -198,18 +198,20 @@ jQuery(function(){
 	})
 })
 
-var menu = {"goods":"goodsInfo/view/goodsInfoList", "project":"project/view/projects", "comboInfo":"comboInfo/view/comboInfoList"};
+var menu = {"goods":"goodsInfo/view/goodsInfoList", "project":"project/view/projects", "comboInfo":"comboInfo/view/comboInfoList", "KeepAccounts" : "KeepAccounts/initializeStoreFlow"};
 function choseMenu(url){
 	if (typeof(jQuery(".left_nav_2").find("a[href='"+url+"']").html()) == 'undefined'){
 		if (url.indexOf("goods")!=-1){
 			url = baseUrl + menu["goods"];
-			
 		}
 		if (url.indexOf("project")!=-1){
 			url = baseUrl + menu["project"];
 		}
 		if (url.indexOf("comboInfo")!=-1){
 			url = baseUrl + menu["comboInfo"];
+		}
+		if (url.indexOf("KeepAccounts")!=-1){
+			url = baseUrl + menu["KeepAccounts"];
 		}
 		url = url.replace(":80","");
 		choseIcon(url);

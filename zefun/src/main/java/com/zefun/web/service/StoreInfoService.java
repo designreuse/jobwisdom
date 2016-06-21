@@ -1003,9 +1003,6 @@ public class StoreInfoService {
         Integer hqStoreId = null;
         if (storeType == 3) {
             UserAccount hqAccount = new UserAccount()/*userAccountMapper.selectByUserName(hqUserName)*/;
-            if (hqAccount == null) {
-                return new BaseDto(4, "总店账号不可用");
-            }
             StoreInfo hqStoreInfo = storeInfoMapper.selectByPrimaryKey(hqAccount.getStoreId());
             if (hqStoreInfo == null || hqStoreInfo.getStoreType() != 2) {
                 return new BaseDto(4, "总店账号不可用");
@@ -2080,22 +2077,22 @@ public class StoreInfoService {
         goodsCategory.setCategoryId(categoryId);
         GoodsInfo goodsInfo = new GoodsInfo();
         goodsInfo.setAffiliatedImage("zefun/images/pic_none.gif,zefun/images/pic_none.gif,zefun/images/pic_none.gif,zefun/images/pic_none.gif");
-        goodsInfo.setBrandId("海飞丝");
+//        goodsInfo.setBrandId("海飞丝");
         goodsInfo.setCalculationType(1);
         goodsInfo.setCardAmount(5);
         goodsInfo.setCategoryId(categoryId);
         goodsInfo.setCommissionAmount(5);
         goodsInfo.setCommissionType(1);
-        goodsInfo.setCostPrice(new BigDecimal(50));
+//        goodsInfo.setCostPrice(new BigDecimal(50));
         goodsInfo.setDeptId(deptId);
         goodsInfo.setGoodsDesc("门店初始化商品模板");
         goodsInfo.setGoodsImage("zefun/images/pic_none.gif");
-        goodsInfo.setGoodsName("标准商品");
+//        goodsInfo.setGoodsName("标准商品");
         goodsInfo.setGoodsPrice(new BigDecimal(100));
-        goodsInfo.setGoodsStock(10);
+//        goodsInfo.setGoodsStock(10);
         goodsInfo.setHighestDiscount(new BigDecimal(5));
         goodsInfo.setIsCashDeduction(1);
-        goodsInfo.setIsSellProduct(1);
+//        goodsInfo.setIsSellProduct(1);
         goodsInfo.setOnlineShoppingPrice(new BigDecimal(10));
         goodsInfo.setWarnStock(10);
         goodsInfo.setIsDeleted(0);
@@ -2452,7 +2449,7 @@ public class StoreInfoService {
             Integer memberLevelId = memberLevels.get(i).getLevelId();
             memberLevels.get(i).setStoreId(storeId);
             memberLevels.get(i).setLevelId(null);
-            memberLevelMapper.insert(memberLevels.get(i));
+//            memberLevelMapper.insert(memberLevels.get(i));
             memberLevelKv.put(memberLevelId, memberLevels.get(i).getLevelId());
         }
 

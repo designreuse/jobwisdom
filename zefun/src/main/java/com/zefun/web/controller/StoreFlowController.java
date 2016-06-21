@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.common.consts.Url;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.IncometypeDto;
+import com.zefun.web.dto.InitializeInFoDto;
+import com.zefun.web.entity.InitializeInFo;
 import com.zefun.web.entity.StoreFlow;
 import com.zefun.web.service.StoreFlowService;
 
@@ -33,6 +37,12 @@ public class StoreFlowController extends BaseController{
 	 */
 	@Autowired
 	private StoreFlowService storeFlowService;
+	
+
+
+    
+    
+
 	
 	/**
 	 * 新增开支记账
@@ -72,30 +82,30 @@ public class StoreFlowController extends BaseController{
 	/**
 	 * 初始化开卡记账界面
      * 默认返回该门店最前面10条数据
-	* @author 王大爷
-	* @date 2015年8月11日 上午10:51:46
+	* @author 骆峰
+	* @date 2016年6月18日 13:35:31
 	* @param request 返回
 	* @param response 请求
 	* @return ModelAndView
 	 */
 	@RequestMapping(value = Url.KeepAccounts.INITIALIZESTOREFLOW, method = RequestMethod.GET)
-	public ModelAndView initializeStoreFlow(HttpServletRequest request, HttpServletResponse response){
-        return storeFlowService.initializeStoreFlow(getStoreId(request), Integer.parseInt((DateUtil.getMinMonthDateStr()).replace("-", "")), 
-                Integer.parseInt((DateUtil.getMaxMonthDateStr()).replace("-", "")));
-	}
+    public ModelAndView initializeStoreFlow(HttpServletRequest request, HttpServletResponse response){
+	    Integer storeId = getStoreId(request);
+	    return storeFlowService.initializeStoreFlow(storeId);
+    }
 	
 	/**
-	 * 进入开支记账类别管理页面
-    * @author 王大爷
-    * @date 2015年8月11日 上午10:51:46
+	 * 进入收支类别管理页面
+    * @author 骆峰
+    * @date 2016年6月17日 09:37:51
     * @param request 返回
     * @param response 请求
     * @return ModelAndView
      */
     @RequestMapping(value = Url.KeepAccounts.VIEW_ADD_INITIALIZE_TYPE, method = RequestMethod.GET)
     public ModelAndView viewAddInitialize(HttpServletRequest request, HttpServletResponse response){
-        Integer storeId = getStoreId(request);
-        return storeFlowService.viewAddInitialize(storeId);
+        ModelAndView view = storeFlowService.viewSelectInComeType(getStoreId(request));
+        return view;
     }
     
 	
@@ -179,4 +189,54 @@ public class StoreFlowController extends BaseController{
 		return storeFlowService.deleteStoreFlow(flowId);
 	}
 	
+	
+  /**
+    * 收支类别新增
+    * @author 骆峰
+    * @date 2016年6月16日 17:44:54
+    * @param request  返回
+    * @param response 请求
+    * @param incometyped  实体类
+    * @return ModelAndView
+     */
+    @RequestMapping(value = Url.KeepAccounts.VIEW_ADD_INITIALIZE_TYPEADD, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto viewAddInType(HttpServletRequest request, HttpServletResponse response,
+           @RequestBody IncometypeDto incometyped){
+        return storeFlowService.viewAddInComeType(incometyped, getStoreId(request));
+    }
+	
+    /**
+     * 收支记账新增
+    * @author 骆峰
+    * @date 2016年6月18日 下午3:26:33
+    * @param request 请求
+    * @param initialize 实体
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.INITIALIZESTOREFLOWADD, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto initilLize(HttpServletRequest request, @RequestBody InitializeInFo initialize){
+        return storeFlowService.viewAddInitilLize(initialize, getStoreId(request));
+    }
+    
+    
+    /**
+     * 收支记账条件查询分页
+    * @author 骆峰
+    * @date 2016年6月20日 下午2:52:21
+    * @param request request
+    * @param pageNo pageNo
+    * @param type type
+    * @param deptName deptName
+    * @param priceName priceName
+    * @param date1 date1
+    * @param date2 date2
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.INITIALIZESTOREFLOWSELECT, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto initilLize(HttpServletRequest request, Integer pageNo, String type, String deptName, String priceName, String date1, String date2){
+        return  storeFlowService.viewSelectInitilLize(pageNo, getStoreId(request), type, deptName, priceName, date1, date2);
+    }
 }

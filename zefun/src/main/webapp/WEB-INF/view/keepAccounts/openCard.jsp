@@ -3,17 +3,23 @@
 <%@ page import="java.util.Date" %>
 <%@ include file="/head.jsp" %>
 <style>
+   .show_search table td:nth-child(1) img{
+      width:47px;
+      border-radius:25px
+   }
+
+
 	 .new-contentinner {
         background-color: #fff;
 
     }
    .card-main1{overflow:hidden}
-   .card-main{padding:20px 0;overflow:hidden}
+   .card-main{padding:20px 0;}
     .tab-form1 {
         padding:0 0;
         padding-top:20px;
     }
-    .common_table{position:relative;left:-20px}
+    .common_table{position:relative;}
     .n-tab{
         border-right:1px solid #bbbbbb;
     }
@@ -145,8 +151,9 @@
      .member-card li.current dl{border:1px solid black}
      .member-card li .iconfont{color:#f9dd48}
      .member-card li dt{color:#727272;border-bottom:1px solid #f9dd48;}
-     .tab-form1{overflow:hidden}
+     
      .card-main1{overflow:visible}
+     #tab6 .common_table{left:-20px}
 </style>
 <body>
 
