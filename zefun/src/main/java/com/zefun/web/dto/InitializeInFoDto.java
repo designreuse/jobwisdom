@@ -31,7 +31,8 @@ public class InitializeInFoDto {
     
     /** 时间致 */
     private String date2;
-
+    
+    
     
     /** 1收入2支出 */
     private Integer incometypeType;

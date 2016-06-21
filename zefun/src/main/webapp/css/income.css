@@ -33,6 +33,16 @@
     background: rgba(102, 108, 121, 0.8);
 	font-size:14px;color:black
 }
+.zzc2 {
+    position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+	font-size:14px;color:black
+}
 .zzc_add_income{width:600px;height:520px;margin:50px auto;background:white;}
 .zzc_add_income>p{height:66px;text-align:center;line-height:66px;color:white;font-size:18px;background:#26283d}
 .zzc_add_income_content{padding:20px;}
