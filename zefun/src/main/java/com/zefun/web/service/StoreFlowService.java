@@ -453,47 +453,7 @@ public class StoreFlowService {
         return listmap;
 	}
 	
-	/**
-	 * 初始化开支记账页面
-	* @author 王大爷
-	* @date 2015年8月11日 上午11:45:06
-	* @param storeId 门店标识
-	* @param beginTime 开始时间
-	* @param endTime 结束时间
-	* @return ModelAndView
-	 */
-//	public ModelAndView initializeStoreFlow(Integer storeId, Integer beginTime, Integer endTime){
-//		
-//		Page<StoreFlowBaseDto> page = selectPageForMemberLevel(storeId, 1, App.System.API_DEFAULT_PAGE_SIZE, beginTime, endTime);
-//		ModelAndView mav = new ModelAndView();
-//		List<CodeLibrary> businessTypeList =  codeLibraryMapper.selectByTypeNo(101);
-//		List<CodeLibrary> flowSourceList = codeLibraryMapper.selectByTypeNo(103);
-//		List<DeptInfoDto> deptInfoDtoList = deptInfoMapper.selectByshiftMahjong(storeId);
-//		CodeLibraryDto codeLibraryDto =  new CodeLibraryDto();
-//		codeLibraryDto.setFatherCodeNo(1001);
-//		codeLibraryDto.setTypeNo(102);
-//		List<CodeLibrary> businessProjectList = codeLibraryMapper.selectBySunCodeName(codeLibraryDto);
-//		mav.addObject("page", page);
-//		mav.addObject("businessTypeList", businessTypeList);
-//		mav.addObject("businessProjectList", businessProjectList);
-//		mav.addObject("flowSourceList", flowSourceList);
-//		mav.addObject("beginDate", DateUtil.getMinMonthDateStr());
-//		mav.addObject("endDate", DateUtil.getMaxMonthDateStr());
-//		mav.addObject("toDate", DateUtil.getCurDateChine());
-//		mav.addObject("deptInfoDtoList", deptInfoDtoList);
-//		
-//		List<EmployeeDto> employeeDtos = employeeInfoMapper.getDeptEmployee(deptInfoDtoList.get(0).getDeptId());
-//		mav.addObject("employeeDtos", employeeDtos);
-//		
-//		Map<String, Object> map = selectCome(storeId, beginTime, endTime);
-//		
-//		mav.addObject("outComeAll", map.get("outComeAll"));
-//		mav.addObject("inComeAll", map.get("inComeAll"));
-//		
-//		mav.setViewName(View.KeepAccounts.STOREFLOW);
-//		
-//		return mav;
-//	}
+
 	
 	/**
 	 * 动态生成项目类别
@@ -750,6 +710,20 @@ public class StoreFlowService {
         List<InitializeInFo> initializ = initializeInFoMapper.selectByListStoreId(page);
         page.setResults(initializ);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
+    }
+    /**
+     * 收支记账修改
+    * @author 骆峰
+    * @date 2016年6月20日 下午8:25:34
+    * @param storeId storeId
+    * @param initialize initialize
+    * @return BaseDto
+     */
+    public BaseDto updateInitilLize(Integer storeId, InitializeInFo initialize) {
+        // TODO Auto-generated method stub
+        initialize.setStoreId(storeId);
+        initializeInFoMapper.updateByPrimaryKeySelective(initialize);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, initialize);
     }
 
 }

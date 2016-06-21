@@ -7,7 +7,14 @@
 	type="text/css" />
 <script type="text/javascript"
 	src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
-
+<style>
+.income_out_1 {
+	width: 130px;
+	height: 20px;
+	margin-left: 10px;
+	border: 1px solid black;
+}
+</style>
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
@@ -22,8 +29,9 @@
 					<div class="add_income">
 
 						<p>
-							<button onclick="jQuery('.zzc1').show('800')">新增收支</button>
-							<button onclick="window.location.href='<%=basePath %>KeepAccounts/type'">新增收支类别</button>
+							<button onclick="jQuery('.zzc1').show()">新增收支</button>
+							<button
+								onclick="window.location.href='<%=basePath%>KeepAccounts/type'">新增收支类别</button>
 						</p>
 						<ul class="clearfix">
 							<li>部门：<select id="daptid">
@@ -61,10 +69,11 @@
 									<td>收支名称</td>
 									<td>现金</td>
 									<td>备注</td>
+									<td>操作</td>
 								</tr>
 
 								<c:forEach var="initializ" items="${page.results}">
-									<tr id="trs">
+									<tr id="trs" name="${initializ.id}">
 										<td>${initializ.date}</td>
 										<td>${initializ.deptName}</td>
 										<td>${initializ.type}</td>
@@ -72,6 +81,7 @@
 										<td>${initializ.priceName}</td>
 										<td>${initializ.goodsPrice}</td>
 										<td>${initializ.note}</td>
+										<td onclick="update(${initializ.id})" style="cursor: pointer">编辑</td>
 									</tr>
 								</c:forEach>
 
@@ -115,7 +125,7 @@
 						<p>
 							<em>收入类型</em><select id="shouru1"><c:forEach
 									items="${incometype }" var="incometype">
-									<option value="${incometype.name }">${incometype.name }</option>
+									<option value="${incometype.incometypeId}">${incometype.name }</option>
 								</c:forEach></select>
 						</p>
 					</div>
@@ -147,7 +157,7 @@
 						<p>
 							<em>支出类型</em><select id="shouru2"><c:forEach
 									items="${incometypes }" var="incometypes">
-									<option value="${incometypes.name }">${incometypes.name }</option>
+									<option value="${incometypes.incometypeId}">${incometypes.name }</option>
 								</c:forEach></select>
 						</p>
 					</div>
@@ -179,9 +189,106 @@
 		</div>
 	</div>
 
+	<div class="zzc2" style="display: none">
+		<div class="zzc_add_income">
+			<p>修改收支</p>
+			<div class="zzc_add_income_content">
+
+				<div class="zzc_add_income_content_left1">
+					<span><em>部门</em> <select id="bumen3">
+							<c:forEach items="${deptInfos }" var="deptInfo">
+								<option value="${deptInfo.deptId }">${deptInfo.deptName }</option>
+							</c:forEach>
+					</select></span> <span><em style="position: relative; left: 20px">金额</em> <input
+						id="price2" value=" " type="text"></span>
+				</div>
+				<p style="margin-top: 10px">
+					<em style="margin-right: 10px">收支类型</em> <select id="shouzhi2"
+						class="income_out_1" name="type">
+						<option value="1">收入</option>
+						<option value="2">支出</option>
+					</select>
+				</p>
+				<div class="income_num_2">
+					<div class="zzc_add_income_content_left2">
+						<p>
+							<em>收入日期</em><input id="date3" type="text"
+								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+						</p>
+						<p>
+							<em>收入类型</em><select id="shouru3"><c:forEach
+									items="${incometype }" var="incometype">
+									<option value="${incometype.incometypeId}">${incometype.name }</option>
+								</c:forEach></select>
+						</p>
+					</div>
+
+					<div class="income_way" id="income_way">
+						<p>收入方式</p>
+						<span><input type="radio" value="现金" id="money3" checked=""
+							name="money">现金</span> <span><input type="radio"
+							value="银联" id="money" name="money">银联</span> <span><input
+							type="radio" value="微信" id="money3" name="money">微信</span> <span><input
+							type="radio" value="支付宝" id="money3" name="money">支付宝</span>
+					</div>
+
+					<div class="income_saying">
+						<p>备注</p>
+						<p>
+							<textarea id="note3">	  
+	 						 </textarea>
+						</p>
+					</div>
+				</div>
+
+				<div class="income_num_3" style="display: none; position: relative">
+					<div class="zzc_add_income_content_left2">
+						<p>
+							<em>支出日期</em><input id="date4" type="text"
+								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+						</p>
+						<p>
+							<em>支出类型</em><select id="shouru4"><c:forEach
+									items="${incometypes }" var="incometypes">
+									<option value="${incometypes.incometypeId}">${incometypes.name }</option>
+								</c:forEach></select>
+						</p>
+					</div>
+					<p style="position: absolute; right: 100px; top: -40px">
+						<em style="position: relative; top: -90px">支出凭证</em><img
+							src="<%=basePath%>images/add_img.png"
+							style="width: 108px; position: relative; left: 4px">
+					</p>
+					<div class="income_way" id="income_way2">
+						<p>支出方式</p>
+						<span><input type="radio" value="营收现金" id="money4"
+							checked="" name="money_">营收现金</span> <span><input
+							type="radio" value="备用金" id="money4" name="money_">备用金</span>
+					</div>
+					<div class="income_saying">
+						<p>备注</p>
+						<p>
+							<textarea id="note4">	  
+	  </textarea>
+						</p>
+					</div>
+				</div>
+				<div class="income_button">
+					<button onclick="updateSave()">保存</button>
+					<button onclick="jQuery('.zzc2').hide()">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 
 </body>
 <script>
+	function Trim(str){ 
+	    return str.replace(/(^\s*)|(\s*$)/g, ""); 
+	}
 	var deptName = "";
 	var type = "";
 	var priceName = "";
@@ -201,9 +308,19 @@
 			}
 
 		})
+		jQuery('.income_out_1').change(function() {
+			var selected = jQuery(this).find('option:selected').text();
+			if (selected == "收入") {
+				jQuery('.income_num_2').show();
+				jQuery('.income_num_3').hide()
+			} else {
+				jQuery('.income_num_2').hide();
+				jQuery('.income_num_3').show()
+			}
+
+		})
 
 	})
-	
 	function changeType(select) {
 		var type = jQuery(select).val();
 		jQuery('#typename').eq(0).empty();
@@ -221,7 +338,6 @@
 			html = '';
 		}
 	}
-	
 	//分页
 	function changePage() {
 		var datas = "pageNo=" + pageNo + "&deptName=" + deptName + "&type=" + type + "&date1=" + date1 + "&date2=" + date2 + "&priceName="	+ priceName
@@ -241,7 +357,7 @@
 				}
 				jQuery("#tables [id='trs']").empty();
 				jQuery.each(e.msg.results, function(n, value) {
-					var html = '<tr id="trs">'
+					var html = '<tr id="trs" name="'+value.id+'">'
 						+'		<td>'+value.date+'</td>'
 						+'		<td>'+value.deptName+'</td>'
 						+'		<td>'+value.type+'</td>'
@@ -249,6 +365,7 @@
 						+' 		<td>'+value.priceName+'</td>'
 						+'		<td>'+value.goodsPrice+'</td>'
 						+'		<td>'+value.note+'</td>'
+						+'<td onclick="update('+value.id+')" style="cursor: pointer">编辑</td>'
 						+'	</tr>'
 					jQuery("#tables").append(jQuery(html));
 				});
@@ -259,17 +376,15 @@
 	function Save() {
 		var type = jQuery("#shouzhi1 option:selected").val();
 		var types = jQuery("#shouzhi1 option:selected").text();
-
 		// 部门
 		var dapt = jQuery("#bumen1  option:selected").val();
 		// 收支名称
-		var name = jQuery("#shouru" + type + "  option:selected").text();
+		var name = jQuery("#shouru" + type + "  option:selected").val();
 		// 时间
 		var date = jQuery("#date" + type).val();
 		// 金额
 		var price = Trim(jQuery("#price1").val());
 		var reg = /^\d+(\.\d+)?$/; 
-		
 		// 备注
 		var note = Trim(jQuery("#note" + type).val());
 		// 收支方式
@@ -302,7 +417,7 @@
 		}
 	
 	}
-	//条件查询
+	//条件查询 
 	function select() {
 		changes=true;
 		deptName = jQuery("#daptid  option:selected").val();
@@ -313,9 +428,82 @@
 		changePage();
 	}
 	
-   function Trim(str){ 
-        return str.replace(/(^\s*)|(\s*$)/g, ""); 
+  
+   var number;
+   var id ;
+   function update(ids){
+	   id =ids;
+	   var date  =jQuery("tr[name="+id+"]").children('td').eq(0).text();
+	   var dapt_name  =jQuery("tr[name="+id+"]").children('td').eq(1).text();
+	   var type  =jQuery("tr[name="+id+"]").children('td').eq(2).text();
+	   var price_name  =jQuery("tr[name="+id+"]").children('td').eq(3).text();
+	   var type_name  =jQuery("tr[name="+id+"]").children('td').eq(4).text();
+	   var price  =jQuery("tr[name="+id+"]").children('td').eq(5).text();
+	   var note  =jQuery("tr[name="+id+"]").children('td').eq(6).text();
+		if (type == "收入") {
+			jQuery('.income_num_2').show();
+			jQuery('.income_num_3').hide()
+			jQuery("#shouzhi2").val(1);
+			number=3;
+			jQuery("input[name='money'][value='"+price_name+"']").click();
+		} else {
+			jQuery('.income_num_2').hide();
+			jQuery('.income_num_3').show()
+			jQuery("#shouzhi2").val(2);
+			number=4;
+			jQuery("input[name='money_'][value='"+price_name+"']").click();
+		}
+	  
+	   jQuery("#date" + number).val(date);
+	   var count1=jQuery("#bumen3").get(0).options.length;
+	   for(var i=0;i<count1;i++){
+		   if( jQuery("#bumen3").get(0).options[i].text == dapt_name)  {
+			   jQuery("#bumen3").get(0).options[i].selected = true;          
+		  		 break;  
+		   }  
+		   }
+	   
+	   var count=jQuery("#shouru" + number).get(0).options.length;
+	   for(var i=0;i<count;i++){
+	   if( jQuery("#shouru" + number).get(0).options[i].text == type_name)  {
+		   jQuery("#shouru" + number).get(0).options[i].selected = true;          
+	  		 break;  
+	   }  
+	   }
+	 
+	   jQuery("#price2").val(price);
+	   jQuery("#note" + number).val(note);
+	   jQuery('.zzc2').show();
    }
-</script>
+   
+  function  updateSave(){
+	  	var type =jQuery("#shouzhi2 option:selected").text();
+	  	var incometypeType;
+	  	if (type == "收入") {
+			number=3;
+			incometypeType=1;
+		} else {
+			number=4;
+			incometypeType=2
+		}
+	    var note =jQuery("#note" + number).val();
+	    var goods_price =jQuery("#price2").val();
+		var price_name = jQuery("#shouru" + number + "  option:selected").val();
+	    var type_name = jQuery("input[id=money" + number + "]:checked").val();
+	    var dapt = jQuery("#bumen3  option:selected").val();
+	    var data = jQuery("#date" + number).val();
+	   jQuery.ajax({
+			type : "post",
+			url : baseUrl + "KeepAccounts/initializeStoreFlow/update",
+			data : JSON.stringify({"id" : id ,"deptName" : dapt ,"goodsPrice" : goods_price,"type" : type ,"typeName":type_name ,"note":note,"date":data,"priceName":price_name,"isdeleted":0,"incometypeType":incometypeType}),
+			dataType : "json",
+			contentType : "application/json",
+			success : function(e) {
+				dialog("修改成功");
+				window.location.href = baseUrl +"KeepAccounts/initializeStoreFlow";
+			}
+		});
+   }
+ </script>
 
 </html>

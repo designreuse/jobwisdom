@@ -19,7 +19,6 @@ import com.zefun.common.consts.Url;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.IncometypeDto;
-import com.zefun.web.dto.InitializeInFoDto;
 import com.zefun.web.entity.InitializeInFo;
 import com.zefun.web.entity.StoreFlow;
 import com.zefun.web.service.StoreFlowService;
@@ -238,5 +237,20 @@ public class StoreFlowController extends BaseController{
     @ResponseBody
     public BaseDto initilLize(HttpServletRequest request, Integer pageNo, String type, String deptName, String priceName, String date1, String date2){
         return  storeFlowService.viewSelectInitilLize(pageNo, getStoreId(request), type, deptName, priceName, date1, date2);
+    }
+    
+    
+    /**
+     * 收支记账修改
+    * @author 骆峰
+    * @date 2016年6月20日 下午8:22:28
+    * @param request request
+    * @param Initialize Initialize
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.INITIALIZESTOREFLOWUPDATE, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto updateInitilLize(HttpServletRequest request, @RequestBody InitializeInFo  Initialize){
+        return  storeFlowService.updateInitilLize(getStoreId(request), Initialize);
     }
 }

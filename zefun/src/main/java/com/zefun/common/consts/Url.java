@@ -452,8 +452,10 @@ public interface Url {
 		public static final String INITIALIZESTOREFLOW = "KeepAccounts/initializeStoreFlow";
 		/**收支记账新增*/
 		public static final String INITIALIZESTOREFLOWADD = "KeepAccounts/initializeStoreFlow/add";
-		/** 初始化开卡记账页面条件查询 */
+		/** 收支记账条件查询 */
 		public static final String INITIALIZESTOREFLOWSELECT = "KeepAccounts/initializeStoreFlowSelect";
+		/** 收支记账修改 */
+        public static final String INITIALIZESTOREFLOWUPDATE = "KeepAccounts/initializeStoreFlow/update";
 		/** 读取上传excle */
 		public static final String READEXCLE = "KeepAccounts/readExcle";
 		/** 导出excle */
