@@ -5,7 +5,8 @@
 <style>
    .show_search table td:nth-child(1) img{
       width:47px;
-      border-radius:25px
+      border-radius:25px;
+      height: 47px;
    }
 
 
