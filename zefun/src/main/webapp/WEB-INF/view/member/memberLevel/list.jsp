@@ -146,7 +146,7 @@
                  </select>
                 </li>
 			 <li>商品折扣<input type="text" name="goodsDiscount"></li>
-			 <li>业绩折扣打折<input type="text" name="performanceDiscountPercent"></li>
+			 <li>员工业绩折扣<input type="text" name="performanceDiscountPercent"></li>
 			 <li>开卡费用<input type="text" name="sellAmount"></li>
 			 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:28px"></li>
 			 <li style="width:600px"><span class="mr10 label12 font-bold">积分计算方式：</span>

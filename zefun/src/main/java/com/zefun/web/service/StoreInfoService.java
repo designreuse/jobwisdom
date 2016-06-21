@@ -664,6 +664,9 @@ public class StoreInfoService {
     	enterpriseMsnFlowMapper.insertSelective(enterpriseMsnFlow);
     	
     	List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
+    	for (StoreInfo storeInfo2 : storeInfoList) {
+    		storeInfo2.setStoreDesc("");
+		}
     	Integer msnNum = enterpriseAccount.getBalanceMsnNum() - distributionNum;
     	Map<String, Object> map = new HashMap<>();
     	map.put("storeInfoList", storeInfoList);
