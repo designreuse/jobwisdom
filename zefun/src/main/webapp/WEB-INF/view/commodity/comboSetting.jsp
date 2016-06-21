@@ -218,7 +218,6 @@
 							<li class="active"><span>新增疗程</span></li>
 							<li class=""><span style="position: relative; top: 20px">价格<i style="transform: rotate(-45deg);">\</i>提成<i style="transform: rotate(-45deg);">\</i>描述
 							</span></li>
-
 						</ul>
 
 						<div class="add_store_include">
@@ -312,7 +311,7 @@
 								</div>
 								<div class="item_button" style="text-align: center;">  
 									   <button class="bt" onclick="coverData()">保存</button>
-									   <button class="bt">取消</button>
+									   <button onclick="window.location.href='<%=basePath%>comboInfo/view/comboInfoList'">取消</button>
 								</div>
 							</div>
 
@@ -376,7 +375,7 @@
 							    </div>
 								<div class="item_button" style="text-align: center;">  
 								   <button class="bt" onclick="coverData()">保存</button>
-								   <button class="bt">取消</button>
+								   <button onclick="window.location.href='<%=basePath%>comboInfo/view/comboInfoList'">取消</button>
 								</div>
 							</div>
 						</div>

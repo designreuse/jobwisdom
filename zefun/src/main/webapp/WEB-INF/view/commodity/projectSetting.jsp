@@ -191,7 +191,7 @@
 					   </div>
 					 <div class="item_button">  
 					   <button onclick="save3()">保存</button>
-					   <button>取消</button>
+					   <button onclick="window.location.href='<%=basePath%>project/view/projects'">取消</button>
 					  </div>
 				    </div>
 				    <div class="add_store_content clearfix" style="display: none;">
@@ -218,7 +218,7 @@
 			
 				     <div class="demo2_button" >
 				     <button onclick="save3()">保存</button>
-					  <button>取消</button>
+					 <button onclick="window.location.href='<%=basePath%>project/view/projects'">取消</button>
 				   </div>		  
 				  </div>
 				  
@@ -326,7 +326,7 @@
 						<br>
 					  <div class="item_button" style="margin-top: 150px">  
 					   <button onclick="save3()">保存</button>
-					   <button>取消</button>
+					   <button onclick="window.location.href='<%=basePath%>project/view/projects'">取消</button>
 					  </div>
 			   </div>
 			   
