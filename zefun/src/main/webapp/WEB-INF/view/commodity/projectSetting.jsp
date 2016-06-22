@@ -146,7 +146,7 @@
 									<c:forEach var="deptProject" items="${deptProjectList }">
 										<option value="${deptProject.deptId }">${deptProject.deptName }</option>
 									</c:forEach>
-								</select></span><span>项目系列：<i></i><select name="categoryId" style="position:relative;left:8px">
+								</select></span><span>选择大项：<i></i><select name="categoryId" style="position:relative;left:8px">
 									<c:forEach var="projectCategoryList" items="${deptProjectList[0].projectCategoryList }">
 										<option value="${projectCategoryList.categoryId }">${projectCategoryList.categoryName }</option>
 									</c:forEach>
@@ -154,7 +154,6 @@
 						 </p>
 					     <p>
 						   <span><em>项目名称</em><input type="text" name="projectName" style="width: 145px;"></span><span><em>项目编号</em><input type="text" name="projectCodeSuffix" style="width: 145px;"></span>
-						   <span><em>项目类型</em><select name="projectType"><option value="1">大项</option><option value="2">小项</option></select></span>
 						 </p>
 					   </div>
 					   
@@ -572,7 +571,6 @@
 		var data = null;
 		var projectName = jQuery("input[name='projectName']").val();
 		var deptId = jQuery("select[name='deptId']").val();
-		var projectType = jQuery("select[name='projectType']").val();
 		var categoryId = jQuery("select[name='categoryId']").val();
 		var projectName = jQuery("input[name='projectName']").val();
 		var projectDesc = u1.getContent();
@@ -598,7 +596,6 @@
 			"deptId" : deptId,
 			"categoryId" : categoryId,
 			"projectName" : projectName,
-			"projectType" : projectType,
 			"projectDesc" : projectDesc,
 			"projectCodeSuffix" : projectCodeSuffix,
 			"projectImage" : projectImage,
@@ -690,8 +687,6 @@
 			choseCategory(deptId);
 			jQuery("select[name='categoryId']").val(categoryId);
 			
-			jQuery("select[name='projectType']").val(project.projectType);
-			
 			var projectImage = project.projectImage;
 			jQuery("img[name='projectImage']").attr("projectImage", projectImage);
 			jQuery("img[name='projectImage']").attr("src",  qiniu+projectImage);
@@ -701,7 +696,6 @@
 				jQuery("img[name='affiliatedImage']").eq(i).attr("src", qiniu+affiliatedImage.split(",")[i]);
 			}
 			/**锁定项目价格*/
-			jQuery("select[name='projectType']").val(project.projectType);
 			jQuery("input[name='projectName']").val(project.projectName);
 			u1.setContent(projectDesc);
 			//jQuery("textarea[name='projectDesc']").val(project.projectDesc);
