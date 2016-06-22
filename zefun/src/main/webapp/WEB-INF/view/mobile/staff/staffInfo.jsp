@@ -19,7 +19,7 @@
 		        <li class="avatar normal-li">
 		            <span class="list-name li-name dep-blue-font-color">头像</span>
 		            <span class="fr iconfont icon-right"></span>
-		            <img src="<%=picPath %>${employeeInfo.headImage}?imageView2/1/w/230/h/230" onclick="chooseImgage()" alt="" class="fr mr2"/>
+		            <img id="headImg" src="<%=picPath %>${employeeInfo.headImage}?imageView2/1/w/230/h/230" onclick="chooseImgage()" alt="" class="fr mr2"/>
 		        </li>
 		        <li class="name normal-li">
 		            <span class="li-name dep-blue-font-color">姓名</span>
@@ -83,6 +83,9 @@
 <script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"></script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"> </script>
 <script type="text/javascript">
+
+var userId = "${session_key_user_id}";
+
 function logoutTip(){
     $("#logoutTip").removeClass("hide");
 }
@@ -127,6 +130,7 @@ function chooseImgage(){
                             }
                             headUrl = key;
                             $("#headImg").attr("src", picUrl + key + "?imageView2/1/w/220/h/220");
+                            updateEmployeeInfo(key);
                             updateInfo(null);
                         }
                     });
@@ -136,6 +140,20 @@ function chooseImgage(){
     });
 }
 
+function updateEmployeeInfo(headImage){
+	$.ajax({
+        url : baseUrl + "staff/action/updateMsg",
+        type : "POST",
+        dataType : "json",
+        data : "headImage=" + headImage,
+        success : function(e){
+            if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+        }
+    });
+}
 </script>
 </body>
 </html>

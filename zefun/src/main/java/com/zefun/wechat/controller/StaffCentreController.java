@@ -21,6 +21,7 @@ import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.mapper.EmployeeCommissionMapper;
 import com.zefun.web.service.EmployeeAttendanceService;
 import com.zefun.wechat.service.BossOfEmployeeCommissionService;
@@ -50,10 +51,6 @@ public class StaffCentreController extends BaseController{
 	@Autowired
 	private EmployeeCommissionMapper employeeCommissionMapper;
 	
-	
-	/**签到距离*/
-	private static final int SIGN_IN_DISTANCE = 200;
-    
     
     /**
      * 个人中心
@@ -122,7 +119,31 @@ public class StaffCentreController extends BaseController{
             return null;
         }
         int employeeId = getUserIdByOpenId(openId);
+        setJsapiSignData(getStoreAccount(request), request);
         return staffCentreService.staffInfo(employeeId);
+    }
+    
+    /**
+     * 微信端修改员工资料
+    * @author 高国藩
+    * @date 2016年6月22日 下午2:19:26
+    * @param request    request
+    * @param response   response
+    * @param headImage  headImage
+    * @return           BaseDto
+     */
+    @RequestMapping(value = Url.Staff.UPDATE_STAFF_INFO)
+    @ResponseBody
+    public BaseDto updateStaffInfo(HttpServletRequest request, HttpServletResponse response, String headImage){
+        String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
+        int employeeId = getUserIdByOpenId(openId);
+        EmployeeInfo employeeInfo = new EmployeeInfo();
+        employeeInfo.setEmployeeId(employeeId);
+        employeeInfo.setHeadImage(headImage);
+        return staffCentreService.updateStaffInfo(employeeInfo);
     }
     
     
