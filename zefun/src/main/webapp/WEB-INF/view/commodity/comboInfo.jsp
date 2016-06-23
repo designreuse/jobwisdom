@@ -86,6 +86,9 @@
 										<div class="setting_write">
 											<a href="<%=basePath %>comboInfo/setting?comboId=${comboInfos[count-i-1].comboId }"><img style="width: 18px;height: 18px" src="<%=basePath%>images/coupon_write.png"></a>
 										</div>
+										<div class="setting_close">
+											<img class="close1" comboId="${comboInfos[count-i-1].comboId }" src="<%=basePath%>images/setting_close.png">
+										</div>
 										<div class="rollBox_top">
 											<img src="<%=qiniuPath%>${comboInfos[count-i-1].comboImage }">
 										</div>
@@ -131,5 +134,29 @@
 		}
 		window.location.href = path;
 	}
+	jQuery(".close1").on("click", function() {
+		if (confirm("确定要删除该套餐么?")) {
+			var comboId = jQuery(this).attr("comboId");
+			jQuery.ajax({
+				cache : true,
+				type : "POST",
+				url : baseUrl + "comboInfo/deleteComboInfo",
+				data : "comboId=" + comboId,
+				async : false,
+				error : function(request) {
+					dialog("Connection error");
+				},
+				success : function(data) {
+					if (data.code == 0) {
+						dialog("删除成功");
+						location.reload();
+					} else {
+						dialog(data.msg);
+					}
+				}
+			});
+		}
+		return false;
+	});
 </script>
 </html>

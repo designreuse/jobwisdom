@@ -15,6 +15,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.app.common.param.StaffAppointParam;
@@ -33,6 +34,7 @@ import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.EmployeeCommissionDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.ShiftMahjongDto;
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeObjective;
 import com.zefun.web.entity.MemberAppointment;
 import com.zefun.web.entity.Page;
@@ -1174,5 +1176,19 @@ public class StaffCentreService {
 		}
 		page.setResults(list);
 		return page;
+    }
+
+
+    /**
+     * 微信端员工修改个人信息
+    * @author 高国藩
+    * @date 2016年6月22日 下午2:21:43
+    * @param employeeInfo employeeInfo
+    * @return             employeeInfo
+     */
+    @Transactional
+    public BaseDto updateStaffInfo(EmployeeInfo employeeInfo) {
+        employeeInfoMapper.updateByPrimaryKeySelective(employeeInfo);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "修改成功");
     }
 }

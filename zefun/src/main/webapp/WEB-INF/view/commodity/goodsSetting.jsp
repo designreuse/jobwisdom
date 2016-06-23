@@ -157,7 +157,7 @@ input[type=radio] {
 								</div>
 								<div class="item_button">
 									<button onclick="saveImage()">保存</button>
-									<button>取消</button>
+									<button onclick="window.location.href='<%=basePath%>goodsInfo/view/goodsInfoList'">取消</button>
 								</div>
 							</div>
 							<div class="add_store_content clearfix" style="display: block;">
@@ -210,7 +210,7 @@ input[type=radio] {
 
 								<div class="demo2_button">
 									<button onclick="savePrice()">保存</button>
-									<button>取消</button>
+									<button onclick="window.location.href='<%=basePath%>goodsInfo/view/goodsInfoList'">取消</button>
 								</div>
 							</div>
 						</div>

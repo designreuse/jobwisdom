@@ -1,7 +1,7 @@
 package com.zefun.web.entity;
 
 /**
- * 特色服务
+ * 作品展示
 * @author 高国藩
 * @date 2016年5月19日 下午8:25:53
  */

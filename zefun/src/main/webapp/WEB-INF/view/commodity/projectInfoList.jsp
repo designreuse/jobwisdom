@@ -76,7 +76,7 @@
 								<ul class="setting_all clearfix" style="display: none;">
 									<li onclick="changeDept(0, this)">全部</li>
 									<c:forEach items="${deptProjectList }" var="deptProject"><li onclick="changeDept(${deptProject.deptId }, this)" deptId="${deptProject.deptId }">${deptProject.deptName }</li></c:forEach>
-								</ul> </em></span> <img src="<%=basePath%>images/settiong_right.png" style="position: relative; left: 20px"><span>系列<em> <i class="" id="category">全部<img src="<%=basePath%>images/setting_down.png"
+								</ul> </em></span> <img src="<%=basePath%>images/settiong_right.png" style="position: relative; left: 20px"><span>大项<em> <i class="" id="category">全部<img src="<%=basePath%>images/setting_down.png"
 									style="position: relative; left: 10px; top: 1px; width: 15px"></i>
 								<ul class="setting_all clearfix" style="display: none;">
 									<li onclick="changeCategory(0, this)">全部</li>

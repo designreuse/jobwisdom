@@ -975,6 +975,8 @@ public interface Url {
 		public static final String VIEW_MY_ATTENDANCE_HONE = "staff/view/myAttendanceHome";
 		/** 员工分页查询我的考勤 by DavidLiang */
 		public static final String ACTION_FIND_MY_ATTENDANCE_BY_PAGE = "staff/action/findMyAttendanceByPage";
+		/** 员工微信端修改信息*/
+        public static final String UPDATE_STAFF_INFO = "staff/action/updateMsg";
 
 	}
 
