@@ -6,17 +6,10 @@
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
     <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
-    <result column="assign_type" property="assignType" jdbcType="INTEGER" />
-    <result column="assign_commission" property="assignCommission" jdbcType="INTEGER" />
-    <result column="non_assign_type" property="nonAssignType" jdbcType="INTEGER" />
-    <result column="non_assign_commission" property="nonAssignCommission" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
-    <result column="is_upgrade" property="isUpgrade" jdbcType="INTEGER" />
-    <result column="non_customercost" property="nonCustomercost" jdbcType="INTEGER" />
-    <result column="customercost" property="customercost" jdbcType="INTEGER" />
-    <result column="performancecount" property="performancecount" jdbcType="DECIMAL" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
   </resultMap>
   
   <resultMap id="EmployeelevelDtoMap" type="com.zefun.web.dto.EmployeeLevelDto" >
@@ -24,15 +17,9 @@
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
     <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
-    <result column="assign_commission" property="assignCommission" jdbcType="INTEGER" />
-    <result column="non_assign_commission" property="nonAssignCommission" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
-    <result column="is_upgrade" property="isUpgrade" jdbcType="INTEGER" />
-    <result column="non_customercost" property="nonCustomercost" jdbcType="INTEGER" />
-    <result column="customercost" property="customercost" jdbcType="INTEGER" />
-    <result column="performancecount" property="performancecount" jdbcType="DECIMAL" />
     <association property="employeeInfoList"  column="{level_id=level_id,store_id=store_id}" select="com.zefun.web.mapper.EmployeeInfoMapper.selectByLevelId"></association>
   </resultMap>
 
@@ -41,30 +28,23 @@
   </select>
 
   <select id="queryEmployeelevelinfo" parameterType="com.zefun.web.entity.Page" resultType="com.zefun.web.dto.EmployeeLevelDto">
- select p.position_code positionCode,p.position_name positionName,l.position_id positionId,l.level_id levelId,l.position_id positionId,
- l.level_name levelName,l.assign_commission assignCommission,l.non_assign_commission nonAssignCommission,non_customercost nonCustomercost,
- customercost,performancecount from employee_level l
-left join position_info p on p.position_id=l.position_id where 1=1
+	 select p.position_name positionName,l.position_id positionId,l.level_id levelId,
+	 l.level_name levelName from employee_level l
+	left join position_info p on p.position_id=l.position_id where 1=1
   </select>
   <select id="leveldetail" parameterType="java.lang.Integer" resultType="com.zefun.web.dto.EmployeeLevelDto">
-  select p.position_code positionCode,p.position_name positionName,l.position_id positionId,l.level_id levelId,l.position_id positionId,
- l.level_name levelName,l.is_upgrade isUpgrade,l.assign_commission assignCommission,l.non_assign_commission nonAssignCommission,l.non_customercost nonCustomercost,
- l.customercost,l.performancecount,l.assign_type assignType,l.non_assign_type nonAssignType from employee_level l
-left join position_info p on p.position_id=l.position_id where l.level_id=#{levelId}
+    select p.position_name positionName,l.position_id positionId,l.level_id levelId,l.position_id positionId,
+	l.level_name levelName from employee_level l
+	left join position_info p on p.position_id=l.position_id where l.level_id=#{levelId}
   </select>
   
   <insert id="insert" parameterType="com.zefun.web.entity.EmployeeLevel" useGeneratedKeys="true" keyProperty="levelId">
      insert into employee_level (level_id, store_id, position_id, 
-      level_name, assign_type, assign_commission, 
-      non_assign_type, non_assign_commission, create_time, 
-      update_time, last_operator_id, is_upgrade, 
-      non_customercost, customercost, performancecount
+      level_name, create_time, update_time, last_operator_id
       )
     values (#{levelId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{positionId,jdbcType=INTEGER}, 
-      #{levelName,jdbcType=VARCHAR}, #{assignType,jdbcType=INTEGER}, #{assignCommission,jdbcType=INTEGER}, 
-      #{nonAssignType,jdbcType=INTEGER}, #{nonAssignCommission,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}, 
-      #{updateTime,jdbcType=CHAR}, #{lastOperatorId,jdbcType=INTEGER}, #{isUpgrade,jdbcType=INTEGER}, 
-      #{nonCustomercost,jdbcType=DECIMAL}, #{customercost,jdbcType=INTEGER}, #{performancecount,jdbcType=DECIMAL}
+      #{levelName,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR}, 
+      #{updateTime,jdbcType=CHAR}, #{lastOperatorId,jdbcType=INTEGER}
       )
   </insert>
   
@@ -80,18 +60,6 @@ left join position_info p on p.position_id=l.position_id where l.level_id=#{leve
       <if test="levelName != null" >
         level_name = #{levelName,jdbcType=VARCHAR},
       </if>
-      <if test="assignType != null" >
-        assign_type = #{assignType,jdbcType=INTEGER},
-      </if>
-      <if test="assignCommission != null" >
-        assign_commission = #{assignCommission,jdbcType=INTEGER},
-      </if>
-      <if test="nonAssignType != null" >
-        non_assign_type = #{nonAssignType,jdbcType=INTEGER},
-      </if>
-      <if test="nonAssignCommission != null" >
-        non_assign_commission = #{nonAssignCommission,jdbcType=INTEGER},
-      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=CHAR},
       </if>
@@ -101,17 +69,8 @@ left join position_info p on p.position_id=l.position_id where l.level_id=#{leve
       <if test="lastOperatorId != null" >
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
       </if>
-      <if test="isUpgrade != null" >
-        is_upgrade = #{isUpgrade,jdbcType=INTEGER},
-      </if>
-      <if test="nonCustomercost != null" >
-        non_customercost = #{nonCustomercost,jdbcType=INTEGER},
-      </if>
-      <if test="customercost != null" >
-        customercost = #{customercost,jdbcType=INTEGER},
-      </if>
-      <if test="performancecount != null" >
-        performancecount = #{performancecount,jdbcType=DECIMAL},
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
       </if>
     </set>
     where level_id = #{levelId,jdbcType=INTEGER}
@@ -153,8 +112,7 @@ left join position_info p on p.position_id=l.position_id where l.level_id=#{leve
  </select>
  
  <select id="selectByLevelIds" resultMap="BaseResultMap">
-  	select level_id,store_id,store_id,level_name,assign_type,assign_commission,non_assign_type,non_assign_commission,
-  			create_time,update_time,last_operator_id,is_upgrade,non_customercost,customercost,performancecount
+  	select level_id, store_id, store_id,level_name, create_time, update_time, last_operator_id
   	from employee_level where level_id in
   	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
     	#{item}

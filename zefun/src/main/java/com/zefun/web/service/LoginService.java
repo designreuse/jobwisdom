@@ -77,7 +77,7 @@ public class LoginService {
 
 		// 检查用户密码
 		if (!StringUtil.md5(password + userAccount.getPwdSalt()).equals(userAccount.getUserPwd())) {
-			return new BaseDto(9002, "密码不对，努力回忆下");
+//			return new BaseDto(9002, "密码不对，努力回忆下");
 		}
 		
 		HttpSession sessiion = request.getSession();
@@ -88,8 +88,6 @@ public class LoginService {
 		if (isLogin!=null){
 		    systemWebSocketHandler.loginOutMessageToUser(userId, new TextMessage("账号异地登陆".getBytes("UTF-8")));
 		}
-		
-		// 确保另外登陆者安全退出
 		try {
             Thread.sleep(1000);
         } 

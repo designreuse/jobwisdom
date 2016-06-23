@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.Url;
-import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.entity.PositionInfo;
@@ -73,47 +72,7 @@ public class PositioninfoController extends BaseController{
 		return positioninfoService.listAction(params, pageNo, pageSize);
 	}
 	
-	/**
-	 * 
-	* @author chendb
-	* @date 2015年8月11日 上午10:44:24
-	* @param request 岗位编码
-	* @param response 岗位编码
-	* @param positionCode 岗位编码
-	* @param positionName 岗位名称
-	* @param deptId 部门标识
-	* @param isDept 是否允许夸部门   
-	* @return BaseDto
-	 */
-	@RequestMapping(value = Url.Position.ADD)
-	@ResponseBody
-	public BaseDto addPositioninfo(HttpServletRequest request, HttpServletResponse response, 
-	        Integer positionCode, String positionName, Integer deptId , Integer isDept){
-		Integer storeId = getStoreId(request);
-		//相关参数进行封装
-		PositionInfo positioninfo=new PositionInfo();
-		positioninfo.setStoreId(getStoreId(request));
-		positioninfo.setLastOperatorId(getUserId(request));
-		positioninfo.setDeptId(deptId);
-		positioninfo.setCreateTime(DateUtil.getCurTime());
-		positioninfo.setPositionCode(positionCode);
-		positioninfo.setPositionName(positionName);
-		positioninfo.setIsDept(isDept);
-		
-		int result=positioninfoService.addPositioninfo(positioninfo);
-		if (result==1){
-			return new BaseDto(-3, "岗位编码已经存在");
-		}
-		if (result==2){
-			return new BaseDto(-2, "岗位名称已经存在");
-		}
-		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(storeId);
-		Map<String, Object> map = new HashMap<String, Object>();
-        map.put("positionId", positioninfo.getPositionId());
-        map.put("list", list);
-        
-		return new BaseDto(0, map);
-	}
+	
 	/**
 	 * 修改
 	* @author chendb
@@ -141,29 +100,7 @@ public class PositioninfoController extends BaseController{
 		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(storeId);
 		return new BaseDto(0, list);
 	}
-	/**
-	 * 删除岗位信息
-	* @author chendb
-	* @date 2015年8月11日 上午10:47:12
-	* @param request 岗位标识
-	* @param response 岗位标识
-	* @param positionId 岗位标识
-	* @return BaseDto
-	 */
-	@RequestMapping(value = Url.Position.DELETE)
-	@ResponseBody
-	public BaseDto deleteposition(HttpServletRequest request, HttpServletResponse response, Integer positionId){
-		Integer storeId = getStoreId(request);
-		PositionInfo positioninfo=new PositionInfo();
-		positioninfo.setStoreId(getStoreId(request));
-		positioninfo.setPositionId(positionId);
-		int result=positioninfoService.deleteposition(positioninfo);
-		if (result==1){
-			return new BaseDto(-1, "该岗位已被职位引用，请先删除职位");
-		}
-		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(storeId);
-		return new BaseDto(0, list);
-	}
+
 	/**
 	 * 获取下拉框岗位信息
 	* @author chendb
@@ -178,27 +115,8 @@ public class PositioninfoController extends BaseController{
 	public BaseDto queryPosition(HttpServletRequest request, HttpServletResponse response, Integer deptId){
 		PositionInfo positioninfo=new PositionInfo();
 		positioninfo.setStoreId(getStoreId(request));
-		positioninfo.setDeptId(deptId);
 		List<PositionInfo>list=positioninfoService.queryPosition(positioninfo);
 	    return new BaseDto(0, list);
 	}
-	/**
-	 * 岗位详情
-	* @author chendb
-	* @date 2015年8月11日 上午10:48:12
-	* @param request 岗位标识
-	* @param response 岗位标识
-	* @param positionId 岗位标识
-	* @return BaseDto
-	 */
-	@RequestMapping(value = Url.Position.POSITIONDETAIL)
-	@ResponseBody
-	public BaseDto positiondetail(HttpServletRequest request, HttpServletResponse response, Integer positionId){
-		PositionInfo positioninfo=new PositionInfo();
-		positioninfo.setStoreId(getStoreId(request));
-		positioninfo.setPositionId(positionId);
-		PositionInfo info=positioninfoService.positiondetail(positioninfo);
-	    return new BaseDto(0, info);
-	}
-	
+
 }

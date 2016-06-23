@@ -1,7 +1,5 @@
 package com.zefun.web.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.zefun.common.consts.Url;
 import com.zefun.common.utils.DateUtil;
@@ -159,24 +154,4 @@ public class DeptController extends BaseController{
         return new BaseDto(0, list);
     }
     
-    /**
-     * 部门导入
-    * @author chendb
-    * @date 2015年10月19日 上午9:39:43
-    * @param file 文件
-    * @param request 请求
-    * @param response 返回
-    * @return BaseDto
-     * @throws IOException 
-     */ 
-    @RequestMapping(value = Url.Dept.IMPORTEXCLE, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto importExcle(@RequestParam("filevalue") MultipartFile file,
-              HttpServletRequest request, HttpServletResponse response) throws IOException{
-        Integer storeId=getStoreId(request);
-        String temp = request.getSession().getServletContext()
-                .getRealPath(File.separator)
-                + "temp"; // 临时目录
-        return deptService.importExcle(file, temp, storeId);
-    }
 }

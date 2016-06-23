@@ -913,7 +913,6 @@ public class EmployeeService {
 				// 临时实体，作用是最后判断该行是否是无效数据
 				EmployeeDto copyemployeeDto = new EmployeeDto();
 				if (row.getRowNum() > 0) {
-					int deptId = 0;
 					int deptCode = 0;
 					int positionId = 0;
 					int positionCode = 0;
@@ -1126,7 +1125,6 @@ public class EmployeeService {
 							if (info == null) {
 								return new BaseDto(-1, "第 " + (row.getRowNum() + 1) + "行部门不存在,请查询后确认再填写");
 							}
-							deptId = info.getDeptId();
 							deptCode = info.getDeptCode();
 							employeeDto.setDeptId(info.getDeptId());
 						} 
@@ -1136,14 +1134,12 @@ public class EmployeeService {
 								return new BaseDto(-1, "第 " + (row.getRowNum() + 1) + "行岗位不能为空！");
 							}
 							PositionInfo positionInfo = new PositionInfo();
-							positionInfo.setDeptId(deptId);
 							positionInfo.setPositionName(returnValue);
 							PositionInfo info = positioninfoMapper.queryPositiondetail(positionInfo);
 							if (info == null) {
 								return new BaseDto(-1, "第 " + (row.getRowNum() + 1) + "行该部门下的岗位不存在,请查询后确认再填写！");
 							}
 							positionId = info.getPositionId();
-							positionCode = info.getPositionCode();
 							employeeDto.setPositionId(info.getPositionId());
 						} 
 						else if (cell.getColumnIndex() == 7) {
