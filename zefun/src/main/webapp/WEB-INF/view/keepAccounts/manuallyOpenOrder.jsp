@@ -17,8 +17,11 @@ em {
     border-radius: 5px!important;
     box-shadow: 0 0 3px #ccc;
 }
-
-
+.show_search table td:nth-child(1) img {
+    width: 47px;
+    border-radius: 25px;
+    height: 47px;
+}
 </style>
 <body>
 

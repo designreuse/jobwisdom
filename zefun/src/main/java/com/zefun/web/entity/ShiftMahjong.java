@@ -12,11 +12,11 @@ public class ShiftMahjong {
 	/** 轮牌名称 */
 	private String shiftMahjongName;
 
-	/** 店铺标识 */
-	private Integer storeId;
+	/** 企业标识 */
+	private String storeAccount;
 
-	/** 部门标识*/
-	private Integer deptId;
+	/** 适用门店*/
+	private String storeList;
 	
 	/** 上牌规则（1：考勤轮牌、2：持续轮牌） */
 	private Integer shiftMahjongUp;
@@ -30,30 +30,36 @@ public class ShiftMahjong {
 	/** 员工级别*/
 	private String positionId;
 
-	/** 轮牌指定人数 */
-	private Integer appointNumber;
-
 	/** 创建时间 */
 	private String createTime;
 
 	/** 操作人标识 */
 	private Integer operatorId;
 
+	
 
-    public String getPositionId() {
+    public String getStoreAccount() {
+		return storeAccount;
+	}
+
+	public void setStoreAccount(String storeAccount) {
+		this.storeAccount = storeAccount;
+	}
+
+	public String getStoreList() {
+		return storeList;
+	}
+
+	public void setStoreList(String storeList) {
+		this.storeList = storeList;
+	}
+
+	public String getPositionId() {
         return positionId;
     }
 
     public void setPositionId(String positionId) {
         this.positionId = positionId;
-    }
-
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
     }
 
     public Integer getNature() {
@@ -84,16 +90,6 @@ public class ShiftMahjong {
 		return shiftMahjongName;
 	}
 
-	/** @param storeId	店铺标识 */
-	public void setStoreId(Integer storeId){
-		this.storeId = storeId;
-	}
-
-	/** @return	店铺标识 */
-	public Integer getStoreId(){
-		return storeId;
-	}
-
 	/** @param shiftMahjongUp	上牌规则（1：考勤轮牌、2：持续轮牌） */
 	public void setShiftMahjongUp(Integer shiftMahjongUp){
 		this.shiftMahjongUp = shiftMahjongUp;
@@ -112,16 +108,6 @@ public class ShiftMahjong {
 	/** @return	轮牌规则（1：指定不轮牌、2：指定某只后轮牌） */
 	public Integer getShiftMahjongRule(){
 		return shiftMahjongRule;
-	}
-
-	/** @param appointNumber	轮牌指定人数 */
-	public void setAppointNumber(Integer appointNumber){
-		this.appointNumber = appointNumber;
-	}
-
-	/** @return	轮牌指定人数 */
-	public Integer getAppointNumber(){
-		return appointNumber;
 	}
 
 	public String getCreateTime() {
