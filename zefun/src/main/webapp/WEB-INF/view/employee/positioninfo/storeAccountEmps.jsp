@@ -306,14 +306,6 @@ function saveOrUpdateLevel(){
 	if (levelId!=null){
 		data = data + "&levelId="+levelId;
 	}
-	var referenceFirst = jQuery("#referenceFirst").val();
-	var referenceTwo = jQuery("#referenceTwo").val();
-	if (referenceFirst!=null){
-		data = data + "&referenceFirst="+referenceFirst;
-	}
-	if (referenceTwo!=null){
-		data = data + "&referenceTwo="+referenceTwo;
-	}
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "employeelevel/action/saveOrUpdate",
@@ -323,7 +315,7 @@ function saveOrUpdateLevel(){
 			levelId = null;
 			jQuery(".job_content.clearfix");
 			var employeeLevel = e.msg;
-			var html = '<div class="job_style" referenceFirst='+employeeLevel.referenceFirst+' referenceTwo='+employeeLevel.referenceTwo+'>'+
+			var html = '<div class="job_style">'+
 							'<p>职位名称：'+employeeLevel.levelName+'</p>'+
 							'<p>岗位类型：'+positionName+'</p>'+
 							'<ul class="clearfix">'+

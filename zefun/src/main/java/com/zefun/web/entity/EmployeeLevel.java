@@ -32,7 +32,29 @@ public class EmployeeLevel {
     /** 岗位名称*/
     private String positionName;
     
+    /** 职位提成引用1*/
+    private Integer referenceFirst;
     
+    /** 职位提成引用2*/
+    private Integer referenceTwo;
+    
+    
+    public Integer getReferenceFirst() {
+        return referenceFirst;
+    }
+
+    public void setReferenceFirst(Integer referenceFirst) {
+        this.referenceFirst = referenceFirst;
+    }
+
+    public Integer getReferenceTwo() {
+        return referenceTwo;
+    }
+
+    public void setReferenceTwo(Integer referenceTwo) {
+        this.referenceTwo = referenceTwo;
+    }
+
     public String getPositionName() {
         return positionName;
     }

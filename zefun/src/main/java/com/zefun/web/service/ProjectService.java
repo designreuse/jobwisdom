@@ -1116,32 +1116,32 @@ public class ProjectService {
         }
         
         //轮拍步骤
-        List<ProjectStep> oldProjectSteps = projectStepMapper.queryProjectStepByPIdList(projectInfo.getProjectId());
-        for (int i = 0; i < oldProjectSteps.size(); i++) {
-            oldProjectSteps.get(i).setIsDeleted(1);
-            projectStepMapper.updateByPrimaryKey(oldProjectSteps.get(i));
-        }
-        
-        ProjectCommission hasProjectCommission = new ProjectCommission();
-        hasProjectCommission.setProjectId(projectInfo.getProjectId());
-        List<ProjectCommission> hasProjectCommissions = projectCommissionMapper.selectByProperty(hasProjectCommission);
-        for (int i = 0; i < hasProjectCommissions.size(); i++) {
-            hasProjectCommissions.get(i).setIsDeleted(1);
-            projectCommissionMapper.updateByPrimaryKeySelective(hasProjectCommissions.get(i));
-        }
-        
-        for (int i = 0; i < projectSteps.size(); i++) {
-            projectSteps.get(i).setProjectId(projectInfo.getProjectId());
-            projectSteps.get(i).setIsDeleted(0);
-            projectStepMapper.insert(projectSteps.get(i));
-        }
-        for (int i = 0; i < projectCommission.size(); i++) {
-            projectCommission.get(i).setIsDeleted(0);
-            projectCommission.get(i).setProjectId(projectInfo.getProjectId());
-        }
-        if (projectCommission!=null && projectCommission.size()>0){
-            projectCommissionMapper.insertProjectCommissionList(projectCommission);
-        }
+//        List<ProjectStep> oldProjectSteps = projectStepMapper.queryProjectStepByPIdList(projectInfo.getProjectId());
+//        for (int i = 0; i < oldProjectSteps.size(); i++) {
+//            oldProjectSteps.get(i).setIsDeleted(1);
+//            projectStepMapper.updateByPrimaryKey(oldProjectSteps.get(i));
+//        }
+//        
+//        ProjectCommission hasProjectCommission = new ProjectCommission();
+//        hasProjectCommission.setProjectId(projectInfo.getProjectId());
+//        List<ProjectCommission> hasProjectCommissions = projectCommissionMapper.selectByProperty(hasProjectCommission);
+//        for (int i = 0; i < hasProjectCommissions.size(); i++) {
+//            hasProjectCommissions.get(i).setIsDeleted(1);
+//            projectCommissionMapper.updateByPrimaryKeySelective(hasProjectCommissions.get(i));
+//        }
+//        
+//        for (int i = 0; i < projectSteps.size(); i++) {
+//            projectSteps.get(i).setProjectId(projectInfo.getProjectId());
+//            projectSteps.get(i).setIsDeleted(0);
+//            projectStepMapper.insert(projectSteps.get(i));
+//        }
+//        for (int i = 0; i < projectCommission.size(); i++) {
+//            projectCommission.get(i).setIsDeleted(0);
+//            projectCommission.get(i).setProjectId(projectInfo.getProjectId());
+//        }
+//        if (projectCommission!=null && projectCommission.size()>0){
+//            projectCommissionMapper.insertProjectCommissionList(projectCommission);
+//        }
         
         redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, projectInfo.getDeptId());
         

@@ -847,6 +847,8 @@ public interface Url {
 		public static final String SELECT_EMPLOYEE_BY_DATETYPE = "employee/action/selectEmployeeBydateType";
 		/** 企业查看门店组织架构*/
         public static final String VIEW_POSITION_LEVEL = "employee/account/positon";
+        /** 门店查看组织架构*/
+        public static final String VIEW_POSITION_LEVEL_STORE = "employee/account/store/positon";
 
 	}
 

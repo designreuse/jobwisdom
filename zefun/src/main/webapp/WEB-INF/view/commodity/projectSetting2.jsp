@@ -617,10 +617,44 @@
 			projectLevel.push({"projectId":projectId,"levelId":discountLevel,"discountAmount":discountAmount});
 		});
 		
-		//罗峰
+		var data1 = [];
+		var data2 = [];
+		/**是否有可预约的步骤*/
+		var isHasDIsable = false;
+		for (var i = 0; i < jQuery('.table_s').find("td[rowspan][date]").length; i++) {
+			var shift = jQuery('.table_s').find("td[rowspan][date]").eq(i);
+			var shiftMahjongId = shift.parent("tr").attr("shiftmahjongid");
+			var projectStepOrder = shift.parent("tr").attr("step");
+			var projectStepName = shift.parent("tr").children("td[projectstepname]").attr("projectstepname");
+			var stepPerformance = shift.parent("tr").children("td[stepperformance]").attr("stepperformance");
+			var stepPerformanceType = shift.parent("tr").children("td[stepperformancetype]").attr("stepperformancetype");
+			var isDisable = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[isdisable]").attr("isdisable");
+			if (isDisable == 1){isHasDIsable = true;}
+			var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"projectStepOrder":projectStepOrder,"projectStepName":projectStepName,"stepPerformance":stepPerformance,"stepPerformanceType":stepPerformanceType,"isDisable":isDisable,"isDeleted":0};
+			data1.push(jsonObject);
+		}
+		if (isAppointment == 1 && isHasDIsable == false){
+			isCommit = false;
+		}
+		else {
+			isCommit = true;
+		}
+		for (var i = 1; i < jQuery('.table_s').find("tr").length; i++) {
+			var levelId = jQuery('.table_s').find("tr").eq(i).children("td[levelid]").attr("levelid");
+			var assignCashType = jQuery('.table_s').find("tr").eq(i).children("td[assigntype]").attr("assigntype");
+			var assignCash = jQuery('.table_s').find("tr").eq(i).children("td[assigncash]").attr("assigncash");
+			var assignCardType = jQuery('.table_s').find("tr").eq(i).children("td[assigntype]").attr("assigntype");
+			var assignCard = jQuery('.table_s').find("tr").eq(i).children("td[assigncard]").attr("assigncard");
+			var appointmentRewardType = jQuery('.table_s').find("tr").eq(i).children("td[assigntype]").attr("assigntype");
+			var appointmentReward = jQuery('.table_s').find("tr").eq(i).children("td[appointmentreward]").attr("appointmentreward");
+			var shiftMahjongId = jQuery('.table_s').find("tr").eq(i).attr("shiftmahjongid");
+			var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"levelId":levelId,"assignCashType":assignCashType,"assignCash":assignCash,"assignCardType":assignCardType,"assignCard":assignCard,"appointmentRewardType":appointmentRewardType,"appointmentReward":appointmentReward,"isDeleted":0};
+			data2.push(jsonObject);
+		}
+		var dataStep = {"projectId":projectId,"step":data1,"commission":data2};
 		
 		deptId = deptId;
-		return {"projectInfo":data, "projectLevel":projectLevel};
+		return {"projectInfo":data, "projectLevel":projectLevel, "projectShit":dataStep};
 	}
 	
 
