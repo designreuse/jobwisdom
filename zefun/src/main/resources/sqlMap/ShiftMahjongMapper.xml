@@ -4,13 +4,12 @@
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.ShiftMahjong" >
     <id column="shift_mahjong_id" property="shiftMahjongId" jdbcType="INTEGER" />
     <result column="shift_mahjong_name" property="shiftMahjongName" jdbcType="VARCHAR" />
-    <result column="store_id" property="storeId" jdbcType="INTEGER" />
-    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+    <result column="store_list" property="storeList" jdbcType="VARCHAR" />
     <result column="shift_mahjong_up" property="shiftMahjongUp" jdbcType="INTEGER" />
     <result column="shift_mahjong_rule" property="shiftMahjongRule" jdbcType="INTEGER" />
     <result column="position_id" property="positionId" jdbcType="CHAR" />
     <result column="nature" property="nature" jdbcType="INTEGER" />
-    <result column="appoint_number" property="appointNumber" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="operator_id" property="operatorId" jdbcType="INTEGER" />
   </resultMap>
@@ -18,21 +17,20 @@
   <resultMap id="ShiftMahjongDtoMap" type="com.zefun.web.dto.ShiftMahjongDto" >
     <id column="shift_mahjong_id" property="shiftMahjongId" jdbcType="INTEGER" />
     <result column="shift_mahjong_name" property="shiftMahjongName" jdbcType="VARCHAR" />
-    <result column="store_id" property="storeId" jdbcType="INTEGER" />
-    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+    <result column="store_list" property="storeList" jdbcType="VARCHAR" />
     <result column="shift_mahjong_up" property="shiftMahjongUp" jdbcType="INTEGER" />
     <result column="shift_mahjong_rule" property="shiftMahjongRule" jdbcType="INTEGER" />
     <result column="position_id" property="positionId" jdbcType="CHAR" />
     <result column="nature" property="nature" jdbcType="INTEGER" />
-    <result column="appoint_number" property="appointNumber" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="operator_id" property="operatorId" jdbcType="INTEGER" />
     <association property="shiftMahjongEmployeeList"  column="shift_mahjong_id" select="com.zefun.web.mapper.ShiftMahjongEmployeeMapper.selectByShiftMahjongId"></association>
   </resultMap>
   
   <sql id="Base_Column_List" >
-    shift_mahjong_id, shift_mahjong_name, store_id, dept_id, shift_mahjong_up, shift_mahjong_rule, position_id, nature, 
-    appoint_number, create_time, operator_id
+    shift_mahjong_id, shift_mahjong_name, store_account, store_list, shift_mahjong_up, shift_mahjong_rule, position_id, nature, 
+    create_time, operator_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -61,12 +59,12 @@
   </delete>
   <insert id="insert" parameterType="com.zefun.web.entity.ShiftMahjong" useGeneratedKeys = "true" keyProperty="shiftMahjongId">
     insert into shift_mahjong (shift_mahjong_id, shift_mahjong_name, 
-      store_id, dept_id, shift_mahjong_up, shift_mahjong_rule, position_id, nature, 
-      appoint_number, create_time, operator_id
+      store_account, store_list, shift_mahjong_up, shift_mahjong_rule, position_id, nature, 
+      create_time, operator_id
       )
     values (#{shiftMahjongId,jdbcType=INTEGER}, #{shiftMahjongName,jdbcType=VARCHAR}, 
-      #{storeId,jdbcType=INTEGER},#{deptId,jdbcType=INTEGER}, #{shiftMahjongUp,jdbcType=INTEGER}, #{shiftMahjongRule,jdbcType=INTEGER}, #{positionId,jdbcType=CHAR}, #{nature,jdbcType=INTEGER}, 
-      #{appointNumber,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}, #{operatorId,jdbcType=INTEGER}
+      #{storeAccount,jdbcType=VARCHAR},#{storeList,jdbcType=VARCHAR}, #{shiftMahjongUp,jdbcType=INTEGER}, #{shiftMahjongRule,jdbcType=INTEGER}, #{positionId,jdbcType=CHAR}, #{nature,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=CHAR}, #{operatorId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zefun.web.entity.ShiftMahjong" >
@@ -78,11 +76,11 @@
       <if test="shiftMahjongName != null" >
         shift_mahjong_name,
       </if>
-      <if test="storeId != null" >
-        store_id,
+      <if test="storeAccount != null" >
+        store_account,
       </if>
-      <if test="deptId != null" >
-        dept_id,
+      <if test="storeList != null" >
+        store_list,
       </if>
       <if test="shiftMahjongUp != null" >
         shift_mahjong_up,
@@ -95,9 +93,6 @@
       </if>
       <if test="nature != null" >
         nature,
-      </if>
-      <if test="appointNumber != null" >
-        appoint_number,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -113,11 +108,11 @@
       <if test="shiftMahjongName != null" >
         #{shiftMahjongName,jdbcType=VARCHAR},
       </if>
-      <if test="storeId != null" >
-        #{storeId,jdbcType=INTEGER},
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=VARCHAR},
       </if>
-      <if test="deptId != null" >
-        #{deptId,jdbcType=INTEGER},
+      <if test="storeList != null" >
+        #{storeList,jdbcType=VARCHAR},
       </if>
       <if test="shiftMahjongUp != null" >
         #{shiftMahjongUp,jdbcType=INTEGER},
@@ -130,9 +125,6 @@
       </if>
       <if test="nature != null" >
         #{nature,jdbcType=INTEGER},
-      </if>
-      <if test="appointNumber != null" >
-        #{appointNumber,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=CHAR},
@@ -148,11 +140,11 @@
       <if test="shiftMahjongName != null" >
         shift_mahjong_name = #{shiftMahjongName,jdbcType=VARCHAR},
       </if>
-      <if test="storeId != null" >
-        store_id = #{storeId,jdbcType=INTEGER},
+      <if test="storeAccount != null" >
+        store_account = #{storeAccount,jdbcType=VARCHAR},
       </if>
-      <if test="deptId != null" >
-        dept_id = #{deptId,jdbcType=INTEGER},
+      <if test="storeList != null" >
+        store_list = #{storeList,jdbcType=INTEGER},
       </if>
       <if test="shiftMahjongUp != null" >
         shift_mahjong_up = #{shiftMahjongUp,jdbcType=INTEGER},
@@ -166,9 +158,6 @@
       <if test="nature != null" >
         nature = #{nature,jdbcType=INTEGER},
       </if>
-      <if test="appointNumber != null" >
-        appoint_number = #{appointNumber,jdbcType=INTEGER},
-      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=CHAR},
       </if>
@@ -181,13 +170,12 @@
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.ShiftMahjong" >
     update shift_mahjong
     set shift_mahjong_name = #{shiftMahjongName,jdbcType=VARCHAR},
-      store_id = #{storeId,jdbcType=INTEGER},
-      dept_id = #{deptId,jdbcType=INTEGER},
+      store_account = #{storeAccount,jdbcType=VARCHAR},
+      store_list = #{storeList,jdbcType=VARCHAR},
       shift_mahjong_up = #{shiftMahjongUp,jdbcType=INTEGER},
       shift_mahjong_rule = #{shiftMahjongRule,jdbcType=INTEGER},
       position_id = #{positionId,jdbcType=CHAR},
       nature = #{nature,jdbcType=INTEGER},
-      appoint_number = #{appointNumber,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=CHAR},
       operator_id = #{operatorId,jdbcType=INTEGER}
     where shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER}

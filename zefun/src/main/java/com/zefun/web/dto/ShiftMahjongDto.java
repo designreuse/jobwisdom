@@ -17,11 +17,11 @@ public class ShiftMahjongDto {
     /** 轮牌名称 */
     private String shiftMahjongName;
 
-    /** 店铺标识 */
-    private Integer storeId;
-    
-    /** 部门标识*/
-    private Integer deptId;
+    /** 企业标识 */
+	private String storeAccount;
+
+	/** 适用门店*/
+	private String storeList;
 
     /** 上牌规则（1：考勤轮牌、2：持续轮牌） */
     private Integer shiftMahjongUp;
@@ -32,11 +32,8 @@ public class ShiftMahjongDto {
     /** 轮牌性质(1：助理轮牌、2：技师轮牌)*/
     private Integer nature;
     
-    /** 员工级别*/
+    /** 岗位*/
     private String positionId;
-    
-    /** 轮牌指定人数 */
-    private Integer appointNumber;
 
     /** 创建时间 */
     private String createTime;
@@ -66,8 +63,8 @@ public class ShiftMahjongDto {
     * @date 2015年9月21日 下午4:16:09
     * @param shiftMahjongId 轮牌信息标识
     * @param shiftMahjongName 轮牌名称 
-    * @param storeId 店铺标识
-    * @param deptId 部门标识
+    * @param storeAccount 企业标识
+    * @param storeList 适用门店
     * @param shiftMahjongUp 上牌规则（1：考勤轮牌、2：持续轮牌）
     * @param shiftMahjongRule 轮牌规则（1：指定不轮牌、2：指定某只后轮牌）
     * @param nature 轮牌性质(1：助理轮牌、2：技师轮牌)
@@ -77,26 +74,45 @@ public class ShiftMahjongDto {
     * @param shiftMahjongEmployeeList 轮牌员工信息集合
      */
     public ShiftMahjongDto(Integer shiftMahjongId, String shiftMahjongName,
-            Integer storeId, Integer deptId, Integer shiftMahjongUp,
+            String storeAccount, String storeList, Integer shiftMahjongUp,
             Integer shiftMahjongRule, Integer nature, Integer appointNumber,
             String createTime, Integer operatorId,
             List<ShiftMahjongEmployee> shiftMahjongEmployeeList) {
         super();
         this.shiftMahjongId = shiftMahjongId;
         this.shiftMahjongName = shiftMahjongName;
-        this.storeId = storeId;
-        this.deptId = deptId;
+        this.storeAccount = storeAccount;
+        this.storeList = storeList;
         this.shiftMahjongUp = shiftMahjongUp;
         this.shiftMahjongRule = shiftMahjongRule;
         this.nature = nature;
-        this.appointNumber = appointNumber;
         this.createTime = createTime;
         this.operatorId = operatorId;
         this.shiftMahjongEmployeeList = shiftMahjongEmployeeList;
     }
 
     
-    public String getPositionId() {
+    public String getStoreAccount() {
+		return storeAccount;
+	}
+
+
+	public void setStoreAccount(String storeAccount) {
+		this.storeAccount = storeAccount;
+	}
+
+
+	public String getStoreList() {
+		return storeList;
+	}
+
+
+	public void setStoreList(String storeList) {
+		this.storeList = storeList;
+	}
+
+
+	public String getPositionId() {
         return positionId;
     }
 
@@ -113,15 +129,6 @@ public class ShiftMahjongDto {
 
     public void setStepNum(Integer stepNum) {
         this.stepNum = stepNum;
-    }
-
-
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
     }
     
     public Integer getNature() {
@@ -148,14 +155,6 @@ public class ShiftMahjongDto {
         this.shiftMahjongName = shiftMahjongName == null ? null : shiftMahjongName.trim();
     }
 
-    public Integer getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
-    }
-
     public Integer getShiftMahjongUp() {
         return shiftMahjongUp;
     }
@@ -170,14 +169,6 @@ public class ShiftMahjongDto {
 
     public void setShiftMahjongRule(Integer shiftMahjongRule) {
         this.shiftMahjongRule = shiftMahjongRule;
-    }
-
-    public Integer getAppointNumber() {
-        return appointNumber;
-    }
-
-    public void setAppointNumber(Integer appointNumber) {
-        this.appointNumber = appointNumber;
     }
 
     public String getCreateTime() {
