@@ -38,6 +38,8 @@ public class DeptService {
     /** redis 缓存服务对象 */
     @Autowired
     private RedisService redisService;
+    
+    
     /**
      * 新增部门
     * @author chendb

@@ -455,6 +455,8 @@ public interface View {
 		public static final String POSITION = "employee/positioninfo/positioninfo";
 		/** 企业岗位职位*/
         public static final String VIEW_ACCOUNT = "employee/positioninfo/account";
+        /** 门店岗位职位*/
+        public static final String VIEW_ACCOUNT_STORE = "employee/positioninfo/storeAccountEmps";
 	}
 
 	/**
