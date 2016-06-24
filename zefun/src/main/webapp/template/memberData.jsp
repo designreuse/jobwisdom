@@ -16,7 +16,7 @@ String memberPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
                     <ul>
                         <li><a href="#tabs-1" id = "tabsLI-1">基本信息</a></li>
                         <li><a href="#tabs-2">项目消费</a></li>
-                        <li><a href="#tabs-3">套餐购买</a></li>
+                        <li><a href="#tabs-3">疗程购买</a></li>
                         <li><a href="#tabs-4">商品购买</a></li>
                         <li><a href="#tabs-5" id = "tabsLI-5">资金流水</a></li>
                         <li><a href="#tabs-6">积分收支</a></li>

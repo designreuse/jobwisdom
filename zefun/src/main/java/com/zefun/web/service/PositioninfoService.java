@@ -12,9 +12,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.PositionInfo;
-import com.zefun.web.entity.ShiftMahjong;
 import com.zefun.web.mapper.PositioninfoMapper;
-import com.zefun.web.mapper.ShiftMahjongMapper;
 
 import net.sf.json.JSONArray;
 /**
@@ -30,9 +28,6 @@ public class PositioninfoService {
 	 */
 	@Autowired
 	private PositioninfoMapper positioninfoMapper;
-	
-	/** 轮牌信息*/
-	@Autowired private ShiftMahjongMapper shiftMahjongMapper;
 	/**
 	 * 查询某个店铺的职位信息
 	 * 默认返回该门店最前面10条数据
@@ -119,38 +114,6 @@ public class PositioninfoService {
 	* @return int
 	 */
 	public int updatePositioninfo(PositionInfo positioninfo){
-		
-		//判断岗位编码或者岗位名称是否已经存在
-		List<PositionInfo> list1=positioninfoMapper.isPositionCode(positioninfo);
-		if (list1.size()>0){
-			int id1=list1.get(0).getPositionId();
-			if (id1!=positioninfo.getPositionId()){
-				//岗位编码已经存在了
-				return 1;
-			}
-		}
-		List<PositionInfo> list=positioninfoMapper.isPositionName(positioninfo);
-		if (list.size()>0){
-			int id=list.get(0).getPositionId();
-			if (id!=positioninfo.getPositionId()){
-				//岗位名称已经存在了
-				return 2;
-			}
-		}
-		//判断跨部门被修改时
-		if (positioninfo.getIsDept().intValue() == 2) {
-		    //查询原是否跨部门的值
-		    PositionInfo oldObj =positioninfoMapper.selectByPrimaryKey(positioninfo.getPositionId());
-		    if (oldObj.getIsDept() == 1) {
-		        List<ShiftMahjong> shiftMahjongList = shiftMahjongMapper.selectByPositionId(oldObj.getPositionId());
-		        for (int i = 0; i < shiftMahjongList.size(); i++) {
-                    if (shiftMahjongList.get(i).getDeptId().intValue() != oldObj.getDeptId().intValue()) {
-                        //该跨部门岗位已被其他部门饮用
-                        return 3;
-                    }
-                }
-		    }
-		}
 		positioninfoMapper.updateByPrimaryKeySelective(positioninfo);
 		return 0;	
 	}
@@ -164,34 +127,6 @@ public class PositioninfoService {
     public List<PositionInfo>queryPosition(PositionInfo positioninfo){
     	List<PositionInfo> list=positioninfoMapper.queryposition(positioninfo);
 		return list;
-	}
-	 /**
-	  * 岗位删除功能
-	 * @author 陈端斌
-	 * @date 2015年8月5日 上午10:51:26
-	 * @param positioninfo bean
-	 * @return int
-	  */
-	public int deleteposition(PositionInfo positioninfo){
-		 //判断是否有职位已经引用了该岗位
-		int count =positioninfoMapper.isemployeelevel(positioninfo);
-		if (count>0){
-			 //该岗位被引用了
-			return 1;
-		}
-		positioninfoMapper.deleteposition(positioninfo);
-		return 0;
-	}
-	/**
-	 * 根据id获取详情
-	* @author chendb
-	* @date 2015年8月11日 上午11:29:11
-	* @param positioninfo bean
-	* @return PositionInfo
-	 */
-	public PositionInfo positiondetail(PositionInfo positioninfo){
-		PositionInfo info=positioninfoMapper.positiondetail(positioninfo);
-		return info;
 	}
 	/**
 	 * 获取岗位和职位的信息列表

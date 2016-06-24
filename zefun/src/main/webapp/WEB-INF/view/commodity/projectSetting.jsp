@@ -146,7 +146,7 @@
 									<c:forEach var="deptProject" items="${deptProjectList }">
 										<option value="${deptProject.deptId }">${deptProject.deptName }</option>
 									</c:forEach>
-								</select></span><span>项目系列：<i></i><select name="categoryId" style="position:relative;left:8px">
+								</select></span><span>选择大项：<i></i><select name="categoryId" style="position:relative;left:8px">
 									<c:forEach var="projectCategoryList" items="${deptProjectList[0].projectCategoryList }">
 										<option value="${projectCategoryList.categoryId }">${projectCategoryList.categoryName }</option>
 									</c:forEach>
@@ -154,7 +154,6 @@
 						 </p>
 					     <p>
 						   <span><em>项目名称</em><input type="text" name="projectName" style="width: 145px;"></span><span><em>项目编号</em><input type="text" name="projectCodeSuffix" style="width: 145px;"></span>
-						   <span><em>项目类型</em><select name="projectType"><option value="1">大项</option><option value="2">小项</option></select></span>
 						 </p>
 					   </div>
 					   
@@ -191,7 +190,7 @@
 					   </div>
 					 <div class="item_button">  
 					   <button onclick="save3()">保存</button>
-					   <button>取消</button>
+					   <button onclick="window.location.href='<%=basePath%>project/view/projects'">取消</button>
 					  </div>
 				    </div>
 				    <div class="add_store_content clearfix" style="display: none;">
@@ -218,7 +217,7 @@
 			
 				     <div class="demo2_button" >
 				     <button onclick="save3()">保存</button>
-					  <button>取消</button>
+					 <button onclick="window.location.href='<%=basePath%>project/view/projects'">取消</button>
 				   </div>		  
 				  </div>
 				  
@@ -326,7 +325,7 @@
 						<br>
 					  <div class="item_button" style="margin-top: 150px">  
 					   <button onclick="save3()">保存</button>
-					   <button>取消</button>
+					   <button onclick="window.location.href='<%=basePath%>project/view/projects'">取消</button>
 					  </div>
 			   </div>
 			   
@@ -530,7 +529,7 @@
 		deptId = deptIds;
 		for (var int = 0; int < deptProjectList.length; int++) {
 			if (deptProjectList[int].deptId == deptId) {
-				jQuery("select[name='categoryId']").empty()
+				jQuery("select[name='categoryId']").empty();
 				for (var j = 0; j < deptProjectList[int].projectCategoryList.length; j++) {
 					var categoryId = deptProjectList[int].projectCategoryList[j].categoryId
 					var categoryName = deptProjectList[int].projectCategoryList[j].categoryName
@@ -546,8 +545,11 @@
 	/**
 	 * 保存数据,根据步骤去保存数据
 	 */
+	// 是否存在异常数据,可允许提交
+	var isCommit = false;
 	function save3(){
 		var data = coverDate();
+		if (!isCommit){dialog("当前项目为可预约项目,请至少设置一个可预约的步骤!");return;}
 		jQuery.ajax({
 			type : "post",
 			url : baseUrl + "project/view/save",
@@ -569,7 +571,6 @@
 		var data = null;
 		var projectName = jQuery("input[name='projectName']").val();
 		var deptId = jQuery("select[name='deptId']").val();
-		var projectType = jQuery("select[name='projectType']").val();
 		var categoryId = jQuery("select[name='categoryId']").val();
 		var projectName = jQuery("input[name='projectName']").val();
 		var projectDesc = u1.getContent();
@@ -595,7 +596,6 @@
 			"deptId" : deptId,
 			"categoryId" : categoryId,
 			"projectName" : projectName,
-			"projectType" : projectType,
 			"projectDesc" : projectDesc,
 			"projectCodeSuffix" : projectCodeSuffix,
 			"projectImage" : projectImage,
@@ -619,6 +619,8 @@
 		
 		var data1 = [];
 		var data2 = [];
+		/**是否有可预约的步骤*/
+		var isHasDIsable = false;
 		for (var i = 0; i < jQuery('.table_s').find("td[rowspan][date]").length; i++) {
 			var shift = jQuery('.table_s').find("td[rowspan][date]").eq(i);
 			var shiftMahjongId = shift.parent("tr").attr("shiftmahjongid");
@@ -627,8 +629,15 @@
 			var stepPerformance = shift.parent("tr").children("td[stepperformance]").attr("stepperformance");
 			var stepPerformanceType = shift.parent("tr").children("td[stepperformancetype]").attr("stepperformancetype");
 			var isDisable = jQuery('.table_s').find("td[rowspan]").eq(i).parent("tr").children("td[isdisable]").attr("isdisable");
+			if (isDisable == 1){isHasDIsable = true;}
 			var jsonObject = {"projectId":projectId,"shiftMahjongId":shiftMahjongId,"projectStepOrder":projectStepOrder,"projectStepName":projectStepName,"stepPerformance":stepPerformance,"stepPerformanceType":stepPerformanceType,"isDisable":isDisable,"isDeleted":0};
 			data1.push(jsonObject);
+		}
+		if (isAppointment == 1 && isHasDIsable == false){
+			isCommit = false;
+		}
+		else {
+			isCommit = true;
 		}
 		for (var i = 1; i < jQuery('.table_s').find("tr").length; i++) {
 			var levelId = jQuery('.table_s').find("tr").eq(i).children("td[levelid]").attr("levelid");
@@ -678,8 +687,6 @@
 			choseCategory(deptId);
 			jQuery("select[name='categoryId']").val(categoryId);
 			
-			jQuery("select[name='projectType']").val(project.projectType);
-			
 			var projectImage = project.projectImage;
 			jQuery("img[name='projectImage']").attr("projectImage", projectImage);
 			jQuery("img[name='projectImage']").attr("src",  qiniu+projectImage);
@@ -689,7 +696,6 @@
 				jQuery("img[name='affiliatedImage']").eq(i).attr("src", qiniu+affiliatedImage.split(",")[i]);
 			}
 			/**锁定项目价格*/
-			jQuery("select[name='projectType']").val(project.projectType);
 			jQuery("input[name='projectName']").val(project.projectName);
 			u1.setContent(projectDesc);
 			//jQuery("textarea[name='projectDesc']").val(project.projectDesc);

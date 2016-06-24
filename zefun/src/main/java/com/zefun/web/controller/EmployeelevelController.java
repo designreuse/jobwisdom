@@ -102,6 +102,23 @@ public class EmployeelevelController extends BaseController{
 		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(getStoreId(request));
 		return new BaseDto(0, list);
 	}
+	
+	/**
+	 * 保存或者修改员工等级
+	* @author 高国藩
+	* @date 2016年6月23日 下午8:33:42
+	* @param request            request
+	* @param response           response
+	* @param employeeLevel      employeeLevel
+	* @return                   BaseDto
+	 */
+	@RequestMapping(value = Url.EmployeeLevel.SAVE_EMPLOYEE_LEVEL)
+    @ResponseBody
+    public BaseDto saveOrUpdateEmployeeLevel(HttpServletRequest request, HttpServletResponse response, EmployeeLevel employeeLevel){
+        return employeelevelService.saveOrUpdateEmployeeLevel(employeeLevel);
+    }
+	
+	
 	/**
 	 * 
 	* @author chendb

@@ -56,6 +56,19 @@ public class EmployeeController extends BaseController{
 	
 	
 	/**
+	 * 企业编辑每个门店的组织架构
+	* @author 高国藩
+	* @date 2016年6月23日 下午4:45:48
+	* @param request    request
+	* @param response   response
+	* @return           ModelAndView
+	 */
+	@RequestMapping(value = Url.Employee.VIEW_POSITION_LEVEL)
+    public ModelAndView accountViewStorePosition(HttpServletRequest request, HttpServletResponse response){
+        return employeeService.accountViewStorePosition(getStoreAccount(request));
+    }
+	
+	/**
 	 * 
 	* @author chendb
 	* @date 2015年10月14日 上午11:10:23

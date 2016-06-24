@@ -149,6 +149,12 @@ import net.sf.json.JSONObject;
 @Service
 public class StoreInfoService {
 
+    /**一号岗位*/
+    private static final String P1 = "美发(容/甲)/手艺师";
+    /**二号岗位*/
+    private static final String P2 = "技师/(美容)经理";
+    /**三号岗位*/
+    private static final String P3 = "助理";
     /**
      * 剩余使用天数少于该值的正常使用的门店需要续费提醒
      */
@@ -664,6 +670,9 @@ public class StoreInfoService {
     	enterpriseMsnFlowMapper.insertSelective(enterpriseMsnFlow);
     	
     	List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
+    	for (StoreInfo storeInfo2 : storeInfoList) {
+    		storeInfo2.setStoreDesc("");
+		}
     	Integer msnNum = enterpriseAccount.getBalanceMsnNum() - distributionNum;
     	Map<String, Object> map = new HashMap<>();
     	map.put("storeInfoList", storeInfoList);
@@ -896,6 +905,7 @@ public class StoreInfoService {
     * @return   成功返回码为0，失败为其它返回码
      */
     @Transactional
+    @SuppressWarnings("static-access")
     public BaseDto addStoreInfo(StoreInfo storeInfo, Integer userName, String userPwd) {
         EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeInfo.getStoreAccount());
 
@@ -905,6 +915,14 @@ public class StoreInfoService {
     	
         storeInfo.setCreateTime(DateUtil.getCurTime());
         storeInfoMapper.insert(storeInfo);
+        
+        // 在此门店中新增三个岗位 
+        PositionInfo p1 = new PositionInfo(null, storeInfo.getStoreId(), this.P1, DateUtil.getCurDate(), null, null);
+        PositionInfo p2 = new PositionInfo(null, storeInfo.getStoreId(), this.P2, DateUtil.getCurDate(), null, null);
+        PositionInfo p3 = new PositionInfo(null, storeInfo.getStoreId(), this.P3, DateUtil.getCurDate(), null, null);
+        positioninfoMapper.insert(p1);
+        positioninfoMapper.insert(p2);
+        positioninfoMapper.insert(p3);
         
         EnterpriseAccount record = new EnterpriseAccount();
         record.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
@@ -1738,30 +1756,21 @@ public class StoreInfoService {
         PositionInfo positioninfo = new PositionInfo();
         positioninfo.setStoreId(storeId);
         positioninfo.setLastOperatorId(operateId);
-        positioninfo.setDeptId(deptInfo.getDeptId());
         positioninfo.setCreateTime(DateUtil.getCurTime());
-        positioninfo.setPositionCode(1);
         positioninfo.setPositionName("发型师");
-        positioninfo.setIsDept(0);
         positioninfoService.addPositioninfo(positioninfo);
 
         PositionInfo positioninfo2 = new PositionInfo();
         positioninfo2.setStoreId(storeId);
         positioninfo2.setLastOperatorId(operateId);
-        positioninfo2.setDeptId(deptInfo.getDeptId());
         positioninfo2.setCreateTime(DateUtil.getCurTime());
-        positioninfo2.setPositionCode(2);
-        positioninfo2.setIsDept(0);
         positioninfo2.setPositionName("烫染技师");
         positioninfoService.addPositioninfo(positioninfo2);
 
         PositionInfo positioninfo3 = new PositionInfo();
         positioninfo3.setStoreId(storeId);
         positioninfo3.setLastOperatorId(operateId);
-        positioninfo3.setDeptId(deptInfo.getDeptId());
         positioninfo3.setCreateTime(DateUtil.getCurTime());
-        positioninfo3.setPositionCode(3);
-        positioninfo3.setIsDept(0);
         positioninfo3.setPositionName("洗护助理");
         positioninfoService.addPositioninfo(positioninfo3);
 
@@ -2371,7 +2380,6 @@ public class StoreInfoService {
         for (int i = 0; i < positionInfos.size(); i++) {
             Integer positionId = positionInfos.get(i).getPositionId();
             positionInfos.get(i).setStoreId(storeId);
-            positionInfos.get(i).setDeptId(deptKv.get(positionInfos.get(i).getDeptId()));
             positionInfos.get(i).setPositionId(null);
             positioninfoMapper.insert(positionInfos.get(i));
             positionKv.put(positionId, positionInfos.get(i).getPositionId());

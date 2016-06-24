@@ -1,8 +1,6 @@
 package com.zefun.web.dto;
 
-import java.math.BigDecimal;
 import java.util.List;
-
 import com.zefun.web.entity.EmployeeInfo;
 
 /**
@@ -25,18 +23,6 @@ public class EmployeeLevelDto {
     /** 级别名称 */
     private String levelName;
 
-    /** 指定提成类别（1固定金额、2业绩比例） */
-    private Integer assignType;
-
-    /** 指定提成比例 */
-    private Integer assignCommission;
-
-    /** 非指定提成类别（1固定金额、2业绩比例） */
-    private Integer nonAssignType;
-
-    /** 非指定提成比例 */
-    private Integer nonAssignCommission;
-
     /** 创建时间 */
     private String createTime;
 
@@ -46,21 +32,6 @@ public class EmployeeLevelDto {
     /** 最后操作人标识 */
     private Integer lastOperatorId;
 
-    /** 岗位开启升级(0没开启 1开启) */
-    private Integer isUpgrade;
-
-    /** 非指定客单价 */
-    private Integer nonCustomercost;
-
-    /** 指定客单价 */
-    private Integer customercost;
-
-    /** 业绩总额 */
-    private BigDecimal performancecount;
-
-    /** 岗位编码 */
-    private Integer positionCode;
-    
     /** 岗位名称*/
     private String positionName;
     
@@ -101,22 +72,6 @@ public class EmployeeLevelDto {
         this.levelName = levelName;
     }
 
-    public Integer getAssignType() {
-        return assignType;
-    }
-
-    public void setAssignType(Integer assignType) {
-        this.assignType = assignType;
-    }
-
-    public Integer getNonAssignType() {
-        return nonAssignType;
-    }
-
-    public void setNonAssignType(Integer nonAssignType) {
-        this.nonAssignType = nonAssignType;
-    }
-
 
     public String getCreateTime() {
         return createTime;
@@ -142,30 +97,6 @@ public class EmployeeLevelDto {
         this.lastOperatorId = lastOperatorId;
     }
 
-    public Integer getIsUpgrade() {
-        return isUpgrade;
-    }
-
-    public void setIsUpgrade(Integer isUpgrade) {
-        this.isUpgrade = isUpgrade;
-    }
-
-    public BigDecimal getPerformancecount() {
-        return performancecount;
-    }
-
-    public void setPerformancecount(BigDecimal performancecount) {
-        this.performancecount = performancecount;
-    }
-
-    public Integer getPositionCode() {
-        return positionCode;
-    }
-
-    public void setPositionCode(Integer positionCode) {
-        this.positionCode = positionCode;
-    }
-
     public String getPositionName() {
         return positionName;
     }
@@ -181,38 +112,5 @@ public class EmployeeLevelDto {
     public void setEmployeeInfoList(List<EmployeeInfo> employeeInfoList) {
         this.employeeInfoList = employeeInfoList;
     }
-
-    public Integer getAssignCommission() {
-        return assignCommission;
-    }
-
-    public void setAssignCommission(Integer assignCommission) {
-        this.assignCommission = assignCommission;
-    }
-
-    public Integer getNonAssignCommission() {
-        return nonAssignCommission;
-    }
-
-    public void setNonAssignCommission(Integer nonAssignCommission) {
-        this.nonAssignCommission = nonAssignCommission;
-    }
-
-    public Integer getNonCustomercost() {
-        return nonCustomercost;
-    }
-
-    public void setNonCustomercost(Integer nonCustomercost) {
-        this.nonCustomercost = nonCustomercost;
-    }
-
-    public Integer getCustomercost() {
-        return customercost;
-    }
-
-    public void setCustomercost(Integer customercost) {
-        this.customercost = customercost;
-    }
-    
 	
 }

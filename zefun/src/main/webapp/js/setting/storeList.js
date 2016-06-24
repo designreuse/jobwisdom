@@ -396,7 +396,8 @@ function saveMsnRecharge () {
                 return;
             }
         	dialog("充值成功！");
-        	jQuery("#msnRechargeDIV").hide();
+        	/*jQuery("#msnRechargeDIV").hide();*/
+        	location.reload();
         }
     });
 }
@@ -450,11 +451,10 @@ function distributionMsn (obj, storeId) {
 	var distributionNum = jQuery(obj).parents(".distribution_alert").find("input[name='distributionNum']").val();
 	
 	jQuery.ajax({
-        cache: true,
         type: "POST",
         url: baseUrl + "storeinfo/action/distributionMsn",
         data: "storeId=" + storeId + "&distributionNum=" +distributionNum,
-        async: false,
+        dataType: "json",
         success: function(data) {
         	if (data.code != 0) {
                 dialog(data.msg);

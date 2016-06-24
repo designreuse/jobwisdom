@@ -197,7 +197,7 @@
 								     <p>拥有${enterpriseAccount.balanceMsnNum }条</p>
 								     <p>增加<input type="text" name = "distributionNum"><span style="position:relative;right:20px;color:#9f9d9d">条</span></p>
 									 <div class="distribution_alert_button">
-									   <button onclick="distributionMsn(this, '${storeInfo.storeId}')">确认</button>
+									   <button onclick="distributionMsn(this, ${storeInfo.storeId})">确认</button>
 									   <button onclick = "cancelAlert(this)">取消</button>
 									 </div>
 								   </div>

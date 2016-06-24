@@ -47,7 +47,6 @@ import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.MemberScreeningMapper;
 import com.zefun.web.mapper.MsgReplyMapper;
 import com.zefun.web.mapper.PictureLibraryMapper;
-import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 import com.zefun.web.mapper.StoreWechatMapper;
 import com.zefun.web.mapper.WechatGroupInfoMapper;
@@ -119,9 +118,6 @@ public class WeixinMessageService {
     /** 微信分组信息操作对象 */
     @Autowired
     private WechatGroupInfoMapper wechatGroupInfoMapper;
-    /** 门店信息操作对象 */
-    @Autowired
-    private StoreInfoMapper storeInfoMapper;
 	/** 日志*/
 	private Logger logger = Logger.getLogger(WeixinMessageService.class);
 	

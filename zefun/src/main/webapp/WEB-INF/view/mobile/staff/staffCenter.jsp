@@ -15,7 +15,7 @@
 	   
     <div class="person_">
 	  <div class="head_pic">
-	     <img src="<%=basePath%>images/mobile/newemployee/head_pic.png">
+	     <img src="<%=qiniuPath%>${employeeInfo.headImage }">
 	   </div>
 	   <div class="person_name">
 	       <H1>${employeeInfo.name }<img src="<%=basePath%>images/mobile/newemployee/sex.png"></H1>

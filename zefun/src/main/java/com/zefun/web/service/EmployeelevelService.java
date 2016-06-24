@@ -213,4 +213,21 @@ public class EmployeelevelService {
     public List<EmployeeLevel> queryByLevelIds(List<Integer> levelIds){
         return employeelevelMapper.selectByLevelIds(levelIds);
     }
+    
+    /**
+     * 新增或者修改员工等级
+    * @author 高国藩
+    * @date 2016年6月23日 下午8:36:21
+    * @param employeeLevel employeeLevel
+    * @return              BaseDto
+     */
+    public BaseDto saveOrUpdateEmployeeLevel(EmployeeLevel employeeLevel) {
+        if (employeeLevel.getLevelId()!=null){
+            employeelevelMapper.updateByPrimaryKeySelective(employeeLevel);
+        }
+        else {
+            employeelevelMapper.insert(employeeLevel);
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, employeeLevel);
+    }
 }

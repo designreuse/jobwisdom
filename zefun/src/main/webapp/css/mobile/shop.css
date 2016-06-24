@@ -175,10 +175,10 @@ nav ul li{float:left;width:72px;text-align:center;line-height:3.9rem;height:3.9r
 .login_content>p{width:10rem;border-radius:10rem;height:10rem;margin:0 auto;background:rgba(255,255,255,0.1);overflow:hidden;margin-bottom:1.2rem;position:relative}
 .login_shop_name{text-align:center;font-size:2.2rem;margin-bottom:10rem;color:white}
 .login_imformation{width:80%;margin:0 auto}
-.business_no input{height:3.5rem;width:88%;background:rgba(255,255,255,0.2);margin-bottom:1.5rem;border-radius:5px;padding-left:12%;color:#a2a1a9;border:none;background:white;font-size:16px;}
+.business_no input{height:4.5rem;width:100%;background:rgba(255,255,255,0.2);margin-bottom:1.5rem;border-radius:5px;-webkit-border-radius:5px;padding-left:12%;color:#a2a1a9;border:none;background:white;font-size:10px;}
 .business_no{position:relative}
-.business_no span img{position:absolute;left:8px;top:8px;width:22px}
-.login_imformation button{width:100%;height:3rem;border-radius:5px;color:white;border:none;background:#dd6e24;font-size:1.6rem}
+.business_no span img{position:absolute;left:8px;top:8px;width:18px}
+.login_imformation button{width:100%;height:5rem;border-radius:5px;color:white;border:none;background:#dd6e24;font-size:1.6rem}
 .login_imformation a{float:right;color:#437fbb;text-decoration:underline}
 .login_imformation p{margin-top:2px;position:relative}
 .login_content >p img{width: 10rem;
