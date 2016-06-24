@@ -1,80 +1,90 @@
 package com.zefun.web.entity;
 
 /**
- * 优惠券
-* @author 高国藩
-* @date 2015年9月14日 下午2:21:14
+ * 优惠卷
+* @author 骆峰
+* @date 2016年6月21日 下午5:50:20
  */
 public class CouponInfo {
-    /**主键*/
+    /** 优惠劵标识 */
     private Integer couponId;
-    /**名称*/
+
+    /** 优惠劵名称 */
     private String couponName;
-    /**抵扣金额*/
-    private Integer couponPrice;
-    /**兑换所需积分*/
-    private Integer couponVantages;
-    /**类型 0:通用 1:项目 2:商品 3:套餐*/
-    private Integer couponType;
-    /**使用与项目商品套餐的引用*/
-    private Integer couponUseId;
-    /**开始时间*/
-    private String couponStartTime;
-    /**结束时间*/
-    private String couponStopTime;
-    /**发布时间*/
-    private String releaseTime;
-    /**已经发送次数*/
-    private Integer hasExchangeCount;
-    /**已经使用次数*/
-    private Integer hasUseCount;
-    /**是否可用*/
-    private Integer couponIsUse;
-    /**门店信息*/
+
+    /** 门店标识 */
     private Integer storeId;
-    /**是否删除*/
+    
+    /** 企业所属门店标识 */
+    private String  storeType;
+    
+    /** 优惠卷使用条件*/
+    private String  couponNames;
+
+   
+    public String getCouponNames() {
+        return couponNames;
+    }
+
+    public void setCouponNames(String couponNames) {
+        this.couponNames = couponNames;
+    }
+
+    /** 优惠劵价格 */
+    private Integer couponPrice;
+
+    /** 兑换所需积分 */
+    private Integer couponVantages;
+
+    /** 优惠劵使用条件(0:通用 1:单笔订单) */
+    private Integer couponType;
+
+    /** 有效时间 */
+    private String couponStartTime;
+
+    /** 优惠劵结束时间 */
+    private String couponStopTime;
+    
+    /** 优惠卷使用量 */
+    private Integer couponNum;
+    
+    public Integer getCouponNum() {
+        return couponNum;
+    }
+
+    public void setCouponNum(Integer couponNum) {
+        this.couponNum = couponNum;
+    }
+
+    /** 发布日期 */
+    private String releaseTime;
+
+    /** 优惠劵已经使用*/
+    private Integer couponIsUse;
+
+    /** 企业信息 */
+    private String storeAccount;
+
+    /** 是否删除(0:未删除，1:已删除) */
     private Integer isDelete;
-    
-    
-    public Integer getIsDelete() {
-        return isDelete;
-    }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
+    /** 是否上架（0：上架，1下架） */
+    private Integer isType;
 
-    public String getReleaseTime() {
-        return releaseTime;
-    }
+    /** 单笔订单满足多少钱使用 */
+    private Integer priceSigle;
 
-    public void setReleaseTime(String releaseTime) {
-        this.releaseTime = releaseTime;
-    }
+    /** 优惠卷发行量 */
+    private Integer couponNumber;
 
-    public Integer getHasExchangeCount() {
-        return hasExchangeCount;
-    }
+    /** 每人限领 */
+    private Integer couponMan;
 
-    public void setHasExchangeCount(Integer hasExchangeCount) {
-        this.hasExchangeCount = hasExchangeCount;
-    }
+    /** 模板颜色 */
+    private String couponColour;
 
-    public Integer getHasUseCount() {
-        return hasUseCount;
-    }
-
-    public void setHasUseCount(Integer hasUseCount) {
-        this.hasUseCount = hasUseCount;
-    }
-
-    public Integer getCouponVantages() {
-        return couponVantages;
-    }
-
-    public void setCouponVantages(Integer couponVantages) {
-        this.couponVantages = couponVantages;
-    }
+    /** 发布方式（1积分，2门店） */
+    private String startType;
 
     public Integer getCouponId() {
         return couponId;
@@ -92,6 +102,14 @@ public class CouponInfo {
         this.couponName = couponName == null ? null : couponName.trim();
     }
 
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
+    }
+
     public Integer getCouponPrice() {
         return couponPrice;
     }
@@ -100,20 +118,20 @@ public class CouponInfo {
         this.couponPrice = couponPrice;
     }
 
+    public Integer getCouponVantages() {
+        return couponVantages;
+    }
+
+    public void setCouponVantages(Integer couponVantages) {
+        this.couponVantages = couponVantages;
+    }
+
     public Integer getCouponType() {
         return couponType;
     }
 
     public void setCouponType(Integer couponType) {
         this.couponType = couponType;
-    }
-
-    public Integer getCouponUseId() {
-        return couponUseId;
-    }
-
-    public void setCouponUseId(Integer couponUseId) {
-        this.couponUseId = couponUseId;
     }
 
     public String getCouponStartTime() {
@@ -132,6 +150,14 @@ public class CouponInfo {
         this.couponStopTime = couponStopTime == null ? null : couponStopTime.trim();
     }
 
+    public String getReleaseTime() {
+        return releaseTime;
+    }
+
+    public void setReleaseTime(String releaseTime) {
+        this.releaseTime = releaseTime == null ? null : releaseTime.trim();
+    }
+
     public Integer getCouponIsUse() {
         return couponIsUse;
     }
@@ -140,11 +166,75 @@ public class CouponInfo {
         this.couponIsUse = couponIsUse;
     }
 
-    public Integer getStoreId() {
-        return storeId;
+    public String getStoreAccount() {
+        return storeAccount;
     }
 
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+    public void setStoreAccount(String storeAccount) {
+        this.storeAccount = storeAccount == null ? null : storeAccount.trim();
     }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Integer getIsType() {
+        return isType;
+    }
+
+    public void setIsType(Integer isType) {
+        this.isType = isType;
+    }
+
+    public Integer getPriceSigle() {
+        return priceSigle;
+    }
+
+    public void setPriceSigle(Integer priceSigle) {
+        this.priceSigle = priceSigle;
+    }
+
+    public Integer getCouponNumber() {
+        return couponNumber;
+    }
+
+    public void setCouponNumber(Integer couponNumber) {
+        this.couponNumber = couponNumber;
+    }
+
+    public Integer getCouponMan() {
+        return couponMan;
+    }
+
+    public void setCouponMan(Integer couponMan) {
+        this.couponMan = couponMan;
+    }
+
+    public String getCouponColour() {
+        return couponColour;
+    }
+
+    public void setCouponColour(String couponColour) {
+        this.couponColour = couponColour == null ? null : couponColour.trim();
+    }
+
+    public String getStartType() {
+        return startType;
+    }
+
+    public void setStartType(String startType) {
+        this.startType = startType == null ? null : startType.trim();
+    }
+    public String getStoreType() {
+        return storeType;
+    }
+
+    public void setStoreType(String storeType) {
+        this.storeType = storeType;
+    }
+
 }

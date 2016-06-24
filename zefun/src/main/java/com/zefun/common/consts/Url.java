@@ -157,21 +157,24 @@ public interface Url {
 	/** 优惠券模块 */
 	class Coupon {
 		/** 进入优惠券管理页面 */
-		public static final String VIEW_COUPONS = "view/coupons";
+		public static final String VIEW_COUPONS = "coupons/couponslist";
 		/** 新增优惠卷 */
 		public static final String ADD_COUPONS = "coupons/add";
-		/** 查询套餐商品项目信息 */
-		public static final String LIST_USE_COUPONS = "serch/coupons/use";
-		/** 发布优惠券 */
-		public static final String UPDATE_COUPON_USE = "update/coupons/use";
-		/** 下载优惠券 */
-		public static final String UPDATE_COUPON_NO_USE = "update/coupons/no/use";
-		/** 发送优惠券 */
+		/** 优惠券上架 */
 		public static final String SEND_COUPONS = "coupon/send/coupons";
 		/** 删除优惠券 */
 		public static final String DELETE_COUPONS = "action/coupons/delete";
 		/** 查询分页 */
 		public static final String VIEW_COUPONS_BY_PAGE = "view/coupons/by/page";
+		/** 优惠卷修改*/
+		public static final String COUPONS_UPDATE = "coupons/send/update";
+		
+		  /** 查询套餐商品项目信息 */
+        public static final String LIST_USE_COUPONS = "serch/coupons/use";
+        /** 发布优惠券 */
+        public static final String UPDATE_COUPON_USE = "update/coupons/use";
+        /** 下载优惠券 */
+        public static final String UPDATE_COUPON_NO_USE = "update/coupons/no/use";
 
 	}
 

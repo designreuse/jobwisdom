@@ -720,7 +720,6 @@ public class StoreFlowService {
     * @return BaseDto
      */
     public BaseDto updateInitilLize(Integer storeId, InitializeInFo initialize) {
-        // TODO Auto-generated method stub
         initialize.setStoreId(storeId);
         initializeInFoMapper.updateByPrimaryKeySelective(initialize);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, initialize);

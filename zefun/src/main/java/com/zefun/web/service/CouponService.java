@@ -1,311 +1,214 @@
 package com.zefun.web.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
-import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.CouponInfoDto;
-import com.zefun.web.dto.MemberLevelDto;
-import com.zefun.web.dto.ProjectInfoDto;
-import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.CouponInfo;
-import com.zefun.web.entity.GoodsCategory;
-import com.zefun.web.entity.GoodsInfo;
-import com.zefun.web.entity.MemberCoupon;
-import com.zefun.web.entity.MemberScreening;
+import com.zefun.web.entity.CouponStoreKey;
 import com.zefun.web.entity.Page;
-import com.zefun.web.entity.ProjectCategory;
-import com.zefun.web.entity.StoreSetting;
+import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.CouponInfoMapper;
-import com.zefun.web.mapper.GoodsCategoryMapper;
-import com.zefun.web.mapper.MemberCouponMapper;
-import com.zefun.web.mapper.MemberLevelMapper;
-import com.zefun.web.mapper.MemberScreeningMapper;
-import com.zefun.web.mapper.ProjectCategoryMapper;
-import com.zefun.web.mapper.StoreSettingMapper;
-import com.zefun.web.mapper.WechatMemberMapper;
-import com.zefun.wechat.service.WeixinMessageService;
+import com.zefun.web.mapper.CouponStoreMapper;
+import com.zefun.web.mapper.StoreInfoMapper;
 
-import net.sf.json.JSONArray;
 
 /**
- * 优惠券
-* @author 高国藩
-* @date 2015年9月14日 下午2:28:45
+ * 优惠卷
+* @author 骆峰
+* @date 2016年6月21日 下午4:57:52
  */
 @Service
+@Transactional
 public class CouponService {
-    /**优惠券*/
+
+    /** 门店表 */
+    @Autowired
+    private StoreInfoMapper storeInfoMapper;
+
+    /** 企业优惠卷 */
     @Autowired
     private CouponInfoMapper couponInfoMapper;
-    /**项目*/
+    
+    
+    /** 门店关联表优惠卷 */
     @Autowired
-    private ProjectService projectService;
-    /**套餐*/
-    @Autowired
-    private ComboInfoService comboInfoService;
-    /**商品*/
-    @Autowired
-    private GoodsInfoService goodsInfoService;
-    /**会员卡*/
-    @Autowired
-    private MemberLevelMapper memberLevelMapper;
-    /**筛选器*/
-    @Autowired
-    private MemberScreeningMapper memberScreeningMapper;
-    /**日志*/
-    @SuppressWarnings("unused")
-    private Logger logger = Logger.getLogger(CouponService.class);
-    /**会员优惠券存储*/
-    @Autowired
-    private MemberCouponMapper memberCouponMapper;
-    /**rabbite服务类*/
-    @Autowired
-    private RabbitService rabbitService;
-    /**会员和openId关联关系*/
-    @Autowired
-    private WechatMemberMapper wechatMemberMapper;
-    /**门店设置优惠券*/
-    @Autowired
-    private StoreSettingMapper storeSettingMapper;
-    /**微信发送*/
-    @Autowired
-    private WeixinMessageService weixinMessageService;
-    /**项目类别*/
-    @Autowired
-    private ProjectCategoryMapper projectCategoryMapper;
-    /**商品类别*/
-    @Autowired
-    private GoodsCategoryMapper goodsCategoryMapper;
+    private CouponStoreMapper couponStoreMapper;
 
     /**
-     * 进入优惠券管理页面
-    * @author 高国藩
-    * @date 2015年9月14日 下午2:24:54
-    * @param storeId 门店
-    * @return 跳转页面
+     * 优惠卷展示页面
+    * @author 骆峰
+    * @date 2016年6月21日 下午4:59:21
+    * @param request request
+    * @return ModelAndView
      */
-    public ModelAndView viewCoupons(Integer storeId) {
-        Page<CouponInfoDto> page = new Page<CouponInfoDto>();
+
+    public ModelAndView viewCouponsByPage(HttpServletRequest request) {
+        Object storeId = request.getSession().getAttribute(App.Session.STORE_ID);
+        Object storeAccount = request.getSession().getAttribute(App.Session.STORE_ACCOUNT);
+        CouponInfo couponInfo =new CouponInfo();
+        CouponStoreKey couponStore= new CouponStoreKey();
+        ModelAndView view = null ;
+        
+        Page<CouponInfo> page = new Page<>();
         page.setPageNo(1);
-        page.setPageSize(50);
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("storeId", storeId);
-        page.setParams(params);
-        List<CouponInfoDto> cs = couponInfoMapper.selectByPage(page);
-        page.setResults(cs);
-        //会员卡
-        List<MemberLevelDto> memberLevels = memberLevelMapper.selectByStoreId(storeId);
-        //筛选器
-        List<MemberScreening> memberScreenings = memberScreeningMapper.selectByStoreId(storeId);
-        List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(storeId);
-        List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByStoreId(storeId);
-        ModelAndView view = new ModelAndView(View.Coupon.VIEW_COUPON);
+        page.setPageSize(10);
+        Map<String, Object> params = new HashMap<>();
+        List<CouponInfo> coupon =null;
+      
+        
+        if (storeId == null) {
+            couponInfo.setStoreAccount(String.valueOf(storeAccount));
+            view = new ModelAndView(View.Coupon.VIEW_COUPON_LIST);
+            params.put("storeAccount", String.valueOf(storeAccount));
+            page.setParams(params);
+            coupon = couponInfoMapper.selectByCoupon(page);
+        } 
+        else {
+            couponStore.setCouponId(Integer.parseInt(storeId.toString()));
+            view = new ModelAndView(View.Coupon.VIEW_COUPON_STORE);
+            params.put("StoreId", Integer.parseInt(storeId.toString()));
+            page.setParams(params);
+            coupon = couponInfoMapper.selectByStore(page);
+        }
+        page.setResults(coupon);
+        List<StoreInfo> storeInfo = storeInfoMapper.selectByStoreAccount(couponInfo.getStoreAccount());
+        view.addObject("StoreInfo", storeInfo);
         view.addObject("page", page);
-        view.addObject("memberLevels", memberLevels);
-        view.addObject("memberScreenings", memberScreenings);
-        view.addObject("projectCategories", JSONArray.fromObject(projectCategories));
-        view.addObject("goodsCategories", JSONArray.fromObject(goodsCategories));
+
         return view;
     }
-    
+
     /**
-     * 动态分页查询
-    * @author 高国藩
-    * @date 2015年10月11日 上午11:53:27
-    * @param page 分页元素
-    * @return 分页结果
+     * 企业优惠卷新增
+    * @author 骆峰
+    * @date 2016年6月22日 下午2:45:53
+    * @param couponInfo couponInfo
+    * @return BaseDto
      */
-    public BaseDto viewCouponsByPage(Page<CouponInfoDto> page) {
-        List<CouponInfoDto> cs = couponInfoMapper.selectByPage(page);
-        page.setResults(cs);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
+    public BaseDto viweAddCoupon(CouponInfo couponInfo) {
+        couponInfo.setIsDelete(0);
+        couponInfo.setCouponNum(0);
+        couponInfo.setCouponIsUse(0);
+        couponInfo.setIsType(1);
+        couponInfoMapper.insert(couponInfo);
+        
+        CouponStoreKey couponStore = new CouponStoreKey();
+        couponStore.setCouponId(couponInfo.getCouponId());
+        String type = couponInfo.getStoreType();
+        String[] store = type.split(",");
+        for (int i = 0; i < store.length; i++) {
+            couponStore.setStoreId(Integer.parseInt(store[i]));
+            couponStoreMapper.insert(couponStore);
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, couponInfo);
+    }
+    /**
+     * 企业分页查询
+    * @author 骆峰
+    * @date 2016年6月22日 下午8:43:10
+    * @param request request
+    * @param pageNo pageNo
+    * @return BaseDto
+     */
+    public BaseDto viweByPage(HttpServletRequest request, Integer pageNo) {
+        Object storeId = request.getSession().getAttribute(App.Session.STORE_ID);
+        Object storeAccount = request.getSession().getAttribute(App.Session.STORE_ACCOUNT);
+        CouponInfo couponInfo =new CouponInfo();
+        
+        // 为空进企业号
+        Page<CouponInfo> page = new Page<>();
+        page.setPageNo(pageNo);
+        page.setPageSize(10);
+        Map<String, Object> params = new HashMap<>();
+        
+        if (storeId == null) {
+            couponInfo.setStoreAccount(String.valueOf(storeAccount));
+            params.put("storeAccount", couponInfo.getStoreAccount());
+            page.setParams(params);
+            List<CouponInfo> coupon = couponInfoMapper.selectByCoupon(page);
+            page.setResults(coupon);
+        } 
+        else {
+            couponInfo.setStoreId(Integer.parseInt(storeId.toString()));
+            params.put("StoreId", couponInfo.getStoreId());
+            page.setParams(params);
+            List<CouponInfo> coupon = couponInfoMapper.selectByStore(page);
+            page.setResults(coupon);
+        }
+        return new BaseDto(0, page);
     }
 
     /**
-     * 新增优惠券
-    * @author 高国藩
-    * @date 2015年9月14日 下午2:11:20
-    * @param couponInfo 优惠券
-    * @param storeId 门店
-    * @return 状态
-     * @throws ParseException  异常
+     * 优惠卷上架
+    * @author 骆峰
+    * @date 2016年6月23日 下午3:13:29
+    * @param couponId couponId
+    * @param isType isType
+    * @return BaseDto
      */
-    public BaseDto addCoupons(CouponInfo couponInfo, Integer storeId) throws ParseException {
-        couponInfo.setStoreId(storeId);
-        couponInfo.setHasExchangeCount(0);
-        couponInfo.setHasUseCount(0);
+    public BaseDto sendCoupons(Integer couponId, Integer isType) {
+        CouponInfo couponInfo = new CouponInfo();
+        couponInfo.setCouponId(couponId);
+        couponInfo.setIsType(isType);
+        couponInfoMapper.updateBytype(couponInfo);
+        return new BaseDto(0, couponId);
+    }
+
+    /**
+     * 删除
+    * @author 骆峰
+    * @date 2016年6月23日 下午5:26:08
+    * @param couponId couponId
+    * @param couponStopTime couponStopTime
+    * @param couponStartTime couponStartTime
+    * @return BaseDto
+     */
+    public BaseDto deleted(Integer couponId, String couponStopTime, String couponStartTime) {
+        CouponInfo couponInfo = new CouponInfo();
+        couponInfo.setCouponId(couponId);
+        couponInfo.setCouponStopTime(couponStopTime);
+        couponInfo.setCouponStartTime(couponStartTime);
+        int t = couponInfoMapper.updateByDelete(couponInfo);
+        return new BaseDto(t, couponId);
+    }
+    /**
+     * 修改优惠卷
+    * @author 骆峰
+    * @date 2016年6月23日 下午8:33:08
+    * @param couponInfo couponInfo
+    * @return BaseDto
+     */
+    public BaseDto saveUpdate(CouponInfo couponInfo) {
         couponInfo.setIsDelete(0);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //如果为1,立刻发布,存入当下时间
-        if (couponInfo.getCouponIsUse() == 1){
-            couponInfo.setReleaseTime(sdf.format(new Date()));;
-        }
-        if (!sdf.parse(couponInfo.getCouponStopTime()).after(new Date())){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "过期时间不能小于当下时间");
+        couponInfo.setCouponNum(0);
+        couponInfo.setCouponIsUse(0);
+        couponInfo.setIsType(1);
+        couponInfoMapper.updateByPrimaryKey(couponInfo);
+        
+       
+        CouponStoreKey couponStore = new CouponStoreKey();
+        couponStore.setCouponId(couponInfo.getCouponId());
+        couponStoreMapper.deleteByPrimaryKey(couponStore);
+        
+        String type = couponInfo.getStoreType();
+        String[] store = type.split(",");
+        for (int i = 0; i < store.length; i++) {
+            couponStore.setStoreId(Integer.parseInt(store[i]));
+            couponStoreMapper.insert(couponStore);
         }
         
-        int ok = couponInfoMapper.insert(couponInfo);
-        if (ok>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, couponInfoMapper.selectByPrimaryKey(couponInfo.getCouponId()));
-        }
-        else {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-        }
-    }
-
-    /**
-     * 查询项目商品套餐信息
-    * @author 高国藩
-    * @date 2015年9月14日 下午2:11:20
-    * @param type 要查询的类型 1:项目 2:商品 3:套餐
-    * @param storeId 门店信息
-    * @return 信息封装
-     */
-    public BaseDto listCouponsUse(Integer type, Integer storeId) {
-        if (type==1){
-            ProjectInfoDto projectInfoDto = new ProjectInfoDto();
-            projectInfoDto.setStoreId(storeId);
-            List<ProjectInfoDto> ls = projectService.queryProjectInfoList(projectInfoDto);
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, ls);
-        }
-        if (type==2){
-            List<GoodsInfo> ls = goodsInfoService.queryGoodsInfos(storeId);
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, ls);
-        }
-        if (type==3){
-            ComboInfo comboInfo = new ComboInfo();
-            comboInfo.setStoreId(storeId);
-            List<ComboInfo> ls = comboInfoService.queryComboInfo(comboInfo); 
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, ls);
-        }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "");
-    }
-
-    /**
-     * 发布优惠券
-    * @author 高国藩
-    * @date 2015年9月14日 下午2:11:20
-    * @param couponId 优惠券主键
-    * @return 跳转页面
-     * @throws ParseException 
-     */
-    public BaseDto updateCoupons(Integer couponId) throws ParseException {
-        CouponInfoDto couponInfoDto = couponInfoMapper.selectByPrimaryKey(couponId);
-        String stopDate = couponInfoDto.getCouponStopTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        if (new Date().after(sdf.parse(stopDate))){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "当前优惠券已过期,不能发布");
-        }
-        CouponInfo couponInfo = new CouponInfo();
-        couponInfo.setCouponId(couponId);
-        couponInfo.setCouponIsUse(1);
-        couponInfo.setReleaseTime(sdf.format(new Date()));
-        int ok = couponInfoMapper.updateByPrimaryKey(couponInfo);
-        if (ok>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-        }
-        else {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-        }
-    }
-
-    /**
-     * 下架优惠券
-    * @author 高国藩
-    * @date 2015年9月14日 下午2:11:20
-    * @param couponId 优惠券主键
-    * @return 跳转页面
-     */
-    public BaseDto updateNoUseCoupons(Integer couponId) {
-        CouponInfo couponInfo = new CouponInfo();
-        couponInfo.setCouponId(couponId);
-        couponInfo.setCouponIsUse(0);
-        couponInfo.setReleaseTime("");;
-        int ok = couponInfoMapper.updateByPrimaryKey(couponInfo);
-        if (ok>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-        }
-        else {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-        }
-    }
-    
-    /**
-     * 删除优惠券
-    * @author 高国藩
-    * @date 2015年11月4日 上午10:23:54
-    * @param couponId 优惠券ID
-    * @param storeId  门店ID
-    * @return 返回状态
-     */
-    public BaseDto actionDeleteCoupons(Integer couponId, Integer storeId) {
-        StoreSetting storeSetting =  storeSettingMapper.selectByPrimaryKey(storeId);
-        if (Arrays.asList(storeSetting.getFirstFollowCoupon().split(",")).contains(couponId.toString())){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该优惠券为初次关注赠送劵,不可删除");
-        }
-        CouponInfo couponInfo = new CouponInfo();
-        couponInfo.setCouponId(couponId);
-        couponInfo.setIsDelete(1);
-        couponInfo.setCouponIsUse(0);
-        int ok = couponInfoMapper.updateByPrimaryKey(couponInfo);
-        if (ok>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除成功");
-        }
-        else {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "删除成功,请稍后重试");
-        }
-    }
-
-    /**
-     * 发送优惠券
-    * @author 高国藩
-    * @date 2015年9月15日 上午11:49:39
-    * @param couponId 优惠券
-    * @param memberLevelId 会员卡
-    * @param memberScreening 筛选器
-    * @param storeId 门店信息
-    * @return 发送状态
-     */
-    public BaseDto sendCoupons(Integer couponId, String memberLevelId,
-            String memberScreening, Integer storeId) {
-        //通过会员卡和筛选器获取会员信息,将其中id去重后,插入
-        String[] strLevel = memberLevelId.split(",");
-        String[] strSceening = memberScreening.split(",");
-        List<Integer> memberIds = weixinMessageService.serchMemberIds(strSceening, strLevel); 
-        List<MemberCoupon> coupons = new ArrayList<MemberCoupon>();
-        for (int i = 0; i < memberIds.size(); i++) {
-            MemberCoupon memberCoupon = new MemberCoupon();
-            memberCoupon.setGrantTime(DateUtil.getCurDate());
-            memberCoupon.setMemberInfoId(memberIds.get(i));
-            memberCoupon.setCouponId(couponId);
-            memberCoupon.setIsUsed(0);
-            coupons.add(memberCoupon);
-        }
-        int ok = memberCouponMapper.insertList(coupons);
-        //根据会员id获得会员对应的openIds
-        List<String> touser = wechatMemberMapper.selectOpenIdsByMemberIdList(memberIds);
-        //微信模板消息发送获得优惠券通知
-        CouponInfoDto couponInfo = couponInfoMapper.selectByPrimaryKey(couponId);
-        rabbitService.sendCoupons(storeId, couponInfo, touser);
-        if (ok>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-        }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
+        return new BaseDto(0, couponInfo);
     }
 
 }
