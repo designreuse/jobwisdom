@@ -44,6 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.ExcelUtil;
 import com.zefun.common.utils.ExcleUtils;
@@ -1412,5 +1413,37 @@ public class EmployeeService {
 			}
 		}
 	}
+
+	/**
+	 * 通过门店企业代号查询分店组织架构
+	* @author 高国藩
+	* @date 2016年6月23日 下午4:46:29
+	* @param storeAccount   storeAccount
+	* @return               ModelAndView
+	 */
+    public ModelAndView accountViewStorePosition(String storeAccount) {
+        ModelAndView view = new ModelAndView(View.Position.VIEW_ACCOUNT);
+        List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
+        List<DeptInfo> deptInfos = deptInfoMapper.selectAllDetpByStoreId(storeInfos.get(0).getStoreId());
+        List<PositionInfo> positionInfos = positioninfoMapper.queryAllByStoreId(storeInfos.get(0).getStoreId());
+        
+//        List<List<EmployeeLevel>> lists = new ArrayList<>();
+//        for (int i = 0; i < positionInfos.size(); i++) {
+//            EmployeeLevel query = new EmployeeLevel();
+//            query.setStoreId(storeInfos.get(0).getStoreId());
+//            query.setPositionId(positionInfos.get(i).getPositionId());
+//            //岗位对应的职位
+//            lists.add(employeeLevelMapper.queryEmployeeLevel(query));
+//        }
+        
+        EmployeeLevel query = new EmployeeLevel();
+        query.setStoreId(storeInfos.get(0).getStoreId());
+        
+        view.addObject("empLevels", JSONArray.fromObject(employeeLevelMapper.queryEmployeeLevel(query)));
+        view.addObject("storeInfos", storeInfos);
+        view.addObject("deptInfos", deptInfos);
+        view.addObject("positionInfos", positionInfos);
+        return view;
+    }
 
 }

@@ -442,6 +442,8 @@ public interface Url {
 		public static final String QUERTLEVELINFO = "employeelevel/action/querylevelInfo";
 		/** 根据职位 获取人员 */
 		public static final String GETLEVELEMPLOYEE = "employeelevel/action/getlevelemployee";
+		/** 新增或者修改会员等级*/
+        public static final String SAVE_EMPLOYEE_LEVEL = "employeelevel/action/saveOrUpdate";
 
 	}
 
@@ -836,6 +838,8 @@ public interface Url {
 		public static final String ACTION_DOWNLOAD_IMPORTMODEL_EMPLOYEEINFO = "/importModelOfEmployeeInfo/action/download";
 		/** 根据门店部门职位查询员工*/
 		public static final String SELECT_EMPLOYEE_BY_DATETYPE = "employee/action/selectEmployeeBydateType";
+		/** 企业查看门店组织架构*/
+        public static final String VIEW_POSITION_LEVEL = "employee/account/positon";
 
 	}
 
@@ -1129,6 +1133,8 @@ public interface Url {
 		public static final String GETDEPTINFO = "dept/action/getDeptInfo";
 		/** 部门架构导入 */
 		public static final String IMPORTEXCLE = "dept/action/importexcle";
+		/** 部门的新增或者修改*/
+        public static final String SAVE_UPDATE_DEPT = "dept/saveOrUpdate";
 	}
 
 	/** 门店制度管理模块 */

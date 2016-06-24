@@ -27,10 +27,10 @@ public interface EmployeeLevelMapper {
      * 修改
     * @author chendb
     * @date 2015年8月11日 上午10:55:50
-    * @param map bean
+    * @param employeeLevel employeeLevel
     * @return int
      */
-    int updateByPrimaryKeySelective(Map<String, Object> map);
+    int updateByPrimaryKeySelective(EmployeeLevel employeeLevel);
     /**
      * 
     * @author chendb

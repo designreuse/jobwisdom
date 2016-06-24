@@ -72,6 +72,22 @@ public class DeptController extends BaseController{
         map.put("list", list);
         return new BaseDto(0, map);
     }
+    
+    /**
+     * 新增门店部门
+    * @author 高国藩
+    * @date 2016年6月23日 下午6:20:23
+    * @param request     request
+    * @param response    response
+    * @param deptInfo    deptInfo
+    * @return            BaseDto
+     */
+    @RequestMapping(value = Url.Dept.SAVE_UPDATE_DEPT)
+    @ResponseBody
+    public BaseDto saveOrUpdateDeptInfo(HttpServletRequest request, HttpServletResponse response, DeptInfo deptInfo){
+        return deptService.saveOrUpdateDeptInfo(deptInfo);
+    }
+    
     /**
      * 修改部门信息
     * @author chendb

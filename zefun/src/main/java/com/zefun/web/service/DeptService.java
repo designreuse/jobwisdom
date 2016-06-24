@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.utils.DateUtil;
+import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.ShiftInfo;
 import com.zefun.web.mapper.DeptInfoMapper;
@@ -272,4 +273,23 @@ public class DeptService {
         redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, deptId);
         redisService.hdel(App.Redis.DEPT_PROJECT_MAHJONG_INFO_KEY_HASH, deptId);
     }
+    
+    /**
+     * 新增或者修改部门
+    * @author 高国藩
+    * @date 2016年6月23日 下午6:21:49
+    * @param deptInfo deptInfo
+    * @return         deptInfo
+     */
+    @Transactional
+    public BaseDto saveOrUpdateDeptInfo(DeptInfo deptInfo) {
+        if (deptInfo.getDeptId()!=null){
+            deptInfoMapper.updateByPrimaryKeySelective(deptInfo);
+        }
+        else {
+            deptInfoMapper.insert(deptInfo);
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, deptInfo);
+    }
+    
 }

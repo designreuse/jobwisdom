@@ -453,6 +453,8 @@ public interface View {
 	class Position {
 		/** 岗位信息页面 */
 		public static final String POSITION = "employee/positioninfo/positioninfo";
+		/** 企业岗位职位*/
+        public static final String VIEW_ACCOUNT = "employee/positioninfo/account";
 	}
 
 	/**
