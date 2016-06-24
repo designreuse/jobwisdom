@@ -8,6 +8,10 @@
     <result column="level_name" property="levelName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    
+    <result column="reference_first" property="referenceFirst" jdbcType="INTEGER" />
+    <result column="reference_two" property="referenceTwo" jdbcType="INTEGER" />
+    
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
     <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
   </resultMap>
@@ -40,11 +44,13 @@
   
   <insert id="insert" parameterType="com.zefun.web.entity.EmployeeLevel" useGeneratedKeys="true" keyProperty="levelId">
      insert into employee_level (level_id, store_id, position_id, 
-      level_name, create_time, update_time, last_operator_id
+      level_name, create_time, update_time, reference_first, reference_two, 
+      last_operator_id
       )
     values (#{levelId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{positionId,jdbcType=INTEGER}, 
       #{levelName,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR}, 
-      #{updateTime,jdbcType=CHAR}, #{lastOperatorId,jdbcType=INTEGER}
+      #{updateTime,jdbcType=CHAR}, #{referenceFirst,jdbcType=INTEGER}, #{referenceTwo,jdbcType=INTEGER}, 
+      #{lastOperatorId,jdbcType=INTEGER}
       )
   </insert>
   
@@ -85,11 +91,12 @@
   </select>
   <!-- 判断职位是否有被人员引用 -->
   <select id="islevelIdcount" parameterType="com.zefun.web.entity.EmployeeLevel" resultType="java.lang.Integer">
-  select count(0)  from employee_info where store_id = #{storeId} and level_id = #{levelId} and is_deleted=0
+  	select count(0)  from employee_info where store_id = #{storeId} and level_id = #{levelId} and is_deleted=0
   </select>
   <!-- 下拉框公共获取职位信息 -->
   <select id="queryEmployeeLevel" parameterType="com.zefun.web.entity.EmployeeLevel" resultType="com.zefun.web.entity.EmployeeLevel">
-	  select el.level_id levelId, el.level_name levelName, el.position_id positionId, pio.position_name positionName from employee_level el
+	  select el.level_id levelId, el.level_name levelName, el.reference_first referenceFirst, el.reference_two referenceTwo, 
+	  el.position_id positionId, pio.position_name positionName from employee_level el
 	  left join position_info pio on pio.position_id = el.position_id
 	  where el.store_id = #{storeId} and el.is_deleted = 0
 	  <if test="positionId != null " >

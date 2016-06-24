@@ -149,52 +149,52 @@ public class ProjectInfoController extends BaseController {
         return projectService.viewProjects(storeId, categoryId);
     }
     
-    /**
-     * 保存项目
-    * @author 高国藩
-    * @date 2016年4月25日 下午5:59:57
-    * @param request   request
-    * @param response  response
-    * @param stepNum   编辑步骤
-    * @param data      数据
-    * @param status    0/1 新增/修改
-    * @return          状态
-     */
-    @RequestMapping(value = Url.Project.PROJECT_SAVE_STEP, method=RequestMethod.POST)
-    @ResponseBody
-    public BaseDto saveProjectByStep(HttpServletRequest request, HttpServletResponse response, 
-            @PathVariable("stepNum")Integer stepNum, @PathVariable("status")Integer status, 
-            @RequestBody JSONObject data) {
-        
-        // 初次创建项目
-        if (status==0&&stepNum==1){
-            return projectService.saveProjectInfo((ProjectInfo)JSONObject.toBean(data, ProjectInfo.class), stepNum);
-        }
-        // 新增价格设置
-        if (status==0&&stepNum==2){
-            return projectService.updateProjectInfoPrice((ProjectInfo)JSONObject.toBean(data, ProjectInfo.class), stepNum);
-        }
-        // 职位提成新增
-        if (status==0&&stepNum==3){
-            return projectService.saveOrUpdateCommison(data, status);
-        }
-        if (status==0&&stepNum==4){
-            return projectService.saveLevelDiscount(data);
-        }
-        if (status==1&&stepNum==1){
-            return projectService.updateProjectBystepNum(data, stepNum);
-        }
-        if (status==1&&stepNum==2){
-            return projectService.updateProjectBystepNum(data, stepNum);
-        }
-        if (status==1&&stepNum==3){
-            return projectService.updateProjectBystepNum(data, stepNum);
-        }
-        if (status==1&&stepNum==4){
-            return projectService.saveLevelDiscount(data);
-        }
-        return null;
-    }
+//    /**
+//     * 保存项目
+//    * @author 高国藩
+//    * @date 2016年4月25日 下午5:59:57
+//    * @param request   request
+//    * @param response  response
+//    * @param stepNum   编辑步骤
+//    * @param data      数据
+//    * @param status    0/1 新增/修改
+//    * @return          状态
+//     */
+//    @RequestMapping(value = Url.Project.PROJECT_SAVE_STEP, method=RequestMethod.POST)
+//    @ResponseBody
+//    public BaseDto saveProjectByStep(HttpServletRequest request, HttpServletResponse response, 
+//            @PathVariable("stepNum")Integer stepNum, @PathVariable("status")Integer status, 
+//            @RequestBody JSONObject data) {
+//        
+//        // 初次创建项目
+//        if (status==0&&stepNum==1){
+//            return projectService.saveProjectInfo((ProjectInfo)JSONObject.toBean(data, ProjectInfo.class), stepNum);
+//        }
+//        // 新增价格设置
+//        if (status==0&&stepNum==2){
+//            return projectService.updateProjectInfoPrice((ProjectInfo)JSONObject.toBean(data, ProjectInfo.class), stepNum);
+//        }
+//        // 职位提成新增
+//        if (status==0&&stepNum==3){
+//            return projectService.saveOrUpdateCommison(data, status);
+//        }
+//        if (status==0&&stepNum==4){
+//            return projectService.saveLevelDiscount(data);
+//        }
+//        if (status==1&&stepNum==1){
+//            return projectService.updateProjectBystepNum(data, stepNum);
+//        }
+//        if (status==1&&stepNum==2){
+//            return projectService.updateProjectBystepNum(data, stepNum);
+//        }
+//        if (status==1&&stepNum==3){
+//            return projectService.updateProjectBystepNum(data, stepNum);
+//        }
+//        if (status==1&&stepNum==4){
+//            return projectService.saveLevelDiscount(data);
+//        }
+//        return null;
+//    }
     
     /**
      * 保存或者修改操作
@@ -213,10 +213,11 @@ public class ProjectInfoController extends BaseController {
         ProjectInfo projectInfo = (ProjectInfo) JSONObject.toBean(jsonObject.getJSONObject("projectInfo"), ProjectInfo.class);
         List<ProjectDiscount> discounts = (List<ProjectDiscount>) JSONArray
                 .toCollection(jsonObject.getJSONArray("projectLevel"), ProjectDiscount.class);
-        List<ProjectStep> projectSteps = (List<ProjectStep>) JSONArray
-                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("step"), ProjectStep.class);
-        List<ProjectCommission> projectCommission = (List<ProjectCommission>) JSONArray
-                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("commission"), ProjectCommission.class);
+//        List<ProjectStep> projectSteps = (List<ProjectStep>) JSONArray
+//                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("step"), ProjectStep.class);
+//        List<ProjectCommission> projectCommission = (List<ProjectCommission>) JSONArray
+//                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("commission"), ProjectCommission.class);
+        //罗峰
         return projectService.saveProjectOrUpdate(storeId, projectInfo, discounts, projectSteps, projectCommission);
     }
 

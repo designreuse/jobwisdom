@@ -135,14 +135,16 @@
 							<div class="emploee_name_content">
 								<div class="clearfix emploee_name_content_">
 									<div class="content_name">
-										<span>职位名称<input type="text" name="levelName"></span> <span>岗位名称<select id="position" onchange="selectPosition(this.value)"><c:forEach items="${positionInfos }" var="positionInfo"><option value="${positionInfo.positionId }">${positionInfo.positionName }</option></c:forEach></select></span>
+										<span>职位名称<input type="text" name="levelName"></span> <span>
+											岗位名称<select id="position" onchange="selectPosition(this.value)">
+											<c:forEach items="${positionInfos }" var="positionInfo" varStatus="index"><option index="${index.count-1 }" value="${positionInfo.positionId }">${positionInfo.positionName }</option></c:forEach></select></span>
 									</div>
 									<div class="refer">
 										<p>
-											<em>技师/美容经理参考</em><select><option></option></select>
+											<em>技师/美容经理参考</em><select id="referenceFirst"></select>
 										</p>
 										<p>
-											<em>助理</em><select><option></option></select>
+											<em>助理</em><select id="referenceTwo"></select>
 										</p>
 									</div>
 									<div class="appointment_button">
@@ -233,35 +235,68 @@ function updatePosition(button){
 }
 /**变换岗位展示职位信息*/
 function selectPosition(positionId){
-	
+	var index = jQuery("#position").find("option:selected").attr("index");
+	if (index == 0) {initEmployeeLevelRes(empLevels, 1, 2);jQuery(".refer").find("em").eq(0).text(jQuery("input[positionid]").eq(1).val());jQuery(".refer").find("em").eq(1).text(jQuery("input[positionid]").eq(2).val());}
+	if (index == 1) {initEmployeeLevelRes(empLevels, 0, 2);jQuery(".refer").find("em").eq(0).text(jQuery("input[positionid]").eq(0).val());jQuery(".refer").find("em").eq(1).text(jQuery("input[positionid]").eq(2).val());}
+	if (index == 2) {initEmployeeLevelRes(empLevels, 0, 1);jQuery(".refer").find("em").eq(0).text(jQuery("input[positionid]").eq(0).val());jQuery(".refer").find("em").eq(1).text(jQuery("input[positionid]").eq(1).val());}
 }
 
+var empLevels = eval('('+'${empLevels}'+')');
 /**js初始化员工等级*/
 jQuery(function (){
 	initEmployee(empLevels);
+	initEmployeeLevelRes(empLevels, 1, 2);
 })
-var empLevels = eval('('+'${empLevels}'+')');
+/**初始化职位提成*/
 function initEmployee(epms){
 	jQuery(".job_content.clearfix").empty();
 	for (var i=0;i<epms.length;i++){
-		var employeeLevel = empLevels[i];
-		var html = '<div class="job_style">'+
+		var employeeLevel = epms[i];
+		var html = '<div class="job_style" referenceFirst='+employeeLevel.referenceFirst+' referenceTwo='+employeeLevel.referenceTwo+'>'+
 						'<p>职位名称：'+employeeLevel.levelName+'</p>'+
 						'<p>岗位类型：'+employeeLevel.positionName+'</p>'+
 						'<ul class="clearfix">'+
-							'<li onclick="showUpdateLevel(this, \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+')">修改</li>'+
+							'<li onclick="showUpdateLevel(this, \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+', '+employeeLevel.positionId+')">修改</li>'+
 							'<li>删除</li>'+
 						'</ul>'+
 					'</div>';
 		jQuery(".job_content.clearfix").append(jQuery(html));
 	}
 }
-function showUpdateLevel(li, levelName, levelIds){
+/**初始化参考职位提成*/
+function initEmployeeLevelRes(epms, rs, rd){
+	jQuery("#referenceFirst").empty();
+	jQuery("#referenceTwo").empty();
+	var rsf = jQuery("#position").find("option").eq(rs).attr("value");
+	var rst = jQuery("#position").find("option").eq(rd).attr("value");
+	for (var i=0;i<epms.length;i++){
+		var employeeLevel = epms[i];
+		if (employeeLevel.positionId == rsf){
+			var html = '<option value='+employeeLevel.levelId+'>'+employeeLevel.levelName+'</option>';
+			jQuery("#referenceFirst").append(jQuery(html));
+		}
+	}
+	for (var i=0;i<epms.length;i++){
+		var employeeLevel = epms[i];
+		if (employeeLevel.positionId == rst){
+			var html = '<option value='+employeeLevel.levelId+'>'+employeeLevel.levelName+'</option>';
+			jQuery("#referenceTwo").append(jQuery(html));
+		}
+	}
+}
+var levelId = null;
+function showUpdateLevel(li, levelName, levelIds, positionId){
+	if (levelId!=null){dialog("请先保存当前设置");return;}
 	levelId = levelIds;
 	jQuery("input[name='levelName']").val(levelName);
 	jQuery(li).parents(".job_style").remove();
+	jQuery("#position").val(positionId);
+	selectPosition(positionId);
+	var referencefirst = jQuery(li).parents(".job_style").attr("referencefirst");
+	var referencetwo = jQuery(li).parents(".job_style").attr("referencetwo");
+	
 }
-var levelId = null;
+
 function saveOrUpdateLevel(){
 	var levelName = jQuery("input[name='levelName']").val();
 	var positionId = jQuery("#position").val();
@@ -307,7 +342,7 @@ function selectStore(li, storeId){
 			var deptInfos = e.msg.deptInfos;
 			var positionInfos = e.msg.positionInfos;
 			var empLevels = e.msg.empLevels;
-			console.log(e.msg);
+			
 			jQuery(".data_content.clearfix").empty();
 			for (var i=0;i<deptInfos.length;i++){
 				var dept = '<div class="data_text">'+deptInfos[i].deptName+
@@ -332,11 +367,12 @@ function selectStore(li, storeId){
 			
 			jQuery("#position").empty();
 			for (var i=0;i<positionInfos.length;i++){
-				var html = '<option value="'+positionInfos[i].positionId+'">'+positionInfos[i].positionName+'</option>';
+				var html = '<option index='+i+' value="'+positionInfos[i].positionId+'">'+positionInfos[i].positionName+'</option>';
 				jQuery("#position").append(jQuery(html));
 			}
 			
 			initEmployee(empLevels);
+			initEmployeeLevelRes(empLevels, 1, 2);
 		}
 	});
 }
