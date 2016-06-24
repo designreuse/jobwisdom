@@ -89,9 +89,11 @@
   </select>
   <!-- 下拉框公共获取职位信息 -->
   <select id="queryEmployeeLevel" parameterType="com.zefun.web.entity.EmployeeLevel" resultType="com.zefun.web.entity.EmployeeLevel">
-	  select level_id levelId, level_name levelName, position_id positionId from employee_level where store_id = #{storeId} and is_deleted = 0
+	  select el.level_id levelId, el.level_name levelName, el.position_id positionId, pio.position_name positionName from employee_level el
+	  left join position_info pio on pio.position_id = el.position_id
+	  where el.store_id = #{storeId} and el.is_deleted = 0
 	  <if test="positionId != null " >
-	    and position_id = #{positionId}
+	    and el.position_id = #{positionId}
    	  </if>
   </select>
   
