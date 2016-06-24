@@ -1446,4 +1446,24 @@ public class EmployeeService {
         return view;
     }
 
+    /***
+     * 更换门店查询组织架构
+    * @author 高国藩
+    * @date 2016年6月24日 上午11:09:00
+    * @param storeId   storeId
+    * @return          BaseDto
+     */
+    public BaseDto accountViewStorePosition(Integer storeId) {
+        List<DeptInfo> deptInfos = deptInfoMapper.selectAllDetpByStoreId(storeId);
+        List<PositionInfo> positionInfos = positioninfoMapper.queryAllByStoreId(storeId);
+        EmployeeLevel query = new EmployeeLevel();
+        query.setStoreId(storeId);
+        List<EmployeeLevel> employeeLevels = employeeLevelMapper.queryEmployeeLevel(query);
+        Map<String, Object> results = new HashMap<>();
+        results.put("deptInfos", deptInfos);
+        results.put("positionInfos", positionInfos);
+        results.put("empLevels", employeeLevels);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, results);
+    }
+
 }

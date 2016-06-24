@@ -29,7 +29,18 @@ public class EmployeeLevel {
     /** 是否删除*/ 
     private Integer isDeleted;
     
+    /** 岗位名称*/
+    private String positionName;
     
+    
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
+
     public Integer getIsDeleted() {
         return isDeleted;
     }

@@ -63,9 +63,24 @@ public class EmployeeController extends BaseController{
 	* @param response   response
 	* @return           ModelAndView
 	 */
-	@RequestMapping(value = Url.Employee.VIEW_POSITION_LEVEL)
+	@RequestMapping(value = Url.Employee.VIEW_POSITION_LEVEL, method=RequestMethod.GET)
     public ModelAndView accountViewStorePosition(HttpServletRequest request, HttpServletResponse response){
         return employeeService.accountViewStorePosition(getStoreAccount(request));
+    }
+	
+	/**
+     * 企业查看每个门店的组织架构
+    * @author 高国藩
+    * @date 2016年6月23日 下午4:45:48
+    * @param request    request
+    * @param response   response
+    * @param storeId    storeId
+    * @return           BaseDto
+     */
+    @RequestMapping(value = Url.Employee.VIEW_POSITION_LEVEL, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto accountViewStorePosition(HttpServletRequest request, HttpServletResponse response, Integer storeId){
+        return employeeService.accountViewStorePosition(storeId);
     }
 	
 	/**
