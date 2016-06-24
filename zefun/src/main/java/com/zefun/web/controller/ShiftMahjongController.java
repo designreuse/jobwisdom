@@ -20,7 +20,7 @@ import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.service.ShiftMahjongService;
 
 /**
- * 收银记账
+ * 轮牌
  * @author 王大爷
  * @date Jun 30, 2015 4:42:19 PM 
  */
@@ -34,6 +34,46 @@ public class ShiftMahjongController extends BaseController{
 	private ShiftMahjongService shiftMahjongService;
 	
 	/**
+	 * 初始化企业轮牌页面
+	* @author 老王
+	* @date 2016年6月24日 下午4:59:04 
+	* @param request 返回
+	* @param response 请求
+	* @return ModelAndView
+	 */
+	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_ENTERPRISE_SHIFT_MAHJONG, method = RequestMethod.GET)
+	public ModelAndView initializeEnterpriseShiftMahjong (HttpServletRequest request, HttpServletResponse response) {
+		String storeAccount = getStoreAccount(request);
+		return shiftMahjongService.initializeEnterpriseShiftMahjong(storeAccount);
+	}
+	
+	/**
+	 * 新增或修改轮牌信息
+	* @author 王大爷
+	* @date 2015年9月8日 下午3:44:11
+	* @param request 返回
+	* @param response 请求
+	* @param shiftMahjong 轮牌信息
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.KeepAccounts.ADDUPDATE_SHIFTMAHJONG, method = RequestMethod.POST)
+	@ResponseBody
+	public BaseDto addUpdateShiftMahjong(HttpServletRequest request, HttpServletResponse response, 
+	        ShiftMahjong shiftMahjong){
+	    
+	    List<Integer> positionIds = new ArrayList<Integer>();
+        String positionIdListStr = shiftMahjong.getPositionId();
+        if (!"".equals(positionIdListStr)) {
+            String[] positionIdList = positionIdListStr.split(",");
+            for (int i = 0; i < positionIdList.length; i++) {
+                String positionIdStr = positionIdList[i];
+                positionIds.add(Integer.parseInt(positionIdStr.split(":")[0]));
+            }
+        }
+	    return shiftMahjongService.addUpdateShiftMahjong(shiftMahjong, positionIds);
+	}
+	
+	/**
 	 * 初始化轮职排班界面
 	* @author 王大爷
 	* @date 2015年8月11日 上午11:10:16
@@ -44,36 +84,6 @@ public class ShiftMahjongController extends BaseController{
 	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_SHIFT_MAHJONG, method = RequestMethod.GET)
 	public ModelAndView initializeShiftMahjong(HttpServletRequest request, HttpServletResponse response){
 		return shiftMahjongService.initializeShiftMahjong(getStoreId(request));
-	}
-	
-	/**
-	 * 新增或修改轮牌信息
-	* @author 王大爷
-	* @date 2015年9月8日 下午3:44:11
-	* @param request 返回
-	* @param response 请求
-	* @param shiftMahjong 轮牌信息
-	* @param positionIdListStr 岗位标识
-	* @return BaseDto
-	 */
-	@RequestMapping(value = Url.KeepAccounts.ADDUPDATE_SHIFTMAHJONG, method = RequestMethod.POST)
-	@ResponseBody
-	public BaseDto addUpdateShiftMahjong(HttpServletRequest request, HttpServletResponse response, 
-	        ShiftMahjong shiftMahjong, String positionIdListStr){
-	    
-	    List<Integer> positionIds = new ArrayList<Integer>();
-        List<Integer> isPunchCards = new ArrayList<Integer>();
-        if (!"".equals(positionIdListStr)) {
-            String[] positionIdList = positionIdListStr.split(",");
-            for (int i = 0; i < positionIdList.length; i++) {
-                String positionIdStr = positionIdList[i];
-                positionIds.add(Integer.parseInt(positionIdStr.split(":")[0]));
-                isPunchCards.add(Integer.parseInt(positionIdStr.split(":")[1]));
-            }
-        }
-        Integer storeId = getStoreId(request);
-        Integer userId = getUserId(request);
-	    return shiftMahjongService.addUpdateShiftMahjong(shiftMahjong, positionIds, isPunchCards, storeId, userId);
 	}
 	
 	/**

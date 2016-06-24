@@ -24,6 +24,7 @@ import com.zefun.web.entity.ProjectCommission;
 import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.entity.ShiftMahjong;
 import com.zefun.web.entity.ShiftMahjongEmployee;
+import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeAttendanceMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -75,66 +76,43 @@ public class ShiftMahjongService {
 	
 	/** 门店*/
 	@Autowired private StoreInfoMapper storeInfoMapper;
+	
 	/**
-	 * 初始化轮职排班界面
-	* @author laowang
-	* @date 2015年8月8日 上午11:17:40
-	* @param storeId 门店标识
+	 * 初始化企业轮牌页面
+	* @author 老王
+	* @date 2016年6月24日 下午4:57:27 
+	* @param storeAccount 企业代号
 	* @return ModelAndView
 	 */
-	public ModelAndView initializeShiftMahjong(Integer storeId){
+	public ModelAndView initializeEnterpriseShiftMahjong (String storeAccount) {
 		ModelAndView mav = new ModelAndView();
-		List<DeptInfoDto> deptList = deptInfoMapper.selectByshiftMahjong(storeId);
-		mav.addObject("deptList", deptList);
-		mav.addObject("deptListJson", JSONArray.fromObject(deptList).toString());
-		if (deptList.size() > 0) {
-		    mav.addObject("deptId", deptList.get(0).getDeptId());
-		}
-		mav.setViewName(View.KeepAccounts.SHIFT_MAHJONG);
+		mav.setViewName(View.KeepAccounts.ENTERPRISE_SHIFT_MAJONG);
+		List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
+		Integer storeId = storeInfoList.get(0).getStoreId();
+		positioninfoMapper.selectPositionInfosByStoreId(storeId);
 		return mav;
 	}
 	
 	/**
-	 * 新增修改轮牌信息及人员信息
+	 * 新增修改企业轮牌信息及人员信息
 	* @author 王大爷
 	* @date 2015年9月8日 下午3:05:32
 	* @param shiftMahjong 轮牌信息
-	* @param positionIds 岗位标识集合
-    * @param isPunchCards 是否打卡
-	* @param storeId 门店标识
-	* @param usrId 操作员工
+	* @param positionIds 岗位标识
 	* @return BaseDto
 	 */
 	@Transactional
-	public BaseDto addUpdateShiftMahjong(ShiftMahjong shiftMahjong, List<Integer> positionIds, List<Integer> isPunchCards, 
-	        Integer storeId, Integer usrId){
+	public BaseDto addUpdateShiftMahjong(ShiftMahjong shiftMahjong, List<Integer> positionIds){
 	    if (shiftMahjong.getShiftMahjongId() == null) {
-	        
-	        shiftMahjong.setCreateTime(DateUtil.getCurDate());
-            shiftMahjong.setStoreId(storeId);
-            shiftMahjong.setOperatorId(usrId);
+	    	//查询出企业下所有门店
+	    	shiftMahjong.setCreateTime(DateUtil.getCurDate());
             shiftMahjongMapper.insert(shiftMahjong);
-	        
-            String positionIdStr = "";
+            
 	        for (int i = 0; i < positionIds.size(); i++) {
                 Integer positionId = positionIds.get(i);
-                Integer isPunchCard = isPunchCards.get(i);
-                List<Integer> levelIdList = positioninfoMapper.getlevelIdList(positionId);
-                operationShiftMahjongEmployee(levelIdList, storeId, shiftMahjong.getShiftMahjongId(), usrId, isPunchCard);
+                operationShiftMahjongEmployee(positionId, shiftMahjong.getShiftMahjongId());
                 
-                if (StringUtils.isEmpty(positionIdStr)) {
-                    positionIdStr = positionId.toString() + ":" + isPunchCard.toString();
-                }
-                else {
-                    positionIdStr = positionIdStr + "," + positionId.toString() + ":" + isPunchCard.toString();
-                }
             }
-	        
-	        
-	        ShiftMahjong objShiftMahjong = new ShiftMahjong();
-	        objShiftMahjong.setShiftMahjongId(shiftMahjong.getShiftMahjongId());
-	        objShiftMahjong.setPositionId(positionIdStr);
-	        shiftMahjongMapper.updateByPrimaryKeySelective(objShiftMahjong);
 	    }
 	    else {
 	        //查询轮牌对应的岗位信息
@@ -277,6 +255,25 @@ public class ShiftMahjongService {
         redisService.hdel(App.Redis.DEPT_PROJECT_MAHJONG_INFO_KEY_HASH, String.valueOf(shiftMahjong.getDeptId()));
 	    
 	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjong.getShiftMahjongId());
+	}
+	
+	/**
+	 * 初始化轮牌界面
+	* @author laowang
+	* @date 2015年8月8日 上午11:17:40
+	* @param storeId 门店标识
+	* @return ModelAndView
+	 */
+	public ModelAndView initializeShiftMahjong(Integer storeId){
+		ModelAndView mav = new ModelAndView();
+		List<DeptInfoDto> deptList = deptInfoMapper.selectByshiftMahjong(storeId);
+		mav.addObject("deptList", deptList);
+		mav.addObject("deptListJson", JSONArray.fromObject(deptList).toString());
+		if (deptList.size() > 0) {
+		    mav.addObject("deptId", deptList.get(0).getDeptId());
+		}
+		mav.setViewName(View.KeepAccounts.SHIFT_MAHJONG);
+		return mav;
 	}
 	
 	/**
@@ -797,7 +794,7 @@ public class ShiftMahjongService {
 	* @param usrId 操作员工
 	* @param isPunchCard 是否打卡（0：否、1：是）
 	 */
-	public void operationShiftMahjongEmployee(List<Integer> levelId, Integer storeId, Integer shiftMahjongId, Integer usrId, Integer isPunchCard){
+	public void operationShiftMahjongEmployee(List<Integer> levelId, Integer storeId, Integer shiftMahjongId){
         List<ShiftMahjongEmployee> list = new ArrayList<ShiftMahjongEmployee>();
         for (int i = 0; i < levelId.size(); i++){
             Integer level = levelId.get(i);

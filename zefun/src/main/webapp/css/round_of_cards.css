@@ -1,0 +1,71 @@
+.content_right{padding:20px 30px;font-size:14px;color:black}
+.card_content>p button{width:130px;height:28px;text-align:center;line-height:28px;border:none;border-radius:12px;color:white;font-size:16px;background:#61678b}
+.card_content>p button:hover{background:#494e69}
+.card_table{height:600px;width:1020px;border:1px solid #b0b0b0;overflow:overlay;border-radius:12px;margin-top:15px}
+.card_table table{width:1020px}
+.card_table table td{height:44px;text-align:center;line-height:44px;border:1px solid #b0b0b0;width:140px}
+table tr:nth-child(odd){background:#f6f8fc}
+table tr:nth-child(1){background:#ebeff8;}
+.card_table table td img{margin:0 10px;vertical-align:middle}
+.zzc{
+	position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+	
+}
+.new_round_of_cards{width:700px;height:370px;margin:100px auto;background:white;font-size:14px;color:black}
+.new_round_of_cards>p{font-size:16px;color:white;text-align:center;height:64px;line-height:64px;background:#303049}
+.new_round_of_cards_content{padding:15px 20px}
+
+.zzc .new_round_of_cards_content>p input{width:190px;height:18px;border:1px sold #b0b0b0;border-radius:12px;margin-left:15px;}
+.new_rules{width:615px;height:50px;border:1px solid #b0b0b0;border-radius:12px;margin-top:10px;padding:20px}
+.new_rules li span{display:inline-block;margin-left:20px}
+.new_rules li span input{margin-right:5px}
+.new_rules li{float:left;height:38px}
+.select_job{overflow:hidden;height:15px;border:1px solid #b0b0b0;border-radius:12px;margin-top:20px;padding:20px}
+.select_job input[type="checkbox"]{ -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    position: relative;
+    top: -3px;
+	margin-right:8px
+    }
+	
+.select_job input[type="checkbox"]:checked {
+    background: url(../images/checked.png) no-repeat;
+    background-position: center center;
+    border: 1px solid #d93717;
+background-size: cover;}
+.select_job >p span{display:inline-block;width:100px}
+.select_job >p em{display:inline-block;width:220px}
+.select_job >p{margin-right:-150px}
+
+.select_store_content .select_store{float:left;width:100px}
+.select_store_ul{float:left;width:600px}
+.select_store_ul li{float:left;width:74px;height:22px;text-align:center;line-height:22px;color:white;background:#b0b0b0;margin-right:40px}
+.select_store_content{margin-top:16px}
+.new_round_of_cards_button{margin-top:22px;text-align:center;}
+.new_round_of_cards_button button{border:none;margin:0 46px;width:130px;height:28px;text-align:center;line-height:28px;border-radius:12px;color:white;;font-size:16px;background:#61678b}
+.new_round_of_cards_button button:hover{background:#42465b}
+
+
+.out_roll li{width:138px;height:66px;border:1px solid black;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
+.click_left{position:absolute;z-index:2;top:2px;}
+.click_right{position:absolute;right:-50px;top:2px;z-index:2}
+.out_roll{width:960px;height:96px;position:relative;}
+.out_roll_ul{width:4000px;margin-left:2px;position:relative}
+.out_roll span img{height:55px}
+.out_roll_div{overflow:hidden}
+.out_roll_content{padding:20px 10px 0 0 ;border:1px solid black;border-radius:8px;background:#fbfbff;margin-bottom:20px}
+.out_roll_ul .active{background:#ecf7fe}
+.out_tab_content_{height:450px}
+.out_tab{height:512px;width:1014px;border:1px solid black;border-top:none;margin-top:50px;border-radius:8px}
+.out_tab li{width:336px;height:36px;float:left;border:1px solid black;border-radius:10px 10px 0 0;text-align:center;line-height:36px;font-size:16px;color:black;cursor:pointer;font-weight:bold}
+.out_tab .active{border-bottom:none}
+.out_tab ul{height:37px}

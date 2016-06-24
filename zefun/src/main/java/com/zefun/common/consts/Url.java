@@ -476,6 +476,10 @@ public interface Url {
 		/** 动态生成项目类别 */
 		public static final String TREND_CODELIBRARY = "KeepAccounts/trendCodeLibrary";
         
+		/*企业轮牌*/
+		/** 初始化企业轮牌*/
+		public static final String INITIALIZE_ENTERPRISE_SHIFT_MAHJONG = "KeepAccounts/initializeEnterpriseShiftMahjong";
+		
 		/* 轮值排班 */
 		/** 初始化轮值排班界面 */
 		public static final String INITIALIZE_SHIFT_MAHJONG = "KeepAccounts/initializeShiftMahjong";

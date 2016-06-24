@@ -17,11 +17,8 @@ public class ShiftMahjongDto {
     /** 轮牌名称 */
     private String shiftMahjongName;
 
-    /** 企业标识 */
-	private String storeAccount;
-
 	/** 适用门店*/
-	private String storeList;
+	private Integer storeId;
 
     /** 上牌规则（1：考勤轮牌、2：持续轮牌） */
     private Integer shiftMahjongUp;
@@ -63,26 +60,23 @@ public class ShiftMahjongDto {
     * @date 2015年9月21日 下午4:16:09
     * @param shiftMahjongId 轮牌信息标识
     * @param shiftMahjongName 轮牌名称 
-    * @param storeAccount 企业标识
-    * @param storeList 适用门店
+    * @param storeId 适用门店
     * @param shiftMahjongUp 上牌规则（1：考勤轮牌、2：持续轮牌）
     * @param shiftMahjongRule 轮牌规则（1：指定不轮牌、2：指定某只后轮牌）
     * @param nature 轮牌性质(1：助理轮牌、2：技师轮牌)
-    * @param appointNumber 轮牌指定人数
     * @param createTime 创建时间 
     * @param operatorId 操作人标识
     * @param shiftMahjongEmployeeList 轮牌员工信息集合
      */
     public ShiftMahjongDto(Integer shiftMahjongId, String shiftMahjongName,
-            String storeAccount, String storeList, Integer shiftMahjongUp,
-            Integer shiftMahjongRule, Integer nature, Integer appointNumber,
+            Integer storeId, Integer shiftMahjongUp,
+            Integer shiftMahjongRule, Integer nature,
             String createTime, Integer operatorId,
             List<ShiftMahjongEmployee> shiftMahjongEmployeeList) {
         super();
         this.shiftMahjongId = shiftMahjongId;
         this.shiftMahjongName = shiftMahjongName;
-        this.storeAccount = storeAccount;
-        this.storeList = storeList;
+        this.storeId = storeId;
         this.shiftMahjongUp = shiftMahjongUp;
         this.shiftMahjongRule = shiftMahjongRule;
         this.nature = nature;
@@ -91,38 +85,27 @@ public class ShiftMahjongDto {
         this.shiftMahjongEmployeeList = shiftMahjongEmployeeList;
     }
 
-    
-    public String getStoreAccount() {
-		return storeAccount;
+	public Integer getStoreId() {
+		return storeId;
 	}
 
 
-	public void setStoreAccount(String storeAccount) {
-		this.storeAccount = storeAccount;
-	}
-
-
-	public String getStoreList() {
-		return storeList;
-	}
-
-
-	public void setStoreList(String storeList) {
-		this.storeList = storeList;
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
 	}
 
 
 	public String getPositionId() {
-        return positionId;
-    }
+		return positionId;
+	}
 
 
-    public void setPositionId(String positionId) {
-        this.positionId = positionId;
-    }
+	public void setPositionId(String positionId) {
+		this.positionId = positionId;
+	}
 
 
-    public Integer getStepNum() {
+	public Integer getStepNum() {
         return stepNum;
     }
 
