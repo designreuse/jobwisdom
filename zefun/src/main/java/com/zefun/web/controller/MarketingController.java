@@ -24,7 +24,7 @@ public class MarketingController extends BaseController {
 	 */
 	@RequestMapping(value = Url.Marketing.VIEW_SHOW_MIN_BARGAIN, method = RequestMethod.GET)
 	public ModelAndView showMinBargain () {
-		ModelAndView mav = new ModelAndView(View.Marketing.SHOW_MIN_BARGAIN);
+	    ModelAndView mav = new ModelAndView(View.Marketing.SHOW_MIN_BARGAIN);
 		return mav;
 	}
 	

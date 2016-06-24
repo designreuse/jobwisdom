@@ -57,7 +57,7 @@
 										<p>
 
 											<button onclick="jQuery('.zzc1').show()">新增</button>
-											<button onclick="window.location.href='<%=basePath%>KeepAccounts/initializeStoreFlow'"style="position:relative;left:650px">返回</button>
+											<button onclick="window.location.href='<%=basePath%>KeepAccounts/initializeStoreFlow'"style="position:relative;left:650px;top: -100px">返回</button>
 										</p>
 
 

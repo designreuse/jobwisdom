@@ -78,32 +78,6 @@ public interface PositioninfoMapper {
     List<PositionInfo> queryposition(PositionInfo record);
     
     /**
-     * 删除岗位信息
-    * @author 陈端斌
-    * @date 2015年8月5日 上午10:50:00
-    * @param record bean
-    * @return int
-     */
-    int deleteposition(PositionInfo record);
-    /**
-     * 删除岗位信息之前先判断职位是否有引用该岗位
-    * @author 陈端斌
-    * @date 2015年8月5日 上午11:02:27
-    * @param record bean
-    * @return int
-     */
-    int isemployeelevel(PositionInfo record);
-    
-    /**
-     * 根据id获取详情
-    * @author 陈端斌
-    * @date 2015年8月10日 下午2:12:37
-    * @param record bean
-    * @return PositionInfo
-     */
-    PositionInfo positiondetail(PositionInfo record);
-    
-    /**
      * 获取岗位和职位信息列表
     * @author chendb
     * @date 2015年8月24日 下午4:00:40
@@ -113,15 +87,6 @@ public interface PositioninfoMapper {
     List<DeptInfoDto> getDetpInfo(Integer storeId);
     
     /**
-     * 
-    * @author chendb
-    * @date 2015年9月8日 下午1:40:29
-    * @param deptId 部门标识
-    * @return List<PositionInfoDto>
-     */
-    List<PositionInfoDto> getpositionInfo(Integer deptId);
-    
-    /**
      * 根据部门查询岗位信息 （跨部门）
     * @author 王大爷
     * @date 2015年11月6日 下午2:47:55
@@ -129,6 +94,7 @@ public interface PositioninfoMapper {
     * @return List<PositionInfoDto>
      */
     List<PositionInfoDto> getStridePositionInfo(Integer deptId);
+    
     /**
      * 根据岗位标识获取职位
     * @author chendb

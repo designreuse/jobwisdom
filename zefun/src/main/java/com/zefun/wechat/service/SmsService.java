@@ -12,6 +12,7 @@ import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
 import com.zefun.common.consts.App;
 import com.zefun.web.service.RedisService;
 
+
 /**
  * 短信服务类
 * @author 张进军
@@ -20,9 +21,15 @@ import com.zefun.web.service.RedisService;
 @Service
 public class SmsService {
     
+    /** 阿里请求接口 */
+    private static String tbClientUrl = "http://gw.api.taobao.com/router/rest";
+    /** 阿里请求接口 */
+    private static String appKey = "23341881";
+    /** 阿里请求接口 */
+    private static String appSecret = "ebfd3e013a89513d4e64f7b56b801ae9";
+    
     /** 阿里基础api对象 */
-    private static TaobaoClient tbClient = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", 
-            "23341881", "ebfd3e013a89513d4e64f7b56b801ae9");
+    private static TaobaoClient tbClient = new DefaultTaobaoClient(tbClientUrl, appKey, appSecret);
     
     /** 日志记录对象 */
     private static Logger logger = Logger.getLogger(SmsService.class);
@@ -60,4 +67,5 @@ public class SmsService {
         }
         return false;
     }
+    
 }

@@ -453,6 +453,8 @@ public interface View {
 	class Position {
 		/** 岗位信息页面 */
 		public static final String POSITION = "employee/positioninfo/positioninfo";
+		/** 企业岗位职位*/
+        public static final String VIEW_ACCOUNT = "employee/positioninfo/account";
 	}
 
 	/**
@@ -533,6 +535,13 @@ public interface View {
 	class Coupon {
 		/** 优惠券展示页面 */
 		public static final String VIEW_COUPON = "coupon/coupon-list";
+		
+		/** 企业优惠券展示页面 */
+        public static final String VIEW_COUPON_LIST = "coupon/coupon";
+        
+        /** 门店优惠券展示页面 */
+        public static final String VIEW_COUPON_STORE = "coupon/coupon-store";
+		
 	}
 
 	/**

@@ -99,9 +99,7 @@ public class StoreInfoController extends BaseController {
 			String storeAccount = getStoreAccount(request);
 			storeInfo.setStoreAccount(storeAccount);
 			storeInfo.setStoreType(3);
-			
 			//新增操作员
-			
 			return storeInfoService.saveStore(storeInfo, userName, userPwd);
 		}
 		else {

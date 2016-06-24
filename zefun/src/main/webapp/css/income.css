@@ -82,7 +82,7 @@
 	    width: 130px;
     height: 20px;
     border-radius: 12px;
-    margin-left: 10px;
+    margin-left: 6px;
     border: 1px solid black;
 }
 .zzc_add_income_content_left2 select{  width: 130px;
@@ -108,5 +108,5 @@
 .income_out{    width: 130px;
     height: 20px;
     border-radius: 12px;
-    margin-left: 10px;
+    margin-left: 8px;
     border: 1px solid black;}

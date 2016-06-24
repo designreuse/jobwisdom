@@ -157,21 +157,24 @@ public interface Url {
 	/** 优惠券模块 */
 	class Coupon {
 		/** 进入优惠券管理页面 */
-		public static final String VIEW_COUPONS = "view/coupons";
+		public static final String VIEW_COUPONS = "coupons/couponslist";
 		/** 新增优惠卷 */
 		public static final String ADD_COUPONS = "coupons/add";
-		/** 查询套餐商品项目信息 */
-		public static final String LIST_USE_COUPONS = "serch/coupons/use";
-		/** 发布优惠券 */
-		public static final String UPDATE_COUPON_USE = "update/coupons/use";
-		/** 下载优惠券 */
-		public static final String UPDATE_COUPON_NO_USE = "update/coupons/no/use";
-		/** 发送优惠券 */
+		/** 优惠券上架 */
 		public static final String SEND_COUPONS = "coupon/send/coupons";
 		/** 删除优惠券 */
 		public static final String DELETE_COUPONS = "action/coupons/delete";
 		/** 查询分页 */
 		public static final String VIEW_COUPONS_BY_PAGE = "view/coupons/by/page";
+		/** 优惠卷修改*/
+		public static final String COUPONS_UPDATE = "coupons/send/update";
+		
+		  /** 查询套餐商品项目信息 */
+        public static final String LIST_USE_COUPONS = "serch/coupons/use";
+        /** 发布优惠券 */
+        public static final String UPDATE_COUPON_USE = "update/coupons/use";
+        /** 下载优惠券 */
+        public static final String UPDATE_COUPON_NO_USE = "update/coupons/no/use";
 
 	}
 
@@ -442,6 +445,8 @@ public interface Url {
 		public static final String QUERTLEVELINFO = "employeelevel/action/querylevelInfo";
 		/** 根据职位 获取人员 */
 		public static final String GETLEVELEMPLOYEE = "employeelevel/action/getlevelemployee";
+		/** 新增或者修改会员等级*/
+        public static final String SAVE_EMPLOYEE_LEVEL = "employeelevel/action/saveOrUpdate";
 
 	}
 
@@ -836,6 +841,8 @@ public interface Url {
 		public static final String ACTION_DOWNLOAD_IMPORTMODEL_EMPLOYEEINFO = "/importModelOfEmployeeInfo/action/download";
 		/** 根据门店部门职位查询员工*/
 		public static final String SELECT_EMPLOYEE_BY_DATETYPE = "employee/action/selectEmployeeBydateType";
+		/** 企业查看门店组织架构*/
+        public static final String VIEW_POSITION_LEVEL = "employee/account/positon";
 
 	}
 
@@ -1129,6 +1136,8 @@ public interface Url {
 		public static final String GETDEPTINFO = "dept/action/getDeptInfo";
 		/** 部门架构导入 */
 		public static final String IMPORTEXCLE = "dept/action/importexcle";
+		/** 部门的新增或者修改*/
+        public static final String SAVE_UPDATE_DEPT = "dept/saveOrUpdate";
 	}
 
 	/** 门店制度管理模块 */

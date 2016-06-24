@@ -650,31 +650,6 @@ public class ProjectService {
                 num = num + 1;
             }
         }
-        /*for (int i = 0; i < empLevelId.length; i++) {
-            ProjectCommission projectCommission = new ProjectCommission();
-            projectCommission.setProjectId(projectId);
-            projectCommission.setLevelId(Integer.parseInt(empLevelId[i].trim()));
-
-            projectCommission.setAssignCashType(Integer.parseInt(assignType[i].trim()));
-            projectCommission.setAssignCash(Integer.parseInt(assignCash[i].trim()));
-
-            projectCommission.setAssignCardType(Integer.parseInt(assignType[i].trim()));
-            projectCommission.setAssignCard(Integer.parseInt(assignCard[i].trim()));
-
-            projectCommission.setNonAssignCashType(Integer.parseInt(assignType[i].trim()));
-            projectCommission.setNonAssignCash(Integer.parseInt(nonAssignCash[i].trim()));
-
-            projectCommission.setNonAssignCardType(Integer.parseInt(assignType[i].trim()));
-            projectCommission.setNonAssignCard(Integer.parseInt(nonAssignCard[i].trim()));
-
-            projectCommission.setAppointmentRewardType(Integer.parseInt(assignType[i].trim()));
-            projectCommission.setAppointmentReward(Integer.parseInt(appointmentReward[i].trim()));
-
-            projectCommission.setIsDeleted(0);
-            projectCommission.setCreateTime(DateUtil.getCurTime());
-            projectCommission.setLastOperatorId(userId);
-            projectCommissionList.add(projectCommission);
-        }*/
         projectCommissionMapper.insertProjectCommissionList(projectCommissionList);
 
         // 按项目流程设置轮牌
@@ -707,10 +682,6 @@ public class ProjectService {
         ProjectCommission projectCommission = new ProjectCommission();
         projectCommission.setProjectId(projectId);
         projectCommissionMapper.deleteByProjectId(projectId);
-        /*List<ProjectCommission> projectCommissionList = projectCommissionMapper.selectByProperty(projectCommission);
-        for (int i = 0; i < projectCommissionList.size(); i++) {
-            projectCommissionMapper.deleteByPrimaryKey(projectCommissionList.get(i).getCommissionId());
-        }*/
         // 会员折扣 1.先删除
         ProjectDiscount projectDiscount = new ProjectDiscount();
         projectDiscount.setProjectId(projectId);
