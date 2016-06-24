@@ -55,7 +55,6 @@ public class StoreFlowController extends BaseController{
 	@RequestMapping(value = Url.KeepAccounts.ADD_STOREFLOW, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto addStoreFlow(HttpServletRequest request, HttpServletResponse response, StoreFlow storeFlow){
-	    
 		storeFlow.setStoreId(getStoreId(request));
         storeFlow.setFlowTime(DateUtil.getCurDate());
         storeFlow.setOperatorId(85);
@@ -79,8 +78,8 @@ public class StoreFlowController extends BaseController{
 	}
 	
 	/**
-	 * 初始化开卡记账界面
-     * 默认返回该门店最前面10条数据
+	 * 初始化记账界面
+     * 默认返回该门店最前面20条数据
 	* @author 骆峰
 	* @date 2016年6月18日 13:35:31
 	* @param request 返回

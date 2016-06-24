@@ -535,6 +535,13 @@ public interface View {
 	class Coupon {
 		/** 优惠券展示页面 */
 		public static final String VIEW_COUPON = "coupon/coupon-list";
+		
+		/** 企业优惠券展示页面 */
+        public static final String VIEW_COUPON_LIST = "coupon/coupon";
+        
+        /** 门店优惠券展示页面 */
+        public static final String VIEW_COUPON_STORE = "coupon/coupon-store";
+		
 	}
 
 	/**

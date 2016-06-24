@@ -11,7 +11,7 @@
 .income_out_1 {
 	width: 130px;
 	height: 20px;
-	margin-left: 10px;
+	margin-left: 8px;
 	border: 1px solid black;
 }
 </style>
@@ -287,8 +287,9 @@
 </body>
 <script>
 	function Trim(str){ 
-	    return str.replace(/(^\s*)|(\s*$)/g, ""); 
+	    return str.replace(/(^\s*)|(\s*$)/g, "");  //去除前后空格
 	}
+	var reg = /^\d+(\.\d+)?$/;  //数字正则
 	var deptName = "";
 	var type = "";
 	var priceName = "";
@@ -296,6 +297,7 @@
 	var date2 = "";
 	var changes = false;
 	var incometype = eval('(' + '${incomenamez}' + ')');
+	
 	jQuery(function() {
 		jQuery('.income_out').change(function() {
 			var selected = jQuery(this).find('option:selected').text();
@@ -384,7 +386,7 @@
 		var date = jQuery("#date" + type).val();
 		// 金额
 		var price = Trim(jQuery("#price1").val());
-		var reg = /^\d+(\.\d+)?$/; 
+		
 		// 备注
 		var note = Trim(jQuery("#note" + type).val());
 		// 收支方式

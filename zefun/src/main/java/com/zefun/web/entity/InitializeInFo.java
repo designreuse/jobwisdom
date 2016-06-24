@@ -1,4 +1,7 @@
 package com.zefun.web.entity;
+
+import java.math.BigDecimal;
+
 /**
  * 
 * @author 骆峰
@@ -13,7 +16,7 @@ public class InitializeInFo {
     private String deptName;
 
     /** 金额 */
-    private Integer goodsPrice;
+    private  BigDecimal goodsPrice;
 
     /** 收支类别名称 */
     private String type;
@@ -63,11 +66,11 @@ public class InitializeInFo {
         this.deptName = deptName == null ? null : deptName.trim();
     }
 
-    public Integer getGoodsPrice() {
+    public BigDecimal getGoodsPrice() {
         return goodsPrice;
     }
 
-    public void setGoodsPrice(Integer goodsPrice) {
+    public void setGoodsPrice(BigDecimal goodsPrice) {
         this.goodsPrice = goodsPrice;
     }
 

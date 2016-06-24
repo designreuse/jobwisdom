@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.InitializeInFo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="dept_name" property="deptName" jdbcType="CHAR" />
-    <result column="goods_price" property="goodsPrice" jdbcType="INTEGER" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
     <result column="type" property="type" jdbcType="CHAR" />
     <result column="type_name" property="typeName" jdbcType="CHAR" />
     <result column="note" property="note" jdbcType="CHAR" />
@@ -33,7 +33,7 @@
       type, type_name, note, date, 
       incometype_type, isDeleted, store_id,price_name
       )
-    values (#{id,jdbcType=INTEGER}, #{deptName,jdbcType=CHAR}, #{goodsPrice,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{deptName,jdbcType=CHAR}, #{goodsPrice}, 
       #{type,jdbcType=CHAR}, #{typeName,jdbcType=CHAR}, #{note,jdbcType=CHAR}, #{date,jdbcType=CHAR}, 
       #{incometypeType,jdbcType=INTEGER}, #{isdeleted,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{priceName,jdbcType=CHAR}
       )
@@ -83,7 +83,7 @@
         #{deptName,jdbcType=CHAR},
       </if>
       <if test="goodsPrice != null" >
-        #{goodsPrice,jdbcType=INTEGER},
+        #{goodsPrice},
       </if>
       <if test="type != null" >
         #{type,jdbcType=CHAR},
@@ -118,7 +118,7 @@
         dept_name = #{deptName,jdbcType=CHAR},
       </if>
       <if test="goodsPrice != null" >
-        goods_price = #{goodsPrice,jdbcType=INTEGER},
+        goods_price = #{goodsPrice},
       </if>
       <if test="type != null" >
         type = #{type,jdbcType=CHAR},
@@ -150,7 +150,7 @@
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.InitializeInFo" >
     update initialize_info
     set dept_name = #{deptName,jdbcType=CHAR},
-      goods_price = #{goodsPrice,jdbcType=INTEGER},
+      goods_price = #{goodsPrice},
       type = #{type,jdbcType=CHAR},
       type_name = #{typeName,jdbcType=CHAR},
       note = #{note,jdbcType=CHAR},
