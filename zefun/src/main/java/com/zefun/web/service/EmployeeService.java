@@ -50,9 +50,7 @@ import com.zefun.common.utils.ExcelUtil;
 import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.EmployeeDto;
-import com.zefun.web.dto.PositionInfoDto;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeLevel;
@@ -1469,17 +1467,6 @@ public class EmployeeService {
         results.put("positionInfos", positionInfos);
         results.put("empLevels", employeeLevels);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, results);
-    }
-
-    /**
-     * 根据员工的Id进行查询
-    * @author 高国藩
-    * @date 2016年6月25日 下午6:12:25
-    * @param employeeId employeeId
-    * @return           BaseDto
-     */
-    public BaseDto selectEmployeeById(Integer employeeId) {
-        employeeLevelMapper
     }
 
 }

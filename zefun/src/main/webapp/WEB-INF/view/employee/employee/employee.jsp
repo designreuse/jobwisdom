@@ -112,7 +112,7 @@
         <div class="imformation_left"> 
 		 <div class="clearfix">
 		    <div class="head_img">
-			  <img onclick="jQuery('.mask').show();editPage(null);" src="<%=basePath%>images/input_head.png">
+			  <img onclick="jQuery('.mask').show();editPage(null);chooseType=0;" src="<%=basePath%>images/input_head.png">
 			  <input type="hidden" name="headImage" value="">
 			</div>
 		    <div class="information">
@@ -163,319 +163,7 @@
 	 </div>
    </div>
 </div>
-<%-- <!--添加员工模态框-->
-<div class="modal hide" id="employee-add-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content employee-data-modal">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h5 class="modal-title" id="myModalLabel">员工资料</h5>
-            </div>
-            <div class="modal-body">
-                <div id="tabs">
-                    <ul>
-                        <li><a href="#tabs-1">基本资料</a></li>
-                    </ul>
-                    <!-- 人员新增后返回这个人员的id -->
-                    <input type="hidden" id="addemployeeid">
-                    <div id="tabs-1">
-                        <div class="base-info-img" id="container">
-                            <img name='headImg' src="" alt="" id="headImage"/> 
-                            <input type="hidden" name="hiddenheadImg"/>
-                            <button class="btn select-btn" id="pickHeadImg" onclick="cavsenSave(this)">上传图片</button>
-                            <p style="margin-top:20px;text-align:left;">个人简介</p>
-                            <textarea id="employeeDescOfAdd" style="width:100px;height:158px;" placeholder="用于向顾客展示"></textarea>	
-                        </div>
-                        <table class="table table-bordered base-info-table">
-                            <tbody>
-                                <tr>
-                                   <td class="width15">部门</td>
-                                    <td class="input-td">
-                                    <select name="deptId"  class="chzn-select-search input-xlarge" id="deptId" onchange="changedept()">
-                                        <option value="">-选择部门-</option>
-                                    </select>
-                                    </td>
-                                    <td class="width15">岗位</td>
-                                    <td class="input-td">
-                                    <select name="positionId" id="positionId" class="chzn-select-search input-xlarge" onchange="changeposition()">
-                                            <option value="">-请先选择岗位-</option>
-                                            
-                                        </select></td>
-                                </tr>
-                                <tr>
-                                	<td class="width15">职位</td>
-                                    <td class="input-td">
-                                    	<select name="levelId"  class="chzn-select-search input-xlarge" id="levelId">
-                                            <option value="">-请先选择岗位-</option>
-                                        </select>
-                                    </td>
-                                    <td class="">选择角色</td>
-                                    <td class="input-td word-parent">
-                                    <select  class="chzn-select-search input-xlarge" id="roleId" >
-                                        	<option value="">选择角色</option>
-                                          <c:forEach items="${rolelist }" var="rolelist">
-                                            <option value="${rolelist.roleId }">${rolelist.roleName }</option>
-                                            </c:forEach>
-                                     </select>
-									</td>
-                                </tr>
-                                <tr>
-                                	<td class="">工号</td>
-                                    <td class="input-td">
-                                    <input type="text" class="input-xlarge" id="employeeCode"/>
-                                    <input type="hidden" class="input-xlarge" id="employeeCode1"/>
-                                    </td>
-                                    <td class="">姓名</td>
-                                    <td class="input-td">
-                                        <input type="text" class="input-xlarge" id="name"/>
-                                    </td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td class="">身份证</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge " id="identityCard"/></td>
-                                    <td class="">出生日期</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge timePickerClean datetimepicker"  id="birthday"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="">性别</td>
-                                    <td class="input-td">
-                                    <select name="sex" id="sex" class="chzn-select input-xlarge">
-                                            <option value="">-选择性别-</option>
-                                            <option value="男">男</option>
-                                            <option value="女">女</option>
-                                        </select>
-                                    </td>
-                                    <td class="">手机号</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge" id="phone"  onkeyup="setuser()"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="">到职日期</td>
-                                    <td class="input-td">
-                                        <input type="text" class="input-xlarge timePickerClean datetimepicker" daysoffset="0" id="entryDate"/>
-                                    </td>
-                                    <td class="">住址</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge" id="address"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="">离职日期</td>
-                                    <td class="input-td">
-                                        <input type="text" class="width97 timePickerClean datetimepicker"  id="leaveDate"/>
-                                    </td>
-                                    <td class="">健康证</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge" id="healthCard"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="">介绍人</td>
-                                    <td class="input-td">
-                                       
-                                        <!-- <input type="text" class="input-xlarge" id="recommendId"/> -->
-                                        <select  class="chzn-select-search input-xlarge" id="recommendId" >
-                                        	<option value="">选择介绍人</option>
-                                          <c:forEach items="${recommendList }" var="List">
-                                            <option value="${List.employeeId }">${List.name }</option>
-                                            </c:forEach>
-                                        </select>
-                                        
-                                    </td>
-                                    <td class="">紧急联系人电话</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge" id="emergencyPhone"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="">基本工资</td>
-                                    <td class="input-td word-parent"><input type="text" class="input-xlarge" id="baseSalaries"/><span class="word">元/月</span></td>
-                                    <td class="">岗位津贴</td>
-                                    <td class="input-td word-parent"><input type="text" class="input-xlarge" id="positionSalaries"/><span class="word-right">元/月</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="">账号</td>
-                                    <td class="input-td word-parent"><input type="text" class="input-xlarge" id="userName" disabled="true"/></td>
-                                    <td class="">当前状态</td>
-                                    <td class="input-td">
-                                        <select data-placeholder="在职"  class="chzn-select-search input-xlarge" id="employeeStatus" >
-                                            <option value="1">在职</option>
-                                            <option value="2">离职</option>
-                                        </select>
-                                    </td>
-                                </tr>
 
-                            </tbody>
-                        </table>
-                        <div class="clearfix"></div>
-                        <div class="self-btn">
-                            <div class="btn btn-primary ml10 fr" onclick="addsave()">确定保存</div>
-                            <button class="btn fr" onclick="addcanse()">取消</button>
-                        </div>
-                    </div><!--tabs-1-->
-                </div>
-            </div><!--modal-body-->
-        </div><!--modal-content-->
-    </div><!--modal-dialog-->
-</div><!--modal--> --%>
-
-<%-- <!--修改员工资料模态框-->
-<div class="modal hide" id="employee-update-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content employee-data-modal">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h5 class="modal-title" id="myModalLabel">员工资料</h5>
-            </div>
-            <div class="modal-body">
-                <div id="tabs">
-                    <!-- <ul>
-                        <li><a href="#tabs-11">基本资料</a></li>
-                        <li><a href="#tabs-22" onclick="querypx()">个人简介</a></li>
-                        <li><a href="#tabs-33" onclick="querygz()">工作经历</a></li>
-                        <li><a href="#tabs-44" onclick="querysc()">擅长项目</a></li>
-                        <li><a href="#tabs-55" onclick="queryjcjl()">奖惩记录</a></li>
-                        <li><a href="#tabs-66" onclick="querytjgx()">推介关系图</a></li>
-                        <li><a href="#tabs-77">派遣调动</a></li>
-                    </ul> -->
-                    <!-- 人员的id -->
-                    <input type="hidden" id="updateemployeeId">
-                    <div id="tabs-11">
-                        <div class="base-info-img" id="container">
-                            <img name='updateheadImg' src="" alt="" id="updateheadImage"/> 
-                            <input type="hidden" name="hiddenupdateheadImage"/>
-                            <button class="btn select-btn" id="updatepickHeadImg" onclick="cavsenEdit(this)">上传图片</button>
-                            <p style="margin-top:20px;text-align:left;">个人简介</p>
-                            <textarea id="employeeDescOfEdit" style="width:100px;height:158px;" placeholder="用于向顾客展示"></textarea>	
-                        </div>
-                        <table class="table table-bordered base-info-table" >
-                            <tbody>
-                                <tr>
-                                <td class="width15">部门</td>
-                                    <td class="input-td">
-                                    <select name="updatedeptId"  class="chzn-select-search input-xlarge" id="updatedeptId" onchange="changedept1()">
-                                    		<c:forEach items="${deptlist}" var="deptlist">
-                                            <option value="${deptlist.deptId}">${deptlist.deptName}</option>
-                                            </c:forEach>
-                                     </select>
-                                    </td>
-                                    <td class="width15">岗位</td>
-                                    <td class="input-td">
-                                    <select name="updatepositionId" id="updatepositionId" class="chzn-select-search input-xlarge" onchange="changeposition1()">
-                                            <option value="">-选择岗位-</option>
-                                            <c:forEach items="${positionlist }" var="position">
-                                            <option value="${position.positionId }">${position.positionName }</option>
-                                            </c:forEach>
-                                        </select></td>
-                                </tr>
-                                <tr>
-                                <td class="width15">职位</td>
-                                    <td class="input-td">
-                                    <select name="updatelevelId"  class="chzn-select-search input-xlarge" id="updatelevelId">
-                                            <option value="">-请先选择岗位-</option>
-                                        </select>
-                                    </td>
-                                    <td class="">工号</td>
-                                    <td class="input-td">
-                                    <input type="text" class="input-xlarge" id="updateemployeeCode"/>
-                                    <input type="hidden" class="input-xlarge" id="updateemployeeCode1"/>
-                                    </td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td class="">姓名</td>
-                                    <td class="input-td">
-                                        <input type="text" class="input-xlarge" id="updatename"/>
-                                    </td>
-                                    <td class="">性别</td>
-                                    <td class="input-td">
-                                    <select name="updatesex" id="updatesex" class="chzn-select input-xlarge">
-                                            <option value="">-选择性别-</option>
-                                            <option value="男">男</option>
-                                            <option value="女">女</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">身份证</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge" id="updateidentityCard"/></td>
-                                    <td class="">出生日期</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge timePickerClean datetimepicker"  id="updatebirthday"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="">当前状态</td>
-                                    <td class="input-td">
-                                        <select data-placeholder="在职"  class="chzn-select-search input-xlarge" id="updateemployeeStatus" >
-                                            <option value="1">在职</option>
-                                            <option value="2">离职</option>
-                                        </select>
-                                    </td>
-                                    <td class="">手机号</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge" id="updatephone"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="">到职日期</td>
-                                    <td class="input-td">
-                                        <input type="text" class="input-xlarge timePickerClean datetimepicker"  id="updateentryDate"/>
-                                    </td>
-                                    <td class="">住址</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge" id="updateaddress"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="">离职日期</td>
-                                    <td class="input-td">
-                                        <input type="text" class="width97 timePickerClean datetimepicker"  id="updateleaveDate"/>
-                                    </td>
-                                    <td class="">选择角色</td>
-                                    <td class="input-td word-parent">
-                                    <select  class="chzn-select-search input-xlarge" id="updateroleId" >
-                                        	<option value="">选择角色</option>
-                                          <c:forEach items="${rolelist }" var="rolelist">
-                                            <option value="${rolelist.roleId }">${rolelist.roleName }</option>
-                                            </c:forEach>
-                                     </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">介绍人</td>
-                                    <td class="input-td">
-                                       
-                                        <!-- <input type="text" class="input-xlarge" id="recommendId"/> -->
-                                        <select  class="chzn-select-search input-xlarge" id="updaterecommendId" >
-                                        	<option value="">选择介绍人</option>
-                                          <c:forEach items="${recommendList }" var="List1">
-                                            <option value="${List1.employeeId }">${List1.name }</option>
-                                            </c:forEach>
-                                        </select>
-                                        
-                                    </td>
-                                    <td class="">紧急联系人电话</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge" id="updateemergencyPhone"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="">基本工资</td>
-                                    <td class="input-td word-parent"><input type="text" class="input-xlarge" id="updatebaseSalaries"/><span class="word">元/月</span></td>
-                                    <td class="">岗位津贴</td>
-                                    <td class="input-td word-parent"><input type="text" class="input-xlarge" id="updatepositionSalaries"/><span class="word-right">元/月</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="">健康证</td>
-                                    <td class="input-td"><input type="text" class="input-xlarge" id="updatehealthCard"/></td>
-                                    <!-- <td class=""></td>
-                                    <td class="input-td word-parent">
-                                    </td> -->
-                                    <td class="">账号</td>
-                                    <td class="input-td word-parent"><input type="text" class="input-xlarge" id="updateUserName" disabled="true"/></td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <div class="clearfix"></div>
-                        <div class="self-btn">
-                            <div class="btn btn-primary ml10 fr" onclick="updatesave()">确定保存</div>
-                            <button class="btn fr" onclick="updatecanse()">取消</button>
-                        </div>
-                    </div><!--tabs-1-->
-                   
-                </div>
-            </div><!--modal-body-->
-        </div><!--modal-content-->
-    </div><!--modal-dialog-->
-</div><!--modal--> --%>
 <div class="modal hide" id="toLeadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content add-account" style="width: 450px;height: 180px;">
@@ -636,9 +324,10 @@ function saveEmployee(){
 	var entryDate = jQuery("input[name='entryDate']").val();
 	var leaveDate = jQuery("input[name='leaveDate']").val();
 	var employeeDesc = jQuery("textarea[name='employeeDesc']").val();
+	var headImage = jQuery("input[name='headImage']").val();
 	var data = {"employeeId":employeeId, "employeeCode":employeeCode, "sex":sex, "birthday":birthday, "recommendId":recommendId, "phone":phone, "identityCard":identityCard, 
 			    "roleId":roleId, "positionId":positionId, "deptId":deptId, "levelId":levelId, "employeeStatus":employeeStatus, "entryDate":entryDate, "leaveDate":leaveDate, 
-			    "employeeDesc":employeeDesc, "name":name};
+			    "employeeDesc":employeeDesc, "name":name, "headImage":headImage};
 	console.log(data);
 	jQuery.ajax({
 		type : "post",
@@ -682,6 +371,8 @@ function selectEmp(id){
 				jQuery("input[name='entryDate']").val(e.msg.entryDate);
 				jQuery("input[name='leaveDate']").val(e.msg.leaveDate);
 				jQuery("textarea[name='employeeDesc']").val(e.msg.employeeDesc);
+				jQuery("input[name='headImage']").val(e.msg.headImage);
+				jQuery("input[name='headImage']").prev().attr("src", qiniuUrl+e.msg.headImage);
 				jQuery(".zzc").show();
 			}
        }

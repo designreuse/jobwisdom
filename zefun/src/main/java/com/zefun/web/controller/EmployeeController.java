@@ -225,7 +225,7 @@ public class EmployeeController extends BaseController{
     * @date 2015年8月14日 下午3:52:37
     * @param request request
     * @param response response
-    * @param addData 参数
+    * @param jasonObject 参数
     * @return BaseDto
      */
     @RequestMapping(value = Url.Employee.UPDATE)
