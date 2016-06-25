@@ -159,7 +159,7 @@ public class EmployeeController extends BaseController{
 	* @date 2015年8月11日 上午10:17:32
 	* @param request request
 	* @param response response
-	* @param addData 新增的数据参数对象
+	* @param jasonObject 新增的数据参数对象
 	* @return BaseDto
 	 */
     @RequestMapping(value = Url.Employee.ADD)
