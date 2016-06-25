@@ -394,7 +394,7 @@
 				
 				for (var i = 0; i < positionInfoList.length; i++) {
 					var positionInfo = positionInfoList[i];
-					jQuery(".select_job").append('<em><input type="checkbox" name = "positionId" value = "'+positionInfo.positionId+'">'+positionInfo.positionName+'</em>');
+					jQuery(".select_job").find("p").append('<em><input type="checkbox" name = "positionId" value = "'+positionInfo.positionId+'">'+positionInfo.positionName+'</em>');
 				}
 				
 				

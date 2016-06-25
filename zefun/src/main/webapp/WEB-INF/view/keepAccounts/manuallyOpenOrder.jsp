@@ -97,14 +97,6 @@ em {
 	                    </div>
 	            </div><!--more-toolbar-->
 	            
-	            <!-- <div class="more-toolbar hide" name = "moreMemberInfoDIV" style="border-top: 0;font-size: 14px;margin-bottom: 10px;" >
-	                <div class="table-toolbar">
-	                    <span class="mr30">消费总额：<span name = "totalConsumeAmountSpan"></span></span>
-	                    <span class="mr30">上次来店：<span><span class="color-g" name = "lastDayNumberSpan"></span> 天前</span></span>
-	                    <span>上次消费：<span name = "projectNameSpan"></span><span style="font-size: 12px" name = "projectStepSpan"></span></span>
-	                </div>
-	                <div class="clearfix"></div>
-	            </div> -->
 				<div class="hand_detail_content clearfix">
 				   <div class="hand_detail_left">
 				      <div class="select_part">

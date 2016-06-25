@@ -30,7 +30,7 @@
   </select>
   <!-- 根据门店编号查询部门编号列表，业绩部门,by 张进军 -->
   <select id="selectDeptIdByStoreIdIsResults" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-    select dept_id from dept_info where store_id = #{storeId} and  is_results = 1 and is_deleted = 0
+    select dept_id from dept_info where store_id = #{storeId} and is_deleted = 0
   </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     update  dept_info set is_deleted=1
