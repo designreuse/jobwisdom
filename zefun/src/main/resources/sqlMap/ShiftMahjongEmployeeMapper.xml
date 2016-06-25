@@ -223,10 +223,6 @@
     </foreach>
   </insert>
   
-  <select id="selectByPositionIdList" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
-    select distinct a.position_id from employee_level a where exists(select 1 from shift_mahjong_employee b where b.shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER} and b.level_id = a.level_id) 
-  </select>
-  
   <select id="selectByPositionIdMap" resultType="java.util.Map" parameterType="java.lang.Integer" >
     select distinct a.position_id as positionId from employee_level a, shift_mahjong_employee c where 
     exists(select 1 from shift_mahjong_employee b where b.shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER} and b.level_id = a.level_id) 

@@ -12,26 +12,12 @@
 			<%@include file="/top.jsp"%>
 			<div class='content_right clearfix'>
 			     <div class="emploee_head clearfix">
-			      <div style="overflow:hidden;margin-right:-30px" class="clearfix">	   
-				   <ul class="clearfix emploee_ul">
-					  <c:forEach items="${deptList}" var="dept" varStatus="status">
-	                    <c:if test="${status.index == 0}">
-	                        <li class="active" onclick="updateDept(this,${dept.deptId})">
-			                    <span>${dept.deptName}</span>
-			                </li>
-	                    </c:if>
-	                    <c:if test="${status.index != 0}">
-	                        <li onclick="updateDept(this,${dept.deptId})">
-			                    <span>${dept.deptName}</span>
-			                </li>
-	                    </c:if>
-	                </c:forEach>
-			        </ul>		
+			      <div style="overflow:hidden;margin-right:-30px" class="clearfix">	   	
 				    <div class="emploee_right">
 					  <span class="left_click"><img src="<%=basePath%>images/left_click.png"></span>
-					   <ul class="emploee_right_ul clearfix">
-						   
-					   </ul>
+						   <ul class="emploee_right_ul clearfix">
+							   
+						   </ul>
 					   <span class="right_click"><img src="<%=basePath%>images/right_click.png"></span>
 				    </div>
 				</div>	
@@ -51,39 +37,6 @@
 		</div>
     </div>
   </div>
-
-
-  <div class="zzc" name = "zzcDIV">
-	  <div class="adjust_list">
-	     <p class="adjust_1">调整轮牌</p>
-	     <div class="emplee_content_1">
-		    <div class="emplee_name"><span>轮牌名称：<span><input type="text" name="shiftMahjongName" placeholder="最多5个字"></div>
-			<div class="emplee_rule">
-			   <span><i class="rule_1">轮牌规则：</i><em><input type="radio" name="shiftMahjongRule" value="1">指定不动牌</em><em><input type="radio" name="shiftMahjongRule" value="2">指定动牌</em></span>
-			   <span><i class="rule_1">上牌规则：</i><em><input type="radio" name="shiftMahjongUp" value="1">考勤上牌</em><em><input type="radio" name="shiftMahjongUp" value="2">持续上牌</em></span>
-			   <span><i class="rule_1">离开规则：</i><em><input type="radio" name="nature" value="1">离开不轮牌</em><em><input type="radio" name="nature" value="2">离开轮牌</em></span>
-			
-			
-			</div>
-			
-			<div class="emplee_job">
-			<p>请选择改排位下的排班岗位：</p>
-			<div class="emplee_job_content">
-			
-			  <div class="emplee_job_content_">
-
-			  </div>
-			  	 
-			</div>
-		</div>
-	     <div class="emplee_save_">
-		   <button onclick="canclezzc()">取消</button>
-		   <button id= "confirm">确认</button>
-		</div>
-	  </div>
-	
-	</div>
-	</div>
 	
 	<div class="zzc1" name = "zzcDIV">
 	  <div class="adjust_list_">
@@ -101,9 +54,8 @@
 <script src='<%=basePath %>js/common/jquery.gridly.js' type='text/javascript'></script>
 <script>
 
-    var deptId = "${deptId}";
-	var deptListStr = '${deptListJson}';
-    var deptDtoList = eval("(" + deptListStr + ")");
+	var shiftMahjongDtoListStr = '${shiftMahjongDtoListStr}';
+    var shiftMahjongDtoList = eval("(" + shiftMahjongDtoListStr + ")");
     
     //抖动拖拽
     function drag(){ 

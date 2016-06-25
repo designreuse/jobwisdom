@@ -48,6 +48,20 @@ public class ShiftMahjongController extends BaseController{
 	}
 	
 	/**
+	 * 根据门店查询轮牌信息
+	* @author 老王
+	* @date 2016年6月25日 下午12:46:22 
+	* @param request 返回
+	* @param storeId 门店标识
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.KeepAccounts.SHOW_STORE_SHIFT_MAHJONG)
+	@ResponseBody
+	public BaseDto showStoreShiftMahjong (HttpServletRequest request, Integer storeId) {
+		return shiftMahjongService.showStoreShiftMahjong(storeId);
+	}
+	
+	/**
 	 * 新增或修改轮牌信息
 	* @author 王大爷
 	* @date 2015年9月8日 下午3:44:11
@@ -67,10 +81,25 @@ public class ShiftMahjongController extends BaseController{
             String[] positionIdList = positionIdListStr.split(",");
             for (int i = 0; i < positionIdList.length; i++) {
                 String positionIdStr = positionIdList[i];
-                positionIds.add(Integer.parseInt(positionIdStr.split(":")[0]));
+                positionIds.add(Integer.parseInt(positionIdStr));
             }
         }
 	    return shiftMahjongService.addUpdateShiftMahjong(shiftMahjong, positionIds);
+	}
+	
+	/**
+	 * 根据轮牌信息标识查询该轮牌对应的岗位信息
+	* @author laowang
+	* @date 2015年8月10日 下午5:18:09
+	* @param request 返回
+	* @param response 请求
+	* @param shiftMahjongId 轮牌信息ID
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_MODEL, method = RequestMethod.POST)
+	@ResponseBody
+	public BaseDto initializeModel(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongId){
+		return shiftMahjongService.initializeModel(shiftMahjongId);
 	}
 	
 	/**
@@ -186,21 +215,6 @@ public class ShiftMahjongController extends BaseController{
 		return shiftMahjongService.setShiftMahjong(shiftMahjongId, shiftMahjongUp, shiftMahjongRule, appointNumber, 
 		        levelId, getStoreId(request), nature);
 	}*/
-	
-	/**
-	 * 根据轮牌信息标识查询该轮牌对应的岗位信息
-	* @author laowang
-	* @date 2015年8月10日 下午5:18:09
-	* @param request 返回
-	* @param response 请求
-	* @param shiftMahjongId 轮牌信息ID
-	* @return BaseDto
-	 */
-	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_MODEL, method = RequestMethod.POST)
-	@ResponseBody
-	public BaseDto initializeModel(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongId){
-		return shiftMahjongService.initializeModel(shiftMahjongId);
-	}
 	
 	/**
      * 根据轮牌信息标识查询该轮牌对应的岗位信息

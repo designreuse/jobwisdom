@@ -143,7 +143,7 @@
  </select>
  
  <select id="selectByPositionIds" parameterType="java.util.Map" resultType="com.zefun.web.dto.EmployeeLevelBaseDto">
- 	select level_id as levelId, level_name as levelName from employee_level where position_id in (${positionIds})
+ 	select level_id as levelId, level_name as levelName from employee_level where position_id in (${positionIds}) and is_deleted = 0 
  </select>
  
 </mapper>
