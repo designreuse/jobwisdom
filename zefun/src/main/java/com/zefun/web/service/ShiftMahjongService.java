@@ -679,7 +679,7 @@ public class ShiftMahjongService {
 	                    Integer shiftMahjongId = shiftMahjongDto.getShiftMahjongId();
 	                    shiftMahjongEmployee.setShiftMahjongId(shiftMahjongId);
 	                    shiftMahjongEmployee.setState(3);
-	                    shiftMahjongEmployee.setIsPunchCard(Integer.parseInt(recommendStr.split(":")[1]));
+//	                    shiftMahjongEmployee.setIsPunchCard(Integer.parseInt(recommendStr.split(":")[1]));
 	                    shiftMahjongEmployee.setShiftMahjongOrder(999);
 	                    shiftMahjongEmployeeMapper.insertSelective(shiftMahjongEmployee);
 	                }

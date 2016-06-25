@@ -2,8 +2,6 @@ package com.zefun.web.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import com.zefun.web.entity.EmployeeLevel;
 import com.zefun.web.entity.ProjectCommission;
 
 /**

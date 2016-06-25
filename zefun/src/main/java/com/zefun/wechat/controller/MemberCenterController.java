@@ -546,11 +546,11 @@ public class MemberCenterController extends BaseController {
      * 查看会员预约列表
     * @author 张进军
     * @date Aug 19, 2015 4:21:25 PM
-    * @param storeId    门店标识
+    * @param storeId        门店标识
     * @param businessType   业务类型(1:会员,2:员工)
     * @param request        请求对象
     * @param response       返回对象
-    * @return           会员预约列表页面
+    * @return               会员预约列表页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_APPOINTMENT_LIST)
     public ModelAndView appointmentListView(@PathVariable String storeId, @PathVariable int businessType, 

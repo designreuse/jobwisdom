@@ -50,9 +50,7 @@ import com.zefun.common.utils.ExcelUtil;
 import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.EmployeeDto;
-import com.zefun.web.dto.PositionInfoDto;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeLevel;
@@ -154,9 +152,7 @@ public class EmployeeService {
 	 */
 	public ModelAndView queryEmployeeInfo(Map<String, Object> params) {
 		// Page<EmployeeDto> page=selectPageForEmployee(params, 1, 100);
-		List<EmployeeDto> employeeDtoList = employeeInfoMapper.selectAllEmployeeByCondition(params);
 		ModelAndView mav = new ModelAndView("employee/employee/employee");
-		mav.addObject("employeeDtoList", employeeDtoList);
 
 		// 获取人员 选择推荐人要用的下拉框
 		Integer storeId = Integer.parseInt(params.get("storeId").toString());
@@ -172,6 +168,13 @@ public class EmployeeService {
 		positionInfo.setStoreId(storeId);
 		List<PositionInfo> positionlist = positioninfoMapper.queryposition(positionInfo);
 		mav.addObject("positionlist", positionlist);
+		
+		List<EmployeeLevel> employeeLevels = employeeLevelMapper.selectAllByStoreId(storeId);
+		mav.addObject("employeeLevels", JSONArray.fromObject(employeeLevels));
+		
+		List<EmployeeDto> employeeDtoList = employeeInfoMapper.selectAllEmployeeByCondition(params);
+		mav.addObject("employeeDtoList", employeeDtoList);
+		
 		// 获取人员角色
 		List<RoleInfo> rolelist = roleInfoMapper.selectAllRoles();
 		mav.addObject("rolelist", rolelist);
@@ -186,48 +189,48 @@ public class EmployeeService {
 		storeMap.put("dateType", 0);
 		List<Map<String, Object>> deptDtoList = new ArrayList<>();
 		
-		List<DeptInfoDto> list =positioninfoMapper.getDetpInfo(storeId);
-		//组装组织架构树形图数据
-		if (list != null && list.size() > 0) {
-			for (DeptInfoDto deptInfoDto : list) {
-				Integer deptId = deptInfoDto.getDeptId();
-				String name = deptInfoDto.getDeptName();
-				Map<String, Object> deptMap = new HashMap<>();
-				deptMap.put("dateId", deptId);
-				deptMap.put("name", name);
-				deptMap.put("dateType", 1);
-				if (deptInfoDto.getPositionInfo()!= null && deptInfoDto.getPositionInfo().size() > 0) {
-					List<PositionInfoDto> positionInfos = deptInfoDto.getPositionInfo();
-					List<Map<String, Object>> positionDtoList = new ArrayList<>();
-					for (PositionInfoDto positionInfoDto : positionInfos) {
-						Integer positionId = positionInfoDto.getPositionId();
-						String positionName = positionInfoDto.getPositionName();
-						Map<String, Object> positionMap = new HashMap<>();
-						positionMap.put("dateId", positionId);
-						positionMap.put("name", positionName);
-						positionMap.put("dateType", 2);
-						
-						if (positionInfoDto.getEmployeeLeve()!= null && positionInfoDto.getEmployeeLeve().size() > 0) {
-							List<EmployeeLevel> employeeLevels = positionInfoDto.getEmployeeLeve();
-							List<Map<String, Object>> levelDtoList = new ArrayList<>();
-							for (EmployeeLevel employeeLevel : employeeLevels) {
-								Integer levelId = employeeLevel.getLevelId();
-								String levelName = employeeLevel.getLevelName();
-								Map<String, Object> levelMap = new HashMap<>();
-								levelMap.put("dateId", levelId);
-								levelMap.put("name", levelName);
-								levelMap.put("dateType", 3);
-								levelDtoList.add(levelMap);
-							}
-							positionMap.put("children", levelDtoList);
-						}
-						positionDtoList.add(positionMap);
-					}
-					deptMap.put("children", positionDtoList);
-				}
-				deptDtoList.add(deptMap);
-			}
-		}
+//		List<DeptInfoDto> list =positioninfoMapper.getDetpInfo(storeId);
+//		//组装组织架构树形图数据
+//		if (list != null && list.size() > 0) {
+//			for (DeptInfoDto deptInfoDto : list) {
+//				Integer deptId = deptInfoDto.getDeptId();
+//				String name = deptInfoDto.getDeptName();
+//				Map<String, Object> deptMap = new HashMap<>();
+//				deptMap.put("dateId", deptId);
+//				deptMap.put("name", name);
+//				deptMap.put("dateType", 1);
+//				if (deptInfoDto.getPositionInfo()!= null && deptInfoDto.getPositionInfo().size() > 0) {
+//					List<PositionInfoDto> positionInfos = deptInfoDto.getPositionInfo();
+//					List<Map<String, Object>> positionDtoList = new ArrayList<>();
+//					for (PositionInfoDto positionInfoDto : positionInfos) {
+//						Integer positionId = positionInfoDto.getPositionId();
+//						String positionName = positionInfoDto.getPositionName();
+//						Map<String, Object> positionMap = new HashMap<>();
+//						positionMap.put("dateId", positionId);
+//						positionMap.put("name", positionName);
+//						positionMap.put("dateType", 2);
+//						
+//						if (positionInfoDto.getEmployeeLeve()!= null && positionInfoDto.getEmployeeLeve().size() > 0) {
+//							List<EmployeeLevel> employeeLevels = positionInfoDto.getEmployeeLeve();
+//							List<Map<String, Object>> levelDtoList = new ArrayList<>();
+//							for (EmployeeLevel employeeLevel : employeeLevels) {
+//								Integer levelId = employeeLevel.getLevelId();
+//								String levelName = employeeLevel.getLevelName();
+//								Map<String, Object> levelMap = new HashMap<>();
+//								levelMap.put("dateId", levelId);
+//								levelMap.put("name", levelName);
+//								levelMap.put("dateType", 3);
+//								levelDtoList.add(levelMap);
+//							}
+//							positionMap.put("children", levelDtoList);
+//						}
+//						positionDtoList.add(positionMap);
+//					}
+//					deptMap.put("children", positionDtoList);
+//				}
+//				deptDtoList.add(deptMap);
+//			}
+//		}
 		storeMap.put("children", deptDtoList);
 		
 		storeDtoList.add(storeMap);
@@ -354,7 +357,7 @@ public class EmployeeService {
 		userAccount.setUserPwd(password);
 		userAccount.setPwdSalt(salt);
 		userAccount.setUserId(employeeDto.getEmployeeId());
-		userAccount.setUserName(employeeDto.getUserName());
+		userAccount.setUserName(employeeDto.getPhone());
 		userAccount.setRoleId(employeeDto.getRoleId());
 		userAccount.setStoreId(employeeDto.getStoreId());
 		// 判断账号是否已经被用了
@@ -604,13 +607,13 @@ public class EmployeeService {
 
 		Map<String, Object> info = employeeInfoMapper.getDetail(employeeId);
 		// 获取人员角色
-		UserAccount userAccount = userAccountMapper.queryRoleId(employeeId);
-		if (userAccount == null) {
-			info.put("roleId", "");
-		} 
-		else {
-			info.put("roleId", userAccount.getRoleId());
-		}
+//		UserAccount userAccount = userAccountMapper.queryRoleId(employeeId);
+//		if (userAccount == null) {
+//			info.put("roleId", "");
+//		} 
+//		else {
+//			info.put("roleId", userAccount.getRoleId());
+//		}
 		return info;
 	}
 

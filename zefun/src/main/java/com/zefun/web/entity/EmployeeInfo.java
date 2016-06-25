@@ -50,21 +50,6 @@ public class EmployeeInfo {
     /** 身份证号码 */
     private String identityCard;
 
-    /** 健康证号码 */
-    private String healthCard;
-
-    /** 住址 */
-    private String address;
-
-    /** 紧急联系电话 */
-    private String emergencyPhone;
-
-    /** 基本工资 */
-    private Integer baseSalaries;
-
-    /** 岗位工资 */
-    private Integer positionSalaries;
-
     /** 员工状态 1在职 2离职 3派遣 */
     private String employeeStatus;
 
@@ -238,56 +223,6 @@ public class EmployeeInfo {
     /** @return 身份证号码 */
     public String getIdentityCard(){
         return identityCard;
-    }
-
-    /** @param healthCard   健康证号码 */
-    public void setHealthCard(String healthCard){
-        this.healthCard = healthCard;
-    }
-
-    /** @return 健康证号码 */
-    public String getHealthCard(){
-        return healthCard;
-    }
-
-    /** @param address  住址 */
-    public void setAddress(String address){
-        this.address = address;
-    }
-
-    /** @return 住址 */
-    public String getAddress(){
-        return address;
-    }
-
-    /** @param emergencyPhone   紧急联系电话 */
-    public void setEmergencyPhone(String emergencyPhone){
-        this.emergencyPhone = emergencyPhone;
-    }
-
-    /** @return 紧急联系电话 */
-    public String getEmergencyPhone(){
-        return emergencyPhone;
-    }
-
-    /** @param baseSalaries 基本工资 */
-    public void setBaseSalaries(Integer baseSalaries){
-        this.baseSalaries = baseSalaries;
-    }
-
-    /** @return 基本工资 */
-    public Integer getBaseSalaries(){
-        return baseSalaries;
-    }
-
-    /** @param positionSalaries 岗位工资 */
-    public void setPositionSalaries(Integer positionSalaries){
-        this.positionSalaries = positionSalaries;
-    }
-
-    /** @return 岗位工资 */
-    public Integer getPositionSalaries(){
-        return positionSalaries;
     }
 
     /** @param employeeStatus   员工状态 1在职 2离职 3派遣 */
