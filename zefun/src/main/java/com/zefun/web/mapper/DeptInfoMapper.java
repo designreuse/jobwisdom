@@ -1,8 +1,6 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
-
-import com.zefun.web.dto.DeptInfoDto;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -50,14 +48,6 @@ public interface DeptInfoMapper {
      */
     int updateByPrimaryKeySelective(DeptInfo record);
     
-    /**
-     * 查询部门及对应轮牌信息
-    * @author 王大爷
-    * @date 2015年9月8日 上午11:34:57
-    * @param storeId 门店标识
-    * @return List<DeptInfoDto>
-     */
-    List<DeptInfoDto> selectByshiftMahjong(Integer storeId);
     /**
      * 判断是否已经有编码  或者有部门名称
     * @author chendb

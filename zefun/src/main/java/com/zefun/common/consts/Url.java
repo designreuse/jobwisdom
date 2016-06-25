@@ -476,6 +476,13 @@ public interface Url {
 		/** 动态生成项目类别 */
 		public static final String TREND_CODELIBRARY = "KeepAccounts/trendCodeLibrary";
         
+		/*企业轮牌*/
+		/** 初始化企业轮牌*/
+		public static final String INITIALIZE_ENTERPRISE_SHIFT_MAHJONG = "KeepAccounts/initializeEnterpriseShiftMahjong";
+		
+		/** 根据门店查询轮牌信息*/
+		public static final String SHOW_STORE_SHIFT_MAHJONG = "KeepAccounts/showStoreShiftMahjong";
+		
 		/* 轮值排班 */
 		/** 初始化轮值排班界面 */
 		public static final String INITIALIZE_SHIFT_MAHJONG = "KeepAccounts/initializeShiftMahjong";
@@ -706,7 +713,7 @@ public interface Url {
 		public static final String VIEW_SHARE_INFO = "/memberCenter/view/shareInfo";
 		/** 确认预约 */
 		public static final String ACTION_ORDER_APPOINTMENT = "/memberCenter/action/orderAppointment";
-		/** 预约页面 */
+		/** 预约页面, 该页面改为员工展示页面*/
 		public static final String VIEW_ORDER_APPOINTMENT = "/memberCenter/view/orderAppointment/{storeId}/{businessType}";
 		/** 预约时间页面 */
 		public static final String VIEW_DATE_APPOINTMENT = "/memberCenter/view/dateAppointment";
@@ -843,6 +850,8 @@ public interface Url {
 		public static final String SELECT_EMPLOYEE_BY_DATETYPE = "employee/action/selectEmployeeBydateType";
 		/** 企业查看门店组织架构*/
         public static final String VIEW_POSITION_LEVEL = "employee/account/positon";
+        /** 门店查看组织架构*/
+        public static final String VIEW_POSITION_LEVEL_STORE = "employee/account/store/positon";
 
 	}
 

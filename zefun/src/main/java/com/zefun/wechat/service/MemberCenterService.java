@@ -323,10 +323,11 @@ public class MemberCenterService {
      */
     public ModelAndView homeView(Integer memberId, int storeId){
         MemberBaseDto memberBaseInfo = memberInfoService.getMemberBaseInfo(memberId, false);
-        List<CouponBaseDto> couponList = null; //couponInfoMapper.selectBaseByMemberId(memberId);
+        List<CouponBaseDto> couponList = couponInfoMapper.selectBaseByMemberId(memberId);
         memberBaseInfo.setCouponCount(0);
         ModelAndView mav = new ModelAndView(View.MemberCenter.HOME);
         mav.addObject("memberBaseInfo", memberBaseInfo);
+        mav.addObject("couponList", couponList);
         return mav;
     }
     

@@ -132,7 +132,7 @@ public class StaffCentreController extends BaseController{
     * @param headImage  headImage
     * @return           BaseDto
      */
-    @RequestMapping(value = Url.Staff.UPDATE_STAFF_INFO)
+    @RequestMapping(value = Url.Staff.UPDATE_STAFF_INFO, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto updateStaffInfo(HttpServletRequest request, HttpServletResponse response, String headImage){
         String openId = getOpenId(2, request, response);

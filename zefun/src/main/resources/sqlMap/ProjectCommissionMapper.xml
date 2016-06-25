@@ -355,6 +355,5 @@
     	(#{item.positionId}, #{item.levelId}, #{item.assignCashType}, #{item.commissionPrice}, #{item.commissionNoPrice}, #{item.commissionCard}, #{item.isDeleted}, #{item.projectId})
      </foreach>
   </insert>
-  
-  
+
 </mapper>

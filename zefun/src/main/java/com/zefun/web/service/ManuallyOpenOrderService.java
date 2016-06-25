@@ -76,10 +76,9 @@ public class ManuallyOpenOrderService {
 	* @author laowang
 	* @date 2015年8月8日 上午11:17:40
 	* @param storeId 门店标识
-	* @param employeeId 员工标识
 	* @return ModelAndView
 	 */
-	public ModelAndView initializeManuallyOpenOrder(Integer storeId, Integer employeeId){
+	public ModelAndView initializeManuallyOpenOrder(Integer storeId){
 		ModelAndView mav = new ModelAndView();
         
 		List<Integer> deptIdList = deptInfoMapper.selectDeptIdByStoreIdIsResults(storeId);

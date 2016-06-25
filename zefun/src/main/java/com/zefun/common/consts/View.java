@@ -455,6 +455,8 @@ public interface View {
 		public static final String POSITION = "employee/positioninfo/positioninfo";
 		/** 企业岗位职位*/
         public static final String VIEW_ACCOUNT = "employee/positioninfo/account";
+        /** 门店岗位职位*/
+        public static final String VIEW_ACCOUNT_STORE = "employee/positioninfo/storeAccountEmps";
 	}
 
 	/**
@@ -477,6 +479,10 @@ public interface View {
 	class KeepAccounts {
 		/** 开支记账 */
 		public static final String STOREFLOW = "keepAccounts/storeFlow";
+		/** 企业轮牌 */
+		public static final String ENTERPRISE_SHIFT_MAJONG = "keepAccounts/enterpriseShiftMajong";
+		/** 门店轮牌 */
+		public static final String STORE_SHIFT_MAJONG = "keepAccounts/storeShiftMajong";
 		/** 轮职排班 */
 		public static final String SHIFT_MAHJONG = "keepAccounts/shiftMahjong";
 		/** 开卡充值 */

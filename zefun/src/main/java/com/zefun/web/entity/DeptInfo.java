@@ -21,6 +21,17 @@ public class DeptInfo {
     private String operateTime;
     /**操作人员*/
     private Integer operateId;
+    /**是否删除*/
+    private Integer  isDeleted;
+
+    
+    public Integer getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 
     public Integer getIsResults() {
         return isResults;

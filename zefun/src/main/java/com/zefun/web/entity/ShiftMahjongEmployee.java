@@ -14,9 +14,6 @@ public class ShiftMahjongEmployee {
 
 	/** 级别标识 */
 	private Integer levelId;
-	
-	/** 是否打卡（0：否、1：是）*/
-	private Integer isPunchCard;
 
 	/** 员工标识 */
 	private Integer employeesId;
@@ -47,16 +44,6 @@ public class ShiftMahjongEmployee {
 
 	/** 操作人标识 */
 	private Integer operatorId;
-
-	
-
-    public Integer getIsPunchCard() {
-        return isPunchCard;
-    }
-
-    public void setIsPunchCard(Integer isPunchCard) {
-        this.isPunchCard = isPunchCard;
-    }
 
     /** @param shiftMahjongEmployeeId	轮牌员工标识 */
 	public void setShiftMahjongEmployeeId(Integer shiftMahjongEmployeeId){

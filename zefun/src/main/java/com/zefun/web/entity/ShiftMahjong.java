@@ -12,11 +12,8 @@ public class ShiftMahjong {
 	/** 轮牌名称 */
 	private String shiftMahjongName;
 
-	/** 企业标识 */
-	private String storeAccount;
-
 	/** 适用门店*/
-	private String storeList;
+	private Integer storeId;
 	
 	/** 上牌规则（1：考勤轮牌、2：持续轮牌） */
 	private Integer shiftMahjongUp;
@@ -27,8 +24,10 @@ public class ShiftMahjong {
 	/** 轮牌性质(1：助理轮牌、2：技师轮牌)*/
 	private Integer nature;
 	
-	/** 员工级别*/
+	/** 选择岗位*/
 	private String positionId;
+	/** 岗位名称*/
+	private String position;
 
 	/** 创建时间 */
 	private String createTime;
@@ -38,31 +37,30 @@ public class ShiftMahjong {
 
 	
 
-    public String getStoreAccount() {
-		return storeAccount;
+    public String getPosition() {
+		return position;
 	}
 
-	public void setStoreAccount(String storeAccount) {
-		this.storeAccount = storeAccount;
+	public void setPosition(String position) {
+		this.position = position;
 	}
 
-	public String getStoreList() {
-		return storeList;
+	public Integer getStoreId() {
+		return storeId;
 	}
 
-	public void setStoreList(String storeList) {
-		this.storeList = storeList;
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
 	}
-
 	public String getPositionId() {
-        return positionId;
-    }
+		return positionId;
+	}
 
-    public void setPositionId(String positionId) {
-        this.positionId = positionId;
-    }
+	public void setPositionId(String positionId) {
+		this.positionId = positionId;
+	}
 
-    public Integer getNature() {
+	public Integer getNature() {
         return nature;
     }
 

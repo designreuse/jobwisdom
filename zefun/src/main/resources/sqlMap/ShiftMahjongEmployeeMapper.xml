@@ -5,7 +5,6 @@
     <id column="shift_mahjong_employee_id" property="shiftMahjongEmployeeId" jdbcType="INTEGER" />
     <result column="shift_mahjong_id" property="shiftMahjongId" jdbcType="INTEGER" />
     <result column="level_id" property="levelId" jdbcType="INTEGER" />
-    <result column="is_punch_card" property="isPunchCard" jdbcType="INTEGER" />
     <result column="employees_id" property="employeesId" jdbcType="INTEGER" />
     <result column="employee_code" property="employeeCode" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -19,7 +18,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    shift_mahjong_employee_id, shift_mahjong_id, level_id, is_punch_card, employees_id, employee_code, 
+    shift_mahjong_employee_id, shift_mahjong_id, level_id, employees_id, employee_code, 
     name, head_image, state, is_appoint, appoint_number, shift_mahjong_order, create_time, 
     operator_id
   </sql>
@@ -41,12 +40,11 @@
   </delete>
   <insert id="insert" parameterType="com.zefun.web.entity.ShiftMahjongEmployee" >
     insert into shift_mahjong_employee (shift_mahjong_employee_id, shift_mahjong_id, 
-      level_id, is_punch_card, employees_id, employee_code, 
-      name, head_image, state, 
-      is_appoint, appoint_number, shift_mahjong_order, 
+      level_id, employees_id, employee_code, 
+      name, head_image, state, is_appoint, appoint_number, shift_mahjong_order, 
       create_time, operator_id)
     values (#{shiftMahjongEmployeeId,jdbcType=INTEGER}, #{shiftMahjongId,jdbcType=INTEGER}, 
-      #{levelId,jdbcType=INTEGER}, #{isPunchCard,jdbcType=INTEGER}, #{employeesId,jdbcType=INTEGER}, #{employeeCode,jdbcType=INTEGER}, 
+      #{levelId,jdbcType=INTEGER}, #{employeesId,jdbcType=INTEGER}, #{employeeCode,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
       #{isAppoint,jdbcType=INTEGER}, #{appointNumber,jdbcType=INTEGER}, #{shiftMahjongOrder,jdbcType=INTEGER}, 
       #{createTime,jdbcType=CHAR}, #{operatorId,jdbcType=INTEGER})
@@ -62,9 +60,6 @@
       </if>
       <if test="levelId != null" >
         level_id,
-      </if>
-      <if test="isPunchCard != null" >
-        is_punch_card,
       </if>
       <if test="employeesId != null" >
         employees_id,
@@ -107,9 +102,6 @@
       <if test="levelId != null" >
         #{levelId,jdbcType=INTEGER},
       </if>
-      <if test="isPunchCard != null" >
-        #{isPunchCard,jdbcType=INTEGER},
-      </if>
       <if test="employeesId != null" >
         #{employeesId,jdbcType=INTEGER},
       </if>
@@ -151,9 +143,6 @@
       <if test="levelId != null" >
         level_id = #{levelId,jdbcType=INTEGER},
       </if>
-      <if test="isPunchCard != null" >
-        is_punch_card = #{isPunchCard,jdbcType=INTEGER},
-      </if>
       <if test="employeesId != null" >
         employees_id = #{employeesId,jdbcType=INTEGER},
       </if>
@@ -191,7 +180,6 @@
     update shift_mahjong_employee
     set shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER},
       level_id = #{levelId,jdbcType=INTEGER},
-      is_punch_card = #{isPunchCard,jdbcType=INTEGER},
       employees_id = #{employeesId,jdbcType=INTEGER},
       employee_code = #{employeeCode,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
@@ -221,26 +209,22 @@
   
   <insert id="insertShiftMahjongEmployeeList" parameterType="java.util.List">  
   	insert into shift_mahjong_employee (shift_mahjong_employee_id, shift_mahjong_id, 
-      level_id, is_punch_card, employees_id, employee_code, 
+      level_id, employees_id, employee_code, 
       name, head_image, state, 
       is_appoint, appoint_number, shift_mahjong_order, 
       create_time, operator_id)
     values 
     <foreach collection="list" item="item" index="index"  separator=",">  
 	     (#{item.shiftMahjongEmployeeId,jdbcType=INTEGER}, #{item.shiftMahjongId,jdbcType=INTEGER}, 
-	      #{item.levelId,jdbcType=INTEGER}, #{item.isPunchCard,jdbcType=INTEGER}, #{item.employeesId,jdbcType=INTEGER}, #{item.employeeCode,jdbcType=INTEGER}, 
+	      #{item.levelId,jdbcType=INTEGER}, #{item.employeesId,jdbcType=INTEGER}, #{item.employeeCode,jdbcType=INTEGER}, 
 	      #{item.name,jdbcType=VARCHAR}, #{item.headImage,jdbcType=VARCHAR}, #{item.state,jdbcType=INTEGER}, 
 	      #{item.isAppoint,jdbcType=INTEGER}, #{item.appointNumber,jdbcType=INTEGER}, #{item.shiftMahjongOrder,jdbcType=INTEGER}, 
 	      #{item.createTime,jdbcType=CHAR}, #{item.operatorId,jdbcType=INTEGER})
     </foreach>
   </insert>
   
-  <select id="selectByPositionIdList" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
-    select distinct a.position_id from employee_level a where exists(select 1 from shift_mahjong_employee b where b.shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER} and b.level_id = a.level_id) 
-  </select>
-  
   <select id="selectByPositionIdMap" resultType="java.util.Map" parameterType="java.lang.Integer" >
-    select distinct a.position_id as positionId, c.is_punch_card as isPunchCard from employee_level a, shift_mahjong_employee c where 
+    select distinct a.position_id as positionId from employee_level a, shift_mahjong_employee c where 
     exists(select 1 from shift_mahjong_employee b where b.shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER} and b.level_id = a.level_id) 
     and a.is_deleted = 0
     and c.level_id = a.level_id and c.shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER}

@@ -1,6 +1,7 @@
 package com.zefun.web.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,21 +16,19 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.dto.EmployeeLevelBaseDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.EmployeeAttendance;
 import com.zefun.web.entity.EmployeeInfo;
-import com.zefun.web.entity.ProjectCommission;
-import com.zefun.web.entity.ProjectStep;
+import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ShiftMahjong;
 import com.zefun.web.entity.ShiftMahjongEmployee;
-import com.zefun.web.mapper.DeptInfoMapper;
+import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.EmployeeAttendanceMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
+import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
-import com.zefun.web.mapper.ProjectCommissionMapper;
-import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
@@ -53,30 +52,253 @@ public class ShiftMahjongService {
 	/** redis Service*/
 	@Autowired private RedisService redisService;
 	
-	/** 部门*/
-	@Autowired private DeptInfoMapper deptInfoMapper;
-	
 	/** 岗位*/
 	@Autowired private PositioninfoMapper positioninfoMapper;
 	
 	/** 轮牌*/
 	@Autowired private ShiftMahjongMapper shiftMahjongMapper;
 	
-	/** 项目步骤*/
-	@Autowired private ProjectStepMapper projectStepMapper;
 	/** */
 	@Autowired private StaffService staffService;
-	
-	/** 项目职位提成*/
-	@Autowired private ProjectCommissionMapper projectCommissionMapper;
 	
 	/** 考勤*/
 	@Autowired private EmployeeAttendanceMapper employeeAttendanceMapper;
 	
 	/** 门店*/
 	@Autowired private StoreInfoMapper storeInfoMapper;
+	
+	/** 职位*/
+	@Autowired private EmployeeLevelMapper employeeLevelMapper;
+	
 	/**
-	 * 初始化轮职排班界面
+	 * 初始化企业轮牌页面
+	* @author 老王
+	* @date 2016年6月24日 下午4:57:27 
+	* @param storeAccount 企业代号
+	* @return ModelAndView
+	 */
+	public ModelAndView initializeEnterpriseShiftMahjong (String storeAccount) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(View.KeepAccounts.ENTERPRISE_SHIFT_MAJONG);
+		List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
+		Integer storeId = storeInfoList.get(0).getStoreId();
+		List<PositionInfo> positionInfoList  = positioninfoMapper.queryAllByStoreId(storeId);
+		
+		List<ShiftMahjong> shiftMahjongList = shiftMahjongMapper.selectAllByStoreId(storeId);
+		
+		for (ShiftMahjong shiftMahjong : shiftMahjongList) {
+			String positionStr = "";
+			String[] positionIdList = shiftMahjong.getPositionId().split(",");
+            for (int i = 0; i < positionIdList.length; i++) {
+                String positionIdStr = positionIdList[i];
+                for (PositionInfo positionInfo : positionInfoList) {
+                	Integer positionId =  positionInfo.getPositionId();
+                	if (positionIdStr.equals(positionId.toString())) {
+                		if (i == 0) {
+                			positionStr = positionInfo.getPositionName();
+                		}
+                		else {
+                			positionStr = positionStr + "," + positionInfo.getPositionName();
+                		}
+                	}
+				}
+            }
+            
+            shiftMahjong.setPosition(positionStr);
+		}
+		
+		mav.addObject("shiftMahjongList", shiftMahjongList);
+		mav.addObject("positionInfoList", positionInfoList);
+		mav.addObject("storeInfoList", storeInfoList);
+		return mav;
+	}
+	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年6月25日 下午12:48:42 
+	* @param storeId 门店标识
+	* @return BaseDto
+	 */
+	public BaseDto showStoreShiftMahjong (Integer storeId) {
+		
+        List<PositionInfo> positionInfoList  = positioninfoMapper.queryAllByStoreId(storeId);
+		
+		List<ShiftMahjong> shiftMahjongList = shiftMahjongMapper.selectAllByStoreId(storeId);
+		
+		for (ShiftMahjong shiftMahjong : shiftMahjongList) {
+			String positionStr = "";
+			String[] positionIdList = shiftMahjong.getPositionId().split(",");
+            for (int i = 0; i < positionIdList.length; i++) {
+                String positionIdStr = positionIdList[i];
+                for (PositionInfo positionInfo : positionInfoList) {
+                	Integer positionId =  positionInfo.getPositionId();
+                	if (positionIdStr.equals(positionId.toString())) {
+                		if (i == 0) {
+                			positionStr = positionInfo.getPositionName();
+                		}
+                		else {
+                			positionStr = positionStr + "," + positionInfo.getPositionName();
+                		}
+                	}
+				}
+            }
+            
+            shiftMahjong.setPosition(positionStr);
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+        map.put("shiftMahjongList", shiftMahjongList);
+        map.put("positionInfoList", positionInfoList);
+		
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+	}
+	
+	/**
+	 * 新增修改企业轮牌信息及人员信息
+	* @author 王大爷
+	* @date 2015年9月8日 下午3:05:32
+	* @param shiftMahjong 轮牌信息
+	* @param positionIds 岗位标识
+	* @return BaseDto
+	 */
+	@Transactional
+	public BaseDto addUpdateShiftMahjong(ShiftMahjong shiftMahjong, List<Integer> positionIds){
+	    if (shiftMahjong.getShiftMahjongId() == null) {
+	    	//查询出企业下所有门店
+	    	shiftMahjong.setCreateTime(DateUtil.getCurDate());
+            shiftMahjongMapper.insert(shiftMahjong);
+            
+            Map<String, String> param = new HashMap<>();
+            param.put("positionIds", JSONArray.fromObject(positionIds).toString().replace("[", "").replace("]", "").trim());
+            List<EmployeeLevelBaseDto> baseDtos = employeeLevelMapper.selectByPositionIds(param);
+            operationShiftMahjongEmployee(baseDtos, shiftMahjong.getShiftMahjongId(), shiftMahjong.getStoreId());
+	    }
+	    else {
+	        //查询轮牌对应的岗位信息
+            ShiftMahjong shiftMahjongOld = shiftMahjongMapper.selectByPrimaryKey(shiftMahjong.getShiftMahjongId());
+            String positionIdListOldStr = shiftMahjongOld.getPositionId();
+            String [] positionIdOldStr = positionIdListOldStr.split(",");
+            List<String> positionIdOlds = new ArrayList<>();
+            //由于Arrays.asList()转出的list是AbstractList，是不能remove的；
+            for (String str : positionIdOldStr) {
+            	positionIdOlds.add(str);
+			}
+            
+            List<Integer> addPosition = new ArrayList<Integer>();
+                        
+            for (int k = 0; k < positionIds.size(); k++) {
+                
+                int a = 0;
+                
+                for (int j = 0; j < positionIdOlds.size(); j++) {
+                    if (Integer.valueOf(positionIdOlds.get(j)).intValue() == positionIds.get(k).intValue()) {
+                    	positionIdOlds.remove(j);
+                        a = 1;
+                        break;
+                    }
+                }
+                
+                if (a == 0) {
+                    addPosition.add(positionIds.get(k));
+                }
+            }
+            
+            //当删了原来所选岗位时
+            if (positionIdOlds.size() > 0) {
+                Integer stateType = isSucceed(positionIdOlds, shiftMahjong.getShiftMahjongId());
+                
+                if (stateType == 1) {
+                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "更换的岗位中存在服务中的员工");
+                }
+                for (int k = 0; k < positionIdOlds.size(); k++) {
+                    Map<String, Integer> map = new HashMap<String, Integer>();
+                    map.put("positionId", Integer.valueOf(positionIdOlds.get(k)));
+                    map.put("shiftMahjongId", shiftMahjong.getShiftMahjongId());
+                    
+                    List<ShiftMahjongEmployee> shiftMahjongEmployeeList = shiftMahjongEmployeeMapper.selectByPositionId(map);
+                    //单个删除轮牌员工，其后的员工向前移一位
+                    for (int j = 0; j < shiftMahjongEmployeeList.size(); j++) {
+                        ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeList.get(j);
+                        if (shiftMahjongEmployee.getState() == 3 || (shiftMahjong.getNature() == 2 && shiftMahjongEmployee.getState() == 2)) {
+                            
+                            shiftMahjongEmployeeMapper.deleteByPrimaryKey(shiftMahjongEmployee.getShiftMahjongEmployeeId());
+                            
+                        }
+                        else if (shiftMahjongEmployee.getState() == 1 
+                                || (shiftMahjong.getNature() == 1 && shiftMahjongEmployee.getState() == 2)){
+                            
+                            shiftMahjongEmployeeMapper.updateByToEnd(shiftMahjongEmployee);
+                            shiftMahjongEmployeeMapper.deleteByPrimaryKey(shiftMahjongEmployee.getShiftMahjongEmployeeId());
+                        }
+                    }
+                }
+            }
+            if (addPosition.size() > 0) {
+            	//添加岗位信息
+                Map<String, String> param = new HashMap<>();
+                param.put("positionIds", JSONArray.fromObject(addPosition).toString().replace("[", "").replace("]", "").trim());
+                List<EmployeeLevelBaseDto> baseDtos = employeeLevelMapper.selectByPositionIds(param);
+                operationShiftMahjongEmployee(baseDtos, shiftMahjong.getShiftMahjongId(), shiftMahjong.getStoreId());
+            }
+            
+	        shiftMahjongMapper.updateByPrimaryKeySelective(shiftMahjong);
+	    }
+	    
+	    //删除缓存
+        /*redisService.hdel(App.Redis.DEPT_PROJECT_MAHJONG_INFO_KEY_HASH, String.valueOf(shiftMahjong.getDeptId()));*/
+	    ShiftMahjong newShiftMahjong = shiftMahjongMapper.selectByPrimaryKey(shiftMahjong.getShiftMahjongId());
+	    List<PositionInfo> positionInfoList  = positioninfoMapper.queryAllByStoreId(shiftMahjong.getStoreId());
+	    String[] positionIdList = newShiftMahjong.getPositionId().split(",");
+	    String positionStr = "";
+	    for (int i = 0; i < positionIdList.length; i++) {
+            String positionIdStr = positionIdList[i];
+            for (PositionInfo positionInfo : positionInfoList) {
+            	Integer positionId =  positionInfo.getPositionId();
+            	if (positionIdStr.equals(positionId.toString())) {
+            		if (i == 0) {
+            			positionStr = positionInfo.getPositionName();
+            		}
+            		else {
+            			positionStr = positionStr + "," + positionInfo.getPositionName();
+            		}
+            	}
+			}
+        }
+        
+	    newShiftMahjong.setPosition(positionStr);
+	    
+	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, newShiftMahjong);
+	}
+	
+	/**
+	 * 删除轮牌信息
+	* @author 王大爷
+	* @date 2015年9月8日 下午4:21:25
+	* @param shiftMahjongId 轮牌标识
+	* @return BaseDto
+	 */
+	public BaseDto deleteShiftMahjong(Integer shiftMahjongId){
+	    
+		ShiftMahjong shiftMahjong = shiftMahjongMapper.selectByPrimaryKey(shiftMahjongId);
+		
+		String positionIdListOldStr = shiftMahjong.getPositionId();
+        List<String> positionIdOlds = Arrays.asList(positionIdListOldStr.split(","));
+		
+		Integer stateType = isSucceed(positionIdOlds, shiftMahjongId);
+        
+        if (stateType == 1) {
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "更换的岗位中存在服务中的员工");
+        }
+	    
+	    shiftMahjongMapper.deleteByPrimaryKey(shiftMahjongId);
+	    shiftMahjongEmployeeMapper.deleteByShiftMahjongId(shiftMahjongId);
+
+	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+	}
+	
+	/**
+	 * 初始化轮牌界面
 	* @author laowang
 	* @date 2015年8月8日 上午11:17:40
 	* @param storeId 门店标识
@@ -84,199 +306,15 @@ public class ShiftMahjongService {
 	 */
 	public ModelAndView initializeShiftMahjong(Integer storeId){
 		ModelAndView mav = new ModelAndView();
-		List<DeptInfoDto> deptList = deptInfoMapper.selectByshiftMahjong(storeId);
-		mav.addObject("deptList", deptList);
-		mav.addObject("deptListJson", JSONArray.fromObject(deptList).toString());
-		if (deptList.size() > 0) {
-		    mav.addObject("deptId", deptList.get(0).getDeptId());
-		}
+		
+		List<ShiftMahjongDto> shiftMahjongDtoList = shiftMahjongMapper.selectByStoreId(storeId);
+		
+		mav.addObject("shiftMahjongDtoList", shiftMahjongDtoList);
+		
+		mav.addObject("shiftMahjongDtoListStr", JSONArray.fromObject(shiftMahjongDtoList).toString());
+		
 		mav.setViewName(View.KeepAccounts.SHIFT_MAHJONG);
 		return mav;
-	}
-	
-	/**
-	 * 新增修改轮牌信息及人员信息
-	* @author 王大爷
-	* @date 2015年9月8日 下午3:05:32
-	* @param shiftMahjong 轮牌信息
-	* @param positionIds 岗位标识集合
-    * @param isPunchCards 是否打卡
-	* @param storeId 门店标识
-	* @param usrId 操作员工
-	* @return BaseDto
-	 */
-	@Transactional
-	public BaseDto addUpdateShiftMahjong(ShiftMahjong shiftMahjong, List<Integer> positionIds, List<Integer> isPunchCards, 
-	        Integer storeId, Integer usrId){
-	    if (shiftMahjong.getShiftMahjongId() == null) {
-	        
-	        shiftMahjong.setCreateTime(DateUtil.getCurDate());
-            shiftMahjong.setStoreId(storeId);
-            shiftMahjong.setOperatorId(usrId);
-            shiftMahjongMapper.insert(shiftMahjong);
-	        
-            String positionIdStr = "";
-	        for (int i = 0; i < positionIds.size(); i++) {
-                Integer positionId = positionIds.get(i);
-                Integer isPunchCard = isPunchCards.get(i);
-                List<Integer> levelIdList = positioninfoMapper.getlevelIdList(positionId);
-                operationShiftMahjongEmployee(levelIdList, storeId, shiftMahjong.getShiftMahjongId(), usrId, isPunchCard);
-                
-                if (StringUtils.isEmpty(positionIdStr)) {
-                    positionIdStr = positionId.toString() + ":" + isPunchCard.toString();
-                }
-                else {
-                    positionIdStr = positionIdStr + "," + positionId.toString() + ":" + isPunchCard.toString();
-                }
-            }
-	        
-	        
-	        ShiftMahjong objShiftMahjong = new ShiftMahjong();
-	        objShiftMahjong.setShiftMahjongId(shiftMahjong.getShiftMahjongId());
-	        objShiftMahjong.setPositionId(positionIdStr);
-	        shiftMahjongMapper.updateByPrimaryKeySelective(objShiftMahjong);
-	    }
-	    else {
-	        //查询轮牌对应的岗位信息
-            List<Integer> positionIdListOld = shiftMahjongEmployeeMapper.selectByPositionIdList(shiftMahjong.getShiftMahjongId());
-	        if (positionIds.size() == 0) {
-                Integer stateType = isSucceed(positionIdListOld, shiftMahjong.getShiftMahjongId());
-                
-                if (stateType == 1) {
-                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "更换的岗位中存在服务中的员工");
-                }
-                else if (stateType == 2){
-                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "更换的岗位中存在项目引用职业");
-                }
-                
-	            shiftMahjongEmployeeMapper.deleteByShiftMahjongId(shiftMahjong.getShiftMahjongId());
-	            
-	            ShiftMahjong objShiftMahjong = new ShiftMahjong();
-	            objShiftMahjong.setShiftMahjongId(shiftMahjong.getShiftMahjongId());
-	            objShiftMahjong.setPositionId("");
-	            shiftMahjongMapper.updateByPrimaryKeySelective(objShiftMahjong);
-	        }
-	        else {
-	            if (positionIdListOld.size() == 0) {
-	                
-	                String positionIdStr = null;
-	                
-	                for (int i = 0; i < positionIds.size(); i++) {
-	                    Integer positionId = positionIds.get(i);
-	                    List<Integer> levelIdList = positioninfoMapper.getlevelIdList(positionId);
-	                    Integer isPunchCard = isPunchCards.get(i);
-	                    operationShiftMahjongEmployee(levelIdList, storeId, shiftMahjong.getShiftMahjongId(), usrId, isPunchCard);
-	                    
-	                    if (positionIdStr == null) {
-	                        positionIdStr = positionId.toString() + ":" + isPunchCard.toString();
-	                    }
-	                    else {
-	                        positionIdStr = positionIdStr + "," + positionId.toString() + ":" + isPunchCard.toString();
-	                    }
-	                }
-	                
-	                ShiftMahjong objShiftMahjong = new ShiftMahjong();
-	                objShiftMahjong.setShiftMahjongId(shiftMahjong.getShiftMahjongId());
-	                objShiftMahjong.setPositionId(positionIdStr);
-	                shiftMahjongMapper.updateByPrimaryKeySelective(objShiftMahjong);
-	            }
-	            else {
-	                List<Integer> updatePosition = new ArrayList<Integer>();
-	                List<Integer> updateIsPunchCard = new ArrayList<Integer>();
-	                List<Integer> addPosition = new ArrayList<Integer>();
-	                List<Integer> addIsPunchCard = new ArrayList<Integer>();
-	                
-	                String positionIdStr = null;
-	                
-	                for (int k = 0; k < positionIds.size(); k++) {
-	                    
-	                    if (positionIdStr == null) {
-                            positionIdStr = positionIds.get(k).toString() + ":" + isPunchCards.get(k).toString();
-                        }
-                        else {
-                            positionIdStr = positionIdStr + "," + positionIds.get(k).toString() + ":" + isPunchCards.get(k).toString();
-                        }
-	                    
-	                    int a = 0;
-	                    
-	                    for (int j = 0; j < positionIdListOld.size(); j++) {
-	                        if (positionIdListOld.get(j).intValue() == positionIds.get(k).intValue()) {
-	                            //将同时存在的id删除
-	                            positionIdListOld.remove(j);
-	                            a = 1;
-	                            updatePosition.add(positionIds.get(k));
-	                            updateIsPunchCard.add(isPunchCards.get(k));
-	                        }
-	                    }
-	                    
-	                    if (a == 0) {
-	                        addPosition.add(positionIds.get(k));
-	                        addIsPunchCard.add(isPunchCards.get(k));
-	                    }
-	                }
-	                
-	                //当删了原来所选岗位时
-	                if (positionIdListOld.size() > 0) {
-	                    Integer stateType = isSucceed(positionIdListOld, shiftMahjong.getShiftMahjongId());
-	                    
-	                    if (stateType == 1) {
-	                        return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "更换的岗位中存在服务中的员工");
-	                    }
-	                    else if (stateType == 2){
-	                        return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "更换的岗位中存在项目引用职业");
-	                    }
-	                    
-	                    for (int k = 0; k < positionIdListOld.size(); k++) {
-	                        Map<String, Integer> map = new HashMap<String, Integer>();
-	                        map.put("positionId", positionIdListOld.get(k));
-	                        map.put("shiftMahjongId", shiftMahjong.getShiftMahjongId());
-	                        
-	                        List<ShiftMahjongEmployee> shiftMahjongEmployeeList = shiftMahjongEmployeeMapper.selectByPositionId(map);
-	                        //单个删除轮牌员工，其后的员工向前移一位
-	                        for (int j = 0; j < shiftMahjongEmployeeList.size(); j++) {
-	                            ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeList.get(j);
-	                            if (shiftMahjongEmployee.getState() == 3 || (shiftMahjong.getNature() == 2 && shiftMahjongEmployee.getState() == 2)) {
-	                                
-	                                shiftMahjongEmployeeMapper.deleteByPrimaryKey(shiftMahjongEmployee.getShiftMahjongEmployeeId());
-	                                
-	                            }
-	                            else if (shiftMahjongEmployee.getState() == 1 
-	                                    || (shiftMahjong.getNature() == 1 && shiftMahjongEmployee.getState() == 2)){
-	                                
-	                                shiftMahjongEmployeeMapper.updateByToEnd(shiftMahjongEmployee);
-	                                shiftMahjongEmployeeMapper.deleteByPrimaryKey(shiftMahjongEmployee.getShiftMahjongEmployeeId());
-	                            }
-	                        }
-	                    }
-	                }
-	                //添加岗位信息
-	                for (int i = 0; i < addPosition.size(); i++) {
-	                    List<Integer> levelIdList = positioninfoMapper.getlevelIdList(addPosition.get(i));
-                        operationShiftMahjongEmployee(levelIdList, storeId, shiftMahjong.getShiftMahjongId(), usrId, addIsPunchCard.get(i));
-                    }
-	                
-	                //修改岗位下职位的上岗类型
-	                for (int i = 0; i < updatePosition.size(); i++) {
-	                    Map<String, Object> map = new HashMap<String, Object>();
-                        map.put("isPunchCard", updateIsPunchCard.get(i));
-                        map.put("positionId", updatePosition.get(i));
-                        map.put("shiftMahjongId", shiftMahjong.getShiftMahjongId());
-                        shiftMahjongEmployeeMapper.updateIsPunchCard(map);
-                    }
-	                
-	                ShiftMahjong objShiftMahjong = new ShiftMahjong();
-                    objShiftMahjong.setShiftMahjongId(shiftMahjong.getShiftMahjongId());
-                    objShiftMahjong.setPositionId(positionIdStr);
-                    shiftMahjongMapper.updateByPrimaryKeySelective(objShiftMahjong);
-	            }
-	        }
-	        shiftMahjongMapper.updateByPrimaryKeySelective(shiftMahjong);
-	    }
-	    
-	    //删除缓存
-        redisService.hdel(App.Redis.DEPT_PROJECT_MAHJONG_INFO_KEY_HASH, String.valueOf(shiftMahjong.getDeptId()));
-	    
-	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjong.getShiftMahjongId());
 	}
 	
 	/**
@@ -287,18 +325,14 @@ public class ShiftMahjongService {
 	* @param shiftMahjongId 轮牌标识
 	* @return 是否成功
 	 */
-	public Integer isSucceed(List<Integer> positionIdList, Integer shiftMahjongId) {
+	public Integer isSucceed(List<String> positionIdList, Integer shiftMahjongId) {
 	    Map<String, Object> mapList = new HashMap<String, Object>();
         mapList.put("list", positionIdList);
         mapList.put("shiftMahjongId", shiftMahjongId);
 
         List<ShiftMahjongEmployee> objList = shiftMahjongEmployeeMapper.selectByPositionIdExistsWork(mapList);
-        List<ProjectCommission> commissionList = projectCommissionMapper.selectByLevelIsExist(mapList);
         if (objList.size() > 0) {
             return 1;
-        }
-        if (commissionList.size() > 0) {
-            return 2;
         }
         return 0;
 	}
@@ -313,29 +347,6 @@ public class ShiftMahjongService {
 	public BaseDto selectshiftMahjong(Integer deptId){
 	    List<ShiftMahjongDto> shiftMahjongDtoList = shiftMahjongMapper.selectByDeptId(deptId);
 	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjongDtoList);
-	}
-	
-	/**
-	 * 删除轮牌信息
-	* @author 王大爷
-	* @date 2015年9月8日 下午4:21:25
-	* @param shiftMahjongId 轮牌标识
-	* @return BaseDto
-	 */
-	public BaseDto deleteShiftMahjong(Integer shiftMahjongId){
-	    
-	    List<ProjectStep> projectStepList = projectStepMapper.selectByShiftMahjongId(shiftMahjongId);
-	    if (projectStepList.size() > 0) {
-	        return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该轮牌已关联项目，请先清除项目中轮牌！");
-	    }
-	    
-	    ShiftMahjong shiftMahjong = shiftMahjongMapper.selectByPrimaryKey(shiftMahjongId);
-	    
-	    shiftMahjongMapper.deleteByPrimaryKey(shiftMahjongId);
-	    shiftMahjongEmployeeMapper.deleteByShiftMahjongId(shiftMahjongId);
-	    //删除缓存
-	    redisService.hdel(App.Redis.DEPT_PROJECT_MAHJONG_INFO_KEY_HASH, String.valueOf(shiftMahjong.getDeptId()));
-	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}
 	
 	/**
@@ -418,9 +429,9 @@ public class ShiftMahjongService {
 	        shiftMahjongEmployee.setShiftMahjongOrder(999);
 	    }
         shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
-        if (state.intValue() == 1) {
+        /*if (state.intValue() == 1) {
             staffService.selfMotionExecute(shiftMahjongEmployeeId, storeId);
-        }
+        }*/
         return shiftMahjong.getShiftMahjongId();
 	}
 	
@@ -483,27 +494,8 @@ public class ShiftMahjongService {
 	* @return BaseDto
 	 */
 	public BaseDto initializeModel(Integer shiftMahjongId){
-	    List<Map<String, Integer>> mapList = new ArrayList<Map<String, Integer>>();
-	    
 	    ShiftMahjong shiftMahjong = shiftMahjongMapper.selectByPrimaryKey(shiftMahjongId);
-	    
-	    String positionIdStr = shiftMahjong.getPositionId();
-	    
-	    if (!positionIdStr.equals("") && positionIdStr != null) {
-            String[] positionIds = positionIdStr.split(",");
-            for (int i = 0; i < positionIds.length; i++) {
-                Map<String, Integer> map = new HashMap<String, Integer>();
-                String recommendStr = positionIds[i];
-                map.put("positionId", Integer.parseInt(recommendStr.split(":")[0]));
-                map.put("isPunchCard", Integer.parseInt(recommendStr.split(":")[1]));
-                mapList.add(map);
-            }
-        }
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("mapList", mapList);
-	    map.put("shiftMahjong", shiftMahjong);
-		/*List<Map<String, Integer>> mapList = shiftMahjongEmployeeMapper.selectByPositionIdMap(shiftMahjongId);*/
-		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjong);
 	}
 	
 	
@@ -794,13 +786,11 @@ public class ShiftMahjongService {
 	* @param levelId 级别list
 	* @param storeId 门店标识
 	* @param shiftMahjongId 轮牌信息标识
-	* @param usrId 操作员工
-	* @param isPunchCard 是否打卡（0：否、1：是）
 	 */
-	public void operationShiftMahjongEmployee(List<Integer> levelId, Integer storeId, Integer shiftMahjongId, Integer usrId, Integer isPunchCard){
+	public void operationShiftMahjongEmployee(List<EmployeeLevelBaseDto> levelId, Integer shiftMahjongId, Integer storeId){
         List<ShiftMahjongEmployee> list = new ArrayList<ShiftMahjongEmployee>();
         for (int i = 0; i < levelId.size(); i++){
-            Integer level = levelId.get(i);
+            Integer level = levelId.get(i).getLevelId();
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("levelId", level);
             map.put("storeId", storeId);
@@ -818,9 +808,8 @@ public class ShiftMahjongService {
                 shiftMahjongEmployee.setName(employeeInfo.getName());
                 shiftMahjongEmployee.setHeadImage(employeeInfo.getHeadImage());
                 shiftMahjongEmployee.setLevelId(employeeInfo.getLevelId());
-                shiftMahjongEmployee.setIsPunchCard(isPunchCard);
                 
-                if (employeeAttendance != null && StringUtils.isBlank(employeeAttendance.getSignOutTime()) && isPunchCard == 1) {
+                if (employeeAttendance != null && StringUtils.isBlank(employeeAttendance.getSignOutTime())) {
                     Integer shiftMahjongOrder = shiftMahjongEmployeeMapper.selectByCount(shiftMahjongId);
                     shiftMahjongEmployee.setShiftMahjongOrder(shiftMahjongOrder + 1);
                     shiftMahjongEmployee.setState(1);
@@ -832,7 +821,6 @@ public class ShiftMahjongService {
                 shiftMahjongEmployee.setIsAppoint(0);
                 shiftMahjongEmployee.setAppointNumber(0);
                 shiftMahjongEmployee.setCreateTime(DateUtil.getCurDate());
-                shiftMahjongEmployee.setOperatorId(usrId);
                 list.add(shiftMahjongEmployee);
             }
         }

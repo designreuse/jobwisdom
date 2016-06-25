@@ -1,8 +1,7 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
-
-
+import java.util.Map;
 
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.PositionInfoDto;
@@ -154,4 +153,13 @@ public interface PositioninfoMapper {
     * @return         关联集合类
      */
     List<PositionInfoDto> selectPositionEpmployees(Integer storeId);
+    
+   /**
+    * 谁也别用,特殊方法
+    * @author 高国藩
+    * @date 2016年6月24日 下午5:17:05
+    * @param params  params
+    * @return        List<PositionInfo>
+     */
+    List<PositionInfo> selectByProperites(Map<String, Object> params);
 }
