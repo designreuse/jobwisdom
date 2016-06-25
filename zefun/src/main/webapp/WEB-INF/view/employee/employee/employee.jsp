@@ -12,6 +12,7 @@
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script> 
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/wenben.js"></script>
+<script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -54,7 +55,7 @@
     
 <div class='content_right clearfix'>
     <div class="payroll_2_head">
-	   <button id="downLondimport">导出模板下载</button><button id="downLond">导出</button><button data-toggle="modal" data-target="#toLeadModal">导入</button><button onclick="openadd()">添加员工</button>
+	   <button id="downLondimport">导出模板下载</button><button id="downLond">导出</button><button data-toggle="modal" data-target="#toLeadModal">导入</button><button onclick="jQuery('.zzc').show();employeeId=null;">添加员工</button>
 	   <span class="payroll_1_search">
 	     <input type="search" id="search" placeholder="员工姓名/工号/手机号"/>
          <input type="hidden" id="querygangwei">
@@ -64,14 +65,14 @@
 	</div>
 	
 	<div class="payroll_2_content clearfix">
-	   <div class="payroll_2_left">
+	   <!-- <div class="payroll_2_left">
 	     <div class="content_wrap">
 	         <div class="zTreeDemoBackground left">
 		       <ul id="treeDemo" class="ztree"></ul>
          	</div>
          </div>
 	 
-	   </div>
+	   </div> -->
 	   <div class="payroll_2_right">
 	     <table class="payroll_table">
 		    <tr>
@@ -96,16 +97,73 @@
 				  <td>${employee.levelName }</td>
 				  <td>${employee.userName }</td>
 				  <td>${employee.phone }</td>
-				  <td><span onclick="openedit(${employee.employeeId})"><img src="<%=basePath %>images/handle_1.png" ></span><span onclick="deleteinfo(${employee.employeeId})"><img src="<%=basePath %>images/handle_2.png"></span></td>
+				  <td><span onclick="selectEmp(${employee.employeeId})"><img src="<%=basePath %>images/handle_1.png" ></span><span onclick="deleteinfo(${employee.employeeId})"><img src="<%=basePath %>images/handle_2.png"></span></td>
 		        </tr>
 	       </c:forEach>
 	    </table>
 	   </div>
-	
 	</div>
-  
  </div>
-<!--添加员工模态框-->
+ 
+<div class="zzc" style="display: none">
+   <div class="emploee_information">
+      <p>员工资料</p>
+      <div class="emploee_content clearfix">  
+        <div class="imformation_left"> 
+		 <div class="clearfix">
+		    <div class="head_img">
+			  <img onclick="jQuery('.mask').show();editPage(null);" src="<%=basePath%>images/input_head.png">
+			  <input type="hidden" name="headImage" value="">
+			</div>
+		    <div class="information">
+			   <p> <span><em>姓名</em><input type="text" name="name"></span>
+			 <span><em>工号</em><input type="text" value="" name="employeeCode"></span></p> 
+			   <p><span><em>性别</em><select name="sex"><option value="男">男</option><option value="女">女</option></select></span> 
+             <span><em>出生日期</em><input type="text" name="birthday" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span></p> 
+               <p><span><em>介绍人</em><select name="recommendId"><c:forEach items="${recommendList }" var="recommend"><option value="${recommend.employeeId }">${recommend.name }</option></c:forEach></select></span>
+             <span><em>手机号</em><input type="text" name="phone" value=""></span></p> 
+               <p><span><em>身份证</em><input type="text" name="identityCard" value=""></span><span><em>角色</em><select name="roleId" >
+                                          	<c:forEach items="${rolelist }" var="rolelist">
+                                            <option value="${rolelist.roleId }">${rolelist.roleName }</option>
+                                            </c:forEach>
+                                     </select></span></p>
+			</div>  
+		 </div>
+		  <div class="imformation_bottom">
+		     <p>
+			    <span><em>选择岗位</em><select onchange="changeEmployeeLevel(this.value)" name="positionId"><c:forEach items="${positionlist }" var="position"><option value="${position.positionId }">${position.positionName }</option></c:forEach></select></span>
+			    <span><em>部门</em><select name="deptId"><c:forEach items="${deptlist }" var="dept"><option value="${dept.deptId }">${dept.deptName }</option></c:forEach></select></span>
+				<span><em>职位</em><select name="levelId"></select></span>
+			 </p>
+		     <p>
+			    <span><em>当前状态</em><select name="employeeStatus" >
+                                            <option value="1">在职</option>
+                                            <option value="2">离职</option>
+                                        </select></span>
+			    <span><em>到职日期</em><input type="text" value="" name="entryDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span>
+				<span><em>离职日期</em><input type="text" value="" name="leaveDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span>
+			 </p>
+		  </div>	 
+		 </div>
+		 
+	 
+	  <div class="textarea clearfix">
+	    <div class="introduction">
+		  <h5>员工简介</h5>
+		  <p>显示在会员端个人简介中</p>
+		</div>
+		<div class="textarea">
+	      <textarea name="employeeDesc" value=""> </textarea>
+	    </div>
+	  </div>
+	  <div class="imformation_button">
+	     <button onclick="saveEmployee()">保存</button>
+		 <button onclick="jQuery('.zzc').hide()">取消</button>
+	  </div>
+	 </div>
+   </div>
+</div>
+<%-- <!--添加员工模态框-->
 <div class="modal hide" id="employee-add-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content employee-data-modal">
@@ -253,9 +311,9 @@
             </div><!--modal-body-->
         </div><!--modal-content-->
     </div><!--modal-dialog-->
-</div><!--modal-->
+</div><!--modal--> --%>
 
-<!--修改员工资料模态框-->
+<%-- <!--修改员工资料模态框-->
 <div class="modal hide" id="employee-update-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content employee-data-modal">
@@ -417,7 +475,7 @@
             </div><!--modal-body-->
         </div><!--modal-content-->
     </div><!--modal-dialog-->
-</div><!--modal-->
+</div><!--modal--> --%>
 <div class="modal hide" id="toLeadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content add-account" style="width: 450px;height: 180px;">
@@ -451,30 +509,7 @@
 	</div>
 </div>
 
-<div class="modal hide" id="jietu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content jietu ">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">选择头像</h4>
-            </div>
-            <div class="modal-body nopadding">
-              <div class="crop-container">
-                <img src="<%=basePath %>images/pic_none.gif" id="cropbox" />
-              </div>
 
-              <div class="jietu-control">
-                <input type="file" class="inputfile" accept="image/*" />
-                <div class="btn dblock">选择文件</div>
-                <div class="btn dblock mt5 save">保存</div>
-                <div class="btn dblock mt5 zoomin">放大</div>
-                <div class="btn dblock mt5 zoomout">缩小</div>
-              </div>
-
-            </div>
-        </div>
-    </div>
-</div>
 <script type="text/javascript">
 //获取加载页面时的页码信息
 var pageNo = "${page.pageNo}";
@@ -522,7 +557,7 @@ var storeDtoList= eval("("+storeDtoListStr+")");
 										    				  "<td>"+employeeDto.levelName+"</td>"+
 										    				  "<td>"+employeeDto.userName+"</td>"+
 										    				  "<td>"+employeeDto.phone+"</td>"+
-										    				  "<td><span onclick='openedit("+employeeDto.employeeId+")'><img src='"+baseUrl+"images/handle_1.png' ></span><span onclick='deleteinfo("+employeeDto.employeeId+")'><img src='"+baseUrl+"images/handle_2.png'></span></td>"+
+										    				  "<td><span onclick='selectEmp("+employeeDto.employeeId+")'><img src='"+baseUrl+"images/handle_1.png' ></span><span onclick='deleteinfo("+employeeDto.employeeId+")'><img src='"+baseUrl+"images/handle_2.png'></span></td>"+
 										    		        "</tr>");
 	        			}
 	        		}
@@ -565,4 +600,92 @@ var storeDtoList= eval("("+storeDtoListStr+")");
   </div>
 </div>
 </body>
+<script>
+var employeeLevels = eval('('+'${employeeLevels}'+')');
+jQuery(function (){
+	changeEmployeeLevel(jQuery("select[name='positionId']").val());
+})
+// 改变岗位等级
+function changeEmployeeLevel(positionId){
+	jQuery("select[name='levelId']").empty();
+	for(var i=0;i<employeeLevels.length;i++){
+		if (employeeLevels[i].positionId == positionId){
+			var html = '<option value='+employeeLevels[i].levelId+'>'+employeeLevels[i].levelName+'</option>';
+			jQuery("select[name='levelId']").append(jQuery(html));
+		}
+	}
+}
+var employeeId = null;
+function saveEmployee(){
+	var url = "employee/action/add";
+	if (employeeId != null){
+		var url = "employee/action/update";
+	}
+	var name = jQuery("input[name='name']").val();
+	var employeeCode = jQuery("input[name='employeeCode']").val();
+	var sex = jQuery("select[name='sex']").val();
+	var birthday = jQuery("input[name='birthday']").val();
+	var recommendId = jQuery("select[name='recommendId']").val();
+	var phone = jQuery("input[name='phone']").val();
+	var identityCard = jQuery("input[name='identityCard']").val();
+	var roleId = jQuery("select[name='roleId']").val();
+	var positionId = jQuery("select[name='positionId']").val();
+	var deptId = jQuery("select[name='deptId']").val();
+	var levelId = jQuery("select[name='levelId']").val();
+	var employeeStatus = jQuery("select[name='employeeStatus']").val();
+	var entryDate = jQuery("input[name='entryDate']").val();
+	var leaveDate = jQuery("input[name='leaveDate']").val();
+	var employeeDesc = jQuery("textarea[name='employeeDesc']").val();
+	var data = {"employeeId":employeeId, "employeeCode":employeeCode, "sex":sex, "birthday":birthday, "recommendId":recommendId, "phone":phone, "identityCard":identityCard, 
+			    "roleId":roleId, "positionId":positionId, "deptId":deptId, "levelId":levelId, "employeeStatus":employeeStatus, "entryDate":entryDate, "leaveDate":leaveDate, 
+			    "employeeDesc":employeeDesc, "name":name};
+	console.log(data);
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + url,
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType : "application/json",
+		async : false,
+		success : function(data) {
+			dialog("该人员配置成功");
+			jQuery(".zzc").hide();
+		}
+	});
+}
+
+function selectEmp(id){
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "employee/action/getdetail",
+		data : "employeeId="+id,
+		dataType : "json",
+		success : function(e){
+			if(e.code != 0){
+				dialog("系统繁忙！");
+			}
+			else {
+				employeeId = id;
+				jQuery("input[name='name']").val(e.msg.name);
+				jQuery("input[name='employeeCode']").val(e.msg.employeeCode);
+				jQuery("select[name='sex']").val(e.msg.sex);
+				jQuery("input[name='birthday']").val(e.msg.birthday);
+				jQuery("select[name='recommendId']").val(e.msg.recommendId);
+				jQuery("input[name='phone']").val(e.msg.phone);
+				jQuery("input[name='identityCard']").val(e.msg.identityCard);
+				jQuery("select[name='roleId']").val(e.msg.roleId);
+				jQuery("select[name='positionId']").val(e.msg.positionId);
+				changeEmployeeLevel(e.msg.positionId);
+				jQuery("select[name='deptId']").val(e.msg.deptId);
+				jQuery("select[name='levelId']").val(e.msg.levelId);
+				jQuery("select[name='employeeStatus']").val(e.msg.employeeStatus);
+				jQuery("input[name='entryDate']").val(e.msg.entryDate);
+				jQuery("input[name='leaveDate']").val(e.msg.leaveDate);
+				jQuery("textarea[name='employeeDesc']").val(e.msg.employeeDesc);
+				jQuery(".zzc").show();
+			}
+       }
+	});
+}
+</script>
 </html>

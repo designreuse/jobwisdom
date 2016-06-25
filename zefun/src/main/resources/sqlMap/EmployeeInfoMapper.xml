@@ -166,7 +166,7 @@
    
    
    <select id="getRecommendlist" parameterType="java.lang.Integer" resultType="com.zefun.web.entity.EmployeeInfo">
-   select employee_id employeeId, employee_code employeeCode,name from employee_info where  store_id = #{storeId} and is_deleted=0 and dept_id>0
+   select employee_id employeeId, employee_code employeeCode,name from employee_info where  store_id = #{storeId} and is_deleted = 0 and dept_id > 0
    </select>
    
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -816,7 +816,7 @@
 		recommendId,t.head_image headImage,t.birthday,t.identity_card identityCard,
 		t.health_card healthCard,t.recommend_id recommendId,e.name recommend,t.address ,t.emergency_phone emergencyPhone, t.entry_date entryDate,
 		t.leave_date leaveDate,t.employee_status employeeStatus,t.base_salaries baseSalaries,t.position_salaries positionSalaries,
-		t.employee_desc employeeDesc, u.user_name userName
+		t.employee_desc employeeDesc, u.user_name userName, u.role_id roleId
 	from employee_info t
 	    left join dept_info d on d.dept_id=t.dept_id
 	    left join employee_level l on l.level_id=t.level_id

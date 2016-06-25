@@ -44,9 +44,9 @@ public class QiniuTestUpload {
 
 	public static void main(String[] args) throws QiniuException {
 	    
-	    File file = new File("D:\\click_add.png");
+	    File file = new File("D:\\404.png");
 	    Response response = uploadManager.put(file,
-              "click_add.png", auth.uploadToken(QINIU_SCOPE));
+              "zefun/error/404.png", auth.uploadToken(QINIU_SCOPE));
           String key = response.jsonToMap().get("key").toString();
           System.out.println(key);
 	    

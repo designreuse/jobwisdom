@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -163,8 +164,8 @@ public class EmployeeController extends BaseController{
 	 */
     @RequestMapping(value = Url.Employee.ADD)
     @ResponseBody
-	public BaseDto addEmployee(HttpServletRequest request, HttpServletResponse response, String addData){
-		JSONObject  jasonObject = JSONObject.fromObject(addData);
+	public BaseDto addEmployee(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jasonObject){
+//		JSONObject  jasonObject = JSONObject.fromObject(addData);
 		
 		EmployeeDto employeeDto = (EmployeeDto)JSONObject.toBean(jasonObject, EmployeeDto.class);
 		employeeDto.setStoreId(getStoreId(request));
@@ -229,8 +230,8 @@ public class EmployeeController extends BaseController{
      */
     @RequestMapping(value = Url.Employee.UPDATE)
     @ResponseBody
-    public BaseDto updateEmployee(HttpServletRequest request, HttpServletResponse response, String addData){
-        JSONObject jasonObject = JSONObject.fromObject(addData);
+    public BaseDto updateEmployee(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jasonObject){
+//        JSONObject jasonObject = JSONObject.fromObject(addData);
         EmployeeDto employeeDto = (EmployeeDto)JSONObject.toBean(jasonObject, EmployeeDto.class); 
         employeeDto.setStoreId(getStoreId(request));
         employeeDto.setCreateTime(DateUtil.getCurTime());
@@ -255,12 +256,11 @@ public class EmployeeController extends BaseController{
     * @param employeeId 员工标识
     * @return BaseDto
      */
-    @RequestMapping(value = Url.Employee.GET_DETAIL)
+    @RequestMapping(value = Url.Employee.GET_DETAIL, method=RequestMethod.POST)
     @ResponseBody
     public BaseDto getDetail(Integer employeeId){
        
         Map<String, Object> info=employeeService.getDetail(employeeId);
-        
         return new BaseDto(0, info);
     }
 
