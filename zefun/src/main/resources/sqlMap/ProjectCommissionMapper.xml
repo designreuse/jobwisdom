@@ -234,9 +234,6 @@
   <select id="selectByProperty" parameterType="com.zefun.web.entity.ProjectCommission" resultMap="BaseResultMap">
   	select <include refid="Base_Column_List" />
     from project_commission where 1 = 1 and is_deleted = 0 
-      <if test="shiftMahjongId != null" >
-        and shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER}
-      </if>
       <if test="projectId != null" >
         and project_id = #{projectId,jdbcType=INTEGER}
       </if>
@@ -249,42 +246,16 @@
       <if test="assignCash != null" >
         and assign_cash = #{assignCash,jdbcType=INTEGER}
       </if>
-      <if test="assignCardType != null" >
-        and assign_card_type = #{assignCardType,jdbcType=INTEGER}
-      </if>
+   
       <if test="assignCard != null" >
         and assign_card = #{assignCard,jdbcType=INTEGER}
       </if>
-      <if test="nonAssignCashType != null" >
-        and non_assign_cash_type = #{nonAssignCashType,jdbcType=INTEGER}
-      </if>
-      <if test="nonAssignCash != null" >
-        and non_assign_cash = #{nonAssignCash,jdbcType=INTEGER}
-      </if>
-      <if test="nonAssignCardType != null" >
-        and non_assign_card_type = #{nonAssignCardType,jdbcType=INTEGER}
-      </if>
-      <if test="nonAssignCard != null" >
-        and non_assign_card = #{nonAssignCard,jdbcType=INTEGER}
-      </if>
-      <if test="appointmentRewardType != null" >
-        and appointment_reward_type = #{appointmentRewardType,jdbcType=INTEGER}
-      </if>
-      <if test="appointmentReward != null" >
-        and appointment_reward = #{appointmentReward,jdbcType=INTEGER}
-      </if>
+  
       <if test="isDeleted != null" >
         and is_deleted = #{isDeleted,jdbcType=INTEGER}
       </if>
-      <if test="createTime != null" >
-        and create_time = #{createTime,jdbcType=CHAR}
-      </if>
-      <if test="updateTime != null" >
-        and update_time = #{updateTime,jdbcType=CHAR}
-      </if>
-      <if test="lastOperatorId != null" >
-        and last_operator_id = #{lastOperatorId,jdbcType=INTEGER}
-      </if>
+  
+ 
   </select>
   
   <insert id="insertProjectCommissionList" parameterType="java.util.List">  
@@ -356,4 +327,8 @@
      </foreach>
   </insert>
 
+	  <select id="selectShow" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		SELECT * FROM project_commission  AS p WHERE project_id =#{projectId,jdbcType=INTEGER} AND EXISTS(SELECT * FROM position_info AS s WHERE  s.position_id =p.position_id )  AND is_deleted=0
+  </select>
+	
 </mapper>

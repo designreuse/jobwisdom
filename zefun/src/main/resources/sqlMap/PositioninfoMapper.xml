@@ -159,6 +159,14 @@
   </select>
   
   <select id="selectPositionEpmployees" parameterType="java.lang.Integer" resultMap="PositionInfoMap">
-  		select * from position_info where store_id = #{storeId}
+  		select * from position_info where store_id = #{storeId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectPositionEpmployeesShow" parameterType="java.lang.Integer" resultMap="PositionInfoMap">
+  		SELECT * FROM position_info AS p WHERE EXISTS(SELECT * FROM project_step AS s WHERE project_id =#{projectId,jdbcType=INTEGER} AND s.position_id =p.position_id ) 
+  </select>
+  
+
+  
+  
 </mapper>

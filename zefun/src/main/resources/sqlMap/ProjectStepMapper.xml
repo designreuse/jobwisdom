@@ -194,4 +194,7 @@
   (#{positionId},#{stepPerformanceType},#{stepPerformance},#{isDeleted},#{projectId})
   </insert>
   
+   <select id="selectShowStep" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+ 			SELECT * FROM project_step AS p WHERE EXISTS(SELECT * FROM position_info AS s WHERE project_id =#{projectId,jdbcType=INTEGER} AND s.position_id =p.position_id ) AND is_deleted=0
+  </select>
 </mapper>

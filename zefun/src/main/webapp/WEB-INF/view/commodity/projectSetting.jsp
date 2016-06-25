@@ -588,23 +588,12 @@
 </script>
 
 <script>
-	var deptProjectList = $
-	{
-		js_deptProjectList
-	};
-	var deptMahjongList = $
-	{
-		mahjongList
-	};
-	var memberLevelList = $
-	{
-		memberLevelList
-	};
-	var employeeLevelList = $
-	{
-		employeeLevelList
-	};
-
+	var deptProjectList = ${js_deptProjectList};
+	var memberLevelList = ${memberLevelList};
+	var selectShowStep = ${selectShowStep};
+	var selectShow = ${selectShow};
+	var selectShowStep = ${selectShowStep};
+	var positionInfoDtoShow = ${positionInfoDtoShow};
 	var storeId = '${session_key_store_id}';
 	var projectId = '${projectId}';
 	var deptId = deptProjectList[0].deptId;
@@ -614,78 +603,7 @@
 	var projectDiscountList = null;
 	var projectStepList = null;
 
-	/**
-	 * 更换轮拍,更换职位信息
-	 */
-	function changeMahjongStep(shiftMahjongId) {
-		var html = '<tr>'
-				+ '<td style=" border-bottom: 1px solid #dbdce2 !important; border-right: 1px solid #dbdce2 !important;">职位名称</td>'
-				+ '<td>提成方式</td>' + '<td>指定提成</td>' + '<td>非指定提成</td>'
-				+ '<td>预约奖励</td>' + '<td>操作</td>' + '</tr>';
-		jQuery(".step_2").children("tbody").empty();
-		jQuery(".step_2").children("tbody").append(jQuery(html));
-		var tempList;
-		for (var i = 0; i < deptMahjongList.length; i++) {
-			if (deptMahjongList[i].deptId == deptId) {
-				for (var j = 0; j < deptMahjongList[i].mahjongLevelList.length; j++) {
-					if (deptMahjongList[i].mahjongLevelList[j].shiftMahjongId == shiftMahjongId) {
-						tempList = deptMahjongList[i].mahjongLevelList[j].employeeLevelList;
-					}
-				}
-			}
-		}
-		for (var j = 0; j < tempList.length; j++) {
-			var str = "<tr class='empLevel'>" + "<td>"
-					+ "<select name='levelId'>";
-			for (var i = 0; i < tempList.length; i++) {
-				var level = tempList[i];
-				str += "<option value='" + level.levelId + "'>"
-						+ level.levelName + "</option>";
-			}
-			str += '</select>'
-					+ '</td>'
-					+ '<td><select class="cut_step_7" name="assignType">'
-					+ '<option value="2">固定</option>'
-					+ '<option value="1">比例</option>'
-					+ '</select>'
-					+ '</td>'
-					+ '<td><input type="number" name="assignCash" class="cut_step_11"></td>'
-					+ '<td><input type="number" name="assignCard" class="cut_step_11"></td>'
-					+ '<td><input type="number" name="appointmentReward" class="cut_step_11"></td>'
-					+ '<td><span onclick="jQuery(this).parents(\'tr\').remove()">删除</span></td>'
-					+ '</tr>';
-			jQuery(".step_2").append(jQuery(str));
-		}
-		for (var j = 0; j < tempList.length; j++) {
-			jQuery(".step_2").find("select[name='levelId']").eq(j).find(
-					"option").eq(j).attr('selected', 'selected');
-			jQuery(".step_2").find("select[name='levelId']").eq(j).val(
-					tempList[j].levelId);
-		}
-	}
 
-	/**
-	 * 更换部门,更换轮拍和职位信息
-	 */
-	function checkUpdateLevel(deptIds) {
-		deptId = deptIds;
-		jQuery("select[name='shiftMahjongId']").empty();
-		for (var i = 0; i < deptMahjongList.length; i++) {
-			if (deptMahjongList[i].deptId == deptId) {
-				for (var j = 0; j < deptMahjongList[i].mahjongLevelList.length; j++) {
-					var shiftMahjongId = deptMahjongList[i].mahjongLevelList[j].shiftMahjongId;
-					var shiftMahjongName = deptMahjongList[i].mahjongLevelList[j].shiftMahjongName;
-					var html = '<option value="'+shiftMahjongId+'">'
-							+ shiftMahjongName + '</option>';
-					jQuery("select[name='shiftMahjongId']")
-							.append(jQuery(html));
-				}
-				if (deptMahjongList[i].mahjongLevelList.length == 0)
-					changeMahjongStep(0);
-				changeMahjongStep(deptMahjongList[i].mahjongLevelList[0].shiftMahjongId);
-			}
-		}
-	}
 	/**
 	 * 更换部门切换类别
 	 */
@@ -703,7 +621,7 @@
 				}
 			}
 		}
-		checkUpdateLevel(deptId);
+		/* checkUpdateLevel(deptId); */
 	}
 
 	/**
@@ -860,17 +778,12 @@
 						.find("option:selected").text();
 			})
 
-	u1
-			.ready(function() {
+	u1.ready(function() {
 				if (projectId != '') {
 					var projectDesc = '${projectDesc}';
 					project = eval('(' + '${projectInfo}' + ')');
-					projectCommissionList = eval('('
-							+ '${projectCommissionList}' + ')');
-					projectDiscountList = eval('(' + '${projectDiscountList}'
-							+ ')');
-					projectStepList = eval('(' + '${projectStepList}' + ')');
-					projectStep = project.projectStep;
+					projectCommissionList = eval('(' + '${projectCommissionList}' + ')');
+					projectDiscountList = eval('(' + '${projectDiscountList}' + ')');
 					deptId = project.deptId;
 
 					/**锁定项目基本信息*/
@@ -922,128 +835,6 @@
 							"input[name='isAppointment'][value='"
 									+ project.isAppointment + "']").click();
 
-					/**锁定轮牌职位信息*/
-					for (var i = 0; i < projectStepList.length; i++) {
-						var shiftMahjongId = projectStepList[i].shiftMahjongId;
-						var shiftMahjongName = null;
-						for (var m = 0; m < deptMahjongList.length; m++) {
-							if (deptMahjongList[m].deptId == deptId) {
-								for (var r = 0; r < deptMahjongList[m].mahjongLevelList.length; r++) {
-									if (deptMahjongList[m].mahjongLevelList[r].shiftMahjongId == shiftMahjongId) {
-										shiftMahjongName = deptMahjongList[m].mahjongLevelList[r].shiftMahjongName;
-									}
-								}
-							}
-						}
-
-						var step = projectStepList[i].projectStepOrder;
-						var rowspan = 0;
-						var isSame = [];
-
-						var disableList = [ '否', '是' ];
-						var assignTypeList = [ '', '比例', '固定' ];
-						var projectStepName = projectStepList[i].projectStepName;
-						var stepPerformanceType = projectStepList[i].stepPerformanceType;
-						var stepPerformanceTypeName = assignTypeList[stepPerformanceType];
-						var stepPerformance = projectStepList[i].stepPerformance;
-						var isDisable = projectStepList[i].isDisable;
-						for (var j = 0; j < projectCommissionList.length; j++) {
-							if (shiftMahjongId == projectCommissionList[j].shiftMahjongId) {
-								rowspan += 1;
-								isSame.push(j);
-							}
-						}
-
-						for (var j = 0; j < isSame.length; j++) {
-							var levelId = projectCommissionList[isSame[j]].levelId;
-							var levelName = null;
-							for (var m = 0; m < employeeLevelList.length; m++) {
-								if (employeeLevelList[m].levelId == levelId) {
-									levelName = employeeLevelList[m].levelName;
-								}
-							}
-							var assignType = projectCommissionList[isSame[j]].assignCashType;
-							var assignCash = projectCommissionList[isSame[j]].assignCash;
-							var assignCard = projectCommissionList[isSame[j]].assignCard;
-							var appointmentReward = projectCommissionList[isSame[j]].appointmentReward;
-							if (j == 0) {
-								var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'
-										+ '<td rowspan="'
-										+ rowspan
-										+ '" date="1" style="border-right: 1px solid #dbdce2!important;">'
-										+ '<span style="position:relative;top:50%">'
-										+ step
-										+ '</span>'
-										+ '</td><td>'
-										+ shiftMahjongName
-										+ '</td>'
-										+ '<td projectStepName="'+projectStepName+'">'
-										+ projectStepName
-										+ '</td>'
-										+ '<td stepPerformanceType="'+stepPerformanceType+'">'
-										+ stepPerformanceTypeName
-										+ '</td>'
-										+ '<td stepPerformance="'+stepPerformance+'">'
-										+ stepPerformance
-										+ '</td>'
-										+ '<td isDisable="'+isDisable+'">'
-										+ disableList[isDisable]
-										+ '</td>'
-										+ '<td levelId="'+levelId+'">'
-										+ levelName
-										+ '</td>'
-										+ '<td assignType="'+assignType+'">'
-										+ assignTypeList[assignType]
-										+ '</td>'
-										+ '<td assignCash="'+assignCash+'">'
-										+ assignCash
-										+ '</td>'
-										+ '<td assignCard="'+assignCard+'">'
-										+ assignCard
-										+ '</td>'
-										+ '<td appointmentReward="'+appointmentReward+'">'
-										+ appointmentReward
-										+ '</td>'
-										+ '<td rowspan="'
-										+ rowspan
-										+ '" style="border-right: 1px solid #dbdce2!important;box-shadow: 0 0 10px #ccc;" onclick="updateProjectLevelStep(this)">'
-										+ '<span>编辑</span>' + '</td>' + '</tr>');
-								jQuery('.table_s').append(tr);
-							} else {
-								var tr = jQuery('<tr shiftMahjongId="'+shiftMahjongId+'" step='+step+'>'
-										+ '<td>'
-										+ shiftMahjongName
-										+ '</td>'
-										+ '<td projectStepName="'+projectStepName+'">'
-										+ projectStepName
-										+ '</td>'
-										+ '<td stepPerformanceType="'+stepPerformanceType+'">'
-										+ stepPerformanceTypeName
-										+ '</td>'
-										+ '<td stepPerformance="'+stepPerformance+'">'
-										+ stepPerformance
-										+ '</td>'
-										+ '<td isDisable="'+isDisable+'">'
-										+ disableList[isDisable]
-										+ '</td>'
-										+ '<td levelId="'+levelId+'">'
-										+ levelName
-										+ '</td>'
-										+ '<td assignType="'+assignType+'">'
-										+ assignTypeList[assignType]
-										+ '</td>'
-										+ '<td assignCash="'+assignCash+'">'
-										+ assignCash
-										+ '</td>'
-										+ '<td assignCard="'+assignCard+'">'
-										+ assignCard
-										+ '</td>'
-										+ '<td appointmentReward="'+appointmentReward+'">'
-										+ appointmentReward + '</td>' + '</tr>');
-								jQuery('.table_s').append(tr);
-							}
-						}
-					}
 
 					for (var i = 0; i < projectDiscountList.length; i++) {
 						var levelId = projectDiscountList[i].levelId;

@@ -41,6 +41,8 @@ public interface ProjectCommissionMapper {
      */
     ProjectCommission selectByPrimaryKey(Integer commissionId);
 
+  
+    
     /**
      * 更新
     * @author 洪秋霞
@@ -122,4 +124,12 @@ public interface ProjectCommissionMapper {
      */
     int insertTive (ProjectCommission projectCommission);
     
+    /**
+     *  回显提成
+    * @author 骆峰
+    * @date 2016年6月25日 下午7:20:20
+    * @param projectId projectId
+    * @return ProjectCommission
+     */
+    ProjectCommission selectShow(Integer projectId);
 }

@@ -92,4 +92,12 @@ public interface ProjectStepMapper {
     * @return int
      */
     int insertStep(ProjectStep projectStep);
+    /**
+     *  回显
+    * @author 骆峰
+    * @date 2016年6月25日 下午7:35:40
+    * @param projectId projectId
+    * @return ProjectStep
+     */
+    List<ProjectStep> selectShowStep(Integer projectId);
 }

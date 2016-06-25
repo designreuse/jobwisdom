@@ -154,6 +154,16 @@ public interface PositioninfoMapper {
      */
     List<PositionInfoDto> selectPositionEpmployees(Integer storeId);
     
+    /**
+     * 查询岗位职位等级关联关系 回显
+    * @author 骆峰
+    * @date 2016年6月25日 下午7:06:26
+    * @param projectId 岗位标识
+    * @return  关联集合类
+     */
+    List<PositionInfoDto> selectPositionEpmployeesShow(Integer projectId);
+    
+    
    /**
     * 谁也别用,特殊方法
     * @author 高国藩

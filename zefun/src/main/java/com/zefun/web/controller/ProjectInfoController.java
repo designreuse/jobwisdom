@@ -52,6 +52,8 @@ import com.zefun.web.mapper.ComboProjectMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
+import com.zefun.web.mapper.ProjectCommissionMapper;
+import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.service.EmployeelevelService;
 import com.zefun.web.service.MemberLevelService;
 import com.zefun.web.service.ProjectService;
@@ -86,6 +88,14 @@ public class ProjectInfoController extends BaseController {
     /** 岗位操作 */
     @Autowired
     private PositioninfoMapper positioninfoMapper;
+    
+    /** 提成操作 */
+    @Autowired
+    private ProjectCommissionMapper projectCommissionMapper;
+    
+    /** 提成方式操作 */
+    @Autowired
+    private ProjectStepMapper projectStepMapper;
 
 
     /**
@@ -105,8 +115,7 @@ public class ProjectInfoController extends BaseController {
             ModelAndView model) {
         int storeId = getStoreId(request);
 
-        List<DeptProjectBaseDto> deptProjectList = projectService
-                .getDeptProjectByStoreId(storeId);
+        List<DeptProjectBaseDto> deptProjectList = projectService.getDeptProjectByStoreId(storeId);
         model.addObject("deptProjectList", deptProjectList);
         model.addObject("js_deptProjectList",
                 JSONArray.fromObject(deptProjectList));
@@ -132,37 +141,31 @@ public class ProjectInfoController extends BaseController {
         List<MemberLevelDto> memberLevelList = memberLevelService
                 .queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
-        model.addObject("memberLevelList",
-                JSONArray.fromObject(memberLevelList).toString());
+        model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList).toString());
         List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();
         model.addObject("images", images);
-
-        List<PositionInfoDto> positionInfoDtos = positioninfoMapper
-                .selectPositionEpmployees(storeId);
+        List<PositionInfoDto> positionInfoDtos = positioninfoMapper.selectPositionEpmployees(storeId);
         model.addObject("positionInfoDtos", positionInfoDtos);
 
         if (projectId != null) {
-            BaseDto baseDto = queryProjectInfoById(request, response,
-                    projectId);
+            model.addObject("projectId", projectId);
+            BaseDto baseDto = queryProjectInfoById(request, response, projectId);
             Map<String, Object> map = (Map<String, Object>) baseDto.getMsg();
             ProjectInfo projectInfo = (ProjectInfo) map.get("projectInfo");
-            List<ProjectCommission> projectCommissionList = (List<ProjectCommission>) map
-                    .get("projectCommissionList");
-            List<ProjectDiscount> projectDiscountList = (List<ProjectDiscount>) map
-                    .get("projectDiscountList");
-            List<ProjectStep> projectStepList = (List<ProjectStep>) map
-                    .get("projectStepList");
-
+            List<ProjectDiscount> projectDiscountList = (List<ProjectDiscount>) map.get("projectDiscountList");
             model.addObject("projectDesc", projectInfo.getProjectDesc());
             projectInfo.setProjectDesc(null);
+            
+            ProjectCommission selectShow = projectCommissionMapper.selectShow(projectId);
+            List<PositionInfoDto> positionInfoDtoShow = positioninfoMapper.selectPositionEpmployeesShow(projectId);
+            List<ProjectStep> selectShowStep = projectStepMapper.selectShowStep(projectId);
             model.addObject("projectInfo", JSONObject.fromObject(projectInfo));
-            model.addObject("projectCommissionList",
-                    JSONArray.fromObject(projectCommissionList));
-            model.addObject("projectDiscountList",
-                    JSONArray.fromObject(projectDiscountList));
-            model.addObject("projectStepList",
-                    JSONArray.fromObject(projectStepList));
-            model.addObject("projectId", projectInfo.getProjectId());
+            model.addObject("projectDiscountList", JSONArray.fromObject(projectDiscountList));
+            model.addObject("projectCommissionList", JSONArray.fromObject(map.get("projectCommissionList")));
+            model.addObject("positionInfoDtos", positionInfoDtoShow);
+            model.addObject("positionInfo", JSONArray.fromObject(positionInfoDtoShow));
+            model.addObject("selectShow", JSONArray.fromObject(selectShow));
+            model.addObject("selectShowStep", JSONArray.fromObject(selectShowStep));
         }
 
         model.setViewName(View.Project.PROJECTSETTING);
