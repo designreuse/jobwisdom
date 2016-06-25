@@ -2,40 +2,35 @@ package com.zefun.web.entity;
 
 import java.math.BigDecimal;
 
-/**
- * 
-* @author éª†å³°
-* @date 2016å¹´6æœˆ25æ—¥ ä¸‹åˆ12:39:07
- */
 public class ProjectStep {
-    /** é¡¹ç›®æ­¥éª¤æ ‡è¯† */
+    /** ÏîÄ¿²½Öè±êÊ¶ */
     private Integer projectStepId;
 
-    /** é¡¹ç›®æ­¥éª¤åç§° */
+    /** ÏîÄ¿²½ÖèÃû³Æ */
     private String projectStepName;
 
-    /** æ­¥éª¤ä¸šç»©è®¡ç®—æ–¹å¼(1:å›ºå®šï¼Œ2:æ¯”ä¾‹) */
+    /** ²½ÖèÒµ¼¨¼ÆËã·½Ê½(1:¹Ì¶¨£¬2:±ÈÀı) */
     private Integer stepPerformanceType;
 
-    /** æ­¥éª¤ä¸šç»©è®¡ç®— */
+    /** ²½ÖèÒµ¼¨¼ÆËã */
     private BigDecimal stepPerformance;
 
-    /** é¡¹ç›®æ ‡è¯† */
+    /** ÏîÄ¿±êÊ¶ */
     private Integer projectId;
 
-    /** æ˜¯å¦åˆ é™¤(0:æœªåˆ é™¤,1:å·²åˆ é™¤) */
+    /** ÊÇ·ñÉ¾³ı(0:Î´É¾³ı,1:ÒÑÉ¾³ı) */
     private Integer isDeleted;
 
-    /** åˆ›å»ºæ—¶é—´ */
+    /** ´´½¨Ê±¼ä */
     private String createTime;
 
-    /** ä¿®æ”¹æ—¶é—´ */
+    /** ĞŞ¸ÄÊ±¼ä */
     private String updateTime;
 
-    /** æœ€åæ“ä½œäººæ ‡è¯† */
+    /** ×îºó²Ù×÷ÈË±êÊ¶ */
     private Integer lastOperatorId;
 
-    /** å²—ä½æ ‡è¯† */
+    /** ¸ÚÎ»±êÊ¶ */
     private Integer positionId;
 
     public Integer getProjectStepId() {

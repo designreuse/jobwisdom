@@ -35,10 +35,13 @@ import com.zefun.web.dto.DeptMahjongDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.EmployeeLevelBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
+import com.zefun.web.dto.PositionInfoDto;
+import com.zefun.web.dto.ProjectStepDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.EmployeeLevel;
 import com.zefun.web.entity.OrderDetail;
+import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
 import com.zefun.web.entity.ProjectDiscount;
@@ -46,7 +49,9 @@ import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.ComboProjectMapper;
+import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.service.EmployeelevelService;
 import com.zefun.web.service.MemberLevelService;
 import com.zefun.web.service.ProjectService;
@@ -61,18 +66,27 @@ import com.zefun.web.service.ProjectService;
 public class ProjectInfoController extends BaseController {
 
     /**项目*/
-    @Autowired private ProjectService projectService;
+    @Autowired
+    private ProjectService projectService;
     /**会员等级*/
-    @Autowired private MemberLevelService memberLevelService;
+    @Autowired
+    private MemberLevelService memberLevelService;
     /**职位信息*/
-    @Autowired private EmployeelevelService employeelevelService;
+    @Autowired
+    private EmployeelevelService employeelevelService;
     /**查询图库*/
-    @Autowired private CodeLibraryMapper codeLibraryMapper;
+    @Autowired
+    private CodeLibraryMapper codeLibraryMapper;
     /**订单列表*/
-    @Autowired private OrderDetailMapper orderDetailMapper;
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
     /**套餐项目关联*/
     @Autowired
     private ComboProjectMapper comboProjectMapper;
+    /** 岗位操作 */
+    @Autowired
+    private PositioninfoMapper positioninfoMapper;
+
 
     /**
      * 进入项目价格设置页面
@@ -86,53 +100,75 @@ public class ProjectInfoController extends BaseController {
      */
     @SuppressWarnings("unchecked")
     @RequestMapping(value = Url.Project.PROJECT_LIST)
-    public ModelAndView toProjectSetting(HttpServletRequest request, HttpServletResponse response, Integer projectId, ModelAndView model) {
+    public ModelAndView toProjectSetting(HttpServletRequest request,
+            HttpServletResponse response, Integer projectId,
+            ModelAndView model) {
         int storeId = getStoreId(request);
-        
-        List<DeptProjectBaseDto> deptProjectList = projectService.getDeptProjectByStoreId(storeId);
-        model.addObject("deptProjectList", deptProjectList);
-        model.addObject("js_deptProjectList", JSONArray.fromObject(deptProjectList));
-        
-        List<DeptMahjongDto> deptMahjongList = projectService.getDeptMahjongByStoreId(storeId);
-        model.addObject("deptMahjongList", deptMahjongList);
-        model.addObject("mahjongList", JSONArray.fromObject(deptMahjongList).toString());
 
-        List<EmployeeLevelBaseDto> employeeLevelList = deptMahjongList.stream()
-            .flatMap(dml -> dml.getMahjongLevelList()
-            .stream().flatMap(mll -> mll.getEmployeeLevelList()
-            .stream())).collect(Collectors.toList());
-        
-        if (employeeLevelList!=null){
-            model.addObject("employeeLevelList", JSONArray.fromObject(employeeLevelList));
-        }
-        
+        List<DeptProjectBaseDto> deptProjectList = projectService
+                .getDeptProjectByStoreId(storeId);
+        model.addObject("deptProjectList", deptProjectList);
+        model.addObject("js_deptProjectList",
+                JSONArray.fromObject(deptProjectList));
+
+        // List<DeptMahjongDto> deptMahjongList =
+        // projectService.getDeptMahjongByStoreId(storeId);
+        // model.addObject("deptMahjongList", deptMahjongList);
+        // model.addObject("mahjongList",
+        // JSONArray.fromObject(deptMahjongList).toString());
+        //
+        // List<EmployeeLevelBaseDto> employeeLevelList =
+        // deptMahjongList.stream()
+        // .flatMap(dml -> dml.getMahjongLevelList()
+        // .stream().flatMap(mll -> mll.getEmployeeLevelList()
+        // .stream())).collect(Collectors.toList());
+        //
+        // if (employeeLevelList!=null){
+        // model.addObject("employeeLevelList",
+        // JSONArray.fromObject(employeeLevelList));
+        // }
+
         // 会员等级列表
-        List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
+        List<MemberLevelDto> memberLevelList = memberLevelService
+                .queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
-        model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList).toString());
+        model.addObject("memberLevelList",
+                JSONArray.fromObject(memberLevelList).toString());
         List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();
         model.addObject("images", images);
-        
-        if (projectId!=null){
-            BaseDto baseDto = queryProjectInfoById(request, response, projectId);
+
+        List<PositionInfoDto> positionInfoDtos = positioninfoMapper
+                .selectPositionEpmployees(storeId);
+        model.addObject("positionInfoDtos", positionInfoDtos);
+
+        if (projectId != null) {
+            BaseDto baseDto = queryProjectInfoById(request, response,
+                    projectId);
             Map<String, Object> map = (Map<String, Object>) baseDto.getMsg();
             ProjectInfo projectInfo = (ProjectInfo) map.get("projectInfo");
-            List<ProjectCommission> projectCommissionList = (List<ProjectCommission>) map.get("projectCommissionList");
-            List<ProjectDiscount> projectDiscountList = (List<ProjectDiscount>) map.get("projectDiscountList");
-            List<ProjectStep> projectStepList = (List<ProjectStep>) map.get("projectStepList");
+            List<ProjectCommission> projectCommissionList = (List<ProjectCommission>) map
+                    .get("projectCommissionList");
+            List<ProjectDiscount> projectDiscountList = (List<ProjectDiscount>) map
+                    .get("projectDiscountList");
+            List<ProjectStep> projectStepList = (List<ProjectStep>) map
+                    .get("projectStepList");
+
             model.addObject("projectDesc", projectInfo.getProjectDesc());
             projectInfo.setProjectDesc(null);
             model.addObject("projectInfo", JSONObject.fromObject(projectInfo));
-            model.addObject("projectCommissionList", JSONArray.fromObject(projectCommissionList));
-            model.addObject("projectDiscountList", JSONArray.fromObject(projectDiscountList));
-            model.addObject("projectStepList", JSONArray.fromObject(projectStepList));
+            model.addObject("projectCommissionList",
+                    JSONArray.fromObject(projectCommissionList));
+            model.addObject("projectDiscountList",
+                    JSONArray.fromObject(projectDiscountList));
+            model.addObject("projectStepList",
+                    JSONArray.fromObject(projectStepList));
             model.addObject("projectId", projectInfo.getProjectId());
         }
-       
+
         model.setViewName(View.Project.PROJECTSETTING);
         return model;
     }
-    
+
     /**
      * 进入新风格项目列表页面
     * @author 高国藩
@@ -144,58 +180,67 @@ public class ProjectInfoController extends BaseController {
      * @throws IOException 
      */
     @RequestMapping(value = Url.Project.PROJECT_INFO_LIST)
-    public ModelAndView viewProjects(HttpServletRequest request, HttpServletResponse response, Integer categoryId) throws IOException {
+    public ModelAndView viewProjects(HttpServletRequest request,
+            HttpServletResponse response, Integer categoryId)
+            throws IOException {
         Integer storeId = getStoreId(request);
         return projectService.viewProjects(storeId, categoryId);
     }
-    
-//    /**
-//     * 保存项目
-//    * @author 高国藩
-//    * @date 2016年4月25日 下午5:59:57
-//    * @param request   request
-//    * @param response  response
-//    * @param stepNum   编辑步骤
-//    * @param data      数据
-//    * @param status    0/1 新增/修改
-//    * @return          状态
-//     */
-//    @RequestMapping(value = Url.Project.PROJECT_SAVE_STEP, method=RequestMethod.POST)
-//    @ResponseBody
-//    public BaseDto saveProjectByStep(HttpServletRequest request, HttpServletResponse response, 
-//            @PathVariable("stepNum")Integer stepNum, @PathVariable("status")Integer status, 
-//            @RequestBody JSONObject data) {
-//        
-//        // 初次创建项目
-//        if (status==0&&stepNum==1){
-//            return projectService.saveProjectInfo((ProjectInfo)JSONObject.toBean(data, ProjectInfo.class), stepNum);
-//        }
-//        // 新增价格设置
-//        if (status==0&&stepNum==2){
-//            return projectService.updateProjectInfoPrice((ProjectInfo)JSONObject.toBean(data, ProjectInfo.class), stepNum);
-//        }
-//        // 职位提成新增
-//        if (status==0&&stepNum==3){
-//            return projectService.saveOrUpdateCommison(data, status);
-//        }
-//        if (status==0&&stepNum==4){
-//            return projectService.saveLevelDiscount(data);
-//        }
-//        if (status==1&&stepNum==1){
-//            return projectService.updateProjectBystepNum(data, stepNum);
-//        }
-//        if (status==1&&stepNum==2){
-//            return projectService.updateProjectBystepNum(data, stepNum);
-//        }
-//        if (status==1&&stepNum==3){
-//            return projectService.updateProjectBystepNum(data, stepNum);
-//        }
-//        if (status==1&&stepNum==4){
-//            return projectService.saveLevelDiscount(data);
-//        }
-//        return null;
-//    }
-    
+
+    // /**
+    // * 保存项目
+    // * @author 高国藩
+    // * @date 2016年4月25日 下午5:59:57
+    // * @param request request
+    // * @param response response
+    // * @param stepNum 编辑步骤
+    // * @param data 数据
+    // * @param status 0/1 新增/修改
+    // * @return 状态
+    // */
+    // @RequestMapping(value = Url.Project.PROJECT_SAVE_STEP,
+    // method=RequestMethod.POST)
+    // @ResponseBody
+    // public BaseDto saveProjectByStep(HttpServletRequest request,
+    // HttpServletResponse response,
+    // @PathVariable("stepNum")Integer stepNum, @PathVariable("status")Integer
+    // status,
+    // @RequestBody JSONObject data) {
+    //
+    // // 初次创建项目
+    // if (status==0&&stepNum==1){
+    // return
+    // projectService.saveProjectInfo((ProjectInfo)JSONObject.toBean(data,
+    // ProjectInfo.class), stepNum);
+    // }
+    // // 新增价格设置
+    // if (status==0&&stepNum==2){
+    // return
+    // projectService.updateProjectInfoPrice((ProjectInfo)JSONObject.toBean(data,
+    // ProjectInfo.class), stepNum);
+    // }
+    // // 职位提成新增
+    // if (status==0&&stepNum==3){
+    // return projectService.saveOrUpdateCommison(data, status);
+    // }
+    // if (status==0&&stepNum==4){
+    // return projectService.saveLevelDiscount(data);
+    // }
+    // if (status==1&&stepNum==1){
+    // return projectService.updateProjectBystepNum(data, stepNum);
+    // }
+    // if (status==1&&stepNum==2){
+    // return projectService.updateProjectBystepNum(data, stepNum);
+    // }
+    // if (status==1&&stepNum==3){
+    // return projectService.updateProjectBystepNum(data, stepNum);
+    // }
+    // if (status==1&&stepNum==4){
+    // return projectService.saveLevelDiscount(data);
+    // }
+    // return null;
+    // }
+
     /**
      * 保存或者修改操作
     * @author 高国藩
@@ -206,19 +251,25 @@ public class ProjectInfoController extends BaseController {
     * @return 新增状态(返回项目信息)
      */
     @SuppressWarnings("unchecked")
-    @RequestMapping(value = Url.Project.PROJECT_SAVE_NEW, method=RequestMethod.POST)
+    @RequestMapping(value = Url.Project.PROJECT_SAVE_NEW, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto saveProjectOrUpdate(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObject) {
+    public BaseDto saveProjectOrUpdate(HttpServletRequest request,
+            HttpServletResponse response, @RequestBody JSONObject jsonObject) {
         Integer storeId = getStoreId(request);
-        ProjectInfo projectInfo = (ProjectInfo) JSONObject.toBean(jsonObject.getJSONObject("projectInfo"), ProjectInfo.class);
+        ProjectInfo projectInfo = (ProjectInfo) JSONObject.toBean(
+                jsonObject.getJSONObject("projectInfo"), ProjectInfo.class);
         List<ProjectDiscount> discounts = (List<ProjectDiscount>) JSONArray
-                .toCollection(jsonObject.getJSONArray("projectLevel"), ProjectDiscount.class);
-//        List<ProjectStep> projectSteps = (List<ProjectStep>) JSONArray
-//                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("step"), ProjectStep.class);
-//        List<ProjectCommission> projectCommission = (List<ProjectCommission>) JSONArray
-//                .toCollection(jsonObject.getJSONObject("projectShit").getJSONArray("commission"), ProjectCommission.class);
-        //罗峰
-        return projectService.saveProjectOrUpdate(storeId, projectInfo, discounts, projectSteps, projectCommission);
+                .toCollection(jsonObject.getJSONArray("projectLevel"),
+                        ProjectDiscount.class);
+
+        List<ProjectStep> projectStep = (List<ProjectStep>) JSONArray
+                .toCollection(jsonObject.getJSONArray("project"),
+                        ProjectStep.class);
+        List<ProjectCommission> projectCommission = (List<ProjectCommission>) JSONArray
+                .toCollection(jsonObject.getJSONArray("projectCommission"),
+                        ProjectCommission.class);
+        return projectService.saveProjectOrUpdate(storeId, projectInfo,
+                discounts, projectStep, projectCommission);
     }
 
     /**
@@ -232,14 +283,18 @@ public class ProjectInfoController extends BaseController {
      */
     @RequestMapping(value = Url.Project.QUERY_SHIFTMAHBY_DEPID)
     @ResponseBody
-    public BaseDto queryShiftMahByDepId(HttpServletRequest request, HttpServletResponse response, Integer deptId) {
+    public BaseDto queryShiftMahByDepId(HttpServletRequest request,
+            HttpServletResponse response, Integer deptId) {
         try {
-            List<ShiftMahjongDto> shiftMahjongDtoList = projectService.queryShiftMahjongList(deptId);
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjongDtoList);
-        }
+            List<ShiftMahjongDto> shiftMahjongDtoList = projectService
+                    .queryShiftMahjongList(deptId);
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                    shiftMahjongDtoList);
+        } 
         catch (Exception e) {
             e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
+                    App.System.API_RESULT_MSG_FOR_FAIL);
         }
     }
 
@@ -254,30 +309,38 @@ public class ProjectInfoController extends BaseController {
      */
     @RequestMapping(value = Url.Project.QUERY_SHIFTMAH_BYLEVELID)
     @ResponseBody
-    public BaseDto queryShiftMahByLevelId(HttpServletRequest request, HttpServletResponse response, String shiftMahjongId) {
+    public BaseDto queryShiftMahByLevelId(HttpServletRequest request,
+            HttpServletResponse response, String shiftMahjongId) {
         try {
             String[] shiftMahjongIdArr = shiftMahjongId.split(",");
             List<Integer> shiftMahjongIds = new ArrayList<Integer>();
-            if (shiftMahjongIdArr != null && !"null".equals(shiftMahjongIdArr)) {
+            if (shiftMahjongIdArr != null
+                    && !"null".equals(shiftMahjongIdArr)) {
                 for (int i = 0; i < shiftMahjongIdArr.length; i++) {
                     shiftMahjongIds.add(Integer.parseInt(shiftMahjongIdArr[i]));
                 }
-                List<Integer> levelIds = projectService.queryShiftMahjongByLevelId(shiftMahjongIds);
+                List<Integer> levelIds = projectService
+                        .queryShiftMahjongByLevelId(shiftMahjongIds);
                 if (levelIds.size() > 0) {
-                    List<EmployeeLevel> employeeLevelList = employeelevelService.queryByLevelIds(levelIds);
-                    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, employeeLevelList);
-                }
+                    List<EmployeeLevel> employeeLevelList = employeelevelService
+                            .queryByLevelIds(levelIds);
+                    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                            employeeLevelList);
+                } 
                 else {
-                    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_FAIL);
+                    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                            App.System.API_RESULT_MSG_FOR_FAIL);
                 }
-            }
+            } 
             else {
-                return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_FAIL);
+                return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                        App.System.API_RESULT_MSG_FOR_FAIL);
             }
-        }
+        } 
         catch (Exception e) {
             e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
+                    App.System.API_RESULT_MSG_FOR_FAIL);
         }
     }
 
@@ -292,32 +355,38 @@ public class ProjectInfoController extends BaseController {
      */
     @RequestMapping(value = Url.Project.QUERY_PROJECTINFO_BYID)
     @ResponseBody
-    public BaseDto queryProjectInfoById(HttpServletRequest request, HttpServletResponse response, Integer projectId) {
+    public BaseDto queryProjectInfoById(HttpServletRequest request,
+            HttpServletResponse response, Integer projectId) {
         try {
-            ProjectInfo projectInfo = projectService.queryProjectInfoById(projectId);
+            ProjectInfo projectInfo = projectService
+                    .queryProjectInfoById(projectId);
             // 员工项目提成
             ProjectCommission projectCommission = new ProjectCommission();
             projectCommission.setProjectId(projectId);
-            List<ProjectCommission> projectCommissionList = projectService.queryProjectCommissionList(projectCommission);
+            List<ProjectCommission> projectCommissionList = projectService
+                    .queryProjectCommissionList(projectCommission);
 
             // 会员折扣
             ProjectDiscount projectDiscount = new ProjectDiscount();
             projectDiscount.setProjectId(projectId);
-            List<ProjectDiscount> projectDiscountList = projectService.queryProjectDiscountList(projectDiscount);
+            List<ProjectDiscount> projectDiscountList = projectService
+                    .queryProjectDiscountList(projectDiscount);
 
             // 项目轮牌步骤
-            List<ProjectStep> projectStepList = projectService.queryProjectStepByPIdList(projectId);
-            
+            List<ProjectStep> projectStepList = projectService
+                    .queryProjectStepByPIdList(projectId);
+
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("projectInfo", projectInfo);
             map.put("projectCommissionList", projectCommissionList);
             map.put("projectDiscountList", projectDiscountList);
             map.put("projectStepList", projectStepList);
             return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
-        }
+        } 
         catch (Exception e) {
             e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
+                    App.System.API_RESULT_MSG_FOR_FAIL);
         }
     }
 
@@ -333,17 +402,19 @@ public class ProjectInfoController extends BaseController {
      */
     @RequestMapping(value = Url.Project.SAVE_PROJECT_CATEGORY)
     @ResponseBody
-    public BaseDto saveProjectCategory(HttpServletRequest request, HttpServletResponse response, Integer deptId, String categoryName) {
+    public BaseDto saveProjectCategory(HttpServletRequest request,
+            HttpServletResponse response, Integer deptId, String categoryName) {
         ProjectCategory projectCategory = new ProjectCategory();
         projectCategory.setCategoryName(categoryName);
         projectCategory.setDeptId(deptId);
         projectCategory.setStoreId(getStoreId(request));
         projectCategory.setCreateTime(DateUtil.getCurTime());
-        Integer categoryId = projectService.saveProjectCategory(projectCategory);
+        Integer categoryId = projectService
+                .saveProjectCategory(projectCategory);
         projectService.cleanRedisCacheByDeptId(deptId);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, categoryId);
     }
-    
+
     /**
      * 系列列表页面
     * @author 高国藩
@@ -353,11 +424,12 @@ public class ProjectInfoController extends BaseController {
     * @return           ModelAndView
      */
     @RequestMapping(value = Url.Project.PROJECT_CATEGORY_VIEW)
-    public ModelAndView projectCategoryView(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView projectCategoryView(HttpServletRequest request,
+            HttpServletResponse response) {
         Integer storeId = getStoreId(request);
         return projectService.projectCategoryView(storeId);
     }
-    
+
     /**
      * 保存项目类别集合
     * @author 洪秋霞
@@ -368,9 +440,11 @@ public class ProjectInfoController extends BaseController {
     * @param categoryName   系列名称
     * @return BaseDto
      */
-    @RequestMapping(value = Url.Project.SAVE_PROJECT_CATEGORY_LIST, method=RequestMethod.POST)
+    @RequestMapping(value = Url.Project.SAVE_PROJECT_CATEGORY_LIST, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto saveProjectCategoryList(HttpServletRequest request, HttpServletResponse response, Integer deptId, String[] categoryName) {
+    public BaseDto saveProjectCategoryList(HttpServletRequest request,
+            HttpServletResponse response, Integer deptId,
+            String[] categoryName) {
         List<ProjectCategory> ls = new ArrayList<ProjectCategory>();
         for (int i = 0; i < categoryName.length; i++) {
             ProjectCategory projectCategory = new ProjectCategory();
@@ -378,7 +452,8 @@ public class ProjectInfoController extends BaseController {
             projectCategory.setDeptId(deptId);
             projectCategory.setStoreId(getStoreId(request));
             projectCategory.setCreateTime(DateUtil.getCurTime());
-            Integer categoryId = projectService.saveProjectCategory(projectCategory);
+            Integer categoryId = projectService
+                    .saveProjectCategory(projectCategory);
             projectCategory.setCategoryId(categoryId);
             ls.add(projectCategory);
         }
@@ -398,22 +473,26 @@ public class ProjectInfoController extends BaseController {
      */
     @RequestMapping(value = Url.Project.DELETE_PROJECT_CATEGORY)
     @ResponseBody
-    public BaseDto deleteProjectCategory(HttpServletRequest request, HttpServletResponse response, Integer categoryId, Integer deptId) {
+    public BaseDto deleteProjectCategory(HttpServletRequest request,
+            HttpServletResponse response, Integer categoryId, Integer deptId) {
         String[] projectIds = request.getParameterValues("projectId");
-        if (projectIds!=null&&projectIds.length>0){
+        if (projectIds != null && projectIds.length > 0) {
             for (int j = 0; j < projectIds.length; j++) {
                 ComboProject comboProject = new ComboProject();
                 comboProject.setProjectId(Integer.parseInt(projectIds[j]));
-                List<ComboProject> comboProjects = comboProjectMapper.selectByProperty(comboProject);
-                if (comboProjects!=null&&comboProjects.size()>0){
-                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该系列下项目在套餐中引用不可删除");
+                List<ComboProject> comboProjects = comboProjectMapper
+                        .selectByProperty(comboProject);
+                if (comboProjects != null && comboProjects.size() > 0) {
+                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
+                            "该系列下项目在套餐中引用不可删除");
                 }
                 projectService.deleteProject(Integer.parseInt(projectIds[j]));
             }
         }
         projectService.deleteProjectCategory(categoryId);
         projectService.cleanRedisCacheByDeptId(deptId);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
 
     /**
@@ -427,12 +506,15 @@ public class ProjectInfoController extends BaseController {
      */
     @RequestMapping(value = Url.Project.EDIT_PROJECT_CATEGORY)
     @ResponseBody
-    public BaseDto editProjectCategory(HttpServletRequest request, HttpServletResponse response, Integer deptId) {
+    public BaseDto editProjectCategory(HttpServletRequest request,
+            HttpServletResponse response, Integer deptId) {
         String categoryId = request.getParameter("categoryId");
         String categoryName = request.getParameter("categoryName");
-        projectService.editProjectCategory(Integer.parseInt(categoryId), categoryName);
+        projectService.editProjectCategory(Integer.parseInt(categoryId),
+                categoryName);
         projectService.cleanRedisCacheByDeptId(deptId);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
 
     /**
@@ -446,13 +528,17 @@ public class ProjectInfoController extends BaseController {
      */
     @RequestMapping(value = Url.Project.SAVE_PROJECT)
     @ResponseBody
-    public BaseDto saveProject(HttpServletRequest request, HttpServletResponse response, ProjectInfo projectInfo) {
-        BaseDto baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-        
+    public BaseDto saveProject(HttpServletRequest request,
+            HttpServletResponse response, ProjectInfo projectInfo) {
+        BaseDto baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                App.System.API_RESULT_MSG_FOR_SUCCEES);
+
         String[] levelId = request.getParameterValues("levelId");
-        String[] discountProportion = request.getParameterValues("discountProportion");
+        String[] discountProportion = request
+                .getParameterValues("discountProportion");
         String[] discountAmount = request.getParameterValues("discountAmount");
-        String[] onlineAppointmentPrice = request.getParameterValues("onlineAppointmentPrice");
+        String[] onlineAppointmentPrice = request
+                .getParameterValues("onlineAppointmentPrice");
 
         String[] empLevelId = request.getParameterValues("empLevelId");
         String[] assignType = request.getParameterValues("assignType");
@@ -460,38 +546,53 @@ public class ProjectInfoController extends BaseController {
         String[] assignCard = request.getParameterValues("assignCard");
         String[] nonAssignCash = request.getParameterValues("assignCash");
         String[] nonAssignCard = request.getParameterValues("assignCard");
-        String[] appointmentReward = request.getParameterValues("appointmentReward");
+        String[] appointmentReward = request
+                .getParameterValues("appointmentReward");
 
-        String[] shiftMahjongIdArr = request.getParameterValues("shiftMahjongId");
+        String[] shiftMahjongIdArr = request
+                .getParameterValues("shiftMahjongId");
         String[] shiftStepNameArr = request.getParameterValues("shiftStepName");
-        String[] stepPerformanceArr = request.getParameterValues("stepPerformanceDate");
+        String[] stepPerformanceArr = request
+                .getParameterValues("stepPerformanceDate");
         String[] isDisableArr = request.getParameterValues("isDisableApp");
-        
-        //新增加的设置步骤的业绩方式
-        String[] stepPerformanceType = request.getParameterValues("stepPerformanceType");
-        String[] stepPerformance = request.getParameterValues("stepPerformance");
-        
-        //每一步骤中设置的岗位的数量
+
+        // 新增加的设置步骤的业绩方式
+        String[] stepPerformanceType = request
+                .getParameterValues("stepPerformanceType");
+        String[] stepPerformance = request
+                .getParameterValues("stepPerformance");
+
+        // 每一步骤中设置的岗位的数量
         String[] zhiweinum = request.getParameterValues("zhiweinum");
 
         if (projectInfo.getProjectId() == null) {
             // 新增
             projectInfo.setStoreId(getStoreId(request));
             projectInfo.setCreateTime(DateUtil.getCurTime());
-            Integer projectId = projectService.saveProject(getUserId(request), projectInfo, levelId, discountProportion, discountAmount,
-                    onlineAppointmentPrice, empLevelId, assignType, assignCash, assignCard, nonAssignCash, nonAssignCard, appointmentReward,
-                    shiftMahjongIdArr, shiftStepNameArr, stepPerformanceArr, isDisableArr, zhiweinum, stepPerformanceType, stepPerformance);
+            Integer projectId = projectService.saveProject(getUserId(request),
+                    projectInfo, levelId, discountProportion, discountAmount,
+                    onlineAppointmentPrice, empLevelId, assignType, assignCash,
+                    assignCard, nonAssignCash, nonAssignCard, appointmentReward,
+                    shiftMahjongIdArr, shiftStepNameArr, stepPerformanceArr,
+                    isDisableArr, zhiweinum, stepPerformanceType,
+                    stepPerformance);
             baseDto.setMsg(projectId);
-        }
+        } 
         else {
-            List<OrderDetail> details = orderDetailMapper.selectHasProjectAndStatus(projectInfo.getProjectId());
-            if (details!=null&&details.size()>0){
-                return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "项目在订单列表中,不可修改");
+            List<OrderDetail> details = orderDetailMapper
+                    .selectHasProjectAndStatus(projectInfo.getProjectId());
+            if (details != null && details.size() > 0) {
+                return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
+                        "项目在订单列表中,不可修改");
             }
             // 修改
-            projectService.updateProject(getUserId(request), projectInfo, levelId, discountProportion, discountAmount,
-                    onlineAppointmentPrice, empLevelId, assignType, assignCash, assignCard, nonAssignCash, nonAssignCard, appointmentReward,
-                    shiftMahjongIdArr, shiftStepNameArr, stepPerformanceArr, isDisableArr, zhiweinum, stepPerformanceType, stepPerformance);
+            projectService.updateProject(getUserId(request), projectInfo,
+                    levelId, discountProportion, discountAmount,
+                    onlineAppointmentPrice, empLevelId, assignType, assignCash,
+                    assignCard, nonAssignCash, nonAssignCard, appointmentReward,
+                    shiftMahjongIdArr, shiftStepNameArr, stepPerformanceArr,
+                    isDisableArr, zhiweinum, stepPerformanceType,
+                    stepPerformance);
         }
         projectService.cleanRedisCacheByDeptId(projectInfo.getDeptId());
         return baseDto;
@@ -509,8 +610,10 @@ public class ProjectInfoController extends BaseController {
      */
     @RequestMapping(value = Url.Project.SAVE_PROJECT_LIST)
     @ResponseBody
-    public BaseDto saveProjectList(HttpServletRequest request, HttpServletResponse response, Integer deptId, Integer categoryId) {
-        BaseDto baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    public BaseDto saveProjectList(HttpServletRequest request,
+            HttpServletResponse response, Integer deptId, Integer categoryId) {
+        BaseDto baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                App.System.API_RESULT_MSG_FOR_SUCCEES);
         String[] projectName = request.getParameterValues("projectName");
         List<ProjectInfo> ls = new ArrayList<ProjectInfo>();
         for (int i = 0; i < projectName.length; i++) {
@@ -521,7 +624,8 @@ public class ProjectInfoController extends BaseController {
             projectInfo.setStoreId(getStoreId(request));
             projectInfo.setCreateTime(DateUtil.getCurTime());
             projectInfo.setIsDeleted(0);
-            Integer projectId = projectService.saveProjects(getUserId(request), projectInfo);
+            Integer projectId = projectService.saveProjects(getUserId(request),
+                    projectInfo);
             projectInfo.setProjectId(projectId);
             ls.add(projectInfo);
         }
@@ -529,7 +633,7 @@ public class ProjectInfoController extends BaseController {
         projectService.cleanRedisCacheByDeptId(deptId);
         return baseDto;
     }
-    
+
     /**
      * 删除项目
     * @author 洪秋霞
@@ -542,22 +646,28 @@ public class ProjectInfoController extends BaseController {
      */
     @RequestMapping(value = Url.Project.DELETE_PROJECT)
     @ResponseBody
-    public BaseDto deleteProject(HttpServletRequest request, HttpServletResponse response, Integer projectId, Integer deptId) {
+    public BaseDto deleteProject(HttpServletRequest request,
+            HttpServletResponse response, Integer projectId, Integer deptId) {
         ComboProject comboProject = new ComboProject();
         comboProject.setProjectId(projectId);
-        List<ComboProject> comboProjects = comboProjectMapper.selectByProperty(comboProject);
-        if (comboProjects!=null&&comboProjects.size()>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该项目在套餐中引用不可删除");
+        List<ComboProject> comboProjects = comboProjectMapper
+                .selectByProperty(comboProject);
+        if (comboProjects != null && comboProjects.size() > 0) {
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
+                    "该项目在套餐中引用不可删除");
         }
-        List<OrderDetail> details = orderDetailMapper.selectHasProjectAndStatus(projectId);
-        if (details!=null&&details.size()>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "项目在订单列表中,不可删除");
+        List<OrderDetail> details = orderDetailMapper
+                .selectHasProjectAndStatus(projectId);
+        if (details != null && details.size() > 0) {
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
+                    "项目在订单列表中,不可删除");
         }
         projectService.deleteProject(projectId);
         projectService.cleanRedisCacheByDeptId(deptId);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
-    
+
     /**
      * 文件上传
     * @author 高国藩
@@ -567,20 +677,24 @@ public class ProjectInfoController extends BaseController {
     * @return 返回标示
      */
     @RequestMapping(value = Url.Project.UPLOAD_PROJECT)
-    public BaseDto uploadTest(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request){
-        String path = request.getSession().getServletContext().getRealPath("upload"); 
-        String fileName = file.getOriginalFilename();  
-        File targetFile = new File(path, fileName);  
-        if (!targetFile.exists()){  
+    public BaseDto uploadTest(
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            HttpServletRequest request) {
+        String path = request.getSession().getServletContext()
+                .getRealPath("upload");
+        String fileName = file.getOriginalFilename();
+        File targetFile = new File(path, fileName);
+        if (!targetFile.exists()) {
             targetFile.mkdir();
-        }  
-        try {  
-            file.transferTo(targetFile);  
-        } 
-        catch (Exception e) {  
-            e.printStackTrace();  
         }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+        try {
+            file.transferTo(targetFile);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
+                App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
 
 }

@@ -29,6 +29,8 @@ public interface ProjectCommissionMapper {
     * @return int
      */
     int insertSelective(ProjectCommission projectCommission);
+    
+    
 
     /**
      * 查询
@@ -101,4 +103,23 @@ public interface ProjectCommissionMapper {
     * @return List<EmployeeCommission>
      */
     List<ProjectCommission> selectByLevelIsExist(Map<String, Object> map);
+    
+    /**
+     *  新增提成 批量
+    * @author 骆峰
+    * @date 2016年6月25日 下午2:31:46
+    * @param list list
+    * @return insertTive
+     */
+    int insertTiveList(List<ProjectCommission> list);
+    
+    /**
+     * 新增提成
+    * @author 骆峰
+    * @date 2016年6月25日 下午3:57:59
+    * @param projectCommission projectCommission
+    * @return int
+     */
+    int insertTive (ProjectCommission projectCommission);
+    
 }

@@ -172,13 +172,15 @@ public class CouponService {
     * @param couponId couponId
     * @param couponStopTime couponStopTime
     * @param couponStartTime couponStartTime
+    * @param releaseTime releaseTime
     * @return BaseDto
      */
-    public BaseDto deleted(Integer couponId, String couponStopTime, String couponStartTime) {
+    public BaseDto deleted(Integer couponId, String couponStopTime, String couponStartTime, String releaseTime) {
         CouponInfo couponInfo = new CouponInfo();
         couponInfo.setCouponId(couponId);
         couponInfo.setCouponStopTime(couponStopTime);
         couponInfo.setCouponStartTime(couponStartTime);
+        couponInfo.setReleaseTime(releaseTime);
         int t = couponInfoMapper.updateByDelete(couponInfo);
         return new BaseDto(t, couponId);
     }

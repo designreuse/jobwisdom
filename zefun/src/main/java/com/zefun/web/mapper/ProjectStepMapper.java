@@ -37,6 +37,7 @@ public interface ProjectStepMapper {
     * @return int
      */
     int insert(ProjectStep projectStep);
+  
 
     /**
      * 查询
@@ -82,4 +83,13 @@ public interface ProjectStepMapper {
     * @return List<ProjectStep>
      */
     List<ProjectStep> selectByShiftMahjongId(Integer shiftMahjongId);
+    
+    /**
+     * 提成新增
+    * @author 骆峰
+    * @date 2016年6月25日 下午2:45:57
+    * @param projectStep projectStep
+    * @return int
+     */
+    int insertStep(ProjectStep projectStep);
 }

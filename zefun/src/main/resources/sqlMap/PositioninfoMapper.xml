@@ -114,10 +114,9 @@
     </resultMap>
     
     <resultMap type="com.zefun.web.dto.PositionInfoDto" id="PositionInfoMap">
-        <result property="positionCode" column="positionCode"  />
-        <result property="positionName" column="positionName"  />
-        <result property="positionId" column="positionId"  />
-        <association property="employeeLeve" column="positionId" select="positionInfoSon" />
+        <result property="positionId" column="position_id"  />
+        <result property="positionName" column="position_name"  />
+        <association property="employeeLevel" column="position_id" select="positionInfoSon" />
     </resultMap>
     
   <select id="getDetpInfo" resultMap="DetpInfoMap" parameterType="java.lang.Integer" >
@@ -125,7 +124,7 @@
   </select>
   
    <select id="positionInfoSon" resultType="com.zefun.web.entity.EmployeeLevel" parameterType="java.lang.Integer">
-    	select level_id levelId,level_name levelName from employee_level where position_id=#{positionId}
+    	select level_id levelId,level_name levelName from employee_level where position_id=#{position_id}
    </select>
     
   <select id="getlevelIdList" resultType="java.lang.Integer" parameterType="java.lang.Integer">
@@ -152,5 +151,14 @@
   <!-- 根据店铺id查询所有岗位(状态没删除的) -->
   <select id="selectPositionInfosByStoreId" resultType="java.lang.String" parameterType="java.lang.Integer">
   	select position_name from position_info where store_id = #{storeId}
+  </select>
+  
+   <!-- 根据店铺id查询所有岗位(状态没删除的) -->
+    <select id="selectPositionInfosByName" parameterType="com.zefun.web.entity.PositionInfo" resultMap="BaseResultMap">
+  	select * from position_info where store_id = #{storeId}
+  </select>
+  
+  <select id="selectPositionEpmployees" parameterType="java.lang.Integer" resultMap="PositionInfoMap">
+  		select * from position_info where store_id = #{storeId}
   </select>
 </mapper>

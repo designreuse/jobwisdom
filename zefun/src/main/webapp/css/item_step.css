@@ -1,0 +1,47 @@
+.content_right{padding:40px 20px;font-size:14px;color:black}
+.tab_content>ul> li{width:279px;height:40px;text-align:center;float:left;font-size:16px;border-radius: 12px 12px 0 0;border:1px solid black;line-height:40px;margin-right:15px;border-bottom:none}
+.div_content{border:1px solid black;height:590px;width:
+851px;padding:10px;overflow:hidden}
+.tab_content ul{height:40px;margin-right:-40px}
+.item_step_content{border:1px solid black;border-radius:12px;height:565px;padding:10px}
+.item_step_content>.achievement>p{height:30px;line-height:30px;background:#d8deed;padding-left:5px;font-size:16px}
+.achievement_content{padding:8px 20px;margin-bottom:10px}
+.achievement_content select{border:1px solid black;border-radius:8px;width:50px;font-size:14px;color:black;margin-left:5px}
+.achievement_content span{display:inline-block;margin-left:32px;position:relative}
+.achievement_content span input{position:relative;margin-left:10px;width:60px;padding-right:20px;border:1px solid black;border-radius:12px;height:20px}
+.achievement_content span i{position:absolute;right:5px;top:4px}
+.achievement_content input[type="checkbox"]{ -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    position: relative;
+    top: -3px;
+	margin-right:8px
+    }
+	
+.achievement_content input[type="checkbox"]:checked {
+    background: url(../images/checked.png) no-repeat;
+    background-position: center center;
+    border: 1px solid #d93717;
+background-size: cover;}
+.achievement_content li{float:left;height:40px;width:160px;font-size:14px}
+.achievement_content .active{color:#eb1e34}
+.item_step_table{height:310px;overflow:overlay;width:820px;margin-top:60px;}
+.item_step_table table{width:820px;}
+table tr:nth-child(odd){background:#f6f8fc}
+table tr:nth-child(1){background:#ebeff8;}
+.item_step_table table td{text-align:center;height:42px;line-height:42px;border:1px solid black}
+.item_step_table table td select{border:1px solid black;border-radius:12px;width:100px;padding-left:60px;height:20px}
+.item_step_table table td input{width:130px;height:20px;border:1px solid black;border-radius:12px;color:black;text-align:center}
+
+.item_step_button{text-align:center;margin-top:20px}
+.item_step_button button{width:150px;height:28px;border:none;color:white;font-size:16px;border-radius:12px;text-align:center;line-height:28px;background:#5c6e85;margin:0 60px}
+.item_step_button button:hover{
+	background:#475566
+}
+.tab_content  ul li.active1{
+	background:#304055;
+	color:white
+}
+.tab_content  ul li{cursor:pointer}

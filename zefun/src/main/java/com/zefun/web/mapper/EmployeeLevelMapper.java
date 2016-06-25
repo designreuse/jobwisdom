@@ -140,4 +140,8 @@ public interface EmployeeLevelMapper {
     * @return               职位集合
      */
     List<EmployeeLevel> selectAllByStoreId(Integer storeId);
+    
+    
+    
+    
 }
