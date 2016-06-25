@@ -331,22 +331,4 @@
       update project_commission set is_deleted = 1 where project_id = #{projectId}
   </update>
   
-  <select id="selectByLevelIsExist" resultMap="BaseResultMap" parameterType="java.util.Map" >
-    select 
-      <include refid="Base_Column_List" />
-    from project_commission a 
-    where a.is_deleted = 0 and a.shift_mahjong_id =  #{shiftMahjongId,jdbcType=INTEGER}
-    and a.level_id in (
-                       select 
-                          b.level_id 
-                       from employee_level b 
-                       where b.position_id in 
-                      <foreach collection="list" open="(" separator="," close=")" item="item">
-					     #{item} 
-				      </foreach>
-			           and b.is_deleted = 0
-                       )
-
-  </select>
-  
 </mapper>

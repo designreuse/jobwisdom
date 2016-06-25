@@ -26,6 +26,8 @@ public class ShiftMahjong {
 	
 	/** 选择岗位*/
 	private String positionId;
+	/** 岗位名称*/
+	private String position;
 
 	/** 创建时间 */
 	private String createTime;
@@ -35,7 +37,15 @@ public class ShiftMahjong {
 
 	
 
-    public Integer getStoreId() {
+    public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public Integer getStoreId() {
 		return storeId;
 	}
 

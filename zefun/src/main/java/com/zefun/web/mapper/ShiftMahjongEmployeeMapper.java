@@ -103,15 +103,6 @@ public interface ShiftMahjongEmployeeMapper {
     int insertShiftMahjongEmployeeList(List<ShiftMahjongEmployee> list);
     
     /**
-     * 查询该轮牌已实用的级别
-    * @author 王大爷
-    * @date 2015年8月11日 上午10:16:27
-    * @param shiftMahjongId 轮牌信息ID
-    * @return 轮牌中已经使用的级别ID
-     */
-    List<Integer> selectByPositionIdList(Integer shiftMahjongId);
-    
-    /**
      * 查询该轮牌已实用的级别,上牌方式
     * @author 王大爷
     * @date 2015年8月11日 上午10:16:27

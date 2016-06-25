@@ -480,6 +480,9 @@ public interface Url {
 		/** 初始化企业轮牌*/
 		public static final String INITIALIZE_ENTERPRISE_SHIFT_MAHJONG = "KeepAccounts/initializeEnterpriseShiftMahjong";
 		
+		/** 根据门店查询轮牌信息*/
+		public static final String SHOW_STORE_SHIFT_MAHJONG = "KeepAccounts/showStoreShiftMahjong";
+		
 		/* 轮值排班 */
 		/** 初始化轮值排班界面 */
 		public static final String INITIALIZE_SHIFT_MAHJONG = "KeepAccounts/initializeShiftMahjong";
