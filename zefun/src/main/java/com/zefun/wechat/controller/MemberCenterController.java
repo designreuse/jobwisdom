@@ -677,7 +677,7 @@ public class MemberCenterController extends BaseController {
     
     
     /**
-     * 访问预约页面
+     * 访问预约页面,修改为员工展示页面
     * @author 张进军
     * @date Sep 2, 2015 11:00:28 AM
     * @param storeId        店铺标识

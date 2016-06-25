@@ -145,7 +145,7 @@
   	select 
   		<include refid="Base_Column_List" />
   	from dept_info 
-  	where is_deleted = 0 and is_results = 1 and store_id = #{storeId}
+  	where is_deleted = 0 and store_id = #{storeId}
   </select>
   
 </mapper>

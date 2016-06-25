@@ -710,7 +710,7 @@ public interface Url {
 		public static final String VIEW_SHARE_INFO = "/memberCenter/view/shareInfo";
 		/** 确认预约 */
 		public static final String ACTION_ORDER_APPOINTMENT = "/memberCenter/action/orderAppointment";
-		/** 预约页面 */
+		/** 预约页面, 该页面改为员工展示页面*/
 		public static final String VIEW_ORDER_APPOINTMENT = "/memberCenter/view/orderAppointment/{storeId}/{businessType}";
 		/** 预约时间页面 */
 		public static final String VIEW_DATE_APPOINTMENT = "/memberCenter/view/dateAppointment";
