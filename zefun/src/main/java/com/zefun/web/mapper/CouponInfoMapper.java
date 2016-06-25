@@ -63,7 +63,7 @@ public interface CouponInfoMapper {
     int updateByPrimaryKey(CouponInfo record);
     
     /**
-     * 查询该企业的所以优惠卷
+     * 查询该企业的所有优惠卷
     * @author 骆峰
     * @date 2016年6月21日 下午6:14:37
     * @param page page
@@ -74,7 +74,7 @@ public interface CouponInfoMapper {
     
     
     /**
-     * 查询该企业的所以优惠卷 分页
+     * 查询门店下所有未过期的优惠券(包括上架/未上架) 分页
     * @author 骆峰
     * @date 2016年6月21日 下午6:14:37
     * @param page page
@@ -82,6 +82,7 @@ public interface CouponInfoMapper {
      */
     List<CouponInfo> selectByStore(Page<CouponInfo> page);
     
+   
     /**
      * 查询门店下所有未过期的优惠券(包括上架/未上架)
     * @author 张进军

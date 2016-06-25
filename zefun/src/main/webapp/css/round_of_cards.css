@@ -43,7 +43,7 @@ table tr:nth-child(1){background:#ebeff8;}
     border: 1px solid #d93717;
 background-size: cover;}
 .select_job >p span{display:inline-block;width:100px}
-.select_job >p em{display:inline-block;width:220px}
+.select_job >p em{display:inline-block;width:210px}
 .select_job >p{margin-right:-150px}
 
 .select_store_content .select_store{float:left;width:100px}

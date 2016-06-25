@@ -57,7 +57,7 @@
 													class="up1" id="${coupon.couponId}1">下架</span></em>
 											</c:if> <em class="up_preview"
 											onclick="viwe(${coupon.couponId},${coupon.couponColour})">预览</em><i
-											onclick="deleted(${coupon.couponId},'${coupon.couponStopTime}',${coupon.couponStartTime})">删除</i>
+											onclick="deleted(${coupon.couponId},'${coupon.couponStopTime}',${coupon.couponStartTime},'${coupon.releaseTime}')">删除</i>
 											<em
 											onclick="updateSave('${coupon.couponId}','${coupon.storeType}','${coupon.couponMan}','${coupon.couponColour}','${coupon.couponType}','${coupon.startType}','${coupon.couponVantages}','${coupon.priceSigle}','${coupon.couponNumber}','${coupon.couponStartTime}')"><img
 												src="<%=basePath%>/images/coupon_write.png"></em></td>
@@ -372,7 +372,7 @@
 								html+='	<em onclick="update('+value.couponId+',0)"><span class="up" id="'+value.couponId+'" style="display:none">上架</span> </em>';
 								html+='	<em onclick="update('+value.couponId+',1)"><span class="up1" id="'+value.couponId+'1" >下架</span> </em>';
 							}
- 							html+='<em class="up_preview" onclick="viwe('+value.couponId+','+value.couponColour+')">预览</em><i  onclick="deleted('+value.couponId+',\''+value.couponStopTime+'\','+value.couponStartTime+')">删除</i>';
+ 							html+='<em class="up_preview" onclick="viwe('+value.couponId+','+value.couponColour+')">预览</em><i  onclick="deleted('+value.couponId+',\''+value.couponStopTime+'\','+value.couponStartTime+'\','+value.releaseTime+'\')">删除</i>';
  							html+= '<em onclick="updateSave('+value.couponId+',\''+value.storeType+'\','+value.couponMan+','+value.couponColour+','+value.couponType+','+value.startType+','+value.couponVantages+','+value.priceSigle+','+value.couponNumber+','+value.couponStartTime+')"><img src="'+baseUrl+'/images/coupon_write.png"></em></td></tr>'
 					jQuery("#tables").append(jQuery(html));
 				});
@@ -422,8 +422,8 @@
 	}
 	
 	
-	function deleted(id,stopTime,startTime){
-		var datas = "couponId=" + id+"&couponStopTime="+stopTime+"&couponStartTime="+startTime
+	function deleted(id,stopTime,startTime,releaseTime){
+		var datas = "couponId=" + id+"&couponStopTime="+stopTime+"&couponStartTime="+startTime+"&releaseTime="+releaseTime
 		jQuery.ajax({
 			type : "post",
 			url : baseUrl + "action/coupons/delete",

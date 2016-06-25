@@ -40,8 +40,7 @@ public class ManuallyOpenOrderController extends BaseController{
 	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_MANUALLY_OPEN_ORDER, method = RequestMethod.GET)
 	public ModelAndView initializeManuallyOpenOrder(HttpServletRequest request, HttpServletResponse response){
 	    Integer storeId = getStoreId(request);
-	    Integer employeeId = getUserId(request);
-		return manuallyOpenOrderService.initializeManuallyOpenOrder(storeId, employeeId);
+		return manuallyOpenOrderService.initializeManuallyOpenOrder(storeId);
 	}
 	
 	/**

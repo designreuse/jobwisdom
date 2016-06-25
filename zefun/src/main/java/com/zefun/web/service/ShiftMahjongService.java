@@ -25,7 +25,6 @@ import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ShiftMahjong;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.StoreInfo;
-import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeAttendanceMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
@@ -52,9 +51,6 @@ public class ShiftMahjongService {
 	
 	/** redis Service*/
 	@Autowired private RedisService redisService;
-	
-	/** 部门*/
-	@Autowired private DeptInfoMapper deptInfoMapper;
 	
 	/** 岗位*/
 	@Autowired private PositioninfoMapper positioninfoMapper;
@@ -182,9 +178,13 @@ public class ShiftMahjongService {
 	        //查询轮牌对应的岗位信息
             ShiftMahjong shiftMahjongOld = shiftMahjongMapper.selectByPrimaryKey(shiftMahjong.getShiftMahjongId());
             String positionIdListOldStr = shiftMahjongOld.getPositionId();
-            List<String> positionIdOlds = Arrays.asList(positionIdListOldStr.split(","));
+            String [] positionIdOldStr = positionIdListOldStr.split(",");
+            List<String> positionIdOlds = new ArrayList<>();
+            //由于Arrays.asList()转出的list是AbstractList，是不能remove的；
+            for (String str : positionIdOldStr) {
+            	positionIdOlds.add(str);
+			}
             
-            List<String> updatePosition = new ArrayList<String>();
             List<Integer> addPosition = new ArrayList<Integer>();
                         
             for (int k = 0; k < positionIds.size(); k++) {
@@ -193,8 +193,9 @@ public class ShiftMahjongService {
                 
                 for (int j = 0; j < positionIdOlds.size(); j++) {
                     if (Integer.valueOf(positionIdOlds.get(j)).intValue() == positionIds.get(k).intValue()) {
+                    	positionIdOlds.remove(j);
                         a = 1;
-                        updatePosition.add(positionIdOlds.get(j));
+                        break;
                     }
                 }
                 
@@ -204,15 +205,15 @@ public class ShiftMahjongService {
             }
             
             //当删了原来所选岗位时
-            if (updatePosition.size() > 0) {
-                Integer stateType = isSucceed(updatePosition, shiftMahjong.getShiftMahjongId());
+            if (positionIdOlds.size() > 0) {
+                Integer stateType = isSucceed(positionIdOlds, shiftMahjong.getShiftMahjongId());
                 
                 if (stateType == 1) {
                     return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "更换的岗位中存在服务中的员工");
                 }
-                for (int k = 0; k < updatePosition.size(); k++) {
+                for (int k = 0; k < positionIdOlds.size(); k++) {
                     Map<String, Integer> map = new HashMap<String, Integer>();
-                    map.put("positionId", Integer.valueOf(updatePosition.get(k)));
+                    map.put("positionId", Integer.valueOf(positionIdOlds.get(k)));
                     map.put("shiftMahjongId", shiftMahjong.getShiftMahjongId());
                     
                     List<ShiftMahjongEmployee> shiftMahjongEmployeeList = shiftMahjongEmployeeMapper.selectByPositionId(map);
@@ -428,9 +429,9 @@ public class ShiftMahjongService {
 	        shiftMahjongEmployee.setShiftMahjongOrder(999);
 	    }
         shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
-        if (state.intValue() == 1) {
+        /*if (state.intValue() == 1) {
             staffService.selfMotionExecute(shiftMahjongEmployeeId, storeId);
-        }
+        }*/
         return shiftMahjong.getShiftMahjongId();
 	}
 	

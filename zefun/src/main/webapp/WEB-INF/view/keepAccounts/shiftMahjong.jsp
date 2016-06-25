@@ -3,6 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/emploee.css" type="text/css" />
+<style>
+.emploee_right_ul li{text-align:center;line-height:65px;font-size:20px;position:relative;width:120px;height:65px}
+.emploee_right_ul .active{color:#ff0000;border-top:1px solid #e7dede;box-shadow:0 8px 8px #ccc}
+.emploee_right_ul li img{position:absolute;right:2px;top:2px;width:16px;}
+.emploee_right{margin-left:0;width:998px;overflow-x:overlay;height:100px}
+.emploee_right_ul{margin-left:0}
+::-webkit-scrollbar{height:8px}
+.drag_content{height:600px}
+</style>
 <body>
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -14,11 +23,9 @@
 			     <div class="emploee_head clearfix">
 			      <div style="overflow:hidden;margin-right:-30px" class="clearfix">	   	
 				    <div class="emploee_right">
-					  <span class="left_click"><img src="<%=basePath%>images/left_click.png"></span>
-						   <ul class="emploee_right_ul clearfix">
-							   
-						   </ul>
-					   <span class="right_click"><img src="<%=basePath%>images/right_click.png"></span>
+					   <ul class="emploee_right_ul clearfix">
+						   
+					   </ul>
 				    </div>
 				</div>	
 					<div class="adjust"><span class="adjust_"><img src="<%=basePath%>images/adjust.png">调整轮牌</span><span class="adjust_button"><button class="save1" onclick="saveUpdateOrder()">保存</button><button onclick = "caltUpdate()">取消</button></span><em class="adjust_text">点击按钮，然后拖动任务卡片，即可调整排序～</em></div>
@@ -53,7 +60,7 @@
 </body>
 <script src='<%=basePath %>js/common/jquery.gridly.js' type='text/javascript'></script>
 <script>
-
+    
 	var shiftMahjongDtoListStr = '${shiftMahjongDtoListStr}';
     var shiftMahjongDtoList = eval("(" + shiftMahjongDtoListStr + ")");
     
@@ -87,19 +94,6 @@
        jQuery(this).addClass('active');
    });
    	
-   	//弹出弹窗
-   	jQuery(function(){
-   	   
-         jQuery('.setting-up').click(function(){
-   	    jQuery('.zzc').show();
-   		
-   	  });
-   	  
-       jQuery('.emplee_cancle').click(function(){
-   	
-   	      jQuery('.zzc').hide();
-   	 }) 
-      });
 </script>
 <script type="text/javascript" src="<%=basePath %>js/keepAccounts/shiftMahjong.js"></script><%-- ?1=<%=new Date().getTime() %> --%>
 </html>

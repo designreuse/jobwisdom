@@ -1,6 +1,7 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zefun.web.dto.ProjectCommissionDto;
 import com.zefun.web.entity.ProjectCommission;
@@ -28,6 +29,8 @@ public interface ProjectCommissionMapper {
     * @return int
      */
     int insertSelective(ProjectCommission projectCommission);
+    
+    
 
     /**
      * 查询
@@ -91,4 +94,32 @@ public interface ProjectCommissionMapper {
     * @return            影响行数
      */
     int deleteByProjectId(Integer projectId);
+
+    /**
+     * 根据轮牌标识，及岗位list  查询锁存在的级别提成
+    * @author 王大爷
+    * @date 2015年12月5日 下午5:15:00
+    * @param map 参数
+    * @return List<EmployeeCommission>
+     */
+    List<ProjectCommission> selectByLevelIsExist(Map<String, Object> map);
+    
+    /**
+     *  新增提成 批量
+    * @author 骆峰
+    * @date 2016年6月25日 下午2:31:46
+    * @param list list
+    * @return insertTive
+     */
+    int insertTiveList(List<ProjectCommission> list);
+    
+    /**
+     * 新增提成
+    * @author 骆峰
+    * @date 2016年6月25日 下午3:57:59
+    * @param projectCommission projectCommission
+    * @return int
+     */
+    int insertTive (ProjectCommission projectCommission);
+    
 }
