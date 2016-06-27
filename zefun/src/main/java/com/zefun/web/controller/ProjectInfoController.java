@@ -36,12 +36,10 @@ import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.EmployeeLevelBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.PositionInfoDto;
-import com.zefun.web.dto.ProjectStepDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.EmployeeLevel;
 import com.zefun.web.entity.OrderDetail;
-import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
 import com.zefun.web.entity.ProjectDiscount;
@@ -146,7 +144,8 @@ public class ProjectInfoController extends BaseController {
         model.addObject("images", images);
         List<PositionInfoDto> positionInfoDtos = positioninfoMapper.selectPositionEpmployees(storeId);
         model.addObject("positionInfoDtos", positionInfoDtos);
-
+        model.addObject("selectShow", "selectShow");
+        model.addObject("selectShowStep", "selectShowStep");
         if (projectId != null) {
             model.addObject("projectId", projectId);
             BaseDto baseDto = queryProjectInfoById(request, response, projectId);
@@ -156,7 +155,7 @@ public class ProjectInfoController extends BaseController {
             model.addObject("projectDesc", projectInfo.getProjectDesc());
             projectInfo.setProjectDesc(null);
             
-            ProjectCommission selectShow = projectCommissionMapper.selectShow(projectId);
+            List<ProjectCommission> selectShow = projectCommissionMapper.selectShow(projectId);
             List<PositionInfoDto> positionInfoDtoShow = positioninfoMapper.selectPositionEpmployeesShow(projectId);
             List<ProjectStep> selectShowStep = projectStepMapper.selectShowStep(projectId);
             model.addObject("projectInfo", JSONObject.fromObject(projectInfo));

@@ -342,11 +342,12 @@
 														<option  value="1">固定</option> 
 														<option value="2">比例</option>
 														</select>
-														<span>员工业绩<input value="0" id="active111" type="text"><i id="price_step1">元</i></span>
+														<span>员工业绩<input value="0" id="active111" type="number"><i id="price_step1">元</i></span>
 													</div>
 												
 													
 													<p>提成</p>
+													
 													<ul  class="achievement_content clearfix" id="check1">
 													<c:forEach items="${positionInfoDtos[2].employeeLevel }" var="selectAllByStoreId">
 														<li><input   type="checkbox" onchange="insertTable(this,'${selectAllByStoreId.levelName }',${selectAllByStoreId.levelId },1)" value="${selectAllByStoreId.levelId }">${selectAllByStoreId.levelName }</li>
@@ -375,7 +376,7 @@
 													<p>业绩</p>
 													<div class="achievement_content">
 														业绩计算方式<select id="active12" onchange="changeprice(this,'price_step2')"><option  value="1">固定</option> <option value="2">比例</option></select><span>员工业绩<input
-														id="active112"	value="0" type="text"><i id="price_step2">元</i></span>
+														id="active112"	value="0" type="number"><i id="price_step2">元</i></span>
 													</div>
 													<p>提成</p>
 													<ul class="achievement_content clearfix" id="check2">
@@ -412,12 +413,12 @@
 													<div class="achievement_content">
 														业绩计算方式<select  id="active13" onchange="changeprice(this,'price_step3')"><option value="1">固定</option> <option value="2">比例</option></select>
 														<span>员工业绩<input
-														value="0"	type="text" id="active113" ><i id="price_step3">元</i></span>
+														value="0"	type="number" id="active113" ><i id="price_step3">元</i></span>
 													</div>
 													<p>提成</p>
 													<ul class="achievement_content clearfix" id="check3">
 													<c:forEach items="${positionInfoDtos[1].employeeLevel}" var="selectAllByStoreId">
-														<li><input  type="checkbox" onchange="insertTable(this,'${selectAllByStoreId.levelName }',${selectAllByStoreId.levelId },3)" value="${selectAllByStoreId.levelId }">${selectAllByStoreId.levelName }</li>
+														<li> <input  type="checkbox" onchange="insertTable(this,'${selectAllByStoreId.levelName }',${selectAllByStoreId.levelId },3)" value="${selectAllByStoreId.levelId }">${selectAllByStoreId.levelName }</li>
 													</c:forEach>
 													</ul>
 												</div>
@@ -590,10 +591,8 @@
 <script>
 	var deptProjectList = ${js_deptProjectList};
 	var memberLevelList = ${memberLevelList};
-	var selectShowStep = ${selectShowStep};
-	var selectShow = ${selectShow};
-	var selectShowStep = ${selectShowStep};
-	var positionInfoDtoShow = ${positionInfoDtoShow};
+
+
 	var storeId = '${session_key_store_id}';
 	var projectId = '${projectId}';
 	var deptId = deptProjectList[0].deptId;
@@ -602,7 +601,9 @@
 	var projectCommissionList = null;
 	var projectDiscountList = null;
 	var projectStepList = null;
-
+	var selectShow = null;
+	var selectShowStep = null;
+	var positionInfoDtoShow = null;
 
 	/**
 	 * 更换部门切换类别
@@ -780,12 +781,13 @@
 
 	u1.ready(function() {
 				if (projectId != '') {
+
 					var projectDesc = '${projectDesc}';
 					project = eval('(' + '${projectInfo}' + ')');
 					projectCommissionList = eval('(' + '${projectCommissionList}' + ')');
 					projectDiscountList = eval('(' + '${projectDiscountList}' + ')');
 					deptId = project.deptId;
-
+				
 					/**锁定项目基本信息*/
 					var deptName = jQuery("select[name='deptId']").find(
 							"option[value='" + deptId + "']").text();
@@ -854,6 +856,11 @@
 								"input[name='discountAmount']").val(
 								discountAmount);
 					}
+					/** 提成回显 */
+					selectShow = ${selectShow} ;
+					selectShowStep = ${selectShowStep};
+// 					positionInfoDtoShow = ${positionInfo};
+					showViwe();
 				} else {
 					projectId = null;
 				}
@@ -1238,11 +1245,11 @@
 		if(jQuery(s).is(':checked')){
 			var html="<tr id ="+levelId+" class='tr"+type+" '><td value ="+levelId+">"+levelName+"</td>"
 			+"<td><select onchange='changeprice1(this,"+levelId+","+type+")'><option value='1'>固定</option><option value='2'>比例</option></select></td>"
-			+"<td><span><input placeholder='0' value='0' type='text'><i id='"+levelId+"'>元</i></span></td>";
+			+"<td><span><input  value='0' type='number'><i id='"+levelId+"'>元</i></span></td>";
 			if(type==1){
-				html+="<td><span><input placeholder='0' value='0' type='text'><i id='"+levelId+"'>元</i></span></td>";
+				html+="<td><span><input  value='0' type='number'><i id='"+levelId+"'>元</i></span></td>";
 			}
-			html+="<td><span><input  placeholder='0'  value='0' type='text'><i id='"+levelId+"'>元</i></span></td></tr>";
+			html+="<td><span><input    value='0' type='number'><i id='"+levelId+"'>元</i></span></td></tr>";
 			jQuery("#"+type).append(jQuery(html));
 		}else{
 			jQuery('#'+type+' tr[id='+levelId+']').remove();
@@ -1250,5 +1257,30 @@
 		
 
 	}
+	
+	function showViwe(){
+		for (var i = 0,n=1; i < selectShowStep.length; i++,n++) {
+		        jQuery("#active1"+n).val(selectShowStep[i].stepPerformanceType);
+		        jQuery("#active11"+n).attr("value",selectShowStep[i].stepPerformance);
+		        if(selectShowStep[i].stepPerformanceType==2){
+		    		jQuery("#price_step"+n).text("%");
+		        }
+		        
+				
+		}
+		for (var j = 0; j < selectShow.length; j++) {
+			jQuery("input[value='"+selectShow[j].levelId+"']").click();
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(1).find("select").val(selectShow[j].assignCashType);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(2).find("input").val(selectShow[j].commissionPrice);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionNoPrice);
+			if(selectShow[j].commissionCard != "" && selectShow[j].commissionCard >0){
+				jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(4).find("input").val(selectShow[j].commissionCard);
+			}
+			if(selectShow[j].assignCashType==2){
+				jQuery('i[id='+selectShow[j].levelId+']').text("%");
+			}
+		}
+	}
+	
 </script>
 </html>
