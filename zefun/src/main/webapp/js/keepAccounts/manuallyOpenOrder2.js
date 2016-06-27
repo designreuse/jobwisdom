@@ -98,47 +98,67 @@ jQuery('body').delegate('.lcs_check', 'lcs-statuschange', function() {
 
 function chooceProject(projectId, projectName, projectPrice, type) {
 	if (type == 1) {
-		var projectDiv = jQuery("<div class='nav_content_div' name= 'projectNameLI' projectId = '"+projectId+"'></div>");
-		projectDiv.append("<span class='hand_close' onclick = 'deleteProject(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
-				     	  "<p><em>"+projectName+"</em><i>项目价格："+projectPrice+"</i></p>");
-		
-		var  stepTable = jQuery("<table></table>");
-		
-		for (var i = 0; i < positionInfos.length; i++) {
-			var positionInfo = positionInfos[i];
-			var buzhou = jQuery("<tr positionId = '"+positionInfo.positionId+"'></tr>");
-			buzhou.append("<td  style='width:210px'>"+positionInfo.positionName+"</td>");
-			buzhou.append("<td style='width:360px'><input type='text' name = 'employeeId' employeeId = '2014'></td>");
-			
-			buzhou.append("<td>指定:<input type='checkbox' name = 'isAssign'></td>");
-			
-			if (i == 0) {
-				buzhou.append("<td>预约:<input type='checkbox' name = 'isAppoint'></td>");
+		jQuery.ajax({
+			type : "post",
+			url : baseUrl + "KeepAccounts/selectProjectShiftStep",
+			data : "projectId="+projectId,
+			dataType : "json",
+			success : function(e){
+				if(e.code != 0){
+					dialog(e.msg);
+					return;
+				}
+				var date = e.msg;
+				var projectDiv = jQuery("<div class='nav_content_div' name= 'projectNameLI' projectId = '"+date.projectId+"'></div>");
+				projectDiv.append("<span class='hand_close' onclick = 'deleteProject(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
+						     	  "<p><em>"+date.projectName+"</em><i>项目价格："+date.projectPrice+"</i></p>");
+				
+				var  stepTable = jQuery("<table></table>");
+				
+				var shiftStepDtoList = date.shiftStepDtoList;
+				for (var i = 0; i < shiftStepDtoList.length; i++) {
+					
+					var buzhou = jQuery("<tr projectStepId = '"+shiftStepDtoList[i].projectStepId+"'></tr>");
+					buzhou.append("<td>"+shiftStepDtoList[i].projectStepName+"</td>"+
+		                          "<td>"+shiftStepDtoList[i].shiftMahjongName+"</td>");
+					
+					var buzhouTD = jQuery("<td style='width:140px'>选择员工:</td>");
+					
+					var select = jQuery("<select name='employeeId' class='chzn-select mr5 input-medium'></select>")
+					select.append("<option value=''>请选择</option>");
+					var shiftMahjongEmployeeList = shiftStepDtoList[i].shiftMahjongEmployeeList;
+					for (var j = 0; j < shiftMahjongEmployeeList.length; j++) {
+						select.append("<option value='"+shiftMahjongEmployeeList[j].employeesId+"'><span class='gp'>"+shiftMahjongEmployeeList[j].employeeCode+"</span> <span class='name'>"+shiftMahjongEmployeeList[j].name+"</span></option>");
+					}
+					
+					buzhouTD.append(select);
+					buzhou.append(buzhouTD);
+					
+					buzhou.append("<td>指定:<input type='checkbox' name = 'isAssign'></td>"+
+	                              "<td>预约:<input type='checkbox' name='isAppoint'></td>");
+					stepTable.append(buzhou);
+				}
+				projectDiv.append(stepTable);
+				jQuery("div[name='projectPay']").append(projectDiv);
+				jQuery("select[name='employeeId']").chosen({disable_search_threshold: 3});
+				
+				changeDiv(1);
+				/*jQuery('.lcs_check').lc_switch('是', '否');*/
 			}
-			stepTable.append(buzhou);
-		}
-		projectDiv.append(stepTable);
-		jQuery("div[name='projectPay']").append(projectDiv);
-		changeDiv(1);
+		});
 	}
 	else {
-		var str = "<div class='nav_content_div' goodsId = '"+projectId+"'>"+
-		             "<p><span class='hand_close' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
+		var str = "<div class='nav_content_div_1' goodsId = '"+projectId+"'>"+
+		             "<span class='hand_close' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
                      "<em>"+projectName+"</em>"+
-                     "<i>价格：￥"+projectPrice+"</i></p>"+
-                     "<table class='select_people'>"+
-				     "<tr>"+
-						 "<td style='width:360px'>选择员工"+
-						    "<input type='text' name = 'employeeId1' employeeId = ''></td>"+
-						 "</td>"+
-						 "<td style='width:360px'>选择员工"+
-						     "<input type='text' name = 'employeeId2' employeeId = ''></td>"+
-						 "</td>"+
-						 "<td style='width:360px'>选择员工"+
-						     "<input type='text' name = 'employeeId3' employeeId = ''></td>"+
-						 "</td>"+
-					 "</tr>"+
-				  "</table>"+
+                     "<i>价格：￥"+projectPrice+"</i>"+
+                     "<span>提成员工:"+
+                     "<select name='employeeId' id='' class='chzn-select mr5 input-medium'>"+
+                        "<option value=''>请选择人员</option>";
+		for (var i = 0; i < employeeInfoList.length; i++) {
+			str += "<option value='"+employeeInfoList[i].employeeId+"'><span class='gp'>"+employeeInfoList[i].employeeCode+"</span> <span class='name'>"+employeeInfoList[i].name+"</span></option>";
+		}
+		str += "</select></span>"+
 	           "</div>";
 		
 		
@@ -187,7 +207,7 @@ function deleteProject(obj) {
 }
 
 function deleteComboGoods(obj) {
-	jQuery(obj).parents(".nav_content_div").remove();
+	jQuery(obj).parents(".nav_content_div_1").remove();
 }
 
 function changeIsAppoint(obj) {
@@ -212,8 +232,8 @@ function save() {
 		var appoint = 0;
 		
 		for (var j = 0; j < projectStepObj.length; j++) {
-			var positionId = jQuery(projectStepObj[j]).attr("positionId");
-			var employeeId = jQuery(projectStepObj[j]).find("input[name='employeeId']").attr("employeeId");
+			var projectStepId = jQuery(projectStepObj[j]).attr("projectStepId");
+			var employeeId = jQuery(projectStepObj[j]).find("select[name='employeeId']").val();
 			var isAssign = 0;
 			if (jQuery(projectStepObj[j]).find("input[name='isAssign']").prop('checked')) {
 				isAssign = 1;
@@ -226,7 +246,7 @@ function save() {
             if (isAppoint == 1) {
             	appoint = isAppoint;
 			}
-			var StepStr = {"positionId":positionId, "employeeId":employeeId, "isAssign":isAssign, "isAppoint":isAppoint};
+			var StepStr = {"projectStepId":projectStepId, "employeeId":employeeId, "isAssign":isAssign, "isAppoint":isAppoint};
 			projectStepArrayObj.push(StepStr);
 		}
 		var projectStepArrayObjStr = JSON.stringify(projectStepArrayObj);

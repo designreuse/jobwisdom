@@ -16,7 +16,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.service.ManuallyOpenOrderService;
 
 /**
- * 收银记账
+ * 手工开单
  * @author 王大爷
  * @date Jun 30, 2015 4:42:19 PM 
  */

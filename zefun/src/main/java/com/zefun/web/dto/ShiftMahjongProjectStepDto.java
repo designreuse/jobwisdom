@@ -13,8 +13,8 @@ public class ShiftMahjongProjectStepDto {
     /** 轮牌信息标识 */
     private Integer shiftMahjongStepId;
 
-    /** 项目步骤标识 */
-    private Integer projectStepId;
+    /** 岗位标识 */
+	private Integer positionId;
 
     /** 订单明细*/
     private Integer detailId;
@@ -112,15 +112,15 @@ public class ShiftMahjongProjectStepDto {
         this.shiftMahjongStepId = shiftMahjongStepId;
     }
 
-    public Integer getProjectStepId() {
-        return projectStepId;
-    }
+    public Integer getPositionId() {
+		return positionId;
+	}
 
-    public void setProjectStepId(Integer projectStepId) {
-        this.projectStepId = projectStepId;
-    }
+	public void setPositionId(Integer positionId) {
+		this.positionId = positionId;
+	}
 
-    public Integer getDetailId() {
+	public Integer getDetailId() {
         return detailId;
     }
 

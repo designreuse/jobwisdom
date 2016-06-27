@@ -22,6 +22,60 @@ em {
     border-radius: 25px;
     height: 47px;
 }
+
+.absolute td{width:130px!important}
+.single_account{box-shadow:0 0 0 white;border:1px solid #7d7575 }
+.active1{color:#d11e1e;border:1px solid #d11e1e}
+.content_right{color:black;}
+input{border:1px solid black}
+select{border:1px solid black}
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    position: relative;
+    top: -3px;
+    margin-right: 8px;
+	}
+
+input[type="checkbox"]:checked {
+    background: url('<%=basePath%>images/checked.png') no-repeat;
+    background-position: center center;
+    border: 1px solid #d93717;
+background-size: cover;}
+
+.content_right input[type='checkbox']{position:relative;top:-1px}
+
+.absolute{box-shadow:0 0 10px #908f8f;position:absolute;;background:white;z-index:10;box-shadow:0 0 10px #ccc;top:130px}
+.absolute em{color:#d92020;display:inline-block;margin-right:2px}
+.content_right input[type='text']{border:1px solid #7d7575}
+.hand_table{    border: 1px solid #7d7575;box-shadow:0 0 0 white}
+.hand_table tr td{border: 1px solid #7d7575;}
+.hand_detail_left{    border: 1px solid #7d7575;
+    box-shadow: 0 0 0px white;}
+.hair_series_{
+	  border: 1px solid #7d7575;
+	}
+.hand_detail_right{
+   border: 1px solid #7d7575;
+}	
+.hand_project li{font-weight:bold;font-size:14px}
+.hand_project .active{border: 1px solid #7d7575;}
+.nav li{font-weight:bold}
+.select_part_{font-weight:bold}
+.absolute{width:440px!important;margin-left:0!important}
+.nav_content td select{width:52px;height:14px}
+.nav_content td{width:110px}
+.nav_content_div{height:auto;padding-bottom:5px}
+
+.nav_content_div li{float:left;padding:5px 42px 5px 10px}
+.nav_content_div ul{border-bottom:1px solid #e0e2ea;}
+.select_people{margin-left:0!important}
+.select_people td{text-align:left!important;padding-left:10px}
+
+.nav_content_div input[type='text']{width:65px;border:1px solid black;border-radius:12px;height:15px}
 </style>
 <body>
 
@@ -215,7 +269,7 @@ em {
 	        <%@ include file="/template/memberData.jsp" %>
         </div>
   </div>
-</div>
+</div>	
 
 <div class="modal hide" tabindex="-1" role="dialog" id="memberSkipModal">
 	    <div class="modal-dialog" role="document">
@@ -239,6 +293,8 @@ em {
 <script type="text/javascript">
    var employeeInfoListStr = '${employeeInfoList}';
    var employeeInfoList = eval("(" + employeeInfoListStr + ")");
+   var positionInfosStr = '${positionInfosStr}';
+   var positionInfos = eval("(" + positionInfosStr + ")");
 </script>	
 <script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/keepAccounts/manuallyOpenOrder.js"></script>
