@@ -13,162 +13,292 @@
 <script type="text/javascript" src="<%=basePath%>js/mobile/jquery.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/base.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/zepto.min.js"></script>
+
 </head>
-  <script>
-    jQuery(function(){
-	    var count=jQuery('nav li').size();
-		jQuery('nav ul').css('width',count*72);
-	 })
+<style>
+.order_top {
+	background: #009ee6
+}
 
-  jQuery(function(){    
-	jQuery('.swiper').click(function(){
-	    jQuery('body').animate({left:'80%'})
-	   });
-    })
-	
-  jQuery(function(){ 
-    jQuery('.name_shop:eq(0)').find('p img').css('transform','rotate(90deg)')  
-	jQuery('.name_shop p').click(function(){
-	     if(jQuery(this).parent().find('ul').css('display')=='none'){
-		    jQuery(this).parent().find('ul').slideDown();
-			jQuery(this).find('img').css('transform','rotate(90deg)')
-		 }
-		 else{
-		    jQuery('.name_shop').find('ul').slideUp();
-			jQuery('.name_shop p').find('img').css('transform','rotate(0deg)')
-		 }
-	   }); 
-	   
-	  jQuery('.name_shop ul li').click(function(){
-	     jQuery(this).addClass('active').siblings('li').removeClass('active');
-	   }); 
-    })
-	
+.order_shop_name {
+	width: 15rem;
+	height: 2.8rem;
+	background: white;
+	margin: 0 auto;
+	font-size: 16px;
+	position: relative;
+	top: 0.7rem;
+	text-align: center;
+	line-height: 2.8rem
+}
+
+.order_shop_name em {
+	font-size: 10px;
+	display: inline-block;
+	margin-left: 4px
+}
+
+.order_content_top img {
+	width: 50px;
+	float: left;
+	position: relative;
+	top: 1.4rem;
+	margin: 0 0.5rem;
+	border-radius: 25px;
+}
+
+.order_content ul li {
+	float: left;
+	width: 45%;
+	border: 1px solid #dfdfdf;
+	padding: 0 !important;
+	margin: 2%
+}
+
+.order_content_top {
+	height: 25%;
+	background: #3ec4e6;
+	margin-bottom: 1.4rem
+}
+
+.order_content_top_name p {
+	height: 2rem;
+	line-height: 2rem
+}
+
+.order_right_ {
+	float: right;
+	width: 2.8rem;
+	height: 1.7rem;
+	background: #98da2f;
+	border-radius: 6px;
+	color: white;
+	font-size: 12px;
+	text-align: center;
+	line-height: 1.7rem;
+	position: relative;
+	left: -0.5rem;
+	top: -3rem
+}
+
+.order_content_bottom span {
+	display: inline-block;
+	width: 48%;
+	text-align: center;
+
+}
+.order_content_bottom p{
+padding: 0;
+}
+
+.order_content_bottom span img {
+	width: 16px
+}
+
+.order_content_bottom {
+	margin-top: 2rem
+}
+
+.bottom_fix .active {
+	color: #3ec4e6
+}
+
+.order_left {
+	background: linear-gradient(to top, #1782d3, #57c8ed) !important;
+}
+
+.left_title {
+	color: white;
+	font-size: 14px
+}
+
+.left_title img {
+	width: 20px;
+	margin-right: 2px
+}
+
+.address_pic img {
+	width: 44px;
+	margin-right: 5px;
+	border-radius:22px 
+}
+
+.address_pic {
+	float: left
+}
+
+.position {
+	float: left
+}
+
+.name_shop ul {
+	height: 50px;
+	margin-top: 1.2rem
+}
+
+.name_shop ul li img {
+	position: relative;
+	top: 0;
+	right: 0
+}
+
+.name_shop ul li {
+	line-height: 1.7rem;
+	color: #caebf8;
+	border-bottom: 1px solid #caebf8;
+	margin-bottom: 0.5rem
+}
+
+.position p {
+	font-size: 14px
+}
+
+.name_shop ul .active1 {
+	background: #13abdc
+}
+.tab .active, .tab ul .active{box-shadow:0 0 0rem white inset;border-radius:.5rem}
+</style>
+<script>
+	jQuery(function(){
+		jQuery(".order_content ul").css("height", jQuery(document).height()-72);
+	})
+	jQuery(function() {
+		var count = jQuery('nav li').size();
+		jQuery('nav ul').css('width', count * 72);
+	})
+
+	jQuery(function() {
+		jQuery('.swiper').click(function() {
+			jQuery('body').animate({
+				left : '80%'
+			})
+		});
+	})
+
 	//第一个展开
-	jQuery(function(){    
-	   jQuery('.name_shop').eq(0).find('ul').show();
-	   
-    })
+	jQuery(function() {
+		jQuery('.name_shop').eq(0).find('ul').show();
+	})
 	//向左滑。关闭
-   zepto(function(){    
-	 zepto('html').swipeLeft(function(){
-	     zepto('body').animate({left:'0%'})
-	   }); 
-    })
-	
-   </script>
-<body style="overflow:hidden">
-	<div class="order_left">
-		<c:forEach items="${storeList }" var="store" varStatus="index">
-			<div class="name_shop">
-				<p>
-					${store.storeName }<span><img src="<%=basePath%>images/mobile/member/right.png"></span>
-				</p>
-				<ul>
-					<c:forEach items="${storeDepts[index.count-1] }" var="dept">
-						<a href="<%=basePath%>memberCenter/view/orderAppointment/${session_key_store_account }/1?selectStoreId=${store.storeId }&selectDeptId=${dept.deptId }"><li>${dept.deptName }<span><img src="<%=basePath%>images/mobile/member/right.png"></span></li></a>
-					</c:forEach>
-				</ul>
-			</div>
-		</c:forEach>
-	</div>
-	<div class="order_right" style="position: relative">
-		<div class="con">
-			<header class="order_top">
-				<div class="swiper">
-					<img src="<%=basePath%>images/mobile/member/down_content.png">
-				</div>
-				<div class="header_select">
-					<span>${storeInfo.storeName }</span><select onchange="changeDept(this.value)" name="dept"><c:forEach items="${deptInfos }" var="deptInfo"><option value="${deptInfo.deptId }">${deptInfo.deptName }</option></c:forEach></select>
-				</div>
-			</header>
-			<nav>
-				<c:forEach items="${serviceList }" var="servie" varStatus="index">
-					<ul value="${servie.deptId }" class="clearfix order_ul" style="display: none">
-						<c:forEach items="${serviceList[index.count-1].projectCategoryList }" var="projectCategory">
-							<li onclick="changeCategory(this.value, this)" value="${projectCategory.categoryId }">${projectCategory.categoryName }</li>
-						</c:forEach>
-						<script>
-							jQuery(".clearfix.order_ul").children("li").eq(0).addClass("active");
-						</script>
-					</ul>
-				</c:forEach>
-				<script>
-					jQuery(".clearfix.order_ul").eq(0).show();
-				</script>
-			</nav>
-			<c:forEach items="${serviceList }" var="servie" varStatus="index">
-				<c:forEach items="${serviceList[index.count-1].projectCategoryList }" var="projectCategory">
-					<div class="order_content" value="${projectCategory.categoryId }" style="display: none">
-						<ul>
-							<c:forEach items="${projectCategory.projectList }" var="project">
-								<li class="clearfix">
-									<div class="mall_good">
-										<img src="<%=qiniuPath%>${project.projectImage }">
-									</div>
-									<div class="mall_item">
-										<p style="padding: 0 0px">${project.projectName }</p>
-										<span>已服务:${project.salesCount }</span>
-										<div class="level">
-											<em><img src="<%=basePath%>images/mobile/member/level.png"></em><em><img src="<%=basePath%>images/mobile/member/level.png"></em><em><img src="<%=basePath%>images/mobile/member/level.png"></em><em><img src="<%=basePath%>images/mobile/member/level_.png"></em>
-										</div>
-									</div>
-									<div class="order_price">
-										<h2>¥ ${project.projectPrice }</h2>
-										<span>预约立减${project.appointmentPrice }元</span>
-									</div>
-									<a href="<%=basePath%>memberCenter/view/projectDetail?storeId=${session_key_store_account}&projectId=${project.projectId}&selectStoreId=${project.projectId}"><div class="special">预约</div></a>
-								</li>
-							</c:forEach>
-						</ul>
-					</div>
-				</c:forEach>
-			</c:forEach>
-			<script>jQuery(".order_content").eq(0).show();</script>
-		</div>
+	zepto(function() {
+		zepto('html').swipeLeft(function() {
+			zepto('body').animate({
+				left : '0%'
+			})
+		});
+	})
+	//向右滑。
+	zepto(function() {
+		zepto('html').swipeRight(function() {
+			zepto('body').animate({
+				left : '80%'
+			})
+		});
+	})
+</script>
+<body style="overflow: hidden">
 
-		<ul class="bottom_fix clearfix">
-			<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
-				<li><img src="<%=basePath%>images/mobile/member/botton_1_1.png">
-					<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">我的</p></li>
-			</a>
-			<a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account}/1">
-				<li><img src="<%=basePath%>images/mobile/member/botton_2_2.png">
-					<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">预约</p></li>
-			</a>
-			<a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account}/1">
-				<li><img src="<%=basePath%>images/mobile/member/botton_3.png">
-					<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">商城</p></li>
-			</a>
-			<a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_account}/1">
-				<li><img src="<%=basePath%>images/mobile/member/botton_4.png">
-					<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">门店</p></li>
-			</a>
-		</ul>
+	<%-- <c:forEach items="${employeeInfos }" var="employeeInfo">
+		<a href="<%=basePath%>memberCenter/view/dateAppointment?employeeId=${employeeInfo.employeeId }"><h3>${employeeInfo.name }${employeeInfo.employeeId }</h3></a>
+	</c:forEach> --%>
+	<div class="order_left">
+      <div class="left_title"><img src="<%=basePath%>images/mobile/member/order_business.png">${enterpriseInfoDto.enterpriseName }</div>
+      <div class="name_shop">
+	   <ul>
+	   	<c:forEach items="${storeList }" var="store">
+	   	 <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account }/1?selectStoreId=${store.storeId}">
+	     <li class="clearfix active1">
+     	   <div class="address_pic"><img src="<%=qiniuPath%>${store.storeLogo}"></div>
+	       <div class="position">
+               <p>${store.storeName }</p>
+               <span><img src="<%=basePath%>images/mobile/member/position.png">${store.storeAddress }</span>
+           </div>		   	   
+		 </li> 
+		 </a>
+		</c:forEach>
+	   </ul>
+	  </div>
+   </div>
+   <div class="order_right" style="position:relative">
+   	<div class="con">
+	 <header class="order_top">
+	    <div class="swiper">
+		  <img src="<%=basePath%>images/mobile/member/down_content_.png">
+		</div>
+	    <div class="order_shop_name">
+		   ${storeInfo.storeName }<em>${storeInfo.storeProvince }</em>
+		</div>
+	 </header> 
+      <div class="order_content">
+        <ul class="clearfix">
+        	<c:forEach items="${employeeInfos }" var="employeeInfo">
+			  <li>
+			    <div class="order_content_top">
+			       <img src="<%=qiniuPath%>${employeeInfo.headImage }">
+	               <div class="order_content_top_name">
+	                 <p style="color:white;font-size:14px;position:relative;top:2rem">${employeeInfo.name }</p>
+	                 <p style="position:relative;top:2rem">${employeeInfo.levelName }</p>
+	              </div>
+	              <a href="<%=basePath%>memberCenter/view/dateAppointment?employeeId=${employeeInfo.employeeId }">
+	              <div class="order_right_">
+	                   		 预约
+	              </div>
+	              </a>		  
+				</div>
+				 <div class="order_content_bottom">
+			        <span><p><img src="<%=basePath%>images/mobile/member/love.png">好评量</p>${employeeInfo.serviceScore }</span>	
+	    			<span><p><img src="<%=basePath%>images/mobile/member/sample.png">作品级</p>1111</span>
+				</div>	
+			  </li>
+		    </c:forEach>
+        </ul>
+      </div>	  
+             
+   </div>
+
+	<ul class="bottom_fix clearfix">
+		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
+			<li><img src="<%=basePath%>images/mobile/member/botton_1_1.png">
+				<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">我的</p></li>
+		</a>
+		<a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account}/1">
+			<li><img src="<%=basePath%>images/mobile/member/botton_2_2.png">
+				<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">预约</p></li>
+		</a>
+		<a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account}/1">
+			<li><img src="<%=basePath%>images/mobile/member/botton_3.png">
+				<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">商城</p></li>
+		</a>
+		<a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_account}/1">
+			<li><img src="<%=basePath%>images/mobile/member/botton_4.png">
+				<p style="top: -2rem; font-size: 0.65em; font-family: '微软雅黑'; color: #555">门店</p></li>
+		</a>
+	</ul>
 </body>
 <script type="text/javascript">
-var serviceList = ${js_serviceList};
-var selectDeptId = '${selectDeptId}';
-function changeDept(deptId){
-	jQuery(".clearfix.order_ul").hide();
-	jQuery(".clearfix.order_ul[value='"+deptId+"']").show();
-	for (var i = 0; i < serviceList.length; i++) {
-		if (serviceList[i].deptId == deptId){
-			changeCategory(serviceList[i].projectCategoryList[0].categoryId, null);
-		}
-	}
-}
-function changeCategory(categoryId, li){
-	if (li!=null){
-		jQuery(li).siblings().removeClass("active");
-		jQuery(li).addClass("active");
-	}
-	jQuery(".order_content").hide();
-	jQuery(".order_content[value='"+categoryId+"']").show();
-}
-jQuery(function(){
-	jQuery("select[name='dept']").val(selectDeptId);
-	changeDept(selectDeptId);
-})
+	var memberId = '${memberId }';
+	/* var serviceList = ${js_serviceList};
+	 var selectDeptId = '${selectDeptId}';
+	 function changeDept(deptId){
+	 jQuery(".clearfix.order_ul").hide();
+	 jQuery(".clearfix.order_ul[value='"+deptId+"']").show();
+	 for (var i = 0; i < serviceList.length; i++) {
+	 if (serviceList[i].deptId == deptId){
+	 changeCategory(serviceList[i].projectCategoryList[0].categoryId, null);
+	 }
+	 }
+	 }
+	 function changeCategory(categoryId, li){
+	 if (li!=null){
+	 jQuery(li).siblings().removeClass("active");
+	 jQuery(li).addClass("active");
+	 }
+	 jQuery(".order_content").hide();
+	 jQuery(".order_content[value='"+categoryId+"']").show();
+	 }
+	 jQuery(function(){
+	 jQuery("select[name='dept']").val(selectDeptId);
+	 changeDept(selectDeptId);
+	 }) */
 </script>
 </html>

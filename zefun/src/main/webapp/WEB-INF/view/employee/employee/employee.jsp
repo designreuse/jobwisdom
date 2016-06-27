@@ -11,7 +11,6 @@
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script> 
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/wenben.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
@@ -145,17 +144,12 @@
 			 </p>
 		  </div>	 
 		 </div>
-		 
-	 
-	  <div class="textarea clearfix">
-	    <div class="introduction">
-		  <h5>员工简介</h5>
-		  <p>显示在会员端个人简介中</p>
-		</div>
-		<div class="textarea">
-	      <textarea name="employeeDesc" value=""> </textarea>
-	    </div>
-	  </div>
+	  <h5>员工简介</h5>
+	  <span id="editImage" class="addImage" title="插入图片" onclick="jQuery('.mask').show();editPage(null);chooseType=1;"> 
+	       <img src="<%=basePath%>images/insert_img.png" style="position: relative; left: 270px; top: 75px; z-index: 10000;">
+	  </span>
+	  <script id="editor1" type="text/plain" style="width: 550px; height: 90px;"></script>
+	  
 	  <div class="imformation_button">
 	     <button onclick="saveEmployee()">保存</button>
 		 <button onclick="jQuery('.zzc').hide()">取消</button>
@@ -289,6 +283,26 @@ var storeDtoList= eval("("+storeDtoListStr+")");
 </div>
 </body>
 <script>
+var toolbars = {
+		toolbars : [ [ 'fullscreen', 'source', '|', 'undo', 'redo', '|',
+				'bold', 'italic', 'underline', 'fontborder', 'strikethrough',
+				'superscript', '|', 'subscript', 'removeformat', 'formatmatch',
+				'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor',
+				'backcolor', 'insertorderedlist', 'insertunorderedlist',
+				'selectall', 'cleardoc', '|', 'rowspacingtop',
+				'rowspacingbottom', 'lineheight', '|', 'customstyle',
+				'paragraph', 'fontfamily', 'fontsize', '|',
+				'directionalityltr', 'directionalityrtl', 'indent', '|',
+				'justifyleft', 'justifycenter', 'justifyright',
+				'justifyjustify', '|', 'touppercase', 'tolowercase', 'preview' ] ],
+		maximumWords : 3000,
+		elementPathEnabled : false,
+		imageScaleEnabled : false,
+		wordCount : false,
+		autoHeightEnabled : false
+	};
+	var u1 = UE.getEditor('editor1', toolbars);
+	
 var employeeLevels = eval('('+'${employeeLevels}'+')');
 jQuery(function (){
 	changeEmployeeLevel(jQuery("select[name='positionId']").val());
@@ -323,7 +337,7 @@ function saveEmployee(){
 	var employeeStatus = jQuery("select[name='employeeStatus']").val();
 	var entryDate = jQuery("input[name='entryDate']").val();
 	var leaveDate = jQuery("input[name='leaveDate']").val();
-	var employeeDesc = jQuery("textarea[name='employeeDesc']").val();
+	var employeeDesc = u1.getContent();
 	var headImage = jQuery("input[name='headImage']").val();
 	var data = {"employeeId":employeeId, "employeeCode":employeeCode, "sex":sex, "birthday":birthday, "recommendId":recommendId, "phone":phone, "identityCard":identityCard, 
 			    "roleId":roleId, "positionId":positionId, "deptId":deptId, "levelId":levelId, "employeeStatus":employeeStatus, "entryDate":entryDate, "leaveDate":leaveDate, 
@@ -370,7 +384,7 @@ function selectEmp(id){
 				jQuery("select[name='employeeStatus']").val(e.msg.employeeStatus);
 				jQuery("input[name='entryDate']").val(e.msg.entryDate);
 				jQuery("input[name='leaveDate']").val(e.msg.leaveDate);
-				jQuery("textarea[name='employeeDesc']").val(e.msg.employeeDesc);
+				u1.setContent(e.msg.employeeDesc);
 				jQuery("input[name='headImage']").val(e.msg.headImage);
 				jQuery("input[name='headImage']").prev().attr("src", qiniuUrl+e.msg.headImage);
 				jQuery(".zzc").show();

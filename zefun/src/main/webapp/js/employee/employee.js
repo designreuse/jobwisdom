@@ -1786,7 +1786,10 @@ function zccCallback(dataBase64){
 		       		jQuery("input[name='headImage']").val(key);
 		       	}
 		       	else {
-		       		jQuery("input[name='hiddenupdateheadImage']").val(key);
+		       		u1.execCommand(
+							'insertHtml',
+							'<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'
+									+ qiniuUrl + key + '">');
 		       	}
 		       	jQuery(".mask").hide();
 		       	xiuxiu.onClose();

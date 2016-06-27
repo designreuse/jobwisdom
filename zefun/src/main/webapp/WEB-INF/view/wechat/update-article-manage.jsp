@@ -131,7 +131,7 @@
 												</p>
 											</div>
 											<!-- edit -->
-											<script id="editor1" type="text/plain" style="width:734px;height:400px;">${auto.content }</script>
+											<script id="editor1" type="text/plain" style="width:537px;height:400px;">${auto.content }</script>
 										</div>
 										<i class="arrow arrow_out" style="margin-top: 20px;"></i> 
 										<i class="arrow arrow_in" style="margin-top: 20px;"></i>
@@ -196,7 +196,7 @@
 												</p>
 											</div>
 											<!-- edit -->
-											<script id="editor${status.index+1 }" type="text/plain" style="width:738px;height:400px;">${auto.content }</script>
+											<script id="editor${status.index+1 }" type="text/plain" style="width:537px;height:400px;">${auto.content }</script>
 										</div>
 										<c:choose>
 										<c:when test="${status.index == 1 }">

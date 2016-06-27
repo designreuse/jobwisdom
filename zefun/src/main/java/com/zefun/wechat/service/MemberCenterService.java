@@ -36,9 +36,9 @@ import com.zefun.web.dto.AppointDateDto;
 import com.zefun.web.dto.AppointmentBaseDto;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CouponBaseDto;
-import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.DetailPaymentDto;
 import com.zefun.web.dto.EmployeeBaseDto;
+import com.zefun.web.dto.EnterpriseInfoDto;
 import com.zefun.web.dto.GoodsInfoCatagoryDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
@@ -57,8 +57,8 @@ import com.zefun.web.dto.ProjectEvaluateDto;
 import com.zefun.web.dto.SelfCashierDetailDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.entity.CouponInfo;
-import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
+import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
@@ -68,7 +68,6 @@ import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.MemberRecommend;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.OrderInfo;
-import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ProjectEvaluate;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectShare;
@@ -81,9 +80,9 @@ import com.zefun.web.entity.StoreWechat;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatMember;
 import com.zefun.web.mapper.CouponInfoMapper;
-import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeEvaluateMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
+import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.IntegralFlowMapper;
@@ -279,9 +278,10 @@ public class MemberCenterService {
     /** 在线商城 */
     @Autowired
     private StoreShopMapper storeShopMapper;
-    /** 部门信息*/
+    /** 企业信息信息*/
     @Autowired
-    private DeptInfoMapper deptInfoMapper;
+    private EnterpriseInfoMapper enterpriseInfoMapper;
+    
     
 	/**
 	 * wifi主页
@@ -930,59 +930,31 @@ public class MemberCenterService {
     * @param memberId       门店会员
     * @param storeAccount   门店代号
     * @param selectStoreId  所选门店
-    * @param selectDeptId   所选部门
     * @return               预约页面
      */
-    public ModelAndView orderAppointmentView(Integer memberId, String storeAccount, Integer selectStoreId, Integer selectDeptId){
+    public ModelAndView orderAppointmentView(Integer memberId, String storeAccount, Integer selectStoreId){
         
         ModelAndView mav = new ModelAndView(View.MemberCenter.ORDER_APPOINTMENT);
+        EnterpriseInfoDto enterpriseInfoDto = enterpriseInfoMapper.selectByProperties(new EnterpriseInfo(storeAccount));
         /** 企业下所有门店信息,部门信息*/
         List<StoreInfo> storeList = storeInfoMapper.selectByStoreAccount(storeAccount);
-        List<List<DeptInfo>> storeDepts = new ArrayList<>();
-        for (int i = 0; i < storeList.size(); i++) {
-            List<DeptInfo> deptInfos = deptInfoMapper.selectDeptByStoreId(storeList.get(i).getStoreId());
-            storeDepts.add(deptInfos);
+        if (selectStoreId == null && memberId == null){
+            selectStoreId = storeList.get(0).getStoreId();
         }
-        if (storeList != null) {
-            mav.addObject("storeList", storeList);
-            mav.addObject("storeDepts", storeDepts);
-            mav.addObject("storeSize", storeList.size());
+        else if (selectStoreId == null && memberId != null){
+            MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
+            selectStoreId = memberInfo.getStoreId();
         }
-        
-        /** 查看是否选择了其中的门店*/
-        if (selectStoreId!=null&&selectDeptId!=null){
-//            StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(selectStoreId);
-//            List<DeptInfo> deptInfo = deptInfoMapper.selectDeptByStoreId(selectDeptId);
-//            mav.addObject("storeInfo", storeInfo);
-//            mav.addObject("deptInfo", deptInfo);
-//            mav.addObject("selectDeptId", selectDeptId);
-        }
-        else {
-            /**将会员所属的门店展示*/
-            if (memberId!=null){
-                MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
-                selectStoreId = memberInfo.getStoreId();
-            }
-            else {
-                selectStoreId = storeList.get(0).getStoreId();
-            }
-            List<DeptInfo> deptInfo = deptInfoMapper.selectDeptByStoreId(selectStoreId);
-            selectDeptId = deptInfo.get(0).getDeptId();
-        }
-        
+        List<EmployeeBaseDto> employeeInfos = employeeInfoMapper.selectEmployeeListByStoreId(selectStoreId);
         StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(selectStoreId);
-        List<DeptInfo> deptInfos = deptInfoMapper.selectDeptByStoreId(selectStoreId);
-        mav.addObject("storeInfo", storeInfo);
-        mav.addObject("deptInfos", deptInfos);
-        mav.addObject("selectDeptId", selectDeptId);
-        
-        
-        List<DeptProjectBaseDto> serviceList = projectService.getDeptProjectByStoreId(selectStoreId);
-        mav.addObject("serviceList", serviceList);
-        mav.addObject("js_serviceList", JSONArray.fromObject(serviceList));
-        mav.addObject("typeNumber", serviceList == null ? 0 : serviceList.size());
-        
+        mav.addObject("memberId", memberId);                      /**会员标示,如果没有的话,点击预约进行注册*/
+        mav.addObject("storeList", storeList);                    /**企业门店列表*/
+        mav.addObject("storeInfo", storeInfo);                    /**选择的门店信息*/
+        mav.addObject("employeeInfos", employeeInfos);            /**门店下的员工信息*/
+        mav.addObject("selectStoreId", selectStoreId);            /**默认选择的门店*/
+        mav.addObject("enterpriseInfoDto", enterpriseInfoDto);    /**企业信息*/
         return mav;
+    
     }
     
     
@@ -1036,32 +1008,21 @@ public class MemberCenterService {
      * 访问时间预约页面
     * @author 张进军
     * @date Oct 19, 2015 3:43:41 PM
-    * @param projectId      项目标识
-    * @param projectName    项目名称
-    * @param projectStepOrder 服务步骤序号
-    * @param shiftMahjongId 服务步骤轮牌标识
     * @param employeeId     员工标识
-    * @param employeeName   员工名称
-    * @param levelName      员工级别
     * @param request        请求对象
     * @param response       响应对象
     * @throws IOException 页面跳转异常
     * @throws ServletException 页面跳转异常
     * @return   时间预约页面
      */
-    public ModelAndView dateAppointmentView(int projectId, String projectName, int projectStepOrder, int shiftMahjongId,
-            int employeeId, String employeeName, String levelName, 
-            HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public ModelAndView dateAppointmentView(Integer employeeId, HttpServletRequest request, 
+            HttpServletResponse response) throws ServletException, IOException{
         ModelAndView mav = new ModelAndView(View.MemberCenter.DATE_APPOINTMENT);
         
-        mav.addObject("projectId", projectId);
-        mav.addObject("mainStoreId", projectInfoMapper.selectByPrimaryKey(projectId).getStoreId());
-        mav.addObject("projectName", projectName);
-        mav.addObject("projectStepOrder", projectStepOrder);
-        mav.addObject("shiftMahjongId", shiftMahjongId);
+        EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(employeeId);
         mav.addObject("employeeId", employeeId);
-        mav.addObject("employeeName", employeeName);
-        mav.addObject("levelName", levelName);
+        mav.addObject("employeeName", employeeInfo.getName());
+        mav.addObject("levelName", employeeInfo.getLevelName());
         
         //查询员工的班次
         Map<Integer, String> map = shiftMapper.selectShiftByEmployeeId(employeeId);
@@ -1192,14 +1153,11 @@ public class MemberCenterService {
     * @param appointDate    预约日期
     * @param appointTime    预约时间
     * @param projectId      项目标识
-    * @param projectName    项目名称
-    * @param projectStepOrder 服务步骤序号
-    * @param shiftMahjongId 服务步骤轮牌标识
     * @param employeeId     员工标识
     * @return   成功返回码0；失败返回其他错误码，返回值为提示语
      */
-    public BaseDto orderAppointmentAction(int memberId, String mainStoreId, String appointDate, String appointTime, int projectId, 
-            String projectName, int projectStepOrder, int shiftMahjongId, int employeeId){
+    public BaseDto orderAppointmentAction(int memberId, String mainStoreId, String appointDate, 
+            String appointTime, Integer projectId, Integer employeeId){
         //获取预约员工的门店标识
         int storeId = employeeInfoMapper.selectByPrimaryKey(employeeId).getStoreId();
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
@@ -1211,13 +1169,13 @@ public class MemberCenterService {
         memberAppointment.setStoreId(storeId);
         memberAppointment.setEmployeeId(employeeId);
         memberAppointment.setProjectId(projectId);
-        memberAppointment.setProjectStepOrder(projectStepOrder);
-        memberAppointment.setShiftMahjongId(shiftMahjongId);
+//        memberAppointment.setProjectStepOrder(projectStepOrder);
+//        memberAppointment.setShiftMahjongId(shiftMahjongId);
         memberAppointment.setAppointmentDate(appointDate);
         memberAppointment.setAppointmentTime(appointTime);
-        ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
-        memberAppointment.setAppointmentPrice(projectService.getProjectPriceByMember(memberInfo.getLevelId(), 
-                projectId, projectInfo.getProjectPrice(), memberInfo.getStoreId()));
+//        ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
+//        memberAppointment.setAppointmentPrice(projectService.getProjectPriceByMember(memberInfo.getLevelId(), 
+//                projectId, projectInfo.getProjectPrice(), memberInfo.getStoreId()));
         String curTime = DateUtil.getCurTime();
         memberAppointment.setCreateTime(curTime);
         memberAppointment.setUpdateTime(curTime);
@@ -1232,7 +1190,7 @@ public class MemberCenterService {
         if (StringUtils.isNotBlank(openId)) {
             rabbitService.sendAppointmentApplyNotice(storeId, mainStoreId, App.System.SERVER_BASE_URL 
                     + Url.Staff.VIEW_STAFF_APPOINT.replace("{storeId}", mainStoreId + "").replace("{businessType}", "2").replace("{type}", "1"), 
-                    employeeId, openId, memberInfo.getName(), memberInfo.getLevelName(), projectName, appointDate + " " + appointTime);
+                    employeeId, openId, memberInfo.getName(), memberInfo.getLevelName(), "到店体验", appointDate + " " + appointTime);
         }
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
@@ -1365,17 +1323,17 @@ public class MemberCenterService {
         if (selectedStoreId != null){
             ownerStoreId = selectedStoreId;
         }
-        Page<CouponBaseDto> page = new Page<CouponBaseDto>();
-        page.setPageNo(1);
-        page.setPageSize(10);
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("storeId", ownerStoreId);
-        page.setParams(params);
-//        List<CouponBaseDto> couponList = couponInfoMapper.selectBaseByStoreId(page);
+//        Page<CouponBaseDto> page = new Page<CouponBaseDto>();
+//        page.setPageNo(1);
+//        page.setPageSize(10);
+//        Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("storeId", ownerStoreId);
+//        page.setParams(params);
+        List<CouponInfo> couponList = couponInfoMapper.selectCouponListByStoreId(ownerStoreId);
 //        page.setResults(couponList);
         
         ModelAndView mav = new ModelAndView(View.MemberCenter.SHOP_CENTER);
-        mav.addObject("page", page);
+        mav.addObject("couponList", couponList);
         
         StoreShop storeShop = new StoreShop();
         storeShop.setStoreId(ownerStoreId);
