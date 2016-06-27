@@ -181,34 +181,11 @@
 		     <li onclick="chooseMemberPage(1, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=qiniuPath %>system/profile/vip_card.png">
 			    <span class = "active"><img src="<%=basePath %>images/checked.png"></span>
 			 </li>
-			 <li onclick="chooseMemberPage(2, 'system/profile/vip_card_11.png', 'system/profile/vip_card_12.png')"><img src="<%=qiniuPath %>system/profile/vip_card_11.png">
-			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
-			 <li onclick="chooseMemberPage(3, 'system/profile/vip_card_21.png', 'system/profile/vip_card_22.png')"><img src="<%=qiniuPath %>system/profile/vip_card_21.png">
-			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
-			 <li onclick="chooseMemberPage(4, 'system/profile/vip_card_31.png', 'system/profile/vip_card_32.png')"><img src="<%=qiniuPath %>system/profile/vip_card_31.png">
-			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
-			 <li onclick="chooseMemberPage(5, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
-			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
-			 <%-- <li onclick="chooseMemberPage(6, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
-			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
-			 <li onclick="chooseMemberPage(7, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
-			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
-			 <li onclick="chooseMemberPage(8, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
-			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
-			 <li onclick="chooseMemberPage(9, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
-			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
-			 <li onclick="chooseMemberPage(10, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=basePath %>images/vip_card.png">
-			    <span><img src="<%=basePath %>images/checked.png"></span>
-			 </li> --%>
+		
+	
            </ul>
+           
+   
 		   <div class="business_level_back_text">
 		      <ul class="business_level_back_text_ul clearfix">
 		         <li>项目折扣<input type="text" name="projectDiscount"></li>
