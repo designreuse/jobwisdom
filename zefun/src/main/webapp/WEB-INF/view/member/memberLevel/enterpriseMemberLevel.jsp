@@ -81,6 +81,43 @@
      	});
     }
     </script>
+    
+       <script>
+   
+  	jQuery(document).ready(function() {    
+         jQuery('.business_manage_table td span').click(function(){
+	     find=jQuery(this).parent().find('.demo_fade');
+	   if(find.css('display')=='none'){
+	      find.stop(true,true).slideDown('normal');
+	   }    
+	   else if(find.css('display')=='block'){
+          jQuery('.demo_fade').stop(true,true).slideUp('normal');
+	    }	
+	  
+ 	 })
+  });
+  
+  
+  //VIP卡选择
+  jQuery(function(){
+    jQuery('.business_level_back_ul li').click(function(){
+	   jQuery(this).find('span').show();
+	   jQuery(this).siblings().find('span').hide();	
+	})
+  
+  })
+  
+  
+  jQuery(function(){
+    jQuery('.business_level_content_right li').click(function(){
+	   var bac=jQuery(this).find('span').css('background-color');
+	   jQuery(this).css('border-color',bac).siblings().css('border-color','white');
+	   jQuery('.preview_vip_card').css('background',bac)
+	
+	});
+  })
+  </script>
+    
 </head>
 <body>
 
@@ -176,14 +213,14 @@
 		</div>
 		
 		<div class="business_level_back">
-		  <p>选择卡背</p>
-		   <ul class="business_level_back_ul clearfix">
-		     <li onclick="chooseMemberPage(1, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=qiniuPath %>system/profile/vip_card.png">
-			    <span class = "active"><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
+<!-- 		  <p>选择卡背</p> -->
+<!-- 		   <ul class="business_level_back_ul clearfix"> -->
+<%-- 		     <li onclick="chooseMemberPage(1, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=qiniuPath %>system/profile/vip_card.png"> --%>
+<%-- 			    <span class = "active"><img src="<%=basePath %>images/checked.png"></span> --%>
+<!-- 			 </li> -->
 		
 	
-           </ul>
+<!--            </ul> -->
            
    
 		   <div class="business_level_back_text">
@@ -216,38 +253,58 @@
 		
 		</div>
 	
-		<div class="business_level_content_right">
-		  <p>效果图预览</p>
+		
+	
+	  <div class="business_level_content_right">
+		  <p></p>
 		  <div class="preview">
-		     <div class="preview_1" name = "pagePreview" style="background:url('<%=basePath %>images/vip_card.png') no-repeat;">
-			    <div class="preview_left" name = "pagePreviewLeft">
-				   <span >5折卡</span>
-            	</div>
-				<div class="preview_right" name = "pagePreviewRight">
-                   <ul class="clearfix">
-					  <li>项目折扣：5折</li>
-					  <li>项目折扣：6折</li>
-                   </ul>
-				   <span>卡上余额：88888元</span>
-	            </div>
-         	 </div>  
-			 <div class="right_dir">
-			   <span onclick="showMask(1)"><img src="<%=basePath %>images/face.png"></span>
-			   <span onclick="showMask(2)"><img src="<%=basePath %>images/back_1.png"></span>
-			 </div>
-			 <div class="preview_2 clearfix" style="background:url('<%=basePath %>images/vip_card1.png') no-repeat;">
-			   <div class="preview_2_top"></div>
-			   <div class="preview_2_content clearfix">
-			     <div class="logo_img"><img src="<%=basePath %>images/vip_img.png"></div>
-                 <div class="preview_2_content_right">
-                    黄金八折卡黄金八折卡黄金八折卡黄金八折</br>黄金八折卡黄金八折卡黄金八</br>黄金八折卡黄金八折卡黄金八折卡</br>黄金八折卡黄金八折卡黄金八折卡黄金八折
-                 </div> 			     
-			   </div>
-         	 </div> 
-			 
-		  </div>
-		</div>
-	  </div>
+		    <div class="preview_vip_card">
+			  <p><em>VIP</em>啊啊啊啊啊啊啊啊</p>
+			  <div class="item_card">
+			      <p>项目折扣：10折</p>
+				  <p>商品折扣：10折</p>
+			  </div>
+			  <div class="rest_money">
+			  卡上余额：30300元
+			  </div>
+			</div>
+          </div>
+	      <ul class="clearfix">
+		    <li><span style="background:#d93717"></span></li>
+		    <li><span style="background:#f8b65b"></span></li>
+			<li><span style="background:#585eaa"></span></li>
+			<li><span style="background:#5c7a29"></span></li>
+			<li><span style="background:#5f3c23"></span></li>
+			<li><span style="background:#2b4490"></span></li>
+			<li><span style="background:#b36d41"></span></li>
+			<li><span style="background:#a7573b"></span></li>
+			<li><span style="background:#f05b72"></span></li>
+			<li><span style="background:#817936"></span></li>
+			<li><span style="background:#2e3a1f"></span></li>
+			<li><span style="background:#46485f"></span></li>
+			<li><span style="background:#543044"></span></li>
+			<li><span style="background:#401c44"></span></li>
+			<li><span style="background:#225a1f"></span></li>
+			<li><span style="background:#b69968"></span></li>
+			<li><span style="background:#6d5826"></span></li>
+			<li><span style="background:#d3c6a6"></span></li>
+			<li><span style="background:#c1a173"></span></li>
+			<li><span style="background:#5e7c85"></span></li>
+			<li><span style="background:#7c8577"></span></li>
+			<li><span style="background:#6c4c49"></span></li>
+			<li><span style="background:#3e4145"></span></li>
+			<li><span style="background:#281f1d"></span></li>
+			<li><span style="background:#596032"></span></li>
+			<li><span style="background:#145b7d"></span></li>
+			<li><span style="background:#0c212b"></span></li>
+			<li><span style="background:#508a88"></span></li>
+			<li><span style="background:#fcaf17"></span></li>
+			<li><span style="background:#8552a1"></span></li>
+			<li><span style="background:#df9464"></span></li>
+			<li><span style="background:#65c294"></span></li>
+          </ul>		  
+		 </div>
+	    </div>
 	  
    </div>   
 </div>
