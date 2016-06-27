@@ -1,11 +1,16 @@
 package com.zefun.web.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,14 +18,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
+import com.zefun.common.utils.MessageUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.ScreeningDto;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.CouponStoreKey;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.CouponStoreMapper;
+import com.zefun.web.mapper.MemberInfoMapper;
+import com.zefun.web.mapper.MemberScreeningMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
+import com.zefun.web.mapper.StoreWechatMapper;
+import com.zefun.web.mapper.WechatMemberMapper;
+import com.zefun.web.mapper.WechatStoreMapper;
+
+import net.sf.json.JSONObject;
 
 
 /**
@@ -35,15 +49,28 @@ public class CouponService {
     /** 门店表 */
     @Autowired
     private StoreInfoMapper storeInfoMapper;
-
     /** 企业优惠卷 */
     @Autowired
     private CouponInfoMapper couponInfoMapper;
     
-    
     /** 门店关联表优惠卷 */
     @Autowired
     private CouponStoreMapper couponStoreMapper;
+    
+    /** 门店关联表优惠卷 */
+    @Autowired
+    private MemberScreeningMapper memberScreeningMapper;
+    /** 门店关联表优惠卷 */
+    @Autowired
+    private MemberInfoMapper memberInfoMapper;
+    /** 门店关联表优惠卷 */
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    /** 门店关联表优惠卷 */
+    @Autowired
+    private StoreWechatMapper storeWechatMapper;
+    
+    
 
     /**
      * 优惠卷展示页面
@@ -211,6 +238,46 @@ public class CouponService {
         }
         
         return new BaseDto(updateByPrimaryKey, couponInfo);
+    }
+
+    
+    /**
+     * 优惠券推送功能
+    * @author 高国藩
+    * @date 2016年6月27日 下午8:03:40
+    * @param level     level 会员等级
+    * @param sceening   sceening 会员分组
+    * @param couponId   优惠券Id
+    * @param storeId    门店标示
+    * @param storeAccount  微门店设置性能
+    * @return              baseDto
+     */
+    public BaseDto sendCounponsToMembers(String level, String sceening,
+            Integer couponId, Integer storeId, String storeAccount) {
+        Set<Integer> sendsIds = new HashSet<>();
+        List<ScreeningDto> dtos = memberScreeningMapper.selectByDtos(Arrays.asList(sceening));
+        for (int i = 0; i < dtos.size(); i++) {
+            List<Integer> memberIds = memberInfoMapper.selectMemberIdsByDtos2(MessageUtil.transBean2Map(dtos.get(i)));
+            sendsIds.addAll(memberIds);
+        }
+        List<String> levels = Arrays.asList(level);
+        List<Integer> memberIds = memberInfoMapper.selectMemberIdsByLevelIds(levels);
+        sendsIds.addAll(memberIds);
+        List<Integer> ls = new ArrayList<>();
+        ls.addAll(sendsIds);
+        List<String> touser = new ArrayList<>(); //wechatMemberMapper.selectOpenIdsByMemberIdList(ls);
+        touser.add("opqSZwHLjhGDjR6wo2fAIVmqlqAM");
+        touser.add("opqSZwJIvK-CT0PVZRVwxpLmy6Y8");
+        touser.add("opqSZwP0DCpckbvGx1gB-mEVWi7s");
+        JSONObject object = new JSONObject();
+        object.put("storeAccount", storeAccount);
+        object.put("storeName", "中帮我道-小高分店1");
+        object.put("couponName", "欢天喜地优惠券");
+        object.put("couponStopTime", "2016-09-21");
+        object.put("tempId", storeWechatMapper.selectByPrimaryKey(storeAccount).getTmCouponOverdue());
+        object.put("touser", touser);
+        rabbitTemplate.convertAndSend(App.Queue.SEND_COUPONS, object);
+        return null;
     }
 
 }

@@ -44,7 +44,9 @@
 										<td>${coupon.releaseTime}</td>
 										<td>${coupon.couponStopTime}</td>
 										<td>${coupon.couponStartTime}天</td>
-										<td><em class="up_preview" onclick="viwe(${coupon.couponId},'${coupon.couponColour}')">预览</em></td>
+										<td>
+										<em class="up_preview" onclick="viwe(${coupon.couponId},'${coupon.couponColour}')">赠送</em>
+										<em class="up_preview" onclick="viwe(${coupon.couponId},'${coupon.couponColour}')">预览</em></td>
 									</tr>
 								</c:forEach>
 							</tbody>

@@ -10,7 +10,7 @@ public class StoreWechat {
     /**主键ID*/
     private Integer relatedId;
     /**门店ID*/
-    private Integer storeId;
+    private String storeAccount;
     /**公众号唯一标示ID*/
     private String wechatId;
     /**公众号appID*/
@@ -30,12 +30,12 @@ public class StoreWechat {
         this.relatedId = relatedId;
     }
 
-    public Integer getStoreId() {
-        return storeId;
+    public String getStoreAccount() {
+        return storeAccount;
     }
 
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+    public void setStoreAccount(String storeAccount) {
+        this.storeAccount = storeAccount;
     }
 
     public String getWechatId() {

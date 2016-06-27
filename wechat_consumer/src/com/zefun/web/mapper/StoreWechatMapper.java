@@ -15,5 +15,5 @@ public interface StoreWechatMapper {
     * @param storeId 门店
     * @return 返回实体
      */
-    StoreWechat selectByStoreId(int storeId);
+    StoreWechat selectByStoreId(String storeAccount);
 }

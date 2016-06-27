@@ -105,7 +105,6 @@ public interface App {
 		public static final String TEST = "coupon_test";
 		/** 发送优惠券通知 */
 		public static final String SEND_COUPONS = "queue_member_service_coupon";
-
 		/** 指定员工 */
 		public static final String APPOINT_EMPLOYEE = "queue_appoint_employee_coupon";
 		/** 指定员工消息 */
@@ -114,7 +113,6 @@ public interface App {
 		public static final String WAIT_ORDER_EMPLOYEE = "wait_order_employee";
 		/** 员工接收到订单 */
 		public static final String EMPLOYEE_RECEIVE_ORDER = "employee_receive_order";
-
 		/** 自助收银计算提成 */
 		public static final String CASHIER_ORDER_COMMISSION = "queue_cashier_order_comission";
 		/** 修改订单计算提成 */

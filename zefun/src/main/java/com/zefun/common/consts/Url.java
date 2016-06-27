@@ -175,6 +175,8 @@ public interface Url {
         public static final String UPDATE_COUPON_USE = "update/coupons/use";
         /** 下载优惠券 */
         public static final String UPDATE_COUPON_NO_USE = "update/coupons/no/use";
+        /** 推送优惠券,短信微信模板推送*/
+        public static final String COUPONS_SEND = "send/coupons/to/use";
 
 	}
 

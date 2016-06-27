@@ -30,9 +30,6 @@ public class CouponController extends BaseController{
     @Autowired
     private CouponService couponService;
     
-    
-    
- 
    
    /**
     * 优惠卷展示页面
@@ -44,7 +41,6 @@ public class CouponController extends BaseController{
     @RequestMapping(value = Url.Coupon.VIEW_COUPONS, method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView showMinBargain(HttpServletRequest request) {
-       
         return couponService.viewCouponsByPage(request);
     }
 
@@ -120,5 +116,22 @@ public class CouponController extends BaseController{
     public BaseDto saveUpdate(HttpServletRequest request, @RequestBody CouponInfo couponInfo){
         couponInfo.setStoreAccount(getStoreAccount(request));
         return couponService.saveUpdate(couponInfo);
+    }
+    
+    /**
+     * 推送优惠券
+    * @author 高国藩
+    * @date 2016年6月27日 下午8:01:19
+    * @param level          level
+    * @param sceening       sceening
+    * @param request        request
+    * @param couponId       couponId
+    * @return               BaseDto
+     */
+    @ResponseBody
+    @RequestMapping(value = Url.Coupon.COUPONS_SEND, method = RequestMethod.POST)
+    public BaseDto sendCoupons(String level, String sceening, Integer couponId, HttpServletRequest request){
+        return couponService.sendCounponsToMembers(level, sceening, couponId, getStoreId(request), getStoreAccount(request));
+        
     }
 }
