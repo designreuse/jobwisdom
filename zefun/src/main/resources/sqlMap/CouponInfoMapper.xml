@@ -33,10 +33,13 @@
   </sql>
   
     <select id="selectCouponListByStoreId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-        <include refid="Base_Column_List" />
-    from coupon_info
-    where store_id = #{storeId} and is_delete = 0 and coupon_stop_time >= curdate()
+<!--     select  -->
+<!--         <include refid="Base_Column_List" /> -->
+<!--     from coupon_info -->
+<!--     where store_id = #{storeId} and is_delete = 0 and coupon_stop_time >= curdate() --> 
+    
+      	SELECT   i.* from coupon_store s  LEFT JOIN  coupon_info   i  ON  s.coupon_id=i.coupon_id   WHERE
+  	  s.store_id =#{storeId}   AND  i.is_delete=0  and  coupon_stop_time &gt;= curdate() and curdate() &gt;= release_time
   </select>
   
    <select id="selectNormalByCouponId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -88,14 +91,14 @@
     where coupon_id = #{couponId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zefun.web.entity.CouponInfo" keyProperty="couponId" useGeneratedKeys="true" >
-    insert into coupon_info (coupon_id, coupon_name, store_id, 
+    insert into coupon_info (coupon_name, store_id, 
       coupon_price, coupon_vantages, coupon_type, 
       coupon_start_time, coupon_stop_time, release_time, 
       coupon_is_use, store_account, is_delete, 
       is_type, price_sigle, coupon_number, 
       coupon_man, coupon_colour, start_type,store_type,coupon_num,coupon_names
       )
-    values (#{couponId,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
+    values ( #{couponName,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
       #{couponPrice,jdbcType=INTEGER}, #{couponVantages,jdbcType=INTEGER}, #{couponType,jdbcType=INTEGER}, 
       #{couponStartTime,jdbcType=CHAR}, #{couponStopTime,jdbcType=CHAR}, #{releaseTime,jdbcType=CHAR}, 
       #{couponIsUse,jdbcType=INTEGER}, #{storeAccount,jdbcType=CHAR}, #{isDelete,jdbcType=INTEGER}, 
@@ -326,7 +329,8 @@
       store_type = #{storeType,jdbcType=CHAR},
       coupon_names = #{couponNames,jdbcType=CHAR},
       coupon_num = #{couponNum,jdbcType=INTEGER}
-    where coupon_id = #{couponId,jdbcType=INTEGER}
+    where coupon_id = #{couponId,jdbcType=INTEGER}  AND  (CURDATE() &gt; DATE_ADD(#{couponStopTime}, INTERVAL #{couponStartTime} DAY) or CURDATE() &lt; #{releaseTime})
+    
   </update> 
   
 
@@ -340,7 +344,9 @@
   </select>
   
   
-    <select id="selectByStore" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.Page" >
+  
+  
+    <select id="selectByStoreAccount" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.Page" >
   	SELECT   i.* from coupon_store s  LEFT JOIN  coupon_info   i  ON  s.coupon_id=i.coupon_id   WHERE
   	  s.store_id =#{params.StoreId}   AND  i.is_delete=0  
   </select>
@@ -352,7 +358,9 @@
   </update> 
   
   
-  <update id="updateByDelete" parameterType="com.zefun.web.entity.CouponInfo" >
-    update coupon_info   set is_delete =1 where CURDATE() > DATE_ADD(#{couponStopTime}, INTERVAL #{couponStartTime} DAY)  AND coupon_id = #{couponId}
+  <update id="updateByDelete" parameterType="com.zefun.web.entity.CouponInfo" > 
+    update coupon_info   set is_delete =1 where (CURDATE() &gt; DATE_ADD(#{couponStopTime}, INTERVAL #{couponStartTime} DAY) or CURDATE() &lt; #{releaseTime})  AND coupon_id = #{couponId}
   </update> 
+  
+   
 </mapper>

@@ -1,13 +1,15 @@
-package com.zefun.web.entity;
+package com.zefun.web.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
+import com.zefun.web.entity.ProjectCommission;
 
 /**
  * 
 * @author 骆峰
 * @date 2016年6月25日 下午12:39:07
  */
-public class ProjectStep {
+public class ProjectStepDto {
     /** 项目步骤标识 */
     private Integer projectStepId;
 
@@ -37,6 +39,12 @@ public class ProjectStep {
 
     /** 岗位标识 */
     private Integer positionId;
+
+    /** 提成操作*/
+    private List<ProjectCommission> projectCommission;
+    
+    
+   
 
     public Integer getProjectStepId() {
         return projectStepId;
@@ -116,5 +124,13 @@ public class ProjectStep {
 
     public void setPositionId(Integer positionId) {
         this.positionId = positionId;
+    }
+    
+    public List<ProjectCommission> getProjectCommission() {
+        return projectCommission;
+    }
+
+    public void setProjectCommission(List<ProjectCommission> projectCommission) {
+        this.projectCommission = projectCommission;
     }
 }

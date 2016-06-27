@@ -137,7 +137,35 @@ public interface PositioninfoMapper {
     List<PositionInfo> queryAllByStoreId(Integer storeId);
     
     /**
-     * 谁也别用,特殊方法
+     * 根据店铺id查询所有岗位(状态没删除的)
+    * @author 骆峰
+    * @date 2016年6月24日 下午5:03:16
+    * @param positionInfo positionInfo
+    * @return List
+     */
+    List<PositionInfo> selectPositionInfosByName(PositionInfo positionInfo);
+    
+    /**
+     * 查询岗位职位等级关联关系
+    * @author 骆峰
+    * @date 2016年6月24日 下午8:38:55
+    * @param storeId  门店标识
+    * @return         关联集合类
+     */
+    List<PositionInfoDto> selectPositionEpmployees(Integer storeId);
+    
+    /**
+     * 查询岗位职位等级关联关系 回显
+    * @author 骆峰
+    * @date 2016年6月25日 下午7:06:26
+    * @param projectId 岗位标识
+    * @return  关联集合类
+     */
+    List<PositionInfoDto> selectPositionEpmployeesShow(Integer projectId);
+    
+    
+   /**
+    * 谁也别用,特殊方法
     * @author 高国藩
     * @date 2016年6月24日 下午5:17:05
     * @param params  params

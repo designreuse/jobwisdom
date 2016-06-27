@@ -57,7 +57,7 @@
 													class="up1" id="${coupon.couponId}1">下架</span></em>
 											</c:if> <em class="up_preview"
 											onclick="viwe(${coupon.couponId},${coupon.couponColour})">预览</em><i
-											onclick="deleted(${coupon.couponId},'${coupon.couponStopTime}',${coupon.couponStartTime})">删除</i>
+											onclick="deleted(${coupon.couponId},'${coupon.couponStopTime}',${coupon.couponStartTime},'${coupon.releaseTime}')">删除</i>
 											<em
 											onclick="updateSave('${coupon.couponId}','${coupon.storeType}','${coupon.couponMan}','${coupon.couponColour}','${coupon.couponType}','${coupon.startType}','${coupon.couponVantages}','${coupon.priceSigle}','${coupon.couponNumber}','${coupon.couponStartTime}')"><img
 												src="<%=basePath%>/images/coupon_write.png"></em></td>
@@ -84,41 +84,41 @@
 			</div>
 			<div class="select_color_val">
 				<ul class="clearfix">
-					<li value="1" style="background: #d93717"></li>
-					<li value="2" style="background: #f8b65b"></li>
-					<li value="3" style="background: #585eaa"></li>
-					<li value="4" style="background: #5c7a29"></li>
-					<li value="5" style="background: #5f3c23"></li>
-					<li value="6" style="background: #2b4490"></li>
-					<li value="7" style="background: #b36d41"></li>
-					<li value="8" style="background: #a7573b"></li>
-					<li value="9" style="background: #f05b72"></li>
-					<li value="10" style="background: #817936"></li>
-					<li value="11" style="background: #2e3a1f"></li>
-					<li value="12" style="background: #46485f"></li>
-					<li value="13" style="background: #543044"></li>
-					<li value="14" style="background: #401c44"></li>
-					<li value="15" style="background: #225a1f"></li>
-					<li value="16" style="background: #b69968"></li>
-					<li value="17" style="background: #6d5826"></li>
-					<li value="18" style="background: #d3c6a6"></li>
-					<li value="19" style="background: #c1a173"></li>
-					<li value="20" style="background: #5e7c85"></li>
-					<li value="21" style="background: #7c8577"></li>
-					<li value="22" style="background: #6c4c49"></li>
-					<li value="23" style="background: #3e4145"></li>
-					<li value="24" style="background: #281f1d"></li>
-					<li value="25" style="background: #596032"></li>
-					<li value="26" style="background: #145b7d"></li>
-					<li value="27" style="background: #0c212b"></li>
-					<li value="28" style="background: #508a88"></li>
-					<li value="29" style="background: #145b7d"></li>
-					<li value="30" style="background: #0c212b"></li>
-					<li value="31" style="background: #508a88"></li>
-					<li value="32" style="background: #fcaf17"></li>
-					<li value="33" style="background: #8552a1"></li>
-					<li value="34" style="background: #df9464"></li>
-					<li value="35" style="background: #65c294"></li>
+					<li value="d93717" style="background: #d93717"></li>
+					<li value="f8b65b" style="background: #f8b65b"></li>
+					<li value="585eaa" style="background: #585eaa"></li>
+					<li value="5c7a29" style="background: #5c7a29"></li>
+					<li value="5f3c23" style="background: #5f3c23"></li>
+					<li value="2b4490" style="background: #2b4490"></li>
+					<li value="b36d41" style="background: #b36d41"></li>
+					<li value="a7573b" style="background: #a7573b"></li>
+					<li value="f05b72" style="background: #f05b72"></li>
+					<li value="817936" style="background: #817936"></li>
+					<li value="2e3a1f" style="background: #2e3a1f"></li>
+					<li value="46485f" style="background: #46485f"></li>
+					<li value="543044" style="background: #543044"></li>
+					<li value="401c44" style="background: #401c44"></li>
+					<li value="225a1f" style="background: #225a1f"></li>
+					<li value="b69968" style="background: #b69968"></li>
+					<li value="6d5826" style="background: #6d5826"></li>
+					<li value="d3c6a6" style="background: #d3c6a6"></li>
+					<li value="c1a173" style="background: #c1a173"></li>
+					<li value="5e7c85" style="background: #5e7c85"></li>
+					<li value="7c8577" style="background: #7c8577"></li>
+					<li value="7c8577" style="background: #7c8577"></li>
+					<li value="3e4145" style="background: #3e4145"></li>
+					<li value="281f1d" style="background: #281f1d"></li>
+					<li value="596032" style="background: #596032"></li>
+					<li value="145b7d" style="background: #145b7d"></li>
+					<li value="0c212b" style="background: #0c212b"></li>
+					<li value="508a88" style="background: #508a88"></li>
+					<li value="145b7d" style="background: #145b7d"></li>
+					<li value="0c212b" style="background: #0c212b"></li>
+					<li value="508a88" style="background: #508a88"></li>
+					<li value="fcaf17" style="background: #fcaf17"></li>
+					<li value="8552a1" style="background: #8552a1"></li>
+					<li value="df9464" style="background: #df9464"></li>
+					<li value="65c294" style="background: #65c294"></li>
 				</ul>
 			</div>
 		</div>
@@ -249,8 +249,13 @@
 			dataType : "json",
 			contentType : "application/json",
 			success : function(e) {
-				window.location.href = baseUrl + "coupons/couponslist";
-				dialog("新增成功");
+				if(e.code==1){
+					window.location.href = baseUrl + "coupons/couponslist";
+					dialog("新增成功");
+				}
+				else{
+					dialog("请在优惠卷结束，有效期过后修改");
+				}
 			}
 		});
 	}
@@ -276,11 +281,12 @@
 			var tar = e.target;
 			if (jQuery(tar).is('.zzc2')) {
 				jQuery('.zzc2').hide()
+				jQuery(".select_color_val").removeAttr("style");
 			}
 		})
 		jQuery(".zzc").hide();
-		var col = jQuery("ul li[value='1']").css('background');
-		var colour = jQuery("ul li[value='1']").val();
+		var col = jQuery("ul li[value='d93717']").css('background');
+		var colour = jQuery("ul li[value='d93717']").val();
 		jQuery('.select_color').css('background', col)
 		jQuery('.select_color').attr("value",colour);
 		colour = jQuery('.select_color_val li').val();
@@ -372,7 +378,7 @@
 								html+='	<em onclick="update('+value.couponId+',0)"><span class="up" id="'+value.couponId+'" style="display:none">上架</span> </em>';
 								html+='	<em onclick="update('+value.couponId+',1)"><span class="up1" id="'+value.couponId+'1" >下架</span> </em>';
 							}
- 							html+='<em class="up_preview" onclick="viwe('+value.couponId+','+value.couponColour+')">预览</em><i  onclick="deleted('+value.couponId+',\''+value.couponStopTime+'\','+value.couponStartTime+')">删除</i>';
+ 							html+='<em class="up_preview" onclick="viwe('+value.couponId+','+value.couponColour+')">预览</em><i  onclick="deleted('+value.couponId+',\''+value.couponStopTime+'\','+value.couponStartTime+'\','+value.releaseTime+'\')">删除</i>';
  							html+= '<em onclick="updateSave('+value.couponId+',\''+value.storeType+'\','+value.couponMan+','+value.couponColour+','+value.couponType+','+value.startType+','+value.couponVantages+','+value.priceSigle+','+value.couponNumber+','+value.couponStartTime+')"><img src="'+baseUrl+'/images/coupon_write.png"></em></td></tr>'
 					jQuery("#tables").append(jQuery(html));
 				});
@@ -422,8 +428,8 @@
 	}
 	
 	
-	function deleted(id,stopTime,startTime){
-		var datas = "couponId=" + id+"&couponStopTime="+stopTime+"&couponStartTime="+startTime
+	function deleted(id,stopTime,startTime,releaseTime){
+		var datas = "couponId=" + id+"&couponStopTime="+stopTime+"&couponStartTime="+startTime+"&releaseTime="+releaseTime
 		jQuery.ajax({
 			type : "post",
 			url : baseUrl + "action/coupons/delete",
@@ -435,7 +441,7 @@
 					var id = e.msg;
 					jQuery('tr[id='+id+']').hide();
 				}else{
-					dialog("还不能删除");
+					dialog("请在优惠卷结束，有效期过后删除");
 				}
 			}
 		});

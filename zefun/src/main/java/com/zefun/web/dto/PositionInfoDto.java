@@ -11,33 +11,17 @@ import com.zefun.web.entity.EmployeeLevel;
 public class PositionInfoDto {
     /** 岗位标识*/
     private Integer positionId;
-    /** 岗位编码*/
-    private String positionCode;
     /** 岗位名称*/
     private String positionName;
-    /** 是否可夸部门*/
-    private Integer isDept;
    /**职位相关信息*/
-    private List<EmployeeLevel> employeeLeve;
+    private List<EmployeeLevel> employeeLevel;
     
     
-    public Integer getIsDept() {
-        return isDept;
-    }
-    public void setIsDept(Integer isDept) {
-        this.isDept = isDept;
-    }
     public Integer getPositionId() {
         return positionId;
     }
     public void setPositionId(Integer positionId) {
         this.positionId = positionId;
-    }
-    public String getPositionCode() {
-        return positionCode;
-    }
-    public void setPositionCode(String positionCode) {
-        this.positionCode = positionCode;
     }
     public String getPositionName() {
         return positionName;
@@ -45,12 +29,11 @@ public class PositionInfoDto {
     public void setPositionName(String positionName) {
         this.positionName = positionName;
     }
-    public List<EmployeeLevel> getEmployeeLeve() {
-        return employeeLeve;
+    public List<EmployeeLevel> getEmployeeLevel() {
+        return employeeLevel;
     }
-    public void setEmployeeLeve(List<EmployeeLevel> employeeLeve) {
-        this.employeeLeve = employeeLeve;
+    public void setEmployeeLevel(List<EmployeeLevel> employeeLevel) {
+        this.employeeLevel = employeeLevel;
     }
     
-
 }

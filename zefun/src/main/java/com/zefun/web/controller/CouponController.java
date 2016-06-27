@@ -63,7 +63,7 @@ public class CouponController extends BaseController{
         return couponService.viweAddCoupon(couponInfo);
     }
     /**
-     *分页查询
+     * 分页查询
     * @author 骆峰
     * @date 2016年6月22日 下午8:42:32
     * @param request request
@@ -98,12 +98,13 @@ public class CouponController extends BaseController{
     * @param couponId couponId
     * @param couponStopTime couponStopTime
     * @param couponStartTime couponStartTime
+    * @param releaseTime releaseTime
     * @return  BaseDto
      */
     @ResponseBody
     @RequestMapping(value = Url.Coupon.DELETE_COUPONS, method = RequestMethod.POST)
-    public BaseDto deleted(Integer couponId, String couponStopTime, String couponStartTime){
-        return couponService.deleted(couponId, couponStopTime, couponStartTime);
+    public BaseDto deleted(Integer couponId, String couponStopTime, String couponStartTime, String releaseTime){
+        return couponService.deleted(couponId, couponStopTime, couponStartTime, releaseTime);
         
     }
     /**

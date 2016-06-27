@@ -1,52 +1,48 @@
 package com.zefun.web.entity;
 
 import java.math.BigDecimal;
-/**
- * 
-* @author éª†å³°
-* @date 2016å¹´6æœˆ25æ—¥ ä¸‹åˆ12:41:41
- */
+
 public class ProjectCommission {
-    /** ææˆæ ‡è¯† */
+    /** Ìá³É±êÊ¶ */
     private Integer commissionId;
 
-    /** é¡¹ç›®æ ‡è¯† */
+    /** ÏîÄ¿±êÊ¶ */
     private Integer projectId;
 
-    /** èŒä½æ ‡è¯† */
+    /** Ö°Î»±êÊ¶ */
     private Integer levelId;
 
-    /** æŒ‡å®šå®¢ç°é‡‘æ–¹å¼(1:æŒ‰ä¸šç»©æ¯”ä¾‹,2:æŒ‰å›ºå®šé‡‘é¢) */
+    /** Ö¸¶¨¿ÍÏÖ½ğ·½Ê½(1:°´Òµ¼¨±ÈÀı,2:°´¹Ì¶¨½ğ¶î) */
     private Integer assignCashType;
 
-    /** æŒ‡å®šå®¢ç°é‡‘ */
+    /** Ö¸¶¨¿ÍÏÖ½ğ */
     private BigDecimal assignCash;
 
-    /** æŒ‡å®šå®¢åˆ·å¡ */
+    /** Ö¸¶¨¿ÍË¢¿¨ */
     private BigDecimal assignCard;
 
-    /** æ˜¯å¦åˆ é™¤(0:æœªåˆ é™¤,1:å·²åˆ é™¤) */
+    /** ÊÇ·ñÉ¾³ı(0:Î´É¾³ı,1:ÒÑÉ¾³ı) */
     private Integer isDeleted;
-    
-    /** åˆ›å»ºæ—¶é—´ */
+
+    /** ´´½¨Ê±¼ä */
     private String createTime;
 
-    /** ä¿®æ”¹æ—¶é—´ */
+    /** ĞŞ¸ÄÊ±¼ä */
     private String updateTime;
 
-    /** æœ€åæ“ä½œäººæ ‡è¯† */
+    /** ×îºó²Ù×÷ÈË±êÊ¶ */
     private Integer lastOperatorId;
 
-    /** æŒ‡å®šææˆ */
+    /** Ö¸¶¨Ìá³É */
     private Integer commissionPrice;
 
-    /** éæŒ‡å®šææˆ */
+    /** ·ÇÖ¸¶¨Ìá³É */
     private Integer commissionNoPrice;
 
-    /** é¢„çº¦å¥–åŠ± */
+    /** Ô¤Ô¼½±Àø */
     private Integer commissionCard;
 
-    /** å²—ä½æ ‡è¯† */
+    /** ¸ÚÎ»±êÊ¶ */
     private Integer positionId;
 
     public Integer getCommissionId() {

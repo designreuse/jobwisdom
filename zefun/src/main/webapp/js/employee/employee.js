@@ -1,5 +1,3 @@
-
-
 //更改每页显示数量
 function changePageSize(size){
 	pageNo = 1;
@@ -1754,11 +1752,11 @@ function savedesc(){
 	 jQuery(".mask").hide();
  })
 
- var chooseType = 0;
+var chooseType = 0;
  
 function zccCallback(dataBase64){
 	if (chooseType == 0) {
-		jQuery("#headImage").attr("src", dataBase64);
+		jQuery("input[name='headImage']").prev().attr("src", dataBase64);
 	}
 	else {
 		jQuery("#updateheadImage").attr("src", dataBase64);
@@ -1785,12 +1783,13 @@ function zccCallback(dataBase64){
 		       	var imageUrl = data.msg.imageUrl;
 		       	var key = data.msg.key;
 		       	if (chooseType == 0) {
-		       		jQuery("input[name='hiddenheadImg']").val(key);
+		       		jQuery("input[name='headImage']").val(key);
 		       	}
 		       	else {
 		       		jQuery("input[name='hiddenupdateheadImage']").val(key);
 		       	}
 		       	jQuery(".mask").hide();
+		       	xiuxiu.onClose();
 	       }
  	});
 }
