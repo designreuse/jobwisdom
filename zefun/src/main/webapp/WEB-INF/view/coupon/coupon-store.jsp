@@ -44,7 +44,7 @@
 										<td>${coupon.releaseTime}</td>
 										<td>${coupon.couponStopTime}</td>
 										<td>${coupon.couponStartTime}天</td>
-										<td><em class="up_preview" onclick="viwe(${coupon.couponId},${coupon.couponColour})">预览</em></td>
+										<td><em class="up_preview" onclick="viwe(${coupon.couponId},'${coupon.couponColour}')">预览</em></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -326,7 +326,7 @@
 							+'		<td>'+value.releaseTime+ '</td>'
 							+'		<td>'+value.couponStopTime+ '</td>'
 							+'		<td>'+value.couponStartTime+'</td>' 
-							+'		<td><em class="up_preview" onclick="viwe('+value.couponId+','+value.couponColour+')">预览</em></td>'
+							+'		<td><em class="up_preview" onclick="viwe('+value.couponId+',\''+value.couponColour+'\')">预览</em></td>'
 							+'		</tr>'
 					jQuery("#tables").append(jQuery(html));
 				});

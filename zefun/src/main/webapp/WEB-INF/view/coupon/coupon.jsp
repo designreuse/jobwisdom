@@ -45,18 +45,16 @@
 										<td>${coupon.releaseTime}</td>
 										<td>${coupon.couponStopTime}</td>
 										<td>${coupon.couponStartTime}天</td>
-										<td><c:if test="${(coupon.isType eq 1)}">
-												<em onclick="update(${coupon.couponId},0)"><span
-													class="up" id="${coupon.couponId}">上架</span></em>
-												<em onclick="update(${coupon.couponId},1)"><span
-													class="up1" id="${coupon.couponId}1" style="display: none">下架</span></em>
-											</c:if> <c:if test="${(coupon.isType eq 0)}">
-												<em onclick="update(${coupon.couponId},0)"><span
-													class="up" id="${coupon.couponId}" style="display: none">上架</span></em>
-												<em onclick="update(${coupon.couponId},1)"><span
-													class="up1" id="${coupon.couponId}1">下架</span></em>
-											</c:if> <em class="up_preview"
-											onclick="viwe(${coupon.couponId},${coupon.couponColour})">预览</em><i
+										<td>
+<%-- 										<c:if test="${(coupon.isType eq 1)}"> --%>
+<%-- 												<em onclick="update(${coupon.couponId},0)"><span class="up" id="${coupon.couponId}">上架</span></em> --%>
+<%-- 												<em onclick="update(${coupon.couponId},1)"><span class="up1" id="${coupon.couponId}1" style="display: none">下架</span></em> --%>
+<%-- 											</c:if> <c:if test="${(coupon.isType eq 0)}"> --%>
+<%-- 												<em onclick="update(${coupon.couponId},0)"><span class="up" id="${coupon.couponId}" style="display: none">上架</span></em> --%>
+<%-- 												<em onclick="update(${coupon.couponId},1)"><span class="up1" id="${coupon.couponId}1">下架</span></em> --%>
+<%-- 											</c:if>  --%>
+											<em class="up_preview"
+											onclick="viwe(${coupon.couponId},'${coupon.couponColour}')">预览</em><i
 											onclick="deleted(${coupon.couponId},'${coupon.couponStopTime}',${coupon.couponStartTime},'${coupon.releaseTime}')">删除</i>
 											<em
 											onclick="updateSave('${coupon.couponId}','${coupon.storeType}','${coupon.couponMan}','${coupon.couponColour}','${coupon.couponType}','${coupon.startType}','${coupon.couponVantages}','${coupon.priceSigle}','${coupon.couponNumber}','${coupon.couponStartTime}')"><img
@@ -371,14 +369,14 @@
 							+'		<td>'+value.releaseTime+'</td>'
 							+'		<td>'+value.couponStopTime+'</td>'
 							+'		<td>'+value.couponStartTime+'</td> <td>';
-							if(value.isType==1){
-								html+='	<em onclick="update('+value.couponId+',0)"><span class="up" id="'+value.couponId+'">上架</span> </em>';
-								html+='	<em onclick="update('+value.couponId+',1)"><span class="up1" id="'+value.couponId+'1" style="display:none">下架</span> </em>';
-							}else{
-								html+='	<em onclick="update('+value.couponId+',0)"><span class="up" id="'+value.couponId+'" style="display:none">上架</span> </em>';
-								html+='	<em onclick="update('+value.couponId+',1)"><span class="up1" id="'+value.couponId+'1" >下架</span> </em>';
-							}
- 							html+='<em class="up_preview" onclick="viwe('+value.couponId+','+value.couponColour+')">预览</em><i  onclick="deleted('+value.couponId+',\''+value.couponStopTime+'\','+value.couponStartTime+'\','+value.releaseTime+'\')">删除</i>';
+// 							if(value.isType==1){
+// 								html+='	<em onclick="update('+value.couponId+',0)"><span class="up" id="'+value.couponId+'">上架</span> </em>';
+// 								html+='	<em onclick="update('+value.couponId+',1)"><span class="up1" id="'+value.couponId+'1" style="display:none">下架</span> </em>';
+// 							}else{
+// 								html+='	<em onclick="update('+value.couponId+',0)"><span class="up" id="'+value.couponId+'" style="display:none">上架</span> </em>';
+// 								html+='	<em onclick="update('+value.couponId+',1)"><span class="up1" id="'+value.couponId+'1" >下架</span> </em>';
+// 							}
+ 							html+='<em class="up_preview" onclick="viwe('+value.couponId+',\''+value.couponColour+'\')">预览</em><i  onclick="deleted('+value.couponId+',\''+value.couponStopTime+'\','+value.couponStartTime+'\','+value.releaseTime+'\')">删除</i>';
  							html+= '<em onclick="updateSave('+value.couponId+',\''+value.storeType+'\','+value.couponMan+','+value.couponColour+','+value.couponType+','+value.startType+','+value.couponVantages+','+value.priceSigle+','+value.couponNumber+','+value.couponStartTime+')"><img src="'+baseUrl+'/images/coupon_write.png"></em></td></tr>'
 					jQuery("#tables").append(jQuery(html));
 				});
