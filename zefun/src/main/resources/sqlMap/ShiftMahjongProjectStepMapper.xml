@@ -3,7 +3,7 @@
 <mapper namespace="com.zefun.web.mapper.ShiftMahjongProjectStepMapper" >
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.ShiftMahjongProjectStep" >
     <id column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
-    <result column="project_step_id" property="projectStepId" jdbcType="INTEGER" />
+    <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
     <result column="begin_time" property="beginTime" jdbcType="CHAR" />
@@ -21,7 +21,7 @@
   
   <resultMap id="StepDtoResultMap" type="com.zefun.web.dto.ShiftMahjongProjectStepDto" >
     <id column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
-    <result column="project_step_id" property="projectStepId" jdbcType="INTEGER" />
+    <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
     <result column="begin_time" property="beginTime" jdbcType="CHAR" />
@@ -41,8 +41,7 @@
   
   <resultMap id="DetailStepResultMap" type="com.zefun.web.dto.OrderDetailStepDto">
     <result column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
-    <result column="project_step_id" property="projectStepId" jdbcType="INTEGER" />
-    <result column="project_step_name" property="projectStepName" jdbcType="VARCHAR" />
+    <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="shiftMahjongId" property="shiftMahjongId" jdbcType="VARCHAR" />
     <result column="shiftMahjongName" property="shiftMahjongName" jdbcType="VARCHAR" />
     <result column="beginTime" property="beginTime" jdbcType="CHAR" />
@@ -58,7 +57,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    shift_mahjong_step_id, project_step_id, detail_id, employee_id, begin_time, finish_time, 
+    shift_mahjong_step_id, position_id, detail_id, employee_id, begin_time, finish_time, 
     is_assign, is_designate, is_appoint, is_over, is_deleted, is_current, create_time, update_time, last_operator_id
   </sql>
   
@@ -70,11 +69,9 @@
   <select id="selectOrderStepListByDetailId" resultMap="DetailStepResultMap" parameterType="java.lang.Integer">
     select
         sms.shift_mahjong_step_id as shiftMahjongStepId,
-        sms.project_step_id as projectStepId,
-        ps.project_step_name as projectStepName,
+        sms.position_id as positionId,
+        ps.position_name as positionName,
         sms.employee_id as employeeId,
-        (select shift_mahjong_id from shift_mahjong where shift_mahjong_id = (select shift_mahjong_id from project_step where project_step_id = sms.project_step_id)) shiftMahjongId,
-        (select shift_mahjong_name from shift_mahjong where shift_mahjong_id = (select shift_mahjong_id from project_step where project_step_id = sms.project_step_id)) shiftMahjongName,
         substring(sms.begin_time, 12) as beginTime,
         substring(sms.finish_time, 12) as finishTime,
         sms.is_assign as isAssign,
@@ -82,9 +79,8 @@
         sms.is_appoint as isAppoint,
         sms.is_over as isOver,
         sms.is_current as isCurrent,
-        ps.project_step_order as projectStepOrder
-    from shift_mahjong_project_step sms, project_step ps 
-    where sms.detail_id = #{detailId} and sms.project_step_id = ps.project_step_id and sms.is_deleted = 0 order by ps.project_step_order
+    from shift_mahjong_project_step sms, position_info ps 
+    where sms.detail_id = #{detailId} and sms.position_id = ps.position_id and sms.is_deleted = 0 order by ps.position_id
   </select>
   
   <select id="selectOrderStepByCurrent" resultMap="DetailStepResultMap" parameterType="java.lang.Integer">
@@ -132,8 +128,8 @@
       <if test="shiftMahjongStepId != null" >
         shift_mahjong_step_id,
       </if>
-      <if test="projectStepId != null" >
-        project_step_id,
+      <if test="positionId != null" >
+        position_id,
       </if>
       <if test="detailId != null" >
         detail_id,
@@ -179,8 +175,8 @@
       <if test="shiftMahjongStepId != null" >
         #{shiftMahjongStepId,jdbcType=INTEGER},
       </if>
-      <if test="projectStepId != null" >
-        #{projectStepId,jdbcType=INTEGER},
+      <if test="positionId != null" >
+        #{positionId,jdbcType=INTEGER},
       </if>
       <if test="detailId != null" >
         #{detailId,jdbcType=INTEGER},
@@ -227,8 +223,8 @@
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.ShiftMahjongProjectStep" >
     update shift_mahjong_project_step
     <set >
-      <if test="projectStepId != null" >
-        project_step_id = #{projectStepId,jdbcType=INTEGER},
+      <if test="positionId != null" >
+        position_id = #{positionId,jdbcType=INTEGER},
       </if>
       <if test="detailId != null" >
         detail_id = #{detailId,jdbcType=INTEGER},
@@ -290,8 +286,8 @@
   <update id="updateLastValue" parameterType="com.zefun.web.entity.ShiftMahjongProjectStep" >
     update shift_mahjong_project_step a, shift_mahjong_project_step b 
     <set >
-      <if test="projectStepId != null" >
-        a.project_step_id = #{projectStepId,jdbcType=INTEGER},
+      <if test="positionId != null" >
+        a.position_id = #{positionId,jdbcType=INTEGER},
       </if>
       <if test="detailId != null" >
         a.detail_id = #{detailId,jdbcType=INTEGER},

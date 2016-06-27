@@ -17,13 +17,14 @@ import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
+import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.ProjectMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
-import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
+import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
 import com.zefun.web.mapper.ComboInfoMapper;
@@ -32,6 +33,7 @@ import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
 import com.zefun.wechat.service.StaffService;
@@ -70,6 +72,8 @@ public class ManuallyOpenOrderService {
 	@Autowired private OrderInfoMapper orderInfoMapper;
 	/** 订单明细*/
 	@Autowired private OrderDetailMapper orderDetailMapper;
+	/** 岗位*/
+	@Autowired private PositioninfoMapper positioninfoMapper;
 	
 	/**
 	 * 初始化轮职排班界面
@@ -102,8 +106,23 @@ public class ManuallyOpenOrderService {
 		    list.add(map);
         }
 		mav.addObject("list", list);
+		//查询门店下所有的岗位
+		List<PositionInfo> positionInfos = positioninfoMapper.queryAllByStoreId(storeId);
+		
+		mav.addObject("positionInfosStr", JSONArray.fromObject(positionInfos).toString());
+		
+		List<Map<String, Object>> employeeInfoList = new ArrayList<>();
+		for (PositionInfo positionInfo : positionInfos) {
+			Map<String, Object> employeeMap = new HashMap<>();
+			Map<String, Integer> params =  new HashMap<>();
+			params.put("positionId", positionInfo.getPositionId());
+			List<EmployeeDto> employeeDtoList = employeeInfoMapper.selectAllEmployeeByCondition(params);
+			employeeMap.put("positionId", positionInfo.getPositionId());
+			employeeMap.put("employeeDtoList", employeeDtoList);
+			employeeInfoList.add(employeeMap);
+		}
+		
 		//查询该门店所有员工
-		List<EmployeeInfo> employeeInfoList = employeeInfoMapper.getRecommendlist(storeId);
 		mav.addObject("employeeInfoList", JSONArray.fromObject(employeeInfoList));
 		mav.setViewName(View.KeepAccounts.MANUALLY_OPEN_ORDER);
 		return mav;
@@ -189,7 +208,7 @@ public class ManuallyOpenOrderService {
                 JSONArray stepObj =JSONArray.fromObject(projectStepArrayObjStr);
                 for (int i = 0; i < stepObj.size(); i++) {
                     JSONObject jsonStep = stepObj.getJSONObject(i);
-                    Integer projectStepId = jsonStep.getInt("projectStepId");
+                    Integer positionId = jsonStep.getInt("positionId");
                     String employeeIds = jsonStep.getString("employeeId");
                     Integer employeeId = null;
                     if (!StringUtil.isEmpty(employeeIds)) {
@@ -200,7 +219,7 @@ public class ManuallyOpenOrderService {
                     
                     
                     ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
-                    shiftMahjongProjectStep.setProjectStepId(projectStepId);
+                    shiftMahjongProjectStep.setPositionId(positionId);
                     shiftMahjongProjectStep.setEmployeeId(employeeId);
                     shiftMahjongProjectStep.setDetailId(detailId);
                     shiftMahjongProjectStep.setIsAssign(isAssign);
@@ -249,4 +268,13 @@ public class ManuallyOpenOrderService {
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
+	
+	/**
+	 * 计算提成业绩
+	* @author 老王
+	* @date 2016年6月27日 下午2:54:50
+	 */
+	public void calculationCommission () {
+		
+	}
 }

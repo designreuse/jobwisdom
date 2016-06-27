@@ -52,31 +52,15 @@
   
    <!-- 根据会员标识查询优惠券信息，by 张进军 -->
   <select id="selectBaseByMemberId" resultType="com.zefun.web.dto.CouponBaseDto" parameterType="java.lang.Integer" >
-    SELECT 
-    	mc.relevance_id as relevanceId,
-        CASE c.coupon_type 
-           WHEN 1 THEN (SELECT project_name from project_info WHERE project_id = c.coupon_use_id)
-           WHEN 2 THEN (SELECT goods_name from goods_info WHERE goods_id = c.coupon_use_id) 
-           WHEN 3 THEN (SELECT combo_name from combo_info WHERE combo_id = c.coupon_use_id)
-           WHEN 4 THEN (SELECT category_name from project_category WHERE category_id = c.coupon_use_id)
-           WHEN 5 THEN (SELECT category_name from goods_category WHERE category_id = c.coupon_use_id)
-           ELSE '通用' 
-        END as projectName,
-        case 
-            when c.coupon_stop_time >= curdate() then 0
-            else 1
-        end as isOverdue,
-        c.coupon_use_id as projectId,
+    SELECT mc.relevance_id as relevanceId, 
         c.coupon_id as couponId,
-        c.coupon_type as couponType,
         c.coupon_name as couponName,
         c.coupon_price as couponPrice,
         c.coupon_vantages as couponVantages,
         c.coupon_stop_time as overdueTime
     from member_coupon mc 
-    left join coupon_info c 
-    on c.coupon_id = mc.coupon_id
-    where mc.member_info_id = #{memberId} and mc.is_used = 0 order by isOverdue asc, overdueTime asc
+    left join coupon_info c on c.coupon_id = mc.coupon_id
+    where mc.member_info_id = #{memberId}
   </select>
   
   

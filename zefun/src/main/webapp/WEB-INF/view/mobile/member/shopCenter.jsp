@@ -101,27 +101,6 @@
 	    <div class="jifenduihuan-wrap">
 	        <ul class="designer-list">
 	           <c:forEach items="${page.results }" var="couponInfo">
-	               <c:set var="couponType" value="店内所有项目与商品" />
-	               <c:set var="couponImage" value="shop_coupon_project.png" />
-	               <c:choose>
-	                   <c:when test="${couponInfo.couponType == 2 }">
-	                       <c:set var="couponType" value="商品" />
-	                       <c:set var="couponImage" value="${couponInfo.projectImage }" />
-	                   </c:when>
-	                   <c:when test="${couponInfo.couponType == 1 }">
-                           <c:set var="couponType" value="项目" />
-                           <c:set var="couponImage" value="${couponInfo.projectImage }" />
-                       </c:when>
-                       <c:when test="${couponInfo.couponType == 4 }">
-                           <c:set var="couponType" value="项目系列" />
-                           <c:set var="couponImage" value="shop_coupon_project.png" />
-                       </c:when>
-                       <c:when test="${couponInfo.couponType == 5 }">
-                           <c:set var="couponType" value="商品系列" />
-                           <c:set var="couponImage" value="shop_coupon_goods.png" />
-                       </c:when>
-	               </c:choose>
-	               
 	               <li class="designer-item-content">
 		                <img src="<%=picPath %>${couponImage}">
 		                <div class="info">
@@ -135,8 +114,8 @@
 		                </div>
 		                <a href="javascript:exchange(${couponInfo.couponId});" class="shop-btn fr">兑 换</a>
 		                <span id="${couponInfo.couponId}_tip" class="hide">
-                           您确定使用${couponInfo.couponVantages }积分，兑换${couponInfo.couponPrice }元${couponInfo.projectName}${couponType }现金抵用券吗？
-                           该券将在<span style="color: red;">${couponInfo.overdueTime }</span>过期，兑换后尽快到店使用哦。
+				                           您确定使用${couponInfo.couponVantages }积分，兑换${couponInfo.couponPrice }元${couponInfo.projectName}${couponType }现金抵用券吗？
+				                           该券将在<span style="color: red;">${couponInfo.overdueTime }</span>过期，兑换后尽快到店使用哦。
                        	</span>
 		            </li>
 	           </c:forEach>

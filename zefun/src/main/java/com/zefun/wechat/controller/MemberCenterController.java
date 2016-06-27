@@ -583,8 +583,6 @@ public class MemberCenterController extends BaseController {
     }
     
     
-
-    
     /**
      * 访问分享发型的页面
     * @author 张进军
@@ -682,7 +680,6 @@ public class MemberCenterController extends BaseController {
     * @date Sep 2, 2015 11:00:28 AM
     * @param storeId        店铺标识
     * @param selectStoreId  所选门店
-    * @param selectDeptId   所选部门
     * @param businessType   业务类型(1:会员,2:员工)
     * @param request        请求对象
     * @param response       响应对象
@@ -690,15 +687,14 @@ public class MemberCenterController extends BaseController {
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_ORDER_APPOINTMENT, method = RequestMethod.GET)
     public ModelAndView orderAppointmentView(@PathVariable String storeId, @PathVariable int businessType, 
-            @RequestParam(value = "selectStoreId", required = false) Integer selectStoreId,
-            @RequestParam(value = "selectDeptId", required = false) Integer selectDeptId,
+            @RequestParam(value = "selectStoreId", required = false) Integer selectStoreId, 
             HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
             return null;
         }
         Integer memberId = getUserIdByOpenId(openId);
-        return memberCenterService.orderAppointmentView(memberId, storeId, selectStoreId, selectDeptId);
+        return memberCenterService.orderAppointmentView(memberId, storeId, selectStoreId);
     }
     
     
@@ -730,13 +726,7 @@ public class MemberCenterController extends BaseController {
      * 访问时间预约页面
     * @author 张进军
     * @date Oct 19, 2015 3:43:41 PM
-    * @param projectId      项目标识
-    * @param projectName    项目名称
-    * @param projectStepOrder 服务步骤序号
-    * @param shiftMahjongId 服务步骤轮牌标识
     * @param employeeId     员工标识
-    * @param employeeName   员工名称
-    * @param levelName      员工级别
     * @param request        请求对象
     * @param response       响应对象
     * @return   时间预约页面
@@ -744,16 +734,27 @@ public class MemberCenterController extends BaseController {
      * @throws ServletException 页面跳转异常
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_DATE_APPOINTMENT)
-    public ModelAndView dateAppointmentView(int projectId, String projectName, int projectStepOrder, int shiftMahjongId,
-            int employeeId, String employeeName, String levelName, 
-            HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public ModelAndView dateAppointmentView(int employeeId, HttpServletRequest request, 
+            HttpServletResponse response) throws ServletException, IOException{
         String openId = getOpenId(1, request, response);
         if (openId == null) {
             return null;
         }
-        return memberCenterService.dateAppointmentView(projectId, projectName, projectStepOrder, shiftMahjongId, 
-                employeeId, employeeName, levelName, request, response);
+        return memberCenterService.dateAppointmentView(employeeId, request, response);
     }
+    
+//    @RequestMapping(value = Url.MemberCenter.VIEW_DATE_APPOINTMENT)
+//    public ModelAndView dateAppointmentView(int projectId, String projectName, int projectStepOrder, int shiftMahjongId,
+//            int employeeId, String employeeName, String levelName, 
+//            HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+//        String openId = getOpenId(1, request, response);
+//        if (openId == null) {
+//            return null;
+//        }
+//        Integer memberId = getUserId(request);
+//        return memberCenterService.dateAppointmentView(projectId, projectName, projectStepOrder, shiftMahjongId, 
+//                employeeId, employeeName, levelName, request, response);
+//    }
     
     
     /**
@@ -763,9 +764,6 @@ public class MemberCenterController extends BaseController {
     * @param appointDate    预约日期
     * @param appointTime    预约时段
     * @param projectId      项目标识
-    * @param projectName    项目名称
-    * @param projectStepOrder 服务步骤序号
-    * @param shiftMahjongId 服务步骤轮牌标识
     * @param employeeId     员工标识
     * @param request        请求对象
     * @param response       响应对象
@@ -773,17 +771,29 @@ public class MemberCenterController extends BaseController {
      */
     @RequestMapping(value = Url.MemberCenter.ACTION_ORDER_APPOINTMENT, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto orderAppointmentAction(String appointDate, String appointTime, int projectId, String projectName, int projectStepOrder, 
-            int shiftMahjongId, int employeeId, HttpServletRequest request, HttpServletResponse response){
+    public BaseDto orderAppointmentAction(String appointDate, String appointTime, Integer projectId, 
+            int employeeId, HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(1, request, response);
         if (openId == null) {
             return null;
         }
         int memberId = getUserIdByOpenId(openId);
         String storeAccount = getStoreAccount(request);
-        return memberCenterService.orderAppointmentAction(memberId, storeAccount, appointDate, appointTime, projectId, projectName, 
-                projectStepOrder, shiftMahjongId, employeeId);
+        return memberCenterService.orderAppointmentAction(memberId, storeAccount, appointDate, appointTime, projectId, employeeId);
     }
+//    @RequestMapping(value = Url.MemberCenter.ACTION_ORDER_APPOINTMENT, method = RequestMethod.POST)
+//    @ResponseBody
+//    public BaseDto orderAppointmentAction(String appointDate, String appointTime, int projectId, String projectName, int projectStepOrder, 
+//            int shiftMahjongId, int employeeId, HttpServletRequest request, HttpServletResponse response){
+//        String openId = getOpenId(1, request, response);
+//        if (openId == null) {
+//            return null;
+//        }
+//        int memberId = getUserIdByOpenId(openId);
+//        String storeAccount = getStoreAccount(request);
+//        return memberCenterService.orderAppointmentAction(memberId, storeAccount, appointDate, appointTime, projectId, projectName, 
+//                projectStepOrder, shiftMahjongId, employeeId);
+//    }
     
     
     /**

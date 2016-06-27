@@ -13,10 +13,9 @@ public class OrderDetailStepDto implements Comparable<OrderDetailStepDto>, Seria
     private static final long serialVersionUID = 1L;
     /** 轮牌步骤标识*/
     private Integer shiftMahjongStepId;
-    /** 步骤标识 */
-    private Integer projectStepId;
-    /** 步骤名称*/
-    private String projectStepName;
+    
+    /** 岗位标识 */
+	private Integer positionId;
     /** 轮牌标识*/
     private Integer shiftMahjongId;
     /** 轮牌名称 */
@@ -111,15 +110,15 @@ public class OrderDetailStepDto implements Comparable<OrderDetailStepDto>, Seria
         this.commissionAmount = commissionAmount;
     }
 
-    public String getProjectStepName() {
-        return projectStepName;
-    }
+    public Integer getPositionId() {
+		return positionId;
+	}
 
-    public void setProjectStepName(String projectStepName) {
-        this.projectStepName = projectStepName;
-    }
+	public void setPositionId(Integer positionId) {
+		this.positionId = positionId;
+	}
 
-    public Integer getIsDeleted() {
+	public Integer getIsDeleted() {
         return isDeleted;
     }
 
@@ -141,14 +140,6 @@ public class OrderDetailStepDto implements Comparable<OrderDetailStepDto>, Seria
 
     public void setShiftMahjongStepId(Integer shiftMahjongStepId) {
         this.shiftMahjongStepId = shiftMahjongStepId;
-    }
-
-    public Integer getProjectStepId() {
-        return projectStepId;
-    }
-
-    public void setProjectStepId(Integer projectStepId) {
-        this.projectStepId = projectStepId;
     }
 
     public String getShiftMahjongName() {
@@ -214,7 +205,8 @@ public class OrderDetailStepDto implements Comparable<OrderDetailStepDto>, Seria
     * @param arg0 arg0
     * @return int
      */
-    public int compareTo(OrderDetailStepDto arg0) {
+    @Override
+	public int compareTo(OrderDetailStepDto arg0) {
         return this.getProjectStepOrder().compareTo(arg0.getProjectStepOrder());
     }
     
