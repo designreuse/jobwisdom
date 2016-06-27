@@ -131,5 +131,5 @@ public interface ProjectCommissionMapper {
     * @param projectId projectId
     * @return ProjectCommission
      */
-    ProjectCommission selectShow(Integer projectId);
+    List<ProjectCommission> selectShow(Integer projectId);
 }

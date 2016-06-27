@@ -313,7 +313,8 @@
       store_type = #{storeType,jdbcType=CHAR},
       coupon_names = #{couponNames,jdbcType=CHAR},
       coupon_num = #{couponNum,jdbcType=INTEGER}
-    where coupon_id = #{couponId,jdbcType=INTEGER}
+    where coupon_id = #{couponId,jdbcType=INTEGER}  AND  (CURDATE() &gt; DATE_ADD(#{couponStopTime}, INTERVAL #{couponStartTime} DAY) or CURDATE() &lt; #{releaseTime})
+    
   </update> 
   
 
@@ -344,4 +345,6 @@
   <update id="updateByDelete" parameterType="com.zefun.web.entity.CouponInfo" > 
     update coupon_info   set is_delete =1 where (CURDATE() &gt; DATE_ADD(#{couponStopTime}, INTERVAL #{couponStartTime} DAY) or CURDATE() &lt; #{releaseTime})  AND coupon_id = #{couponId}
   </update> 
+  
+   
 </mapper>

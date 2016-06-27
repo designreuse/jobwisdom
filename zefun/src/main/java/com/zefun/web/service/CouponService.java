@@ -111,7 +111,7 @@ public class CouponService {
             couponStore.setStoreId(Integer.parseInt(store[i]));
             couponStoreMapper.insert(couponStore);
         }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, couponInfo);
+        return new BaseDto(1, couponInfo);
     }
     /**
      * 企业分页查询
@@ -196,7 +196,7 @@ public class CouponService {
         couponInfo.setCouponNum(0);
         couponInfo.setCouponIsUse(0);
         couponInfo.setIsType(1);
-        couponInfoMapper.updateByPrimaryKey(couponInfo);
+        int updateByPrimaryKey = couponInfoMapper.updateByPrimaryKey(couponInfo);
         
        
         CouponStoreKey couponStore = new CouponStoreKey();
@@ -210,7 +210,7 @@ public class CouponService {
             couponStoreMapper.insert(couponStore);
         }
         
-        return new BaseDto(0, couponInfo);
+        return new BaseDto(updateByPrimaryKey, couponInfo);
     }
 
 }
