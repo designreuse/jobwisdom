@@ -69,8 +69,4 @@ public class SmsService {
         return false;
     }
     
-    public static void main(String[] args) {
-        new SmsService().sendVerifyCode(1, "", "123456", "小高");
-    }
-    
 }
