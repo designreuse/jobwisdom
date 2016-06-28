@@ -62,9 +62,13 @@ function refreshTableData(page){
 	    str += "<td>"+memberLevelDto.performanceDiscountPercent+"%</td>"+
 	             "<td>"+memberLevelDto.integralUnit+"元 = "+memberLevelDto.integralNumber+"积分</td>"+
 	             "<td class='input80 ellipsis-text'>"+memberLevelDto.levelNotice+"</td>"+
-	             "<td><em onclick='editMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/handle_1.png'></em><em onclick='showMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/shop_vip.png'></em></td>"+
+	             "<td>";
+	    			if(memberLevelDto.levelType=='折扣卡'){
+	    				
+	    				 str += "<em onclick='editMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/handle_1.png'></em>";
+	    			}
+	    			 str +=  "<em onclick='showMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/shop_vip.png'></em></td>"+
 	           "</tr>";
-		
 		jQuery(".vip_card_table table").append(str);
 	}
 }
@@ -86,6 +90,7 @@ function editMemberLevel (discountId) {
 		}
 	});
 }
+
 
 function saveEditMemberLevel () {
 	var projectDiscountValue = jQuery("input[name='projectDiscount']").val();
@@ -186,7 +191,6 @@ function saveEditMemberLevel () {
 }
 
 function showMemberLevel (discountId) {
-	jQuery(".zzc").show();
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "memberLevel/action/info",
@@ -199,11 +203,11 @@ function showMemberLevel (discountId) {
 			}
 			var data = e.msg;
 			var arrStr = data.levelLogo;
-			var arr = arrStr.split(",");
-			chooseMemberPage(data.levelType, arr[0], arr[1]);
-			jQuery("#levelName").text(data.levelName);
-			jQuery("#projectDiscount").text(data.projectDiscount);
-			jQuery("#goodsDiscount").text(data.goodsDiscount);
+			jQuery("p[name='levelName']").find("i").text(data.levelName);
+			jQuery("p[name='projectDiscount']").find("i").text(data.projectDiscount/10);
+			jQuery("p[name='goodsDiscount']").find("i").text(data.goodsDiscount/10);
+			jQuery('.preview_vip_card').css('background','#'+data.levelLogo);
+			jQuery(".zzc").show();
 		}
 	});
 }
@@ -250,4 +254,24 @@ function cancelModal () {
 	jQuery(".zzc1").hide();
 	jQuery(".zzc").hide();
 	jQuery(".zzc1").find("[type='text']").val('');
+	jQuery("#levelNameP").text("");
 }
+
+jQuery(function(){
+	jQuery('.zzc').click(function(e){
+		var tar = e.target;
+		if (jQuery(tar).is('.zzc')) {
+			jQuery('.zzc').hide()
+		}
+	})
+	
+	jQuery('.preview').click(function(e){
+	var tar = e.target;
+	if (jQuery(tar).is('.preview')) {
+		jQuery('.zzc').hide()
+	}
+	})
+	
+	
+
+})

@@ -150,7 +150,7 @@ input[type=radio]:checked {
 
 .zzc1_adjust{
 	    width: 516px;
-    height: 318px;
+    height: 338px;
     background: white;
     margin: 50px auto;
 }
@@ -177,7 +177,7 @@ margin-top:10px
 .white_card_content li em{font-style:normal;display:inline-block;margin-right:10px}
 .white_card_content ul{padding:10px}
 .white_card_content li{float:left;width:230px;margin-bottom:10px}
-.white_card_content li input{width:128px;height:22px;border-radius:8px;border:1px solid black}
+.white_card_content li input{width:128px;height:22px;border-radius:8px;border:1px solid black;margin-left:5px}
 .zzc1_adjust button{
 	border:none;border-radius:10px;
 	color:white;text-align:center;
@@ -189,3 +189,6 @@ margin-top:10px
 .zzc1_adjust button:hover{
 		background:#586684
 }
+.chzn-container-single .chzn-single{    width: 140px;
+    border-radius: 8px;
+    border: 1px solid black;}

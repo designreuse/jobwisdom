@@ -3,11 +3,13 @@ function showAddMemberLevel () {
 	jQuery("#memberLevelModal").find("[type='hidden']").val('');
 	jQuery("#memberLevelModal").find("[type='text']").val('');
 	jQuery("#memberLevelModal").find("[type='checkbox']").removeAttr("checked");
-	jQuery(jQuery(".business_level_back_ul li")[0]).click();
+	jQuery("span[value='65c294']").click();
+	
 }
 
 function cancelModal () {
 	jQuery("#memberLevelModal").hide();
+	jQuery("#textarea").val("");
 }
 
 var updatePositivePageUrl = 'system/profile/vip_card.png';
@@ -165,10 +167,9 @@ function addOrEditMemberLevel(){
 	data["integralNumber"] = integralNumber;
 	data["levelNotice"] = levelNotice;
 	data["levelType"] = levelType;
-	data["levelLogo"] = updatePositivePageUrl +","+updateOppositePageUrl;
+	data["levelLogo"] = colour;
 	data["levelTemplate"] = levelTemplate;
 	data["discountId"] = discountId;
-	
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "memberLevel/view/saveEnterpriseMemberLevel",
@@ -183,6 +184,24 @@ function addOrEditMemberLevel(){
 			location.reload();
 		}
 	});
+}
+
+
+function test_this(s)
+{
+	var reg = /^\d{1,3}$/;
+	var re = s.value.match( reg );
+	if(re){
+	  if(s.value<100)
+	  return true;
+	}
+	    return false;
+}
+
+
+var colour = "d93717";
+function changetype(s){
+	colour = jQuery(s).attr("value");
 }
 
 //修改会员等级信息
@@ -203,12 +222,18 @@ function editMemberLevel(levelId){
 			var a = data.levelTemplate - 1;
 			jQuery(".business_level_back_ul li").find('span').removeClass("active");
 			jQuery(jQuery(".business_level_back_ul li")[a]).find("span").addClass("active");
-			var arr = data.levelLogo.split(",");
+//			var arr = data.levelLogo.split(",");
 			
-			chooseMemberPage(data.levelTemplate, arr[0], arr[0]);
+//			chooseMemberPage(data.levelTemplate, arr[0], arr[0]);
+		
+			jQuery("p[name='levelName']").find("i").text(data.levelName);
+	  
+			jQuery("p[name='projectDiscount']").find("i").text(data.projectDiscount);
+			jQuery("p[name='goodsDiscount']").find("i").text(data.goodsDiscount);
+		  
 			
-			
-			
+			jQuery("span[value='"+data.levelLogo+"']").attr("value",data.levelLogo).click();
+			colour = data.levelLogo;	
 			/*var list = e.msg.levelNoticeList;
 			var content = jQuery("#editor_id");
 			if (list != null) {
@@ -218,4 +243,6 @@ function editMemberLevel(levelId){
 			}*/
 		}
 	});
+	
+	
 }

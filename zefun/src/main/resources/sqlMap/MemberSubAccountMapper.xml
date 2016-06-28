@@ -12,6 +12,7 @@
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
   </resultMap>
   
   <resultMap id="SubAccountMap" type="com.zefun.web.dto.MemberSubAccountDto" >
@@ -34,7 +35,7 @@
   
   <sql id="Base_Column_List" >
     sub_account_id, account_id, level_id, total_amount, total_present_amount, balance_amount, 
-    use_amount, create_time, update_time, last_operator_id
+    use_amount, create_time, update_time, last_operator_id,is_deleted
   </sql>
   
   <select id="selectNoMoneyAccountId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
@@ -127,6 +128,9 @@
       <if test="lastOperatorId != null" >
         last_operator_id,
       </if>
+       <if test="isDeleted != null" >
+        is_deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="subAccountId != null" >
@@ -158,6 +162,9 @@
       </if>
       <if test="lastOperatorId != null" >
         #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>

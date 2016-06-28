@@ -314,7 +314,9 @@
 		})
 
 	})
+	
 
+	
 	function checkb(s) {
 // 		jQuery("input[name='checkbox']").click();
 		var checkbd = jQuery(s).is(':checked');
