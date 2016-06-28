@@ -253,11 +253,21 @@ public class MemberLevelService {
     	}
     	
         MemberLevel memberLevel = new MemberLevel();
+        MemberLevelDiscount memberLevelDiscount = new MemberLevelDiscount();
         memberLevel.setLevelId(levelId);
+        memberLevelDiscount.setLevelId(levelId);
         memberLevel.setIsDeleted(1);
-        memberLevelMapper.updateDeleteByLevelId(memberLevel);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
-                App.System.API_RESULT_MSG_FOR_SUCCEES);
+        memberLevelDiscount.setIsDeleted(1);
+        int updateDeleteByLevelId = memberLevelMapper.updateDeleteByLevelId(memberLevel);
+        if (updateDeleteByLevelId!=0) {
+            memberLevelDiscountMapper.updateDeleteByLevelId(memberLevelDiscount); 
+        }
+        else {
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该卡存在" + count + "条会员记录，不能删除");
+        }
+        
+        return new BaseDto(updateDeleteByLevelId,
+                levelId);
     }
 
     /**

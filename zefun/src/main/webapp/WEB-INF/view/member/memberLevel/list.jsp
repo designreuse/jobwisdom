@@ -4,6 +4,40 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="<%=basePath%>css/shop_vip_manage.css" type="text/css" />
 <body>
+<style>
+.preview_vip_card {
+    width: 280px;
+    height: 180px;
+    background: #65c294;
+    border-radius: 8px;
+    margin:  20% auto;
+    box-shadow: 0 4px 10px #474a49;
+    }
+.preview_vip_card>p {
+    padding-top: 40px;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+}
+.preview_vip_card>p em {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 30px;
+}
+.item_card {
+    color: white;
+    margin: 20px 0 0 80px;
+}
+.rest_money {
+    color: white;
+    position: relative;
+    left: 140px;
+}
+
+
+input[type='number']{
+width:55px!important}
+</style>
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
     <div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -78,7 +112,11 @@
 			             		${memberLevel.levelNotice }
 			             </td>
 			             
-			             <td> <em onclick="editMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/handle_1.png"></em><em onclick="showMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/shop_vip.png"></em>
+			             <td> 
+			             <c:if test="${memberLevel.levelType }=='折扣卡'">
+			             <em onclick="editMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/handle_1.png"></em>
+			           	</c:if>
+			             <em onclick="showMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/shop_vip.png"></em>
 						 </td>
 			           </tr>
 			          </c:forEach>
@@ -94,42 +132,22 @@
 </div><!--mainwrapper-->
 
 <div class="zzc" style="display: none">
-   <div class="zzc_preview">
-	  <p>预览</p>
-	  <div class="preview_img clearfix">
-	    <div class="preview_img_left">
-		    <div class="preview_1" name = "pagePreview" style="background:url('<%=basePath %>images/vip_card.png') no-repeat;">
-			    <div class="preview_left" name = "pagePreviewLeft">
-				   <span><em id = "levelName"></em>折卡</span>
-            	</div>
-				<div class="preview_right" name = "pagePreviewRight">
-                   <ul class="clearfix">
-					  <li>项目折扣：<em id = "projectDiscount"></em>折</li>
-					  <li>商品折扣：<em id = "goodsDiscount"></em>折</li>
-                   </ul>
-				   <span>卡上余额：88888元</span>
-	            </div>
-         	 </div> 
-		</div>
-	    
-		<div class="preview_img_right">
-		     <div class="preview_2 clearfix" style="background:url('<%=basePath %>images/vip_card1.png') no-repeat;">
-			   <div class="preview_2_top">
-			       <span>5折卡</span>
-			   </div>
-			   <div class="preview_2_content clearfix">
-			     <div class="logo_img"><img src="<%=basePath %>images/vip_img.png"></div>
-                 <div class="preview_2_content_right">
-                    
-                 </div> 			     
-			   </div>
-         	 </div> 
-		</div>
-	  </div>
-	  <button onclick="cancelModal()">取消</button>
-   </div>
+   
+	<div class="preview">
+		    <div class="preview_vip_card">
+			  <p name="levelName"><em>VIP</em><i>会员卡名称</i></p>
+			  <div class="item_card">
+			      <p name="projectDiscount">项目折扣：<i>0</i>折</p>
+				  <p name="goodsDiscount">商品折扣：<i>0</i>折</p>
+			  </div>
+			  <div class="rest_money">
+			  卡上余额：88888元
+			  </div>
+			</div>
+          </div>
 
 </div>
+
 
 <div class="zzc1" style="display: none">
    <div class="zzc1_adjust">
@@ -146,10 +164,10 @@
                  </select>
                 </li>
 			 <li>商品折扣<input type="text" name="goodsDiscount"></li>
-			 <li>员工业绩折扣<input type="text" name="performanceDiscountPercent"></li>
+			 <li>员工业绩折扣<input type="text" name="performanceDiscountPercent" style="margin-left:8px"></li>
 			 <li>开卡费用<input type="text" name="sellAmount"></li>
 			 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:28px"></li>
-			 <li style="width:600px"><span class="mr10 label12 font-bold">积分计算方式：</span>
+			 <li style="width:600px;margin-top:10px"><span class="mr10 label12 font-bold">积分计算方式：</span>
 			                            每消费<input type="number" name="integralUnit" class="input30" value="1"><span class="percent-symbol">元</span>
                     <span class="ml10">获得</span>
                     <input type="number" name="integralNumber" class="input30" value="1"><span class="percent-symbol">分</span>

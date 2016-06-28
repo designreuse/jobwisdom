@@ -37,7 +37,12 @@ public class MemberSubAccount {
 	/** 最后操作人标识 */
 	private Integer lastOperatorId;
 
-	/** @param subAccountId	子账户标识 */
+	/** 是否删除(1删除，0正常)*/
+	private Integer isDeleted;
+	
+
+
+    /** @param subAccountId	子账户标识 */
 	public void setSubAccountId(Integer subAccountId){
 		this.subAccountId = subAccountId;
 	}
@@ -136,5 +141,13 @@ public class MemberSubAccount {
 	public Integer getLastOperatorId(){
 		return lastOperatorId;
 	}
+	
+   public Integer getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 
 }
