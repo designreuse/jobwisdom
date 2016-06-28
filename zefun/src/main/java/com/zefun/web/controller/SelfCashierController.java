@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
+import com.zefun.common.consts.View;
 import com.zefun.common.exception.ServiceException;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberBaseDto;
@@ -138,20 +139,16 @@ public class SelfCashierController extends BaseController {
 	 *            response
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = Url.SelfCashier.ACTION_ORDER_INFO, method = RequestMethod.POST)
-	@ResponseBody
-	public BaseDto selfCashierOrderInfoAction(Integer orderId, HttpServletRequest request,
+	@RequestMapping(value = Url.SelfCashier.ACTION_ORDER_INFO, method = RequestMethod.GET)
+	public ModelAndView selfCashierOrderInfoAction(Integer orderId, HttpServletRequest request,
 			    HttpServletResponse response) {
-		BaseDto baseDto = null;
 		Integer storeId = getStoreId(request);
-		if (orderId != null && storeId != null) {
-			SelfCashierOrderDto selfCashierOrderDto = selfCashierService.queryOrderDetailAction(orderId, storeId);
-			baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, selfCashierOrderDto);
-		} 
-		else {
-			baseDto = new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, App.System.API_RESULT_MSG_FOR_FAIL);
-		}
-		return baseDto;
+
+		SelfCashierOrderDto selfCashierOrderDto = selfCashierService.queryOrderDetailAction(orderId, storeId);
+		ModelAndView mav = new ModelAndView(View.SelfCashier.VIEW_CHECKOUT_ORDER);
+		mav.addObject("selfCashierOrderDto", selfCashierOrderDto);
+
+		return mav;
 	}
 
 	/**

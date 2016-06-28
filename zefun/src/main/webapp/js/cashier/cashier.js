@@ -138,7 +138,7 @@ function cleanSearchMember() {
 	jQuery("#search-memberstore").text('');
 }
 
-function showCashierDetail(orderId) {
+/*function showCashierDetail(orderId) {
 	jQuery.ajax({
         cache: true,
         type: "POST",
@@ -160,7 +160,7 @@ function showCashierDetail(orderId) {
 			jQuery('.zzc').show();
 		}
 	});
-}
+}*/
 
 function clearPayment(){
 	jQuery("#cardpayAmount").val("0");

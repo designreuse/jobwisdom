@@ -179,9 +179,13 @@
   	where project_id = #{projectId,jdbcType=INTEGER} and is_deleted = 0
   </select>
   
-  <select id="selectByShiftMahjongId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPositionId" parameterType="java.util.Map" resultMap="BaseResultMap">
   	select <include refid="Base_Column_List" /> from project_step
-  	where shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER} and is_deleted = 0
+  	where position_id = #{positionId,jdbcType=INTEGER} and project_id = #{projectId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  
+  <select id="selectFixedValue" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+  	select ifnull(sum(step_performance), 0) from project_step  where project_id =#{projectId,jdbcType=INTEGER} and step_performance_type = 2 and is_deleted = 0
   </select>
   
   <select id="selectAppointStepByProjectId" parameterType="java.lang.Integer" resultMap="BaseResultMap">

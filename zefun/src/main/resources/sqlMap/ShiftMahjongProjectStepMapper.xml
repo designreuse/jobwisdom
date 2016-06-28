@@ -52,8 +52,7 @@
     <result column="isOver" property="isOver" jdbcType="INTEGER" />
     <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
     <result column="is_current" property="isCurrent" jdbcType="INTEGER" />
-    <result column="project_step_order" property="projectStepOrder" jdbcType="INTEGER" />
-    <association property="employeeInfo"  column="employeeId" select="com.zefun.web.mapper.EmployeeInfoMapper.selectBaseInfoByEmployeeId" />
+    <association property="employeeInfo"  column="employeeId" select="com.zefun.web.mapper.EmployeeInfoMapper.selectByPrimaryKey" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -78,7 +77,7 @@
         sms.is_designate as isDesignate,
         sms.is_appoint as isAppoint,
         sms.is_over as isOver,
-        sms.is_current as isCurrent,
+        sms.is_current as isCurrent
     from shift_mahjong_project_step sms, position_info ps 
     where sms.detail_id = #{detailId} and sms.position_id = ps.position_id and sms.is_deleted = 0 order by ps.position_id
   </select>
@@ -98,7 +97,6 @@
         sms.is_appoint as isAppoint,
         sms.is_over as isOver,
         sms.is_current as isCurrent,
-        ps.project_step_order as projectStepOrder
     from shift_mahjong_project_step sms, project_step ps 
     where sms.detail_id = #{detailId} and sms.project_step_id = ps.project_step_id and sms.is_deleted = 0 and sms.is_current = 1
   </select>

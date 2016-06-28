@@ -56,7 +56,6 @@ import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.HttpClientUtil;
 import com.zefun.common.utils.MessageUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberGroupDto;
 import com.zefun.web.dto.MemberInfoDto;
@@ -69,6 +68,7 @@ import com.zefun.web.dto.ScreeningDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.DebtFlow;
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.IntegralFlow;
@@ -397,7 +397,7 @@ public class MemberInfoService {
                     for (OrderDetailStepDto orderDetailStepDto : stepDtoList) {
                         Map<String, Object> map = new HashMap<String, Object>();
                         map.put("shiftMahjongName", orderDetailStepDto.getShiftMahjongName());
-                        EmployeeBaseDto employeeInfo = orderDetailStepDto.getEmployeeInfo();
+                        EmployeeInfo employeeInfo = orderDetailStepDto.getEmployeeInfo();
                         if (employeeInfo == null) {
                         	map.put("employeeName", "无服务人员");
                             map.put("employeeCode", "");

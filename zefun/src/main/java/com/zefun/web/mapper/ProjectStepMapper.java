@@ -1,6 +1,8 @@
 package com.zefun.web.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.zefun.web.entity.ProjectStep;
 
@@ -79,10 +81,19 @@ public interface ProjectStepMapper {
      * 根据轮牌标识查询步骤
     * @author 王大爷
     * @date 2015年10月30日 上午11:43:30
-    * @param shiftMahjongId 轮牌标识
+    * @param map 岗位标识
     * @return List<ProjectStep>
      */
-    List<ProjectStep> selectByShiftMahjongId(Integer shiftMahjongId);
+    ProjectStep selectByPositionId(Map<String, Integer> map);
+    
+    /**
+     * 查询项目对应的固定业绩值
+    * @author 老王
+    * @date 2016年6月28日 上午10:13:20 
+    * @param projectId 项目标识
+    * @return BigDecimal
+     */
+    BigDecimal selectFixedValue(Integer projectId);
     
     /**
      * 提成新增

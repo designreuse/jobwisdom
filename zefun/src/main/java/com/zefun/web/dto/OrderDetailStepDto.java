@@ -3,12 +3,14 @@ package com.zefun.web.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.zefun.web.entity.EmployeeInfo;
+
 /**
  * 项目服务步骤轮牌记录信息
 * @author 张进军
 * @date Oct 13, 2015 2:54:20 PM 
 */
-public class OrderDetailStepDto implements Comparable<OrderDetailStepDto>, Serializable{
+public class OrderDetailStepDto implements Serializable{
     /** @Fields serialVersionUID : */
     private static final long serialVersionUID = 1L;
     /** 轮牌步骤标识*/
@@ -45,11 +47,8 @@ public class OrderDetailStepDto implements Comparable<OrderDetailStepDto>, Seria
     /** 是否当前服务步骤(0：否  1：是)*/
     private Integer isCurrent;
     
-    /** 步骤顺序*/
-    private Integer projectStepOrder;
-    
     /** 服务员工信息 */
-    private EmployeeBaseDto employeeInfo;
+    private EmployeeInfo employeeInfo;
 
     /** 业绩计算*/
     private BigDecimal commissionCalculate;
@@ -68,14 +67,6 @@ public class OrderDetailStepDto implements Comparable<OrderDetailStepDto>, Seria
 
     public void setIsCurrent(Integer isCurrent) {
         this.isCurrent = isCurrent;
-    }
-
-    public Integer getProjectStepOrder() {
-        return projectStepOrder;
-    }
-
-    public void setProjectStepOrder(Integer projectStepOrder) {
-        this.projectStepOrder = projectStepOrder;
     }
 
     public Integer getIsDesignate() {
@@ -189,25 +180,13 @@ public class OrderDetailStepDto implements Comparable<OrderDetailStepDto>, Seria
     public void setIsOver(Integer isOver) {
         this.isOver = isOver;
     }
-
-    public EmployeeBaseDto getEmployeeInfo() {
-        return employeeInfo;
-    }
-
-    public void setEmployeeInfo(EmployeeBaseDto employeeInfo) {
-        this.employeeInfo = employeeInfo;
-    }
     
-    /**
-     * 
-    * @author 王大爷
-    * @date 2015年12月25日 上午11:13:50
-    * @param arg0 arg0
-    * @return int
-     */
-    @Override
-	public int compareTo(OrderDetailStepDto arg0) {
-        return this.getProjectStepOrder().compareTo(arg0.getProjectStepOrder());
-    }
+    public EmployeeInfo getEmployeeInfo() {
+		return employeeInfo;
+	}
+
+	public void setEmployeeInfo(EmployeeInfo employeeInfo) {
+		this.employeeInfo = employeeInfo;
+	}
     
 }

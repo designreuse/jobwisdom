@@ -1,5 +1,6 @@
 package com.zefun.web.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -168,6 +169,24 @@ public interface EmployeeObjectiveMapper {
     * @return ObjectiveDto
      */
     EmployeeObjective selectObjectiveByMonth(Map<String, Object> map);
+    
+    /**
+     * 查询门店设置
+    * @author 王大爷
+    * @date 2015年11月25日 下午9:23:25
+    * @param storeId 门店标识
+    * @return Map<String, Object>
+     */
+    Map<String, Object> selectStoreSetting(Integer storeId);
+    
+    /**
+     * 用套餐抵扣时，对应的套餐业绩，提成计算
+    * @author 王大爷
+    * @date 2015年11月20日 下午3:55:41
+    * @param comboId 参数
+    * @return BigDecimal
+     */
+    BigDecimal selectByComboCommonCalculate(Integer comboId);
     
     /**
      * 根据年月份和员工id查询员工目标
