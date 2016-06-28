@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,6 +68,7 @@ import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.ScreeningDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.ComboProject;
+import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.DebtFlow;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.GiftmoneyDetail;
@@ -102,6 +104,7 @@ import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.entity.TempTableSc;
 import com.zefun.web.entity.TempTableZy;
 import com.zefun.web.mapper.ComboInfoMapper;
+import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.DebtFlowMapper;
 import com.zefun.web.mapper.GiftmoneyDetailMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
@@ -251,6 +254,10 @@ public class MemberInfoService {
     /**会员等级*/
     @Autowired
     private MemberLevelService memberLevelService;
+    /**优惠券*/
+    @Autowired
+    private CouponInfoMapper couponInfoMapper;
+    
     
     
     
@@ -710,13 +717,17 @@ public class MemberInfoService {
     * @param memberId	会员标识
     * @param couponId	优惠券标识
      */
+    @Transactional
     public void presentCouponToMember(int memberId, int couponId){
-    	MemberCoupon memberCoupon = new MemberCoupon();
-        memberCoupon.setMemberInfoId(memberId);
-        memberCoupon.setCouponId(couponId);
-        memberCoupon.setIsUsed(0);
-        memberCoupon.setGrantTime(DateUtil.getCurTime());
+        CouponInfo couponInfo = couponInfoMapper.selectByPrimaryKey(couponId);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, Integer.parseInt(couponInfo.getCouponStartTime()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String stopTime = sdf.format(calendar.getTime()).toString();
+        MemberCoupon memberCoupon = new MemberCoupon(couponId, memberId, stopTime, 0);
         memberCouponMapper.insert(memberCoupon);
+        couponInfo.setHasSendNum(couponInfo.getHasSendNum()+1);
+        couponInfoMapper.updateByPrimaryKeySelective(couponInfo);
     }
     
     

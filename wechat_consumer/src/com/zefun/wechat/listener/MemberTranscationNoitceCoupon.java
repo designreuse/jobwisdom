@@ -1,9 +1,7 @@
 package com.zefun.wechat.listener;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
@@ -14,25 +12,20 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rabbitmq.client.Channel;
-import com.zefun.web.dto.CouponInfoDto;
-import com.zefun.web.entity.StoreWechat;
-import com.zefun.web.mapper.StoreWechatMapper;
 import com.zefun.wechat.service.RedisService;
 import com.zefun.wechat.utils.App;
 import com.zefun.wechat.utils.HttpClientUtil;
 
-public class MemberTranscationNoitceCoupon implements
-        ChannelAwareMessageListener {
+public class MemberTranscationNoitceCoupon implements ChannelAwareMessageListener {
 
     @Autowired
     private MessageConverter msgConverter;
     @Autowired
     private RedisService redisService;
-    @Autowired
-    private StoreWechatMapper storeWechatMapper;
 
-    private static final Logger logger = Logger
-            .getLogger(EmployeeServiceNoticeListener.class);
+    private static final Logger logger = Logger.getLogger(EmployeeServiceNoticeListener.class);
+    
+    private static final String serverPost = "http://job.jobwisdom.cn/jobwisdom/memberCenter/view/memberCoupon";
 
     @Override
     public void onMessage(Message message, Channel channel) throws Exception {
@@ -46,29 +39,23 @@ public class MemberTranscationNoitceCoupon implements
             long deliveryTag = message.getMessageProperties().getDeliveryTag();
             if (deliveryTag != App.DELIVERIED_TAG) {
                 channel.basicAck(deliveryTag, false);
-                message.getMessageProperties().setDeliveryTag(
-                        App.DELIVERIED_TAG);
-                logger.info("revice and ack msg: "
-                        + (obj == null ? message : new String((byte[]) obj)));
+                message.getMessageProperties().setDeliveryTag(App.DELIVERIED_TAG);
+                logger.info("revice and ack msg: " + (obj == null ? message : new String((byte[]) obj)));
             }
         }
         if (obj == null) {
             return;
         }
-        Map<?, ?> map = (Map<?, ?>) obj;
-        Integer storeId = (Integer) map.get("storeId");
-        StoreWechat storeWechat = storeWechatMapper.selectByStoreId(storeId);
-        CouponInfoDto couponInfo = (CouponInfoDto) map.get("couponInfo");
-        @SuppressWarnings("unchecked")
-        List<String> touser = (List<String>) map.get("touser");
-        for (int i = 0; i < touser.size(); i++) {
-            String openId = touser.get(i);
-            String tempId = storeWechat.getCouponsTm();
+        JSONObject map = JSONObject.fromObject(obj);
+        String storeAccount = map.get("storeAccount").toString();
+        String storeName = map.get("storeName").toString();
+        String couponName = map.get("couponName").toString();
+        String couponStopTime = map.get("couponStopTime").toString();
+        String tempId = map.get("tempId").toString();
+        for (int i = 0; i < map.getJSONArray("touser").size(); i++) {
+            String openId = (String) map.getJSONArray("touser").get(i);
             logger.info("正在发送优惠券通知,现有模板ID是:"+tempId);
-            this.sendCouponTempleMsg("恭喜您获得一张优惠券", couponInfo.getCouponName(),
-                    couponInfo.getCouponPrice().toString(),
-                    couponInfo.getCouponUse(), couponInfo.getCouponStopTime(),
-                    openId, "http://www.maywant.com/memberCenter/view/memberCoupon", storeId.toString(), tempId);
+            this.sendCouponTempleMsg(storeName, couponName, couponStopTime, openId, serverPost+"/"+storeAccount+"/1", tempId, storeAccount);
         }
     }
 
@@ -86,32 +73,25 @@ public class MemberTranscationNoitceCoupon implements
     * @param storeId 门店
     * @param tempId 微信模板ID
      */
-    public void sendCouponTempleMsg(String title, String name, String price,
-            String use, String stopTime, String openId, String url,
-            String storeId, String tempId) {
+    public void sendCouponTempleMsg(String storeName, String name, String stopTime, String openId, String url, String tempId, String storeAccount) {
         Map<String, Object> map = new HashMap<String, Object>();
         // data 数据
         Map<String, Object> data = new HashMap<String, Object>();
 
         // first 数据
         Map<String, String> first = new HashMap<String, String>();
-        first.put("value", title);
+        first.put("value", "优惠券提醒");
         first.put("color", "#173177");
+        
+        // couponName 商户名称
+        Map<String, String> storeInfo = new HashMap<String, String>();
+        storeInfo.put("value", storeName);
+        storeInfo.put("color", "#173177");
 
         // couponName 优惠券名称
         Map<String, String> couponName = new HashMap<String, String>();
         couponName.put("value", name);
         couponName.put("color", "#173177");
-
-        // couponName 优惠券名称
-        Map<String, String> couponPrice = new HashMap<String, String>();
-        couponPrice.put("value", price + "元");
-        couponPrice.put("color", "#173177");
-
-        // couponUse 优惠券适用
-        Map<String, String> couponUse = new HashMap<String, String>();
-        couponUse.put("value", use);
-        couponUse.put("color", "#173177");
 
         // couponStopTime 截止日期
         Map<String, String> couponStopTime = new HashMap<String, String>();
@@ -120,13 +100,19 @@ public class MemberTranscationNoitceCoupon implements
         
         //结束语
         Map<String, String> remark = new HashMap<String, String>();
-        remark.put("value", "请您尽快兑换使用,感谢你的关注.");
+        remark.put("value", "请您尽快到点使用,感谢你的关注.");
         remark.put("color", "#173177");
+        
+      //结束语
+        Map<String, String> couponsDescNum = new HashMap<String, String>();
+        couponsDescNum.put("value", "1张");
+        couponsDescNum.put("color", "#173177");
 
         data.put("first", first);
-        data.put("keynote1", couponName);
-        data.put("keynote2", couponUse);
-        data.put("keynote3", couponStopTime);
+        data.put("keyword1", storeInfo);
+        data.put("keyword2", couponName);
+        data.put("keyword3", couponsDescNum);
+        data.put("keyword4", couponStopTime);
         data.put("remark", remark);
 
         map.put("data", data);
@@ -135,15 +121,11 @@ public class MemberTranscationNoitceCoupon implements
         map.put("url", url);
         map.put("topcolor", "#FF0000");
 
-        map.put("storeId", storeId);
-        HttpClientUtil.httpRequest(getTemplSendUrl(storeId), "POST", JSONObject
-                .fromObject(map).toString());
+        HttpClientUtil.httpRequest(getTemplSendUrl(storeAccount), "POST", JSONObject.fromObject(map).toString());
     }
 
-    private String getTemplSendUrl(String storeId) {
-        String accessToken = redisService.hget(
-                App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, storeId);
-        return "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="
-                + accessToken;
+    private String getTemplSendUrl(String storeAccount) {
+        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, storeAccount);
+        return "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + accessToken;
     }
 }

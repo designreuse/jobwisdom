@@ -98,14 +98,10 @@
   </update>
   
   <select id="selectOpenIdsByMemberIdList" resultType="java.lang.String" parameterType="java.util.List">
-  
-  SELECT open_id from wechat_subscribe WHERE open_id IN (
 	SELECT open_id from wechat_member WHERE member_id IN 
 	  <foreach collection="list" item="item" separator="," open="(" close=")">
 	  #{item}
 	  </foreach>
-  )
-  
   </select>
   
   <update id="updateByOpenId" parameterType="com.zefun.web.entity.WechatMember">

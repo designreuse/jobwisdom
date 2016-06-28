@@ -174,4 +174,24 @@ public class EnterpriseInfo {
     public void setLastOperatorId(Integer lastOperatorId) {
         this.lastOperatorId = lastOperatorId;
     }
+    
+    /**
+     * 无惨构造
+    * @author 王大爷
+    * @date 2016年6月27日 上午11:08:38
+     */
+    public EnterpriseInfo() {
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * 参数构造
+    * @author 王大爷
+    * @date 2016年6月27日 上午11:09:12
+    * @param storeAccount storeAccount
+     */
+    public EnterpriseInfo(String storeAccount) {
+        this.storeAccount = storeAccount;
+    }
+    
 }

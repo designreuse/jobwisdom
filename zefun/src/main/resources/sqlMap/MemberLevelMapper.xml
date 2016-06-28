@@ -201,7 +201,8 @@
   </update>
   
   <update id="updateDeleteByLevelId" parameterType="com.zefun.web.entity.MemberLevel">
-    update member_level set is_deleted = #{isDeleted,jdbcType=INTEGER} where level_id = #{levelId,jdbcType=INTEGER} and is_default = 0
+    update member_level as  l set l.is_deleted = #{isDeleted,jdbcType=INTEGER}  where level_id = #{levelId,jdbcType=INTEGER} and is_default = 0
+     AND NOT  EXISTS(select level_id from member_sub_account m WHERE l.level_id = m.level_id  and m.is_deleted=0)
   </update>
   
   <insert id="insert" parameterType="com.zefun.web.entity.MemberLevel" keyProperty="levelId" useGeneratedKeys="true">

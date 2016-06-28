@@ -4,8 +4,51 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet" href="<%=basePath%>css/coupon.css"
 	type="text/css" />
-<script type="text/javascript"
-	src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
+<style>
+	.zzc4{font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);}    
+	.select_people{width:570px;height:450px;margin:60px auto;background:white}
+	.select_people>p{height:66px;font-size:18px;color:white;text-align:center;line-height:66px;background:#3d4d62}
+	.value_left{height:312px;width:220px;background:#dadada;border-radius:8px;float:left;}
+	.value_left>p{text-align:center;height:35px;line-height:35px;font-size:16px}
+	.value_left ul{width:196px;height:264px;background:white;margin:0 auto;overflow:overlay}
+	input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    position: relative;
+    top: -3px;
+    margin-right: 8px;
+	}
+
+input[type="checkbox"]:checked {
+    background: url('<%=basePath%>images/checked.png') no-repeat;
+    background-position: center center;
+    border: 1px solid #d93717;
+background-size: cover;}
+.active1{color:#d11e1e;}
+.value_left ul li{height:35px;border-bottom:1px solid #ececec;padding-left:12px;line-height:35px}
+.value_left ul li input{margin-right:40px}
+.select_people_content{margin-top:14px;}
+.value_left{margin:0 30px}
+.select_people_button{text-align:center;margin-top:15px}
+.select_people_button button{width:130px;height:28px;border:none;border-radius:12px;color:white;font-size:16px;text-align:center;line-height:28px;background:#666b8b;margin:0 46px}
+.select_people_button button:hover{background:#575c76}
+</style>
+<script>
+jQuery(function(){
+	  jQuery('.value_left input[type="checkbox"]').click(function(){
+	   if(jQuery(this).is(':checked')){
+            jQuery(this).parent().addClass('active1')
+	   }
+	   else{
+	   jQuery(this).parent().removeClass('active1')
+	    }
+	  })
+	});
+</script>
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
@@ -44,7 +87,9 @@
 										<td>${coupon.releaseTime}</td>
 										<td>${coupon.couponStopTime}</td>
 										<td>${coupon.couponStartTime}天</td>
-										<td><em class="up_preview" onclick="viwe(${coupon.couponId},${coupon.couponColour})">预览</em></td>
+										<td>
+										<em class="up_preview" onclick="sendCoupon(${coupon.couponId})">赠送</em>
+										<em class="up_preview" onclick="viwe(${coupon.couponId},'${coupon.couponColour}')">预览</em></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -168,6 +213,32 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	<div class="zzc4" style="display: none;">
+	   <div class="select_people">
+	     <p>选择发送人员</p>
+	     <input type="hidden" name="sendCoupon"/>
+	     <div class="select_people_content clearfix">
+	       <div class="value_left">
+			<p>会员卡</p> 
+			<ul id="levels">
+				<c:forEach items="${level }" var="level"><li class="active1"><input value="${level.levelId }" name="level" type="checkbox">${level.levelName }</li></c:forEach>
+			</ul>
+		  </div>
+	
+	      <div class="value_left">
+			<p>会员分组</p> 
+			<ul id="groups">
+				<c:forEach items="${screen }" var="screen"><li class="active1"><input value="${screen.screeningId }" name="screen" type="checkbox">${screen.screeningName }</li></c:forEach>
+			</ul>
+		  </div>	  
+	     </div>
+		 <div class="select_people_button">
+	       <button onclick="send()">确认</button>
+		   <button onclick="jQuery('.zzc4').hide('800');">取消</button>
+	     </div>	
+	   </div>
 	</div>
 </body>
 <script>
@@ -326,7 +397,7 @@
 							+'		<td>'+value.releaseTime+ '</td>'
 							+'		<td>'+value.couponStopTime+ '</td>'
 							+'		<td>'+value.couponStartTime+'</td>' 
-							+'		<td><em class="up_preview" onclick="viwe('+value.couponId+','+value.couponColour+')">预览</em></td>'
+							+'		<td><em class="up_preview" onclick="viwe('+value.couponId+',\''+value.couponColour+'\')">预览</em></td>'
 							+'		</tr>'
 					jQuery("#tables").append(jQuery(html));
 				});
@@ -343,6 +414,54 @@
 		jQuery("#price").text(price);
 		jQuery(".clearfix li[value='"+couponColour+"']").click();
 		jQuery(".zzc2").show();
+	}
+	
+	function sendCoupon(id){
+		jQuery("input[name='sendCoupon']").val(id);
+		jQuery(".zzc4").show("800");
+	}
+	function send(){
+		var ci = jQuery("#levels input:checked");
+        var level = "";
+        for(i=0;i<ci.length;i++){
+            if(i == ci.length-1 ){
+            	level = level +jQuery(ci[i]).val();
+            }else{
+            	level = level +jQuery(ci[i]).val()+ ",";
+            }
+        }
+        var ai = jQuery("#groups input:checked");
+        var sceenNum = "";
+        for(i=0;i<ai.length;i++){
+            if(i == ai.length-1 ){
+            	sceenNum = sceenNum +jQuery(ai[i]).val();
+            }else{
+            	sceenNum = sceenNum +jQuery(ai[i]).val()+ ",";
+            }
+        }
+        if(level == ""&&sceenNum == ""){
+        	dialog("请至少选择一个分组进行发送");
+        	return;
+        }
+        var couponId = jQuery("input[name='sendCoupon']").val();
+        var data = "couponId="+couponId+"&level="+level+"&sceening="+sceenNum;
+        jQuery.ajax({
+			type : "post",
+			async : false,
+			url : baseUrl + "send/coupons/to/use",
+			data : data,
+			dataType : "json",
+			success : function(g){
+				if(g.code == 0){
+					dialog("推送成功");
+					jQuery(".zzc4").hide("800");
+				}else{
+					dialog(g.msg);
+				}
+			}
+		});
+        
+        console.log(data);
 	}
 </script>
 

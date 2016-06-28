@@ -2,6 +2,7 @@ package com.zefun.web.mapper;
 
 import java.util.Map;
 
+import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 
 /**
@@ -47,4 +48,13 @@ public interface MemberLevelDiscountMapper {
     * @return List<MemberLevelDiscount>
      */
     MemberLevelDiscount selectByStoreLevel(Map<String, Integer> map);
+    
+    /**
+     * 删除会员信息
+    * @author 骆峰
+    * @date 2016年6月28日 下午12:10:35
+    * @param record record
+    * @return int
+     */
+    int updateDeleteByLevelId(MemberLevelDiscount record);
 }

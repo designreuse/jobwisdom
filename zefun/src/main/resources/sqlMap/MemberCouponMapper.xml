@@ -2,71 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zefun.web.mapper.MemberCouponMapper" >
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.MemberCoupon" >
-    <id column="relevance_id" property="relevanceId" jdbcType="INTEGER" />
+    <id column="m_id" property="mId" jdbcType="INTEGER" />
     <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
     <result column="member_info_id" property="memberInfoId" jdbcType="INTEGER" />
-    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
-    <result column="grant_time" property="grantTime" jdbcType="CHAR" />
+    <result column="stop_time" property="stopTime" jdbcType="CHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    relevance_id, coupon_id, member_info_id, is_used, grant_time
+    m_id, coupon_id, member_info_id, stop_time, is_deleted
   </sql>
-  
-  <select id="selectLeftCouponByMemberIdAndCouponId" resultType="java.lang.Integer" parameterType="java.util.Map">
-    select 
-        mc.relevance_id 
-    from member_coupon mc 
-	    left join coupon_info ci 
-	    on mc.coupon_id = ci.coupon_id 
-    where mc.member_info_id = #{memberId} 
-        and mc.coupon_id = #{couponId} 
-        and mc.is_used = 0 
-        and ci.coupon_stop_time >= curdate() 
-        limit 0,1
-  </select>
-  
-  <select id="selectPaymentCouponListByMemberIdAndProjectId" resultType="com.zefun.web.dto.PaymentOffDto" parameterType="java.util.Map">
-    SELECT 
-        c.coupon_id as id,
-        3 as type,
-        c.coupon_name as name,
-        c.coupon_price as amount,
-        count(1) as balance,
-        count(1) as count
-    from member_coupon mc
-    left join coupon_info c 
-    on c.coupon_id = mc.coupon_id
-    where mc.member_info_id = #{memberId} and mc.is_used = 0 and c.coupon_stop_time >= curdate()
-    	<choose>
-    		<when test="couponType == 1">
-    			and (((c.coupon_use_id = #{projectId} or c.coupon_use_id = (select category_id from project_info where project_id = #{projectId})) 
-    			and c.coupon_type in (1, 4)) or c.coupon_type = 0)
-    		</when>
-    		<when test="couponType == 2">
-    			and (((c.coupon_use_id = #{projectId} or c.coupon_use_id = (select category_id from goods_info where goods_id = #{projectId})) 
-    			and c.coupon_type in (2, 5)) or c.coupon_type = 0)
-    		</when>
-    	</choose>
-        group by c.coupon_id
-  </select>
-  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from member_coupon
-    where relevance_id = #{relevanceId,jdbcType=INTEGER}
+    where m_id = #{mId,jdbcType=INTEGER}
   </select>
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from member_coupon
-    where relevance_id = #{relevanceId,jdbcType=INTEGER}
+    where m_id = #{mId,jdbcType=INTEGER}
   </delete>
-  
   <insert id="insert" parameterType="com.zefun.web.entity.MemberCoupon" >
+    insert into member_coupon (m_id, coupon_id, member_info_id, 
+      stop_time, is_deleted)
+    values (#{mId,jdbcType=INTEGER}, #{couponId,jdbcType=INTEGER}, #{memberInfoId,jdbcType=INTEGER}, 
+      #{stopTime,jdbcType=CHAR}, #{isDeleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.MemberCoupon" >
     insert into member_coupon
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="relevanceId != null" >
-        relevance_id,
+      <if test="mId != null" >
+        m_id,
       </if>
       <if test="couponId != null" >
         coupon_id,
@@ -74,16 +39,16 @@
       <if test="memberInfoId != null" >
         member_info_id,
       </if>
-      <if test="isUsed != null" >
-        is_used,
+      <if test="stopTime != null" >
+        stop_time,
       </if>
-      <if test="grantTime != null" >
-        grant_time,
+      <if test="isDeleted != null" >
+        is_deleted,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="relevanceId != null" >
-        #{relevanceId,jdbcType=INTEGER},
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
       </if>
       <if test="couponId != null" >
         #{couponId,jdbcType=INTEGER},
@@ -91,16 +56,15 @@
       <if test="memberInfoId != null" >
         #{memberInfoId,jdbcType=INTEGER},
       </if>
-      <if test="isUsed != null" >
-        #{isUsed,jdbcType=INTEGER},
+      <if test="stopTime != null" >
+        #{stopTime,jdbcType=CHAR},
       </if>
-      <if test="grantTime != null" >
-        #{grantTime,jdbcType=CHAR},
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  
-  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.MemberCoupon" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.MemberCoupon" >
     update member_coupon
     <set >
       <if test="couponId != null" >
@@ -109,62 +73,28 @@
       <if test="memberInfoId != null" >
         member_info_id = #{memberInfoId,jdbcType=INTEGER},
       </if>
-      <if test="isUsed != null" >
-        is_used = #{isUsed,jdbcType=INTEGER},
+      <if test="stopTime != null" >
+        stop_time = #{stopTime,jdbcType=CHAR},
       </if>
-      <if test="grantTime != null" >
-        grant_time = #{grantTime,jdbcType=CHAR},
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
       </if>
     </set>
-    where relevance_id = #{relevanceId,jdbcType=INTEGER}
+    where m_id = #{mId,jdbcType=INTEGER}
   </update>
-  
-  <update id="updateUseStatusByRelevanceId" parameterType="java.lang.Integer">
-  	update member_coupon set is_used = 1 where relevance_id = #{relevanceId} and is_used = 0
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.MemberCoupon" >
+    update member_coupon
+    set coupon_id = #{couponId,jdbcType=INTEGER},
+      member_info_id = #{memberInfoId,jdbcType=INTEGER},
+      stop_time = #{stopTime,jdbcType=CHAR},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where m_id = #{mId,jdbcType=INTEGER}
   </update>
-  
-  <insert id="insertList" useGeneratedKeys="true" parameterType="java.util.List">
-      insert into member_coupon (coupon_id, member_info_id, 
-      is_used, grant_time)
-      values 
+  <insert id="insertList" useGeneratedKeys="true" parameterType="java.util.List">  
+    insert into member_coupon (coupon_id,member_info_id,stop_time,is_deleted)   
+    values  
     <foreach collection="list" item="item" index="index" separator="," >  
-      (#{item.couponId,jdbcType=INTEGER}, #{item.memberInfoId,jdbcType=INTEGER}, 
-      #{item.isUsed,jdbcType=INTEGER}, #{item.grantTime,jdbcType=CHAR})
+        (#{item.couponId},#{item.memberInfoId},#{item.stopTime},#{item.isDeleted})  
     </foreach>  
-  </insert>
-  
-  <select id="selectCouponByMemberIdAndCouponIds" resultType="com.zefun.web.dto.CouponBaseDto" parameterType="java.util.Map" >
-    SELECT 
-    	mc.relevance_id as relevanceId,
-    	CASE c.coupon_type 
-           WHEN 1 THEN (SELECT project_name from project_info WHERE project_id = c.coupon_use_id)
-           WHEN 2 THEN (SELECT goods_name from goods_info WHERE goods_id = c.coupon_use_id) 
-           WHEN 3 THEN (SELECT combo_name from combo_info WHERE combo_id = c.coupon_use_id)
-           ELSE '通用' 
-        END as projectName,
-        c.coupon_use_id as projectId,
-        c.coupon_id as couponId,
-        c.coupon_type as couponType,
-        c.coupon_name as couponName,
-        c.coupon_price as couponPrice,
-        c.coupon_vantages as couponVantages,
-        c.coupon_stop_time as overdueTime,
-        c.has_use_count as hasUseCount
-    from member_coupon mc
-    left join coupon_info c 
-    on c.coupon_id = mc.coupon_id
-    where mc.member_info_id = #{memberId} and mc.is_used = 0 and mc.relevance_id in
-    <foreach collection="couponIds" index="index" item="relevanceId" open="(" separator="," close=")">
-  		#{relevanceId}
-  	</foreach>
-  		and c.coupon_stop_time >= curdate()
-  </select>
-  
-  
-  <update id="updateUsedCouponByRelevanceIds" parameterType="java.util.List">
-  	update member_coupon set is_used = 1 where relevance_id in
-  	<foreach collection="list" item="item" index="index" separator="," open="(" close=")" >
-  		#{item,jdbcType=INTEGER}
-  	</foreach>
-  </update>
+</insert>  
 </mapper>

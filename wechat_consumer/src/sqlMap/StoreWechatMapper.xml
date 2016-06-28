@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zefun.web.mapper.StoreWechatMapper" >
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.StoreWechat" >
-    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <id column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <result column="wechat_id" property="wechatId" jdbcType="VARCHAR" />
-    <result column="wechat_appid" property="wechatAppid" jdbcType="VARCHAR" />
+    <result column="wechat_appid" property="wechatAppId" jdbcType="VARCHAR" />
     <result column="wechat_appsecret" property="wechatAppsecret" jdbcType="VARCHAR" />
     <result column="tm_appoint_apply" property="tmAppointApply" jdbcType="VARCHAR" />
     <result column="tm_appoint_result" property="tmAppointResult" jdbcType="VARCHAR" />
@@ -16,7 +16,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    store_id, wechat_id, wechat_appid, wechat_appsecret, tm_appoint_apply, tm_appoint_result, 
+    store_account, wechat_id, wechat_appid, wechat_appsecret, tm_appoint_apply, tm_appoint_result, 
     tm_appoint_remind, tm_charge_result, tm_payment_info, tm_service_turn, tm_coupon_overdue
   </sql>
   
@@ -27,11 +27,11 @@
     where wechat_id = #{wechatId,jdbcType=INTEGER}
   </select>
   
-  <select id="selectByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="selectByStoreId" resultMap="BaseResultMap" parameterType="java.lang.String">
   	select 
     <include refid="Base_Column_List" />
     from store_wechat
-    where store_id = #{storeId,jdbcType=INTEGER}
+    where store_account = #{storeAccount}
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

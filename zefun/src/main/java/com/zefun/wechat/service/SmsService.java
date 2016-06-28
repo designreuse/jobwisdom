@@ -41,7 +41,7 @@ public class SmsService {
     
     /**
      * 发送短信验证码
-    * @author 张进军
+    * @author 高国藩
     * @date Feb 26, 2016 9:00:49 PM
     * @param storeId    门店标识 
     * @param phone  手机号码
@@ -60,6 +60,7 @@ public class SmsService {
             AlibabaAliqinFcSmsNumSendResponse response = tbClient.execute(req);
             redisService.setex(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone, code, 180);
             logger.info(response.getBody());
+            // 如果短息发送成功,扣除门店短信费用
             return true;
         }
         catch (ApiException e) {

@@ -103,7 +103,7 @@
                        <c:otherwise>
                             <li name="operate" class="dingdan-jiezhang">
                                 <div class="qiandan active">
-                                    <a href="<%=basePath %>memberCenter/view/projectDetail?storeId=${session_key_store_id}&projectId=${appointment.projectId }">再次预约</a>
+                                    <a href="<%=basePath %>memberCenter/view/dateAppointment?employeeId=${appointment.employeeId }">再次预约</a>
                                 </div>
                            </li>
                        </c:otherwise>

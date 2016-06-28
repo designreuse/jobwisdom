@@ -7,6 +7,20 @@
 .business_level_back_ul .active{
    display:block;
 }
+
+.preview_vip_card{
+ width:280px;height:180px;
+ background:#65c294;
+ border-radius:8px;
+ margin:0 auto;
+ box-shadow:0 4px 10px #474a49
+}
+.preview_vip_card>p{padding-top:40px;text-align:center;font-size:24px;color:white}
+.preview_vip_card>p em{display:inline-block;margin-right:10px;font-size:30px}
+.item_card {color:white;margin:20px 0 0 80px}
+.item_card >p{height:34px}
+.rest_money{color:white;position:relative;left:140px}
+.preview_vip_card{margin-bottom:20px}
 </style>
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
@@ -81,6 +95,43 @@
      	});
     }
     </script>
+    
+       <script>
+   
+  	jQuery(document).ready(function() {    
+         jQuery('.business_manage_table td span').click(function(){
+	     find=jQuery(this).parent().find('.demo_fade');
+	   if(find.css('display')=='none'){
+	      find.stop(true,true).slideDown('normal');
+	   }    
+	   else if(find.css('display')=='block'){
+          jQuery('.demo_fade').stop(true,true).slideUp('normal');
+	    }	
+	  
+ 	 })
+  });
+  
+  
+  //VIP卡选择
+  jQuery(function(){
+    jQuery('.business_level_back_ul li').click(function(){
+	   jQuery(this).find('span').show();
+	   jQuery(this).siblings().find('span').hide();	
+	})
+  
+  })
+  
+  
+  jQuery(function(){
+    jQuery('.business_level_content_right li').click(function(){
+	   var bac=jQuery(this).find('span').css('background-color');
+	   jQuery(this).css('border-color',bac).siblings().css('border-color','white');
+	   jQuery('.preview_vip_card').css('background',bac)
+	
+	});
+  })
+  </script>
+    
 </head>
 <body>
 
@@ -136,11 +187,10 @@
              <td class="input80 ellipsis-text">
              		${memberLevel.levelNotice }
              </td>
-             
-             <td> <span><img src="<%=basePath %>images/vip_manage.png"> </span>
-			  <div class="manage_hover">
-			    <ul class="demo_fade"><li style="border-bottom:1px solid black" onclick="editMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_1.png"></li><li onclick="deleteMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_2.png"></li></ul>
-			  </div>
+            
+			 <td>
+			 <em onclick="editMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_1.png"></em>
+			 <em onclick="deleteMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_2.png"></em>
 			 </td>
            </tr>
           </c:forEach>
@@ -171,19 +221,20 @@
 			 <span>会员卡名称<input type="text" name="levelName" ></span>
 		  </div> 
 		  <div class="business_level_input_right">
-		     <span><i>使用须知</i><textarea name="levelNotice"></textarea></span>
+		     <span><i>使用须知</i><textarea id ="textarea" name="levelNotice"></textarea></span>
 		  </div>
+		
 		</div>
 		
 		<div class="business_level_back">
-		  <p>选择卡背</p>
-		   <ul class="business_level_back_ul clearfix">
-		     <li onclick="chooseMemberPage(1, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=qiniuPath %>system/profile/vip_card.png">
-			    <span class = "active"><img src="<%=basePath %>images/checked.png"></span>
-			 </li>
+<!-- 		  <p>选择卡背</p> -->
+<!-- 		   <ul class="business_level_back_ul clearfix"> -->
+<%-- 		     <li onclick="chooseMemberPage(1, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=qiniuPath %>system/profile/vip_card.png"> --%>
+<%-- 			    <span class = "active"><img src="<%=basePath %>images/checked.png"></span> --%>
+<!-- 			 </li> -->
 		
 	
-           </ul>
+<!--            </ul> -->
            
    
 		   <div class="business_level_back_text">
@@ -199,7 +250,7 @@
 				 <li>业绩折扣打折<input type="text" name="performanceDiscountPercent"></li>
 				 <li>开卡费用<input type="text" name="sellAmount"></li>
 				 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:28px"></li>
-				 <li style="width:600px"><span class="mr10 label12 font-bold">积分计算方式：</span>
+				 <li style="width:600px;"><span class="mr10 label12 font-bold">积分计算方式：</span>
 				                            每消费<input type="number" name="integralUnit" class="input30" value="1"><span class="percent-symbol">元</span>
                      <span class="ml10">获得</span>
                      <input type="number" name="integralNumber" class="input30" value="1"><span class="percent-symbol">分</span>
@@ -216,38 +267,58 @@
 		
 		</div>
 	
-		<div class="business_level_content_right">
-		  <p>效果图预览</p>
+		
+	
+	  <div class="business_level_content_right">
+		  <p></p>
 		  <div class="preview">
-		     <div class="preview_1" name = "pagePreview" style="background:url('<%=basePath %>images/vip_card.png') no-repeat;">
-			    <div class="preview_left" name = "pagePreviewLeft">
-				   <span >5折卡</span>
-            	</div>
-				<div class="preview_right" name = "pagePreviewRight">
-                   <ul class="clearfix">
-					  <li>项目折扣：5折</li>
-					  <li>项目折扣：6折</li>
-                   </ul>
-				   <span>卡上余额：88888元</span>
-	            </div>
-         	 </div>  
-			 <div class="right_dir">
-			   <span onclick="showMask(1)"><img src="<%=basePath %>images/face.png"></span>
-			   <span onclick="showMask(2)"><img src="<%=basePath %>images/back_1.png"></span>
-			 </div>
-			 <div class="preview_2 clearfix" style="background:url('<%=basePath %>images/vip_card1.png') no-repeat;">
-			   <div class="preview_2_top"></div>
-			   <div class="preview_2_content clearfix">
-			     <div class="logo_img"><img src="<%=basePath %>images/vip_img.png"></div>
-                 <div class="preview_2_content_right">
-                    黄金八折卡黄金八折卡黄金八折卡黄金八折</br>黄金八折卡黄金八折卡黄金八</br>黄金八折卡黄金八折卡黄金八折卡</br>黄金八折卡黄金八折卡黄金八折卡黄金八折
-                 </div> 			     
-			   </div>
-         	 </div> 
-			 
-		  </div>
-		</div>
-	  </div>
+		    <div class="preview_vip_card">
+			  <p name ="levelName"><em>VIP</em><i>会员卡名称</i></p>
+			  <div class="item_card">
+			      <p name="projectDiscount">项目折扣：<i>0</i>折</p>
+				  <p name="goodsDiscount">商品折扣：<i>0</i>折</p>
+			  </div>
+			  <div class="rest_money">
+			  卡上余额：88888元
+			  </div>
+			</div>
+          </div>
+	      <ul class="clearfix" name="colour">
+		    <li ><span onclick="changetype(this)" value="d93717" style="background:#d93717"></span></li>
+		    <li ><span onclick="changetype(this)" value="f8b65b" style="background:#f8b65b"></span></li>
+			<li ><span onclick="changetype(this)" value="585eaa" style="background:#585eaa"></span></li>
+			<li ><span onclick="changetype(this)" value="5c7a29" style="background:#5c7a29"></span></li>
+			<li ><span onclick="changetype(this)" value="5f3c23" style="background:#5f3c23"></span></li>
+			<li ><span onclick="changetype(this)"  value="2b4490" style="background:#2b4490"></span></li>
+			<li ><span onclick="changetype(this)" value="b36d41" style="background:#b36d41"></span></li>
+			<li ><span onclick="changetype(this)" value="a7573b" style="background:#a7573b"></span></li>
+			<li ><span onclick="changetype(this)" value="f05b72" style="background:#f05b72"></span></li>
+			<li ><span onclick="changetype(this)" value="817936" style="background:#817936"></span></li>
+			<li ><span onclick="changetype(this)" value="2e3a1f" style="background:#2e3a1f"></span></li>
+			<li ><span onclick="changetype(this)" value="46485f" style="background:#46485f"></span></li>
+			<li ><span onclick="changetype(this)" value="543044" style="background:#543044"></span></li>
+			<li ><span onclick="changetype(this)" value="401c44" style="background:#401c44"></span></li>
+			<li ><span onclick="changetype(this)" value="225a1f" style="background:#225a1f"></span></li>
+			<li ><span onclick="changetype(this)" value="b69968" style="background:#b69968"></span></li>
+			<li ><span onclick="changetype(this)" value="6d5826" style="background:#6d5826"></span></li>
+			<li ><span onclick="changetype(this)" value="d3c6a6" style="background:#d3c6a6"></span></li>
+			<li ><span onclick="changetype(this)" value="c1a173" style="background:#c1a173"></span></li>
+			<li ><span onclick="changetype(this)" value="5e7c85" style="background:#5e7c85"></span></li>
+			<li ><span onclick="changetype(this)" value="7c8577" style="background:#7c8577"></span></li>
+			<li ><span onclick="changetype(this)" value="6c4c49" style="background:#6c4c49"></span></li>
+			<li ><span onclick="changetype(this)" value="3e4145" style="background:#3e4145"></span></li>
+			<li ><span onclick="changetype(this)" value="281f1d" style="background:#281f1d"></span></li>
+			<li ><span onclick="changetype(this)" value="596032" style="background:#596032"></span></li>
+			<li ><span onclick="changetype(this)" value="145b7d" style="background:#145b7d"></span></li>
+			<li ><span onclick="changetype(this)" value="0c212b" style="background:#0c212b"></span></li>
+			<li ><span onclick="changetype(this)" value="508a88" style="background:#508a88"></span></li>
+			<li ><span onclick="changetype(this)" value="fcaf17" style="background:#fcaf17"></span></li>
+			<li ><span onclick="changetype(this)" value="8552a1" style="background:#8552a1"></span></li>
+			<li ><span onclick="changetype(this)" value="df9464" style="background:#df9464"></span></li>
+			<li ><span onclick="changetype(this)" value="65c294" style="background:#65c294"></span></li>
+          </ul>		  
+		 </div>
+	    </div>
 	  
    </div>   
 </div>
@@ -264,6 +335,7 @@
 <script type="text/javascript" src="<%=basePath %>js/member/enterpriseMemberLevel.js"></script>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script>
+
 jQuery(document).ready(function() {    
     jQuery('.business_manage_table td span').click(function(){
     find=jQuery(this).parent().find('.demo_fade');
@@ -284,7 +356,34 @@ jQuery(document).ready(function() {
 		  jQuery(this).siblings().find('span').removeClass("active");	
 		})
 	})
+	
+	jQuery("input[name='levelName']").keyup(function(){
+		jQuery("p[name='levelName']").find("i").text(jQuery("input[name='levelName']").val()/10);
+	})
   
+	jQuery("input[name='projectDiscount']").keyup(function(){
+		jQuery("p[name='projectDiscount']").find("i").text(jQuery("input[name='projectDiscount']").val()/10);
+	})
+	jQuery("input[name='goodsDiscount']").keyup(function(){
+		jQuery("p[name='goodsDiscount']").find("i").text(jQuery("input[name='goodsDiscount']").val()/10);
+	})
+  
+function deleteMemberLevel(levelId){
+			jQuery.ajax({
+				type : "post",
+				url : baseUrl + "memberLevel/action/delete",
+				data : "levelId=" + levelId,
+				dataType : "json",
+				success : function(e){
+					if(e.code == -1){
+						dialog(e.msg);
+						return;
+					}
+					dialog("删除成功");
+					jQuery("tr[id='"+levelId+"']").remove();
+				}
+			});
+	}
   </script>
 
 </body>

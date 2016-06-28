@@ -175,6 +175,8 @@ public interface Url {
         public static final String UPDATE_COUPON_USE = "update/coupons/use";
         /** 下载优惠券 */
         public static final String UPDATE_COUPON_NO_USE = "update/coupons/no/use";
+        /** 推送优惠券,短信微信模板推送*/
+        public static final String COUPONS_SEND = "send/coupons/to/use";
 
 	}
 
@@ -732,7 +734,7 @@ public interface Url {
 		/** 兑换优惠券 */
 		public static final String ACTION_EXCHANGE_COUPON = "/memberCenter/action/exchangeCoupon";
 		/** 会员优惠券页面 */
-		public static final String VIEW_MEMBER_COUPON = "/memberCenter/view/memberCoupon";
+		public static final String VIEW_MEMBER_COUPON = "/memberCenter/view/memberCoupon/{storeId}/{businessType}";
 		/** 店铺信息页面 */
 		public static final String VIEW_STORE_INFO = "/memberCenter/view/storeInfo/{storeId}/{businessType}";
 		/** 店铺展示页面 */

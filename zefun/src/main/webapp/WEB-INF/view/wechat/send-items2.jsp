@@ -33,8 +33,7 @@
 			                     <c:forEach items="${items }" var="item">
 			                     	 <li>
 			                             <img style="height:140px" src="${item.qiniuImg }" alt=""/>
-			                             <p>${item.title }
-			                             </p>
+		                             	 <p>${item.title }</p>
 			                         </li>
 			                     </c:forEach>
 			                     </ul>

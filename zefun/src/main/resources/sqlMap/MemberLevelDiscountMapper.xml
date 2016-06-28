@@ -186,4 +186,8 @@
     from member_level_discount
     where level_id = #{levelId,jdbcType=INTEGER} and store_id = #{storeId,jdbcType=INTEGER}
   </select>
+  
+    <update id="updateDeleteByLevelId" parameterType="com.zefun.web.entity.MemberLevelDiscount">
+    update member_level_discount as  l set l.is_deleted = #{isDeleted,jdbcType=INTEGER}  where level_id = #{levelId,jdbcType=INTEGER} 
+  </update>
 </mapper>
