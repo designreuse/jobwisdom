@@ -90,11 +90,4 @@
       is_deleted = #{isDeleted,jdbcType=INTEGER}
     where m_id = #{mId,jdbcType=INTEGER}
   </update>
-  <insert id="insertList" useGeneratedKeys="true" parameterType="java.util.List">  
-    insert into member_coupon (coupon_id,member_info_id,stop_time,is_deleted)   
-    values  
-    <foreach collection="list" item="item" index="index" separator="," >  
-        (#{item.couponId},#{item.memberInfoId},#{item.stopTime},#{item.isDeleted})  
-    </foreach>  
-</insert>  
 </mapper>

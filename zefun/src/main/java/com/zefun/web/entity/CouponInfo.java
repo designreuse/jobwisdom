@@ -14,21 +14,12 @@ public class CouponInfo {
 
     /** 门店标识 */
     private Integer storeId;
-    
+
     /** 企业所属门店标识 */
-    private String  storeType;
-    
+    private String storeType;
+
     /** 优惠卷使用条件*/
-    private String  couponNames;
-
-   
-    public String getCouponNames() {
-        return couponNames;
-    }
-
-    public void setCouponNames(String couponNames) {
-        this.couponNames = couponNames;
-    }
+    private String couponNames;
 
     /** 优惠劵价格 */
     private Integer couponPrice;
@@ -44,17 +35,12 @@ public class CouponInfo {
 
     /** 优惠劵结束时间 */
     private String couponStopTime;
-    
+
     /** 优惠卷使用量 */
     private Integer couponNum;
     
-    public Integer getCouponNum() {
-        return couponNum;
-    }
-
-    public void setCouponNum(Integer couponNum) {
-        this.couponNum = couponNum;
-    }
+    /** 优惠券发送量*/
+    private Integer hasSendNum;
 
     /** 发布日期 */
     private String releaseTime;
@@ -85,6 +71,31 @@ public class CouponInfo {
 
     /** 发布方式（1积分，2门店） */
     private String startType;
+    
+  
+    public Integer getHasSendNum() {
+        return hasSendNum;
+    }
+
+    public void setHasSendNum(Integer hasSendNum) {
+        this.hasSendNum = hasSendNum;
+    }
+
+    public Integer getCouponNum() {
+        return couponNum;
+    }
+
+    public void setCouponNum(Integer couponNum) {
+        this.couponNum = couponNum;
+    }
+
+    public String getCouponNames() {
+        return couponNames;
+    }
+
+    public void setCouponNames(String couponNames) {
+        this.couponNames = couponNames;
+    }
 
     public Integer getCouponId() {
         return couponId;
@@ -139,7 +150,8 @@ public class CouponInfo {
     }
 
     public void setCouponStartTime(String couponStartTime) {
-        this.couponStartTime = couponStartTime == null ? null : couponStartTime.trim();
+        this.couponStartTime = couponStartTime == null ? null
+                : couponStartTime.trim();
     }
 
     public String getCouponStopTime() {
@@ -147,7 +159,8 @@ public class CouponInfo {
     }
 
     public void setCouponStopTime(String couponStopTime) {
-        this.couponStopTime = couponStopTime == null ? null : couponStopTime.trim();
+        this.couponStopTime = couponStopTime == null ? null
+                : couponStopTime.trim();
     }
 
     public String getReleaseTime() {
@@ -229,6 +242,7 @@ public class CouponInfo {
     public void setStartType(String startType) {
         this.startType = startType == null ? null : startType.trim();
     }
+
     public String getStoreType() {
         return storeType;
     }

@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +14,6 @@ import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,9 +28,7 @@ import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.CodeLibraryDto;
-import com.zefun.web.dto.DeptMahjongDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
-import com.zefun.web.dto.EmployeeLevelBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.PositionInfoDto;
 import com.zefun.web.dto.ShiftMahjongDto;
@@ -47,7 +42,6 @@ import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.mapper.CodeLibraryMapper;
 import com.zefun.web.mapper.ComboProjectMapper;
-import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectCommissionMapper;
