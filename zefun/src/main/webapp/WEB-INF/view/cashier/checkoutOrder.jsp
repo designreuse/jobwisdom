@@ -111,11 +111,12 @@
 							  <p>
 							     <span>${orderDetail.projectName }</span>
 							     <span>${orderDetail.projectPrice }</span>
-							     <span><input type="text" placeholder="50" value="${orderDetail.discountAmount }"></span>
+							     <span>${orderDetail.discountAmount }</span>
 							     <span style="width:180px">
-							         <select  name = "selectOff" detailid = "${orderDetail.detailid }" >
+							         <select  name = "selectOff" detailid = "${orderDetail.detailId }" >
+							            <option uid= "" detailId = "${orderDetail.detailId}" offType = "" offId = "${paymentOff.id }" offAmount = "0"  offName = "未使用优惠">未使用优惠</option>
 							            <c:forEach items="${orderDetail.paymentOffList}" var = "paymentOff" varStatus="listSize">
-							                <option uid= "${paymentOff.type}_${paymentOff.id}" detailId = "${orderDetail.orderDetail}" offType = "${paymentOff.type }" offType = "${paymentOff.type }" offId = "${paymentOff.id }" offAmount = "${paymentOff.amount }" offAmount = "${paymentOff.amount }" offName = "${paymentOff.name }">${paymentOff.name}_${paymentOff.amount}元 </option>
+							                <option uid= "${paymentOff.type}_${paymentOff.id}" detailId = "${orderDetail.detailId}" offType = "${paymentOff.type }" offId = "${paymentOff.id }" offAmount = "${paymentOff.amount }"  offName = "${paymentOff.name }">${paymentOff.name} - ${paymentOff.amount}元 </option>
 							            </c:forEach>
 							         </select>
 							     </span>
@@ -126,7 +127,18 @@
 							  </p>
 							  <div class="spread_content"> 
 								  <div class="spread">
-								     计师<span><select style="width:130px;padding-left:50px"><option>1100 马冬梅</option></select></span><span><select><option>指定</option></select></span><span><select><option>预约</option></select></span><span>业绩：<select><option>1121</option></select></span><span>提成：<input type="text"></span>
+								            计师<span>
+								           <select style="width:130px;padding-left:50px"><option>1100 马冬梅</option></select>
+								        </span>
+								        <span>
+								           <select><option>指定</option></select>
+								        </span>
+								        <span>
+								            <select>
+								                <option>预约</option>
+								                <option>预约</option>
+								            </select>
+								        </span>
 								  </div>
 								   <div class="spread">
 								     计师<span><select style="width:130px;padding-left:50px"><option>1100 马冬梅</option></select></span><span><select><option>指定</option></select></span><span><select><option>预约</option></select></span><span>业绩：<select><option>1121</option></select></span><span>提成：<input type="text"></span>
@@ -140,7 +152,16 @@
 				   
 				  </div> 
 				     <div class="change_price_">  
-					    <p><span>汇总</span><span>1111</span><span>1112221</span><span style="width:180px">121212</span><span>121212</span><span>111000</span><span class="adjust_price">-50</span><span>2500000</span></p>
+					    <p>
+					       <span>汇总</span>
+					       <span>${selfCashierOrderDto.receivableAmount }</span>
+					       <span>${selfCashierOrderDto.discountAmount }</span>
+					       <span style="width:180px"></span>
+					       <span>121212</span>
+					       <span>111000</span>
+					       <span class="adjust_price">-50</span>
+					       <span>2500000</span>
+					    </p>
 				   </div>
 				  <div class="change_price_way">
 				    <span>卡金支付<input type="text"></span>
@@ -185,7 +206,7 @@
 <%@ include file="/template/memberData.jsp" %>
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 <%-- <script type="text/javascript" src="<%=basePath %>js/cashier/cashier.js?date=<%=new Date().getTime() %>"></script>
- --%><script type="text/javascript" src="<%=basePath %>js/cashier/cashier.js"></script>
+ --%>
 <script>
 count=jQuery('.money_card_content li').size();
 jQuery(function(){

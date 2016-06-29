@@ -501,6 +501,7 @@
     <result column="is_gift_cash" property="isGiftCash" jdbcType="INTEGER" />
     <result column="highest_discount" property="highestDiscount" jdbcType="INTEGER" />
     <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <association property="stepList" column="detail_id" select="com.zefun.web.mapper.ShiftMahjongProjectStepMapper.selectOrderStepListByDetailId" />
   </resultMap>
 
 	<!-- 查询自助收银模块的概要订单详情信息 by luhwen 2015.10.21 18:00:00 -->
