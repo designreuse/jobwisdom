@@ -88,9 +88,11 @@
 								</div>
 							</c:when>
 							<c:when test="${selfCashier.orderStatus == 2 || selfCashier.orderStatus == 5}">
-								<div class="confition active" onclick="showCashierDetail(${selfCashier.orderId})">
-								   <img src="<%=basePath %>images/wait_money.png">待结账
-								</div>
+							    <a href="<%=basePath %>selfcashier/action/orderinfo?orderId=${selfCashier.orderId}">
+							        <div class="confition active">
+									   <img src="<%=basePath %>images/wait_money.png">待结账
+									</div>
+							    </a>
 							</c:when>
 						</c:choose>
 					 </div>

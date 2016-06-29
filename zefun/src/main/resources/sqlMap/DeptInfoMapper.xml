@@ -123,7 +123,7 @@
     
   <select id="getResultsDeptInfo" resultType="com.zefun.web.entity.DeptInfo" parameterType="java.lang.Integer" >
    select dept_id deptId,dept_name deptName,dept_code deptCode,is_results isResults from dept_info
-   where store_id=#{storeId,jdbcType=INTEGER} and is_deleted=0 and is_results=1
+   where store_id=#{storeId,jdbcType=INTEGER} and is_deleted=0 
   </select>
   
   <!-- 根据店铺id查询部门(状态没删除的) -->

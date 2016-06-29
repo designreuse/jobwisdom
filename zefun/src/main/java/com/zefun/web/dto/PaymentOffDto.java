@@ -25,7 +25,7 @@ public class PaymentOffDto {
     
     /** 优惠金额 */
     private BigDecimal amount;
-
+    
     public String getId() {
         return id;
     }

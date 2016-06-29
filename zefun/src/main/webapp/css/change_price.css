@@ -1,0 +1,90 @@
+.common_table{margin-top:30px;}
+.money_content .active{
+	background:#cbb7ad
+}
+.content_right{font-size:14px}
+.consume{position:relative}
+.circle_pic{display:none;float:right;margin-right:4px}
+.money_card_content li{cursor:pointer}
+.money_card_content .active{background:#f6f6d7}
+.money_card_content li:hover{box-shadow: 4px 4px 10px #ccc}
+.original_card{height:23px;}
+.card_first{border-bottom:1px solid #f9dd48;padding-left:17px;width:155px;font-size:16px;height:26px;line-height:26px}
+
+.original_card p{padding-left:17px;margin-top:3px}
+
+.ten_money{color:#ef4456}
+.LeftBotton{position:absolute;top:24px}
+.RightBotton{position:absolute;right:10px;top:24px}
+.LeftBotton img{width:34px;}
+.RightBotton img{width:34px;}
+.roll_money{position:relative}
+.money_card{overflow:hidden;height:104px;margin-top:25px;margin-left:50px;width:1000px}
+.money_card ul{width:4000px;}
+.money_card ul li{height:102px;width:172px;float:left;border-radius:8px;border:1px solid black;margin-right:42px;position:relative}
+.money_get{margin-top:25px;font-size:14px}
+.money_get em{display:inline-block;margin-left:20px}
+.money_get em i{color:#e0673d;font-size:16px}
+.money_next,.money_over{background:#2a3244;border-radius:20px;color:white;width:110px;height:26px;line-height:26px;text-align:center;border:none;position:relative;left:496px;margin-bottom:25px}
+.change_price_name{position:relative;overflow:overlay;height:400px;border:1px solid #b0b0b0;border-radius:12px;width:1034px;margin:20px auto;color:black}
+.change_price_name>p>span,.change_price_name>.change_price__spread span{border:1px solid #b0b0b0;display:inline-block;width:121px;text-align:center;line-height:42px;border-right: none;
+    border-top: none;border-bottom:none}
+.change_price_name input{width:80px;height:22px;border-radius:12px;border:1px solid #b0b0b0;text-align:center}
+.change_price_name select{width:150px;height:22px;border-radius:12px;border:1px solid #b0b0b0;}
+.change_price_name p span:nth-child(1){border-left:none}
+.change_price_name p span .adjust{font-size:12px;text-decoration:underline}
+.change_price_name i{display:inline-block;width:16px;height:16px;border-radius:8px;color:white;background:#e12626;font-size:16px;font-weight:bold;line-height:16px;position:relative;top:-5px}
+.adjust_price{color:#e12626}
+.spread{height:44px;background:#e9e9e9;line-height:44px;padding:0 20px;border-bottom:1px solid #b0b0b0}
+.spread select{width:70px;padding-left:35px;margin:0 5px}
+.spread  span{display:inline-block;margin:0 20px;border:none!important;width:auto!important}
+.spread_content{display:none}
+.positive{color:#1de6b0}
+
+.zzc{position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+    color: black;
+    font-size: 14px;}
+.zzc_change_price{margin:100px auto;width:440px;height:280px;background:white}
+.zzc_change_price>p{height:56px;text-align:center;font-size:16px;color:white;line-height:56px;background:#383849}
+.zzc_change_price_content{padding:30px}
+.zzc_change_price_content p input{width:140px;height:18px;border-radius:12px;border:1px solid #afafaf;margin:0 10px 0 16px}
+.change_reason{margin-top:20px}
+.change_reason textarea{width:300px;height:73px;border-radius:12px;border:1px solid #afafaf;margin-left:16px}
+.change_reason span{position:relative;top:-25px}
+.zzc_change_price_content p em{color:#afafaf}
+.zzc_change_price_button{text-align:center;margin-top:25px}
+.zzc_change_price_button button{width:130px;height:28px;text-align:center;line-height:28px;border:none;border-radius:12px;font-size:16px;background:#61678b;color:white;margin:0 20px}
+.zzc_change_price_button button:hover{background:#494d68}
+.change_price_name>p{background:#ebeff8;border-bottom:1px solid #b0b0b0}
+.change_price__spread:nth-child(odd){background:#ebeff8}
+
+
+.change_price__spread{border-bottom:1px solid #b0b0b0}
+.change_price_way{font-size:12px;color:black}
+.change_price_way input{width:53px;height:16px;border-radius:4px;margin-left:4px}
+.change_price_way span{display:inline-block;margin:0 15px}
+.send_massage{margin-top:20px;float:right;margin-right:30px;font-size:14px;color:black}
+.send_massage input{margin:0 10px}
+.send_massage button{width:110px;height:24px;border-radius:12px;border:none;color:white;text-align:center;line-height:24px;margin-left:20px;background:#59647f}
+.send_massage button:hover{background:#3f475d}
+.change_price_ span{    border: 1px solid #b0b0b0;
+    display: inline-block;
+    width: 121px;
+    text-align: center;
+    line-height: 42px;
+    border-right: none;
+    border-top:1px solid #b0b0b0!important;
+    border-bottom: none;}
+.change_price_ span:nth-child(1){border:none}	
+.change_price_{position: relative;
+    top: -64px;
+    left: 23px;
+    background: white;
+    width: 1034px;
+    border-radius:0 0 12px 12px;}

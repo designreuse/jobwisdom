@@ -71,7 +71,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="zzc2">
+	<div class="zzc2" style="display: none;">
 		<div class="coupon_card">
 			<div class="coupon_card_content">
 				<div class="card_logo">券</div>
@@ -121,7 +121,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="zzc">
+	<div class="zzc" style="display: none;">
 		<div class="new_coupon">
 			<p>新增/修改优惠券</p>
 			<div class="new_coupon_content">
@@ -183,6 +183,7 @@
 			</div>
 		</div>
 	</div>
+	
 </body>
 <script>
 	//颜色变量

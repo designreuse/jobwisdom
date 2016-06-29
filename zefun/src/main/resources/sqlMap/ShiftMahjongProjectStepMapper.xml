@@ -41,7 +41,8 @@
   
   <resultMap id="DetailStepResultMap" type="com.zefun.web.dto.OrderDetailStepDto">
     <result column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
-    <result column="position_id" property="positionId" jdbcType="INTEGER" />
+    <result column="positionId" property="positionId" jdbcType="INTEGER" />
+    <result column="positionName" property="positionName" jdbcType="VARCHAR" />
     <result column="shiftMahjongId" property="shiftMahjongId" jdbcType="VARCHAR" />
     <result column="shiftMahjongName" property="shiftMahjongName" jdbcType="VARCHAR" />
     <result column="beginTime" property="beginTime" jdbcType="CHAR" />
@@ -52,8 +53,7 @@
     <result column="isOver" property="isOver" jdbcType="INTEGER" />
     <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
     <result column="is_current" property="isCurrent" jdbcType="INTEGER" />
-    <result column="project_step_order" property="projectStepOrder" jdbcType="INTEGER" />
-    <association property="employeeInfo"  column="employeeId" select="com.zefun.web.mapper.EmployeeInfoMapper.selectBaseInfoByEmployeeId" />
+    <association property="employeeInfo"  column="employeeId" select="com.zefun.web.mapper.EmployeeInfoMapper.selectByPrimaryKey" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -78,7 +78,7 @@
         sms.is_designate as isDesignate,
         sms.is_appoint as isAppoint,
         sms.is_over as isOver,
-        sms.is_current as isCurrent,
+        sms.is_current as isCurrent
     from shift_mahjong_project_step sms, position_info ps 
     where sms.detail_id = #{detailId} and sms.position_id = ps.position_id and sms.is_deleted = 0 order by ps.position_id
   </select>
@@ -86,8 +86,8 @@
   <select id="selectOrderStepByCurrent" resultMap="DetailStepResultMap" parameterType="java.lang.Integer">
     select
         sms.shift_mahjong_step_id as shiftMahjongStepId,
-        sms.project_step_id as projectStepId,
-        ps.project_step_name as projectStepName,
+        sms.position_id as positionId,
+        ps.position_name as positionName,
         sms.employee_id as employeeId,
         (select shift_mahjong_id from shift_mahjong where shift_mahjong_id = (select shift_mahjong_id from project_step where project_step_id = sms.project_step_id)) shiftMahjongId,
         (select shift_mahjong_name from shift_mahjong where shift_mahjong_id = (select shift_mahjong_id from project_step where project_step_id = sms.project_step_id)) shiftMahjongName,
@@ -98,7 +98,6 @@
         sms.is_appoint as isAppoint,
         sms.is_over as isOver,
         sms.is_current as isCurrent,
-        ps.project_step_order as projectStepOrder
     from shift_mahjong_project_step sms, project_step ps 
     where sms.detail_id = #{detailId} and sms.project_step_id = ps.project_step_id and sms.is_deleted = 0 and sms.is_current = 1
   </select>

@@ -118,12 +118,13 @@ public class ManuallyOpenOrderService {
 			params.put("positionId", positionInfo.getPositionId());
 			List<EmployeeDto> employeeDtoList = employeeInfoMapper.selectAllEmployeeByCondition(params);
 			employeeMap.put("positionId", positionInfo.getPositionId());
+			employeeMap.put("positionName", positionInfo.getPositionName());
 			employeeMap.put("employeeDtoList", employeeDtoList);
 			employeeInfoList.add(employeeMap);
 		}
 		
 		//查询该门店所有员工
-		mav.addObject("employeeInfoList", JSONArray.fromObject(employeeInfoList));
+		mav.addObject("employeeInfoList", employeeInfoList);
 		mav.setViewName(View.KeepAccounts.MANUALLY_OPEN_ORDER);
 		return mav;
 	}
@@ -188,7 +189,6 @@ public class ManuallyOpenOrderService {
             Integer orderType = jsonObj.getInt("type");
             Integer projectId = jsonObj.getInt("projectId");
             if (orderType == 1) {
-                /*Integer assign = jsonObj.getInt("assign");*/
                 Integer appoint = jsonObj.getInt("appoint");
                 ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
                 String detailCode = "";
@@ -268,13 +268,4 @@ public class ManuallyOpenOrderService {
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
-	
-	/**
-	 * 计算提成业绩
-	* @author 老王
-	* @date 2016年6月27日 下午2:54:50
-	 */
-	public void calculationCommission () {
-		
-	}
 }

@@ -76,6 +76,7 @@ background-size: cover;}
 .select_people td{text-align:left!important;padding-left:10px}
 
 .nav_content_div input[type='text']{width:65px;border:1px solid black;border-radius:12px;height:15px}
+ .absolute li{ float: left;padding: 5px 42px 5px 10px;} 
 </style>
 <body>
 
@@ -234,13 +235,23 @@ background-size: cover;}
 			             </div>
 			          </c:forEach>
 				 </div>
-					  
+			      
 				<div class="hand_detail_right">
-				           <ul class="nav clearfix">
-				             <li class="active" onclick="changeDiv(1)" name = "projectDetail">项目</li>
-							 <li onclick="changeDiv(3)" name = "comboDetail">疗程</li>
-							 <li onclick="changeDiv(2)" name = "goodsDetail">商品</li>
-				           </ul>
+		           <ul class="nav clearfix">
+		             <li class="active" onclick="changeDiv(1)" name = "projectDetail">项目</li>
+					 <li onclick="changeDiv(3)" name = "comboDetail">疗程</li>
+					 <li onclick="changeDiv(2)" name = "goodsDetail">商品</li>
+		           </ul>
+		           <div class="absolute">	 
+		             <c:forEach items="${employeeInfoList}" var="employeeInfo">
+		                 <ul class="clearfix" positionId = "${employeeInfo.positionId }">
+		                    <li>${employeeInfo.positionName }</li>
+		                    <c:forEach items="${employeeInfo.employeeDtoList}" var="employeeDto" >
+		                        <li employeeId = "${employeeDto.employeeId }" employeeCode = "${employeeDto.employeeCode }" employeeName = "${employeeDto.name }" name = "employeeId"><em>${employeeDto.employeeCode }</em>${employeeDto.name }</li>
+		                    </c:forEach>
+		                 </ul>
+		             </c:forEach>				 
+				   </div>
 				     
 				<div class="nav_right_content"> 
 				  
@@ -291,10 +302,45 @@ background-size: cover;}
 	</div>
 
 <script type="text/javascript">
-   var employeeInfoListStr = '${employeeInfoList}';
-   var employeeInfoList = eval("(" + employeeInfoListStr + ")");
    var positionInfosStr = '${positionInfosStr}';
    var positionInfos = eval("(" + positionInfosStr + ")");
+   
+   var chooseObj = "";
+   
+    jQuery('.absolute').hide();
+    jQuery('.nav_content').delegate("input[type='text']", "focus",function(){
+	   event = event ? event : window.event; 
+	   var obj = event.srcElement ? event.srcElement : event.target;
+       jQuery('.absolute').show();
+       chooseObj = obj;
+       var top=jQuery(this).offset().top+30;
+	    jQuery('.absolute').attr('style','position:absolute;top:'+top+'px')
+	     fun();
+    })
+    function fun(){ 
+	   jQuery(document).click(function(e){
+	    var tar=e.target;
+		if(!jQuery(tar).is('.absolute ul li,input[type="text"], .absolute ul')){
+       jQuery('.absolute').hide();
+		}
+	  })
+   }
+   
+   jQuery('.hand_detail_right').delegate("li[name='employeeId']", "click",function(){
+	   event = event ? event : window.event; 
+	   var obj = event.srcElement ? event.srcElement : event.target;
+	   var employeeId = jQuery(obj).attr("employeeId");
+	   if (isEmpty(employeeId)) {
+		   obj = jQuery(obj).parents("li[name='employeeId']");
+	   }
+	   employeeId = jQuery(obj).attr("employeeId");
+	   var employeeId = jQuery(obj).attr("employeeId");
+	   var employeeCode = jQuery(obj).attr("employeeCode");
+	   var name = jQuery(obj).attr("employeeName");
+	   jQuery(chooseObj).attr("employeeId", employeeId);
+	   jQuery(chooseObj).val(employeeCode + " " +name);
+	   jQuery('.absolute').hide();
+   })
 </script>	
 <script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/keepAccounts/manuallyOpenOrder.js"></script>

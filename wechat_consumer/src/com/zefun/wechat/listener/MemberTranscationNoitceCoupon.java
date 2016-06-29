@@ -55,7 +55,7 @@ public class MemberTranscationNoitceCoupon implements ChannelAwareMessageListene
         for (int i = 0; i < map.getJSONArray("touser").size(); i++) {
             String openId = (String) map.getJSONArray("touser").get(i);
             logger.info("正在发送优惠券通知,现有模板ID是:"+tempId);
-            this.sendCouponTempleMsg(storeName, couponName, couponStopTime, openId, serverPost, tempId, storeAccount);
+            this.sendCouponTempleMsg(storeName, couponName, couponStopTime, openId, serverPost+"/"+storeAccount+"/1", tempId, storeAccount);
         }
     }
 

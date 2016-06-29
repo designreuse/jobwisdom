@@ -892,23 +892,22 @@ public class MemberCenterController extends BaseController {
     
     /**
      * 查看会员优惠券
-    * @author 张进军
+    * @author 高国藩
     * @date Oct 20, 2015 8:48:15 PM
-    * @param memberId		会员标识
+    * @param storeId		storeAccount
+    * @param businessType   businessType
     * @param request        请求对象
     * @param response       相应对象
     * @return   会员优惠券页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_MEMBER_COUPON)
-    public ModelAndView memberCouponView(@RequestParam(value = "memberId", required = false) Integer memberId, 
-    		    HttpServletRequest request, HttpServletResponse response){
-    	if (memberId == null) {
-    		String openId = getOpenId(1, request, response);
-            if (openId == null) {
-                return null;
-            }
-            memberId = getUserIdByOpenId(openId);
-    	}
+    public ModelAndView memberCouponView(@PathVariable String storeId, @PathVariable int businessType, 
+            HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(storeId, businessType, request, response);
+        if (openId == null) {
+            return null;
+        }
+        Integer memberId = getUserIdByOpenId(openId);
         return memberCenterService.memberCouponView(memberId);
     }
     

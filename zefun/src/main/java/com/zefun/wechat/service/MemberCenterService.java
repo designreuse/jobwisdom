@@ -1379,8 +1379,8 @@ public class MemberCenterService {
         MemberCoupon memberCoupon = new MemberCoupon();
         memberCoupon.setMemberInfoId(memberId);
         memberCoupon.setCouponId(couponId);
-        memberCoupon.setIsUsed(0);
-        memberCoupon.setGrantTime(DateUtil.getCurTime());
+//        memberCoupon.setIsUsed(0);
+//        memberCoupon.setGrantTime(DateUtil.getCurTime());
         memberCouponMapper.insert(memberCoupon);
         
         int balanceAmount = memberInfo.getBalanceIntegral() - couponInfo.getCouponVantages();

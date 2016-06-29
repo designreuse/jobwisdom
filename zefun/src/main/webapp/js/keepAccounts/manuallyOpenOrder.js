@@ -108,7 +108,7 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 			var positionInfo = positionInfos[i];
 			var buzhou = jQuery("<tr positionId = '"+positionInfo.positionId+"'></tr>");
 			buzhou.append("<td  style='width:210px'>"+positionInfo.positionName+"</td>");
-			buzhou.append("<td style='width:360px'><input type='text' name = 'employeeId' employeeId = '2014'></td>");
+			buzhou.append("<td style='width:360px'><input type='text' name = 'employeeId' employeeId = ''></td>");
 			
 			buzhou.append("<td>指定:<input type='checkbox' name = 'isAssign'></td>");
 			

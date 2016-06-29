@@ -404,4 +404,14 @@
   	select * from employee_objective where employee_id = #{employeeId} and objective_month = #{objectiveMonth}
   </select>
   
+  <select id="selectStoreSetting" parameterType="java.lang.Integer" resultType="java.util.Map">
+     select cost_commission_type as costCommissionType, gift_commission_rate as giftCommissionRate, coupon_commission_rate as couponCommissionRate, commission_fixed_type as commissionFixedType from store_setting where store_id = #{storeId}
+   </select>
+   
+  <select id="selectByComboCommonCalculate" resultType="java.math.BigDecimal" parameterType="java.lang.Integer" >
+    select 
+        a.combo_performance_cal as comboPerformanceCal
+    from combo_project a
+    where exists(select 1 from member_combo_project b where b.combo_id = a.combo_id and b.project_id = a.project_id and b.detail_id = #{comboId,jdbcType=INTEGER})
+  </select>
 </mapper>
