@@ -281,15 +281,12 @@ public class MemberInfoService {
         // 首先从缓存中获取，如果缓存中不存在，则从数据库查出并缓存
         if (StringUtils.isBlank(memberBaseInfoJson)) {
             memberBaseInfo = memberInfoMapper.selectMemberBaseInfo(memberId);
-            redisService.hset(App.Redis.MEMBER_BASE_INFO_KEY_HASH, memberId,
-                    EntityJsonConverter.entity2Json(memberBaseInfo));
+            redisService.hset(App.Redis.MEMBER_BASE_INFO_KEY_HASH, memberId, EntityJsonConverter.entity2Json(memberBaseInfo));
         }
         // 缓存中存在则直接转换为对象
         else {
-            memberBaseInfo = EntityJsonConverter.json2Entity(memberBaseInfoJson,
-                    MemberBaseDto.class);
+            memberBaseInfo = EntityJsonConverter.json2Entity(memberBaseInfoJson, MemberBaseDto.class);
         }
-        
         if (hasConsume) {
         	memberBaseInfo = packageMemberBaseDtoInfoBaseDto(memberBaseInfo);
         }

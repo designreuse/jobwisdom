@@ -235,6 +235,8 @@ public interface View {
         public static final String SHOP_CENTER_LIST = "mobile/member/goodsList";
 		/** 会员优惠券 */
 		public static final String MEMBER_COUPON = "mobile/member/memberCoupon";
+		/** 门店优惠券 */
+        public static final String STORE_COUPON = "mobile/member/storeCoupon";
 		/** 店铺信息 */
 		public static final String STORE_INFO = "mobile/member/storeInfo";
 		/** 店铺展示 */

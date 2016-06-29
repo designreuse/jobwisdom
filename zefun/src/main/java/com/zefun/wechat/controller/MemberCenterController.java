@@ -911,6 +911,28 @@ public class MemberCenterController extends BaseController {
         return memberCenterService.memberCouponView(memberId);
     }
     
+    /**
+     * 查看门店优惠券, 用于积分兑换
+    * @author 高国藩
+    * @date Oct 20, 2015 8:48:15 PM
+    * @param storeAccount        storeAccount
+    * @param businessType   businessType
+    * @param request        请求对象
+    * @param response       相应对象
+    * @return   会员优惠券页面
+     */
+    @RequestMapping(value = Url.MemberCenter.VIEW_STORE_COUPON, method=RequestMethod.GET)
+    public ModelAndView storeCouponView(@PathVariable String storeAccount, @PathVariable int businessType, 
+            HttpServletRequest request, HttpServletResponse response){
+        String openId = getOpenId(storeAccount, businessType, request, response);
+        if (openId == null) {
+            return null;
+        }
+        Integer memberId = getUserIdByOpenId(openId);
+        Integer storeId = getStoreIdByOpenId(openId);
+        return memberCenterService.storeCouponView(storeAccount, storeId, memberId);
+    }
+    
     
     /**
      * 查询门店下商城
@@ -976,13 +998,13 @@ public class MemberCenterController extends BaseController {
      */
     @RequestMapping(value = Url.MemberCenter.ACTION_EXCHANGE_COUPON, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto exchangeCouponAction(HttpServletRequest request, HttpServletResponse response, Integer couponId){
+    public BaseDto exchangeCouponAction(HttpServletRequest request, HttpServletResponse response, Integer couponId, Integer num){
         String openId = getOpenId(1, request, response);
         if (openId == null) {
             return null;
         }
         int memberId = getUserIdByOpenId(openId);
-        return memberCenterService.exchangeCouponAction(memberId, couponId);
+        return memberCenterService.exchangeCouponAction(memberId, couponId, num);
     }
     
     

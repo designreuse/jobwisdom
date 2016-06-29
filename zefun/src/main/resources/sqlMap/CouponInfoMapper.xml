@@ -24,6 +24,7 @@
     <result column="coupon_names" property="couponNames" jdbcType="CHAR" />
     <result column="coupon_num" property="couponNum" jdbcType="INTEGER" />
     <result column="has_send_num" property="hasSendNum" jdbcType="INTEGER" />
+    <association property="storeInfos" column="{storeId=store_type}" select="selectCouponStoreInfos"></association>
   </resultMap>
   <resultMap id="BaseDtoResultMap" type="com.zefun.web.dto.CouponBaseDto" >
     <id column="m_id" property="mId" jdbcType="INTEGER" />
@@ -89,7 +90,7 @@
 	    c.coupon_num, c.coupon_names, c.has_send_num
     from member_coupon mc 
     left join coupon_info c on c.coupon_id = mc.coupon_id
-    where mc.member_info_id = #{memberId}
+    where mc.member_info_id = #{memberId} and mc.is_deleted = 0
   </select>
   
   
@@ -377,5 +378,17 @@
     update coupon_info   set is_delete =1 where (CURDATE() &gt; DATE_ADD(#{couponStopTime}, INTERVAL #{couponStartTime} DAY) or CURDATE() &lt; #{releaseTime})  AND coupon_id = #{couponId}
   </update> 
   
+  <select id="selectCouponStoreInfos" parameterType="java.util.Map" resultType="com.zefun.web.entity.StoreInfo">
+  	select store_id as storeId, store_name as storeName from store_info where store_id in (${storeId})
+  </select>
+  
+  <select id="selectByProperties" parameterType="com.zefun.web.entity.CouponInfo" resultMap="BaseResultMap">
+  	  select   i.* from coupon_store s  left join  coupon_info i on s.coupon_id=i.coupon_id 
+  	  where  i.is_delete = 0   and 
+  	  CURDATE() &lt;= i.coupon_stop_time AND CURDATE() &gt;= i.release_time 
+  	  <if test="startType != null"> and i.start_type = #{startType} </if>
+  	  <if test="storeAccount != null"> and i.store_account = #{storeAccount}</if>
+  	  group by i.coupon_id 
+  </select>
    
 </mapper>

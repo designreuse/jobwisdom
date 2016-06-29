@@ -323,7 +323,7 @@ public class WeixinMessageService {
         if (groupType == 1) {
             
             JSONObject wechatShopButton = new JSONObject();
-            wechatShopButton.put("name", "微官网");
+            wechatShopButton.put("name", "关于我们");
             JSONArray wechatShopButtonList = new JSONArray();
             
             JSONObject shopButton = new JSONObject();
@@ -494,7 +494,7 @@ public class WeixinMessageService {
         JSONArray buttonList = new JSONArray();
         
         JSONObject wechatShopButton = new JSONObject();
-        wechatShopButton.put("name", "微官网");
+        wechatShopButton.put("name", "关于我们");
         JSONArray wechatShopButtonList = new JSONArray();
         
         JSONObject storeInfoButton = new JSONObject();
