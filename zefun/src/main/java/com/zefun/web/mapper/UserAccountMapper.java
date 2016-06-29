@@ -198,4 +198,22 @@ public interface UserAccountMapper {
 	 * @return 账户用户名
 	 */
 	String selectUserNameByStoreIdAndRoleId(Map<String, Integer> map);
+	
+	/**
+	 *    根据企业代号查询出该企业的数据
+	* @author 骆峰
+	* @date 2016年6月28日 下午6:59:59
+	* @param userAccount userAccount
+	* @return UserAccount
+	 */
+	UserAccount selectTouserByUserAccount(UserAccount userAccount);
+	
+	/**
+	 *  修改状态
+	* @author 骆峰
+	* @date 2016年6月28日 下午8:10:09
+	* @param userAccount userAccount
+	* @return  int
+	 */
+	int updateDisableAndStart(UserAccount userAccount);
 }

@@ -12,10 +12,11 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
     <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    user_id, role_id, user_name, user_pwd, pwd_salt, create_time, update_time, last_operator_id, store_id, store_account
+    user_id, role_id, user_name, user_pwd, pwd_salt, create_time, update_time, last_operator_id, store_id, store_account, status
   </sql>
   
   <select id="selectUserNameByStoreIdAndRoleId" resultType="java.lang.String" parameterType="java.util.Map">
@@ -79,6 +80,10 @@
       <if test="lastOperatorId != null" >
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
       </if>
+       <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -141,5 +146,13 @@
   <select id="selectTouserByUserName" parameterType="java.lang.String" resultType="java.lang.String">
   	SELECT user_id from user_account LEFT JOIN employee_info ON employee_id = user_id AND is_deleted = 0 WHERE user_name = #{userName}
   </select>
+  
+   <select id="selectTouserByUserAccount" parameterType="com.zefun.web.entity.UserAccount" resultType="com.zefun.web.entity.UserAccount">
+  	select user_id as userId  from user_account where store_account=#{storeAccount}  AND role_id = 1 
+  </select>
+  
+  <update id="updateDisableAndStart" parameterType="com.zefun.web.entity.UserAccount" >
+  update user_account set status=#{status} where   role_id = 1 and   store_account=#{storeAccount}
+  </update> 
   
 </mapper>

@@ -46,6 +46,10 @@ public interface Url {
 		 * 新增企业
 		 */
 		public static final String ADD_ENTERPRISE = "enterprise/action/addEnterprise";
+		/**
+         * 企业状态
+         */
+        public static final String SHOW_START = "enterprise/action/disableAndStart";
 	}
 	/**
 	 * 营销中心
