@@ -34,7 +34,7 @@
 					<p>${memberBaseInfo.giftmoneyAmount }</p>
 				</li>
 				</a>
-				<a href="<%=basePath%>memberCenter/view/memberCoupon">
+				<a href="<%=basePath%>memberCenter/view/memberCoupon/${session_key_store_account}/1">
 				<li>优惠卷数
 					<p>${memberBaseInfo.couponCount }</p>
 				</li>

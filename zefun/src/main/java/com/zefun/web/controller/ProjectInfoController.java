@@ -105,6 +105,7 @@ public class ProjectInfoController extends BaseController {
     public ModelAndView toProjectSetting(HttpServletRequest request,
             HttpServletResponse response, Integer projectId,
             ModelAndView model) {
+        
         int storeId = getStoreId(request);
 
         List<DeptProjectBaseDto> deptProjectList = projectService.getDeptProjectByStoreId(storeId);

@@ -288,14 +288,12 @@ public class CouponService {
         List<Integer> ls = new ArrayList<>();
         ls.addAll(sendsIds);
         List<String> touser = wechatMemberMapper.selectOpenIdsByMemberIdList(ls);
-//        touser.add("opqSZwHLjhGDjR6wo2fAIVmqlqAM");
-//        touser.add("opqSZwJIvK-CT0PVZRVwxpLmy6Y8");
-//        touser.add("opqSZwP0DCpckbvGx1gB-mEVWi7s");
         CouponInfo couponInfo = couponInfoMapper.selectByPrimaryKey(couponId);
         JSONObject object = new JSONObject();
         object.put("storeAccount", storeAccount);
         object.put("storeName", storeInfoMapper.selectByPrimaryKey(storeId).getStoreName());
         object.put("couponName", couponInfo.getCouponName());
+        object.put("num", "1");
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, Integer.parseInt(couponInfo.getCouponStartTime()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
