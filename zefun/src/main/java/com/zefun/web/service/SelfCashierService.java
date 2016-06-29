@@ -26,6 +26,7 @@ import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.MemberSubAccountDto;
 import com.zefun.web.dto.OrderDetaiSubmitDto;
+import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.OrderInfoSubmitDto;
 import com.zefun.web.dto.PaymentOffDto;
 import com.zefun.web.dto.SelfCashierDetailDto;
@@ -37,14 +38,18 @@ import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
+import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.MoneyFlow;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ProjectDiscount;
+import com.zefun.web.entity.ProjectInfo;
+import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
+import com.zefun.web.mapper.EmployeeObjectiveMapper;
 import com.zefun.web.mapper.GiftmoneyDetailMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
 import com.zefun.web.mapper.GoodsDiscountMapper;
@@ -53,6 +58,7 @@ import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberComboProjectMapper;
 import com.zefun.web.mapper.MemberCouponMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
+import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.MemberRecommendMapper;
 import com.zefun.web.mapper.MemberSubAccountMapper;
@@ -60,6 +66,8 @@ import com.zefun.web.mapper.MoneyFlowMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.ProjectDiscountMapper;
+import com.zefun.web.mapper.ProjectStepMapper;
+import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 
 import net.sf.json.JSONObject;
@@ -166,6 +174,18 @@ public class SelfCashierService {
 	/** 商品折扣*/
 	@Autowired
 	private GoodsDiscountMapper goodsDiscountMapper;
+	/** 员工目标*/
+	@Autowired
+	private EmployeeObjectiveMapper employeeObjectiveMapper;
+	/** 轮牌步骤*/
+	@Autowired
+	private ShiftMahjongProjectStepMapper shiftMahjongProjectStepMapper;
+	/** 项目步骤*/
+	@Autowired 
+	private ProjectStepMapper projectStepMapper;
+	/** 会员卡账户*/
+	@Autowired
+	private MemberLevelDiscountMapper memberLevelDiscountMapper;
 
 	/** 日志操作对象 */
 	// private Logger logger = Logger.getLogger(SelfCashierService.class);
@@ -204,7 +224,7 @@ public class SelfCashierService {
 		mav.addObject("loginType", loginType);
 		return mav;
 	}
-
+	
 	/**
 	 * 查询订单详情
 	 * 
@@ -283,6 +303,8 @@ public class SelfCashierService {
 			SelfCashierDetailDto ownerDetail = detailMap.get(String.valueOf(detail.getDetailId()));
 
 			OrderDetail orderDetail = new OrderDetail();
+			orderDetail.setOrderType(ownerDetail.getOrderType());
+			orderDetail.setProjectId(ownerDetail.getProjectId());
 			orderDetail.setDetailId(detail.getDetailId());
 			orderDetail.setGiftAmount(BigDecimal.ZERO);
 			orderDetail.setRealPrice(ownerDetail.getDiscountAmount());
@@ -380,6 +402,8 @@ public class SelfCashierService {
 
 			realAmount = realAmount.add(orderDetail.getRealPrice());
 			orderDetailMapper.updateByPrimaryKey(orderDetail);
+			
+			calculateCommonCommission(orderDetail, memberSubAccount, storeId);
 		}
 
 		if (realAmount.compareTo(BigDecimal.ZERO) == -1) {
@@ -501,7 +525,249 @@ public class SelfCashierService {
 
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}
+	
+	/**
+	 * 计算员工业绩提成
+	 * @param orderDetail 详情标识
+	 * @param memberSubAccount 会员子账户信息
+	 * @param storeId 门店标识
+	 */
+	protected void calculateCommonCommission(OrderDetail orderDetail, MemberSubAccount memberSubAccount, Integer storeId) {
+		
+        BigDecimal hundred = new BigDecimal(100);
+	    //查询门店设置
+	    Map<String, Object> storeSettingMap = employeeObjectiveMapper.selectStoreSetting(storeId);
+	    //提成是否扣除成本(0:不扣除，1:扣除)
+	    Integer costCommissionType = Integer.valueOf(storeSettingMap.get("costCommissionType").toString());
+	    //礼金减扣比例
+	    Integer giftCommissionRate = Integer.valueOf(storeSettingMap.get("giftCommissionRate").toString());
+	    //优惠券减扣比例
+	    Integer couponCommissionRate = Integer.valueOf(storeSettingMap.get("couponCommissionRate").toString());
+	    //业绩计算是否扣减固定业绩(1:是，0:否)
+	    Integer commissionFixedType = Integer.valueOf(storeSettingMap.get("commissionFixedType").toString());
+		
+	    Integer performanceDiscountPercent = 100;
+	    
+	    if (memberSubAccount != null) {
+	    	
+	    	Map<String, Integer> map = new HashMap<>();
+	    	map.put("levelId", memberSubAccount.getLevelId());
+	    	map.put("storeId", storeId);
+	    	MemberLevelDiscount memberLevelDiscount = memberLevelDiscountMapper.selectByStoreLevel(map);
+	    	
+	    	performanceDiscountPercent = memberLevelDiscount.getPerformanceDiscountPercent();
+	    }
+	    
+        //当为项目时
+		if (orderDetail.getOrderType() == 1) {
+			List<OrderDetailStepDto> stepDtoList =  shiftMahjongProjectStepMapper.selectOrderStepListByDetailId(orderDetail.getDetailId());
+			// 业绩计算
+	        BigDecimal tataliCommonCalculate = null;
+			if (orderDetail.getComboId() != null) {
+	            //套餐计算比例
+				tataliCommonCalculate = employeeObjectiveMapper.selectByComboCommonCalculate(orderDetail.getComboId());
+	        }
+	        else if (orderDetail.getCouponId() != null) {
+	            //项目实际金额 + (项目折扣价格 -实际金额 - 预约优惠) *  优惠券减扣比例
+	        	tataliCommonCalculate = orderDetail.getRealPrice().add((orderDetail.getDiscountAmount().subtract(orderDetail.getRealPrice())
+	                    .subtract(orderDetail.getAppointOff())).multiply(new BigDecimal(couponCommissionRate)).divide(hundred));
+	        }
+	        else if (orderDetail.getGiftAmount().compareTo(new BigDecimal(0)) == 1) {
+	            //项目实际金额 + (项目折扣价格 -实际金额 - 预约优惠) *  礼金减扣比例
+	        	tataliCommonCalculate = orderDetail.getRealPrice().add((orderDetail.getDiscountAmount().subtract(orderDetail.getRealPrice())
+	                    .subtract(orderDetail.getAppointOff())).multiply(new BigDecimal(giftCommissionRate)).divide(hundred));
+	        }
+	        else {
+	        	tataliCommonCalculate = orderDetail.getRealPrice();
+	        }
+	        
+	        if (costCommissionType == 1) {
+	        	ProjectInfo projectInfo = projectService.queryProjectInfoById(orderDetail.getProjectId());
+	        	tataliCommonCalculate = tataliCommonCalculate.subtract(projectInfo.getCostPrice());
+	        }
+	        
+	        BigDecimal fixedValue = projectStepMapper.selectFixedValue(orderDetail.getProjectId());
+	        
+		    for (OrderDetailStepDto orderDetailStepDto : stepDtoList) {
+		        // 业绩计算方式
+		        Integer stepPerformanceType = null;
+		        // 业绩金额
+		        BigDecimal stepPerformance =  null;
+		        //员工业绩值
+		        BigDecimal saveCommonCalculate = null;
+		        
+		        //获取到该员工对应业绩值
+	    		Map<String, Integer> stepMap = new HashMap<>();
+	    		stepMap.put("projectId", orderDetail.getProjectId());
+	    		stepMap.put("positionId", orderDetailStepDto.getPositionId());
+	    		ProjectStep projectStep = projectStepMapper.selectByPositionId(stepMap);
+	    		stepPerformanceType = projectStep.getStepPerformanceType();
+	    		stepPerformance = projectStep.getStepPerformance();
+	    		
+		    	//比例
+                if (stepPerformanceType == 1) {
+                    if (commissionFixedType == 0) {
+                        saveCommonCalculate = tataliCommonCalculate.multiply(stepPerformance).divide(new BigDecimal(100));
+                    }
+                    else {
+                        saveCommonCalculate = (tataliCommonCalculate.subtract(fixedValue)).multiply(stepPerformance).divide(new BigDecimal(100));
+                    }
+                    saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
+                }
+                //固定值
+                else {
+                    saveCommonCalculate = stepPerformance;
+                }
+                
+                saveCommonCalculate = zeroChoose(saveCommonCalculate);
+                
+                //判断岗位与服务员工是否对应
+		    	if (orderDetailStepDto.getEmployeeInfo().getPositionId().intValue() == orderDetailStepDto.getPositionId()) {
+		    		
+		    	}
+		    	else {
+		    		
+		    	}
+			}
+		}
+		else  if (orderDetail.getOrderType() == 2){
+			
+		}
+		else {
+			
+		}
+	    
+	    /*commissionType = commissionDto.getCommissionType();
+	    commissionAmount = commissionDto.getCommissionAmount();
+	    cardCommissionAmount = commissionDto.getCardCommissionAmount();
+		switch(commissionType) {
+			case 1 : // 按比例
+			    if (payType == 1) {
+			        empCommission = commonCalculate.multiply(cardCommissionAmount).divide(hundred);
+			    }
+			    else {
+			        empCommission = commonCalculate.multiply(commissionAmount).divide(hundred);
+			    }
+			    
+			    empCommission = empCommission.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
+				break;
+			case 2 : // 按固定金额
+			    if (payType == 1) {
+                    empCommission = cardCommissionAmount;
+                }
+                else {
+                    empCommission = commissionAmount;
+                }
+				break;
+			default :
+				break;
+		}
+		
+		//当为预约时
+		if (isAppoint == 1) {
+		    empCommission = empCommission.add(commissionDto.getAppointmentReward());
+		}
+		
+		if (empCommission != null) {
+		    
+		    empCommission = zeroChoose(empCommission);
+		    
+            BigDecimal saveCommonCalculate = null;
+            
+            EmployeeObjective employeeObjective = new EmployeeObjective();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+            //修改本月实际完成项目销售目标
+            if (orderType == 1) {
+                Map<String, Object> isAssignStepPerformanceMap = orderDetailMapper.selectIsAssignStepPerformance(shiftMahjongStepId);
+                //是否指定
+                Integer isAssign = Integer.valueOf(isAssignStepPerformanceMap.get("isAssign").toString());
+                //步骤业绩计算
+                BigDecimal stepPerformance = new BigDecimal(isAssignStepPerformanceMap.get("stepPerformance").toString());
+                //步骤业绩计算方式(2:固定,1:比例)
+                Integer stepPerformanceType = Integer.valueOf(isAssignStepPerformanceMap.get("stepPerformanceType").toString());
+                //该项目中固定步骤值
+                BigDecimal fixedValue = new BigDecimal(isAssignStepPerformanceMap.get("fixedValue").toString());
+                
+                //比例
+                if (stepPerformanceType == 1) {
+                    if (commissionFixedType == 0) {
+                        saveCommonCalculate = commonCalculate.multiply(stepPerformance).divide(new BigDecimal(100));
+                    }
+                    else {
+                        saveCommonCalculate = (commonCalculate.subtract(fixedValue)).multiply(stepPerformance).divide(new BigDecimal(100));
+                    }
+                    saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
+                }
+                //固定值
+                else {
+                    saveCommonCalculate = stepPerformance;
+                }
+                
+                saveCommonCalculate = zeroChoose(saveCommonCalculate);
+                
+                employeeObjective.setActualTotalProjectSales(saveCommonCalculate);
+                if (isAssign  == 1) {
+                    employeeObjective.setActualAssignProjectSales(saveCommonCalculate);
+                }
+            }
+            //修改本月实际完成商品销售目标
+            else if (orderType == 2){
+            	
+            	if (commissionDto.getCalculationType() == 1) {
+            		saveCommonCalculate = commonCalculate.multiply(commissionDto.getCommonCalculate()).divide(new BigDecimal(100));
+            		
+            		saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
+            	}
+            	else {
+            		saveCommonCalculate = commissionDto.getCommonCalculate();
+            	}
 
+                saveCommonCalculate = zeroChoose(saveCommonCalculate);
+                
+                employeeObjective.setActualGoodsSales(saveCommonCalculate);
+            }
+            //修改本月实际完成套餐销售目标
+            else {
+            	
+            	if (commissionType == 1) {
+            		saveCommonCalculate = commonCalculate.multiply(commissionDto.getCommonCalculate()).divide(new BigDecimal(100));
+            		
+            		saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
+            	}
+            	else {
+            		saveCommonCalculate = commissionDto.getCommonCalculate();
+            	}
+                
+                saveCommonCalculate = zeroChoose(saveCommonCalculate);
+                
+                employeeObjective.setActualComboSales(saveCommonCalculate);
+            }
+            employeeObjective.setEmployeeId(employeeId);
+            try {
+                employeeObjective.setObjectiveMonth(dateFormat.format(dateFormat.parse(orderDetail.getCreateTime())));
+            } 
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+		}*/
+		
+	}
+	
+	/**
+	 * 赋值为o
+	* @author 王大爷
+	* @date 2016年1月6日 下午3:31:01
+	* @param values 值
+	* @return BigDecimal
+	 */
+	public BigDecimal zeroChoose (BigDecimal values) {
+	    if (values.compareTo(new BigDecimal(0)) != 1) {
+	        values = new BigDecimal(0);
+        }
+	    return values;
+	}
+	
 	/**
 	 * 针对分享者，赠送推荐好友的首次消费奖励
 	 * 
@@ -1075,7 +1341,7 @@ public class SelfCashierService {
 			// 检查是否有优惠券可以抵扣
 			map.put("couponType", detail.getOrderType());
 			map.put("projectId", detail.getProjectId());
-			List<PaymentOffDto> couponList = memberCouponMapper.selectPaymentCouponListByMemberIdAndProjectId(map);
+			List<PaymentOffDto> couponList = new ArrayList<>(); /*memberCouponMapper.selectPaymentCouponListByMemberIdAndProjectId(map);*/
 			if (!couponList.isEmpty()) {
 				paymentOffList.addAll(couponList);
 			}

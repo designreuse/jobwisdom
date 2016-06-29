@@ -559,8 +559,11 @@ public interface View {
 	 * @date 2015年10月21日 下午15:27:49
 	 */
 	class SelfCashier {
-		/** 优惠券展示页面 */
+		/** 自助收银 */
 		public static final String VIEW_SELF_CASHIER = "cashier/payment";
+		
+		/** 结账 */
+		public static final String VIEW_CHECKOUT_ORDER = "cashier/checkoutOrder";
 
 		/** 预约列表 */
 		public static final String APPOINT_LIST = "cashier/appointList";

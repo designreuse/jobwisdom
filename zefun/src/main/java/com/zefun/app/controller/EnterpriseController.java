@@ -56,15 +56,32 @@ public class EnterpriseController extends BaseController{
 	* @param enterpriseAddress 企业详细地址
 	* @param enterpriseEdition 企业版本
 	* @param useTime 使用时间
+	* @param enterpriseInfoId 标识
 	* @return BaseDto
 	 */
 	@RequestMapping(value =  Url.Enterprise.ADD_ENTERPRISE, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto addEnterprise (HttpServletRequest request, String enterpriseName, String enterpriseLinkphone, 
 			  String enterpriseLinkname, String storeAccount, String enterpriseProvince, String enterpriseCity, String enterpriseAddress,
-			  Integer enterpriseEdition, Integer useTime) {
+			  Integer enterpriseEdition, Integer useTime , Integer enterpriseInfoId) {
 		return enterpriseService.addEnterprise(enterpriseName, enterpriseLinkphone, enterpriseLinkname, storeAccount, enterpriseProvince, 
-				enterpriseCity, enterpriseAddress, enterpriseEdition, useTime);
+				enterpriseCity, enterpriseAddress, enterpriseEdition, useTime , enterpriseInfoId);
+	}
+	
+	/**
+	 * 企业状态修改
+	* @author 骆峰
+	* @date 2016年6月28日 下午6:42:47
+	* @param start 0正常 1 禁用
+	* @param enterpriseInfoId 企业标识
+	* @param request request
+	* @param storeAccount storeAccount
+	* @return BaseDto
+	 */
+    @RequestMapping(value =  Url.Enterprise.SHOW_START, method = RequestMethod.POST)
+    @ResponseBody
+	public BaseDto disableAndStart(HttpServletRequest request, Integer start, Integer enterpriseInfoId, String storeAccount){
+        return enterpriseService.disableAndStart(start, enterpriseInfoId, storeAccount);
 	}
 
 }

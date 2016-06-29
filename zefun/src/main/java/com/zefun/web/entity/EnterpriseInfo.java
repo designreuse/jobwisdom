@@ -52,7 +52,7 @@ public class EnterpriseInfo {
     private String enterpriseTel;
 
     /**
-     * 企业状态(1:正常，2:欠费)
+     * 企业状态(1:正常，2:欠费 )
      */
     private Integer enterpriseStatus;
 

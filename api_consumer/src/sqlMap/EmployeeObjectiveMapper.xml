@@ -146,7 +146,7 @@
     update giftmoney_detail set is_present = 2 where substring(end_date, 1, 10) &lt;= #{endDate,jdbcType=VARCHAR} and is_deleted = 0 and is_present = 1
   </update>
   
-  <select id="getPerformanceDiscountPercent" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   <select id="getPerformanceDiscountPercent" parameterType="java.lang.Integer" resultType="java.lang.Integer">
        select performance_discount_percent as performanceDiscountPercent from member_level a where exists(select 1 from member_info b where b.member_id = #{memberId,jdbcType=VARCHAR} and b.level_id = a.level_id) and a.is_deleted = 0
    </select>
 </mapper>

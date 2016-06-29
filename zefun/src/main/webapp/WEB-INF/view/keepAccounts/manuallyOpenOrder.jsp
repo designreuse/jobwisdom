@@ -51,7 +51,7 @@ background-size: cover;}
 .absolute{box-shadow:0 0 10px #908f8f;position:absolute;;background:white;z-index:10;box-shadow:0 0 10px #ccc;top:130px}
 .absolute em{color:#d92020;display:inline-block;margin-right:2px}
 .content_right input[type='text']{border:1px solid #7d7575}
-.hand_table{    border: 1px solid #7d7575;box-shadow:0 0 0 white}
+.hand_table{border: 1px solid #7d7575;box-shadow:0 0 0 white}
 .hand_table tr td{border: 1px solid #7d7575;}
 .hand_detail_left{    border: 1px solid #7d7575;
     box-shadow: 0 0 0px white;}
@@ -65,7 +65,7 @@ background-size: cover;}
 .hand_project .active{border: 1px solid #7d7575;}
 .nav li{font-weight:bold}
 .select_part_{font-weight:bold}
-.absolute{width:440px!important;margin-left:0!important}
+.absolute{width:440px!important;margin-left:40px!important}
 .nav_content td select{width:52px;height:14px}
 .nav_content td{width:110px}
 .nav_content_div{height:auto;padding-bottom:5px}
@@ -76,6 +76,10 @@ background-size: cover;}
 .select_people td{text-align:left!important;padding-left:10px}
 
 .nav_content_div input[type='text']{width:65px;border:1px solid black;border-radius:12px;height:15px}
+.absolute li{ float: left;width: 100px; padding: 2px 0 2px 10px;cursor:pointer} 
+
+.nav_right_content input[type='text']{width:88px}
+.absolute ul{border-bottom:1px dashed #e1dfdf;padding:5px 0}
 </style>
 <body>
 
@@ -234,13 +238,23 @@ background-size: cover;}
 			             </div>
 			          </c:forEach>
 				 </div>
-					  
+			      
 				<div class="hand_detail_right">
-				           <ul class="nav clearfix">
-				             <li class="active" onclick="changeDiv(1)" name = "projectDetail">项目</li>
-							 <li onclick="changeDiv(3)" name = "comboDetail">疗程</li>
-							 <li onclick="changeDiv(2)" name = "goodsDetail">商品</li>
-				           </ul>
+		           <ul class="nav clearfix">
+		             <li class="active" onclick="changeDiv(1)" name = "projectDetail">项目</li>
+					 <li onclick="changeDiv(3)" name = "comboDetail">疗程</li>
+					 <li onclick="changeDiv(2)" name = "goodsDetail">商品</li>
+		           </ul>
+		           <div class="absolute">	 
+		             <c:forEach items="${employeeInfoList}" var="employeeInfo">
+		                 <ul class="clearfix" positionId = "${employeeInfo.positionId }">
+		                    <li style="font-weight:bold">${employeeInfo.positionName }</li>
+		                    <c:forEach items="${employeeInfo.employeeDtoList}" var="employeeDto" >
+		                        <li employeeId = "${employeeDto.employeeId }" employeeCode = "${employeeDto.employeeCode }" employeeName = "${employeeDto.name }" name = "employeeId"><em>${employeeDto.employeeCode }</em>${employeeDto.name }</li>
+		                    </c:forEach>
+		                 </ul>
+		             </c:forEach>				 
+				   </div>
 				     
 				<div class="nav_right_content"> 
 				  
@@ -291,10 +305,45 @@ background-size: cover;}
 	</div>
 
 <script type="text/javascript">
-   var employeeInfoListStr = '${employeeInfoList}';
-   var employeeInfoList = eval("(" + employeeInfoListStr + ")");
    var positionInfosStr = '${positionInfosStr}';
    var positionInfos = eval("(" + positionInfosStr + ")");
+   
+   var chooseObj = "";
+   
+    jQuery('.absolute').hide();
+    jQuery('.nav_content').delegate("input[type='text']", "focus",function(){
+	   event = event ? event : window.event; 
+	   var obj = event.srcElement ? event.srcElement : event.target;
+       jQuery('.absolute').show();
+       chooseObj = obj;
+       var top=jQuery(this).offset().top+30;
+	    jQuery('.absolute').attr('style','position:absolute;top:'+top+'px')
+	     fun();
+    })
+    function fun(){ 
+	   jQuery(document).click(function(e){
+	    var tar=e.target;
+		if(!jQuery(tar).is('.absolute ul li,input[type="text"], .absolute ul')){
+       jQuery('.absolute').hide();
+		}
+	  })
+   }
+   
+   jQuery('.hand_detail_right').delegate("li[name='employeeId']", "click",function(){
+	   event = event ? event : window.event; 
+	   var obj = event.srcElement ? event.srcElement : event.target;
+	   var employeeId = jQuery(obj).attr("employeeId");
+	   if (isEmpty(employeeId)) {
+		   obj = jQuery(obj).parents("li[name='employeeId']");
+	   }
+	   employeeId = jQuery(obj).attr("employeeId");
+	   var employeeId = jQuery(obj).attr("employeeId");
+	   var employeeCode = jQuery(obj).attr("employeeCode");
+	   var name = jQuery(obj).attr("employeeName");
+	   jQuery(chooseObj).attr("employeeId", employeeId);
+	   jQuery(chooseObj).val(employeeCode + " " +name);
+	   jQuery('.absolute').hide();
+   })
 </script>	
 <script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/keepAccounts/manuallyOpenOrder.js"></script>
