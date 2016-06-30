@@ -203,6 +203,16 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.30</version>
 		</dependency>
+		
+		<!-- 阿里大鱼 短信 -->
+		<dependency>
+			<groupId>local</groupId>
+			<artifactId>taobao-sdk.jar</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/resource/taobao-sdk-java-auto_1455552377940-20160224.jar</systemPath>
+		</dependency>
+		
     </dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
