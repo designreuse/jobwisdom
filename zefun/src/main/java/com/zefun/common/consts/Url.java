@@ -1623,14 +1623,23 @@ public interface Url {
 	* @date 2016年5月31日 下午3:59:46
 	 */
 	class GoodsStock {
-
 	    /** 进销存管理页面 */
         public static final String VIEW_STOCK = "stock/view";
         /** 库存设置*/
         public static final String ACTION_STOCK = "stock/action";
         /** 根据不同门店查询进销存*/
         public static final String QUERY_STOCK_FLOW_BY_STORE = "stock/query/{storeId}";
-	    
 	}
 
+	/**
+	 * 服务计划
+	* @author 高国藩
+	* @date 2016年6月30日 下午4:37:43
+	 */
+	class ServicePlans {
+	    /** 服务计划页面*/
+        public static final String VIEW_SERVICE_PLAN = "service/view/view";
+        /** 新增服务计划*/
+        public static final String SAVE_SERVICE_PLAN = "service/view/save";
+	}
 }

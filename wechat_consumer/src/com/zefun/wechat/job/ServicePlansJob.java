@@ -96,10 +96,11 @@ public class ServicePlansJob {
                 while (it.hasNext()){
                     Integer memberId = it.next();
                     String openId = redisService.hget(WECHAT_MEMBERID_TO_OPENID_KEY_HASH, memberId);
+                    logger.info(openId);
                     // 如果允许短信发送,进行短息的发送
                     if (servicePlanInfo.getIsSms() == 1 && storeInfo.getBalanceSms() >= sendsIds.size()){
                         MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberId);
-                        
+                        sendVerifyCode(memberInfo.getPhone(), memberInfo.getName(), servicePlanInfo.getServiceProjectName(), storeInfo.getStoreName(), servicePlanInfo.getServiceTime());
                     }
                 }
                 // 第三部 ,发送成功后 如果是短信进行的推送, 将门店下的短信数量进行一次减法操作
@@ -128,18 +129,18 @@ public class ServicePlansJob {
     * @param desc   描述信息
     * @return   成功返回true，失败返回false
      */
-    public boolean sendVerifyCode(String phone, String name, String project, String desc, String date) {
+    public boolean sendVerifyCode(String phone, String name, String project, String storeName, String date) {
         AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
         JSONObject params = new JSONObject();
-        params.put("name", "高国藩");
-        params.put("date", "2016-9-10");
-        params.put("store", "中帮我道");
-        params.put("money", "3000元");
+        params.put("name", name);
+        params.put("date", date);
+        params.put("store", storeName);
+        params.put("project", project);
         req.setSmsType("normal");
         req.setSmsFreeSignName(idiograph);
         req.setSmsParam(params.toString());
         req.setRecNum(phone);
-        req.setSmsTemplateCode("SMS_10995094");
+        req.setSmsTemplateCode("SMS_11380274");
         try {
             AlibabaAliqinFcSmsNumSendResponse response = tbClient.execute(req);
             logger.info(response.getBody());

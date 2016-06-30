@@ -1,5 +1,10 @@
 package com.zefun.web.entity;
 
+/**
+ * 服务计划
+* @author 高国藩
+* @date 2016年6月30日 下午5:43:13
+ */
 public class ServicePlanInfo {
     /** 主键 */
     private Integer sId;
@@ -25,16 +30,54 @@ public class ServicePlanInfo {
     /** 推送时间 */
     private String topicTime;
 
+    /** 门店ID */
+    private Integer storeId;
+
     /** 是否短信(0不推送, 1推送) */
     private Integer isSms;
 
     /** 是否已经推送(0:未推送 1:已推送) */
     private Integer isDeleted;
+    
+    /** 员工名称*/
+    private String name;
+    
+    /** 会员分组(卡)名称*/
+    private String memberName;
 
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    /**
+     * 获取ID
+    * @author 高国藩
+    * @date 2016年6月30日 下午5:42:46
+    * @return  sId
+     */
     public Integer getsId() {
         return sId;
     }
 
+    /**
+     * 设置属性
+    * @author 高国藩
+    * @date 2016年6月30日 下午5:42:57
+    * @param sId  sId
+     */
     public void setsId(Integer sId) {
         this.sId = sId;
     }
@@ -93,6 +136,14 @@ public class ServicePlanInfo {
 
     public void setTopicTime(String topicTime) {
         this.topicTime = topicTime == null ? null : topicTime.trim();
+    }
+
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
     public Integer getIsSms() {
