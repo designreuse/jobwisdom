@@ -124,7 +124,7 @@
   </select>
   
    <select id="positionInfoSon" resultType="com.zefun.web.entity.EmployeeLevel" parameterType="java.lang.Integer">
-    	select level_id levelId,level_name levelName from employee_level where position_id=#{position_id}
+    	select level_id levelId,level_name levelName from employee_level where position_id=#{position_id} and is_deleted=0
    </select>
     
   <select id="getlevelIdList" resultType="java.lang.Integer" parameterType="java.lang.Integer">
