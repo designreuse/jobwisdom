@@ -19,11 +19,13 @@ import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.MemberScreening;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ServicePlanInfo;
+import com.zefun.web.entity.ServicePlanTemp;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.MemberScreeningMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ServicePlanInfoMapper;
+import com.zefun.web.mapper.ServicePlanTempMapper;
 
 import net.sf.json.JSONArray;
 
@@ -47,6 +49,8 @@ public class ServicePlansService {
     @Autowired private MemberScreeningMapper memberScreeningMapper;
     /** 服务计划表 */
     @Autowired private ProjectInfoMapper projectInfoMapper;
+    /** 服务计划模板 */
+    @Autowired private ServicePlanTempMapper servicePlanTempMapper;
     
     /**
      * 服务计划页面
@@ -64,11 +68,17 @@ public class ServicePlansService {
         List<MemberLevelDto> level = memberLevelMapper.selectByStoreId(storeId);
         List<MemberScreening> screen = memberScreeningMapper.selectByStoreId(storeId);
         List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(storeId);
+        ServicePlanTemp servicePlanTemp = new ServicePlanTemp();
+        servicePlanTemp.setStoreId(storeId);
+        servicePlanTemp.setIsDeleted(0);
+        List<ServicePlanTemp> servicePlanTemps = servicePlanTempMapper.selectByProperties(servicePlanTemp);
+        view.addObject("servicePlanTemps", servicePlanTemps);
         view.addObject("servicePlanInfos", servicePlanInfos);
         view.addObject("employeeInfos", employeeInfos);
         view.addObject("level", JSONArray.fromObject(level));
         view.addObject("screen", JSONArray.fromObject(screen));
         view.addObject("projectInfos", projectInfos);
+        view.addObject("servicePlanTemps", servicePlanTemps);
         return view;
     }
 
@@ -127,7 +137,65 @@ public class ServicePlansService {
      */
     public ModelAndView viewServiceTemp(Integer storeId) {
         ModelAndView view = new ModelAndView(View.ServicePlans.VIEW_SERVICE_TEMP);
+        ServicePlanTemp servicePlanTemp = new ServicePlanTemp();
+        servicePlanTemp.setStoreId(storeId);
+        servicePlanTemp.setIsDeleted(0);
+        List<ServicePlanTemp> servicePlanTemps = servicePlanTempMapper.selectByProperties(servicePlanTemp);
+        List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(storeId);
+        view.addObject("projectInfos", projectInfos);
+        view.addObject("servicePlanTemps", servicePlanTemps);
         return view;
+    }
+
+    /**
+     * 新增或修改操作
+    * @author 高国藩
+    * @date 2016年7月1日 下午5:40:23
+    * @param servicePlanTemps  servicePlanTemps
+    * @param storeId           storeId
+    * @return                  BaseDto
+     */
+    public BaseDto saveServicePlansTemp(List<ServicePlanTemp> servicePlanTemps, Integer storeId) {
+        for (int i = 0; i < servicePlanTemps.size(); i++) {
+            ServicePlanTemp servicePlanTemp = servicePlanTemps.get(i);
+            servicePlanTemp.setIsDeleted(0);
+            servicePlanTemp.setStoreId(storeId);
+            if (servicePlanTemp.gettId() != null){
+                servicePlanTempMapper.updateByPrimaryKeySelective(servicePlanTemp);
+            }
+            else {
+                servicePlanTempMapper.insertSelective(servicePlanTemp);
+            }
+        }
+        return new BaseDto(0, servicePlanTemps);
+    }
+
+    /**
+     * 搜索模板
+    * @author 高国藩
+    * @date 2016年7月1日 下午6:41:24
+    * @param tId tId
+    * @return    BaseDto
+     */
+    public BaseDto selectServicePlansTemp(Integer tId) {
+        ServicePlanTemp servicePlanTemp = new ServicePlanTemp();
+        servicePlanTemp.settId(tId);
+        List<ServicePlanTemp> servicePlanTemps = servicePlanTempMapper.selectByProperties(servicePlanTemp);
+        ServicePlanTemp planTemp = servicePlanTemps.get(0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, planTemp.getTopicDay());
+        calendar.add(Calendar.HOUR_OF_DAY, planTemp.getTopicHoure());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH");
+        ServicePlanInfo servicePlanInfo = new ServicePlanInfo();
+        servicePlanInfo.setTopicTime(sdf.format(calendar.getTime()));
+        servicePlanInfo.setTheme(planTemp.getTheme());
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, planTemp.getServiceDay());
+        servicePlanInfo.setServiceTime(sdf.format(calendar.getTime()));
+        servicePlanInfo.setServiceProjectName(planTemp.getServiceProjectName());
+        servicePlanInfo.setIsSms(planTemp.getIsSms());
+        return new BaseDto(0, servicePlanInfo);
     }
 
 }

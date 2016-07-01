@@ -1645,5 +1645,9 @@ public interface Url {
         public static final String DELETE_SERVICE_PLAN = "service/view/delete";
         /** 服务计划的模板*/
         public static final String VIEW_SERVICE_TEMOLENT = "service/view/temp";
+        /** 计划模板新增修改*/
+        public static final String SAVE_SERVICE_TEMP = "service/save/temp";
+        /** 搜索模板*/
+        public static final String SELECT_SERVICE_TEMP = "service/select/temp";
 	}
 }

@@ -1,6 +1,7 @@
 package com.zefun.web.controller;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.ServicePlanInfo;
+import com.zefun.web.entity.ServicePlanTemp;
 import com.zefun.web.service.ServicePlansService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -53,7 +56,7 @@ public class ServicePlansController extends BaseController{
      */
     @RequestMapping(value = Url.ServicePlans.SAVE_SERVICE_PLAN, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto viewServicePlans(HttpServletRequest request, @RequestBody JSONObject data) throws ParseException{
+    public BaseDto saveServicePlans(HttpServletRequest request, @RequestBody JSONObject data) throws ParseException{
         Integer storeId = getStoreId(request);
         ServicePlanInfo servicePlanInfo = (ServicePlanInfo) JSONObject.toBean(data, ServicePlanInfo.class);
         servicePlanInfo.setIsDeleted(0);
@@ -88,6 +91,38 @@ public class ServicePlansController extends BaseController{
     public ModelAndView viewServiceTemp(HttpServletRequest request){
         Integer storeId = getStoreId(request);
         return servicePlansService.viewServiceTemp(storeId);
+    }
+    
+    /**
+     * 新增修改服务模板
+    * @author 高国藩
+    * @date 2016年6月30日 下午8:06:53
+    * @param request  request
+    * @param data     data
+    * @return         BaseDto
+     * @throws ParseException  ParseException
+     */
+    @RequestMapping(value = Url.ServicePlans.SAVE_SERVICE_TEMP, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto saveServicePlansTemp(HttpServletRequest request, @RequestBody JSONObject data) throws ParseException{
+        Integer storeId = getStoreId(request);
+        @SuppressWarnings("unchecked")
+        List<ServicePlanTemp> servicePlanTemps = (List<ServicePlanTemp>) JSONArray.toCollection(data.getJSONArray("data"), ServicePlanTemp.class);
+        return servicePlansService.saveServicePlansTemp(servicePlanTemps, storeId);
+    }
+    
+    /**
+     * 搜索模板
+    * @author 高国藩
+    * @date 2016年7月1日 下午6:41:24
+    * @param request  request
+    * @param tId      tId
+    * @return         BaseDto
+     */
+    @RequestMapping(value = Url.ServicePlans.SELECT_SERVICE_TEMP, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto selectServicePlansTemp(HttpServletRequest request, Integer tId) {
+        return servicePlansService.selectServicePlansTemp(tId);
     }
     
 }
