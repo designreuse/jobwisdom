@@ -148,4 +148,15 @@
  	select level_id as levelId, level_name as levelName from employee_level where position_id in (${positionIds}) and is_deleted = 0 
  </select>
  
+ <!--  查询职位对应的参考职位 -->
+ <select id="selectReferencePositionId" parameterType="java.lang.Integer" resultType="java.util.Map">
+ 	select 
+ 	       a.level_id as levelId, a.reference_first as levelId1, b.position_id as positionId1, 
+           a.reference_two as levelId2, c.position_id as positionId2 
+    from employee_level a 
+	left join employee_level b on a.reference_first = b.level_id 
+	left join employee_level c on a.reference_two = c.level_id 
+	where a.is_deleted = 0 and a.level_id = #{levelId,jdbcType=INTEGER}
+ </select>
+ 
 </mapper>

@@ -57,6 +57,7 @@ import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.HttpClientUtil;
 import com.zefun.common.utils.MessageUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberGroupDto;
 import com.zefun.web.dto.MemberInfoDto;
@@ -73,6 +74,7 @@ import com.zefun.web.entity.DebtFlow;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
+import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberComboProject;
@@ -95,8 +97,10 @@ import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.MemberScreening;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.MoneyFlow;
+import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.Page;
+import com.zefun.web.entity.ProjectDiscount;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.RumorsCourse;
 import com.zefun.web.entity.StoreInfo;
@@ -108,6 +112,8 @@ import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.DebtFlowMapper;
 import com.zefun.web.mapper.GiftmoneyDetailMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
+import com.zefun.web.mapper.GoodsDiscountMapper;
+import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.IntegralFlowMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberComboProjectMapper;
@@ -129,7 +135,9 @@ import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.MemberScreeningMapper;
 import com.zefun.web.mapper.MemberSubAccountMapper;
 import com.zefun.web.mapper.MoneyFlowMapper;
+import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.ProjectDiscountMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.RumorsCourseMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
@@ -257,9 +265,18 @@ public class MemberInfoService {
     /**优惠券*/
     @Autowired
     private CouponInfoMapper couponInfoMapper;
-    
-    
-    
+    /** 订单明细*/
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
+    /** 项目提成业绩*/
+    @Autowired
+    private ProjectDiscountMapper projectDiscountMapper;
+    /** 商品提成业绩*/
+    @Autowired
+    private GoodsDiscountMapper goodsDiscountMapper;
+    /** 商品信息*/
+    @Autowired
+    private GoodsInfoMapper goodsInfoMapper;
     
     /**日志记录对象*/
     private static Logger log = Logger.getLogger(MemberLevelService.class);
@@ -790,12 +807,12 @@ public class MemberInfoService {
     }
     
     /**
-     * 同步会员的当前等级
+     * 同步会员的当前等级,级当前会员订单折扣价格
     * @author 张进军
     * @date Mar 21, 2016 12:03:25 PM
     * @param memberId   会员标识
      */
-    public void syncLevelId(int memberId) {
+    public void syncLevelId(Integer memberId) {
         List<MemberSubAccount> accountDtos = subAccountMapper.selectListByAccountId(memberId);
         BigDecimal balanceAmount = accountDtos.get(0).getBalanceAmount();
         int levelId = accountDtos.get(0).getLevelId();
@@ -811,6 +828,86 @@ public class MemberInfoService {
         memberInfo.setMemberId(memberId);
         memberInfo.setLevelId(levelId);
         memberInfoMapper.updateByPrimaryKey(memberInfo);
+        
+        //查询会员所有的订单
+        List<Map<String, Object>> mapList = orderDetailMapper.selectIsNotOverOrderDetail(memberId);
+        
+        for (Map<String, Object> membermap : mapList) {
+			Integer detailId = Integer.valueOf(membermap.get("detailId").toString());
+			Integer projectId = Integer.valueOf(membermap.get("projectId").toString());
+			Integer storeId = Integer.valueOf(membermap.get("storeId").toString());
+			Integer orderType = Integer.valueOf(membermap.get("orderType").toString());
+			
+			OrderDetail orderDetail = new OrderDetail();
+	        orderDetail.setDetailId(detailId);
+	        
+			//项目
+	        if (orderType == 1) {
+	            ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
+
+	            BigDecimal discountAmount = projectInfo.getProjectPrice();
+	            BigDecimal rate = new BigDecimal(100);
+	            orderDetail.setProjectPrice(projectInfo.getProjectPrice());
+
+                Map<String, Integer> map = new HashMap<String, Integer>();
+                map.put("levelId", levelId);
+                map.put("projectId", projectId);
+                ProjectDiscount obj = projectDiscountMapper.selectDiscountPorjectIdAndLevelId(map);
+                
+                //该项目对应该会员的会员等级不存在特定价格
+                if (obj == null) {
+                	Map<String, Integer> memberMap = new HashMap<>();
+                	memberMap.put("storeId", storeId);
+                	memberMap.put("levelId", levelId);
+                    //计算会员折扣价
+                    MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
+                    discountAmount = projectInfo.getProjectPrice().multiply(new BigDecimal(memberLevel.getProjectDiscount()).divide(rate));
+                }
+                //该项目对应该会员的会员等级存在特定价格
+                else {
+                    discountAmount = obj.getDiscountAmount();
+                }
+	            
+	            orderDetail.setDiscountAmount(discountAmount);
+	        }
+	        
+	        //商品
+	        else if (orderType == 2) {
+	            GoodsInfoDto goodsInfo = goodsInfoMapper.selectByPrimaryKey(projectId);
+	            //添加明细部门选择
+	            orderDetail.setDeptId(goodsInfo.getDeptId());
+	            BigDecimal discountAmount = goodsInfo.getGoodsPrice();
+	            BigDecimal rate = new BigDecimal(100);
+	            
+	            orderDetail.setProjectPrice(goodsInfo.getGoodsPrice());
+	            
+	            //计算折扣价
+	            if (memberId != null) {
+	                Map<String, Integer> map = new HashMap<String, Integer>();
+	                map.put("levelId", levelId);
+	                map.put("goodsId", projectId);
+	                GoodsDiscount obj = goodsDiscountMapper.selectDiscountGoodsIdAndLevelId(map);
+	                
+	                //该商品对应该会员的会员等级不存在特定价格
+	                if (obj == null) {
+	                	Map<String, Integer> memberMap = new HashMap<>();
+	                	memberMap.put("storeId", storeId);
+	                	memberMap.put("levelId", levelId);
+	                    //计算会员折扣价
+	                    MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
+	                    discountAmount = goodsInfo.getGoodsPrice().multiply(new BigDecimal(memberLevel.getGoodsDiscount()).divide(rate));
+	                }
+	                //该商品对应该会员的会员等级存在特定价格
+	                else {
+	                    discountAmount = obj.getDiscountAmount();
+	                }
+	            } 
+	            
+	            orderDetail.setDiscountAmount(discountAmount);
+	        }
+	        
+	        orderDetailMapper.updateByPrimaryKey(orderDetail);
+		}
         
         wipeCache(memberId);
     }

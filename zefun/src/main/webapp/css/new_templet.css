@@ -1,0 +1,68 @@
+.content_right{padding:28px 34px;color:black;font-size:14px}
+.content_right>p>button{width:130px;height:26px;border:none;border-radius:12px;color:white;text-align:center;line-height:26px;background:#596788}
+.content_right>p>button:hover{background:#4a5674}
+.new_templet{overflow:overlay;margin-top:20px;border:1px solid #898989;border-radius:8px;height:600px;}
+.new_templet table{width:1010px}
+.new_templet td{width:120px;height:40px;text-align:center;vertical-align:middle;border:1px solid #c2c2c2;border-top:none;border-left:none}
+.new_templet td:last-child{border-right:none}
+.new_templet td img{margin:0 10px;position:relative;top:4px}
+.new_templet tr:first-child{background:#ebeff8}
+.new_templet tr:nth-child(odd){background:#f6f8fc}
+
+.zzc{ font-size: 14px;
+    color: black;
+    position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);}
+.zzc_new_templet{height:595px;width:880px;margin:1% auto;background:white}	
+.zzc_new_templet>p{height:54px;text-align:center;line-height:54px;color:white;font-size:18px;background:#454560}
+.zzc_new_templet_content_left{width:308px;height:480px;float:left;border:1px solid #dbdbdb}
+.left_content{padding:10px;height:430px;width:266px;border:1px solid #898989;border-radius:8px;;margin:14px auto}
+.left_content>p input{width:190px;height:18px;border-radius:12px;border:1px solid #8c8c8c;margin-left:5px}
+.left_content>p>span{display:inline-block;width:57px}
+.left_content>p{height:38px;margin-bottom:10px;border-bottom:1px solid #dbdbdb}
+.plan_begin input{width:30px;border-radius:12px;border:1px solid #9c9c9c;height:16px;margin:0 5px}
+.plan_begin select{width:100px;border-radius:12px;border:1px solid #9c9c9c;height:16px;margin:0 5px}
+.plan_begin p{margin-bottom:10px;}
+.plan_begin{border-bottom: 1px solid #dbdbdb;margin-bottom:10px}
+.message_content>p{font-size:15px}
+.message_content_{border:1px solid #898989;height:130px;padding:5px;margin-top:5px}
+
+	input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    position: relative;
+    top: -3px;
+    margin-right: 8px;
+	}
+
+input[type="checkbox"]:checked {
+    background: url('../images/checked.png') no-repeat;
+    background-position: center center;
+    border: 1px solid #d93717;
+background-size: cover;}
+
+.phone_ask input{margin-left:10px}
+.phone_ask button{float:right;width:120px;height:24px;border:none;color:white;font-size:16px;text-align:center;line-height:24px;border-radius:12px;background:#6c6c8b}
+.phone_ask button img{vertical-align:middle;margin-left:2px}
+.phone_ask{margin-top:10px}
+
+.zzc_new_templet_content_right{height:481px;border-bottom:1px solid #dbdbdb;float:left;width:570px}
+.zzc_new_templet_content_right table{width:548px}
+.zzc_new_templet_content_right_table{width:548px;border:1px solid #898989;border-radius:8px;overflow:hidden;margin:14px auto;height:450px;overflow:overlay}
+.zzc_new_templet_content_right_table td{height:40px;width:95px;text-align:center;vertical-align:middle;border:1px solid #dbdbdb;border-left:none}
+.zzc_new_templet_content_right_table td:last-child{border-right:none}
+.zzc_new_templet_content_right_table td img{margin:0 5px;position:relative;top:2px}
+table tr:nth-child(odd){background:#f6f8fc}
+table tr:nth-child(1){background:#ebeff8;}
+
+.zzc_new_templet_button{text-align:center;margin-top:20px}
+.zzc_new_templet_button button{width:130px;height:26px;text-align:center;line-height:26px;color:white;font-size:16px;border:none;border-radius:12px;background:#6c6c8b;margin:0 67px}
+.zzc_new_templet_button button:hover{background:#555573}

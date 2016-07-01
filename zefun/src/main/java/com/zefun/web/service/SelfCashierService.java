@@ -43,12 +43,14 @@ import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.MoneyFlow;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
+import com.zefun.web.entity.ProjectCommission;
 import com.zefun.web.entity.ProjectDiscount;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
+import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.EmployeeObjectiveMapper;
 import com.zefun.web.mapper.GiftmoneyDetailMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
@@ -65,6 +67,7 @@ import com.zefun.web.mapper.MemberSubAccountMapper;
 import com.zefun.web.mapper.MoneyFlowMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.ProjectCommissionMapper;
 import com.zefun.web.mapper.ProjectDiscountMapper;
 import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
@@ -186,6 +189,12 @@ public class SelfCashierService {
 	/** 会员卡账户*/
 	@Autowired
 	private MemberLevelDiscountMapper memberLevelDiscountMapper;
+	/** 项目提成表*/
+	@Autowired
+	private ProjectCommissionMapper projectCommissionMapper;
+	/** 职位*/
+	@Autowired
+	private EmployeeLevelMapper employeeLevelMapper;
 
 	/** 日志操作对象 */
 	// private Logger logger = Logger.getLogger(SelfCashierService.class);
@@ -298,6 +307,14 @@ public class SelfCashierService {
 		BigDecimal realAmount = new BigDecimal(0);
 		BigDecimal discountAmount = new BigDecimal(0);
 		MemberSubAccount memberSubAccount = memberSubAccountMapper.selectByPrimaryKey(orderSubmit.getSubAccountId());
+		
+		//结账方式
+  		Integer payType = 0;
+  		        
+  		if (orderSubmit.getCardAmount().compareTo(new BigDecimal(0)) == 1) {
+  		    payType = 1;
+  		}
+		
 		// 依次遍历所有支付的明细信息
 		for (OrderDetaiSubmitDto detail : orderSubmit.getDetailList()) {
 			SelfCashierDetailDto ownerDetail = detailMap.get(String.valueOf(detail.getDetailId()));
@@ -373,7 +390,7 @@ public class SelfCashierService {
 				// 优惠类型为优惠券
 				else if (detail.getOffType() == 3) {
 					// 将优惠券标识对应的最快过期时间的会员优惠券设为已使用
-					Map<String, Integer> map = new HashMap<String, Integer>(2);
+					/*Map<String, Integer> map = new HashMap<String, Integer>(2);
 					map.put("memberId", ownerMemberId);
 					map.put("couponId", detail.getOffId());
 					int relevanceId = memberCouponMapper.selectLeftCouponByMemberIdAndCouponId(map);
@@ -384,7 +401,7 @@ public class SelfCashierService {
 					orderDetail.setRealPrice(ownerDetail.getDiscountAmount().subtract(detail.getOffAmount()));
 					orderDetail.setCouponId(relevanceId);
 					orderDetail.setOffType(2);
-					discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());
+					discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());*/
 				} 
 				else {
 					discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());
@@ -403,7 +420,7 @@ public class SelfCashierService {
 			realAmount = realAmount.add(orderDetail.getRealPrice());
 			orderDetailMapper.updateByPrimaryKey(orderDetail);
 			
-			calculateCommonCommission(orderDetail, memberSubAccount, storeId);
+			calculateCommonCommission(orderDetail, memberSubAccount, storeId, payType, ownerMemberId, employeeId);
 		}
 
 		if (realAmount.compareTo(BigDecimal.ZERO) == -1) {
@@ -504,7 +521,7 @@ public class SelfCashierService {
 		}
 
 		// 当操作人为0，代表会员自助结账，否则为前台结账，前台结账，向会员发送结账提醒
-		if (orderSubmit.getIsNotify() == 1 && employeeId != 0 && cashierDto.getOrderStatus() != 5) {
+		if (memberInfo != null && orderSubmit.getIsNotify() == 1 && employeeId != 0 && cashierDto.getOrderStatus() != 5) {
 			String openId = redisService.hget(App.Redis.WECHAT_MEMBERID_TO_OPENID_KEY_HASH, cashierDto.getMemberId());
 			if (StringUtils.isNotBlank(openId)) {
 				Set<String> projectSet = new HashSet<String>();
@@ -531,8 +548,12 @@ public class SelfCashierService {
 	 * @param orderDetail 详情标识
 	 * @param memberSubAccount 会员子账户信息
 	 * @param storeId 门店标识
+	 * @param payType 支付方式
+	 * @param memberId 会员标识
+	 * @param employeeId 操作人
 	 */
-	protected void calculateCommonCommission(OrderDetail orderDetail, MemberSubAccount memberSubAccount, Integer storeId) {
+	protected void calculateCommonCommission(OrderDetail orderDetail, MemberSubAccount memberSubAccount, Integer storeId, Integer payType,
+			  Integer memberId, Integer employeeId) {
 		
         BigDecimal hundred = new BigDecimal(100);
 	    //查询门店设置
@@ -588,6 +609,9 @@ public class SelfCashierService {
 	        
 	        BigDecimal fixedValue = projectStepMapper.selectFixedValue(orderDetail.getProjectId());
 	        
+	        Map<String, Object> orderStepMap = new HashMap<>();
+	        orderStepMap.put("projectName", orderDetail.getProjectName());
+	        orderStepMap.put("detailId", orderDetail.getDetailId());
 		    for (OrderDetailStepDto orderDetailStepDto : stepDtoList) {
 		        // 业绩计算方式
 		        Integer stepPerformanceType = null;
@@ -595,6 +619,8 @@ public class SelfCashierService {
 		        BigDecimal stepPerformance =  null;
 		        //员工业绩值
 		        BigDecimal saveCommonCalculate = null;
+		        //员工提成金额
+		        BigDecimal empCommission = null;
 		        
 		        //获取到该员工对应业绩值
 	    		Map<String, Integer> stepMap = new HashMap<>();
@@ -621,12 +647,80 @@ public class SelfCashierService {
                 
                 saveCommonCalculate = zeroChoose(saveCommonCalculate);
                 
-                //判断岗位与服务员工是否对应
-		    	if (orderDetailStepDto.getEmployeeInfo().getPositionId().intValue() == orderDetailStepDto.getPositionId()) {
-		    		
+                Integer stepPositionId = orderDetailStepDto.getEmployeeInfo().getPositionId();
+                Integer stepLevelId = null;
+                
+                //是否存在提成方案
+	    		Integer isExists = 0;
+                
+                if (stepPositionId.intValue() == orderDetailStepDto.getPositionId()) {
+                	stepLevelId = orderDetailStepDto.getEmployeeInfo().getLevelId();
+                }
+                else {
+                	Map<String, Integer> referenceMap 
+                	          = employeeLevelMapper.selectReferencePositionId(orderDetailStepDto.getEmployeeInfo().getLevelId());
+                	if (referenceMap.get("positionId1") != null && referenceMap.get("positionId1").intValue() == orderDetailStepDto.getPositionId()) {
+                		stepLevelId = referenceMap.get("levelId1");
+                	}
+                	else if (referenceMap.get("positionId2") != null 
+                			  && referenceMap.get("positionId2").intValue() == orderDetailStepDto.getPositionId()){
+                		stepLevelId = referenceMap.get("levelId2");
+                	}
+                	else {
+                		isExists = 1;
+                	}
+                }
+	    		
+	    		//提成方式
+	    		Integer commissionType = null;
+	    		//员工提成方案
+	    		ProjectCommission commissionObj = null;
+
+	    		ProjectCommission projectCommission = new ProjectCommission();
+	    		projectCommission.setProjectId(orderDetail.getProjectId());
+	    		projectCommission.setLevelId(stepLevelId);
+	    		//查询当前级别对应的提成方式
+	    		List<ProjectCommission> projectCommissionList = projectCommissionMapper.selectByProperty(projectCommission);
+	    		
+	    		if (projectCommissionList.isEmpty()) {
+	    			isExists = 1;
+	    		}
+	    		else {
+	    			commissionObj = projectCommissionList.get(0);
+	    		}
+		    	
+		    	if (isExists  == 1) {
+		    		empCommission = new BigDecimal(0);
 		    	}
 		    	else {
+		    		empCommission = new BigDecimal(0);
+		    		/*switch(commissionType) {
+		    			case 1 : // 按比例
+		    			    if (payType == 1) {
+		    			        empCommission = tataliCommonCalculate.multiply(obj.getcardCommissionAmount).divide(hundred);
+		    			    }
+		    			    else {
+		    			        empCommission = tataliCommonCalculate.multiply(commissionAmount).divide(hundred);
+		    			    }
+		    			    
+		    			    empCommission = empCommission.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
+		    				break;
+		    			case 2 : // 按固定金额
+		    			    if (payType == 1) {
+		                        empCommission = cardCommissionAmount;
+		                    }
+		                    else {
+		                        empCommission = commissionAmount;
+		                    }
+		    				break;
+		    			default :
+		    				break;
+		    		}
 		    		
+		    		//当为预约时
+		    		if (isAppoint == 1) {
+		    		    empCommission = empCommission.add(commissionDto.getAppointmentReward());
+		    		}*/
 		    	}
 			}
 		}
@@ -634,7 +728,8 @@ public class SelfCashierService {
 			
 		}
 		else {
-			
+			//插入会员疗程表
+			insertMemberComboInfo(orderDetail.getProjectId(), employeeId, memberId, orderDetail.getDetailId());
 		}
 	    
 	    /*commissionType = commissionDto.getCommissionType();
@@ -751,6 +846,33 @@ public class SelfCashierService {
             }
 
 		}*/
+		
+	}
+	
+	/**
+	 * 添加用户套餐信息
+	 * @param comboId 套餐标识
+	 * @param employeeId 员工标识
+	 * @param memberId 会员标识
+	 * @param detailId 明细标识
+	 */
+	protected void insertMemberComboInfo(Integer comboId, Integer employeeId, Integer memberId, Integer detailId) {
+	    
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("comboId", comboId);
+		map.put("employeeId", employeeId);
+		map.put("memberId", memberId);
+		map.put("detailId", detailId);
+		// 添加用户套餐
+		Integer recordId = orderDetailMapper.insertMemberComboRecord(map);
+		
+		Map<String, Integer> projectMap = new HashMap<String, Integer>();
+		projectMap.put("recordId", recordId);
+		projectMap.put("employeeId", employeeId);
+		projectMap.put("comboId", comboId);
+        //会员套餐项目明细表
+		orderDetailMapper.insertMemberComboProject(map);
+		
 		
 	}
 	
