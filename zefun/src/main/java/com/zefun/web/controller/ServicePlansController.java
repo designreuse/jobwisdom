@@ -71,9 +71,23 @@ public class ServicePlansController extends BaseController{
      */
     @RequestMapping(value = Url.ServicePlans.DELETE_SERVICE_PLAN, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto deleteServicePlans(HttpServletRequest request, Integer sId){
+    public BaseDto deleteServicePlans(HttpServletRequest request, Integer sId) {
         ServicePlanInfo servicePlanInfo = new ServicePlanInfo();
         servicePlanInfo.setsId(sId);
         return servicePlansService.deleteServicePlans(servicePlanInfo);
     }
+    
+    /**
+     * 服务计划模板页面
+    * @author 高国藩
+    * @date 2016年6月30日 下午4:48:31
+    * @param request request
+    * @return        页面
+     */
+    @RequestMapping(value = Url.ServicePlans.VIEW_SERVICE_TEMOLENT, method = RequestMethod.GET)
+    public ModelAndView viewServiceTemp(HttpServletRequest request){
+        Integer storeId = getStoreId(request);
+        return servicePlansService.viewServiceTemp(storeId);
+    }
+    
 }

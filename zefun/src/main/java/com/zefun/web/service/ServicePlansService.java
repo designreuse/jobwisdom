@@ -118,4 +118,16 @@ public class ServicePlansService {
         return new BaseDto(0, null);
     }
 
+    /**
+     * 服务计划模板页面
+    * @author 高国藩
+    * @date 2016年7月1日 下午12:03:48
+    * @param storeId storeId
+    * @return        ModelAndView
+     */
+    public ModelAndView viewServiceTemp(Integer storeId) {
+        ModelAndView view = new ModelAndView(View.ServicePlans.VIEW_SERVICE_TEMP);
+        return view;
+    }
+
 }

@@ -838,8 +838,10 @@ public interface View {
     * @date 2016年6月30日 下午4:44:57
      */
     class ServicePlans {
-        /**李彪页面*/
+        /**计划页面*/
         public static final String VIEW_SERVICE_PLAN = "servicePlan/servicePlanView";
+        /**模板页面*/
+        public static final String VIEW_SERVICE_TEMP = "servicePlan/servicePlanTemp";
     }
     
 }
