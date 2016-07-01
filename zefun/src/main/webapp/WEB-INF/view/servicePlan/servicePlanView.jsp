@@ -30,7 +30,11 @@
 									<td>操作</td>
 								</tr>
 								<c:forEach items="${servicePlanInfos }" var="servicePlanInfo">
-									<tr >
+									<tr sendMemberType="${servicePlanInfo.sendMemberType }" memberId="${servicePlanInfo.memberId }" 
+										employeeId="${servicePlanInfo.employeeId }" theme="${servicePlanInfo.theme }" sId="${servicePlanInfo.sId }"
+										serviceTime="${servicePlanInfo.serviceTime }"  serviceProjectName="${servicePlanInfo.serviceProjectName }" 
+										topicTime="${servicePlanInfo.topicTime }" isSms="${servicePlanInfo.isSms }">
+										
 										<td>${servicePlanInfo.memberName }</td>
 										<td>${servicePlanInfo.name }</td>
 										<td>${servicePlanInfo.theme }</td>
@@ -39,7 +43,7 @@
 										<td>${servicePlanInfo.topicTime }</td>
 										<c:if test="${servicePlanInfo.isDeleted == 0 }"><td><span class="progressing">进行中</span></td></c:if>
 										<c:if test="${servicePlanInfo.isDeleted == 1 }"><td><span class="lose">已失效</span></td></c:if>
-										<td><img src="<%=basePath%>images/add_store_1.png"><img src="<%=basePath%>images/add_store_2.png"></td>
+										<td><img src="<%=basePath%>images/add_store_1.png" onclick="showUpdate(this)"><img src="<%=basePath%>images/add_store_2.png" onclick="deleted(${servicePlanInfo.sId })"></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -47,7 +51,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> 
 	</div>
 
 	<div class="zzc" style="display: none">
@@ -97,7 +101,7 @@
 
 				<div class="new_plan_button">
 					<button onclick="save()">确认</button>
-					<button onclick="jQuery('.zzc').hide('800')">取消</button>
+					<button onclick="jQuery('.zzc').hide('800');sId=null;">取消</button>
 				</div>
 			</div>
 		</div>
@@ -132,6 +136,7 @@ function add(){
 }
 
 function save(){
+	
 	var sendMemberType = jQuery("select[name='sendMemberType']").val();
 	var memberId = jQuery("select[name='memberId']").val();
 	var employeeId = jQuery("select[name='employeeId']").val();
@@ -155,17 +160,81 @@ function save(){
 				dialog(data.msg);
 			}
 			else {
-				jQuery(".zzc").hide('800');
-				dialog("服务计划已生成");
-				if (sId == null){
-					initHtml(data.msg);
+				if (sId!=null){
+					jQuery("tr[sid="+sId+"]").remove();
 				}
+				dialog("服务计划已生成");
+				initHtml(data.msg);
+				jQuery(".zzc").hide('800');
 			}
 		}
 	});
 }
 function initHtml(service){
+	var sendMemberType = service.sendMemberType;
+	var memberId = service.memberId;
+	var employeeId = service.employeeId;
+	var theme = service.theme;
+	var serviceTime = service.serviceTime;
+	var serviceProjectName = service.serviceProjectName;
+	var topicTime = service.topicTime;
+	var isSms = service.isSms;
+	var memberName = service.memberName;
+	var employeeName = service.name;
+	var html = '<tr sendmembertype="'+sendMemberType+'" memberid="'+memberId+'" employeeid="'+employeeId+'" theme="'+theme+'" '+ 
+					'sid="'+service.sId+'" servicetime="'+serviceTime+'" serviceprojectname="'+serviceProjectName+'" topictime="'+topicTime+'" issms="'+isSms+'">'+
+					'<td>'+memberName+'</td>'+
+					'<td>'+employeeName+'</td>'+
+					'<td>'+theme+'</td>'+
+					'<td>'+serviceProjectName+'</td>'+
+					'<td>'+serviceTime+'</td>'+
+					'<td>'+topicTime+'</td>'+
+					'<td><span class="progressing">运行中</span></td>'+
+					'<td><img src="'+baseUrl+'images/add_store_1.png" onclick="showUpdate(this)"><img src="'+baseUrl+'images/add_store_2.png" onclick="deleted('+service.sId+')"></td>'+
+				'</tr>';
+	jQuery("tbody").append(jQuery(html));
+}
+
+function showUpdate(li){
+	sId = jQuery(li).parents("tr").attr("sId");
+	var sendMemberType = jQuery(li).parents("tr").attr("sendMemberType");
+	var memberId = jQuery(li).parents("tr").attr("memberId");
+	var employeeId = jQuery(li).parents("tr").attr("employeeId");
+	var theme = jQuery(li).parents("tr").attr("theme");
+	var serviceTime = jQuery(li).parents("tr").attr("serviceTime");
+	var serviceProjectName = jQuery(li).parents("tr").attr("serviceProjectName");
+	var topicTime = jQuery(li).parents("tr").attr("topicTime");
+	var isSms = jQuery(li).parents("tr").attr("isSms");
 	
+	jQuery("select[name='sendMemberType']").val(sendMemberType);
+	initMemberIds(sendMemberType);
+	jQuery("select[name='memberId']").val(memberId);
+	jQuery("select[name='employeeId']").val(employeeId);
+	jQuery("input[name='theme']").val(theme);
+	jQuery("input[name='serviceTime']").val(serviceTime);
+	jQuery("select[name='serviceProjectName']").val(serviceProjectName);
+	jQuery("input[name='topicTime']").val(topicTime);
+	jQuery("input[name='isSms'][value="+isSms+"]").click();
+	
+	jQuery(".zzc").show('800');
+}
+
+function deleted(sIds){
+	if(confirm("确定要清空该服务计划 ？")){
+		jQuery.ajax({
+			type : "post",
+			url : baseUrl + "service/view/delete",
+			data : "sId="+sIds,
+			dataType : "json",
+			async : false,
+			success : function(data) {
+				if(data.code!=-1){
+					dialog("该服务计划已删除,将不会出现计划列表中");
+					jQuery("tr[sid="+sIds+"]").remove();
+				}
+			}
+		});
+	}
 }
 </script>
 </html>

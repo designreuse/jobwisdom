@@ -60,4 +60,20 @@ public class ServicePlansController extends BaseController{
         servicePlanInfo.setStoreId(storeId);
         return servicePlansService.saveServicePlans(servicePlanInfo);
     }
+    
+    /**
+     * 删除服务计划安排
+    * @author 高国藩
+    * @date 2016年6月30日 下午8:06:53
+    * @param request  request
+    * @param sId      sId
+    * @return         BaseDto
+     */
+    @RequestMapping(value = Url.ServicePlans.DELETE_SERVICE_PLAN, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto deleteServicePlans(HttpServletRequest request, Integer sId){
+        ServicePlanInfo servicePlanInfo = new ServicePlanInfo();
+        servicePlanInfo.setsId(sId);
+        return servicePlansService.deleteServicePlans(servicePlanInfo);
+    }
 }

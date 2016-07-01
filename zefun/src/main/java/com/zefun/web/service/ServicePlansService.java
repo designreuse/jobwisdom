@@ -101,7 +101,21 @@ public class ServicePlansService {
         else {
             servicePlanInfoMapper.updateByPrimaryKeySelective(servicePlanInfo);
         }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, servicePlanInfo);
+        List<ServicePlanInfo> servicePlanInfos = servicePlanInfoMapper.selectByProperites(servicePlanInfo);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, servicePlanInfos.get(0));
+    }
+
+    /**
+     * 删除服务计划
+    * @author 高国藩
+    * @date 2016年7月1日 上午11:00:41
+    * @param servicePlanInfo servicePlanInfo
+    * @return                BaseDto
+     */
+    @Transactional
+    public BaseDto deleteServicePlans(ServicePlanInfo servicePlanInfo) {
+        servicePlanInfoMapper.deleteByPrimaryKey(servicePlanInfo.getsId());
+        return new BaseDto(0, null);
     }
 
 }
