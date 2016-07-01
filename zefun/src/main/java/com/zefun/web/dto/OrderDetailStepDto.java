@@ -2,7 +2,6 @@ package com.zefun.web.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import com.zefun.web.entity.EmployeeInfo;
 
@@ -61,9 +60,6 @@ public class OrderDetailStepDto implements Serializable{
     
     /** 提成标识*/
     private Integer commissionId;
-    
-    /** 步骤集合 */
-    private List<OrderDetailStepDto> stepList;
     
     public String getPositionName() {
 		return positionName;
@@ -199,14 +195,6 @@ public class OrderDetailStepDto implements Serializable{
 
 	public void setEmployeeInfo(EmployeeInfo employeeInfo) {
 		this.employeeInfo = employeeInfo;
-	}
-
-	public List<OrderDetailStepDto> getStepList() {
-		return stepList;
-	}
-
-	public void setStepList(List<OrderDetailStepDto> stepList) {
-		this.stepList = stepList;
 	}
     
 }

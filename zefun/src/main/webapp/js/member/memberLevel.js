@@ -61,7 +61,7 @@ function refreshTableData(page){
 	    }
 	    str += "<td>"+memberLevelDto.performanceDiscountPercent+"%</td>"+
 	             "<td>"+memberLevelDto.integralUnit+"元 = "+memberLevelDto.integralNumber+"积分</td>"+
-	             "<td class='input80 ellipsis-text'>"+memberLevelDto.levelNotice+"</td>"+
+	             "<td class='input80'>"+memberLevelDto.levelNotice+"</td>"+
 	             "<td>";
 	    			if(memberLevelDto.levelType=='折扣卡'){
 	    				

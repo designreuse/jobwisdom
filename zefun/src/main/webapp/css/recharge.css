@@ -1,0 +1,168 @@
+.rightpanel{background:white;color:black}
+.content_right{padding:20px 40px;font-size:14px;color:black}
+.recharge_ul li{height:106px;width:40px;background:url('../images/add_store_back.png') no-repeat;background-size:40px 106px;font-size:16px;text-align:center;cursor:pointer}
+.recharge_ul .active{background:url('../images/add_store_back_1.png') no-repeat;background-size:40px 106px;color:white}
+.recharge_ul li span{display:inline-block;width:20px;position:relative;top:20px}
+.content_right .recharge_ul{float:left;position:relative;left:1px}
+.recharge_ul_right{overflow:overlay;float:left;width:914px;height:820px;border:1px solid #717171;border-radius:0 8px 8px 8px;padding:16px 22px}
+.seach_user{padding:10px 20px;background:#d8deed;border-radius:8px}
+.recharge_user>p{font-size:16px;margin-bottom:6px}
+.seach_user input{width:200px;height:18px;border:1px solid #717171;border-radius:12px;margin:0 20px 0 10px}
+.seach_user button{width:130px;height:26px;border-radius:12px;color:white;font-size:14px;text-align:center;line-height:26px;border:none;background:#5c6e85}
+.recharge_way{margin-top:20px}
+.recharge_way>p{margin-bottom:6px;font-size:16px}
+.recharge_way_content span{display:inline-block;width:210px;height:40px}
+.recharge_way_content span input{width:130px;height:16px;border:1px solid  #717171;border-radius:12px;margin-left:15px}
+.recharge_way_content{padding:10px 20px;background:#d8deed;border-radius:8px}
+.achievement{margin-top:20px}
+.achievement>p{font-size:16px}
+.achievement_content{height:310px;padding:10px 20px;background:#d8deed;margin-top:6px;border-radius:8px}
+.achievement_detail>p select{width:80px;height:20px;border:1px solid #717171;border-radius:12px;font-size:14px;color:black;margin:0 10px 0 15px}
+.achievement_detail>p span select{width:126px}
+.achievement_detail_content{overflow:overlay;height:82px;background:white;border:1px solid #717171;border-radius:8px;margin-top:10px}
+.achievement_detail_content li input{padding-right:15px;margin-left:4px;border:1px solid #717171;width:55px;border-radius:4px}
+.achievement_detail_content {padding:8px 15px}
+.achievement_detail_content li{margin-right:26px;margin-bottom:10px;float:left;border:1px solid #717171;border-radius:8px;width:140px;height:36px;border-radius:8px;line-height:36px;text-align:center;position:relative}
+.achievement_detail_content li img{position:absolute;right:-5px;top:-5px}
+.achievement_detail_content li em{position:relative;left:-15px;color:#c0c7d9}
+.select-result i{color:black}
+.achievement_recharge_content{    overflow: overlay;
+    height: 82px;
+    background: white;
+    border: 1px solid #717171;
+    border-radius: 8px;
+    margin-top: 10px;}
+.achievement_recharge{margin-top:27px}
+.achievement_recharge>p input{width:78px;height:16px;border:1px solid #717171;border-radius:12px;margin:0 10px 0 16px}
+.achievement_recharge>p select{height: 20px;
+    border: 1px solid #717171;
+    border-radius: 12px;
+    font-size: 14px;
+    color: black;
+margin: 0 10px 0 15px;width: 126px;}
+.achievement_recharge_content {padding: 8px 15px;}
+.achievement_recharge_content li{float:left;margin-right:12px;margin-bottom:10px;position:relative;width:154px;height:60px;border:1px solid #717171;border-radius:8px}
+.achievement_recharge_content li input{text-align:center;width:36px;height:12px;border:1px solid #717171;padding-right:18px}
+.achievement_recharge_content li >p{text-align:center;margin:4px 0}
+.achievement_recharge_content_input{text-align:center}
+.achievement_recharge_content li img{position:absolute;right:3px;top:3px}
+.achievement_recharge_content_input input{margin:0 2px;border-radius:4px}
+.achievement_recharge_content_input span{position:relative;display:inline-block}
+.achievement_recharge_content_input span em{position:absolute;right:6px;font-size:12px;color:#c5cbd9}
+.send_manage{margin-top:10px}
+.send_manage_content span{display:inline-block;margin-right:20px}
+.send_manage_content input{width:108px;height:16px;border:1px solid #717171;border-radius:12px;margin-left:12px}
+.send_manage_content{padding:10px 20px;border:1px solid #717171;border-radius:12px;background:#d8deed;margin-top:6px}
+.recharge_time input {width:100px;border:none;border-bottom:1px solid #665050;margin:0 10px;position:relative;top:-8px}
+.recharge_time span{display:inline-block;margin-right:10px}
+.recharge_time{float:right;margin-top:24px}
+.recharge_time button{width:110px;height:26px;border:none;color:white;text-align:center;line-height:26px;border-radius:12px;background:#5c6e85;}
+.recharge_time button:hover{background:#48586c}
+
+.write_imformation input{width:100px;height:16px}
+.write_imformation>p{padding-left:16px;margin-top:10px}
+.write_imformation>p span{display:inline-block;margin-right:10px}
+
+.write_imformation select{width:45px;height:16px;border-radius:12px;border:1px solid #665050;margin-left:6px}
+.write_imformation i{color:#e54b4f}
+.write_imformation a{color:#818181;cursor:text}
+
+.upgrade_vip>p{    font-size: 16px;
+    margin-bottom: 6px;}
+.upgrade_vip_content{    height: 23px;
+    padding: 10px 20px;
+    background: #d8deed;
+    border-radius: 8px;}
+.upgrade_vip_content select{    width: 200px;
+    height: 18px;
+    border: 1px solid #717171;
+    border-radius: 12px;
+    margin: 0 20px 0 10px;}
+.upgrade_vip_content em{color:#e54b4f}
+.upgrade_vip_content i{color:#818181}
+
+.send_manage_{margin-top:16px}
+.send_manage_>p{font-size:16px}
+.send_manage_content_{
+  padding: 10px 20px;
+  background: #d8deed;
+  border-radius: 8px;
+  height:310px;
+  margin-top:6px
+}
+.send_manage_content_ input{width:110px;height:20px;border-radius:12px;border:1px solid  #665050;margin-left:17px;padding-right:20px}
+.send_manage_content_  em{position:relative;left:-20px;color:#b6abab}
+.send_manage_content_  select{width:110px;height:20px;border-radius:12px;border:1px solid  #665050;margin-left:17px;}
+.send_manage_content_ p span{display:inline-block;margin-right:40px}
+.send_manage_content_> p {margin-bottom:22px}
+.send_manage_content_ p  button{width:100px;height:28px;border:none;border-radius:12px;color:white;text-align:center;line-height:28px;background:#5c6e85;margin-left:10px}
+.send_manage_content_ p  button:hover{background:#546478}
+.add_recharge{overflow:overlay;height:90px;padding:12px;background:white;border:1px solid #665050;border-radius:8px}
+.add_recharge li{margin-bottom:10px;float:left;margin-right:13px;padding-top:5px;width:154px;border:1px solid #665050;border-radius:8px;height:86px}
+.add_recharge li p{text-align:center}
+.add_recharge li button{width:50px;height:22px;border-radius:4px;border:none;border:1px solid #5c6e85;background:#d8deed}
+.add_recharge_button{text-align:center;margin-top:6px;}
+.add_recharge li p{height:26px;line-height:26px}
+.add_recharge_button button{margin:0 8px;color:black}
+.send_reason{margin-top:10px}
+.send_reason input{width:773px}
+.send_button button{width:130px;height:28px;border:none;border-radius:12px;color:white;text-align:center;line-height:28px;background:#5c6e85;font-size:15px}
+.send_button{text-align:right;margin-top:20px}
+
+.seach_user_{
+
+    padding: 10px 20px;
+    background: #d8deed;
+    border-radius: 8px;
+}
+.seach_user_ input{    width: 187px;
+    height: 18px;
+    border: 1px solid #717171;
+    border-radius: 12px;
+    margin: 0 6px 0 10px;padding-right:20px}
+.seach_user_  button{    width: 130px;
+    height: 26px;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    line-height: 26px;
+    border: none;
+    background: #5c6e85;}	
+.seach_user_  em{position:relative;left:-40px;color:#928686}
+.quit_vip{height:260px;background:#d8deed;margin-top:15px;border-radius:8px}
+.quit_vip table{
+	width: 914px;
+   
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+	
+}
+.quit_vip table td{    vertical-align: middle;
+    text-align: center;
+    padding: 5px;
+    width: 70px;}
+.quit_vip table td button{
+	width: 130px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    background: #5b6080;
+    font-size: 16px;
+}
+.recharge_card {height:130px;width:886px;background:white;border:1px solid #6d6d6d;border-radius:8px;margin:10px auto;overflow:overlay;}
+.recharge_card li{overflow:hidden;font-size:12px;float:left;width:194px;height:104px;border-radius:8px;background:#65c294;color:white;margin:12px 0 0 15px}
+.recharge_card p em{font-size:16px;margin-right:4px}
+.recharge_card p{height:26px;text-align:center;font-size:14px;line-height:26px}
+.rest_money{text-align:right;padding-right:25px}
+
+.quit_money{padding-left:20px;}
+.quit_money select{width:128px;height:16px;border:1px solid #717171;border-radius:12px;margin-left:10px}
+.quit_money input{width:108px;height:16px;border:1px solid #717171;border-radius:12px;margin-left:10px;padding-right:20px}
+.quit_money span em{position:relative;left:-20px;color:#beb5b5}
+.quit_money button{width:130px;height:26px;text-align:center;line-height:26px;color:white;border:none;border-radius:12px;background:#5c6e85;font-size:14px}
+.quit_money button:hover{background:#4a5767}
+.quit_money span{display:inline-block;margin-right:30px}

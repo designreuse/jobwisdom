@@ -50,8 +50,7 @@
 									</c:forEach>
 
 							</select></li>
-							<li>日期：<input type="text" id="date"
-								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />至<input
+							<li>日期：<input type="text" id="date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />至<input
 								type="text" id="dates"
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"</li>
 							<li><button onclick="select()">确定</button></li>

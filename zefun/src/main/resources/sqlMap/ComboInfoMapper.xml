@@ -38,6 +38,12 @@
   	<result column="dept_id" property="deptId" jdbcType="INTEGER"/>
   	<association property="trendDeptData" column="{deptId=dept_id,dateType=dateType,begin=begin,end=end}" select="getSpecifyDateDeptComboSummary"></association>
 	</resultMap>
+	
+	
+	<resultMap type="com.zefun.web.dto.StoreInfoDto" id="favourable">
+  	<result column="dept_id" property="deptId" jdbcType="INTEGER"/>
+  	<association property="trendDeptData" column="{deptId=dept_id,dateType=dateType,begin=begin,end=end}" select="getSpecifyDateDeptComboSummary"></association>
+	</resultMap>
   
   <sql id="Base_Column_List" >
     combo_id, combo_parent_id, store_id, dept_id, combo_name, combo_image, combo_desc, project_count, 

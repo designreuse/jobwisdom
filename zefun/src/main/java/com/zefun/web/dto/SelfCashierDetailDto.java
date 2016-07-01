@@ -87,7 +87,20 @@ public class SelfCashierDetailDto implements Serializable {
     /** 可用优惠列表 */
     private List<PaymentOffDto> paymentOffList;
     
-    public BigDecimal getDiscountAmount() {
+    /** 步骤集合 */
+    private List<OrderDetailStepDto> stepList;
+    
+    
+    
+    public List<OrderDetailStepDto> getStepList() {
+		return stepList;
+	}
+
+	public void setStepList(List<OrderDetailStepDto> stepList) {
+		this.stepList = stepList;
+	}
+
+	public BigDecimal getDiscountAmount() {
 		return discountAmount;
 	}
 

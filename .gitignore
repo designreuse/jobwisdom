@@ -1,5 +1,6 @@
 *.class
 .metadata/
+mybatis-generator-usage/
 *.log
 *.project
 *.DS_Store

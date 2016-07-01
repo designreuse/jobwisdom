@@ -1,53 +1,53 @@
-//
-//jQuery(document).ready(function(){
-//    jQuery('#tabs').tabs();
-//
-//    jQuery("#search-member").on("click", function(){
-//        jQuery("#search-td").hide();
-//        jQuery("#member-info").show();
-//    });
-//
-//    jQuery("#icon-search").on("click", function(){
-//        jQuery("#member-info").hide();
-//        jQuery("#search-td").show();
-//    });
-//
-//    jQuery("#search-member-chongzhi").on("click", function(){
-//        jQuery("#search-td-chongzhi").hide();
-//        jQuery("#member-info-chongzhi").show();
-//    });
-//
-//    jQuery("#icon-search-chongzhi").on("click", function(){
-//        jQuery("#member-info-chongzhi").hide();
-//        jQuery("#search-td-chongzhi").show();
-//    });
-//
-//
-//    jQuery("#search-member-chongzhi2").on("click", function(){
-//        jQuery("#search-td-chongzhi2").hide();
-//        jQuery("#member-info-chongzhi2").show();
-//    });
-//
-//    jQuery("#icon-search-chongzhi2").on("click", function(){
-//        jQuery("#member-info-chongzhi2").hide();
-//        jQuery("#search-td-chongzhi2").show();
-//    });
-//    
-//    if (clickType == 1) {
-//    	subTabFun(jQuery("li[name='rechargeName']"));
-//    	jQuery("#tab2").find("input[name='phoneNumber']").val(phoneNum);
-//    	jQuery("#tab2").find("span[name='seekName']").click();
-//    }
-//    else if (clickType == 2) {
-//    	subTabFun(jQuery("li[name='upgradeName']"));
-//    	jQuery("#tab4").find("input[name='phoneNumber']").val(phoneNum);
-//    	jQuery("#tab4").find("span[name='seekName']").click();
-//    }
-//});
-//
-//jQuery(document).delegate(".member-card li", "click", function() {
-//    jQuery(this).addClass("current").siblings().removeClass("current")
-//})
+
+jQuery(document).ready(function(){
+    jQuery('#tabs').tabs();
+
+    jQuery("#search-member").on("click", function(){
+        jQuery("#search-td").hide();
+        jQuery("#member-info").show();
+    });
+
+    jQuery("#icon-search").on("click", function(){
+        jQuery("#member-info").hide();
+        jQuery("#search-td").show();
+    });
+
+    jQuery("#search-member-chongzhi").on("click", function(){
+        jQuery("#search-td-chongzhi").hide();
+        jQuery("#member-info-chongzhi").show();
+    });
+
+    jQuery("#icon-search-chongzhi").on("click", function(){
+        jQuery("#member-info-chongzhi").hide();
+        jQuery("#search-td-chongzhi").show();
+    });
+
+
+    jQuery("#search-member-chongzhi2").on("click", function(){
+        jQuery("#search-td-chongzhi2").hide();
+        jQuery("#member-info-chongzhi2").show();
+    });
+
+    jQuery("#icon-search-chongzhi2").on("click", function(){
+        jQuery("#member-info-chongzhi2").hide();
+        jQuery("#search-td-chongzhi2").show();
+    });
+    
+    if (clickType == 1) {
+    	subTabFun(jQuery("li[name='rechargeName']"));
+    	jQuery("#tab2").find("input[name='phoneNumber']").val(phoneNum);
+    	jQuery("#tab2").find("span[name='seekName']").click();
+    }
+    else if (clickType == 2) {
+    	subTabFun(jQuery("li[name='upgradeName']"));
+    	jQuery("#tab4").find("input[name='phoneNumber']").val(phoneNum);
+    	jQuery("#tab4").find("span[name='seekName']").click();
+    }
+});
+
+jQuery(document).delegate(".member-card li", "click", function() {
+    jQuery(this).addClass("current").siblings().removeClass("current")
+})
 
 function subTabFun (obj) {
 	jQuery(obj).siblings().removeClass("active");
@@ -73,7 +73,7 @@ function changeOpenCard(obj){
 //汇总
 function totaiUpdateEmployeeInfo(obj){
 	//找到父级
-	var parentObj = jQuery(obj).parents(".recharge_ul_right_content");
+	var parentObj = jQuery(obj).parents(".target-tab");
 	
 	var employeeId = jQuery(obj).val();
 	var name = jQuery(obj).find("option[value='"+employeeId+"']").text();
@@ -85,16 +85,20 @@ function totaiUpdateEmployeeInfo(obj){
 	else {
 		vl = "%";
 	}
-
-	var html = " <li class='select-result1'> <i onclick='totaiDeleteEmployee(this)'><img src='"+baseUrl+"images/hand_close.png'></i>"+
-						   "<p name='employeeId' value='"+employeeId+"'>"+name+"</p>"+
-						   "<div class='achievement_recharge_content_input'>"+
-						   "<span> <input type='text' name = 'commission' onkeyup='checkNum(this)' placeholder='提成'><em>"+vl+"</em></span>"+
-						   "<span> <input type='text'  name = 'calculate' onkeyup='checkNum(this)' placeholder='业绩'><em>"+vl+"</em></span>	   </div> </li>"
-						   
-					
-	
-	parentObj.find(".achievement_recharge_content").append(html);
+	/*parentObj.find("div[name='employeeChoose']").append("<div class='p-part'>"+
+					                        "<div class='select-result' style='padding: 0px 6px;'>"+
+					                            "<span name='employeeId' value='"+employeeId+"' class='chooseEmployeeStyle'>"+name+"：</span>"+
+					                            "提成&nbsp;&nbsp;<input type='text' name = 'commission' onkeyup='checkNum(this)'/><span class='percent-symbol mr10'>"+vl+"</span>"+
+					                            "&nbsp;&nbsp;业绩&nbsp;&nbsp;<input type='text' name = 'calculate' onkeyup='checkNum(this)'/><span class='percent-symbol mr10'>"+vl+"</span>"+
+					                            "<span onclick = 'totaiDeleteEmployee(this)' class='mr10 cursor'>&nbsp;&nbsp;X&nbsp;&nbsp;</span>"+
+					                        "</div>"+
+					                    "</div>");*/
+	parentObj.find("div[name='employeeChoose']").append("<ul class='select-result1'>"+
+														    "<li name='employeeId' value='"+employeeId+"'>"+name+"</li>"+
+														    "<li>提成 <input type='text' class='w60' name = 'commission' onkeyup='checkNum(this)'><span class='percent-symbol'>"+vl+"</span></li>"+
+														    "<li>业绩 <input type='text' class='w60' name = 'calculate' onkeyup='checkNum(this)'><span class='percent-symbol'>"+vl+"</span></li>"+
+														    "<span class='iconfont icon-shanchujilu' onclick = 'totaiDeleteEmployee(this)'></span>"+
+														"</ul>");
 	
 	jQuery(obj).find("option[value='"+employeeId+"']").remove();
 	jQuery(obj).trigger("liszt:updated");
@@ -102,7 +106,7 @@ function totaiUpdateEmployeeInfo(obj){
 
 function chooseDept(obj) {
 	//找到父级
-	var parentObj = jQuery(obj).parents(".recharge_ul_right_content");
+	var parentObj = jQuery(obj).parents(".target-tab");
 	
 	var deptChooseType = jQuery(obj).val();
 	var vl = "";
@@ -122,10 +126,10 @@ function chooseDept(obj) {
 
 function deleteDeptInfo(obj) {
 	//找到父级
-	var parentObj = jQuery(obj).parents(".recharge_ul_right_content");
+	var parentObj = jQuery(obj).parents(".target-tab");
 	
-	var deptId = jQuery(obj).parents("li").find("i[name='deptId']").attr("value");
-	var name = jQuery(obj).parents("li").find("i[name='deptId']").text();
+	var deptId = jQuery(obj).parents(".select-result").find("span[name='deptId']").attr("value");
+	var name = jQuery.trim((jQuery(obj).parents(".select-result").find("span[name='deptId']").text()).replace("：",""));
 	
 	jQuery(obj).parents(".select-result").remove();
 	parentObj.find("select[name='deptSelectValue']").append("<option value='"+deptId+"'>"+name+"</option>");
@@ -134,8 +138,10 @@ function deleteDeptInfo(obj) {
 
 function chooseDeptInfo(obj) {
 	//找到父级
-	var parentObj = jQuery(obj).parents(".recharge_ul_right_content");
+	var parentObj = jQuery(obj).parents(".target-tab");
+	
 	var deptId = jQuery(obj).val();
+	
 	var name = jQuery(obj).find("option[value='"+deptId+"']").text();
 	var vl = "";
 	var deptChooseType = parentObj.find("select[name='deptChooseType']").val();
@@ -145,40 +151,21 @@ function chooseDeptInfo(obj) {
 	else {
 		vl = "%";
 	}
-    var html = " <li class='select-result'><i name = 'deptId' value = '"+deptId+"' >"+name+"</i><span> <input type='text' name='deptCalculate' ><em>"+vl+"</em> </span> <i onclick = 'deleteDeptInfo(this)'><img src='"+baseUrl+"images/hand_close.png'></i></li> ";
-	parentObj.find(".achievement_detail").find("ul").append(html);
+	
+	parentObj.find("div[name='deptIdChoose']").append("<div class='select-result'  name = 'deptIsChoose' >"+
+											            "<span name = 'deptId' value = '"+deptId+"'>"+name+"：</span>"+
+											              	"<input class='w60' type='text' name='deptCalculate'>"+
+											              	"<span class='percent-symbol'>"+vl+"</span></li>"+
+											            "<span class='iconfont icon-shanchujilu' onclick = 'deleteDeptInfo(this)'></span>"+
+											          "</div>");
+	
 	jQuery(obj).find("option[value='"+deptId+"']").remove();
 	jQuery(obj).trigger("liszt:updated");
 } 
 
-function addCoupon(obj){
-	var parentObj = jQuery(obj).parents(".recharge_ul_right_content");
-	var couponId = jQuery(obj).parent().find("select[id='couponSelect']").val();
-	var name = jQuery(obj).parent().find("select[id='couponSelect']").find("option[value='"+couponId+"']").text();
-	var number = jQuery(obj).parent().find("input[name='numberCoupon']").val();
-	var html="<li  value="+couponId+" name='couponId'><p name='couponName'  value="+couponId+" >"+name+"</p><p id="+couponId+"><i name='number'>"+number+"</i>张</p><div class='add_recharge_button'><button onclick='upcoupon(this)'>编辑</button><button onclick='decoupon(this)'>删除</button></div></li>";
-	parentObj.find(".send_manage_content_ ul").append(html);      
-	jQuery(obj).parent().find("select[id='couponSelect']").find("option[value='"+couponId+"']").remove();      
-	jQuery(obj).trigger("liszt:updated");	
-}
-
-function decoupon(obj){
-	//找到父级
-	var parentObj = jQuery(obj).parents(".recharge_ul_right_content");
-	
-	var couponId = jQuery(obj).parents("li").attr("value");
-	var name = jQuery(obj).parents("li").find("p[name='couponName']").text();
-	var number = jQuery(obj).parents("li").find("p[id='"+couponId+"']").text();
-	
-	jQuery(obj).parents("li").remove();
-	parentObj.find("select[id='couponSelect']").append("<option value='"+couponId+"'>"+name+"</option>");
-	parentObj.find("select[id='couponSelect']").trigger("liszt:updated");
-}
-
-
 function totaiUpdateVL(obj) {
 	//找到父级
-	var parentObj = jQuery(obj).parents(".recharge_ul_right_content");
+	var parentObj = jQuery(obj).parents(".target-tab");
 	
 	var employeeIds = parentObj.find("li[name='employeeId']");
 	
@@ -198,10 +185,10 @@ function totaiUpdateVL(obj) {
 
 function totaiDeleteEmployee(obj){
 	//找到父级
-	var parentObj = jQuery(obj).parents(".recharge_ul_right_content");
-	
-	var employeeId = jQuery(obj).parents(".select-result1").find("p[name='employeeId']").attr("value");
-	var name = jQuery(obj).parents(".select-result1").find("p[name='employeeId']").text();
+	var parentObj = jQuery(obj).parents(".target-tab");
+
+	var employeeId = jQuery(obj).parents(".select-result1").find("li[name='employeeId']").attr("value");
+	var name = jQuery(obj).parents(".select-result1").find("li[name='employeeId']").text();
 	
 	jQuery(obj).parents(".select-result1").remove();
 	parentObj.find("select[name='recommendId']").append("<option value='"+employeeId+"'>"+name+"</option>");
@@ -262,7 +249,7 @@ jQuery('body').delegate('.lcs_check_assignType', 'lcs-statuschange', function() 
 
 var modelType = -1;
 var dataAjax = {};
-function save(type){
+jQuery("#confirm").click(function(){
 	var memberId = jQuery("input[name='memberId']").val();
 	
 	var levelId = "";
@@ -285,7 +272,7 @@ function save(type){
 	if (memberId == "") {
 		levelId = jQuery("select[name='kkLevelId']").val();
 		
-		phone = jQuery("#tab2").find("input[name = 'phoneNumber']").val();
+		phone = jQuery("input[name = 'phoneNumber']").val();
 		
 		if (phone == "") {
 			dialog("手机号不能为空！");
@@ -297,7 +284,7 @@ function save(type){
 			return;
 		}
 		
-		name = jQuery("#tab2").find("input[name = 'name']").val();
+		name = jQuery("input[name = 'name']").val();
 		if (name == "") {
 			dialog("名称不能为空！");
 			return;
@@ -318,15 +305,15 @@ function save(type){
 		
 		payPassword = CryptoJS.MD5(CryptoJS.MD5(payPassword).toString().toUpperCase()).toString().toUpperCase();
 		
-		sex = jQuery("select[name='sex']").val();
+		sex = jQuery("input:radio[name='sex']:checked").val();
 		
 		//是否接收短信
-		messageType = jQuery("select[name='messageType']").val();
+		messageType = jQuery("input:radio[name='messageType']:checked").val();
 		
-//		amountvalue = jQuery("#tab2").find("div[name='fillMemberInfo']").find("[name='openType']").text();
+		amountvalue = jQuery("#tab1").find("div[name='fillMemberInfo']").find("[name='openType']").text();
 	}
 	else {
-//		amountvalue = jQuery("#tab2").find("div[name='memberTR']").find("[name='openType']").text();
+		amountvalue = jQuery("#tab1").find("div[name='memberTR']").find("[name='openType']").text();
 		levelId = jQuery("select[name='kkLevelIdToo']").val();
 	}
 	
@@ -348,13 +335,13 @@ function save(type){
 	
 	balanceAmount = realPrice;
 	
-    var deptStr = deptArrayObj("tab2", realPrice);
+    var deptStr = deptArrayObj("tab1", realPrice);
 	
 	if (deptStr == -1) {
 		return;
 	}
 	
-	var recommend = arrayObj("tab2", realPrice);
+	var recommend = arrayObj("tab1", realPrice);
 	if (recommend == -1) {
 		return;
 	}
@@ -375,16 +362,15 @@ function save(type){
 	var rewardAmount = jQuery("input[name='rewardAmount']").val();
 
 	rewardAmount = valueZero(rewardAmount);
-	var createTime = jQuery("input[name='createTime2']").val();
-	var orderCode = jQuery("input[name='orderCodetab2']").val();
-	dataAjax = {"memberId":memberId,"phone":phone, "name":name, "sex": sex, "levelId": levelId,// "amountvalue" : amountvalue, 
+	
+	dataAjax = {"memberId":memberId,"phone":phone, "name":name, "sex": sex, "levelId": levelId, "amountvalue" : amountvalue, 
 			"recommend" : recommend, "giftmoneyAmount" : giftmoneyAmount, "pastDate" : pastDate,
 	        "partType" : partType, "rewardAmount" : rewardAmount,"messageType" : messageType, "balanceAmount" : balanceAmount, "cashAmount" : cashAmount, 
-	        "unionpayAmount" : unionpayAmount, "wechatAmount" : wechatAmount, "alipayAmount" : alipayAmount, "debtAmount" : debtAmount, "payPassword" : payPassword,
-	        "deptStr" : deptStr, "openRecommendId": openRecommendId, "orderCode" : orderCode, "createTime" : createTime};
+	        "unionpayAmount" : unionpayAmount, "wechatAmount" : wechatAmount, "alipayAmount" : alipayAmount, "debtAmount" : debtAmount, "payPassword" : payPassword, "deptStr" : deptStr, "openRecommendId": openRecommendId};
 	
 	openCard();
-}
+	
+})
 
 function confirmModel() {
 	if (modelType == 1) {
@@ -419,7 +405,7 @@ function openCard() {
 function deptArrayObj(tabType, realPrice) {
 	var tab = jQuery("#" + tabType);
 	
-	var deptObjs = jQuery(tab).find(".achievement_detail il");
+	var deptObjs = jQuery(tab).find("div[name='deptIsChoose']");
 	
 	var deptChooseType = tab.find("select[name='deptChooseType']").val(); 
 	
@@ -428,10 +414,10 @@ function deptArrayObj(tabType, realPrice) {
 	if (deptObjs.length > 0) {
 		for (var i = 0; i < deptObjs.length; i++) {
 			var deptCalculate = jQuery(deptObjs[i]).find("input[name='deptCalculate']").val();
-			var deptId = jQuery(deptObjs[i]).find("i[name='deptId']").attr("value");
+			var deptId = jQuery(deptObjs[i]).find("span[name='deptId']").attr("value");
 			
 			if (deptCalculate == "") {
-				var name = jQuery(deptObjs[i]).find("i[name='deptId']").text()  ;
+				var name = jQuery.trim((jQuery(deptObjs[i]).find("span[name='deptId']").text()).replace("：",""));
 				dialog(name+"的提成,业绩不能为同时空！");
 				return -1;
 			}
@@ -462,22 +448,21 @@ function deptArrayObj(tabType, realPrice) {
 function arrayObj (tabType, realPrice) {
 	var tab = jQuery("#" + tabType);
 	
-	var	commissionParentObj = jQuery(tab).find(".achievement_recharge_content");
+	var	commissionParentObj = jQuery(tab).find("div[name='employeeChoose']");
 	
 	//选中员工标识集合
-	var commissionEmployeeIds = commissionParentObj;
+	var commissionEmployeeIds = commissionParentObj.find("li[name='employeeId']");
 	
 	var recommend = "";
 	//类型
 	var commissionType = jQuery(tab).find("select[name='commissionType']").val();
 	
 	for (var i = 0; i < commissionEmployeeIds.length; i++) {
-		var commissionNum = jQuery(commissionEmployeeIds[i]).find("input[name='commission']").val();
+		var commissionNum = jQuery(commissionEmployeeIds[i]).parent().find("input[name='commission']").val();
 		
+		var calculateNum = jQuery(commissionEmployeeIds[i]).parent().find("input[name='calculate']").val();
 		
-		var calculateNum = jQuery(commissionEmployeeIds[i]).find("input[name='calculate']").val();
-		
-		var employeeId = jQuery(commissionEmployeeIds[i]).find("p[name='employeeId']").attr("value");
+		var employeeId = jQuery(commissionEmployeeIds[i]).attr("value");
 		
 		if (commissionNum == "" && calculateNum == "") {
 			var name = jQuery(commissionEmployeeIds[i]).text();
@@ -508,37 +493,36 @@ function arrayObj (tabType, realPrice) {
 function czConfirm(type){
 	
 	jQuery("#czModel").modal("hide");
-	var subAccountId = jQuery("#tab1").find("ul[name = 'subAccountUL']").find(".current").attr("subAccountId");
-	if (subAccountId == "" || subAccountId == undefined) {
+	var subAccountId = jQuery("#tab2").find("ul[name = 'subAccountUL']").find(".current").attr("subAccountId");
+	if (subAccountId == "") {
 		dialog("未正确查找出充值会员！");
 		return;
 	}
 
-	//充值金额及支付方式
+	
 	var cashAmount = jQuery("input[name = 'czCashAmount']").val();
 	var unionpayAmount = jQuery("input[name = 'czUnionpayAmount']").val();
 	var wechatAmount = jQuery("input[name = 'czWechatAmount']").val();
 	var alipayAmount = jQuery("input[name = 'czAlipayAmount']").val();
 	var debtAmount = jQuery("input[name = 'czDebtAmount']").val();
-	//校验
+
 	cashAmount = valueZero(cashAmount);
 	unionpayAmount = valueZero(unionpayAmount);
 	wechatAmount = valueZero(wechatAmount);
 	alipayAmount = valueZero(alipayAmount);
 	debtAmount = valueZero(debtAmount);
 	
-	//金额总数
 	var realPrice = parseInt(cashAmount) + parseInt(unionpayAmount) + parseInt(debtAmount) + parseInt(wechatAmount) + parseInt(alipayAmount);
 
 	var chargeAmount = realPrice;
 	
-    var deptStr = deptArrayObj("tab1", realPrice);
+    var deptStr = deptArrayObj("tab2", realPrice);
 	
 	if (deptStr == -1) {
 		return;
 	}
 	
-	var recommend = arrayObj("tab1", realPrice);
+	var recommend = arrayObj("tab2", realPrice);
 	if (recommend == -1) {
 		return;
 	}
@@ -558,10 +542,9 @@ function czConfirm(type){
 	//卡金
 	var rewardAmount = jQuery("input[name='czRewardAmount']").val();
 	rewardAmount = valueZero(rewardAmount);
-	var createTime = jQuery("input[name='createTime1']").val();
-	var orderCode = jQuery("input[name='orderCodetab1']").val();
+	
 	dataAjax = {"subAccountId" : subAccountId, "chargeAmount" : chargeAmount, "cashAmount" : cashAmount, "unionpayAmount" : unionpayAmount, "wechatAmount" : wechatAmount, "alipayAmount" : alipayAmount, "debtAmount" : debtAmount, "recommend" : recommend, "giftmoneyAmount" : giftmoneyAmount, 
-			"pastDate": pastDate, "partType" : partType, "rewardAmount" : rewardAmount, "type" : type, "deptStr" : deptStr, "orderCode" : orderCode, "createTime" : createTime}
+			"pastDate": pastDate, "partType" : partType, "rewardAmount" : rewardAmount, "type" : type, "deptStr" : deptStr}
 	
 	rechargeCard(type);
 }
@@ -594,13 +577,7 @@ function presentGift(){
 	}
 	
 	//优惠券
-	var couponList = jQuery("#ul[name='coupon'] li");
-	var coupon = [];
-	for (var i = 0; i < couponList.length; i++) {
-		var couponId = jQuery(couponList[i]).find("p[name='couponName']").attr("value");
-		var number = jQuery(couponList[i]).find("i[name='number']").text();
-		coupon[i]={"couponId":couponId,"number":number}
-	}
+	var coupon = jQuery("#couponSelect").val();
 	
 	if(giftmoneyAmount == 0 && integralAmount == 0 && isEmpty(coupon)) {
 		dialog("暂无选择任何优惠项！");
@@ -619,9 +596,9 @@ function presentGift(){
 	
 	var part = jQuery("[name='zsPartType']").val();
 	var overdueMonth = jQuery("[name='zsPastDate']").val();
-	var numberCoupon = jQuery("input[name='numberCoupon']").val()
+	
 	var data = "memberId=" + memberId + "&giftmoneyAmount=" + giftmoneyAmount + "&part=" + part 
-		+ "&overdueMonth=" + overdueMonth + "&integralAmount=" + integralAmount + "&coupon=" + coupon + "&comment=" + comment + "&numberCoupon=" + numberCoupon ;
+		+ "&overdueMonth=" + overdueMonth + "&integralAmount=" + integralAmount + "&coupon=" + coupon + "&comment=" + comment;
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "KeepAccounts/presentGift",
@@ -685,12 +662,12 @@ function zzConfirm(){
 		dialog("转入金额不能为空！");
 		return;
 	}
-//	var password = jQuery("input[name = 'zzPassword']").val();
-//	if (password == "") {
-//		dialog("转出会员密码不能为空！");
-//		return;
-//	}
-//	password = CryptoJS.MD5(CryptoJS.MD5(password).toString().toUpperCase()).toString().toUpperCase();
+	var password = jQuery("input[name = 'zzPassword']").val();
+	if (password == "") {
+		dialog("转出会员密码不能为空！");
+		return;
+	}
+	password = CryptoJS.MD5(CryptoJS.MD5(password).toString().toUpperCase()).toString().toUpperCase();
     var num = jQuery("#outDIV").find(".current").find("span[name='balance']").text();
 	
 	if (parseInt(num) < parseInt(chargeAmount)) {
@@ -701,7 +678,7 @@ function zzConfirm(){
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "KeepAccounts/checkoutAccount",
-		data : "outSubAccountId="+outSubAccountId+"&inSubAccountId="+inSubAccountId+"&chargeAmount="+chargeAmount,
+		data : "outSubAccountId="+outSubAccountId+"&inSubAccountId="+inSubAccountId+"&chargeAmount="+chargeAmount+"&password="+password,
 		async:false,//使用同步的Ajax请求  
 		dataType : "json",
 		success : function(e){
@@ -716,7 +693,7 @@ function zzConfirm(){
 }
 
 function hkConfirm(){
-	var memberId = jQuery("#tab4").find("input[name = 'memberId']").val();
+	var memberId = jQuery("#tab6").find("input[name = 'memberId']").val();
 	if (memberId == "") {
 		dialog("未正确查找出转出会员！");
 		return;
@@ -738,8 +715,7 @@ function hkConfirm(){
 	alipayAmount = valueZero(alipayAmount);
 	
 	var realPrice = parseInt(cashAmount) + parseInt(unionpayAmount) + parseInt(wechatAmount) + parseInt(alipayAmount);
-	var createTime = jQuery("input[name='createTime4']").val();
-	var orderCode = jQuery("input[name='orderCodetab4']").val();
+	
 	if (realPrice > parseInt(needRefund)) {
 		dialog("还款金额大于欠款金额！");
 		return;
@@ -753,7 +729,7 @@ function hkConfirm(){
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "KeepAccounts/refundMemberinfo",
-		data : "memberId="+memberId+"&createTime="+createTime+"&orderCode="+orderCode+"&realPrice="+realPrice+"&cashAmount="+cashAmount+"&unionpayAmount="+unionpayAmount+"&wechatAmount="+wechatAmount+"&alipayAmount="+alipayAmount,
+		data : "memberId="+memberId+"&realPrice="+realPrice+"&cashAmount="+cashAmount+"&unionpayAmount="+unionpayAmount+"&wechatAmount="+wechatAmount+"&alipayAmount="+alipayAmount,
 		async:false,//使用同步的Ajax请求  
 		dataType : "json",
 		success : function(e){

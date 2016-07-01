@@ -141,7 +141,12 @@ public interface EmployeeLevelMapper {
      */
     List<EmployeeLevel> selectAllByStoreId(Integer storeId);
     
-    
-    
-    
+    /**
+     * 查询职位对应的参考职位
+    * @author 老王
+    * @date 2016年7月1日 上午10:52:48 
+    * @param levelId 职位标识
+    * @return Map<String, Integer>
+     */
+    Map<String, Integer> selectReferencePositionId(Integer levelId);
 }

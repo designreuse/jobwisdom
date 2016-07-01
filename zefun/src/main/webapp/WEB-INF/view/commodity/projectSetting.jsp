@@ -342,7 +342,7 @@
 														<option  value="1">固定</option> 
 														<option value="2">比例</option>
 														</select>
-														<span>员工业绩<input value="0" id="active111" type="number"><i id="price_step1">元</i></span>
+														<span>员工业绩<input placeholder="0" id="active111" type="number"><i id="price_step1">元</i></span>
 													</div>
 												
 													
@@ -358,11 +358,19 @@
 													<table>
 														<tbody id="1">
 															<tr>
-																<td>职位名称</td>
-																<td>提成方式</td>
-																<td>指定提成</td>
-																<td>非指定提成</td>
-																<td>预约奖励</td>
+														      <td rowspan="2">职位名称</td>
+														      <td rowspan="2">提成方式</td>
+															  <td colspan="3">指定</td>
+															  <td colspan="3">非指定</td>
+															  <td rowspan="2">预约奖励</td>
+														   </tr>
+														   <tr>
+															     <td>现金</td>
+																 <td>卡金</td>
+																 <td>疗程</td>
+																  <td>现金</td>
+																 <td>卡金</td>
+																 <td>疗程</td>
 															</tr>
 
 														</tbody>
@@ -376,7 +384,7 @@
 													<p>业绩</p>
 													<div class="achievement_content">
 														业绩计算方式<select id="active12" onchange="changeprice(this,'price_step2')"><option  value="1">固定</option> <option value="2">比例</option></select><span>员工业绩<input
-														id="active112"	value="0" type="number"><i id="price_step2">元</i></span>
+														id="active112"	placeholder="0" type="number"><i id="price_step2">元</i></span>
 													</div>
 													<p>提成</p>
 													<ul class="achievement_content clearfix" id="check2">
@@ -388,20 +396,20 @@
 												<div class="item_step_table">
 													<table>
 														<tbody id="2">
-															<tr>
-																<td>职位名称</td>
-																<td>提成方式</td>
-																<td>指定提成</td>
-																<td>非指定提成</td>
-															</tr>
-<!-- 															<tr> -->
-<!-- 																<td>美发师</td> -->
-<!-- 																<td><select><option value="1">固定</option> <option value="2">比例</option></select></td> -->
-<!-- 																<td><input type="text" placeholder="0"></td> -->
-<!-- 																<td><input type="text" placeholder="0"></td> -->
-<!-- 															</tr> -->
-														
-
+														<tr>
+													      <td rowspan="2">职位名称</td>
+														  <td rowspan="2">提成方式</td>
+														  <td colspan="3">指定</td>
+														  <td colspan="3">非指定</td>
+													   </tr>
+													   <tr>
+													     <td>现金</td>
+														 <td>卡金</td>
+														 <td>疗程</td>
+														  <td>现金</td>
+														 <td>卡金</td>
+														 <td>疗程</td>
+													   </tr>
 														</tbody>
 													</table>
 												</div>
@@ -413,7 +421,7 @@
 													<div class="achievement_content">
 														业绩计算方式<select  id="active13" onchange="changeprice(this,'price_step3')"><option value="1">固定</option> <option value="2">比例</option></select>
 														<span>员工业绩<input
-														value="0"	type="number" id="active113" ><i id="price_step3">元</i></span>
+														placeholder="0"	type="number" id="active113" ><i id="price_step3">元</i></span>
 													</div>
 													<p>提成</p>
 													<ul class="achievement_content clearfix" id="check3">
@@ -425,12 +433,20 @@
 												<div class="item_step_table">
 													<table>
 														<tbody id="3">
-															<tr>
-																<td>职位名称</td>
-																<td>提成方式</td>
-																<td>指定提成</td>
-																<td>非指定提成</td>
-															</tr>
+													<tr>
+													      <td rowspan="2">职位名称</td>
+														  <td rowspan="2">提成方式</td>
+														  <td colspan="3">指定</td>
+														  <td colspan="3">非指定</td>
+													   </tr>
+													   <tr>
+													     <td>现金</td>
+														 <td>卡金</td>
+														 <td>疗程</td>
+														  <td>现金</td>
+														 <td>卡金</td>
+														 <td>疗程</td>
+													   </tr>
 											
 
 														</tbody>
@@ -724,14 +740,35 @@
 	var positionId=jQuery('#active1').val(); 	
 	var stepPerformanceType =jQuery('#active11 :checked').val();
 	var stepPerformance =jQuery('#active111').val()
+	stepPerformance=checked(stepPerformance);
 	var projectCommission = [];
 	for (var i = 0; i < jQuery(".tr1").length; i++) {
 		var levelId =jQuery(".tr1").eq(i).find('td').eq(0).attr('value');
 		var assignCashType = jQuery(".tr1").eq(i).find('td').eq(1).find('select option:selected').val();
-		var commissionPrice =jQuery(".tr1").eq(i).find('td').eq(2).find('span input').val();
-		var commissionNoPrice=jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
-		var commissionCard=jQuery(".tr1").eq(i).find('td').eq(4).find('span input').val();
-		projectCommission.push({"projectId":projectId,"levelId":levelId,"isDeleted":0,"positionId":positionId,"assignCashType":assignCashType,"commissionPrice":commissionPrice,"commissionNoPrice":commissionNoPrice,"commissionCard":commissionCard});
+		
+		var commissionCash=jQuery(".tr1").eq(i).find('td').eq(2).find('span input').val();
+		var commissiGold =jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
+		var commissionCourse=jQuery(".tr1").eq(i).find('td').eq(4).find('span input').val();
+		
+		var commissionNoCash=jQuery(".tr1").eq(i).find('td').eq(5).find('span input').val();
+		var commissiNoGold =jQuery(".tr1").eq(i).find('td').eq(6).find('span input').val();
+		var commissionNoCourse=jQuery(".tr1").eq(i).find('td').eq(7).find('span input').val();
+		
+		commissionCash=checked(commissionCash);
+		commissiGold=checked(commissiGold);
+		commissionCourse=checked(commissionCourse);
+		
+		commissionNoCash=checked(commissionNoCash);
+		commissiNoGold=checked(commissiNoGold);
+		commissionNoCourse=checked(commissionNoCourse);
+		
+	
+		var commissionCard=jQuery(".tr1").eq(i).find('td').eq(8).find('span input').val();
+		
+		projectCommission.push(
+				{"projectId":projectId,"levelId":levelId,"isDeleted":0,"positionId":positionId,"assignCashType":assignCashType,
+					"commissionCash":commissionCash,"commissiGold":commissiGold,"commissionCourse":commissionCourse,"commissionNoCash":commissionNoCash,
+					"commissiNoGold":commissiNoGold,"commissionNoCourse":commissionNoCourse,"commissionCard":commissionCard});
 	}
 	project.push({"projectId":projectId,"positionId":positionId,"stepPerformanceType":stepPerformanceType,"stepPerformance":stepPerformance});
 	
@@ -739,25 +776,61 @@
 	var positionId=jQuery('#active2').val(); 	
 	var stepPerformanceType =jQuery('#active12 :checked').val();
 	var stepPerformance =jQuery('#active112').val()
+	stepPerformance=checked(stepPerformance);
 	var projectsion = [];
+	
 	for (var i = 0; i < jQuery(".tr2").length; i++) {
 		var levelId =jQuery(".tr2").eq(i).find('td').eq(0).attr('value');
 		var assignCashType = jQuery(".tr2").eq(i).find('td').eq(1).find('select option:selected').val();
-		var commissionPrice =jQuery(".tr2").eq(i).find('td').eq(2).find('span input').val();
-		var commissionNoPrice=jQuery(".tr2").eq(i).find('td').eq(3).find('span input').val();
-		projectCommission.push({"projectId":projectId,"levelId":levelId,"isDeleted":0,"positionId":positionId,"assignCashType":assignCashType,"commissionPrice":commissionPrice,"commissionNoPrice":commissionNoPrice});
+	
+		var commissionCash=jQuery(".tr1").eq(i).find('td').eq(2).find('span input').val();
+		var commissiGold =jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
+		var commissionCourse=jQuery(".tr1").eq(i).find('td').eq(4).find('span input').val();
+		
+		var commissionNoCash=jQuery(".tr1").eq(i).find('td').eq(5).find('span input').val();
+		var commissiNoGold =jQuery(".tr1").eq(i).find('td').eq(6).find('span input').val();
+		var commissionNoCourse=jQuery(".tr1").eq(i).find('td').eq(7).find('span input').val();
+		
+		commissionCash=checked(commissionCash);
+		commissiGold=checked(commissiGold);
+		commissionCourse=checked(commissionCourse);
+		
+		commissionNoCash=checked(commissionNoCash);
+		commissiNoGold=checked(commissiNoGold);
+		commissionNoCourse=checked(commissionNoCourse);
+		
+		projectCommission.push({"projectId":projectId,"levelId":levelId,"isDeleted":0,"positionId":positionId,"assignCashType":assignCashType,
+			"commissionCash":commissionCash,"commissiGold":commissiGold,"commissionCourse":commissionCourse,"commissionNoCash":commissionNoCash,
+			"commissiNoGold":commissiNoGold,"commissionNoCourse":commissionNoCourse,"commissionCard":commissionCard});
 	}
 	
 	project.push({"projectId":projectId,"isDeleted":0,"positionId":positionId,"stepPerformanceType":stepPerformanceType,"stepPerformance":stepPerformance});
 	var positionId=jQuery('#active3').val(); 	
 	var stepPerformanceType =jQuery('#active13 :checked').val();
 	var stepPerformance =jQuery('#active113').val()
+	stepPerformance=checked(stepPerformance);
 	for (var i = 0; i < jQuery(".tr3").length; i++) {
 		var levelId =jQuery(".tr3").eq(i).find('td').eq(0).attr('value');
 		var assignCashType = jQuery(".tr3").eq(i).find('td').eq(1).find('select option:selected').val();
-		var commissionPrice =jQuery(".tr3").eq(i).find('td').eq(2).find('span input').val();
-		var commissionNoPrice=jQuery(".tr3").eq(i).find('td').eq(3).find('span input').val();
-		projectCommission.push({"projectId":projectId,"levelId":levelId,"isDeleted":0,"positionId":positionId,"assignCashType":assignCashType,"commissionPrice":commissionPrice,"commissionNoPrice":commissionNoPrice});
+		var commissionCash=jQuery(".tr1").eq(i).find('td').eq(2).find('span input').val();
+		var commissiGold =jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
+		var commissionCourse=jQuery(".tr1").eq(i).find('td').eq(4).find('span input').val();
+		
+		var commissionNoCash=jQuery(".tr1").eq(i).find('td').eq(5).find('span input').val();
+		var commissiNoGold =jQuery(".tr1").eq(i).find('td').eq(6).find('span input').val();
+		var commissionNoCourse=jQuery(".tr1").eq(i).find('td').eq(7).find('span input').val();
+		
+		commissionCash=checked(commissionCash);
+		commissiGold=checked(commissiGold);
+		commissionCourse=checked(commissionCourse);
+		
+		commissionNoCash=checked(commissionNoCash);
+		commissiNoGold=checked(commissiNoGold);
+		commissionNoCourse=checked(commissionNoCourse);
+
+		projectCommission.push({"projectId":projectId,"levelId":levelId,"isDeleted":0,"positionId":positionId,"assignCashType":assignCashType,
+			"commissionCash":commissionCash,"commissiGold":commissiGold,"commissionCourse":commissionCourse,"commissionNoCash":commissionNoCash,
+			"commissiNoGold":commissiNoGold,"commissionNoCourse":commissionNoCourse,"commissionCard":commissionCard});
 	}
 	project.push({"projectId":projectId,"isDeleted":0,"positionId":positionId,"stepPerformanceType":stepPerformanceType,"stepPerformance":stepPerformance});
 		return {
@@ -768,6 +841,13 @@
 		};
 	}
 
+	
+	function checked(number){
+		if(number ==""){
+			number=0
+		}
+		return number;
+	}
 	/**
 	 *　为项目table添加步骤和职位信息
 	 */
@@ -1245,11 +1325,15 @@
 		if(jQuery(s).is(':checked')){
 			var html="<tr id ="+levelId+" class='tr"+type+" '><td value ="+levelId+">"+levelName+"</td>"
 			+"<td><select onchange='changeprice1(this,"+levelId+","+type+")'><option value='1'>固定</option><option value='2'>比例</option></select></td>"
-			+"<td><span><input  value='0' type='number'><i id='"+levelId+"'>元</i></span></td>";
+			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>"
+			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>"
+			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>"
+			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>"
+			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>";
 			if(type==1){
-				html+="<td><span><input  value='0' type='number'><i id='"+levelId+"'>元</i></span></td>";
+				html+="<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>";
 			}
-			html+="<td><span><input    value='0' type='number'><i id='"+levelId+"'>元</i></span></td></tr>";
+			html+="<td><span><input    placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td></tr>";
 			jQuery("#"+type).append(jQuery(html));
 		}else{
 			jQuery('#'+type+' tr[id='+levelId+']').remove();
@@ -1271,8 +1355,14 @@
 		for (var j = 0; j < selectShow.length; j++) {
 			jQuery("input[value='"+selectShow[j].levelId+"']").click();
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(1).find("select").val(selectShow[j].assignCashType);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(2).find("input").val(selectShow[j].commissionPrice);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionNoPrice);
+			
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(2).find("input").val(selectShow[j].commissionCash);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissiGold);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionCourse);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionNoCash);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissiNoGold);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionNoCourse);
+			
 			if(selectShow[j].commissionCard != "" && selectShow[j].commissionCard >0){
 				jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(4).find("input").val(selectShow[j].commissionCard);
 			}

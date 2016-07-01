@@ -240,7 +240,7 @@ public class ManuallyOpenOrderService {
                 GoodsInfoDto goodsInfo = goodsInfoMapper.selectByPrimaryKey(projectId);
                 String employeeIds = jsonObj.getString("projectStepArrayObjStr");
                 Integer employeeId = null;
-                if (!StringUtil.isEmpty(employeeIds)) {
+                if (!StringUtil.isEmpty(employeeIds) && !"0".equals(employeeIds)) {
                     employeeId = Integer.valueOf(employeeIds);
                 }
                 staffService.addOrderDetail(null, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, goodsInfo.getGoodsName(), 
@@ -250,7 +250,7 @@ public class ManuallyOpenOrderService {
                 ComboInfo comboInfo = comboInfoMapper.selectByPrimaryKey(projectId);
                 String employeeIds = jsonObj.getString("projectStepArrayObjStr");
                 Integer employeeId = null;
-                if (!StringUtil.isEmpty(employeeIds)) {
+                if (!StringUtil.isEmpty(employeeIds) && !"0".equals(employeeIds)) {
                     employeeId = Integer.valueOf(employeeIds);
                 }
                 staffService.addOrderDetail(null, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, comboInfo.getComboName(), 

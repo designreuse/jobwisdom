@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
@@ -147,7 +148,13 @@ public class SelfCashierController extends BaseController {
 		SelfCashierOrderDto selfCashierOrderDto = selfCashierService.queryOrderDetailAction(orderId, storeId);
 		ModelAndView mav = new ModelAndView(View.SelfCashier.VIEW_CHECKOUT_ORDER);
 		mav.addObject("selfCashierOrderDto", selfCashierOrderDto);
-
+		Integer memberType = 0;
+		if (selfCashierOrderDto.getMemberId() != null) {
+			mav.addObject("allOffMapStr", JSONObject.toJSON(selfCashierOrderDto.getAllOffMap()).toString());
+			mav.addObject("discountMapStr", JSONObject.toJSON(selfCashierOrderDto.getDiscountMap()).toString());
+			memberType = 1;
+		}
+		mav.addObject("memberType", memberType);
 		return mav;
 	}
 

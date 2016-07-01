@@ -122,12 +122,11 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 		changeDiv(1);
 	}
 	else {
-		var str = "<div class='nav_content_div' goodsId = '"+projectId+"'>"+
-		             "<p><span class='hand_close' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
-                     "<em>"+projectName+"</em>"+
-                     "<i>价格：￥"+projectPrice+"</i></p>"+
-                     "<table class='select_people'>"+
-				     "<tr>"+
+		var str = "<p><span class='hand_close' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
+                  "<em>"+projectName+"</em>"+
+                  "<i>价格：￥"+projectPrice+"</i></p>"+
+                  "<table class='select_people'>"+
+				      "<tr>"+
 						 "<td style='width:360px'>选择员工"+
 						    "<input type='text' name = 'employeeId1' employeeId = ''></td>"+
 						 "</td>"+
@@ -136,20 +135,21 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 						 "</td>"+
 						 "<td style='width:360px'>选择员工"+
 						     "<input type='text' name = 'employeeId3' employeeId = ''></td>"+
-						 "</td>"+
-					 "</tr>"+
-				  "</table>"+
-	           "</div>";
+					 	 "</td>"+
+					  "</tr>"+
+			      "</table>";
 		
 		
 		if (type == 2) {
-			jQuery("div[name='goodsNameLI']").append(str);
-			jQuery("div[name='goodsNameLI']").find("select").chosen();
+			var div = jQuery("<div class='nav_content_div' goodsId = '"+projectId+"'></div>");
+			div.append(str);
+			jQuery("div[name='goodsNameLI']").append(div);
 			changeDiv(2);
 		}
 		else {
-			jQuery("div[name='comboNameLI']").append(str);
-			jQuery("div[name='comboNameLI']").find("select").chosen();
+			var div = jQuery("<div class='nav_content_div' comboId = '"+projectId+"'></div>");
+			div.append(str);
+			jQuery("div[name='comboNameLI']").append(div);
 			changeDiv(3);
 		}
 	}
@@ -234,18 +234,24 @@ function save() {
 		arrayObj.push(projectObjStr);
 	}
 	//套餐
-	var comboObj = jQuery("div[name='comboNameLI']").find(".nav_content_div_1");
+	var comboObj = jQuery("div[name='comboNameLI']").find(".nav_content_div");
 	for (var i = 0; i < comboObj.length; i++) {
 		var comboId = jQuery(comboObj[i]).attr("comboId");
         var employeeId = jQuery(comboObj[i]).find("select[name='employeeId']").val();
+        if (isEmpty(employeeId)) {
+        	employeeId = 0
+        }
 		var projectObjStr = {"type":3, "projectId":comboId, "projectStepArrayObjStr":employeeId};
 		arrayObj.push(projectObjStr);
 	}
 	//商品
-	var goodsObj = jQuery("div[name='goodsNameLI']").find(".nav_content_div_1");
+	var goodsObj = jQuery("div[name='goodsNameLI']").find(".nav_content_div");
 	for (var i = 0; i < goodsObj.length; i++) {
 		var goodsId = jQuery(goodsObj[i]).attr("goodsId");
         var employeeId = jQuery(goodsObj[i]).find("select[name='employeeId']").val();
+        if (isEmpty(employeeId)) {
+        	employeeId = 0
+        }
 		var projectObjStr = {"type":2, "projectId":goodsId, "projectStepArrayObjStr":employeeId};
 		arrayObj.push(projectObjStr);
 	}
