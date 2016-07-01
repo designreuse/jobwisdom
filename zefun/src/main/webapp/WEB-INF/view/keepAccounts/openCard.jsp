@@ -1,1056 +1,1102 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.util.Date" %>
-<%@ include file="/head.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.Date"%>
+<%@ include file="/head.jsp"%>
+<link rel="stylesheet" href="<%=basePath%>css/recharge.css"
+	type="text/css" />
+<script type="text/javascript"
+	src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript"
+	src="<%=basePath%>js/keepAccounts/openCard.js?date=<%=new Date().getTime()%>"></script>
+<script>
+	jQuery(
+			function() {
+				jQuery('.recharge_ul_right_content:gt(0)').hide();
+				jQuery('.recharge_ul li')
+						.click(
+								function() {
+									jQuery(this).addClass('active').siblings()
+											.removeClass('active');
+									jQuery(
+											'.recharge_ul_right .recharge_ul_right_content')
+											.eq(jQuery(this).index()).show()
+											.siblings().hide()
+								})
+			})
+</script>
 <style>
-   .show_search table td:nth-child(1) img{
-      width:47px;
-      border-radius:25px;
-      height: 47px;
-   }
+.common_table table {
+	width: 870px !important
+}
 
-
-	 .new-contentinner {
-        background-color: #fff;
-
-    }
-   .card-main1{overflow:hidden}
-   .card-main{padding:20px 0;}
-    .tab-form1 {
-        padding:0 0;
-        padding-top:20px;
-    }
-    .common_table{position:relative;}
-    .n-tab{
-        border-right:1px solid #bbbbbb;
-    }
- .card-main{padding:20px 0}
-    .n-tab li.active {
-        border-radius: 0;
-        border-bottom: 1px solid #fff;
-        background-color: #fff;
-    }
-    .p-part-first {
-        margin-left: 0px;
-        float: none;
-    }
-    .p-part{
-        float: none;
-        margin-bottom: 10px;
-    }
-    .kaidan-label {
-        width: 70px;
-        margin-right: 10px;
-        text-align: right;
-    }
-
-    .n-tab li {
-        height: 45px;
-        line-height: 45px;
-        border: 1px solid #bbbbbb;
-        background-color: #f1f1f1;
-        border-right: 0;
-    }
-
-    .n-tab-content {
-        -webkit-box-shadow:none;
-        border: 1px solid #bbbbbb;
-        border-top:0;
-    }
-
-    .card-main {
-        padding: 20px;
-    }
-    .card-main  .p-part-first {
-        float: left;
-        width: 33.3%;
-    }
-
-    .card-main .p-part {
-        display: inline-block;
-    }
-
-    .card-main .p-part1 {
-        display: inline-block;
-        margin-bottom:14px;
-    }
-
-    .card-main .p-part:nth-child(1) {
-        margin-right:165px;
-    }
-
-    .p-part {
-        margin-left:0;
-    }
-
-    .select-result {
-        margin-right:15px;
-        margin-bottom: 15px;
-    }
-
-    .select-result input {
-        background-color: #f1f1f1;
-        margin: 0 10px 0 5px;
-    }
-
-    .select-result .iconfont {
-        margin-top: 2px;
-
-    }
-
-
-    .n-tab-content .icon-shanchujilu {
-        color: #cccccc !important;
-    }
-
-    .n-tab-content .icon-shanchujilu:hover {
-        color: #86cdcd !important;
-        cursor: pointer;
-    }
-
-     .w600 {
-        width: 650px;
-         min-height: 32px;
-    }
-
-    .card-main .p-part-first1 {
-        float: left;
-        width: 20%;
-    }
-
-    .n-tab-content {
-        min-height:auto;
-    }
-    .mr55 {
-        margin-right: 38px;
-        margin-top: 10px;
-    }
-    .n-tab .active {
-        box-shadow: none;
-    }
-    
-    .fl {
-        float: left !important;
-    }
-    
-    span.btn.fanhui1 {
-	    position:absolute;
-	    right:0;
-	    margin-right:0;
-    }
-    
-    .member-zilian {
-    	position:relative;
-    }
-
-  .member-card li.current dl{
-    background:#f6f6d7
-     }
-     
-     .member-card li dt{color:#f9dd48}
-     .member-card li.current dt{border-bottom:1px solid #f9dd48;color:#727272}
-     .member-card li.current dl{border:1px solid black}
-     .member-card li .iconfont{color:#f9dd48}
-     .member-card li dt{color:#727272;border-bottom:1px solid #f9dd48;}
-     
-     .card-main1{overflow:visible}
-     #tab6 .common_table{left:-20px}
+.send_manage_content select {
+	border-radius: 12px;
+	border: 1px solid black;
+	width: 100px;
+	margin-left: 10px
+}
+.select-result1 input{background:white}
+.achievement_recharge_content li input{height:26px;width:66px}
+.achievement_recharge_content_input span em{top:2px}
 </style>
+
 <body>
 
-  <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
-   <div class="leftpanel" style="height: 840px; margin-left: 0px;">
-    <!--loading end-->
-   <%@ include file="/menu.jsp" %>
-   <div class="rightpanel" style="margin-left: 200px;">
-      <%@ include file="/top.jsp" %>
-      <div class="maincontent">
-	    <div class="contentinner kaizhijizhang new-contentinner">
-	          <div class="n-tab">
-	            <ul>
-	                <li onclick="subTabFun(this)" class="active" name = "rechargeName" data-target="#tab2">
-	                    <span>充值</span>
-	                </li>
-	                <li onclick="subTabFun(this)" data-target="#tab1">
-	                    <span>开卡</span>
-	                </li>
-	                <li onclick="subTabFun(this)" data-target="#tab6">
-	                        <span>还款</span>
-	                </li>
-	                <li onclick="subTabFun(this)" data-target="#tab5">
-                            <span>赠送</span>
-                    </li>
-	                <li onclick="subTabFun(this)" data-target="#tab3">
-	                        <span>转账</span>
-	                </li>
-	            </ul>
-	            <div class="clearfix"></div>
-	        </div>
-			
-	        <div class="n-tab-content">
-	        	<!-- 开卡 -->
-	            <div id="tab1" class="target-tab hide">
-                  <div class="tab-form1">
-	                    <div class="card-title">填写会员资料</div>
-	                    <div class="card-main clearfix" name="fillMemberInfo">
-	                        <div class="p-part-first" name = "memberTR" selectType = "1">
-	                            <label class="kaidan-label" for="">手机号:</label>
-	                            <input type="text"  class="w185 jiaodian" name = "phoneNumber" placeholder="*"/>
-		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
-		                        
-		                        <div class="show_search" name = "memberListDIV" style="display: none; position:relaitve;left:120px">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
-								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
-								    
-								    </div>  
-								</div>
-	                        </div>
-	                        <div class="p-part-first">
-	                            <label class="kaidan-label" for="">开卡类型:</label>
-	                            <select name="kkLevelId" id="" class="chzn-select w185" onchange="changeMemberLevel(this)">
-	                                <c:forEach items="${memberLevelList}" var="memberLevel" varStatus="status">
-		                                <option value="${memberLevel.levelId}">${memberLevel.levelName}</option>
-		                            </c:forEach>
-	                            </select>
-	                        </div>
-	                        <div class="p-part-first">
-	                        	<label class="kaidan-label" for="">推荐会员:</label>
-	                        	<select name="openRecommendId" class="chzn-select w185">
-	                        		<option value="">暂未上线，后期推出</option>
-	                        	</select>
-	                            <%-- <label class="kaidan-label" for="">推荐人:</label>
-	                            <select name="openRecommendId" class="chzn-select w185">
-	                                <option value="">点击选择推荐人</option>
-		                            <c:forEach items="${employeeInfoList}" var="employeeInfo" varStatus="status">
-		                               <option value="${employeeInfo.employeeId}">${employeeInfo.employeeCode} ${employeeInfo.name}</option>
-		                            </c:forEach>
-	                            </select> --%>
-	                        </div>
-	                        <div class="p-part-first">
-	                            <label class="kaidan-label" for="">姓名:</label>
-	                            <input type="text" name = "name" class="w185 jiaodian" placeholder="*"/>
-	                        </div>
-	                        <div class="p-part-first">
-	                            <label class="kaidan-label" for="">支付密码:</label>
-	                            <input type="password" name = "payPassword" class="w185 jiaodian" placeholder="*"/>
-	                        </div>
-	                        <div class="p-part-first">
-	                            <label class="kaidan-label" for="">确认密码:</label>
-	                            <input type="password" name = "password" class="w185 jiaodian" placeholder="*"/>
-	                        </div>
-	                        <div class="p-part-first">
-	                            <label class="kaidan-label" for="">性别:</label>
-	                            <label class="radio"><input type="radio" class="ml10" name="sex" value="男" checked="checked"/> <span class="ml5">男</span></label>
-	                            <label class="radio"><input type="radio" class="m110" name="sex" value="女"/> <span class="ml5">女</span></label>
-	                        </div>
-	                        <div class="p-part-first">
-	                            <label class="ml10" for="">是否接收短信:</label>
-	                            <label class="radio"><input type="radio" name="messageType" class="ml10" value="1"><span class="ml5">是</span></label>&nbsp;&nbsp;
-	                            <label class="radio"><input type="radio" name="messageType" class="ml10" value="0" checked="checked"><span class="ml5">否</span></label>
-	                        </div>
-	                        <div class="p-part-first">
-	                            <label class="ml10" for="">开卡费用:</label>
-		                        <span name= "openType" class="red font-size-18">${memberLevels.sellAmount}</span> 元（不计入卡金余额）
-	                        </div>
-	                    </div>
-	                    <div class="card-main1 clearfix hide" name = "memberTR">
-	                        <div class="common_table">   
-						  	   <table>
-							     <tr>
-								   <td rowspan="2"><img src="" name = "memberImg"></td>
-								   <td>手机号</td>
-								   <td>姓名</td>
-								   <td>性别</td>
-								   <td>开卡门店</td>
-								   <td>余额</td>
-								   <td>礼金</td>
-								   <td>欠款</td>
-								   <td>会员卡</td>
-								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-								 </tr>
-								 <tr>
-								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan">男</td>
-								   <td name = "memberStoreName">华南美联店</td>
-								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
-								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
-								   <td style="color:#eb4749" name = "needRefund"></td>
-								   <td ><span name = "subAccountNum"></span>张</td>
-								 </tr>
-								 <input type="hidden" name = "memberId">
-							   </table>
-						    </div>
-	                        <ul class="member-card" name = "subAccountUL">
-	                        </ul>
-	                        <div class="p-part-first fl">
-	                            <label class="kaidan-label" for="">开卡类型:</label>
-	                            <select name="kkLevelIdToo" class="chzn-select w185" onchange="changeMemberLevel(this)">
-	                                <c:forEach items="${memberLevelList}" var="memberLevel" varStatus="status">
-		                                <option value="${memberLevel.levelId}">${memberLevel.levelName}</option>
-		                            </c:forEach>
-	                            </select>
-	                        </div>
-	                        <div class="p-part-first fl">
-	                            <label class="ml10" for="">开卡费用:</label>
-		                        <span name= "openType" class="red font-size-18">${memberLevels.sellAmount}</span> 元（不计入卡金余额）
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="card-title">充值金额及支付方式</div>
-	                    <div class="card-main clearfix bdb">
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">现金:</label>
-	                            <input type="text" name="kkCashAmount" onkeyup="checkNum(this)" class="w85">
-	                        </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">银联:</label>
-	                            <input type="text" name= "kkUnionpayAmount" class="w85" onkeyup="checkNum(this)">
-	                        </div>
-	                        <div class="p-part-first1">
-	                        <label class="kaidan-label" for="">微信:</label>
-	                        <input type="text" name="kkWechatAmount" class="w85" onkeyup="checkNum(this)">
-	                    </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">支付宝:</label>
-	                            <input type="text" name="kkAlipayAmount" class="w85" onkeyup="checkNum(this)">
-	                        </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">挂账:</label>
-	                            <input type="text" name="kkDebtAmount" class="w85" onkeyup="checkNum(this)">
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="card-title">业绩提成</div>
-	                    <div class="card-main clearfix">
-	                        <div class="p-part1 ml10 fl">
-	                            <label>业绩归属:</label>
-	                            <select name="deptChooseType" id="" class="chzn-select w70" onchange="chooseDept(this)">
-	                                <option value="1">固定</option>
-	                                <option value="2">比例</option>
-	                            </select>
-	                            <select name="deptSelectValue" id="" class="chzn-select w100" onchange="chooseDeptInfo(this)">
-	                                <option value="">选择部门</option>
-	                                <c:forEach items="${deptInfoList}" var="deptInfo" varStatus="status">
-		                               <option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
-		                            </c:forEach>
-	                            </select>
-	                        </div>
-	                        <div class="p-part1 fl w600" name = "deptIdChoose">
-	                            
-	                        </div>
-	                        <div class="p-part1 ml10 fl">
-	                            <label>开卡提成:</label>
-	                            <select name="commissionType" class="chzn-select w70" onchange="totaiUpdateVL(this)">
-	                                <option value="1">固定</option>
-	                                <option value="2">比例</option>
-	                            </select>
-	                            <select name="recommendId" class="chzn-select w100 " onchange="totaiUpdateEmployeeInfo(this)">
-	                                <option value="">选择员工</option>
-	                                <c:forEach items="${employeeInfoList}" var="employeeInfo" varStatus="status">
-		                               <option value="${employeeInfo.employeeId}">${employeeInfo.employeeCode} ${employeeInfo.name}</option>
-		                            </c:forEach>
-	                            </select>
-	                        </div>
-	                        <div class="p-part1 fl w600" name = "employeeChoose">
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="card-title">赠送设置</div>
-	                    <div class="card-main clearfix">
-	                        <div class="p-part">
-	                            <label class=" kaidan-label" >礼金赠送:</label>
-	                            <input type="text" name = "giftmoneyAmount" class="w85"/><span class="percent-symbol">元</span>
-	                            <label class=" kaidan-label">分期:</label>
-	                            <select name="partType" class="chzn-select w100">
-	                                <option value="1">不分期</option>
-		                            <option value="3">3个月</option>
-		                            <option value="6">6个月</option>
-		                            <option value="9">9个月</option>
-		                            <option value="12">12个月</option>
-		                            <option value="24">24个月</option>
-	                            </select>
-	                            <label class=" kaidan-label" >过期:</label>
-	                            <select name="pastDate" class="chzn-select w100">
-	                                <option value="0">不过期</option>
-	                                <option value="3">3个月</option>
-	                                <option value="6">6个月</option>
-	                                <option value="9">9个月</option>
-	                                <option value="12">12个月</option>
-	                                <option value="24">24个月</option>
-	                            </select>
-	                        </div>
-	                        <div class="p-part">
-	                            <label class="kaidan-label" >卡金赠送:</label>
-	                            <input type="text" name = "rewardAmount" class="w85"/><span class="percent-symbol">元</span>
-	                        </div>
-	                    </div>
-	
-						<div class="clearfix"></div>
-	                    <div class="confirm-part ml80">
-	                        <button class="btn w100 fr mr55" id = "confirm">保存并收银</button>
-	                    </div>
-	
-	                    </form>
-	                </div>
-	            </div><!--tab1-->
-	            
-	            <!-- 充值 -->
-	            <div id="tab2" class="target-tab">
-	                <div class="tab-form1">
-		                <div class="card-title">
-	                        	充值账户
-	                    </div>
-	                  <!--搜索-->
-	                    <div class="card-main clearfix" name="fillMemberInfo">
-	                        <div class="p-part-first ml10" name = "memberTR" selectType = "1">
-	                            <label class="w60" for="">搜索会员:</label>
-	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
-		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
-		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" name = "enterpriseCheck" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
-								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
-								    
-								    </div>  
-								</div>
-	                        </div>
-	                    </div>
-	                    <div class="card-main1 clearfix hide" name = "memberTR" style="overflow:hidden">
-	                        <div class="common_table">   
-						  	   <table>
-							     <tr>
-								   <td rowspan="2"><img src="" name = "memberImg"></td>
-								   <td>手机号</td>
-								   <td>姓名</td>
-								   <td>性别</td>
-								   <td>开卡门店</td>
-								   <td>余额</td>
-								   <td>礼金</td>
-								   <td>欠款</td>
-								   <td>会员卡</td>
-								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-								 </tr>
-								 <tr>
-								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan">男</td>
-								   <td name = "memberStoreName">华南美联店</td>
-								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
-								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
-								   <td style="color:#eb4749" name = "needRefund"></td>
-								   <td ><span name = "subAccountNum"></span>张</td>
-								 </tr>
-								 <input type="hidden" name = "memberId">
-							   </table>
-						    </div>
-	                        <ul class="member-card" name = "subAccountUL">
-	                        </ul>
-	                    </div>
-	                    
-	                    <div class="card-title">充值金额及支付方式</div>
-	                    <div class="card-main clearfix bdb">
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" style="margin-left: -10px;" for="">现金:</label>
-	                            <input type="text" name="czCashAmount" class="w85">
-	                        </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">银联:</label>
-	                            <input type="text" name= "czUnionpayAmount" class="w85">
-	                        </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">微信:</label>
-	                            <input type="text" name="czWechatAmount" class="w85">
-	                        </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">支付宝:</label>
-	                            <input type="text" name="czAlipayAmount" class="w85">
-	                        </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">挂账:</label>
-	                            <input type="text" name="czDebtAmount" class="w85">
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="card-title">业绩提成
-	                    </div>
-	                    <div class="card-main clearfix">
-	                        <div class="p-part1 fl">
-	                            <label >业绩归属:</label>
-	                            <select name="deptChooseType" id="" class="chzn-select w70" onchange="chooseDept(this)">
-	                                <option value="1">固定</option>
-	                                <option value="2">比例</option>
-	                            </select>
-	                            <select name="deptSelectValue" id="" class="chzn-select w100" onchange="chooseDeptInfo(this)">
-	                                <option value="">选择部门</option>
-	                                <c:forEach items="${deptInfoList}" var="deptInfo" varStatus="status">
-		                               <option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
-		                            </c:forEach>
-	                            </select>
-	                        </div>
-	                        <div class="p-part1 fl w600" name = "deptIdChoose">
-	                        </div>
-	                        <div class="p-part1 fl">
-	                            <label >开卡提成:</label>
-	                            <select name="commissionType" id="" class="chzn-select w70" onchange="totaiUpdateVL(this)">
-	                                <option value="1">固定</option>
-	                                <option value="2">比例</option>
-	                            </select>
-	                            <select name="recommendId" class="chzn-select w100 " onchange="totaiUpdateEmployeeInfo(this)">
-	                                <option value="">选择员工</option>
-	                                <c:forEach items="${employeeInfoList}" var="employeeInfo" varStatus="status">
-		                               <option value="${employeeInfo.employeeId}">${employeeInfo.employeeCode} ${employeeInfo.name}</option>
-		                            </c:forEach>
-	                            </select>
-	                        </div>
-	                        <div class="p-part1 fl w600" name = "employeeChoose">
-	                        </div>
-	                    </div>
-	
-	                    <div class="card-title">赠送设置</div>
-	                    <div class="card-main clearfix">
-	                        <div class="p-part">
-	                            <label class="kaidan-label" style="margin-left: -10px" >礼金赠送:</label>
-	                            <input type="text" name = "czGiftmoneyAmount" class="w85"/><span class="percent-symbol">元</span>
-	                            <label class=" kaidan-label">分期:</label>
-	                            <select name="czPartType" id="" class="chzn-select w100">
-	                                <option value="1">不分期</option>
-		                            <option value="3">3个月</option>
-		                            <option value="6">6个月</option>
-		                            <option value="9">9个月</option>
-		                            <option value="12">12个月</option>
-		                            <option value="24">24个月</option>
-	                            </select>
-	                            <label class=" kaidan-label" >过期:</label>
-	                            <select name="czPastDate" id="" class="chzn-select w100">
-	                                <option value="0">不过期</option>
-	                                <option value="3">3个月</option>
-	                                <option value="6">6个月</option>
-	                                <option value="9">9个月</option>
-	                                <option value="12">12个月</option>
-	                                <option value="24">24个月</option>
-	                            </select>
-	                        </div>
-	                        <div class="p-part">
-	                            <label class=" kaidan-label" >卡金赠送:</label>
-	                            <input type="text" name = "czRewardAmount" class="w85"/><span class="percent-symbol">元</span>
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="clearfix"></div>
-	                    <div class="confirm-part ml80">
-	                        <button class="btn w100 fr mr55" onclick="czConfirm(1)">充值并收银</button>
-	                    </div>
-	
-	                    </form>
-	            </div>
-	
-	            <!-- <div class="more-detail-table">
-	                <div class="tab-table">
-	
-	                <table class="table">
-	                    <thead>
-	                    <tr>
-	                        <th>充值时间</th>
-	                        <th>会员账号</th>
-	                        <th>充值门店</th>
-	                        <th>充值金额</th>
-	                    </tr>
-	                    </thead>
-	                    <tbody id = "czTbody">
-	                    </tbody>
-	                </table>
-	                </div>
-	            </div> -->
-	            
-	           </div><!--tab2-->
-	
-	            <div id="tab3" class="target-tab hide">
-	                <div class="tab-form1">
-	                    <div class="card-title">
-	                        	转出会员
-	                    </div>
-	                    <!--搜索-->
-	                    <div class="card-main clearfix" name="fillMemberInfo">
-	                        <div class="p-part-first" name = "memberTR" selectType = "1">
-	                            <label class="w60:" for="">转出会员:</label>
-	                            <input type="text" name = "phoneNumber" class="w185" placeholder="会员手机号">
-		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
-		                        
-		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
-								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
-								    
-								    </div>  
-								</div>
-	                        </div>
-	                    </div>
-	                    <div class="card-main1 clearfix hide" id = "outDIV"  name = "memberTR">
-	                        <div class="common_table">   
-						  	   <table>
-							     <tr>
-								   <td rowspan="2"><img src="" name = "memberImg"></td>
-								   <td>手机号</td>
-								   <td>姓名</td>
-								   <td>性别</td>
-								   <td>开卡门店</td>
-								   <td>余额</td>
-								   <td>礼金</td>
-								   <td>欠款</td>
-								   <td>会员卡</td>
-								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-								 </tr>
-								 <tr>
-								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan">男</td>
-								   <td name = "memberStoreName">华南美联店</td>
-								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
-								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
-								   <td style="color:#eb4749" name = "needRefund"></td>
-								   <td ><span name = "subAccountNum"></span>张</td>
-								 </tr>
-								 <input type="hidden" name = "memberId">
-							   </table>
-						    </div>
-	                        <ul class="member-card" name = "subAccountUL">
-	
-	                        </ul>
-	                    </div>
-	                    <div class="card-title">
-	                       	 转入会员
-	                    </div>
-	                    
-	                    <div class="card-main clearfix bdb ptb" name="fillMemberInfo">
-                            <div class="p-part-first" name = "memberTR" selectType = "1">
-	                            <label class="w60:" for="">转入会员:</label>
-	                            <input type="text" name = "phoneNumber" class="w185" placeholder="会员手机号">
-		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
-		                        
-		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
-								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
-								    
-								    </div>  
-								</div>
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="card-main1 clearfix bdb ptb hide" id = "inDIV" name = "memberTR">
-	                        <div class="common_table">   
-						  	   <table>
-							     <tr>
-								   <td rowspan="2"><img src="" name = "memberImg"></td>
-								   <td>手机号</td>
-								   <td>姓名</td>
-								   <td>性别</td>
-								   <td>开卡门店</td>
-								   <td>余额</td>
-								   <td>礼金</td>
-								   <td>欠款</td>
-								   <td>会员卡</td>
-								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-								 </tr>
-								 <tr>
-								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan">男</td>
-								   <td name = "memberStoreName">华南美联店</td>
-								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
-								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
-								   <td style="color:#eb4749" name = "needRefund"></td>
-								   <td ><span name = "subAccountNum"></span>张</td>
-								 </tr>
-								 <input type="hidden" name = "memberId">
-							   </table>
-						    </div>
-	                        <ul class="member-card" name = "subAccountUL">
-	
-	                        </ul>
-	                    </div>
-	
-		                  <div class="card-main clearfix bdb ptb">
-		                      <div class="p-part-first">
-		                        <label class="w60" for="">转入金额:</label>
-		                        <input type="text" name = "zzChargeAmount" class="w120 jiaodian">
-		                      </div>
-		                  </div>
-	                  
-	                  	<div class="card-main clearfix bdb ptb">
-	                        <div class="p-part-first">
-	                            <label class="w60" for="">支付密码:</label>
-	                            <input type="password" name="zzPassword" class="w120"></span>
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="clearfix"></div>
-	                    <div class="confirm-part ml80">
-	                        <button class="btn w100 fr mr55" onclick="zzConfirm()">保存并收银</button>
-	                    </div>
-	
-	                    </form>
-	                </div>
-	            </div><!--tab3-->
-	            
-	            <div id="tab4" class="target-tab hide">
-                    <div class="tab-form">
-                    	<div class="p-part-first" style="width: 800px" name = "memberTR">
-                            <label class="w60:" for="">升级会员:</label>
-                            <div style="display: inline-block;" name= "seekTD">
-                               <input type="text" class="w185 searchinpput" name = "phoneNumber" placeholder="会员手机号"/>
-                               <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
-		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
-								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
-								    
-								    </div>  
-								</div>
-                            </div>
-                        </div>
-                        <div class="card-main1 clearfix bdb ptb hide" id = "inDIV" name = "memberTR">
-	                        <div class="common_table">   
-						  	   <table>
-							     <tr>
-								   <td rowspan="2"><img src="" name = "memberImg"></td>
-								   <td>手机号</td>
-								   <td>姓名</td>
-								   <td>性别</td>
-								   <td>开卡门店</td>
-								   <td>余额</td>
-								   <td>礼金</td>
-								   <td>欠款</td>
-								   <td>会员卡</td>
-								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-								 </tr>
-								 <tr>
-								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan">男</td>
-								   <td name = "memberStoreName">华南美联店</td>
-								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
-								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
-								   <td style="color:#eb4749" name = "needRefund"></td>
-								   <td ><span name = "subAccountNum"></span>张</td>
-								 </tr>
-								 <input type="hidden" name = "memberId">
-							   </table>
-						    </div>
-	                        <ul class="member-card" name = "subAccountUL">
-	
-	                        </ul>
-	                    </div>
-                        <div class = "fl">
-	                        <div class="p-part-first">
-		                        <label class="w60:" for="">升级级别:</label>
-	                            <select name = "sjLevelId" class="chzn-select w185" onchange="changeMemberLevel(this)">
-	                                <c:forEach items="${memberLevelList}" var="memberLevel" varStatus="status">
-	                                    <option value="${memberLevel.levelId}">${memberLevel.levelName}</option>
-	                                </c:forEach>
-	                            </select>
-		                    </div>
-		                    
-		                    <div class="p-part-first">
-		                        <label class="w60:" for="">开卡费用:</label>
-		                        <span name= "openType" class="red font-size-18">${memberLevels.sellAmount}</span> 元（不计入卡金余额）
-                                <%-- <select name= "openType" id="" class="chzn-select w185">
-		                              <option value="2" amountvalue = "${memberLevels.sellAmount}">现金<span class="red">${memberLevels.sellAmount}元</span>购卡</option>
-		                        </select> --%>
-		                    </div>
-		                    
-		                    <div class="p-part-first">
-		                        <label class="w60:" for="">卡金赠送:</label>
-		                        <input type="text" name = "sjRewardAmount" class="w185"/><span class='percent-symbol'>元</span>
-		                    </div>
-		                    
-		                    <div class="p-part-first">
-		                      <label class="w60:" for="">现金支付:</label>
-		                      <input type="text" name="sjCashAmount" class="w185" onkeyup="checkNum(this)"/>
-		                    </div>
-		                    
-		                    <div class="p-part-first">
-		                      <label class="w60:" for="">银联支付:</label>
-		                      <input type="text" name= "sjUnionpayAmount" class="w185" onkeyup="checkNum(this)"/>
-		                    </div>
-		                    
-	                        <div class="p-part-first">
-		                      <label class="w60:" for="">微信支付:</label>
-		                      <input type="text" name="sjWechatAmount" class="w185" onkeyup="checkNum(this)"/>
-		                    </div>
-	                    
-	                        <div class="p-part-first">
-		                      <label class="w60:" for="">支付宝付:</label>
-		                      <input type="text" name="sjAlipayAmount" class="w185" onkeyup="checkNum(this)"/>
-		                    </div>
-		                    
-		                    <div class="p-part-first">
-		                        <label class="w60:" for="">挂账金额:</label>
-		                        <input type="text" name="sjDebtAmount" class="w185" onkeyup="checkNum(this)"/>
-		                    </div>
-		                    
-                        </div>
-	                    
-	                    <div class = "fl">
-	                       <div class="p-part" id = "sjDeptInfoDIV">
-	                            <label for="">礼金赠送:</label>
-	                            <input type="text" name = "sjGiftmoneyAmount" class="w85"/><span class='percent-symbol'>元</span>
-	                            <label class="ml10">分期:</label>
-                                <select name="sjPartType" class="chzn-select" style="width: 125px">
-                                    <option value="1">不分期</option>
-                                    <option value="3">3个月</option>
-                                    <option value="6">6个月</option>
-                                    <option value="9">9个月</option>
-                                    <option value="12">12个月</option>
-                                    <option value="24">24个月</option>
-                                </select>
-                                <label class="ml5">过期:</label>
-		                        <select name="sjPastDate" class="chzn-select" style="width: 125px">
-                                    <option value="0">不过期</option>
-                                    <option value="3">3个月</option>
-                                    <option value="6">6个月</option>
-                                    <option value="9">9个月</option>
-                                    <option value="12">12个月</option>
-                                    <option value="24">24个月</option>
-                                </select>
-		                    </div>
-		                    
-		                    <div class="p-part">
-		                        <label class="kaidan-label">业绩归属:</label>
-		                        <div style="display:inline-block">
-			                        <select name="sjDeptId" class="chzn-select" style="width: 282px;">
-			                            <option value="">点击选择部门</option>
-			                            <c:forEach items="${deptInfoList}" var="deptInfo" varStatus="status">
-			                               <option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
-			                            </c:forEach>
-			                        </select>
-			                    </div>
-		                    </div>
-		                    
-		                    <div class="fl p-part-yg" name = "commissionDIV">
-		                        <div class="p-part">
-			                        <label class="w60" for="">提成业绩:</label>
-			                        <select name="totaiCommissionType" id="" class="chzn-select w85" onchange="totaiUpdateVL(this)">
-			                            <option value="1">固定</option>
-			                            <option value="2">比例</option>
-			                        </select>
-			                        
-			                        <div class="ml10" style="display:inline-block">
-			                            <select name="totaiRecommendId" id="" class="chzn-select ml5" style="width: 170px;" onchange="totaiUpdateEmployeeInfo(this)">
-				                            <option value="">选择员工</option>
-				                            <c:forEach items="${employeeInfoList}" var="employeeInfo" varStatus="status">
-				                               <option value="${employeeInfo.employeeId}">${employeeInfo.employeeCode} ${employeeInfo.name}</option>
-				                            </c:forEach>
-				                        </select>
-			                        </div>
-			                    </div>
-			                    <div class="yugong-tc">
-			                    
-			                    </div>
-			                </div>
-	                    </div>
+	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
+		style="background-position: 0px 0px;">
+		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
+			<%@include file="/menu.jsp"%>
+			<div class="rightpanel"
+				style="margin-left: 200px; position: relative">
+				<%@include file="/top.jsp"%>
 
-		                <div class="clearfix"></div>
+				<div class="content_right">
+					<ul class="clearfix recharge_ul">
+						<li class="active"><span>充值</span></li>
+						<li class=""><span>开卡</span></li>
+						<li class=""><span>升级</span></li>
+						<li class=""><span>还款</span></li>
+						<li class=""><span>赠送</span></li>
+						<li class=""><span>转账</span></li>
+						<li class=""><span>退卡</span></li>
+					</ul>
+					<div class="recharge_ul_right">
+						<div id="tab1" class="recharge_ul_right_content"
+							style="display: block;">
+							<div class="recharge_user">
+								<p>充值账户</p>
+								<div class="seach_user">
+									<div class="card-main clearfix" name="fillMemberInfo">
+										<div class="p-part-first ml10" name="memberTR" selectType="1">
+											<label class="w60" for="">搜索会员:</label> <input type="text"
+												class="w185" name="phoneNumber" placeholder="会员手机号">
+											<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+											<div class="show_search" name="memberListDIV"
+												style="display: none;">
+												<p>
+													以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+													<em><input type="checkbox" name="enterpriseCheck"
+														onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+													</em>
+												<div class="common_close" onclick="cancleMemberSelect(this)">
+													<img src="<%=basePath%>images/emploee_3.png">
+												</div>
+												</p>
+												<div style="height: 400px; overflow: overlay;"
+													name="memberoverDIV"></div>
+											</div>
+										</div>
+									</div>
+									<div class="card-main1 clearfix hide" name="memberTR"
+										style="overflow: hidden">
+										<div class="common_table">
+											<table>
+												<tr>
+													<td rowspan="2"><img src="" name="memberImg"></td>
+													<td>手机号</td>
+													<td>姓名</td>
+													<td>性别</td>
+													<td>开卡门店</td>
+													<td>余额</td>
+													<td>礼金</td>
+													<td>欠款</td>
+													<td>会员卡</td>
+													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+												</tr>
+												<tr>
+													<td name="memberPhoneSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan">男</td>
+													<td name="memberStoreName">华南美联店</td>
+													<td style="color: #eb4749"
+														name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
+												</tr>
+												<input type="hidden" name="memberId">
+											</table>
+										</div>
+										<ul class="member-card" name="subAccountUL">
+										</ul>
+									</div>
+								</div>
+							</div>
 
-	                    <div class="confirm-part mt50 ml80">
-		                    <button class="btn w100" onclick="sjConfirm()">确认升级</button>
-		                </div>
-                    </div>
- 
-                </div><!--tab4-->
-                
-                <div id="tab5" class="target-tab hide">
-	                <div class="tab-form1">
-		                <div class="card-title">
-	                       	 还款会员
-	                    </div>
-	                    <div class="card-main clearfix" name="fillMemberInfo">
-	                        <div class="p-part-first" name = "memberTR" selectType = "1">
-	                            <label class="w60:" for="">搜索会员:</label>
-	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
-		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
-		                        
-		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
-								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
-								    
-								    </div>  
+							<div class="recharge_way">
+								<p>充值金额及支付方式</p>
+								<div class="recharge_way_content">
+									<span> 现金 <input type="text" name="czCashAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 银联<input type="text" name="czUnionpayAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 微信<input type="text" name="czWechatAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 支付宝<input type="text" name="czAlipayAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 挂账 <input type="text" name="czDebtAmount"
+										onkeyup="checkNum(this)">
+									</span>
 								</div>
-	                        </div>
-	                    </div>
-	                    <div class="card-main1 clearfix hide" name = "memberTR">
-	                        <div class="common_table">   
-						  	   <table>
-							     <tr>
-								   <td rowspan="2"><img src="" name = "memberImg"></td>
-								   <td>手机号</td>
-								   <td>姓名</td>
-								   <td>性别</td>
-								   <td>开卡门店</td>
-								   <td>余额</td>
-								   <td>礼金</td>
-								   <td>欠款</td>
-								   <td>会员卡</td>
-								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-								 </tr>
-								 <tr>
-								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan">男</td>
-								   <td name = "memberStoreName">华南美联店</td>
-								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
-								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
-								   <td style="color:#eb4749" name = "needRefund"></td>
-								   <td ><span name = "subAccountNum"></span>张</td>
-								 </tr>
-								 <input type="hidden" name = "memberId">
-							   </table>
-						    </div>
-	                        <ul class="member-card" name = "subAccountUL">
-	
-	                        </ul>
-	
-	                    </div>
-	                    <div class="card-title">
-	                        	赠送设置
-	                    </div>
-	                    <div class="card-main clearfix bdb">
-	                        <div class="p-part-first2">
-	                            <label class="w60" for="">积分赠送:</label>
-	                            <input type="text" name = "zsIntegralAmount" class="w85"><span class="percent-symbol">分</span>
-	                        </div>
-	                        <div class="p-part-first2">
-	                            <label class="w60" >礼金赠送:</label>
-	                            <input type="text" name="zsGiftmoneyAmount"  class="w85"/><span class="percent-symbol">元</span>
-	                            <label class=" kaidan-label">分期:</label>
-	                            <select name="zsPartType" class="chzn-select w100">
-	                                <option value="1">不分期</option>
-		                            <option value="3">3个月</option>
-		                            <option value="6">6个月</option>
-		                            <option value="9">9个月</option>
-		                            <option value="12">12个月</option>
-		                            <option value="24">24个月</option>
-	                            </select>
-	                            <label class=" kaidan-label" >过期:</label>
-	                            <select name="zsPastDate" class="chzn-select w100">
-	                                <option value="0">不过期</option>
-                                    <option value="3">3个月</option>
-                                    <option value="6">6个月</option>
-                                    <option value="9">9个月</option>
-                                    <option value="12">12个月</option>
-                                    <option value="24">24个月</option>
-	                            </select>
-	                        </div>
-	                        <div class="p-part-first2">
-	                            <label class="w60" for="">赠优惠劵:</label>
-	                            <select class="chzn-select w300" id="couponSelect" multiple="true" data-placeholder="请选择要赠送的优惠券，可多选">
-	                                <c:forEach items="${couponList }" var="coupon">
-                                       <option value="${coupon.couponId }">${coupon.couponName } -${coupon.couponPrice }元</option>
-                                    </c:forEach>
-	                            </select>
-	                        </div>
-	                        <div class="p-part-first2">
-	                            <label class="w60" for="">赠送原因:</label>
-	                            <input type="text" name="zsReason" class="w300">
-	                        </div>
-	                    </div>
-	                    <div class="clearfix"></div>
-	
-	                    <div class="confirm-part ml80">
-	                        <button class="btn w100 fr mr55" onclick="presentGift()">立即赠送</button>
-	                    </div>
-	
-	                    </form>
-	                </div>
-	            </div><!--tab5-->
-	            
-	            <div id="tab6" class="target-tab hide">
-	                <div class="tab-form1">
-	                    <div class="card-title">
-	                          	还款会员
-	                    </div>
-	                    <!--搜索-->
-	                    <div class="card-main clearfix" name="fillMemberInfo">
-	                        <div class="p-part-first" name = "memberTR" selectType = "1">
-	                            <label class="w60:" for="">搜索会员:</label>
-	                            <input type="text" class="w185" name = "phoneNumber" placeholder="会员手机号">
-		                        <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
-		                        
-		                        <div class="show_search" name = "memberListDIV" style="display: none;">
-								    <p>以<i name = "conditionValue">12</i>为条件显示到<i name ="showList">20</i>位顾客 <em><input type="checkbox" onchange="changeAllEnterprise(this)">全店搜索<span>?</span></em><div class="common_close" onclick="cancleMemberSelect(this)"><img src="<%=basePath %>images/emploee_3.png"></div></p>
-								    <div style="height: 400px; overflow: overlay;" name = "memberoverDIV">
-								    
-								    </div>  
+							</div>
+
+							<div class="achievement">
+								<p>业绩提成</p>
+								<div class="achievement_content">
+									<div class="achievement_detail">
+										<p>
+											部门业绩 <select name="deptChooseType"  onchange="chooseDept(this)">
+												<option value="1">固定</option>
+												<option value="2">比例</option>
+											</select> <span> <select name="deptSelectValue" id=""
+												onchange="chooseDeptInfo(this)">
+													<option value="">选择部门</option>
+													<c:forEach items="${deptInfoList}" var="deptInfo"
+														varStatus="status">
+														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
+													</c:forEach>
+											</select>
+											</span>
+
+										</p>
+										<ul   class="achievement_detail_content clearfix">
+
+										</ul>
+									</div>
+
+									<div class="achievement_recharge">
+										<p>
+											充卡业绩 <select name="commissionType" class="chzn-select w70"
+												onchange="totaiUpdateVL(this)">
+												<option value="1">固定</option>
+												<option value="2">比例</option>
+											</select> <select name="recommendId" class="chzn-select w100 "
+												onchange="totaiUpdateEmployeeInfo(this)">
+												<option value="">选择员工</option>
+												<c:forEach items="${employeeInfoList}" var="employeeInfo"
+													varStatus="status">
+													<option value="${employeeInfo.employeeId}">${employeeInfo.employeeCode}
+														${employeeInfo.name}</option>
+												</c:forEach>
+											</select>
+										</p>
+										<ul class="achievement_recharge_content">
+
+										</ul>
+									</div>
 								</div>
-	                        </div>
-	                    </div>
-	                    <div class="card-main clearfix hide" name = "memberTR">
-	                        <div class="common_table">   
-						  	   <table>
-							     <tr>
-								   <td rowspan="2"><img src="" name = "memberImg"></td>
-								   <td>手机号</td>
-								   <td>姓名</td>
-								   <td>性别</td>
-								   <td>开卡门店</td>
-								   <td>余额</td>
-								   <td>礼金</td>
-								   <td>欠款</td>
-								   <td>会员卡</td>
-								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-								 </tr>
-								 <tr>
-								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan"></td>
-								   <td name = "memberStoreName"></td>
-								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
-								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
-								   <td style="color:#eb4749" name = "needRefund"></td>
-								   <td ><span name = "subAccountNum"></span>张</td>
-								 </tr>
-								 <input type="hidden" name = "memberId">
-							   </table>
-						    </div>
-	                        <div style="height: 40px;line-height: 40px;padding-left: 20px; font-size: 14px">需还款:<span class="red" name="needRefund"></span></div>
-	                    </div>
+
+							</div>
+
+							<div class="send_manage">
+								<p>赠送设置</p>
+								<div class="send_manage_content">
+									<span>礼金赠送<input type="text" name = "czGiftmoneyAmount" ></span>
+									<span>分期<select name="czPartType">
+											<option value="1">不分期</option>
+											<option value="3">3个月</option>
+											<option value="6">6个月</option>
+											<option value="9">9个月</option>
+											<option value="12">12个月</option>
+											<option value="24">24个月</option>
+									</select></span> <span>过期 <select name="czPastDate">
+											<option value="0">不过期</option>
+											<option value="3">3个月</option>
+											<option value="6">6个月</option>
+											<option value="9">9个月</option>
+											<option value="12">12个月</option>
+											<option value="24">24个月</option>
+									</select></span> <span>卡金赠送<input type="text" name="czRewardAmount"></span>
+
+
+								</div>
+							</div>
+							<div class="recharge_time">
+								<span>开单时间<input name ="createTime1" type="text" id="date"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span>
+									<span>手工单号<input name="orderCodetab1" type="text"></span>
+								<button id="confirm" onclick="czConfirm(1)">充值并结账</button>
+							</div>
+
+						</div>
+
+
+						<div id="tab2" class="recharge_ul_right_content"
+							style="display: none;">
+							<div class="recharge_user">
+								<p>填写会员资料</p>
+								<div class="seach_user">
+									<div class="card-main clearfix" name="fillMemberInfo">
+										<div class="p-part-first ml10" name="memberTR" selectType="1">
+											<label class="w60" for="">搜索会员:</label> <input type="text"
+												class="w185" name="phoneNumber" placeholder="会员手机号">
+											<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+											<div class="show_search" name="memberListDIV"
+												style="display: none;">
+												<p>
+													以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+													<em><input type="checkbox" name="enterpriseCheck"
+														onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+													</em>
+												<div class="common_close" onclick="cancleMemberSelect(this)">
+													<img src="<%=basePath%>images/emploee_3.png">
+												</div>
+												</p>
+												<div style="height: 400px; overflow: overlay;"
+													name="memberoverDIV"></div>
+											</div>
+										</div>
+									</div>
+									<div class="card-main1 clearfix hide" name="memberTR"
+										style="overflow: hidden">
+										<div class="common_table">
+											<table>
+												<tr>
+													<td rowspan="2"><img src="" name="memberImg"></td>
+													<td>手机号</td>
+													<td>姓名</td>
+													<td>性别</td>
+													<td>开卡门店</td>
+													<td>余额</td>
+													<td>礼金</td>
+													<td>欠款</td>
+													<td>会员卡</td>
+													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+												</tr>
+												<tr>
+													<td name="memberPhoneSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan">男</td>
+													<td name="memberStoreName">华南美联店</td>
+													<td style="color: #eb4749"
+														name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
+												</tr>
+												<input type="hidden" name="memberId">
+											</table>
+										</div>
+										<ul class="member-card" name="subAccountUL">
+										</ul>
+									</div>
+
+
+									<div class="write_imformation">
+										<p>
+											<span><em>姓名</em><input type="text" name="name"
+												placeholder="*" /></span> <span><em
+												style="display: inline-block; margin-right: 28px">性别</em>
+												<select name="sex"><option value="男">男</option><option value="女">女</option></select></span> <span
+												style="margin-left: 80px"><em>开卡类型</em>
+												<select style="width: 100px; margin-left: 8px" name="kkLevelId"
+												onchange="changeMemberLevel(this)">
+													<c:forEach items="${memberLevelList}" var="memberLevel"
+														varStatus="status">
+														<option value="${memberLevel.levelId}">${memberLevel.levelName}</option>
+													</c:forEach>
+											</select></span> <span style="margin-left: 20px">开卡充值：<i>0元</i><a
+												href="javascript:;">（不计入卡金金额）</a></span>
+										</p>
+										<p>
+											<span><em>卡号</em><input type="text"></span> <span><em>支付密码</em>
+												<input type="password" name="payPassword" placeholder="*" /></span>
+											<span><em>确认密码</em><input type="password"
+												name="password" placeholder="*" /></span> <span>短信通知：
+												<select name="messageType"><option value="1">是</option><option value="0">否</option></select></span>
+										</p>
+									</div>
+								</div>
+
+
+
+
+
+							</div>
+
+							<div class="recharge_way">
+								<p>充值金额及支付方式</p>
+								<div class="recharge_way_content">
+									<span> 现金 <input type="text" name="kkCashAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 银联<input type="text" name="kkUnionpayAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 微信<input type="text" name="kkWechatAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 支付宝<input type="text" name="kkAlipayAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 挂账 <input type="text" name="kkDebtAmount"
+										onkeyup="checkNum(this)">
+									</span>
+								</div>
+
+
+							</div>
+
+							<div class="achievement">
+								<p>业绩提成</p>
+								<div class="achievement_content">
+									<div class="achievement_detail">
+										<p>
+											部门业绩 <select name="deptChooseType"  onchange="chooseDept(this)">
+												<option value="1">固定</option>
+												<option value="2">比例</option>
+											</select> <span> <select name="deptSelectValue" id=""
+												onchange="chooseDeptInfo(this)">
+													<option value="">选择部门</option>
+													<c:forEach items="${deptInfoList}" var="deptInfo"
+														varStatus="status">
+														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
+													</c:forEach>
+											</select>
+											</span>
+										</p>
+
+										<ul class="achievement_detail_content clearfix">
+										</ul>
+									</div>
+
+									<div class="achievement_recharge">
+										<p>
+											充卡业绩<input type="text"> <select name="recommendId"
+												class="chzn-select w100 "
+												onchange="totaiUpdateEmployeeInfo(this)">
+												<option value="">选择员工</option>
+												<c:forEach items="${employeeInfoList}" var="employeeInfo"
+													varStatus="status">
+													<option value="${employeeInfo.employeeId}">${employeeInfo.employeeCode}
+														${employeeInfo.name}</option>
+												</c:forEach>
+											</select>
+										</p>
+										<ul class="achievement_recharge_content">
+										</ul>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="send_manage">
+								<p>赠送设置</p>
+								<div class="send_manage_content">
+									<span>礼金赠送 <input type="text" name="giftmoneyAmount" /></span>
+									<span>分期 <select name="partType">
+											<option value="1">不分期</option>
+											<option value="3">3个月</option>
+											<option value="6">6个月</option>
+											<option value="9">9个月</option>
+											<option value="12">12个月</option>
+											<option value="24">24个月</option>
+									</select></span> <span>过期 <select name="pastDate">
+											<option value="0">不过期</option>
+											<option value="3">3个月</option>
+											<option value="6">6个月</option>
+											<option value="9">9个月</option>
+											<option value="12">12个月</option>
+											<option value="24">24个月</option>
+									</select></span> <span>卡金赠送 <input type="text" name="rewardAmount" /></span>
+								</div>
+							</div>
+							<div class="recharge_time">
+								<span>开单时间<input type="text" id="date" name="createTime2" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span>
+								<span>手工单号<input name="orderCodetab2" type="text"></span>
+								<button id="confirm" onclick="save(this)">充值并结账</button>
+								
+							</div>
+                       </div>
+
+						
+
+						<div id="tab3" class="recharge_ul_right_content"
+
+
+							style="display: none;">
+							<div class="recharge_user">
+								<p>升级账户</p>
+								<div class="seach_user">
+									<div class="seach_user">
+										<div class="card-main clearfix" name="fillMemberInfo">
+											<div class="p-part-first ml10" name="memberTR" selectType="1">
+												<label class="w60" for="">搜索会员:</label> <input type="text"
+													class="w185" name="phoneNumber" placeholder="会员手机号">
+												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+												<div class="show_search" name="memberListDIV"
+													style="display: none;">
+													<p>
+														以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+														<em><input type="checkbox" name="enterpriseCheck"
+															onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+														</em>
+													<div class="common_close"
+														onclick="cancleMemberSelect(this)">
+														<img src="<%=basePath%>images/emploee_3.png">
+													</div>
+													</p>
+													<div style="height: 400px; overflow: overlay;"
+														name="memberoverDIV"></div>
+												</div>
+											</div>
+										</div>
+										<div class="card-main1 clearfix hide" name="memberTR"
+											style="overflow: hidden">
+											<div class="common_table">
+												<table>
+													<tr>
+														<td rowspan="2"><img src="" name="memberImg"></td>
+														<td>手机号</td>
+														<td>姓名</td>
+														<td>性别</td>
+														<td>开卡门店</td>
+														<td>余额</td>
+														<td>礼金</td>
+														<td>欠款</td>
+														<td>会员卡</td>
+														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+													</tr>
+													<tr>
+														<td name="memberPhoneSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberNameSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan">男</td>
+														<td name="memberStoreName">华南美联店</td>
+														<td style="color: #eb4749"
+															name="memberBalanceGiftmoneyAmountSpan"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="needRefund"></td>
+														<td><span name="subAccountNum"></span>张</td>
+													</tr>
+													<input type="hidden" name="memberId">
+												</table>
+											</div>
+											<ul class="member-card" name="subAccountUL">
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="upgrade_vip">
+								<p>升级会员</p>
+								<div class="upgrade_vip_content">
+									<select><option></option></select>升级费用：<em>0元</em><i>(不计入卡金金额）</i>
+								</div>
+							</div>
+
+							<div class="recharge_way">
+								<p>充值金额及支付方式</p>
+								<div class="recharge_way_content">
+									<span> 现金 <input type="text" name="kkCashAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 银联<input type="text" name="kkUnionpayAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 微信<input type="text" name="kkWechatAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 支付宝<input type="text" name="kkAlipayAmount"
+										onkeyup="checkNum(this)">
+									</span> <span> 挂账 <input type="text" name="kkDebtAmount"
+										onkeyup="checkNum(this)">
+									</span>
+								</div>
+							</div>
+
+							<div class="achievement">
+								<p>业绩提成</p>
+								<div class="achievement_content">
+									<div class="achievement_detail">
+										<p>
+											部门业绩 <select name="deptChooseType"  onchange="chooseDept(this)">
+												<option value="1">固定</option>
+												<option value="2">比例</option>
+											</select> <span> <select name="deptSelectValue" id=""
+												onchange="chooseDeptInfo(this)">
+													<option value="">选择部门</option>
+													<c:forEach items="${deptInfoList}" var="deptInfo"
+														varStatus="status">
+														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
+													</c:forEach>
+											</select>
+											</span>
+
+										</p>
+										<ul class="achievement_detail_content clearfix">
+
+										</ul>
+									</div>
+
+									<div class="achievement_recharge">
+										<p>
+											充卡业绩<input type="text"><select><option>选择员工</option></select>
+										</p>
+										<ul class="achievement_recharge_content">
+										</ul>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="send_manage">
+								<p>赠送设置</p>
+								<div class="send_manage_content">
+									<span>礼金赠送<input type="text"></span> <span>分期<input
+										type="text"></span> <span>过期<input type="text"></span>
+									<span>卡金赠送<input type="text"></span>
+								</div>
+							</div>
+							<div class="recharge_time">
+								<span>开单时间<input type="text" id="date"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span><span>手工单号<input
+									type="text"></span>
+								<button onclick="save(this)">充值并结账</button>
+							</div>
+
+						</div>
+
+					
+						<div id="tab4" class="recharge_ul_right_content"
+							style="display: none;">
+							<div class="recharge_user">
+								<p>还款会员</p>
+								<div class="seach_user">
+									<div class="seach_user">
+										<div class="card-main clearfix" name="fillMemberInfo">
+											<div class="p-part-first ml10" name="memberTR" selectType="1">
+												<label class="w60" for="">搜索会员:</label> <input type="text"
+													class="w185" name="phoneNumber" placeholder="会员手机号">
+												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+												<div class="show_search" name="memberListDIV"
+													style="display: none;">
+													<p>
+														以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+														<em><input type="checkbox" name="enterpriseCheck"
+															onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+														</em>
+													<div class="common_close"
+														onclick="cancleMemberSelect(this)">
+														<img src="<%=basePath%>images/emploee_3.png">
+													</div>
+													</p>
+													<div style="height: 400px; overflow: overlay;"
+														name="memberoverDIV"></div>
+												</div>
+											</div>
+										</div>
+										<div class="card-main1 clearfix hide" name="memberTR"
+											style="overflow: hidden">
+											<div class="common_table">
+												<table>
+													<tr>
+														<td rowspan="2"><img src="" name="memberImg"></td>
+														<td>手机号</td>
+														<td>姓名</td>
+														<td>性别</td>
+														<td>开卡门店</td>
+														<td>余额</td>
+														<td>礼金</td>
+														<td>欠款</td>
+														<td>会员卡</td>
+														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+													</tr>
+													<tr>
+														<td name="memberPhoneSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberNameSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan">男</td>
+														<td name="memberStoreName">华南美联店</td>
+														<td style="color: #eb4749"
+															name="memberBalanceGiftmoneyAmountSpan"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="needRefund"></td>
+														<td><span name="subAccountNum"></span>张</td>
+													</tr>
+													<input type="hidden" name="memberId">
+												</table>
+											</div>
+											<ul class="member-card" name="subAccountUL">
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="recharge_way">
+								<p>充值金额及支付方式</p>
+								<div class="recharge_way_content">
+									<span> 现金 <input type="text" name="hkCashAmount"
+										onkeyup="checkNum(this)">
+									</span> 
+									<span> 银联<input type="text" name="hkUnionpayAmount"
+										onkeyup="checkNum(this)">
+									</span> 
+									<span> 微信<input type="text" name="hkWechatAmount"
+										onkeyup="checkNum(this)">
+									</span> 
+									<span> 支付宝<input type="text" name="hkAlipayAmount"
+										onkeyup="checkNum(this)">
+									</span> 
+								</div>
+							</div>
+
+							<div class="recharge_time">
+								<span>开单时间<input type="text" id="date" name="createTime4" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span>
+								<span>手工单号<input name="orderCodetab4" type="text"></span>
+								<button onclick="hkConfirm()">充值并结账</button>
+							</div>
+
+						</div>
+
+						<div id="tab5" class="recharge_ul_right_content"
+							style="display: none;">
+							<div class="recharge_user">
+								<p>赠送会员</p>
+								<div class="seach_user">
+									<div class="seach_user">
+										<div class="card-main clearfix" name="fillMemberInfo">
+											<div class="p-part-first ml10" name="memberTR" selectType="1">
+												<label class="w60" for="">搜索会员:</label> <input type="text"
+													class="w185" name="phoneNumber" placeholder="会员手机号">
+												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+												<div class="show_search" name="memberListDIV"
+													style="display: none;">
+													<p>
+														以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+														<em><input type="checkbox" name="enterpriseCheck"
+															onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+														</em>
+													<div class="common_close"
+														onclick="cancleMemberSelect(this)">
+														<img src="<%=basePath%>images/emploee_3.png">
+													</div>
+													</p>
+													<div style="height: 400px; overflow: overlay;"
+														name="memberoverDIV"></div>
+												</div>
+											</div>
+										</div>
+										<div class="card-main1 clearfix hide" name="memberTR"
+											style="overflow: hidden">
+											<div class="common_table">
+												<table>
+													<tr>
+														<td rowspan="2"><img src="" name="memberImg"></td>
+														<td>手机号</td>
+														<td>姓名</td>
+														<td>性别</td>
+														<td>开卡门店</td>
+														<td>余额</td>
+														<td>礼金</td>
+														<td>欠款</td>
+														<td>会员卡</td>
+														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+													</tr>
+													<tr>
+														<td name="memberPhoneSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberNameSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan">男</td>
+														<td name="memberStoreName">华南美联店</td>
+														<td style="color: #eb4749"
+															name="memberBalanceGiftmoneyAmountSpan"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="needRefund"></td>
+														<td><span name="subAccountNum"></span>张</td>
+													</tr>
+													<input type="hidden" name="memberId">
+												</table>
+											</div>
+											<ul class="member-card" name="subAccountUL">
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="send_manage_">
+								<p>赠送设置</p>
+								<div class="send_manage_content_">
+									<p>
+										积分赠送<input type="text" name="zsIntegralAmount"><em>分</em>
+									</p>
+									<p>
+										<span>礼金赠送 <input type="text" name="zsGiftmoneyAmount" /><em>元</em></span>
+										<span> <select name="zsPartType">
+												<option value="1">不分期</option>
+												<option value="3">3个月</option>
+												<option value="6">6个月</option>
+												<option value="9">9个月</option>
+												<option value="12">12个月</option>
+												<option value="24">24个月</option>
+										</select></span> <span>过期 <select name="zsPastDate">
+												<option value="0">不过期</option>
+												<option value="3">3个月</option>
+												<option value="6">6个月</option>
+												<option value="9">9个月</option>
+												<option value="12">12个月</option>
+												<option value="24">24个月</option>
+										</select></span>
+									</p>
+									<p>
+										<span>赠优惠券 <select style="width: 280px"
+											id="couponSelect">
+												<c:forEach items="${couponList }" var="coupon">
+													<option value="${coupon.couponId }">${coupon.couponName }
+														-${coupon.couponPrice }元</option>
+												</c:forEach>
+										</select> <input type="text" style="width: 60px" name="numberCoupon"><em>张</em>
+											<button onclick="addCoupon(this)">新增</button>
+										</span>
+									</p>
+
+									<ul  name ="coupon" class="add_recharge clearfix">
+									</ul>
+
+									<div class="send_reason">
+										赠送原因<input type="text" name="zsReason">
+									</div>
+								</div>
+							</div>
+							<div class="send_button">
+								<button onclick="presentGift()">立刻赠送</button>
+							</div>
+
+						</div>
+
+						<div id="tab6" class="recharge_ul_right_content"
+							style="display: none;">
+							<div class="recharge_user">
+								<p>转出会员</p>
+								<div class="seach_user">
+									<div class="seach_user">
+										<div class="card-main clearfix" name="fillMemberInfo">
+											<div class="p-part-first ml10" name="memberTR" selectType="1">
+												<label class="w60" for="">搜索会员:</label> <input type="text"
+													class="w185" name="phoneNumber" placeholder="会员手机号">
+												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+												<div class="show_search" name="memberListDIV"
+													style="display: none;">
+													<p>
+														以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+														<em><input type="checkbox" name="enterpriseCheck"
+															onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+														</em>
+													<div class="common_close"
+														onclick="cancleMemberSelect(this)">
+														<img src="<%=basePath%>images/emploee_3.png">
+													</div>
+													</p>
+													<div style="height: 400px; overflow: overlay;"
+														name="memberoverDIV"></div>
+												</div>
+											</div>
+										</div>
+										<div class="card-main1 clearfix hide" id = "outDIV" name="memberTR"
+											style="overflow: hidden">
+											<div class="common_table">
+												<table>
+													<tr>
+														<td rowspan="2"><img src="" name="memberImg"></td>
+														<td>手机号</td>
+														<td>姓名</td>
+														<td>性别</td>
+														<td>开卡门店</td>
+														<td>余额</td>
+														<td>礼金</td>
+														<td>欠款</td>
+														<td>会员卡</td>
+														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+													</tr>
+													<tr>
+														<td name="memberPhoneSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberNameSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan">男</td>
+														<td name="memberStoreName">华南美联店</td>
+														<td style="color: #eb4749"
+															name="memberBalanceGiftmoneyAmountSpan"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="needRefund"></td>
+														<td><span name="subAccountNum"></span>张</td>
+													</tr>
+													<input type="hidden" name="memberId">
+												</table>
+											</div>
+											<ul class="member-card" name="subAccountUL">
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="recharge_user" style="margin: 20px 0">
+								<p>转入会员</p>
+								<div class="seach_user">
+									<div class="seach_user">
+										<div class="card-main clearfix" name="fillMemberInfo">
+											<div class="p-part-first ml10" name="memberTR" selectType="1">
+												<label class="w60" for="">搜索会员:</label> <input type="text"
+													class="w185" name="phoneNumber" placeholder="会员手机号">
+												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+												<div class="show_search" name="memberListDIV"
+													style="display: none;">
+													<p>
+														以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+														<em><input type="checkbox" name="enterpriseCheck"
+															onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+														</em>
+													<div class="common_close"
+														onclick="cancleMemberSelect(this)">
+														<img src="<%=basePath%>images/emploee_3.png">
+													</div>
+													</p>
+													<div style="height: 400px; overflow: overlay;"
+														name="memberoverDIV"></div>
+												</div>
+											</div>
+										</div>
+										<div class="card-main1 clearfix hide" id = "inDIV" name="memberTR"
+											style="overflow: hidden">
+											<div class="common_table">
+												<table>
+													<tr>
+														<td rowspan="2"><img src="" name="memberImg"></td>
+														<td>手机号</td>
+														<td>姓名</td>
+														<td>性别</td>
+														<td>开卡门店</td>
+														<td>余额</td>
+														<td>礼金</td>
+														<td>欠款</td>
+														<td>会员卡</td>
+														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+													</tr>
+													<tr>
+														<td name="memberPhoneSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberNameSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan">男</td>
+														<td name="memberStoreName">华南美联店</td>
+														<td style="color: #eb4749"
+															name="memberBalanceGiftmoneyAmountSpan"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="needRefund"></td>
+														<td><span name="subAccountNum"></span>张</td>
+													</tr>
+													<input type="hidden" name="memberId">
+												</table>
+											</div>
+											<ul class="member-card" name="subAccountUL">
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="recharge_user">
+								<p>转账金额</p>
+								<div class="seach_user_">
+									<input name = "zzChargeAmount" type="text"><em>元</em>
+									<button onclick="zzConfirm()">确认金额</button>
+								</div>
+
+							</div>
+
+						</div>
+
+						<div id="tab7" class="recharge_ul_right_content"
+							style="display: none;">
+							<div class="recharge_user">
+								<p>转出会员</p>
+								<div class="seach_user">
+									<div class="seach_user">
+										<div class="card-main clearfix" name="fillMemberInfo">
+											<div class="p-part-first ml10" name="memberTR" selectType="1">
+												<label class="w60" for="">搜索会员:</label> <input type="text"
+													class="w185" name="phoneNumber" placeholder="会员手机号">
+												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+												<div class="show_search" name="memberListDIV"
+													style="display: none;">
+													<p>
+														以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+														<em><input type="checkbox" name="enterpriseCheck"
+															onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+														</em>
+													<div class="common_close"
+														onclick="cancleMemberSelect(this)">
+														<img src="<%=basePath%>images/emploee_3.png">
+													</div>
+													</p>
+													<div style="height: 400px; overflow: overlay;"
+														name="memberoverDIV"></div>
+												</div>
+											</div>
+										</div>
+										<div class="card-main1 clearfix hide" name="memberTR"
+											style="overflow: hidden">
+											<div class="common_table">
+												<table>
+													<tr>
+														<td rowspan="2"><img src="" name="memberImg"></td>
+														<td>手机号</td>
+														<td>姓名</td>
+														<td>性别</td>
+														<td>开卡门店</td>
+														<td>余额</td>
+														<td>礼金</td>
+														<td>欠款</td>
+														<td>会员卡</td>
+														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+													</tr>
+													<tr>
+														<td name="memberPhoneSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberNameSpan" data-toggle="modal"
+															data-target="#member-data"
+															onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan">男</td>
+														<td name="memberStoreName">华南美联店</td>
+														<td style="color: #eb4749"
+															name="memberBalanceGiftmoneyAmountSpan"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="needRefund"></td>
+														<td><span name="subAccountNum"></span>张</td>
+													</tr>
+													<input type="hidden" name="memberId">
+												</table>
+											</div>
+											<ul class="member-card" name="subAccountUL">
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="quit_vip">
+								<table>
+									<tbody>
+										<tr>
+											<td rowspan="2"><img
+												src="<%=basePath%>images/common_img.png"></td>
+											<td>姓名</td>
+											<td>性别</td>
+											<td>手机号</td>
+											<td>开卡门店</td>
+											<td>余额</td>
+											<td>礼金</td>
+											<td>欠款</td>
+											<td>会员卡</td>
+											<td rowspan="2"><button>重新搜索</button></td>
+										</tr>
+										<tr>
+											<td>哎呦喂啊</td>
+											<td>男</td>
+											<td>1323123123</td>
+											<td>华南美联店</td>
+											<td style="color: #eb4749">12345.0</td>
+											<td style="color: #eb4749">21351</td>
+											<td style="color: #eb4749">21021</td>
+											<td>5张</td>
+										</tr>
+									</tbody>
+								</table>
+								<ul class="recharge_card clearfix">
+									<li>
+										<p>
+											<em>VIP</em>啊啊啊啊啊啊啊啊
+										</p>
+										<div class="item_card">
+											<p>项目折扣：10折</p>
+											<p>商品折扣：10折</p>
+										</div>
+										<div class="rest_money">卡上余额：30300元</div>
+									</li>
+
+									<li>
+										<p>
+											<em>VIP</em>啊啊啊啊啊啊啊啊
+										</p>
+										<div class="item_card">
+											<p>项目折扣：10折</p>
+											<p>商品折扣：10折</p>
+										</div>
+										<div class="rest_money">卡上余额：30300元</div>
+									</li>
+
+									<li>
+										<p>
+											<em>VIP</em>啊啊啊啊啊啊啊啊
+										</p>
+										<div class="item_card">
+											<p>项目折扣：10折</p>
+											<p>商品折扣：10折</p>
+										</div>
+										<div class="rest_money">卡上余额：30300元</div>
+									</li>
+
+									<li>
+										<p>
+											<em>VIP</em>啊啊啊啊啊啊啊啊
+										</p>
+										<div class="item_card">
+											<p>项目折扣：10折</p>
+											<p>商品折扣：10折</p>
+										</div>
+										<div class="rest_money">卡上余额：30300元</div>
+									</li>
+
+									<li>
+										<p>
+											<em>VIP</em>啊啊啊啊啊啊啊啊
+										</p>
+										<div class="item_card">
+											<p>项目折扣：10折</p>
+											<p>商品折扣：10折</p>
+										</div>
+										<div class="rest_money">卡上余额：30300元</div>
+									</li>
+								</ul>
+
+								<div class="quit_money">
+									<span>支出类型<select><option></option></select></span> <span>退出金额<input
+										type="text"><em>元</em></span>
+									<button onclick="save(this)">退卡</button>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
 	
-	                    <div class="card-title">
-	                        	支付方式
-	                    </div>
-	                    <div class="card-main clearfix bdb">
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" style="margin-left: -10px;" for="">现金:</label>
-	                            <input type="text" name="hkCashAmount" class="w85">
-	                        </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">银联:</label>
-	                            <input type="text" name="hkUnionpayAmount" class="w85">
-	                        </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">微信:</label>
-	                            <input type="text" name="hkWechatAmount" class="w85">
-	                        </div>
-	                        <div class="p-part-first1">
-	                            <label class="kaidan-label" for="">支付宝:</label>
-	                            <input type="text" name="hkAlipayAmount" class="w85">
-	                        </div>
-	                    </div>
-	
-	                    <div class="clearfix"></div>
-	
-	                    <div class="confirm-part ml80">
-	                        <button class="btn w100 fr mr55" onclick="hkConfirm()">保存并收银</button>
-	                    </div>
-	
-	                    </form>
-	                </div>
-	
-	            </div><!-- tab6 -->
-                
-	        </div>
-	
-	    </div><!--contentinner-->
-	</div><!--maincontent-->
-	
-	<!--充值提示-->
+		<!--充值提示-->
 	<div class="modal hide" id="czModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	    <div class="modal-dialog" role="document">
 	        <div class="modal-content confirm">
@@ -1091,31 +1137,11 @@
 	        </div>
 	    </div>
 	</div>
-	
-	<%@ include file="/template/memberData.jsp" %>
-	<script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
-	<script type="text/javascript">
-	   var memberLevelListStr = '${memberLevelListStr}';
-	   var memberLevelList = eval("(" + memberLevelListStr + ")");
-	   var phoneNum = '${phoneNum}';
-	   var clickType = '${clickType}';
-	   
-	   jQuery(function(){
-		    jQuery('.show_search table').click(function(){
-			  jQuery(this).addClass('active').siblings('table').removeClass('active')
-	
-			});
-	   })
-	</script>	
-	<script type="text/javascript" src="<%=basePath %>js/keepAccounts/openCard.js?date=<%=new Date().getTime() %>"></script>
-   </div>
-     <!--RIGHT PANEL结束 -->
-
-    <div class="clearfix"></div>
-
-    <div id="star"></div>
-    </div>
-  </div>
-
+	<%@ include file="/template/memberData.jsp"%>
 </body>
+
+
+<script>
+	//dialog('msg');
+</script>
 </html>

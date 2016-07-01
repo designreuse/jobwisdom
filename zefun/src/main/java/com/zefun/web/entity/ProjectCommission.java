@@ -48,6 +48,86 @@ public class ProjectCommission {
 
     /** 岗位标识 */
     private Integer positionId;
+    
+    /** 现金 */
+    private Integer commissionCash;
+    
+    /** 非指定现金*/
+    private Integer commissionNoCash;
+    
+    /** 疗程消费*/
+    private Integer commissionCourse;
+    
+    /** 非指定疗程消费*/
+    private Integer commissionNoCourse;
+    
+    /**卡金 */
+    private Integer commissiGold;
+
+    /**非指定卡金 */
+    private Integer commissiNoGold;  
+    
+    public Integer getCommissiGold() {
+        return commissiGold;
+    }
+
+    public void setCommissiGold(Integer commissiGold) {
+        this.commissiGold = commissiGold;
+    }
+    
+    public Integer getCommissionCash() {
+        return commissionCash;
+    }
+
+    public void setCommissionCash(Integer commissionCash) {
+        this.commissionCash = commissionCash;
+    }
+
+    public Integer getCommissionNoCash() {
+        return commissionNoCash;
+    }
+
+    public void setCommissionNoCash(Integer commissionNoCash) {
+        this.commissionNoCash = commissionNoCash;
+    }
+
+    public Integer getCommissionCourse() {
+        return commissionCourse;
+    }
+
+    public void setCommissionCourse(Integer commissionCourse) {
+        this.commissionCourse = commissionCourse;
+    }
+
+    public Integer getCommissionNoCourse() {
+        return commissionNoCourse;
+    }
+
+    public void setCommissionNoCourse(Integer commissionNoCourse) {
+        this.commissionNoCourse = commissionNoCourse;
+    }
+
+    public Integer getcommissiNoGold() {
+        return commissiNoGold;
+    }
+
+    public void setcommissiNoGold(Integer commissiNoGold) {
+        this.commissiNoGold = commissiNoGold;
+    }
+
+    public Integer getCommissionNoHold() {
+        return commissionNoHold;
+    }
+
+    public void setCommissionNoHold(Integer commissionNoHold) {
+        this.commissionNoHold = commissionNoHold;
+    }
+
+    /** 非指定卡金*/
+    private Integer commissionNoHold;
+    
+ 
+ 
 
     public Integer getCommissionId() {
         return commissionId;

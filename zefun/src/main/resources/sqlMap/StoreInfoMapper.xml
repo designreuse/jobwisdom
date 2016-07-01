@@ -28,6 +28,15 @@
     <result column="balance_sms" property="balanceSms" jdbcType="INTEGER" />
   </resultMap>
 
+
+  <resultMap type="com.zefun.web.dto.StoreInfoDto" id="favourable">
+  		  <id column="store_id" property="storeId" jdbcType="INTEGER" />
+ 		  <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+          <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+	 <association property="favourableAccount" column="store_id" select="com.zefun.web.mapper.FavourableAccountMapper.selectByAccount"></association>
+  </resultMap>
+  
+  
   <sql id="Base_Column_List" >
     store_id, hq_store_id, store_type, store_name, store_linkname, store_account, store_linkphone,
     store_address, store_city, store_province, store_tel, store_logo, carousel_picture, store_desc,
@@ -384,7 +393,15 @@
     select
       <include refid="Base_Column_List" />
     from store_info 
-    where store_account =  #{storeAccount,jdbcType=VARCHAR} 
+    where store_account =  #{storeAccount,jdbcType=VARCHAR}  and store_status=1
+  </select>
+  
+  
+    <select id="selectByfavourable" resultMap="favourable" parameterType="com.zefun.web.entity.Page">
+    select
+      <include refid="Base_Column_List" />
+    from store_info 
+    where store_account = #{params.storeAccount}  and store_status=1 
   </select>
   
 </mapper>

@@ -82,6 +82,8 @@ public class OpenCardController extends BaseController {
 	 * @param payPassword 支付密码
 	 * @param deptStr 业绩部门
 	 * @param openRecommendId 推荐人
+     * @param createTime 创建时间
+     * @param orderCode 单号
 	 * @return BaseDto
 	 * @throws ParseException  解析异常
 	 */
@@ -92,7 +94,7 @@ public class OpenCardController extends BaseController {
     			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal balanceAmount,
     			BigDecimal rewardAmount, Integer messageType, BigDecimal cashAmount, BigDecimal unionpayAmount,
     			BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount, String payPassword, String deptStr,
-    			Integer openRecommendId) throws ParseException {
+    			Integer openRecommendId, String orderCode, String createTime) throws ParseException {
 		// 提成员工
 		List<Integer> recommendId = new ArrayList<Integer>();
 		// 提成金额
@@ -126,7 +128,7 @@ public class OpenCardController extends BaseController {
 		return openCardService.addMemberInfo(memberId, phone, name, sex, levelId, amountvalue, recommendId,
 				commissionAmount, calculateAmount, giftmoneyAmount, pastDate, partType, balanceAmount, rewardAmount,
 				messageType, cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, payPassword, deptIds,
-				deptCalculates, openRecommendId, getStoreId(request), getUserId(request));
+				deptCalculates, openRecommendId, getStoreId(request), getUserId(request), orderCode, createTime);
 	}
 
 	/**
@@ -149,6 +151,8 @@ public class OpenCardController extends BaseController {
 	 * @param rewardAmount 卡金
 	 * @param type 确认情况
 	 * @param deptStr 业绩部门
+	 * @param createTime 创建时间
+	 * @param orderCode 单号
 	 * @return BaseDto
 	 * @throws ParseException  解析异常
 	 */
@@ -157,7 +161,7 @@ public class OpenCardController extends BaseController {
 	public BaseDto rechargeMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer subAccountId,
     			BigDecimal chargeAmount, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
     			BigDecimal alipayAmount, BigDecimal debtAmount, String recommend, BigDecimal giftmoneyAmount,
-    			Integer pastDate, Integer partType, BigDecimal rewardAmount, Integer type, String deptStr)
+    			Integer pastDate, Integer partType, BigDecimal rewardAmount, Integer type, String deptStr, String orderCode, String createTime)
 			throws ParseException {
 		List<Integer> recommendId = new ArrayList<Integer>();
 		List<BigDecimal> commissionAmount = new ArrayList<BigDecimal>();
@@ -189,7 +193,7 @@ public class OpenCardController extends BaseController {
 
 		return openCardService.rechargeMemberInfo(subAccountId, chargeAmount, cashAmount, unionpayAmount, wechatAmount,
 				alipayAmount, debtAmount, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, pastDate,
-				partType, rewardAmount, deptIds, deptCalculates, type, getStoreId(request), getUserId(request));
+				partType, rewardAmount, deptIds, deptCalculates, type, getStoreId(request), getUserId(request), orderCode, createTime);
 	}
 
 	/**
@@ -203,6 +207,8 @@ public class OpenCardController extends BaseController {
 	 * @param cashAmount 现金
 	 * @param unionpayAmount 银联
 	 * @param wechatAmount 微信
+	 * @param createTime 创建时间
+     * @param orderCode 单号
 	 * @param alipayAmount 支付宝
 	 * @return BaseDto
 	 * @throws ParseException  解析异常
@@ -211,10 +217,10 @@ public class OpenCardController extends BaseController {
 	@ResponseBody
 	public BaseDto refundMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer memberId,
     			BigDecimal realPrice, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
-    			BigDecimal alipayAmount) throws ParseException {
+    			BigDecimal alipayAmount, String orderCode, String createTime) throws ParseException {
 
 		return openCardService.refundMemberInfo(memberId, realPrice, cashAmount, unionpayAmount, wechatAmount,
-				alipayAmount, getStoreId(request), getUserId(request));
+				alipayAmount, getStoreId(request), getUserId(request), orderCode, createTime);
 	}
 
 	/**
@@ -237,6 +243,8 @@ public class OpenCardController extends BaseController {
 	 * @param debtAmount 挂账金额
 	 * @param rewardAmount 卡金
 	 * @param deptStr 业绩部门
+	 * @param createTime 创建时间
+     * @param orderCode 单号
 	 * @return BaseDto
 	 * @throws ParseException  解析异常
 	 */
@@ -245,7 +253,7 @@ public class OpenCardController extends BaseController {
 	public BaseDto upgradeMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer memberId,
     			Integer levelId, BigDecimal amountvalue, String recommend, BigDecimal giftmoneyAmount, Integer pastDate,
     			Integer partType, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
-    			BigDecimal alipayAmount, BigDecimal debtAmount, BigDecimal rewardAmount, String deptStr)
+    			BigDecimal alipayAmount, BigDecimal debtAmount, BigDecimal rewardAmount, String deptStr , String orderCode, String createTime)
 			throws ParseException {
 		// 提成员工
 		List<Integer> recommendId = new ArrayList<Integer>();
@@ -278,8 +286,7 @@ public class OpenCardController extends BaseController {
 
 		return openCardService.upgradeMemberInfo(memberId, levelId, amountvalue, recommendId, commissionAmount,
 				calculateAmount, giftmoneyAmount, pastDate, partType, cashAmount, unionpayAmount, wechatAmount,
-				alipayAmount, debtAmount, rewardAmount, getStoreId(request), deptIds, deptCalculates,
-				getUserId(request));
+				alipayAmount, debtAmount, rewardAmount, getStoreId(request), deptIds, deptCalculates, getUserId(request), orderCode, createTime);
 	}
 
 	/**
@@ -293,17 +300,18 @@ public class OpenCardController extends BaseController {
 	 * @param coupon 优惠券标识集合，逗号分割
 	 * @param comment 备注信息
 	 * @param request 请求对象
+	 * @param numberCoupon 优惠卷数量
 	 * @param response 响应对象
 	 * @return 成功返回码为0，失败为其他返回码
 	 */
 	@RequestMapping(value = Url.KeepAccounts.PRESENT_GIFT, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto presentGift(Integer memberId, Integer giftmoneyAmount, Integer part, Integer overdueMonth,
-    			Integer integralAmount, String coupon, String comment, HttpServletRequest request,
+    			Integer integralAmount, String [] coupon, String comment, HttpServletRequest request, Integer numberCoupon,
     			HttpServletResponse response) {
 		int employeeId = getUserId(request);
 		return openCardService.presentGift(memberId, giftmoneyAmount, part, overdueMonth, integralAmount, coupon,
-				comment, employeeId);
+				comment, employeeId, numberCoupon);
 	}
 
 	/**
@@ -315,14 +323,13 @@ public class OpenCardController extends BaseController {
 	 * @param outSubAccountId 转出会员标识
 	 * @param inSubAccountId 转入会员标识
 	 * @param chargeAmount 金额
-	 * @param password 密码
 	 * @return BaseDto
 	 */
 	@RequestMapping(value = Url.KeepAccounts.CHECKOUT_ACCOUNT, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto checkoutAccount(HttpServletRequest request, HttpServletResponse response, Integer outSubAccountId,
-			    Integer inSubAccountId, BigDecimal chargeAmount, String password) {
-		return openCardService.checkoutAccount(outSubAccountId, inSubAccountId, chargeAmount, password,
+			    Integer inSubAccountId, BigDecimal chargeAmount) {
+		return openCardService.checkoutAccount(outSubAccountId, inSubAccountId, chargeAmount,
 				getStoreId(request), getUserId(request));
 	}
 

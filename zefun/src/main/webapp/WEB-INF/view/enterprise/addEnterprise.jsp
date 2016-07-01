@@ -209,6 +209,8 @@
 		jQuery("input[name='enterpriseEdition'][value='1']").click();
 		jQuery("select[name='useTime']").get(0).selectedIndex = 0;
 		jQuery("#city-picker3").citypicker('reset');
+		jQuery("#storeAccount").removeAttr("disabled");
+		jQuery("select[name='useTime']").removeAttr("disabled");
 		enterInfoId=null;
 	}
 	
