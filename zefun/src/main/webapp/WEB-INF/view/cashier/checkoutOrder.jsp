@@ -4,6 +4,27 @@
 <%@ page import="java.util.Date" %>
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath %>css/change_price.css" type="text/css" />
+<style>
+	.zzc{font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);}    
+	.zzc_sure{width:600px;height:430px;margin:50px auto;background:white}
+	.zzc_sure>p{height:66px;text-align:center;font-size:18px;color:white;line-height:66px;color:white;background:#454560}
+	.zzc_sure_content{padding:12px 19px}
+	.zzc_sure_content>p{height:36px;line-height:36px;border-bottom:1px solid #dbdbdb}
+	.zzc_sure_content>p>span{position:relative;left:300px}
+	.zzc_sure_content>p>span em{color:#d01515}
+	.sure_item_name{overflow:hidden;height:238px;border:1px solid #898989;border-radius:8px;margin-top:10px;position:relative}
+    .sure_item_name li{float:left;width:111px;height:40px;text-align:center;line-height:40px;border:1px solid #cdd0d6;border-left:none}
+    .wash_way{height:164px;overflow:overlay;margin-top:40px}
+ 	.wash_way_content{border-bottom:1px solid #898989;}
+	.wash_way_content div{border-right:1px solid #cdd0d6;position:relative;float:left;width:111px;height:104px;text-align:center;line-height:40px}
+	.wash_way_content div input{padding-right:20px;height:16px;width:60px;border-radius:12px;border:1px solid #8b8b8b}
+	.wash_way_content div em{position:absolute;right:20px}
+	.wash_way_content div p{height:34px;line-height:34px}
+	.sure_item_name ul{position:absolute;background:#ebeff8}
+	.zzc_sure_button{text-align:center;margin-top:25px}
+	.zzc_sure_button button{width:130px;height:26px;border:none;text-align:center;line-height:26px;color:white;font-size:16px;background:#6c6c8b;margin:0 41px;border-radius:12px}
+	.zzc_sure_button button:hover{background:#52526b}
+</style>
 <body>
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -80,7 +101,7 @@
 						 
 						    <ul class="clearfix money_card_content"> 
 						      <c:forEach items="${selfCashierOrderDto.subAccountList }" var="subAccount" varStatus="listSize">
-						          <li <c:if test="${listSize.index == 0 }">class="active"</c:if>>
+						          <li <c:if test="${listSize.index == 0 }">class="active"</c:if> levelId = "${subAccount.subAccountId}" balanceAmount = "${subAccount.balanceAmount}" levelName = "${subAccount.levelName}" projectDiscount = "${subAccount.projectDiscount}" goodsDiscount = "${subAccount.goodsDiscount}">
 								    <div class="original_card">
 									  <div class="card_first"> ${subAccount.levelName } <span class="circle_pic" <c:if test="${listSize.index == 0 }">style="display: inline;"</c:if>><img src="<%=basePath %>images/circle.png"></span></div>
 									  <p>项目折扣：<em class="rest">${subAccount.projectDiscount }</em></p>
@@ -107,45 +128,40 @@
 				      </p>
 				      
 				      <c:forEach items="${selfCashierOrderDto.orderDetails }" var="orderDetail" varStatus="listSize">
-				         <div class="change_price__spread">  
+				         <div class="change_price__spread" detailId = "${orderDetail.detailId }" detailType = "${orderDetail.orderType }">  
 							  <p>
-							     <span>${orderDetail.projectName }</span>
+							     <span><a name = "showStep">${orderDetail.projectName }</a></span>
 							     <span>${orderDetail.projectPrice }</span>
-							     <span>${orderDetail.discountAmount }</span>
+							     <span name = "discountAmount" discountAmount = "${orderDetail.discountAmount }">${orderDetail.discountAmount }</span>
 							     <span style="width:180px">
-							         <select  name = "selectOff" detailid = "${orderDetail.detailId }" >
-							            <option uid= "" detailId = "${orderDetail.detailId}" offType = "" offId = "${paymentOff.id }" offAmount = "0"  offName = "未使用优惠">未使用优惠</option>
+							         <select  name = "selectOff" detailid = "${orderDetail.detailId }" onchange="changeOff(this)">
+							            <option uid= "" detailId = "${orderDetail.detailId}" offType = "0" offId = "${paymentOff.id }" offAmount = "0"  offName = "未使用优惠">未使用优惠</option>
 							            <c:forEach items="${orderDetail.paymentOffList}" var = "paymentOff" varStatus="listSize">
-							                <option uid= "${paymentOff.type}_${paymentOff.id}" detailId = "${orderDetail.detailId}" offType = "${paymentOff.type }" offId = "${paymentOff.id }" offAmount = "${paymentOff.amount }"  offName = "${paymentOff.name }">${paymentOff.name} - ${paymentOff.amount}元 </option>
+							                <option uid= "${paymentOff.type}_${paymentOff.id}" detailId = "${orderDetail.detailId}" offType = "${paymentOff.type }" offId = "${paymentOff.id }" offAmount = "${paymentOff.amount }" maxOffAmount = "${paymentOff.amount }" offName = "${paymentOff.name }">${paymentOff.name} - ${paymentOff.amount}元 </option>
 							            </c:forEach>
 							         </select>
 							     </span>
-							     <span>128</span>
-							     <span>123<a href="javascript:;" class="adjust">改</a></span>
-							     <span class="adjust_price"><!-- -50<i>!</i> --></span>
-							     <span>5000</span>
+							     <span name = "offAmount" offAmount = "0">0</span>
+							     <span><em name = "mustAmount" mustAmount = "0"></em><a href="javascript:;" class="adjust" onclick="showChangePric(this)">改</a></span>
+							     <span><em name = "detailFree" detailFree = "0">0</em></span>
+							     <span name = "actualAmount" actualAmount = "0"></span>
 							  </p>
 							  <div class="spread_content"> 
-								  <div class="spread">
-								            计师<span>
-								           <select style="width:130px;padding-left:50px"><option>1100 马冬梅</option></select>
-								        </span>
-								        <span>
-								           <select><option>指定</option></select>
-								        </span>
-								        <span>
-								            <select>
-								                <option>预约</option>
-								                <option>预约</option>
-								            </select>
-								        </span>
-								  </div>
-								   <div class="spread">
-								     计师<span><select style="width:130px;padding-left:50px"><option>1100 马冬梅</option></select></span><span><select><option>指定</option></select></span><span><select><option>预约</option></select></span><span>业绩：<select><option>1121</option></select></span><span>提成：<input type="text"></span>
-								  </div>
-								   <div class="spread">
-								     计师<span><select style="width:130px;padding-left:50px"><option>1100 马冬梅</option></select></span><span><select><option>指定</option></select></span><span><select><option>预约</option></select></span><span>业绩：<select><option>1121</option></select></span><span>提成：<input type="text"></span>
-								  </div>
+							      <c:forEach items="${orderDetail.stepList}" var = "step" varStatus="stepSize">
+							         <div class="spread">
+									    ${step.positionName }<span>
+									           <input type="text" value="${step.employeeInfo.employeeCode } ${step.employeeInfo.name }">
+									        </span>
+									        <span>
+									                             指定 <input type="checkbox" name ="isAssign" <c:if test="${step.isAssign == 1 }">checked="checked"</c:if>>
+									         </span>
+									         <c:if test="${stepSize.index == 0 }">
+									            <span>
+										                             预约 <input type="checkbox" name ="isAppoint" <c:if test="${step.isAppoint == 1 }">checked="checked"</c:if>>
+										        </span>
+									         </c:if>
+									  </div>
+							      </c:forEach>
 							  </div>  
 						 </div>
 				      </c:forEach>
@@ -156,24 +172,31 @@
 					       <span>汇总</span>
 					       <span>${selfCashierOrderDto.receivableAmount }</span>
 					       <span>${selfCashierOrderDto.discountAmount }</span>
-					       <span style="width:180px"></span>
-					       <span>121212</span>
-					       <span>111000</span>
-					       <span class="adjust_price">-50</span>
-					       <span>2500000</span>
+					       <span style="width:180px;height:26px"></span>
+					       <span name = "totailOffAmount"></span>
+					       <span name = "totailMustAmount"></span>
+					       <span name = "tatailChangePric">0</span>
+					       <span name = "totailActualAmount"></span>
 					    </p>
 				   </div>
 				  <div class="change_price_way">
-				    <span>卡金支付<input type="text"></span>
-				    <span>挂账<input type="text"></span>
-				    <span>现金支付<input type="text"></span>
-					<span>团购支付<input type="text"></span>
-					<span>银联支付<input type="text"></span>
-					<span>微信支付<input type="text"></span>
-					<span>支付宝支付<input type="text"></span>
+				    <c:if test="${memberType == 1 }">
+				        <span>卡金支付<input type="text" id="cardpayAmount"></span>
+				    </c:if>
+				    <span>现金支付<input type="text" id="cashAmount" name="cashpayAmount"></span>
+				    <span>银联支付<input type="text" id="unionpayAmount" name="unionpayAmount"></span>
+					<span>微信支付<input type="text" id="wechatAmount" name="wechatAmount"></span>
+					<span>支付宝支付<input type="text" id="alipayAmount" name="alipayAmount"></span>
+					<span>团购支付<input type="text" id="groupAmount" name="groupAmount"></span>
+					<c:if test="${memberType == 1 }">
+					    <span>挂账<input type="text" id="debtAmount"></span>
+					</c:if>
 				  </div>
 				  <div class="send_massage">
-				   发送通知：<span><input type="radio" name="yes">是</span><span><input type="radio" name="yes">否</span><button>结账</button>
+				    <c:if test="${memberType == 1 }">
+				                  发送通知：<span><input type="radio" name="isNotify" value="1" checked="checked">是</span><span><input type="radio" name="isNotify" value="0">否</span>
+				    </c:if>
+				   <button onclick="submitOrderInfo()">结账</button>
 				  </div>
 				</div>
 			  </div> 
@@ -190,16 +213,98 @@
   <div class="zzc_change_price">
      <p>改价</p>
      <div class="zzc_change_price_content">
-	    <p>改价金额<input type="text"><em>*扣款填写负数</em></p>
+        <p>应收金额：<em name= "freeMustAmount"></em></p>
+	    <p>改价后金额<input type="text" name = "freeAmount"></p>
 	    <div class="change_reason">
-	      <span>改价原因</span><textarea></textarea>  
+	      <span>改价原因</span><textarea name = "orderRemark"></textarea>  
 		</div>
 		<div class="zzc_change_price_button">
-		  <button>确定</button>
-		  <button>取消</button>
+		  <button onclick="confirm()">确定</button>
+		  <button onclick = "canle()">取消</button>
 		</div>
 	 </div>
   </div>
+</div>
+
+<div class="zzc hide" style="font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);">
+   <div class="zzc_sure">
+     <p>业绩提成确认</p>
+     <div class="zzc_sure_content">
+	     <p>订单编号:112121212121<span>总价格：<em>¥50</em></span></p>
+	     <div class="sure_item_name">
+		    <ul class="clearfix" style="top:0;left:0">
+			  <li>项目名称</li>
+			  <li>岗位</li>
+			  <li>服务人员</li>
+			  <li>业绩</li>
+			  <li>提成</li>
+			</ul>
+		   
+	<div class="wash_way">
+	    <div class="wash_way_content clearfix">      
+		   <div style="line-height:104px">干洗</div>
+		    <div>
+			  <p>设计师</p>
+			  <p>技师</p>
+			  <p>助理</p>
+			</div>
+			 <div>
+			  <p>1100 老王</p>
+			  <p>1100 老王</p>
+			  <p>1100 老王</p>
+			</div>
+			 <div>
+			  <p><input type="text"><em>元</em></p>
+			  <p><input type="text"><em>元</em></p>
+			  <p><input type="text"><em>元</em></p>
+			</div>
+			<div>
+			  <p><input type="text"><em>元</em></p>
+			  <p><input type="text"><em>元</em></p>
+			  <p><input type="text"><em>元</em></p>
+			</div>
+		   </div>
+		    <div class="wash_way_content clearfix">      
+		   <div style="line-height:104px">干洗</div>
+		    <div>
+			  <p>设计师</p>
+			  <p>技师</p>
+			  <p>助理</p>
+			</div>
+			 <div>
+			  <p>1100 老王</p>
+			  <p>1100 老王</p>
+			  <p>1100 老王</p>
+			</div>
+			 <div>
+			  <p><input type="text"><em>元</em></p>
+			  <p><input type="text"><em>元</em></p>
+			  <p><input type="text"><em>元</em></p>
+			</div>
+			<div>
+			  <p><input type="text"><em>元</em></p>
+			  <p><input type="text"><em>元</em></p>
+			  <p><input type="text"><em>元</em></p>
+			</div>
+		   </div>
+		 </div>  
+		 
+		    <ul class="clearfix" style="bottom:0;left:0;background:#f7f9fd">
+			  <li>结算方式</li>
+			  <li style="width:335px"><span>卡扣  ¥20</span><span>现金  ¥20</span><span>微信  ¥20</span></li>
+			  <li>合集  ¥20</li>
+			  
+			</ul>
+		 
+		 </div>
+		 
+		 <div class="zzc_sure_button">
+		   <button>确定</button>
+		   <button>取消</button>
+		 
+		 </div>
+	 </div>
+   </div>
 </div>
 
 
@@ -207,7 +312,19 @@
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 <%-- <script type="text/javascript" src="<%=basePath %>js/cashier/cashier.js?date=<%=new Date().getTime() %>"></script>
  --%>
+<script type="text/javascript" src="<%=basePath %>js/cashier/checkoutOrder.js"></script>
 <script>
+var orderId =  '${selfCashierOrderDto.orderId}';
+var memberType = '${memberType}';
+var discountMap = null;
+var allOffMap = null;
+if (memberType == 1) {
+	var allOffMapStr = '${allOffMapStr}';
+	allOffMap = eval("(" + allOffMapStr + ")");
+	var discountMapStr = '${discountMapStr}';
+	discountMap = eval("(" + discountMapStr + ")");
+}
+
 count=jQuery('.money_card_content li').size();
 jQuery(function(){
  var now=0;
@@ -233,20 +350,9 @@ jQuery(function(){
 	  }	
     		
     });
- jQuery('.adjust').click(function(){
+ jQuery("a[name='showStep']").click(function(){
      jQuery(this).parents('.change_price__spread').find('.spread_content').stop(true,true).slideToggle();
   });
-})
-
-
-//原价卡上的图片的出现与消失
-jQuery(function(){
-  jQuery('.money_card_content li').click(function(){
-     jQuery(this).find('.circle_pic').show();
-	 jQuery(this).addClass('active')
-  
-  });
-
 })
 </script>
 </body>

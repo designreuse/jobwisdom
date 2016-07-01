@@ -44,8 +44,6 @@ public class OrderInfoSubmitDto {
     
     /** 改价集合*/
     private String updatePricArray;
-    /** 改价备注*/
-    private String upRemark;
 
     
     
@@ -57,14 +55,6 @@ public class OrderInfoSubmitDto {
 
 	public void setUpdatePricArray(String updatePricArray) {
 		this.updatePricArray = updatePricArray;
-	}
-
-	public String getUpRemark() {
-		return upRemark;
-	}
-
-	public void setUpRemark(String upRemark) {
-		this.upRemark = upRemark;
 	}
 
 	public Integer getOrderId() {

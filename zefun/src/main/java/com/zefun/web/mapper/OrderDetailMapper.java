@@ -477,4 +477,27 @@ public interface OrderDetailMapper {
 	 * @return CashierCommissionDto
 	 */
 	CashierCommissionDto selectComboCommissionInfo(Map<String, Integer> map);
+	
+	/**
+	 * 根据会员标识查询所有的订单
+	* @author 老王
+	* @date 2016年6月30日 下午1:59:10 
+	* @param memberId 会员标识
+	* @return List<Map<String, Integer>>
+	 */
+	List<Map<String, Object>> selectIsNotOverOrderDetail(Integer memberId);
+	
+	/**
+	 * 新增会员套餐
+	 * @param map map
+	 * @return 新增记录数
+	 */
+	int insertMemberComboRecord(Map<String, Integer> map);
+	
+	/**
+	 * 新增会员套餐项目
+	 * @param map map
+	 * @return 新增记录数
+	 */
+	int insertMemberComboProject(Map<String, Integer> map);
 }
