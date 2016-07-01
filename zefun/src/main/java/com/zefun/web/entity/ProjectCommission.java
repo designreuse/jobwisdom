@@ -62,19 +62,29 @@ public class ProjectCommission {
     private Integer commissionNoCourse;
     
     /**卡金 */
-    private Integer commissiGold;
+    private Integer commissionGold;
 
     /**非指定卡金 */
-    private Integer commissiNoGold;  
+    private Integer commissionNoGold;  
     
-    public Integer getCommissiGold() {
-        return commissiGold;
+   
+    
+    public Integer getCommissionGold() {
+        return commissionGold;
     }
 
-    public void setCommissiGold(Integer commissiGold) {
-        this.commissiGold = commissiGold;
+    public void setCommissionGold(Integer commissionGold) {
+        this.commissionGold = commissionGold;
     }
-    
+
+    public Integer getCommissionNoGold() {
+        return commissionNoGold;
+    }
+
+    public void setCommissionNoGold(Integer commissionNoGold) {
+        this.commissionNoGold = commissionNoGold;
+    }
+
     public Integer getCommissionCash() {
         return commissionCash;
     }
@@ -109,13 +119,7 @@ public class ProjectCommission {
 
 
 
-    public Integer getCommissiNoGold() {
-        return commissiNoGold;
-    }
 
-    public void setCommissiNoGold(Integer commissiNoGold) {
-        this.commissiNoGold = commissiNoGold;
-    }
 
     public Integer getCommissionNoHold() {
         return commissionNoHold;
