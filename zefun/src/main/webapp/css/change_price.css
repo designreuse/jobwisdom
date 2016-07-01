@@ -27,7 +27,7 @@
 .money_get em i{color:#e0673d;font-size:16px}
 .money_next,.money_over{background:#2a3244;border-radius:20px;color:white;width:110px;height:26px;line-height:26px;text-align:center;border:none;position:relative;left:496px;margin-bottom:25px}
 .change_price_name{position:relative;overflow:overlay;height:400px;border:1px solid #b0b0b0;border-radius:12px;width:1034px;margin:20px auto;color:black}
-.change_price_name>p>span,.change_price_name>.change_price__spread span{border:1px solid #b0b0b0;display:inline-block;width:117px;text-align:center;line-height:42px;border-right: none;
+.change_price_name>p>span,.change_price_name>.change_price__spread span{border:1px solid #b0b0b0;display:inline-block;width:116px;text-align:center;line-height:42px;border-right: none;
     border-top: none;border-bottom:none}
 .change_price_name input{width:80px;height:22px;border-radius:12px;border:1px solid #b0b0b0;text-align:center}
 .change_price_name select{width:150px;height:22px;border-radius:12px;border:1px solid #b0b0b0;}
@@ -75,7 +75,7 @@
 .send_massage button:hover{background:#3f475d}
 .change_price_ span{    border: 1px solid #b0b0b0;
     display: inline-block;
-    width: 117px;
+    width: 116px;
     text-align: center;
     line-height: 42px;
     border-right: none;

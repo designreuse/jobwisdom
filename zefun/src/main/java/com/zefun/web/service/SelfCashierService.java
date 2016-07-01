@@ -584,7 +584,7 @@ public class SelfCashierService {
 			List<OrderDetailStepDto> stepDtoList =  shiftMahjongProjectStepMapper.selectOrderStepListByDetailId(orderDetail.getDetailId());
 			// 业绩计算
 	        BigDecimal tataliCommonCalculate = null;
-			if (orderDetail.getComboId() != null) {
+			if (orderDetail.getOffType() == 1) {
 	            //套餐计算比例
 				tataliCommonCalculate = employeeObjectiveMapper.selectByComboCommonCalculate(orderDetail.getComboId());
 	        }
@@ -694,33 +694,69 @@ public class SelfCashierService {
 		    	}
 		    	else {
 		    		empCommission = new BigDecimal(0);
-		    		/*switch(commissionType) {
+		    		if (orderDetail.getOffType() == 1) {
+		    			payType = 2;
+		    		}
+		    		commissionType = commissionObj.getAssignCashType();
+		    		switch(commissionType) {
 		    			case 1 : // 按比例
-		    			    if (payType == 1) {
-		    			        empCommission = tataliCommonCalculate.multiply(obj.getcardCommissionAmount).divide(hundred);
-		    			    }
-		    			    else {
-		    			        empCommission = tataliCommonCalculate.multiply(commissionAmount).divide(hundred);
-		    			    }
-		    			    
+		    				//如果为指定
+		    				if (orderDetailStepDto.getIsAssign() == 1) {
+		    					if (payType == 1) {
+			    			        empCommission = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionGold())).divide(hundred);
+			    			    }
+			    			    else if (payType == 2){
+			    			    	empCommission = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionCourse())).divide(hundred);
+			    			    }
+			    			    else {
+			    			    	empCommission = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionCash())).divide(hundred);
+			    			    }
+		    				}
+		    				else {
+		    					if (payType == 1) {
+			    			        empCommission = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionNoGold()).divide(hundred);
+			    			    }
+			    			    else if (payType == 2){
+			    			        empCommission = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionNoCourse())).divide(hundred);
+			    			    }
+		    					else {
+		    						empCommission = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionNoCash())).divide(hundred);
+		    					}
+		    				}
 		    			    empCommission = empCommission.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
 		    				break;
 		    			case 2 : // 按固定金额
-		    			    if (payType == 1) {
-		                        empCommission = cardCommissionAmount;
-		                    }
-		                    else {
-		                        empCommission = commissionAmount;
-		                    }
+		    				if (orderDetailStepDto.getIsAppoint() == 1) {
+		    					if (payType == 1) {
+			    			        empCommission = new BigDecimal(commissionObj.getCommissionGold());
+			    			    }
+			    			    else if (payType == 2){
+			    			    	empCommission = new BigDecimal(commissionObj.getCommissionCourse());
+			    			    }
+			    			    else {
+			    			    	empCommission = new BigDecimal(commissionObj.getCommissionCash());
+			    			    }
+		    				}
+		    				else {
+		    					if (payType == 1) {
+			    			        empCommission = new BigDecimal(commissionObj.getCommissionNoGold());
+			    			    }
+			    			    else if (payType == 2){
+			    			        empCommission = new BigDecimal(commissionObj.getCommissionNoCourse());
+			    			    }
+		    					else {
+		    						empCommission = new BigDecimal(commissionObj.getCommissionNoCash());
+		    					}
+		    				}
 		    				break;
 		    			default :
 		    				break;
 		    		}
 		    		
 		    		//当为预约时
-		    		if (isAppoint == 1) {
-		    		    empCommission = empCommission.add(commissionDto.getAppointmentReward());
-		    		}*/
+		    		if (orderDetailStepDto.getIsAppoint() == 1) {
+		    		    empCommission = empCommission.add(new BigDecimal(commissionObj.getCommissionCard()));
+		    		}
 		    	}
 			}
 		}
