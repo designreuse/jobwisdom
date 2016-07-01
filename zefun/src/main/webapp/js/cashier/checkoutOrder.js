@@ -420,9 +420,17 @@ function submitOrderInfo() {
         success: function(data) {
 			if(data.code != 0) {
 				dialog(data.msg);
-			} else {
-				dialog('结账成功');
-            }
+				return;
+			}
+			dialog('结账成功');
+			var orderMap = data.msg;
+			jQuery("em[name='orderCode']").text(orderMap.orderCode);
+			var stepCommissionList = orderMap.stepCommissionList;
+			for (var i = 0; i < stepCommissionList.length; i++) {
+				var stepCommission = stepCommissionList[i];
+				var str = '';
+			}
+			jQuery(".wash_way")
 			jQuery('#cashier').modal('hide');
 			window.location.href = baseUrl + 'selfcashier/view/list';
 		}

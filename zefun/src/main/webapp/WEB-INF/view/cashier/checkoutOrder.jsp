@@ -226,11 +226,11 @@
   </div>
 </div>
 
-<div class="zzc hide" style="font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);">
+<div class="zzc hide" name = "payModal" style="font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);">
    <div class="zzc_sure">
      <p>业绩提成确认</p>
      <div class="zzc_sure_content">
-	     <p>订单编号:112121212121<span>总价格：<em>¥50</em></span></p>
+	     <p>订单编号:<em name = "orderCode"></em></p>
 	     <div class="sure_item_name">
 		    <ul class="clearfix" style="top:0;left:0">
 			  <li>项目名称</li>
@@ -241,29 +241,7 @@
 			</ul>
 		   
 	<div class="wash_way">
-	    <div class="wash_way_content clearfix">      
-		   <div style="line-height:104px">干洗</div>
-		    <div>
-			  <p>设计师</p>
-			  <p>技师</p>
-			  <p>助理</p>
-			</div>
-			 <div>
-			  <p>1100 老王</p>
-			  <p>1100 老王</p>
-			  <p>1100 老王</p>
-			</div>
-			 <div>
-			  <p><input type="text"><em>元</em></p>
-			  <p><input type="text"><em>元</em></p>
-			  <p><input type="text"><em>元</em></p>
-			</div>
-			<div>
-			  <p><input type="text"><em>元</em></p>
-			  <p><input type="text"><em>元</em></p>
-			  <p><input type="text"><em>元</em></p>
-			</div>
-		   </div>
+	    
 		    <div class="wash_way_content clearfix">      
 		   <div style="line-height:104px">干洗</div>
 		    <div>
