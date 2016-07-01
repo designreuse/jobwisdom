@@ -349,7 +349,7 @@
 													<p>提成</p>
 													
 													<ul  class="achievement_content clearfix" id="check1">
-													<c:forEach items="${positionInfoDtos[2].employeeLevel }" var="selectAllByStoreId">
+													<c:forEach items="${positionInfoDtos[0].employeeLevel }" var="selectAllByStoreId">
 														<li><input   type="checkbox" onchange="insertTable(this,'${selectAllByStoreId.levelName }',${selectAllByStoreId.levelId },1)" value="${selectAllByStoreId.levelId }">${selectAllByStoreId.levelName }</li>
 													</c:forEach>
 													</ul>
@@ -388,7 +388,7 @@
 													</div>
 													<p>提成</p>
 													<ul class="achievement_content clearfix" id="check2">
-													<c:forEach items="${positionInfoDtos[0].employeeLevel }" var="selectAllByStoreId">
+													<c:forEach items="${positionInfoDtos[1].employeeLevel }" var="selectAllByStoreId">
 														<li><input   type="checkbox" onchange="insertTable(this,'${selectAllByStoreId.levelName }',${selectAllByStoreId.levelId },2)" value="${selectAllByStoreId.levelId }">${selectAllByStoreId.levelName }</li>
 													</c:forEach>
 													</ul>
@@ -425,7 +425,7 @@
 													</div>
 													<p>提成</p>
 													<ul class="achievement_content clearfix" id="check3">
-													<c:forEach items="${positionInfoDtos[1].employeeLevel}" var="selectAllByStoreId">
+													<c:forEach items="${positionInfoDtos[2].employeeLevel}" var="selectAllByStoreId">
 														<li> <input  type="checkbox" onchange="insertTable(this,'${selectAllByStoreId.levelName }',${selectAllByStoreId.levelId },3)" value="${selectAllByStoreId.levelId }">${selectAllByStoreId.levelName }</li>
 													</c:forEach>
 													</ul>
