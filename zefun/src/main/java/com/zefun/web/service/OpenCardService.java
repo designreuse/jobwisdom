@@ -443,17 +443,17 @@ public class OpenCardService {
 
 		// 修改账户信息
 		Map<String, Object> hashMap = new HashMap<String, Object>();
-		hashMap.put("chargeAmount", chargeAmount.add(rewardAmount));
+		hashMap.put("chargeAmount", chargeAmount.add(rewardAmount)); // rewardAmount 卡金
 		hashMap.put("rewardAmount", rewardAmount);
 		hashMap.put("accountId", memberId);
-		memberAccountMapper.updateCharge(hashMap);
+		memberAccountMapper.updateCharge(hashMap);  //总值和余额都加上 chargeAmount
 
 		// 修改子账户信息
 		Map<String, Object> subHashMap = new HashMap<String, Object>();
 		subHashMap.put("subAccountId", subAccount.getSubAccountId());
 		subHashMap.put("chargeAmount", chargeAmount.add(rewardAmount));
 		subHashMap.put("rewardAmount", rewardAmount);
-		memberSubAccountMapper.updateCharge(subHashMap);
+		memberSubAccountMapper.updateCharge(subHashMap); //总值和余额都加上 chargeAmount
 
 		commissionAndGift(memberId, subAccount.getSubAccountId(), recommendId, commissionAmount, calculateAmount, giftmoneyAmount, chargeAmount,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 5, storeId,
@@ -501,6 +501,9 @@ public class OpenCardService {
 		MemberAccount record = new MemberAccount();
 		record.setAccountId(memberId);
 		record.setDebtAmount(memberAccount.getDebtAmount().subtract(realPrice));
+		if (memberAccount.getDebtAmount().compareTo(new BigDecimal(0)) <= 0) {
+		    new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+		}
 		memberAccountMapper.updateByPrimaryKey(record);
 
 		List<Integer> recommendId = new ArrayList<Integer>();

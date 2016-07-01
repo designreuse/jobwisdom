@@ -79,8 +79,9 @@
         sms.is_appoint as isAppoint,
         sms.is_over as isOver,
         sms.is_current as isCurrent
-    from shift_mahjong_project_step sms, position_info ps 
-    where sms.detail_id = #{detailId} and sms.position_id = ps.position_id and sms.is_deleted = 0 order by ps.position_id
+    from shift_mahjong_project_step sms
+    left join position_info ps on sms.position_id = ps.position_id 
+    where sms.detail_id = #{detailId} and sms.is_deleted = 0 order by ps.position_id
   </select>
   
   <select id="selectOrderStepByCurrent" resultMap="DetailStepResultMap" parameterType="java.lang.Integer">

@@ -5,10 +5,9 @@
 <%@ include file="/head.jsp"%>
 <link rel="stylesheet" href="<%=basePath%>css/recharge.css"
 	type="text/css" />
-<script type="text/javascript"
-	src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript"
-	src="<%=basePath%>js/keepAccounts/openCard.js?date=<%=new Date().getTime()%>"></script>
+<script type="text/javascript"	src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript"	src="<%=basePath%>/js/common/md5.js"></script>
+<script type="text/javascript"	src="<%=basePath%>js/keepAccounts/openCard.js?date=<%=new Date().getTime()%>"></script>
 <script>
 	jQuery(
 			function() {

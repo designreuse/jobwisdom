@@ -16,15 +16,14 @@
     <result column="commission_no_price" property="commissionNoPrice" jdbcType="INTEGER" />
     <result column="commission_card" property="commissionCard" jdbcType="INTEGER" />
     <result column="position_id" property="positionId" jdbcType="INTEGER" />
-    <result column="commission_no_gold" property="commissiNoGold" jdbcType="INTEGER" />
-    <result column="commission_gold" property="commissiGold" jdbcType="INTEGER" />
+    <result column="commission_no_gold" property="commissionNoGold" jdbcType="INTEGER" />
+    <result column="commission_gold" property="commissionGold" jdbcType="INTEGER" />
     <result column="commission_no_course" property="commissionNoCourse" jdbcType="INTEGER" />
     <result column="commission_course" property="commissionCourse" jdbcType="INTEGER" />
     <result column="commission_no_cash" property="commissionNoCash" jdbcType="INTEGER" />
     <result column="commission_cash" property="commissionCash" jdbcType="INTEGER" />
   </resultMap>
 
-  
 
   
   <resultMap id="ProjectCommissionDtoMap" type="com.zefun.web.dto.ProjectCommissionDto" >
@@ -125,10 +124,10 @@
         last_operator_id,
       </if>
 
-      <if test="commissiNoGold != null" >
+      <if test="commissionNoGold != null" >
         commission_no_gold,
       </if>
-      <if test="commissiGold != null" >
+      <if test="commissionGold != null" >
         commission_gold,
       </if>
       <if test="commissionNoCourse != null" >
@@ -200,11 +199,11 @@
         #{lastOperatorId,jdbcType=INTEGER},
       </if>
       
-        <if test="commissiNoGold != null" >
-         #{commissiNoGold,jdbcType=INTEGER},
+        <if test="commissionNoGold != null" >
+         #{commissionNoGold,jdbcType=INTEGER},
       </if>
-      <if test="commissiGold != null" >
-           #{commissiGold,jdbcType=INTEGER},
+      <if test="commissionGold != null" >
+           #{commissionGold,jdbcType=INTEGER},
       </if>
       <if test="commissionNoCourse != null" >
         #{commissionNoCourse,jdbcType=INTEGER},
@@ -279,11 +278,11 @@
       </if>
       
       
-      <if test="commissiNoGold != null" >
-        commission_no_gold= #{commissiNoGold,jdbcType=INTEGER},
+      <if test="commissionNoGold != null" >
+        commission_no_gold= #{commissionNoGold,jdbcType=INTEGER},
       </if>
-      <if test="commissiGold != null" >
-        commission_gold= #{commissiGold,jdbcType=INTEGER},
+      <if test="commissionGold != null" >
+        commission_gold= #{commissionGold,jdbcType=INTEGER},
       </if>
       <if test="commissionNoCourse != null" >
         commission_no_course= #{commissionNoCourse,jdbcType=INTEGER},
@@ -325,11 +324,11 @@
         and is_deleted = #{isDeleted,jdbcType=INTEGER}
       </if>
       
-  		<if test="commissiNoGold != null" >
-        and commission_no_gold= #{commissiNoGold,jdbcType=INTEGER},
+  		<if test="commissionNoGold != null" >
+        and commission_no_gold= #{commissionNoGold,jdbcType=INTEGER},
       </if>
-      <if test="commissiGold != null" >
-         and commission_gold= #{commissiGold,jdbcType=INTEGER},
+      <if test="commissionGold != null" >
+         and commission_gold= #{commissionGold,jdbcType=INTEGER},
       </if>
       <if test="commissionNoCourse != null" >
          and  commission_no_course= #{commissionNoCourse,jdbcType=INTEGER},
@@ -416,7 +415,7 @@
   	,commission_cash, commission_no_cash, commission_course, commission_no_course, commission_gold,  commission_no_gold)  values
     <foreach collection="list" item="item" index="index" separator=",">
     	(#{item.positionId}, #{item.levelId}, #{item.assignCashType}, #{item.commissionPrice}, #{item.commissionNoPrice}, #{item.commissionCard}, #{item.isDeleted}, #{item.projectId},
-    	 #{item.commissionCash}, #{item.commissionNoCash}, #{item.commissionCourse},#{item.commissionNoCourse},#{item.commissiGold}, #{item.commissiNoGold})
+    	 #{item.commissionCash}, #{item.commissionNoCash}, #{item.commissionCourse},#{item.commissionNoCourse},#{item.commissionGold}, #{item.commissionNoGold})
      </foreach>  
   </insert>
 

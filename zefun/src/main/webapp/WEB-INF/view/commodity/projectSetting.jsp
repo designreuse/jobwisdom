@@ -349,7 +349,7 @@
 													<p>提成</p>
 													
 													<ul  class="achievement_content clearfix" id="check1">
-													<c:forEach items="${positionInfoDtos[2].employeeLevel }" var="selectAllByStoreId">
+													<c:forEach items="${positionInfoDtos[0].employeeLevel }" var="selectAllByStoreId">
 														<li><input   type="checkbox" onchange="insertTable(this,'${selectAllByStoreId.levelName }',${selectAllByStoreId.levelId },1)" value="${selectAllByStoreId.levelId }">${selectAllByStoreId.levelName }</li>
 													</c:forEach>
 													</ul>
@@ -388,7 +388,7 @@
 													</div>
 													<p>提成</p>
 													<ul class="achievement_content clearfix" id="check2">
-													<c:forEach items="${positionInfoDtos[0].employeeLevel }" var="selectAllByStoreId">
+													<c:forEach items="${positionInfoDtos[1].employeeLevel }" var="selectAllByStoreId">
 														<li><input   type="checkbox" onchange="insertTable(this,'${selectAllByStoreId.levelName }',${selectAllByStoreId.levelId },2)" value="${selectAllByStoreId.levelId }">${selectAllByStoreId.levelName }</li>
 													</c:forEach>
 													</ul>
@@ -425,7 +425,7 @@
 													</div>
 													<p>提成</p>
 													<ul class="achievement_content clearfix" id="check3">
-													<c:forEach items="${positionInfoDtos[1].employeeLevel}" var="selectAllByStoreId">
+													<c:forEach items="${positionInfoDtos[2].employeeLevel}" var="selectAllByStoreId">
 														<li> <input  type="checkbox" onchange="insertTable(this,'${selectAllByStoreId.levelName }',${selectAllByStoreId.levelId },3)" value="${selectAllByStoreId.levelId }">${selectAllByStoreId.levelName }</li>
 													</c:forEach>
 													</ul>
@@ -747,19 +747,19 @@
 		var assignCashType = jQuery(".tr1").eq(i).find('td').eq(1).find('select option:selected').val();
 		
 		var commissionCash=jQuery(".tr1").eq(i).find('td').eq(2).find('span input').val();
-		var commissiGold =jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
+		var commissionGold =jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
 		var commissionCourse=jQuery(".tr1").eq(i).find('td').eq(4).find('span input').val();
 		
 		var commissionNoCash=jQuery(".tr1").eq(i).find('td').eq(5).find('span input').val();
-		var commissiNoGold =jQuery(".tr1").eq(i).find('td').eq(6).find('span input').val();
+		var commissionNoGold =jQuery(".tr1").eq(i).find('td').eq(6).find('span input').val();
 		var commissionNoCourse=jQuery(".tr1").eq(i).find('td').eq(7).find('span input').val();
 		
 		commissionCash=checked(commissionCash);
-		commissiGold=checked(commissiGold);
+		commissionGold=checked(commissionGold);
 		commissionCourse=checked(commissionCourse);
 		
 		commissionNoCash=checked(commissionNoCash);
-		commissiNoGold=checked(commissiNoGold);
+		commissionNoGold=checked(commissionNoGold);
 		commissionNoCourse=checked(commissionNoCourse);
 		
 	
@@ -767,8 +767,8 @@
 		
 		projectCommission.push(
 				{"projectId":projectId,"levelId":levelId,"isDeleted":0,"positionId":positionId,"assignCashType":assignCashType,
-					"commissionCash":commissionCash,"commissiGold":commissiGold,"commissionCourse":commissionCourse,"commissionNoCash":commissionNoCash,
-					"commissiNoGold":commissiNoGold,"commissionNoCourse":commissionNoCourse,"commissionCard":commissionCard});
+					"commissionCash":commissionCash,"commissionGold":commissionGold,"commissionCourse":commissionCourse,"commissionNoCash":commissionNoCash,
+					"commissionNoGold":commissionNoGold,"commissionNoCourse":commissionNoCourse,"commissionCard":commissionCard});
 	}
 	project.push({"projectId":projectId,"positionId":positionId,"stepPerformanceType":stepPerformanceType,"stepPerformance":stepPerformance});
 	
@@ -783,25 +783,25 @@
 		var levelId =jQuery(".tr2").eq(i).find('td').eq(0).attr('value');
 		var assignCashType = jQuery(".tr2").eq(i).find('td').eq(1).find('select option:selected').val();
 	
-		var commissionCash=jQuery(".tr1").eq(i).find('td').eq(2).find('span input').val();
-		var commissiGold =jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
-		var commissionCourse=jQuery(".tr1").eq(i).find('td').eq(4).find('span input').val();
+		var commissionCash=jQuery(".tr2").eq(i).find('td').eq(2).find('span input').val();
+		var commissionGold =jQuery(".tr2").eq(i).find('td').eq(3).find('span input').val();
+		var commissionCourse=jQuery(".tr2").eq(i).find('td').eq(4).find('span input').val();
 		
-		var commissionNoCash=jQuery(".tr1").eq(i).find('td').eq(5).find('span input').val();
-		var commissiNoGold =jQuery(".tr1").eq(i).find('td').eq(6).find('span input').val();
-		var commissionNoCourse=jQuery(".tr1").eq(i).find('td').eq(7).find('span input').val();
+		var commissionNoCash=jQuery(".tr2").eq(i).find('td').eq(5).find('span input').val();
+		var commissionNoGold =jQuery(".tr2").eq(i).find('td').eq(6).find('span input').val();
+		var commissionNoCourse=jQuery(".tr2").eq(i).find('td').eq(7).find('span input').val();
 		
 		commissionCash=checked(commissionCash);
-		commissiGold=checked(commissiGold);
+		commissionGold=checked(commissionGold);
 		commissionCourse=checked(commissionCourse);
 		
 		commissionNoCash=checked(commissionNoCash);
-		commissiNoGold=checked(commissiNoGold);
+		commissionNoGold=checked(commissionNoGold);
 		commissionNoCourse=checked(commissionNoCourse);
 		
 		projectCommission.push({"projectId":projectId,"levelId":levelId,"isDeleted":0,"positionId":positionId,"assignCashType":assignCashType,
-			"commissionCash":commissionCash,"commissiGold":commissiGold,"commissionCourse":commissionCourse,"commissionNoCash":commissionNoCash,
-			"commissiNoGold":commissiNoGold,"commissionNoCourse":commissionNoCourse,"commissionCard":commissionCard});
+			"commissionCash":commissionCash,"commissionGold":commissionGold,"commissionCourse":commissionCourse,"commissionNoCash":commissionNoCash,
+			"commissionNoGold":commissionNoGold,"commissionNoCourse":commissionNoCourse,"commissionCard":commissionCard});
 	}
 	
 	project.push({"projectId":projectId,"isDeleted":0,"positionId":positionId,"stepPerformanceType":stepPerformanceType,"stepPerformance":stepPerformance});
@@ -812,25 +812,25 @@
 	for (var i = 0; i < jQuery(".tr3").length; i++) {
 		var levelId =jQuery(".tr3").eq(i).find('td').eq(0).attr('value');
 		var assignCashType = jQuery(".tr3").eq(i).find('td').eq(1).find('select option:selected').val();
-		var commissionCash=jQuery(".tr1").eq(i).find('td').eq(2).find('span input').val();
-		var commissiGold =jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
-		var commissionCourse=jQuery(".tr1").eq(i).find('td').eq(4).find('span input').val();
+		var commissionCash=jQuery(".tr3").eq(i).find('td').eq(2).find('span input').val();
+		var commissionGold =jQuery(".tr3").eq(i).find('td').eq(3).find('span input').val();
+		var commissionCourse=jQuery(".tr3").eq(i).find('td').eq(4).find('span input').val();
 		
-		var commissionNoCash=jQuery(".tr1").eq(i).find('td').eq(5).find('span input').val();
-		var commissiNoGold =jQuery(".tr1").eq(i).find('td').eq(6).find('span input').val();
-		var commissionNoCourse=jQuery(".tr1").eq(i).find('td').eq(7).find('span input').val();
+		var commissionNoCash=jQuery(".tr3").eq(i).find('td').eq(5).find('span input').val();
+		var commissionNoGold =jQuery(".tr3").eq(i).find('td').eq(6).find('span input').val();
+		var commissionNoCourse=jQuery(".tr3").eq(i).find('td').eq(7).find('span input').val();
 		
 		commissionCash=checked(commissionCash);
-		commissiGold=checked(commissiGold);
+		commissionGold=checked(commissionGold);
 		commissionCourse=checked(commissionCourse);
 		
 		commissionNoCash=checked(commissionNoCash);
-		commissiNoGold=checked(commissiNoGold);
+		commissionNoGold=checked(commissionNoGold);
 		commissionNoCourse=checked(commissionNoCourse);
 
 		projectCommission.push({"projectId":projectId,"levelId":levelId,"isDeleted":0,"positionId":positionId,"assignCashType":assignCashType,
-			"commissionCash":commissionCash,"commissiGold":commissiGold,"commissionCourse":commissionCourse,"commissionNoCash":commissionNoCash,
-			"commissiNoGold":commissiNoGold,"commissionNoCourse":commissionNoCourse,"commissionCard":commissionCard});
+			"commissionCash":commissionCash,"commissionGold":commissionGold,"commissionCourse":commissionCourse,"commissionNoCash":commissionNoCash,
+			"commissionNoGold":commissionNoGold,"commissionNoCourse":commissionNoCourse,"commissionCard":commissionCard});
 	}
 	project.push({"projectId":projectId,"isDeleted":0,"positionId":positionId,"stepPerformanceType":stepPerformanceType,"stepPerformance":stepPerformance});
 		return {
@@ -1357,14 +1357,14 @@
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(1).find("select").val(selectShow[j].assignCashType);
 			
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(2).find("input").val(selectShow[j].commissionCash);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissiGold);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionCourse);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionNoCash);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissiNoGold);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionNoCourse);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionGold);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(4).find("input").val(selectShow[j].commissionCourse);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(5).find("input").val(selectShow[j].commissionNoCash);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(6).find("input").val(selectShow[j].commissionNoGold);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(7).find("input").val(selectShow[j].commissionNoCourse);
 			
 			if(selectShow[j].commissionCard != "" && selectShow[j].commissionCard >0){
-				jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(4).find("input").val(selectShow[j].commissionCard);
+				jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(8).find("input").val(selectShow[j].commissionCard);
 			}
 			if(selectShow[j].assignCashType==2){
 				jQuery('i[id='+selectShow[j].levelId+']').text("%");

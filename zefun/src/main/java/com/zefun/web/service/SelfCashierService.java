@@ -314,11 +314,13 @@ public class SelfCashierService {
   		if (orderSubmit.getCardAmount().compareTo(new BigDecimal(0)) == 1) {
   		    payType = 1;
   		}
-		
+  		List<Map<String, Object>> stepCommissionList = new ArrayList<>();
 		// 依次遍历所有支付的明细信息
 		for (OrderDetaiSubmitDto detail : orderSubmit.getDetailList()) {
 			SelfCashierDetailDto ownerDetail = detailMap.get(String.valueOf(detail.getDetailId()));
 
+			Map<String, Object> stepCommissionMap = new HashMap<>();
+			
 			OrderDetail orderDetail = new OrderDetail();
 			orderDetail.setOrderType(ownerDetail.getOrderType());
 			orderDetail.setProjectId(ownerDetail.getProjectId());
@@ -326,7 +328,6 @@ public class SelfCashierService {
 			orderDetail.setGiftAmount(BigDecimal.ZERO);
 			orderDetail.setRealPrice(ownerDetail.getDiscountAmount());
 			orderDetail.setUpdateTime(curTime);
-
 			if (ownerMemberId != null) {
 				// 一人多卡，从新计算折扣价格
 				BigDecimal tempAmount = null;
@@ -420,13 +421,18 @@ public class SelfCashierService {
 			realAmount = realAmount.add(orderDetail.getRealPrice());
 			orderDetailMapper.updateByPrimaryKey(orderDetail);
 			
-			calculateCommonCommission(orderDetail, memberSubAccount, storeId, payType, ownerMemberId, employeeId);
+			OrderDetail orderDetailObj = orderDetailMapper.selectByPrimaryKey(orderDetail.getDetailId());
+			
+			stepCommissionMap = calculateCommonCommission(orderDetailObj, memberSubAccount, storeId, payType, ownerMemberId, employeeId);
+			stepCommissionList.add(stepCommissionMap);
 		}
 
 		if (realAmount.compareTo(BigDecimal.ZERO) == -1) {
 			realAmount = BigDecimal.ZERO;
 		}
 
+		
+		
 		// 校验实收金额
 		BigDecimal tempAmount = cashierDto.getDebtAmount().add(orderSubmit.getAlipayAmount())
 				  .add(orderSubmit.getCardAmount()).add(orderSubmit.getCashAmount()).add(giftAmount)
@@ -456,6 +462,60 @@ public class SelfCashierService {
 		orderInfo.setLastOperatorId(employeeId);
 		orderInfoMapper.updateByPrimaryKey(orderInfo);
 
+		OrderInfo orderInfoObj = orderInfoMapper.selectByPrimaryKey(orderId);
+		
+		List<Map<String, Object>> payTypeList = new ArrayList<>();
+		
+		if (orderSubmit.getCardAmount().compareTo(new BigDecimal(0)) == 1) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("payName", "卡扣");
+			map.put("payAmount", orderSubmit.getCardAmount());
+			payTypeList.add(map);
+		}
+		if (orderSubmit.getCashAmount().compareTo(new BigDecimal(0)) == 1) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("payName", "现金");
+			map.put("payAmount", orderSubmit.getCashAmount());
+			payTypeList.add(map);
+		}
+		if (orderSubmit.getUnionpayAmount().compareTo(new BigDecimal(0)) == 1) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("payName", "银联");
+			map.put("payAmount", orderSubmit.getUnionpayAmount());
+			payTypeList.add(map);
+		}
+		if (orderSubmit.getAlipayAmount().compareTo(new BigDecimal(0)) == 1) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("payName", "支付宝");
+			map.put("payAmount", orderSubmit.getAlipayAmount());
+			payTypeList.add(map);
+		}
+		if (orderSubmit.getWechatAmount().compareTo(new BigDecimal(0)) == 1) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("payName", "微信");
+			map.put("payAmount", orderSubmit.getWechatAmount());
+			payTypeList.add(map);
+		}
+		if (orderSubmit.getGroupAmount().compareTo(new BigDecimal(0)) == 1) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("payName", "团购");
+			map.put("payAmount", orderSubmit.getGroupAmount());
+			payTypeList.add(map);
+		}
+		if (orderSubmit.getDebtAmount().compareTo(new BigDecimal(0)) == 1) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("payName", "挂账");
+			map.put("payAmount", orderSubmit.getDebtAmount());
+			payTypeList.add(map);
+		}
+		
+		
+		
+		Map<String, Object> orderMap = new HashMap<>();
+		orderMap.put("orderCode", orderInfoObj.getOrderCode());
+		orderMap.put("payTypeList", payTypeList);
+		orderMap.put("realAmount", orderInfoObj.getRealAmount());
+		orderMap.put("stepCommissionList", stepCommissionList);
 		// 检查是否需要减扣卡金
 		MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(ownerMemberId, false);
 		if (orderSubmit.getCardAmount().compareTo(BigDecimal.ZERO) == 1) {
@@ -540,7 +600,7 @@ public class SelfCashierService {
 			}
 		}
 
-		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, orderMap);
 	}
 	
 	/**
@@ -551,9 +611,15 @@ public class SelfCashierService {
 	 * @param payType 支付方式
 	 * @param memberId 会员标识
 	 * @param employeeId 操作人
+	 * @return Map<String, Object>
 	 */
-	protected void calculateCommonCommission(OrderDetail orderDetail, MemberSubAccount memberSubAccount, Integer storeId, Integer payType,
-			  Integer memberId, Integer employeeId) {
+	protected Map<String, Object> calculateCommonCommission(OrderDetail orderDetail, MemberSubAccount memberSubAccount, 
+			  Integer storeId, Integer payType, Integer memberId, Integer employeeId) {
+		
+		Map<String, Object> stepCommissionMap = new HashMap<>();
+		stepCommissionMap.put("projectName", orderDetail.getProjectName());
+		stepCommissionMap.put("detailId", orderDetail.getDetailId());
+		stepCommissionMap.put("orderType", orderDetail.getOrderType());
 		
         BigDecimal hundred = new BigDecimal(100);
 	    //查询门店设置
@@ -579,12 +645,13 @@ public class SelfCashierService {
 	    	performanceDiscountPercent = memberLevelDiscount.getPerformanceDiscountPercent();
 	    }
 	    
+	    List<Map<String, Object>> stepList = new ArrayList<>();
         //当为项目时
 		if (orderDetail.getOrderType() == 1) {
 			List<OrderDetailStepDto> stepDtoList =  shiftMahjongProjectStepMapper.selectOrderStepListByDetailId(orderDetail.getDetailId());
 			// 业绩计算
 	        BigDecimal tataliCommonCalculate = null;
-			if (orderDetail.getComboId() != null) {
+			if (orderDetail.getOffType() == 1) {
 	            //套餐计算比例
 				tataliCommonCalculate = employeeObjectiveMapper.selectByComboCommonCalculate(orderDetail.getComboId());
 	        }
@@ -609,9 +676,6 @@ public class SelfCashierService {
 	        
 	        BigDecimal fixedValue = projectStepMapper.selectFixedValue(orderDetail.getProjectId());
 	        
-	        Map<String, Object> orderStepMap = new HashMap<>();
-	        orderStepMap.put("projectName", orderDetail.getProjectName());
-	        orderStepMap.put("detailId", orderDetail.getDetailId());
 		    for (OrderDetailStepDto orderDetailStepDto : stepDtoList) {
 		        // 业绩计算方式
 		        Integer stepPerformanceType = null;
@@ -622,106 +686,169 @@ public class SelfCashierService {
 		        //员工提成金额
 		        BigDecimal empCommission = null;
 		        
-		        //获取到该员工对应业绩值
-	    		Map<String, Integer> stepMap = new HashMap<>();
-	    		stepMap.put("projectId", orderDetail.getProjectId());
-	    		stepMap.put("positionId", orderDetailStepDto.getPositionId());
-	    		ProjectStep projectStep = projectStepMapper.selectByPositionId(stepMap);
-	    		stepPerformanceType = projectStep.getStepPerformanceType();
-	    		stepPerformance = projectStep.getStepPerformance();
-	    		
-		    	//比例
-                if (stepPerformanceType == 1) {
-                    if (commissionFixedType == 0) {
-                        saveCommonCalculate = tataliCommonCalculate.multiply(stepPerformance).divide(new BigDecimal(100));
-                    }
-                    else {
-                        saveCommonCalculate = (tataliCommonCalculate.subtract(fixedValue)).multiply(stepPerformance).divide(new BigDecimal(100));
-                    }
-                    saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
-                }
-                //固定值
-                else {
-                    saveCommonCalculate = stepPerformance;
-                }
-                
-                saveCommonCalculate = zeroChoose(saveCommonCalculate);
-                
-                Integer stepPositionId = orderDetailStepDto.getEmployeeInfo().getPositionId();
-                Integer stepLevelId = null;
-                
-                //是否存在提成方案
-	    		Integer isExists = 0;
-                
-                if (stepPositionId.intValue() == orderDetailStepDto.getPositionId()) {
-                	stepLevelId = orderDetailStepDto.getEmployeeInfo().getLevelId();
-                }
-                else {
-                	Map<String, Integer> referenceMap 
-                	          = employeeLevelMapper.selectReferencePositionId(orderDetailStepDto.getEmployeeInfo().getLevelId());
-                	if (referenceMap.get("positionId1") != null && referenceMap.get("positionId1").intValue() == orderDetailStepDto.getPositionId()) {
-                		stepLevelId = referenceMap.get("levelId1");
-                	}
-                	else if (referenceMap.get("positionId2") != null 
-                			  && referenceMap.get("positionId2").intValue() == orderDetailStepDto.getPositionId()){
-                		stepLevelId = referenceMap.get("levelId2");
-                	}
-                	else {
-                		isExists = 1;
-                	}
-                }
-	    		
-	    		//提成方式
-	    		Integer commissionType = null;
-	    		//员工提成方案
-	    		ProjectCommission commissionObj = null;
-
-	    		ProjectCommission projectCommission = new ProjectCommission();
-	    		projectCommission.setProjectId(orderDetail.getProjectId());
-	    		projectCommission.setLevelId(stepLevelId);
-	    		//查询当前级别对应的提成方式
-	    		List<ProjectCommission> projectCommissionList = projectCommissionMapper.selectByProperty(projectCommission);
-	    		
-	    		if (projectCommissionList.isEmpty()) {
-	    			isExists = 1;
-	    		}
-	    		else {
-	    			commissionObj = projectCommissionList.get(0);
-	    		}
-		    	
-		    	if (isExists  == 1) {
-		    		empCommission = new BigDecimal(0);
-		    	}
-		    	else {
-		    		empCommission = new BigDecimal(0);
-		    		/*switch(commissionType) {
-		    			case 1 : // 按比例
-		    			    if (payType == 1) {
-		    			        empCommission = tataliCommonCalculate.multiply(obj.getcardCommissionAmount).divide(hundred);
-		    			    }
-		    			    else {
-		    			        empCommission = tataliCommonCalculate.multiply(commissionAmount).divide(hundred);
-		    			    }
-		    			    
-		    			    empCommission = empCommission.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
-		    				break;
-		    			case 2 : // 按固定金额
-		    			    if (payType == 1) {
-		                        empCommission = cardCommissionAmount;
-		                    }
-		                    else {
-		                        empCommission = commissionAmount;
-		                    }
-		    				break;
-		    			default :
-		    				break;
-		    		}
+		        Map<String, Object> stepOrderMap = new HashMap<>();
+		        stepOrderMap.put("positionName", orderDetailStepDto.getPositionName());
+		        //当服务人员不为空时
+		        if (orderDetailStepDto.getEmployeeInfo() != null) {
+		        	
+		        	stepOrderMap.put("employeeId", orderDetailStepDto.getEmployeeInfo().getEmployeeId());
+		        	stepOrderMap.put("employeeCodeName", 
+		        			  orderDetailStepDto.getEmployeeInfo().getName() + " " +orderDetailStepDto.getEmployeeInfo().getName());
+		        	
+		        	//获取到该员工对应业绩值
+		    		Map<String, Integer> stepMap = new HashMap<>();
+		    		stepMap.put("projectId", orderDetail.getProjectId());
+		    		stepMap.put("positionId", orderDetailStepDto.getPositionId());
+		    		ProjectStep projectStep = projectStepMapper.selectByPositionId(stepMap);
+		    		stepPerformanceType = projectStep.getStepPerformanceType();
+		    		stepPerformance = projectStep.getStepPerformance();
 		    		
-		    		//当为预约时
-		    		if (isAppoint == 1) {
-		    		    empCommission = empCommission.add(commissionDto.getAppointmentReward());
-		    		}*/
-		    	}
+			    	//比例
+	                if (stepPerformanceType == 1) {
+	                    if (commissionFixedType == 0) {
+	                        saveCommonCalculate = tataliCommonCalculate.multiply(stepPerformance).divide(new BigDecimal(100));
+	                    }
+	                    else {
+	                        saveCommonCalculate = (tataliCommonCalculate.subtract(fixedValue)).multiply(stepPerformance).divide(new BigDecimal(100));
+	                    }
+	                    saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
+	                }
+	                //固定值
+	                else {
+	                    saveCommonCalculate = stepPerformance;
+	                }
+	                
+	                saveCommonCalculate = zeroChoose(saveCommonCalculate);
+	                
+	                stepOrderMap.put("commissionCalculate", saveCommonCalculate);
+	                
+	                Integer stepPositionId = orderDetailStepDto.getEmployeeInfo().getPositionId();
+	                Integer stepLevelId = null;
+	                
+	                //是否存在提成方案
+		    		Integer isExists = 0;
+	                
+	                if (stepPositionId.intValue() == orderDetailStepDto.getPositionId()) {
+	                	stepLevelId = orderDetailStepDto.getEmployeeInfo().getLevelId();
+	                }
+	                else {
+	                	Map<String, Integer> referenceMap 
+	                	          = employeeLevelMapper.selectReferencePositionId(orderDetailStepDto.getEmployeeInfo().getLevelId());
+	                	if (referenceMap.get("positionId1") != null 
+	                			   && referenceMap.get("positionId1").intValue() == orderDetailStepDto.getPositionId()) {
+	                		stepLevelId = referenceMap.get("levelId1");
+	                	}
+	                	else if (referenceMap.get("positionId2") != null 
+	                			  && referenceMap.get("positionId2").intValue() == orderDetailStepDto.getPositionId()){
+	                		stepLevelId = referenceMap.get("levelId2");
+	                	}
+	                	else {
+	                		isExists = 1;
+	                	}
+	                }
+		    		
+		    		//提成方式
+		    		Integer commissionType = null;
+		    		//员工提成方案
+		    		ProjectCommission commissionObj = null;
+
+		    		ProjectCommission projectCommission = new ProjectCommission();
+		    		projectCommission.setProjectId(orderDetail.getProjectId());
+		    		projectCommission.setLevelId(stepLevelId);
+		    		//查询当前级别对应的提成方式
+		    		List<ProjectCommission> projectCommissionList = projectCommissionMapper.selectByProperty(projectCommission);
+		    		
+		    		if (projectCommissionList.isEmpty()) {
+		    			isExists = 1;
+		    		}
+		    		else {
+		    			commissionObj = projectCommissionList.get(0);
+		    		}
+			    	
+			    	if (isExists  == 1) {
+			    		empCommission = new BigDecimal(0);
+			    	}
+			    	else {
+			    		empCommission = new BigDecimal(0);
+			    		if (orderDetail.getOffType() == 1) {
+			    			payType = 2;
+			    		}
+			    		commissionType = commissionObj.getAssignCashType();
+			    		switch(commissionType) {
+			    			case 1 : // 按比例
+			    				//如果为指定
+			    				if (orderDetailStepDto.getIsAssign() == 1) {
+			    					if (payType == 1) {
+				    			        empCommission 
+				    			            = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionGold())).divide(hundred);
+				    			    }
+				    			    else if (payType == 2){
+				    			    	empCommission 
+				    			    	    = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionCourse())).divide(hundred);
+				    			    }
+				    			    else {
+				    			    	empCommission 
+				    			    	    = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionCash())).divide(hundred);
+				    			    }
+			    				}
+			    				else {
+			    					if (payType == 1) {
+				    			        empCommission 
+				    			            = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionNoGold())).divide(hundred);
+				    			    }
+				    			    else if (payType == 2){
+				    			        empCommission 
+				    			            = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionNoCourse())).divide(hundred);
+				    			    }
+			    					else {
+			    						empCommission 
+			    						    = tataliCommonCalculate.multiply(new BigDecimal(commissionObj.getCommissionNoCash())).divide(hundred);
+			    					}
+			    				}
+			    			    empCommission = empCommission.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
+			    				break;
+			    			case 2 : // 按固定金额
+			    				if (orderDetailStepDto.getIsAppoint() == 1) {
+			    					if (payType == 1) {
+				    			        empCommission = new BigDecimal(commissionObj.getCommissionGold());
+				    			    }
+				    			    else if (payType == 2){
+				    			    	empCommission = new BigDecimal(commissionObj.getCommissionCourse());
+				    			    }
+				    			    else {
+				    			    	empCommission = new BigDecimal(commissionObj.getCommissionCash());
+				    			    }
+			    				}
+			    				else {
+			    					if (payType == 1) {
+				    			        empCommission = new BigDecimal(commissionObj.getCommissionNoGold());
+				    			    }
+				    			    else if (payType == 2){
+				    			        empCommission = new BigDecimal(commissionObj.getCommissionNoCourse());
+				    			    }
+			    					else {
+			    						empCommission = new BigDecimal(commissionObj.getCommissionNoCash());
+			    					}
+			    				}
+			    				break;
+			    			default :
+			    				break;
+			    		}
+			    		
+			    		//当为预约时
+			    		if (orderDetailStepDto.getIsAppoint() == 1) {
+			    		    empCommission = empCommission.add(new BigDecimal(commissionObj.getCommissionCard()));
+			    		}
+			    	}
+			    	stepOrderMap.put("commissionAmount", empCommission);
+		        }
+		        else {
+		        	stepOrderMap.put("employeeId", null);
+		        	stepOrderMap.put("employeeCodeName", "未设置人员");
+		        	stepOrderMap.put("commissionCalculate", 0);
+		        	stepOrderMap.put("commissionAmount", 0);
+		        }
+		        stepList.add(stepOrderMap);
 			}
 		}
 		else  if (orderDetail.getOrderType() == 2){
@@ -731,122 +858,8 @@ public class SelfCashierService {
 			//插入会员疗程表
 			insertMemberComboInfo(orderDetail.getProjectId(), employeeId, memberId, orderDetail.getDetailId());
 		}
-	    
-	    /*commissionType = commissionDto.getCommissionType();
-	    commissionAmount = commissionDto.getCommissionAmount();
-	    cardCommissionAmount = commissionDto.getCardCommissionAmount();
-		switch(commissionType) {
-			case 1 : // 按比例
-			    if (payType == 1) {
-			        empCommission = commonCalculate.multiply(cardCommissionAmount).divide(hundred);
-			    }
-			    else {
-			        empCommission = commonCalculate.multiply(commissionAmount).divide(hundred);
-			    }
-			    
-			    empCommission = empCommission.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
-				break;
-			case 2 : // 按固定金额
-			    if (payType == 1) {
-                    empCommission = cardCommissionAmount;
-                }
-                else {
-                    empCommission = commissionAmount;
-                }
-				break;
-			default :
-				break;
-		}
-		
-		//当为预约时
-		if (isAppoint == 1) {
-		    empCommission = empCommission.add(commissionDto.getAppointmentReward());
-		}
-		
-		if (empCommission != null) {
-		    
-		    empCommission = zeroChoose(empCommission);
-		    
-            BigDecimal saveCommonCalculate = null;
-            
-            EmployeeObjective employeeObjective = new EmployeeObjective();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
-            //修改本月实际完成项目销售目标
-            if (orderType == 1) {
-                Map<String, Object> isAssignStepPerformanceMap = orderDetailMapper.selectIsAssignStepPerformance(shiftMahjongStepId);
-                //是否指定
-                Integer isAssign = Integer.valueOf(isAssignStepPerformanceMap.get("isAssign").toString());
-                //步骤业绩计算
-                BigDecimal stepPerformance = new BigDecimal(isAssignStepPerformanceMap.get("stepPerformance").toString());
-                //步骤业绩计算方式(2:固定,1:比例)
-                Integer stepPerformanceType = Integer.valueOf(isAssignStepPerformanceMap.get("stepPerformanceType").toString());
-                //该项目中固定步骤值
-                BigDecimal fixedValue = new BigDecimal(isAssignStepPerformanceMap.get("fixedValue").toString());
-                
-                //比例
-                if (stepPerformanceType == 1) {
-                    if (commissionFixedType == 0) {
-                        saveCommonCalculate = commonCalculate.multiply(stepPerformance).divide(new BigDecimal(100));
-                    }
-                    else {
-                        saveCommonCalculate = (commonCalculate.subtract(fixedValue)).multiply(stepPerformance).divide(new BigDecimal(100));
-                    }
-                    saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
-                }
-                //固定值
-                else {
-                    saveCommonCalculate = stepPerformance;
-                }
-                
-                saveCommonCalculate = zeroChoose(saveCommonCalculate);
-                
-                employeeObjective.setActualTotalProjectSales(saveCommonCalculate);
-                if (isAssign  == 1) {
-                    employeeObjective.setActualAssignProjectSales(saveCommonCalculate);
-                }
-            }
-            //修改本月实际完成商品销售目标
-            else if (orderType == 2){
-            	
-            	if (commissionDto.getCalculationType() == 1) {
-            		saveCommonCalculate = commonCalculate.multiply(commissionDto.getCommonCalculate()).divide(new BigDecimal(100));
-            		
-            		saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
-            	}
-            	else {
-            		saveCommonCalculate = commissionDto.getCommonCalculate();
-            	}
-
-                saveCommonCalculate = zeroChoose(saveCommonCalculate);
-                
-                employeeObjective.setActualGoodsSales(saveCommonCalculate);
-            }
-            //修改本月实际完成套餐销售目标
-            else {
-            	
-            	if (commissionType == 1) {
-            		saveCommonCalculate = commonCalculate.multiply(commissionDto.getCommonCalculate()).divide(new BigDecimal(100));
-            		
-            		saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
-            	}
-            	else {
-            		saveCommonCalculate = commissionDto.getCommonCalculate();
-            	}
-                
-                saveCommonCalculate = zeroChoose(saveCommonCalculate);
-                
-                employeeObjective.setActualComboSales(saveCommonCalculate);
-            }
-            employeeObjective.setEmployeeId(employeeId);
-            try {
-                employeeObjective.setObjectiveMonth(dateFormat.format(dateFormat.parse(orderDetail.getCreateTime())));
-            } 
-            catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-		}*/
-		
+		stepCommissionMap.put("stepList", stepList);
+		return stepCommissionMap;
 	}
 	
 	/**

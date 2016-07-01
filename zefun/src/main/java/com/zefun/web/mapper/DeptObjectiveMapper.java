@@ -3,27 +3,62 @@ package com.zefun.web.mapper;
 import com.zefun.web.entity.DeptObjective;
 
 /**
- * 关于部门
-* @author chendb
-* @date 2015年9月8日 上午10:12:59
+ * 部门提成
+* @author 骆峰
+* @date 2016年7月1日 下午6:24:26
  */
 public interface DeptObjectiveMapper {
     /**
-     * 新增功能
-    * @author chendb
-    * @date 2015年9月8日 上午10:13:41
-    * @param record 参数
+     * 
+    * @author 骆峰
+    * @date 2016年7月1日 下午6:24:38
+    * @param objectiveId objectiveId
+    * @return int
+     */
+    int deleteByPrimaryKey(Integer objectiveId);
+
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年7月1日 下午6:24:43
+    * @param record record
     * @return int
      */
     int insert(DeptObjective record);
 
     /**
-     * 修改功能
-    * @author chendb
-    * @date 2015年9月8日 上午10:13:41
-    * @param record 参数
+     * 
+    * @author 骆峰
+    * @date 2016年7月1日 下午6:24:46
+    * @param record record
+    * @return int
+     */
+    int insertSelective(DeptObjective record);
+
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年7月1日 下午6:24:50
+    * @param objectiveId objectiveId
+    * @return DeptObjective
+     */
+    DeptObjective selectByPrimaryKey(Integer objectiveId);
+
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年7月1日 下午6:24:53
+    * @param record record
     * @return int
      */
     int updateByPrimaryKeySelective(DeptObjective record);
-    
+
+    /**
+     *  
+    * @author 骆峰
+    * @date 2016年7月1日  下午6:24:56
+    * @param record record
+    * @return int
+     */
+    int updateByPrimaryKey(DeptObjective record);
 }
