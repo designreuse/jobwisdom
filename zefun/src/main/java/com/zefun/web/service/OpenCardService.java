@@ -501,6 +501,9 @@ public class OpenCardService {
 		MemberAccount record = new MemberAccount();
 		record.setAccountId(memberId);
 		record.setDebtAmount(memberAccount.getDebtAmount().subtract(realPrice));
+		if (memberAccount.getDebtAmount().compareTo(new BigDecimal(0)) <= 0) {
+		    new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+		}
 		memberAccountMapper.updateByPrimaryKey(record);
 
 		List<Integer> recommendId = new ArrayList<Integer>();
