@@ -107,11 +107,13 @@ public class ProjectCommission {
         this.commissionNoCourse = commissionNoCourse;
     }
 
-    public Integer getcommissiNoGold() {
+
+
+    public Integer getCommissiNoGold() {
         return commissiNoGold;
     }
 
-    public void setcommissiNoGold(Integer commissiNoGold) {
+    public void setCommissiNoGold(Integer commissiNoGold) {
         this.commissiNoGold = commissiNoGold;
     }
 

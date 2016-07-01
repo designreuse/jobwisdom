@@ -1,15 +1,20 @@
 package com.zefun.web.interceptor;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+
+import net.sf.json.JSONArray;
 
 /**
  * 权限拦截器
@@ -21,7 +26,10 @@ public class AuthorityInterceptor implements HandlerInterceptor {
     /**
      * 过滤的url表达式
      */
-    private String[] allowUrlPatterns;
+    public static List<String> allowUrlPatterns;
+    
+    /**日志*/
+    private Logger logger = Logger.getLogger(AuthorityInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -105,7 +113,34 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
     }
 
-    public void setAllowUrlPatterns(String[] allowUrlPatterns) {
-        this.allowUrlPatterns = allowUrlPatterns;
+    /**
+     * 实例化bean,触发该方法,生成默认不拦截url
+    * @author 高国藩
+    * @date 2016年6月29日 下午5:44:42
+     */
+    public void initAllowPatterns(){
+        allowUrlPatterns = new ArrayList<>();
+        allowUrlPatterns.add("/");
+        allowUrlPatterns.add("/coreServlet");                  //微信认证
+        allowUrlPatterns.add("/user/login/*.*");               //登陆
+        allowUrlPatterns.add("/user/logout/*.*");              
+        allowUrlPatterns.add("/wechat/*.*");                    //微信api
+        allowUrlPatterns.add("/memberCenter/*.*");              //微信会员端
+        allowUrlPatterns.add("/app/*.*");                       //移动端
+        allowUrlPatterns.add("/uboxMall/*.*");                  //微信商城
+        allowUrlPatterns.add("/conference/*.*");                //渠道连接
+        allowUrlPatterns.add("/staff/*.*");                     //移动员工
+        allowUrlPatterns.add("/boss/*.*");                      //老板端
+        allowUrlPatterns.add("/storeinfo/action/addstore");              
+        allowUrlPatterns.add("/mobile/*.*");
+        allowUrlPatterns.add("/sms/auth/callback");
+        allowUrlPatterns.add("/storeapply/*.*");
+        allowUrlPatterns.add("/storedetail/*.*");
+        allowUrlPatterns.add("/agentapply/*.*");
+        allowUrlPatterns.add("/agentdetail/*.*");
+        allowUrlPatterns.add("/wechat/common/*.*");
+        allowUrlPatterns.add("/salesman/*.*");                  //业务员模块
+        allowUrlPatterns.add("/agentFollow/*.*");               //渠道跟踪记录
+        logger.info("拦截器生成匹配规则, " + JSONArray.fromObject(allowUrlPatterns).toString());
     }
 }

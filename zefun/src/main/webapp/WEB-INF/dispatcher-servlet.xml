@@ -3,9 +3,9 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
         http://www.springframework.org/schema/mvc
-      http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+      http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd"
   default-lazy-init="true">
@@ -13,7 +13,17 @@
 
   <!-- 添加注解驱动 -->
   <context:annotation-config />
-  <mvc:annotation-driven />
+  
+  <mvc:annotation-driven>
+  	<!-- 检测访问连接的设备,{移动,pc,平板} -->
+  	<mvc:argument-resolvers>
+  		<bean class="org.springframework.mobile.device.DeviceHandlerMethodArgumentResolver"/>  
+    </mvc:argument-resolvers>
+    <!-- driven注入的message-converters优先级高于RequestMappingHandlerAdapter注入的转换器。 -->
+    <mvc:message-converters>
+    	<bean class="com.zefun.common.utils.UTF8StringHttpMessageConverter"></bean>
+    </mvc:message-converters>
+  </mvc:annotation-driven>
   
 <!--   <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" p:useCacheControlNoStore="true" p:cacheSeconds="0">
     <property name="messageConverters">
@@ -22,7 +32,6 @@
       </list>
     </property>
   </bean> -->
-
 
   <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" >
     <property name="messageConverters">
@@ -74,46 +83,12 @@
     </mvc:interceptor>
     <mvc:interceptor>
       <mvc:mapping path="/**" />
-      <bean class="com.zefun.web.interceptor.AuthorityInterceptor">
-        <property name="allowUrlPatterns">
-          <list>
-            <!-- 微信认证 -->
-            <value>/</value>
-            <!-- 微信认证 -->
-            <value>/coreServlet</value>
-            <!-- 登陆 -->
-            <value>/user/login/*.*</value>
-            <value>/user/logout/*.*</value>
-            <!-- 微信相关api -->
-            <value>/wechat/*.*</value>
-            <!-- 微信会员端 -->
-            <value>/memberCenter/*.*</value>
-            <!-- app api -->
-            <value>/app/*.*</value>
-            <!-- 友宝商城模块 -->
-            <value>/uboxMall/*.*</value>
-            <!-- 渠道商会议 -->
-            <value>/conference/*.*</value>
-            <!-- 移动端员工 -->
-            <value>/staff/*.*</value>
-            <!-- 老板 -->
-            <value>/boss/*.*</value>
-            <!-- 后台新增平台门店 -->
-            <value>/storeinfo/action/addstore</value>
-            <value>/mobile/*.*</value>
-            <value>/sms/auth/callback</value>
-            <value>/storeapply/*.*</value>
-            <value>/storedetail/*.*</value>
-            <value>/agentapply/*.*</value>
-            <value>/agentdetail/*.*</value>
-            <value>/wechat/common/*.*</value>
-            <!-- 业务员模块 -->
-            <value>/salesman/*.*</value>
-            <!-- 渠道跟踪记录 -->
-            <value>/agentFollow/*.*</value>
-          </list>
-        </property>
-      </bean>
+      <bean class="com.zefun.web.interceptor.AuthorityInterceptor" init-method="initAllowPatterns"></bean>
+    </mvc:interceptor>
+    <mvc:interceptor>
+      <mvc:mapping path="/**" />
+      	<bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor"></bean>
     </mvc:interceptor>
   </mvc:interceptors>
+  
 </beans>

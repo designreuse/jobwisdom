@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.App.Session;
 import com.zefun.common.consts.Url;

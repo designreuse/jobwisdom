@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -281,6 +282,10 @@ public class MemberCenterService {
     /** 企业信息信息*/
     @Autowired
     private EnterpriseInfoMapper enterpriseInfoMapper;
+    /** 微信推送信息*/
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    
     
     
 	/**
@@ -324,7 +329,7 @@ public class MemberCenterService {
     public ModelAndView homeView(Integer memberId, int storeId){
         MemberBaseDto memberBaseInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         List<CouponBaseDto> couponList = couponInfoMapper.selectBaseByMemberId(memberId);
-        memberBaseInfo.setCouponCount(0);
+        memberBaseInfo.setCouponCount(couponList.size());
         ModelAndView mav = new ModelAndView(View.MemberCenter.HOME);
         mav.addObject("memberBaseInfo", memberBaseInfo);
         mav.addObject("couponList", couponList);
@@ -1384,13 +1389,16 @@ public class MemberCenterService {
      * 兑换优惠券
      * @author 张进军
      * @date Oct 22, 2015 2:58:22 PM
+     * @param storeAccount storeAccount
+     * @param storeId      storeId
+     * @param openId       openId
      * @param memberId  会员标识
      * @param couponId  优惠券标识
      * @param num       兑换的数量
      * @return  成功返回码0；失败返回其他错误码，返回值为提示语
      */
     @Transactional
-    public BaseDto exchangeCouponAction(int memberId, Integer couponId, Integer num) {
+    public BaseDto exchangeCouponAction(String openId, String storeAccount, Integer storeId, int memberId, Integer couponId, Integer num) {
         BaseDto dto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 //        MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         CouponInfo couponInfo = couponInfoMapper.selectByPrimaryKey(couponId);
@@ -1413,7 +1421,24 @@ public class MemberCenterService {
         }
         if (memberCoupons.size()>0){
             memberCouponMapper.insertList(memberCoupons);
+            MemberAccount memberAccount = memberAccountMapper.selectByPrimaryKey(memberId);
+            memberAccount.setBalanceIntegral(memberAccount.getBalanceIntegral()-num*couponInfo.getCouponVantages());
+            memberAccountMapper.updateByPrimaryKey(memberAccount);
+            redisService.hdel(App.Redis.MEMBER_BASE_INFO_KEY_HASH, memberId);
+            //推送消息
+            List<String> touser = new ArrayList<>();
+            touser.add(openId);
+            JSONObject object = new JSONObject();
+            object.put("storeAccount", storeAccount);
+            object.put("storeName", storeInfoMapper.selectByPrimaryKey(storeId).getStoreName());
+            object.put("couponName", couponInfo.getCouponName());
+            object.put("num", memberCoupons.size());
+            object.put("couponStopTime", sdf.format(calendar.getTime()));
+            object.put("tempId", storeWechatMapper.selectByPrimaryKey(storeAccount).getTmCouponOverdue());
+            object.put("touser", touser);
+            rabbitTemplate.convertAndSend(App.Queue.SEND_COUPONS, object);
         }
+        
         return dto;
     }
     

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.ServicePlanInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.ServicePlanInfo" >
+    <id column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="send_member_type" property="sendMemberType" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="theme" property="theme" jdbcType="VARCHAR" />
+    <result column="service_time" property="serviceTime" jdbcType="CHAR" />
+    <result column="service_project_name" property="serviceProjectName" jdbcType="CHAR" />
+    <result column="topic_time" property="topicTime" jdbcType="CHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="is_sms" property="isSms" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    s_id, send_member_type, member_id, employee_id, theme, service_time, service_project_name, 
+    topic_time, store_id, is_sms, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from service_plan_info
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from service_plan_info
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.ServicePlanInfo" >
+    insert into service_plan_info (s_id, send_member_type, member_id, 
+      employee_id, theme, service_time, 
+      service_project_name, topic_time, store_id, 
+      is_sms, is_deleted)
+    values (#{sId,jdbcType=INTEGER}, #{sendMemberType,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, 
+      #{employeeId,jdbcType=INTEGER}, #{theme,jdbcType=VARCHAR}, #{serviceTime,jdbcType=CHAR}, 
+      #{serviceProjectName,jdbcType=CHAR}, #{topicTime,jdbcType=CHAR}, #{storeId,jdbcType=INTEGER}, 
+      #{isSms,jdbcType=INTEGER}, #{isDeleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.ServicePlanInfo" useGeneratedKeys="true" keyProperty="sId">
+    insert into service_plan_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sendMemberType != null" >
+        send_member_type,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="theme != null" >
+        theme,
+      </if>
+      <if test="serviceTime != null" >
+        service_time,
+      </if>
+      <if test="serviceProjectName != null" >
+        service_project_name,
+      </if>
+      <if test="topicTime != null" >
+        topic_time,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="isSms != null" >
+        is_sms,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="sendMemberType != null" >
+        #{sendMemberType,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="theme != null" >
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTime != null" >
+        #{serviceTime,jdbcType=CHAR},
+      </if>
+      <if test="serviceProjectName != null" >
+        #{serviceProjectName,jdbcType=CHAR},
+      </if>
+      <if test="topicTime != null" >
+        #{topicTime,jdbcType=CHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="isSms != null" >
+        #{isSms,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.ServicePlanInfo" >
+    update service_plan_info
+    <set >
+      <if test="sendMemberType != null" >
+        send_member_type = #{sendMemberType,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="theme != null" >
+        theme = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTime != null" >
+        service_time = #{serviceTime,jdbcType=CHAR},
+      </if>
+      <if test="serviceProjectName != null" >
+        service_project_name = #{serviceProjectName,jdbcType=CHAR},
+      </if>
+      <if test="topicTime != null" >
+        topic_time = #{topicTime,jdbcType=CHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="isSms != null" >
+        is_sms = #{isSms,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.ServicePlanInfo" >
+    update service_plan_info
+    set send_member_type = #{sendMemberType,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      theme = #{theme,jdbcType=VARCHAR},
+      service_time = #{serviceTime,jdbcType=CHAR},
+      service_project_name = #{serviceProjectName,jdbcType=CHAR},
+      topic_time = #{topicTime,jdbcType=CHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      is_sms = #{isSms,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByProperites" parameterType="com.zefun.web.entity.ServicePlanInfo" resultMap="BaseResultMap">
+  	 SELECT  epi.name,spi.s_id, spi.send_member_type, spi.member_id, 
+  	 		 spi.employee_id, spi.theme, spi.service_time, spi.service_project_name, 
+    		 spi.topic_time, spi.store_id, spi.is_sms, spi.is_deleted, 
+     CASE WHEN send_member_type = 1 THEN (SELECT ml.level_name FROM member_level ml WHERE ml.level_id = spi.member_id) 
+          WHEN send_member_type = 2 THEN (SELECT ms.screening_name FROM member_screening ms WHERE ms.screening_id = spi.member_id) 
+     END AS member_name
+     FROM service_plan_info spi
+     LEFT JOIN employee_info epi ON epi.employee_id = spi.employee_id
+     WHERE 1=1
+    <if test="storeId != null" > and spi.store_id = #{storeId,jdbcType=INTEGER}</if>
+    <if test="sId != null" > and spi.s_id = #{sId,jdbcType=INTEGER}</if>
+  </select>
+  
+</mapper>

@@ -7,7 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +41,9 @@ public class MemberCenterController extends BaseController {
     /** 会员中心业务逻辑对象 */
     @Autowired
     private MemberCenterService memberCenterService;
+    
+    /**日志*/
+    private Logger logger = Logger.getLogger(MemberCenterController.class);
     
     /**
      * wifi主页
@@ -993,6 +998,7 @@ public class MemberCenterController extends BaseController {
     * @date Oct 22, 2015 4:37:34 PM
     * @param request        请求对象
     * @param response       相应对象
+    * @param num            num(优惠券数量)
     * @param couponId   优惠券标识
     * @return   成功返回码0；失败返回其他错误码，返回值为提示语
      */
@@ -1004,7 +1010,9 @@ public class MemberCenterController extends BaseController {
             return null;
         }
         int memberId = getUserIdByOpenId(openId);
-        return memberCenterService.exchangeCouponAction(memberId, couponId, num);
+        String storeAccount = getStoreAccount(request);
+        Integer storeId = getStoreIdByOpenId(openId);
+        return memberCenterService.exchangeCouponAction(openId, storeAccount, storeId, memberId, couponId, num);
     }
     
     
@@ -1143,14 +1151,18 @@ public class MemberCenterController extends BaseController {
     
     
     /**
-     * 页面测试接口
-    * @author 张进军
-    * @date Aug 19, 2015 11:22:02 AM
-    * @param view   页面路径
-    * @return       对应页面
+     * 检测访问连接的设备,{移动,pc,平板}
+    * @author 高国藩
+    * @date 2016年6月29日 下午5:38:06
+    * @param view    view
+    * @param device  device
+    * @return        String
      */
-    @RequestMapping(value = "/mobile/test")
-    public String test(String view) {
+    @RequestMapping(value = "/request/device")
+    public String device(String view, Device device) {
+        logger.info(device.isMobile());
+        logger.info(device.isNormal());
+        logger.info(device.isTablet());
         return view;
     }
 }

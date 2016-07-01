@@ -826,12 +826,20 @@ public interface View {
      * @date Jan 28, 2016 5:09:16 PM
      */
     class Stock {
-
         /**企业库存管理*/
         public static final String VIEW_STOCK = "commodity/viewStock";
         /**门店库存管理*/
         public static final String VIEW_STORE_STOCK = "commodity/storeViewStock";
-        
+    }
+    
+    /**
+     * 服务计划
+    * @author 高国藩
+    * @date 2016年6月30日 下午4:44:57
+     */
+    class ServicePlans {
+        /**李彪页面*/
+        public static final String VIEW_SERVICE_PLAN = "servicePlan/servicePlanView";
     }
     
 }

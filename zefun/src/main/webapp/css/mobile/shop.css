@@ -24,27 +24,29 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 }
 
 /*公共的底部*/
-.bottom_fix{width:100%;background:white;position:fixed;bottom:0;height:6rem;z-index:2}
-.bottom_fix li{float:left;width:25%;text-align:center;line-height:3rem;margin-top:0.5rem}
+.bottom_fix{width:100%;background:white;position:fixed;bottom:0;height:5rem;z-index:2}
+.bottom_fix li{float:left;width:25%;text-align:center;line-height:1.6rem;margin-top:0.5rem}
 .bottom_fix img{width:3rem}
+.bottom_fix .active{color:#625090}
+.bottom_fix_content{height:3rem}
 /* 首页 */
 
 .down_content,.search{float: left;}
-
-.header_{background:#6fd571;height:4rem;overflow: :hidden;position: relative;}
-.header_  .down_content{margin-left: 1rem;background: white;height:4rem;width:4.8rem;text-align: center}
-.header_  .down_content img{width:2.8rem;}
-.header_  .search{position: relative;width:78%;}
+.header_ .down_content{width:4.5rem}
+.header_{background:#584489;height:4rem;overflow: :hidden;position: relative;}
+.header_  .down_content{margin-left: 1rem;background: white;height:4rem;text-align: center;position:absolute}
+.header_  .down_content img{width:2.4rem;}
+.header_  .search{position: relative;width:78%;margin-left:20%}
 .header_  .search_img{position: absolute;top:0.7rem;left:1.2rem;}
 .header_  input{height:3rem;width:93%;border-radius: 1rem;margin:0.5rem 0rem 0.5rem 1rem;border:none;padding-left: 3.6rem;font-size:1.4rem;background-color: white!important}
-.down_content img{position: relative;top:0.6rem;}
+.down_content img{position: relative;top:0.7rem;}
 .search_img img{width:2.8rem;}
-
+.price{float:right;margin-right:4px;color:#e0371b}
 .img div{width:33.3%;float: left;position: relative;}
 .img div p{position: absolute;bottom: 0;left: 0;background: rgba(0,0,0,0.6);color:white;text-align: center;width:100%;height:2.2rem;line-height: 2.2rem}
 .shop_content{background: white;padding:1rem;overflow: hidden;margin-bottom: 1rem}
-.shop_content .recommend_{font-size: 1.8rem;font-weight: bold;}
-.shop_content a{position: relative;left:66%;color: #54d856}
+.shop_content .recommend_{font-size: 1.6rem;font-weight: bold;color:black}
+.shop_content a{position: relative;float:right;color: #665493}
 .shop_content .recommend{font-size: 1.5rem;font-weight: bold;}
 .recommend_shop{width: 46%;margin-left: 3%;float: left;border-radius: 0.5rem;border:1px solid #e1e1e1;background: white;margin-bottom: 1rem}
 .recommend_shop> span{display: block;margin:0.5rem 0rem 1rem 0.2rem; font-weight: bold;color:black;font-size: 1.3rem}
@@ -89,12 +91,10 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 .person_{
 	height:210px;
 	width:100%;
-	background:url('../../images/mobile/member/back.png') no-repeat;
+	background:#bcb2d3;
 	position:relative;
-	width:100%;
-	position:relative
 }
-.person_coin{position:relative;top:2rem;background:rgba(14,46,66,0.6);padding:1rem 0}
+.person_coin{position:absolute;bottom:0;left:0;width:100%;background:rgba(131,124,147,0.6);padding:1rem 0}
 .person_coin li{
 	
 	width:24%;
@@ -110,11 +110,10 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 
 .head_pic{width:7rem;height:7rem;border-radius:7rem;margin:0 auto;padding-top:3rem;overflow:hidden}
 .head_pic img{width:7rem;height:7rem;border-radius:7rem;}
-.vip{display:inline-block;position:absolute;left:2rem;background:url(../../images/mobile/member/vip.png);height:5.2rem;width:3.2rem;background-size:cover;text-align:center;color:black;font-weight:bold;font-size:1.4rem;line-height:5rem}
+.vip{display:inline-block;position:absolute;left:2rem;background:url(../images/vip.png);height:5.7rem;width:3.2rem;background-size:cover;text-align:center;color:white;font-weight:bold;font-size:1.4rem;line-height:5rem}
 .person_ul li{height:4.2rem;border-bottom:1px solid #ccc!important;line-height:4.2rem;color:#210a0a;font-size:1.4rem}
 .person_ul{padding:1rem 1rem ;background:white;margin-bottom:7rem}
 .person_ul li img{margin-right:1rem}
-.person_ul li:last-child{border:none}
 
 /*分类列表*/
 
@@ -138,7 +137,7 @@ em{font-style:normal}
 .swiper{position:absolute;left:1rem}
 .swiper img{width:25px}
 .header_select{text-align:center;font-size:2rem;}
-.order_top{height:50px;line-height:50px;background:white;}
+.order_top{height:50px;line-height:50px;background:#584489;}
 .header_select select{border:none;margin-left:0.2rem}
 .header_select span{color:#e74615}
 
@@ -156,11 +155,9 @@ nav ul li{float:left;width:72px;text-align:center;line-height:3.9rem;height:3.9r
 .level img{width:1.5rem}
 .order_price h2{color:#ed4012;font-size:18px}
 .order_price span{color:#ed4012;}
-.order_content{background:white}
-.order_content ul{    height: 38rem;
-    overflow: overlay;}
 
-.order_left{background:linear-gradient(to top, #514977,#5a9eae);;padding:1rem 0;color:#b7b7bd;position:absolute;top:0;width:72%;left:-80%;z-index:2;height:160%;padding:1rem;overflow:overlay}
+.name_shop ul .active1{background:#3f2975}
+.order_left{background:#bcb2d3;padding:1rem 0;color:#a499be;position:absolute;top:0;width:80%;left:-80%;z-index:2;height:100%;overflow:overlay}
 .order_left img{width:10px}
 .name_shop>p{padding-bottom:0.5rem;font-size:1.4rem;color:white;padding:1rem;border-bottom:1px solid white;border-bottom:1px solid #b7b7bd}
 .name_shop>p img{position:absolute;right:2.5rem;width:12px;transition:all 0.5s ease-in}
