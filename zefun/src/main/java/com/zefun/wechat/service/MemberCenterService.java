@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -281,6 +282,10 @@ public class MemberCenterService {
     /** 企业信息信息*/
     @Autowired
     private EnterpriseInfoMapper enterpriseInfoMapper;
+    /** 微信推送信息*/
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    
     
     
 	/**
@@ -324,7 +329,7 @@ public class MemberCenterService {
     public ModelAndView homeView(Integer memberId, int storeId){
         MemberBaseDto memberBaseInfo = memberInfoService.getMemberBaseInfo(memberId, false);
         List<CouponBaseDto> couponList = couponInfoMapper.selectBaseByMemberId(memberId);
-        memberBaseInfo.setCouponCount(0);
+        memberBaseInfo.setCouponCount(couponList.size());
         ModelAndView mav = new ModelAndView(View.MemberCenter.HOME);
         mav.addObject("memberBaseInfo", memberBaseInfo);
         mav.addObject("couponList", couponList);
@@ -1304,9 +1309,40 @@ public class MemberCenterService {
         return mav;
     }
     
+    /**
+     * 查看门店优惠券
+    * @author 张进军
+    * @date Oct 20, 2015 8:48:15 PM
+    * @param memberId   会员标识
+    * @param storeAccount storeAccount
+    * @param storeId storeId
+    * @return   会员优惠券页面
+     */
+    @RequestMapping(value = Url.MemberCenter.VIEW_INTEGRAL_FLOW_LIST)
+    public ModelAndView storeCouponView(String storeAccount, Integer storeId, int memberId){
+        MemberBaseDto memberBaseInfo = memberInfoService.getMemberBaseInfo(memberId, false);
+        CouponInfo couponInfo = new CouponInfo();
+        couponInfo.setStoreAccount(storeAccount);
+        couponInfo.setStartType("1");
+        List<CouponInfo> couponInfos = couponInfoMapper.selectByProperties(couponInfo);
+        
+        for (int i = 0; i < couponInfos.size(); i++) {
+            String storeNames = JSONArray.fromObject(couponInfos.get(i)
+                    .getStoreInfos().stream()
+                    .map(s -> s.getStoreName())
+                    .collect(Collectors.toList()))
+                    .toString();
+            couponInfos.get(i).setStoreNames(storeNames);
+        }
+        ModelAndView mav = new ModelAndView(View.MemberCenter.STORE_COUPON);
+        mav.addObject("couponInfos", couponInfos);
+        mav.addObject("memberBaseInfo", memberBaseInfo);
+        return mav;
+    }
+    
     
     /**
-     * 查询门店下的优惠券
+     * 查询门店下商城信息
     * @author 张进军
     * @date Oct 21, 2015 10:00:34 AM
     * @param storeAccount    门店标识（总店）
@@ -1323,15 +1359,7 @@ public class MemberCenterService {
         if (selectedStoreId != null){
             ownerStoreId = selectedStoreId;
         }
-//        Page<CouponBaseDto> page = new Page<CouponBaseDto>();
-//        page.setPageNo(1);
-//        page.setPageSize(10);
-//        Map<String, Object> params = new HashMap<String, Object>();
-//        params.put("storeId", ownerStoreId);
-//        page.setParams(params);
         List<CouponInfo> couponList = couponInfoMapper.selectCouponListByStoreId(ownerStoreId);
-//        page.setResults(couponList);
-        
         ModelAndView mav = new ModelAndView(View.MemberCenter.SHOP_CENTER);
         mav.addObject("couponList", couponList);
         
@@ -1361,63 +1389,55 @@ public class MemberCenterService {
      * 兑换优惠券
      * @author 张进军
      * @date Oct 22, 2015 2:58:22 PM
+     * @param storeAccount storeAccount
+     * @param storeId      storeId
+     * @param openId       openId
      * @param memberId  会员标识
      * @param couponId  优惠券标识
+     * @param num       兑换的数量
      * @return  成功返回码0；失败返回其他错误码，返回值为提示语
      */
     @Transactional
-    public BaseDto exchangeCouponAction(int memberId, Integer couponId) {
+    public BaseDto exchangeCouponAction(String openId, String storeAccount, Integer storeId, int memberId, Integer couponId, Integer num) {
         BaseDto dto = new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-        MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
-        CouponInfo couponInfo = couponInfoMapper.selectNormalByCouponId(couponId);
-        if (couponInfo.getCouponVantages() > memberInfo.getBalanceIntegral()) {
-            dto.setCode(1001);
-            dto.setMsg("对不起，您的积分余额不够！");
+//        MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
+        CouponInfo couponInfo = couponInfoMapper.selectByPrimaryKey(couponId);
+        
+        //判断该人员之前对该优惠券的领取数量
+        List<CouponBaseDto> couponList = couponInfoMapper.selectBaseByMemberId(memberId);
+        Long memerHasThisCouponNum = couponList.stream().filter(c -> c.getCouponId() == couponId).count();
+        if ((memerHasThisCouponNum.intValue()+num)>couponInfo.getCouponMan()){
+            dto.setCode(-1);
             return dto;
         }
         
-        MemberCoupon memberCoupon = new MemberCoupon();
-        memberCoupon.setMemberInfoId(memberId);
-        memberCoupon.setCouponId(couponId);
-//        memberCoupon.setIsUsed(0);
-//        memberCoupon.setGrantTime(DateUtil.getCurTime());
-        memberCouponMapper.insert(memberCoupon);
-        
-        int balanceAmount = memberInfo.getBalanceIntegral() - couponInfo.getCouponVantages();
-        MemberAccount memberAccount = new MemberAccount();
-        memberAccount.setAccountId(memberId);
-        memberAccount.setBalanceIntegral(balanceAmount);
-        memberAccountMapper.updateByPrimaryKey(memberAccount);
-        memberInfoService.wipeCache(memberId);
-        
-        String couponType = "";
-        switch (couponInfo.getCouponType()) {
-            case 1:
-                couponType = "商品";
-                break;
-            case 2:
-                couponType = "项目";
-                break;
-            case 3:
-                couponType = "套餐";
-                break;
-    
-            default:
-                couponType = "通用";
-                break;
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, Integer.parseInt(couponInfo.getCouponStartTime()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        List<MemberCoupon> memberCoupons = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            MemberCoupon memberCoupon = new MemberCoupon(couponId, memberId, sdf.format(calendar.getTime()), 0);
+            memberCoupons.add(memberCoupon);
         }
-        
-        IntegralFlow integralFlow = new IntegralFlow();
-        integralFlow.setAccountId(memberId);
-        integralFlow.setBalanceAmount(balanceAmount);
-        integralFlow.setBusinessType("兑换优惠券");
-        integralFlow.setBusinessDesc("兑换" + couponInfo.getCouponPrice() + "元" + couponType + "优惠券");
-        integralFlow.setFlowAmount(couponInfo.getCouponVantages());
-        integralFlow.setFlowType(1);
-        integralFlow.setFlowTime(DateUtil.getCurTime());
-        integralFlowMapper.insert(integralFlow);
-        
-        memberInfoService.wipeCache(memberId);
+        if (memberCoupons.size()>0){
+            memberCouponMapper.insertList(memberCoupons);
+            MemberAccount memberAccount = memberAccountMapper.selectByPrimaryKey(memberId);
+            memberAccount.setBalanceIntegral(memberAccount.getBalanceIntegral()-num*couponInfo.getCouponVantages());
+            memberAccountMapper.updateByPrimaryKey(memberAccount);
+            redisService.hdel(App.Redis.MEMBER_BASE_INFO_KEY_HASH, memberId);
+            //推送消息
+            List<String> touser = new ArrayList<>();
+            touser.add(openId);
+            JSONObject object = new JSONObject();
+            object.put("storeAccount", storeAccount);
+            object.put("storeName", storeInfoMapper.selectByPrimaryKey(storeId).getStoreName());
+            object.put("couponName", couponInfo.getCouponName());
+            object.put("num", memberCoupons.size());
+            object.put("couponStopTime", sdf.format(calendar.getTime()));
+            object.put("tempId", storeWechatMapper.selectByPrimaryKey(storeAccount).getTmCouponOverdue());
+            object.put("touser", touser);
+            rabbitTemplate.convertAndSend(App.Queue.SEND_COUPONS, object);
+        }
         
         return dto;
     }

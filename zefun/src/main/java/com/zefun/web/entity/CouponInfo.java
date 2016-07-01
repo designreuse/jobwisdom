@@ -1,5 +1,7 @@
 package com.zefun.web.entity;
 
+import java.util.List;
+
 /**
  * 优惠卷
 * @author 骆峰
@@ -72,7 +74,29 @@ public class CouponInfo {
     /** 发布方式（1积分，2门店） */
     private String startType;
     
+    /** 适用于的门店*/
+    private List<StoreInfo> storeInfos;
+    
+    /** 适用于的门店*/
+    private String storeNames;
+    
   
+    public String getStoreNames() {
+        return storeNames;
+    }
+
+    public void setStoreNames(String storeNames) {
+        this.storeNames = storeNames;
+    }
+
+    public List<StoreInfo> getStoreInfos() {
+        return storeInfos;
+    }
+
+    public void setStoreInfos(List<StoreInfo> storeInfos) {
+        this.storeInfos = storeInfos;
+    }
+
     public Integer getHasSendNum() {
         return hasSendNum;
     }

@@ -2,7 +2,6 @@ package com.zefun.web.mapper;
 
 import java.util.Map;
 
-import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 
 /**

@@ -235,6 +235,8 @@ public interface View {
         public static final String SHOP_CENTER_LIST = "mobile/member/goodsList";
 		/** 会员优惠券 */
 		public static final String MEMBER_COUPON = "mobile/member/memberCoupon";
+		/** 门店优惠券 */
+        public static final String STORE_COUPON = "mobile/member/storeCoupon";
 		/** 店铺信息 */
 		public static final String STORE_INFO = "mobile/member/storeInfo";
 		/** 店铺展示 */
@@ -824,12 +826,20 @@ public interface View {
      * @date Jan 28, 2016 5:09:16 PM
      */
     class Stock {
-
         /**企业库存管理*/
         public static final String VIEW_STOCK = "commodity/viewStock";
         /**门店库存管理*/
         public static final String VIEW_STORE_STOCK = "commodity/storeViewStock";
-        
+    }
+    
+    /**
+     * 服务计划
+    * @author 高国藩
+    * @date 2016年6月30日 下午4:44:57
+     */
+    class ServicePlans {
+        /**李彪页面*/
+        public static final String VIEW_SERVICE_PLAN = "servicePlan/servicePlanView";
     }
     
 }

@@ -52,10 +52,11 @@ public class MemberTranscationNoitceCoupon implements ChannelAwareMessageListene
         String couponName = map.get("couponName").toString();
         String couponStopTime = map.get("couponStopTime").toString();
         String tempId = map.get("tempId").toString();
+        String num = map.get("num").toString();
         for (int i = 0; i < map.getJSONArray("touser").size(); i++) {
             String openId = (String) map.getJSONArray("touser").get(i);
             logger.info("正在发送优惠券通知,现有模板ID是:"+tempId);
-            this.sendCouponTempleMsg(storeName, couponName, couponStopTime, openId, serverPost+"/"+storeAccount+"/1", tempId, storeAccount);
+            this.sendCouponTempleMsg(storeName, couponName, num, couponStopTime, openId, serverPost+"/"+storeAccount+"/1", tempId, storeAccount);
         }
     }
 
@@ -73,7 +74,7 @@ public class MemberTranscationNoitceCoupon implements ChannelAwareMessageListene
     * @param storeId 门店
     * @param tempId 微信模板ID
      */
-    public void sendCouponTempleMsg(String storeName, String name, String stopTime, String openId, String url, String tempId, String storeAccount) {
+    public void sendCouponTempleMsg(String storeName, String name, String num, String stopTime, String openId, String url, String tempId, String storeAccount) {
         Map<String, Object> map = new HashMap<String, Object>();
         // data 数据
         Map<String, Object> data = new HashMap<String, Object>();
@@ -105,7 +106,7 @@ public class MemberTranscationNoitceCoupon implements ChannelAwareMessageListene
         
       //结束语
         Map<String, String> couponsDescNum = new HashMap<String, String>();
-        couponsDescNum.put("value", "1张");
+        couponsDescNum.put("value", num+"张");
         couponsDescNum.put("color", "#173177");
 
         data.put("first", first);

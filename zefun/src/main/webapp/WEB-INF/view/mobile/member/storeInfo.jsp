@@ -164,7 +164,7 @@
 	</div>
 	<ul class="bottom_fix clearfix">
  		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
-	      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
+	      <li><img src="<%=basePath %>images/mobile/member/botton_1.png">
 		      <p style="top:-2rem;font-size: 0.65em;font-family: '微软雅黑';color:#555">我的</p>
 		  </li>
 	    </a>

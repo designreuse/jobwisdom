@@ -103,12 +103,14 @@ public class EnterpriseService {
 	* @param enterpriseAddress 企业详细地址
 	* @param enterpriseEdition 企业版本
 	* @param useTime 使用时间
+	* @param enterpriseInfoId 标识
 	* @return  BaseDto
 	 */
 	@Transactional
 	public BaseDto addEnterprise (String enterpriseName, String enterpriseLinkphone, 
 			  String enterpriseLinkname, String storeAccount, String enterpriseProvince, String enterpriseCity, String enterpriseAddress,
-			  Integer enterpriseEdition, Integer useTime) {
+			  Integer enterpriseEdition, Integer useTime, Integer enterpriseInfoId) {
+	  
 		EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
 		enterpriseInfo.setStoreAccount(storeAccount);
 		enterpriseInfo.setEnterpriseName(enterpriseName);
@@ -117,12 +119,11 @@ public class EnterpriseService {
 		enterpriseInfo.setEnterpriseProvince(enterpriseProvince);
 		enterpriseInfo.setEnterpriseCity(enterpriseCity);
 		enterpriseInfo.setEnterpriseAddress(enterpriseAddress);
-		enterpriseInfoMapper.insertSelective(enterpriseInfo);
 		
+	
 		EnterpriseAccount record = new EnterpriseAccount();
-		record.setEnterpriseAccountId(enterpriseInfo.getEnterpriseInfoId());
-		record.setBeginTime(DateUtil.getCurDate());
-		record.setFinishTime(DateUtil.getCurrNumberYear(DateUtil.getCurDate(), useTime));
+		record.setEnterpriseAccountId(enterpriseInfoId);
+
 		if (enterpriseEdition == 1) {
 			record.setEnterpriseEdition("单店版");
     		record.setTotalStoreNum(1); 
@@ -143,15 +144,14 @@ public class EnterpriseService {
         	record.setTotalStoreNum(999); 
     		record.setBalanceStoreNum(999);
     	}
+	   
     	
-    	enterpriseAccountMapper.insertSelective(record);
 		
 		EmployeeDto employeeDto = new EmployeeDto();
 		employeeDto.setName(enterpriseLinkname);
 		employeeDto.setPhone(enterpriseLinkphone);
-		employeeDto.setIsDeleted(1);
-		employeeDto.setCreateTime(DateUtil.getCurTime());
-		employeeInfoMapper.insert(employeeDto);
+	
+		
 		
 		// 保存用户信息初始密码123456
 		UserAccount userAccount = new UserAccount();
@@ -166,10 +166,53 @@ public class EnterpriseService {
 		userAccount.setUserPwd(password);
 		userAccount.setPwdSalt(salt);
 		userAccount.setCreateTime(DateUtil.getCurTime());
-
-		userAccountMapper.insert(userAccount);
 		
-		
+		if (enterpriseInfoId != null) {
+            enterpriseInfo.setEnterpriseInfoId(enterpriseInfoId);
+            enterpriseInfoMapper.updateByPrimaryKeySelective(enterpriseInfo);
+            
+            enterpriseAccountMapper.updateByPrimaryKeySelective(record);
+            UserAccount user = userAccountMapper.selectTouserByUserAccount(userAccount);
+            employeeDto.setEmployeeId(user.getUserId());
+            employeeInfoMapper.updateByPrimaryKey(employeeDto);
+        }
+        else {
+            //开始时间 or  结束时间  不可修改
+            record.setBeginTime(DateUtil.getCurDate());
+            record.setFinishTime(DateUtil.getCurrNumberYear(DateUtil.getCurDate(), useTime));
+            
+            employeeDto.setIsDeleted(1);
+            employeeDto.setCreateTime(DateUtil.getCurTime());
+            
+            enterpriseInfoMapper.insertSelective(enterpriseInfo);
+            enterpriseAccountMapper.insertSelective(record);
+            employeeInfoMapper.insert(employeeDto);
+            userAccountMapper.insert(userAccount);
+        }
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}
+
+	/**
+	 *  会员卡状态修改
+	* @author 骆峰
+	* @date 2016年6月28日 下午7:51:21
+	* @param statu statu
+	* @param enterpriseInfoId enterpriseInfoId
+	* @param storeAccount storeAccount
+	* @return BaseDto
+	 */
+    public BaseDto disableAndStart(Integer statu, Integer enterpriseInfoId, String storeAccount) {
+        UserAccount userInfo = new UserAccount();
+        userInfo.setStoreAccount(storeAccount);
+        String status = String.valueOf(statu);
+        userInfo.setStatus(status);
+        userAccountMapper.updateDisableAndStart(userInfo);
+        
+        EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
+        enterpriseInfo.setEnterpriseInfoId(enterpriseInfoId);
+        Integer enterpriseStatus = statu==1?3:1;
+        enterpriseInfo.setEnterpriseStatus(enterpriseStatus);
+        enterpriseInfoMapper.updateByPrimaryKeySelective(enterpriseInfo);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
 }

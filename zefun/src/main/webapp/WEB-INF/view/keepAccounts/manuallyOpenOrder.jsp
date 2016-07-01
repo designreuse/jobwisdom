@@ -51,7 +51,7 @@ background-size: cover;}
 .absolute{box-shadow:0 0 10px #908f8f;position:absolute;;background:white;z-index:10;box-shadow:0 0 10px #ccc;top:130px}
 .absolute em{color:#d92020;display:inline-block;margin-right:2px}
 .content_right input[type='text']{border:1px solid #7d7575}
-.hand_table{    border: 1px solid #7d7575;box-shadow:0 0 0 white}
+.hand_table{border: 1px solid #7d7575;box-shadow:0 0 0 white}
 .hand_table tr td{border: 1px solid #7d7575;}
 .hand_detail_left{    border: 1px solid #7d7575;
     box-shadow: 0 0 0px white;}
@@ -65,7 +65,7 @@ background-size: cover;}
 .hand_project .active{border: 1px solid #7d7575;}
 .nav li{font-weight:bold}
 .select_part_{font-weight:bold}
-.absolute{width:440px!important;margin-left:0!important}
+.absolute{width:440px!important;margin-left:40px!important}
 .nav_content td select{width:52px;height:14px}
 .nav_content td{width:110px}
 .nav_content_div{height:auto;padding-bottom:5px}
@@ -76,7 +76,10 @@ background-size: cover;}
 .select_people td{text-align:left!important;padding-left:10px}
 
 .nav_content_div input[type='text']{width:65px;border:1px solid black;border-radius:12px;height:15px}
- .absolute li{ float: left;padding: 5px 42px 5px 10px;} 
+.absolute li{ float: left;width: 100px; padding: 2px 0 2px 10px;cursor:pointer} 
+
+.nav_right_content input[type='text']{width:88px}
+.absolute ul{border-bottom:1px dashed #e1dfdf;padding:5px 0}
 </style>
 <body>
 
@@ -245,7 +248,7 @@ background-size: cover;}
 		           <div class="absolute">	 
 		             <c:forEach items="${employeeInfoList}" var="employeeInfo">
 		                 <ul class="clearfix" positionId = "${employeeInfo.positionId }">
-		                    <li>${employeeInfo.positionName }</li>
+		                    <li style="font-weight:bold">${employeeInfo.positionName }</li>
 		                    <c:forEach items="${employeeInfo.employeeDtoList}" var="employeeDto" >
 		                        <li employeeId = "${employeeDto.employeeId }" employeeCode = "${employeeDto.employeeCode }" employeeName = "${employeeDto.name }" name = "employeeId"><em>${employeeDto.employeeCode }</em>${employeeDto.name }</li>
 		                    </c:forEach>

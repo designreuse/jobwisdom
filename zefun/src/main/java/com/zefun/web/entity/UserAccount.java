@@ -35,8 +35,21 @@ public class UserAccount {
 
 	/** 门店账号 */
 	private String storeAccount;
+	
+	/**
+	 * 状态 0 正常 1禁用
+	 */
+	private String status;
 
-	public String getStoreAccount() {
+	public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStoreAccount() {
 		return storeAccount;
 	}
 
@@ -155,5 +168,7 @@ public class UserAccount {
 	public Integer getLastOperatorId() {
 		return lastOperatorId;
 	}
+
+   
 
 }

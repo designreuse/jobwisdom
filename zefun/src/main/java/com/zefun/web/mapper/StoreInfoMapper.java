@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.zefun.web.dto.StoreInfoDto;
+import com.zefun.web.entity.Page;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.wechat.dto.RegionCountDto;
 
@@ -213,4 +215,13 @@ public interface StoreInfoMapper {
 	* @return List<StoreInfo>
 	 */
 	List<StoreInfo> selectByStoreAccount(String storeAccount);
+	
+	/**
+	 * 查询该企业下 所有营业的门店 所有没删除没停用的活动
+	* @author 骆峰
+	* @date 2016年6月29日 下午4:12:53
+	* @param page page
+	* @return List
+	 */
+	List<StoreInfoDto> selectByfavourable(Page<StoreInfoDto> page);
 }

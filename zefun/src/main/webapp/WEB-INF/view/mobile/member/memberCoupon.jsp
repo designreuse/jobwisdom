@@ -15,7 +15,7 @@
 <body>
 	<div class="con">
 		<ul class="clearfix coupon">
-			<li style="border-right: 1px solid #ccc"><span style="background: #ea631a;">兑换优惠券</span></li>
+			<a href="<%=basePath%>memberCenter/view/storeCoupon/${session_key_store_account}/1"><li style="border-right: 1px solid #ccc"><span style="background: #ea631a;">兑换优惠券</span></li></a>
 			<li><span style="background: #f69731">推荐有奖</span></li>
 		</ul>
 		<div class="noCoupon">
@@ -26,6 +26,7 @@
 				<a href="">立即兑换&gt;</a>
 			</div>
 		</div>
+		<div style="overflow: overlay;height: 500px">
 		<c:forEach items="${couponList }" var="coupon">
 			<div class="coupon_content">
 				<div class="coupon_content_detail clearfix" style="background: #${coupon.couponColour }">
@@ -40,9 +41,8 @@
 				</div>
 			</div>
 		</c:forEach>
-		
 		<p class="past">去积分商城吧</p>
-		<p></p>
+		</div>
 	</div>
 	
 	 <ul class="bottom_fix clearfix">

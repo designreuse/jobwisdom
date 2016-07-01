@@ -184,7 +184,7 @@
              		${memberLevel.performanceDiscountPercent }%
              </td>
              <td>${memberLevel.integralUnit }元 = ${memberLevel.integralNumber }积分</td>
-             <td class="input80 ellipsis-text">
+             <td class="input80">
              		${memberLevel.levelNotice }
              </td>
             
@@ -239,14 +239,14 @@
    
 		   <div class="business_level_back_text">
 		      <ul class="business_level_back_text_ul clearfix">
-		         <li>项目折扣<input type="text" name="projectDiscount"></li>
+		         <li>项目折扣<input type="text" name="projectDiscount"><em style="position:relative;left:-20px">%</em></em></li>
 				 <li>现金支付打折
 				     <select name="cashDiscountType" class="chzn-select wthn100">
                         <option value="0">不打折</option>
                         <option value="1">打折</option>
                    	 </select>
                  </li>
-				 <li>商品折扣<input type="text" name="goodsDiscount"></li>
+				 <li>商品折扣<input type="text" name="goodsDiscount"><em style="position:relative;left:-20px">%</em></li>
 				 <li>业绩折扣打折<input type="text" name="performanceDiscountPercent"></li>
 				 <li>开卡费用<input type="text" name="sellAmount"></li>
 				 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:28px"></li>

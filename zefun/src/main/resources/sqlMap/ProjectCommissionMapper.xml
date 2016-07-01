@@ -16,7 +16,16 @@
     <result column="commission_no_price" property="commissionNoPrice" jdbcType="INTEGER" />
     <result column="commission_card" property="commissionCard" jdbcType="INTEGER" />
     <result column="position_id" property="positionId" jdbcType="INTEGER" />
+    <result column="commission_no_gold" property="commissiNoGold" jdbcType="INTEGER" />
+    <result column="commission_gold" property="commissiGold" jdbcType="INTEGER" />
+    <result column="commission_no_course" property="commissionNoCourse" jdbcType="INTEGER" />
+    <result column="commission_course" property="commissionCourse" jdbcType="INTEGER" />
+    <result column="commission_no_cash" property="commissionNoCash" jdbcType="INTEGER" />
+    <result column="commission_cash" property="commissionCash" jdbcType="INTEGER" />
   </resultMap>
+
+  
+
   
   <resultMap id="ProjectCommissionDtoMap" type="com.zefun.web.dto.ProjectCommissionDto" >
     <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
@@ -45,7 +54,8 @@
     <sql id="Base_Column_List" >
     commission_id, project_id, level_id, assign_cash_type, assign_cash, assign_card, 
     is_deleted, create_time, update_time, last_operator_id, commission_price, commission_no_price, 
-    commission_card, position_id
+    commission_card, position_id, commission_cash, commission_no_cash, commission_course, commission_no_course, commission_gold, 
+	commission_no_gold
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -114,6 +124,25 @@
       <if test="lastOperatorId != null" >
         last_operator_id,
       </if>
+
+      <if test="commissiNoGold != null" >
+        commission_no_gold,
+      </if>
+      <if test="commissiGold != null" >
+        commission_gold,
+      </if>
+      <if test="commissionNoCourse != null" >
+        commission_no_course,
+      </if>
+      <if test="commissionCourse != null" >
+        commission_course,
+      </if>
+      <if test="commissionNoCash != null" >
+        commission_no_cash,
+      </if>
+      <if test="commissionCash != null" >
+        commission_cash,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="commissionId != null" >
@@ -170,6 +199,27 @@
       <if test="lastOperatorId != null" >
         #{lastOperatorId,jdbcType=INTEGER},
       </if>
+      
+        <if test="commissiNoGold != null" >
+         #{commissiNoGold,jdbcType=INTEGER},
+      </if>
+      <if test="commissiGold != null" >
+           #{commissiGold,jdbcType=INTEGER},
+      </if>
+      <if test="commissionNoCourse != null" >
+        #{commissionNoCourse,jdbcType=INTEGER},
+      </if>
+      <if test="commissionCourse != null" >
+          #{commissionCourse,jdbcType=INTEGER},
+      </if>
+      <if test="commissionNoCash != null" >
+          #{commissionNoCash,jdbcType=INTEGER},
+      </if>
+      <if test="commissionCash != null" >
+        #{commissionCash,jdbcType=INTEGER},
+      </if>
+      
+      
     </trim>
   </insert>
   
@@ -227,6 +277,26 @@
       <if test="lastOperatorId != null" >
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
       </if>
+      
+      
+      <if test="commissiNoGold != null" >
+        commission_no_gold= #{commissiNoGold,jdbcType=INTEGER},
+      </if>
+      <if test="commissiGold != null" >
+        commission_gold= #{commissiGold,jdbcType=INTEGER},
+      </if>
+      <if test="commissionNoCourse != null" >
+        commission_no_course= #{commissionNoCourse,jdbcType=INTEGER},
+      </if>
+      <if test="commissionCourse != null" >
+        commission_course = #{commissionCourse,jdbcType=INTEGER},
+      </if>
+      <if test="commissionNoCash != null" >
+        commission_no_cash = #{commissionNoCash,jdbcType=INTEGER},
+      </if>
+      <if test="commissionCash != null" >
+        commission_cash = #{commissionCash,jdbcType=INTEGER},
+      </if>
     </set>
     where commission_id = #{commissionId,jdbcType=INTEGER}
   </update>
@@ -254,7 +324,25 @@
       <if test="isDeleted != null" >
         and is_deleted = #{isDeleted,jdbcType=INTEGER}
       </if>
-  
+      
+  		<if test="commissiNoGold != null" >
+        and commission_no_gold= #{commissiNoGold,jdbcType=INTEGER},
+      </if>
+      <if test="commissiGold != null" >
+         and commission_gold= #{commissiGold,jdbcType=INTEGER},
+      </if>
+      <if test="commissionNoCourse != null" >
+         and  commission_no_course= #{commissionNoCourse,jdbcType=INTEGER},
+      </if>
+      <if test="commissionCourse != null" >
+         and   commission_course = #{commissionCourse,jdbcType=INTEGER},
+      </if>
+      <if test="commissionNoCash != null" >
+         and   commission_no_cash = #{commissionNoCash,jdbcType=INTEGER},
+      </if>
+      <if test="commissionCash != null" >
+         and   commission_cash = #{commissionCash,jdbcType=INTEGER},
+      </if>
  
   </select>
   
@@ -276,7 +364,10 @@
 	      #{item.nonAssignCardType,jdbcType=INTEGER}, #{item.nonAssignCard,jdbcType=INTEGER},
 	      #{item.appointmentRewardType,jdbcType=INTEGER}, #{item.appointmentReward,jdbcType=INTEGER}, 
 	      #{item.isDeleted,jdbcType=INTEGER}, #{item.createTime,jdbcType=CHAR}, 
-	      #{item.updateTime,jdbcType=CHAR}, #{item.lastOperatorId,jdbcType=INTEGER})
+	      #{item.updateTime,jdbcType=CHAR}, #{item.lastOperatorId,jdbcType=INTEGER}
+	      
+	      
+	      )
     </foreach>
   </insert>
   
@@ -321,10 +412,12 @@
   </insert>
   
    <insert id="insertTiveList" parameterType="java.util.List" >  
-  	insert into project_commission (position_id,level_id,assign_cash_type,commission_price,commission_no_price,commission_card,is_deleted,project_id)  values
+  	insert into project_commission (position_id,level_id,assign_cash_type,commission_price,commission_no_price,commission_card,is_deleted,project_id
+  	,commission_cash, commission_no_cash, commission_course, commission_no_course, commission_gold,  commission_no_gold)  values
     <foreach collection="list" item="item" index="index" separator=",">
-    	(#{item.positionId}, #{item.levelId}, #{item.assignCashType}, #{item.commissionPrice}, #{item.commissionNoPrice}, #{item.commissionCard}, #{item.isDeleted}, #{item.projectId})
-     </foreach>
+    	(#{item.positionId}, #{item.levelId}, #{item.assignCashType}, #{item.commissionPrice}, #{item.commissionNoPrice}, #{item.commissionCard}, #{item.isDeleted}, #{item.projectId},
+    	 #{item.commissionCash}, #{item.commissionNoCash}, #{item.commissionCourse},#{item.commissionNoCourse},#{item.commissiGold}, #{item.commissiNoGold})
+     </foreach>  
   </insert>
 
 	  <select id="selectShow" parameterType="java.lang.Integer" resultMap="BaseResultMap">

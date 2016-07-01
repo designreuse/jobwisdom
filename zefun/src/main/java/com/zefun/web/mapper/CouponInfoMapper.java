@@ -128,6 +128,15 @@ public interface CouponInfoMapper {
     * @return int
      */
     int updateByDelete(CouponInfo couponId);
+
+    /**
+     * 根据规则查询
+    * @author 高国藩
+    * @date 2016年6月28日 下午4:36:49
+    * @param couponInfo  couponInfo
+    * @return            List<CouponInfo>
+     */
+    List<CouponInfo> selectByProperties(CouponInfo couponInfo);
     
     
 }
