@@ -783,13 +783,13 @@
 		var levelId =jQuery(".tr2").eq(i).find('td').eq(0).attr('value');
 		var assignCashType = jQuery(".tr2").eq(i).find('td').eq(1).find('select option:selected').val();
 	
-		var commissionCash=jQuery(".tr1").eq(i).find('td').eq(2).find('span input').val();
-		var commissiGold =jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
-		var commissionCourse=jQuery(".tr1").eq(i).find('td').eq(4).find('span input').val();
+		var commissionCash=jQuery(".tr2").eq(i).find('td').eq(2).find('span input').val();
+		var commissiGold =jQuery(".tr2").eq(i).find('td').eq(3).find('span input').val();
+		var commissionCourse=jQuery(".tr2").eq(i).find('td').eq(4).find('span input').val();
 		
-		var commissionNoCash=jQuery(".tr1").eq(i).find('td').eq(5).find('span input').val();
-		var commissiNoGold =jQuery(".tr1").eq(i).find('td').eq(6).find('span input').val();
-		var commissionNoCourse=jQuery(".tr1").eq(i).find('td').eq(7).find('span input').val();
+		var commissionNoCash=jQuery(".tr2").eq(i).find('td').eq(5).find('span input').val();
+		var commissiNoGold =jQuery(".tr2").eq(i).find('td').eq(6).find('span input').val();
+		var commissionNoCourse=jQuery(".tr2").eq(i).find('td').eq(7).find('span input').val();
 		
 		commissionCash=checked(commissionCash);
 		commissiGold=checked(commissiGold);
@@ -812,13 +812,13 @@
 	for (var i = 0; i < jQuery(".tr3").length; i++) {
 		var levelId =jQuery(".tr3").eq(i).find('td').eq(0).attr('value');
 		var assignCashType = jQuery(".tr3").eq(i).find('td').eq(1).find('select option:selected').val();
-		var commissionCash=jQuery(".tr1").eq(i).find('td').eq(2).find('span input').val();
-		var commissiGold =jQuery(".tr1").eq(i).find('td').eq(3).find('span input').val();
-		var commissionCourse=jQuery(".tr1").eq(i).find('td').eq(4).find('span input').val();
+		var commissionCash=jQuery(".tr3").eq(i).find('td').eq(2).find('span input').val();
+		var commissiGold =jQuery(".tr3").eq(i).find('td').eq(3).find('span input').val();
+		var commissionCourse=jQuery(".tr3").eq(i).find('td').eq(4).find('span input').val();
 		
-		var commissionNoCash=jQuery(".tr1").eq(i).find('td').eq(5).find('span input').val();
-		var commissiNoGold =jQuery(".tr1").eq(i).find('td').eq(6).find('span input').val();
-		var commissionNoCourse=jQuery(".tr1").eq(i).find('td').eq(7).find('span input').val();
+		var commissionNoCash=jQuery(".tr3").eq(i).find('td').eq(5).find('span input').val();
+		var commissiNoGold =jQuery(".tr3").eq(i).find('td').eq(6).find('span input').val();
+		var commissionNoCourse=jQuery(".tr3").eq(i).find('td').eq(7).find('span input').val();
 		
 		commissionCash=checked(commissionCash);
 		commissiGold=checked(commissiGold);
@@ -1358,13 +1358,13 @@
 			
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(2).find("input").val(selectShow[j].commissionCash);
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissiGold);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionCourse);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionNoCash);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissiNoGold);
-			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionNoCourse);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(4).find("input").val(selectShow[j].commissionCourse);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(5).find("input").val(selectShow[j].commissionNoCash);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(6).find("input").val(selectShow[j].commissiNoGold);
+			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(7).find("input").val(selectShow[j].commissionNoCourse);
 			
 			if(selectShow[j].commissionCard != "" && selectShow[j].commissionCard >0){
-				jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(4).find("input").val(selectShow[j].commissionCard);
+				jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(8).find("input").val(selectShow[j].commissionCard);
 			}
 			if(selectShow[j].assignCashType==2){
 				jQuery('i[id='+selectShow[j].levelId+']').text("%");

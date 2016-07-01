@@ -263,6 +263,9 @@ jQuery('body').delegate('.lcs_check_assignType', 'lcs-statuschange', function() 
 var modelType = -1;
 var dataAjax = {};
 function save(type){
+	
+	
+	
 	var memberId = jQuery("input[name='memberId']").val();
 	
 	var levelId = "";
@@ -419,7 +422,7 @@ function openCard() {
 function deptArrayObj(tabType, realPrice) {
 	var tab = jQuery("#" + tabType);
 	
-	var deptObjs = jQuery(tab).find(".achievement_detail il");
+	var deptObjs = jQuery(tab).find(".achievement_detail ul");
 	
 	var deptChooseType = tab.find("select[name='deptChooseType']").val(); 
 	
@@ -427,11 +430,11 @@ function deptArrayObj(tabType, realPrice) {
 	
 	if (deptObjs.length > 0) {
 		for (var i = 0; i < deptObjs.length; i++) {
-			var deptCalculate = jQuery(deptObjs[i]).find("input[name='deptCalculate']").val();
-			var deptId = jQuery(deptObjs[i]).find("i[name='deptId']").attr("value");
+			var deptCalculate = jQuery(deptObjs[i]).find("li").find("input[name='deptCalculate']").val();
+			var deptId = jQuery(deptObjs[i]).find("li").find("i[name='deptId']").attr("value");
 			
 			if (deptCalculate == "") {
-				var name = jQuery(deptObjs[i]).find("i[name='deptId']").text()  ;
+				var name = jQuery(deptObjs[i]).find("li").find("i[name='deptId']").text()  ;
 				dialog(name+"的提成,业绩不能为同时空！");
 				return -1;
 			}
@@ -462,7 +465,7 @@ function deptArrayObj(tabType, realPrice) {
 function arrayObj (tabType, realPrice) {
 	var tab = jQuery("#" + tabType);
 	
-	var	commissionParentObj = jQuery(tab).find(".achievement_recharge_content");
+	var	commissionParentObj = jQuery(tab).find(".achievement_recharge_content li");
 	
 	//选中员工标识集合
 	var commissionEmployeeIds = commissionParentObj;
