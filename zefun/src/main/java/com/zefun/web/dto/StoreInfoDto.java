@@ -2,11 +2,9 @@ package com.zefun.web.dto;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 
 import com.zefun.web.entity.FavourableAccount;
 
-import net.sf.json.JSONArray;
 
 /**
  * 
