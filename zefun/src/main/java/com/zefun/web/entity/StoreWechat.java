@@ -35,6 +35,9 @@ public class StoreWechat {
 
     /** 员工服务移交通知 */
     private String tmServiceTurn;
+    
+    /** 服务计划推送通知 */
+    private String tmServiceTopic;
 
     /** 优惠券到期提醒 */
     private String tmCouponOverdue;
@@ -57,6 +60,15 @@ public class StoreWechat {
 
     public String getWechatId() {
         return wechatId;
+    }
+
+    
+    public String getTmServiceTopic() {
+        return tmServiceTopic;
+    }
+
+    public void setTmServiceTopic(String tmServiceTopic) {
+        this.tmServiceTopic = tmServiceTopic;
     }
 
     /**

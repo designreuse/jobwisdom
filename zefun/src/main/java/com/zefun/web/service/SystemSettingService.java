@@ -370,6 +370,7 @@ public class SystemSettingService {
     	redisService.hset(App.Redis.WECHAT_TEMPLATE_MEMBER_CHARGE_HASH, storeAccount, storeWechat.getTmChargeResult().toString());
     	redisService.hset(App.Redis.WECHAT_TEMPLATE_PAYMENT_HASH, storeAccount, storeWechat.getTmPaymentInfo().toString());
     	redisService.hset(App.Redis.WECHAT_TEMPLATE_SERVICE_TURN_HASH, storeAccount, storeWechat.getTmServiceTurn().toString());
+    	redisService.hset(App.Redis.WECHAT_TEMPLATE_SERVICE_TOPIC_HASH, storeAccount, storeWechat.getTmServiceTopic().toString());
     	redisService.hset(App.Redis.WECHAT_TEMPLATE_APPOINTMENT_REMIND_HASH, storeAccount, storeWechat.getTmAppointRemind().toString());
     	redisService.hset(App.Redis.WECHAT_TEMPLATE_COUPON_OVERDUE_HASH, storeAccount, storeWechat.getTmCouponOverdue().toString());
     	

@@ -81,6 +81,12 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td class="text-right fb">服务计划推送通知</td>
+                                <td>
+                                     <input type="text" name="tmServiceTopic" value="${storeWechat.tmServiceTopic }" class="name"/>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="text-right fb">优惠券到期提醒</td>
                                 <td>
                                      <input type="text" name="tmCouponOverdue" value="${storeWechat.tmCouponOverdue }" class="name"/>
