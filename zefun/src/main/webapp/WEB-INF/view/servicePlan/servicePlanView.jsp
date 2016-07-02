@@ -14,7 +14,7 @@
 				<%@include file="/top.jsp"%>
 				<div class="content_right clearfix">
 					<p>
-						<button onclick="add()">新增计划</button>
+						<button onclick="add()">新增计划</button>&nbsp;&nbsp;&nbsp;<button onclick="location.href='<%=basePath%>service/view/temp'">新增模板</button>
 					</p>
 					<div class="new_plan_plan">
 						<table>
@@ -77,11 +77,13 @@
 
 				<div class="plan_theme">
 					<p>
-						<span><em>主题</em><input name="theme" maxlength="8" type="text" style="width: 562px"></span>
+						<span><em>主题</em><input name="theme" maxlength="8" type="text" ></span>
 					</p>
 					<p>
 						<span><em>服务时间</em><input name="serviceTime" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span>
 						<span><em>服务项目</em><select name="serviceProjectName"><c:forEach items="${projectInfos }" var="projectInfo"><option value="${projectInfo.projectName }">${projectInfo.projectName }</option></c:forEach></select></span>
+					</p>
+					<p>
 						<span><em>提醒时间</em><input name="topicTime" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH'})"></span>
 					</p>
 					<div class="message_content clearfix">
@@ -268,5 +270,6 @@ function selectTemp(tId, li){
 		}
 	});
 }
+
 </script>
 </html>

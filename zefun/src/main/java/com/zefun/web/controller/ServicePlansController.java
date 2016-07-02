@@ -125,4 +125,18 @@ public class ServicePlansController extends BaseController{
         return servicePlansService.selectServicePlansTemp(tId);
     }
     
+    /**
+     * 删除模板
+    * @author 高国藩
+    * @date 2016年7月1日 下午6:41:24
+    * @param request  request
+    * @param tId      tId
+    * @return         BaseDto
+     */
+    @RequestMapping(value = Url.ServicePlans.DELETE_SERVICE_TEMP, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto deleteServicePlansTemp(HttpServletRequest request, Integer tId) {
+        return servicePlansService.deleteServicePlansTemp(tId);
+    }
+    
 }

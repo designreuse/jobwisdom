@@ -14,7 +14,7 @@
 
 				<div class="content_right clearfix">
 					<p>
-						<button onclick="jQuery('.zzc').show('800')">新增计划</button>
+						<button onclick="jQuery('.zzc').show('800')">新增模板</button>&nbsp;&nbsp;&nbsp;<button onclick="location.href='<%=basePath%>service/view/view'">新增计划</button>
 					</p>
 					<div class="new_templet">
 						<table>
@@ -32,8 +32,8 @@
 										
 										<td>${servicePlanTemp.tempName }</td>
 										<td>${servicePlanTemp.theme }</td>
-										<td>计划启动后,${servicePlanTemp.topicDay }天 ${servicePlanTemp.topicHoure }小时后, 进行推送</td>
-										<td><img onclick="showUpdate(this)" src="<%=basePath %>images/add_store_1.png"><img src="<%=basePath %>images/add_store_2.png"></td>
+										<td>计划启动后,${servicePlanTemp.topicDay }天${servicePlanTemp.topicHoure }小时后, 进行推送</td>
+										<td><img onclick="showUpdate(this)" src="<%=basePath %>images/add_store_1.png"><img onclick="deleted(${servicePlanTemp.tId }, this)" src="<%=basePath %>images/add_store_2.png"></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -173,8 +173,19 @@
 			dataType : "json",
 			contentType : "application/json",
 			async : false,
+			beforeSend : function(){
+				console.log("模板生效中...");
+			},
+			complete : function(){
+				console.log("模板以生效...");
+			},
 			success : function(data) {
-				dialog("模板生效中, 请稍后....");
+				jQuery(".zzc").hide('500');
+				if (data.code!=-1){
+					dialog("模板以生效, 请在计划中使用该模板进行推送");
+				}else {
+					dialog(data.msg);
+				}
 				window.location.href = baseUrl + "service/view/temp";
 			}
 		});
@@ -194,9 +205,9 @@
 						'topicHoure="'+topicHoure+'"  serviceProjectName="'+serviceProjectName+'"  serviceDay="'+serviceDay+'"  '+
 						'serviceHoure="'+serviceHoure+'" isSms="'+isSms+'">'+
 				'<td>'+tempName+'</td>'+
-				'<td>计划启动后,'+topicDay+'天'+topicHoure+'小时候,提醒</td>'+
+				'<td>计划启动后,'+topicDay+'天'+topicHoure+'小时后,提醒</td>'+
 				'<td>'+serviceProjectName+'</td>'+
-				'<td>计划启动后,'+serviceDay+'天'+serviceHoure+'小时候,服务</td>';
+				'<td>计划启动后,'+serviceDay+'天'+serviceHoure+'小时后,服务</td>';
 		if (isSms == 1){
 			html += '<td>否</td>'+
 						'<td><img onclick="tId='+tId+'\;showUpdate(this)\;jQuery(this).parents(\'tr\').remove()" src="<%=basePath%>images/add_store_1.png"><img onclick="jQuery(this).parents(\'tr\').remove()" src="<%=basePath%>images/add_store_2.png"></td>'+
@@ -208,6 +219,24 @@
 		}
 		jQuery("tbody").eq(1).append(jQuery(html));
 		clearInput();		
+	}
+	
+	function deleted(tIds, img){
+		if(confirm("确定要删除该服务模板 ？")){
+			jQuery.ajax({
+				type : "post",
+				url : baseUrl + "service/view/temp/delete",
+				data : "tId="+tIds,
+				dataType : "json",
+				async : false,
+				success : function(data) {
+					if(data.code!=-1){
+						dialog("该服务模板已删除,将不会出现计划列表中");
+						jQuery(img).parents("tr").remove();
+					}
+				}
+			});
+		}
 	}
 	
 	function isSms(check){
@@ -228,5 +257,6 @@
 		jQuery("input[name='serviceDay']").val('');
 		jQuery("input[name='serviceHoure']").val('');
 	}
+	
 </script>
 </html>

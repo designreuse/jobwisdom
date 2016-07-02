@@ -54,7 +54,7 @@
 	<!--对门店会员的服务计划推送功能-->
 	<bean id="servicePlansJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
        <property name="jobDetail" ref="servicePlansJobDetail"/>
-       <property name="cronExpression" value="0 0/3 * * * ?"/><!-- 	每个月最后一天23点59分执行   -->
+       <property name="cronExpression" value="0 0/30 * * * ?"/><!-- 	每个月最后一天23点59分执行   -->
 	</bean>
 
 	<bean id="servicePlansJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

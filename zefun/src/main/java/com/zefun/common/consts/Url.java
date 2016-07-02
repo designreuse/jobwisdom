@@ -1649,5 +1649,7 @@ public interface Url {
         public static final String SAVE_SERVICE_TEMP = "service/save/temp";
         /** 搜索模板*/
         public static final String SELECT_SERVICE_TEMP = "service/select/temp";
+        /** 删除模板*/
+        public static final String DELETE_SERVICE_TEMP = "service/view/temp/delete";
 	}
 }

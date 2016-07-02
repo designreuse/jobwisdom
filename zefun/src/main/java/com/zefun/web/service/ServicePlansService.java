@@ -90,6 +90,7 @@ public class ServicePlansService {
     * @return      BaseDto
      * @throws ParseException 
      */
+    @Transactional
     public BaseDto saveServicePlans(ServicePlanInfo servicePlanInfo) throws ParseException {
         // 判断时间
         Calendar calendar = Calendar.getInstance();
@@ -97,10 +98,24 @@ public class ServicePlansService {
         calendar.add(Calendar.MINUTE, 30);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH");
         Date date = sdf.parse(servicePlanInfo.getTopicTime());
+        // 提醒时间,第一判断设定的提醒时间是否在30分钟后,第二,判断提醒时间是否在服务时间之前
         Calendar calendarTopic = Calendar.getInstance();
         calendarTopic.setTime(date);
         calendarTopic.set(Calendar.SECOND, 0);
         calendarTopic.set(Calendar.MINUTE, 0);
+        
+        Calendar isOk = Calendar.getInstance();
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        Date serviceTime = sdf2.parse(servicePlanInfo.getServiceTime());
+        isOk.setTime(serviceTime);
+//        // 判断设置的时间实在在当前时间之后
+//        if (Calendar.getInstance().after(isOk)){
+//            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "不可设置过期的时间,请将时间设置在当前时间之后");
+//        }
+        // 判断服务的时间在提醒时间之后
+        if (isOk.after(calendarTopic)){
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "服务的时间要在提醒的时间之后啊,要不咋提醒啊");
+        }
         if (!calendarTopic.after(calendar)){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "为了您的精准推送,请将时间设置为当前时间的30分钟后");
         }
@@ -114,6 +129,7 @@ public class ServicePlansService {
         List<ServicePlanInfo> servicePlanInfos = servicePlanInfoMapper.selectByProperites(servicePlanInfo);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, servicePlanInfos.get(0));
     }
+    
 
     /**
      * 删除服务计划
@@ -155,6 +171,7 @@ public class ServicePlansService {
     * @param storeId           storeId
     * @return                  BaseDto
      */
+    @Transactional
     public BaseDto saveServicePlansTemp(List<ServicePlanTemp> servicePlanTemps, Integer storeId) {
         for (int i = 0; i < servicePlanTemps.size(); i++) {
             ServicePlanTemp servicePlanTemp = servicePlanTemps.get(i);
@@ -164,7 +181,14 @@ public class ServicePlansService {
                 servicePlanTempMapper.updateByPrimaryKeySelective(servicePlanTemp);
             }
             else {
-                servicePlanTempMapper.insertSelective(servicePlanTemp);
+                ServicePlanTemp query = new ServicePlanTemp();
+                query.setStoreId(storeId);
+                if (servicePlanTempMapper.selectByProperties(query).size() >= 5){
+                    return new BaseDto(-1, "模板最多可添加五个, 请注意上限");
+                }
+                else {
+                    servicePlanTempMapper.insertSelective(servicePlanTemp);
+                }
             }
         }
         return new BaseDto(0, servicePlanTemps);
@@ -177,6 +201,7 @@ public class ServicePlansService {
     * @param tId tId
     * @return    BaseDto
      */
+    @Transactional
     public BaseDto selectServicePlansTemp(Integer tId) {
         ServicePlanTemp servicePlanTemp = new ServicePlanTemp();
         servicePlanTemp.settId(tId);
@@ -196,6 +221,19 @@ public class ServicePlansService {
         servicePlanInfo.setServiceProjectName(planTemp.getServiceProjectName());
         servicePlanInfo.setIsSms(planTemp.getIsSms());
         return new BaseDto(0, servicePlanInfo);
+    }
+
+    /**
+     * 删除模板
+    * @author 高国藩
+    * @date 2016年7月2日 下午2:20:13
+    * @param tId  tId
+    * @return     BaseDto
+     */
+    @Transactional
+    public BaseDto deleteServicePlansTemp(Integer tId) {
+        servicePlanTempMapper.deleteByPrimaryKey(tId);
+        return new BaseDto(0, null);
     }
 
 }
