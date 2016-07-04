@@ -2,6 +2,7 @@ package com.zefun.web.mapper;
 
 import java.util.List;
 
+import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.CommissionScheme;
 /**
  * 
@@ -50,4 +51,13 @@ public interface CommissionSchemeMapper {
     * @return List<CommissionScheme>
      */
     List<CommissionScheme> selectByStoreId(Integer storeId);
+    /**
+     * 业绩提成分配保存
+    * @author 骆峰
+    * @date 2016年7月4日 上午11:43:24
+    * @param commissionScheme commissionScheme
+    * @return int
+     */ 
+    int  updateSave(CommissionScheme commissionScheme);
+    
 }

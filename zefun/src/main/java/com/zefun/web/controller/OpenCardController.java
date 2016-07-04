@@ -289,7 +289,8 @@ public class OpenCardController extends BaseController {
 				alipayAmount, debtAmount, rewardAmount, getStoreId(request), deptIds, deptCalculates, getUserId(request), orderCode, createTime);
 	}
 
-	/**
+	/** 
+	 * 优惠卷赠送
 	 * @author 张进军
 	 * @date Dec 10, 2015 9:28:02 PM
 	 * @param memberId 会员标识
@@ -307,7 +308,7 @@ public class OpenCardController extends BaseController {
 	@RequestMapping(value = Url.KeepAccounts.PRESENT_GIFT, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto presentGift(Integer memberId, Integer giftmoneyAmount, Integer part, Integer overdueMonth,
-    			Integer integralAmount, String [] coupon, String comment, HttpServletRequest request, Integer numberCoupon,
+    			Integer integralAmount, String  coupon, String comment, HttpServletRequest request, Integer numberCoupon,
     			HttpServletResponse response) {
 		int employeeId = getUserId(request);
 		return openCardService.presentGift(memberId, giftmoneyAmount, part, overdueMonth, integralAmount, coupon,

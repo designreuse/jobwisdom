@@ -1,17 +1,19 @@
 package com.zefun.web.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
+import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.CommissionScheme;
 import com.zefun.web.mapper.CommissionSchemeMapper;
+
+import net.sf.json.JSONArray;
 
 
 /**
@@ -37,22 +39,37 @@ public class CommissionSchemeService {
 	public ModelAndView showCommissionScheme(int storeId) {
 		ModelAndView mav = new ModelAndView(View.Setting.VIEW_COMMISSION_SCHEME);
 		List<CommissionScheme> commissionSchemeList = commissionSchemeMapper.selectByStoreId(storeId);
-		Map<String, Object> goodsMap = new HashMap<>();
-		Map<String, Object> comboMap = new HashMap<>();
+//		Map<String, Object> goodsMap = new HashMap<>();
+//		Map<String, Object> comboMap = new HashMap<>();
 		//将分配业绩提成重新组装好
-		for (CommissionScheme commissionScheme : commissionSchemeList) {
-			Map<String, Object> map = null;
-			if (commissionScheme.getCommissionType() == 1) {
-				map = goodsMap;
-			}
-			else {
-				map = comboMap;
-			}
-			String cashTwoCommission = commissionScheme.getCashTwoCommission();
-			List<Map<String, Object>> cashTwoList = new ArrayList<>();
-			
-		}
-		mav.addObject("commissionSchemeList", commissionSchemeList);
+//		for (CommissionScheme commissionScheme : commissionSchemeList) {
+//			Map<String, Object> map = null;
+//			if (commissionScheme.getCommissionType() == 1) {
+//				map = goodsMap;
+//			}
+//			else {
+//				map = comboMap;
+//			}
+//			String cashTwoCommission = commissionScheme.getCashTwoCommission();
+//			List<Map<String, Object>> cashTwoList = new ArrayList<>();
+//			
+//		}
+		mav.addObject("commissionSchemeList", JSONArray.fromObject(commissionSchemeList));
 		return mav;
 	}
+	
+	/**
+	 * 业绩提成分配保存
+	* @author 骆峰
+	* @date 2016年7月4日 上午11:43:59
+	* @param storeId storeId
+	* @param commissionScheme commissionScheme
+	* @return BaseDto
+	 */
+    public BaseDto saveCommissionScheme(int storeId,
+            CommissionScheme commissionScheme) {
+        commissionScheme.setStoreId(storeId);
+        commissionSchemeMapper.updateSave(commissionScheme);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
 }

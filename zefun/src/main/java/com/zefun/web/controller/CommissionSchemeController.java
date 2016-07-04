@@ -4,11 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.Url;
+import com.zefun.web.dto.BaseDto;
+import com.zefun.web.entity.CommissionScheme;
 import com.zefun.web.service.CommissionSchemeService;
 
 /**
@@ -31,10 +35,28 @@ public class CommissionSchemeController extends BaseController {
     * @param request    请求对象
     * @return   预约列表
      */
+    
     @RequestMapping(value = Url.CommissionScheme.VIEW_SHOW_COMMISSION_SCHEME, method = RequestMethod.GET)
     public ModelAndView showCommissionScheme(HttpServletRequest request){
         int storeId = getStoreId(request);
         return commissionSchemeService.showCommissionScheme(storeId);
+    }
+    
+    
+    
+    /**
+     *  业绩提成分配保存
+    * @author 骆峰
+    * @date 2016年7月4日 上午11:40:12
+    * @param request request
+    * @param commissionScheme commissionScheme
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.CommissionScheme.VIEW_SAVE_COMMISSION_SCHEME, method = RequestMethod.POST)
+    @ResponseBody
+    public  BaseDto saveCommissionScheme(HttpServletRequest request, @RequestBody CommissionScheme commissionScheme){
+        int storeId = getStoreId(request);
+        return commissionSchemeService.saveCommissionScheme(storeId, commissionScheme);
     }
     
 }
