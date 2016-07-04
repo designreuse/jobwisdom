@@ -1,0 +1,38 @@
+.content_right{padding:32px;background:white}
+.goods_series_item_content{margin-top:16px}
+.goods_series_item{color:black;font-size:14px}
+.goods_series_item_content_{padding:12px 20px;height:220px;border-radius:8px;background:#d8deed;margin-top:6px}
+.goods_series_item_content>p{font-size:16px}
+.goods_series_item_content_>p>button{width:130px;height:26px;border:none;border-radius:12px;color:white;font-size:16px;text-align:center;line-height:26px;background:#59688a}
+.goods_series_detail{overflow:overlay;background:white;height:130px;border:1px solid black;border-radius:8px;padding:20px;margin-top:10px}
+.goods_series_detail  li{margin-right:24px;margin-left:10px;cursor:pointer;overflow:hidden;position:relative;float:left;width:150px;height:26px;border-radius:12px;text-align:center;line-height:26px;border:1px solid black;margin-bottom:16px}
+.goods_series_detail  li>p{height:26px;display:none;width:100%;position:absolute;left:0;top:0;background:rgba(77,77,77,0.9);border-radius:8px;overflow:hidden}
+.goods_series_detail  li>p span{display:inline-block;width:50%;text-align:center;height:26px;line-height:26px;color:white}
+.zzc_goods_series{width:340px;height:214px;background:white;margin: 15% auto}
+.zzc_goods_series>p{height:60px;background:#363c58;text-align:center;line-height:60px;font-size:16px;color:white}
+.zzc_goods_series_ input{width:200px;height:28px;border:1px solid #898989;border-radius:8px}
+.zzc_goods_series_{text-align:center;margin-top:22px}
+.zzc_goods_series_ span{position:relative;left:-60px;margin-top:5px;display:inline-block}
+.zzc_goods_series_button{text-align:center;margin-top:20px}
+.zzc_goods_series_button button{width:130px;height:26px;border-radius:12px;font-size:16px;color:white;text-align:center;line-height:26px;background:#6c6c8b;margin:0 16px;border:none}
+button:hover{background:#575773}
+
+.out_roll li{width:138px;height:66px;border:1px solid black;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
+.click_left{position:absolute;z-index:2;top:2px;}
+.click_right{position:absolute;right:-50px;top:2px;z-index:2}
+.out_roll{width:960px;height:96px;position:relative;}
+.out_roll_ul{width:4000px;margin-left:2px;position:relative}
+.out_roll span img{height:55px}
+.out_roll_div{overflow:hidden}
+.zzc,.zzc1,.zzc2,.zzc3{
+    position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+	display:none
+    
+}
+.out_roll_content{padding:20px 10px 0 0 ;border:1px solid black;border-radius:8px;background:#fbfbff}

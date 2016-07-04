@@ -18,7 +18,6 @@ import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.EntityJsonConverter;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.DeptMahjongDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
@@ -28,14 +27,17 @@ import com.zefun.web.dto.ProjectCommissionDto;
 import com.zefun.web.dto.ProjectInfoDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
 import com.zefun.web.entity.ProjectDiscount;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
+import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
+import com.zefun.web.mapper.GoodsCategoryMapper;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectCommissionMapper;
@@ -44,6 +46,7 @@ import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
+import com.zefun.web.mapper.StoreInfoMapper;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -92,7 +95,12 @@ public class ProjectService {
     private MemberLevelDiscountMapper memberLevelDiscountMapper;
     /** 商品系列操作 */
     @Autowired
-    private GoodsInfoService goodsInfoService;
+    private StoreInfoMapper storeInfoMapper;
+    /** 商品系列操作 */
+    @Autowired
+    private GoodsCategoryMapper goodsCategoryMapper;
+    
+    
 
     /**
      * 查询门店下所有部门的所有轮牌信息
@@ -1183,33 +1191,22 @@ public class ProjectService {
      * 展示项目商品系列页面
     * @author 高国藩
     * @date 2016年5月26日 上午10:01:42
-    * @param storeId storeId
+    * @param storeAccount storeAccount
+    * @param storeId      storeId
     * @return        页面
      */
-    public ModelAndView projectCategoryView(Integer storeId) {
-        List<DeptProjectBaseDto> projectBaseDtos = getDeptProjectByStoreId(
-                storeId);
-        List<DeptGoodsBaseDto> goodsBaseDtos = goodsInfoService
-                .getDeptGoodsByStoreId(storeId);
+    public ModelAndView projectCategoryView(String storeAccount, Integer storeId) {
+        List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
+        if (storeId == null){
+            storeId = storeInfos.get(0).getStoreId();
+        }
+        List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(storeId);
+        List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByStoreId(storeId);
         ModelAndView view = new ModelAndView(View.Project.CATEGORY);
-        if (projectBaseDtos != null) {
-            projectBaseDtos.stream()
-                    .forEach(d -> d.getProjectCategoryList().stream()
-                            .forEach(m -> m.getProjectList().stream()
-                                    .forEach(p -> p.setProjectDesc(null))));
-        }
-        if (goodsBaseDtos != null) {
-            goodsBaseDtos.stream()
-                    .forEach(d -> d.getGoodsCategoryBaseDto().stream()
-                            .forEach(m -> m.getGoodsBaseDtos().stream()
-                                    .forEach(p -> p.setGoodsDesc(null))));
-        }
-
-        view.addObject("projectBaseDtos", projectBaseDtos);
-        view.addObject("goodsBaseDtos", goodsBaseDtos);
-        view.addObject("projectBaseDtosJs",
-                JSONArray.fromObject(projectBaseDtos));
-        view.addObject("goodsBaseDtosJs", JSONArray.fromObject(goodsBaseDtos));
+        view.addObject("projectCategories", projectCategories);
+        view.addObject("goodsCategories", goodsCategories);
+        view.addObject("storeInfos", storeInfos);
+        view.addObject("storeId", storeId);
         return view;
     }
 
@@ -1279,5 +1276,61 @@ public class ProjectService {
                 projectInfo.getDeptId());
 
         return new BaseDto(0, projectInfo);
+    }
+
+    /**
+     * 新增或修改项目或者商品的系列
+    * @author 高国藩
+    * @date 2016年7月4日 上午11:34:54
+    * @param jsonObject jsonObject
+    * @return           BaseDto
+     */
+    public BaseDto saveCategory(JSONObject jsonObject) {
+        Integer type = jsonObject.getInt("type");
+        if (type == 1){
+            ProjectCategory projectCategory = (ProjectCategory) JSONObject.toBean(jsonObject, ProjectCategory.class);
+            if (projectCategory.getCategoryId()==null){
+                projectCategoryMapper.insertSelective(projectCategory);
+            }
+            else {
+                projectCategoryMapper.updateByPrimaryKeySelective(projectCategory);
+            }
+            return new BaseDto(0, projectCategory);
+        }
+        else {
+            GoodsCategory goodsCategory = (GoodsCategory) JSONObject.toBean(jsonObject, GoodsCategory.class);
+            if (goodsCategory.getCategoryId() == null){
+                goodsCategoryMapper.insertSelective(goodsCategory);
+            }
+            else {
+                goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
+            }
+            return new BaseDto(0, goodsCategory);
+        }
+    }
+
+    /**
+     * 删除系列
+    * @author 高国藩
+    * @date 2016年7月4日 下午2:34:50
+    * @param categoryId categoryId
+    * @param type       type
+    * @return           BaseDto
+     */
+    public BaseDto deletedCategory(Integer categoryId, Integer type) {
+        if (type == 1){
+            ProjectCategory projectCategory = new ProjectCategory();
+            projectCategory.setIsDeleted(1);
+            projectCategory.setCategoryId(categoryId);
+            projectCategoryMapper.updateByPrimaryKeySelective(projectCategory);
+            return new BaseDto(0, "删除成功");
+        }
+        else {
+            GoodsCategory goodsCategory = new GoodsCategory();
+            goodsCategory.setCategoryId(categoryId);
+            goodsCategory.setIsDeleted(1);
+            goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
+            return new BaseDto(0, "删除成功");
+        }
     }
 }

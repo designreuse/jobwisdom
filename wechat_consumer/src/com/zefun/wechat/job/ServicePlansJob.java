@@ -104,7 +104,7 @@ public class ServicePlansJob {
                 while (it.hasNext()){
                     Integer memberId = it.next();
                     String openId = redisService.hget(WECHAT_MEMBERID_TO_OPENID_KEY_HASH, memberId);
-                    this.sendCouponTempleMsg(servicePlanInfo.getServiceTime(), servicePlanInfo.getServiceProjectName(), openId, serverPost+storeWechat.getStoreAccount()+"/1", storeWechat.getTmServiceTopic(), storeWechat.getStoreAccount());
+                    this.sendCouponTempleMsg(storeInfo.getStoreName(), servicePlanInfo.getServiceTime(), servicePlanInfo.getServiceProjectName(), openId, serverPost+storeWechat.getStoreAccount()+"/1", storeWechat.getTmServiceTopic(), storeWechat.getStoreAccount());
                     // 如果允许短信发送,进行短息的发送
                     if (servicePlanInfo.getIsSms() == 1 && storeInfo.getBalanceSms() >= sendsIds.size()){
                         MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberId);
@@ -174,30 +174,30 @@ public class ServicePlansJob {
     * @param storeId 门店
     * @param tempId 微信模板ID
      */
-    public void sendCouponTempleMsg(String dateTime, String projectName, String openId, String url, String tempId, String storeAccount) {
+    public void sendCouponTempleMsg(String store, String dateTime, String projectName, String openId, String url, String tempId, String storeAccount) {
         Map<String, Object> map = new HashMap<String, Object>();
         // data 数据
         Map<String, Object> data = new HashMap<String, Object>();
 
         // 提示语句
         Map<String, String> first = new HashMap<String, String>();
-        first.put("value", "服务计划提醒");
+        first.put("value", "您好,您有一条新的服务计划");
         first.put("color", "#173177");
         
-        // 时间
-        Map<String, String> date = new HashMap<String, String>();
-        date.put("value", dateTime);
-        date.put("color", "#173177");
+        // 服务门店
+        Map<String, String> storeName = new HashMap<String, String>();
+        storeName.put("value", store);
+        storeName.put("color", "#173177");
 
-        // 内容
+        // 服务项目
         Map<String, String> desc = new HashMap<String, String>();
         desc.put("value", projectName);
         desc.put("color", "#173177");
 
-        // 建议
-        Map<String, String> advice = new HashMap<String, String>();
-        advice.put("value", "针对您的消费记录, 为您推荐了("+projectName+")"+"服务项目");
-        advice.put("color", "#173177");
+        // 服务时间
+        Map<String, String> date = new HashMap<String, String>();
+        date.put("value", dateTime);
+        date.put("color", "#173177");
         
         //结束语
         Map<String, String> remark = new HashMap<String, String>();
@@ -205,9 +205,9 @@ public class ServicePlansJob {
         remark.put("color", "#173177");
         
         data.put("first", first);
-        data.put("keyword1", date);
+        data.put("keyword1", storeName);
         data.put("keyword2", desc);
-        data.put("keyword3", advice);
+        data.put("keyword3", date);
         data.put("remark", remark);
 
         map.put("data", data);

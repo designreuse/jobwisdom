@@ -303,6 +303,10 @@ public interface Url {
         public static final String PROJECT_CATEGORY_VIEW = "project/view/categorys";
         /** 保存项目*/
         public static final String PROJECT_SAVE_NEW = "project/view/save";
+        /** 保存或者修改系列*/
+        public static final String SAVE_UPDATE_CATEGORY = "project/save/update/category";
+        /** 删除系列*/
+        public static final String DELETED_UPDATE_CATEGORY = "project/delete/category";
 	}
 
 	/** 套餐模块 */
