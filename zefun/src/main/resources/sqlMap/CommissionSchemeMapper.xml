@@ -133,4 +133,33 @@
     </set>
     where commission_id = #{commissionId,jdbcType=INTEGER}
   </update>
+  
+  
+   <update id="updateSave" parameterType="com.zefun.web.entity.CommissionScheme" >
+    update commission_scheme
+    <set >
+      <if test="cashTwoCommission != null" >
+        cash_two_commission = #{cashTwoCommission,jdbcType=CHAR},
+      </if>
+      <if test="cashThreeCommission != null" >
+        cash_three_commission = #{cashThreeCommission,jdbcType=CHAR},
+      </if>
+      <if test="cardTwoCommission != null" >
+        card_two_commission = #{cardTwoCommission,jdbcType=CHAR},
+      </if>
+      <if test="cardThreeCommission != null" >
+        card_three_commission = #{cardThreeCommission,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where  store_id = #{storeId,jdbcType=INTEGER} and  commission_type = #{commissionType,jdbcType=INTEGER}
+  </update>
 </mapper>

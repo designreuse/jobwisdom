@@ -1662,5 +1662,7 @@ public interface Url {
 		 * 加载提成分配方案
 		 */
 		public static final String VIEW_SHOW_COMMISSION_SCHEME = "commissionScheme/view/view_show_commission_scheme";
+		/** 保存 修改 */
+		public static final String VIEW_SAVE_COMMISSION_SCHEME = "commissionScheme/view/view_save_commission_scheme";
 	}
 }
