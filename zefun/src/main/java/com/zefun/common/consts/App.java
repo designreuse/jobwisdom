@@ -213,6 +213,8 @@ public interface App {
 
 		/** 门店服务交接模版hash key */
 		public static final String WECHAT_TEMPLATE_SERVICE_TURN_HASH = "wechat_template_service_turn_hash";
+		/** 门店服务计划推送模版hash key */
+        public static final String WECHAT_TEMPLATE_SERVICE_TOPIC_HASH = "wechat_template_service_topic_hash";
 		/** 门店预约申请模版hash key */
 		public static final String WECHAT_TEMPLATE_APPOINTMENT_APPLY_HASH = "wechat_template_appointment_apply_hash";
 		/** 门店预约结果模版hash key */

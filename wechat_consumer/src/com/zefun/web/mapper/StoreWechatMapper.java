@@ -3,17 +3,66 @@ package com.zefun.web.mapper;
 import com.zefun.web.entity.StoreWechat;
 
 /**
- * 微信门店数据关联
+ * 门店微信设置
 * @author 高国藩
-* @date 2015年10月10日 上午10:09:23
+* @date 2016年5月25日 上午10:15:56
  */
 public interface StoreWechatMapper {
+    
     /**
-     * 查询该门店是否注册公众号
+     * 删除
     * @author 高国藩
-    * @date 2015年10月13日 下午3:34:23
-    * @param storeId 门店
-    * @return 返回实体
+    * @date 2016年5月25日 上午10:16:06
+    * @param storeAccount storeAccount
+    * @return             int
      */
-    StoreWechat selectByStoreId(String storeAccount);
+    int deleteByPrimaryKey(String storeAccount);
+    /**
+     * 删除
+    * @author 高国藩
+    * @date 2016年5月25日 上午10:16:06
+    * @param record storeAccount
+    * @return             int
+     */
+    int insert(StoreWechat record);
+    /**
+     * 删除
+    * @author 高国藩
+    * @date 2016年5月25日 上午10:16:06
+    * @param record storeAccount
+    * @return             int
+     */
+    int insertSelective(StoreWechat record);
+    /**
+     * 删除
+    * @author 高国藩
+    * @date 2016年5月25日 上午10:16:06
+    * @param storeAccount storeAccount
+    * @return             int
+     */
+    StoreWechat selectByPrimaryKey(String storeAccount);
+    /**
+     * 删除
+    * @author 高国藩
+    * @date 2016年5月25日 上午10:16:06
+    * @param record storeAccount
+    * @return             int
+     */
+    int updateByPrimaryKeySelective(StoreWechat record);
+    /**
+     * 删除
+    * @author 高国藩
+    * @date 2016年5月25日 上午10:16:06
+    * @param record storeAccount
+    * @return             int
+     */
+    int updateByPrimaryKey(StoreWechat record);
+    /**
+     * 删除
+    * @author 高国藩
+    * @date 2016年5月25日 上午10:16:06
+    * @param wechatId storeAccount
+    * @return             int
+     */
+    StoreWechat selectByWechatId(String wechatId);
 }

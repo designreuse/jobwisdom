@@ -14,7 +14,7 @@
 				<%@include file="/top.jsp"%>
 				<div class="content_right clearfix">
 					<p>
-						<button onclick="add()">新增计划</button>
+						<button onclick="add()">新增计划</button>&nbsp;&nbsp;&nbsp;<button onclick="location.href='<%=basePath%>service/view/temp'">新增模板</button>
 					</p>
 					<div class="new_plan_plan">
 						<table>
@@ -66,26 +66,24 @@
 				</div>
 				<div class="select_model">
 					<p>
-						是否从模版选择<input type="checkbox">
+						是否从模版选择<input type="checkbox" value="0" onclick="showTemp(this.value, this)">
 					</p>
-					<ul class="clearfix">
-						<li class="active">会员模板</li>
-						<li>会员模板</li>
-						<li>会员模板</li>
-						<li>会员模板</li>
-						<li>会员模板</li>
-						<li>会员模板</li>
-						<li>会员模板</li>
+					<ul class="clearfix" style="display: none;">
+						<c:forEach items="${servicePlanTemps }" var="servicePlanTemp" >
+							<li onclick="selectTemp(${servicePlanTemp.tId }, this)" value="${servicePlanTemp.tId }">${servicePlanTemp.tempName }</li>
+						</c:forEach>
 					</ul>
 				</div>
 
 				<div class="plan_theme">
 					<p>
-						<span><em>主题</em><input name="theme" maxlength="8" type="text" style="width: 562px"></span>
+						<span><em>主题</em><input name="theme" maxlength="8" type="text" ></span>
 					</p>
 					<p>
 						<span><em>服务时间</em><input name="serviceTime" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span>
 						<span><em>服务项目</em><select name="serviceProjectName"><c:forEach items="${projectInfos }" var="projectInfo"><option value="${projectInfo.projectName }">${projectInfo.projectName }</option></c:forEach></select></span>
+					</p>
+					<p>
 						<span><em>提醒时间</em><input name="topicTime" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH'})"></span>
 					</p>
 					<div class="message_content clearfix">
@@ -236,5 +234,42 @@ function deleted(sIds){
 		});
 	}
 }
+
+function showTemp(isShow, input){
+	if (isShow == 1){
+		jQuery(".select_model").find("ul").hide('800');
+		jQuery(input).val('0');
+	}
+	else {
+		jQuery(".select_model").find("ul").show('800');
+		jQuery(input).val('1');
+	}
+}
+
+function selectTemp(tId, li){
+	jQuery(li).siblings().removeClass("active");
+	jQuery(li).addClass("active");
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "service/select/temp",
+		data : "tId="+tId,
+		dataType : "json",
+		async : false,
+		success : function(data) {
+			var servicePlanInfo = data.msg;
+			var theme = servicePlanInfo.theme;
+			var serviceTime = servicePlanInfo.serviceTime;
+			var serviceProjectName = servicePlanInfo.serviceProjectName;
+			var topicTime = servicePlanInfo.topicTime;
+			var isSms = servicePlanInfo.isSms;
+			jQuery("input[name='theme']").val(theme);
+			jQuery("input[name='serviceTime']").val(serviceTime);
+			jQuery("select[name='serviceProjectName']").val(serviceProjectName);
+			jQuery("input[name='topicTime']").val(topicTime);
+			jQuery("input[name='isSms'][value="+isSms+"]").click();
+		}
+	});
+}
+
 </script>
 </html>
