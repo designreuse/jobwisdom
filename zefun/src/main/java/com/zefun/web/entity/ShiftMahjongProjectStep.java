@@ -34,7 +34,7 @@ public class ShiftMahjongProjectStep {
 	/** 是否预约 */
 	private Integer isAppoint;
 
-	/** 步骤状态(1：服务中、2：等待中、4：已结束) */
+	/** 步骤状态(1：服务中、2：已结束) */
 	private Integer isOver;
 
 	/** 是否删除 */

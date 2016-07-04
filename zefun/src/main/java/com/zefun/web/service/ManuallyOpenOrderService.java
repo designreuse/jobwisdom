@@ -224,7 +224,7 @@ public class ManuallyOpenOrderService {
                     shiftMahjongProjectStep.setDetailId(detailId);
                     shiftMahjongProjectStep.setIsAssign(isAssign);
                     shiftMahjongProjectStep.setIsAppoint(isAppoint);
-                    shiftMahjongProjectStep.setIsOver(3);
+                    shiftMahjongProjectStep.setIsOver(2);
                     shiftMahjongProjectStep.setCreateTime(openOrderDate);
                     shiftMahjongProjectStep.setLastOperatorId(lastOperatorId);
                     
@@ -239,22 +239,102 @@ public class ManuallyOpenOrderService {
                 
                 GoodsInfoDto goodsInfo = goodsInfoMapper.selectByPrimaryKey(projectId);
                 String employeeIds = jsonObj.getString("projectStepArrayObjStr");
-                Integer employeeId = null;
-                if (!StringUtil.isEmpty(employeeIds) && !"0".equals(employeeIds)) {
-                    employeeId = Integer.valueOf(employeeIds);
+                
+                JSONObject employeeIdObj = JSONObject.fromObject(employeeIds);
+                
+                Integer detailId = staffService.addOrderDetail(null, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
+                		  goodsInfo.getGoodsName(), goodsInfo.getGoodsPrice(), 1, goodsInfo.getGoodsImage(), 0, openOrderDate, 
+                		  storeId, lastOperatorId);
+                
+                Integer employeeId1 = employeeIdObj.getInt("employeeId1");
+                Integer employeeId2 = employeeIdObj.getInt("employeeId2");
+                Integer employeeId3 = employeeIdObj.getInt("employeeId3");
+                
+                if (employeeId1 != null && employeeId1 != 0) {
+                	ShiftMahjongProjectStep shiftMahjongProjectStep1 = new ShiftMahjongProjectStep();
+                    shiftMahjongProjectStep1.setPositionId(1);
+                    shiftMahjongProjectStep1.setEmployeeId(employeeId1);
+                    shiftMahjongProjectStep1.setDetailId(detailId);
+                    shiftMahjongProjectStep1.setIsOver(2);
+                    shiftMahjongProjectStep1.setCreateTime(openOrderDate);
+                    shiftMahjongProjectStep1.setLastOperatorId(lastOperatorId);
+                    
+                    shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep1);
                 }
-                staffService.addOrderDetail(null, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, goodsInfo.getGoodsName(), 
-                        goodsInfo.getGoodsPrice(), 1, goodsInfo.getGoodsImage(), 0, openOrderDate, storeId, employeeId);
+                
+                if (employeeId2 != null && employeeId2 != 0) {
+                	ShiftMahjongProjectStep shiftMahjongProjectStep2 = new ShiftMahjongProjectStep();
+                    shiftMahjongProjectStep2.setPositionId(2);
+                    shiftMahjongProjectStep2.setEmployeeId(employeeId2);
+                    shiftMahjongProjectStep2.setDetailId(detailId);
+                    shiftMahjongProjectStep2.setIsOver(2);
+                    shiftMahjongProjectStep2.setCreateTime(openOrderDate);
+                    shiftMahjongProjectStep2.setLastOperatorId(lastOperatorId);
+                    
+                    shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep2);
+                }
+                
+                if (employeeId3 != null && employeeId3 != 0) {
+                	ShiftMahjongProjectStep shiftMahjongProjectStep3 = new ShiftMahjongProjectStep();
+                    shiftMahjongProjectStep3.setPositionId(1);
+                    shiftMahjongProjectStep3.setEmployeeId(employeeId3);
+                    shiftMahjongProjectStep3.setDetailId(detailId);
+                    shiftMahjongProjectStep3.setIsOver(2);
+                    shiftMahjongProjectStep3.setCreateTime(openOrderDate);
+                    shiftMahjongProjectStep3.setLastOperatorId(lastOperatorId);
+                    
+                    shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep3);
+                }
             }
             else {
                 ComboInfo comboInfo = comboInfoMapper.selectByPrimaryKey(projectId);
                 String employeeIds = jsonObj.getString("projectStepArrayObjStr");
-                Integer employeeId = null;
-                if (!StringUtil.isEmpty(employeeIds) && !"0".equals(employeeIds)) {
-                    employeeId = Integer.valueOf(employeeIds);
+
+                Integer detailId = staffService.addOrderDetail(null, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
+                		  comboInfo.getComboName(), comboInfo.getComboSalePrice(), 1, comboInfo.getComboImage(), 0, openOrderDate, 
+                		  storeId, lastOperatorId);
+                
+                JSONObject employeeIdObj = JSONObject.fromObject(employeeIds);
+                
+                Integer employeeId1 = employeeIdObj.getInt("employeeId1");
+                Integer employeeId2 = employeeIdObj.getInt("employeeId2");
+                Integer employeeId3 = employeeIdObj.getInt("employeeId3");
+                
+                if (employeeId1 != null && employeeId1 != 0) {
+                	ShiftMahjongProjectStep shiftMahjongProjectStep1 = new ShiftMahjongProjectStep();
+                    shiftMahjongProjectStep1.setPositionId(1);
+                    shiftMahjongProjectStep1.setEmployeeId(employeeId1);
+                    shiftMahjongProjectStep1.setDetailId(detailId);
+                    shiftMahjongProjectStep1.setIsOver(2);
+                    shiftMahjongProjectStep1.setCreateTime(openOrderDate);
+                    shiftMahjongProjectStep1.setLastOperatorId(lastOperatorId);
+                    
+                    shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep1);
                 }
-                staffService.addOrderDetail(null, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, comboInfo.getComboName(), 
-                        comboInfo.getComboSalePrice(), 1, comboInfo.getComboImage(), 0, openOrderDate, storeId, employeeId);
+                
+                if (employeeId2 != null && employeeId2 != 0) {
+                	ShiftMahjongProjectStep shiftMahjongProjectStep2 = new ShiftMahjongProjectStep();
+                    shiftMahjongProjectStep2.setPositionId(2);
+                    shiftMahjongProjectStep2.setEmployeeId(employeeId2);
+                    shiftMahjongProjectStep2.setDetailId(detailId);
+                    shiftMahjongProjectStep2.setIsOver(2);
+                    shiftMahjongProjectStep2.setCreateTime(openOrderDate);
+                    shiftMahjongProjectStep2.setLastOperatorId(lastOperatorId);
+                    
+                    shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep2);
+                }
+                
+                if (employeeId3 != null && employeeId3 != 0) {
+                	ShiftMahjongProjectStep shiftMahjongProjectStep3 = new ShiftMahjongProjectStep();
+                    shiftMahjongProjectStep3.setPositionId(1);
+                    shiftMahjongProjectStep3.setEmployeeId(employeeId3);
+                    shiftMahjongProjectStep3.setDetailId(detailId);
+                    shiftMahjongProjectStep3.setIsOver(2);
+                    shiftMahjongProjectStep3.setCreateTime(openOrderDate);
+                    shiftMahjongProjectStep3.setLastOperatorId(lastOperatorId);
+                    
+                    shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep3);
+                }
             }
         }
         

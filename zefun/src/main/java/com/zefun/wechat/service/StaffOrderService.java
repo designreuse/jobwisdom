@@ -316,29 +316,29 @@ public class StaffOrderService {
     public BaseDto deleteOrderInfo(Integer orderId, Integer storeId, Integer lastOperatorId) {
         OrderInfoBaseDto orderInfoBaseDto = orderInfoMapper.selectOrderBaseByOrderId(orderId);
         List<OrderDetailDto> orderDetailList = orderInfoBaseDto.getOrderDetailList();
-        //redis操作用（不回滚）
+        /*//redis操作用（不回滚）
         List<Integer> detailIdList = new ArrayList<Integer>();
         //处理删除订单中多个相同明细时，第一个是指定，而会自动去那需要删除的明细，所以需要将项目全删除后，再执行自动去项目代码
-        List<Integer> selfMotionIdList = new ArrayList<Integer>();
+        List<Integer> selfMotionIdList = new ArrayList<Integer>();*/
         
         for (int i = 0; i < orderDetailList.size(); i++) {
             OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(orderDetailList.get(i).getDetailId());
-            Integer selfMotionId = deletes(orderDetail, storeId, lastOperatorId);
-            detailIdList.add(orderDetailList.get(i).getDetailId());
+            deletes(orderDetail, storeId, lastOperatorId);
+            /*detailIdList.add(orderDetailList.get(i).getDetailId());
             if (selfMotionId != null) {
                 selfMotionIdList.add(selfMotionId);
-            }
+            }*/
         }
         OrderInfo record = new  OrderInfo();
         record.setOrderId(orderId);
         record.setIsDeleted(1);
         orderInfoMapper.updateByPrimaryKey(record);
         
-        operationRedisZrem(storeId, detailIdList);
+        /*operationRedisZrem(storeId, detailIdList);*/
         
-        for (Integer selfMotionId : selfMotionIdList) {
+        /*for (Integer selfMotionId : selfMotionIdList) {
             staffService.selfMotionExecute(selfMotionId, storeId);
-        }
+        }*/
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
@@ -1165,10 +1165,10 @@ public class StaffOrderService {
     * @param storeId 门店标识
     * @param detailIdList 明细标识集合
      */
-    public void operationRedisZrem(Integer storeId, List<Integer> detailIdList) {
+    /*public void operationRedisZrem(Integer storeId, List<Integer> detailIdList) {
         //删除等待中心
         redisService.zrem(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), detailIdList);
-    }
+    }*/
 
     /**
      * 

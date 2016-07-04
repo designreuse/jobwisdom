@@ -103,15 +103,7 @@ background-size: cover;}
 								    </div>  
 							   </div>
 	                        </div>
-	                        <!-- <div  name="resultTD" style="display: none;">
-                                <span class="mr30">会员名：<span class="color-g cursor" name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-			                    <span class="mr30">手机号：<span class="color-g cursor" name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></span></span>
-			                    <span class="mr30">性别：<span class="color-g" name = "memberSexSpan"></span></span>
-			                    <span class="mr30">账户余额：<span class="cred" name = "memberBalanceAmountSpan"></span></span>
-			                    <span class="mr30">可用礼金：<span  class="cred" name = "memberBalanceGiftmoneyAmountSpan"></span></span>
-			                    <span class="mr30">剩余积分：<span  class="cred" name = "memberBalanceIntegralSpan"></span></span>
-			                    <input type="hidden" name = "memberId" onchange="changeMember(this)">
-                            </div> -->
+	                        
 	                    </div>
 	                    <div class="sex-select ml30" name='sexDIV'>
 	                        <span class="ml10">散客:</span>
