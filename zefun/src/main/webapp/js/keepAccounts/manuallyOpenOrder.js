@@ -127,13 +127,13 @@ function chooceProject(projectId, projectName, projectPrice, type) {
                   "<i>价格：￥"+projectPrice+"</i></p>"+
                   "<table class='select_people'>"+
 				      "<tr>"+
-						 "<td style='width:360px'>选择员工"+
+						 "<td style='width:360px'>销售第一人"+
 						    "<input type='text' name = 'employeeId1' employeeId = ''></td>"+
 						 "</td>"+
-						 "<td style='width:360px'>选择员工"+
+						 "<td style='width:360px'>销售第二人"+
 						     "<input type='text' name = 'employeeId2' employeeId = ''></td>"+
 						 "</td>"+
-						 "<td style='width:360px'>选择员工"+
+						 "<td style='width:360px'>销售第三人"+
 						     "<input type='text' name = 'employeeId3' employeeId = ''></td>"+
 					 	 "</td>"+
 					  "</tr>"+
@@ -237,22 +237,44 @@ function save() {
 	var comboObj = jQuery("div[name='comboNameLI']").find(".nav_content_div");
 	for (var i = 0; i < comboObj.length; i++) {
 		var comboId = jQuery(comboObj[i]).attr("comboId");
-        var employeeId = jQuery(comboObj[i]).find("select[name='employeeId']").val();
-        if (isEmpty(employeeId)) {
-        	employeeId = 0
+        var employeeId1 = jQuery(comboObj[i]).find("input[name='employeeId1']").attr("employeeId");
+        var employeeId2 = jQuery(comboObj[i]).find("input[name='employeeId2']").attr("employeeId");
+        var employeeId3 = jQuery(comboObj[i]).find("input[name='employeeId3']").attr("employeeId");
+        if (isEmpty(employeeId1)) {
+        	employeeId1 = null;
         }
-		var projectObjStr = {"type":3, "projectId":comboId, "projectStepArrayObjStr":employeeId};
+        if (isEmpty(employeeId2)) {
+        	employeeId2 = null;
+        }
+        if (isEmpty(employeeId3)) {
+        	employeeId3 = null;
+        }
+        var employeeIdObj = {"employeeId1" : employeeId1, "employeeId2" : employeeId2, "employeeId3" : employeeId3};
+        
+        var projectStepArrayObjStr = JSON.stringify(employeeIdObj);
+		var projectObjStr = {"type":3, "projectId":comboId, "projectStepArrayObjStr":projectStepArrayObjStr};
 		arrayObj.push(projectObjStr);
 	}
 	//商品
 	var goodsObj = jQuery("div[name='goodsNameLI']").find(".nav_content_div");
 	for (var i = 0; i < goodsObj.length; i++) {
 		var goodsId = jQuery(goodsObj[i]).attr("goodsId");
-        var employeeId = jQuery(goodsObj[i]).find("select[name='employeeId']").val();
-        if (isEmpty(employeeId)) {
-        	employeeId = 0
+        var employeeId1 = jQuery(goodsObj[i]).find("input[name='employeeId1']").attr("employeeId");
+        var employeeId2 = jQuery(goodsObj[i]).find("input[name='employeeId2']").attr("employeeId");
+        var employeeId3 = jQuery(goodsObj[i]).find("input[name='employeeId3']").attr("employeeId");
+        if (isEmpty(employeeId1)) {
+        	employeeId1 = 0;
         }
-		var projectObjStr = {"type":2, "projectId":goodsId, "projectStepArrayObjStr":employeeId};
+        if (isEmpty(employeeId2)) {
+        	employeeId2 = 0;
+        }
+        if (isEmpty(employeeId3)) {
+        	employeeId3 = 0;
+        }
+        var employeeIdObj = {"employeeId1" : employeeId1, "employeeId2" : employeeId2, "employeeId3" : employeeId3};
+        
+        var projectStepArrayObjStr = JSON.stringify(employeeIdObj);
+		var projectObjStr = {"type":2, "projectId":goodsId, "projectStepArrayObjStr":projectStepArrayObjStr};
 		arrayObj.push(projectObjStr);
 	}
 	if (arrayObj.length == 0) {

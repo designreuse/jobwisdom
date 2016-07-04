@@ -64,14 +64,11 @@ import com.zefun.web.dto.MemberInfoDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.MemberOrderDto;
 import com.zefun.web.dto.MemberSubAccountDto;
-import com.zefun.web.dto.OrderDetailDto;
-import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.ScreeningDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.DebtFlow;
-import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.GoodsDiscount;
@@ -391,7 +388,7 @@ public class MemberInfoService {
         
         List<Map<String, Object>> projectStepList = new ArrayList<Map<String, Object>>();
         
-        if (orderDtoList != null && !orderDtoList.isEmpty()) {
+        /*if (orderDtoList != null && !orderDtoList.isEmpty()) {
             
             for (MemberOrderDto memberOrderDto : orderDtoList) {
                 //过滤正在进行中的订单 
@@ -435,10 +432,10 @@ public class MemberInfoService {
                     return dto;
                 }
             }
-        }
+        }*/
         
         dto.setLastProjectName(lastProjectName);
-        dto.setProjectStepList(projectStepList);
+        /*dto.setProjectStepList(projectStepList);*/
         
         return dto;
     }

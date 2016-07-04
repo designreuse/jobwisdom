@@ -262,13 +262,13 @@ public class StaffOrderService {
         OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(detailId);
         //redis操作用（不回滚）
         List<Integer> detailIdList = new ArrayList<Integer>();
-        Integer selfMotionId = deletes(orderDetail, storeId, lastOperatorId);
+        deletes(orderDetail, storeId, lastOperatorId);
 
         detailIdList.add(detailId);
 
         operationRedisZrem(storeId, detailIdList);
         
-        staffService.selfMotionExecute(selfMotionId, storeId);
+        /*staffService.selfMotionExecute(selfMotionId, storeId);*/
         
         List<OrderDetail> list = orderDetailMapper.selectOrderDetail(orderInfo.getOrderId());
         
@@ -316,29 +316,29 @@ public class StaffOrderService {
     public BaseDto deleteOrderInfo(Integer orderId, Integer storeId, Integer lastOperatorId) {
         OrderInfoBaseDto orderInfoBaseDto = orderInfoMapper.selectOrderBaseByOrderId(orderId);
         List<OrderDetailDto> orderDetailList = orderInfoBaseDto.getOrderDetailList();
-        //redis操作用（不回滚）
+        /*//redis操作用（不回滚）
         List<Integer> detailIdList = new ArrayList<Integer>();
         //处理删除订单中多个相同明细时，第一个是指定，而会自动去那需要删除的明细，所以需要将项目全删除后，再执行自动去项目代码
-        List<Integer> selfMotionIdList = new ArrayList<Integer>();
+        List<Integer> selfMotionIdList = new ArrayList<Integer>();*/
         
         for (int i = 0; i < orderDetailList.size(); i++) {
             OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(orderDetailList.get(i).getDetailId());
-            Integer selfMotionId = deletes(orderDetail, storeId, lastOperatorId);
-            detailIdList.add(orderDetailList.get(i).getDetailId());
+            deletes(orderDetail, storeId, lastOperatorId);
+            /*detailIdList.add(orderDetailList.get(i).getDetailId());
             if (selfMotionId != null) {
                 selfMotionIdList.add(selfMotionId);
-            }
+            }*/
         }
         OrderInfo record = new  OrderInfo();
         record.setOrderId(orderId);
         record.setIsDeleted(1);
         orderInfoMapper.updateByPrimaryKey(record);
         
-        operationRedisZrem(storeId, detailIdList);
+        /*operationRedisZrem(storeId, detailIdList);*/
         
-        for (Integer selfMotionId : selfMotionIdList) {
+        /*for (Integer selfMotionId : selfMotionIdList) {
             staffService.selfMotionExecute(selfMotionId, storeId);
-        }
+        }*/
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
@@ -350,10 +350,8 @@ public class StaffOrderService {
     * @param orderDetail 明细信息
     * @param storeId 门店标识
     * @param lastOperatorId 操作人
-    * @return List<Integer>
      */
-    public Integer deletes(OrderDetail orderDetail, Integer storeId, Integer lastOperatorId) {
-        Integer selfMotionId = null;
+    public void deletes(OrderDetail orderDetail, Integer storeId, Integer lastOperatorId) {
         if (orderDetail.getOrderType() != 1) {
             OrderDetail record = new OrderDetail();
             record.setDetailId(orderDetail.getDetailId());
@@ -380,31 +378,8 @@ public class StaffOrderService {
                         record.setState(1);
                         //修改员工轮牌状态
                         shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(record);
-                        //自动获取项目
-                        selfMotionId = shiftMahjongEmployeeId;
+
                     }
-                    //发送服务移交模版
-                    /*senMessage(shiftMahjongEmployee.getEmployeesId(), null, shiftMahjongStepId, 
-                            storeId, 5, lastOperatorId);*/
-                    
-                    /*
-                    staffService.selfMotionExecute(shiftMahjongEmployeeId, storeId);*/
-                    
-                }
-                //等待中状态
-                else if (shiftMahjongProjectStep.getIsOver() == 2 && shiftMahjongProjectStep.getEmployeeId() != null) {
-                    Integer shiftMahjongEmployeeId = shiftMahjongEmployee.getShiftMahjongEmployeeId();
-                                        
-                    shiftMahjongEmployeeMapper.updateDecreaseAppointNumber(shiftMahjongEmployeeId);
-                    //发送消息
-                    /*senMessage(shiftMahjongEmployee.getEmployeesId(), null, shiftMahjongStepId, 
-                            storeId, 5, lastOperatorId);*/
-                }
-                //已完成状态
-                else if (shiftMahjongProjectStep.getIsOver() == 3 && shiftMahjongProjectStep.getEmployeeId() != null) {
-                    //发送消息
-                    /*senMessage(shiftMahjongEmployee.getEmployeesId(), null, shiftMahjongStepId, 
-                            storeId, 9, lastOperatorId);*/
                 }
                 
                 ShiftMahjongProjectStep record = new ShiftMahjongProjectStep();
@@ -419,7 +394,6 @@ public class StaffOrderService {
             orderDetailMapper.updateByPrimaryKey(record);
             
         }
-        return selfMotionId;
     }
     
     /**
@@ -1191,10 +1165,10 @@ public class StaffOrderService {
     * @param storeId 门店标识
     * @param detailIdList 明细标识集合
      */
-    public void operationRedisZrem(Integer storeId, List<Integer> detailIdList) {
+    /*public void operationRedisZrem(Integer storeId, List<Integer> detailIdList) {
         //删除等待中心
         redisService.zrem(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), detailIdList);
-    }
+    }*/
 
     /**
      * 

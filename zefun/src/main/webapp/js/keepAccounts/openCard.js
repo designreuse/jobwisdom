@@ -597,13 +597,16 @@ function presentGift(){
 	}
 	
 	//优惠券
-	var couponList = jQuery("#ul[name='coupon'] li");
-	var coupon = [];
+	var couponList = jQuery("ul[name='coupon'] li");
+	var coupons = [];
 	for (var i = 0; i < couponList.length; i++) {
 		var couponId = jQuery(couponList[i]).find("p[name='couponName']").attr("value");
 		var number = jQuery(couponList[i]).find("i[name='number']").text();
-		coupon[i]={"couponId":couponId,"number":number}
+		var jsono ={"couponId":couponId,"number":number};
+		
+		coupons.push(jsono);
 	}
+	coupon =JSON.stringify(coupons);
 	
 	if(giftmoneyAmount == 0 && integralAmount == 0 && isEmpty(coupon)) {
 		dialog("暂无选择任何优惠项！");

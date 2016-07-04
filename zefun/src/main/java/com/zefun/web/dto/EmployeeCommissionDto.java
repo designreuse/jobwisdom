@@ -24,7 +24,7 @@ public class EmployeeCommissionDto implements Serializable {
 	private Integer detailId;
 	
 	/** 轮牌步骤标识*/
-	private Integer shiftMahjongStepId;
+	private Integer positionId;
 	
 	/** 订单类型(1:项目,2:商品,3:套餐,4、开卡充值) */
 	private Integer orderType;
@@ -63,15 +63,15 @@ public class EmployeeCommissionDto implements Serializable {
         this.orderCode = orderCode;
     }
 
-    public Integer getShiftMahjongStepId() {
-        return shiftMahjongStepId;
-    }
+    public Integer getPositionId() {
+		return positionId;
+	}
 
-    public void setShiftMahjongStepId(Integer shiftMahjongStepId) {
-        this.shiftMahjongStepId = shiftMahjongStepId;
-    }
+	public void setPositionId(Integer positionId) {
+		this.positionId = positionId;
+	}
 
-    public Integer getCommissionId() {
+	public Integer getCommissionId() {
 		return commissionId;
 	}
 

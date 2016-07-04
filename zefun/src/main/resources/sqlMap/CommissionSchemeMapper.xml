@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.CommissionSchemeMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.CommissionScheme" >
+    <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="commission_type" property="commissionType" jdbcType="INTEGER" />
+    <result column="cash_two_commission" property="cashTwoCommission" jdbcType="CHAR" />
+    <result column="cash_three_commission" property="cashThreeCommission" jdbcType="CHAR" />
+    <result column="card_two_commission" property="cardTwoCommission" jdbcType="CHAR" />
+    <result column="card_three_commission" property="cardThreeCommission" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    commission_id, store_id, commission_type, cash_two_commission, cash_three_commission, 
+    card_two_commission, card_three_commission, create_time, last_operator_id, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from commission_scheme
+    where commission_id = #{commissionId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from commission_scheme
+    where store_id = #{storeId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from commission_scheme
+    where commission_id = #{commissionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.CommissionScheme" >
+    insert into commission_scheme
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commissionId != null" >
+        commission_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="commissionType != null" >
+        commission_type,
+      </if>
+      <if test="cashTwoCommission != null" >
+        cash_two_commission,
+      </if>
+      <if test="cashThreeCommission != null" >
+        cash_three_commission,
+      </if>
+      <if test="cardTwoCommission != null" >
+        card_two_commission,
+      </if>
+      <if test="cardThreeCommission != null" >
+        card_three_commission,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commissionId != null" >
+        #{commissionId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="commissionType != null" >
+        #{commissionType,jdbcType=INTEGER},
+      </if>
+      <if test="cashTwoCommission != null" >
+        #{cashTwoCommission,jdbcType=CHAR},
+      </if>
+      <if test="cashThreeCommission != null" >
+        #{cashThreeCommission,jdbcType=CHAR},
+      </if>
+      <if test="cardTwoCommission != null" >
+        #{cardTwoCommission,jdbcType=CHAR},
+      </if>
+      <if test="cardThreeCommission != null" >
+        #{cardThreeCommission,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.CommissionScheme" >
+    update commission_scheme
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="commissionType != null" >
+        commission_type = #{commissionType,jdbcType=INTEGER},
+      </if>
+      <if test="cashTwoCommission != null" >
+        cash_two_commission = #{cashTwoCommission,jdbcType=CHAR},
+      </if>
+      <if test="cashThreeCommission != null" >
+        cash_three_commission = #{cashThreeCommission,jdbcType=CHAR},
+      </if>
+      <if test="cardTwoCommission != null" >
+        card_two_commission = #{cardTwoCommission,jdbcType=CHAR},
+      </if>
+      <if test="cardThreeCommission != null" >
+        card_three_commission = #{cardThreeCommission,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where commission_id = #{commissionId,jdbcType=INTEGER}
+  </update>
+  
+  
+   <update id="updateSave" parameterType="com.zefun.web.entity.CommissionScheme" >
+    update commission_scheme
+    <set >
+      <if test="cashTwoCommission != null" >
+        cash_two_commission = #{cashTwoCommission,jdbcType=CHAR},
+      </if>
+      <if test="cashThreeCommission != null" >
+        cash_three_commission = #{cashThreeCommission,jdbcType=CHAR},
+      </if>
+      <if test="cardTwoCommission != null" >
+        card_two_commission = #{cardTwoCommission,jdbcType=CHAR},
+      </if>
+      <if test="cardThreeCommission != null" >
+        card_three_commission = #{cardThreeCommission,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="lastOperatorId != null" >
+        last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where  store_id = #{storeId,jdbcType=INTEGER} and  commission_type = #{commissionType,jdbcType=INTEGER}
+  </update>
+</mapper>

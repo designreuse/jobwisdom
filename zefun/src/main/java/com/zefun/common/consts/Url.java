@@ -1656,4 +1656,17 @@ public interface Url {
         /** 删除模板*/
         public static final String DELETE_SERVICE_TEMP = "service/view/temp/delete";
 	}
+	/**
+	 * 提成分配方案
+	* @author 老王
+	* @date 2016年7月2日 下午2:09:29
+	 */
+	class CommissionScheme {
+		/**
+		 * 加载提成分配方案
+		 */
+		public static final String VIEW_SHOW_COMMISSION_SCHEME = "commissionScheme/view/view_show_commission_scheme";
+		/** 保存 修改 */
+		public static final String VIEW_SAVE_COMMISSION_SCHEME = "commissionScheme/view/view_save_commission_scheme";
+	}
 }

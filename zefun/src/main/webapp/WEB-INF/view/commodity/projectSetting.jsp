@@ -1317,7 +1317,7 @@
 		if(price_step==1){
 			jQuery('#'+type+' i[id='+levelId+']').text("元");
 		}else{
-			jQuery('#'+type+' i[id='+levelId+']').text("%");
+			jQuery("#"+type+" i[id="+levelId+"]").not("i[name='cardyu']").text("%");
 		}
 	}
 	
@@ -1331,9 +1331,12 @@
 			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>"
 			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>";
 			if(type==1){
-				html+="<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>";
+				html+="<td><span><input  placeholder='0' type='text'><i id='"+levelId+"' >元</i></span></td>";
+				html+="<td><span><input    placeholder='0' type='text'><i id='"+levelId+"'  name='cardyu'>元</i></span></td></tr>";
+			}else{
+				html+="<td><span><input    placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td></tr>";
 			}
-			html+="<td><span><input    placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td></tr>";
+			
 			jQuery("#"+type).append(jQuery(html));
 		}else{
 			jQuery('#'+type+' tr[id='+levelId+']').remove();

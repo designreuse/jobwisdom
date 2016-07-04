@@ -33,7 +33,13 @@ function initialization () {
 		var detailId = $this.attr("detailId");
 		if (!isEmpty(detailId)) {
 			var detailType = $this.attr("detailType");
-            var discountAmount = discountMap[detailId + "_" + subAccountId];
+            var discountAmount = null;
+            if (memberType == 1) {
+            	discountAmount = discountMap[detailId + "_" + subAccountId];
+            }
+            else {
+            	discountAmount = new Big($this.find("span[name='discountAmount']").attr("discountAmount"));
+            }
 			
 			$this.find("span[name='discountAmount']").attr("discountAmount", discountAmount.toFixed(2));
 			$this.find("span[name='discountAmount']").text(discountAmount.toFixed(2));
@@ -47,68 +53,70 @@ function initialization () {
 		
 	});
 	
-	var offObjList = jQuery("select[name='selectOff']");
-	
-	for (var i = 0; i < offObjList.length; i++) {
-		  var offObj =  offObjList[i];
-		  var discountAmount = new Big(jQuery(offObj).parents(".change_price__spread").find("span[name='discountAmount']").attr("discountAmount"));
-		  
-		  var optionValue = jQuery(offObj).html();
-		  jQuery(offObj).empty();
-		  jQuery(offObj).append(optionValue);
-		  
-		  var optionobj = jQuery(offObj).find("option");
-		  for (var j = 1; j < optionobj.length; j++) {
-			  var option = jQuery(optionobj[j]);
-			  var offtype = option.attr("offtype");
-			  var uid = option.attr("uid");
-			  var tatailGiftmoney = new Big(allOffMap[uid]);
-			  var maxOffAmount = new Big(option.attr("maxOffAmount"));
-              if (offtype == 4) {
-            	  if (tatailGiftmoney == 0) {
-            		  option.addClass("hide");
-      			  }
-            	  else {
-            		  if (tatailGiftmoney.lt(discountAmount)) {
-            			  if (maxOffAmount.lt(tatailGiftmoney)) {
-            				  option.attr("offAmount", maxOffAmount);
-            				  option.text(option.attr("offName")+ " -" +maxOffAmount+ "元");
-            				  option.removeClass("hide");
-            			  }
-            			  else {
-            				  option.attr("offAmount", tatailGiftmoney);
-            				  option.text(option.attr("offName")+ " -" +tatailGiftmoney+ "元");
-            				  option.removeClass("hide");
-            			  }
-            		  }
-            		  else {
-            			  if (maxOffAmount.lt(discountAmount)) {
-            				  option.attr("offAmount", maxOffAmount);
-            				  option.text(option.attr("offName")+ " -" +maxOffAmount+ "元");
-            				  option.removeClass("hide");
-            			  }
-            			  else {
-            				  option.attr("offAmount", discountAmount);
-            				  option.text(option.attr("offName")+ " -" +discountAmount+ "元");
-            				  option.removeClass("hide");
-            			  }
-            		  }
-            	  }
-			  }
-              else if (offtype == 1) {
-            	  if (tatailGiftmoney == 0) {
-            		  option.addClass("hide");
-      			  }
-            	  else {
-            		  option.attr("offAmount", discountAmount);
-    				  option.text(option.attr("offName")+ " -" +discountAmount+ "元");
-    				  option.removeClass("hide");
-            	  }
-              }
+	if (memberType == 1) {
+		var offObjList = jQuery("select[name='selectOff']");
+		
+		for (var i = 0; i < offObjList.length; i++) {
+			  var offObj =  offObjList[i];
+			  var discountAmount = new Big(jQuery(offObj).parents(".change_price__spread").find("span[name='discountAmount']").attr("discountAmount"));
 			  
-			  optionobj.removeClass("hide")
-		  }
-	 }
+			  var optionValue = jQuery(offObj).html();
+			  jQuery(offObj).empty();
+			  jQuery(offObj).append(optionValue);
+			  
+			  var optionobj = jQuery(offObj).find("option");
+			  for (var j = 1; j < optionobj.length; j++) {
+				  var option = jQuery(optionobj[j]);
+				  var offtype = option.attr("offtype");
+				  var uid = option.attr("uid");
+				  var tatailGiftmoney = new Big(allOffMap[uid]);
+				  var maxOffAmount = new Big(option.attr("maxOffAmount"));
+	              if (offtype == 4) {
+	            	  if (tatailGiftmoney == 0) {
+	            		  option.addClass("hide");
+	      			  }
+	            	  else {
+	            		  if (tatailGiftmoney.lt(discountAmount)) {
+	            			  if (maxOffAmount.lt(tatailGiftmoney)) {
+	            				  option.attr("offAmount", maxOffAmount);
+	            				  option.text(option.attr("offName")+ " -" +maxOffAmount+ "元");
+	            				  option.removeClass("hide");
+	            			  }
+	            			  else {
+	            				  option.attr("offAmount", tatailGiftmoney);
+	            				  option.text(option.attr("offName")+ " -" +tatailGiftmoney+ "元");
+	            				  option.removeClass("hide");
+	            			  }
+	            		  }
+	            		  else {
+	            			  if (maxOffAmount.lt(discountAmount)) {
+	            				  option.attr("offAmount", maxOffAmount);
+	            				  option.text(option.attr("offName")+ " -" +maxOffAmount+ "元");
+	            				  option.removeClass("hide");
+	            			  }
+	            			  else {
+	            				  option.attr("offAmount", discountAmount);
+	            				  option.text(option.attr("offName")+ " -" +discountAmount+ "元");
+	            				  option.removeClass("hide");
+	            			  }
+	            		  }
+	            	  }
+				  }
+	              else if (offtype == 1) {
+	            	  if (tatailGiftmoney == 0) {
+	            		  option.addClass("hide");
+	      			  }
+	            	  else {
+	            		  option.attr("offAmount", discountAmount);
+	    				  option.text(option.attr("offName")+ " -" +discountAmount+ "元");
+	    				  option.removeClass("hide");
+	            	  }
+	              }
+				  
+				  optionobj.removeClass("hide")
+			  }
+		 }
+	}
 	
     changePricList = new Array();
 	
@@ -428,13 +436,48 @@ function submitOrderInfo() {
 			var stepCommissionList = orderMap.stepCommissionList;
 			for (var i = 0; i < stepCommissionList.length; i++) {
 				var stepCommission = stepCommissionList[i];
-				var str = '';
+				var stepList = stepCommission.stepList;
+				var table = jQuery("<table></table>");
+				for (var j = 0; j < stepList.length; j++) {
+					var step = stepList[j];
+					if (j == 0) {
+						table.append('<tr>'+
+									    '<td rowspan="3">'+stepCommission.projectName+'</td>'+
+									    '<td >'+step.positionName+'</td>'+
+										'<td >'+step.employeeCodeName+'</td>'+
+										'<td ><input type="text" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
+										'<td ><input type="text" value = "'+step.commissionAmount+'"><em>元</em></td>'+
+									 '</tr>');
+					}
+					else {
+						table.append('<tr>'+
+									    '<td >'+step.positionName+'</td>'+
+										'<td >'+step.employeeCodeName+'</td>'+
+										'<td ><input type="text" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
+										'<td ><input type="text" value = "'+step.commissionAmount+'"><em>元</em></td>'+
+									 '</tr>');
+					}
+				}
+				jQuery(".wash_way_content").append(table);
 			}
-			jQuery(".wash_way")
-			jQuery('#cashier').modal('hide');
-			window.location.href = baseUrl + 'selfcashier/view/list';
+			var payTypeList = orderMap.payTypeList;
+			for (var i = 0; i < payTypeList.length; i++) {
+				var payType = payTypeList[i];
+				jQuery("li[name='payTypeLi']").append("<span>"+ payType.payName + " ￥"+payType.payAmount+"</span>")
+			}
+			jQuery("em[name='realAmount']").text(orderMap.realAmount);
+			jQuery("div[name='payModal']").show();
+			/*window.location.href = baseUrl + 'selfcashier/view/list';*/
 		}
 	});
+}
+
+function determine () {
+	window.location.href = baseUrl + 'selfcashier/view/list';
+}
+
+function determineUpdate () {
+	
 }
 
 function getBigObj(selector){

@@ -506,6 +506,7 @@ public class OpenCardService {
 		}
 		memberAccountMapper.updateByPrimaryKey(record);
 
+		
 		List<Integer> recommendId = new ArrayList<Integer>();
 		List<BigDecimal> commissionAmount = new ArrayList<BigDecimal>();
 		List<BigDecimal> calculateAmount = new ArrayList<BigDecimal>();
@@ -937,7 +938,7 @@ public class OpenCardService {
 		hashSubDecrease.put("chargeAmount", chargeAmount);
 		hashSubDecrease.put("subAccountId", outSubAccountId);
 
-		memberSubAccountMapper.updateAdd(hashSubDecrease);
+		memberSubAccountMapper.updateDecrease(hashSubDecrease);
 
 		// 添加账户记录资金流水(转出)
 		MoneyFlow outMoneyFlow = new MoneyFlow();
@@ -1028,7 +1029,7 @@ public class OpenCardService {
 	 */
 	@Transactional
 	public BaseDto presentGift(Integer memberId, Integer giftmoneyAmount, Integer part, Integer overdueMonth,
-			    Integer integralAmount, String [] coupon, String comment, int employeeId, Integer numberCoupon) {
+			    Integer integralAmount, String  coupon, String comment, int employeeId, Integer numberCoupon) {
 		String time = DateUtil.getCurTime();
 
 		// 检查是否赠送礼金
