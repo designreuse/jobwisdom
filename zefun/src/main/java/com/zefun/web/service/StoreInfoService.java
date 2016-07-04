@@ -66,6 +66,7 @@ import com.zefun.web.entity.AgentInfo;
 import com.zefun.web.entity.ComboGoods;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.ComboProject;
+import com.zefun.web.entity.CommissionScheme;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeLevel;
@@ -97,6 +98,7 @@ import com.zefun.web.mapper.BusinessReportMapper;
 import com.zefun.web.mapper.ComboGoodsMapper;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.ComboProjectMapper;
+import com.zefun.web.mapper.CommissionSchemeMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
@@ -317,6 +319,9 @@ public class StoreInfoService {
     /**特色服务*/
     @Autowired
     private SpecialServiceMapper specialServiceMapper;
+    /** 提成分配方案*/
+    @Autowired
+    private CommissionSchemeMapper commissionSchemeMapper;
     /**
      * 授权码对象
      */
@@ -990,6 +995,15 @@ public class StoreInfoService {
         }*/
 
         storeManageRuleMapper.initStoreRuleByStoreId(storeId);
+        
+        CommissionScheme record = new CommissionScheme();
+        record.setStoreId(storeId);
+        record.setCommissionType(1);
+        record.setCreateTime(DateUtil.getCurTime());
+        //设置默认提成分配方案
+        commissionSchemeMapper.insertSelective(record);
+        record.setCommissionType(2);
+        commissionSchemeMapper.insertSelective(record);
         
         //创建默认设置
         StoreSetting setting = new StoreSetting();

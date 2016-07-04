@@ -693,7 +693,7 @@ public class SelfCashierService {
 		        	
 		        	stepOrderMap.put("employeeId", orderDetailStepDto.getEmployeeInfo().getEmployeeId());
 		        	stepOrderMap.put("employeeCodeName", 
-		        			  orderDetailStepDto.getEmployeeInfo().getName() + " " +orderDetailStepDto.getEmployeeInfo().getName());
+		        			  orderDetailStepDto.getEmployeeInfo().getEmployeeCode() + " " +orderDetailStepDto.getEmployeeInfo().getName());
 		        	
 		        	//获取到该员工对应业绩值
 		    		Map<String, Integer> stepMap = new HashMap<>();

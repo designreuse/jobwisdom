@@ -7,7 +7,9 @@ package com.zefun.web.entity;
 public class ShiftMahjongProjectStep {
 	/** 轮牌信息标识 */
 	private Integer shiftMahjongStepId;
-
+    /** 步骤对应的轮牌标识*/
+	private Integer shiftMahjongId;
+	
 	/** 岗位标识 */
 	private Integer positionId;
 
@@ -55,6 +57,14 @@ public class ShiftMahjongProjectStep {
 
 	
 	
+	public Integer getShiftMahjongId() {
+		return shiftMahjongId;
+	}
+
+	public void setShiftMahjongId(Integer shiftMahjongId) {
+		this.shiftMahjongId = shiftMahjongId;
+	}
+
 	public Integer getPositionId() {
 		return positionId;
 	}

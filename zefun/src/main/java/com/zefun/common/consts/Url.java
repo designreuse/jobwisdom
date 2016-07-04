@@ -1646,4 +1646,15 @@ public interface Url {
         /** 服务计划的模板*/
         public static final String VIEW_SERVICE_TEMOLENT = "service/view/temp";
 	}
+	/**
+	 * 提成分配方案
+	* @author 老王
+	* @date 2016年7月2日 下午2:09:29
+	 */
+	class CommissionScheme {
+		/**
+		 * 加载提成分配方案
+		 */
+		public static final String VIEW_SHOW_COMMISSION_SCHEME = "commissionScheme/view/view_show_commission_scheme";
+	}
 }

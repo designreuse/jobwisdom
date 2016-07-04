@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.EmployeeCommission" >
     <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
-    <result column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
+    <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="order_type" property="orderType" jdbcType="DECIMAL" />
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
     <result column="commission_calculate" property="commissionCalculate" jdbcType="DECIMAL" />
@@ -16,7 +16,7 @@
   <resultMap id="CommissionDtoBaseResultMap" type="com.zefun.web.dto.EmployeeCommissionDto" >
     <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
-    <result column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
+    <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="order_type" property="orderType" jdbcType="DECIMAL" />
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
     <result column="commission_calculate" property="commissionCalculate" jdbcType="DECIMAL" />
@@ -43,7 +43,7 @@
   <resultMap id="EmployeeSkillMap" type="com.zefun.web.entity.EmployeeCommission" >
     <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
-    <result column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
+    <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="order_type" property="orderType" jdbcType="DECIMAL" />
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
     <result column="commission_calculate" property="commissionCalculate" jdbcType="DECIMAL" />
@@ -56,7 +56,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    commission_id, detail_id, shift_mahjong_step_id, order_type, employee_id, commission_calculate, commission_amount, is_deleted,
+    commission_id, detail_id, position_id, order_type, employee_id, commission_calculate, commission_amount, is_deleted,
     charge_time
   </sql>
   
@@ -90,8 +90,8 @@
       <if test="detailId != null" >
         detail_id,
       </if>
-      <if test="shiftMahjongStepId != null" >
-        shift_mahjong_step_id,
+      <if test="positionId != null" >
+        position_id,
       </if>
       <if test="orderType != null" >
         order_type,
@@ -116,8 +116,8 @@
       <if test="detailId != null" >
         #{detailId,jdbcType=INTEGER},
       </if>
-      <if test="shiftMahjongStepId != null" >
-        #{shiftMahjongStepId,jdbcType=INTEGER},
+      <if test="positionId != null" >
+        #{positionId,jdbcType=INTEGER},
       </if>
       <if test="orderType != null" >
         #{orderType,jdbcType=DECIMAL},
@@ -143,8 +143,8 @@
       <if test="detailId != null" >
         detail_id = #{detailId,jdbcType=INTEGER},
       </if>
-      <if test="shiftMahjongStepId != null" >
-        shift_mahjong_step_id = #{shiftMahjongStepId,jdbcType=INTEGER},
+      <if test="positionId != null" >
+        position_id = #{positionId,jdbcType=INTEGER},
       </if>
       <if test="orderType != null" >
         order_type = #{orderType,jdbcType=DECIMAL},

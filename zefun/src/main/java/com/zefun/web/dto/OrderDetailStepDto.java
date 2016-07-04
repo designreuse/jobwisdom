@@ -15,15 +15,10 @@ public class OrderDetailStepDto implements Serializable{
     private static final long serialVersionUID = 1L;
     /** 轮牌步骤标识*/
     private Integer shiftMahjongStepId;
-    
     /** 岗位标识 */
 	private Integer positionId;
 	/** 岗位名称*/
 	private String positionName;
-    /** 轮牌标识*/
-    private Integer shiftMahjongId;
-    /** 轮牌名称 */
-    private String shiftMahjongName;
     
     /** 服务开始时间 */
     private String beginTime;
@@ -61,7 +56,8 @@ public class OrderDetailStepDto implements Serializable{
     /** 提成标识*/
     private Integer commissionId;
     
-    public String getPositionName() {
+
+	public String getPositionName() {
 		return positionName;
 	}
 
@@ -125,28 +121,12 @@ public class OrderDetailStepDto implements Serializable{
         this.isDeleted = isDeleted;
     }
 
-    public Integer getShiftMahjongId() {
-        return shiftMahjongId;
-    }
-
-    public void setShiftMahjongId(Integer shiftMahjongId) {
-        this.shiftMahjongId = shiftMahjongId;
-    }
-
     public Integer getShiftMahjongStepId() {
         return shiftMahjongStepId;
     }
 
     public void setShiftMahjongStepId(Integer shiftMahjongStepId) {
         this.shiftMahjongStepId = shiftMahjongStepId;
-    }
-
-    public String getShiftMahjongName() {
-        return shiftMahjongName;
-    }
-
-    public void setShiftMahjongName(String shiftMahjongName) {
-        this.shiftMahjongName = shiftMahjongName;
     }
 
     public String getBeginTime() {

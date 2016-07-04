@@ -3,6 +3,7 @@
 <mapper namespace="com.zefun.web.mapper.ShiftMahjongProjectStepMapper" >
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.ShiftMahjongProjectStep" >
     <id column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
+    <result column="shift_mahjong_id" property="shiftMahjongId" jdbcType="INTEGER" />
     <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
@@ -21,6 +22,7 @@
   
   <resultMap id="StepDtoResultMap" type="com.zefun.web.dto.ShiftMahjongProjectStepDto" >
     <id column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
+    <result column="shift_mahjong_id" property="shiftMahjongId" jdbcType="INTEGER" />
     <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
@@ -57,7 +59,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    shift_mahjong_step_id, position_id, detail_id, employee_id, begin_time, finish_time, 
+    shift_mahjong_step_id, shift_mahjong_id, position_id, detail_id, employee_id, begin_time, finish_time, 
     is_assign, is_designate, is_appoint, is_over, is_deleted, is_current, create_time, update_time, last_operator_id
   </sql>
   
@@ -128,6 +130,9 @@
       <if test="shiftMahjongStepId != null" >
         shift_mahjong_step_id,
       </if>
+      <if test="shiftMahjongId != null" >
+        shift_mahjong_id,
+      </if>
       <if test="positionId != null" >
         position_id,
       </if>
@@ -174,6 +179,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="shiftMahjongStepId != null" >
         #{shiftMahjongStepId,jdbcType=INTEGER},
+      </if>
+      <if test="shiftMahjongId != null" >
+        #{shiftMahjongId,jdbcType=INTEGER},
       </if>
       <if test="positionId != null" >
         #{positionId,jdbcType=INTEGER},
@@ -223,6 +231,9 @@
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.ShiftMahjongProjectStep" >
     update shift_mahjong_project_step
     <set >
+      <if test="shiftMahjongId != null" >
+        shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER},
+      </if>
       <if test="positionId != null" >
         position_id = #{positionId,jdbcType=INTEGER},
       </if>
@@ -286,6 +297,9 @@
   <update id="updateLastValue" parameterType="com.zefun.web.entity.ShiftMahjongProjectStep" >
     update shift_mahjong_project_step a, shift_mahjong_project_step b 
     <set >
+      <if test="shiftMahjongId != null" >
+        shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER},
+      </if>
       <if test="positionId != null" >
         a.position_id = #{positionId,jdbcType=INTEGER},
       </if>

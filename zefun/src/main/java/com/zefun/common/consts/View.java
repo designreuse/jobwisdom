@@ -120,6 +120,9 @@ public interface View {
 
 		/** 门店分享机制 */
 		public static final String SHARE = "setting/shareSetting";
+		
+		/**提成分配方案*/
+        public static final String VIEW_COMMISSION_SCHEME = "setting/commissionScheme";
 	}
 
 	/**
@@ -843,5 +846,4 @@ public interface View {
         /**模板页面*/
         public static final String VIEW_SERVICE_TEMP = "servicePlan/servicePlanTemp";
     }
-    
 }

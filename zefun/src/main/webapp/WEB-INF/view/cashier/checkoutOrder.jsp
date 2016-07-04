@@ -16,14 +16,15 @@
     .sure_item_name li{float:left;width:111px;height:40px;text-align:center;line-height:40px;border:1px solid #cdd0d6;border-left:none}
     .wash_way{height:164px;overflow:overlay;margin-top:40px}
  	.wash_way_content{border-bottom:1px solid #898989;}
-	.wash_way_content div{border-right:1px solid #cdd0d6;position:relative;float:left;width:111px;height:104px;text-align:center;line-height:40px}
-	.wash_way_content div input{padding-right:20px;height:16px;width:60px;border-radius:12px;border:1px solid #8b8b8b}
-	.wash_way_content div em{position:absolute;right:20px}
-	.wash_way_content div p{height:34px;line-height:34px}
+	.wash_way_content table{width:560px}
 	.sure_item_name ul{position:absolute;background:#ebeff8}
 	.zzc_sure_button{text-align:center;margin-top:25px}
 	.zzc_sure_button button{width:130px;height:26px;border:none;text-align:center;line-height:26px;color:white;font-size:16px;background:#6c6c8b;margin:0 41px;border-radius:12px}
 	.zzc_sure_button button:hover{background:#52526b}
+	.wash_way_content input{width:64px;height:18px;border-radius:12px;padding-right:20px;border:1px solid #898989}
+	 table tr:nth-child(1){font-weight:normal}
+	.wash_way_content td{position:relative;height:40px;width:111px;border:1px solid #cdd0d6;border-left:none;vertical-align:middle;text-align:center;border-bottom:none}
+	.wash_way_content em{position:absolute;right:18px;top:10px;color:#bcb5b5}
 </style>
 <body>
 
@@ -226,9 +227,9 @@
   </div>
 </div>
 
-<div class="zzc hide" name = "payModal" style="font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);">
+<div class="hide" name = "payModal" style="font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);">
    <div class="zzc_sure">
-     <p>业绩提成确认</p>
+     <p>结账成功,业绩提成确认</p>
      <div class="zzc_sure_content">
 	     <p>订单编号:<em name = "orderCode"></em></p>
 	     <div class="sure_item_name">
@@ -240,45 +241,24 @@
 			  <li>提成</li>
 			</ul>
 		   
-	<div class="wash_way">
-	    
+	     <div class="wash_way">
 		    <div class="wash_way_content clearfix">      
-		   <div style="line-height:104px">干洗</div>
-		    <div>
-			  <p>设计师</p>
-			  <p>技师</p>
-			  <p>助理</p>
-			</div>
-			 <div>
-			  <p>1100 老王</p>
-			  <p>1100 老王</p>
-			  <p>1100 老王</p>
-			</div>
-			 <div>
-			  <p><input type="text"><em>元</em></p>
-			  <p><input type="text"><em>元</em></p>
-			  <p><input type="text"><em>元</em></p>
-			</div>
-			<div>
-			  <p><input type="text"><em>元</em></p>
-			  <p><input type="text"><em>元</em></p>
-			  <p><input type="text"><em>元</em></p>
-			</div>
+
 		   </div>
 		 </div>  
 		 
 		    <ul class="clearfix" style="bottom:0;left:0;background:#f7f9fd">
 			  <li>结算方式</li>
-			  <li style="width:335px"><span>卡扣  ¥20</span><span>现金  ¥20</span><span>微信  ¥20</span></li>
-			  <li>合集  ¥20</li>
+			  <li style="width:335px" name = "payTypeLi"></li>
+			  <li>合集  ¥<em name="realAmount"></em></li>
 			  
 			</ul>
 		 
 		 </div>
 		 
 		 <div class="zzc_sure_button">
-		   <button>确定</button>
-		   <button>取消</button>
+		   <button onclick="determineUpdate()">保存修改</button>
+		   <button onclick="determine()">确认无误</button>
 		 
 		 </div>
 	 </div>
