@@ -22,7 +22,7 @@
 	<!-- 微信api口令刷新定时任务 -->
 	<bean id="wechatTokenExpireTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
        <property name="jobDetail" ref="wechatTokenDetail"/>
-       <property name="cronExpression" value="0 0/30 * * * ?"/><!-- 	每30分执行一次   -->
+       <property name="cronExpression" value="0 0/30 * * * ?"/><!-- 每30分执行一次, 整点执行   -->
 	</bean>
 
 	<bean id="wechatTokenDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -54,8 +54,15 @@
 	<!--对门店会员的服务计划推送功能-->
 	<bean id="servicePlansJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
        <property name="jobDetail" ref="servicePlansJobDetail"/>
-       <property name="cronExpression" value="0 0/30 * * * ?"/><!-- 	每个月最后一天23点59分执行   -->
+       <property name="cronExpression" value="0 0/30 * * * ?"/> <!-- 每30分执行一次, 整点执行 -->  
 	</bean>
+	
+	<!--对门店会员的服务计划推送功能-->
+	<!-- <bean id="servicePlansJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+	   <property name="jobDetail" ref="servicePlansJobDetail" />
+	   <property name="startDelay" value="0" />
+	   <property name="repeatInterval" value="1000" />
+	</bean> -->
 
 	<bean id="servicePlansJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="servicePlansJobJob"/>
