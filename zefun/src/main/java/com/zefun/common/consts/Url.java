@@ -458,6 +458,9 @@ public interface Url {
 
 	/** 收银记账 */
 	class KeepAccounts {
+		/** 初始化无纸开单*/
+		public static final String INITIALIZE_NO_PAPER_OPEN_ORDER = "KeepAccounts/initializeNoPaperOpenOrder";
+		
 		/* 开卡记账 */
 		/** 初始化开卡记账页面 */
 		public static final String INITIALIZESTOREFLOW = "KeepAccounts/initializeStoreFlow";

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.PositionInfoDto;
+import com.zefun.web.dto.PositionInfoShiftMahjongDto;
 import com.zefun.web.entity.EmployeeLevel;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.PositionInfo;
@@ -172,4 +173,13 @@ public interface PositioninfoMapper {
     * @return        List<PositionInfo>
      */
     List<PositionInfo> selectByProperites(Map<String, Object> params);
+    
+    /**
+     * 查询门店对应岗位的轮牌信息
+    * @author 老王
+    * @date 2016年7月5日 上午11:05:30 
+    * @param storeId 门店标识
+    * @return List<PositionInfoShiftMahjongDto>
+     */
+    List<PositionInfoShiftMahjongDto> selectByPositionShiftMahjong(Integer storeId);
 }

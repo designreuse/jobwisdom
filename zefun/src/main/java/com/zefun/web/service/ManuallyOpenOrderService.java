@@ -20,6 +20,7 @@ import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
+import com.zefun.web.dto.PositionInfoShiftMahjongDto;
 import com.zefun.web.dto.ProjectMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.OrderDetail;
@@ -127,6 +128,21 @@ public class ManuallyOpenOrderService {
 		mav.addObject("employeeInfoList", employeeInfoList);
 		mav.setViewName(View.KeepAccounts.MANUALLY_OPEN_ORDER);
 		return mav;
+	}
+	
+	/**
+	 * 初始化无纸开单
+	* @author 老王
+	* @date 2016年7月5日 上午10:06:46 
+	* @param storeId 门店标识
+	* @return ModelAndView
+	 */
+	public ModelAndView initializeNoPaperOpenOrder (Integer storeId) {
+		ModelAndView mav =  new ModelAndView(View.KeepAccounts.NO_PAPER_OPEN_ORDER);
+		List<PositionInfoShiftMahjongDto> positionInfoShiftMahjongDtoList = positioninfoMapper.selectByPositionShiftMahjong(storeId);
+		mav.addObject("positionInfoShiftMahjongDtoList", positionInfoShiftMahjongDtoList);
+		return mav;
+		
 	}
 	
 	/**

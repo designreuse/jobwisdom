@@ -1144,23 +1144,6 @@
 	</if>
   </select>
   
-  <!-- 商品提成信息 -->
-  <select id="selectGoodsCommissionInfo" parameterType="java.util.Map" resultType="com.zefun.web.dto.CashierCommissionDto">
-  	select goods_id as goodsId, calculation_type as calculationType, online_shopping_price as commonCalculate,
-  		commission_type as commissionType, ifnull(commission_amount,0) as commissionAmount, ifnull(card_amount, 0) as cardCommissionAmount,
-  		ifnull(sales_count,0) as salesCount,
-  		sales_people as salesPeople, cost_price as costPrice
-  	  from goods_info where goods_id = #{projectId,jdbcType=INTEGER}
-  </select>
-  
-  <!-- 套餐提成信息 -->
-  <select id="selectComboCommissionInfo" parameterType="java.util.Map" resultType="com.zefun.web.dto.CashierCommissionDto">
-  	select combo_id as comboId, combo_performance as commonCalculate, commission_type as commissionType,
-  		ifnull(cash_commission,0) as commissionAmount, ifnull(card_commission, 0) as cardCommissionAmount,
-  		 ifnull(sales_count,0) as salesCount, ifnull(sales_people,0) as salesPeople, 0 as costPrice
-  	  from combo_info where combo_id = #{projectId,jdbcType=INTEGER}
-  </select>
-  
   <!-- 查询会员对应所有未结账的订单明细 -->
   <select id="selectIsNotOverOrderDetail" parameterType="java.lang.Integer" resultType="java.util.Map">
   	  select a.detail_id as detailId, a.project_id as projectId, a.order_type as orderType, b.store_id as storeId from order_detail a 

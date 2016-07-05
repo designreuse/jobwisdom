@@ -51,6 +51,13 @@
     where shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER}
   </select>
   
+  <select id="selectByIsExistsPositionId" resultMap="ShiftMahjongDtoMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from shift_mahjong
+    where find_in_set(#{positionId,jdbcType=INTEGER}, position_id) > 0
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from shift_mahjong
     where shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER}

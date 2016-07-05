@@ -137,4 +137,13 @@ public interface ShiftMahjongMapper {
     * @return List<ShiftMahjong>
      */
     List<ShiftMahjong> selectAllByStoreId(Integer storeId);
+    
+    /**
+     * 查询存在改岗位的轮牌
+    * @author 老王
+    * @date 2016年7月5日 上午11:00:04 
+    * @param positionId 岗位标识
+    * @return List<ShiftMahjongDto>
+     */
+    List<ShiftMahjongDto> selectByIsExistsPositionId(Integer positionId);
 }
