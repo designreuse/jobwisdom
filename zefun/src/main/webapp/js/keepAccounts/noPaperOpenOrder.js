@@ -58,42 +58,40 @@ jQuery(".open_card_alert_state_content").delegate("li[name='activeLi']", "click"
 
 function submits(){
 	var handOrderCode  = jQuery("input[name='handOrderCode']").val();
-	var sex = jQuery("input[name='sex'] :checked").val();
+	var sex = jQuery("input:radio[name='sex']:checked").val();
 	var memberId = jQuery("input[name='memberId']").val();
 	if (isEmpty(memberId)) {
 		memberId = "";
 	}
     var arrayObj = new Array();
         
-    var obj = $(".open_card_alert_state_content");
+    var obj = jQuery(".open_card_alert_state_content");
     for (var i =0; i < obj.length; i++) {
-        var positionId = $(obj[i]).attr("positionId");
+        var positionId = jQuery(obj[i]).attr("positionId");
         var isAssign = 0;
-        if ($("input[name='isAssign']").is(':checked')) {
+        if (jQuery("input[name='isAssign']").is(':checked')) {
         	isAssign = 1;
         }
-        var shiftMahjongEmployeeId = $(obj[i]).find(".active3").parents("li[name='activeLi']").attr("shiftMahjongEmployeeId");
-        var projectId = $(obj[i]).attr("projectId");
-        var projectNum = $(obj[i]).attr("projectNum");
-        var orderNum = $(obj[i]).attr("orderNum");
-        var employeeId = $(obj[i]).attr("employeeId");
-        var isType = $(obj[i]).attr("isType");
-        var employeeStr = {"positionId":positionId, "isAssign":isAssign, "shiftMahjongEmployeeId":shiftMahjongEmployeeId, "shiftMahjongEmployeeId":shiftMahjongEmployeeId, "employeeId":employeeId, "isType" : isType}
+        var shiftMahjongEmployeeId = jQuery(obj[i]).find(".active3").parents("li[name='activeLi']").attr("shiftMahjongEmployeeId");
+        if (isEmpty(shiftMahjongEmployeeId)) {
+        	shiftMahjongEmployeeId = "";
+        }
+        var employeeStr = {"positionId":positionId, "isAssign":isAssign, "shiftMahjongEmployeeId":shiftMahjongEmployeeId}
         arrayObj.push(employeeStr);
     }
     var employeeObj = JSON.stringify(arrayObj);
         
-        $.ajax({
-        	url : baseUrl + "staff/action/addOrder",
-        	type : "POST",
-        	data : "sex="+sex+"&handOrderCode="+handOrderCode+"&employeeObj="+employeeObj+"&memberId="+memberId,
-        	success : function(e){
-        		if (e.code != 0) {
-                    dialog(e.msg);
-                    return;
-                }
-        		var datas = e.msg;
-        		
-        	}
-        });
-    }
+    jQuery.ajax({
+    	url : baseUrl + "KeepAccounts/addOrder",
+    	type : "POST",
+    	data : "sex="+sex+"&handOrderCode="+handOrderCode+"&employeeObj="+employeeObj+"&memberId="+memberId,
+    	success : function(e){
+    		if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+    		var datas = e.msg;
+    		
+    	}
+    });
+}

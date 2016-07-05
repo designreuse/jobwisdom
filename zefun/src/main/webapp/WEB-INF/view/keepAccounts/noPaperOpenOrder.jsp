@@ -449,7 +449,7 @@
 		  
 		</div>
 	    <div class="open_card_alert_state_button">
-		  <button>开单</button>
+		  <button onclick="submits()">开单</button>
 		  <button>取消</button>
 		</div>
 	 </div>

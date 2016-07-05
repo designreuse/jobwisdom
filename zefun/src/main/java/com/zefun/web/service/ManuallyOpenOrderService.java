@@ -27,15 +27,18 @@ import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectInfo;
+import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
+import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
 import com.zefun.wechat.service.StaffService;
 
@@ -75,6 +78,10 @@ public class ManuallyOpenOrderService {
 	@Autowired private OrderDetailMapper orderDetailMapper;
 	/** 岗位*/
 	@Autowired private PositioninfoMapper positioninfoMapper;
+	/** 会员信息*/
+	@Autowired private MemberInfoMapper memberInfoMapper;
+	/** 轮牌员工*/
+	@Autowired private ShiftMahjongEmployeeMapper shiftMahjongEmployeeMapper;
 	
 	/**
 	 * 初始化轮职排班界面
@@ -145,6 +152,187 @@ public class ManuallyOpenOrderService {
 		
 	}
 	
+	/**
+     * 开单
+    * @author 王大爷
+    * @date 2015年10月27日 上午11:06:17
+    * @param employeeObj 指定人员
+    * @param handOrderCode 手工号
+    * @param memberId 会员标识
+    * @param sex    消费者性别
+    * @param storeId 门店标识
+    * @param lastOperatorId 操作者
+    * @return ModelAndView
+     */
+    @Transactional
+    public BaseDto addOrder(String sex, String handOrderCode, String employeeObj, Integer memberId, 
+    		  Integer storeId, Integer lastOperatorId) {
+        Integer orderId = null;
+        if (orderId == null) {
+            //保存订单信息
+            orderId = addOrderInfo(handOrderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId);
+        }
+        //暂时未做
+        Integer isAppointment = 0;
+        addDetail(orderId, employeeObj, storeId, isAppointment, lastOperatorId);
+        
+        /*orderInfoMapper.updateTotalPrice(orderId);*/
+        
+        //查询该明细对应的订单中存在的未完成的项目明细
+        List<OrderDetail> orderDetailList = orderDetailMapper.selectByNotOverByOrderId(orderId);
+        if (orderDetailList.size() == 0) {
+            //修改订单信息状态
+            OrderInfo orderInfo = new OrderInfo();
+            orderInfo.setOrderId(orderId);
+            orderInfo.setOrderStatus(2);
+            orderInfoMapper.updateByPrimaryKey(orderInfo);
+        }
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("storeId", storeId);
+        map.put("orderId", orderId);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+    }
+	
+    /**
+     * 添加明细，步骤，及修改轮牌信息
+    * @author 王大爷
+    * @date 2015年11月5日 上午10:41:08
+    * @param orderId 订单标识
+    * @param employeeObj 指定员工
+    * @param storeId 门店标识
+    * @param isAppointment 是否预约
+    * @param lastOperatorId 操作人
+     */
+    public void addDetail(Integer orderId, String employeeObj, Integer storeId, 
+            Integer isAppointment, Integer lastOperatorId) {
+
+        Integer detailId = addOrderDetail(orderId, isAppointment, DateUtil.getCurTime(), storeId, lastOperatorId);
+        
+        //获取项目指定轮牌员工
+        JSONArray empjsonArray =JSONArray.fromObject(employeeObj);
+        for (int j = 0; j < empjsonArray.size(); j++) {
+            JSONObject jsonEmployee = empjsonArray.getJSONObject(j);
+            //岗位标识
+            Integer positionId = jsonEmployee.getInt("positionId");
+            //是否指定
+            Integer isAssign = jsonEmployee.getInt("isAssign");
+            
+            Integer shiftMahjongEmployeeId = null;
+            if (!jsonEmployee.get("shiftMahjongEmployeeId").toString().isEmpty()) {
+            	//指定员工对应轮牌员工标识
+            	shiftMahjongEmployeeId = jsonEmployee.getInt("shiftMahjongEmployeeId");
+            }
+            
+            addShiftMahjongProjectStep(detailId, shiftMahjongEmployeeId, positionId, isAssign, lastOperatorId);
+        }
+        
+        
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setOrderId(orderId);
+        //状态进行中
+        orderInfo.setOrderStatus(1);
+        orderInfoMapper.updateByPrimaryKey(orderInfo);
+        
+    }
+    
+    /**
+     * 保存订单信息
+    * @author 王大爷
+    * @date 2015年9月19日 下午2:01:33
+    * @param handOrderCode 手牌号
+    * @param memberId 会员信息标识
+    * @param storeId 门店标识
+    * @param openOrderDate 补单时间
+    * @param sex 性别
+    * @param employeeId 操作员工
+    * @return 订单标识
+     */
+    @Transactional
+    public Integer addOrderInfo(String handOrderCode, Integer memberId, Integer storeId, String sex, 
+    		  String openOrderDate, Integer employeeId){
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setHandOrderCode(handOrderCode);
+        if (memberId != null) {
+            orderInfo.setMemberId(memberId);
+        }
+        orderInfo.setSex(sex);
+        orderInfo.setStoreId(storeId);
+        orderInfo.setCreateTime(openOrderDate);
+        orderInfo.setLastOperatorId(employeeId);
+        orderInfo.setHandOrderCode(handOrderCode);
+        orderInfo.setOrderStatus(1);
+        orderInfoMapper.insert(orderInfo);
+        return orderInfo.getOrderId();
+    }
+    
+    /**
+     * 保存订单明细
+    * @author 王大爷
+    * @date 2015年9月19日 下午3:50:07
+    * @param orderId 订单标识
+    * @param isAppointment 是否预约
+    * @param openOrderDate 补单时间
+    * @param storeId 门店标识
+    * @param lastOperatorId 操作员工
+    * @return 订单明细标识
+     */
+    public Integer addOrderDetail(Integer orderId, Integer isAppointment, String openOrderDate,
+            Integer storeId, Integer lastOperatorId) {
+    	
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setOrderId(orderId);
+        orderDetail.setOrderType(1);
+        orderDetail.setIsAssign(0);
+        orderDetail.setProjectCount(1);
+        orderDetail.setStoreId(storeId);
+        orderDetail.setCreateTime(openOrderDate);
+        orderDetail.setLastOperatorId(lastOperatorId);
+        
+        orderDetailMapper.insert(orderDetail);
+        
+        return orderDetail.getDetailId();
+    }
+    
+    /**
+     * 保存轮牌步骤
+    * @author 王大爷
+    * @date 2015年9月19日 下午4:40:41
+    * @param detailId 订单明细
+    * @param shiftMahjongEmployeeId 轮牌员工
+    * @param positionId 岗位标识
+    * @param isAssign 是否指定
+    * @param lastOperatorId 操作人员
+     */
+    public void addShiftMahjongProjectStep(Integer detailId, Integer shiftMahjongEmployeeId, Integer positionId, Integer isAssign, 
+    		  Integer lastOperatorId){
+    	ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
+    	shiftMahjongProjectStep.setDetailId(detailId);
+    	shiftMahjongProjectStep.setPositionId(positionId);
+    	if (shiftMahjongEmployeeId != null) {
+    		ShiftMahjongEmployee shiftMahjongEmployee= shiftMahjongEmployeeMapper.selectByPrimaryKey(shiftMahjongEmployeeId);
+    		shiftMahjongProjectStep.setShiftMahjongId(shiftMahjongEmployee.getShiftMahjongId());
+            shiftMahjongProjectStep.setIsAssign(isAssign);
+            shiftMahjongProjectStep.setIsOver(1);
+            shiftMahjongProjectStep.setBeginTime(DateUtil.getCurTime());
+            shiftMahjongProjectStep.setEmployeeId(shiftMahjongEmployee.getEmployeesId());
+            
+            boolean type = false;
+            if (isAssign == 1) {
+            	type = true;
+            }
+            //调整员工在轮牌的位置及修改状态
+            staffService.moveEmployee(shiftMahjongEmployeeId, type);
+    	}
+    	else {
+    		shiftMahjongProjectStep.setIsOver(0);
+    	}
+        shiftMahjongProjectStep.setCreateTime(DateUtil.getCurTime());
+        shiftMahjongProjectStep.setLastOperatorId(lastOperatorId);
+        
+        shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep);
+        
+    }
+    
 	/**
      * 根据项目标识查询想轮牌信息及步骤对应员工
     * @author 王大爷

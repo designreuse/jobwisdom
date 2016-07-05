@@ -491,7 +491,7 @@
     from order_info oi
     where oi.store_id = #{storeId}
     and oi.is_deleted = 0
-    and oi.order_status in (1, 2, 5)
+    and oi.order_status in (2, 5)
   </select>
 
   <resultMap id="UnfinishedOrderDetailMap" type="com.zefun.web.dto.SelfCashierOrderDto" >
