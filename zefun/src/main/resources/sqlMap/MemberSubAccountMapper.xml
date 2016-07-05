@@ -224,4 +224,13 @@
     where sub_account_id = #{subAccountId,jdbcType=INTEGER}
   </update>
   
+    <update id="updateLevel" parameterType="java.util.Map" >
+    update member_sub_account
+    set   level_id = #{levelId,jdbcType=INTEGER},
+    total_amount = total_amount + #{chargeAmount,jdbcType=INTEGER},
+    balance_amount = balance_amount + #{chargeAmount,jdbcType=INTEGER},
+    total_present_amount = total_present_amount + #{rewardAmount}
+    where account_id = #{accountId,jdbcType=INTEGER}
+  </update>
+  
 </mapper>

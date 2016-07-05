@@ -418,13 +418,44 @@ public class ProjectInfoController extends BaseController {
     * @date 2016年5月30日 下午7:11:54
     * @param request    request
     * @param response   response
+    * @param storeId    storeId
     * @return           ModelAndView
      */
     @RequestMapping(value = Url.Project.PROJECT_CATEGORY_VIEW)
-    public ModelAndView projectCategoryView(HttpServletRequest request,
-            HttpServletResponse response) {
-        Integer storeId = getStoreId(request);
-        return projectService.projectCategoryView(storeId);
+    public ModelAndView projectCategoryView(HttpServletRequest request, HttpServletResponse response, Integer storeId) {
+        String storeAccount = getStoreAccount(request);
+        return projectService.projectCategoryView(storeAccount, storeId);
+    }
+    
+    /**
+     * 保存或修改, 项目商品的系类
+    * @author 高国藩
+    * @date 2016年7月4日 上午11:33:44
+    * @param request     request
+    * @param response    response
+    * @param jsonObject  jsonObject
+    * @return            BaseDto
+     */
+    @RequestMapping(value = Url.Project.SAVE_UPDATE_CATEGORY, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto saveCategory(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObject) {
+        return projectService.saveCategory(jsonObject);
+    }
+    
+    /**
+     * 系列列表页面
+    * @author 高国藩
+    * @date 2016年5月30日 下午7:11:54
+    * @param request    request
+    * @param response   response
+    * @param categoryId categoryId
+    * @param type       type
+    * @return           BaseDto
+     */
+    @RequestMapping(value = Url.Project.DELETED_UPDATE_CATEGORY, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto deletedCategory(HttpServletRequest request, HttpServletResponse response, Integer categoryId, Integer type) {
+        return projectService.deletedCategory(categoryId, type);
     }
 
     /**

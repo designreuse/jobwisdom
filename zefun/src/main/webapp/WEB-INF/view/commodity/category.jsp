@@ -2,41 +2,57 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="/head.jsp"%>
-
+<link rel="stylesheet" href="<%=basePath %>css/goods_series.css" type="text/css" />
 <style>
-.item_list{margin-top:20px;height:310px}
-.item_list select{width:104px;height:22px;padding-left:50px;border-radius:10px;font-size:14px;color:black;border:1px solid black}
-.item_list button{border:none;border-radius:10px;color:white;background:#59688a;height:30px;text-align:center;line-height:30px;width:76px;margin:0 29px 0 5px}
-.item_list input{height:20px;width:120px;padding-left:10px;border-radius:10px 0 0 10px;border:1px solid black;margin-left:54px}
-.item_part{margin:20px 100px}
-.item_list button:hover{background:#495673}
-
-.item_part_content{margin-left:40px}
-.item_part_content_left{width:283px;height:200px;border-radius:8px;overflow:overlay;float:left;border:1px solid black;margin-right:30px}
-.item_part_content_right{float:left;border:1px solid black;border-radius:8px;width:700px;height:200px;margin-left: 57px;}
-
-.hair_part{width:236px;height:38px;text-align:center;border:1px solid #59688a;border-left:3px solid #ff0000;line-height:38px;color: black;position:relative;
-    font-size: 14px;margin:11px 0 0 4px}
-.hair_part em{display:inline-block;width:47px;height:30px;border-left:2px solid #989da6;line-height:30px;position:relative;left:72px}
-.item_part_content_left i,.item_part_content_right i{display:inline-block;position:relative;top:9px;left:-1px}
-.demo_fade{    position: absolute;
-    border-left: 1px solid #565656;
-    border-right: 1px solid #565656;
-    top: 38px;
-    border-bottom: 1px solid #565656;
-    border-top: 1px solid white;
-    z-index: 2;
-    top:33px;
-    right: 1px;
-	display:none
-	}
-	.item_part_content_left span,.item_part_content_right span{position:relative;display:inline-block}
-	
-	.demo_fade img{height:20px}
-.demo_fade li:hover{background:#d8d6d6}	
-.item_part_content_right span{margin-left:25px}
-.demo_fade li{background:#ececec}
+.active {
+	background: #ecf7fe;
+}
 </style>
+<script>
+	//轮播
+
+	jQuery(function() {
+		var now_ = 0, count = jQuery('.out_roll_ul li').size();
+
+		//向右走
+		jQuery('.click_right').click(
+				function() {
+					if (now_ <= count - 6) {
+						now_ += 1;
+						jQuery(this).parent('').find('.out_roll_ul').stop(true,
+								true).animate({
+							left : -181 * now_
+
+						})
+					}
+				});
+		//向左走
+
+		jQuery('.click_left').click(
+				function() {
+					if (now_ >= 1) {
+						now_ -= 1;
+						jQuery(this).parent('').find('.out_roll_ul').stop(true,
+								true).animate({
+							left : -181 * now_
+
+						})
+					}
+
+				});
+	});
+
+	jQuery(function() {
+		jQuery(document).on('mouseover', '.goods_series_detail li', function() {
+			jQuery(this).find('p').show();
+		});
+		jQuery(document).on('mouseout', '.goods_series_detail li', function() {
+			jQuery(this).find('p').hide();
+		})
+	})
+	
+</script>
+
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -46,61 +62,58 @@
 				<%@include file="/top.jsp"%>
 
 				<div class="content_right clearfix">
-					<div class="item_list">
-						<p>
-							<img src="<%=basePath%>images/item.png" style="width: 100%">
-						</p>
-						<div class="item_part">
-							<select name="projectCategory" onchange="changeDept(1, this)">
-							<c:forEach items="${projectBaseDtos }" var="projectCategory">
-							<option value="${projectCategory.deptId }">${projectCategory.deptName }</option>
-							</c:forEach>
-							</select>
-							<input id="projectCategory" categoryId="" maxlength="8" type="text" placeholder="不超过八个字" style="border-radius: 10px">
-							<button onclick="saveProjectCategory(this)">添加</button>
-						</div>
-						<div class="item_part_content clearfix">
-							<div class="item_part_content_right">
-								<c:forEach items="${projectBaseDtos[0].projectCategoryList }" var="projectCategory">
-									<span id="${projectCategory.categoryId }"> 
-										<input readonly="readonly" type="text" value="${projectCategory.categoryName }" placeholder="${projectCategory.categoryName }" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px">
-										<i><img src="<%=basePath%>images/demo2_down.png"></i>
-										<ul class="demo_fade" style="">
-											<li><img src="<%=basePath%>images/handle_2.png" onclick="deleted(1, ${projectCategory.categoryId }, this)"></li>
-											<li><img src="<%=basePath%>images/handle_1.png" onclick="update(1, ${projectCategory.categoryId }, this)"></li>
-										</ul>
-									</span>
-								</c:forEach>
+					<div class="out_roll_content">
+						<div class="out_roll">
+							<span class="click_left"><img src="<%=basePath%>images/left_click.png"></span>
+							<div class="out_roll_div">
+								<ul class="clearfix out_roll_ul" style="left: 0px;">
+									<c:forEach items="${storeInfos }" var="storeInfo">
+										<li onclick="window.location.href='<%=basePath %>project/view/categorys?storeId=${storeInfo.storeId }'" storeId="${storeInfo.storeId }">${storeInfo.storeName }</li>
+									</c:forEach>
+								</ul>
+								<script>
+								var storeId = '${storeId}';
+								jQuery(".out_roll_ul").children("li[storeId="+storeId+"]").addClass("active");
+								</script>
 							</div>
-
+							<span class="click_right"><img src="<%=basePath%>images/right_click.png"></span>
 						</div>
 					</div>
 
-					<div class="item_list">
-						<p>
-							<img src="<%=basePath%>images/shop.png">
-						</p>
-						<div class="item_part">
-							<select name="goodsCategory" onchange="changeDept(2, this)">
-							<c:forEach items="${goodsBaseDtos }" var="goodsCategory">
-							<option value="${goodsCategory.deptId }">${goodsCategory.deptName }</option>
-							</c:forEach>
-							</select>
-							<input id="goodsCategory" categoryId="" maxlength="8" type="text" placeholder="不超过八个字" style="border-radius: 10px">
-							<button onclick="saveGoodsCategory(this)">添加</button>
+					<div class="goods_series_item">
+						<div class="goods_series_item_content">
+							<p>项目(大项)</p>
+							<div class="goods_series_item_content_">
+								<p>
+									<button onclick="showSave(1);">添加</button>
+								</p>
+								<ul id="project" class="goods_series_detail">
+									<c:forEach items="${projectCategories }" var="projectCategorie">
+									<li categoryId="${projectCategorie.categoryId }" >${projectCategorie.categoryName }
+										<p>
+											<span onclick="showUpdate(1, ${projectCategorie.categoryId }, '${projectCategorie.categoryName }', this)">修改</span><span onclick="deleted(1, ${projectCategorie.categoryId })">删除</span>
+										</p>
+									</li>
+									</c:forEach>
+								</ul>
+							</div>
 						</div>
-						<div class="item_part_content clearfix">
-							<div class="item_part_content_right">
-								<c:forEach items="${goodsBaseDtos[0].goodsCategoryBaseDto }" var="goodsCategory">
-									<span id="${goodsCategory.categoryId }"> 
-										<input readonly="readonly" type="text" value="${goodsCategory.categoryName }" placeholder="${goodsCategory.categoryName }" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px">
-										<i><img src="<%=basePath%>images/demo2_down.png"></i>
-										<ul class="demo_fade" style="">
-											<li><img src="<%=basePath%>images/handle_2.png" onclick="deleted(2, ${goodsCategory.categoryId }, this)"></li>
-											<li><img src="<%=basePath%>images/handle_1.png" onclick="update(2, ${goodsCategory.categoryId }, this)"></li>
-										</ul>
-									</span>
-								</c:forEach>
+
+						<div class="goods_series_item_content">
+							<p>商品系列</p>
+							<div class="goods_series_item_content_">
+								<p>
+									<button onclick="showSave(2);">添加</button>
+								</p>
+								<ul id="goods" class="goods_series_detail">
+									<c:forEach items="${goodsCategories }" var="goodsCategorie">
+									<li categoryId="${goodsCategorie.categoryId }">${goodsCategorie.categoryName }
+										<p style="display: none;">
+											<span onclick="showUpdate(2, ${goodsCategorie.categoryId }, '${goodsCategorie.categoryName }', this)">修改</span><span onclick="deleted(2, ${goodsCategorie.categoryId })">删除</span>
+										</p>
+									</li>
+									</c:forEach>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -108,188 +121,94 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="zzc">
+		<div class="zzc_goods_series">
+			<p>修改商品</p>
+			<div class="zzc_goods_series_content">
+				<div class="zzc_goods_series_">
+					<p>
+						<input name="categoryName" type="text" maxlength="8">
+					</p>
+					<span>*不得超过8个字</span>
+				</div>
+				<div class="zzc_goods_series_button">
+					<button onclick="save()">确定</button>
+					<button onclick="hideSave()">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 <script>
-	var projectBaseDtosJs = eval('('+'${projectBaseDtosJs}'+')');
-	var goodsBaseDtos = eval('('+'${goodsBaseDtosJs}'+')');
-	jQuery("body").delegate('.item_part_content_left i,.item_part_content_right i','click',function(){
-		find = jQuery(this).parent().find('.demo_fade');
-		if (find.css('display') == 'none') {
-			find.stop(true, true).slideDown('normal');
-		} else if (find.css('display') == 'block') {
-			jQuery('.demo_fade').stop(true, true).slideUp('normal');
+var type = null;
+var categoryId = null;
+var categoryName = null;
+function hideSave(){
+	jQuery('.zzc').hide('800');
+	type=null;
+	categoryId=null;
+}
+function showSave(types){
+	type = types;
+	categoryId = null;
+	jQuery("input[name='categoryName']").val('');
+	jQuery(".zzc").show('800');
+}
+function save(){
+	
+	categoryName = jQuery("input[name='categoryName']").val();
+	var data = {"type":type, "categoryId":categoryId, "categoryName":categoryName, "storeId":storeId };
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "project/save/update/category",
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType : "application/json",
+		async : false,
+		success : function(data) {
+			var html =  '<li categoryId="'+data.msg.categoryId+'">'+data.msg.categoryName+
+									'<p style="display: none;">'+
+								'<span onclick="showUpdate('+type+', '+data.msg.categoryId+', \''+data.msg.categoryName+'\', this)">修改</span><span>删除</span>'+
+							'</p>'+
+						'</li>';
+			if (type == 1){
+				jQuery("#project").find("li[categoryId='"+data.msg.categoryId+"']").remove();
+				jQuery("#project").append(jQuery(html));
+			}else {
+				jQuery("#goods").find("li[categoryId='"+data.msg.categoryId+"']").remove();
+				jQuery("#goods").append(jQuery(html));
+			}
+			jQuery(".zzc").hide('800');
 		}
 	});
-	function saveProjectCategory(btn){
-		var categoryName = jQuery(btn).prev("input").val();
-		if (categoryName == ""){dialog("请填写系列名称");return;}
-		var deptId =  jQuery("select[name='projectCategory']").val();
-		var categoryId = jQuery(btn).prev("input").attr("categoryId");
-		jQuery(btn).prev("input").val("");
-		if(categoryId == ""){
-			jQuery.ajax({
-				type: "POST",
-				url: baseUrl+"project/saveProjectCategory",
-		        data: "categoryName="+ categoryName + "&deptId="+deptId,
-		        success: function(data) {
-		        	if(data.code==0){
-		        		var span = jQuery("")
-		        		var html = '<span id='+data.msg+'><input readonly="readonly" value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
-												'<ul class="demo_fade" style="display: none;">'+
-											'<li><img src="'+baseUrl+'images/handle_2.png" onclick="deleted(1, '+data.msg+', this)"></li>'+
-											'<li><img src="'+baseUrl+'images/handle_1.png" onclick="update(1, '+data.msg+', this)"></li>'+
-										'</ul>'+
-									'</span>';
-						jQuery(".item_part_content_right").eq(0).append(jQuery(html));
-		        	}
-		        }
-			});
-		}else {
-			jQuery.ajax({
-				type: "POST",
-				url: baseUrl+"project/editProjectCategory",
-		        data: "categoryId="+categoryId + "&categoryName="+categoryName+"&deptId="+deptId,
-		        success: function(data) {
-		            if(data.code == 0){
-		            	dialog("修改成功");
-		            	jQuery("#projectCategory").attr("categoryId", "");
-		    			jQuery("#projectCategory").val("");
-		    			jQuery(".item_part_content.clearfix").eq(0).find("span[id="+categoryId+"]").find("input").val(categoryName);
-		            }else{
-		            	dialog("error");
-		            }
-		        }
-			});
-		}
-	}
-	function saveGoodsCategory(btn){
-		var categoryName = jQuery(btn).prev("input").val();
-		if (categoryName == ""){dialog("请填写系列名称");return;}
-		var deptId =  jQuery("select[name='goodsCategory']").val();
-		var categoryId = jQuery(btn).prev("input").attr("categoryId");
-		jQuery(btn).prev("input").val("");
-		if(categoryId == ""){
-			jQuery.ajax({
-				type: "POST",
-				url: baseUrl+"goodsInfo/saveGoodsCategory",
-		        data: "categoryName="+ categoryName + "&deptId="+deptId,
-		        success: function(data) {
-		        	if(data.code==0){
-		        		var span = jQuery("")
-		        		var html = '<span id='+data.msg+'><input readonly="readonly" value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
-												'<ul class="demo_fade" style="display: none;">'+
-											'<li><img src="'+baseUrl+'images/handle_2.png" onclick="deleted(1, '+data.msg+', this)"></li>'+
-											'<li><img src="'+baseUrl+'images/handle_1.png" onclick="update(1, '+data.msg+', this)"></li>'+
-										'</ul>'+
-									'</span>';
-						jQuery(".item_part_content_right").eq(1).append(jQuery(html));
-		        	}
-		        }
-			});
-		}else {
-			jQuery.ajax({
-				type: "POST",
-				url: baseUrl+"goodsInfo/editGoodsCategory",
-		        data: "categoryId="+categoryId + "&categoryName="+categoryName+"&deptId="+deptId,
-		        success: function(data) {
-		            if(data.code == 0){
-		            	dialog("修改成功");
-		            	jQuery("#goodsCategory").attr("categoryId", "");
-		    			jQuery("#goodsCategory").val("");
-		    			jQuery(".item_part_content.clearfix").eq(1).find("span[id="+categoryId+"]").find("input").val(categoryName);
-		            }else{
-		            	dialog("error");
-		            }
-		        }
-			});
-		}
-	}
-	function deleted(type, id, span){
-		if(type == "1"){
-			var deptId =  jQuery("select[name='projectCategory']").val();
-			var data = "categoryId="+id + "&deptId=" + deptId;
-			jQuery.ajax({
-				url: baseUrl+"project/deleteProjectCategory",
-		        data: data,
-		        success: function(data) {
-		            if(data.code == 0){
-		            	dialog("删除成功");
-		            	jQuery(span).parents("span[id]").remove();
-		            }else{
-		            	dialog(data.msg);
-		            }
-		        }
-			});
-		}
-		if(type == "2"){
-			var deptId =  jQuery("select[name='goodsCategory']").val();
-			var data = "categoryId=" +id + "&deptId=" + deptId;
-			jQuery.ajax({
-				url: baseUrl+"goodsInfo/deleteGoodsCategory",
-		        data: data,
-		        success: function(data) {
-		            if(data.code == 0){
-		            	dialog("删除成功");
-		            	jQuery(span).parents("span[id]").remove();
-		            }else{
-		            	dialog(data.msg);
-		            }
-		        }
-			});
-		}
-	}
-	function update(type, id, input){
-		if(type == "1"){
-			var name = jQuery(input).parents("span[id]").find("input").val();
-			jQuery("#projectCategory").attr("categoryId", id);
-			jQuery("#projectCategory").val(name);
-		}
-		if(type == "2"){
-			var name = jQuery(input).parents("span[id]").find("input").val();
-			jQuery("#goodsCategory").attr("categoryId", id);
-			jQuery("#goodsCategory").val(name);
-		}
-	}
-	function changeDept(type, select){
-		var deptId = jQuery(select).val();
-		if(type == 1){
-			jQuery(".item_part_content_right").eq(0).empty();
-			for (var i = 0; i < projectBaseDtosJs.length; i++) {
-				if(deptId == projectBaseDtosJs[i].deptId){
-					for (var j = 0; j < projectBaseDtosJs[i].projectCategoryList.length; j++) {
-						var categoryName = projectBaseDtosJs[i].projectCategoryList[j].categoryName;
-						var categoryId = projectBaseDtosJs[i].projectCategoryList[j].categoryId;
-						var html = '<span id='+categoryId+'><input readonly="readonly" value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
-												'<ul class="demo_fade" style="display: none;">'+
-											'<li><img src="'+baseUrl+'images/handle_2.png" onclick="deleted(1, '+categoryId+', this)"></li>'+
-											'<li><img src="'+baseUrl+'images/handle_1.png" onclick="update(1, '+categoryId+', this)"></li>'+
-										'</ul>'+
-									'</span>';
-						jQuery(".item_part_content_right").eq(0).append(jQuery(html));
-					}
-					return;
+}
+function showUpdate(types, categoryIds, categoryNames, li){
+	type = types;
+	categoryId = categoryIds;
+	jQuery("input[name='categoryName']").val(categoryNames);
+	categoryName = categoryNames;
+	jQuery(".zzc").show('800');
+}
+function deleted(types, id){
+	if (confirm("确定要删除该数据么?")){
+		jQuery.ajax({
+			type : "post",
+			url : baseUrl + "project/delete/category",
+			data : "type="+types+"&categoryId="+id,
+			dataType : "json",
+			async : false,
+			success : function(data) {
+				dialog(data.msg);
+				if (types == 1){
+					jQuery("#project").find("li[categoryId='"+id+"']").remove();
+				}else {
+					jQuery("#goods").find("li[categoryId='"+id+"']").remove();
 				}
 			}
-		}
-		if(type == 2){
-			jQuery(".item_part_content_right").eq(1).empty();
-			for (var i = 0; i < goodsBaseDtos.length; i++) {
-				if(deptId == goodsBaseDtos[i].deptId){
-					for (var j = 0; j < goodsBaseDtos[i].goodsCategoryBaseDto.length; j++) {
-						var categoryName = goodsBaseDtos[i].goodsCategoryBaseDto[j].categoryName;
-						var categoryId = goodsBaseDtos[i].goodsCategoryBaseDto[j].categoryId;
-						var html = '<span id='+categoryId+'><input readonly="readonly" value="'+categoryName+'" type="text" placeholder="'+categoryName+'" style="height: 14px; width: 100px; margin-left: 5px; padding-left: 4px"><i><img src="'+baseUrl+'images/demo2_down.png"></i>'+
-												'<ul class="demo_fade" style="display: none;">'+
-											'<li><img src="'+baseUrl+'images/handle_2.png" onclick="deleted(2, '+categoryId+', this)"></li>'+
-											'<li><img src="'+baseUrl+'images/handle_1.png" onclick="update(2, '+categoryId+', this)"></li>'+
-										'</ul>'+
-									'</span>';
-						jQuery(".item_part_content_right").eq(1).append(jQuery(html));
-					}
-					return;
-				}
-			}
-		}
+		});
 	}
+}
 </script>
 </html>

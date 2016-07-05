@@ -8,22 +8,49 @@
 <script type="text/javascript"	src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript"	src="<%=basePath%>/js/common/md5.js"></script>
 <script type="text/javascript"	src="<%=basePath%>js/keepAccounts/openCard.js?date=<%=new Date().getTime()%>"></script>
-<script>
-	jQuery(
-			function() {
-				jQuery('.recharge_ul_right_content:gt(0)').hide();
-				jQuery('.recharge_ul li')
-						.click(
-								function() {
-									jQuery(this).addClass('active').siblings()
-											.removeClass('active');
-									jQuery(
-											'.recharge_ul_right .recharge_ul_right_content')
-											.eq(jQuery(this).index()).show()
-											.siblings().hide()
-								})
-			})
-</script>
+	<style>
+	.select_card_style{margin-top: 20px;}
+	.select_card_style>p{margin-bottom: 6px;font-size: 16px;}
+	.select_card_style_content{    padding: 10px 20px; background: #d8deed;border-radius: 8px;}
+	.select_card_style_content select{    width:80px;height: 20px;
+    border: 1px solid #717171;
+    border-radius: 12px;
+    font-size: 14px;
+    color: black;
+    margin: 0 10px 0 15px;
+	padding-left:30px
+	}
+	.member-card li{width:25%}
+	.select_card_style_content span{display:inline-block;margin-left:20px}
+	.select_card_style_content span i{color:#e54b4f;}
+	.select_card_style_content span em{color:#818181}
+	</style>
+	<script>
+	  jQuery(function(){
+	     jQuery('.recharge_ul_right_content:gt(0)').hide();
+		 jQuery('.recharge_ul li').click(function(){
+		   jQuery(this).addClass('active').siblings().removeClass('active');
+		   jQuery('.recharge_ul_right .recharge_ul_right_content').eq(jQuery(this).index()).show().siblings().hide() 
+		 })
+	  })
+	  
+	 jQuery(function(){ 
+	   jQuery('.no_user').click(function(){
+	    jQuery('.no_user_content').hide();
+		jQuery('.write_imformation').fadeIn();
+	  
+	   });
+	   jQuery('.back_').click(function(){
+	     jQuery('.no_user_content').fadeIn();
+		jQuery('.write_imformation').hide();
+	   
+	   })
+	  })
+	  
+	  
+	  
+	</script>
+</head>
 <style>
 .common_table table {
 	width: 870px !important
@@ -58,7 +85,7 @@
 						<li class=""><span>还款</span></li>
 						<li class=""><span>赠送</span></li>
 						<li class=""><span>转账</span></li>
-						<li class=""><span>退卡</span></li>
+<!-- 						<li class=""><span>退卡</span></li> -->
 					</ul>
 					<div class="recharge_ul_right">
 						<div id="tab1" class="recharge_ul_right_content"
@@ -99,6 +126,7 @@
 													<td>开卡门店</td>
 													<td>余额</td>
 													<td>礼金</td>
+													<td>积分</td>
 													<td>欠款</td>
 													<td>会员卡</td>
 													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
@@ -108,8 +136,10 @@
 														data-target="#member-data" onclick="showMemberModal(this)"></td>
 													<td name="memberNameSpan" data-toggle="modal"
 														data-target="#member-data" onclick="showMemberModal(this)"></td>
-													<td name="memberSexSpan">男</td>
-													<td name="memberStoreName">华南美联店</td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceAmountSpan"></td>
 													<td style="color: #eb4749"
 														name="memberBalanceGiftmoneyAmountSpan"></td>
 													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
@@ -225,9 +255,12 @@
 
 						<div id="tab2" class="recharge_ul_right_content"
 							style="display: none;">
+
 							<div class="recharge_user">
-								<p>填写会员资料</p>
-								<div class="seach_user">
+									      <p>填写会员资料</p>
+										  <div class="seach_user">
+									         <div class="no_user_content" style="display: block;">
+									         <div class="seach_user">
 									<div class="card-main clearfix" name="fillMemberInfo">
 										<div class="p-part-first ml10" name="memberTR" selectType="1">
 											<label class="w60" for="">搜索会员:</label> <input type="text"
@@ -284,39 +317,46 @@
 										<ul class="member-card" name="subAccountUL">
 										</ul>
 									</div>
+								</div><a href="javascript:;" class="no_user">暂无账号</a></div>
+											 <div class="write_imformation" style="display: none;">
+											   <p>
+											      <span><em style="margin-right:30px">姓名</em><input type="text" name = "name"  placeholder="*"/></span>
+												  <span><em style="display:inline-block;margin-right:1px">手机号码</em><input type="text" name = "phoneNumber"  placeholder="*"/></span>
+												  <span><em style="margin-left:35px">性别</em><select name="sex"><option>男</option><option>女</option></select></span>
+<!-- 												  <span style="margin-left:80px"><em>开卡类型</em> -->
+<!-- 												    <select name="kkLevelId"  tyle="width:100px;margin-left:8px"  onchange="changeMemberLevel(this)"> -->
+<%-- 						                                <c:forEach items="${memberLevelList}" var="memberLevel" varStatus="status"> --%>
+<%-- 							                                <option value="${memberLevel.levelId}">${memberLevel.levelName}</option> --%>
+<%-- 							                            </c:forEach> --%>
+<!-- 						                            </select> -->
+<!-- 												  </span>	   -->
+											   </p>
+											   <p>
+											      
+												  <span><em>支付密码</em><input type="password" name = "payPassword"  placeholder="*"/></span>
+												  <span><em>确认密码</em> <input type="password" name = "password"  placeholder="*"/></span>
+												  <span style="margin-left:4px">短信通知<select style="margin-left:8px" name ="messageType"><option value="1">是</option> <option value="0">否</option></select></span>
+												  <span style="position:relative;left:150px"><button class="back_">返回</button></span>
+											   </p>
+											 </div>
+									      </div>
+									   </div>
 
+							
+							<div class="select_card_style">
+									      <p>请选择卡类型</p>
+										  <div class="select_card_style_content">
+										    <em>开卡类型：	
+										    <select name ="kkLevelId" onchange="changeMemberLevel(this)">
+												<c:forEach items="${memberLevelList}" var="memberLevel" varStatus="status">
+											<option value="${memberLevel.levelId}">${memberLevel.levelName}</option>
+												</c:forEach>
+											</select>
+										</em>
+										  <span>开卡费用：<input type="text" placeholder="0" value="${memberLevelLists[0].sellAmount}"  name="openType"/><em>元（不计入卡金余额）</em></span>
+										  </div>
+									   </div>
 
-									<div class="write_imformation">
-										<p>
-											<span><em>姓名</em><input type="text" name="name"
-												placeholder="*" /></span> <span><em
-												style="display: inline-block; margin-right: 28px">性别</em>
-												<select name="sex"><option value="男">男</option><option value="女">女</option></select></span> <span
-												style="margin-left: 80px"><em>开卡类型</em>
-												<select style="width: 100px; margin-left: 8px" name="kkLevelId"
-												onchange="changeMemberLevel(this)">
-													<c:forEach items="${memberLevelList}" var="memberLevel"
-														varStatus="status">
-														<option value="${memberLevel.levelId}">${memberLevel.levelName}</option>
-													</c:forEach>
-											</select></span> <span style="margin-left: 20px">开卡充值：<i>0元</i><a
-												href="javascript:;">（不计入卡金金额）</a></span>
-										</p>
-										<p>
-											<span><em>卡号</em><input type="text"></span> <span><em>支付密码</em>
-												<input type="password" name="payPassword" placeholder="*" /></span>
-											<span><em>确认密码</em><input type="password"
-												name="password" placeholder="*" /></span> <span>短信通知：
-												<select name="messageType"><option value="1">是</option><option value="0">否</option></select></span>
-										</p>
-									</div>
-								</div>
-
-
-
-
-
-							</div>
 
 							<div class="recharge_way">
 								<p>充值金额及支付方式</p>
@@ -362,7 +402,11 @@
 
 									<div class="achievement_recharge">
 										<p>
-											充卡业绩<input type="text"> <select name="recommendId"
+											充卡业绩 <select name="commissionType" class="chzn-select w70"
+												onchange="totaiUpdateVL(this)">
+												<option value="1">固定</option>
+												<option value="2">比例</option>
+											</select>  <select name="recommendId"
 												class="chzn-select w100 "
 												onchange="totaiUpdateEmployeeInfo(this)">
 												<option value="">选择员工</option>
@@ -377,7 +421,6 @@
 										</ul>
 									</div>
 								</div>
-
 							</div>
 
 							<div class="send_manage">
@@ -404,7 +447,7 @@
 							<div class="recharge_time">
 								<span>开单时间<input type="text" id="date" name="createTime2" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span>
 								<span>手工单号<input name="orderCodetab2" type="text"></span>
-								<button id="confirm" onclick="save(this)">充值并结账</button>
+								<button id="confirm" onclick="save()">充值并结账</button>
 								
 							</div>
                        </div>
@@ -458,18 +501,12 @@
 														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
 													</tr>
 													<tr>
-														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
+														<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+														<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
 														<td name="memberSexSpan">男</td>
 														<td name="memberStoreName">华南美联店</td>
-														<td style="color: #eb4749"
-															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 														<td style="color: #eb4749" name="needRefund"></td>
 														<td><span name="subAccountNum"></span>张</td>
 													</tr>
@@ -486,22 +523,27 @@
 							<div class="upgrade_vip">
 								<p>升级会员</p>
 								<div class="upgrade_vip_content">
-									<select><option></option></select>升级费用：<em>0元</em><i>(不计入卡金金额）</i>
+									<select name ="sjLevelId" onchange="changeMemberLevel(this)">
+									<c:forEach items="${memberLevelList}" var="memberLevel"
+														varStatus="status">
+														<option value="${memberLevel.levelId}">${memberLevel.levelName}</option>
+										</c:forEach>
+									</select>升级费用：<em><input type="text" placeholder="0"  name="openType"/>元</em><i>(不计入卡金金额)</i>
 								</div>
 							</div>
 
 							<div class="recharge_way">
 								<p>充值金额及支付方式</p>
 								<div class="recharge_way_content">
-									<span> 现金 <input type="text" name="kkCashAmount"
+									<span> 现金 <input type="text" name="sjCashAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 银联<input type="text" name="kkUnionpayAmount"
+									</span> <span> 银联<input type="text" name="sjUnionpayAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 微信<input type="text" name="kkWechatAmount"
+									</span> <span> 微信<input type="text" name="sjWechatAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 支付宝<input type="text" name="kkAlipayAmount"
+									</span> <span> 支付宝<input type="text" name="sjAlipayAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 挂账 <input type="text" name="kkDebtAmount"
+									</span> <span> 挂账 <input type="text" name="sjDebtAmount"
 										onkeyup="checkNum(this)">
 									</span>
 								</div>
@@ -533,7 +575,19 @@
 
 									<div class="achievement_recharge">
 										<p>
-											充卡业绩<input type="text"><select><option>选择员工</option></select>
+											充卡业绩 <select name="commissionType" class="chzn-select w70"
+												onchange="totaiUpdateVL(this)">
+												<option value="1">固定</option>
+												<option value="2">比例</option>
+											</select> <select name="recommendId" class="chzn-select w100 "
+												onchange="totaiUpdateEmployeeInfo(this)">
+												<option value="">选择员工</option>
+												<c:forEach items="${employeeInfoList}" var="employeeInfo"
+													varStatus="status">
+													<option value="${employeeInfo.employeeId}">${employeeInfo.employeeCode}
+														${employeeInfo.name}</option>
+												</c:forEach>
+											</select>
 										</p>
 										<ul class="achievement_recharge_content">
 										</ul>
@@ -541,22 +595,39 @@
 								</div>
 
 							</div>
-
+						
 							<div class="send_manage">
 								<p>赠送设置</p>
 								<div class="send_manage_content">
-									<span>礼金赠送<input type="text"></span> <span>分期<input
-										type="text"></span> <span>过期<input type="text"></span>
-									<span>卡金赠送<input type="text"></span>
+									<span>礼金赠送<input type="text" name = "sjGiftmoneyAmount" ></span>
+									<span>分期<select name="sjPartType">
+											<option value="1">不分期</option>
+											<option value="3">3个月</option>
+											<option value="6">6个月</option>
+											<option value="9">9个月</option>
+											<option value="12">12个月</option>
+											<option value="24">24个月</option>
+									</select></span> <span>过期 <select name="sjPastDate">
+											<option value="0">不过期</option>
+											<option value="3">3个月</option>
+											<option value="6">6个月</option>
+											<option value="9">9个月</option>
+											<option value="12">12个月</option>
+											<option value="24">24个月</option>
+									</select></span> <span>卡金赠送<input type="text" name="sjRewardAmount"></span>
+
+
 								</div>
 							</div>
 							<div class="recharge_time">
-								<span>开单时间<input type="text" id="date"
-									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span><span>手工单号<input
-									type="text"></span>
-								<button onclick="save(this)">充值并结账</button>
+								<span>开单时间<input name ="createTime3" type="text" id="date"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span>
+									<span>手工单号<input name="orderCodetab3" type="text"></span>
+								<button id="confirm" onclick="sjConfirm()">充值并结账</button>
 							</div>
-
+						
+						
+						
 						</div>
 
 					
@@ -1141,6 +1212,23 @@
 
 
 <script>
-	//dialog('msg');
+var memberLevelLists = ' ${memberLevelLists} ';
+var  memberLevelList;
+if (!isEmpty(memberLevelLists)) {
+	memberLevelList= eval("("+memberLevelLists+")");
+}
+
+function changeMemberLevel(obj){
+	var levelId = jQuery(obj).val();
+	var parentsTab = jQuery(obj).parents(".recharge_ul_right_content");
+	for(var i = 0; i < memberLevelList.length; i++){
+		var a = 0;
+		if (memberLevelList[i].levelId == levelId) {
+			
+			parentsTab.find("input[name='openType']").val(memberLevelList[i].sellAmount);
+		}
+	}
+}
+
 </script>
 </html>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -248,13 +249,15 @@ public class OpenCardController extends BaseController {
 	 * @return BaseDto
 	 * @throws ParseException  解析异常
 	 */
+	
 	@RequestMapping(value = Url.KeepAccounts.UPGRADE_MEMBERINFO, method = RequestMethod.POST)
-	@ResponseBody
+	@ResponseBody 
 	public BaseDto upgradeMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer memberId,
-    			Integer levelId, BigDecimal amountvalue, String recommend, BigDecimal giftmoneyAmount, Integer pastDate,
-    			Integer partType, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
-    			BigDecimal alipayAmount, BigDecimal debtAmount, BigDecimal rewardAmount, String deptStr , String orderCode, String createTime)
+            Integer levelId, BigDecimal amountvalue, String recommend, BigDecimal giftmoneyAmount, Integer pastDate,
+            Integer partType, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
+            BigDecimal alipayAmount, BigDecimal debtAmount, BigDecimal rewardAmount, String deptStr , String orderCode, String createTime)
 			throws ParseException {
+
 		// 提成员工
 		List<Integer> recommendId = new ArrayList<Integer>();
 		// 提成金额
@@ -276,17 +279,17 @@ public class OpenCardController extends BaseController {
 		List<BigDecimal> deptCalculates = new ArrayList<BigDecimal>();
 
 		if (!deptStr.equals("")) {
-			String[] depts = recommend.split(",");
+		    String[] depts = deptStr.split(",");
 			for (int i = 0; i < depts.length; i++) {
 				String dept = depts[i];
 				deptIds.add(Integer.parseInt(dept.split(":")[0]));
 				deptCalculates.add(new BigDecimal(dept.split(":")[1]));
 			}
 		}
-
 		return openCardService.upgradeMemberInfo(memberId, levelId, amountvalue, recommendId, commissionAmount,
-				calculateAmount, giftmoneyAmount, pastDate, partType, cashAmount, unionpayAmount, wechatAmount,
-				alipayAmount, debtAmount, rewardAmount, getStoreId(request), deptIds, deptCalculates, getUserId(request), orderCode, createTime);
+		        calculateAmount, giftmoneyAmount, pastDate, partType, cashAmount, unionpayAmount, wechatAmount,
+				alipayAmount, debtAmount, rewardAmount, getStoreId(request), deptIds, deptCalculates, getUserId(request), 
+				orderCode, createTime);
 	}
 
 	/** 
@@ -310,6 +313,7 @@ public class OpenCardController extends BaseController {
 	public BaseDto presentGift(Integer memberId, Integer giftmoneyAmount, Integer part, Integer overdueMonth,
     			Integer integralAmount, String  coupon, String comment, HttpServletRequest request, Integer numberCoupon,
     			HttpServletResponse response) {
+
 		int employeeId = getUserId(request);
 		return openCardService.presentGift(memberId, giftmoneyAmount, part, overdueMonth, integralAmount, coupon,
 				comment, employeeId, numberCoupon);

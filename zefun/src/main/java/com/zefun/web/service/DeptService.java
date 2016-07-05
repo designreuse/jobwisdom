@@ -144,11 +144,7 @@ public class DeptService {
     * @return int
      */
     public int deleteDept(Integer deptId, Integer storeId){
-        //判断部门是否被引用了
-        int count =deptInfoMapper.isQuote(deptId);
-        if (count>0){
-            return 1;  
-        }
+        
         Map<String, Object>map=new HashMap<String, Object>();
         map.put("storeId", storeId);
         map.put("deptId", deptId);
@@ -164,11 +160,7 @@ public class DeptService {
         if (count3>0){
             return 4;  
         }
-        int count4=deptInfoMapper.countCategoryDept(map);
-        if (count4>0){
-            return 5;  
-        }
-        //只是修改状态
+        
         deptInfoMapper.deleteByPrimaryKey(deptId);
         //清除缓存
         wipeRedis(deptId);
