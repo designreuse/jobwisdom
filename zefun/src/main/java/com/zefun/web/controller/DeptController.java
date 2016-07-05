@@ -132,9 +132,8 @@ public class DeptController extends BaseController{
      */
     @RequestMapping(value = Url.Dept.DELETE_DEPT)
     @ResponseBody
-    public BaseDto deleteDept(Integer deptId, HttpServletRequest request, HttpServletResponse response){
-        int result=deptService.deleteDept(deptId, getStoreId(request));
-        Integer storeId = getStoreId(request);
+    public BaseDto deleteDept(Integer deptId, Integer storeId, HttpServletRequest request, HttpServletResponse response){
+        int result = deptService.deleteDept(deptId, getStoreId(request));
         if (result==1){
             return new BaseDto(-1, "部门已经被岗位引用，请先删除岗位！");
         }
@@ -150,7 +149,7 @@ public class DeptController extends BaseController{
         if (result==5){
             return new BaseDto(-1, "部门已经被商品类别引用，请先删除商品类别！");
         }
-        List<DeptInfoDto>list=positioninfoMapper.getDetpInfo(storeId);
+        List<DeptInfoDto>list = positioninfoMapper.getDetpInfo(storeId);
         
         return new BaseDto(0, list);
     }

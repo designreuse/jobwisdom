@@ -176,6 +176,12 @@ function refreshEmployee(employeeList) {
 
 //点击员工头像根据该员工职位查询他能做的项目系列
 function findProjectCategoryByEmployeeLevel(employeeId, levelId, obj) {
+	//现在不需要进行查询了, 针对人员进行预约
+	//点击头像出现被选中员工样式
+	jQuery(obj).addClass("current").append('<span class="iconfont icon-xuanzhong"></span>').siblings().removeClass("current");
+    jQuery(obj).append('<span class="iconfont icon-xuanzhong"></span>').siblings().children(".iconfont").remove();
+    globalEmployeeId = employeeId;
+	return ;
 	cleanProjectList();
 	cleanSelectProject();
 	
@@ -247,7 +253,7 @@ function refreshProject(projectList) {
 		var divOfName = document.createElement("div");
 		var spanOfName = document.createElement("span");
 		spanOfName.setAttribute("class", "name");
-		spanOfName.innerHTML = project.projectName;
+		/*spanOfName.innerHTML = project.projectName;*/
 		divOfName.appendChild(spanOfName);
 		li.appendChild(divOfName);
 		
@@ -305,10 +311,10 @@ function addAppointProject() {
 		dialog("请选择被预约员工");
 		return;
 	}
-	if (globalProjectId == null || globalProjectId.length == 0) {
+	/*if (globalProjectId == null || globalProjectId.length == 0) {
 		dialog("请选择被预约项目");
 		return;
-	}
+	}*/
 	jQuery.ajax({
 		type : "post",
 		dataType : "json",
@@ -541,7 +547,7 @@ function refreshAppointEmployee(memberAppointmentList) {
 		div6_2_li3_span1.innerHTML = "预约项目：";
 		div6_2_li3.appendChild(div6_2_li3_span1);
 		var div6_2_li3_span2 = document.createElement("span");
-		div6_2_li3_span2.innerHTML = memberAppointment.projectInfo.projectName;
+		div6_2_li3_span2.innerHTML = "";//memberAppointment.projectInfo.projectName;
 		div6_2_li3.appendChild(div6_2_li3_span2);
 		
 		var div6_2_li4 = document.createElement("li");
@@ -1000,9 +1006,9 @@ function submitPhone (obj) {
 			
 			jQuery("div[name='moreMemberInfoDIV']").find("span[name='totalConsumeAmountSpan']").text(zeroValue(memberBaseDto.totalConsumeAmount));
 			jQuery("div[name='moreMemberInfoDIV']").find("span[name='lastDayNumberSpan']").text(memberBaseDto.lastDayNumber);
-			jQuery("div[name='moreMemberInfoDIV']").find("span[name='projectNameSpan']").text(memberBaseDto.lastProjectName);
+			/*jQuery("div[name='moreMemberInfoDIV']").find("span[name='projectNameSpan']").text(memberBaseDto.lastProjectName);*/
 			
-			var projectStepList = memberBaseDto.projectStepList;
+			/*var projectStepList = memberBaseDto.projectStepList;
 			
 			var str = "";
 			
@@ -1018,9 +1024,9 @@ function submitPhone (obj) {
 				if (i + 1 == projectStepList.length) {
 					str = str + ")";
 				}
-			}
+			}*/
 			
-			jQuery("div[name='moreMemberInfoDIV']").find("span[name='projectStepSpan']").text(str);
+			/*jQuery("div[name='moreMemberInfoDIV']").find("span[name='projectStepSpan']").text(str);*/
 			
 		    jQuery(obj).parents("div[name='memberTR']").find("div[name='resultTD']").css("display", "inline-block");
 		    jQuery(obj).parents("div[name='memberTR']").find("div[name='seekTD']").css("display","none");
@@ -1205,7 +1211,8 @@ function orderProject(page) {
 		var orderProjectDto = results[i];
 		jQuery("#orderProjectTBODY").append("<tr class='single'>"+
 					                              "<td>"+orderProjectDto.orderCode+"</td>"+
-					                              "<td>"+orderProjectDto.projectName+"</td>"+
+					                              "<td></td>"+
+					                              /*"<td>"+orderProjectDto.projectName+"</td>"+*/
 					                              "<td class='blue'>"+orderProjectDto.discountAmount+"</td>"+
 					                              "<td><span class='cursor'>"+orderProjectDto.privilegeInfo+" </span><span class='red'>-"+orderProjectDto.privilegeMoney+"</span></td>"+
 					                              "<td class='red'>"+orderProjectDto.realPrice+"</td>"+
@@ -1246,7 +1253,8 @@ function orderGoods(page) {
 		var orderGoodsDto = results[i];
 		jQuery("#orderGoodsTBODY").append("<tr class='single'>"+
 				                              "<td>"+orderGoodsDto.orderCode+"</td>"+
-				                              "<td>"+orderGoodsDto.projectName+"</td>"+
+				                              "<td></td>"+
+				                              /*"<td>"+orderGoodsDto.projectName+"</td>"+*/
 				                              "<td>"+orderGoodsDto.lastOperatorName+"</td>"+
 				                              "<td class='blue'>"+orderGoodsDto.discountAmount+"</td>"+
 				                              "<td><span class='cursor'>"+orderGoodsDto.privilegeInfo+" </span><span class='red'>-"+orderGoodsDto.privilegeMoney+"</span></td>"+
@@ -1282,7 +1290,8 @@ function orderCombo(page) {
 		for (var j = 0; j < projectList.length; j++) {
 			var memberComboProject = projectList[j];
 			jQuery("#orderComboTBODY").append("<tr class='project-part hide'>"+
-				                                  "<td>"+memberComboProject.projectName+"</td>"+
+				                                  "<td></td>"+
+				                                  /*"<td>"+memberComboProject.projectName+"</td>"+*/
 				                                  "<td>"+memberComboProject.projectCount+"</td>"+
 				                                  "<td class='red'>"+memberComboProject.remainingCount+"</td>"+
 				                                  "<td class='blue'>"+memberComboProject.projectPrice+"</td>"+

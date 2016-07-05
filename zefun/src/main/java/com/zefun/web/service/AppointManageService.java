@@ -89,16 +89,15 @@ public class AppointManageService {
     * @return   预约列表
      */
     public ModelAndView appointListView(int storeId){
-        /*Page<AppointmentBaseDto> page = selectPageForAppointList(storeId, 1, App.System.API_DEFAULT_PAGE_SIZE);
+        Page<AppointmentBaseDto> page = selectPageForAppointList(storeId, 1, App.System.API_DEFAULT_PAGE_SIZE);
         ModelAndView mav = new ModelAndView(View.SelfCashier.APPOINT_LIST);
-        mav.addObject("page", page);*/
+        mav.addObject("page", page);
     	
     	//滚动日期map
     	Map<String, String> dateMap = DateUtil.getDateBetweenSixty();
     	//该店铺部门列表
     	List<DeptInfo> deptInfoList = deptInfoMapper.selectDeptByStoreId(storeId);
     	
-    	ModelAndView mav = new ModelAndView(View.SelfCashier.APPOINT_LIST);
     	mav.addObject("dateMap", dateMap);
     	mav.addObject("deptInfoList", deptInfoList);
         return mav;
@@ -130,8 +129,7 @@ public class AppointManageService {
     * @param pageSize   每页显示数
     * @return Page<MemberLevel>
      */
-    private Page<AppointmentBaseDto> selectPageForAppointList(Integer storeId,
-            int pageNo, int pageSize) {
+    private Page<AppointmentBaseDto> selectPageForAppointList(Integer storeId, int pageNo, int pageSize) {
         Page<AppointmentBaseDto> page = new Page<AppointmentBaseDto>();
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
@@ -326,12 +324,12 @@ public class AppointManageService {
     	memberAppointment.setMemberId(memberInfo.getMemberId());*/
     	
     	//查询服务步骤序号 和 查询服务轮牌标识
-    	ProjectStep projectStep = projectStepMapper.selectAppointStepByProjectId(memberAppointment.getProjectId());
-    	if (projectStep == null) {
-    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该项目下无可预约步骤");
-    	}
-    	memberAppointment.setProjectStepOrder(projectStep.getProjectStepOrder());
-    	memberAppointment.setShiftMahjongId(projectStep.getShiftMahjongId());
+//    	ProjectStep projectStep = projectStepMapper.selectAppointStepByProjectId(memberAppointment.getProjectId());
+//    	if (projectStep == null) {
+//    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该项目下无可预约步骤");
+//    	}
+//    	memberAppointment.setProjectStepOrder(projectStep.getProjectStepOrder());
+//    	memberAppointment.setShiftMahjongId(projectStep.getShiftMahjongId());
     	
     	//处理预约日期(appointment_date,格式yyyy-MM-dd)
     	int year = Integer.valueOf(new SimpleDateFormat("yyyy").format(new Date()));

@@ -158,7 +158,11 @@ public class GoodsInfoController extends BaseController {
         
         /** 供应商品牌库*/
         List<SupplierInfoDto> supplierInfoDtos = supplierInfoMapper.selectInfoByAccount(supplierInfo);
-        List<GoodsBrand> brands = supplierInfoDtos.stream().flatMap(info -> info.getBrands().stream()).collect(Collectors.toList());
+        List<GoodsBrand> brands = supplierInfoDtos.
+                stream().
+                filter(info -> info.getBrands()!=null).
+                flatMap(info -> info.getBrands().stream()).
+                collect(Collectors.toList());
         model.addObject("brands", brands);
         
         model.addObject("supplierInfoDtos", supplierInfoDtos);
