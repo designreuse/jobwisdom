@@ -13,10 +13,11 @@
     <result column="isDeleted" property="isdeleted" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
      <result column="price_name" property="priceName" jdbcType="CHAR" />
+     <result column="initialize_image" property="initializeImage" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, dept_name, goods_price, type, type_name, note, date, incometype_type, isDeleted, 
-    store_id, price_name
+    store_id, price_name, initialize_image
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -31,12 +32,12 @@
   <insert id="insert" parameterType="com.zefun.web.entity.InitializeInFo" >
     insert into initialize_info (id, dept_name, goods_price, 
       type, type_name, note, date, 
-      incometype_type, isDeleted, store_id,price_name
+      incometype_type, isDeleted, store_id,price_name ,initialize_image
       )
     values (#{id,jdbcType=INTEGER}, #{deptName,jdbcType=CHAR}, #{goodsPrice}, 
       #{type,jdbcType=CHAR}, #{typeName,jdbcType=CHAR}, #{note,jdbcType=CHAR}, #{date,jdbcType=CHAR}, 
       #{incometypeType,jdbcType=INTEGER}, #{isdeleted,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{priceName,jdbcType=CHAR}
-      )
+      , #{initializeImage,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zefun.web.entity.InitializeInFo" >
     insert into initialize_info
@@ -74,6 +75,10 @@
        <if test="priceName != null" >
         price_name,
       </if>
+        <if test="initializeImage != null" >
+        initialize_image,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -109,6 +114,10 @@
        <if test="priceName != null" >
         #{priceName,jdbcType=CHAR},
       </if>
+       <if test="initializeImage != null" >
+        #{initializeImage,jdbcType=CHAR},
+      </if>
+      
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.InitializeInFo" >
@@ -144,6 +153,10 @@
         <if test="priceName != null" >
         price_name = #{priceName,jdbcType=INTEGER},
       </if>
+         <if test="initializeImage != null" >
+        initialize_image = #{initializeImage,jdbcType=INTEGER},
+      </if>
+      initialize_image
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -158,6 +171,7 @@
       incometype_type = #{incometypeType,jdbcType=INTEGER},
       isDeleted = #{isdeleted,jdbcType=INTEGER},
       store_id = #{storeId,jdbcType=INTEGER}
+      initialize_image = #{initializeImage,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -191,7 +205,7 @@
   
   <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.Page">
     select 
-    i.id, d.dept_name, i.goods_price, i.type, i.type_name, i.note, i.date, i.incometype_type, i.isDeleted, i.store_id, s.name as price_name
+    i.id, d.dept_name, i.initialize_image, i.goods_price, i.type, i.type_name, i.note, i.date, i.incometype_type, i.isDeleted, i.store_id, s.name as price_name
  	from initialize_info i left join  dept_info d ON i.dept_name=d.dept_id left join incometype s on i.price_name=s.incometype_id
     where i.isDeleted = 0 and i.store_id = #{params.storeId} 
   </select>
