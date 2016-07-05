@@ -93,7 +93,7 @@
 										${deptInfo.deptName }
 										<ul class="clearfix" style="display: none;">
 											<li onclick="updateDept(this, '${deptInfo.deptName }', ${deptInfo.deptId })">修改</li>
-											<li>删除</li>
+											<li onclick="deletedDept(this, ${deptInfo.deptId })">删除</li>
 										</ul>
 									</div>
 									</c:forEach>
@@ -118,7 +118,7 @@
 									</li>
 									<li>
 										<p>
-											<em>第一岗位</em><input readonly="readonly" positionId="${positionInfos[0].positionId }" type="text" value="${positionInfos[2].positionName }"><span onclick="updatePositon(3, '${positionInfos[2].positionName }', ${positionInfos[2].positionId })">修改</span>
+											<em>第三岗位</em><input readonly="readonly" positionId="${positionInfos[0].positionId }" type="text" value="${positionInfos[2].positionName }"><span onclick="updatePositon(3, '${positionInfos[2].positionName }', ${positionInfos[2].positionId })">修改</span>
 										</p>
 									</li>
 								</ul>
@@ -152,7 +152,7 @@
 											<button onclick="saveOrUpdateLevel()">保存</button>
 										</p>
 										<p>
-											<button>取消</button>
+											<button onclick="cansaleUpdateLevel()">取消</button>
 										</p>
 									</div>
 								</div>
@@ -208,6 +208,27 @@ function saveDeptInfo(button){
 			jQuery("input[name='deptName']").val('');
 		}
 	});
+}
+// 删除部门信息
+function deletedDept(li, deptIds){
+	if(confirm("确定要删除该部门么?")){
+		var data = "deptId=" + deptIds + "&storeId=" + jQuery(".out_roll_ul").find("li[class='active']").attr("storeId");
+		jQuery.ajax({
+			type : "post",
+			url : baseUrl + "dept/action/deletedept",
+			data : data,
+			dataType : "json",
+			success : function(e){
+				if (e.code != 0){
+					dialog(e.msg);
+				}
+				else {
+					dialog(e.msg);
+					jQuery(li).parents(".data_content").remove();
+				}
+			}
+		})
+	}
 }
 var positionId = null;
 function updatePositon(type, positionName, positionIds){
@@ -334,6 +355,7 @@ function saveOrUpdateLevel(){
 			jQuery(".job_content.clearfix").append(jQuery(html));
 		}
 	});
+	jQuery("input[name='levelName']").val('');
 }
 
 /**更换门店*/
@@ -383,6 +405,26 @@ function selectStore(li, storeId){
 			initEmployeeLevelRes(empLevels, 1, 2);
 		}
 	});
+}
+//取消编辑职位 
+function cansaleUpdateLevel(){
+	var levelName = jQuery("input[name='levelName']").val();
+	var positionId = jQuery("#position").val();
+	var positionName =  jQuery("#position").find("option:selected").text();
+	var storeId = jQuery(".out_roll_ul").find("li[class='active']").attr("storeId");
+	var referenceFirst = jQuery("#referenceFirst").val();
+	var referenceTwo = jQuery("#referenceTwo").val();
+	var html = '<div class="job_style" referenceFirst='+referenceFirst+' referenceTwo='+referenceTwo+'>'+
+					'<p>职位名称：'+levelName+'</p>'+
+					'<p>岗位类型：'+positionName+'</p>'+
+					'<ul class="clearfix">'+
+						'<li onclick="showUpdateLevel(this, \''+levelName+'\', '+levelId+')">修改</li>'+
+						'<li>删除</li>'+
+					'</ul>'+
+				'</div>';
+	jQuery(".job_content.clearfix").append(jQuery(html));
+	levelId = null;
+	jQuery("input[name='levelName']").val('');
 }
 </script>
 </html>

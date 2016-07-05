@@ -178,6 +178,7 @@
 	
 	//数据提交
 	function submit(data, msg){
+		console.log(data);
 		jQuery.ajax({
 	        cache: true,
 	        type: "POST",

@@ -79,7 +79,7 @@
   
   <!-- 查询岗位是否被引用 -->
     <select id="isQuote" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
-    	select count(0) from position_info where dept_id=#{deptId} and is_deleted=0
+    	select count(0) from position_info where dept_id = #{deptId} and is_deleted=0
     </select>
     
   <select id="getDeptInfo" resultType="com.zefun.web.entity.DeptInfo" parameterType="java.lang.Integer" >
