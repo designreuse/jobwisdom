@@ -173,6 +173,8 @@ public class OpenCardService {
 	@Autowired
 	private RabbitService rabbitService;
 
+	
+	
 	/**
 	 * 初始化开卡充值页面
 	 * @author 王大爷
@@ -187,7 +189,9 @@ public class OpenCardService {
 		List<MemberLevelDto> memberLevelList = memberLevelMapper.selectByStoreId(storeId);
 		List<EmployeeInfo> employeeInfoList = employeeInfoMapper.selectEmployeeList(storeId);
 		List<DeptInfo> deptInfoList = deptInfoMapper.getResultsDeptInfo(storeId);
+		
 		mav.addObject("memberLevelList", memberLevelList);
+		mav.addObject("memberLevelLists", JSONArray.fromObject(memberLevelList));
 		if (memberLevelList.size() > 0) {
 			MemberLevelDto memberLevel = memberLevelList.get(0);
 			mav.addObject("memberLevels", memberLevel);
@@ -200,6 +204,8 @@ public class OpenCardService {
 		mav.addObject("couponList", couponList);
 		mav.addObject("phoneNum", phoneNum);
 		mav.addObject("clickType", clickType);
+		
+		
 		return mav;
 	}
 
@@ -505,6 +511,8 @@ public class OpenCardService {
 		    new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 		}
 		memberAccountMapper.updateByPrimaryKey(record);
+		
+		
 
 		
 		List<Integer> recommendId = new ArrayList<Integer>();
@@ -563,11 +571,14 @@ public class OpenCardService {
 		memberInfo.setLastOperatorId(lastOperatorId);
 
 		memberInfoMapper.updateByPrimaryKey(memberInfo);
+		
+	
 
 		BigDecimal balanceAmount = unionpayAmount.add(cashAmount).add(debtAmount).add(wechatAmount).add(alipayAmount);
-
+		
 		BigDecimal receivableAmount = balanceAmount.add(rewardAmount);
-		// 如果是充值升级
+	    // 如果是充值升级
+		
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 
 		if (balanceAmount.compareTo(amountvalue) == 1) {
@@ -579,12 +590,21 @@ public class OpenCardService {
 			balanceAmount = new BigDecimal(0);
 		}
 
+		//总账户金额改变
 		hashMap.put("chargeAmount", receivableAmount);
-
 		hashMap.put("rewardAmount", rewardAmount);
 		hashMap.put("accountId", memberInfo.getMemberId());
-		memberAccountMapper.updateCharge(hashMap);
-
+ 		memberAccountMapper.updateCharge(hashMap);
+ 		
+ 		//升级子账户卡 并改变其存储总值等
+ 		Map<String, Object> hashDecrease = new HashMap<String, Object>();
+        hashDecrease.put("levelId", levelId);
+        hashDecrease.put("accountId", memberId);
+        hashDecrease.put("chargeAmount", receivableAmount);
+        hashDecrease.put("rewardAmount", rewardAmount);
+        memberSubAccountMapper.updateLevel(hashDecrease);
+ 		
+ 		
 		commissionAndGift(memberId, null, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 6, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime);
@@ -916,23 +936,27 @@ public class OpenCardService {
 //			return new BaseDto(41007, "转出账户密码不正确！");
 //		}
 
+		//转入账户
 		Map<String, Object> hashAdd = new HashMap<String, Object>();
 		hashAdd.put("chargeAmount", chargeAmount);
 		hashAdd.put("accountId", inAccountId);
 
 		memberAccountMapper.updateAdd(hashAdd);
+		
+		
+		Map<String, Object> hashSubAdd = new HashMap<String, Object>();
+        hashSubAdd.put("chargeAmount", chargeAmount);
+        hashSubAdd.put("subAccountId", inSubAccountId);
 
+        memberSubAccountMapper.updateAdd(hashSubAdd);
+	        
+	        
+        //转出账户
 		Map<String, Object> hashDecrease = new HashMap<String, Object>();
 		hashDecrease.put("chargeAmount", chargeAmount);
 		hashDecrease.put("accountId", outAccountId);
 
 		memberAccountMapper.updateDecrease(hashDecrease);
-
-		Map<String, Object> hashSubAdd = new HashMap<String, Object>();
-		hashSubAdd.put("chargeAmount", chargeAmount);
-		hashSubAdd.put("subAccountId", inSubAccountId);
-
-		memberSubAccountMapper.updateAdd(hashSubAdd);
 
 		Map<String, Object> hashSubDecrease = new HashMap<String, Object>();
 		hashSubDecrease.put("chargeAmount", chargeAmount);

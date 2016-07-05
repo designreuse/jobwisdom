@@ -1,53 +1,52 @@
-//
-//jQuery(document).ready(function(){
-//    jQuery('#tabs').tabs();
-//
-//    jQuery("#search-member").on("click", function(){
-//        jQuery("#search-td").hide();
-//        jQuery("#member-info").show();
-//    });
-//
-//    jQuery("#icon-search").on("click", function(){
-//        jQuery("#member-info").hide();
-//        jQuery("#search-td").show();
-//    });
-//
-//    jQuery("#search-member-chongzhi").on("click", function(){
-//        jQuery("#search-td-chongzhi").hide();
-//        jQuery("#member-info-chongzhi").show();
-//    });
-//
-//    jQuery("#icon-search-chongzhi").on("click", function(){
-//        jQuery("#member-info-chongzhi").hide();
-//        jQuery("#search-td-chongzhi").show();
-//    });
-//
-//
-//    jQuery("#search-member-chongzhi2").on("click", function(){
-//        jQuery("#search-td-chongzhi2").hide();
-//        jQuery("#member-info-chongzhi2").show();
-//    });
-//
-//    jQuery("#icon-search-chongzhi2").on("click", function(){
-//        jQuery("#member-info-chongzhi2").hide();
-//        jQuery("#search-td-chongzhi2").show();
-//    });
-//    
+
+jQuery(document).ready(function(){
+    jQuery('#tabs').tabs();
+
+    jQuery("#search-member").on("click", function(){
+        jQuery("#search-td").hide();
+        jQuery("#member-info").show();
+    });
+
+    jQuery("#icon-search").on("click", function(){
+        jQuery("#member-info").hide();
+        jQuery("#search-td").show();
+    });
+
+    jQuery("#search-member-chongzhi").on("click", function(){
+        jQuery("#search-td-chongzhi").hide();
+        jQuery("#member-info-chongzhi").show();
+    });
+
+    jQuery("#icon-search-chongzhi").on("click", function(){
+        jQuery("#member-info-chongzhi").hide();
+        jQuery("#search-td-chongzhi").show();
+    });
+
+
+    jQuery("#search-member-chongzhi2").on("click", function(){
+        jQuery("#search-td-chongzhi2").hide();
+        jQuery("#member-info-chongzhi2").show();
+    });
+
+    jQuery("#icon-search-chongzhi2").on("click", function(){
+        jQuery("#member-info-chongzhi2").hide();
+        jQuery("#search-td-chongzhi2").show();
+    });
+    
 //    if (clickType == 1) {
 //    	subTabFun(jQuery("li[name='rechargeName']"));
-//    	jQuery("#tab2").find("input[name='phoneNumber']").val(phoneNum);
-//    	jQuery("#tab2").find("span[name='seekName']").click();
+//    	jQuery("#tab1").find("input[name='phoneNumber']").val(phoneNum);
+//    	jQuery("#tab1").find("span[name='seekName']").click();
 //    }
 //    else if (clickType == 2) {
 //    	subTabFun(jQuery("li[name='upgradeName']"));
-//    	jQuery("#tab4").find("input[name='phoneNumber']").val(phoneNum);
-//    	jQuery("#tab4").find("span[name='seekName']").click();
+//    	jQuery("#tab3").find("input[name='phoneNumber']").val(phoneNum);
+//    	jQuery("#tab3").find("span[name='seekName']").click();
 //    }
-//});
-//
-//jQuery(document).delegate(".member-card li", "click", function() {
-//    jQuery(this).addClass("current").siblings().removeClass("current")
-//})
+});
+jQuery(document).delegate(".member-card li", "click", function() {
+    jQuery(this).addClass("current").siblings().removeClass("current")
+})
 
 function subTabFun (obj) {
 	jQuery(obj).siblings().removeClass("active");
@@ -230,17 +229,7 @@ function checkPhone(phone) {
 		});
 } 
 
-function changeMemberLevel(obj){
-	var levelId = jQuery(obj).val();
-	var parentsTab = jQuery(obj).parents(".clearfix");
-	for(var i = 0; i < memberLevelList.length; i++){
-		var a = 0;
-		if (memberLevelList[i].levelId == levelId) {
-			
-			parentsTab.find("[name='openType']").html(memberLevelList[i].sellAmount);
-		}
-	}
-}
+
 
 function againSearch(obj) {
 	jQuery(obj).parents(".card-main1").find("input[name='memberId']").val("");
@@ -262,7 +251,8 @@ jQuery('body').delegate('.lcs_check_assignType', 'lcs-statuschange', function() 
 
 var modelType = -1;
 var dataAjax = {};
-function save(type){
+
+function save(){
 	
 	
 	
@@ -288,7 +278,7 @@ function save(type){
 	if (memberId == "") {
 		levelId = jQuery("select[name='kkLevelId']").val();
 		
-		phone = jQuery("#tab2").find("input[name = 'phoneNumber']").val();
+		phone = jQuery("#tab2").find(".write_imformation input[name = 'phoneNumber']").val();
 		
 		if (phone == "") {
 			dialog("手机号不能为空！");
@@ -300,14 +290,14 @@ function save(type){
 			return;
 		}
 		
-		name = jQuery("#tab2").find("input[name = 'name']").val();
+		name = jQuery("#tab2").find(".write_imformation input[name = 'name']").val();
 		if (name == "") {
 			dialog("名称不能为空！");
 			return;
 		}
 		
-		payPassword = jQuery("input[name = 'payPassword']").val();
-		var password = jQuery("input[name = 'password']").val();
+		var payPassword = jQuery("#tab2").find(".write_imformation input[name = 'payPassword']").val();
+		var password = jQuery("#tab2").find(".write_imformation input[name = 'password']").val();
 		if (payPassword == "") {
 			dialog("密码为空！");
 			return;
@@ -317,7 +307,7 @@ function save(type){
 			return;
 		}
 		
-		openRecommendId = jQuery("select[name = 'openRecommendId']").val();
+//		openRecommendId = jQuery("select[name = 'openRecommendId']").val();
 		
 		payPassword = CryptoJS.MD5(CryptoJS.MD5(payPassword).toString().toUpperCase()).toString().toUpperCase();
 		
@@ -326,11 +316,11 @@ function save(type){
 		//是否接收短信
 		messageType = jQuery("select[name='messageType']").val();
 		
-//		amountvalue = jQuery("#tab2").find("div[name='fillMemberInfo']").find("[name='openType']").text();
+		amountvalue = jQuery("#tab2").find(".select_card_style input[name='openType']").val();
 	}
 	else {
-//		amountvalue = jQuery("#tab2").find("div[name='memberTR']").find("[name='openType']").text();
-		levelId = jQuery("select[name='kkLevelIdToo']").val();
+		amountvalue = jQuery("#tab2").find(".select_card_style input[name='openType']").val();
+		levelId = jQuery("select[name='kkLevelId']").val();
 	}
 	
 	var balanceAmount = 0;
@@ -380,7 +370,7 @@ function save(type){
 	rewardAmount = valueZero(rewardAmount);
 	var createTime = jQuery("input[name='createTime2']").val();
 	var orderCode = jQuery("input[name='orderCodetab2']").val();
-	dataAjax = {"memberId":memberId,"phone":phone, "name":name, "sex": sex, "levelId": levelId,// "amountvalue" : amountvalue, 
+	dataAjax = {"memberId":memberId,"phone":phone, "name":name, "sex": sex, "levelId": levelId, "amountvalue" : amountvalue, 
 			"recommend" : recommend, "giftmoneyAmount" : giftmoneyAmount, "pastDate" : pastDate,
 	        "partType" : partType, "rewardAmount" : rewardAmount,"messageType" : messageType, "balanceAmount" : balanceAmount, "cashAmount" : cashAmount, 
 	        "unionpayAmount" : unionpayAmount, "wechatAmount" : wechatAmount, "alipayAmount" : alipayAmount, "debtAmount" : debtAmount, "payPassword" : payPassword,
@@ -422,7 +412,7 @@ function openCard() {
 function deptArrayObj(tabType, realPrice) {
 	var tab = jQuery("#" + tabType);
 	
-	var deptObjs = jQuery(tab).find(".achievement_detail ul");
+	var deptObjs = jQuery(tab).find(".achievement_detail li");
 	
 	var deptChooseType = tab.find("select[name='deptChooseType']").val(); 
 	
@@ -430,11 +420,11 @@ function deptArrayObj(tabType, realPrice) {
 	
 	if (deptObjs.length > 0) {
 		for (var i = 0; i < deptObjs.length; i++) {
-			var deptCalculate = jQuery(deptObjs[i]).find("li").find("input[name='deptCalculate']").val();
-			var deptId = jQuery(deptObjs[i]).find("li").find("i[name='deptId']").attr("value");
+			var deptCalculate = jQuery(deptObjs[i]).find("input[name='deptCalculate']").val();
+			var deptId = jQuery(deptObjs[i]).find("i[name='deptId']").attr("value");
 			
 			if (deptCalculate == "") {
-				var name = jQuery(deptObjs[i]).find("li").find("i[name='deptId']").text()  ;
+				var name = jQuery(deptObjs[i]).find("i[name='deptId']").text()  ;
 				dialog(name+"的提成,业绩不能为同时空！");
 				return -1;
 			}
@@ -806,26 +796,22 @@ function pastDateConfirm(type) {
 }
 
 function queren(){
-	var memberId = jQuery("#tab4").find("input[name = 'memberId']").val();
+	var memberId = jQuery("#tab3").find("input[name = 'memberId']").val();
 	if (memberId == "") {
 		dialog("请输入正确的升级会员！");
 		return;
 	}
 	var levelId = jQuery("select[name='sjLevelId']").val();
-	var oldLevelId = jQuery("#tab4").find("input[name = 'levelId']").val();
-	if (levelId == oldLevelId) {
-		dialog("升级会员等级相同，不能执行该操作！");
-		return;
-	}
+//	var oldLevelId = jQuery("#tab3").find("input[name = 'levelId']").val();
+//	if (levelId == oldLevelId) {
+//		dialog("升级会员等级相同，不能执行该操作！");
+//		return;
+//	}
 	
-    var deptId = jQuery("select[name= 'sjDeptId']").val();
-	
-	if (deptId == "") {
-		dialog("请选择本次开卡业绩归属部门！");
-		return;
-	}
+
+    
 		
-	var amountvalue = jQuery("#tab4").find("[name='openType']").html();
+	var amountvalue = jQuery("#tab3").find("input[name='openType']").val();
 
 	var cashAmount = jQuery("input[name = 'sjCashAmount']").val();
 	var unionpayAmount = jQuery("input[name = 'sjUnionpayAmount']").val();
@@ -843,11 +829,17 @@ function queren(){
 	
 	var realPrice = parseInt(cashAmount) + parseInt(unionpayAmount) + parseInt(debtAmount) + parseInt(wechatAmount) + parseInt(alipayAmount);
 	
-	var recommend = arrayObj("tab4", realPrice);
+	var recommend = arrayObj("tab3", realPrice);
 	if (recommend == -1) {
 		return;
 	}
 	
+	
+    var deptStr = deptArrayObj("tab3", realPrice);
+	
+	if (deptStr == -1) {
+		return;
+	}
 	var partType = jQuery("select[name='sjPartType']").val();
 	
 	//礼金
@@ -859,11 +851,13 @@ function queren(){
 	//卡金
 	var rewardAmount = jQuery("input[name='sjRewardAmount']").val();
 	rewardAmount = valueZero(rewardAmount);
+	var createTime = jQuery("input[name='createTime3']").val();
+	var orderCode = jQuery("input[name='orderCodetab3']").val();
 	
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "KeepAccounts/upgradeMemberInfo",
-		data : "memberId="+memberId+"&levelId="+levelId+"&amountvalue="+amountvalue+"&recommend="+recommend+"&giftmoneyAmount="+giftmoneyAmount+"&pastDate="+pastDate+"&partType="+partType+"&rewardAmount="+rewardAmount+"&cashAmount="+cashAmount+"&unionpayAmount="+unionpayAmount+"&wechatAmount="+wechatAmount+"&alipayAmount="+alipayAmount+"&debtAmount="+debtAmount+"&deptId="+deptId,
+		data : "memberId="+memberId+"&realPrice="+realPrice+"&createTime="+createTime+"&orderCode="+orderCode+"&levelId="+levelId+"&amountvalue="+amountvalue+"&recommend="+recommend+"&giftmoneyAmount="+giftmoneyAmount+"&pastDate="+pastDate+"&partType="+partType+"&rewardAmount="+rewardAmount+"&cashAmount="+cashAmount+"&unionpayAmount="+unionpayAmount+"&wechatAmount="+wechatAmount+"&alipayAmount="+alipayAmount+"&debtAmount="+debtAmount+"&deptStr="+deptStr,
 		async:false,//使用同步的Ajax请求  
 		dataType : "json",
 		success : function(e){
@@ -874,6 +868,21 @@ function queren(){
 			window.location.href = baseUrl + "KeepAccounts/initializeOpenCard";
 		}
 	});
+//	
+//	jQuery.ajax({
+//		type : "post",
+//		url : baseUrl + "KeepAccounts/upgradeMemberInfo",
+//		data : "memberId="+memberId+"&createTime="+createTime+"&orderCode="+levelId+"&orderCode="+levelId+"&amountvalue="+amountvalue+"&recommend="+recommend+"&giftmoneyAmount="+giftmoneyAmount+"&pastDate="+pastDate+"&partType="+partType+"&rewardAmount="+rewardAmount+"&cashAmount="+cashAmount+"&unionpayAmount="+unionpayAmount+"&wechatAmount="+wechatAmount+"&alipayAmount="+alipayAmount+"&debtAmount="+debtAmount+"&deptStr="+deptStr,
+//		async:false,//使用同步的Ajax请求  
+//		dataType : "json",
+//		success : function(e){
+//			if(e.code != 0){
+//				return;
+//			}
+//			dialog("保存成功！");
+//			window.location.href = baseUrl + "KeepAccounts/initializeOpenCard";
+//		}
+//	});
 }
 
 

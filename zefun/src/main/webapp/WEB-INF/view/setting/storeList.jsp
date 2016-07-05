@@ -248,13 +248,15 @@
 	  
 	  <div class="content_right_">
 	     <P class="shop_address_">店铺地址</P>   
+<!-- 	    	  <input input id="city-picker3" class="form-control" readonly type="text" value="" data-toggle="city-picker"> -->
 		 <div class="select_city">
-		     <input id="city-picker3" class="form-control" readonly type="text" value="" data-toggle="city-picker">
+		     <input  id="city-picker3" class="form-control"  readonly type="text" value="" data-toggle="city-picker">
 		     
 		     <div class="detail_address">
 			   <div>详细地址</div>
 			   <textarea style="height:86px;margin-top:10px;border-radius:8px!important;width:220px;position:relative;left:10px" id = "searchtext"></textarea>
 			 </div>
+		
 			 <div class="detail_address">
 			   <div>操作员工号<em style="color:red;font-size:16px;font-weight:bold;display:inline-block;margin-left:4px" id = "userName">1007</em></div>
 			  <!--  <input type="text" id = "userName" readonly>  -->       		   
@@ -415,6 +417,7 @@ if (!isEmpty(priceMoneyOrTimeStr)) {
 <script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>
 <script src="<%=basePath%>js/common/city-picker.data.js"></script>
 <script src="<%=basePath%>js/common/city-picker.js"></script>
+<script src="<%=basePath%>js/common/main.js"></script>
 <script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 
 </body>

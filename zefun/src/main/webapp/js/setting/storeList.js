@@ -53,7 +53,7 @@ function addStore() {
 	jQuery("img[name='affiliatedImage']").attr("src", qiniuUrl + "system/profile/set_img.png");
 	jQuery("#searchtext").val("");
 	jQuery("#addOrUpdateStore").show();
-	jQuery("#city-picker3").citypicker('destroy');
+//	jQuery("#city-picker3").citypicker('destroy');
 }
 
  jQuery('#preview').click(function(){
@@ -262,6 +262,7 @@ function editStore (storeId) {
         	
         }
     });
+	jQuery("#city-picker3").citypicker('destroy');
 }
 
 function addAuthority () {
@@ -412,6 +413,11 @@ function msnInputFocus (obj) {
 
 function cancel() {
 	jQuery("div[name='modelDiv']").hide();
+	jQuery('#city-picker3').citypicker({
+		  province: "",
+		  city: "",
+		});
+	jQuery('#city-picker3').citypicker("reset");
 }
 
 function cancelAlert (obj) {

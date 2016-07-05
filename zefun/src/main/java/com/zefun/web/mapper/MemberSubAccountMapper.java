@@ -131,4 +131,12 @@ public interface MemberSubAccountMapper {
 	* @return List<MemberSubAccount>
 	 */
 	List<MemberSubAccount> selectListByAccountId(Integer accountId);
+	/**
+	 * 
+	* @author 骆峰
+	* @date 2016年7月4日 下午8:23:20
+	* @param map map
+	* @return updateDecrease
+	 */
+	int updateLevel(Map<String, Object> map);
 }
