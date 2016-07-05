@@ -131,11 +131,10 @@
 
 					<div class="income_way" id="income_way">
 						<p>收入方式</p>
-						<span><input type="radio" value="现金" id="money1" checked=""
-							name="money">现金</span> <span><input type="radio"
-							value="银联" id="money1" name="money">银联</span> <span><input
-							type="radio" value="微信" id="money1" name="money">微信</span> <span><input
-							type="radio" value="支付宝" id="money1" name="money">支付宝</span>
+						<span><input type="radio" value="现金" id="money1"  name="money" checked>现金</span> 
+						<span><input type="radio" value="银联" id="money1" name="money">银联</span>
+						<span><input type="radio" value="微信" id="money1" name="money">微信</span>
+						<span><input type="radio" value="支付宝" id="money1" name="money">支付宝</span>
 					</div>
 
 					<div class="income_saying">
@@ -167,16 +166,14 @@
 					</p>
 					<div class="income_way" id="income_way2">
 						<p>支出方式</p>
-						<span><input type="radio" value="营收现金" id="money2"
-							checked="" name="money_">营收现金</span> <span><input
-							type="radio" value="备用金" id="money2" name="money_">备用金</span>
+						<span><input type="radio" value="营收现金" id="money2" checked="" name="money_">营收现金</span>
+						 <span><input type="radio" value="备用金" id="money2" name="money_">备用金</span>
 					</div>
 
 					<div class="income_saying">
 						<p>备注</p>
 						<p>
-							<textarea id="note2">	  
-	  </textarea>
+							<textarea id="note2"> </textarea>
 						</p>
 					</div>
 				</div>
@@ -224,11 +221,10 @@
 
 					<div class="income_way" id="income_way">
 						<p>收入方式</p>
-						<span><input type="radio" value="现金" id="money3" checked=""
-							name="money">现金</span> <span><input type="radio"
-							value="银联" id="money" name="money">银联</span> <span><input
-							type="radio" value="微信" id="money3" name="money">微信</span> <span><input
-							type="radio" value="支付宝" id="money3" name="money">支付宝</span>
+						<span><input type="radio" value="现金" id="money3" checked=""name="money3">现金</span> 
+						<span><input type="radio" value="银联" id="money" name="money3">银联</span>
+						<span><input type="radio" value="微信" id="money3" name="money3">微信</span>
+						<span><input type="radio" value="支付宝" id="money3" name="money3">支付宝</span>
 					</div>
 
 					<div class="income_saying">
@@ -260,9 +256,8 @@
 					</p>
 					<div class="income_way" id="income_way2">
 						<p>支出方式</p>
-						<span><input type="radio" value="营收现金" id="money4"
-							checked="" name="money_">营收现金</span> <span><input
-							type="radio" value="备用金" id="money4" name="money_">备用金</span>
+						<span><input type="radio" value="营收现金" id="money4" checked="" name="money4">营收现金</span> 
+						<span><input  type="radio" value="备用金" id="money4" name="money4">备用金</span>
 					</div>
 					<div class="income_saying">
 						<p>备注</p>
@@ -320,6 +315,7 @@
 			}
 
 		})
+		
 
 	})
 	function changeType(select) {
@@ -446,13 +442,13 @@
 			jQuery('.income_num_3').hide()
 			jQuery("#shouzhi2").val(1);
 			number=3;
-			jQuery("input[name='money'][value='"+price_name+"']").click();
+			jQuery("input[name='money3'][value='"+price_name+"']").click();
 		} else {
 			jQuery('.income_num_2').hide();
 			jQuery('.income_num_3').show()
 			jQuery("#shouzhi2").val(2);
 			number=4;
-			jQuery("input[name='money_'][value='"+price_name+"']").click();
+			jQuery("input[name='money4'][value='"+price_name+"']").click();
 		}
 	  
 	   jQuery("#date" + number).val(date);
