@@ -108,16 +108,13 @@ public class ServicePlansService {
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
         Date serviceTime = sdf2.parse(servicePlanInfo.getServiceTime());
         isOk.setTime(serviceTime);
-//        // 判断设置的时间实在在当前时间之后
-//        if (Calendar.getInstance().after(isOk)){
-//            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "不可设置过期的时间,请将时间设置在当前时间之后");
-//        }
-        // 判断服务的时间在提醒时间之后
-        if (isOk.after(calendarTopic)){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "服务的时间要在提醒的时间之后啊,要不咋提醒啊");
-        }
+        
         if (!calendarTopic.after(calendar)){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "为了您的精准推送,请将时间设置为当前时间的30分钟后");
+        }
+        // 判断服务的时间在提醒时间之后
+        if (!isOk.after(calendarTopic)){
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "请将服务时间设置在推送时间之后");
         }
         
         if (servicePlanInfo.getsId() == null){
