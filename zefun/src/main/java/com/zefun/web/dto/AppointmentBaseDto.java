@@ -2,6 +2,8 @@ package com.zefun.web.dto;
 
 import java.math.BigDecimal;
 
+import com.zefun.web.entity.ProjectCategory;
+
 /**
  * 会员预约基础传输对象
 * @author 张进军
@@ -67,6 +69,18 @@ public class AppointmentBaseDto {
     
     /** 预约项目信息 */
     private ProjectBaseDto projectInfo;
+    
+    /** 预约的大项*/
+    private ProjectCategory category;
+
+    
+    public ProjectCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProjectCategory category) {
+        this.category = category;
+    }
 
     public Integer getAppointmentId() {
         return appointmentId;

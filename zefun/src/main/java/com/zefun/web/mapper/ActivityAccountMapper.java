@@ -3,7 +3,6 @@ package com.zefun.web.mapper;
 import java.util.List;
 
 import com.zefun.web.entity.ActivityAccount;
-import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.Page;
 
 /**

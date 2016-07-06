@@ -78,7 +78,8 @@
     <result column="cancel_reason" property="cancelReason" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <association column="employee_id" property="employeeInfo" select="com.zefun.web.mapper.EmployeeInfoMapper.selectBaseInfoByEmployeeId" />
-    <association column="project_id" property="projectInfo" select="com.zefun.web.mapper.ProjectInfoMapper.selectProjectBaseByProjectId" />
+    <!-- <association column="project_id" property="projectInfo" select="com.zefun.web.mapper.ProjectInfoMapper.selectProjectBaseByProjectId" /> -->
+    <association column="project_id" property="category" select="com.zefun.web.mapper.ProjectCategoryMapper.selectByPrimaryKey" />
   </resultMap>
   
   <sql id="Base_Column_List" >

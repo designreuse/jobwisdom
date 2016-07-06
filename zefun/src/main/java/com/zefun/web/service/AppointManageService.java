@@ -27,14 +27,12 @@ import com.zefun.web.entity.MemberAppointment;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectInfo;
-import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.entity.ShiftInfo;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.MemberAppointmentMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
-import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.ShiftMapper;
 import com.zefun.wechat.service.MemberCenterService;
 
@@ -75,10 +73,6 @@ public class AppointManageService {
     @Autowired
     private ProjectCategoryMapper projectCategoryMapper;
     
-    /** 项目步骤映射 */
-    @Autowired
-    private ProjectStepMapper projectStepMapper;
-    
     /** 会员中心业务服务 */
     @Autowired
     private MemberCenterService memberCenterService;
@@ -112,8 +106,11 @@ public class AppointManageService {
     	//该店铺部门列表
     	List<DeptInfo> deptInfoList = deptInfoMapper.selectDeptByStoreId(storeId);
     	
+    	List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(storeId);
+    	
     	mav.addObject("dateMap", dateMap);
     	mav.addObject("deptInfoList", deptInfoList);
+    	mav.addObject("projectCategories", projectCategories);
         return mav;
     }
     
@@ -360,6 +357,7 @@ public class AppointManageService {
     	//收银员给员工预约直接给状态值为2：确认预约
     	memberAppointment.setAppointmentStatus(2);
     	memberAppointment.setAppointmentWay(1);
+    	
     	int result = memberAppointmentMapper.insert(memberAppointment);
     	if (result == 1) {
     	    String openId = redisService.hget(App.Redis.WECHAT_EMPLOYEEID_TO_OPENID_KEY_HASH, memberAppointment.getEmployeeId());
@@ -367,7 +365,8 @@ public class AppointManageService {
                 rabbitService.sendAppointmentApplyNotice(memberAppointment.getStoreId(), storeAccount, App.System.SERVER_BASE_URL 
                         + Url.Staff.VIEW_STAFF_APPOINT.replace("{storeId}", memberAppointment.getStoreId() + "")
                         .replace("{businessType}", "2").replace("{type}", "1"), memberAppointment.getEmployeeId(), 
-                        openId, memberInfo.getName(), memberInfo.getLevelName(), "到店体验",
+                        openId, memberInfo.getName(), memberInfo.getLevelName(), projectCategoryMapper.selectByPrimaryKey(memberAppointment
+                                .getProjectId()).getCategoryName(),
                         memberAppointment.getAppointmentDate() + " " + memberAppointment.getAppointmentTime());
             }
     		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "预约成功");

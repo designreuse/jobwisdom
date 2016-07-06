@@ -1,9 +1,6 @@
 package com.zefun.web.controller;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import com.zefun.web.service.ActivityService;
 
 /**
  * 活动

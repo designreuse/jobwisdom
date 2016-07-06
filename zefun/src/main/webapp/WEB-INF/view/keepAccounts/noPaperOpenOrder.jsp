@@ -546,7 +546,7 @@
 					 <span>收银预约</span>
 				  </div>
 			   </div>
-				<div class="order_open_card_content_right">
+			   <div class="order_open_card_content_right">
 				   <p>啊啊啊啊啊啊系列</p>
 				   <span>预约时间16:30 已过期</span>
 				   <div>110 名啊字</div>

@@ -311,10 +311,10 @@ function addAppointProject() {
 		dialog("请选择被预约员工");
 		return;
 	}
-	/*if (globalProjectId == null || globalProjectId.length == 0) {
+	if (globalProjectId == null || globalProjectId.length == 0) {
 		dialog("请选择被预约项目");
 		return;
-	}*/
+	}
 	jQuery.ajax({
 		type : "post",
 		dataType : "json",
@@ -544,10 +544,11 @@ function refreshAppointEmployee(memberAppointmentList) {
 		var div6_2_li3 = document.createElement("li");
 		div6_2_ul.appendChild(div6_2_li3);
 		var div6_2_li3_span1 = document.createElement("span");
-		div6_2_li3_span1.innerHTML = "预约项目：";
+		div6_2_li3_span1.innerHTML = "预约大项：";
 		div6_2_li3.appendChild(div6_2_li3_span1);
 		var div6_2_li3_span2 = document.createElement("span");
-		div6_2_li3_span2.innerHTML = "";//memberAppointment.projectInfo.projectName;
+		console.log(memberAppointment);
+		div6_2_li3_span2.innerHTML = memberAppointment.category.categoryName;;//memberAppointment.projectInfo.projectName;
 		div6_2_li3.appendChild(div6_2_li3_span2);
 		
 		var div6_2_li4 = document.createElement("li");
@@ -752,7 +753,7 @@ function cleanScrollableListEmployee () {
 }
 //清空项目系列列表
 function cleanProjectListCategoryList() {
-	jQuery("#projectCategoryUl li").remove();
+	//jQuery("#projectCategoryUl li").remove();
 }
 //清空项目列表
 function cleanProjectList() {
