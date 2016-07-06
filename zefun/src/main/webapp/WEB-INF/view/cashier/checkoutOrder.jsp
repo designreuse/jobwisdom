@@ -25,6 +25,20 @@
 	 table tr:nth-child(1){font-weight:normal}
 	.wash_way_content td{position:relative;height:40px;width:111px;border:1px solid #cdd0d6;border-left:none;vertical-align:middle;text-align:center;border-bottom:none}
 	.wash_way_content em{position:absolute;right:18px;top:10px;color:#bcb5b5}
+
+    .change_price_name i{cursor:pointer}
+	.bubble_{z-index:2;position:absolute;background:#ebeff8;padding:4px;border-radius:4px;top:26px;left:-80px;font-size:12px;width:160px;overflow-wrap:break-word;display:none}
+	.bubble_ em{
+	    width: 0;
+	    height: 0;
+	    border-left: 8px solid transparent;
+	    border-right:8px solid transparent;
+	    border-bottom: 12px solid #ebeff8;
+		position:absolute;
+		left:80px;
+		top:-10px
+	}
+	.bubble_{color:#3a3a3a}
 </style>
 <body>
 
@@ -311,6 +325,14 @@ jQuery(function(){
  jQuery("a[name='showStep']").click(function(){
      jQuery(this).parents('.change_price__spread').find('.spread_content').stop(true,true).slideToggle();
   });
+ 
+ jQuery(document).on('mouseover','.change_price_name i',function(){
+	 jQuery(this).find('.bubble_').show();
+   })
+  jQuery(document).on('mouseout','.change_price_name i',function(){
+	 jQuery(this).find('.bubble_').hide();
+   })
+ 
 })
 </script>
 </body>

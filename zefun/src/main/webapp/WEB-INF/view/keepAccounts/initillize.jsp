@@ -15,6 +15,36 @@
 	border: 1px solid black;
 }
 </style>
+<script src="http://open.web.meitu.com/sources/xiuxiu.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+    
+    function editPage (imgUrl) {
+    	xiuxiu.setLaunchVars("cropPresets", "200*200");
+    	xiuxiu.embedSWF("altContent2", 5, 700, 500);
+    	xiuxiu.onInit = function (id)
+    	{
+            xiuxiu.setUploadType(3);
+            if (imgUrl != null) {
+            	xiuxiu.loadPhoto(qiniuUrl + imgUrl, false);
+            }
+    	}
+    	xiuxiu.onSaveBase64Image = function (data, fileName, fileType, id)
+    	{
+            zccCallback(data);
+            xiuxiu.onClose();
+    	}
+    	
+    	xiuxiu.onDebug = function (data)
+    	{
+            dialog("网咯繁忙，请重试！");
+    	}
+    	xiuxiu.onClose = function (id)
+    	{
+            jQuery(".mask").hide();
+    	}
+    }
+</script>
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
@@ -43,7 +73,7 @@
 									<option>收入</option>
 									<option>支出</option>
 							</select></li>
-							<li>收支方式：<select id="typename">
+							<li ><i id="incometype">收入类别</i>：<select id="typename">
 									<!-- 收入 -->
 									<c:forEach items="${incometype }" var="incometype">
 										<option value="${incometype.name }">${incometype.name }</option>
@@ -65,7 +95,7 @@
 									<td>部门</td>
 									<td>收支类型</td>
 									<td>收支方式</td>
-									<td>收支名称</td>
+									<td>收支类别</td>
 									<td>现金</td>
 									<td>备注</td>
 									<td>操作</td>
@@ -80,7 +110,7 @@
 										<td>${initializ.priceName}</td>
 										<td>${initializ.goodsPrice}</td>
 										<td>${initializ.note}</td>
-										<td onclick="update(${initializ.id})" style="cursor: pointer">编辑</td>
+										<td onclick="update(${initializ.id},'${initializ.initializeImage}')" style="cursor: pointer">编辑</td>
 									</tr>
 								</c:forEach>
 
@@ -122,7 +152,7 @@
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
 						</p>
 						<p>
-							<em>收入类型</em><select id="shouru1"><c:forEach
+							<em>收入类别</em><select id="shouru1"><c:forEach
 									items="${incometype }" var="incometype">
 									<option value="${incometype.incometypeId}">${incometype.name }</option>
 								</c:forEach></select>
@@ -153,15 +183,15 @@
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
 						</p>
 						<p>
-							<em>支出类型</em><select id="shouru2"><c:forEach
+							<em>支出类别</em><select id="shouru2"><c:forEach
 									items="${incometypes }" var="incometypes">
 									<option value="${incometypes.incometypeId}">${incometypes.name }</option>
 								</c:forEach></select>
 						</p>
 					</div>
 					<p style="position: absolute; right: 100px; top: -40px">
-						<em style="position: relative; top: -90px">支出凭证</em><img
-							src="<%=basePath%>images/add_img.png"
+						<em style="position: relative; top: -90px">支出凭证</em>
+						<img onclick="uploadImage(1)" name="img1" src="<%=basePath%>images/add_img.png"
 							style="width: 108px; position: relative; left: 4px">
 					</p>
 					<div class="income_way" id="income_way2">
@@ -179,7 +209,7 @@
 				</div>
 				<div class="income_button">
 					<button onclick="Save()">保存</button>
-					<button onclick="jQuery('.zzc1').hide()">取消</button>
+					<button onclick="hideDiv(1)">取消</button>
 				</div>
 			</div>
 		</div>
@@ -212,7 +242,7 @@
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
 						</p>
 						<p>
-							<em>收入类型</em><select id="shouru3"><c:forEach
+							<em>收入类别</em><select id="shouru3"><c:forEach
 									items="${incometype }" var="incometype">
 									<option value="${incometype.incometypeId}">${incometype.name }</option>
 								</c:forEach></select>
@@ -243,16 +273,15 @@
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
 						</p>
 						<p>
-							<em>支出类型</em><select id="shouru4"><c:forEach
+							<em>支出类别</em><select id="shouru4"><c:forEach
 									items="${incometypes }" var="incometypes">
 									<option value="${incometypes.incometypeId}">${incometypes.name }</option>
 								</c:forEach></select>
 						</p>
 					</div>
 					<p style="position: absolute; right: 100px; top: -40px">
-						<em style="position: relative; top: -90px">支出凭证</em><img
-							src="<%=basePath%>images/add_img.png"
-							style="width: 108px; position: relative; left: 4px">
+						<em style="position: relative; top: -90px">支出凭证</em>
+						<img  onclick="uploadImage(2)" name="img2" src="<%=basePath%>images/add_img.png" style="width: 108px; position: relative; left: 4px">
 					</p>
 					<div class="income_way" id="income_way2">
 						<p>支出方式</p>
@@ -269,13 +298,24 @@
 				</div>
 				<div class="income_button">
 					<button onclick="updateSave()">保存</button>
-					<button onclick="jQuery('.zzc2').hide()">取消</button>
+					<button onclick="hideDiv(2)">取消</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
+		<div class="mask" style="display: none;">
+			<div id="flashEditorOut" style="position: relative;">
+				<span class="mask_close"
+					style="position: absolute; right: -5px; top: -5px"><img
+					onclick="xiuxiu.onClose();"
+					src="<%=basePath%>images/seo_close.png"></span>
+				<div id="altContent2">
+					<h1>美图秀秀</h1>
+				</div>
+			</div>
+		</div>
 
 
 </body>
@@ -327,9 +367,11 @@
 			var html = '';
 			if (type == '支出' && number == 2) {
 				html = '<option value='+names+'>' + names + '</option>'
+				jQuery("#incometype").text("支出类别");
 			}
 			if (type == '收入' && number == 1) {
 				html = '<option value='+names+'>' + names + '</option>'
+				jQuery("#incometype").text("收入类别");
 			}
 			jQuery("#typename").eq(0).append(jQuery(html));
 			html = '';
@@ -362,7 +404,7 @@
 						+' 		<td>'+value.priceName+'</td>'
 						+'		<td>'+value.goodsPrice+'</td>'
 						+'		<td>'+value.note+'</td>'
-						+'<td onclick="update('+value.id+')" style="cursor: pointer">编辑</td>'
+						+'<td onclick="update('+value.id+','+value.initializeImage+')" style="cursor: pointer">编辑</td>'
 						+'	</tr>'
 					jQuery("#tables").append(jQuery(html));
 				});
@@ -386,6 +428,7 @@
 		var note = Trim(jQuery("#note" + type).val());
 		// 收支方式
 		var typeName = jQuery("input[id=money" + type + "]:checked").val();
+		var initializeImage = jQuery("img[name='img1']").attr("src");
 		if(reg.test(price)==true){
 			jQuery.ajax({
 				type : "post",
@@ -399,6 +442,7 @@
 					"isdeleted" : 0,
 					"note" : note,
 					"type" : types,
+					"initializeImage" : initializeImage,
 					"priceName" : name
 				}),
 				dataType : "json",
@@ -428,7 +472,7 @@
   
    var number;
    var id ;
-   function update(ids){
+   function update(ids,initializeImage){
 	   id =ids;
 	   var date  =jQuery("tr[name="+id+"]").children('td').eq(0).text();
 	   var dapt_name  =jQuery("tr[name="+id+"]").children('td').eq(1).text();
@@ -449,6 +493,7 @@
 			jQuery("#shouzhi2").val(2);
 			number=4;
 			jQuery("input[name='money4'][value='"+price_name+"']").click();
+			var initializeImage = jQuery("img[name='img2']").attr("src",initializeImage);
 		}
 	  
 	   jQuery("#date" + number).val(date);
@@ -489,10 +534,12 @@
 	    var type_name = jQuery("input[id=money" + number + "]:checked").val();
 	    var dapt = jQuery("#bumen3  option:selected").val();
 	    var data = jQuery("#date" + number).val();
+	    var initializeImage =   jQuery("img[name='img2']").attr("src");
+	  
 	   jQuery.ajax({
 			type : "post",
 			url : baseUrl + "KeepAccounts/initializeStoreFlow/update",
-			data : JSON.stringify({"id" : id ,"deptName" : dapt ,"goodsPrice" : goods_price,"type" : type ,"typeName":type_name ,"note":note,"date":data,"priceName":price_name,"isdeleted":0,"incometypeType":incometypeType}),
+			data : JSON.stringify({"initializeImage" : initializeImage ,"id" : id ,"deptName" : dapt ,"goodsPrice" : goods_price,"type" : type ,"typeName":type_name ,"note":note,"date":data,"priceName":price_name,"isdeleted":0,"incometypeType":incometypeType}),
 			dataType : "json",
 			contentType : "application/json",
 			success : function(e) {
@@ -501,6 +548,56 @@
 			}
 		});
    }
+  
+  function zccCallback(dataBase64) {
+		var key = "jobwisdom/project/" + new Date().getTime();
+		var data = {
+			"stringBase64" : dataBase64,
+			"key" : key
+		};
+		jQuery('.cancelinput').click();
+		jQuery.ajax({
+				type : "POST",
+				url : baseUrl + "qiniu/base64",
+				data : JSON.stringify(data),
+				contentType : "application/json",
+				dataType : "json",
+				async : true,
+				beforeSend : function() {
+					console.log("beforeSend upload image");
+				},
+				error : function() {
+					console.log("upload image error");
+				},
+				complete : function() {
+					console.log("complete upload image");
+				},
+				success : function(data) {
+					var imageUrl = data.msg.imageUrl;
+					var key = data.msg.key;
+					jQuery("img[name='img"+imgName+"']").attr("src", qiniuUrl + key);
+// 					console.log(qiniuUrl + key);
+
+					
+				}
+			});
+	}
+  
+  var imgName;
+  function uploadImage(image){
+	  jQuery(".mask").show();
+	  editPage(null);
+	  imgName = image;
+
+	  
+  }
+  
+  function hideDiv(type){
+	  jQuery(".zzc"+type).hide();
+	  jQuery("img[name='img"+type+"']").attr("src", "http://localhost:80/jobwisdom/images/add_img.png");
+	  jQuery("#note" + type).val("");
+	  jQuery("#price2").val("");
+  }
  </script>
 
 </html>

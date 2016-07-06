@@ -44,6 +44,41 @@ public class ManuallyOpenOrderController extends BaseController{
 	}
 	
 	/**
+	 * 无纸开单页面
+	* @author 王大爷
+	* @date 2015年8月11日 上午11:10:16
+	* @param request 返回
+	* @param response 请求
+	* @return ModelAndView
+	 */
+	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_NO_PAPER_OPEN_ORDER, method = RequestMethod.GET)
+	public ModelAndView initializeNoPaperOpenOrder(HttpServletRequest request, HttpServletResponse response){
+	    Integer storeId = getStoreId(request);
+		return manuallyOpenOrderService.initializeNoPaperOpenOrder(storeId);
+	}
+	
+	/**
+	 *  无纸开单
+	* @author 老王
+	* @date 2016年7月5日 下午3:49:55 
+	* @param request 请求
+	* @param response 返回
+	* @param sex 性别
+	* @param handOrderCode 手牌号
+	* @param employeeObj 选择的轮牌员工
+	* @param memberId 会员标识
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.KeepAccounts.ACTION_ADD_ORDER)
+    @ResponseBody
+    public BaseDto addOrder(HttpServletRequest request, HttpServletResponse response, String sex, String handOrderCode, String employeeObj,
+             Integer memberId) {
+        Integer lastOperatorId = getUserId(request);
+        Integer storeId = getStoreId(request);
+        return manuallyOpenOrderService.addOrder(sex, handOrderCode, employeeObj, memberId, storeId, lastOperatorId);
+    }
+	
+	/**
 	 * 根据项目标识查询想轮牌信息及步骤对应员工
 	* @author 王大爷
 	* @date 2015年11月24日 下午12:08:34
@@ -80,4 +115,6 @@ public class ManuallyOpenOrderController extends BaseController{
 	    Integer lastOperatorId = getUserId(request);
 	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, storeId, lastOperatorId, handOrderCode);
 	}
+	
+	
 }

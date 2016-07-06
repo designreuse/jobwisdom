@@ -41,6 +41,17 @@ public class InitializeInFo {
     
     /** 消费名称 */
     private String priceName;
+    
+    /**  图片地址*/
+    private String initializeImage;
+
+    public String getInitializeImage() {
+        return initializeImage;
+    }
+
+    public void setInitializeImage(String initializeImage) {
+        this.initializeImage = initializeImage;
+    }
 
     public String getPriceName() {
         return priceName;
