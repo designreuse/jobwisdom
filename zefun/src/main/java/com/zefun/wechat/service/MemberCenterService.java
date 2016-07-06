@@ -1235,12 +1235,12 @@ public class MemberCenterService {
             //如果是会员
             if (memberInfo != null) {
             	rabbitService.sendAppointmentResultNotice(3, storeId, url, openId, 
-                        memberInfo.getName(), memberInfo.getLevelName(), projectName, appointmentTime, reason);
+                        memberInfo.getName(), memberInfo.getLevelName(), "", appointmentTime, reason);
             }
             //如果是散客
             else {
             	rabbitService.sendAppointmentResultNotice(3, storeId, url, openId, 
-                        "散客", "无等级", projectName, appointmentTime, reason);
+                        "散客", "无等级", "", appointmentTime, reason);
             }
         }
         

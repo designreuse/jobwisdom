@@ -50,10 +50,10 @@ public class SystemWebSocketHandler implements WebSocketHandler {
             LOGIN.put(LOGIN_PREFIX + userId, session);
         } 
         catch (Exception e) {
-            log.info("企业用户登陆,无需存放userId");
+//            log.info("企业用户登陆,无需存放userId");
         }
-        log.info("当前聊天室存放的值为 , " + SOCKETS.toString());
-        log.info("当前聊天室存放的值为 , " + LOGIN.toString());
+//        log.info("当前聊天室存放的值为 , " + SOCKETS.toString());
+//        log.info("当前聊天室存放的值为 , " + LOGIN.toString());
     }
 
     /** 接收客户端发送过来的方法 */

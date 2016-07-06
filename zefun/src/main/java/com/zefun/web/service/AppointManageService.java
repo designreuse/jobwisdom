@@ -7,16 +7,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.AppointmentBaseDto;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.MemberAppointment;
@@ -40,6 +44,7 @@ import com.zefun.wechat.service.MemberCenterService;
 * @date Nov 23, 2015 10:11:22 PM 
 */
 @Service
+@Transactional
 public class AppointManageService {
     
 	/** 会员信息映射 */
@@ -77,6 +82,15 @@ public class AppointManageService {
     /** 会员中心业务服务 */
     @Autowired
     private MemberCenterService memberCenterService;
+    /** 会员中心业务服务 */
+    @Autowired
+    private MemberInfoService memberInfoService;
+    /** 队列操作类 */
+    @Autowired
+    private RedisService redisService;
+    /** 队列操作类 */
+    @Autowired
+    private RabbitService rabbitService;
     
     /** 日志打印 */
     private Logger log = Logger.getLogger(AppointManageService.class);
@@ -311,10 +325,11 @@ public class AppointManageService {
      * 新增会员预约项目
     * @author DavidLiang
     * @date 2016年2月21日 下午9:45:29
+    * @param storeAccount       storeAccount
     * @param memberAppointment  会员预约参数
     * @return  预约结果BaseDto
      */
-    public BaseDto addAppointProject(MemberAppointment memberAppointment) {
+    public BaseDto addAppointProject(String storeAccount, MemberAppointment memberAppointment) {
     	//根据电话查询该会员id(散客也能预约，所以没必要查询是否存在该会员)
     	/*MemberInfo memberInfo = memberInfoMapper.selectMemberByStoreIdAndPhone(
     			  memberAppointment.getStoreId(), memberAppointment.getPhone());
@@ -330,6 +345,8 @@ public class AppointManageService {
 //    	}
 //    	memberAppointment.setProjectStepOrder(projectStep.getProjectStepOrder());
 //    	memberAppointment.setShiftMahjongId(projectStep.getShiftMahjongId());
+        
+        MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberAppointment.getMemberId(), false);
     	
     	//处理预约日期(appointment_date,格式yyyy-MM-dd)
     	int year = Integer.valueOf(new SimpleDateFormat("yyyy").format(new Date()));
@@ -345,6 +362,14 @@ public class AppointManageService {
     	memberAppointment.setAppointmentWay(1);
     	int result = memberAppointmentMapper.insert(memberAppointment);
     	if (result == 1) {
+    	    String openId = redisService.hget(App.Redis.WECHAT_EMPLOYEEID_TO_OPENID_KEY_HASH, memberAppointment.getEmployeeId());
+            if (StringUtils.isNotBlank(openId)) {
+                rabbitService.sendAppointmentApplyNotice(memberAppointment.getStoreId(), storeAccount, App.System.SERVER_BASE_URL 
+                        + Url.Staff.VIEW_STAFF_APPOINT.replace("{storeId}", memberAppointment.getStoreId() + "")
+                        .replace("{businessType}", "2").replace("{type}", "1"), memberAppointment.getEmployeeId(), 
+                        openId, memberInfo.getName(), memberInfo.getLevelName(), "到店体验",
+                        memberAppointment.getAppointmentDate() + " " + memberAppointment.getAppointmentTime());
+            }
     		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "预约成功");
     	}
     	else {
@@ -391,8 +416,8 @@ public class AppointManageService {
     public BaseDto cancelAppointment(int appointmentId) {
     	log.info(memberCenterService);
     	MemberAppointment m = memberAppointmentMapper.selectByPrimaryKey(appointmentId);
-    	ProjectInfo p = projectInfoMapper.selectByPrimaryKey(m.getProjectId());
-    	m.setMemberId(111);
+//    	ProjectInfo p = projectInfoMapper.selectByPrimaryKey(m.getProjectId());
+    	m.setMemberId(m.getMemberId());
     	/*
     	 * 如果是散客就给memberId个值，否则调用cancelAppoinmentAction方法时会报空指针，
     	 * 因为cancelAppoinmentAction中的memberId参数是int类型，而m.getMemberId()得到的参数是Integer，
@@ -402,6 +427,6 @@ public class AppointManageService {
     		m.setMemberId(-1);
     	}
 		return memberCenterService.cancelAppoinmentAction(m.getMemberId(), m.getStoreId(), appointmentId, 
-  			  m.getEmployeeId(), p.getProjectName(), m.getAppointmentTime(), "客户电话通知取消预约");
+  			  m.getEmployeeId(), null, m.getAppointmentTime(), "客户电话通知取消预约");
     }
 }

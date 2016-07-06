@@ -86,8 +86,8 @@ public class RabbitService {
         }
         catch (ONSClientException e) {
         }
-        /*logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
-        rabbitTemplate.convertAndSend(routingKey, object);*/
+//        logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
+//        rabbitTemplate.convertAndSend(routingKey, object);
     }
     
     /**
@@ -299,7 +299,7 @@ public class RabbitService {
         record.put("projectName", projectName);
         record.put("appointTime", appointTime);
         record.put("createTime", DateUtil.getCurTime());
-        send(App.Queue.APPOINTMENT_APPLY_NOTICE, record);
+//        send(App.Queue.APPOINTMENT_APPLY_NOTICE, record);
         rabbitTemplate.convertAndSend(App.Queue.APPOINTMENT_APPLY_NOTICE, record);
         //检查门店是否需要预约语音提示
         StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
@@ -367,7 +367,8 @@ public class RabbitService {
         record.put("memberLevel", memberLevel);
         record.put("projectName", projectName);
         record.put("appointTime", appointTime);
-        send(App.Queue.APPOINTMENT_RESULT_NOTICE, record);
+        rabbitTemplate.convertAndSend(App.Queue.APPOINTMENT_RESULT_NOTICE, record);
+//        send(App.Queue.APPOINTMENT_RESULT_NOTICE, record);
     }
     
     

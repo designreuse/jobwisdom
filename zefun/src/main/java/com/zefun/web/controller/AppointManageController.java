@@ -128,9 +128,10 @@ public class AppointManageController extends BaseController {
     @RequestMapping(value = Url.AppointManage.ACTION_ADD_APPOINT_PROJECT, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto addAppointProject(HttpServletRequest request, MemberAppointment memberAppointment) {
+        String storeAccount = getStoreAccount(request);
     	memberAppointment.setStoreId(getStoreId(request));
     	memberAppointment.setLastOperatorId(getUserId(request));
-    	return appointManageService.addAppointProject(memberAppointment);
+    	return appointManageService.addAppointProject(storeAccount, memberAppointment);
     }
     
     /**
