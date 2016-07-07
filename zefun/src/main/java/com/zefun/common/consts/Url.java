@@ -464,8 +464,16 @@ public interface Url {
 	class KeepAccounts {
 		/** 初始化无纸开单*/
 		public static final String INITIALIZE_NO_PAPER_OPEN_ORDER = "KeepAccounts/initializeNoPaperOpenOrder";
+		/** 初始化弹出框*/
+		public static final String INITIALIZE_NOPAPER_MODEL = "KeepAccounts/initializeNoPaperModel";
 		/** 无纸开单 */
 		public static final String ACTION_ADD_ORDER = "KeepAccounts/addOrder";
+		/** 服务交接轮牌 */
+		public static final String ACTION_ADD_OR_UPDATE_SERVER_EMPLOYEE = "KeepAccounts/action/addOrUpdateServerEmployee";
+		/** 结束服务*/
+		public static final String ACTION_OVER_SERVER_EMPLOYEE = "KeepAccounts/action/overServerEmployee";
+		/** 无纸单结算*/
+		public static final String ACTION_SETTLEMENT_ORDER = "KeepAccounts/action/settlementOrder";
 		/* 开卡记账 */
 		/** 初始化开卡记账页面 */
 		public static final String INITIALIZESTOREFLOW = "KeepAccounts/initializeStoreFlow";

@@ -515,7 +515,7 @@ public class StaffOrderService {
         OrderDetail obj  = orderDetailMapper.selectByPrimaryKey(detailId);
         
         //修改员工的轮牌状态
-        staffService.updateShiftEmployeeState(shiftMahjongEmployee.getShiftMahjongEmployeeId(), detailId, storeId);
+        staffService.updateShiftEmployeeState(shiftMahjongEmployee.getShiftMahjongEmployeeId());
         
         //修改订单明细状态
         OrderDetail orderDetail = new OrderDetail();
@@ -536,365 +536,98 @@ public class StaffOrderService {
     }
     
     /**
-     * 确认服务移交
+     * 完成服务
     * @author 王大爷
     * @date 2015年10月21日 上午11:02:44
     * @param shiftMahjongStepId 轮牌步骤标识
     * @param type 移交类型
-    * @param detailId 明细标识
     * @param shiftMahjongId 轮牌标识
-    * @param shiftMahjongEmployeeId 轮牌员工标识
+    * @param employeeId 员工标识
     * @param storeId 门店标识
-    * @param shiftMahjongEmployeeIdOld 该步骤原本指定的人员
-    * @param isType 类型
+    * @param isAssign 是否指定
     * @param lastOperatorId 操作人标识
     * @return ModelAndView
      */
     @Transactional
-    public BaseDto serverAssociateShiftMahjong(Integer shiftMahjongStepId, Integer type, Integer detailId, Integer shiftMahjongId, 
-            Integer shiftMahjongEmployeeId, Integer storeId, Integer shiftMahjongEmployeeIdOld, Integer isType, Integer lastOperatorId){
+    public BaseDto serverAssociateShiftMahjong(Integer shiftMahjongStepId, Integer type, Integer shiftMahjongId, 
+            Integer employeeId, Integer storeId, Integer isAssign, Integer lastOperatorId){
         
-        LOGGERS.info("shiftMahjongStepId : " + shiftMahjongStepId + "type : " + type + "detailId : " + detailId 
-                + "shiftMahjongId : " + shiftMahjongId + "shiftMahjongEmployeeId : " + shiftMahjongEmployeeId 
-                + "storeId : " + storeId + "shiftMahjongEmployeeIdOld : " + shiftMahjongEmployeeIdOld + "lastOperatorId : " + lastOperatorId);
-        //向下一个步骤移交
-        if (type == 2) {
-            //修改当前员工状态
-            staffService.updateShiftLastEmployeeState(shiftMahjongStepId, detailId, storeId);
+    	//查询上个步骤对应轮牌员工标识（以修改）
+        ShiftMahjongEmployee obj = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(shiftMahjongStepId);
+        
+        Map<String, Integer> map = new HashMap<>();
+        map.put("employeeId", employeeId);
+        map.put("shiftMahjongId", shiftMahjongId);
+        //查询步骤对应轮牌员工标识
+        ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeMapper.selectEmployeeByStepId(map);
+        
+        ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
+        shiftMahjongProjectStep.setShiftMahjongStepId(shiftMahjongStepId);
+        
+        /*//修改明细状态
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setDetailId(detailId);*/
+        
+        //如果没有指定人员
+        if (employeeId == null) {
             
-            /*Map<String, Integer> map = new HashMap<String, Integer>();
-            map.put("shiftMahjongStepId", shiftMahjongStepId);
-            map.put("isOver", 2);
+            /*orderDetail.setOrderStatus(2);*/
             
-            //将跳过的步骤状态改为完成
-            List<ShiftMahjongProjectStep> list = shiftMahjongProjectStepMapper.selectByNotOver(map);
-            
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getEmployeeId() != null) {
-                    ShiftMahjongEmployee shiftMahjongEmployee 
-                             = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(list.get(i).getShiftMahjongStepId());
-                    
-                    shiftMahjongEmployeeMapper.updateDecreaseAppointNumber(shiftMahjongEmployee.getShiftMahjongEmployeeId());
-                    //发送消息
-                    senMessage(shiftMahjongEmployee.getEmployeesId(), null, list.get(i).getShiftMahjongStepId(), 
-                            storeId, 5, lastOperatorId);
-                }
-                ShiftMahjongProjectStep record = new ShiftMahjongProjectStep();
-                record.setShiftMahjongStepId(list.get(i).getShiftMahjongStepId());
-                record.setIsDeleted(1);
-                shiftMahjongProjectStepMapper.updateByPrimaryKey(record);
-            }*/
-            
-            //修改订单明细状态
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setDetailId(detailId);
-            orderDetail.setOrderStatus(1);
-            orderDetailMapper.updateByPrimaryKey(orderDetail);
-            
-            //如果没有指定人员
-            if (shiftMahjongEmployeeId == null) {
-                //根据轮牌项目步骤关系标识查询轮牌员工（满足项目中设定级别的排到第一个）
-                ShiftMahjongEmployee obj = shiftMahjongEmployeeMapper.selectShiftMahjongOneEmployee(shiftMahjongStepId);
-                if (obj == null) {
-                    //转等待中心
-                    redisService.zadd(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), 
-                             Double.valueOf(System.currentTimeMillis()), String.valueOf(detailId));
-                    ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
-                    shiftMahjongProjectStep.setShiftMahjongStepId(shiftMahjongStepId);
-                    shiftMahjongProjectStep.setBeginTime(null);
-                    shiftMahjongProjectStep.setIsAssign(0);
-                    shiftMahjongProjectStep.setIsDesignate(0);
-                    shiftMahjongProjectStep.setIsAppoint(0);
-                    shiftMahjongProjectStep.setIsOver(2);
-                    shiftMahjongProjectStep.setIsCurrent(1);
-                    shiftMahjongProjectStep.setUpdateTime(DateUtil.getCurTime());
-                    shiftMahjongProjectStep.setLastOperatorId(lastOperatorId);
-                    shiftMahjongProjectStepMapper.updateBySpecial(shiftMahjongProjectStep);
-                    
-                }
-                else {
-                    //调整员工在轮牌的位置及修改状态
-                    staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), false);
-                    
-                    //轮牌项目步骤关系指定人员
-                    staffService.updateShiftMahjongProjectStep(obj.getEmployeesId(), 
-                            shiftMahjongStepId, 0, 0, detailId, 0);
-                    
-                    //发送服务移交模版
-                    senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 2, lastOperatorId);
-                }
-                //当原来该步骤有指定
-                if (shiftMahjongEmployeeIdOld != null) {
-                    
-                    //指定人员减一
-                    shiftMahjongEmployeeMapper.updateDecreaseAppointNumber(shiftMahjongEmployeeIdOld);
-                    
-                    //发送取消指定模版消息
-                    senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 5, lastOperatorId);
-                }
-            }
-            //有指定的人
-            else {
-                //如果有指定的人，而开单时未指定
-                if (shiftMahjongEmployeeIdOld == null) {
-                    ShiftMahjongEmployee obj = shiftMahjongEmployeeMapper.selectByPrimaryKey(shiftMahjongEmployeeId);
-                    /*ShiftMahjongEmployee objOld = shiftMahjongEmployeeMapper.selectShiftMahjongOneEmployee(shiftMahjongStepId);
-                    if (objOld == null || obj.getShiftMahjongEmployeeId() != objOld.getShiftMahjongEmployeeId()) {
-                        senMessage(objOld.getEmployeesId(), null, shiftMahjongStepId, storeId, 6, lastOperatorId);
-                    }*/
-                    if (obj.getState() == 1) {
-                        
-                        if (isType == 1) {
-                            //调整员工在轮牌的位置及修改状态
-                            staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), true);
-                            //轮牌项目步骤关系指定人员
-                            staffService.updateShiftMahjongProjectStep(obj.getEmployeesId(), 
-                                    shiftMahjongStepId, 1, 0, detailId, 0);
-                        }
-                        else if (isType == 2){
-                            //调整员工在轮牌的位置及修改状态
-                            staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), false);
-                            //轮牌项目步骤关系指定人员
-                            staffService.updateShiftMahjongProjectStep(obj.getEmployeesId(), 
-                                    shiftMahjongStepId, 0, 1, detailId, 0);
-                        }
-                        
-                        //发送指定模版消息
-                        senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 4, lastOperatorId);
-                    }
-                    else {
-                        //转等待中心
-                        redisService.zadd(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), 
-                                Double.valueOf(System.currentTimeMillis()), String.valueOf(detailId));
-                        
-                        //发送模版消息
-                        senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 8, lastOperatorId);
-                        
-                        //增加指定人
-                        shiftMahjongEmployeeMapper.updateAddAppointNumber(shiftMahjongEmployeeId);
-                        
-                        ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
-                        shiftMahjongProjectStep.setShiftMahjongStepId(shiftMahjongStepId);
-                        shiftMahjongProjectStep.setEmployeeId(obj.getEmployeesId());
-                        if (isType == 1) {
-                            shiftMahjongProjectStep.setIsAssign(1);
-                            shiftMahjongProjectStep.setIsDesignate(0);
-                        }
-                        else if (isType == 2){
-                            shiftMahjongProjectStep.setIsAssign(0);
-                            shiftMahjongProjectStep.setIsDesignate(1);
-                        }
-                        shiftMahjongProjectStep.setIsCurrent(1);
-                        shiftMahjongProjectStepMapper.updateByPrimaryKey(shiftMahjongProjectStep);
-                    }
-                }
-                else {
-                    //与开单时指定的人员比对，一致
-                    if (shiftMahjongEmployeeId.intValue() == shiftMahjongEmployeeIdOld.intValue()) {
-                        ShiftMahjongEmployee obj = shiftMahjongEmployeeMapper.selectByPrimaryKey(shiftMahjongEmployeeId);
-                        if (obj.getState() == 1) {
-                            
-                            if (isType == 1) {
-                                //调整员工在轮牌的位置及修改状态
-                                staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), true);
-                                //轮牌项目步骤关系指定人员
-                                staffService.updateShiftMahjongProjectStep(obj.getEmployeesId(), 
-                                        shiftMahjongStepId, 1, 0, detailId, 0);
-                            }
-                            else {
-                                //调整员工在轮牌的位置及修改状态
-                                staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), false);
-                                //轮牌项目步骤关系指定人员
-                                staffService.updateShiftMahjongProjectStep(obj.getEmployeesId(), 
-                                        shiftMahjongStepId, 0, 1, detailId, 0);
-                            }
-                            
-                            //指定人员减一
-                            shiftMahjongEmployeeMapper.updateDecreaseAppointNumber(shiftMahjongEmployeeIdOld);
-                            
-                            senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 1, lastOperatorId);
-                        }
-                        else {
-                            //转等待中心
-                            redisService.zadd(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), 
-                                    Double.valueOf(System.currentTimeMillis()), String.valueOf(detailId));
-                            //发送消息
-                            
-                            ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
-                            shiftMahjongProjectStep.setShiftMahjongStepId(shiftMahjongStepId);
-                            if (isType == 1) {
-                                shiftMahjongProjectStep.setIsAssign(1);
-                                shiftMahjongProjectStep.setIsDesignate(0);
-                            }
-                            else if (isType == 2){
-                                shiftMahjongProjectStep.setIsAssign(0);
-                                shiftMahjongProjectStep.setIsDesignate(1);
-                            }
-                            shiftMahjongProjectStep.setIsCurrent(1);
-                            shiftMahjongProjectStepMapper.updateByPrimaryKey(shiftMahjongProjectStep);
-                        }
-                    }
-                    //与开单时指定的人员比对,不一致
-                    else {
-                        ShiftMahjongEmployee obj = shiftMahjongEmployeeMapper.selectByPrimaryKey(shiftMahjongEmployeeId);
-                        ShiftMahjongEmployee oldObj = shiftMahjongEmployeeMapper.selectByPrimaryKey(shiftMahjongEmployeeIdOld);
-                        
-                        //指定人员减一
-                        shiftMahjongEmployeeMapper.updateDecreaseAppointNumber(shiftMahjongEmployeeIdOld);
-                        //发送取消订单模版消息
-                        senMessage(oldObj.getEmployeesId(), null, shiftMahjongStepId, storeId, 5, lastOperatorId);
-                        if (obj.getState() == 1) {
-                            
-                            if (isType == 1) {
-                                //调整员工在轮牌的位置及修改状态
-                                staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), true);
-                                //轮牌项目步骤关系指定人员
-                                staffService.updateShiftMahjongProjectStep(obj.getEmployeesId(), 
-                                        shiftMahjongStepId, 1, 0, detailId, 0);
-                            }
-                            else if (isType == 2){
-                                //调整员工在轮牌的位置及修改状态
-                                staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), false);
-                                //轮牌项目步骤关系指定人员
-                                staffService.updateShiftMahjongProjectStep(obj.getEmployeesId(), 
-                                        shiftMahjongStepId, 0, 1, detailId, 0);
-                            }
-                            //向服务人员发送模版消息
-                            senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 4, lastOperatorId);
-                            
-                        }
-                        else {
-                            //转等待中心
-                            redisService.zadd(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), 
-                                    Double.valueOf(System.currentTimeMillis()), String.valueOf(detailId));
-                            
-                            //发送模版消息
-                            senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 8, lastOperatorId);
-                            
-                            //增加指定人
-                            shiftMahjongEmployeeMapper.updateAddAppointNumber(shiftMahjongEmployeeId);
-                            
-                            ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
-                            shiftMahjongProjectStep.setShiftMahjongStepId(shiftMahjongStepId);
-                            shiftMahjongProjectStep.setEmployeeId(obj.getEmployeesId());
-                            if (isType == 1) {
-                                shiftMahjongProjectStep.setIsAssign(1);
-                                shiftMahjongProjectStep.setIsDesignate(0);
-                            }
-                            else if (isType == 2){
-                                shiftMahjongProjectStep.setIsAssign(0);
-                                shiftMahjongProjectStep.setIsDesignate(1);
-                            }
-                            shiftMahjongProjectStep.setIsCurrent(1);
-                            shiftMahjongProjectStepMapper.updateByPrimaryKey(shiftMahjongProjectStep);
-                        }
-                    }
-                }
-                
-            }
+            shiftMahjongProjectStep.setIsOver(0);
+            shiftMahjongProjectStep.setEmployeeId(null);
+            shiftMahjongProjectStep.setBeginTime("");
         }
-        //同轮牌的移交
         else {
-            
-            //查询步骤对应轮牌员工标识
-            ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(shiftMahjongStepId);
-            
-            ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
-            shiftMahjongProjectStep.setShiftMahjongStepId(shiftMahjongStepId);
-            
-            //修改明细状态
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setDetailId(detailId);
-            
-            //如果没有指定人员
-            if (shiftMahjongEmployeeId == null) {
-                ShiftMahjongEmployee obj = shiftMahjongEmployeeMapper.selectShiftMahjongOneEmployee(shiftMahjongStepId);
-                if (obj == null) {
-                    //转等待中心
-                    redisService.zadd(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), 
-                            Double.valueOf(System.currentTimeMillis()), String.valueOf(detailId));
-                    
-                    shiftMahjongProjectStep.setIsOver(2);
-                    shiftMahjongProjectStep.setEmployeeId(null);
-                    shiftMahjongProjectStep.setBeginTime(null);
-                    orderDetail.setOrderStatus(1);
-                    
-                }
-                else {
-                    orderDetail.setOrderStatus(2);
-                    
-                    shiftMahjongProjectStep.setIsOver(1);
-                    shiftMahjongProjectStep.setEmployeeId(obj.getEmployeesId());
-                    shiftMahjongProjectStep.setBeginTime(DateUtil.getCurTime());
-                    
-                    //调整员工在轮牌的位置及修改状态
-                    staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), false);
-                    
-                    senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 2, lastOperatorId);
-                }
+            //调整员工在轮牌的位置及修改状态
+            if (isAssign == 1) {
+                staffService.moveEmployee(shiftMahjongEmployee.getShiftMahjongEmployeeId(), true);
             }
             else {
-                
-                ShiftMahjongEmployee obj = shiftMahjongEmployeeMapper.selectByPrimaryKey(shiftMahjongEmployeeId);
-                if (obj.getState() == 1) {
-                    //调整员工在轮牌的位置及修改状态
-                    if (isType == 1) {
-                        staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), true);
-                    }
-                    else {
-                        staffService.moveEmployee(obj.getShiftMahjongEmployeeId(), false);
-                    }
-                    
-                    orderDetail.setOrderStatus(2);
-                    
-                    shiftMahjongProjectStep.setIsOver(1);
-                    shiftMahjongProjectStep.setEmployeeId(obj.getEmployeesId());
-                    shiftMahjongProjectStep.setBeginTime(DateUtil.getCurTime());
-                    
-                    senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 4, lastOperatorId);
-                }
-                else {
-                    //转等待中心
-                    redisService.zadd(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), 
-                            Double.valueOf(System.currentTimeMillis()), String.valueOf(detailId));
-                    
-                    //发送模版消息
-                    senMessage(obj.getEmployeesId(), null, shiftMahjongStepId, storeId, 8, lastOperatorId);
-                    
-                    orderDetail.setOrderStatus(1);
-                    
-                    shiftMahjongProjectStep.setEmployeeId(obj.getEmployeesId());
-                    shiftMahjongProjectStep.setIsOver(2);
-                    shiftMahjongProjectStep.setBeginTime("");
-                    
-                    //增加指定人
-                    shiftMahjongEmployeeMapper.updateAddAppointNumber(shiftMahjongEmployeeId);
-                }
+                staffService.moveEmployee(shiftMahjongEmployee.getShiftMahjongEmployeeId(), false);
             }
             
-            if (isType == 1) {
-                shiftMahjongProjectStep.setIsAssign(1);
-                shiftMahjongProjectStep.setIsDesignate(0);
-            }
-            else if (isType == 2) {
-                shiftMahjongProjectStep.setIsAssign(0);
-                shiftMahjongProjectStep.setIsDesignate(1);
-            }
-            else {
-                shiftMahjongProjectStep.setIsAssign(0);
-                shiftMahjongProjectStep.setIsDesignate(0);
-            }
-            shiftMahjongProjectStep.setIsAppoint(0);
-            shiftMahjongProjectStep.setIsCurrent(1);
-            //修改该步骤员工
-            shiftMahjongProjectStepMapper.updateBySpecial(shiftMahjongProjectStep);
+            /*orderDetail.setOrderStatus(2);*/
             
-            orderDetailMapper.updateByPrimaryKey(orderDetail);
+            shiftMahjongProjectStep.setIsOver(1);
+            shiftMahjongProjectStep.setEmployeeId(shiftMahjongEmployee.getEmployeesId());
+            shiftMahjongProjectStep.setShiftMahjongId(shiftMahjongId);
+            shiftMahjongProjectStep.setBeginTime(DateUtil.getCurTime());
             
+            senMessage(shiftMahjongEmployee.getEmployeesId(), null, shiftMahjongStepId, storeId, 4, lastOperatorId);
+        }
+        
+        if (isAssign == 1) {
+            shiftMahjongProjectStep.setIsAssign(1);
+        }
+        else if (isAssign == 2) {
+            shiftMahjongProjectStep.setIsAssign(0);
+        }
+        else {
+            shiftMahjongProjectStep.setIsAssign(0);
+        }
+        shiftMahjongProjectStep.setIsAppoint(0);
+        //修改该步骤员工
+        shiftMahjongProjectStepMapper.updateBySpecial(shiftMahjongProjectStep);
+        
+        if (type == 1) {
+            /*orderDetailMapper.updateByPrimaryKey(orderDetail);*/
             //修改被更换员工的轮牌状态（必须在步骤修改完以后才能修改被更换员工的轮牌状态）
-            staffService.updateShiftEmployeeState(shiftMahjongEmployee.getShiftMahjongEmployeeId(), detailId, storeId);
+            staffService.updateShiftEmployeeState(obj.getShiftMahjongEmployeeId());
             
         }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
+    
+    /**
+     * 完成步骤
+    * @author 老王
+    * @date 2016年7月6日 下午2:37:16 
+    * @param shiftMahjongStepId 轮牌步骤标识
+    * @return BaseDto
+     */
+    public BaseDto overServerEmployee (Integer shiftMahjongStepId) {
+    	//修改当前员工状态
+        staffService.updateShiftLastEmployeeState(shiftMahjongStepId);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     

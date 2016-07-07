@@ -364,7 +364,7 @@ public interface ShiftMahjongEmployeeMapper {
     int recoverShiftMahjongStatusByStoreId(int storeId);
     
     /**
-     * 根据步骤标识，查询员工是否满足做该项目
+     * 根据员工标识及轮牌标识
     * @author 王大爷
     * @date 2015年12月28日 上午10:51:20
     * @param map 参数

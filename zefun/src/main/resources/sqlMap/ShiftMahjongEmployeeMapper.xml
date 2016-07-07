@@ -419,11 +419,8 @@
          and a.level_id in (select b.level_id from project_commission b where b.project_id = #{projectId,jdbcType=INTEGER} and b.shift_mahjong_id = a.shift_mahjong_id and b.is_deleted = 0)
   </select>
   
-  <!-- 根据步骤标识，查询员工是否满足做该项目，by 张小胖 -->
+  <!-- 根据员工标识及轮牌标识，by老王-->
   <select id="selectEmployeeByStepId" parameterType="java.util.Map" resultMap="BaseResultMap">  
-    select * from shift_mahjong_employee d where d.employees_id = #{employeeId,jdbcType=INTEGER} and 
-	exists (select 1 from project_step b, project_commission c where 
-	        b.project_step_id = #{projectStepId,jdbcType=INTEGER} and d.level_id = c.level_id and b.shift_mahjong_id = c.shift_mahjong_id and b.project_id = c.project_id
-			  and b.shift_mahjong_id = d.shift_mahjong_id and b.is_deleted = 0 and c.is_deleted = 0)
+    select * from shift_mahjong_employee d where d.employees_id = #{employeeId,jdbcType=INTEGER} and d.shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER}
   </select>
 </mapper>

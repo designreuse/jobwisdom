@@ -993,23 +993,19 @@ public class StaffService {
     }
     
     /**
-     * 修改上个轮牌员工状态
+     * 修改轮牌员工状态
     * @author 王大爷
     * @date 2015年10月24日 下午2:48:47
     * @param shiftMahjongStepId 步骤标识
-    * @param detailId 明细标识
-    * @param storeId 门店标识
      */
-    public void updateShiftLastEmployeeState(Integer shiftMahjongStepId, Integer detailId, Integer storeId){
+    public void updateShiftLastEmployeeState(Integer shiftMahjongStepId){
         
+    	ShiftMahjongProjectStepDto obj = shiftMahjongProjectStepMapper.selectByPrimaryKey(shiftMahjongStepId);
+    	
         //查询上个步骤对应轮牌员工标识（以修改）
-        ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeMapper.selectShiftMahjongLastEmployee(detailId);
+        ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(shiftMahjongStepId);
         
-        updateShiftEmployeeState(shiftMahjongEmployee.getShiftMahjongEmployeeId(), detailId, storeId);
-            
-        ShiftMahjongProjectStep obj = shiftMahjongProjectStepMapper.selectShiftMahjongLastStep(shiftMahjongStepId);
-        
-        //修改上个步骤
+        //修改步骤
         ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
         shiftMahjongProjectStep.setShiftMahjongStepId(obj.getShiftMahjongStepId());
         shiftMahjongProjectStep.setFinishTime(DateUtil.getCurTime());
@@ -1019,6 +1015,8 @@ public class StaffService {
         
         //修改服务时长
         orderDetailMapper.updateServiceLength(shiftMahjongStepId);
+        
+        updateShiftEmployeeState(shiftMahjongEmployee.getShiftMahjongEmployeeId());
     }
     
     /**
@@ -1026,23 +1024,30 @@ public class StaffService {
     * @author 王大爷
     * @date 2015年10月24日 下午2:48:47
     * @param shiftMahjongEmployeeId 轮牌员工标识标识
-    * @param detailId 明细标识
-    * @param storeId 门店标识
      */
-    public void updateShiftEmployeeState(Integer shiftMahjongEmployeeId, Integer detailId, Integer storeId){
+    public void updateShiftEmployeeState(Integer shiftMahjongEmployeeId){
         
-        OrderDetail detailObj  = orderDetailMapper.selectByPrimaryKey(detailId);
-        
-        if (detailObj.getOrderStatus() != 4) {
-            ShiftMahjongEmployee record = new ShiftMahjongEmployee();
-            record.setShiftMahjongEmployeeId(shiftMahjongEmployeeId);
-            record.setState(1);
-            //修改员工轮牌状态
-            shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(record);
-            
-            //自动获取项目
-            selfMotionExecute(shiftMahjongEmployeeId, storeId);
-        }    
+        //查询相同轮牌员工是否存在其他服务项目
+    	List<ShiftMahjongProjectStep> shiftMahjongProjectSteps = shiftMahjongProjectStepMapper.selectIsExistsServers(shiftMahjongEmployeeId);
+    	Integer state  = 1;
+    	if (shiftMahjongProjectSteps != null && shiftMahjongProjectSteps.size() > 0) {
+    		for (ShiftMahjongProjectStep shiftMahjongProjectStep : shiftMahjongProjectSteps) {
+				if (state != 4) {
+					if (shiftMahjongProjectStep.getIsAssign() == 1) {
+						state = 4;
+					}
+					else {
+						state = 0;
+					}
+				}
+			}
+    	}
+
+    	ShiftMahjongEmployee record = new ShiftMahjongEmployee();
+        record.setShiftMahjongEmployeeId(shiftMahjongEmployeeId);
+        record.setState(state);
+        //修改员工轮牌状态
+        shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(record);
     }
     
     /**

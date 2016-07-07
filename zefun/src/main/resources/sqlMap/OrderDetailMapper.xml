@@ -461,9 +461,10 @@
   </select>
   
   <update id="updateServiceLength" parameterType="java.lang.Integer" >
-    update order_detail t, (select TIMESTAMPDIFF(MINUTE,a.begin_time, a.finish_time) as dateLong, a.detail_id as detailId from shift_mahjong_project_step a, shift_mahjong_project_step b, project_step c, project_step d
-	where  b.shift_mahjong_step_id = #{shiftMahjongStepId,jdbcType=INTEGER} and b.detail_id = a.detail_id and a.is_deleted = 0 and b.is_deleted = 0 and c.is_deleted = 0 and d.is_deleted = 0
-	and a.project_step_id = c.project_step_id and b.project_step_id = d.project_step_id and c.project_step_order = d.project_step_order - 1) v set t.service_length = t.service_length + v.dateLong
+    update order_detail t, 
+	    (select TIMESTAMPDIFF(MINUTE,a.begin_time, a.finish_time) as dateLong, a.detail_id as detailId from shift_mahjong_project_step a
+		where  a.shift_mahjong_step_id = #{shiftMahjongStepId,jdbcType=INTEGER}) v 
+	set t.service_length = t.service_length + v.dateLong
 	where t.detail_id = v.detailId
   </update>
 
@@ -478,7 +479,7 @@
   </resultMap>
 
   <!-- 查询自助收银模块的概要订单详情信息 by luhwen 2015.10.21 18:00:00 -->
-  <select id="selectSelfCashierDetailMahjong" parameterType="java.lang.Integer" resultMap="SelfCashierDetailMahjongMap">
+  <select id="selectSelfCashierDetailMahjong" parameterType="java.lang.Integer" resultMap="SelfCashierDetailMap">
   	select detail_id, detail_code, order_type, project_id, project_name, project_count order_status from order_detail where order_id = #{orderId}
   </select>
   

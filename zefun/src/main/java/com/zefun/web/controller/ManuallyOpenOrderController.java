@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.service.ManuallyOpenOrderService;
+import com.zefun.wechat.service.StaffOrderService;
 
 /**
  * 手工开单
@@ -28,6 +29,11 @@ public class ManuallyOpenOrderController extends BaseController{
 	 */
 	@Autowired
 	private ManuallyOpenOrderService manuallyOpenOrderService;
+	/**
+	 * 
+	 */
+	@Autowired
+	private StaffOrderService staffOrderService;
 	
 	/**
 	 * 手工开单页面
@@ -58,6 +64,21 @@ public class ManuallyOpenOrderController extends BaseController{
 	}
 	
 	/**
+	 * 初始化弹出框
+	* @author 老王
+	* @date 2016年7月6日 下午5:21:14 
+	* @param request 返回
+	* @param response 请求
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_NOPAPER_MODEL)
+    @ResponseBody
+	public BaseDto initializeNoPaperModel (HttpServletRequest request, HttpServletResponse response) {
+		Integer storeId = getStoreId(request);
+		return manuallyOpenOrderService.initializeNoPaperModel(storeId);
+	}
+	
+	/**
 	 *  无纸开单
 	* @author 老王
 	* @date 2016年7月5日 下午3:49:55 
@@ -78,6 +99,58 @@ public class ManuallyOpenOrderController extends BaseController{
         return manuallyOpenOrderService.addOrder(sex, handOrderCode, employeeObj, memberId, storeId, lastOperatorId);
     }
 	
+	/**
+     * 添加或修改服务人员
+    * @author 王大爷
+    * @date 2015年10月21日 下午3:14:20
+    * @param request 返回
+    * @param response 请求
+    * @param shiftMahjongStepId 轮牌步骤标识
+    * @param type 交接类型
+    * @param shiftMahjongId 轮牌标识
+    * @param employeeId 员工标识
+    * @param isAssign 是否指定
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_ADD_OR_UPDATE_SERVER_EMPLOYEE)
+    @ResponseBody
+    public BaseDto addOrUpdateServerEmployee(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongStepId, 
+            Integer type, Integer employeeId, Integer shiftMahjongId, Integer isAssign) {
+        int storeId = getStoreId(request);
+        return staffOrderService.serverAssociateShiftMahjong(shiftMahjongStepId, type, shiftMahjongId, employeeId, 
+                storeId, isAssign, getUserId(request));
+    }
+	
+    /**
+     * 结束服务
+    * @author 老王
+    * @date 2016年7月6日 下午2:35:01 
+    * @param request 返回
+    * @param response 请求
+    * @param shiftMahjongStepId 轮牌步骤标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_OVER_SERVER_EMPLOYEE)
+    @ResponseBody
+    public BaseDto overServerEmployee(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongStepId) {
+        return staffOrderService.overServerEmployee(shiftMahjongStepId);
+    }
+    
+    /**
+     * 无纸单结算
+    * @author 老王
+    * @date 2016年7月6日 下午8:21:41 
+    * @param request 返回
+    * @param response 请求
+    * @param orderId 订单标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_SETTLEMENT_ORDER)
+    @ResponseBody
+    public BaseDto settlementOrder (HttpServletRequest request, HttpServletResponse response, Integer orderId) {
+    	return manuallyOpenOrderService.settlementOrder(orderId);
+    }
+    
 	/**
 	 * 根据项目标识查询想轮牌信息及步骤对应员工
 	* @author 王大爷

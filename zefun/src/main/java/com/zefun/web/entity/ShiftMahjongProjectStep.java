@@ -1,7 +1,7 @@
 package com.zefun.web.entity;
 
 /**
- * @author 张进军
+ * @author laowang
  * @date 2015年08月10日 PM 22:38:58
  */
 public class ShiftMahjongProjectStep {

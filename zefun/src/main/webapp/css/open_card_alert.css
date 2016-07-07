@@ -23,7 +23,7 @@ input[type="checkbox"]{ -webkit-appearance: none;
     }
 	
 input[type="checkbox"]:checked {
-    background: url(../images/check1.png) no-repeat;
+    background: url(../images/check.png) no-repeat;
     background-position: center center;
     border: 1px solid #ed7152;
 background-size: cover;}
@@ -107,7 +107,7 @@ background-size: cover;}
 .customer em{float:right}
 
 .customer_content_div table{width:225px;height:115px;}
-.customer_content_div table td{border:1px solid #d7d7d7;text-align:center;vertical-align:middle}
+.customer_content_div table td{border:1px solid #d7d7d7;text-align:center;vertical-align:middle;position:relative}
 .left_click{position:absolute;z-index:2;width:45px;top:40px;left:0}
 .right_click{position:absolute;z-index:2;right:0px;top:40px;width:45px}
 .table_content{margin-left:42px;margin-top:10px;width:4000px;position:relative}
@@ -115,8 +115,8 @@ background-size: cover;}
 .table_content table {float:left;margin-right:45px}
 .table_content table tr:nth-child(1){font-weight:normal;position:relative}
 .table_content table tr span {position:absolute;display:inline-block;}
-.table_content table tr span em{position:absolute;right:-60px}
-.table_content table tr:nth-child(1) img{width:18px;vertical-align:middle}
+.table_content table tr span em{position:absolute;right:-45px}
+.table_content table tr:nth-child(1) img{vertical-align:middle}
 .table_content table tr td a{font-size:10px}
 .table_content table tr td i{color:#f3668a}
 .table_content table tr td .add{display:inline-block;width:60px;height:18px;border-radius:8px;border:1px solid #c6c6c6;cursor:pointer;color:#c6c6c6;margin-top:4px;line-height:18px}
@@ -127,7 +127,7 @@ background-size: cover;}
 
 .table_content_button{text-align:center;}
 .table_content_button button{width:130px;height:26px;color:white;border:none;color;white;margin:5px auto;border-radius:12px;background:#61678b}
-.open_card_content li img{position:absolute;right:4px;top:4px}
+.open_card_content li>img{position:absolute;right:4px;top:4px}
 .open_card_content li{position:relative}
 .table_content_button button:hover{background:#4f5471}
 .active3{background:url('../images/alert_checked.png') no-repeat;position:absolute;background-size:20px 20px}
@@ -136,3 +136,27 @@ background-size: cover;}
 .left_click img,.right_click img{width:35px}
 
 .customer_content_div table td button{border:none;color:#ee295b;background:white}
+
+.zzc1{font-size: 14px;
+    color: black;
+    position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);}
+	
+.zzc1_open_card_alert{width:834px;margin:50px auto;background:white}	
+.zzc1_open_card_alert>p{height:60px;line-height:60px;text-align:center;color:white;font-size:16px;background:#2b394a}
+.zzc1 .open_card_alert_state_content{height:450px}
+.zzc1 .open_card_alert_state_content input[type="text"]{    width: 100px;
+    height: 16px;
+    border-radius: 12px;
+    border: 1px solid #6d6d6d;margin:0 10px}
+.zzc1 .open_card_alert_state_content  input[type="checkbox"]{margin-left:10px}
+
+.empty{display:inline-block;height:20px;width: 60px;    border-radius: 8px;
+    border: 1px solid #c6c6c6;
+    cursor: pointer;
+    color: #c6c6c6;position:relative;margin:2px 0}

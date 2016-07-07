@@ -232,8 +232,12 @@ public class SelfCashierService {
 		params.put("endTime", DateUtil.getDateAfterDaysStr(currDate, 1));
 		SelfCashierStatDto statDto = orderInfoMapper.selectCashierStatInfo(params);
 
+		Map<String, Integer> map = new HashMap<>();
+		map.put("storeId", storeId);
+		map.put("type", 2);
+		
 		// 查询未结账订单
-		List<SelfCashierOrderDto> cashierDtoList = orderInfoMapper.selectUnfinishedOrderInfo(storeId);
+		List<SelfCashierOrderDto> cashierDtoList = orderInfoMapper.selectUnfinishedOrderInfo(map);
 		for (SelfCashierOrderDto dayBookDto : cashierDtoList) {
 			dayBookDto.setCreateTime(dayBookDto.getCreateTime().substring(5));
 			dayBookDto.setOrderCode(dayBookDto.getOrderCode().substring(4));

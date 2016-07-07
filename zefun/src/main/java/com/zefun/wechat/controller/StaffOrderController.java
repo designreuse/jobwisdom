@@ -231,22 +231,20 @@ public class StaffOrderController extends BaseController{
     * @param detailId 明细标识
     * @param shiftMahjongId 轮牌标识
     * @param shiftMahjongEmployeeId 轮牌员工标识
-    * @param shiftMahjongEmployeeIdOld 该步骤原本指定的人员
     * @param isType 类型
     * @return BaseDto
      */
     @RequestMapping(value = Url.Staff.ACTION_SERVER_ASSOCIATE_SHIFTMAHJONG)
     @ResponseBody
     public BaseDto serverAssociateShiftMahjong(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongStepId, 
-            Integer type, Integer shiftMahjongEmployeeId, Integer shiftMahjongEmployeeIdOld, Integer detailId,
-            Integer shiftMahjongId, Integer isType) {
+            Integer type, Integer shiftMahjongEmployeeId, Integer detailId, Integer shiftMahjongId, Integer isType) {
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
         int storeId = getStoreIdByOpenId(openId);
         return staffOrderService.serverAssociateShiftMahjong(shiftMahjongStepId, type, detailId, shiftMahjongId, shiftMahjongEmployeeId, 
-                storeId, shiftMahjongEmployeeIdOld, isType, getUserId(request));
+                storeId, isType, getUserId(request));
     }
     
     /**

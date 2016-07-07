@@ -22,6 +22,7 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.PositionInfoShiftMahjongDto;
 import com.zefun.web.dto.ProjectMahjongProjectStepDto;
+import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
@@ -29,6 +30,7 @@ import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
+import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -40,6 +42,7 @@ import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
+import com.zefun.web.mapper.StoreSettingMapper;
 import com.zefun.wechat.service.StaffService;
 
 import net.sf.json.JSONArray;
@@ -82,6 +85,8 @@ public class ManuallyOpenOrderService {
 	@Autowired private MemberInfoMapper memberInfoMapper;
 	/** 轮牌员工*/
 	@Autowired private ShiftMahjongEmployeeMapper shiftMahjongEmployeeMapper;
+	/** */
+	@Autowired private StoreSettingMapper storeSettingMapper;
 	
 	/**
 	 * 初始化轮职排班界面
@@ -146,10 +151,40 @@ public class ManuallyOpenOrderService {
 	 */
 	public ModelAndView initializeNoPaperOpenOrder (Integer storeId) {
 		ModelAndView mav =  new ModelAndView(View.KeepAccounts.NO_PAPER_OPEN_ORDER);
-		List<PositionInfoShiftMahjongDto> positionInfoShiftMahjongDtoList = positioninfoMapper.selectByPositionShiftMahjong(storeId);
-		mav.addObject("positionInfoShiftMahjongDtoList", positionInfoShiftMahjongDtoList);
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("storeId", storeId);
+		map.put("type", 1);
+		// 查询未结账订单
+		List<SelfCashierOrderDto> cashierDtoList = orderInfoMapper.selectUnfinishedOrderInfo(map);
+		mav.addObject("cashierDtoList", cashierDtoList);
+		
+		StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
+		
+		mav.addObject("startHandNumber", storeSetting.getStartHandNumber());
+		
 		return mav;
 		
+	}
+	
+	/**
+	 * 初始化弹出框
+	* @author 老王
+	* @date 2016年7月6日 下午5:13:10 
+	* @param storeId 门店标识
+	* @return BaseDto
+	 */
+	public BaseDto initializeNoPaperModel (Integer storeId) {
+		Map<String, Object> map = new HashMap<>();
+		List<PositionInfoShiftMahjongDto> positionInfoShiftMahjongDtoList = positioninfoMapper.selectByPositionShiftMahjong(storeId);
+		map.put("positionInfoShiftMahjongDtoList", positionInfoShiftMahjongDtoList);
+		
+		List<Integer> handOrderCodeList = orderInfoMapper.selectIsUserHandOrderCode(storeId);
+		map.put("handOrderCodeList", handOrderCodeList);
+		
+		
+		
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
 	}
 	
 	/**
@@ -178,7 +213,7 @@ public class ManuallyOpenOrderService {
         
         /*orderInfoMapper.updateTotalPrice(orderId);*/
         
-        //查询该明细对应的订单中存在的未完成的项目明细
+        /*//查询该明细对应的订单中存在的未完成的项目明细
         List<OrderDetail> orderDetailList = orderDetailMapper.selectByNotOverByOrderId(orderId);
         if (orderDetailList.size() == 0) {
             //修改订单信息状态
@@ -186,13 +221,38 @@ public class ManuallyOpenOrderService {
             orderInfo.setOrderId(orderId);
             orderInfo.setOrderStatus(2);
             orderInfoMapper.updateByPrimaryKey(orderInfo);
-        }
+        }*/
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("storeId", storeId);
         map.put("orderId", orderId);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }
 	
+    /**
+     * 为服务设置步骤
+    * @author 老王
+    * @date 2016年7月6日 下午8:50:39 
+    * @param detailId 明细标识
+    * @param projectId 项目标识
+    * @return BaseDto
+     */
+    public BaseDto settingProject (Integer detailId, Integer projectId) {
+    	OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(detailId);
+    	ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
+    	
+    }
+    
+    /**
+     * 无纸单结算
+    * @author 老王
+    * @date 2016年7月6日 下午8:24:02 
+    * @param orderId 订单标识
+    * @return BaseDto
+     */
+    public BaseDto settlementOrder (Integer orderId) {
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
+    
     /**
      * 添加明细，步骤，及修改轮牌信息
     * @author 王大爷
@@ -217,13 +277,19 @@ public class ManuallyOpenOrderService {
             //是否指定
             Integer isAssign = jsonEmployee.getInt("isAssign");
             
-            Integer shiftMahjongEmployeeId = null;
-            if (!jsonEmployee.get("shiftMahjongEmployeeId").toString().isEmpty()) {
+            Integer shiftMahjongId = null;
+            if (!jsonEmployee.get("shiftMahjongId").toString().isEmpty()) {
             	//指定员工对应轮牌员工标识
-            	shiftMahjongEmployeeId = jsonEmployee.getInt("shiftMahjongEmployeeId");
+            	shiftMahjongId = jsonEmployee.getInt("shiftMahjongId");
             }
             
-            addShiftMahjongProjectStep(detailId, shiftMahjongEmployeeId, positionId, isAssign, lastOperatorId);
+            Integer employeeId = null;
+            if (!jsonEmployee.get("employeeId").toString().isEmpty()) {
+            	//指定员工对应轮牌员工标识
+            	employeeId = jsonEmployee.getInt("employeeId");
+            }
+            
+            addShiftMahjongProjectStep(detailId, shiftMahjongId, employeeId, positionId, isAssign, lastOperatorId);
         }
         
         
@@ -255,6 +321,7 @@ public class ManuallyOpenOrderService {
         if (memberId != null) {
             orderInfo.setMemberId(memberId);
         }
+        orderInfo.setOrderType(1);
         orderInfo.setSex(sex);
         orderInfo.setStoreId(storeId);
         orderInfo.setCreateTime(openOrderDate);
@@ -298,18 +365,26 @@ public class ManuallyOpenOrderService {
     * @author 王大爷
     * @date 2015年9月19日 下午4:40:41
     * @param detailId 订单明细
-    * @param shiftMahjongEmployeeId 轮牌员工
+    * @param shiftMahjongId 轮牌员工
+    * @param employeeId 员工标识
     * @param positionId 岗位标识
     * @param isAssign 是否指定
     * @param lastOperatorId 操作人员
      */
-    public void addShiftMahjongProjectStep(Integer detailId, Integer shiftMahjongEmployeeId, Integer positionId, Integer isAssign, 
+    public void addShiftMahjongProjectStep(Integer detailId, Integer shiftMahjongId, Integer employeeId, Integer positionId, Integer isAssign, 
     		  Integer lastOperatorId){
+    	
     	ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
     	shiftMahjongProjectStep.setDetailId(detailId);
     	shiftMahjongProjectStep.setPositionId(positionId);
-    	if (shiftMahjongEmployeeId != null) {
-    		ShiftMahjongEmployee shiftMahjongEmployee= shiftMahjongEmployeeMapper.selectByPrimaryKey(shiftMahjongEmployeeId);
+    	if (employeeId != null) {
+    		
+    		Map<String, Integer> map = new HashMap<>();
+            map.put("employeeId", employeeId);
+            map.put("shiftMahjongId", shiftMahjongId);
+            //查询步骤对应轮牌员工标识
+            ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeMapper.selectEmployeeByStepId(map);
+    		
     		shiftMahjongProjectStep.setShiftMahjongId(shiftMahjongEmployee.getShiftMahjongId());
             shiftMahjongProjectStep.setIsAssign(isAssign);
             shiftMahjongProjectStep.setIsOver(1);
@@ -321,7 +396,7 @@ public class ManuallyOpenOrderService {
             	type = true;
             }
             //调整员工在轮牌的位置及修改状态
-            staffService.moveEmployee(shiftMahjongEmployeeId, type);
+            staffService.moveEmployee(shiftMahjongEmployee.getShiftMahjongEmployeeId(), type);
     	}
     	else {
     		shiftMahjongProjectStep.setIsOver(0);

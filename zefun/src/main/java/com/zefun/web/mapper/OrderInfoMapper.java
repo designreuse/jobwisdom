@@ -192,11 +192,11 @@ public interface OrderInfoMapper {
      *
      * @author 张进军
      * @date Oct 22, 2015 10:26:48 AM
-     * @param storeId
+     * @param map
      *            门店标识
      * @return 订单列表
      */
-    List<SelfCashierOrderDto> selectUnfinishedOrderInfo(int storeId);
+    List<SelfCashierOrderDto> selectUnfinishedOrderInfo(Map<String, Integer> map);
 
     /**
      * 自助收银订单详情查询
@@ -578,4 +578,12 @@ public interface OrderInfoMapper {
     */
     List<BusinessSummaryRelativeAmt> getBusinessComboDiscount(SummaryResultDto dto);
     
+    /**
+     * 根据门店查询所有已使用的手牌
+    * @author 老王
+    * @date 2016年7月6日 下午5:18:39 
+    * @param storeId 门店标识
+    * @return List<Integer>
+     */
+    List<Integer> selectIsUserHandOrderCode(Integer storeId);
 }
