@@ -126,14 +126,15 @@ public class EmployeelevelController extends BaseController{
 	* @param request  request
 	* @param response response
 	* @param levelId 职位标识
+	* @param storeId storeId
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.EmployeeLevel.DELETE)
 	@ResponseBody
-	public BaseDto deleteEmployeelevel(HttpServletRequest request, HttpServletResponse response, Integer levelId){
+	public BaseDto deleteEmployeelevel(HttpServletRequest request, HttpServletResponse response, Integer levelId, Integer storeId){
 		
 		EmployeeLevel employeeLevel=new EmployeeLevel();
-		employeeLevel.setStoreId(getStoreId(request));
+		employeeLevel.setStoreId(storeId);
 		employeeLevel.setLevelId(levelId);
 		int result =employeelevelService.deleteEmployeelevel(employeeLevel);
 		if (result==1){

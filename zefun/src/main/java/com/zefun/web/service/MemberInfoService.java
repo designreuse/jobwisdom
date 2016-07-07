@@ -5357,6 +5357,7 @@ public class MemberInfoService {
     * @author 高国藩
     * @date 2016年7月7日 下午5:04:11
     * @param memberId memberId
+    * @param isDeleted isDeleted
     * @return         BaseDto
      */
     public BaseDto deletedMemberInfo(Integer memberId, Integer isDeleted) {

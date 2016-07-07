@@ -125,6 +125,7 @@ public class MemberController extends BaseController{
     * @date 2016年7月7日 下午4:44:10
     * @param request        request
     * @param memberId   memberId
+    * @param isDeleted isDeleted
     * @return               BaseDto
      */
     @RequestMapping(value = Url.Member.MEMBER_DELTED_INFO, method = RequestMethod.POST)

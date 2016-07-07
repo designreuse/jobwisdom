@@ -170,6 +170,8 @@ function returnCard(subAccountId, levelId, p){
 	  			else {
 	  				jQuery(p).parents("tr").find("p[levelId='"+levelId+"']").remove();
 	  				jQuery(p).parent().remove();
+	  				var num = jQuery(".vip_num").children("p").children("span").eq(3).find("em").text();
+	  				jQuery(".vip_num").children("p").children("span").eq(3).find("em").text(Number(num)-Number(e.msg));
 	  			}
 	  		}
 	  	});
