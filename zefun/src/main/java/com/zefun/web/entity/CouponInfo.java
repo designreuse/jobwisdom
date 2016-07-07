@@ -80,7 +80,17 @@ public class CouponInfo {
     /** 适用于的门店*/
     private String storeNames;
     
-  
+    /** 状态吗*/
+    private Integer status;
+    
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public String getStoreNames() {
         return storeNames;
     }
