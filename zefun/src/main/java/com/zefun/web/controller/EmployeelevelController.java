@@ -142,6 +142,7 @@ public class EmployeelevelController extends BaseController{
 		}
 		return new BaseDto(0, "删除成功！");
 	}
+	
 	/**
 	 * 下拉框职位获取
 	* @author chendb
@@ -225,6 +226,7 @@ public class EmployeelevelController extends BaseController{
 		params.put("storeId", getStoreId(request));
 		return employeelevelService.listAction(params, pageNo, pageSize);
 	}
+	
 	/**
 	 * 根据职员标识获取底下员工
 	* @author chendb
