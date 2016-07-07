@@ -450,7 +450,7 @@ public class MemberInfoService {
     public ModelAndView selectMemberByStoreId(Integer storeId) {
         Page<MemberInfoDto> page = new Page<MemberInfoDto>();
         page.setPageNo(1);
-        page.setPageSize(50);
+        page.setPageSize(20);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("storeId", storeId);
         page.setParams(map);
@@ -606,11 +606,17 @@ public class MemberInfoService {
             screeningDto.setStoreId(null);
         }
         else if (branchOffice==null&&screeningDto.getBranchStoreIds()==null){
-          //这里什么都不做代表的就不是连锁店
+            //这里什么都不做代表的就不是连锁店
         }
         params.put("dto", screeningDto);
         page.setParams(params);
-        List<MemberInfoDto> ls = memberInfoMapper.selectByPageParams(page);
+        List<MemberInfoDto> ls = null; 
+        if (screeningDto.getStatus() != null && screeningDto.getStatus() == 1){
+            ls = memberInfoMapper.selectHasDeletedByPageParams(page);
+        }
+        else {
+            ls = memberInfoMapper.selectByPageParams(page);
+        }
         page.setResults(ls);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
     }
@@ -5322,6 +5328,42 @@ public class MemberInfoService {
         memberLevelDiscount.setProjectDiscount(100);
         memberLevelDiscount.setGoodsDiscount(100);
         return memberLevelService.saveEnterpriseMemberLevel(userId, memberLevel, memberLevelDiscount);
+    }
+
+
+    /**
+     * 退卡操作
+    * @author 高国藩
+    * @date 2016年7月7日 下午4:44:49
+    * @param subAccountId  子账户
+    * @return              BaseDto
+     */
+    public BaseDto returnCardMember(Integer subAccountId) {
+        MemberSubAccount memberSubAccount = subAccountMapper.selectByPrimaryKey(subAccountId);
+        BigDecimal returnCardNum = memberSubAccount.getBalanceAmount();
+//        MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberSubAccount.getAccountId());
+        MemberAccount memberAccount = memberAccountMapper.selectByPrimaryKey(memberSubAccount.getAccountId());
+        memberAccount.setBalanceAmount(memberAccount.getBalanceAmount().subtract(memberSubAccount.getBalanceAmount()));
+        memberSubAccount.setBalanceAmount(new BigDecimal(0));
+        memberSubAccount.setIsDeleted(1);
+        subAccountMapper.updateByPrimaryKey(memberSubAccount);
+        memberAccountMapper.updateByPrimaryKey(memberAccount);
+        return new BaseDto(0, returnCardNum);
+    }
+
+
+    /**
+     * 冻结/解冻会员
+    * @author 高国藩
+    * @date 2016年7月7日 下午5:04:11
+    * @param memberId memberId
+    * @return         BaseDto
+     */
+    public BaseDto deletedMemberInfo(Integer memberId, Integer isDeleted) {
+        MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberId);
+        memberInfo.setIsDeleted(isDeleted);
+        memberInfoMapper.updateByPrimaryKey(memberInfo);
+        return new BaseDto(0, memberInfo);
     }
     
 }

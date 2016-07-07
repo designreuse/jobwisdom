@@ -117,6 +117,15 @@ public interface MemberInfoMapper {
     * @return 集合
      */
     List<MemberInfoDto> selectByPageParams(Page<MemberInfoDto> page);
+    
+    /**
+     * 条件查询并分页-以冻结账户
+    * @author 高国藩
+    * @date 2015年9月28日 上午11:54:10
+    * @param page 分页对象
+    * @return 集合
+     */
+    List<MemberInfoDto> selectHasDeletedByPageParams(Page<MemberInfoDto> page);
 
     /**
      * 初始化分页

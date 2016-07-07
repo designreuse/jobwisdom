@@ -45,7 +45,7 @@
 	        <ul>
 	            <li class="normal-li first-li" >
 	                <span class="normoal-word">服务项目</span>
-	                <span class="fr">${projectName }</span><i class="touch_"><span class="touch"><em>我的发嘎嘎大神的的</em><em>我的发嘎嘎大神的的</em><em>222222222</em><em>22</em><em>22</em><em>22</em><em>22</em><em>22</em></span></i>
+	                <span class="fr">${projectName }</span><i class="touch_"><span class="touch"><c:forEach items="${projectCategories }" var="projectCategorie"><em onclick="projectId = jQuery(this).val();" value="${projectCategorie.categoryId }">${projectCategorie.categoryName }</em></c:forEach></span></i>
 	            </li>
 	            <li class="normal-li">
 	                <span class="normoal-word">${levelName }</span>
@@ -107,6 +107,7 @@
 <script type="text/javascript" src="<%=swiperJsPath%>"></script>
 <script type="text/javascript">
     var date = $(".appointDate:first").attr("date");
+    var projectId = null;
     var time = "";
     $(function(){
         var swiper = new Swiper('.swiper-container-daohang', {
@@ -140,13 +141,14 @@
         });
     });
     
-    var data = "employeeId=${employeeId}&mainStoreId=${mainStoreId}";
+    var data = "employeeId=${employeeId}&mainStoreId=${mainStoreId}&projectId="+projectId;
     var year = new Date().getFullYear();
     function appoint(){
     	if (isEmpty(time)) {
     		dialog("请选择预约时间");
     		return;
     	}
+    	data = "employeeId=${employeeId}&mainStoreId=${mainStoreId}&projectId="+projectId;
     	$.ajax({
     		url : baseUrl + "memberCenter/action/orderAppointment",
     		type : "POST",
