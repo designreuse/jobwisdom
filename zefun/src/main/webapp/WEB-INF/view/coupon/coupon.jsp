@@ -32,6 +32,7 @@
 									<td>发布时间</td>
 									<td>结束时间</td>
 									<td>优惠券有效时间</td>
+									<td>状态</td>
 									<td>操作</td>
 								</tr>
 
@@ -45,20 +46,26 @@
 										<td>${coupon.releaseTime}</td>
 										<td>${coupon.couponStopTime}</td>
 										<td>${coupon.couponStartTime}天</td>
-										<td>
-<%-- 										<c:if test="${(coupon.isType eq 1)}"> --%>
+										<c:if test="${coupon.status eq 1}"><td>发布中</td></c:if>
+										<c:if test="${coupon.status eq 2}"><td>未发布</td></c:if>
+										<c:if test="${coupon.status eq 3}"><td>已结束</td></c:if>
+										 <td>
+<!-- 										 上架功能 -->
+<%-- 										<c:if test="${(coupon.isType eq 1)}"> --%>   
 <%-- 												<em onclick="update(${coupon.couponId},0)"><span class="up" id="${coupon.couponId}">上架</span></em> --%>
 <%-- 												<em onclick="update(${coupon.couponId},1)"><span class="up1" id="${coupon.couponId}1" style="display: none">下架</span></em> --%>
 <%-- 											</c:if> <c:if test="${(coupon.isType eq 0)}"> --%>
 <%-- 												<em onclick="update(${coupon.couponId},0)"><span class="up" id="${coupon.couponId}" style="display: none">上架</span></em> --%>
 <%-- 												<em onclick="update(${coupon.couponId},1)"><span class="up1" id="${coupon.couponId}1">下架</span></em> --%>
 <%-- 											</c:if>  --%>
-											<em class="up_preview"
-											onclick="viwe(${coupon.couponId},'${coupon.couponColour}')">预览</em><i
-											onclick="deleted(${coupon.couponId},'${coupon.couponStopTime}',${coupon.couponStartTime},'${coupon.releaseTime}')">删除</i>
-											<em
-											onclick="updateSave('${coupon.couponId}','${coupon.storeType}','${coupon.couponMan}','${coupon.couponColour}','${coupon.couponType}','${coupon.startType}','${coupon.couponVantages}','${coupon.priceSigle}','${coupon.couponNumber}','${coupon.couponStartTime}')"><img
-												src="<%=basePath%>/images/coupon_write.png"></em></td>
+											<em class="up_preview"onclick="viwe(${coupon.couponId},'${coupon.couponColour}')">预览</em>
+											<c:if test="${coupon.status != 1}">
+												<i onclick="deleted(${coupon.couponId},'${coupon.couponStopTime}',${coupon.couponStartTime},'${coupon.releaseTime}')">删除</i>
+												<em onclick="updateSave('${coupon.couponId}','${coupon.storeType}','${coupon.couponMan}','${coupon.couponColour}','${coupon.couponType}','${coupon.startType}','${coupon.couponVantages}','${coupon.priceSigle}','${coupon.couponNumber}','${coupon.couponStartTime}')"><img
+												src="<%=basePath%>/images/coupon_write.png"></em>
+												
+											</c:if>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -212,51 +219,90 @@
 		var couponVantages = jQuery("input[name='coupon_vantages']").val();
 		var couponNames ="单笔消费"+priceSigle;
 		//通用时默认单笔消费为零
-
+	
+		
+		if (isEmpty(storeType)) {
+			dialog("门店不能为空");
+			return;
+		}
+		if (isEmpty(couponName)) {
+			dialog("优惠卷名称不能为空");
+			return;
+		}
+		if (isEmpty(couponPrice)) {
+			dialog("优惠卷面额不能为空");
+			return;
+		}
+		if (isEmpty(couponNumber)) {
+			dialog("优惠卷发行不能为空");
+			return;
+		}
+		if (isEmpty(couponMan)) {
+			dialog("优惠卷限领不能为空");
+			return;
+		}
+		if (isEmpty(releaseTime)) {
+			dialog("开始时间不能为空");
+			return;
+		}
+		if (isEmpty(couponStartTime)) {
+			dialog("有效天数不能为空");
+			return;
+		}
+		if (isEmpty(couponStopTime)) {
+			dialog("结束时间不能为空");
+			return;
+		}
+		if (isEmpty(couponVantages)) {
+			couponVantages=0;
+		}
 		
 		var checkbo = jQuery("input[name='user'][value='0']").is(':checked');
 		if(checkbo==true){
 			couponNames="通用";
 			priceSigle=0;
+		}else{
+			if (isEmpty(priceSigle)) {
+				dialog("优惠卷单笔满足多少元不能为空");
+				return;
+			}
 		}
+		
 		if(addType==0){
 		urltype = baseUrl + "coupons/add";
 		couponid=null;
 		}else{
 			urltype = baseUrl + "coupons/send/update";
 		}
-		jQuery.ajax({
-			type : "post",
-			url : urltype,
-			data : JSON.stringify({
-				"storeType" : storeType,
-				"couponNames" : couponNames,
-				"couponName" : couponName,
-				"couponPrice" : couponPrice,
-				"couponNumber" : couponNumber,
-				"couponMan" : couponMan,
-				"priceSigle" : priceSigle,
-				"releaseTime" : releaseTime,
-				"couponStartTime" : couponStartTime,
-				"couponColour" : couponColour,
-				"couponType" : couponType,
-				"couponVantages" : couponVantages,
-				"startType" : startType,
-				"couponStopTime" : couponStopTime,
-				"couponId" : couponid
-			}),
-			dataType : "json",
-			contentType : "application/json",
-			success : function(e) {
-				if(e.code==1){
-					window.location.href = baseUrl + "coupons/couponslist";
-					dialog("新增成功");
-				}
-				else{
-					dialog("请在优惠卷结束，有效期过后修改");
-				}
-			}
+		var nowDate = getNowFormatDate();
+		var timenum = daysBetween(nowDate,releaseTime);
+		var datad =  JSON.stringify({
+			"storeType" : storeType,
+			"couponNames" : couponNames,
+			"couponName" : couponName,
+			"couponPrice" : couponPrice,
+			"couponNumber" : couponNumber,
+			"couponMan" : couponMan,
+			"priceSigle" : priceSigle,
+			"releaseTime" : releaseTime,
+			"couponStartTime" : couponStartTime,
+			"couponColour" : couponColour,
+			"couponType" : couponType,
+			"couponVantages" : couponVantages,
+			"startType" : startType,
+			"couponStopTime" : couponStopTime,
+			"couponId" : couponid
 		});
+		
+		if(timenum==0){
+			if(confirm('开始时间为今天，是否确认优惠卷'))
+			{ 
+				saveDate(datad);
+		 	}
+		}
+		else{
+			saveDate(datad);
+		}
 	}
 	
 	jQuery(document).ready(function() {
@@ -317,6 +363,25 @@
 	})
 	
 
+	function saveDate(data){
+		jQuery.ajax({
+			type : "post",
+			url : urltype,
+			data : data,
+			dataType : "json",
+			contentType : "application/json",
+			success : function(e) {
+				if(e.code==1){
+					window.location.href = baseUrl + "coupons/couponslist";
+					dialog("新增成功");
+				}
+				else{
+					dialog("请在优惠卷结束，有效期过后修改");
+				}
+			}
+		});
+	}
+	
 	
 	function checkb(s) {
 // 		jQuery("input[name='checkbox']").click();
@@ -371,7 +436,18 @@
 							+'		<td>'+value.couponIsUse+'</td>'
 							+'		<td>'+value.releaseTime+'</td>'
 							+'		<td>'+value.couponStopTime+'</td>'
-							+'		<td>'+value.couponStartTime+'</td> <td>';
+							+'		<td>'+value.couponStartTime+'</td>';
+							
+							if(value.status ==1){
+								html+='<td>发布中</td> <td>';
+							}
+							if(value.status ==2){
+								html+='<td>未发布</td>> <td>';
+							}
+							if(value.status ==3){
+								html+='<td>已结束</td> <td>';
+							}
+							
 // 							if(value.isType==1){
 // 								html+='	<em onclick="update('+value.couponId+',0)"><span class="up" id="'+value.couponId+'">上架</span> </em>';
 // 								html+='	<em onclick="update('+value.couponId+',1)"><span class="up1" id="'+value.couponId+'1" style="display:none">下架</span> </em>';
@@ -379,9 +455,11 @@
 // 								html+='	<em onclick="update('+value.couponId+',0)"><span class="up" id="'+value.couponId+'" style="display:none">上架</span> </em>';
 // 								html+='	<em onclick="update('+value.couponId+',1)"><span class="up1" id="'+value.couponId+'1" >下架</span> </em>';
 // 							}
- 							html+='<em class="up_preview" onclick="viwe('+value.couponId+',\''+value.couponColour+'\')">预览</em><i  onclick="deleted('+value.couponId+',\''+value.couponStopTime+'\','+value.couponStartTime+'\','+value.releaseTime+'\')">删除</i>';
- 							html+= '<em onclick="updateSave('+value.couponId+',\''+value.storeType+'\','+value.couponMan+','+value.couponColour+','+value.couponType+','+value.startType+','+value.couponVantages+','+value.priceSigle+','+value.couponNumber+','+value.couponStartTime+')"><img src="'+baseUrl+'/images/coupon_write.png"></em></td></tr>'
-					jQuery("#tables").append(jQuery(html));
+ 							html+='<em class="up_preview" onclick="viwe('+value.couponId+',\''+value.couponColour+'\')">预览</em>';
+ 							if(value.status !=1){
+ 								html+= '<i  onclick="deleted('+value.couponId+',\''+value.couponStopTime+'\',\''+value.couponStartTime+'\',\''+value.releaseTime+'\')">删除</i><em onclick="updateSave('+value.couponId+',\''+value.storeType+'\','+value.couponMan+','+value.couponColour+','+value.couponType+','+value.startType+','+value.couponVantages+','+value.priceSigle+','+value.couponNumber+','+value.couponStartTime+')"><img src="'+baseUrl+'/images/coupon_write.png"></em></td></tr>'
+ 							}
+ 					jQuery("#tables").append(jQuery(html));
 				});
 			}
 		});
@@ -442,7 +520,7 @@
 					var id = e.msg;
 					jQuery('tr[id='+id+']').hide();
 				}else{
-					dialog("请在优惠卷结束，有效期过后删除");
+					dialog("请在有效期过后删除");
 				}
 			}
 		});
@@ -511,6 +589,39 @@
 		}
 		
 	}
+	
+	function getNowFormatDate() {
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var year = date.getFullYear();
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = year + seperator1 + month + seperator1 + strDate;
+	            
+	    return currentdate;
+	}
+	
+	
+	function daysBetween(DateOne,DateTwo)  
+	{   
+	    var OneMonth = DateOne.substring(5,DateOne.lastIndexOf ('-'));  
+	    var OneDay = DateOne.substring(DateOne.length,DateOne.lastIndexOf ('-')+1);  
+	    var OneYear = DateOne.substring(0,DateOne.indexOf ('-'));  
+	  
+	    var TwoMonth = DateTwo.substring(5,DateTwo.lastIndexOf ('-'));  
+	    var TwoDay = DateTwo.substring(DateTwo.length,DateTwo.lastIndexOf ('-')+1);  
+	    var TwoYear = DateTwo.substring(0,DateTwo.indexOf ('-'));  
+	  
+	    var cha=((Date.parse(OneMonth+'/'+OneDay+'/'+OneYear)- Date.parse(TwoMonth+'/'+TwoDay+'/'+TwoYear))/86400000);   
+	    return Math.abs(cha);  
+	}  
 </script>
 
 </html>

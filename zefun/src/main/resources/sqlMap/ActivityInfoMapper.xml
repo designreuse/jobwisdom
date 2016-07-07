@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.ActivityInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.ActivityInfo" >
+    <id column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="activity_name" property="activityName" jdbcType="CHAR" />
+    <result column="activity_type" property="activityType" jdbcType="INTEGER" />
+    <result column="activity_cl" property="activityCl" jdbcType="DECIMAL" />
+    <result column="activity_discount" property="activityDiscount" jdbcType="INTEGER" />
+    <result column="activity_position_one" property="activityPositionOne" jdbcType="INTEGER" />
+    <result column="activity_position_two" property="activityPositionTwo" jdbcType="INTEGER" />
+    <result column="activity_position_three" property="activityPositionThree" jdbcType="INTEGER" />
+    <result column="position_one_type" property="positionOneType" jdbcType="INTEGER" />
+    <result column="position_one_push" property="positionOnePush" jdbcType="DECIMAL" />
+    <result column="position_one_result" property="positionOneResult" jdbcType="DECIMAL" />
+    <result column="position_two_type" property="positionTwoType" jdbcType="INTEGER" />
+    <result column="position_two_push" property="positionTwoPush" jdbcType="DECIMAL" />
+    <result column="position_two_result" property="positionTwoResult" jdbcType="DECIMAL" />
+    <result column="position_three_type" property="positionThreeType" jdbcType="INTEGER" />
+    <result column="position_three_push" property="positionThreePush" jdbcType="DECIMAL" />
+    <result column="position_three_result" property="positionThreeResult" jdbcType="DECIMAL" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+    <resultMap id="BaseResultMapStore" type="com.zefun.web.dto.ActivityInfoDto" >
+    <id column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="activity_name" property="activityName" jdbcType="CHAR" />
+    <result column="activity_type" property="activityType" jdbcType="INTEGER" />
+    <result column="activity_cl" property="activityCl" jdbcType="DECIMAL" />
+    <result column="activity_discount" property="activityDiscount" jdbcType="INTEGER" />
+    <result column="activity_position_one" property="activityPositionOne" jdbcType="CHAR" />
+    <result column="activity_position_two" property="activityPositionTwo" jdbcType="CHAR" />
+    <result column="activity_position_three" property="activityPositionThree" jdbcType="CHAR" />
+    <result column="position_one_type" property="positionOneType" jdbcType="INTEGER" />
+    <result column="position_one_push" property="positionOnePush" jdbcType="DECIMAL" />
+    <result column="position_one_result" property="positionOneResult" jdbcType="DECIMAL" />
+    <result column="position_two_type" property="positionTwoType" jdbcType="INTEGER" />
+    <result column="position_two_push" property="positionTwoPush" jdbcType="DECIMAL" />
+    <result column="position_two_result" property="positionTwoResult" jdbcType="DECIMAL" />
+    <result column="position_three_type" property="positionThreeType" jdbcType="INTEGER" />
+    <result column="position_three_push" property="positionThreePush" jdbcType="DECIMAL" />
+    <result column="position_three_result" property="positionThreeResult" jdbcType="DECIMAL" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activity_id, activity_name, activity_type, activity_cl, activity_discount, activity_position_one, 
+    activity_position_two, activity_position_three, position_one_type, position_one_push, 
+    position_one_result, position_two_type, position_two_push, position_two_result, position_three_type, 
+    position_three_push, position_three_result, store_id, store_account, create_time, 
+    update_time, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_info
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity_info
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.ActivityInfo" >
+    insert into activity_info (activity_id, activity_name, activity_type, 
+      activity_cl, activity_discount, activity_position_one, 
+      activity_position_two, activity_position_three, 
+      position_one_type, position_one_push, position_one_result, 
+      position_two_type, position_two_push, position_two_result, 
+      position_three_type, position_three_push, position_three_result, 
+      store_id, store_account, create_time, 
+      update_time, is_deleted)
+    values (#{activityId,jdbcType=INTEGER}, #{activityName,jdbcType=CHAR}, #{activityType,jdbcType=INTEGER}, 
+      #{activityCl,jdbcType=DECIMAL}, #{activityDiscount,jdbcType=INTEGER}, #{activityPositionOne,jdbcType=INTEGER}, 
+      #{activityPositionTwo,jdbcType=INTEGER}, #{activityPositionThree,jdbcType=INTEGER}, 
+      #{positionOneType,jdbcType=INTEGER}, #{positionOnePush,jdbcType=DECIMAL}, #{positionOneResult,jdbcType=DECIMAL}, 
+      #{positionTwoType,jdbcType=INTEGER}, #{positionTwoPush,jdbcType=DECIMAL}, #{positionTwoResult,jdbcType=DECIMAL}, 
+      #{positionThreeType,jdbcType=INTEGER}, #{positionThreePush,jdbcType=DECIMAL}, #{positionThreeResult,jdbcType=DECIMAL}, 
+      #{storeId,jdbcType=INTEGER}, #{storeAccount,jdbcType=CHAR}, #{createTime,jdbcType=CHAR}, 
+      #{updateTime,jdbcType=CHAR}, #{isDeleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.ActivityInfo" >
+    insert into activity_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="activityName != null" >
+        activity_name,
+      </if>
+      <if test="activityType != null" >
+        activity_type,
+      </if>
+      <if test="activityCl != null" >
+        activity_cl,
+      </if>
+      <if test="activityDiscount != null" >
+        activity_discount,
+      </if>
+      <if test="activityPositionOne != null" >
+        activity_position_one,
+      </if>
+      <if test="activityPositionTwo != null" >
+        activity_position_two,
+      </if>
+      <if test="activityPositionThree != null" >
+        activity_position_three,
+      </if>
+      <if test="positionOneType != null" >
+        position_one_type,
+      </if>
+      <if test="positionOnePush != null" >
+        position_one_push,
+      </if>
+      <if test="positionOneResult != null" >
+        position_one_result,
+      </if>
+      <if test="positionTwoType != null" >
+        position_two_type,
+      </if>
+      <if test="positionTwoPush != null" >
+        position_two_push,
+      </if>
+      <if test="positionTwoResult != null" >
+        position_two_result,
+      </if>
+      <if test="positionThreeType != null" >
+        position_three_type,
+      </if>
+      <if test="positionThreePush != null" >
+        position_three_push,
+      </if>
+      <if test="positionThreeResult != null" >
+        position_three_result,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeAccount != null" >
+        store_account,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="activityName != null" >
+        #{activityName,jdbcType=CHAR},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=INTEGER},
+      </if>
+      <if test="activityCl != null" >
+        #{activityCl,jdbcType=DECIMAL},
+      </if>
+      <if test="activityDiscount != null" >
+        #{activityDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="activityPositionOne != null" >
+        #{activityPositionOne,jdbcType=INTEGER},
+      </if>
+      <if test="activityPositionTwo != null" >
+        #{activityPositionTwo,jdbcType=INTEGER},
+      </if>
+      <if test="activityPositionThree != null" >
+        #{activityPositionThree,jdbcType=INTEGER},
+      </if>
+      <if test="positionOneType != null" >
+        #{positionOneType,jdbcType=INTEGER},
+      </if>
+      <if test="positionOnePush != null" >
+        #{positionOnePush,jdbcType=DECIMAL},
+      </if>
+      <if test="positionOneResult != null" >
+        #{positionOneResult,jdbcType=DECIMAL},
+      </if>
+      <if test="positionTwoType != null" >
+        #{positionTwoType,jdbcType=INTEGER},
+      </if>
+      <if test="positionTwoPush != null" >
+        #{positionTwoPush,jdbcType=DECIMAL},
+      </if>
+      <if test="positionTwoResult != null" >
+        #{positionTwoResult,jdbcType=DECIMAL},
+      </if>
+      <if test="positionThreeType != null" >
+        #{positionThreeType,jdbcType=INTEGER},
+      </if>
+      <if test="positionThreePush != null" >
+        #{positionThreePush,jdbcType=DECIMAL},
+      </if>
+      <if test="positionThreeResult != null" >
+        #{positionThreeResult,jdbcType=DECIMAL},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.ActivityInfo" >
+    update activity_info
+    <set >
+      <if test="activityName != null" >
+        activity_name = #{activityName,jdbcType=CHAR},
+      </if>
+      <if test="activityType != null" >
+        activity_type = #{activityType,jdbcType=INTEGER},
+      </if>
+      <if test="activityCl != null" >
+        activity_cl = #{activityCl,jdbcType=DECIMAL},
+      </if>
+      <if test="activityDiscount != null" >
+        activity_discount = #{activityDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="activityPositionOne != null" >
+        activity_position_one = #{activityPositionOne,jdbcType=INTEGER},
+      </if>
+      <if test="activityPositionTwo != null" >
+        activity_position_two = #{activityPositionTwo,jdbcType=INTEGER},
+      </if>
+      <if test="activityPositionThree != null" >
+        activity_position_three = #{activityPositionThree,jdbcType=INTEGER},
+      </if>
+      <if test="positionOneType != null" >
+        position_one_type = #{positionOneType,jdbcType=INTEGER},
+      </if>
+      <if test="positionOnePush != null" >
+        position_one_push = #{positionOnePush,jdbcType=DECIMAL},
+      </if>
+      <if test="positionOneResult != null" >
+        position_one_result = #{positionOneResult,jdbcType=DECIMAL},
+      </if>
+      <if test="positionTwoType != null" >
+        position_two_type = #{positionTwoType,jdbcType=INTEGER},
+      </if>
+      <if test="positionTwoPush != null" >
+        position_two_push = #{positionTwoPush,jdbcType=DECIMAL},
+      </if>
+      <if test="positionTwoResult != null" >
+        position_two_result = #{positionTwoResult,jdbcType=DECIMAL},
+      </if>
+      <if test="positionThreeType != null" >
+        position_three_type = #{positionThreeType,jdbcType=INTEGER},
+      </if>
+      <if test="positionThreePush != null" >
+        position_three_push = #{positionThreePush,jdbcType=DECIMAL},
+      </if>
+      <if test="positionThreeResult != null" >
+        position_three_result = #{positionThreeResult,jdbcType=DECIMAL},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeAccount != null" >
+        store_account = #{storeAccount,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.ActivityInfo" >
+    update activity_info
+    set activity_name = #{activityName,jdbcType=CHAR},
+      activity_type = #{activityType,jdbcType=INTEGER},
+      activity_cl = #{activityCl,jdbcType=DECIMAL},
+      activity_discount = #{activityDiscount,jdbcType=INTEGER},
+      activity_position_one = #{activityPositionOne,jdbcType=INTEGER},
+      activity_position_two = #{activityPositionTwo,jdbcType=INTEGER},
+      activity_position_three = #{activityPositionThree,jdbcType=INTEGER},
+      position_one_type = #{positionOneType,jdbcType=INTEGER},
+      position_one_push = #{positionOnePush,jdbcType=DECIMAL},
+      position_one_result = #{positionOneResult,jdbcType=DECIMAL},
+      position_two_type = #{positionTwoType,jdbcType=INTEGER},
+      position_two_push = #{positionTwoPush,jdbcType=DECIMAL},
+      position_two_result = #{positionTwoResult,jdbcType=DECIMAL},
+      position_three_type = #{positionThreeType,jdbcType=INTEGER},
+      position_three_push = #{positionThreePush,jdbcType=DECIMAL},
+      position_three_result = #{positionThreeResult,jdbcType=DECIMAL},
+      store_id = #{storeId,jdbcType=INTEGER},
+      store_account = #{storeAccount,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=CHAR},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectByStore" resultMap="BaseResultMapStore" parameterType="java.lang.Integer" >
+    select 
+    activity_id, activity_name, activity_type, activity_cl, activity_discount, (select position_name from position_info p where p.position_id=activity_info.activity_position_one) as activity_position_one, 
+    (select position_name from position_info p where p.position_id=activity_info.activity_position_two) as activity_position_two, (select position_name from position_info p where p.position_id=activity_info.activity_position_three) as activity_position_three, position_one_type, position_one_push, 
+    position_one_result, position_two_type, position_two_push, position_two_result, position_three_type, 
+    position_three_push, position_three_result, store_id, store_account, create_time, 
+    update_time, is_deleted
+    from activity_info
+    where  store_id = #{storeId,jdbcType=INTEGER} and is_deleted=0
+  </select>
+  
+  <update id="updateIsDeleted"  parameterType="java.lang.Integer">
+     update activity_info
+    set  is_deleted = 1
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  
+  </update>
+</mapper>

@@ -178,6 +178,13 @@ public interface View {
 		public static final String LIST = "member/memberLevel/list";
 	}
 
+	
+	   /** 活动模块*/
+    class Activity {
+        /** 进入活动页面 */
+        public static final String TO_ACTIVITYSIGN = "keepAccounts/activity-account";
+    }
+	
 	/**
 	 * 会员信息页面
 	 * 

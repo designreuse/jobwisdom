@@ -24,8 +24,10 @@
     <result column="coupon_names" property="couponNames" jdbcType="CHAR" />
     <result column="coupon_num" property="couponNum" jdbcType="INTEGER" />
     <result column="has_send_num" property="hasSendNum" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <association property="storeInfos" column="{storeId=store_type}" select="selectCouponStoreInfos"></association>
   </resultMap>
+  
   <resultMap id="BaseDtoResultMap" type="com.zefun.web.dto.CouponBaseDto" >
     <id column="m_id" property="mId" jdbcType="INTEGER" />
     <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
@@ -57,14 +59,15 @@
   <sql id="Base_Column_List" >
     coupon_id, coupon_name, store_id, coupon_price, coupon_vantages, coupon_type, coupon_start_time, 
     coupon_stop_time, release_time, coupon_is_use, store_account, is_delete, is_type, 
-    price_sigle, coupon_number, coupon_man, coupon_colour, start_type,store_type,coupon_num,coupon_names,has_send_num
+    price_sigle, coupon_number, coupon_man, coupon_colour, start_type,store_type,coupon_num,coupon_names,has_send_num,
+   	CASE
+	WHEN (CURDATE() &gt;= release_time AND CURDATE() &lt;= coupon_stop_time) THEN '1'
+	WHEN CURDATE() &lt;  release_time THEN '2'
+	WHEN CURDATE() &gt; coupon_stop_time THEN '3'
+	END AS status
   </sql>
   
     <select id="selectCouponListByStoreId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-<!--     select  -->
-<!--         <include refid="Base_Column_List" /> -->
-<!--     from coupon_info -->
-<!--     where store_id = #{storeId} and is_delete = 0 and coupon_stop_time >= curdate() --> 
     
       	SELECT   i.* from coupon_store s  LEFT JOIN  coupon_info   i  ON  s.coupon_id=i.coupon_id   WHERE
   	  s.store_id =#{storeId}   AND  i.is_delete=0  and  coupon_stop_time &gt;= curdate() and curdate() &gt;= release_time

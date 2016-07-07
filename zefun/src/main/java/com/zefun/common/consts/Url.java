@@ -260,6 +260,24 @@ public interface Url {
 		/** 保存发型设置 */
 		public static final String SAVE_HAIRSTYLEDESIGN = "hairstyleDesign/saveHairstyleDesign";
 	}
+	
+	/** 活动模块*/
+	class Activity {
+	    /** 进入活动页面 */
+        public static final String TO_ACTIVITYSIGN = "activity/view/toactivitysign";
+
+        /** 活动保存 */
+        public static final String TO_ACTIVITYSAVE = "activity/view/toactivitysave";
+        
+        /** 活动删除 */
+        public static final String TO_ACTIVITYDELETE = "activity/view/toactivitydelete";
+        
+        /** 查询单个活动 */
+        public static final String TO_ACTIVITYSELECT = "activity/view/toactivityselect";
+        
+        /** 修改单个活动 */
+        public static final String TO_ACTIVITYUPDATE = "activity/view/toactivityupdate";
+	}
 
 	/** 项目模块 */
 	class Project {
