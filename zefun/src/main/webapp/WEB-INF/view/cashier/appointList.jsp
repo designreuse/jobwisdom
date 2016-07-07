@@ -312,6 +312,9 @@
 										<!--选择类型的系列-->
 										<div class="selected-child-select">
 											<ul id="projectCategoryUl">
+												<c:forEach items="${projectCategories }" var="projectCategorie">
+													<li onclick="jQuery(this).siblings().removeClass('active');jQuery(this).addClass('active');globalProjectId=jQuery(this).val()" value="${projectCategorie.categoryId }" class="selected-item" style="cursor: pointer">${projectCategorie.categoryName }</li>
+												</c:forEach>
 												<!-- 项目系列列表处 -->
 											</ul>
 										</div>

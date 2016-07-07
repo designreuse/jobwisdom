@@ -126,6 +126,7 @@ public class DeptController extends BaseController{
     * @author chendb
     * @date 2015年9月8日 下午3:54:08
     * @param deptId 部门标识
+    * @param storeId storeId
     * @param request request
     * @param response response
     * @return BaseDto
@@ -133,6 +134,7 @@ public class DeptController extends BaseController{
     @RequestMapping(value = Url.Dept.DELETE_DEPT)
     @ResponseBody
     public BaseDto deleteDept(Integer deptId, Integer storeId, HttpServletRequest request, HttpServletResponse response){
+        
         int result = deptService.deleteDept(deptId, getStoreId(request));
         if (result==1){
             return new BaseDto(-1, "部门已经被岗位引用，请先删除岗位！");

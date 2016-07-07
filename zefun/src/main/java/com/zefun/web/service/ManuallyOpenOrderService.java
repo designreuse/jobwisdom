@@ -35,7 +35,6 @@ import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
-import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
@@ -81,8 +80,6 @@ public class ManuallyOpenOrderService {
 	@Autowired private OrderDetailMapper orderDetailMapper;
 	/** 岗位*/
 	@Autowired private PositioninfoMapper positioninfoMapper;
-	/** 会员信息*/
-	@Autowired private MemberInfoMapper memberInfoMapper;
 	/** 轮牌员工*/
 	@Autowired private ShiftMahjongEmployeeMapper shiftMahjongEmployeeMapper;
 	/** */
