@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.zefun.web.dto.CardConsumedTrendData;
-import com.zefun.web.dto.CashierCommissionDto;
 import com.zefun.web.dto.DeptSummaryByDayDto;
 import com.zefun.web.dto.Member2Info;
 import com.zefun.web.dto.MemberAccountInfo;
@@ -456,27 +455,6 @@ public interface OrderDetailMapper {
     * @return List<DeptSummaryByDayDto>
     */
     List<DeptSummaryByDayDto> getCardConsumedTrend(SummaryResultDto dto);
-    
-    /**
-	 * 查询项目提成信息
-	 * @param map 项目标识、服务人员等级等信息
-	 * @return CashierCommissionDto
-	 */
-	CashierCommissionDto selectProjectCommissionInfo(Map<String, Integer> map);
-	
-	/**
-	 * 查询商品提成信息
-	 * @param map 项目标识等信息
-	 * @return CashierCommissionDto
-	 */
-	CashierCommissionDto selectGoodsCommissionInfo(Map<String, Integer> map);
-	
-	/**
-	 * 查询套餐提成信息
-	 * @param map 套餐标识、项目标识等信息
-	 * @return CashierCommissionDto
-	 */
-	CashierCommissionDto selectComboCommissionInfo(Map<String, Integer> map);
 	
 	/**
 	 * 根据会员标识查询所有的订单

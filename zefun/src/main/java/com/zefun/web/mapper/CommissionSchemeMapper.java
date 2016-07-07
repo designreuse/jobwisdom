@@ -2,7 +2,6 @@ package com.zefun.web.mapper;
 
 import java.util.List;
 
-import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.CommissionScheme;
 /**
  * 

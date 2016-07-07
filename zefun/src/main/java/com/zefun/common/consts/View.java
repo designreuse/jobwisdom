@@ -505,6 +505,8 @@ public interface View {
         public static final String ADD_INITILIZE_TYPE = "keepAccounts/type";
         /**开支记账*/
         public static final String INITIALIZE = "keepAccounts/initillize";
+        /** 无纸化开单*/
+        public static final String NO_PAPER_OPEN_ORDER = "keepAccounts/noPaperOpenOrder";
 	}
 
 	/**

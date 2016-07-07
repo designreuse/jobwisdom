@@ -1,6 +1,5 @@
 package com.zefun.web.service;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,18 +14,10 @@ import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.ActivityInfoDto;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.StoreInfoDto;
 import com.zefun.web.entity.ActivityInfo;
-import com.zefun.web.entity.DeptInfo;
-import com.zefun.web.entity.EmployeeLevel;
-import com.zefun.web.entity.Page;
 import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.StoreInfo;
-import com.zefun.web.mapper.ActivityAccountMapper;
 import com.zefun.web.mapper.ActivityInfoMapper;
-import com.zefun.web.mapper.DeptInfoMapper;
-import com.zefun.web.mapper.EmployeeLevelMapper;
-import com.zefun.web.mapper.FavourableAccountMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 
@@ -42,17 +33,7 @@ import net.sf.json.JSONObject;
 @Transactional
 public class ActivityService {
 
-    /**
-     * 部门
-     */
-    @Autowired
-    private DeptInfoMapper deptInfoMapper;
     
-    /**
-     * 职位
-     */
-    @Autowired
-    private EmployeeLevelMapper employeeLevelMapper;
     
     /** 门店*/
     @Autowired

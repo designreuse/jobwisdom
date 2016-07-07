@@ -174,8 +174,7 @@ function confirm () {
 	}
 	jQuery(changePricObj).parents(".change_price__spread").find("em[name='detailFree']").text(freeAmount);
 	
-	jQuery(changePricObj).parents(".change_price__spread").find("em[name='detailFree']").parent().append("<i name = 'orderRemarkI'>!</i>" +
-																										 "<a name = 'orderRemarkA'>"+orderRemark+"</a>");
+	jQuery(changePricObj).parents(".change_price__spread").find("em[name='detailFree']").parent().append("<i>!<a href='javascript:;' class='bubble_'>"+orderRemark+"<em></em></a></i>");
 	
 	tatailProc();
 	

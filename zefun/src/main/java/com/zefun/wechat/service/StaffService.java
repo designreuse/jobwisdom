@@ -979,7 +979,7 @@ public class StaffService {
                 shiftMahjongEmployeeMapper.updateByToEnd(shiftMahjongEmployee);
                 shiftMahjongEmployeeMapper.updateByUpwardAllCount(shiftMahjongEmployee);
             }
-            shiftMahjongService.updateState(shiftMahjongEmployeeId, 4, null);
+            shiftMahjongService.updateState(shiftMahjongEmployeeId, 4);
         }
         else {
             //更新轮牌位置
@@ -988,7 +988,7 @@ public class StaffService {
             shiftMahjongEmployee.setShiftMahjongId(shiftMahjong.getShiftMahjongId());
             shiftMahjongEmployeeMapper.updateByToEnd(shiftMahjongEmployee);
             shiftMahjongEmployeeMapper.updateByUpwardAllCount(shiftMahjongEmployee);
-            shiftMahjongService.updateState(shiftMahjongEmployeeId, 0, null);
+            shiftMahjongService.updateState(shiftMahjongEmployeeId, 0);
         }
     }
     

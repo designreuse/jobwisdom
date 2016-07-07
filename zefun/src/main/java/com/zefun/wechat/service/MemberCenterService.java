@@ -69,6 +69,7 @@ import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.MemberRecommend;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.OrderInfo;
+import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectEvaluate;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectShare;
@@ -97,6 +98,7 @@ import com.zefun.web.mapper.MemberRecommendMapper;
 import com.zefun.web.mapper.MemberSubAccountMapper;
 import com.zefun.web.mapper.MoneyFlowMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectEvaluateMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ProjectShareMapper;
@@ -285,6 +287,10 @@ public class MemberCenterService {
     /** 微信推送信息*/
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    /** 门店的项目系列*/
+    @Autowired
+    private ProjectCategoryMapper projectCategoryMapper;
+    
     
     
     
@@ -1029,6 +1035,10 @@ public class MemberCenterService {
         mav.addObject("employeeName", employeeInfo.getName());
         mav.addObject("levelName", employeeInfo.getLevelName());
         
+        List<ProjectCategory> projectCategories = projectCategoryMapper.
+                selectAllProjectByStoreId(Integer.parseInt(employeeInfo.getStoreId()));
+        mav.addObject("projectCategories", projectCategories);
+        
         //查询员工的班次
         Map<Integer, String> map = shiftMapper.selectShiftByEmployeeId(employeeId);
         //检查员工是否有设置班次
@@ -1235,12 +1245,12 @@ public class MemberCenterService {
             //如果是会员
             if (memberInfo != null) {
             	rabbitService.sendAppointmentResultNotice(3, storeId, url, openId, 
-                        memberInfo.getName(), memberInfo.getLevelName(), projectName, appointmentTime, reason);
+                        memberInfo.getName(), memberInfo.getLevelName(), "", appointmentTime, reason);
             }
             //如果是散客
             else {
             	rabbitService.sendAppointmentResultNotice(3, storeId, url, openId, 
-                        "散客", "无等级", projectName, appointmentTime, reason);
+                        "散客", "无等级", "", appointmentTime, reason);
             }
         }
         

@@ -15,7 +15,13 @@
     	.content{
     		height: auto;
     	}
+    	.touch_{display:inline-block;width:78%;overflow:overlay;position:relative;top:14px;left:10px}
+    	.normal-li{font-size:14px}
+    	.touch{display:inline-block;}
+    	.touch em{display:inline-block;width:140px;text-align:center;height:34px;border:1px solid #cfcfcf;border-radius:8px;text-align:center;line-height:34px;margin-left:8px}
+    	.green{color:white;background:#26cbc5}
     </style>
+  
   </head>
 <body>
 
@@ -39,7 +45,7 @@
 	        <ul>
 	            <li class="normal-li first-li" >
 	                <span class="normoal-word">服务项目</span>
-	                <span class="fr">${projectName }</span>
+	                <span class="fr">${projectName }</span><i class="touch_"><span class="touch"><em>我的发嘎嘎大神的的</em><em>我的发嘎嘎大神的的</em><em>222222222</em><em>22</em><em>22</em><em>22</em><em>22</em><em>22</em></span></i>
 	            </li>
 	            <li class="normal-li">
 	                <span class="normoal-word">${levelName }</span>
@@ -153,6 +159,22 @@
     		}
     	});
     }
-</script> 
+</script>
+  <script>
+      $(function(){
+    	var wid= $('.touch em').width()+16,count=$('.touch em').size();
+    	 $('.touch').css('width',wid*count) 
+    	  
+    	  
+      })
+    
+     $(function(){
+    	$('.touch em').click(function(){
+    		$(this).addClass('green').siblings().removeClass('green');	
+    		
+    	})
+ 	  
+      })
+    </script> 
 </body>
 </html>

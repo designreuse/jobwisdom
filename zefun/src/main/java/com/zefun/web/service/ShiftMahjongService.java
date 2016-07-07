@@ -355,12 +355,11 @@ public class ShiftMahjongService {
 	* @date 2015年9月16日 下午8:25:29
 	* @param shiftMahjongEmployeeId 轮牌员工信息标识
 	* @param state 状态
-	* @param storeId 门店标识
 	* @return BaseDto
 	 */
-	public BaseDto updateState(Integer shiftMahjongEmployeeId, Integer state, Integer storeId){
+	public BaseDto updateState(Integer shiftMahjongEmployeeId, Integer state){
 		
-		Integer shiftMahjongId = updateStateCha(shiftMahjongEmployeeId, state, storeId);
+		Integer shiftMahjongId = updateStateCha(shiftMahjongEmployeeId, state);
         ShiftMahjongDto shiftMahjongDto = shiftMahjongMapper.selectByShiftMahjongIdDto(shiftMahjongId);
 	    return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, shiftMahjongDto);
 	}
@@ -378,7 +377,7 @@ public class ShiftMahjongService {
 		JSONArray shiftMahjongEmployeeIdListJson = JSONArray.fromObject(shiftMahjongEmployeeIdListStr);
 		for (int i = 0; i < shiftMahjongEmployeeIdListJson.size(); i++) {
 			Integer shiftMahjongEmployeeId = shiftMahjongEmployeeIdListJson.getInt(i);
-			shiftMahjongId = updateStateCha(shiftMahjongEmployeeId, 1, storeId);
+			shiftMahjongId = updateStateCha(shiftMahjongEmployeeId, 1);
 		}
 
 		ShiftMahjongDto shiftMahjongDto = shiftMahjongMapper.selectByShiftMahjongIdDto(shiftMahjongId);
@@ -416,10 +415,9 @@ public class ShiftMahjongService {
 	* @date 2016年5月13日 上午1:13:11 
 	* @param shiftMahjongEmployeeId 轮牌员工信息标识
 	* @param state 状态
-	* @param storeId 门店标识
 	* @return Integer
 	 */
-	public Integer updateStateCha(Integer shiftMahjongEmployeeId, Integer state, Integer storeId) {
+	public Integer updateStateCha(Integer shiftMahjongEmployeeId, Integer state) {
 		ShiftMahjong shiftMahjong = shiftMahjongMapper.selectByShiftMahjongEmployeeId(shiftMahjongEmployeeId);
 	    updateStateShiftMahjong(shiftMahjongEmployeeId, state, shiftMahjong);
 	    ShiftMahjongEmployee shiftMahjongEmployee = new ShiftMahjongEmployee();
