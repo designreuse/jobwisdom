@@ -226,20 +226,6 @@ public class ManuallyOpenOrderService {
     }
 	
     /**
-     * 为服务设置步骤
-    * @author 老王
-    * @date 2016年7月6日 下午8:50:39 
-    * @param detailId 明细标识
-    * @param projectId 项目标识
-    * @return BaseDto
-     */
-    public BaseDto settingProject (Integer detailId, Integer projectId) {
-    	OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(detailId);
-    	ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
-    	
-    }
-    
-    /**
      * 无纸单结算
     * @author 老王
     * @date 2016年7月6日 下午8:24:02 
@@ -349,6 +335,7 @@ public class ManuallyOpenOrderService {
         orderDetail.setIsAssign(0);
         orderDetail.setProjectCount(1);
         orderDetail.setStoreId(storeId);
+        orderDetail.setOrderStatus(2);
         orderDetail.setCreateTime(openOrderDate);
         orderDetail.setLastOperatorId(lastOperatorId);
         

@@ -375,7 +375,6 @@
     select * from  shift_mahjong_employee d 
 	where  exists(select 1 from shift_mahjong_project_step a  
 	              where a.shift_mahjong_step_id = #{shiftMahjongStepId,jdbcType=INTEGER} and a.shift_mahjong_id = d.shift_mahjong_id and d.employees_id = a.employee_id 
-	              and a.is_deleted = 0
 	             )
   </select>
   

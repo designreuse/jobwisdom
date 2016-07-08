@@ -151,6 +151,40 @@ public class ManuallyOpenOrderController extends BaseController{
     	return manuallyOpenOrderService.settlementOrder(orderId);
     }
     
+    /**
+     * 删除明细
+    * @author 老王
+    * @date 2016年7月7日 下午3:30:25 
+    * @param request 返回
+    * @param response 请求
+    * @param detailId 明细标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_DELETE_ORDER_DETAIL)
+    @ResponseBody
+    public BaseDto deleteOrderDetail(HttpServletRequest request, HttpServletResponse response, Integer detailId) {
+    	Integer storeId = getStoreId(request);
+    	Integer lastOperatorId = getUserId(request);
+    	return staffOrderService.deleteOrderDetail(detailId, storeId, lastOperatorId);
+    }
+    
+    /**
+     * 删除订单
+    * @author 老王
+    * @date 2016年7月7日 下午3:44:32 
+    * @param request 返回
+    * @param response 请求
+    * @param orderId 订单标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_DELETE_ORDER_INFO)
+    @ResponseBody
+    public BaseDto deleteOrderInfo(HttpServletRequest request, HttpServletResponse response, Integer orderId) {
+    	Integer storeId = getStoreId(request);
+    	Integer lastOperatorId = getUserId(request);
+    	return staffOrderService.deleteOrderInfo(orderId, storeId, lastOperatorId);
+    }
+    
 	/**
 	 * 根据项目标识查询想轮牌信息及步骤对应员工
 	* @author 王大爷

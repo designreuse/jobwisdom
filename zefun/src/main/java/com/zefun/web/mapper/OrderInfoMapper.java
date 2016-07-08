@@ -586,4 +586,22 @@ public interface OrderInfoMapper {
     * @return List<Integer>
      */
     List<Integer> selectIsUserHandOrderCode(Integer storeId);
+    
+    /**
+     * 根据手牌号查询订单信息
+    * @author 老王
+    * @date 2016年7月7日 上午11:22:40 
+    * @param map 参数集合
+    * @return List<OrderInfo>
+     */
+    OrderInfo selectByHandOrderCodeOrder(Map<String, Object> map);
+    
+    /**
+     * 无纸化开单查询订单信息
+    * @author 老王
+    * @date 2016年7月7日 下午1:59:55 
+    * @param orderId 订单标识
+    * @return SelfCashierOrderDto
+     */
+    SelfCashierOrderDto selectByNoPageOrderId(Integer orderId);
 }

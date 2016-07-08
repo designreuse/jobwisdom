@@ -64,7 +64,7 @@
       <li>
           <a href="<%=basePath%>staff/view/reception">
 	          <img src="<%=basePath%>images/mobile/newemployee/bottomOne.png">
-		      <p>开单</p>
+		      <p>接待</p>
 	      </a>
 	  </li>
 	  <li>

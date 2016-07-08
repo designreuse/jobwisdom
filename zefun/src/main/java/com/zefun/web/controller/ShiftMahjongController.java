@@ -156,8 +156,7 @@ public class ShiftMahjongController extends BaseController{
 	@RequestMapping(value = Url.KeepAccounts.UPDATE_STATE, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto updateState(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongEmployeeId, Integer state){
-	    Integer storeId = getStoreId(request);
-	    return shiftMahjongService.updateState(shiftMahjongEmployeeId, state, storeId);
+	    return shiftMahjongService.updateState(shiftMahjongEmployeeId, state);
 	}
 	
 	/**

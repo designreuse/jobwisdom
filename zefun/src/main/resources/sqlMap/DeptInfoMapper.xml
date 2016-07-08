@@ -118,7 +118,7 @@
   
   <select id="getDeptIdAndNameByStoreId" parameterType="java.lang.Integer" resultType="com.zefun.web.entity.DeptInfo">
   	select dept_id as deptId, dept_name as deptName from dept_info
-    where store_id = #{storeId,jdbcType=INTEGER} and is_deleted=0 and is_results = 1
+    where store_id = #{storeId,jdbcType=INTEGER} and is_deleted=0
   </select>
     
   <select id="getResultsDeptInfo" resultType="com.zefun.web.entity.DeptInfo" parameterType="java.lang.Integer" >

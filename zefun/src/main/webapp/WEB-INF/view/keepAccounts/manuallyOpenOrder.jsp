@@ -86,7 +86,7 @@ background-size: cover;}
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
 		<%@include file="/menu.jsp"%>
-		<div class="rightpanel" style="margin-left: 200px; position: relative">
+		<div class="rightpanel" style="margin-left: 200px; position: relative;background:white;">
 			<%@include file="/top.jsp"%>
 			<div class="more-toolbar" >
 	                <div class="table-toolbar" style="font-size: 14px;width:91%;padding:15px;border:1px solid #ccc;border-radius:12px;margin:10px 30px" name = "memberTR" selectType = "2">

@@ -140,7 +140,7 @@ function alertZzc() {
 	    				    }
 	    				    str += 'name = "activeLi" shiftMahjongEmployeeId = "'+shiftMahjongEmployee.employeesId+'" shiftMahjongEmployeeName = "'+shiftMahjongEmployee.employeeCode+' '+shiftMahjongEmployee.name+'">'+
 	    				                    '<i>'+shiftMahjongEmployee.shiftMahjongOrder+'</i>'+
-	    				                    '<em>'+shiftMahjongEmployee.employeeCode+' '+shiftMahjongEmployee.name+'</em>';
+	    				                    '<em>'+shiftMahjongEmployee.employeeCode+' '+shiftMahjongEmployee.name+'</em>'+
 	    				                    '<a href="javascript:;"></a>'+
 	    		                        '</li>';
 	    				}
@@ -160,6 +160,32 @@ function choosePositionShiftMahjong (obj, positionId) {
 	jQuery(".open_card_alert_state_content").addClass("hide");
 	jQuery("div[positionId='"+positionId+"']").removeClass("hide");
 }
+
+jQuery(".open_card_alert_state").delegate("li[name='activeLi']", "click", function () {
+	if (!jQuery(this).find("a").hasClass("active3")) {
+		jQuery(this).parents(".open_card_alert_state_content").find("li[name='activeLi'] a").removeClass("active3");
+		jQuery(this).find("a").addClass("active3");
+		
+		var shiftMahjongEmployeeId = jQuery(this).attr("shiftMahjongEmployeeId");
+		var shiftMahjongEmployeeName = jQuery(this).attr("shiftMahjongEmployeeName");
+		var shiftmahjongid = jQuery(this).parents(".open_card_alert_state_content_style").attr("shiftmahjongid");
+		var shiftmahjongname = jQuery(this).parents(".open_card_alert_state_content_style").attr("shiftmahjongname");
+		
+		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").val(shiftmahjongname);
+		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").attr("shiftmahjongid", shiftmahjongid);
+		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").val(shiftMahjongEmployeeName);
+		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", shiftMahjongEmployeeId);
+	}
+	else {
+		jQuery(this).parents(".open_card_alert_state_content").find("li[name='activeLi'] a").removeClass("active3");
+		
+		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").val("");
+		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").attr("shiftmahjongid", "");
+		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").val("");
+		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", "");
+
+	}
+})
 
 jQuery(".open_card_alert_state_content").delegate("li[name='activeLi']", "click", function () {
 	if (!jQuery(this).find("a").hasClass("active3")) {
@@ -188,7 +214,14 @@ jQuery(".open_card_alert_state_content").delegate("li[name='activeLi']", "click"
 })
 
 function submits(){
-	var handOrderCode  = jQuery("input[name='handOrderCode']").val();
+	var handOrderCode = jQuery("input[name='handOrderCode']").val();
+	
+	if (isEmpty(handOrderCode)) {
+		dialog("手牌号不能为空！");
+		jQuery("input[name='handOrderCode']").focus();
+		return;
+	}
+	
 	var sex = jQuery("input:radio[name='sex']:checked").val();
 	var memberId = jQuery("input[name='memberId']").val();
 	if (isEmpty(memberId)) {
@@ -353,8 +386,13 @@ function overServerEmployee(obj) {
     	}
     });
 }
+var setDetailId = "";
+function showSettingProject (detailId) {
+	setDetailId = detailId;
+	jQuery(".zzc2").show();
+}
 
-function settingProject (detailId) {
+function settingProject () {
 	var projectId = 3173;
 	
 	
@@ -380,4 +418,47 @@ function settlementOrder (obj, orderId) {
 	}
 	
 	window.location.href = baseUrl + "jobwisdom/selfcashier/action/orderinfo?orderId="+ orderId;
+}
+
+function deleteDetailId (detailId) {
+	if(confirm("确认要删除该服务吗？")){ 
+		jQuery.ajax({
+			type : "post",  
+			url : baseUrl + "KeepAccounts/action/deleteOrderDetail",
+			data : "detailId="+detailId,
+			dataType : "json",
+			success : function(e){
+				if(e.code != 0){
+					dialog(e.msg);
+					return;
+				}
+				dialog("删除服务成功！");
+	    		location.reload();
+			}
+		});
+	}
+}
+
+function deleteOrderInfo (orderId) {
+	if(confirm("确认要删除该订单吗？")){ 
+		jQuery.ajax({
+			type : "post",  
+			url : baseUrl + "KeepAccounts/action/deleteOrderInfo",
+			data : "orderId="+orderId,
+			dataType : "json",
+			success : function(e){
+				if(e.code != 0){
+					dialog(e.msg);
+					return;
+				}
+				dialog("删除订单成功！");
+	    		location.reload();
+			}
+		});
+	}
+}
+
+function hideModal () {
+	jQuery(".zzc").hide();
+	jQuery(".zzc1").hide();
 }

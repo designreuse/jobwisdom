@@ -17,7 +17,7 @@
 				   <ul class="clearfix">
 				     <c:forEach items="${cashierDtoList}" var="cashierDto">
 				        <li>
-						   <img src="<%=basePath%>images/money_close.png">
+						   <img src="<%=basePath%>images/money_close.png" onclick="deleteOrderInfo(${cashierDto.orderId })">
 						   <p>手牌号${cashierDto.handOrderCode }</p>
 						   <div class="customer">
 						     <span>顾客：散户</span>
@@ -33,16 +33,16 @@
 									    <td colspan="5" name = "projectId" projectId = "3173">
 									        <c:choose>
 									           <c:when test="${orderDetail.projectId == null}">
-									               <em style="position:absolute;right:-4px;top:-10px">
+									               <em style="position:absolute;right:-4px;top:-10px" onclick="deleteDetailId(${orderDetail.detailId})">
 											            <img src="<%=basePath%>images/hand_close.png">
 											       </em>
-											       <em class="empty" onclick = "settingProject(${orderDetail.detailId})" >+</em>
+											       <em class="empty" onclick = "showSettingProject(${orderDetail.detailId})" >+</em>
 									           </c:when>
 									           <c:otherwise>
 									                ${orderDetail.projectName}
 									                <span>
 									                    <img src="<%=basePath%>images/architecture_edit.png">
-									                    <em><img src="<%=basePath%>images/hand_close.png"></em>
+									                    <em><img onclick="deleteDetailId(${orderDetail.detailId})" src="<%=basePath%>images/hand_close.png"></em>
 									                </span>
 									           </c:otherwise>
 									        </c:choose>
@@ -64,7 +64,7 @@
 										       <c:choose>
 										          <c:when test="${step.employeeInfo != null}">
 										             ${step.employeeInfo.name}
-										             <c:if test="${step.isOver == 2}">
+										             <c:if test="${step.isOver == 1}">
 										                  <a href="javascript:;" onclick="showServers(this, 1)">改</a>
 										             </c:if>
 										          </c:when>
@@ -73,9 +73,9 @@
 										          </c:otherwise>
 										       </c:choose>
 										    </td>
-											<td onclick="overServerEmployee(this)">
+											<td>
 											<c:if test="${step.isOver == 1}">
-							                  <img src="<%=basePath%>images/do_over.png" style="position:relative;right:0px;top:2px"></td>
+							                  <img onclick="overServerEmployee(this)" src="<%=basePath%>images/do_over.png" style="position:relative;right:0px;top:2px"></td>
 							                </c:if>
 										  </tr>
 									  </c:forEach>
@@ -121,7 +121,7 @@
 		</div>
 	    <div class="open_card_alert_state_button">
 		  <button onclick="submits()">开单</button>
-		  <button>取消</button>
+		  <button onclick = "hideModal()">取消</button>
 		</div>
 	 </div>
  
@@ -221,11 +221,54 @@
 			 </div>
 			<div class="open_card_alert_state_button">
 			  <button onclick="sureAddOrUpdate(this)">开单</button>
-			  <button>取消</button>
+			  <button onclick = "hideModal()">取消</button>
 			</div>
 	</div>  
   </div>
+</div>
 
+<div class="zzc2" style="display:none">
+   <div class="zzc2_select_item">
+      <p>选择项目</p>
+	  <div class="zzc2_select_item_content">
+	      <p><select><option>xxxxx 部门</option></select></p>
+		  <div class="zzc2_select_item_content_ clearfix">
+			  <div class="zzc2_select_item_content_left">
+				 <ul>
+				   <li class="active">xxxxxx系列</li>
+				   <li>xxxxxx系列</li>
+				   <li>xxxxxx系列</li>
+				 </ul>			 
+			  </div> 
+			  <div class="zzc2_select_item_content_right">
+			    <div class="zzc2_select_item_content_right_content">
+                   <ul class="clearfix">
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+				   </ul>
+                 </div>	
+               	 <div class="zzc2_select_item_content_right_content">
+                   <ul class="clearfix">
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+				   </ul>
+                 </div>	
+                  <div class="zzc2_select_item_content_right_content">
+                   <ul class="clearfix">
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
+				   </ul>
+                 </div>					 
+			  </div> 
+		  </div>
+	  </div>	  
+   </div>
 </div>
 <script type="text/javascript">
 var startHandNumber = '${startHandNumber}';

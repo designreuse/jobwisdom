@@ -3,13 +3,11 @@ package com.zefun.wechat.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,14 +20,13 @@ import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.OrderDetailDto;
-import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.OrderInfoBaseDto;
+import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ProjectInfo;
-import com.zefun.web.entity.ShiftMahjong;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -54,9 +51,6 @@ import net.sf.json.JSONArray;
 */
 @Service
 public class StaffOrderService {
-    
-    /**  logger*/
-    private static final Logger LOGGERS = Logger.getLogger(StaffOrderService.class);
     
     /** 订单基础数据服务对象 */
     @Autowired
@@ -97,23 +91,13 @@ public class StaffOrderService {
      * 查询店内所有订单
     * @author 张进军
     * @date Oct 13, 2015 9:43:06 PM
-    * @param storeId 门店标识
-    * @param type 订单状态类型（1、进行中，2、已完成，3、全部）
+    * @param orderId 订单标识
     * @return   全部订单页面
      */
-    public ModelAndView allOrderView(int storeId, Integer type){
+    public ModelAndView allOrderView(Integer orderId){
         ModelAndView mav = new ModelAndView(View.StaffPage.ORDER_LIST);
-        List<OrderInfoBaseDto> orderList = orderInfoService.getOrderInfoBaseDtoByStoreId(storeId, type);
-        mav.addObject("orderList", orderList);
-        mav.addObject("orderListStr", JSONArray.fromObject(orderList).toString());
-        mav.addObject("type", type);
-        
-        mav.addObject("orderType", 1);
-        
-        mav.addObject("storeId", storeId);
-        Map<String, Object> map = orderInfoMapper.selectOrderStatisticsByStoreId(storeId);
-        mav.addObject("statisticsCount", map.get("count"));
-        mav.addObject("statisticsMoney", map.get("money"));
+        SelfCashierOrderDto orderDto = orderInfoMapper.selectByNoPageOrderId(orderId);
+        mav.addObject("orderDto", orderDto);
         return mav;
     }
     
@@ -262,14 +246,11 @@ public class StaffOrderService {
         OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(detailId);
         //redis操作用（不回滚）
         List<Integer> detailIdList = new ArrayList<Integer>();
+        
         deletes(orderDetail, storeId, lastOperatorId);
 
         detailIdList.add(detailId);
-
-        operationRedisZrem(storeId, detailIdList);
-        
-        /*staffService.selfMotionExecute(selfMotionId, storeId);*/
-        
+                
         List<OrderDetail> list = orderDetailMapper.selectOrderDetail(orderInfo.getOrderId());
         
         if (list.size() > 0) {
@@ -316,29 +297,15 @@ public class StaffOrderService {
     public BaseDto deleteOrderInfo(Integer orderId, Integer storeId, Integer lastOperatorId) {
         OrderInfoBaseDto orderInfoBaseDto = orderInfoMapper.selectOrderBaseByOrderId(orderId);
         List<OrderDetailDto> orderDetailList = orderInfoBaseDto.getOrderDetailList();
-        /*//redis操作用（不回滚）
-        List<Integer> detailIdList = new ArrayList<Integer>();
-        //处理删除订单中多个相同明细时，第一个是指定，而会自动去那需要删除的明细，所以需要将项目全删除后，再执行自动去项目代码
-        List<Integer> selfMotionIdList = new ArrayList<Integer>();*/
         
         for (int i = 0; i < orderDetailList.size(); i++) {
             OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(orderDetailList.get(i).getDetailId());
             deletes(orderDetail, storeId, lastOperatorId);
-            /*detailIdList.add(orderDetailList.get(i).getDetailId());
-            if (selfMotionId != null) {
-                selfMotionIdList.add(selfMotionId);
-            }*/
         }
         OrderInfo record = new  OrderInfo();
         record.setOrderId(orderId);
         record.setIsDeleted(1);
         orderInfoMapper.updateByPrimaryKey(record);
-        
-        /*operationRedisZrem(storeId, detailIdList);*/
-        
-        /*for (Integer selfMotionId : selfMotionIdList) {
-            staffService.selfMotionExecute(selfMotionId, storeId);
-        }*/
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
@@ -361,38 +328,30 @@ public class StaffOrderService {
         else {
             //项目
             List<ShiftMahjongProjectStep> orderDetailStepList = shiftMahjongProjectStepMapper.selectStepByDetailId(orderDetail.getDetailId());
+            
             for (ShiftMahjongProjectStep shiftMahjongProjectStep : orderDetailStepList) {
-                //轮牌步骤标识
+            	//轮牌步骤标识
                 Integer shiftMahjongStepId = shiftMahjongProjectStep.getShiftMahjongStepId();
-                //获取轮牌员工
-                ShiftMahjongEmployee shiftMahjongEmployee 
-                       = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(shiftMahjongStepId);
-                
-                //服务中步骤
-                if (shiftMahjongProjectStep.getIsOver() == 1) {
-                    if (orderDetail.getOrderStatus() != 4) {
-                        
-                        Integer shiftMahjongEmployeeId = shiftMahjongEmployee.getShiftMahjongEmployeeId();
-                        ShiftMahjongEmployee record = new ShiftMahjongEmployee();
-                        record.setShiftMahjongEmployeeId(shiftMahjongEmployeeId);
-                        record.setState(1);
-                        //修改员工轮牌状态
-                        shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(record);
-
-                    }
-                }
                 
                 ShiftMahjongProjectStep record = new ShiftMahjongProjectStep();
                 record.setShiftMahjongStepId(shiftMahjongStepId);
                 record.setIsDeleted(1);
                 shiftMahjongProjectStepMapper.updateByPrimaryKey(record);
+                
+                //服务中步骤
+                if (shiftMahjongProjectStep.getIsOver() == 1) {
+                    //获取轮牌员工
+                    ShiftMahjongEmployee shiftMahjongEmployee 
+                           = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(shiftMahjongStepId);
+
+                    staffService.updateShiftEmployeeState(shiftMahjongEmployee.getShiftMahjongEmployeeId());
+                }
             }
             
             OrderDetail record = new OrderDetail();
             record.setDetailId(orderDetail.getDetailId());
             record.setIsDeleted(1);
             orderDetailMapper.updateByPrimaryKey(record);
-            
         }
     }
     
@@ -407,7 +366,7 @@ public class StaffOrderService {
     * @param storeId 门店标识
     * @return ModelAndView
      */
-    public ModelAndView serverAssociate(Integer shiftMahjongStepId, Integer type, Integer detailId, Integer shiftMahjongId, Integer storeId){
+    /*public ModelAndView serverAssociate(Integer shiftMahjongStepId, Integer type, Integer detailId, Integer shiftMahjongId, Integer storeId){
         ModelAndView mav = new ModelAndView();
         ShiftMahjongProjectStepDto obj = shiftMahjongProjectStepMapper.selectByPrimaryKey(shiftMahjongStepId);
         Integer projectId = obj.getProjectStep().getProjectId();
@@ -468,7 +427,7 @@ public class StaffOrderService {
         mav.setViewName(View.StaffPage.TURN_SHIFTMAHJONG_SERVE);
 
         return mav;
-    }
+    }*/
     
     /**
      * 确定完成订单
@@ -485,7 +444,7 @@ public class StaffOrderService {
         ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
         shiftMahjongProjectStep.setShiftMahjongStepId(shiftMahjongStepId);
         shiftMahjongProjectStep.setFinishTime(DateUtil.getCurTime());
-        shiftMahjongProjectStep.setIsOver(3);
+        shiftMahjongProjectStep.setIsOver(2);
         shiftMahjongProjectStepMapper.updateByPrimaryKey(shiftMahjongProjectStep);
         
         //删除该订单下没有完成的步骤
@@ -638,7 +597,7 @@ public class StaffOrderService {
     * @param storeId 门店标识
     * @return ModelAndView
      */
-    public ModelAndView waitingCentre(Integer storeId){
+/*    public ModelAndView waitingCentre(Integer storeId){
         ModelAndView mav = new ModelAndView(View.StaffPage.WAITING_ORDER);
         Set<String> tup = redisService.zrange(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), 0, -1);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -675,7 +634,7 @@ public class StaffOrderService {
         }
         mav.addObject("list", list);
         return mav;
-    }
+    }*/
     
     /**
      * 等待中心轮牌界面
@@ -685,7 +644,7 @@ public class StaffOrderService {
     * @param shiftMahjongStepId 步骤标识
     * @return ModelAndView
      */
-    public ModelAndView waitingCentreShiftMahjong(Integer detailId, Integer shiftMahjongStepId){
+    /*public ModelAndView waitingCentreShiftMahjong(Integer detailId, Integer shiftMahjongStepId){
         ModelAndView mav = new ModelAndView(View.StaffPage.WAITING_SHIFTMAHJONG_SERVE);
         
         ShiftMahjongProjectStepDto obj = shiftMahjongProjectStepMapper.selectByPrimaryKey(shiftMahjongStepId);
@@ -729,7 +688,7 @@ public class StaffOrderService {
         mav.addObject("orderDetailDto", orderDetailDto);
         
         return mav;
-    }
+    }*/
     
     /**
      * 确定等待轮牌更换的员工

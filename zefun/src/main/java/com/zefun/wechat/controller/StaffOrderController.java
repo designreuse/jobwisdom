@@ -34,25 +34,21 @@ public class StaffOrderController extends BaseController{
 //    private int employeeId = 235;
     
     /**
-     * 查询店内所有订单
-    * @author 张进军
+     * 查询看手牌对应订单
+    * @author 老王
     * @date Oct 14, 2015 9:19:41 AM
     * @param request    请求对象
     * @param response   响应对象
-    * @param type 订单状态类型（1、进行中，2、已完成，3、全部）
+    * @param orderId 订单标识
     * @return   全部订单页面
      */
     @RequestMapping(value = Url.Staff.VIEW_ALL_ORDER)
-    public ModelAndView allOrderView(HttpServletRequest request, HttpServletResponse response, Integer type){
+    public ModelAndView allOrderView(HttpServletRequest request, HttpServletResponse response, Integer orderId){
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
-        if (type == null) {
-            type = 1;
-        }
-        Integer storeId = getStoreIdByOpenId(openId);
-        return staffOrderService.allOrderView(storeId, type);
+        return staffOrderService.allOrderView(orderId);
     }
     
     /**

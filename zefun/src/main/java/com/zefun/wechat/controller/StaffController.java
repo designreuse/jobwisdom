@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.web.controller.BaseController;
@@ -159,32 +158,26 @@ public class StaffController extends BaseController {
     
     
     /**
-     * 根据手机号码查询会员信息
+     * 根据手牌号查询订单信息
     * @author 王大爷
     * @date 2015年8月20日 下午4:23:51
-    * @param phone 会员手机号码
+    * @param handOrderCode 手牌号
     * @param request        请求对象
     * @param response       返回对象
     * @return ModelAndView
      */
     @RequestMapping(value = Url.Staff.ACTION_SELECT_BASEINFO, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto selectBaseInfo(String phone, HttpServletRequest request, 
+    public BaseDto selectBaseInfo(String handOrderCode, HttpServletRequest request, 
             HttpServletResponse response) {
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
-        String storeAccount = getAccessToken(request);
-        Integer memberId = memberInfoService.selectMemberIdByPhone(phone, storeAccount);
-        if (memberId != null) {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, memberId);
-        }
-        else {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "对不起，未找到该会员");
-        }
+        Integer storeId = getStoreIdByOpenId(openId);
+        
+        return staffService.selectBaseInfo(storeId, handOrderCode);
     }
-    
     
     /**
      * 根据会员标识查询会员信息
@@ -195,15 +188,15 @@ public class StaffController extends BaseController {
     * @param response   响应对象
     * @return   会员信息
      */
-    @RequestMapping(value = Url.Staff.ACTION_SELECT_MEMBER_INFO, method = RequestMethod.POST)
+    @RequestMapping(value = Url.Staff.ACTION_SETTING_PROJECT, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto selectMemberInfo(Integer memberId, HttpServletRequest request, 
+    public BaseDto settingProject(Integer detailId, Integer projectId, HttpServletRequest request, 
             HttpServletResponse response) {
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, memberInfoService.getMemberBaseInfo(memberId, true));
+        return staffService.settingProject(detailId, projectId);
     }
     
 
@@ -211,30 +204,21 @@ public class StaffController extends BaseController {
      * 返回类别信息到页面
     * @author 王大爷
     * @date 2015年8月21日 下午7:33:32
-    * @param memberId 会员标识
-    * @param type    1:男散客、2:女散客、3:会员
+    * @param detailId 明细标识
     * @param request        请求对象
     * @param response       返回对象
     * @return 返回类别信息到页面
      * @throws UnsupportedEncodingException 
      */
     @RequestMapping(value = Url.Staff.VIEW_SELECT_CATEGORY)
-    public ModelAndView selectCategory(Integer memberId, int type, HttpServletRequest request, 
+    public ModelAndView selectCategory(Integer detailId, HttpServletRequest request, 
             HttpServletResponse response) throws UnsupportedEncodingException {
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
-        MemberBaseDto objBaseDto = memberInfoService.getMemberBaseInfo(memberId, false);
-        if (objBaseDto == null) {
-            objBaseDto = new MemberBaseDto();
-            objBaseDto.setSex(type == 1 ? "男" : "女");
-            objBaseDto.setName("散客");
-            objBaseDto.setPhone("未知");
-        }
         Integer storeId = getStoreIdByOpenId(openId);
-        Integer employeeId = getUserIdByOpenId(openId);
-        return staffService.selectBaseInfo(storeId, employeeId, objBaseDto, null);
+        return staffService.selectCategory(storeId, detailId);
     }
     
     /**
@@ -337,7 +321,7 @@ public class StaffController extends BaseController {
     * @param orderId 订单标识
     * @return BaseDto
      */
-    @RequestMapping(value = Url.Staff.ACTION_ADD_ORDER)
+    /*@RequestMapping(value = Url.Staff.ACTION_ADD_ORDER)
     @ResponseBody
     public BaseDto addOrder(HttpServletRequest request, HttpServletResponse response, String objString, String employeeObj, String nextProjectObj,
              Integer memberId, String sex, Integer orderId) {
@@ -348,7 +332,7 @@ public class StaffController extends BaseController {
         Integer storeId = getStoreIdByOpenId(openId);
         Integer lastOperatorId = getUserIdByOpenId(openId);
         return staffService.addOrder(objString, employeeObj, nextProjectObj, memberId, sex, storeId, lastOperatorId, 0, orderId);
-    }
+    }*/
     
     /**
      * 附加项目（或商品、套餐）
@@ -359,7 +343,7 @@ public class StaffController extends BaseController {
     * @param orderId 订单标识
     * @return ModelAndView
      */
-    @RequestMapping(value = Url.Staff.VIEW_APPEND_DETAIL, method = RequestMethod.POST)
+    /*@RequestMapping(value = Url.Staff.VIEW_APPEND_DETAIL, method = RequestMethod.POST)
     public ModelAndView appendDetail(HttpServletRequest request, HttpServletResponse response, Integer orderId){
         String openId = getOpenId(2, request, response);
         if (openId == null) {
@@ -368,7 +352,7 @@ public class StaffController extends BaseController {
         Integer storeId = getStoreIdByOpenId(openId);
         Integer lastOperatorId = getUserIdByOpenId(openId);
         return staffService.appendDetail(orderId, storeId, lastOperatorId);
-    }
+    }*/
     
     /**
      * 查询明细是否修改
@@ -600,7 +584,7 @@ public class StaffController extends BaseController {
     * @param state 状态
     * @return BaseDto
      */
-    @RequestMapping(value = Url.Staff.UPDATE_STATE, method = RequestMethod.POST)
+    /*@RequestMapping(value = Url.Staff.UPDATE_STATE, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto updateState(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongEmployeeId, Integer state){
         String openId = getOpenId(2, request, response);
@@ -609,7 +593,7 @@ public class StaffController extends BaseController {
         }
         Integer storeId = getStoreIdByOpenId(openId);
         return shiftMahjongService.updateState(shiftMahjongEmployeeId, state, storeId);
-    }
+    }*/
     
     /**
      *  查询订单详情

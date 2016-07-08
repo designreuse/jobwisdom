@@ -10,13 +10,6 @@
     <title>内部登录</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/shop.css">
 </head>
-<style>
-#loadingWrap{position:absolute;top:30%;left:40%}
-
-.alertWrap{ position: absolute;
-    top: 40%;
-    left: 30%;}
-</style>
 <body style="background:none;height:100%">
 	<div class="con">
        <div class="login">

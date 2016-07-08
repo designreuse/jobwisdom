@@ -24,7 +24,6 @@ import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.EntityJsonConverter;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.DeptGoodsBaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.EnterpriseInfoDto;
@@ -294,20 +293,40 @@ public class StaffService {
     }
     
     /**
+     * 根据手牌号查询订单信息
+    * @author 老王
+    * @date 2016年7月7日 上午11:27:52 
+    * @param storeId 门店标识
+    * @param handOrderCode 手牌号
+    * @return BaseDto
+     */
+    public BaseDto selectBaseInfo (Integer storeId, String handOrderCode) {
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("handOrderCode", handOrderCode);
+    	map.put("storeId", storeId);
+    	OrderInfo orderInfo = orderInfoMapper.selectByHandOrderCodeOrder(map);
+    	
+    	if (orderInfo == null) {
+    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "服务单已完成或不存在！");
+    	}
+    	else {
+    		Integer orderId = orderInfo.getOrderId();
+    		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, orderId);
+    	}
+    }
+    
+    /**
      * 查询会员信息、项目类别、商品类别
     * @author 王大爷
     * @date 2015年8月20日 下午5:40:29
     * @param storeId 门店标识
-    * @param employeeId 员工标识
-    * @param memberBaseDto 会员信息
-    * @param orderId 订单标识
+    * @param detailId 明细标识
     * @return ModelAndView
      */
-    public ModelAndView selectBaseInfo(Integer storeId, Integer employeeId, MemberBaseDto memberBaseDto, Integer orderId){
+    public ModelAndView selectCategory(Integer storeId, Integer detailId){
         
         ModelAndView mav = new ModelAndView();
-        Integer employeeDeptId = employeeService.getDeptIdByEmployeeId(employeeId);
-        mav.addObject("memberBaseDto", memberBaseDto);
+
         List<DeptInfo> deptList = deptInfoMapper.getDeptIdAndNameByStoreId(storeId);
         
         List<Map<String, Object>> dtoList = new ArrayList<Map<String, Object>>();
@@ -315,48 +334,19 @@ public class StaffService {
         for (DeptInfo dept : deptList) {
             Integer deptId = dept.getDeptId();
             
-            if (employeeDeptId.intValue() == deptId.intValue()) {
-                mav.addObject("employeeDeptName", dept.getDeptName());
-            }
-            
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("deptId", deptId);
-            
+            map.put("deptName", dept.getDeptName());
             DeptProjectBaseDto deptProjectBaseDto = projectService.getDeptProjectByDeptId(deptId);
             map.put("project", deptProjectBaseDto.getProjectCategoryList());
-            DeptGoodsBaseDto deptGoodsBaseDto = goodsInfoService.getDeptGoodsByDeptId(deptId);
-            map.put("goods", deptGoodsBaseDto.getGoodsCategoryBaseDto());
-            List<ComboInfo> comboInfoList = comboInfoMapper.getComboInfo(deptId);
-            map.put("combo", comboInfoList);
+            
             dtoList.add(map);
         }
-        //常用项目
-//        List<ProjectInfo> projectInfoListOrder = projectInfoMapper.selectDeptIdOrder(deptId);
-//        mav.addObject("projectInfoListOrder", projectInfoListOrder);
-        
-        /*ProjectCategory projectCategory = new ProjectCategory();
-        projectCategory.setStoreId(storeId);
-        //固定值
-        projectCategory.setDeptId(deptId);*/
-        
-//        List<ProjectCategoryDto> projectCategoryDtoList = projectCategoryMapper.selectByProjectCategory(projectCategory);
-        
-/*        mav.addObject("projectCategoryDtoList", deptProjectBaseDto.getProjectCategoryList());*/
-        /*GoodsCategory goodsCategory = new GoodsCategory();
-        goodsCategory.setStoreId(storeId);
-        goodsCategory.setDeptId(deptId);*/
-        
-//        List<GoodsCategoryDto> goodsCategoryDtoList = goodsCategoryMapper.selectByGoodsCategory(goodsCategory);
-        
-/*        mav.addObject("goodsCategoryDtoList", deptGoodsBaseDto.getGoodsCategoryBaseDto());
 
-        
-        mav.addObject("comboInfoList", comboInfoList);*/
         mav.addObject("dtoList", dtoList);
         mav.addObject("deptList", deptList);
-        mav.addObject("employeeDeptId", employeeDeptId);
-        mav.addObject("orderId", orderId);
-        
+        mav.addObject("detailId", detailId);
+        mav.addObject("deptLength", deptList.size());
         mav.setViewName(View.StaffPage.PROJECT_CATEGORY);
         return mav;
     }
@@ -411,6 +401,26 @@ public class StaffService {
         map.put("storeId", storeId);
         map.put("orderId", orderId);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+    }
+    
+    /**
+     * 为服务设置步骤
+    * @author 老王
+    * @date 2016年7月6日 下午8:50:39 
+    * @param detailId 明细标识
+    * @param projectId 项目标识
+    * @return BaseDto
+     */
+    public BaseDto settingProject (Integer detailId, Integer projectId) {
+    	OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(detailId);
+    	ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
+    	orderDetail.setProjectId(projectId);
+    	orderDetail.setProjectName(projectInfo.getProjectName());
+    	orderDetail.setProjectPrice(projectInfo.getProjectPrice());
+    	orderDetail.setProjectCount(1);
+    	orderDetail.setProjectImage(projectInfo.getProjectImage());
+    	orderDetailMapper.updateByPrimaryKey(orderDetail);
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, orderDetail.getOrderId());
     }
     
     /**
@@ -1009,7 +1019,7 @@ public class StaffService {
         ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
         shiftMahjongProjectStep.setShiftMahjongStepId(obj.getShiftMahjongStepId());
         shiftMahjongProjectStep.setFinishTime(DateUtil.getCurTime());
-        shiftMahjongProjectStep.setIsOver(3);
+        shiftMahjongProjectStep.setIsOver(2);
         shiftMahjongProjectStep.setIsCurrent(0);
         shiftMahjongProjectStepMapper.updateByPrimaryKey(shiftMahjongProjectStep);
         
