@@ -117,11 +117,18 @@
     where ma.appointment_id = #{appointmentId,jdbcType=INTEGER}
   </select>
   
-  <select id="selectAppointmentByMemberId" resultMap="MemberAppointResultMap" parameterType="java.lang.Integer">
+  <!-- <select id="selectAppointmentByMemberId" resultMap="MemberAppointResultMap" parameterType="java.lang.Integer">
     select 
         ma.appointment_id, ma.member_id, ma.employee_id, ma.project_id, ma.project_step_order, ma.shift_mahjong_id, ma.appointment_date, 
 	    ma.appointment_time, ma.service_time, ma.appointment_status, ma.create_time,ma.cancel_time, ma.cancel_reason, ma.appointment_price,
 	    (select shift_mahjong_name from shift_mahjong where shift_mahjong_id = ma.shift_mahjong_id) as shiftMahjongName
+    from member_appointment ma
+    where ma.member_id = #{memberId,jdbcType=INTEGER} and is_deleted = 0 order by ma.appointment_status = 1 desc, ma.create_time desc
+  </select> -->
+  <select id="selectAppointmentByMemberId" resultMap="MemberAppointResultMap" parameterType="java.lang.Integer">
+    select 
+        ma.appointment_id, ma.member_id, ma.employee_id, ma.project_id, ma.project_step_order, ma.shift_mahjong_id, ma.appointment_date, 
+	    ma.appointment_time, ma.service_time, ma.appointment_status, ma.create_time,ma.cancel_time, ma.cancel_reason, ma.appointment_price
     from member_appointment ma
     where ma.member_id = #{memberId,jdbcType=INTEGER} and is_deleted = 0 order by ma.appointment_status = 1 desc, ma.create_time desc
   </select>

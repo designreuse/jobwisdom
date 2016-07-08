@@ -230,6 +230,10 @@ public interface Url {
 		public static final String RUMORS_COURSE = "member/view/rumors";
 		/** 查询门店内所有会员电话和名称 */
 		public static final String SELECT_STORE_MEMBERINFO = "member/action/selectStoreMemberInfo";
+		/** 退卡操作*/
+        public static final String MEMBER_RETURN_CARD = "member/action/return/card";
+        /** 冻结会员*/
+        public static final String MEMBER_DELTED_INFO = "member/action/deleted/member";
 
 	}
 
@@ -259,6 +263,24 @@ public interface Url {
 		public static final String QUERY_HAIRSTYLEDESIGNBYID = "hairstyleDesign/queryHairstyleDesignById";
 		/** 保存发型设置 */
 		public static final String SAVE_HAIRSTYLEDESIGN = "hairstyleDesign/saveHairstyleDesign";
+	}
+	
+	/** 活动模块*/
+	class Activity {
+	    /** 进入活动页面 */
+        public static final String TO_ACTIVITYSIGN = "activity/view/toactivitysign";
+
+        /** 活动保存 */
+        public static final String TO_ACTIVITYSAVE = "activity/view/toactivitysave";
+        
+        /** 活动删除 */
+        public static final String TO_ACTIVITYDELETE = "activity/view/toactivitydelete";
+        
+        /** 查询单个活动 */
+        public static final String TO_ACTIVITYSELECT = "activity/view/toactivityselect";
+        
+        /** 修改单个活动 */
+        public static final String TO_ACTIVITYUPDATE = "activity/view/toactivityupdate";
 	}
 
 	/** 项目模块 */

@@ -58,7 +58,7 @@
 	left join member_level ml on msa.level_id = ml.level_id
 	left join member_info mi on mi.member_id = msa.account_id
 	left join member_level_discount mld on mld.level_id = msa.level_id 
-	where msa.account_id = #{accountId} and mld.store_id = #{storeId}
+	where msa.account_id = #{accountId} and mld.store_id = #{storeId} and msa.is_deleted = 0
 	order by msa.balance_amount desc
   </select>
   
@@ -198,6 +198,9 @@
       </if>
       <if test="lastOperatorId != null" >
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
       </if>
     </set>
     where sub_account_id = #{subAccountId,jdbcType=INTEGER}

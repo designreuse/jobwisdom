@@ -32,9 +32,6 @@
     	pageNo = 1;
     	var data = "pageNo="+pageNo+"&pageSize="+pageSize+"&sex="+sex+"&levelId="+levelId;
     	data = initDate(data);
-    	if (status!="null"){
-    		data += "&status="+status;
-    	}
     	isGroup = true;
 		jQuery.ajax({
 			type : "post",
@@ -112,8 +109,33 @@
     	var memberId = jQuery(this).attr("memberid");
     	for (var i = 0; i < memberArray.length; i++) {
     		if(memberArray[i].memberId == memberId){
-    			var e = {"msg":{"results":[memberArray[i]]}};
-    			console.log(e.msg.results.length);
+    			var results = [{
+    		        "avgConsumeAmount": memberArray[i].avgConsumeAmount,
+    		        "avgConsumeDays": memberArray[i].avgConsumeDays,
+    		        "balanceAmount": memberArray[i].balanceAmount,
+    		        "balanceGiftmoneyAmount": memberArray[i].balanceGiftmoneyAmount,
+    		        "balanceIntegral": memberArray[i].balanceIntegral,
+    		        "birthday": memberArray[i].birthday,
+    		        "community": memberArray[i].community,
+    		        "createTime": memberArray[i].createTime,
+    		        "debtAmount": memberArray[i].debtAmount,
+    		        "isDeleted": memberArray[i].isDeleted,
+    		        "lastConsumeTime": memberArray[i].lastConsumeTime,
+    		        "lastOperatorId": memberArray[i].lastOperatorId,
+    		        "levelName": memberArray[i].levelName,
+    		        "memberId": memberArray[i].memberId,
+    		        "name": memberArray[i].name,
+    		        "phone": memberArray[i].phone,
+    		        "sex": memberArray[i].sex,
+    		        "storeId": memberArray[i].storeId,
+    		        "storeName": memberArray[i].storeName,
+    		        "totalAmount": memberArray[i].totalAmount,
+    		        "totalConsumeAmount": memberArray[i].totalConsumeAmount,
+    		        "totalGiftmoneyAmount": memberArray[i].totalGiftmoneyAmount,
+    		        "totalIntegral": memberArray[i].totalIntegral,
+    		        "totalPresentAmount": memberArray[i].totalPresentAmount
+    		    }];
+    			var e = {"msg":{"results":results}};
     			jQuery("#init_member").empty();
     			initTable(e);
 				pageNo = 1;
@@ -121,7 +143,6 @@
 				totalPage = 1;
 				totalRecord = 1;
 				unbuildPagination();
-				jQuery(".fuzzysearch").hide();
     		}
     	}
     });
@@ -178,9 +199,6 @@
 	  if (serchType == 1){
 		var data = "pageNo="+pageNo+"&pageSize="+pageSize+"&sex="+sex+"&levelId="+levelId;
 		data = initDate(data);
-		if (status!="null"){
-			data += "&status="+status;
-		}
 		jQuery.ajax({
 			type : "post",
 			url : baseUrl + "member/serch/by/screen",
@@ -327,25 +345,12 @@
   }
   //拼装table
   function initTable(e){
-	  var tbody = '<tr><td>手机号</td><td>姓名</td><td>性别</td><td>储值余额</td><td>积分余额</td><td>累计消费</td><td>消费均额</td><td>礼金金额</td><td>注册日期</td><td>会员等级</td><td>生日</td><td>挂账金额</td><td colspan="2">操作</td></tr>';
-	  jQuery("#init_member").append(jQuery(tbody));
-	  for (var i = 0; i < e.msg.results.length; i++) {
+		for (var i = 0; i < e.msg.results.length; i++) {
 			var tr = jQuery("<tr></tr>");
 			var td1 = jQuery("<td community='"+e.msg.results[i].community+"'>"+e.msg.results[i].phone+"</td>");
 			var td2 = jQuery("<td class='can-click' data-target='#member-data' onclick='selectMemberInfo("+e.msg.results[i].memberId+")' data-toggle='modal' id="+e.msg.results[i].memberId+">"+e.msg.results[i].name+"</td>");
 			var td3 = jQuery("<td>"+e.msg.results[i].sex+"</td>");
-			var level = '<td>';
-			for (var j = 0; j < e.msg.results[i].memberSubAccounts.length; j++) {
-				level += '<p>'+e.msg.results[i].memberSubAccounts[j].levelName+'</p>';
-			}
-			level += '</td>';
-			var td4 = jQuery(level);
-			var deleteLevel = '<td>';
-			for (var j = 0; j < e.msg.results[i].memberSubAccounts.length; j++) {
-				deleteLevel += '<p><button>退</button></p>';
-			}
-			deleteLevel += '</td>';
-			var td44 = jQuery(deleteLevel);
+			var td4 = jQuery("<td>"+e.msg.results[i].levelName+"</td>");
 			var td5;
 			if (e.msg.results[i].birthday==null||e.msg.results[i].birthday==""){
 				td5 = jQuery("<td>"+"</td>");
@@ -369,30 +374,31 @@
 				        	  '</td>');
 			var td14 = jQuery("<td>"+e.msg.results[i].debtAmount+"</td>");
 			var td13 = jQuery('<td><i class="iconfont icon-xx ml10" onclick="deleteMemberTip('+e.msg.results[i].memberId+',this);"></i></td>');
-			var td16;
-			if (status!=""){
-				td16= jQuery('<td><p><button style="background: #4e6fb3" onclick="deletedMember('+e.msg.results[i].memberId+', 0, this)">解冻</button></p></td>');
-			}else{
-				td16= jQuery('<td><p><button style="background: #4e6fb3" onclick="deletedMember('+e.msg.results[i].memberId+', 1, this)">冻结</button></p></td>');
-			}
+//			var td15 = jQuery('<td class="input80 ellipsis-text" data-toggle="tooltip" data-placement="right" title="'+e.msg.results[i].community+'">'
+//								+e.msg.results[i].community+
+//                    			'</td>');
 			tr.append(td1);
 			tr.append(td2);
 			tr.append(td3);
+			tr.append(td4);
+			tr.append(td5);
 			tr.append(td6);
 			tr.append(td7);
 			tr.append(td8);
 			tr.append(td9);
 			tr.append(td12);
 			tr.append(td10);
-			tr.append(td4);
-			tr.append(td5);
 			tr.append(td14);
-			if (status==""){tr.append(td44);}
-			tr.append(td16);
-			/*tr.append(td4);
-			tr.append(td5);*/
+//			tr.append(td15);
+			tr.append(td11);
+			tr.append(td13);
 			jQuery("#init_member").append(tr);
 		}
+//		jQuery(".can-click.m-btn.update").hover(function() {
+//			jQuery(this).find("span").show();
+//		}, function() {
+//			jQuery(this).find("span").eq(1).hide();
+//		});
   }
   
   //校验数据

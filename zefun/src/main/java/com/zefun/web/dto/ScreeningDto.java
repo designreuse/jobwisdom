@@ -59,8 +59,15 @@ public class ScreeningDto {
     private Integer storeId;
     /**分店门店id*/
     private String branchStoreIds;
+    /**查询冻结账户*/
+    private Integer status;
 
-    
+    public Integer getStatus() {
+        return status;
+    }
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
     public BigDecimal getGiftMoneyAmountStart() {
         return giftMoneyAmountStart;
     }

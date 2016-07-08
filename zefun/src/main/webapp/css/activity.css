@@ -1,0 +1,101 @@
+.content_right{padding:20px 30px;font-size:12px;color:black;}
+
+
+.out_roll li{width:138px;height:66px;border:1px solid black;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
+.click_left{position:absolute;z-index:2;top:2px;}
+.click_right{position:absolute;right:-50px;top:2px;z-index:2}
+.out_roll{width:960px;height:96px;position:relative;}
+.out_roll_ul{width:4000px;margin-left:2px;position:relative}
+.out_roll span img{height:55px}
+.out_roll_div{overflow:hidden}
+.out_roll_content{padding:20px 10px 0 0 ;border:1px solid black;border-radius:8px;background:#fbfbff;margin-bottom:20px}
+.out_roll_ul .active{background:#ecf7fe}
+.out_tab_content_{height:450px}
+.out_tab{height:512px;width:1014px;border:1px solid black;border-top:none;margin-top:50px;border-radius:8px}
+.out_tab li{width:336px;height:36px;float:left;border:1px solid black;border-radius:10px 10px 0 0;text-align:center;line-height:36px;font-size:16px;color:black;cursor:pointer;font-weight:bold}
+.out_tab .active{border-bottom:none}
+.out_tab ul{height:37px}
+
+
+.new_activity{border:1px solid #898989;margin-top:8px;height:595px;border-radius:8px;padding:10px 20px}
+.new_activity>p>button{width:130px;height:26px;border:none;text-align:center;line-height:26px;border-radius:12px;color:white;font-size:16px;background:#596788}
+.new_activity>p>button:hover{background:#424d68}
+.new_activity_content{background:#d8deed;height:520px;border-radius:8px;margin-top:8px;padding:10px}
+.new_activity_content_datail{background:white;border:1px solid #898989;border-radius:8px;height:520px;overflow:overlay;}
+.new_activity_content_datail>p{background:#ebeff8}
+.new_activity_spread_content{background:#eeeeee;padding:2px 0;border-bottom:1px solid #d5d6d9}
+.activity_spread{width:700px;margin:10px auto}
+.activity_spread select{padding-left:15px;color:black;font-size:14px;width:90px;height:20px;border-radius:12px;border:1px solid #dcdcdc}
+.activity_spread input{margin-left:10px;width:90px;height:20px;border-radius:12px;border:1px solid #dcdcdc;padding-right:20px}
+.activity_spread span{display:inline-block;margin-right:40px}
+.activity_spread span em{position:relative;left:-20px}
+.activity_spread span i{display:inline-block;width:50px;text-align:center}
+.new_activity_spread:nth-child(odd){background:#f6f8fc}
+
+.zzc{font-size: 14px;
+    color: black;
+    position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);}
+.zzc_new_activity{width:680px;height:490px;background:white;margin:50px auto}	
+.zzc_new_activity>p{font-size:18px;height:64px;text-align:center;line-height:64px;background:#454560;color:white}
+.zzc_new_activity_content{padding:15px 25px}
+.activity_name{overflow:hidden;height:90px;border:1px solid #898989;border-radius:8px;margin-top:5px;padding:20px}
+.activity_name input[type="text"]{width:130px;height:18px;border-radius:12px;border:1px solid #aaaaaa;margin-left:28px}
+.activity_name span{display:inline-block;margin-left:28px;margin-right:10px}
+.activity_name span em{display:inline-block;margin-right:20px}
+.activity_name>p{margin-bottom:10px}
+.activity_name span input{margin-right:6px}
+.activity_name span i{position:relative;right:26px}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    position: relative;
+    top: -3px;
+    margin-right: 8px;
+	}
+
+input[type="checkbox"]:checked {
+    background: url('../images/checked.png') no-repeat;
+    background-position: center center;
+    border: 1px solid #d93717;
+background-size: cover;}
+
+.allow_activity{float:right;margin-right:10px}
+
+.emploee_achievement{margin-top:10px}
+.zzc_new_activity_content_datail>p,.emploee_achievement>p{font-size:16px}
+.emploee_achievement table{width:625px;text-align:center}
+.emploee_achievement table td{height:36px;vertical-align:middle;border:1px solid #c2c2c2;border-top:none;border-right:none}
+.emploee_achievement table select{color:black;width:80px;height:18px;border-radius:12px;border:1px solid #898989;padding-left:20px}
+.emploee_achievement table input{width:80px;height:18px;border-radius:12px;border:1px solid #898989;padding-right:20px}
+.emploee_achievement table i{position:relative;left:-20px;color:#a19898}
+.emploee_achievement table tr:nth-child(1){font-weight:normal}
+.emploee_achievement_{border:1px solid #898989;border-radius:8px;margin-top:10px}
+.emploee_achievement table td:nth-child(1){border-left:none}
+
+.zzc_achievement_button{text-align:center;margin-top:20px}
+.zzc_achievement_button button{width:130px;height:26px;border:none;border-radius:12px;color:white;font-size:16px;text-align:center;line-height:26px;background:#596788;margin:0 50px}
+.zzc_achievement_button button:hover{background:#495570}
+
+.new_activity_spread i{display:inline-block;width:50px;height:20px;border-radius:12px;text-align:center;line-height:20px;background:#f7f7f7;border:1px solid #e0e0e0;margin:0 7px}
+
+.new_activity_content_datail table{width:956px}
+.new_activity_content_datail table td{width:100px;padding: 10px 0px;text-align:center;border:1px solid #dbdbdb}
+.new_activity_content_datail i{display:inline-block;width:40px;text-align:center}
+.new_activity_content_datail em{display:inline-block;width:60px;height:20px;text-align:center;line-height:20px;background:#f7f7f7;border:1px solid #dcdcdc;border-radius:12px;margin-left:4px}
+.new_activity_content_datail span{display:inline-block;margin-right:5px}
+.new_activity_content_datail img{vertical-align:middle;margin:0 10px}
+.new_activity_content_datail p{margin-bottom:10px}
+.new_activity_content_datail td{vertical-align:middle}
+
+table tr:nth-child(odd){background:#f6f8fc}
+table tr:nth-child(1){background:#ebeff8;}
