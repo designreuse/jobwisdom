@@ -312,6 +312,7 @@
     AND wx.store_id = #{storeId,jdbcType=INTEGER}
     AND wx.is_deleted = 0
   </select>
+  
   <resultMap id="ResultDto" type="com.zefun.web.dto.MemberInfoDto" >
     <result column="member_id" property="memberId" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
@@ -330,11 +331,10 @@
     <result column="avg_consume_amount" property="avgConsumeAmount" jdbcType="DECIMAL" />
     <result column="last_consume_time" property="lastConsumeTime" jdbcType="CHAR" />
     <result column="avg_consume_days" property="avgConsumeDays" jdbcType="INTEGER" />
-
     <result column="debt_amount" property="debtAmount" jdbcType="DECIMAL" />
-
     <result column="total_giftmoney_amount" property="totalGiftmoneyAmount" jdbcType="DECIMAL" />
     <result column="balance_giftmoney_amount" property="balanceGiftmoneyAmount" jdbcType="DECIMAL" />
+    <association property="memberSubAccounts" column="{accountId=member_id,storeId=store_id}" select="com.zefun.web.mapper.MemberSubAccountMapper.selectSubAccountListByAccountId"></association>
   </resultMap>
 
   <select id="selectMemberCountByDate" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -437,6 +437,15 @@
    AND rt.account_id = wx.member_id
    AND wx.store_id = si.store_id
    AND wx.is_deleted = 0
+  </select>
+  <!-- 查询冻结账户 -->
+  <select id="selectHasDeletedByPageParams" parameterType="com.zefun.web.entity.Page" resultMap="ResultDto">
+    SELECT wx.*,qw.level_name,rt.*,si.store_name from member_info wx,member_level qw,member_account rt, store_info si WHERE wx.member_id IN
+    ( <include refid="selectMemberWithScre"/> )
+   AND qw.level_id = wx.level_id
+   AND rt.account_id = wx.member_id
+   AND wx.store_id = si.store_id
+   AND wx.is_deleted = 1
   </select>
 
   <!-- 会员分组页面 -->
@@ -546,7 +555,7 @@
 
   <!-- 会员页面 -->
   <select id="selectMemberInfosByPage" parameterType="com.zefun.web.entity.Page" resultMap="ResultDto">
-      SELECT wx.*,qw.level_name,rt.*,si.store_name from member_info wx,member_level qw,member_account rt, store_info si
+  SELECT wx.*,qw.level_name,rt.*,si.store_name from member_info wx,member_level qw,member_account rt, store_info si
     WHERE  qw.level_id = wx.level_id
     AND rt.account_id = wx.member_id
     <if test="params.storeId!=null">

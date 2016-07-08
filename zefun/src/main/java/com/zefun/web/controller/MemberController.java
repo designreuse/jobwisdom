@@ -104,6 +104,36 @@ public class MemberController extends BaseController{
 		return memberInfoService.selectMemberByStoreId(storeId);
 	}
 	
+	
+	/**
+	 * 退卡操作
+	* @author 高国藩
+	* @date 2016年7月7日 下午4:44:10
+	* @param request        request
+	* @param subAccountId   subAccountId
+	* @return               BaseDto
+	 */
+	@RequestMapping(value = Url.Member.MEMBER_RETURN_CARD, method = RequestMethod.POST)
+	@ResponseBody
+    public BaseDto returnCardMember(HttpServletRequest request, Integer subAccountId){
+        return memberInfoService.returnCardMember(subAccountId);
+    }
+	
+	/**
+     * 冻结/解冻会员
+    * @author 高国藩
+    * @date 2016年7月7日 下午4:44:10
+    * @param request        request
+    * @param memberId   memberId
+    * @param isDeleted isDeleted
+    * @return               BaseDto
+     */
+    @RequestMapping(value = Url.Member.MEMBER_DELTED_INFO, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto deletedMemberInfo(HttpServletRequest request, Integer memberId, Integer isDeleted){
+        return memberInfoService.deletedMemberInfo(memberId, isDeleted);
+    }
+	
 	/**
 	 * 新增选择器
 	* @author 高国藩

@@ -278,7 +278,7 @@ function initEmployee(epms){
 						'<p>岗位类型：'+employeeLevel.positionName+'</p>'+
 						'<ul class="clearfix">'+
 							'<li onclick="showUpdateLevel(this, \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+', '+employeeLevel.positionId+')">修改</li>'+
-							'<li>删除</li>'+
+							'<li onclick="deletedLevel('+employeeLevel.levelId+', this)">删除</li>'+
 						'</ul>'+
 					'</div>';
 		jQuery(".job_content.clearfix").append(jQuery(html));
@@ -425,6 +425,26 @@ function cansaleUpdateLevel(){
 	jQuery(".job_content.clearfix").append(jQuery(html));
 	levelId = null;
 	jQuery("input[name='levelName']").val('');
+}
+//删除职位提成
+function deletedLevel(levelId, li){
+	if(confirm("确定删除该职位信息么?")){
+		var storeId = jQuery(".clearfix.out_roll_ul").find("li[class='active']").attr("storeid");
+		var data = "levelId="+levelId+"&storeId="+storeId;
+		jQuery.ajax({
+			type : "post",
+			url : baseUrl + "employeelevel/action/delete",
+			data : data,
+			dataType : "json",
+			success : function(e){
+				if (e.code!=0){
+					dialog(e.msg);
+				}else {
+					jQuery(li).parents('.job_style').remove();
+				}
+			}
+		});
+	}
 }
 </script>
 </html>

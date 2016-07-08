@@ -42,7 +42,7 @@
 		            <li class="dingdan-list">
 		                <img src="<%=picPath%>${appointment.projectInfo.projectImage}?imageView2/1/w/220/h/220" alt="">
 		                <div class="list-desc">
-		                    <div class="list-name projectName">${appointment.projectInfo.projectName}</div>
+		                    <div class="list-name projectName">${appointment.category.categoryName}</div>
                             <div class="faxingshi">
                                 <span class="zhiwei">${appointment.employeeInfo.employeeCode}&nbsp;${appointment.employeeInfo.name}</span>
                                 <span class="name">${appointment.employeeInfo.levelName}</span>

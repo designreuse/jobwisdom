@@ -1,6 +1,7 @@
 package com.zefun.web.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 会员数据dto
@@ -56,6 +57,17 @@ public class MemberInfoDto {
     private String storeName;
     /**会员备注信息*/
     private String community;
+    /** 会员子账户*/
+    private List<MemberSubAccountDto> memberSubAccounts;
+    
+
+    public List<MemberSubAccountDto> getMemberSubAccounts() {
+        return memberSubAccounts;
+    }
+
+    public void setMemberSubAccounts(List<MemberSubAccountDto> memberSubAccounts) {
+        this.memberSubAccounts = memberSubAccounts;
+    }
 
     public String getCommunity() {
         return community;
