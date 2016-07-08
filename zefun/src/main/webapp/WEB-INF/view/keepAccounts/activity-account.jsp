@@ -2,6 +2,9 @@
 <%@ include file="/head.jsp"%>
 <%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+.fenye{margin-top:10px}
+</style>
  <script>
 	 //轮播
  	jQuery(function(){
@@ -88,7 +91,7 @@
 							   <td>操作</td>
 							</tr>
 							
-							<c:forEach  items="${activityInfo }" var="activityInfo"> 
+							<c:forEach  items="${page.results}" var="activityInfo"> 
 						
 						     <tr class="tr" id="${activityInfo.activityId}">
 							   <td>${activityInfo.activityName }</td>
@@ -108,9 +111,11 @@
 							 </tr>
 						  </c:forEach>
 						  </tbody></table>
+					
 						</div>
-					  
+					 
 					  </div>
+					   	  <%@ include file="/template/page.jsp"%>
 				   </div>   
 				  </div>
 				
@@ -301,67 +306,15 @@ function updated(activity,id){
 	});	
 	
 }
+var changes = false;
 function selectStore(li,id){
+	changes = true;
 	storeId=id;
 	jQuery(li).siblings().removeClass("active");
 	jQuery(li).addClass("active");
-	var data = "storeId="+storeId;
 	jQuery(".new_activity_spread").attr("style","display: none");
-	
-	jQuery.ajax({
-		type : "post",
-		url : baseUrl + "activity/view/toactivitysign",
-		data : data,
-		dataType : "json",
-		success : function(e){
-			var activity = e.msg.activityInfo;
-			positionInfo = e.msg.positionInfos;
-			hiddenz();
-			jQuery("#tables tbody").html("<tr class='one'><td>活动名称</td><td>活动类型</td><td>活动策略</td><td style='width:335px'>员工提成</td><td style='width:180px'>是否同时允许会员卡打折</td><td>操作</td></tr>");
-			  jQuery.each(activity,function(name,value){
-					var html = "<tr class='tr' id='"+value.activityId+"'><td>"+value.activityName+"</td>";
-					if(value.activityType == 1 ){
-						html += "<td>折扣</td>";
-					}
-					if(value.activityType == 2 ){
-						html += "<td>现金</td>";
-					}
-					if(value.activityType == 3 ){
-						html += "<td>体验</td>";
-					}
-					html += "<td>"+value.activityCl+"</td><td><p><span><i id='one'>"+value.activityPositionOne+"</i>";
-					if(value.positionOneType == 1 ){
-						html += "<em>固定</em>";
-					}
-					if(value.positionOneType == 2 ){
-						html += "<em>比例</em>";
-					}
-					html +="</span><span><i>提成</i><em>"+value.positionOnePush+"元</em></span><span><i>业绩</i><em>"+value.positionOneResult+"元</em></span></p><p><span><i id='two'>"+value.activityPositionTwo+"</i>";
-					if(value.positionTwoType == 1 ){
-						html += "<em>固定</em>";
-					}
-					if(value.positionTwoType == 2 ){
-						html += "<em>比例</em>";
-					}
-					html +="</span><span><i>提成</i><em>"+value.positionTwoPush+"元</em></span><span><i>业绩</i><em>"+value.positionTwoResult+"元</em></span></p><p><span><i id='two'>"+value.activityPositionThree+"</i>";
-					if(value.positionThreeType == 1 ){
-						html += "<em>固定</em>";
-					}
-					if(value.positionThreeType == 2 ){
-						html += "<em>比例</em>";
-					}
-					html +="</span><span><i>提成</i><em>"+value.positionThreePush+"元</em></span><span><i>业绩</i><em>"+value.positionThreeResult+"元</em></span></p>";
-					if(value.activityDiscount == 1 ){
-						html += "<td>是</td>";
-					}
-					if(value.activityDiscount == 2 ){
-						html += "<td>否</td>";
-					}
-					html += "<td><img onclick='updated(this,"+value.activityId+")' src='"+baseUrl+"images/add_store_1.png'><img onclick='deleted("+value.activityId+")' src='"+baseUrl+"images/add_store_2.png'></td></tr>";
-					jQuery("#tables tbody").append(jQuery(html));
-			  });
-		}
-	});
+	pageNo=1;
+	changePage(); 
 
 }
 
@@ -450,6 +403,75 @@ function hiddenz(){
  	jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(2).find("input").val("");
  	jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(3).find("input").val("");
 	jQuery('.zzc').hide();
+}
+
+
+//分页
+function changePage() { 
+	var datas = "pageNo=" + pageNo +"&storeId="+storeId;;
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "activity/view/toactivitysign",
+		data : datas,
+		dataType : "json",
+		success : function(e) {
+			pageNo = e.msg.page[0].pageNo;
+			pageSize = e.msg.page[0].pageSize;
+			totalPage = e.msg.page[0].totalPage;
+			totalRecord = e.msg.page[0].totalRecord;
+			if (changes) {
+				changes = false;
+				unbuildPagination();
+			}
+			var activity = e.msg.page[0].results;
+// 			var activity = e.msg.activityInfo;
+			positionInfo = e.msg.positionInfos;
+			hiddenz();
+			jQuery("#tables tbody").html("<tr class='one'><td>活动名称</td><td>活动类型</td><td>活动策略</td><td style='width:335px'>员工提成</td><td style='width:180px'>是否同时允许会员卡打折</td><td>操作</td></tr>");
+			  jQuery.each(activity,function(name,value){
+					var html = "<tr class='tr' id='"+value.activityId+"'><td>"+value.activityName+"</td>";
+					if(value.activityType == 1 ){
+						html += "<td>折扣</td>";
+					}
+					if(value.activityType == 2 ){
+						html += "<td>现金</td>";
+					}
+					if(value.activityType == 3 ){
+						html += "<td>体验</td>";
+					}
+					html += "<td>"+value.activityCl+"</td><td><p><span><i id='one'>"+value.activityPositionOne+"</i>";
+					if(value.positionOneType == 1 ){
+						html += "<em>固定</em>";
+					}
+					if(value.positionOneType == 2 ){
+						html += "<em>比例</em>";
+					}
+					html +="</span><span><i>提成</i><em>"+value.positionOnePush+"元</em></span><span><i>业绩</i><em>"+value.positionOneResult+"元</em></span></p><p><span><i id='two'>"+value.activityPositionTwo+"</i>";
+					if(value.positionTwoType == 1 ){
+						html += "<em>固定</em>";
+					}
+					if(value.positionTwoType == 2 ){
+						html += "<em>比例</em>";
+					}
+					html +="</span><span><i>提成</i><em>"+value.positionTwoPush+"元</em></span><span><i>业绩</i><em>"+value.positionTwoResult+"元</em></span></p><p><span><i id='two'>"+value.activityPositionThree+"</i>";
+					if(value.positionThreeType == 1 ){
+						html += "<em>固定</em>";
+					}
+					if(value.positionThreeType == 2 ){
+						html += "<em>比例</em>";
+					}
+					html +="</span><span><i>提成</i><em>"+value.positionThreePush+"元</em></span><span><i>业绩</i><em>"+value.positionThreeResult+"元</em></span></p>";
+					if(value.activityDiscount == 1 ){
+						html += "<td>是</td>";
+					}
+					if(value.activityDiscount == 2 ){
+						html += "<td>否</td>";
+					}
+					html += "<td><img onclick='updated(this,"+value.activityId+")' src='"+baseUrl+"images/add_store_1.png'><img onclick='deleted("+value.activityId+")' src='"+baseUrl+"images/add_store_2.png'></td></tr>";
+					jQuery("#tables tbody").append(jQuery(html));
+			  });
+		}
+	});
 }
 </script>
 </html>

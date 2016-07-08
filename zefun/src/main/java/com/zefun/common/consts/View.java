@@ -181,8 +181,11 @@ public interface View {
 	
 	   /** 活动模块*/
     class Activity {
-        /** 进入活动页面 */
+        /** 进入活动类别页面 */
         public static final String TO_ACTIVITYSIGN = "keepAccounts/activity-account";
+        
+        /** 进入门店活动页面 */
+        public static final String TO_ACTIVITYSTORE = "keepAccounts/activity-store";
     }
 	
 	/**

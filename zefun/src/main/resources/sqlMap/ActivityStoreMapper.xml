@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.ActivityStoreMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.ActivityStore" >
+    <id column="activity_store_id" property="activityStoreId" jdbcType="INTEGER" />
+    <result column="activity_store_name" property="activityStoreName" jdbcType="CHAR" />
+    <result column="status_time" property="statusTime" jdbcType="CHAR" />
+    <result column="sotp_time" property="sotpTime" jdbcType="CHAR" />
+    <result column="note" property="note" jdbcType="CHAR" />
+    <result column="store_id" property="storeId" jdbcType="CHAR" />
+    <result column="notes" property="notes" jdbcType="CHAR" />
+    <result column="store_account" property="storeAccount" jdbcType="CHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+     <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activity_store_id, activity_store_name, status_time, sotp_time, note, store_id, notes, 
+    store_account, is_deleted, create_time, update_time,
+        CASE
+	WHEN (CURDATE() &gt;= status_time AND CURDATE() &lt;= sotp_time) THEN '1'
+	WHEN CURDATE() &lt;  status_time THEN '2'
+	WHEN CURDATE() &gt; sotp_time THEN '3'
+	END AS status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_store
+    where activity_store_id = #{activityStoreId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity_store
+    where activity_store_id = #{activityStoreId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zefun.web.entity.ActivityStore" >
+    insert into activity_store (activity_store_id, activity_store_name, 
+      status_time, sotp_time, note, 
+      store_id, notes, store_account, 
+      is_deleted, create_time, update_time
+      )
+    values (#{activityStoreId,jdbcType=INTEGER}, #{activityStoreName,jdbcType=CHAR}, 
+      #{statusTime,jdbcType=CHAR}, #{sotpTime,jdbcType=CHAR}, #{note,jdbcType=CHAR}, 
+      #{storeId,jdbcType=CHAR}, #{notes,jdbcType=CHAR}, #{storeAccount,jdbcType=CHAR}, 
+      #{isDeleted,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.ActivityStore"  useGeneratedKeys="true"  keyProperty="activity_store_id">
+    insert into activity_store
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityStoreId != null" >
+        activity_store_id,
+      </if>
+      <if test="activityStoreName != null" >
+        activity_store_name,
+      </if>
+      <if test="statusTime != null" >
+        status_time,
+      </if>
+      <if test="sotpTime != null" >
+        sotp_time,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="storeAccount != null" >
+        store_account,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityStoreId != null" >
+        #{activityStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="activityStoreName != null" >
+        #{activityStoreName,jdbcType=CHAR},
+      </if>
+      <if test="statusTime != null" >
+        #{statusTime,jdbcType=CHAR},
+      </if>
+      <if test="sotpTime != null" >
+        #{sotpTime,jdbcType=CHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=CHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=CHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=CHAR},
+      </if>
+      <if test="storeAccount != null" >
+        #{storeAccount,jdbcType=CHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.ActivityStore" >
+    update activity_store
+    <set >
+      <if test="activityStoreName != null" >
+        activity_store_name = #{activityStoreName,jdbcType=CHAR},
+      </if>
+      <if test="statusTime != null" >
+        status_time = #{statusTime,jdbcType=CHAR},
+      </if>
+      <if test="sotpTime != null" >
+        sotp_time = #{sotpTime,jdbcType=CHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=CHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=CHAR},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=CHAR},
+      </if>
+      <if test="storeAccount != null" >
+        store_account = #{storeAccount,jdbcType=CHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where activity_store_id = #{activityStoreId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.ActivityStore" >
+    update activity_store
+    set activity_store_name = #{activityStoreName,jdbcType=CHAR},
+      status_time = #{statusTime,jdbcType=CHAR},
+      sotp_time = #{sotpTime,jdbcType=CHAR},
+      note = #{note,jdbcType=CHAR},
+      store_id = #{storeId,jdbcType=CHAR},
+      notes = #{notes,jdbcType=CHAR},
+      store_account = #{storeAccount,jdbcType=CHAR},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=CHAR}
+    where activity_store_id = #{activityStoreId,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectByStoreAcount" parameterType="com.zefun.web.entity.Page" resultMap="BaseResultMap">
+  		    select 
+    <include refid="Base_Column_List" />
+    from activity_store
+    where store_account = #{params.storeAccount,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+</mapper>

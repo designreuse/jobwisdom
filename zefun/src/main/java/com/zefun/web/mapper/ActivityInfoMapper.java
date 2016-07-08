@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zefun.web.dto.ActivityInfoDto;
 import com.zefun.web.entity.ActivityInfo;
+import com.zefun.web.entity.Page;
 
 /**
  *  企业活动
@@ -69,10 +70,10 @@ public interface ActivityInfoMapper {
      *  根据门店查询该门店下的活动
     * @author 骆峰
     * @date 2016年7月5日 下午8:46:48
-    * @param storeId storeId
+    * @param page page
     * @return ActivityInfo
      */
-    List<ActivityInfoDto> selectByStore(Integer storeId);
+    List<ActivityInfoDto> selectByStore(Page<ActivityInfoDto> page);
     
     /**
      * 删除该活动
