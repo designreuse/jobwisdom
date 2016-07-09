@@ -24,6 +24,7 @@ import com.zefun.web.dto.PositionInfoShiftMahjongDto;
 import com.zefun.web.dto.ProjectMahjongProjectStepDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.entity.ComboInfo;
+import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.PositionInfo;
@@ -35,6 +36,7 @@ import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
@@ -84,15 +86,19 @@ public class ManuallyOpenOrderService {
 	@Autowired private ShiftMahjongEmployeeMapper shiftMahjongEmployeeMapper;
 	/** */
 	@Autowired private StoreSettingMapper storeSettingMapper;
-	
+	/** */
+	@Autowired private SelfCashierService selfCashierService;
+	/** */
+	@Autowired private MemberInfoMapper memberInfoMapper;
 	/**
 	 * 初始化轮职排班界面
 	* @author laowang
 	* @date 2015年8月8日 上午11:17:40
 	* @param storeId 门店标识
+	* @param orderId 订单标识
 	* @return ModelAndView
 	 */
-	public ModelAndView initializeManuallyOpenOrder(Integer storeId){
+	public ModelAndView initializeManuallyOpenOrder(Integer storeId, Integer orderId){
 		ModelAndView mav = new ModelAndView();
         
 		List<Integer> deptIdList = deptInfoMapper.selectDeptIdByStoreIdIsResults(storeId);
@@ -135,6 +141,16 @@ public class ManuallyOpenOrderService {
 		
 		//查询该门店所有员工
 		mav.addObject("employeeInfoList", employeeInfoList);
+		
+		if (orderId != null) {
+			SelfCashierOrderDto selfCashierOrderDto = selfCashierService.selectSelfCashierOrderDetail(orderId, false, storeId);
+			mav.addObject("selfCashierOrderDto", selfCashierOrderDto);
+			if (selfCashierOrderDto.getMemberId() != null) {
+				MemberBaseDto memberBaseDto = memberInfoMapper.selectMemberBaseInfo(selfCashierOrderDto.getMemberId());
+				mav.addObject("memberBaseDto", JSONObject.fromObject(memberBaseDto).toString());
+			}
+		}
+		
 		mav.setViewName(View.KeepAccounts.MANUALLY_OPEN_ORDER);
 		return mav;
 	}
@@ -159,6 +175,24 @@ public class ManuallyOpenOrderService {
 		StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
 		
 		mav.addObject("startHandNumber", storeSetting.getStartHandNumber());
+		
+		List<DeptInfo> deptList = deptInfoMapper.getDeptIdAndNameByStoreId(storeId);
+        
+        List<Map<String, Object>> dtoList = new ArrayList<Map<String, Object>>();
+        
+        for (DeptInfo dept : deptList) {
+            Integer deptId = dept.getDeptId();
+            
+            Map<String, Object> deptMap = new HashMap<String, Object>();
+            deptMap.put("deptId", deptId);
+            DeptProjectBaseDto deptProjectBaseDto = projectService.getDeptProjectByDeptId(deptId);
+            deptMap.put("project", deptProjectBaseDto.getProjectCategoryList());
+            
+            dtoList.add(deptMap);
+        }
+
+        mav.addObject("dtoList", dtoList);
+        mav.addObject("deptList", deptList);
 		
 		return mav;
 		
@@ -193,32 +227,25 @@ public class ManuallyOpenOrderService {
     * @param memberId 会员标识
     * @param sex    消费者性别
     * @param storeId 门店标识
+    * @param appointmentId 预约标识
+    * @param orderId 订单标识
     * @param lastOperatorId 操作者
     * @return ModelAndView
      */
     @Transactional
     public BaseDto addOrder(String sex, String handOrderCode, String employeeObj, Integer memberId, 
-    		  Integer storeId, Integer lastOperatorId) {
-        Integer orderId = null;
+    		  Integer storeId, Integer appointmentId, Integer orderId, Integer lastOperatorId) {
         if (orderId == null) {
             //保存订单信息
             orderId = addOrderInfo(handOrderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId);
+        }
+        else {
+        	
         }
         //暂时未做
         Integer isAppointment = 0;
         addDetail(orderId, employeeObj, storeId, isAppointment, lastOperatorId);
         
-        /*orderInfoMapper.updateTotalPrice(orderId);*/
-        
-        /*//查询该明细对应的订单中存在的未完成的项目明细
-        List<OrderDetail> orderDetailList = orderDetailMapper.selectByNotOverByOrderId(orderId);
-        if (orderDetailList.size() == 0) {
-            //修改订单信息状态
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.setOrderId(orderId);
-            orderInfo.setOrderStatus(2);
-            orderInfoMapper.updateByPrimaryKey(orderInfo);
-        }*/
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("storeId", storeId);
         map.put("orderId", orderId);
@@ -303,13 +330,15 @@ public class ManuallyOpenOrderService {
         orderInfo.setHandOrderCode(handOrderCode);
         if (memberId != null) {
             orderInfo.setMemberId(memberId);
+            orderInfo.setSex(sex);
+        }
+        else {
+        	orderInfo.setSex(sex);
         }
         orderInfo.setOrderType(1);
-        orderInfo.setSex(sex);
         orderInfo.setStoreId(storeId);
         orderInfo.setCreateTime(openOrderDate);
         orderInfo.setLastOperatorId(employeeId);
-        orderInfo.setHandOrderCode(handOrderCode);
         orderInfo.setOrderStatus(1);
         orderInfoMapper.insert(orderInfo);
         return orderInfo.getOrderId();
@@ -415,11 +444,12 @@ public class ManuallyOpenOrderService {
 	* @param storeId 门店标识
 	* @param lastOperatorId 操作人
 	* @param handOrderCode 手工单号
+	* @param orderId 订单标识
 	* @return BaseDto
 	 */
 	@Transactional
     public BaseDto manuallyOpenOrderSave(Integer memberId, String sex, String arrayObjStr, String openOrderDate, Integer storeId, 
-    		Integer lastOperatorId, String handOrderCode){
+    		Integer lastOperatorId, String handOrderCode, Integer orderId){
         //查询会员基本信息
         MemberBaseDto memberBaseDto = new MemberBaseDto();
         if (memberId != null) {
@@ -441,8 +471,21 @@ public class ManuallyOpenOrderService {
         
         String orderCode = staffService.getOrderCode("order_info", storeId);
         
-        //保存订单信息
-        Integer orderId = staffService.addOrderInfo(orderCode, memberId, storeId, sex, openOrderDate, lastOperatorId, handOrderCode);
+        if (orderId == null) {
+        	//保存订单信息
+        	orderId = staffService.addOrderInfo(orderCode, memberId, storeId, sex, openOrderDate, lastOperatorId, handOrderCode);
+        }
+        else {
+        	OrderInfo orderInfo = new OrderInfo();
+            if (memberId != null) {
+                orderInfo.setMemberId(memberId);
+                orderInfo.setSex(sex);
+            }
+            else {
+            	orderInfo.setSex(sex);
+            }
+            orderInfoMapper.updateByPrimaryKey(orderInfo);
+        }
         
         JSONArray arrayObj =JSONArray.fromObject(arrayObjStr);
         
@@ -452,19 +495,25 @@ public class ManuallyOpenOrderService {
             Integer orderType = jsonObj.getInt("type");
             Integer projectId = jsonObj.getInt("projectId");
             if (orderType == 1) {
+            	Integer detailId = jsonObj.getInt("detailId");
+            	
                 Integer appoint = jsonObj.getInt("appoint");
-                ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
-                String detailCode = "";
-        		if (typeDate) {
-        			detailCode = staffService.getOrderCode("order_detail", storeId);
-        		}
-        		else {
-        			detailCode = "999";
-        		}
-        		
-                Integer detailId = staffService.addOrderDetail(detailCode, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
-                        projectInfo.getProjectName(), projectInfo.getProjectPrice(), 1, projectInfo.getProjectImage(),
-                        appoint, openOrderDate, storeId, lastOperatorId);
+                
+                if (detailId == null) {
+                	ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
+                    String detailCode = "";
+            		if (typeDate) {
+            			detailCode = staffService.getOrderCode("order_detail", storeId);
+            		}
+            		else {
+            			detailCode = "999";
+            		}
+            		
+                    detailId = staffService.addOrderDetail(detailCode, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
+                            projectInfo.getProjectName(), projectInfo.getProjectPrice(), 1, projectInfo.getProjectImage(),
+                            appoint, openOrderDate, storeId, lastOperatorId);
+                    
+                }
                 
                 String projectStepArrayObjStr = jsonObj.getString("projectStepArrayObjStr");
                 
@@ -609,6 +658,6 @@ public class ManuallyOpenOrderService {
         //修改订单价
         orderInfoMapper.updateTotalPrice(orderId);
         
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, orderId);
     }
 }

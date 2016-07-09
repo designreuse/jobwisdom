@@ -183,7 +183,8 @@ public class StaffController extends BaseController {
      * 根据会员标识查询会员信息
     * @author 张进军
     * @date Jan 17, 2016 1:12:54 PM
-    * @param memberId   会员标识
+    * @param detailId   会员标识
+    * @param projectId 项目标识
     * @param request    请求对象
     * @param response   响应对象
     * @return   会员信息

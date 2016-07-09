@@ -3,7 +3,26 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/open_card_alert.css" type="text/css" />
-
+<style>
+	.open_card_alert_state_content>p{padding:8px 20px;height:26px;line-height:26px;background:#d8deed}
+	.open_card_alert_state_content>p input[type="text"]{width:100px!important}
+	.open_card_alert_state_content .active1{border:none}
+	.zzc1, .zzc2{display:none}
+	.zzc_open_card_alert_content>p>span em{margin-left:8px;vertical-align:middle;display:inline-block;width:70px;height:26px;border-radius:12px;border:1px solid #838383;position:relative}
+	.zzc_open_card_alert_content>p>span em img{position:absolute;right:5px;top:10px}
+	.zzc_open_card_alert_content>p>i{display:inline-block;padding:2px 10px;border:1px solid #717171;border-radius:12px;margin-right:15px;cursor:pointer}
+	.zzc_open_card_alert_content i a{color:black}
+	.zzc_open_card_alert_content>p>em{display:inline-block;width:86px;height:20px;text-align:center;cursor:pointer;}
+	.zzc_open_card_alert_content>p>em img{width:18px}
+	.active_border{background:url('<%=basePath%>images/checked_.png') no-repeat!important;background-size:18px!important}
+	.active_border_{border:1px solid #e4671b!important;color:#e4671b}
+	.active_color{border:1px solid #e4671b!important;}
+	.active_color_{color:#e4671b!important}
+	.zzc_open_card_alert_content>p>em>i{display:inline-block;width:18px;height:18px;background:url('assets/images/check.png') no-repeat;vertical-align:middle;margin-left:2px;background-size:18px}
+	.zzc_open_card_alert_content>p input{width:100px!important;position:relative;left:4px;border:none!important;display:none;height:14px!important}
+	.zzc_open_card_alert_content>p>i>em{display:inline-block;width:21px;height:19px;background:url(assets/images/seach.png) no-repeat;vertical-align:middle;margin-left:5px}
+	.zzc_open_card_alert_content>p>i .action{background:url('assets/images/seach_.png') no-repeat}
+</style>
 <body>
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -18,9 +37,16 @@
 				     <c:forEach items="${cashierDtoList}" var="cashierDto">
 				        <li>
 						   <img src="<%=basePath%>images/money_close.png" onclick="deleteOrderInfo(${cashierDto.orderId })">
-						   <p>手牌号${cashierDto.handOrderCode }</p>
+						   <p>手牌号${cashierDto.handOrderCode}</p>
 						   <div class="customer">
-						     <span>顾客：散户</span>
+						     <c:choose>
+					           <c:when test="${cashierDto.memberId != null}">
+					               <span>顾客：${cashierDto.memberInfo.name}</span>
+					           </c:when>
+					           <c:otherwise>
+					                <span>顾客：散客</span>
+					           </c:otherwise>
+					         </c:choose>
 							 <em>开单时间：${fn:substring(cashierDto.createTime, 11, 16)}</em>
 						   </div>
 						   <div class="customer_content">
@@ -30,20 +56,23 @@
 							     <c:forEach items="${cashierDto.orderDetails}" var="orderDetail">
 							         <table>
 									   <tr>
-									    <td colspan="5" name = "projectId" projectId = "3173">
 									        <c:choose>
 									           <c:when test="${orderDetail.projectId == null}">
+									             <td colspan="5" name = "projectId" projectId = "">
 									               <em style="position:absolute;right:-4px;top:-10px" onclick="deleteDetailId(${orderDetail.detailId})">
 											            <img src="<%=basePath%>images/hand_close.png">
 											       </em>
 											       <em class="empty" onclick = "showSettingProject(${orderDetail.detailId})" >+</em>
+											     </td>
 									           </c:when>
 									           <c:otherwise>
+									              <td colspan="5" name = "projectId" projectId = "${orderDetail.projectId}">
 									                ${orderDetail.projectName}
 									                <span>
 									                    <img src="<%=basePath%>images/architecture_edit.png">
 									                    <em><img onclick="deleteDetailId(${orderDetail.detailId})" src="<%=basePath%>images/hand_close.png"></em>
 									                </span>
+									              </td>
 									           </c:otherwise>
 									        </c:choose>
 									    </td>
@@ -106,29 +135,62 @@
 <div class="zzc" name = "openOrderZzc" style="display:none">
   <div class="zzc_open_card_alert">
      <p>开单</p>
-     <div class="zzc_open_card_alert_content">
-	    <p>
-		  <span>手牌号<input type="text" name = "handOrderCode" style="width: 40px"></span>
-		  <span>会员开单<input type="text" name = "memberId"></span>
-		  <em>散客<i>男<input type="radio" name="sex" value = "男" checked></i><i>女<input type="radio" name="sex" value = "女"></i></em>
-		  <em style="width:120px" class="order_top">预约开单<input type="checkbox"></em>
+     <div class="zzc_open_card_alert_content" name="memberTR" selectType="3">
+		<p>
+		  <span>手牌号<em name = "handOrderCode"><img src="<%=basePath%>images/open_card_img.png"></em></span>
+		  <i><a href="javascript:;">会员开单
+		       <input type="text"name="phoneNumber" placeholder="会员手机号">
+		       <span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+			   <div class="show_search" name="memberListDIV"
+					style="display: none;">
+					<p>
+						以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+						<em><input type="checkbox" name="enterpriseCheck"
+							onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+						</em>
+					</p>
+					<div class="common_close" onclick="cancleMemberSelect(this)">
+						<img src="<%=basePath%>images/emploee_3.png">
+					</div>
+					<div style="height: 400px; overflow: overlay;"
+						name="memberoverDIV"></div>
+				</div>
+		     </a>
+		     <em></em>
+		  </i>
+		  <em>散客开单<i></i></em>
+		  <em>预约开单<i></i></em>
 		</p>
-	  <div class="open_card_alert_state_show">	
-	    <div class="open_card_alert_state">
-		  <ul class="clearfix" name = "positionUl">
-		    
-		  </ul>
+		<div class="open_card_table" name = "memberNoPage">
+		   <table>
+		      <tr>
+			    <td>名称</td>
+				<td>手机号码</td>
+				<td>性别</td>
+			  </tr>
+			  <tr>
+			    <td name = "memberName" memberId = "" appointmentId = ""></td>
+				<td name = 'memberPhone'></td>
+				<td name = "memberSex" memberSex = ""><!-- <span><input type="radio" name="sex" value = "男" checked>男</span><span><input type="radio" name="sex" value = "女">女</span> --></td>
+			  </tr>
+		   </table>
 		</div>
-	    <div class="open_card_alert_state_button">
-		  <button onclick="submits()">开单</button>
-		  <button onclick = "hideModal()">取消</button>
+		<div class="open_card_alert_state_show">	
+		    <div class="open_card_alert_state">
+			  <ul class="clearfix" name = "positionUl">
+			    
+			  </ul>
+			</div>
+		    <div class="open_card_alert_state_button">
+			  <button onclick="submits()">开单</button>
+			  <button onclick = "hideModal()">取消</button>
+			</div>
 		</div>
-	 </div>
  
        </div> 
    
       <div class="card_number" style="display:none">
-	    <img src="<%=basePath%>images/open_card_close.png">
+	    <img src="<%=basePath%>images/open_card_close.png" onclick = "closeCardNumber()">
 	    <p>深灰色为不可选状态</p>
 	    <ul class="clearfix" name = "handNumberUl">
 
@@ -231,49 +293,66 @@
    <div class="zzc2_select_item">
       <p>选择项目</p>
 	  <div class="zzc2_select_item_content">
-	      <p><select><option>xxxxx 部门</option></select></p>
-		  <div class="zzc2_select_item_content_ clearfix">
+	      <p>
+	         <select name = "deptName">
+	            <c:forEach items="${deptList}" var="dept" varStatus="status">
+	                <option value="${dept.deptId}">${dept.deptName}</option>
+	            </c:forEach>
+	         </select>
+	      </p>
+	      <c:forEach items="${dtoList}" var="dto" varStatus="status">
+	         <div class="zzc2_select_item_content_ clearfix" deptId = "${dto.deptId}" <c:if test="${status.index != 0 }">style="display: none;"</c:if>>
 			  <div class="zzc2_select_item_content_left">
 				 <ul>
-				   <li class="active">xxxxxx系列</li>
-				   <li>xxxxxx系列</li>
-				   <li>xxxxxx系列</li>
+				   <c:forEach items="${dto.project}" var="projectCategoryDto" varStatus="categoryStatus">
+		                <li categoryId="${projectCategoryDto.categoryId }" <c:if test="${status.index == 0 }">class="active"</c:if>>${projectCategoryDto.categoryName}</li>
+		           </c:forEach>
 				 </ul>			 
 			  </div> 
 			  <div class="zzc2_select_item_content_right">
-			    <div class="zzc2_select_item_content_right_content">
-                   <ul class="clearfix">
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-				   </ul>
-                 </div>	
-               	 <div class="zzc2_select_item_content_right_content">
-                   <ul class="clearfix">
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-				   </ul>
-                 </div>	
-                  <div class="zzc2_select_item_content_right_content">
-                   <ul class="clearfix">
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-					 <li><em>1</em>洗剪吹啊啊啊啊啊</li>
-				   </ul>
-                 </div>					 
+			    <c:forEach items="${dto.project}" var="projectCategoryDto" varStatus="categoryStatus">
+			        <div class="zzc2_select_item_content_right_content <c:if test="${categoryStatus.index != 0 }">hide</c:if>" categoryId="${projectCategoryDto.categoryId }">
+	                   <ul class="clearfix">
+	                     <c:forEach items="${projectCategoryDto.projectList}" var="projectInfo" varStatus="projectStatus">
+	                        <li <c:if test="${projectStatus.index == 0 }">class="active4"</c:if> projectId = "${projectInfo.projectId}">
+							   <div>${projectInfo.projectName}</div>
+							   <span>价格:<em>${projectInfo.projectPrice}</em></span>
+							</li>
+	                     </c:forEach>
+					   </ul>
+	                </div>	
+			    </c:forEach>
 			  </div> 
 		  </div>
-	  </div>	  
+	      </c:forEach>
+		  
+	  </div>
+     <div class="select_item_button">
+        <button>确认</button>
+		<button>取消</button>
+     </div>
+    	 
    </div>
+   <%@ include file="/template/memberData.jsp"%>
 </div>
 <script type="text/javascript">
 var startHandNumber = '${startHandNumber}';
-/* var positionInfoShiftMahjongDtoListStr = '${positionInfoShiftMahjongDtoListStr}';
-var positionInfoShiftMahjongDtoList = eval("(" + positionInfoShiftMahjongDtoListStr + ")"); */
+
+jQuery('.zzc_open_card_alert_content>p>em').click(function(){
+    jQuery(this).find('i').stop(true,true).toggleClass('active_border');
+	  jQuery(this).stop(true,true).toggleClass('active_border_');
+	  
+ }) 
+ jQuery('.zzc_open_card_alert_content>p>i').click(function(e){
+   jQuery(this).stop(true,true).toggleClass('active_color');
+	 jQuery(this).find('a').stop(true,true).toggleClass('active_color_');
+	 jQuery(this).find('em').stop(true,true).toggleClass('action');
+  if(!jQuery(e.target).is('input')) {
+	   jQuery(this).find('input').stop(true,true).toggle('normal')
+   }
+ });
+
+
 </script>
 <script type="text/javascript" src="<%=basePath %>js/keepAccounts/noPaperOpenOrder.js"></script>
 </body>

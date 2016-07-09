@@ -262,7 +262,7 @@ function edit(editor, type){
 								     '<div class="special_sever_text">'+
 									   '<p><span>服务名称：</span><em>'+data.msg.sName+'</em></p>'+
 									   '<p><span>服务项目：</span><em>'+data.msg.projectName+'</em></p>'+
-									   '<p><span>适用员工：</span><em>'+data.msg.employeeCode+'  '+data.msg.employeeName+'</em></p>'+
+									   '<p><span>造型师：</span><em>'+data.msg.employeeCode+'  '+data.msg.employeeName+'</em></p>'+
 									 '</div>'+
 							    '</div>';
 	    		   jQuery(".special_sever.clearfix").append(jQuery(html));
@@ -278,7 +278,7 @@ function edit(editor, type){
 	    					jQuery(".special-sever_content[id='"+sId+"']").find(".special_sever_text").empty();
 	    					var html = '<p><span>服务名称：</span><em>'+data.msg.sName+'</em></p>'+
 		    						   '<p><span>服务项目：</span><em>'+data.msg.projectName+'</em></p>'+
-		    						   '<p><span>适用员工：</span><em>'+data.msg.employeeCode+'  '+data.msg.employeeName+'</em></p>';
+		    						   '<p><span>造型师：</span><em>'+data.msg.employeeCode+'  '+data.msg.employeeName+'</em></p>';
 	    					jQuery(".special-sever_content[id='"+sId+"']").find(".special_sever_text").append(jQuery(html));
 	    			}
 	    		}

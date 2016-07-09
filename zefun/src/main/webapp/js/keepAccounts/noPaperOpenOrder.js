@@ -51,7 +51,7 @@ jQuery(function(){
 	    }
 	  })
 	  
-	 jQuery('input[name="handOrderCode"]').click(function(){
+	 jQuery('em[name="handOrderCode"]').click(function(){
 	   	jQuery('.card_number').show();
 	  
 	  })
@@ -64,15 +64,21 @@ jQuery(function(){
 	  }
 	  
 });
-//选择开单号 
 
+function closeCardNumber () {
+	jQuery(".card_number").hide();
+}
+
+//选择开单号 
 jQuery('.card_number').delegate("li", "click", function(){
     
     var handOrderCode = jQuery(this).text();
     if (jQuery(this).hasClass("active")) {
     	return;
     }
-    jQuery('input[name="handOrderCode"]').val(handOrderCode);
+    jQuery('em[name="handOrderCode"]').text(handOrderCode);
+    jQuery('em[name="handOrderCode"]').append("<img src='"+baseUrl+"images/open_card_img.png'>");
+    jQuery('em[name="handOrderCode"]').attr("handOrderCode", handOrderCode);
     jQuery('.card_number').hide();
   })
 
@@ -214,7 +220,7 @@ jQuery(".open_card_alert_state_content").delegate("li[name='activeLi']", "click"
 })
 
 function submits(){
-	var handOrderCode = jQuery("input[name='handOrderCode']").val();
+	var handOrderCode = jQuery('em[name="handOrderCode"]').attr("handOrderCode");
 	
 	if (isEmpty(handOrderCode)) {
 		dialog("手牌号不能为空！");
@@ -222,10 +228,14 @@ function submits(){
 		return;
 	}
 	
-	var sex = jQuery("input:radio[name='sex']:checked").val();
-	var memberId = jQuery("input[name='memberId']").val();
+	var sex = jQuery("td[name='memberSex']").attr("memberSex");
+	var memberId = jQuery("td[name='memberName']").attr("memberId");
+	var appointmentId = jQuery("td[name='memberName']").attr("appointmentId");
 	if (isEmpty(memberId)) {
 		memberId = "";
+	}
+	if (isEmpty(appointmentId)) {
+		appointmentId = "";
 	}
     var arrayObj = new Array();
         
@@ -256,7 +266,7 @@ function submits(){
     jQuery.ajax({
     	url : baseUrl + "KeepAccounts/addOrder",
     	type : "POST",
-    	data : "sex="+sex+"&handOrderCode="+handOrderCode+"&employeeObj="+employeeObj+"&memberId="+memberId,
+    	data : "sex="+sex+"&handOrderCode="+handOrderCode+"&employeeObj="+employeeObj+"&memberId="+memberId+"&appointmentId="+appointmentId,
     	success : function(e){
     		if (e.code != 0) {
                 dialog(e.msg);
@@ -401,7 +411,7 @@ function settingProject () {
 function settlementOrder (obj, orderId) {
 	var projectList = jQuery(obj).parents(".customer_content").find("td[name='projectId']");
 	for (var i = 0; i < projectList.length; i++) {
-		var projectId = jQuery(projectList[i]).find("td[name='projectId']").attr("projectId");
+		var projectId = jQuery(projectList[i]).attr("projectId");
 		if (isEmpty(projectId)) {
 			dialog("存在未设置项目的服务，请设置！");
 			return;
@@ -417,7 +427,7 @@ function settlementOrder (obj, orderId) {
 		}
 	}
 	
-	window.location.href = baseUrl + "jobwisdom/selfcashier/action/orderinfo?orderId="+ orderId;
+	window.location.href = baseUrl + "KeepAccounts/initializeManuallyOpenOrder?orderId="+ orderId;
 }
 
 function deleteDetailId (detailId) {

@@ -39,14 +39,15 @@ public class ManuallyOpenOrderController extends BaseController{
 	 * 手工开单页面
 	* @author 王大爷
 	* @date 2015年8月11日 上午11:10:16
+	* @param orderId 订单标识
 	* @param request 返回
 	* @param response 请求
 	* @return ModelAndView
 	 */
 	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_MANUALLY_OPEN_ORDER, method = RequestMethod.GET)
-	public ModelAndView initializeManuallyOpenOrder(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView initializeManuallyOpenOrder(Integer orderId, HttpServletRequest request, HttpServletResponse response){
 	    Integer storeId = getStoreId(request);
-		return manuallyOpenOrderService.initializeManuallyOpenOrder(storeId);
+		return manuallyOpenOrderService.initializeManuallyOpenOrder(storeId, orderId);
 	}
 	
 	/**
@@ -88,15 +89,17 @@ public class ManuallyOpenOrderController extends BaseController{
 	* @param handOrderCode 手牌号
 	* @param employeeObj 选择的轮牌员工
 	* @param memberId 会员标识
+	* @param appointmentId 预约单标识
+	* @param orderId 订单标识
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.KeepAccounts.ACTION_ADD_ORDER)
     @ResponseBody
     public BaseDto addOrder(HttpServletRequest request, HttpServletResponse response, String sex, String handOrderCode, String employeeObj,
-             Integer memberId) {
+             Integer memberId, Integer appointmentId, Integer orderId) {
         Integer lastOperatorId = getUserId(request);
         Integer storeId = getStoreId(request);
-        return manuallyOpenOrderService.addOrder(sex, handOrderCode, employeeObj, memberId, storeId, lastOperatorId);
+        return manuallyOpenOrderService.addOrder(sex, handOrderCode, employeeObj, memberId, storeId, appointmentId, orderId, lastOperatorId);
     }
 	
 	/**
@@ -211,16 +214,17 @@ public class ManuallyOpenOrderController extends BaseController{
 	* @param arrayObjStr 开单项目
 	* @param openOrderDate 补单时间
 	* @param handOrderCode 手工单号
+	* @param orderId 订单标识
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.KeepAccounts.MANUALLY_OPEN_ORDER_SAVE)
     @ResponseBody
 	public BaseDto manuallyOpenOrderSave(HttpServletRequest request, HttpServletResponse response, Integer memberId, String sex,
-	        String arrayObjStr, String openOrderDate, String handOrderCode) {
+	        String arrayObjStr, String openOrderDate, String handOrderCode, Integer orderId) {
 		
 	    Integer storeId = getStoreId(request);
 	    Integer lastOperatorId = getUserId(request);
-	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, storeId, lastOperatorId, handOrderCode);
+	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, storeId, lastOperatorId, handOrderCode, orderId);
 	}
 	
 	

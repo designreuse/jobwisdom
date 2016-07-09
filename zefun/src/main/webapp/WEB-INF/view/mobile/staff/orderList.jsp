@@ -27,7 +27,15 @@
 		   </ul>
 		   <c:forEach items="${orderDto.orderDetails}" var="orderDetail" varStatus="status">
                 <div class="order_style">
-			       <p >洗剪吹杀马特<button onclick = "selectCategory(${orderDetail.detailId})">修改</button></p>	  
+                
+                   <c:choose>
+			           <c:when test="${orderDetail.projectId == null}">
+			               <p style="background:#ededed;color:white;font-size:32px" onclick = "selectCategory(${orderDetail.detailId})">+</p>
+			           </c:when>
+			           <c:otherwise>
+			                <p>${orderDetail.projectName}<button onclick = "selectCategory(${orderDetail.detailId})">修改</button></p>	
+			           </c:otherwise>
+			        </c:choose>
 			       <table cellpadding="0" cellspacing="0">
 				     <tr>
 					   <td>岗位</td>

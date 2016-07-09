@@ -117,7 +117,7 @@ $(function(){
 	  $.ajax({
 	        type : "post",
 	        url : baseUrl + "staff/action/settingProject",
-	        data : "projectId="+handOrderCode+"&detailId="+detailId,
+	        data : "projectId="+projectId+"&detailId="+detailId,
 	        dataType : "json",
 	        success : function(e){
 	            if(e.code != 0){
