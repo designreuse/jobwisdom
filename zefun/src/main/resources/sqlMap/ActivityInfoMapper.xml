@@ -320,15 +320,16 @@
     where activity_id = #{activityId,jdbcType=INTEGER}
   </update>
   
-    <select id="selectByStore" resultMap="BaseResultMapStore" parameterType="java.lang.Integer" >
+    <select id="selectByStore" resultMap="BaseResultMapStore" parameterType="com.zefun.web.entity.Page" >
     select 
-    activity_id, activity_name, activity_type, activity_cl, activity_discount, (select position_name from position_info p where p.position_id=activity_info.activity_position_one) as activity_position_one, 
-    (select position_name from position_info p where p.position_id=activity_info.activity_position_two) as activity_position_two, (select position_name from position_info p where p.position_id=activity_info.activity_position_three) as activity_position_three, position_one_type, position_one_push, 
-    position_one_result, position_two_type, position_two_push, position_two_result, position_three_type, 
-    position_three_push, position_three_result, store_id, store_account, create_time, 
-    update_time, is_deleted
+    activity_id, activity_name, activity_type, activity_cl, activity_discount,
+    (select position_name FROM position_info p where p.position_id=activity_info.activity_position_one) as activity_position_one, 
+    (select position_name FROM position_info p where p.position_id=activity_info.activity_position_two) as activity_position_two, 
+    (select position_name FROM position_info p where p.position_id=activity_info.activity_position_three) as activity_position_three,
+    position_one_type, position_one_push, position_one_result, position_two_type, position_two_push, position_two_result, position_three_type, 
+    position_three_push, position_three_result, store_id, store_account, create_time, update_time, is_deleted
     from activity_info
-    where  store_id = #{storeId,jdbcType=INTEGER} and is_deleted=0
+    where  store_id = #{params.storeId,jdbcType=INTEGER} and is_deleted=0
   </select>
   
   <update id="updateIsDeleted"  parameterType="java.lang.Integer">

@@ -282,10 +282,10 @@ ul li{
 .seach_person{width:470px;margin:10px auto;}
 .seach_person >p>input{border:1px solid black;width:200px;height:22px;}
 .seach_person button{width:130px;height:28px;border-radius:12px;color:white;text-align:center;line-height:28px;border:none;background:#5b6080;font-size:16px;margin-left:22px}
-.show_search{position:absolute;z-index:2;background:white;width:468px}
+.show_search{position:absolute;z-index:2;background:white;width:468px;font-size:12px}
 .show_search ul{width:470px;height:400px;}
-.show_search{border:1px solid black;height:400px;left:110px}
-.show_search>p{padding:5px 10px;font-size:12px}
+.show_search{border:1px solid black;height:400px;left:110px;overflow: overlay;}
+.show_search>p{padding:5px 10px;font-size:12px;text-align:left;}
 .show_search>p i{color:#e77171;position:relative}
 .show_search>p em{display:inline-block;margin-left:100px;font-size:14px;position:absolute;right:45px}
 .show_search>p em input{position:relative;top:-3px;margin-right:5px;}
@@ -317,5 +317,28 @@ ul li{
   filter:alpha(opacity=90)
   
   }
+  .show_search table td:nth-child(1) img {
+    width: 47px;
+    border-radius: 25px;
+    height: 47px;
+  }    
 .left_title{position:absolute;z-index:2!important;margin-left:80px}
 .left_title li{width:70px!important;height:35px;line-height:35px;color:white;background:rgba(196,197,200,0.9); text-align:center;color:black;position:relative;position:absolute;display:none}
+
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    position: relative;
+    top: -3px;
+    margin-right: 8px;
+	}
+
+input[type="checkbox"]:checked {
+    background: url('../images/checked.png') no-repeat;
+    background-position: center center;
+    border: 1px solid #d93717;
+background-size: cover;}

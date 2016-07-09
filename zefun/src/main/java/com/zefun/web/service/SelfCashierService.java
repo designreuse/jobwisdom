@@ -36,6 +36,7 @@ import com.zefun.web.dto.SelfCashierStatDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.CommissionScheme;
 import com.zefun.web.entity.CouponInfo;
+import com.zefun.web.entity.EmployeeCommission;
 import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.GoodsDiscount;
@@ -54,6 +55,7 @@ import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.CommissionSchemeMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
+import com.zefun.web.mapper.EmployeeCommissionMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.EmployeeObjectiveMapper;
 import com.zefun.web.mapper.GiftmoneyDetailMapper;
@@ -207,6 +209,9 @@ public class SelfCashierService {
 	/** 业绩提成分配方案*/
 	@Autowired 
 	private CommissionSchemeMapper commissionSchemeMapper;
+	/** 员工提成表*/
+	@Autowired
+	private EmployeeCommissionMapper employeeCommissionMapper;
 
 	/** 日志操作对象 */
 	// private Logger logger = Logger.getLogger(SelfCashierService.class);
@@ -232,8 +237,12 @@ public class SelfCashierService {
 		params.put("endTime", DateUtil.getDateAfterDaysStr(currDate, 1));
 		SelfCashierStatDto statDto = orderInfoMapper.selectCashierStatInfo(params);
 
+		Map<String, Integer> map = new HashMap<>();
+		map.put("storeId", storeId);
+		map.put("type", 2);
+		
 		// 查询未结账订单
-		List<SelfCashierOrderDto> cashierDtoList = orderInfoMapper.selectUnfinishedOrderInfo(storeId);
+		List<SelfCashierOrderDto> cashierDtoList = orderInfoMapper.selectUnfinishedOrderInfo(map);
 		for (SelfCashierOrderDto dayBookDto : cashierDtoList) {
 			dayBookDto.setCreateTime(dayBookDto.getCreateTime().substring(5));
 			dayBookDto.setOrderCode(dayBookDto.getOrderCode().substring(4));
@@ -714,7 +723,7 @@ public class SelfCashierService {
 		        stepOrderMap.put("positionName", orderDetailStepDto.getPositionName());
 		        //当服务人员不为空时
 		        if (orderDetailStepDto.getEmployeeInfo() != null) {
-		        	
+		        	stepOrderMap.put("shiftMahjongStepId", orderDetailStepDto.getShiftMahjongStepId());
 		        	stepOrderMap.put("employeeId", orderDetailStepDto.getEmployeeInfo().getEmployeeId());
 		        	stepOrderMap.put("employeeCodeName", 
 		        			  orderDetailStepDto.getEmployeeInfo().getEmployeeCode() + " " +orderDetailStepDto.getEmployeeInfo().getName());
@@ -865,14 +874,18 @@ public class SelfCashierService {
 			    		}
 			    	}
 			    	stepOrderMap.put("commissionAmount", empCommission);
+			    	EmployeeCommission employeeCommission = new EmployeeCommission();
+					employeeCommission.setDetailId(orderDetail.getDetailId());
+					employeeCommission.setShiftMahjongStepId(orderDetailStepDto.getShiftMahjongStepId());
+					employeeCommission.setPositionId(orderDetailStepDto.getPositionId());
+					employeeCommission.setOrderType(orderDetail.getOrderType());
+					employeeCommission.setEmployeeId(orderDetailStepDto.getEmployeeInfo().getEmployeeId());
+					employeeCommission.setCommissionCalculate(saveCommonCalculate);
+					employeeCommission.setCommissionAmount(empCommission);
+					employeeCommission.setChargeTime(DateUtil.getCurTime());
+					employeeCommissionMapper.insert(employeeCommission);
+			        stepList.add(stepOrderMap);
 		        }
-		        else {
-		        	stepOrderMap.put("employeeId", null);
-		        	stepOrderMap.put("employeeCodeName", "未设置人员");
-		        	stepOrderMap.put("commissionCalculate", 0);
-		        	stepOrderMap.put("commissionAmount", 0);
-		        }
-		        stepList.add(stepOrderMap);
 			}
 		}
 		else  if (orderDetail.getOrderType() == 2){
@@ -921,6 +934,16 @@ public class SelfCashierService {
 	        			  + " " + stepDtoList.get(0).getEmployeeInfo().getName());
 	        	stepOrderMap.put("commissionCalculate", saveCommonCalculate);
 	        	stepOrderMap.put("commissionAmount", empCommission);
+	        	
+	        	EmployeeCommission employeeCommission = new EmployeeCommission();
+				employeeCommission.setDetailId(orderDetail.getDetailId());
+				employeeCommission.setOrderType(orderDetail.getOrderType());
+				employeeCommission.setEmployeeId(stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
+				employeeCommission.setCommissionCalculate(saveCommonCalculate);
+				employeeCommission.setCommissionAmount(saveCommonCalculate);
+				employeeCommission.setChargeTime(DateUtil.getCurTime());
+				employeeCommissionMapper.insert(employeeCommission);
+	        	
 	        	stepList.add(stepOrderMap);
 			}
 			else {
@@ -963,6 +986,15 @@ public class SelfCashierService {
 		        			  + " " + stepDtoList.get(i).getEmployeeInfo().getName());
 		        	stepOrderMap.put("commissionCalculate", calculation);
 		        	stepOrderMap.put("commissionAmount", comm);
+		        	
+		        	EmployeeCommission employeeCommission = new EmployeeCommission();
+					employeeCommission.setDetailId(orderDetail.getDetailId());
+					employeeCommission.setOrderType(orderDetail.getOrderType());
+					employeeCommission.setEmployeeId(stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
+					employeeCommission.setCommissionCalculate(calculation);
+					employeeCommission.setCommissionAmount(comm);
+					employeeCommission.setChargeTime(DateUtil.getCurTime());
+					employeeCommissionMapper.insert(employeeCommission);
 		        	stepList.add(stepOrderMap);
 				}
 			}
@@ -1010,6 +1042,16 @@ public class SelfCashierService {
 	        			  + " " + stepDtoList.get(0).getEmployeeInfo().getName());
 	        	stepOrderMap.put("commissionCalculate", saveCommonCalculate);
 	        	stepOrderMap.put("commissionAmount", empCommission);
+	        	
+	        	EmployeeCommission employeeCommission = new EmployeeCommission();
+				employeeCommission.setDetailId(orderDetail.getDetailId());
+				employeeCommission.setOrderType(orderDetail.getOrderType());
+				employeeCommission.setEmployeeId(stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
+				employeeCommission.setCommissionCalculate(saveCommonCalculate);
+				employeeCommission.setCommissionAmount(empCommission);
+				employeeCommission.setChargeTime(DateUtil.getCurTime());
+				employeeCommissionMapper.insert(employeeCommission);
+	        	
 	        	stepList.add(stepOrderMap);
 			}
 			else {
@@ -1052,6 +1094,16 @@ public class SelfCashierService {
 		        			  + " " + stepDtoList.get(i).getEmployeeInfo().getName());
 		        	stepOrderMap.put("commissionCalculate", calculation);
 		        	stepOrderMap.put("commissionAmount", comm);
+		        	
+		        	EmployeeCommission employeeCommission = new EmployeeCommission();
+					employeeCommission.setDetailId(orderDetail.getDetailId());
+					employeeCommission.setOrderType(orderDetail.getOrderType());
+					employeeCommission.setEmployeeId(stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
+					employeeCommission.setCommissionCalculate(calculation);
+					employeeCommission.setCommissionAmount(comm);
+					employeeCommission.setChargeTime(DateUtil.getCurTime());
+					employeeCommissionMapper.insert(employeeCommission);
+		        	
 		        	stepList.add(stepOrderMap);
 				}
 			}
@@ -1062,6 +1114,7 @@ public class SelfCashierService {
 		stepCommissionMap.put("stepList", stepList);
 		return stepCommissionMap;
 	}
+
 	
 	/**
 	 * 添加用户套餐信息
@@ -1700,7 +1753,7 @@ public class SelfCashierService {
         selectMap.put("storeId", storeId);
 		List<MemberSubAccountDto> subAccountList = memberSubAccountMapper.selectSubAccountListByAccountId(selectMap);
 		orderInfo.setSubAccountList(subAccountList);
-		if (subAccountList.size() > 1) {
+		if (subAccountList.size() > 0) {
 			orderInfo.setSubAccountList(subAccountList);
 			Map<String, BigDecimal> discountMap = new HashMap<>();
 			// 遍历所有子账户，计算每个等级的折扣价格

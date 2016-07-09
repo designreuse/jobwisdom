@@ -267,7 +267,7 @@ public interface Url {
 	
 	/** 活动模块*/
 	class Activity {
-	    /** 进入活动页面 */
+	    /** 进入活动类别 */
         public static final String TO_ACTIVITYSIGN = "activity/view/toactivitysign";
 
         /** 活动保存 */
@@ -281,6 +281,17 @@ public interface Url {
         
         /** 修改单个活动 */
         public static final String TO_ACTIVITYUPDATE = "activity/view/toactivityupdate";
+        
+        
+        
+        /** 进入门店活动 */
+        public static final String SHOW_ACTIVITY = "activity/view/showactivitysign";
+        
+        /** 门店活动保存 */
+        public static final String SHOW_ACTIVITYSAVE = "activity/view/showactivitysave";
+        
+        /** 门店活动保存 */
+        public static final String SHOW_ACTIVITYDELETE = "activity/view/showactivitydelete";
 	}
 
 	/** 项目模块 */
@@ -486,8 +497,20 @@ public interface Url {
 	class KeepAccounts {
 		/** 初始化无纸开单*/
 		public static final String INITIALIZE_NO_PAPER_OPEN_ORDER = "KeepAccounts/initializeNoPaperOpenOrder";
+		/** 初始化弹出框*/
+		public static final String INITIALIZE_NOPAPER_MODEL = "KeepAccounts/initializeNoPaperModel";
 		/** 无纸开单 */
 		public static final String ACTION_ADD_ORDER = "KeepAccounts/addOrder";
+		/** 服务交接轮牌 */
+		public static final String ACTION_ADD_OR_UPDATE_SERVER_EMPLOYEE = "KeepAccounts/action/addOrUpdateServerEmployee";
+		/** 结束服务*/
+		public static final String ACTION_OVER_SERVER_EMPLOYEE = "KeepAccounts/action/overServerEmployee";
+		/** 无纸单结算*/
+		public static final String ACTION_SETTLEMENT_ORDER = "KeepAccounts/action/settlementOrder";
+		/** 删除订单明细*/
+		public static final String ACTION_DELETE_ORDER_DETAIL = "KeepAccounts/action/deleteOrderDetail";
+		/** 删除订单明细*/
+		public static final String ACTION_DELETE_ORDER_INFO = "KeepAccounts/action/deleteOrderInfo";
 		/* 开卡记账 */
 		/** 初始化开卡记账页面 */
 		public static final String INITIALIZESTOREFLOW = "KeepAccounts/initializeStoreFlow";
@@ -922,6 +945,8 @@ public interface Url {
 		public static final String ACTION_APPOINT_OPERATE = "/staff/action/appointOperate";
 		/** 员工打卡 */
 		public static final String ACTION_SIGN_OPERATE = "/staff/action/signOperate";
+		/** 设置项目 */
+		public static final String ACTION_SETTING_PROJECT = "/staff/action/settingProject";
 		/** 员工中心页面 */
 		public static final String VIEW_STAFF_CENTER = "/staff/view/staffCenter/{storeId}/{businessType}";
 		/** 员工信息页面 */

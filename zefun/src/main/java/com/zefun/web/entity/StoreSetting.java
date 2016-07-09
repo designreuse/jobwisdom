@@ -47,9 +47,21 @@ public class StoreSetting {
 
 	/** 会员短信服务费 */
 	private Integer smsFee;
+	/** 开始手牌号*/
+	private Integer startHandNumber;
 
 	/** 原服务商 */
 	private String lastFacilitator;
+
+	
+	
+	public Integer getStartHandNumber() {
+		return startHandNumber;
+	}
+
+	public void setStartHandNumber(Integer startHandNumber) {
+		this.startHandNumber = startHandNumber;
+	}
 
 	/** @param storeId	门店标识 */
 	public void setStoreId(Integer storeId){

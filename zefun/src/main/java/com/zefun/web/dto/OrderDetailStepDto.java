@@ -15,6 +15,10 @@ public class OrderDetailStepDto implements Serializable{
     private static final long serialVersionUID = 1L;
     /** 轮牌步骤标识*/
     private Integer shiftMahjongStepId;
+    
+    /** 轮牌标识*/
+    private Integer shiftMahjongId;
+    
     /** 岗位标识 */
 	private Integer positionId;
 	/** 岗位名称*/
@@ -56,6 +60,14 @@ public class OrderDetailStepDto implements Serializable{
     /** 提成标识*/
     private Integer commissionId;
     
+
+	public Integer getShiftMahjongId() {
+		return shiftMahjongId;
+	}
+
+	public void setShiftMahjongId(Integer shiftMahjongId) {
+		this.shiftMahjongId = shiftMahjongId;
+	}
 
 	public String getPositionName() {
 		return positionName;

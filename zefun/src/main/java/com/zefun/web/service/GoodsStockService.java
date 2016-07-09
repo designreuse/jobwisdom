@@ -26,6 +26,8 @@ import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.StockFlowMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 
+import net.sf.json.JSONArray;
+
 /**
  * 商品
 * @author 洪秋霞
@@ -73,9 +75,18 @@ public class GoodsStockService {
             model = new ModelAndView(View.Stock.VIEW_STOCK);
         }
         
+        
+//        Page<StockFlow> page = new Page<>();
+//        page.setPageNo(1);
+//        page.setPageSize(9);
+//        Map<String, Object> params = new HashMap<>();
+//        
         StockFlow query = new StockFlow();
         query.setStoreAccount(storeAccount);
-        
+//        
+//        params.put("storeAccount", storeAccount);
+//        page.setParams(params);
+//        List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(page);
         List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(query);
         
         final Integer queryStoreId = Integer.parseInt(storeId.toString());
@@ -94,9 +105,11 @@ public class GoodsStockService {
         /**商品调拨管理*/
         List<StockFlow> moveFlows = stockFlows.stream().filter(flow -> flow.getStockType()==3).collect(Collectors.toList());
         
-        model.addObject("inFlows", inFlows);
-        model.addObject("outFlows", outFlows);
-        model.addObject("moveFlows", moveFlows);
+//        page.setResults(inFlows);
+        model.addObject("inFlows", JSONArray.fromObject(inFlows));
+        model.addObject("outFlows", JSONArray.fromObject(outFlows));
+        model.addObject("moveFlows", JSONArray.fromObject(moveFlows));
+//        model.addObject("page", page);
         
         AccountGoods accountGoods = new AccountGoods();
         accountGoods.setStoreAccount(storeAccount);
@@ -259,6 +272,17 @@ public class GoodsStockService {
     public BaseDto queryGoodsStock(String storeAccount, Integer storeId,  HttpServletRequest request) {
         StockFlow query = new StockFlow();
         query.setStoreAccount(storeAccount);
+//        Page<StockFlow> page = new Page<>();
+//        page.setPageNo(1);
+//        page.setPageSize(9);
+//        Map<String, Object> params = new HashMap<>();
+//        
+//        StockFlow query = new StockFlow();
+//        query.setStoreAccount(storeAccount);
+//        
+//        params.put("storeAccount", storeAccount);
+//        page.setParams(params);
+//        List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(page);
         List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(query);
         
         /**入库管理*/
@@ -269,9 +293,16 @@ public class GoodsStockService {
         List<StockFlow> outFlows = stockFlows.stream()
                 .filter(flow -> flow.getStockType()==2&&flow.getFromStore().equals(storeId))
                 .collect(Collectors.toList());
+        
+        /**商品调拨管理*/
+        List<StockFlow> moveFlows = stockFlows.stream().filter(flow -> flow.getStockType()==3).collect(Collectors.toList());
         Map<String , Object> map = new HashMap<>();
         map.put("inFlows", inFlows);
         map.put("outFlows", outFlows);
+        map.put("moveFlows", moveFlows);
+//        map.addObject("inFlows", JSONArray.fromObject(inFlows));
+//        map.addObject("outFlows", JSONArray.fromObject(outFlows));
+//        map.addObject("moveFlows", JSONArray.fromObject(moveFlows));
         
         List<EmployeeInfo> employeeInfos = employeeInfoMapper.selectEmployeeByStoreId(storeId);
         map.put("employeeInfos", employeeInfos);

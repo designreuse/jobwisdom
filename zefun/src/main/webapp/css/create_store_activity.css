@@ -1,0 +1,88 @@
+.content_right{padding:28px 34px;color:black;font-size:14px}
+.content_right>p>button{width:130px;height:26px;border:none;border-radius:12px;color:white;text-align:center;line-height:26px;background:#596788}
+.content_right>p>button:hover{background:#4a5674}
+.new_plan_plan{overflow:overlay;margin-top:20px;border:1px solid #898989;border-radius:8px;height:600px;}
+.new_plan_plan table{width:1010px}
+.new_plan_plan td{width:120px;height:40px;text-align:center;vertical-align:middle;border:1px solid #c2c2c2;border-top:none;border-left:none}
+.new_plan_plan td:last-child{border-right:none}
+.new_plan_plan td img{margin:0 10px;position:relative;top:4px}
+.new_plan_plan td .progressing{color:#2259c9}
+.new_plan_plan tr:first-child{background:#ebeff8}
+.new_plan_plan td .lose{color:#d73617}
+.new_plan_plan tr:nth-child(odd){background:#f6f8fc}
+
+.online{color:#ee7e7e}
+.over{color:#999999}
+.no_begin{color:#4a90e7}
+
+.zzc {
+    font-size: 14px;
+    color: black;
+    position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+}
+.zzc_create_store_activity{width:770px;height:550px;background:white;margin:2% auto}
+.zzc_create_store_activity>p{font-size:18px;color:white;height:60px;line-height:60px;text-align:center;background:#454560}
+.zzc_create_store_activity_content{padding:15px 20px 15px 30px }
+.zzc_create_store_activity_content>p{padding-bottom:10px;border-bottom:1px solid #dbdbdb}
+.zzc_create_store_activity_content>p span{display;inline-block;margin-right:28px}
+.zzc_create_store_activity_content>p input{margin:0 20px;width:75px;height:16px;border-radius:12px;border:1px solid #898989}
+
+.textarea_content .textarea_saying{float:left;width:76px;height:80px;line-height:80px}
+.textarea_content .textarea{float:left;width:600px;}
+.textarea_content textarea{width:550px;height:80px;border:1px solid #898989;border-radius:8px}
+.textarea_content{padding:12px 0  24px 0;border-bottom:1px solid #dbdbdb}
+
+
+input[type="checkbox"]{ -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    position: relative;
+    top: -3px;
+	margin-right:8px
+    }
+	
+input[type="checkbox"]:checked {
+    background: url(../images/checked.png) no-repeat;
+    background-position: center center;
+    border: 1px solid #d93717;
+background-size: cover;}
+
+.join_store{padding:10px 0;overflow:hidden;border-bottom:1px solid #dbdbdb}
+.join_store li{float:left;margin-right:55px;margin-top:8px;margin-bottom:2px}
+.join_store ul{margin-right:-70px;margin-left:75px}
+.join_store li button{width:100px;height:22px;text-align:center;color:white;font-size:16px;line-height:22px;border:none;border-radius:12px;background:#596788}
+.join_store li button:hover{background:#414e6d}
+
+.textarea_content_{    padding: 12px 0;
+    border-bottom: 1px solid #dbdbdb;}
+	
+.textarea_content_ .textarea_saying_{
+    float: left;
+    width: 76px;
+    height: 140px;
+    line-height: 140px;
+}
+.textarea_content_ .textarea_ {
+    float: left;
+    width: 600px;
+  
+}
+.textarea_content_ textarea {
+    width: 550px;
+    height: 140px;
+    border: 1px solid #898989;
+    overflow:overlay;
+	border-radius: 8px;
+}
+.zzc_create_store_activity_button{text-align:center;margin-top:10px}
+.zzc_create_store_activity_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;border-radius:12px;color:white;font-size:16px;background:#596788;margin:0 60px}
+.zzc_create_store_activity_button button:hover{background:#4a5774}
+.active{color: #eb1e34;}

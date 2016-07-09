@@ -626,7 +626,7 @@ public class StoreFlowService {
         //收支记账全部数据
         Page<InitializeInFo> page = new Page<>();
         page.setPageNo(1);
-        page.setPageSize(20);
+        page.setPageSize(15);
         
         Map<String, Object> params = new HashMap<>();
         params.put("storeId", storeId);
@@ -687,7 +687,7 @@ public class StoreFlowService {
     public BaseDto viewSelectInitilLize(Integer pageNo, Integer storeId, String type, String deptName, String priceName, String date1, String date2) {
         Page<InitializeInFo> page = new Page<>();
         page.setPageNo(pageNo);
-        page.setPageSize(20);
+        page.setPageSize(15);
         Map<String, Object> params = new HashMap<>();
         if (!type.equals("")){
             params.put("type", type);

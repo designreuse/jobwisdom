@@ -1,4 +1,4 @@
-.content_right{padding:40px}
+.content_right{padding:40px;font-size:12px}
 
 .payroll_2_head button{padding:5px 15px;border-radius:8px;color:white;text-align:center;border:none;background:#5b6080;margin-right:20px}
 .payroll_2_head button:hover{
@@ -35,7 +35,7 @@
     z-index: 10000;
     background: rgba(102, 108, 121, 0.8);
     color: black;
-    font-size: 14px;}
+    font-size: 12px;}
 .zzc .emploee_information{width:760px;height:550px;margin:3% auto;background:white}
 .zzc .emploee_information>p{height:54px;text-align:center;line-height:54px;color:white;font-size:20px;background:#323b4e}
 .head_img{float:left}

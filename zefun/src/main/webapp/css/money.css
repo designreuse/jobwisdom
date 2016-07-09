@@ -1,6 +1,6 @@
 html{overflow-x:hidden}
 em,i{font-style:normal}
-.content_right{padding:30px 40px}
+.content_right{padding:30px 40px;font-size:12px}
 .money_ span{display:inline-block;margin-left:30px;font-size:14px;color:black}
 .money_{margin-top:30px}
 .money_ em{font-style:normal;font-size:18px;}
@@ -34,7 +34,7 @@ em,i{font-style:normal}
     height: 220px!important;
     cursor: pointer;
 }
-
+a{color:#606163}
 .shop_number li {
     width: 33%!important;
     text-align: center;

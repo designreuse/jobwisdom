@@ -29,6 +29,9 @@ public class SelfCashierOrderDto implements Serializable {
     /** 订单号 */
     private String orderCode;
     
+    /** 手牌号*/
+    private String handOrderCode;
+    
     /** 消费者性别 */
     private String sex;
     
@@ -82,6 +85,16 @@ public class SelfCashierOrderDto implements Serializable {
     
     /** 会员子账户折扣价格映射 */
     private Map<String, BigDecimal> discountMap;
+
+    
+    
+	public String getHandOrderCode() {
+		return handOrderCode;
+	}
+
+	public void setHandOrderCode(String handOrderCode) {
+		this.handOrderCode = handOrderCode;
+	}
 
 	public Integer getOrderId() {
         return orderId;

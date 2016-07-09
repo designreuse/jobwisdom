@@ -151,7 +151,9 @@ public class SelfCashierController extends BaseController {
 		Integer memberType = 0;
 		if (selfCashierOrderDto.getMemberId() != null) {
 			mav.addObject("allOffMapStr", JSONObject.toJSON(selfCashierOrderDto.getAllOffMap()).toString());
-			mav.addObject("discountMapStr", JSONObject.toJSON(selfCashierOrderDto.getDiscountMap()).toString());
+			if (selfCashierOrderDto.getDiscountMap() != null) {
+				mav.addObject("discountMapStr", JSONObject.toJSON(selfCashierOrderDto.getDiscountMap()).toString());
+			}
 			memberType = 1;
 		}
 		mav.addObject("memberType", memberType);

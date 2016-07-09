@@ -19,6 +19,8 @@ public class EmployeeCommission implements Serializable {
 
 	/** 提成标识 */
 	private Integer commissionId;
+	/** 轮牌信息标识*/
+	private Integer shiftMahjongStepId;
 
 	/** 订单明细标识 */
 	private Integer detailId;
@@ -61,6 +63,16 @@ public class EmployeeCommission implements Serializable {
 
 	/** 管理项目信息实体 */
 	private ProjectInfo projectInfo;
+	
+	
+
+	public Integer getShiftMahjongStepId() {
+		return shiftMahjongStepId;
+	}
+
+	public void setShiftMahjongStepId(Integer shiftMahjongStepId) {
+		this.shiftMahjongStepId = shiftMahjongStepId;
+	}
 
 	public Integer getIsDeleted() {
 		return isDeleted;

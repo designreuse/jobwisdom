@@ -30,6 +30,26 @@ jQuery(function(){
 		  }	
         		
 	  });
+	 
+	 if (!isEmpty(memberBaseDtoStr)) {
+		 var memberBaseDto = eval("(" + memberBaseDtoStr + ")");
+		 var obj = jQuery("input[name='phoneNumber']");
+		 var parentsObj = jQuery(obj).parents("div[name='memberTR']").next();
+		 parentsObj.find("[name='memberImg']").attr("src", qiniuUrl + memberBaseDto.headUrl)
+		 parentsObj.find("[name='memberNameSpan']").text(memberBaseDto.name);
+		 parentsObj.find("[name='memberPhoneSpan']").text(memberBaseDto.phone);
+		 parentsObj.find("[name='memberSexSpan']").text(memberBaseDto.sex);
+		 parentsObj.find("[name='memberBalanceAmountSpan']").text(zeroValue(memberBaseDto.balanceAmount));
+		 parentsObj.find("[name='memberBalanceGiftmoneyAmountSpan']").text(zeroValue(memberBaseDto.giftmoneyAmount));
+		 parentsObj.find("[name='memberBalanceIntegralSpan']").text(zeroValue(memberBaseDto.balanceIntegral));
+		 parentsObj.find("[name='memberStoreName']").text(memberBaseDto.storeName);
+		 parentsObj.find("[name='memberId']").val(memberBaseDto.memberId).change();
+		 parentsObj.find("[name='subAccountNum']").text(memberBaseDto.subAccountNum);
+		 parentsObj.find("[name='needRefund']").text(zeroValue(memberBaseDto.debtAmount));
+		
+		 parentsObj.removeClass("hide");
+		 jQuery(obj).parents("div[name='memberTR']").addClass("hide");
+	 }
  });
 
 //初始化时间控件
@@ -200,12 +220,14 @@ function save() {
 	var handOrderCode = jQuery("input[name='handOrderCode']").val();
 	var memberId = jQuery("div[name='memberTR']").find("input[name = 'memberId']").val();
 	var sex = jQuery("input:radio[name='sex']:checked").val();
+	var orderId = changeEmpty(jQuery(".nav_right_content").attr("orderId"));
 	
 	var arrayObj = new Array();
 	//项目
 	var projectObj = jQuery("div[name='projectNameLI']");
 	for (var i = 0; i < projectObj.length; i++) {
 		var projectId = jQuery(projectObj[i]).attr("projectId");
+		var detailId = changeEmpty(jQuery(projectObj[i]).attr("detailId"));
 		var projectStepArrayObj = new Array();
 		var projectStepObj = jQuery(projectObj[i]).find("tr");
 		
@@ -213,6 +235,7 @@ function save() {
 		
 		for (var j = 0; j < projectStepObj.length; j++) {
 			var positionId = jQuery(projectStepObj[j]).attr("positionId");
+			var shiftMahjongStepId = changeEmpty(jQuery(projectStepObj[j]).attr("shiftMahjongStepId"));
 			var employeeId = jQuery(projectStepObj[j]).find("input[name='employeeId']").attr("employeeId");
 			var isAssign = 0;
 			if (jQuery(projectStepObj[j]).find("input[name='isAssign']").prop('checked')) {
@@ -226,11 +249,11 @@ function save() {
             if (isAppoint == 1) {
             	appoint = isAppoint;
 			}
-			var StepStr = {"positionId":positionId, "employeeId":employeeId, "isAssign":isAssign, "isAppoint":isAppoint};
+			var StepStr = {"shiftMahjongStepId" : shiftMahjongStepId, "positionId":positionId, "employeeId":employeeId, "isAssign":isAssign, "isAppoint":isAppoint};
 			projectStepArrayObj.push(StepStr);
 		}
 		var projectStepArrayObjStr = JSON.stringify(projectStepArrayObj);
-		var projectObjStr = {"type":1, "projectId":projectId, "appoint" : appoint, "projectStepArrayObjStr":projectStepArrayObjStr};
+		var projectObjStr = {"type":1, "projectId":projectId, "detailId" : detailId, "appoint" : appoint, "projectStepArrayObjStr":projectStepArrayObjStr};
 		arrayObj.push(projectObjStr);
 	}
 	//套餐
@@ -285,17 +308,14 @@ function save() {
 	jQuery.ajax({
     	url : baseUrl + "KeepAccounts/manuallyOpenOrderSave",
     	type : "POST",
-    	data : "memberId=" + memberId + "&sex=" + sex + "&arrayObjStr=" + arrayObjStr + "&openOrderDate="+ openOrderDate +"&handOrderCode=" + handOrderCode,
+    	data : "memberId=" + memberId + "&sex=" + sex + "&arrayObjStr=" + arrayObjStr + "&openOrderDate="+ openOrderDate +"&handOrderCode=" + handOrderCode +"&orderId="+orderId,
     	success : function(e){
     		if (e.code != 0) {
                 dialog(e.msg);
                 return;
             }
-    		jQuery("a[name='memberModelChoose']").removeClass("hide");
-    		if (isEmpty(memberId)) {
-    			jQuery("a[name='memberModelChoose']").addClass("hide");
-    		}
-    		jQuery("#memberSkipModal").modal("show");
+    		var orderId = e.msg;
+    		window.location.href = baseUrl + "selfcashier/action/orderinfo?orderId="+ orderId;
     	}
     });
 }
@@ -371,4 +391,11 @@ function isStartEndDate(startDate){
     }
     
     return false;   
-   }   
+   } 
+
+function changeEmpty (val) {
+	if (isEmpty(val)) {
+		val = "";
+	}
+	return val;
+}

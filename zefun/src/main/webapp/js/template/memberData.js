@@ -311,6 +311,13 @@ function submitPhone (obj) {
 				jQuery(obj).parents(".card-main").next().removeClass("hide");
 				
 			}
+			else if (jQuery(obj).parents("div[name='memberTR']").attr("selectType") == 3) {
+				jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", memberBaseDto.memberId);
+				jQuery("div[name='memberNoPage']").find("td[name='memberName']").text(memberBaseDto.name);
+				jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text(memberBaseDto.phone);
+				jQuery("div[name='memberNoPage']").find("td[name='memberSex']").text(memberBaseDto.sex);
+				jQuery("div[name='memberNoPage']").find("td[name='memberSex']").attr("memberSex", memberBaseDto.sex);
+			}
 			else {
 				var parentsObj = jQuery(obj).parents("div[name='memberTR']").next();
 				parentsObj.find("[name='memberImg']").attr("src", qiniuUrl + memberBaseDto.headUrl)

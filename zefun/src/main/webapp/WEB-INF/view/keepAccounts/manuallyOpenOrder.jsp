@@ -86,7 +86,7 @@ background-size: cover;}
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
 		<%@include file="/menu.jsp"%>
-		<div class="rightpanel" style="margin-left: 200px; position: relative">
+		<div class="rightpanel" style="margin-left: 200px; position: relative;background:white;">
 			<%@include file="/top.jsp"%>
 			<div class="more-toolbar" >
 	                <div class="table-toolbar" style="font-size: 14px;width:91%;padding:15px;border:1px solid #ccc;border-radius:12px;margin:10px 30px" name = "memberTR" selectType = "2">
@@ -248,13 +248,30 @@ background-size: cover;}
 		             </c:forEach>				 
 				   </div>
 				     
-				<div class="nav_right_content"> 
+				<div class="nav_right_content" orderId = "${selfCashierOrderDto.orderId}"> 
 				  
 					  <div class="nav_content" name = "projectPay">
-				
+				           <c:forEach items="${selfCashierOrderDto.orderDetails}" var="orderDetail">
+				                <div class="nav_content_div" name= 'projectNameLI' projectId = "${orderDetail.projectId }" detailId = "${orderDetail.detailId }">
+								   <span class="hand_close"></span>
+								     <p><em>${orderDetail.projectName}</em><i>项目价格：${orderDetail.projectPrice}</i></p>
+								      <table>
+								         <c:forEach items="${orderDetail.stepList}" var="step" varStatus="status">
+								            <tr positionId = '${step.positionId}' shiftMahjongStepId = "${step.shiftMahjongStepId}">
+											   <td style="width:210px">${step.positionName }</td>
+												 <td style="width:360px">选择员工
+												      <input type="text" name = 'employeeId' employeeId = '${step.employeeInfo.employeeId }' value="${step.employeeInfo.name }">
+												 </td>
+												 <td>指定<input type="checkbox" name = 'isAssign' <c:if test="${step.isAssign == 1}">checked</c:if>></td>
+												 <c:if test="${status.index == 0 }">
+												     <td>预约<input type="checkbox" name = 'isAppoint' <c:if test="${step.isAppoint == 1}">checked</c:if>></td>
+												 </c:if>
+											 </tr>
+								         </c:forEach>
+									  </table>
+								 </div>
+				           </c:forEach>
 			          </div>
-					  
-					  
 					  
 					   <div class="nav_content hide" name = "goodsNameLI">
 						     
@@ -299,7 +316,7 @@ background-size: cover;}
 <script type="text/javascript">
    var positionInfosStr = '${positionInfosStr}';
    var positionInfos = eval("(" + positionInfosStr + ")");
-   
+   var memberBaseDtoStr = '${memberBaseDto}';
    var chooseObj = "";
    
     jQuery('.absolute').hide();

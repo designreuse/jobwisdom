@@ -621,7 +621,7 @@ public class ShiftMahjongService {
 	    
 	    if (shiftMahjongEmployeeList != null && shiftMahjongEmployeeList.size() > 0) {
     	    //如果更换了职位
-    	    if (shiftMahjongEmployeeList.get(0).getLevelId().intValue() != employeeInfo.getLevelId()) {
+    	    if (shiftMahjongEmployeeList.get(0).getLevelId() != employeeInfo.getLevelId()) {
     	        //清除当前存在轮牌员工
     	        deleteShiftMahjongEmployee(employeeInfo.getEmployeeId());
     	        
@@ -737,16 +737,14 @@ public class ShiftMahjongService {
         for (int i = 0; i < shiftMahjongEmployeeList.size(); i++) {
             Integer shiftMahjongOrder = shiftMahjongEmployeeMapper.selectByCount(shiftMahjongEmployeeList.get(i).getShiftMahjongId());
             
-            if (shiftMahjongEmployeeList.get(i).getIsPunchCard() == 1) {
-                ShiftMahjongEmployee shiftMahjongEmployee = new ShiftMahjongEmployee();
-                shiftMahjongEmployee.setShiftMahjongEmployeeId(shiftMahjongEmployeeList.get(i).getShiftMahjongEmployeeId());
-                shiftMahjongEmployee.setShiftMahjongOrder(shiftMahjongOrder + 1);
-                shiftMahjongEmployee.setState(1);
-                shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
-                
-                staffService.selfMotionExecute(shiftMahjongEmployeeList.get(i).getShiftMahjongEmployeeId(), 
-                        Integer.valueOf(map.get("storeId").toString()));
-            }
+            ShiftMahjongEmployee shiftMahjongEmployee = new ShiftMahjongEmployee();
+            shiftMahjongEmployee.setShiftMahjongEmployeeId(shiftMahjongEmployeeList.get(i).getShiftMahjongEmployeeId());
+            shiftMahjongEmployee.setShiftMahjongOrder(shiftMahjongOrder + 1);
+            shiftMahjongEmployee.setState(1);
+            shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
+            
+            staffService.selfMotionExecute(shiftMahjongEmployeeList.get(i).getShiftMahjongEmployeeId(), 
+                    Integer.valueOf(map.get("storeId").toString()));
             
         }
         //删除缓存

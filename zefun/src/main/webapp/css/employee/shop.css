@@ -94,4 +94,58 @@ em,i{font-style:normal}
 .login_content >p img{
  height: 10rem;position:absolute;left:10%;top:0}
 	
-	
+#loadingWrap{position:absolute;top:30%;left:40%}
+
+.alertWrap {
+    z-index: 200;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    display: none;
+    position: absolute;
+    top: 40%;
+    left: 30%;
+}
+
+.alertWrap, .loadWrap {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.alert {
+    display: inline-block;
+    background-color: rgba(0,0,0,.6);
+    color: #fff;
+    padding: .625rem;
+    margin: 0 auto;
+    max-width: 61.25rem;
+    border-radius: .3125rem;
+    -webkit-border-radius: .3125rem;
+    -webkit-box-sizing: border-box;
+}
+.alert, .loadWrap {
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/*订单*/
+.goods {height:4rem;background:#ea631a;color:white;line-height:4rem}
+.goods li{float:left;width:33.3%;text-align:center;font-size:14px}
+.order_style{padding:3% 5%;}
+.order_style>p{border-radius :4px 4px 0 0;background:#fcfcfc;text-align:center;border:1px solid #dfdfdf;border-bottom:none;height:2.5rem;line-height:2.5rem;font-size:14px;position:relative}
+.order_style>p>button{padding:2px 8px;border:none;background:#f69731;border-radius:4px;color:white;position:absolute;right:4px;font-size:14px;top:0.5rem}
+.order_style table{border-radius:0 0 4px 4px;width:100%;border:1px solid #dfdfdf;background:#fcfcfc}
+.order_style table td{height:3rem;text-align:center;border:1px solid #dfdfdf;border-left:none;vertical-align:middle;border-top:none}
+.order_style table td:last-child{border-right:none}
+.order_style table tr:nth-child(1){color:black;font-size:13px}
+.order_style table td span{display:inline-block;width:5rem;height:2.5rem;background:#3ec4e6;border-radius:4px;color:white;text-align:center;line-height:2.5rem}
+.order_style table td em{display:inline-block;width:3rem;height:2.5rem;text-align:center;line-height:2.5rem;background:#c9c9c9;color:white;border-radius:4px}
+.order_style table td  .over{background:#c9c9c9}
+.select_people{    background: #c9c9c9!important;font-size:30px;line-height:2.4rem!important}
+.order_style table tr:last-child td{border-bottom:none}
+
+.order_ul{height:4rem;width:100%;position:fixed;bottom:0;left:0;}
+.order_ul ul{width:100%}
+.order_ul li{float:left;width:50%;height:4rem;font-size:16px;color:white;background:#f69731;line-height:4rem;text-align:center;}

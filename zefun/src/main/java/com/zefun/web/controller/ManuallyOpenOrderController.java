@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.service.ManuallyOpenOrderService;
+import com.zefun.wechat.service.StaffOrderService;
 
 /**
  * 手工开单
@@ -28,19 +29,25 @@ public class ManuallyOpenOrderController extends BaseController{
 	 */
 	@Autowired
 	private ManuallyOpenOrderService manuallyOpenOrderService;
+	/**
+	 * 
+	 */
+	@Autowired
+	private StaffOrderService staffOrderService;
 	
 	/**
 	 * 手工开单页面
 	* @author 王大爷
 	* @date 2015年8月11日 上午11:10:16
+	* @param orderId 订单标识
 	* @param request 返回
 	* @param response 请求
 	* @return ModelAndView
 	 */
 	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_MANUALLY_OPEN_ORDER, method = RequestMethod.GET)
-	public ModelAndView initializeManuallyOpenOrder(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView initializeManuallyOpenOrder(Integer orderId, HttpServletRequest request, HttpServletResponse response){
 	    Integer storeId = getStoreId(request);
-		return manuallyOpenOrderService.initializeManuallyOpenOrder(storeId);
+		return manuallyOpenOrderService.initializeManuallyOpenOrder(storeId, orderId);
 	}
 	
 	/**
@@ -58,6 +65,21 @@ public class ManuallyOpenOrderController extends BaseController{
 	}
 	
 	/**
+	 * 初始化弹出框
+	* @author 老王
+	* @date 2016年7月6日 下午5:21:14 
+	* @param request 返回
+	* @param response 请求
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_NOPAPER_MODEL)
+    @ResponseBody
+	public BaseDto initializeNoPaperModel (HttpServletRequest request, HttpServletResponse response) {
+		Integer storeId = getStoreId(request);
+		return manuallyOpenOrderService.initializeNoPaperModel(storeId);
+	}
+	
+	/**
 	 *  无纸开单
 	* @author 老王
 	* @date 2016年7月5日 下午3:49:55 
@@ -67,17 +89,105 @@ public class ManuallyOpenOrderController extends BaseController{
 	* @param handOrderCode 手牌号
 	* @param employeeObj 选择的轮牌员工
 	* @param memberId 会员标识
+	* @param appointmentId 预约单标识
+	* @param orderId 订单标识
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.KeepAccounts.ACTION_ADD_ORDER)
     @ResponseBody
     public BaseDto addOrder(HttpServletRequest request, HttpServletResponse response, String sex, String handOrderCode, String employeeObj,
-             Integer memberId) {
+             Integer memberId, Integer appointmentId, Integer orderId) {
         Integer lastOperatorId = getUserId(request);
         Integer storeId = getStoreId(request);
-        return manuallyOpenOrderService.addOrder(sex, handOrderCode, employeeObj, memberId, storeId, lastOperatorId);
+        return manuallyOpenOrderService.addOrder(sex, handOrderCode, employeeObj, memberId, storeId, appointmentId, orderId, lastOperatorId);
     }
 	
+	/**
+     * 添加或修改服务人员
+    * @author 王大爷
+    * @date 2015年10月21日 下午3:14:20
+    * @param request 返回
+    * @param response 请求
+    * @param shiftMahjongStepId 轮牌步骤标识
+    * @param type 交接类型
+    * @param shiftMahjongId 轮牌标识
+    * @param employeeId 员工标识
+    * @param isAssign 是否指定
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_ADD_OR_UPDATE_SERVER_EMPLOYEE)
+    @ResponseBody
+    public BaseDto addOrUpdateServerEmployee(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongStepId, 
+            Integer type, Integer employeeId, Integer shiftMahjongId, Integer isAssign) {
+        int storeId = getStoreId(request);
+        return staffOrderService.serverAssociateShiftMahjong(shiftMahjongStepId, type, shiftMahjongId, employeeId, 
+                storeId, isAssign, getUserId(request));
+    }
+	
+    /**
+     * 结束服务
+    * @author 老王
+    * @date 2016年7月6日 下午2:35:01 
+    * @param request 返回
+    * @param response 请求
+    * @param shiftMahjongStepId 轮牌步骤标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_OVER_SERVER_EMPLOYEE)
+    @ResponseBody
+    public BaseDto overServerEmployee(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongStepId) {
+        return staffOrderService.overServerEmployee(shiftMahjongStepId);
+    }
+    
+    /**
+     * 无纸单结算
+    * @author 老王
+    * @date 2016年7月6日 下午8:21:41 
+    * @param request 返回
+    * @param response 请求
+    * @param orderId 订单标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_SETTLEMENT_ORDER)
+    @ResponseBody
+    public BaseDto settlementOrder (HttpServletRequest request, HttpServletResponse response, Integer orderId) {
+    	return manuallyOpenOrderService.settlementOrder(orderId);
+    }
+    
+    /**
+     * 删除明细
+    * @author 老王
+    * @date 2016年7月7日 下午3:30:25 
+    * @param request 返回
+    * @param response 请求
+    * @param detailId 明细标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_DELETE_ORDER_DETAIL)
+    @ResponseBody
+    public BaseDto deleteOrderDetail(HttpServletRequest request, HttpServletResponse response, Integer detailId) {
+    	Integer storeId = getStoreId(request);
+    	Integer lastOperatorId = getUserId(request);
+    	return staffOrderService.deleteOrderDetail(detailId, storeId, lastOperatorId);
+    }
+    
+    /**
+     * 删除订单
+    * @author 老王
+    * @date 2016年7月7日 下午3:44:32 
+    * @param request 返回
+    * @param response 请求
+    * @param orderId 订单标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_DELETE_ORDER_INFO)
+    @ResponseBody
+    public BaseDto deleteOrderInfo(HttpServletRequest request, HttpServletResponse response, Integer orderId) {
+    	Integer storeId = getStoreId(request);
+    	Integer lastOperatorId = getUserId(request);
+    	return staffOrderService.deleteOrderInfo(orderId, storeId, lastOperatorId);
+    }
+    
 	/**
 	 * 根据项目标识查询想轮牌信息及步骤对应员工
 	* @author 王大爷
@@ -104,17 +214,18 @@ public class ManuallyOpenOrderController extends BaseController{
 	* @param arrayObjStr 开单项目
 	* @param openOrderDate 补单时间
 	* @param handOrderCode 手工单号
+	* @param orderId 订单标识
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.KeepAccounts.MANUALLY_OPEN_ORDER_SAVE)
     @ResponseBody
 	public BaseDto manuallyOpenOrderSave(HttpServletRequest request, HttpServletResponse response, Integer memberId, String sex,
-	        String arrayObjStr, String openOrderDate, String handOrderCode) {
+	        String arrayObjStr, String openOrderDate, String handOrderCode, Integer orderId) {
 		
 	    Integer storeId = getStoreId(request);
 	    Integer lastOperatorId = getUserId(request);
-	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, storeId, lastOperatorId, handOrderCode);
+	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, 
+	    		storeId, lastOperatorId, handOrderCode, orderId);
 	}
-	
 	
 }

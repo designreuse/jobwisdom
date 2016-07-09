@@ -2,6 +2,7 @@ package com.zefun.web.mapper;
 
 import java.util.List;
 
+import com.zefun.web.entity.Page;
 import com.zefun.web.entity.StockFlow;
 
 /**

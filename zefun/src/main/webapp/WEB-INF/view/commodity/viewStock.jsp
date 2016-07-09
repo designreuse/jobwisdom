@@ -42,7 +42,7 @@
 
 	jQuery(function() {
 		jQuery('.out_tab_content_:gt(0)').hide();
-		jQuery('.out_tab li').click(
+		jQuery('.clearfix >li').click(
 				function() {
 					jQuery(this).addClass('active').siblings().removeClass(
 							'active');
@@ -52,16 +52,30 @@
 				});
 	})
 
+	
+	
 	//提示气泡
 	jQuery(function() {
-		jQuery('.overflow_text').hover(function() {
+		
+		jQuery("body").delegate(".overflow_text", "mouseover", function (){
 			jQuery('.fly_').html('');
 			var htm = jQuery(this).html();
 			jQuery(this).parent().find('.fly_').append(htm);
-		}, function() {
+		});
+		jQuery("body").delegate(".overflow_text", "mouseout", function (){
 			jQuery('.fly_').html('')
-		})
+		});
 	})
+	//提示气泡
+// 	jQuery(function() {
+// 		jQuery('.overflow_text').hover(function() {
+// 			jQuery('.fly_').html('');
+// 			var htm = jQuery(this).html();
+// 			jQuery(this).parent().find('.fly_').append(htm);
+// 		}, function() {
+// 			jQuery('.fly_').html('')
+// 		})
+// 	})
 </script>
 <body>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -101,90 +115,69 @@
 										<button class="query">查询</button></i>
 								</div>
 
-								<table class="payroll_table">
+								<table class="payroll_table" id="intable1">
 									<tbody>
 										<tr>
 											<td>入库时间</td>
 											<td>入库方式</td>
 											<td>入库明细</td>
-											<td>操作</td>
 										</tr>
-										<c:forEach items="${inFlows }" var="flow">
-										<tr>
-											<td>${flow.createTime }</td>
-											<td>${flow.flowType }</td>
-											<td>
-												<div class="overflow_text">
-													<c:forEach varStatus="index" items="${flow.accountGoods }" var="goods"><span>${goods.goodsCodeSuffix } ${goods.goodsName } : <i>${fn:split(flow.stockCount, ',')[index.count-1] }</i></span></c:forEach>
-												</div>
-												<div class="fly_"></div></td>
-											<td><span><img src="<%=basePath%>images/handle_1.png"></span><span><img src="<%=basePath%>images/handle_2.png"></span></td>
-										</tr>
-										</c:forEach>
+	
 									</tbody>
 								</table>
+								<div class="fenye" id="fenye1">
+										<span>共找到了<i name="result1">0</i>条数据, 共 <i name="page1">0</i> 页</span>
+										<ul id="pagination-demo" class="pagination pagination-sm">
+										<li class="first disabled" onclick="upPage(1,-2,event)"><a   href="#">首页</a></li><li class="prev disabled" id="upSize1" onclick="upPage(1,-1,event)"><a>上一页</a></li><li class="next disabled"><a href="#" onclick="upPage(1,1,event)">下一页</a></li><li class="last disabled" onclick="upPage(1,2,event)"><a href="#" >尾页</a></li></ul>
+								</div>
 							</div>
+								
 							<div class="out_tab_content_" style="display: none;">
 								<div class="out_tab_2">
 									<button onclick="jQuery('.zzc1').show('800')">选择商品出库</button>
 									<input type="text" placeholder="名称/编码">
 								</div>
-								<table class="payroll_table">
+								<table class="payroll_table" id="intable2">
 									<tbody>
 										<tr>
 											<td>出库时间</td>
 											<td>出库对象</td>
 											<td>出库方式</td>
 											<td>调拨明细</td>
-											<td>操作</td>
 										</tr>
-										<c:forEach items="${outFlows }" var="flow">
-										<tr>
-											<td>${flow.createTime }</td>
-											<td>${flow.employeeName }</td>
-											<td>${flow.flowType }</td>
-											<td>
-												<div class="overflow_text">
-													<c:forEach varStatus="index" items="${flow.accountGoods }" var="goods"><span>${goods.goodsCodeSuffix } ${goods.goodsName } : <i>${fn:split(flow.stockCount, ',')[index.count-1] }</i></span></c:forEach>
-												</div>
-												<div class="fly_"></div></td>
-											<td><span><img src="<%=basePath%>images/handle_1.png"></span><span><img src="<%=basePath%>images/handle_2.png"></span></td>
-										</tr>
-										</c:forEach>
+
 									</tbody>
 								</table>
+									<div class="fenye" id="fenye2">
+										<span>共找到了<i name="result2">0</i>条数据, 共 <i name="page2">0</i> 页</span>
+										<ul id="pagination-demo" class="pagination pagination-sm">
+										<li class="first disabled" onclick="upPage(2,-2,event)"><a   href="#">首页</a></li><li class="prev disabled" id="upSize2" onclick="upPage(2,-1,event)"><a  >上一页</a></li><li class="next disabled" onclick="upPage(2,1,event)"><a href="#" >下一页</a></li><li class="last disabled" onclick="upPage(2,2,event)"><a href="#" >尾页</a></li></ul>
+									</div>
 							</div>
 							<div class="out_tab_content_" style="display: none;">
 								<div class="out_tab_2">
 									<button onclick="jQuery('.zzc').show('800')">选择调拨商品</button>
 									<input type="text" placeholder="名称/编码">
 								</div>
-								<table class="payroll_table">
+								<table class="payroll_table" id="intable3">
 									<tbody>
 										<tr>
 											<td>调拨时间</td>
 											<td>出库门店</td>
 											<td>入库门店</td>
 											<td>调拨明细</td>
-											<td>操作</td>
+
 										</tr>
-										<c:forEach items="${moveFlows }" var="flow">
-										<tr>
-											<td>${flow.createTime }</td>
-											<td>${flow.fromStoreName }</td>
-											<td>${flow.toStoreName }</td>
-											<td>
-												<div class="overflow_text">
-													<c:forEach varStatus="index" items="${flow.accountGoods }" var="goods"><span>${goods.goodsCodeSuffix } ${goods.goodsName } : <i>${fn:split(flow.stockCount, ',')[index.count-1] }</i></span></c:forEach>
-												</div>
-												<div class="fly_"></div></td>
-											<td><span><img src="<%=basePath%>images/handle_1.png"></span><span><img src="<%=basePath%>images/handle_2.png"></span></td>
-										</tr>
-										</c:forEach>
+
 									</tbody>
 								</table>
-
+									<div class="fenye" id="fenye3">
+										<span>共找到了<i name="result3">0</i>条数据, 共 <i name="page3">0</i> 页</span>
+										<ul id="pagination-demo" class="pagination pagination-sm">
+										<li class="first disabled" onclick="upPage(3,-2,event)"><a   href="#">首页</a></li><li class="prev disabled" id="upSize3" onclick="upPage(3,-1,event)"><a  >上一页</a></li><li class="next disabled" onclick="upPage(3,1,event)"><a href="#" >下一页</a></li><li class="last disabled" onclick="upPage(3,2,event)"><a href="#" >尾页</a></li></ul>
+									</div>
 							</div>
+					
 						</div>
 					</div>
 
@@ -479,12 +472,20 @@
 			dataType : "json",
 			async : false,
 			success : function(data) {
-				var inFlows = data.msg.inFlows;
-				showFlow(inFlows, 0);
-				var outFlows = data.msg.outFlows;
-				showFlow(outFlows, 1);
-				var employeeInfos = data.msg.employeeInfos;
-				queryEmployeeInfo(employeeInfos);
+// 				var inFlows = data.msg.inFlows;
+// 				showFlow(inFlows, 0);
+// 				var outFlows = data.msg.outFlows;
+// 				showFlow(outFlows, 1);
+// 				var employeeInfos = data.msg.employeeInfos;
+// 				queryEmployeeInfo(employeeInfos);
+				outFlows  = data.msg.outFlows;
+				moveFlows = data.msg.moveFlows;
+				inflows   = data.msg.inFlows;
+				jQuery("li[name = 'pageSize']").remove();
+				pageNo=1;
+				initPage();
+				
+				
 			}
 		});
 	}
@@ -537,6 +538,172 @@
 			var employeeName = employeeInfos[i].name;
 			var html = '<option value='+employeeId+'>'+employeeName+'</option>';
 			jQuery("select[name='libraryObject']").append(jQuery(html));
+		}
+	}
+
+	var inFlow = '${inFlows}';
+	var inflows = null;
+	if(!isEmpty(inFlow)){
+		inflows = eval("("+inFlow+")");
+	}
+	
+	var outFlow = '${outFlows}'; 
+	var outFlows = null;
+	if(!isEmpty(outFlow)){
+		outFlows = eval("("+outFlow+")");
+	}
+	var moveFlow = '${moveFlows}'; 
+	var moveFlows = null;
+	if(!isEmpty(moveFlow)){
+		moveFlows = eval("("+moveFlow+")");
+	}
+	
+	
+	
+	//一页多少条
+	var resultPage = 9;
+	var pageNo = 1;
+	function initPageClick(type,page){
+		if(type ==1){
+			flow1(page);
+		}
+		else if(type ==2){
+			flow2(page);
+		}
+		else if(type ==3){
+			flow3(page);
+		}
+		
+	}
+	
+	//表格一分页
+	function flow1(page){
+		
+		jQuery("#fenye1 li[id='"+pageNo+"']").attr("class","page");
+		jQuery("#fenye1 li[id='"+page+"']").attr("class","page active");
+		pageNo=page;
+		
+		jQuery("#intable1 tr[name='in']").empty();
+		var inf = (inflows.length - resultPage * page + resultPage)>resultPage ? resultPage : inflows.length;
+		console.log(inf);
+		for (var i = resultPage*page-resultPage;i < inf; i++) {
+			var html = '<tr name="in"><td>'+inflows[i].createTime+'</td><td>'+inflows[i].flowType+'</td><td><div class="overflow_text">';
+			for (var j = 0; j < inflows[i].accountGoods.length; j++) {
+				var  goods = inflows[i].accountGoods[j];
+				html +='<span>'+goods.goodsCodeSuffix +''+ goods.goodsName+ ':<i>'+inflows[i].stockCount.split(",")[j]+' </i></span>';
+			}
+			html +='</div><div class="fly_"></div></td></tr>';
+			jQuery("#intable1").append(jQuery(html));
+			console.log("数据:"+i);
+		}
+		
+	}
+	//表格二分页
+	function flow2(page){
+		
+		jQuery("#fenye2 li[id='"+pageNo+"']").attr("class","page");
+		jQuery("#fenye2 li[id='"+page+"']").attr("class","page active");
+		pageNo=page;
+		
+		jQuery("#intable2 tr[name='in']").empty();
+		var inf = (outFlows.length - resultPage * page + resultPage)>resultPage ? resultPage : outFlows.length;
+		for (var i = resultPage*page-resultPage;i < inf; i++) {
+			var html = '<tr name="in"><td>'+outFlows[i].createTime+'</td><td>'+outFlows[i].employeeName+'</td><td>'+outFlows[i].flowType+'</td><td><div class="overflow_text">';
+			for (var j = 0; j < outFlows[i].accountGoods.length; j++) {
+				var  goods = outFlows[i].accountGoods[j];
+				html +='<span>'+goods.goodsCodeSuffix +''+ goods.goodsName+ ':<i>'+outFlows[i].stockCount.split(",")[j]+' </i></span>';
+			}
+			html +='</div><div class="fly_"></div></td></tr>';
+			jQuery("#intable2").append(jQuery(html));
+		}
+	}
+	
+	
+	function flow3(page){
+		
+		jQuery("#fenye3 li[id='"+pageNo+"']").attr("class","page");
+		jQuery("#fenye3 li[id='"+page+"']").attr("class","page active");
+		pageNo=page;
+		
+		jQuery("#intable3 tr[name='in']").empty();
+		var inf = (moveFlows.length - resultPage * page + resultPage)>resultPage ? resultPage : moveFlows.length;
+		for (var i = resultPage*page-resultPage;i < inf; i++) {
+			var html = '<tr name="in"><td>'+moveFlows[i].createTime+'</td><td>'+moveFlows[i].fromStoreName+'</td><td>'+moveFlows[i].toStoreName+'</td><td><div class="overflow_text">';
+			for (var j = 0; j < moveFlows[i].accountGoods.length; j++) {
+				var  goods = moveFlows[i].accountGoods[j];
+				html +='<span>'+goods.goodsCodeSuffix +''+ goods.goodsName+ ':<i>'+moveFlows[i].stockCount.split(",")[j]+' </i></span>';
+			}
+			html +='</div><div class="fly_"></div></td></tr>';
+			jQuery("#intable3").append(jQuery(html));
+		}
+		
+		
+	}
+	//上一页下一页
+	function  upPage(type,pages,event){
+		event.stopPropagation();
+		if(pages==1){
+			if(pageNo==1 && pages==-1){
+				return;
+			}
+			if(type ==1 &&pages==1 && pageNo==Math.ceil(inflows.length/resultPage) ||  type ==2 && pages==1 &&pageNo==Math.ceil(outFlows.length/resultPage) || type ==3 && pages==1 &&pageNo==Math.ceil(moveFlows.length/resultPage)){
+				return;
+			}
+			initPageClick(type,pageNo+pages);
+		}
+		else if( pages==2){
+			if(type==1){
+				initPageClick(type,Math.ceil(inflows.length/resultPage));
+			}
+			if(type==2){
+				initPageClick(type,Math.ceil(outFlows.length/resultPage));
+			}
+			if(type==3){
+				initPageClick(type,Math.ceil(moveFlows.length/resultPage));
+			}
+		}
+		else{
+			initPageClick(type,1);
+		}
+	}
+	
+	
+	function initPage(){
+		var resultPage1=inflows.length;
+		var resultPage2=outFlows.length;
+		var resultPage3=moveFlows.length;
+		jQuery("#fenye3 i[name='result3']").text(resultPage3);
+		jQuery("#fenye2 i[name='result2']").text(resultPage2);
+		jQuery("#fenye1 i[name='result1']").text(resultPage1);
+		
+		jQuery("#fenye3 i[name='page3']").text(Math.ceil(resultPage3/resultPage));
+		jQuery("#fenye2 i[name='page2']").text(Math.ceil(resultPage2/resultPage));
+		jQuery("#fenye1 i[name='page1']").text(Math.ceil(resultPage1/resultPage));
+
+		fenye(resultPage3,3);
+		fenye(resultPage2,2);
+		fenye(resultPage1,1);
+		flow3(pageNo);
+		flow2(pageNo);
+		flow1(pageNo);
+	}
+	//初始化
+	jQuery(function(){
+		initPage();
+
+	})
+	//页数赋值
+	function fenye(resultPage1,type){
+		
+		for (var i = Math.ceil(resultPage1/resultPage); i >0 ; i--) {
+			if(i==1){
+				var html ='<li name = "pageSize" class="page active" id="'+i+'" onclick="initPageClick('+type+','+i+')"><a href="#">'+i+'</a></li>';
+			}
+			else{
+				var html ='<li name = "pageSize" class="page" id="'+i+'"  onclick="initPageClick('+type+','+i+')"><a  href="#">'+i+'</a></li>';
+			}
+			
+			jQuery("#upSize"+type).after(jQuery(html));
 		}
 	}
 </script>
