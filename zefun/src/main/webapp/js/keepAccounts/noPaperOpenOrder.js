@@ -108,18 +108,24 @@ function alertZzc() {
 	    			if (i == 0) {
 	    				jQuery("ul[name='positionUl']").append('<li class="active" onclick = "choosePositionShiftMahjong(this, '+positionInfoShiftMahjongDto.positionId+')">'+positionInfoShiftMahjongDto.positionName+'</li>');
 	    				
-	    				str = '<div class="open_card_alert_state_content"  positionId = "'+positionInfoShiftMahjongDto.positionId+'">';
+	    				str = '<p class = "shift_majone_name">'+
+							        '<span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = "" disabled="disabled"></span>'+
+							        '<span>选择轮牌人员<input type="text" name="shiftMahjongEmployeeName" shiftMahjongEmployeeId = "" disabled="disabled"></span>'+
+							        '<span>是否指定<input type="checkbox" name= "isAssign"></span>'+
+							   '</p>';
+	    				str += '<div class="open_card_alert_state_content"  positionId = "'+positionInfoShiftMahjongDto.positionId+'">';
 	    			}
 	    			else {
 	    				jQuery("ul[name='positionUl']").append('<li onclick = "choosePositionShiftMahjong(this, '+positionInfoShiftMahjongDto.positionId+')">'+positionInfoShiftMahjongDto.positionName+'</li>');
 	    				
-	    				str = '<div class="open_card_alert_state_content hide"  positionId = "'+positionInfoShiftMahjongDto.positionId+'">';
+	    				str = '<p class = "shift_majone_name hide">'+
+							        '<span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = "" disabled="disabled"></span>'+
+							        '<span>选择轮牌人员<input type="text" name="shiftMahjongEmployeeName" shiftMahjongEmployeeId = "" disabled="disabled"></span>'+
+							        '<span>是否指定<input type="checkbox" name= "isAssign"></span>'+
+							   '</p>';
+	    				
+	    				str += '<div class="open_card_alert_state_content hide"  positionId = "'+positionInfoShiftMahjongDto.positionId+'">';
 	    			}
-	    			str += '<p>'+
-						        '<span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = "" disabled="disabled"></span>'+
-						        '<span>选择轮牌人员<input type="text" name="shiftMahjongEmployeeName" shiftMahjongEmployeeId = "" disabled="disabled"></span>'+
-						        '<span>是否指定<input type="checkbox" name= "isAssign"></span>'+
-						   '</p>';
 	    			
 	    			var shiftMahjongDtoList = positionInfoShiftMahjongDto.shiftMahjongDtoList;
 	    			for (var k = 0; k < shiftMahjongDtoList.length; k++) {

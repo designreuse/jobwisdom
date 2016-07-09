@@ -4,24 +4,38 @@
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/open_card_alert.css" type="text/css" />
 <style>
-	.open_card_alert_state_content>p{padding:8px 20px;height:26px;line-height:26px;background:#d8deed}
-	.open_card_alert_state_content>p input[type="text"]{width:100px!important}
+	.shift_majone_name {padding:8px 20px;height:26px;line-height:26px;background:#d8deed}
+	.shift_majone_name input[type="text"]{width:100px!important;border-radius: 12px;margin-left: 6px;}
 	.open_card_alert_state_content .active1{border:none}
+	.shift_majone_name span{display:inline-block;margin-right:12px}
+	.shift_majone_name input[type='checkbox']{margin-left:5px}
 	.zzc1, .zzc2{display:none}
-	.zzc_open_card_alert_content>p>span em{margin-left:8px;vertical-align:middle;display:inline-block;width:70px;height:26px;border-radius:12px;border:1px solid #838383;position:relative}
-	.zzc_open_card_alert_content>p>span em img{position:absolute;right:5px;top:10px}
-	.zzc_open_card_alert_content>p>i{display:inline-block;padding:2px 10px;border:1px solid #717171;border-radius:12px;margin-right:15px;cursor:pointer}
-	.zzc_open_card_alert_content i a{color:black}
-	.zzc_open_card_alert_content>p>em{display:inline-block;width:86px;height:20px;text-align:center;cursor:pointer;}
-	.zzc_open_card_alert_content>p>em img{width:18px}
+	.vip_open_card_select{margin-left:8px;vertical-align:middle;display:inline-block;width:70px;height:26px;border-radius:12px;border:1px solid #838383;position:relative}
+	.vip_open_card_select img{position:absolute;right:5px;top:10px}
+	.vip_search_content{display:inline-block;padding:2px 10px;border:1px solid #717171;border-radius:12px;margin-right:15px;cursor:pointer}
+	.vip_search_content a{color:black}
+	.visitor{display:inline-block;width:86px;height:20px;text-align:center;cursor:pointer;}
+	.visitor img{width:18px}
 	.active_border{background:url('<%=basePath%>images/checked_.png') no-repeat!important;background-size:18px!important}
 	.active_border_{border:1px solid #e4671b!important;color:#e4671b}
 	.active_color{border:1px solid #e4671b!important;}
 	.active_color_{color:#e4671b!important}
-	.zzc_open_card_alert_content>p>em>i{display:inline-block;width:18px;height:18px;background:url('assets/images/check.png') no-repeat;vertical-align:middle;margin-left:2px;background-size:18px}
-	.zzc_open_card_alert_content>p input{width:100px!important;position:relative;left:4px;border:none!important;display:none;height:14px!important}
-	.zzc_open_card_alert_content>p>i>em{display:inline-block;width:21px;height:19px;background:url(assets/images/seach.png) no-repeat;vertical-align:middle;margin-left:5px}
-	.zzc_open_card_alert_content>p>i .action{background:url('assets/images/seach_.png') no-repeat}
+	.visitor>i{display:inline-block;width:18px;height:18px;background:url('<%=basePath%>images/check.png') no-repeat;vertical-align:middle;margin-left:2px;background-size:18px}
+	.zzc_open_card_alert_content>p .input_content{width:100px!important;position:relative;left:4px;border:none!important;display:none;height:14px!important}
+	.zzc_open_card_alert_content>p .vip_search{display:inline-block;width:21px;height:19px;background:url(<%=basePath%>images/seach.png) no-repeat;vertical-align:middle;margin-left:5px}
+	.vip_search_content .action{background:url('<%=basePath%>images/seach_.png') no-repeat!important}
+	.visitor{    border: 1px solid #6d6d6d;
+    border-radius: 12px;
+    padding: 3px 8px;
+    margin-right: 15px;}
+	.vip_search_content>em i{display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url('<%=basePath%>images/check.png') no-repeat;
+    vertical-align: middle;
+    margin-left: 2px;
+    background-size: 18px;}
+	.vip_open_card{text-align:center}
 </style>
 <body>
 
@@ -70,7 +84,7 @@
 									                ${orderDetail.projectName}
 									                <span>
 									                    <img src="<%=basePath%>images/architecture_edit.png">
-									                    <em><img onclick="deleteDetailId(${orderDetail.detailId})" src="<%=basePath%>images/hand_close.png"></em>
+									                    <em style="position:absolute;right:-4px;top:-10px"><img onclick="deleteDetailId(${orderDetail.detailId})" src="<%=basePath%>images/hand_close.png"></em>
 									                </span>
 									              </td>
 									           </c:otherwise>
@@ -136,11 +150,12 @@
   <div class="zzc_open_card_alert">
      <p>开单</p>
      <div class="zzc_open_card_alert_content" name="memberTR" selectType="3">
-		<p>
-		  <span>手牌号<em name = "handOrderCode"><img src="<%=basePath%>images/open_card_img.png"></em></span>
-		  <i><a href="javascript:;">会员开单
-		       <input type="text"name="phoneNumber" placeholder="会员手机号">
-		       <span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
+		<div class="vip_open_card">
+		  <span>手牌号<em name = "handOrderCode" class="vip_open_card_select"><img src="<%=basePath%>images/open_card_img.png"></em></span>
+		  <i class="vip_search_content" name = "openOrderType" onclick = "openOrderType(this)">
+		     <a href="javascript:;">会员开单
+		       <input type="text"name="phoneNumber" class = "input_content" placeholder="会员手机号" style="display: none;">
+		       <span class="iconfont icon-sousuo ml-30 mt5" class = "input_content" name="seekName" style="display: none;"></span>
 			   <div class="show_search" name="memberListDIV"
 					style="display: none;">
 					<p>
@@ -156,11 +171,11 @@
 						name="memberoverDIV"></div>
 				</div>
 		     </a>
-		     <em></em>
+		     <em><i name = "vip_em"></i></em>
 		  </i>
-		  <em>散客开单<i></i></em>
-		  <em>预约开单<i></i></em>
-		</p>
+		  <em class="visitor active_border_" name = "openOrderType" onclick = "openOrderType(this)">散客开单<i class = "active_border" name = "vip_em"></i></em>
+		  <em class="visitor" name = "openOrderType" onclick = "openOrderType(this)">预约开单<i name = "vip_em"></i></em>
+		</div>
 		<div class="open_card_table" name = "memberNoPage">
 		   <table>
 		      <tr>
@@ -169,9 +184,9 @@
 				<td>性别</td>
 			  </tr>
 			  <tr>
-			    <td name = "memberName" memberId = "" appointmentId = ""></td>
-				<td name = 'memberPhone'></td>
-				<td name = "memberSex" memberSex = ""><!-- <span><input type="radio" name="sex" value = "男" checked>男</span><span><input type="radio" name="sex" value = "女">女</span> --></td>
+			    <td name = "memberName" memberId = "" appointmentId = "">散客</td>
+				<td name = 'memberPhone'>---</td>
+				<td name = "memberSex" memberSex = "男"><span><input type="radio" name="sex" value = "男" checked>男</span><span><input type="radio" name="sex" value = "女">女</span></td>
 			  </tr>
 		   </table>
 		</div>
@@ -180,6 +195,12 @@
 			  <ul class="clearfix" name = "positionUl">
 			    
 			  </ul>
+			  <div class="open_state" style="top:54px">
+			   <span><em style="background:#21d9db"></em>空闲</span>
+			   <span><em style="background:#e11e23"></em>工作</span>
+			   <span><em style="background:#e7a3ef"></em>点客</span>
+			   <span><em style="background:#eede9f"></em>暂休</span>
+			 </div>
 			</div>
 		    <div class="open_card_alert_state_button">
 			  <button onclick="submits()">开单</button>
@@ -268,24 +289,25 @@
 
 <div class="zzc1" style="display:none">
   <div class="zzc1_open_card_alert">
-  <p>修改服务人员</p>
-    <div class="open_card_alert_state_content">
-		     <p>
+  <p class="server_people_">修改服务人员</p>
+   <p class = "shift_majone_name">
 		        <span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = ""></span>
 		        <span>选择轮牌人员<input type="text" name="shiftMahjongEmployeeName" shiftMahjongEmployeeId = ""></span>
 		        <span>是否指定<input type="checkbox" name= "isAssign"></span>
-		     </p>
+	</p>
+    <div class="open_card_alert_state_content">
 			 <div class="open_state" name = "addOrUpdate">
 			   <span><em style="background:#21d9db"></em>空闲</span>
 			   <span><em style="background:#e11e23"></em>工作</span>
 			   <span><em style="background:#e7a3ef"></em>点客</span>
 			   <span><em style="background:#eede9f"></em>暂休</span>
 			 </div>
-			<div class="open_card_alert_state_button">
+			
+	</div> 
+	 <div class="open_card_alert_state_button" style="margin-top:15px;padding-bottom:15px">
 			  <button onclick="sureAddOrUpdate(this)">开单</button>
 			  <button onclick = "hideModal()">取消</button>
-			</div>
-	</div>  
+	</div>
   </div>
 </div>
 
@@ -338,21 +360,37 @@
 <script type="text/javascript">
 var startHandNumber = '${startHandNumber}';
 
-jQuery('.zzc_open_card_alert_content>p>em').click(function(){
+/* jQuery('.visitor').click(function(){
     jQuery(this).find('i').stop(true,true).toggleClass('active_border');
 	  jQuery(this).stop(true,true).toggleClass('active_border_');
 	  
+	  
  }) 
- jQuery('.zzc_open_card_alert_content>p>i').click(function(e){
+ jQuery('.vip_open_card>i').click(function(e){
    jQuery(this).stop(true,true).toggleClass('active_color');
-	 jQuery(this).find('a').stop(true,true).toggleClass('active_color_');
-	 jQuery(this).find('em').stop(true,true).toggleClass('action');
-  if(!jQuery(e.target).is('input')) {
-	   jQuery(this).find('input').stop(true,true).toggle('normal')
+	 jQuery(this).find('.vip_a').stop(true,true).toggleClass('active_color_');
+	 jQuery(this).find('.vip_search').stop(true,true).toggleClass('action');
+	 jQuery(this).children('em').find('i').stop(true,true).toggleClass('active_border');
+  if(!jQuery(e.target).is('.input_content')) {
+	   jQuery(this).find('.input_content').stop(true,true).toggle('normal')
    }
- });
-
-
+ }); */
+ 
+ function openOrderType (obj) {
+	 jQuery("[name='openOrderType']").removeClass("active_border_");
+	 jQuery("[name='openOrderType']").removeClass("active_color");
+	 jQuery("[name='openOrderType']").find("[name='vip_em']").removeClass("active_border");
+	 jQuery(".input_content").hide();
+	 if (jQuery(obj).hasClass("vip_search_content")) {
+		 jQuery(obj).addClass("active_color");
+		 jQuery(obj).find("[name='vip_em']").addClass("active_border");
+		 jQuery(".input_content").show();
+	 }
+	 else {
+		 jQuery(obj).addClass("active_border_");
+		 jQuery(obj).find("i").addClass("active_border");
+	 }
+ }
 </script>
 <script type="text/javascript" src="<%=basePath %>js/keepAccounts/noPaperOpenOrder.js"></script>
 </body>

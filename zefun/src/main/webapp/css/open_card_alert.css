@@ -8,9 +8,8 @@
     z-index: 10000;
     background: rgba(102, 108, 121, 0.8);}
 	
-
-.zzc_open_card_alert{background:white;width:900px;height:530px;margin:50px auto;background:white;position:relative}	
-.zzc_open_card_alert>p{font-size:16px;color:white;text-align:center;height:60px;line-height:60px;background:#2b394a}
+.zzc_open_card_alert{background:white;width:900px;height:610px;margin:1% auto;background:white;position:relative}	
+.zzc_open_card_alert>p{font-size:15px;color:white;text-align:center;height:60px;line-height:60px;background:#2b394a}
 .zzc_open_card_alert_content{padding:20px}
 
 input[type="checkbox"]{ -webkit-appearance: none;
@@ -24,7 +23,7 @@ input[type="checkbox"]{ -webkit-appearance: none;
     }
 	
 input[type="checkbox"]:checked {
-    background: url(../images/check.png) no-repeat;
+    background: url(../images/check1.png) no-repeat;
     background-position: center center;
     border: 1px solid #ed7152;
 background-size: cover;}
@@ -39,7 +38,7 @@ background-size: cover;}
 .zzc_open_card_alert_content>p> em input{margin-left:5px}
 .zzc_open_card_alert_content>p{text-align:center}
 
-.open_card_alert_state{height:285px;padding:12px;border:1px solid #6d6d6d;border-radius:8px;margin-top:15px;position:relative}
+.open_card_alert_state{height:320px;padding:12px;border:1px solid #6d6d6d;border-radius:8px;margin-top:15px;position:relative}
 .open_card_alert_state >ul{height:30px;position:relative;top:1px}
 .open_card_alert_state >ul>li{padding-left:30px;cursor:pointer;float:left;width:117px;height:30px;line-height:30px;background:url('../images/open_card.png') no-repeat}
 .open_card_alert_state .active{background:url('../images/open_card_active.png') no-repeat;color:white}
@@ -56,20 +55,16 @@ background-size: cover;}
 .open_card_alert_state_number li.off_point{background-color:#e7a3ef}
 .open_card_alert_state_number li.rest{background-color:#eede9f}
 .open_card_alert_state_number li{cursor:pointer;position:relative}
-<<<<<<< HEAD
 .open_card_alert_state_button{text-align:center;margin-top:20px}
-=======
-.open_card_alert_state_button{text-align:center;margin-top:30px}
->>>>>>> f88dc41feede5e90dfb5a5180813b0a38d74e387
 .open_card_alert_state_button button:hover{background:#4b5c72}
 .open_card_alert_state_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;border-radius:12px;color:white;font-size:15px;background:#5c6e85;margin:0 26px}
 
-.open_state{position:absolute;top:10px;right:10px}
+.open_state{position:absolute;top:72px;right:10px}
 .open_state em{display:inline-block;width:14px;height:14px;margin-right:5px;position:relative;top:3px}
 .open_state>span{font-size:12px}
 
 .zzc_open_card_alert_content>p>em{border:1px solid #6d6d6d;border-radius:12px;padding:3px 8px;margin-right:15px}
-.zzc_open_card_alert_content .active1{color:#ed7152;border:1px solid #ed7152}
+
 
 .card_number{position:absolute;top:110px;overflow:hidden;width:800px;margin:0 auto;box-shadow:0 4px 4px #979797;padding:15px;border-top:1px solid #f7f7f7;background:white;left:40px}
 .card_number li{cursor:pointer;margin-right:14px;margin-top:10px;float:left;width:54px;height:26px;text-align:center;line-height:26px;box-shadow:0 2px 2px #9f9f9f}
@@ -97,13 +92,8 @@ background-size: cover;}
 .order_open_card_{margin-right:-160px}
 .order_open_card_close{position:absolute;right:10px;top:10px}
 
-<<<<<<< HEAD
 .content_right{padding:20px 36px;font-size:12px;color:black}
 .content_right>p>button{width:130px;height:26px;text-align:center;border:none;border-radius:12px;line-height:26px;color:white;background:#61678b;font-size:15px}
-=======
-.content_right{padding:20px 36px;font-size:14px;color:black}
-.content_right>p>button{width:130px;height:26px;text-align:center;border:none;border-radius:12px;line-height:26px;color:white;background:#61678b;font-size:14px}
->>>>>>> f88dc41feede5e90dfb5a5180813b0a38d74e387
 .content_right>p>button:hover{background:#424765}
 .content_right>p input{width:180px;height:20px;border-radius:12px;border:1px solid #c2c2c2;margin:0 15px;padding-left:10px}
 
@@ -124,7 +114,7 @@ background-size: cover;}
 .customer_content_div{position:relative;overflow:hidden}
 .table_content table {float:left;margin-right:45px}
 .table_content table tr:nth-child(1){font-weight:normal;position:relative}
-.table_content table tr span {position:absolute;display:inline-block;}
+.table_content table tr span {display:inline-block;}
 .table_content table tr span em{position:absolute;right:-45px}
 .table_content table tr:nth-child(1) img{vertical-align:middle}
 .table_content table tr td a{font-size:10px}
@@ -157,8 +147,8 @@ background-size: cover;}
     z-index: 10000;
     background: rgba(102, 108, 121, 0.8);}
 	
-.zzc1_open_card_alert{width:834px;margin:50px auto;background:white}	
-.zzc1_open_card_alert>p{height:60px;line-height:60px;text-align:center;color:white;font-size:15px;background:#2b394a}
+.zzc1_open_card_alert{width:834px;margin:50px auto;background:white;position:relative}	
+.zzc1_open_card_alert>.server_people_{height:60px;line-height:60px;text-align:center;color:white;font-size:15px;background:#2b394a}
 .zzc1 .open_card_alert_state_content{height:450px}
 .zzc1 .open_card_alert_state_content input[type="text"]{    width: 100px;
     height: 16px;
