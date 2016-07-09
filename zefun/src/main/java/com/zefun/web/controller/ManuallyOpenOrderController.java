@@ -224,8 +224,8 @@ public class ManuallyOpenOrderController extends BaseController{
 		
 	    Integer storeId = getStoreId(request);
 	    Integer lastOperatorId = getUserId(request);
-	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, storeId, lastOperatorId, handOrderCode, orderId);
+	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, 
+	    		storeId, lastOperatorId, handOrderCode, orderId);
 	}
-	
 	
 }

@@ -469,9 +469,8 @@ public class ManuallyOpenOrderService {
         	openOrderDate = openOrderDate.replace("T", " ");
         }
         
-        String orderCode = staffService.getOrderCode("order_info", storeId);
-        
         if (orderId == null) {
+        	String orderCode = staffService.getOrderCode("order_info", storeId);
         	//保存订单信息
         	orderId = staffService.addOrderInfo(orderCode, memberId, storeId, sex, openOrderDate, lastOperatorId, handOrderCode);
         }
@@ -484,6 +483,11 @@ public class ManuallyOpenOrderService {
             else {
             	orderInfo.setSex(sex);
             }
+            OrderInfo orderObj = orderInfoMapper.selectByPrimaryKey(orderId);
+            if (orderObj.getOrderCode().isEmpty()) {
+            	String orderCode = staffService.getOrderCode("order_info", storeId);
+            	orderInfo.setOrderCode(orderCode);
+            }
             orderInfoMapper.updateByPrimaryKey(orderInfo);
         }
         
@@ -495,7 +499,10 @@ public class ManuallyOpenOrderService {
             Integer orderType = jsonObj.getInt("type");
             Integer projectId = jsonObj.getInt("projectId");
             if (orderType == 1) {
-            	Integer detailId = jsonObj.getInt("detailId");
+            	Integer detailId = null;
+            	if (!jsonObj.get("detailId").toString().isEmpty()) {
+            		detailId = jsonObj.getInt("detailId");
+                }
             	
                 Integer appoint = jsonObj.getInt("appoint");
                 
@@ -520,6 +527,10 @@ public class ManuallyOpenOrderService {
                 JSONArray stepObj =JSONArray.fromObject(projectStepArrayObjStr);
                 for (int i = 0; i < stepObj.size(); i++) {
                     JSONObject jsonStep = stepObj.getJSONObject(i);
+                    Integer shiftMahjongStepId = null;
+                    if (!jsonStep.get("shiftMahjongStepId").toString().isEmpty()) {
+                    	shiftMahjongStepId = jsonStep.getInt("shiftMahjongStepId");
+                    }
                     Integer positionId = jsonStep.getInt("positionId");
                     String employeeIds = jsonStep.getString("employeeId");
                     Integer employeeId = null;
@@ -529,18 +540,28 @@ public class ManuallyOpenOrderService {
                     Integer isAssign = jsonStep.getInt("isAssign");
                     Integer isAppoint = jsonStep.getInt("isAppoint");
                     
-                    
-                    ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
-                    shiftMahjongProjectStep.setPositionId(positionId);
-                    shiftMahjongProjectStep.setEmployeeId(employeeId);
-                    shiftMahjongProjectStep.setDetailId(detailId);
-                    shiftMahjongProjectStep.setIsAssign(isAssign);
-                    shiftMahjongProjectStep.setIsAppoint(isAppoint);
-                    shiftMahjongProjectStep.setIsOver(2);
-                    shiftMahjongProjectStep.setCreateTime(openOrderDate);
-                    shiftMahjongProjectStep.setLastOperatorId(lastOperatorId);
-                    
-                    shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep);
+                    if (shiftMahjongStepId == null) {
+                    	ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
+                        shiftMahjongProjectStep.setPositionId(positionId);
+                        shiftMahjongProjectStep.setEmployeeId(employeeId);
+                        shiftMahjongProjectStep.setDetailId(detailId);
+                        shiftMahjongProjectStep.setIsAssign(isAssign);
+                        shiftMahjongProjectStep.setIsAppoint(isAppoint);
+                        shiftMahjongProjectStep.setIsOver(2);
+                        shiftMahjongProjectStep.setCreateTime(openOrderDate);
+                        shiftMahjongProjectStep.setLastOperatorId(lastOperatorId);
+                        
+                        shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep);
+                    }
+                    else {
+                    	ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
+                        shiftMahjongProjectStep.setShiftMahjongStepId(shiftMahjongStepId);
+                        shiftMahjongProjectStep.setEmployeeId(employeeId);
+                        shiftMahjongProjectStep.setIsAssign(isAssign);
+                        shiftMahjongProjectStep.setIsAppoint(isAppoint);
+                        
+                        shiftMahjongProjectStepMapper.updateByPrimaryKey(shiftMahjongProjectStep);
+                    }
                 }
                 OrderDetail orderDetail = new OrderDetail(); 
                 orderDetail.setDetailId(detailId);

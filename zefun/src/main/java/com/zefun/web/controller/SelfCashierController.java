@@ -127,6 +127,38 @@ public class SelfCashierController extends BaseController {
 		return baseDto;
 	}
 
+	/**
+	 * 订单详情
+	 * 
+	 * @author luhw
+	 * @date 2015年10月21日 下午3:12:13
+	 * @param orderId
+	 *            订单标识
+	 * @param request
+	 *            request
+	 * @param response
+	 *            response
+	 * @return ModelAndView
+	 */
+	@RequestMapping(value = Url.SelfCashier.ACTION_ORDER_INFO, method = RequestMethod.GET)
+	public ModelAndView selfCashierOrderInfoAction(Integer orderId, HttpServletRequest request,
+			    HttpServletResponse response) {
+		Integer storeId = getStoreId(request);
+
+		SelfCashierOrderDto selfCashierOrderDto = selfCashierService.queryOrderDetailAction(orderId, storeId);
+		ModelAndView mav = new ModelAndView(View.SelfCashier.VIEW_CHECKOUT_ORDER);
+		mav.addObject("selfCashierOrderDto", selfCashierOrderDto);
+		Integer memberType = 0;
+		if (selfCashierOrderDto.getMemberId() != null) {
+			mav.addObject("allOffMapStr", JSONObject.toJSON(selfCashierOrderDto.getAllOffMap()).toString());
+			if (selfCashierOrderDto.getDiscountMap() != null) {
+				mav.addObject("discountMapStr", JSONObject.toJSON(selfCashierOrderDto.getDiscountMap()).toString());
+			}
+			memberType = 1;
+		}
+		mav.addObject("memberType", memberType);
+		return mav;
+	}
 
 	/**
 	 * 支付订单

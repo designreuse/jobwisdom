@@ -220,13 +220,14 @@ function save() {
 	var handOrderCode = jQuery("input[name='handOrderCode']").val();
 	var memberId = jQuery("div[name='memberTR']").find("input[name = 'memberId']").val();
 	var sex = jQuery("input:radio[name='sex']:checked").val();
-	var orderId = jQuery(".nav_right_content").attr("orderId");
+	var orderId = changeEmpty(jQuery(".nav_right_content").attr("orderId"));
+	
 	var arrayObj = new Array();
 	//项目
 	var projectObj = jQuery("div[name='projectNameLI']");
 	for (var i = 0; i < projectObj.length; i++) {
 		var projectId = jQuery(projectObj[i]).attr("projectId");
-		var detailId = jQuery(projectObj[i]).attr("detailId");
+		var detailId = changeEmpty(jQuery(projectObj[i]).attr("detailId"));
 		var projectStepArrayObj = new Array();
 		var projectStepObj = jQuery(projectObj[i]).find("tr");
 		
@@ -234,7 +235,7 @@ function save() {
 		
 		for (var j = 0; j < projectStepObj.length; j++) {
 			var positionId = jQuery(projectStepObj[j]).attr("positionId");
-			var shiftMahjongStepId = jQuery(projectStepObj[j]).attr("shiftMahjongStepId");
+			var shiftMahjongStepId = changeEmpty(jQuery(projectStepObj[j]).attr("shiftMahjongStepId"));
 			var employeeId = jQuery(projectStepObj[j]).find("input[name='employeeId']").attr("employeeId");
 			var isAssign = 0;
 			if (jQuery(projectStepObj[j]).find("input[name='isAssign']").prop('checked')) {
@@ -390,4 +391,11 @@ function isStartEndDate(startDate){
     }
     
     return false;   
-   }   
+   } 
+
+function changeEmpty (val) {
+	if (isEmpty(val)) {
+		val = "";
+	}
+	return val;
+}
