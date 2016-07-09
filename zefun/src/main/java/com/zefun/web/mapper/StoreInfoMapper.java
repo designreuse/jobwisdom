@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.zefun.web.dto.StoreInfoDto;
+import com.zefun.web.entity.ActivityStore;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.wechat.dto.RegionCountDto;

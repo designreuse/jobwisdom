@@ -17,11 +17,11 @@
 .out_tab ul{height:37px}
 
 
-.new_activity{border:1px solid #898989;margin-top:8px;height:595px;border-radius:8px;padding:10px 20px}
+.new_activity{border:1px solid #898989;margin-top:8px;height:695px;border-radius:8px;padding:10px 20px}
 .new_activity>p>button{width:130px;height:26px;border:none;text-align:center;line-height:26px;border-radius:12px;color:white;font-size:16px;background:#596788}
 .new_activity>p>button:hover{background:#424d68}
-.new_activity_content{background:#d8deed;height:520px;border-radius:8px;margin-top:8px;padding:10px}
-.new_activity_content_datail{background:white;border:1px solid #898989;border-radius:8px;height:520px;overflow:overlay;}
+.new_activity_content{background:#d8deed;height:636px;border-radius:8px;margin-top:8px;padding:10px}
+.new_activity_content_datail{background:white;border:1px solid #898989;border-radius:8px}
 .new_activity_content_datail>p{background:#ebeff8}
 .new_activity_spread_content{background:#eeeeee;padding:2px 0;border-bottom:1px solid #d5d6d9}
 .activity_spread{width:700px;margin:10px auto}

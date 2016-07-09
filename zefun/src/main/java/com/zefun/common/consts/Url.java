@@ -267,7 +267,7 @@ public interface Url {
 	
 	/** 活动模块*/
 	class Activity {
-	    /** 进入活动页面 */
+	    /** 进入活动类别 */
         public static final String TO_ACTIVITYSIGN = "activity/view/toactivitysign";
 
         /** 活动保存 */
@@ -281,6 +281,17 @@ public interface Url {
         
         /** 修改单个活动 */
         public static final String TO_ACTIVITYUPDATE = "activity/view/toactivityupdate";
+        
+        
+        
+        /** 进入门店活动 */
+        public static final String SHOW_ACTIVITY = "activity/view/showactivitysign";
+        
+        /** 门店活动保存 */
+        public static final String SHOW_ACTIVITYSAVE = "activity/view/showactivitysave";
+        
+        /** 门店活动保存 */
+        public static final String SHOW_ACTIVITYDELETE = "activity/view/showactivitydelete";
 	}
 
 	/** 项目模块 */

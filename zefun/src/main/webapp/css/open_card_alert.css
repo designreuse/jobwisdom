@@ -8,8 +8,9 @@
     z-index: 10000;
     background: rgba(102, 108, 121, 0.8);}
 	
-.zzc_open_card_alert{background:white;width:900px;height:570px;margin:2% auto;background:white;position:relative}	
-.zzc_open_card_alert>p{font-size:15px;color:white;text-align:center;height:60px;line-height:60px;background:#2b394a}
+
+.zzc_open_card_alert{background:white;width:900px;height:530px;margin:50px auto;background:white;position:relative}	
+.zzc_open_card_alert>p{font-size:16px;color:white;text-align:center;height:60px;line-height:60px;background:#2b394a}
 .zzc_open_card_alert_content{padding:20px}
 
 input[type="checkbox"]{ -webkit-appearance: none;
@@ -55,7 +56,11 @@ background-size: cover;}
 .open_card_alert_state_number li.off_point{background-color:#e7a3ef}
 .open_card_alert_state_number li.rest{background-color:#eede9f}
 .open_card_alert_state_number li{cursor:pointer;position:relative}
+<<<<<<< HEAD
 .open_card_alert_state_button{text-align:center;margin-top:20px}
+=======
+.open_card_alert_state_button{text-align:center;margin-top:30px}
+>>>>>>> f88dc41feede5e90dfb5a5180813b0a38d74e387
 .open_card_alert_state_button button:hover{background:#4b5c72}
 .open_card_alert_state_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;border-radius:12px;color:white;font-size:15px;background:#5c6e85;margin:0 26px}
 
@@ -92,8 +97,13 @@ background-size: cover;}
 .order_open_card_{margin-right:-160px}
 .order_open_card_close{position:absolute;right:10px;top:10px}
 
+<<<<<<< HEAD
 .content_right{padding:20px 36px;font-size:12px;color:black}
 .content_right>p>button{width:130px;height:26px;text-align:center;border:none;border-radius:12px;line-height:26px;color:white;background:#61678b;font-size:15px}
+=======
+.content_right{padding:20px 36px;font-size:14px;color:black}
+.content_right>p>button{width:130px;height:26px;text-align:center;border:none;border-radius:12px;line-height:26px;color:white;background:#61678b;font-size:14px}
+>>>>>>> f88dc41feede5e90dfb5a5180813b0a38d74e387
 .content_right>p>button:hover{background:#424765}
 .content_right>p input{width:180px;height:20px;border-radius:12px;border:1px solid #c2c2c2;margin:0 15px;padding-left:10px}
 
