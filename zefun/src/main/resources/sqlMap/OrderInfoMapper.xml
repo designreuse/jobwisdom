@@ -597,16 +597,15 @@
       ifnull(oi.free_amount, 0) as free_amount, ifnull(oi.debt_amount, 0) as debt_amount,
       ifnull(oi.group_amount, 0) as group_amount, ifnull(oi.real_amount, 0) as real_amount,
       DATE_FORMAT(oi.create_time,'%Y-%m-%d %H:%i') as create_time
-      from order_info oi 
-	  left join order_detail od on oi.order_id = od.order_id 
+      from order_info oi
+	  left join order_detail od on oi.order_id = od.order_id
 	  left join employee_commission ec on od.detail_id = ec.detail_id
       <where>
         oi.store_id = #{params.daybook.storeId} and (oi.order_status = 3 or oi.order_status = 4) 
 		      	<if test="params.daybook.queryCode != null and params.daybook.queryCode != ''">
 		      		and (oi.order_code = #{params.daybook.queryCode} 
-		      			or oi.member_id = (select member_id from member_info 
-		      				where store_id = #{params.daybook.storeId} and phone = #{params.daybook.queryCode} and is_deleted = 0)
-		      				or exists(select 1 from employee_info ei 
+		      			 or oi.member_id = (select member_id from member_info where store_id = #{params.daybook.storeId} and phone = #{params.daybook.queryCode} and is_deleted = 0)
+		      			 or exists(select 1 from employee_info ei 
 		      				where ei.employee_code=#{params.daybook.queryCode} 
 		      				and ei.store_id = #{params.daybook.storeId} 
 		      				and ei.is_deleted = 0 
@@ -786,7 +785,7 @@
      count(1) as count
      from order_info oi
      left join order_detail od on oi.order_id = od.order_id 
-	  left join employee_commission ec on od.detail_id = ec.detail_id
+	 left join employee_commission ec on od.detail_id = ec.detail_id
      <where>
         oi.store_id = #{storeId} and (oi.order_status = 3 or oi.order_status = 4) 
 		      	<if test="queryCode != null and queryCode != ''">

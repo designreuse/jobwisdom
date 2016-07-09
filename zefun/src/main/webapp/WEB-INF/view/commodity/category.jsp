@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="/head.jsp"%>
-<link rel="stylesheet" href="<%=basePath %>css/goods_series.css" type="text/css" />
+<link rel="stylesheet" href="<%=basePath%>css/goods_series.css" type="text/css" />
 <style>
 .active {
 	background: #ecf7fe;
@@ -10,10 +10,8 @@
 </style>
 <script>
 	//轮播
-
 	jQuery(function() {
 		var now_ = 0, count = jQuery('.out_roll_ul li').size();
-
 		//向右走
 		jQuery('.click_right').click(
 				function() {
@@ -22,12 +20,10 @@
 						jQuery(this).parent('').find('.out_roll_ul').stop(true,
 								true).animate({
 							left : -181 * now_
-
 						})
 					}
 				});
 		//向左走
-
 		jQuery('.click_left').click(
 				function() {
 					if (now_ >= 1) {
@@ -35,10 +31,8 @@
 						jQuery(this).parent('').find('.out_roll_ul').stop(true,
 								true).animate({
 							left : -181 * now_
-
 						})
 					}
-
 				});
 	});
 
@@ -50,7 +44,35 @@
 			jQuery(this).find('p').hide();
 		})
 	})
-	
+
+	//xxx部门轮播 
+	jQuery(function() {
+		var now_ = 0, count = jQuery('.goods_series_item_all_ul li').size();
+		//向右走
+		jQuery('.next').click(function() {
+			if (now_ <= count - 9) {
+				now_ += 4;
+				jQuery(this).parent().find('ul').stop(true, true).animate({
+					left : -110 * now_
+				})
+			}
+		});
+		//向左走
+		jQuery('.pre').click(function() {
+			if (now_ >= 1) {
+				now_ -= 4;
+				jQuery(this).parent().find('ul').stop(true, true).animate({
+					left : -110 * now_
+				})
+			}
+		});
+	});
+	//部门选项
+	jQuery(function() {
+		jQuery('.goods_series_item_all_ul li').click(function() {
+			jQuery(this).addClass('active').siblings().removeClass('active');
+		})
+	})
 </script>
 
 <body>
@@ -66,7 +88,7 @@
 						<div class="out_roll">
 							<span class="click_left"><img src="<%=basePath%>images/left_click.png"></span>
 							<div class="out_roll_div">
-								<ul class="clearfix out_roll_ul" style="left: 0px;">
+								<ul class="clearfix out_roll_ul">
 									<c:forEach items="${storeInfos }" var="storeInfo">
 										<li onclick="window.location.href='<%=basePath %>project/view/categorys?storeId=${storeInfo.storeId }'" storeId="${storeInfo.storeId }">${storeInfo.storeName }</li>
 									</c:forEach>
@@ -81,39 +103,59 @@
 					</div>
 
 					<div class="goods_series_item">
-						<div class="goods_series_item_content">
-							<p>项目(大项)</p>
-							<div class="goods_series_item_content_">
-								<p>
-									<button onclick="showSave(1);">添加</button>
-								</p>
-								<ul id="project" class="goods_series_detail">
-									<c:forEach items="${projectCategories }" var="projectCategorie">
-									<li categoryId="${projectCategorie.categoryId }" >${projectCategorie.categoryName }
-										<p>
-											<span onclick="showUpdate(1, ${projectCategorie.categoryId }, '${projectCategorie.categoryName }', this)">修改</span><span onclick="deleted(1, ${projectCategorie.categoryId })">删除</span>
-										</p>
-									</li>
-									</c:forEach>
-								</ul>
-							</div>
-						</div>
+						<div class="goods_series_item_all">
+							<div class="goods_series_item_all_ clearfix">
+								<div class="goods_series_item_all_ul">
+									<span class="pre"><img src="<%=basePath%>images/hand_left.png"></span>
+									<ul id="dept" class="clearfix" style="left: 0px;">
+										<c:forEach items="${deptInfos }" var="deptInfo">
+											<li onclick="selectDept(this)" deptId="${deptInfo.deptId }">${deptInfo.deptName }</li>
+										</c:forEach>
+									</ul>
+									<script>
+									var deptId = '${deptId}';
+									jQuery("#dept").children("li[deptId="+deptId+"]").addClass("active");
+									function selectDept(li){
+										window.location.href = baseUrl + "project/view/categorys?storeId=" + storeId + "&deptId=" + jQuery(li).attr("deptId");
+									}
+									</script>
+									<span class="next"><img src="<%=basePath%>images/hand_right.png"></span>
+								</div>
+								<div class="goods_series_item_content">
+									<div class="goods_series_item_content_">
+										<ul class="goods_series_detail" id="project">
+											<p>
+												项目(大项)
+												<button onclick="showSave(1);">添加</button>
+											</p>
+											<c:forEach items="${projectCategories }" var="projectCategorie">
+												<li categoryId="${projectCategorie.categoryId }">${projectCategorie.categoryName }
+													<p>
+														<span onclick="showUpdate(1, ${projectCategorie.categoryId}, '${projectCategorie.categoryName}', this)">修改</span><span onclick="deleted(1, ${projectCategorie.categoryId})">删除</span>
+													</p>
+												</li>
+											</c:forEach>
+										</ul>
+									</div>
+								</div>
 
-						<div class="goods_series_item_content">
-							<p>商品系列</p>
-							<div class="goods_series_item_content_">
-								<p>
-									<button onclick="showSave(2);">添加</button>
-								</p>
-								<ul id="goods" class="goods_series_detail">
-									<c:forEach items="${goodsCategories }" var="goodsCategorie">
-									<li categoryId="${goodsCategorie.categoryId }">${goodsCategorie.categoryName }
-										<p style="display: none;">
-											<span onclick="showUpdate(2, ${goodsCategorie.categoryId }, '${goodsCategorie.categoryName }', this)">修改</span><span onclick="deleted(2, ${goodsCategorie.categoryId })">删除</span>
-										</p>
-									</li>
-									</c:forEach>
-								</ul>
+								<div class="goods_series_item_content">
+									<div class="goods_series_item_content_">
+										<ul class="goods_series_detail" id="goods">
+											<p>
+												商品系列
+												<button onclick="showSave(2);">添加</button>
+											</p>
+											<c:forEach items="${goodsCategories }" var="goodsCategorie">
+												<li >商品系列
+													<p style="display: none;">
+														<span onclick="showUpdate(2, ${goodsCategorie.categoryId}, '${goodsCategorie.categoryName}', this)">修改</span><span onclick="deleted(2, ${goodsCategorie.categoryId})">删除</span>
+													</p>
+												</li>
+											</c:forEach>
+										</ul>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -124,7 +166,7 @@
 
 	<div class="zzc">
 		<div class="zzc_goods_series">
-			<p>修改商品</p>
+			<p>添加/修改信息</p>
 			<div class="zzc_goods_series_content">
 				<div class="zzc_goods_series_">
 					<p>
@@ -142,73 +184,84 @@
 
 </body>
 <script>
-var type = null;
-var categoryId = null;
-var categoryName = null;
-function hideSave(){
-	jQuery('.zzc').hide('800');
-	type=null;
-	categoryId=null;
-}
-function showSave(types){
-	type = types;
-	categoryId = null;
-	jQuery("input[name='categoryName']").val('');
-	jQuery(".zzc").show('800');
-}
-function save(){
-	
-	categoryName = jQuery("input[name='categoryName']").val();
-	var data = {"type":type, "categoryId":categoryId, "categoryName":categoryName, "storeId":storeId };
-	jQuery.ajax({
-		type : "post",
-		url : baseUrl + "project/save/update/category",
-		data : JSON.stringify(data),
-		dataType : "json",
-		contentType : "application/json",
-		async : false,
-		success : function(data) {
-			var html =  '<li categoryId="'+data.msg.categoryId+'">'+data.msg.categoryName+
-									'<p style="display: none;">'+
-								'<span onclick="showUpdate('+type+', '+data.msg.categoryId+', \''+data.msg.categoryName+'\', this)">修改</span><span>删除</span>'+
-							'</p>'+
-						'</li>';
-			if (type == 1){
-				jQuery("#project").find("li[categoryId='"+data.msg.categoryId+"']").remove();
-				jQuery("#project").append(jQuery(html));
-			}else {
-				jQuery("#goods").find("li[categoryId='"+data.msg.categoryId+"']").remove();
-				jQuery("#goods").append(jQuery(html));
-			}
-			jQuery(".zzc").hide('800');
-		}
-	});
-}
-function showUpdate(types, categoryIds, categoryNames, li){
-	type = types;
-	categoryId = categoryIds;
-	jQuery("input[name='categoryName']").val(categoryNames);
-	categoryName = categoryNames;
-	jQuery(".zzc").show('800');
-}
-function deleted(types, id){
-	if (confirm("确定要删除该数据么?")){
+	var type = null;
+	var categoryId = null;
+	var categoryName = null;
+	function hideSave() {
+		jQuery('.zzc').hide('800');
+		type = null;
+		categoryId = null;
+	}
+	function showSave(types) {
+		type = types;
+		categoryId = null;
+		jQuery("input[name='categoryName']").val('');
+		jQuery(".zzc").show('800');
+	}
+	function save() {
+
+		categoryName = jQuery("input[name='categoryName']").val();
+		var data = {
+			"type" : type,
+			"categoryId" : categoryId,
+			"categoryName" : categoryName,
+			"storeId" : storeId,
+			"deptId" : deptId
+		};
 		jQuery.ajax({
 			type : "post",
-			url : baseUrl + "project/delete/category",
-			data : "type="+types+"&categoryId="+id,
+			url : baseUrl + "project/save/update/category",
+			data : JSON.stringify(data),
 			dataType : "json",
+			contentType : "application/json",
 			async : false,
 			success : function(data) {
-				dialog(data.msg);
-				if (types == 1){
-					jQuery("#project").find("li[categoryId='"+id+"']").remove();
-				}else {
-					jQuery("#goods").find("li[categoryId='"+id+"']").remove();
+				var html = '<li categoryId="'+data.msg.categoryId+'">'
+							+ data.msg.categoryName + '<p style="display: none;">'
+							+ '<span onclick="showUpdate(' + type + ', '
+							+ data.msg.categoryId + ', \'' + data.msg.categoryName
+							+ '\', this)">修改</span><span>删除</span>' + '</p>'
+							+ '</li>';
+				if (type == 1) {
+					jQuery("#project").find("li[categoryId='" + data.msg.categoryId + "']").remove();
+					jQuery("#project").append(jQuery(html));
+				} else {
+					jQuery("#goods").find("li[categoryId='" + data.msg.categoryId + "']").remove();
+					jQuery("#goods").append(jQuery(html));
 				}
+				jQuery(".zzc").hide('800');
 			}
 		});
 	}
-}
+	function showUpdate(types, categoryIds, categoryNames, li) {
+		type = types;
+		categoryId = categoryIds;
+		jQuery("input[name='categoryName']").val(categoryNames);
+		categoryName = categoryNames;
+		jQuery(".zzc").show('800');
+	}
+	function deleted(types, id) {
+		if (confirm("确定要删除该数据么?")) {
+			jQuery.ajax({
+				type : "post",
+				url : baseUrl + "project/delete/category",
+				data : "type=" + types + "&categoryId=" + id,
+				dataType : "json",
+				async : false,
+				success : function(data) {
+					if (data.code==-1){
+						dialog(data.msg);
+						return ;
+					}
+					dialog(data.msg);
+					if (types == 1) {
+						jQuery("#project").find("li[categoryId='" + id + "']").remove();
+					} else {
+						jQuery("#goods").find("li[categoryId='" + id + "']").remove();
+					}
+				}
+			});
+		}
+	}
 </script>
 </html>

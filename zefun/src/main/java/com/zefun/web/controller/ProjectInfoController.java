@@ -110,8 +110,7 @@ public class ProjectInfoController extends BaseController {
 
         List<DeptProjectBaseDto> deptProjectList = projectService.getDeptProjectByStoreId(storeId);
         model.addObject("deptProjectList", deptProjectList);
-        model.addObject("js_deptProjectList",
-                JSONArray.fromObject(deptProjectList));
+        model.addObject("js_deptProjectList", JSONArray.fromObject(deptProjectList));
 
         // List<DeptMahjongDto> deptMahjongList =
         // projectService.getDeptMahjongByStoreId(storeId);
@@ -419,12 +418,13 @@ public class ProjectInfoController extends BaseController {
     * @param request    request
     * @param response   response
     * @param storeId    storeId
+    * @param deptId     deptId
     * @return           ModelAndView
      */
     @RequestMapping(value = Url.Project.PROJECT_CATEGORY_VIEW)
-    public ModelAndView projectCategoryView(HttpServletRequest request, HttpServletResponse response, Integer storeId) {
+    public ModelAndView projectCategoryView(HttpServletRequest request, HttpServletResponse response, Integer storeId, Integer deptId) {
         String storeAccount = getStoreAccount(request);
-        return projectService.projectCategoryView(storeAccount, storeId);
+        return projectService.projectCategoryView(storeAccount, storeId, deptId);
     }
     
     /**
