@@ -1,4 +1,4 @@
-.zzc{font-size: 14px;
+.zzc{font-size: 12px;
     color: black;
     position: fixed;
     top: 0px;
@@ -9,7 +9,7 @@
     background: rgba(102, 108, 121, 0.8);}
 	
 .zzc_open_card_alert{background:white;width:900px;height:530px;margin:50px auto;background:white;position:relative}	
-.zzc_open_card_alert>p{font-size:18px;color:white;text-align:center;height:60px;line-height:60px;background:#2b394a}
+.zzc_open_card_alert>p{font-size:16px;color:white;text-align:center;height:60px;line-height:60px;background:#2b394a}
 .zzc_open_card_alert_content{padding:20px}
 
 input[type="checkbox"]{ -webkit-appearance: none;
@@ -55,9 +55,9 @@ background-size: cover;}
 .open_card_alert_state_number li.off_point{background-color:#e7a3ef}
 .open_card_alert_state_number li.rest{background-color:#eede9f}
 .open_card_alert_state_number li{cursor:pointer;position:relative}
-.open_card_alert_state_button{text-align:center;margin-top:36px}
+.open_card_alert_state_button{text-align:center;margin-top:30px}
 .open_card_alert_state_button button:hover{background:#4b5c72}
-.open_card_alert_state_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;border-radius:12px;color:white;font-size:16px;background:#5c6e85;margin:0 26px}
+.open_card_alert_state_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;border-radius:12px;color:white;font-size:15px;background:#5c6e85;margin:0 26px}
 
 .open_state{position:absolute;top:10px;right:10px}
 .open_state em{display:inline-block;width:14px;height:14px;margin-right:5px;position:relative;top:3px}
@@ -93,7 +93,7 @@ background-size: cover;}
 .order_open_card_close{position:absolute;right:10px;top:10px}
 
 .content_right{padding:20px 36px;font-size:14px;color:black}
-.content_right>p>button{width:130px;height:26px;text-align:center;border:none;border-radius:12px;line-height:26px;color:white;background:#61678b;font-size:15px}
+.content_right>p>button{width:130px;height:26px;text-align:center;border:none;border-radius:12px;line-height:26px;color:white;background:#61678b;font-size:14px}
 .content_right>p>button:hover{background:#424765}
 .content_right>p input{width:180px;height:20px;border-radius:12px;border:1px solid #c2c2c2;margin:0 15px;padding-left:10px}
 
