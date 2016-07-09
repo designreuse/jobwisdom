@@ -43,6 +43,7 @@
   
   <resultMap id="DetailStepResultMap" type="com.zefun.web.dto.OrderDetailStepDto">
     <result column="shift_mahjong_step_id" property="shiftMahjongStepId" jdbcType="INTEGER" />
+    <result column="shift_mahjong_id" property="shiftMahjongId" jdbcType="INTEGER" />
     <result column="positionId" property="positionId" jdbcType="INTEGER" />
     <result column="positionName" property="positionName" jdbcType="VARCHAR" />
     <result column="shiftMahjongId" property="shiftMahjongId" jdbcType="VARCHAR" />
@@ -71,6 +72,7 @@
   <select id="selectOrderStepListByDetailId" resultMap="DetailStepResultMap" parameterType="java.lang.Integer">
     select
         sms.shift_mahjong_step_id as shiftMahjongStepId,
+        sms.shift_mahjong_id as shiftMahjongId,
         sms.position_id as positionId,
         ps.position_name as positionName,
         sms.employee_id as employeeId,
@@ -282,6 +284,7 @@
   
   <update id="updateBySpecial" parameterType="com.zefun.web.entity.ShiftMahjongProjectStep" >
     update shift_mahjong_project_step set
+        shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER},
         employee_id = #{employeeId,jdbcType=INTEGER},
         begin_time = #{beginTime,jdbcType=CHAR},
         is_assign =#{isAssign,jdbcType=INTEGER},
@@ -424,4 +427,13 @@
 	where is_deleted = 0 and is_over in (1, 2) and employee_id = ${employeeId}
   </select>
   
+  
+  <!-- 根据步骤标识，查询员工是否满足做该项目，by 张小胖 -->
+  <select id="selectIsExistsServers" parameterType="java.lang.Integer" resultMap="BaseResultMap">  
+    select * from shift_mahjong_project_step a 
+           where exists(select 1 from shift_mahjong_employee b 
+                           where a.shift_mahjong_id = b.shift_mahjong_id 
+                           and a.employee_id = b.employees_id and b.shift_mahjong_employee_id = #{shiftMahjongEmployeeId,jdbcType=INTEGER}) 
+           and a.is_deleted = 0 and a.is_over = 1
+  </select>
 </mapper>

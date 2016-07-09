@@ -16,13 +16,14 @@
     <result column="first_follow_gift" property="firstFollowGift" jdbcType="INTEGER" />
     <result column="member_share_reward" property="memberShareReward" jdbcType="VARCHAR" />
     <result column="sms_fee" property="smsFee" jdbcType="INTEGER" />
+    <result column="start_hand_number" property="startHandNumber" jdbcType="INTEGER" />
     <result column="last_facilitator" property="lastFacilitator" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
     store_id, gift_clean_days, integral_clean_days, cost_commission_type, commission_fixed_type, 
     gift_commission_rate, coupon_commission_rate, appoint_remind_hour, speech_type, speech_turn_use, 
-    first_follow_coupon, first_follow_gift, member_share_reward, sms_fee, last_facilitator
+    first_follow_coupon, first_follow_gift, member_share_reward, sms_fee, start_hand_number, last_facilitator
   </sql>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -82,6 +83,9 @@
       <if test="smsFee != null" >
         sms_fee,
       </if>
+      <if test="startHandNumber != null" >
+        start_hand_number,
+      </if>
       <if test="lastFacilitator != null" >
         last_facilitator,
       </if>
@@ -128,6 +132,9 @@
       </if>
       <if test="smsFee != null" >
         #{smsFee,jdbcType=INTEGER},
+      </if>
+      <if test="startHandNumber != null" >
+        #{startHandNumber,jdbcType=INTEGER},
       </if>
       <if test="lastFacilitator != null" >
         #{lastFacilitator,jdbcType=VARCHAR},
@@ -176,6 +183,9 @@
       </if>
       <if test="smsFee != null" >
         sms_fee = #{smsFee,jdbcType=INTEGER},
+      </if>
+      <if test="startHandNumber != null" >
+        start_hand_number = #{startHandNumber,jdbcType=INTEGER},
       </if>
       <if test="lastFacilitator != null" >
         last_facilitator = #{lastFacilitator,jdbcType=VARCHAR},

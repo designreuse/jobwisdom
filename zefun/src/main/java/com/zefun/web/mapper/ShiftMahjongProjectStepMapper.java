@@ -203,4 +203,13 @@ public interface ShiftMahjongProjectStepMapper {
     * @return  服务中或等待中"步骤"集
      */
     List<ShiftMahjongProjectStep> selectStepByStatusOfInServeOrWating(@Param(value = "employeeId")Integer employeeId);
+    
+    /**
+     * 查询员工正在服务的明细
+    * @author 老王
+    * @date 2016年7月5日 下午8:41:04 
+    * @param shiftMahjongEmployeeId 轮牌员工标识
+    * @return List<ShiftMahjongProjectStep>
+     */
+    List<ShiftMahjongProjectStep> selectIsExistsServers(Integer shiftMahjongEmployeeId);
 }

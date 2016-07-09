@@ -22,7 +22,7 @@ i,em{font-style:normal}
     border-radius: 40px;
    }
    .example li{float:left;width:140px;height: 136px;
-    padding-top: 16px;margin-left:20px}
+    padding-top: 16px;margin-left:30px;margin-top:10px;margin-bottom:15px}
    .roll_right{float:left;margin-left:30px;width:3000px;position:relative}
    .roll_right em{display:inline-block;margin-left:8px}
     .roll_right p{text-align:center}
