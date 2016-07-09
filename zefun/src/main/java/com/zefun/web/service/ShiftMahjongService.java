@@ -621,7 +621,7 @@ public class ShiftMahjongService {
 	    
 	    if (shiftMahjongEmployeeList != null && shiftMahjongEmployeeList.size() > 0) {
     	    //如果更换了职位
-    	    if (shiftMahjongEmployeeList.get(0).getLevelId().intValue() != employeeInfo.getLevelId()) {
+    	    if (shiftMahjongEmployeeList.get(0).getLevelId() != employeeInfo.getLevelId()) {
     	        //清除当前存在轮牌员工
     	        deleteShiftMahjongEmployee(employeeInfo.getEmployeeId());
     	        

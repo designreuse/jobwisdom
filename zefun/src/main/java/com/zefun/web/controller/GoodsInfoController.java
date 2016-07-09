@@ -170,7 +170,7 @@ public class GoodsInfoController extends BaseController {
         
         Page<GoodsInfoDto> page = new Page<>();
         page.setPageNo(1);
-        page.setPageSize(1);
+        page.setPageSize(15);
         Map<String, Object> params = new HashMap<>();
         params.put("storeId", queryStoreId);
         page.setParams(params);
