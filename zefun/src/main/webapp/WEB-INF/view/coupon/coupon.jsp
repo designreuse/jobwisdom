@@ -70,8 +70,9 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<%@ include file="/template/page.jsp"%>
+						
 					</div>
+					<%@ include file="/template/page.jsp"%>
 				</div>
 
 
