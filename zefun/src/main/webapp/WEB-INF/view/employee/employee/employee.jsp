@@ -104,7 +104,8 @@
 	</div>
  </div>
  
-<div class="zzc" style="display: none">
+
+	<div class="zzc" style="display: none">
    <div class="emploee_information">
       <p>员工资料</p>
       <div class="emploee_content clearfix">  
@@ -116,47 +117,46 @@
 			</div>
 		    <div class="information">
 			   <p> <span><em>姓名</em><input type="text" name="name"></span>
-			 <span><em>工号</em><input type="text" value="" name="employeeCode"></span></p> 
+				   <span><em>工号</em><input type="text" value="" name="employeeCode"></span>
+					<span><em>介绍人</em><select name="recommendId"><c:forEach items="${recommendList }" var="recommend"><option value="${recommend.employeeId }">${recommend.name }</option></c:forEach></select>
+				</p> 
 			   <p><span><em>性别</em><select name="sex"><option value="男">男</option><option value="女">女</option></select></span> 
-             <span><em>出生日期</em><input type="text" name="birthday" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span></p> 
-               <p><span><em>介绍人</em><select name="recommendId"><c:forEach items="${recommendList }" var="recommend"><option value="${recommend.employeeId }">${recommend.name }</option></c:forEach></select></span>
-             <span><em>手机号</em><input type="text" name="phone" value=""></span></p> 
-               <p><span><em>身份证</em><input type="text" name="identityCard" value=""></span><span><em>角色</em><select name="roleId" >
-                                          	<c:forEach items="${rolelist }" var="rolelist">
-                                            <option value="${rolelist.roleId }">${rolelist.roleName }</option>
-                                            </c:forEach>
-                                     </select></span></p>
+				  <span><em>出生日期</em><input type="text" name="birthday" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span>
+				  <span><em>手机号</em><input type="text" name="phone" value=""></span>
+				</p> 
+           
+               <p> <span><em>身份证</em><input type="text" name="identityCard" value="" style="width:350px" ></span>
+				 <span>是否显示在预约中<input type="checkbox" style="margin-left:10px"></span>
+				</p>
 			</div>  
 		 </div>
-		  <div class="imformation_bottom">
-		     <p>
-			    <span><em>选择岗位</em><select onchange="changeEmployeeLevel(this.value)" name="positionId"><c:forEach items="${positionlist }" var="position"><option value="${position.positionId }">${position.positionName }</option></c:forEach></select></span>
-			    <span><em>部门</em><select name="deptId"><c:forEach items="${deptlist }" var="dept"><option value="${dept.deptId }">${dept.deptName }</option></c:forEach></select></span>
-				<span><em>职位</em><select name="levelId"></select></span>
-			 </p>
-		     <p>
-			    <span><em>当前状态</em><select name="employeeStatus" >
-                                            <option value="1">在职</option>
-                                            <option value="2">离职</option>
-                                        </select></span>
-			    <span><em>到职日期</em><input type="text" value="" name="entryDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span>
-				<span><em>离职日期</em><input type="text" value="" name="leaveDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span>
-			 </p>
-		  </div>	 
-		 </div>
-	  <h5>员工简介</h5>
-	  <span id="editImage" class="addImage" title="插入图片" onclick="jQuery('.mask').show();editPage(null);chooseType=1;"> 
-	       <img src="<%=basePath%>images/insert_img.png" style="position: relative; left: 270px; top: 75px; z-index: 10000;">
-	  </span>
-	  <script id="editor1" type="text/plain" style="width: 550px; height: 90px;"></script>
-	  
+
+		 <div class="select_job_content clearfix">
+        <div class="select_job_content_left">       
+  		 <p><em>选择岗位</em><select onchange="changeEmployeeLevel(this.value)" name="positionId"><c:forEach items="${positionlist }" var="position"><option value="${position.positionId }">${position.positionName }</option></c:forEach></select></p>
+		  <p><em>部门</em><select name="deptId"><c:forEach items="${deptlist }" var="dept"><option value="${dept.deptId }">${dept.deptName }</option></c:forEach></select></p>
+          <p><em>职位</em><select name="levelId"></select></p>
+		  <p><em>当前状态</em><select name="employeeStatus" ><option value="1">在职</option><option value="2">离职</option></select></p>
+		  <p><em>到职日期</em><input type="text" value="" name="entryDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></p>
+		  <p><em>离职日期</em><input type="text" value="" name="leaveDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></p>
+        </div> 
+		<div class="select_job_content_right">
+		  <textarea  ></textarea>
+		</div>
+	   </div>	
+		
 	  <div class="imformation_button">
 	     <button onclick="saveEmployee()">保存</button>
 		 <button onclick="jQuery('.zzc').hide()">取消</button>
 	  </div>
 	 </div>
    </div>
-</div>
+	</div>
+	</div>
+
+
+
+
 
 <div class="modal hide" id="toLeadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -337,8 +337,13 @@ function saveEmployee(){
 	var employeeStatus = jQuery("select[name='employeeStatus']").val();
 	var entryDate = jQuery("input[name='entryDate']").val();
 	var leaveDate = jQuery("input[name='leaveDate']").val();
-	var employeeDesc = u1.getContent();
+// 	var employeeDesc = u1.getContent();  编辑
 	var headImage = jQuery("input[name='headImage']").val();
+	
+	if(!checkMobile(phone)){
+		dialog("电话号码格式不对");
+		return ;
+	}
 	var data = {"employeeId":employeeId, "employeeCode":employeeCode, "sex":sex, "birthday":birthday, "recommendId":recommendId, "phone":phone, "identityCard":identityCard, 
 			    "roleId":roleId, "positionId":positionId, "deptId":deptId, "levelId":levelId, "employeeStatus":employeeStatus, "entryDate":entryDate, "leaveDate":leaveDate, 
 			    "employeeDesc":employeeDesc, "name":name, "headImage":headImage};
@@ -351,8 +356,17 @@ function saveEmployee(){
 		contentType : "application/json",
 		async : false,
 		success : function(data) {
-			dialog("该人员配置成功");
-			jQuery(".zzc").hide();
+	
+			if(data.code == -2){
+				dialog("员工编码已经被人引用过了！");
+			}
+			else if(data.code == -2){
+				dialog("员工账号已经被人引用过了！");
+			}
+			else{
+				dialog("该人员配置成功");
+				window.location.href = baseUrl +"employee/view/employee";
+			}
 		}
 	});
 }
@@ -392,5 +406,25 @@ function selectEmp(id){
        }
 	});
 }
+
+function checkMobile(str) {
+   var re = /^1\d{10}$/
+   if (re.test(str)) {
+      return true;
+   } else {
+	   return false;
+   }
+}
+jQuery("input[name='phone']").blur(function(){
+	var p = jQuery("input[name='phone']").val();
+	if(!checkMobile(p)){
+		dialog("手机号码格式不对");
+	}
+})
+
+
+jQuery("input[name='employeeCode']").blur(function(){
+	
+})
 </script>
 </html>
