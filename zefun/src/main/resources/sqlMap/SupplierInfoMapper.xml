@@ -252,6 +252,7 @@
   	SELECT * FROM supplier_info where store_account = #{storeAccount} and is_deleted = 0
   </select>
   <select id="selectGoodsBrandBySupplier" parameterType="java.util.Map" resultMap="selectBrandByAccount">
-    select * from goods_brand where brand_id in (${goodsBrandIds})
+    select * from goods_brand where brand_id in (${goodsBrandIds}) and is_deleted = 0
   </select>
+
 </mapper>

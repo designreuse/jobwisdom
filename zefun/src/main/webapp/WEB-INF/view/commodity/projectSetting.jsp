@@ -46,8 +46,8 @@
 <script type="text/javascript">
     
     function editPage (imgUrl) {
-    	xiuxiu.setLaunchVars("cropPresets", "200*200");
     	xiuxiu.embedSWF("altContent2", 5, 700, 500);
+    	xiuxiu.setLaunchVars("cropPresets", "200*200");
     	xiuxiu.onInit = function (id)
     	{
             xiuxiu.setUploadType(3);
@@ -213,31 +213,31 @@
 												name="projectImage"
 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img
 												src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img onclick="uploadImage(this)"
-												affiliatedImage="system/profile/add_img.png"
-												name="affiliatedImage"
-												src="<%=qiniu%>system/profile/add_img.png"></em><span><img
-												src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img onclick="uploadImage(this)"
-												affiliatedImage="system/profile/add_img.png"
-												name="affiliatedImage"
-												src="<%=qiniu%>system/profile/add_img.png"></em><span><img
-												src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img onclick="uploadImage(this)"
-												affiliatedImage="system/profile/add_img.png"
-												name="affiliatedImage"
-												src="<%=qiniu%>system/profile/add_img.png"></em><span><img
-												src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img onclick="uploadImage(this)"
-												affiliatedImage="system/profile/add_img.png"
-												name="affiliatedImage"
-												src="<%=qiniu%>system/profile/add_img.png"></em><span><img
-												src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img onclick="uploadImage(this)"
-												affiliatedImage="system/profile/add_img.png"
-												name="affiliatedImage"
-												src="<%=qiniu%>system/profile/add_img.png"></em><span><img
-												src="<%=basePath%>images/pay_close.png"></span></li>
+<!-- 										<li><em><img onclick="uploadImage(this)" -->
+<!-- 												affiliatedImage="system/profile/add_img.png" -->
+<!-- 												name="affiliatedImage" -->
+<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
+<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
+<!-- 										<li><em><img onclick="uploadImage(this)" -->
+<!-- 												affiliatedImage="system/profile/add_img.png" -->
+<!-- 												name="affiliatedImage" -->
+<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
+<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
+<!-- 										<li><em><img onclick="uploadImage(this)" -->
+<!-- 												affiliatedImage="system/profile/add_img.png" -->
+<!-- 												name="affiliatedImage" -->
+<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
+<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
+<!-- 										<li><em><img onclick="uploadImage(this)" -->
+<!-- 												affiliatedImage="system/profile/add_img.png" -->
+<!-- 												name="affiliatedImage" -->
+<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
+<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
+<!-- 										<li><em><img onclick="uploadImage(this)" -->
+<!-- 												affiliatedImage="system/profile/add_img.png" -->
+<!-- 												name="affiliatedImage" -->
+<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
+<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
 									</ul>
 								</div>
 

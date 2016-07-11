@@ -40,6 +40,7 @@ public class GoodsStockController extends BaseController {
     @RequestMapping(value = Url.GoodsStock.VIEW_STOCK)
     public ModelAndView viewGoodsStock(HttpServletRequest request, HttpServletResponse response) {
         String storeAccount = getStoreAccount(request);
+        
         return goodsStockService.viewGoodsStock(storeAccount, request);
     }
     

@@ -16,7 +16,6 @@ import com.zefun.web.dto.ActivityInfoDto;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.ActivityInfo;
 import com.zefun.web.entity.ActivityStore;
-import com.zefun.web.entity.InitializeInFo;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.StoreInfo;

@@ -216,7 +216,9 @@
 			        <option value="折扣卡">折扣卡</option>
 			        <option value="等级卡">等级卡</option>
 			     </select>
-			     <em>?</em>
+			     <em class="overflow_text">?</em>
+			     <div class="fly_"></div>
+			     
 		     </span>
 			 <span>会员卡名称<input type="text" name="levelName" ></span>
 		  </div> 
@@ -335,6 +337,19 @@
 <script type="text/javascript" src="<%=basePath %>js/member/enterpriseMemberLevel.js"></script>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script>
+
+	//提示气泡
+	jQuery(function() {
+		
+		jQuery("body").delegate(".overflow_text", "mouseover", function (){
+			jQuery('.fly_').html('');
+			var htm = jQuery(this).html();
+			jQuery(this).parent().find('.fly_').append(htm);
+		});
+		jQuery("body").delegate(".overflow_text", "mouseout", function (){
+			jQuery('.fly_').html('')
+		});
+	})
 
 jQuery(document).ready(function() {    
     jQuery('.business_manage_table td span').click(function(){

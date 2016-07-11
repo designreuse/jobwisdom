@@ -990,7 +990,7 @@ public class GoodsInfoService {
     public BaseDto accountQueryGoodsInfo(String storeAccount, Integer storeId) {
         Page<GoodsInfoDto> page = new Page<>();
         page.setPageNo(1);
-        page.setPageSize(1);
+        page.setPageSize(15);
         Map<String, Object> params = new HashMap<>();
         params.put("storeId", storeId);
         page.setParams(params);
@@ -1000,5 +1000,20 @@ public class GoodsInfoService {
 //        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreId(storeId);
 //        BaseDto baseDto = new BaseDto(0, goodsInfoDtos);
         return baseDto;
+    }
+
+    /**
+     *  删除品牌
+    * @author 骆峰
+    * @date 2016年7月11日 下午2:13:05
+    * @param brandId brandId
+    * @return BaseDto
+     */
+    public BaseDto deleteBrand(Integer brandId) {
+        int updateByIsdelete = goodsBrandMapper.updateByIsdelete(brandId);
+        if (updateByIsdelete ==0) {
+            return  new BaseDto(1, App.System.API_RESULT_MSG_FOR_FAIL);
+        }
+        return  new BaseDto(0, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
 }

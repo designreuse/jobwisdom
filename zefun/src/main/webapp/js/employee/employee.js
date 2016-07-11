@@ -1758,9 +1758,6 @@ function zccCallback(dataBase64){
 	if (chooseType == 0) {
 		jQuery("input[name='headImage']").prev().attr("src", dataBase64);
 	}
-	else {
-		jQuery("#updateheadImage").attr("src", dataBase64);
-	}
 	var key = "jobwisdom/project/" + new Date().getTime();
     var data = {"stringBase64":dataBase64,"key":key};
     jQuery.ajax({

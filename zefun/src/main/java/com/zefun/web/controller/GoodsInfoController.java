@@ -170,7 +170,7 @@ public class GoodsInfoController extends BaseController {
         
         Page<GoodsInfoDto> page = new Page<>();
         page.setPageNo(1);
-        page.setPageSize(20);
+        page.setPageSize(15);
         Map<String, Object> params = new HashMap<>();
         params.put("storeId", queryStoreId);
         page.setParams(params);
@@ -686,6 +686,7 @@ public class GoodsInfoController extends BaseController {
             // 新增
             goodsBrand.setCreateTime(DateUtil.getCurDate());
             goodsBrand.setLastOperatorId((Integer)request.getSession().getAttribute(App.Session.USER_ID));
+            goodsBrand.setIsDeleted(0);
             return goodsInfoService.saveBrand(goodsBrand);
         }
     }
@@ -706,5 +707,21 @@ public class GoodsInfoController extends BaseController {
         goodsBrandDto.setStoreId(getStoreId(request));
         return goodsInfoService.serchBrand(goodsBrandDto, pageNo, pageSize);
     }
+    
+    /**
+     * 删除品牌
+    * @author 骆峰
+    * @date 2016年7月11日 下午2:13:53
+    * @param request request
+    * @param brandId brandId
+    * @return BaseDto
+     */
+    
+    @RequestMapping(value = Url.GoodsInfo.GOODSINFO_DELETE_PAGE, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto serchBrand(HttpServletRequest request, Integer brandId){
+        return goodsInfoService.deleteBrand(brandId);
+    }
+   
     
 }
