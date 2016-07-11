@@ -935,6 +935,8 @@ public interface Url {
 		public static final String ACTION_LOGOUT = "/staff/action/logout";
 		/** 查询所有订单 */
 		public static final String VIEW_ALL_ORDER = "/staff/view/order/all";
+		/** 查询员工排班 */
+		public static final String VIEW_SELECT_VIEW_SCHEDULING = "/staff/view/selectViewScheduling";
 		/** 通知会员买单 */
 		public static final String ACTION_ORDER_NOTITY = "/staff/action/order/notify";
 		/** 查询我的预约 */

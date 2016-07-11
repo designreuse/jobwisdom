@@ -226,7 +226,7 @@ public class StaffController extends BaseController {
      * 添加服务
     * @author 老王
     * @date 2016年7月11日 下午3:53:31 
-    * @param orderId
+    * @param orderId 订单标识
     * @param request        请求对象
     * @param response       返回对象
     * @return BaseDto
@@ -241,6 +241,24 @@ public class StaffController extends BaseController {
         Integer storeId = getStoreIdByOpenId(openId);
         Integer lastOperatorId = getUserIdByOpenId(openId);
         return staffService.addDetailServer(orderId, storeId, lastOperatorId);
+    }
+    
+    /**
+     * 查看排班设置
+    * @author 老王
+    * @date 2016年7月11日 下午6:13:13 
+    * @param request        请求对象
+    * @param response       返回对象
+    * @return ModelAndView
+     */
+    @RequestMapping(value = Url.Staff.VIEW_SELECT_VIEW_SCHEDULING, method = RequestMethod.GET)
+    public ModelAndView selectViewScheduling (HttpServletRequest request, HttpServletResponse response) {
+    	String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
+        Integer employee = getUserIdByOpenId(openId); 
+        return staffService.selectViewScheduling(employee);
     }
     
     /**

@@ -375,7 +375,7 @@ public class StaffOrderService {
         ModelAndView mav = new ModelAndView();
         List<PositionInfoShiftMahjongDto> positionInfoShiftMahjongDtoList = positioninfoMapper.selectByPositionShiftMahjong(storeId);
         for (PositionInfoShiftMahjongDto positionInfoShiftMahjongDto : positionInfoShiftMahjongDtoList) {
-			if (positionInfoShiftMahjongDto.getPositionId() == positionId) {
+			if (positionInfoShiftMahjongDto.getPositionId().intValue() == positionId.intValue()) {
 				mav.addObject("shiftMahjongDtoList", positionInfoShiftMahjongDto.getShiftMahjongDtoList());
 			}
 		}

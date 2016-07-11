@@ -31,6 +31,7 @@ import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.entity.EmployeeShift;
 import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.OrderDetail;
@@ -38,6 +39,7 @@ import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectDiscount;
 import com.zefun.web.entity.ProjectInfo;
+import com.zefun.web.entity.ShiftInfo;
 import com.zefun.web.entity.ShiftMahjong;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
@@ -46,6 +48,7 @@ import com.zefun.web.entity.WechatEmployee;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
+import com.zefun.web.mapper.EmployeeShiftMapper;
 import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
@@ -59,6 +62,7 @@ import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
+import com.zefun.web.mapper.ShiftMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatEmployeeMapper;
 import com.zefun.web.service.EmployeeService;
@@ -153,6 +157,13 @@ public class StaffService {
     /** 岗位*/
     @Autowired
     private PositioninfoMapper positioninfoMapper;
+    
+    /** 员工排班*/
+    @Autowired
+    private EmployeeShiftMapper employeeShiftMapper;
+    /** 排班*/
+    @Autowired
+    private ShiftMapper shiftMapper;
     
     /**
      * 查看员工主页
@@ -365,6 +376,7 @@ public class StaffService {
     * @author 王大爷
     * @date 2015年11月5日 上午10:41:08
     * @param orderId 订单标识
+    * @param storeId 门店标识
     * @param lastOperatorId 操作人
     * @return Integer
      */
@@ -402,6 +414,74 @@ public class StaffService {
         orderInfoMapper.updateByPrimaryKey(orderInfo);
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
+    
+    /**
+     * 查看排班
+    * @author 老王
+    * @date 2016年7月11日 下午6:15:34 
+    * @param employeeId 员工标识
+    * @return ModelAndView
+     */
+    public ModelAndView selectViewScheduling (Integer employeeId) {
+    	ModelAndView mav =  new ModelAndView(View.StaffPage.VIEW_SCHEDULING);
+    	EmployeeShift employeeShift = employeeShiftMapper.selectEmployeeShiftByEmployeeId(employeeId);
+    	
+    	List<Integer> shiftList = new ArrayList<>();
+    	shiftList.add(employeeShift.getShifIda());
+    	shiftList.add(employeeShift.getShifIdb());
+    	shiftList.add(employeeShift.getShifIdc());
+    	shiftList.add(employeeShift.getShifIdd());
+    	shiftList.add(employeeShift.getShifIde());
+    	shiftList.add(employeeShift.getShifIdf());
+    	shiftList.add(employeeShift.getShifIdg());
+    	
+    	List<Map<String, Object>> maps = new ArrayList<>();
+    	
+    	for (int i = 0; i < shiftList.size(); i++) {
+    		Integer shifId = shiftList.get(i);
+    		Map<String, Object> mondayMap = new HashMap<>();
+    		if (i == 0) {
+    			mondayMap.put("cname", "周一");
+    	    	mondayMap.put("ename", "Monday");
+    		}
+    		else if (i == 1) {
+    			mondayMap.put("cname", "周二");
+    	    	mondayMap.put("ename", "Tuesday");
+    		}
+			else if (i == 2) {
+				mondayMap.put("cname", "周三");
+    	    	mondayMap.put("ename", "Wednesday");			
+			}
+			else if (i == 3) {
+				mondayMap.put("cname", "周四");
+    	    	mondayMap.put("ename", "Thursday");
+			}
+			else if (i == 4) {
+				mondayMap.put("cname", "周五");
+    	    	mondayMap.put("ename", "Friday");
+			}
+			else if (i == 5) {
+				mondayMap.put("cname", "周六");
+    	    	mondayMap.put("ename", "Saturday");
+			}
+			else if (i == 6) {
+				mondayMap.put("cname", "周日");
+    	    	mondayMap.put("ename", "Sunday");
+			}
+			if (shifId != 0) {
+		    	ShiftInfo shiftInfo = shiftMapper.selectByPrimaryKey(shifId);
+		    	mondayMap.put("shifName", shiftInfo.getShifName());
+		    	mondayMap.put("startTime", shiftInfo.getStartTime());
+		    	mondayMap.put("endTime", shiftInfo.getEndTime());
+			}
+			else {
+				mondayMap.put("shifName", "休息日");
+			}
+			maps.add(mondayMap);
+		}
+    	mav.addObject("maps", maps);
+    	return mav;
     }
     
     /**

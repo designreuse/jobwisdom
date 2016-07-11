@@ -323,10 +323,8 @@ public interface View {
 		public static final String MEMBER_PAY = "mobile/staff/memberPay";
 		/** 员工工资 */
 		public static final String STAFF_SALARY = "mobile/staff/staffSalary";
-		/** 员工业绩详情 *//*
-						 * public static final String STAFF_DETAILS =
-						 * "mobile/staff/staffDetails";
-						 */
+		/** 员工排班查看*/
+        public static final String VIEW_SCHEDULING = "mobile/staff/scheduling";
 		/** 员工服务界面 */
 		public static final String STAFF_SERVE = "mobile/staff/staffServe";
 		/** 等待中订单列表 */
