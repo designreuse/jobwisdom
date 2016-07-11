@@ -73,8 +73,8 @@
 	  <div style="height:4rem"></div>
 	  <div class="order_ul">	
 		<ul class=" clearfix">
-		   <li>添加服务项</li>
-		   <li style="background:#ea631a">结束</li>
+		   <li onclick="addDetail(${orderDto.orderId})">添加服务项</li>
+		   <li style="background:#ea631a" onclick = "overServer()">结束</li>
 		</ul>
 	  </div>	
  </body>
@@ -84,6 +84,26 @@
 <script>
 function selectCategory (detailId) {
 	window.location.href = baseUrl+"staff/view/selectCategory?detailId="+detailId;
+}
+
+function overServer () {
+	window.location.href = baseUrl+"staff/view/reception";
+}
+
+function addDetail(orderId) {
+	$.ajax({
+        type : "post",
+        url : baseUrl + "staff/action/addDetailServer",
+        data : "orderId="+orderId,
+        dataType : "json",
+        success : function(e){
+            if(e.code != 0){
+                dialog(e.msg);
+                return;
+            }
+            location.reload();
+        }
+    });
 }
 </script>
 </html>

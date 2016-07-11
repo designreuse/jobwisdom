@@ -223,6 +223,27 @@ public class StaffController extends BaseController {
     }
     
     /**
+     * 添加服务
+    * @author 老王
+    * @date 2016年7月11日 下午3:53:31 
+    * @param orderId
+    * @param request        请求对象
+    * @param response       返回对象
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Staff.ACTION_ADD_DETAIL_SERVER, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto addDetailServer (Integer orderId, HttpServletRequest request, HttpServletResponse response) {
+    	String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
+        Integer storeId = getStoreIdByOpenId(openId);
+        Integer lastOperatorId = getUserIdByOpenId(openId);
+        return staffService.addDetailServer(orderId, storeId, lastOperatorId);
+    }
+    
+    /**
      * 查询当前项目所用到的轮牌信息
     * @author 王大爷
     * @date 2015年9月21日 下午4:38:54
@@ -412,44 +433,6 @@ public class StaffController extends BaseController {
             return null;
         }
         return staffService.confirmUpdateProject(detailId, projectInfo);
-    }
-    
-    /**
-     * 检验合并步骤是否满足（进行中）
-    * @author 王大爷
-    * @date 2015年12月28日 上午11:15:10
-    * @param request 返回
-    * @param response 请求
-    * @param chooseStep 合并步骤选择
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.Staff.ACTION_CHECKOUT_STEP, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto checkoutStep(HttpServletRequest request, HttpServletResponse response, String chooseStep) {
-        String openId = getOpenId(2, request, response);
-        if (openId == null) {
-            return null;
-        }
-        return staffService.checkoutStep(chooseStep);
-    }
-    
-    /**
-     * 合并步骤
-    * @author 王大爷
-    * @date 2015年10月23日 下午3:22:06
-    * @param request 返回
-    * @param response 请求
-    * @param detailId 明细标识
-    * @param projectInfo 项目信息（json）
-    * @return ModelAndView
-     */
-    @RequestMapping(value = Url.Staff.VIEW_PROJECT_COMBINE)
-    public ModelAndView projectCombine(HttpServletRequest request, HttpServletResponse response, Integer detailId, String projectInfo) {
-        String openId = getOpenId(2, request, response);
-        if (openId == null) {
-            return null;
-        }
-        return staffService.projectCombine(detailId, projectInfo);
     }
     
     /**

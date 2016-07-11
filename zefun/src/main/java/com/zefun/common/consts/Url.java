@@ -941,10 +941,14 @@ public interface Url {
 		public static final String VIEW_STAFF_APPOINT = "/staff/view/staffAppoint/{storeId}/{businessType}/{type}";
 		/** 员工拒绝预约 */
 		public static final String ACTION_REFUSE_APPOINT = "/staff/action/refuseAppoint";
+		/** 添加服务*/
+		public static final String ACTION_ADD_DETAIL_SERVER = "/staff/action/addDetailServer";
 		/** 员工预约开单 */
 		public static final String ACTION_START_APPOINT = "/staff/action/startAppoint";
 		/** 员工预约操作 */
 		public static final String ACTION_APPOINT_OPERATE = "/staff/action/appointOperate";
+		/** 完成服务步骤*/
+		public static final String ACTION_OVER_SERVER_EMPLOYEE = "/staff/action/overServerEmployee";
 		/** 员工打卡 */
 		public static final String ACTION_SIGN_OPERATE = "/staff/action/signOperate";
 		/** 设置项目 */
@@ -1038,10 +1042,6 @@ public interface Url {
 		public static final String STAFF_TO_END_IMG = "staff/action/toEndIMG";
 		/** 查询明细是否修改 */
 		public static final String SELECT_PROJECT_ISUPDATE = "staff/action/selectProjectIsUpdate";
-		/** 合并步骤 */
-		public static final String VIEW_PROJECT_COMBINE = "staff/view/projectCombine";
-		/** 检验合并步骤是否满足 */
-		public static final String ACTION_CHECKOUT_STEP = "staff/action/checkoutStep";
 		/** 我的提成 */
 		public static final String VIEW_SELECT_COMMISSION_INFO = "staff/action/selectCommissionInfo";
 		/** 选择时间类型查看提成 */

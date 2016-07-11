@@ -1,14 +1,10 @@
 package com.zefun.wechat.service;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,7 +27,6 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
-import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
@@ -40,9 +35,9 @@ import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
+import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectDiscount;
 import com.zefun.web.entity.ProjectInfo;
-import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.entity.ShiftMahjong;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
@@ -58,24 +53,21 @@ import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
-import com.zefun.web.mapper.ProjectCommissionMapper;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectDiscountMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
-import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatEmployeeMapper;
 import com.zefun.web.service.EmployeeService;
-import com.zefun.web.service.GoodsInfoService;
 import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.ProjectService;
 import com.zefun.web.service.RedisService;
 import com.zefun.web.service.ShiftMahjongService;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * 员工端service
@@ -102,9 +94,6 @@ public class StaffService {
     /** 订单明细*/
     @Autowired private OrderDetailMapper orderDetailMapper;
     
-    /** 项目步骤*/
-    @Autowired private ProjectStepMapper projectStepMapper;
-    
     /** 轮牌项目步骤关系*/
     @Autowired private ShiftMahjongProjectStepMapper shiftMahjongProjectStepMapper;
     
@@ -119,9 +108,6 @@ public class StaffService {
     
     /**项目服务操作对象*/
     @Autowired private ProjectService projectService;
-    
-    /**商品服务操作对象*/
-    @Autowired private GoodsInfoService goodsInfoService;
     
     /** redis操作类 */
     @Autowired
@@ -146,8 +132,6 @@ public class StaffService {
     /** 会员*/
     @Autowired private MemberInfoMapper memberInfoMapper;
     
-    /** 项目员工提成*/
-    @Autowired private ProjectCommissionMapper projectCommissionMapper;
     /**    */
     @Autowired private StaffOrderService staffOrderService;
     /**  */
@@ -165,6 +149,10 @@ public class StaffService {
     /** 企业信息*/
     @Autowired
     private EnterpriseInfoMapper enterpriseInfoMapper;
+    
+    /** 岗位*/
+    @Autowired
+    private PositioninfoMapper positioninfoMapper;
     
     /**
      * 查看员工主页
@@ -353,57 +341,6 @@ public class StaffService {
     
     
     /**
-     * 开单
-    * @author 王大爷
-    * @date 2015年10月27日 上午11:06:17
-    * @param objString 订单明细obj
-    * @param employeeObj 指定人员
-    * @param nextProjectObj 项目下一步服务步骤
-    * @param memberId 会员标识
-    * @param sex    消费者性别
-    * @param storeId 门店标识
-    * @param lastOperatorId 最后操作者
-    * @param isAppointment 是否预约
-    * @param orderId 订单标识
-    * @return ModelAndView
-     */
-    @Transactional
-    public BaseDto addOrder(String objString, String employeeObj, String nextProjectObj, Integer memberId, String sex, Integer storeId, 
-            Integer lastOperatorId, Integer isAppointment, Integer orderId) {
-        MemberBaseDto memberBaseDto = memberInfoService.getMemberBaseInfo(memberId, false);
-
-        Integer levelId = null;
-        if (memberBaseDto != null) {
-            levelId = memberInfoMapper.selectByPrimaryKey(memberId).getLevelId();
-        }
-        if (orderId == null) {
-            String orderCode = getOrderCode("order_info", storeId);
-            //保存订单信息
-            orderId = addOrderInfo(orderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId, "");
-        }
-        
-        Integer markTypeInteger = addDetail(orderId, employeeObj, objString, nextProjectObj, storeId, memberId, levelId, 
-                isAppointment, lastOperatorId, memberBaseDto);
-        
-        orderInfoMapper.updateTotalPrice(orderId);
-        
-        //查询该明细对应的订单中存在的未完成的项目明细
-        List<OrderDetail> orderDetailList = orderDetailMapper.selectByNotOverByOrderId(orderId);
-        if (orderDetailList.size() == 0) {
-            //修改订单信息状态
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.setOrderId(orderId);
-            orderInfo.setOrderStatus(2);
-            orderInfoMapper.updateByPrimaryKey(orderInfo);
-        }
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("markTypeInteger", markTypeInteger);
-        map.put("storeId", storeId);
-        map.put("orderId", orderId);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
-    }
-    
-    /**
      * 为服务设置步骤
     * @author 老王
     * @date 2016年7月6日 下午8:50:39 
@@ -424,229 +361,47 @@ public class StaffService {
     }
     
     /**
-     * 添加明细，步骤，及修改轮牌信息
+     * 添加明细，步骤
     * @author 王大爷
     * @date 2015年11月5日 上午10:41:08
     * @param orderId 订单标识
-    * @param employeeObj 指定员工
-    * @param objString 选择的项目
-    * @param nextProjectObj 项目下一步服务步骤
-    * @param storeId 门店标识
-    * @param memberId 会员标识
-    * @param levelId 会员级别
-    * @param isAppointment 是否预约
     * @param lastOperatorId 操作人
-    * @param memberBaseDto 会员基本信息
     * @return Integer
      */
-    public Integer addDetail(Integer orderId, String employeeObj, String objString, String nextProjectObj, Integer storeId, Integer memberId, 
-            Integer levelId, Integer isAppointment, Integer lastOperatorId, MemberBaseDto memberBaseDto) {
-
-        Integer markTypeInteger = 0;
+    public BaseDto addDetailServer(Integer orderId, Integer storeId, Integer lastOperatorId) {
+    	OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setOrderId(orderId);
+        orderDetail.setOrderType(1);
+        orderDetail.setIsAssign(0);
+        orderDetail.setProjectCount(1);
+        orderDetail.setStoreId(storeId);
+        orderDetail.setOrderStatus(2);
+        orderDetail.setCreateTime(DateUtil.getCurTime());
+        orderDetail.setLastOperatorId(lastOperatorId);
         
-        //获取项目下一步
-        JSONArray nextProjectArray =JSONArray.fromObject(nextProjectObj);
+        orderDetailMapper.insert(orderDetail);
         
-        List<Integer> nextList = new ArrayList<Integer>(nextProjectArray.size());
+        //查询门店下所有的岗位
+      	List<PositionInfo> positionInfos = positioninfoMapper.queryAllByStoreId(storeId);
         
-        for (int j = 0; j < nextProjectArray.size(); j++) {
-            JSONObject jsonNext = nextProjectArray.getJSONObject(j);
-            nextList.add(jsonNext.getInt("projectNum"), jsonNext.getInt("orderNum"));
-        }
-        
-        //获取项目指定轮牌员工
-        JSONArray empjsonArray =JSONArray.fromObject(employeeObj);
-        List<Map<String, Integer>> assignList = new ArrayList<Map<String, Integer>>(); 
-        for (int j = 0; j < empjsonArray.size(); j++) {
-            JSONObject jsonEmployee = empjsonArray.getJSONObject(j);
-            //对应订单编号
-            Integer assignProjectNum = jsonEmployee.getInt("projectNum");
-            //项目步骤
-            Integer assignOrderNum = jsonEmployee.getInt("orderNum");
-            //指定员工标识
-            Integer assignProjectId = jsonEmployee.getInt("projectId");
-            //指定员工对应轮牌员工标识
-            Integer assignShiftMahjongEmployeeId = jsonEmployee.getInt("shiftMahjongEmployeeId");
-            //指定员工标识
-            Integer assignEmployeeId = jsonEmployee.getInt("employeeId");
-            //类型
-            Integer isType = jsonEmployee.getInt("isType");
+      	for (PositionInfo positionInfo : positionInfos) {
+      		ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
+        	shiftMahjongProjectStep.setDetailId(orderDetail.getDetailId());
+        	shiftMahjongProjectStep.setPositionId(positionInfo.getPositionId());
+        	shiftMahjongProjectStep.setIsOver(0);
+            shiftMahjongProjectStep.setCreateTime(DateUtil.getCurTime());
+            shiftMahjongProjectStep.setLastOperatorId(lastOperatorId);
             
-            Map<String, Integer> map = new HashMap<String, Integer>();
-            map.put("assignProjectNum", assignProjectNum);
-            map.put("assignOrderNum", assignOrderNum);
-            map.put("assignProjectId", assignProjectId);
-            map.put("assignShiftMahjongEmployeeId", assignShiftMahjongEmployeeId);
-            map.put("assignEmployeeId", assignEmployeeId);
-            map.put("isType", isType);
-            assignList.add(map);
-        }
-        
-        JSONArray objjsonArray =JSONArray.fromObject(objString);
-        
-        for (int i = 0; i < objjsonArray.size(); i++) {
-            JSONObject jsonObject = objjsonArray.getJSONObject(i);
-            //订单明细类型
-            Integer orderType = jsonObject.getInt("orderType");
-            //项目标识
-            Integer projectId = jsonObject.getInt("projectId");
-            //项目名称
-            String projectName = jsonObject.getString("projectName");
-            //项目价格
-            String  projectPriceStr = jsonObject.getString("projectPriceStr");
-            BigDecimal  projectPrice = new BigDecimal(projectPriceStr);
-            
-            //项目数量
-            Integer projectCount = jsonObject.getInt("projectCount");
-            //项目头像
-            String projectImage = jsonObject.getString("projectImage");
-            
-            //保存订单明细
-            String detailCode = null;
-            
-            if (orderType == 1) {
-                //选多个项目时，保存多条订单明细
-                for (int k = 0; k < projectCount; k++) {
-                    detailCode = getOrderCode("order_detail", storeId);
-                    Integer detailId = addOrderDetail(detailCode, orderId, memberId, levelId, orderType, projectId, 
-                            projectName, projectPrice, projectCount, projectImage, isAppointment, DateUtil.getCurTime(), storeId, lastOperatorId);
-                    
-                    addShiftMahjongProjectStep(projectId, detailId, lastOperatorId);
-                    //移除指定信息的记录
-                    int a = -1;
-                    //判断是否指定第一步
-                    int b = 0;
-                    //获取项目指定轮牌员工
-                    for (int j = 0; j < assignList.size(); j++) {
-                        
-                        Map<String, Integer> assignmap = assignList.get(j);
-                        
-                        if (String.valueOf(assignmap.get("assignProjectId")).equals(String.valueOf(projectId))) {
-                            if (a == -1) {
-                                a = assignmap.get("assignProjectNum");
-                                //获取该项目对应执行步骤
-                                Integer nextNum = nextList.get(a);
-                                
-                                Integer nextType = 0;
-                                
-                                if (assignmap.get("assignOrderNum") == nextNum) {
-                                    b = 1;
-                                    nextType = 1;
-                                    
-                                    for (int h = 0; h < nextProjectArray.size(); h++) {
-                                        JSONObject jsonNext = nextProjectArray.getJSONObject(h);
-                                        Integer nextProjectId = jsonNext.getInt("projectId");
-                                        Integer nextOrderNum = jsonNext.getInt("orderNum");
-                                        
-                                        if (projectId == nextProjectId && nextOrderNum == nextNum) {
-                                            nextProjectArray.remove(h);
-                                        }
-                                    }
-                                }
-                                
-                                Integer type = invokingShift(assignmap, memberBaseDto, storeId, detailId, isAppointment, lastOperatorId, nextType);
-                                if (type == 1) {
-                                    markTypeInteger = 1;
-                                }
-                                
-                                assignList.remove(j);
-                                j--;
-                            }
-                            else {
-                                if (a == assignmap.get("assignProjectNum")) {
-                                    //获取该项目对应执行步骤
-                                    Integer nextNum = nextList.get(a);
-                                    
-                                    Integer nextType = 0;
-                                    
-                                    if (assignmap.get("assignOrderNum") == nextNum) {
-                                        b = 1;
-                                        nextType = 1;
-                                        
-                                        for (int h = 0; h < nextProjectArray.size(); h++) {
-                                            JSONObject jsonNext = nextProjectArray.getJSONObject(h);
-                                            Integer nextProjectId = jsonNext.getInt("projectId");
-                                            Integer nextOrderNum = jsonNext.getInt("orderNum");
-                                            
-                                            if (projectId == nextProjectId && nextOrderNum == nextNum) {
-                                                nextProjectArray.remove(h);
-                                            }
-                                        }
-                                    }
-                                    Integer type = invokingShift(assignmap, memberBaseDto, storeId, detailId, isAppointment, 
-                                            lastOperatorId, nextType);
-                                    if (type == 1) {
-                                        markTypeInteger = 1;
-                                    }
-  
-                                    assignList.remove(j);
-                                    j--;
-                                }
-                            }
-                            
-                        }
-                    }
-                    //如果第一步没有指定，就从轮牌中取
-                    if (b == 0) {
-                        Integer orderNum = null;
-                        for (int h = 0; h < nextProjectArray.size(); h++) {
-                            JSONObject jsonNext = nextProjectArray.getJSONObject(h);
-                            Integer nextProjectId = jsonNext.getInt("projectId");
-                            
-                            if (projectId.intValue() == nextProjectId.intValue()) {
-                                orderNum = jsonNext.getInt("orderNum");
-                                nextProjectArray.remove(h);
-                                break;
-                            }
-                        }
-                        //根据项目步骤标识、订单明细查询轮牌项目步骤关系（第一步）
-                        ShiftMahjongProjectStepDto shiftMahjongProjectStepDto = selectShiftMahjongStep(projectId, detailId, orderNum);
-                        ShiftMahjongEmployee shiftMahjongEmployee 
-                                = selectShiftMahjongOneEmployee(shiftMahjongProjectStepDto.getShiftMahjongStepId());
-                        if (shiftMahjongEmployee == null) {
-                            //转到等待中心
-                            redisService.zadd(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), 
-                                     Double.valueOf(System.currentTimeMillis()), String.valueOf(detailId));
-                            
-                            ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
-                            shiftMahjongProjectStep.setShiftMahjongStepId(shiftMahjongProjectStepDto.getShiftMahjongStepId());
-                            shiftMahjongProjectStep.setIsCurrent(1);
-                            shiftMahjongProjectStepMapper.updateByPrimaryKey(shiftMahjongProjectStep);
-                        }
-                        else {
-                            //调整员工在轮牌的位置及修改状态
-                            moveEmployee(shiftMahjongEmployee.getShiftMahjongEmployeeId(), false);
-                            //轮牌项目步骤关系指定人员
-                            updateShiftMahjongProjectStep(shiftMahjongEmployee.getEmployeesId(), 
-                                    shiftMahjongProjectStepDto.getShiftMahjongStepId(), 0, 0, detailId, isAppointment);
-                            if (shiftMahjongEmployee.getEmployeesId().intValue() == lastOperatorId.intValue()) {
-                                markTypeInteger = 1;
-                            }
-                            else {
-                                //发送模版消息
-                                staffOrderService.senMessage(shiftMahjongEmployee.getEmployeesId(), null,
-                                        shiftMahjongProjectStepDto.getShiftMahjongStepId(), storeId, 2, lastOperatorId);
-                            }
-                        }
-                    }
-                    
-                }
-            }
-            else {
-                for (int k = 0; k < projectCount; k++) {
-                    addOrderDetail(detailCode, orderId, memberId, levelId, orderType, projectId, projectName, 
-                            projectPrice, 1, projectImage, isAppointment, DateUtil.getCurTime(), storeId, lastOperatorId);
-                }
-            }
-            
-        }
+            shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep);
+		}
+      	
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setOrderId(orderId);
         //状态进行中
         orderInfo.setOrderStatus(1);
         orderInfoMapper.updateByPrimaryKey(orderInfo);
         
-        return markTypeInteger;
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
     /**
@@ -826,35 +581,6 @@ public class StaffService {
         return objDto;
     }
     
-    /**
-     * 保存轮牌步骤
-    * @author 王大爷
-    * @date 2015年9月19日 下午4:40:41
-    * @param projectId 项目标识
-    * @param detailId 订单明细
-    * @param lastOperatorId 操作人员
-     */
-    public void addShiftMahjongProjectStep(Integer projectId, Integer detailId, Integer lastOperatorId){
-        List<ProjectStep> list = projectStepMapper.queryProjectStepByPIdList(projectId);
-        /*//修改项目前的没有删除的步骤
-        List<ShiftMahjongProjectStep> objList = shiftMahjongProjectStepMapper.selectStepByDetailId(detailId);*/
-        for (int i = 0; i < list.size(); i++) {
-            /*Integer projectStepId = list.get(i).getProjectStepId();
-            for (ShiftMahjongProjectStep obj : objList) {
-                if (obj.getProjectStepId().intValue() == projectStepId.intValue()) {
-                    
-                }
-            }*/
-            ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
-            shiftMahjongProjectStep.setProjectStepId(list.get(i).getProjectStepId());
-            shiftMahjongProjectStep.setDetailId(detailId);
-            shiftMahjongProjectStep.setIsOver(2);
-            shiftMahjongProjectStep.setCreateTime(DateUtil.getCurTime());
-            shiftMahjongProjectStep.setLastOperatorId(lastOperatorId);
-            
-            shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep);
-        }
-    }
     
     /**
      * 查询项目对应轮牌员工
@@ -1273,98 +999,6 @@ public class StaffService {
     }
     
     /**
-     * 步骤合并
-    * @author 王大爷
-    * @date 2015年12月23日 下午5:28:09
-    * @param detailId 明细标识
-    * @param projectInfo 项目信息
-    * @return ModelAndView
-     */
-    public ModelAndView projectCombine(Integer detailId, String projectInfo) {
-        ModelAndView mav = new ModelAndView(View.StaffPage.COMBINE_STEP);
-        
-        OrderDetailDto orderDetailDto = orderDetailMapper.selectByDetailBaseDto(detailId);
-        OrderDetailDto oldOrderDetailDto = null;
-        try {
-            oldOrderDetailDto = (OrderDetailDto)orderDetailDto.deepClone();
-        } 
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } 
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        Collections.sort(orderDetailDto.getStepList());
-        
-        ProjectInfo project = EntityJsonConverter.json2Entity(projectInfo, ProjectInfo.class);
-        
-        List<ProjectStep> projectStepList = projectStepMapper.queryProjectStepByPIdList(project.getProjectId());
-        
-        projectStepList = updateStepNameList(projectStepList);
-        
-        mav.addObject("projectInfo", projectInfo);
-        mav.addObject("detailId", detailId);
-        mav.addObject("projectStepList", projectStepList);
-        mav.addObject("orderDetailDto", orderDetailDto);
-        mav.addObject("oldOrderDetailDto", oldOrderDetailDto);
-        mav.addObject("project", project);
-        return mav;
-    }
-    
-    /**
-     * 修改项目步骤名称为轮牌名称
-    * @author 王大爷
-    * @date 2015年12月28日 下午2:48:43
-    * @param list 项目步骤集合
-    * @return List<ProjectStep>
-     */
-    public List<ProjectStep> updateStepNameList (List<ProjectStep> list) {
-        for (ProjectStep projectStep : list) {
-            ShiftMahjong shiftMahjong = shiftMahjongMapper.selectByPrimaryKey(projectStep.getShiftMahjongId());
-            projectStep.setProjectStepName(shiftMahjong.getShiftMahjongName());
-        }
-        return list;
-    }
-    
-    /**
-     * 检验合并步骤是否满足（进行中）
-    * @author 王大爷
-    * @date 2015年12月28日 上午11:15:10
-    * @param chooseStep 合并步骤选择
-    * @return BaseDto
-     */
-    public BaseDto checkoutStep(String chooseStep) {
-        JSONArray chooseStepArray =JSONArray.fromObject(chooseStep);
-        for (int j = 0; j < chooseStepArray.size(); j++) {
-            JSONObject jsonChooseStep = chooseStepArray.getJSONObject(j);
-            Integer projectStepId = jsonChooseStep.getInt("projectStepId");
-            
-            Integer employeeId = jsonChooseStep.getInt("employeeId");
-            
-            Integer isOver = jsonChooseStep.getInt("isOver");
-            
-            Integer oldShiftMahjongStepId = jsonChooseStep.getInt("shiftMahjongStepId");
-            
-            if (isOver == 1) {
-                
-                ShiftMahjongEmployee oldShiftMahjongEmployee = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(oldShiftMahjongStepId);
-                
-                Map<String, Integer> employeeMap = new HashMap<String, Integer>();
-                employeeMap.put("projectStepId", projectStepId);
-                employeeMap.put("employeeId", employeeId);
-                ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeMapper.selectEmployeeByStepId(employeeMap);
-                
-                if (shiftMahjongEmployee == null 
-                        || oldShiftMahjongEmployee.getShiftMahjongEmployeeId().intValue() 
-                        != shiftMahjongEmployee.getShiftMahjongEmployeeId().intValue()) {
-                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该进行中步骤，不满足合并步骤条件，请修改！");
-                }
-            }
-        }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-    }
-    
-    /**
      * 修改项目选择轮牌
     * @author 王大爷
     * @date 2015年10月23日 下午4:49:52
@@ -1387,136 +1021,6 @@ public class StaffService {
         mav.addObject("detailId", detailId);
         
         return mav;
-    }
-    
-    /**
-     * 修改项目保存
-    * @author 王大爷
-    * @date 2015年10月23日 下午7:43:02
-    * @param detailId 明细标识
-    * @param projectInfo 项目信息
-    * @param employeeObj 指定员工
-    * @param nextProjectObj 项目下一步服务步骤
-    * @param lastOperatorId 修改员工标识
-    * @param storeId 门店标识
-    * @return ModelAndView
-     */
-    @Transactional
-    public BaseDto updateSaveDetail (Integer detailId, String projectInfo, String employeeObj, String nextProjectObj, 
-            Integer lastOperatorId, Integer storeId) {
-        //获取原订单
-        OrderInfo orderInfoOld = orderInfoMapper.selectByDetailId(detailId);
-        
-        List<ShiftMahjongProjectStep> shiftMahjongProjectStepList = shiftMahjongProjectStepMapper.selectStepByDetailId(detailId);
-                
-        for (int i = 0; i < shiftMahjongProjectStepList.size(); i++) {
-            ShiftMahjongProjectStep shiftMahjongProjectStep = shiftMahjongProjectStepList.get(i);
-            if (shiftMahjongProjectStep.getIsOver() != 3) {
-                if (shiftMahjongProjectStep.getEmployeeId() != null && shiftMahjongProjectStep.getIsOver() == 2) {
-                    ShiftMahjongEmployee shiftMahjongEmployee 
-                             = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(shiftMahjongProjectStep.getShiftMahjongStepId());
-                    
-                    shiftMahjongEmployeeMapper.updateDecreaseAppointNumber(shiftMahjongEmployee.getShiftMahjongEmployeeId());
-                    
-                    if (shiftMahjongProjectStep.getIsCurrent() == 1) {
-                        redisService.zrem(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), detailId);
-                    }
-                }
-                else if (shiftMahjongProjectStep.getIsOver() == 1){
-                    //查询上个明细对应轮牌员工标识（以修改）
-                    ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeMapper.selectShiftMahjongLastEmployee(detailId);
-                    
-                    if (shiftMahjongEmployee != null) {
-                        updateShiftEmployeeState(shiftMahjongEmployee.getShiftMahjongEmployeeId(), detailId, storeId);
-                    }
-                }
-                ShiftMahjongProjectStep record = new ShiftMahjongProjectStep();
-                record.setShiftMahjongStepId(shiftMahjongProjectStep.getShiftMahjongStepId());
-                record.setIsDeleted(1);
-                shiftMahjongProjectStepMapper.updateByPrimaryKey(record);
-            }
-        }
-        
-        //修改订单明细状态
-        OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setDetailId(detailId);
-        orderDetail.setDiscountAmount(new BigDecimal(0));
-        orderDetail.setRealPrice(new BigDecimal(0));
-        orderDetail.setFreeAmount("0.00");
-        orderDetail.setOrderRemark("");
-        orderDetail.setOrderStatus(3);
-        orderDetail.setIsUpdate(1);
-        orderDetail.setLastOperatorId(lastOperatorId);
-        orderDetailMapper.updateByPrimaryKey(orderDetail);
-        
-        //查询会员信息
-        MemberBaseDto memberBaseDto = new MemberBaseDto();
-        if (orderInfoOld.getMemberId() != null) {
-            memberBaseDto = memberInfoMapper.selectMemberBaseInfo(orderInfoOld.getMemberId());
-        }
-        Integer memberId = null;
-        Integer levelId = null;
-        if (memberBaseDto.getMemberId() != null && memberBaseDto.getMemberId() != 0) {
-            memberId = memberBaseDto.getMemberId();
-            
-            levelId = memberInfoMapper.selectByPrimaryKey(memberId).getLevelId();
-        }
-        
-        //需要修改的项目
-        ProjectInfo project = EntityJsonConverter.json2Entity(projectInfo, ProjectInfo.class);
-        
-        Integer orderId = orderInfoOld.getOrderId();
-        
-        List<Map<String, Object>> blist = new ArrayList<Map<String, Object>>();
-        Map<String, Object> bmap = new HashMap<String, Object>();
-        bmap.put("orderType", 1);
-        bmap.put("projectId", project.getProjectId());
-        bmap.put("projectName", project.getProjectName());
-        bmap.put("projectPriceStr", project.getProjectPrice());
-        bmap.put("projectCount", 1);
-        bmap.put("projectImage", project.getProjectImage());
-        blist.add(bmap);
-        String objString = JSONArray.fromObject(blist).toString();
-        
-        addDetail(orderId, employeeObj, objString, nextProjectObj, storeId, memberId, levelId, 0, lastOperatorId, memberBaseDto);
-        
-        //查询该明细对应的订单中存在的未完成的项目明细
-        List<OrderDetail> orderDetailList = orderDetailMapper.selectByNotOverOrderDetail(detailId);
-        if (orderDetailList.size() == 0) {
-            //修改订单信息状态
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.setOrderId(orderId);
-            orderInfo.setOrderStatus(2);
-            orderInfoMapper.updateByPrimaryKey(orderInfo);
-        }
-        
-        orderInfoMapper.updateTotalPrice(orderId);
-        
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-        
-    }
-    
-    /**
-     * 附加项目（或商品、套餐）
-    * @author 王大爷
-    * @date 2015年11月5日 上午11:25:27
-    * @param orderId 订单标识
-    * @param storeId 门店标识
-    * @param lastOperatorId 操作人
-    * @return ModelAndView
-     */
-    public ModelAndView appendDetail(Integer orderId, Integer storeId, Integer lastOperatorId) {
-        OrderInfo orderInfo = orderInfoMapper.selectByPrimaryKey(orderId);
-        MemberBaseDto memberBaseDto = null;
-        if (orderInfo.getMemberId() != null) {
-            memberBaseDto = memberInfoMapper.selectMemberBaseInfo(orderInfo.getMemberId());
-        }
-        else {
-            memberBaseDto = new MemberBaseDto();
-            memberBaseDto.setName("散客");
-            memberBaseDto.setSex(orderInfo.getSex());
-        }
-        return selectBaseInfo(storeId, lastOperatorId, memberBaseDto, orderId);
     }
     
     /**
@@ -1663,7 +1167,7 @@ public class StaffService {
     * @param shiftMahjongEmployeeId 轮牌员工标识
     * @param storeId 门店标识
      */
-    public void selfMotionExecute(Integer shiftMahjongEmployeeId, Integer storeId){
+    /*public void selfMotionExecute(Integer shiftMahjongEmployeeId, Integer storeId){
         List<ShiftMahjongProjectStep> shiftMahjongProjectStepList = shiftMahjongProjectStepMapper.selectAppoint(shiftMahjongEmployeeId);
         ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeMapper.selectByPrimaryKey(shiftMahjongEmployeeId);
         Set<String> tup = redisService.zrange(App.Queue.WAIT_ORDER_EMPLOYEE + String.valueOf(storeId), 0, -1);
@@ -1737,7 +1241,7 @@ public class StaffService {
             
             staffOrderService.senMessage(shiftMahjongEmployee.getEmployeesId(), null, orderDetailStepDto.getShiftMahjongStepId(), storeId, 2, null);
         }
-    }
+    }*/
     
     /**
      * 检查微信id是否关注了公众号

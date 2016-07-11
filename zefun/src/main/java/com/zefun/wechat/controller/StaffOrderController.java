@@ -324,4 +324,19 @@ public class StaffOrderController extends BaseController{
         return staffOrderService.notifyPaymentAction(storeId, orderId, employeeId);
     }
     
+    /**
+     * 完成服务步骤
+    * @author 老王
+    * @date 2016年7月11日 下午3:05:20 
+    * @param shiftMahjongStepId 服务步骤
+    * @param request    请求对象
+    * @param response   响应对象
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Staff.ACTION_OVER_SERVER_EMPLOYEE, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto overServerEmployee (Integer shiftMahjongStepId, HttpServletRequest request, HttpServletResponse response) {
+    	return staffOrderService.overServerEmployee(shiftMahjongStepId);
+    }
+    
 }

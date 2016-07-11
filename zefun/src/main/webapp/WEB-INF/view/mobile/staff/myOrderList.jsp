@@ -35,7 +35,7 @@
 				  <div>开始时间:${fn:substring(map.beginTime, 11, 16)}</div>
 				 </div>
 				 <div class="server_button">
-				   <button>结束</button>
+				   <button onclick = "overServerEmployee(${map.shiftMahjongStepId})">结束</button>
 				 </div>
 			  </div>
          </c:forEach>
@@ -72,7 +72,22 @@
 <script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"> </script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"> </script>
 <script>
-  
+function overServerEmployee(shiftMahjongStepId) {
+	jQuery.ajax({
+    	url : baseUrl + "staff/action/overServerEmployee",
+    	type : "POST",
+    	data : "shiftMahjongStepId="+shiftMahjongStepId,
+    	success : function(e){
+    		if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+    		var datas = e.msg;
+    		dialog("操作成功！");
+    		location.reload();
+    	}
+    });
+}
 </script>
 </body>
 </html>
