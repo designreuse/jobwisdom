@@ -108,23 +108,22 @@ function alertZzc() {
 	    			if (i == 0) {
 	    				jQuery("ul[name='positionUl']").append('<li class="active" onclick = "choosePositionShiftMahjong(this, '+positionInfoShiftMahjongDto.positionId+')">'+positionInfoShiftMahjongDto.positionName+'</li>');
 	    				
-	    				str = '<p class = "shift_majone_name">'+
+	    				str = '<div name = "shiftMajone" positionId = "'+positionInfoShiftMahjongDto.positionId+'"><p class = "shift_majone_name">'+
 							        '<span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = "" disabled="disabled"></span>'+
 							        '<span>选择轮牌人员<input type="text" name="shiftMahjongEmployeeName" shiftMahjongEmployeeId = "" disabled="disabled"></span>'+
 							        '<span>是否指定<input type="checkbox" name= "isAssign"></span>'+
-							   '</p>';
-	    				str += '<div class="open_card_alert_state_content"  positionId = "'+positionInfoShiftMahjongDto.positionId+'">';
+							   '</p>'+
+	    				       '<div class="open_card_alert_state_content">';
 	    			}
 	    			else {
 	    				jQuery("ul[name='positionUl']").append('<li onclick = "choosePositionShiftMahjong(this, '+positionInfoShiftMahjongDto.positionId+')">'+positionInfoShiftMahjongDto.positionName+'</li>');
 	    				
-	    				str = '<p class = "shift_majone_name hide">'+
+	    				str = '<div class = "hide" name = "shiftMajone" positionId = "'+positionInfoShiftMahjongDto.positionId+'"><p class = "shift_majone_name">'+
 							        '<span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = "" disabled="disabled"></span>'+
 							        '<span>选择轮牌人员<input type="text" name="shiftMahjongEmployeeName" shiftMahjongEmployeeId = "" disabled="disabled"></span>'+
 							        '<span>是否指定<input type="checkbox" name= "isAssign"></span>'+
-							   '</p>';
-	    				
-	    				str += '<div class="open_card_alert_state_content hide"  positionId = "'+positionInfoShiftMahjongDto.positionId+'">';
+							   '</p>'+
+							   '<div class="open_card_alert_state_content">';
 	    			}
 	    			
 	    			var shiftMahjongDtoList = positionInfoShiftMahjongDto.shiftMahjongDtoList;
@@ -158,7 +157,7 @@ function alertZzc() {
 	    				}
 	    				str +=	'</div></div>';
 	    			}
-	    			str += '</div>';
+	    			str += '</div></div>';
 	    			jQuery(".open_card_alert_state").append(str);
 	    		}
 	    	}
@@ -169,7 +168,7 @@ function alertZzc() {
 function choosePositionShiftMahjong (obj, positionId) {
 	jQuery(obj).siblings().removeClass("active");
 	jQuery(obj).addClass("active");
-	jQuery(".open_card_alert_state_content").addClass("hide");
+	jQuery("div[name = 'shiftMajone']").addClass("hide");
 	jQuery("div[positionId='"+positionId+"']").removeClass("hide");
 }
 
@@ -183,18 +182,18 @@ jQuery(".open_card_alert_state").delegate("li[name='activeLi']", "click", functi
 		var shiftmahjongid = jQuery(this).parents(".open_card_alert_state_content_style").attr("shiftmahjongid");
 		var shiftmahjongname = jQuery(this).parents(".open_card_alert_state_content_style").attr("shiftmahjongname");
 		
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").val(shiftmahjongname);
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").attr("shiftmahjongid", shiftmahjongid);
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").val(shiftMahjongEmployeeName);
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", shiftMahjongEmployeeId);
+		jQuery(this).parents("div[name = 'shiftMajone']").find("input[name='shiftMahjongName']").val(shiftmahjongname);
+		jQuery(this).parents("div[name = 'shiftMajone']").find("input[name='shiftMahjongName']").attr("shiftmahjongid", shiftmahjongid);
+		jQuery(this).parents("div[name = 'shiftMajone']").find("input[name='shiftMahjongEmployeeName']").val(shiftMahjongEmployeeName);
+		jQuery(this).parents("div[name = 'shiftMajone']").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", shiftMahjongEmployeeId);
 	}
 	else {
-		jQuery(this).parents(".open_card_alert_state_content").find("li[name='activeLi'] a").removeClass("active3");
+		jQuery(this).parents("div[name = 'shiftMajone']").find("li[name='activeLi'] a").removeClass("active3");
 		
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").val("");
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").attr("shiftmahjongid", "");
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").val("");
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", "");
+		jQuery(this).parents("div[name = 'shiftMajone']").find("input[name='shiftMahjongName']").val("");
+		jQuery(this).parents("div[name = 'shiftMajone']").find("input[name='shiftMahjongName']").attr("shiftmahjongid", "");
+		jQuery(this).parents("div[name = 'shiftMajone']").find("input[name='shiftMahjongEmployeeName']").val("");
+		jQuery(this).parents("div[name = 'shiftMajone']").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", "");
 
 	}
 })
@@ -209,18 +208,18 @@ jQuery(".open_card_alert_state_content").delegate("li[name='activeLi']", "click"
 		var shiftmahjongid = jQuery(this).parents(".open_card_alert_state_content_style").attr("shiftmahjongid");
 		var shiftmahjongname = jQuery(this).parents(".open_card_alert_state_content_style").attr("shiftmahjongname");
 		
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").val(shiftmahjongname);
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").attr("shiftmahjongid", shiftmahjongid);
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").val(shiftMahjongEmployeeName);
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", shiftMahjongEmployeeId);
+		jQuery(this).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongName']").val(shiftmahjongname);
+		jQuery(this).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongName']").attr("shiftmahjongid", shiftmahjongid);
+		jQuery(this).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongEmployeeName']").val(shiftMahjongEmployeeName);
+		jQuery(this).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", shiftMahjongEmployeeId);
 	}
 	else {
-		jQuery(this).parents(".open_card_alert_state_content").find("li[name='activeLi'] a").removeClass("active3");
+		jQuery(this).parents(".zzc1_open_card_alert").find("li[name='activeLi'] a").removeClass("active3");
 		
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").val("");
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").attr("shiftmahjongid", "");
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").val("");
-		jQuery(this).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", "");
+		jQuery(this).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongName']").val("");
+		jQuery(this).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongName']").attr("shiftmahjongid", "");
+		jQuery(this).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongEmployeeName']").val("");
+		jQuery(this).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId", "");
 
 	}
 })
@@ -245,7 +244,7 @@ function submits(){
 	}
     var arrayObj = new Array();
         
-    var obj = jQuery(".zzc").find(".open_card_alert_state_content");
+    var obj = jQuery(".zzc").find("div[name = 'shiftMajone']");
     for (var i =0; i < obj.length; i++) {
         var positionId = jQuery(obj[i]).attr("positionId");
         var isAssign = 0;
@@ -361,8 +360,8 @@ function showServers (obj, type) {
 }
 
 function sureAddOrUpdate (obj) {
-	var shiftMahjongId = jQuery(obj).parents(".open_card_alert_state_content").find("input[name='shiftMahjongName']").attr("shiftmahjongid");
-	var employeeId = jQuery(obj).parents(".open_card_alert_state_content").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId");
+	var shiftMahjongId = jQuery(obj).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongName']").attr("shiftmahjongid");
+	var employeeId = jQuery(obj).parents(".zzc1_open_card_alert").find("input[name='shiftMahjongEmployeeName']").attr("shiftMahjongEmployeeId");
 	
 	var isAssign = 0;
     if (jQuery("input[name='isAssign']").is(':checked')) {
@@ -474,7 +473,65 @@ function deleteOrderInfo (orderId) {
 	}
 }
 
+function openOrderType (obj) {
+	 jQuery("[name='openOrderType']").removeClass("active_border_");
+	 jQuery("[name='openOrderType']").removeClass("active_color");
+	 jQuery("[name='openOrderType']").find("[name='vip_em']").removeClass("active_border");
+	 jQuery(".input_content").hide();
+	 jQuery("[name='seekName']").hide();
+	 jQuery(".order_open_card").hide();
+	 if (jQuery(obj).hasClass("vip_search_content")) {
+		 jQuery(obj).addClass("active_color");
+		 jQuery(obj).find("[name='vip_em']").addClass("active_border");
+		 jQuery(".input_content").show();
+		 jQuery("[name='seekName']").show();
+		 
+		 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", "");
+		 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text("");
+		 jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text("");
+		 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").empty();
+		 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").attr("memberSex", "");
+	 }
+	 else {
+		 jQuery(obj).addClass("active_border_");
+		 jQuery(obj).find("i").addClass("active_border");
+		 if (jQuery(obj).attr("type") == 2) {
+			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", "");
+			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text("散客");
+			 jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text("---");
+			 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").empty();
+			 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").append('<span><input type="radio" name="sex" value = "男" checked>男</span><span><input type="radio" name="sex" value = "女">女</span>');
+			 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").attr("memberSex", "男");
+		 }
+		 else {
+			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", "");
+			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text("");
+			 jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text("");
+			 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").empty();
+			 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").attr("memberSex", "");
+			 jQuery(".order_open_card").show();
+		 }
+	 }
+}
+
+function orderOpenCardClose () {
+	 jQuery(".order_open_card").hide();
+}
+
 function hideModal () {
 	jQuery(".zzc").hide();
 	jQuery(".zzc1").hide();
+}
+
+function chooseDept (obj) {
+	var deptId = jQuery(obj).val();
+	jQuery(".zzc2_select_item_content_").hide();
+	jQuery("div[deptId='"+deptId+"']").show();
+}
+
+function chooseCategory (categoryId, obj) {
+	jQuery(obj).siblings().removeClass("active");
+	jQuery(obj).addClass("active");
+	jQuery(".zzc2_select_item_content_right_content").hide();
+	jQuery("div[categoryId='"+categoryId+"']").show();
 }
