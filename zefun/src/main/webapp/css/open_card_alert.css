@@ -99,7 +99,7 @@ background-size: cover;}
 
 .open_card_content>ul>li{border-top:1px solid #e7e7e7;float:left;margin-top:60px;width:305px;height:234px;box-shadow:0 2px 2px #979797;border-radius:12px;margin-left:30px}
 
-
+.table_content em{cursor:pointer}
 .zzc_open_card_alert_content>p img{vertical-align:middle;margin-left:5px}
 .open_card_content li>p{height:30px;line-height:30px;color:#cc6042;text-align:center;font-size:15px}
 
@@ -184,7 +184,7 @@ background-size: cover;}
 .open_card_table tr:last-child td{border-bottom:none}
 .open_card_table tr input[type="radio"]{margin-right:7px}
 
-table tr:nth-child(odd){background:#f6f8fc}
+.table_content table tr:nth-child(odd){background:#f6f8fc}
 
 .select_item_button{text-align:center;margin-top:6px}
 .select_item_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;color:white;border-radius:12px;background:#74819c;margin:0 26px;font-size:15px}
