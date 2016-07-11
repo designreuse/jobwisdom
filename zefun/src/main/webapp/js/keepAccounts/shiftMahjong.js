@@ -136,6 +136,8 @@ function saveUpdateOrder() {
             infoDIV(date.shiftMahjongEmployeeList);
             jQuery(".adjust_").show();
         	jQuery(".adjust_button").hide();
+        	jQuery( ".gridly" ).sortable( 'disable');
+        	dialog("调整顺序成功！");
 		}
 	});
 }

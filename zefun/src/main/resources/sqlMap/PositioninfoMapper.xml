@@ -32,7 +32,7 @@
     select 
     <include refid="Base_Column_List" />
     from position_info
-    where store_id = #{storeId,jdbcType=INTEGER}
+    where store_id = #{storeId,jdbcType=INTEGER} and is_show = 0
   </select>
   
   <select id="selectByPositionShiftMahjong" parameterType="java.lang.Integer" resultMap="BaseResultDtoMap">
@@ -65,6 +65,9 @@
       <if test="lastOperatorId != null" >
         last_operator_id,
       </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="storeId != null" >
@@ -81,6 +84,9 @@
       </if>
       <if test="lastOperatorId != null" >
         #{lastOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>

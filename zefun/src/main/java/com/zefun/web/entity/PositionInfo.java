@@ -24,6 +24,18 @@ public class PositionInfo {
 
     /** 最后操作人标识 */
     private Integer lastOperatorId;
+    
+    /** 如果是店长和收银员的话 = 1*/
+    private Integer isShow;
+    
+    
+    public Integer getIsShow() {
+        return isShow;
+    }
+
+    public void setIsShow(Integer isShow) {
+        this.isShow = isShow;
+    }
 
     /** @param positionId   岗位标识 */
     public void setPositionId(Integer positionId){
@@ -114,6 +126,30 @@ public class PositionInfo {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.lastOperatorId = lastOperatorId;
+    }
+    
+    /**
+     * 参数构造
+    * @author 高国藩
+    * @date 2016年6月23日 下午3:25:40
+    * @param positionId       positionId
+    * @param storeId          storeId
+    * @param positionName     positionName
+    * @param createTime       createTime
+    * @param updateTime       updateTime
+    * @param lastOperatorId   lastOperatorId
+    * @param isShow           isShow
+     */
+    public PositionInfo(Integer positionId, Integer storeId,
+            String positionName, String createTime, String updateTime,
+            Integer lastOperatorId, Integer isShow) {
+        this.positionId = positionId;
+        this.storeId = storeId;
+        this.positionName = positionName;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.lastOperatorId = lastOperatorId;
+        this.isShow = isShow;
     }
     
 }

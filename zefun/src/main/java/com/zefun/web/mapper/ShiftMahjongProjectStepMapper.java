@@ -212,4 +212,13 @@ public interface ShiftMahjongProjectStepMapper {
     * @return List<ShiftMahjongProjectStep>
      */
     List<ShiftMahjongProjectStep> selectIsExistsServers(Integer shiftMahjongEmployeeId);
+    
+    /**
+     * 查询员工正在服务的步骤
+    * @author 老王
+    * @date 2016年7月11日 下午2:17:31 
+    * @param employeeId 员工标识
+    * @return List<Map<String, Object>>
+     */
+    List<Map<String, Object>> selectIsNotOverServer(Integer employeeId);
 }

@@ -157,6 +157,10 @@ public class StoreInfoService {
     private static final String P2 = "技师/(美容)经理";
     /**三号岗位*/
     private static final String P3 = "助理";
+    /**三号岗位*/
+    private static final String P4 = "店长";
+    /**三号岗位*/
+    private static final String P5 = "收银员";
     /**
      * 剩余使用天数少于该值的正常使用的门店需要续费提醒
      */
@@ -925,9 +929,13 @@ public class StoreInfoService {
         PositionInfo p1 = new PositionInfo(null, storeInfo.getStoreId(), this.P1, DateUtil.getCurDate(), null, null);
         PositionInfo p2 = new PositionInfo(null, storeInfo.getStoreId(), this.P2, DateUtil.getCurDate(), null, null);
         PositionInfo p3 = new PositionInfo(null, storeInfo.getStoreId(), this.P3, DateUtil.getCurDate(), null, null);
+        PositionInfo p4 = new PositionInfo(null, storeInfo.getStoreId(), this.P4, DateUtil.getCurDate(), null, null, 1);
+        PositionInfo p5 = new PositionInfo(null, storeInfo.getStoreId(), this.P5, DateUtil.getCurDate(), null, null, 1);
         positioninfoMapper.insert(p1);
         positioninfoMapper.insert(p2);
         positioninfoMapper.insert(p3);
+        positioninfoMapper.insert(p4);
+        positioninfoMapper.insert(p5);
         
         EnterpriseAccount record = new EnterpriseAccount();
         record.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());

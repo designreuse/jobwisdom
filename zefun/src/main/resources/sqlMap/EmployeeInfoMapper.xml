@@ -760,9 +760,9 @@
   <!-- 根据部门标识获取人员数据 -->
   <select id="getDeptEmployee" parameterType="java.lang.Integer" resultType="com.zefun.web.dto.EmployeeDto">
   select i.employee_id employeeId,i.name from employee_info i
-    left join position_info p on p.position_id=i.position_id
-    left join dept_info d on d.dept_id=p.dept_id
-    where d.dept_id=#{deptId} and i.is_deleted=0
+    <!-- left join position_info p on p.position_id=i.position_id
+    left join dept_info d on d.dept_id=p.dept_id -->
+    where i.dept_id=#{deptId} and i.is_deleted=0
 </select> 
   <!-- 根据门店标识查询门店下所有员工信息 -->
   <select id="selectEmployeeList" parameterType="java.lang.Integer" resultMap="BaseResultMap">

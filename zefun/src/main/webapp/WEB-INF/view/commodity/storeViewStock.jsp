@@ -92,8 +92,8 @@
 							<div class="out_tab_content_">
 								<div class="out_tab_shop">
 									<button class="select_button" onclick="jQuery('.zzc2').show('800')">选择商品入库</button>
-									<i><span>开始日期<input type="date"></span><span>结束日期<input type="date"></span><select><option>入库方式</option></select>
-										<button class="query">查询</button></i>
+									<!-- <i><span>开始日期<input type="date"></span><span>结束日期<input type="date"></span><select><option>入库方式</option></select>
+										<button class="query">查询</button></i> -->
 								</div>
 
 								<table class="payroll_table" id="intable1">
