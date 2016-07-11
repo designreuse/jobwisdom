@@ -29,7 +29,7 @@
 						<input type="text" onkeyup="searchMemberLike(this)" onfocus='if(jQuery(".fuzzysearch").children("li").length>0){jQuery(".fuzzysearch").show();}' id="serchMemberByNameOrPhone" placeholder="会员卡/姓名">
 						<button id="serchMemberByNameOrPhoneDoc">查询</button>
 						<button style="margin-left: 40px" value="0" onclick="selectHasDeleted(this)">已冻结账户</button>
-						<button>异常会员数据</button>
+						<button onclick="window.location.href='<%=basePath %>member/view/error/member/info'">异常会员数据</button>
 						<span><em class="triangle-down"></em>更多筛选信息</span>
 					</p>
 					<ul class="fuzzysearch" style="display: none;"></ul>
@@ -128,7 +128,7 @@
 											</c:forEach>
 										</td>
 										<td><p>
-												<button style="background: #4e6fb3" onclick="deletedMember(${member.memberId }, 1, this)">冻结</button>
+												<button style="background: #4e6fb3" onclick="deletedMember(${member.memberId }, 1, this)">冻</button>
 											</p>
 										</td>
 									</tr>
