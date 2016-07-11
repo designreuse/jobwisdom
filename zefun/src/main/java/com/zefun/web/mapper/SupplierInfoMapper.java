@@ -73,5 +73,7 @@ public interface SupplierInfoMapper {
     * @return             List<SupplierInfoDto>
      */
     List<SupplierInfoDto> selectInfoByAccount(SupplierInfo storeAccount);
+    
+  
 
 }

@@ -367,13 +367,13 @@
 	var inFlow = '${inFlows}';
 	var inflows = null;
 	if(!isEmpty(inFlow)){
-		inflows = eval("("+inFlow+")");
+		inflows = eval("("+inFlow.replace(/[\r\n]/g,"\\n")+")");
 	}
 	
 	var outFlow = '${outFlows}'; 
 	var outFlows = null;
 	if(!isEmpty(outFlow)){
-		outFlows = eval("("+outFlow+")");
+		outFlows = eval("("+outFlow.replace(/[\r\n]/g,"\\n")+")");
 	}
 	//一页多少条
 	var resultPage = 9;

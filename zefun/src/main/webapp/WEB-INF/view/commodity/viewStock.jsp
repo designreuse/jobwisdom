@@ -544,18 +544,18 @@
 	var inFlow = '${inFlows}';
 	var inflows = null;
 	if(!isEmpty(inFlow)){
-		inflows = eval("("+inFlow+")");
+		inflows = eval("("+inFlow.replace(/[\r\n]/g,"\\n")+")");
 	}
 	
 	var outFlow = '${outFlows}'; 
 	var outFlows = null;
 	if(!isEmpty(outFlow)){
-		outFlows = eval("("+outFlow+")");
+		outFlows = eval("("+outFlow.replace(/[\r\n]/g,"\\n")+")");
 	}
 	var moveFlow = '${moveFlows}'; 
 	var moveFlows = null;
 	if(!isEmpty(moveFlow)){
-		moveFlows = eval("("+moveFlow+")");
+		moveFlows = eval("("+moveFlow.replace(/[\r\n]/g,"\\n")+")");
 	}
 	
 	

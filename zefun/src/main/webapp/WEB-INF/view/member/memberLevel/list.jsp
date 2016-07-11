@@ -114,7 +114,7 @@ width:55px!important}
 			             </td>
 			             
 			             <td> 
-			             <c:if test="${memberLevel.levelType }=='折扣卡'">
+			             <c:if test="${memberLevel.levelType == '等级卡' }">
 			             <em onclick="editMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/handle_1.png"></em>
 			           	</c:if>
 			             <em onclick="showMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/shop_vip.png"></em>
@@ -187,6 +187,8 @@ width:55px!important}
 </div>
 
 <script>
+
+
 	 
 	 var showType = '${showType}';
 	 var chooseStoreId = '${chooseStoreId}';
@@ -226,6 +228,8 @@ width:55px!important}
         		
 	  });
  });
+
+     
 
 //显示隐藏‘停止’
 jQuery(function(){

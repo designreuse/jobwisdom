@@ -208,7 +208,6 @@ function deleted(opt, id){
 		type: "POST",
 		url: baseUrl+"goodsInfo/deleteGoodsBrand",
         data: data,
-        contentType: "application/x-www-form-urlencoded",
         dataType: "json",
         success: function(data) {
         	jQuery(opt).parents("span[brandId]").hide('800');
