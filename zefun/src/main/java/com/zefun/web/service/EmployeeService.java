@@ -167,7 +167,7 @@ public class EmployeeService {
 		PositionInfo positionInfo = new PositionInfo();
 		positionInfo.setStoreId(storeId);
 		List<PositionInfo> positionlist = positioninfoMapper.queryposition(positionInfo);
-		mav.addObject("positionlist", positionlist);
+ 		mav.addObject("positionlist", positionlist);
 		
 		List<EmployeeLevel> employeeLevels = employeeLevelMapper.selectAllByStoreId(storeId);
 		mav.addObject("employeeLevels", JSONArray.fromObject(employeeLevels));
@@ -358,7 +358,7 @@ public class EmployeeService {
 		userAccount.setPwdSalt(salt);
 		userAccount.setUserId(employeeDto.getEmployeeId());
 		userAccount.setUserName(employeeDto.getPhone());
-		userAccount.setRoleId(employeeDto.getRoleId());
+//		userAccount.setRoleId(employeeDto.getRoleId());
 		userAccount.setStoreId(employeeDto.getStoreId());
 		// 判断账号是否已经被用了
 		UserAccount userAccount1 = new UserAccount();
@@ -450,7 +450,7 @@ public class EmployeeService {
 		UserAccount userInfo = new UserAccount();
 		userInfo.setUserId(employeeDto.getEmployeeId());
 		userInfo.setRoleId(employeeDto.getRoleId());
-		userAccountMapper.updateUserRole(userInfo);
+//		userAccountMapper.updateUserRole(userInfo);
 		// 先删除之前的介绍人
 		int employeeId = employeeDto.getEmployeeId();
 		employeeInfoMapper.deleteRecommend(employeeId);
