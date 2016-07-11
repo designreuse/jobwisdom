@@ -52,7 +52,7 @@
 	  <li>
 	     <a href="<%=basePath%>staff/view/employeeOrderView/${session_key_store_account}/2">
 	        <img src="<%=basePath%>images/mobile/newemployee/bottomTwo.png">
-	        <p>订单</p>
+	        <p>服务</p>
 	     </a>
 	  </li>
 	  <li>

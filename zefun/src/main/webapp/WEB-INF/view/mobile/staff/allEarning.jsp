@@ -143,7 +143,7 @@
             <li>
                 <a href="<%=basePath%>staff/view/employeeOrderView/${session_key_store_account}/2">
                     <span class="iconfont icon-dingdan"></span>
-                    <span>订单</span>
+                    <span>服务</span>
                 </a>
             </li>
             <li class="active" >

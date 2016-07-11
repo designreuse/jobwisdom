@@ -117,9 +117,10 @@
 										       </c:choose>
 										    </td>
 											<td>
-											<c:if test="${step.isOver == 1}">
-							                  <img onclick="overServerEmployee(this)" src="<%=basePath%>images/do_over.png" style="position:relative;right:0px;top:2px"></td>
-							                </c:if>
+												<c:if test="${step.isOver == 1}">
+								                  <img onclick="overServerEmployee(this)" src="<%=basePath%>images/do_over.png" style="position:relative;right:0px;top:2px">
+								                </c:if>
+							                </td>
 										  </tr>
 									  </c:forEach>
 									</table>
@@ -155,7 +156,7 @@
 		  <i class="vip_search_content" name = "openOrderType" onclick = "openOrderType(this)">
 		     <a href="javascript:;">会员开单
 		       <input type="text"name="phoneNumber" class = "input_content" placeholder="会员手机号" style="display: none;">
-		       <span class="iconfont icon-sousuo ml-30 mt5" class = "input_content" name="seekName" style="display: none;"></span>
+		       <span class="iconfont icon-sousuo ml-30 mt5" name="seekName" style="display: none;"></span>
 			   <div class="show_search" name="memberListDIV"
 					style="display: none;">
 					<p>
@@ -173,8 +174,8 @@
 		     </a>
 		     <em><i name = "vip_em"></i></em>
 		  </i>
-		  <em class="visitor active_border_" name = "openOrderType" onclick = "openOrderType(this)">散客开单<i class = "active_border" name = "vip_em"></i></em>
-		  <em class="visitor" name = "openOrderType" onclick = "openOrderType(this)">预约开单<i name = "vip_em"></i></em>
+		  <em class="visitor active_border_" name = "openOrderType" type = "2" onclick = "openOrderType(this)">散客开单<i class = "active_border" name = "vip_em"></i></em>
+		  <em class="visitor" name = "openOrderType" type = "3" onclick = "openOrderType(this)">预约开单<i name = "vip_em"></i></em>
 		</div>
 		<div class="open_card_table" name = "memberNoPage">
 		   <table>
@@ -219,7 +220,7 @@
 	  </div>
    
       <div class="order_open_card" style="display:none">
-	    <div class="order_open_card_close"><img src="<%=basePath%>images/open_card_close.png"></div>
+	    <div class="order_open_card_close" onclick="orderOpenCardClose()"><img src="<%=basePath%>images/open_card_close.png"></div>
 	    <p>2016／06/23 16:57</p>
 		 <div class="order_open_card_ clearfix">
 			<div class="order_open_card_content">
@@ -242,7 +243,7 @@
 			</div>
 			
 			<div class="order_open_card_content">
-			   <div class="order_open_card_content_left">
+			   <div class="order_open_card_content_left" onclick="orderOpenCardClose()">
 				  <div class="img">
 					<img src="assets/images/seo_pic.png">
 				  </div>
@@ -316,7 +317,7 @@
       <p>选择项目</p>
 	  <div class="zzc2_select_item_content">
 	      <p>
-	         <select name = "deptName">
+	         <select name = "deptName" onchange="chooseDept(this)">
 	            <c:forEach items="${deptList}" var="dept" varStatus="status">
 	                <option value="${dept.deptId}">${dept.deptName}</option>
 	            </c:forEach>
@@ -327,16 +328,16 @@
 			  <div class="zzc2_select_item_content_left">
 				 <ul>
 				   <c:forEach items="${dto.project}" var="projectCategoryDto" varStatus="categoryStatus">
-		                <li categoryId="${projectCategoryDto.categoryId }" <c:if test="${status.index == 0 }">class="active"</c:if>>${projectCategoryDto.categoryName}</li>
+		                <li onclick="chooseCategory(${projectCategoryDto.categoryId }, this)" <c:if test="${categoryStatus.index == 0 }">class="active"</c:if>>${projectCategoryDto.categoryName}</li>
 		           </c:forEach>
 				 </ul>			 
 			  </div> 
 			  <div class="zzc2_select_item_content_right">
 			    <c:forEach items="${dto.project}" var="projectCategoryDto" varStatus="categoryStatus">
 			        <div class="zzc2_select_item_content_right_content <c:if test="${categoryStatus.index != 0 }">hide</c:if>" categoryId="${projectCategoryDto.categoryId }">
-	                   <ul class="clearfix">
+	                   <ul class="clearfix" >
 	                     <c:forEach items="${projectCategoryDto.projectList}" var="projectInfo" varStatus="projectStatus">
-	                        <li <c:if test="${projectStatus.index == 0 }">class="active4"</c:if> projectId = "${projectInfo.projectId}">
+	                        <li <c:if test="${projectStatus.index == 0 }">class="active4"</c:if> name = "projectId" projectId = "${projectInfo.projectId}">
 							   <div>${projectInfo.projectName}</div>
 							   <span>价格:<em>${projectInfo.projectPrice}</em></span>
 							</li>
@@ -350,8 +351,8 @@
 		  
 	  </div>
      <div class="select_item_button">
-        <button>确认</button>
-		<button>取消</button>
+        <button onclick="saveProject()">确认</button>
+		<button onclick="hideModal()">取消</button>
      </div>
     	 
    </div>
@@ -376,21 +377,6 @@ var startHandNumber = '${startHandNumber}';
    }
  }); */
  
- function openOrderType (obj) {
-	 jQuery("[name='openOrderType']").removeClass("active_border_");
-	 jQuery("[name='openOrderType']").removeClass("active_color");
-	 jQuery("[name='openOrderType']").find("[name='vip_em']").removeClass("active_border");
-	 jQuery(".input_content").hide();
-	 if (jQuery(obj).hasClass("vip_search_content")) {
-		 jQuery(obj).addClass("active_color");
-		 jQuery(obj).find("[name='vip_em']").addClass("active_border");
-		 jQuery(".input_content").show();
-	 }
-	 else {
-		 jQuery(obj).addClass("active_border_");
-		 jQuery(obj).find("i").addClass("active_border");
-	 }
- }
 </script>
 <script type="text/javascript" src="<%=basePath %>js/keepAccounts/noPaperOpenOrder.js"></script>
 </body>

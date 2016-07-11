@@ -436,4 +436,13 @@
                            and a.employee_id = b.employees_id and b.shift_mahjong_employee_id = #{shiftMahjongEmployeeId,jdbcType=INTEGER}) 
            and a.is_deleted = 0 and a.is_over = 1
   </select>
+  
+  <select id="selectIsNotOverServer" parameterType="java.lang.Integer" resultType="java.util.Map">  
+      select d.shift_mahjong_name as shiftMahjongName, ifnull(c.member_id, "") as memberId, c.sex as sex,
+		a.shift_mahjong_step_id as shiftMahjongStepId, a.begin_time as beginTime from shift_mahjong_project_step a 
+	  left join order_detail b on a.detail_id = b.detail_id 
+	  left join order_info c on b.order_id = c.order_id
+	  left join shift_mahjong d on a.shift_mahjong_id = d.shift_mahjong_id 
+	  where  a.employee_id = #{employeeId,jdbcType=INTEGER} and a.is_over = 1 and a.is_deleted = 0
+  </select>
 </mapper>

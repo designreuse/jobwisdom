@@ -50,7 +50,10 @@
 	           <img src="<%=basePath%>images/mobile/newemployee/personalFive.png">我的轮牌
 	       </a>
 	   </li>
-	   <li><img src="<%=basePath%>images/mobile/newemployee/personalSix.png">我的排班</li>
+	   <li>
+	       <a href="<%=basePath%>staff/view/selectViewScheduling">
+	           <img src="<%=basePath%>images/mobile/newemployee/personalSix.png">我的排班</li>
+	       </a>
 	   <li>
 	       <a href="<%=basePath%>staff/view/staffInfo">
 	          <img src="<%=basePath%>images/mobile/newemployee/personalSeven.png">个人设置

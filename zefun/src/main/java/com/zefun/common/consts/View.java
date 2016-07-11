@@ -323,10 +323,8 @@ public interface View {
 		public static final String MEMBER_PAY = "mobile/staff/memberPay";
 		/** 员工工资 */
 		public static final String STAFF_SALARY = "mobile/staff/staffSalary";
-		/** 员工业绩详情 *//*
-						 * public static final String STAFF_DETAILS =
-						 * "mobile/staff/staffDetails";
-						 */
+		/** 员工排班查看*/
+        public static final String VIEW_SCHEDULING = "mobile/staff/scheduling";
 		/** 员工服务界面 */
 		public static final String STAFF_SERVE = "mobile/staff/staffServe";
 		/** 等待中订单列表 */
@@ -335,7 +333,7 @@ public interface View {
 		public static final String ORDER_LIST = "mobile/staff/orderList";
 		/** 订单详情 */
 		public static final String ORDER_DETAILS = "mobile/staff/orderDetails";
-		/** 服务移交轮牌显示 */
+		/** 选择人员页面 */
 		public static final String TURN_SHIFTMAHJONG_SERVE = "mobile/staff/turnShiftMahjongServe";
 		/** 修改项目 */
 		public static final String CHANGE_PROJECT = "mobile/staff/changeProject";
