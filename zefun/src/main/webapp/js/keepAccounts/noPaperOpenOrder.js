@@ -407,12 +407,6 @@ function showSettingProject (detailId) {
 	jQuery(".zzc2").show();
 }
 
-function settingProject () {
-	var projectId = 3173;
-	
-	
-}
-
 function settlementOrder (obj, orderId) {
 	var projectList = jQuery(obj).parents(".customer_content").find("td[name='projectId']");
 	for (var i = 0; i < projectList.length; i++) {
@@ -521,6 +515,7 @@ function orderOpenCardClose () {
 function hideModal () {
 	jQuery(".zzc").hide();
 	jQuery(".zzc1").hide();
+	jQuery(".zzc2").hide();
 }
 
 function chooseDept (obj) {
@@ -534,4 +529,26 @@ function chooseCategory (categoryId, obj) {
 	jQuery(obj).addClass("active");
 	jQuery(".zzc2_select_item_content_right_content").hide();
 	jQuery("div[categoryId='"+categoryId+"']").show();
+}
+
+jQuery(".zzc2_select_item_content_right_content").delegate("[name='projectId']", "click", function (){
+	jQuery(this).siblings().removeClass("active4");
+	jQuery(this).addClass("active4");
+})
+
+function saveProject () {
+	var projectId  = jQuery(".zzc2_select_item_content_right").find(".active4").attr("projectId");
+	jQuery.ajax({
+        type : "post",
+        url : baseUrl + "KeepAccounts/action/settingProject",
+        data : "projectId="+projectId+"&detailId="+setDetailId,
+        dataType : "json",
+        success : function(e){
+            if(e.code != 0){
+                dialog(e.msg);
+                return;
+            }
+            location.reload();
+        }
+    });
 }

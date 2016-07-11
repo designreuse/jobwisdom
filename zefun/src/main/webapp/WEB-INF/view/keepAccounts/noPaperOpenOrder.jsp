@@ -117,9 +117,10 @@
 										       </c:choose>
 										    </td>
 											<td>
-											<c:if test="${step.isOver == 1}">
-							                  <img onclick="overServerEmployee(this)" src="<%=basePath%>images/do_over.png" style="position:relative;right:0px;top:2px"></td>
-							                </c:if>
+												<c:if test="${step.isOver == 1}">
+								                  <img onclick="overServerEmployee(this)" src="<%=basePath%>images/do_over.png" style="position:relative;right:0px;top:2px">
+								                </c:if>
+							                </td>
 										  </tr>
 									  </c:forEach>
 									</table>
@@ -334,9 +335,9 @@
 			  <div class="zzc2_select_item_content_right">
 			    <c:forEach items="${dto.project}" var="projectCategoryDto" varStatus="categoryStatus">
 			        <div class="zzc2_select_item_content_right_content <c:if test="${categoryStatus.index != 0 }">hide</c:if>" categoryId="${projectCategoryDto.categoryId }">
-	                   <ul class="clearfix">
+	                   <ul class="clearfix" >
 	                     <c:forEach items="${projectCategoryDto.projectList}" var="projectInfo" varStatus="projectStatus">
-	                        <li <c:if test="${projectStatus.index == 0 }">class="active4"</c:if> projectId = "${projectInfo.projectId}">
+	                        <li <c:if test="${projectStatus.index == 0 }">class="active4"</c:if> name = "projectId" projectId = "${projectInfo.projectId}">
 							   <div>${projectInfo.projectName}</div>
 							   <span>价格:<em>${projectInfo.projectPrice}</em></span>
 							</li>
@@ -350,8 +351,8 @@
 		  
 	  </div>
      <div class="select_item_button">
-        <button>确认</button>
-		<button>取消</button>
+        <button onclick="saveProject()">确认</button>
+		<button onclick="hideModal()">取消</button>
      </div>
     	 
    </div>

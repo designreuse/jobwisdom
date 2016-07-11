@@ -26,7 +26,6 @@ import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
-import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -38,6 +37,7 @@ import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
+import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.OrderInfoService;
 import com.zefun.web.service.RabbitService;
 import com.zefun.web.service.RedisService;
@@ -85,6 +85,9 @@ public class StaffOrderService {
     @Autowired private EmployeeInfoMapper employeeInfoMapper;
     /**门店信息操作对象*/
     @Autowired private StoreInfoMapper storeInfoMapper;
+    /** 会员信息*/
+    @Autowired
+    private MemberInfoService memberInfoService;
     
     
     /**
@@ -106,25 +109,32 @@ public class StaffOrderService {
     * @author 王大爷
     * @date 2015年10月18日 下午2:18:30
     * @param employeeId 员工标识
-    * @param type 订单状态类型（1、进行中，2、已完成，3、全部）
-    * @param storeId 门店标识
     * @return ModelAndView
      */
-    public ModelAndView employeeOrderView(Integer employeeId, Integer type, Integer storeId){
+    public ModelAndView employeeOrderView(Integer employeeId){
         
-        List<OrderInfoBaseDto> orderList = orderInfoService.getOrderInfoBaseDtoByEmployeeId(employeeId, type);
-        Map<String, Object> map = orderInfoMapper.selectOrderStatisticsByEmployeeId(employeeId);
-                
+        List<Map<String, Object>> mapList = shiftMahjongProjectStepMapper.selectIsNotOverServer(employeeId);
+        MemberBaseDto memberBaseDto = new MemberBaseDto();
+        for (Map<String, Object> map : mapList) {
+			if (map.get("memberId").toString().isEmpty()){
+				memberBaseDto.setSex(map.get("sex").toString());
+				if ("男".equals(map.get("sex").toString())) {
+					memberBaseDto.setHeadUrl("system/profile/common_img_man.png");
+				}
+				else {
+					memberBaseDto.setHeadUrl("system/profile/common_img_gril.png");
+				}
+				memberBaseDto.setName("散客");
+			}
+			else {
+				Integer memberId = Integer.valueOf(map.get("memberId").toString());
+				memberBaseDto = memberInfoService.getMemberBaseInfo(memberId, true);
+			}
+			map.put("memberBaseDto", memberBaseDto);
+		}
+        
         ModelAndView mav = new ModelAndView(View.StaffPage.MY_ORDER_LIST);
-        mav.addObject("orderList", orderList);
-        mav.addObject("type", type);
-        
-        mav.addObject("orderType", 2);
-        
-        mav.addObject("storeId", storeId);
-        mav.addObject("orderListStr", JSONArray.fromObject(orderList).toString());
-        mav.addObject("statisticsCount", map.get("count"));
-        mav.addObject("statisticsMoney", map.get("money"));
+        mav.addObject("mapList", mapList);
         return mav;
     }
     
@@ -894,7 +904,6 @@ public class StaffOrderService {
             memberInfo.setName("散客");
         }
         
-        ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(shiftMahjongProjectStepDto.getProjectStep().getProjectId());
         
         EmployeeInfo lastOperator = null;
         if (lastOperatorId == null) {
@@ -912,7 +921,7 @@ public class StaffOrderService {
                 .replace("{businessType}", "2") + "?orderId=" + orderInfo.getOrderId();
         String turnType = null;
         String title = null;
-        String serviceNmae = projectInfo.getProjectName();
+        String serviceNmae = orderInfo.getHandOrderCode();
         String remark = "您可以在\"我的－我的订单\"中随时查看订单详细信息";
         
         int isSpeech = 0;
@@ -968,7 +977,7 @@ public class StaffOrderService {
         if (StringUtils.isNotBlank(memberInfo.getLevelName())) {
             turnType += "\r\n顾客等级：" + memberInfo.getLevelName();
         }
-        turnType = turnType  + "\r\n服务步骤：" + shiftMahjongProjectStepDto.getProjectStep().getProjectStepName() 
+        turnType = turnType 
             + "\r\n操作人员：" + lastOperator.getEmployeeCode() + " " + lastOperator.getName()
             + "\r\n操作时间：" + DateUtil.getCurTime();
         

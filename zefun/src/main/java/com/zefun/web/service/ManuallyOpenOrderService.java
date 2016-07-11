@@ -213,8 +213,6 @@ public class ManuallyOpenOrderService {
 		List<Integer> handOrderCodeList = orderInfoMapper.selectIsUserHandOrderCode(storeId);
 		map.put("handOrderCodeList", handOrderCodeList);
 		
-		
-		
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
 	}
 	
@@ -228,20 +226,13 @@ public class ManuallyOpenOrderService {
     * @param sex    消费者性别
     * @param storeId 门店标识
     * @param appointmentId 预约标识
-    * @param orderId 订单标识
     * @param lastOperatorId 操作者
     * @return ModelAndView
      */
     @Transactional
     public BaseDto addOrder(String sex, String handOrderCode, String employeeObj, Integer memberId, 
-    		  Integer storeId, Integer appointmentId, Integer orderId, Integer lastOperatorId) {
-        if (orderId == null) {
-            //保存订单信息
-            orderId = addOrderInfo(handOrderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId);
-        }
-        else {
-        	
-        }
+    		  Integer storeId, Integer appointmentId, Integer lastOperatorId) {
+    	Integer orderId = addOrderInfo(handOrderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId);
         //暂时未做
         Integer isAppointment = 0;
         addDetail(orderId, employeeObj, storeId, isAppointment, lastOperatorId);
@@ -487,6 +478,7 @@ public class ManuallyOpenOrderService {
             if (orderObj.getOrderCode().isEmpty()) {
             	String orderCode = staffService.getOrderCode("order_info", storeId);
             	orderInfo.setOrderCode(orderCode);
+            	orderInfo.setOrderId(orderId);
             }
             orderInfoMapper.updateByPrimaryKey(orderInfo);
         }

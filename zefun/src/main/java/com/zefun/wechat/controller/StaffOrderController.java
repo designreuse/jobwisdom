@@ -59,22 +59,17 @@ public class StaffOrderController extends BaseController{
     * @param businessType   业务类型(1:会员,2:员工)
     * @param request 返回
     * @param response 请求
-    * @param type 订单状态类型（1、进行中，2、已完成，3、全部）
     * @return ModelAndView
      */
     @RequestMapping(value = Url.Staff.VIEW_EMPLOYEE_ORDER)
     public ModelAndView employeeOrderView(@PathVariable String storeId, @PathVariable int businessType, 
-            HttpServletRequest request, HttpServletResponse response, Integer type) {
+            HttpServletRequest request, HttpServletResponse response) {
         String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
             return null;
         }
-        if (type == null) {
-            type = 1;
-        }
         Integer employeeId = getUserIdByOpenId(openId);
-        int ownerStoreId = getStoreIdByOpenId(openId);
-        return staffOrderService.employeeOrderView(employeeId, type, ownerStoreId);
+        return staffOrderService.employeeOrderView(employeeId);
     }
     
   /**

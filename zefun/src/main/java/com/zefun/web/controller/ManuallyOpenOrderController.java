@@ -15,6 +15,7 @@ import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.service.ManuallyOpenOrderService;
 import com.zefun.wechat.service.StaffOrderService;
+import com.zefun.wechat.service.StaffService;
 
 /**
  * 手工开单
@@ -34,6 +35,11 @@ public class ManuallyOpenOrderController extends BaseController{
 	 */
 	@Autowired
 	private StaffOrderService staffOrderService;
+	/**
+	 * 
+	 */
+	@Autowired
+	private StaffService staffService;
 	
 	/**
 	 * 手工开单页面
@@ -90,16 +96,15 @@ public class ManuallyOpenOrderController extends BaseController{
 	* @param employeeObj 选择的轮牌员工
 	* @param memberId 会员标识
 	* @param appointmentId 预约单标识
-	* @param orderId 订单标识
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.KeepAccounts.ACTION_ADD_ORDER)
     @ResponseBody
     public BaseDto addOrder(HttpServletRequest request, HttpServletResponse response, String sex, String handOrderCode, String employeeObj,
-             Integer memberId, Integer appointmentId, Integer orderId) {
+             Integer memberId, Integer appointmentId) {
         Integer lastOperatorId = getUserId(request);
         Integer storeId = getStoreId(request);
-        return manuallyOpenOrderService.addOrder(sex, handOrderCode, employeeObj, memberId, storeId, appointmentId, orderId, lastOperatorId);
+        return manuallyOpenOrderService.addOrder(sex, handOrderCode, employeeObj, memberId, storeId, appointmentId, lastOperatorId);
     }
 	
 	/**
@@ -227,5 +232,23 @@ public class ManuallyOpenOrderController extends BaseController{
 	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, 
 	    		storeId, lastOperatorId, handOrderCode, orderId);
 	}
+	
+	/**
+     * 设置项目
+    * @author 张进军
+    * @date Jan 17, 2016 1:12:54 PM
+    * @param detailId   会员标识
+    * @param projectId 项目标识
+    * @param request    请求对象
+    * @param response   响应对象
+    * @return   会员信息
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_SETTING_PROJECT, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto settingProject(Integer detailId, Integer projectId, HttpServletRequest request, 
+            HttpServletResponse response) {
+        
+        return staffService.settingProject(detailId, projectId);
+    }
 	
 }
