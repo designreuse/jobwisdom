@@ -403,7 +403,7 @@ function editSpe(sIds, opt){
 			jQuery("select[name='projectId']").val(projectId);
 			jQuery("select[name='emp']").val(emp);
 			jQuery("input[name='carouselPicture']").last().val(sImage);
-			jQuery("input[name='carouselPicture']").last().prev().prev().attr("src", qiniuUrl+sImage);
+			jQuery("input[name='carouselPicture']").last().prev().attr("src", qiniuUrl+sImage);
 			UE.getEditor("editor2").setContent(content);
 		}
 	}
