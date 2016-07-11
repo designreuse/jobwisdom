@@ -48,7 +48,7 @@
 		        <div class='content_right clearfix'>
 				     <div class="accont_detail clearfix">
 					    <div class="accont_detail_left">
-						   <p class="guest_detail">客户信息</p>
+						   <p class="guest_detail">操作员信息</p>
 						   <div class="account_set_head">
 						      <%-- <span class="account_set_head_"><img src="<%=qiniuPath %>${session_key_user_info.headImage }"></span> --%>
 						      <c:choose>

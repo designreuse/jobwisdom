@@ -12,6 +12,26 @@
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/ueditor.all.min.js"> </script> 
 <script type="text/javascript" charset="utf-8" src="<%=basePath %>UEditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
+
+<style>
+.addImage {
+	position: relative;
+	left: -144px;
+	top: 54px;
+	z-index: 1000;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	display: inline-block;
+	border: 1px solid #fafafa;
+}
+
+.addImage:hover {
+	background-color: #fff5d4;
+	border: 1px solid #dcac6c;
+}
+</style>
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -141,10 +161,16 @@
 		  <p><em>离职日期</em><input type="text" value="" name="leaveDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></p>
         </div> 
 		<div class="select_job_content_right">
-		  <textarea  ></textarea>
+			<div class="clearfix">
+			<span id="editImage" class="addImage" title="插入图片"> <img
+				src="<%=basePath%>images/insert_img.png"
+				style="position: relative; left: 1px; top: 1px">
+			</span>
+			<script id="editor1" type="text/plain"
+				style="width: 505px; height: 172px; float: left"></script>
+			</div>
+		   </div>	
 		</div>
-	   </div>	
-		
 	  <div class="imformation_button">
 	     <button onclick="saveEmployee()">保存</button>
 		 <button onclick="jQuery('.zzc').hide()">取消</button>
@@ -337,13 +363,19 @@ function saveEmployee(){
 	var employeeStatus = jQuery("select[name='employeeStatus']").val();
 	var entryDate = jQuery("input[name='entryDate']").val();
 	var leaveDate = jQuery("input[name='leaveDate']").val();
-// 	var employeeDesc = u1.getContent();  编辑
+	var employeeDesc = u1.getContent();  
 	var headImage = jQuery("input[name='headImage']").val();
 	
 	if(!checkMobile(phone)){
 		dialog("电话号码格式不对");
 		return ;
 	}
+	
+	if(!isCardNo(identityCard)){
+		dialog("身份证号码格式不对，请修改");
+		return ;
+	}
+	
 	var data = {"employeeId":employeeId, "employeeCode":employeeCode, "sex":sex, "birthday":birthday, "recommendId":recommendId, "phone":phone, "identityCard":identityCard, 
 			    "roleId":roleId, "positionId":positionId, "deptId":deptId, "levelId":levelId, "employeeStatus":employeeStatus, "entryDate":entryDate, "leaveDate":leaveDate, 
 			    "employeeDesc":employeeDesc, "name":name, "headImage":headImage};
@@ -423,8 +455,35 @@ jQuery("input[name='phone']").blur(function(){
 })
 
 
-jQuery("input[name='employeeCode']").blur(function(){
-	
+function isCardNo(card)  
+{  
+   // 身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X  
+   var reg =/^([0-9]{17}[0-9X]{1})|([0-9]{15})$/;
+   if (reg.test(card)) {
+	    return true;
+	   }
+   else {
+		return false;
+   }
+}  
+
+
+jQuery(function() {
+	jQuery('.add_pic_ img').click(function() {
+		jQuery(".mask").show();
+		editPage(null);
+		imgObject = jQuery(this);
+		type = 1;
+	})
+	jQuery('.cancelinput').click(function() {
+		jQuery('.zzc.one').hide();
+		jQuery('.photo-clip-rotateLayer').html('');
+	})
+	jQuery('#editImage').click(function() {
+		type = 2;
+		jQuery(".mask").show();
+		editPage(null);
+	})
 })
 </script>
 </html>
