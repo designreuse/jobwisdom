@@ -70,6 +70,10 @@
             jQuery(".mask").hide();
     	}
     }
+    function ave(){
+    	jQuery(".webchat_p").children("p").eq(0).click();
+    	return false;
+    }
 </script>  
 <body>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -151,7 +155,11 @@
 									     <div class="special_sever_text">
 										   <p><span>服务名称：</span><em>${specialService.sName }</em></p>
 										   <p><span>服务项目：</span><em>${specialService.projectName }</em></p>
+<<<<<<< HEAD
+										   <p><span>造   型    师：</span><em>${specialService.employeeCode }  ${specialService.employeeName }</em></p>
+=======
 										   <p><span>造型师：</span><em>${specialService.employeeCode }  ${specialService.employeeName }</em></p>
+>>>>>>> da0969e16c63c471029da854af59219922a82baa
 										 </div>
 								    </div>
 								</c:forEach>

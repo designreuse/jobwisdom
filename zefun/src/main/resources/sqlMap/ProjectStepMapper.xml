@@ -139,7 +139,7 @@
       <if test="projectId != null" >
         project_id = #{projectId,jdbcType=INTEGER},
       </if>
-      <if test="shiftMahjongId != null" >
+      <!-- <if test="shiftMahjongId != null" >
         shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER},
       </if>
       <if test="projectStepOrder != null" >
@@ -150,16 +150,16 @@
       </if>
       <if test="isDisable != null" >
         is_disable = #{isDisable,jdbcType=INTEGER},
-      </if>
+      </if> -->
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=INTEGER},
       </if>
-      <if test="isPermissionsUpdate != null" >
+      <!-- <if test="isPermissionsUpdate != null" >
         is_permissions_update = #{isPermissionsUpdate,jdbcType=INTEGER},
       </if>
       <if test="isHangUp != null" >
         is_hang_up = #{isHangUp,jdbcType=INTEGER},
-      </if>
+      </if> -->
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=CHAR},
       </if>

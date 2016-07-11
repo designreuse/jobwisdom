@@ -225,9 +225,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.ProjectCommission" >
     update project_commission
     <set >
-      <if test="shiftMahjongId != null" >
+      <!-- <if test="shiftMahjongId != null" >
         shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER},
-      </if>
+      </if> -->
       <if test="projectId != null" >
         project_id = #{projectId,jdbcType=INTEGER},
       </if>
@@ -240,13 +240,13 @@
       <if test="assignCash != null" >
         assign_cash = #{assignCash,jdbcType=INTEGER},
       </if>
-      <if test="assignCardType != null" >
+<!--       <if test="assignCardType != null" >
         assign_card_type = #{assignCardType,jdbcType=INTEGER},
       </if>
-      <if test="assignCard != null" >
+ -->      <if test="assignCard != null" >
         assign_card = #{assignCard,jdbcType=INTEGER},
       </if>
-      <if test="nonAssignCashType != null" >
+      <!-- <if test="nonAssignCashType != null" >
         non_assign_cash_type = #{nonAssignCashType,jdbcType=INTEGER},
       </if>
       <if test="nonAssignCash != null" >
@@ -263,7 +263,7 @@
       </if>
       <if test="appointmentReward != null" >
         appointment_reward = #{appointmentReward,jdbcType=INTEGER},
-      </if>
+      </if> -->
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=INTEGER},
       </if>
@@ -276,8 +276,6 @@
       <if test="lastOperatorId != null" >
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
       </if>
-      
-      
       <if test="commissionNoGold != null" >
         commission_no_gold= #{commissionNoGold,jdbcType=INTEGER},
       </if>

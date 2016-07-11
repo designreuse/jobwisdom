@@ -22,6 +22,7 @@ import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.DeptMahjongDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.EmployeeLevelBaseDto;
+import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.ProjectAppointDto;
 import com.zefun.web.dto.ProjectCommissionDto;
 import com.zefun.web.dto.ProjectInfoDto;
@@ -38,6 +39,7 @@ import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.GoodsCategoryMapper;
+import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectCommissionMapper;
@@ -99,6 +101,10 @@ public class ProjectService {
     /** 商品系列操作 */
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
+    /** 商品系列操作 */
+    @Autowired
+    private GoodsInfoMapper goodsInfoMapper;
+    
     
     
 
@@ -181,14 +187,12 @@ public class ProjectService {
     * @return   所有部门下的项目项目类别及其下的项目列表
      */
     public List<DeptProjectBaseDto> getDeptProjectByStoreId(int storeId) {
-        List<Integer> deptIdList = deptInfoMapper
-                .selectDeptIdByStoreIdIsResults(storeId);
+        List<Integer> deptIdList = deptInfoMapper.selectDeptIdByStoreIdIsResults(storeId);
         if (deptIdList.isEmpty()) {
             return null;
         }
 
-        List<DeptProjectBaseDto> deptProjectList = new ArrayList<DeptProjectBaseDto>(
-                deptIdList.size());
+        List<DeptProjectBaseDto> deptProjectList = new ArrayList<DeptProjectBaseDto>(deptIdList.size());
         for (Integer deptId : deptIdList) {
             DeptProjectBaseDto deptPorject = getDeptProjectByDeptId(deptId);
             deptProjectList.add(deptPorject);
@@ -213,8 +217,7 @@ public class ProjectService {
             if (deptProject == null) {
                 return null;
             }
-            redisService.hset(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, deptId,
-                    EntityJsonConverter.entity2Json(deptProject));
+            redisService.hset(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, deptId, EntityJsonConverter.entity2Json(deptProject));
         }
         // 缓存中存在则直接转换为对象
         else {
@@ -826,8 +829,7 @@ public class ProjectService {
             }
         }
         // 删除轮牌
-        List<ProjectStep> ps = projectStepMapper
-                .queryProjectStepByPIdList(projectId);
+        List<ProjectStep> ps = projectStepMapper.queryProjectStepByPIdList(projectId);
         for (int i = 0; i < ps.size(); i++) {
             ProjectStep projectStep = ps.get(i);
             projectStep.setIsDeleted(1);
@@ -1193,20 +1195,30 @@ public class ProjectService {
     * @date 2016年5月26日 上午10:01:42
     * @param storeAccount storeAccount
     * @param storeId      storeId
+    * @param deptId       deptId
     * @return        页面
      */
-    public ModelAndView projectCategoryView(String storeAccount, Integer storeId) {
+    public ModelAndView projectCategoryView(String storeAccount, Integer storeId, Integer deptId) {
         List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
         if (storeId == null){
             storeId = storeInfos.get(0).getStoreId();
         }
         List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(storeId);
         List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByStoreId(storeId);
+        List<DeptInfo> deptInfos = deptInfoMapper.selectAllDetpByStoreId(storeId);
+        if (deptId == null && deptInfos.size()>0){
+            deptId = deptInfos.get(0).getDeptId();
+        }
+        final Integer deptIds = deptId;
+        projectCategories = projectCategories.stream().filter(p -> p.getDeptId().intValue()== deptIds.intValue()).collect(Collectors.toList());
+        goodsCategories = goodsCategories.stream().filter(g -> g.getDeptId().intValue() == deptIds.intValue()).collect(Collectors.toList());
         ModelAndView view = new ModelAndView(View.Project.CATEGORY);
         view.addObject("projectCategories", projectCategories);
         view.addObject("goodsCategories", goodsCategories);
         view.addObject("storeInfos", storeInfos);
+        view.addObject("deptInfos", deptInfos);
         view.addObject("storeId", storeId);
+        view.addObject("deptId", deptId);
         return view;
     }
 
@@ -1295,6 +1307,7 @@ public class ProjectService {
             else {
                 projectCategoryMapper.updateByPrimaryKeySelective(projectCategory);
             }
+            redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, jsonObject.get("deptId").toString());
             return new BaseDto(0, projectCategory);
         }
         else {
@@ -1307,6 +1320,7 @@ public class ProjectService {
             }
             return new BaseDto(0, goodsCategory);
         }
+       
     }
 
     /**
@@ -1319,6 +1333,12 @@ public class ProjectService {
      */
     public BaseDto deletedCategory(Integer categoryId, Integer type) {
         if (type == 1){
+            ProjectInfoDto projectInfoDto = new ProjectInfoDto();
+            projectInfoDto.setIsDeleted(0);
+            projectInfoDto.setCategoryId(categoryId);
+            if (projectInfoMapper.selectProjectInfoDto(projectInfoDto).size()>0){
+                return new BaseDto(-1, "该大项关联了项目, 不可删除");
+            }
             ProjectCategory projectCategory = new ProjectCategory();
             projectCategory.setIsDeleted(1);
             projectCategory.setCategoryId(categoryId);
@@ -1326,6 +1346,12 @@ public class ProjectService {
             return new BaseDto(0, "删除成功");
         }
         else {
+            GoodsInfoDto goodsInfoDto = new GoodsInfoDto();
+            goodsInfoDto.setIsDeleted(0);
+            goodsInfoDto.setCategoryId(categoryId);
+            if (goodsInfoMapper.selectByProperty(goodsInfoDto).size()>0){
+                return new BaseDto(-1, "该系列关联了商品, 不可删除");
+            }
             GoodsCategory goodsCategory = new GoodsCategory();
             goodsCategory.setCategoryId(categoryId);
             goodsCategory.setIsDeleted(1);

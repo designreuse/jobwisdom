@@ -98,6 +98,7 @@ public class ShiftService {
      */
     public ModelAndView queryShift(Map<String, Object> params){
         Integer storeId=Integer.parseInt(params.get("storeId").toString());
+        params.put("deptId", deptInfoMapper.selectAllDetpByStoreId(storeId).get(0).getDeptId());
         Page<ShiftDto> page=selectPageForShift(params, 1, App.System.API_DEFAULT_PAGE_SIZE);
         ModelAndView mav = new ModelAndView("employee/shift/shift");
         mav.addObject("page", page);
@@ -140,7 +141,7 @@ public class ShiftService {
         Page<ShiftDto> page = new Page<ShiftDto>();
         page.setParams(params);
         page.setPageNo(pageNo);
-//        page.setPageSize(pageSize);  
+//        page.setPageSize(pageSize);
         page.setPageSize(1000);  //全查询
         List<ShiftDto> list = shiftMapper.getEmployeeShift(page);
         page.setResults(list);

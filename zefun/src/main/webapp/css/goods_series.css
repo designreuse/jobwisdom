@@ -1,11 +1,11 @@
 .content_right{padding:32px;background:white}
-.goods_series_item_content{margin-top:16px}
-.goods_series_item{color:black;font-size:14px}
-.goods_series_item_content_{padding:12px 20px;height:220px;border-radius:8px;background:#d8deed;margin-top:6px}
-.goods_series_item_content>p{font-size:16px}
-.goods_series_item_content_>p>button{width:130px;height:26px;border:none;border-radius:12px;color:white;font-size:16px;text-align:center;line-height:26px;background:#59688a}
-.goods_series_detail{overflow:overlay;background:white;height:130px;border:1px solid black;border-radius:8px;padding:20px;margin-top:10px}
-.goods_series_detail  li{margin-right:24px;margin-left:10px;cursor:pointer;overflow:hidden;position:relative;float:left;width:150px;height:26px;border-radius:12px;text-align:center;line-height:26px;border:1px solid black;margin-bottom:16px}
+.goods_series_item_content{width:452px;float:left;margin-left:13px}
+.goods_series_item{padding:16px 35px;color:black;font-size:12px;background:#d8deed;margin-top:18px;border-radius:8px;height:580px}
+.goods_series_item_content_{padding:12px 20px;height:220px;border-radius:8px;margin-top:6px}
+.goods_series_item_content>p{font-size:14px}
+.goods_series_item_content_>p>button{width:130px;height:26px;border:none;border-radius:12px;color:white;font-size:14px;text-align:center;line-height:26px;background:#59688a}
+.goods_series_detail{overflow:overlay;background:white;height:465px;border:1px solid #959595;border-radius:8px;margin-top:10px}
+.goods_series_detail  li{margin-right:20px;margin-left:28px;cursor:pointer;overflow:hidden;position:relative;float:left;width:150px;height:26px;border-radius:12px;text-align:center;line-height:26px;border:1px solid black;margin-bottom:16px}
 .goods_series_detail  li>p{height:26px;display:none;width:100%;position:absolute;left:0;top:0;background:rgba(77,77,77,0.9);border-radius:8px;overflow:hidden}
 .goods_series_detail  li>p span{display:inline-block;width:50%;text-align:center;height:26px;line-height:26px;color:white}
 .zzc_goods_series{width:340px;height:214px;background:white;margin: 15% auto}
@@ -36,3 +36,20 @@ button:hover{background:#575773}
     
 }
 .out_roll_content{padding:20px 10px 0 0 ;border:1px solid black;border-radius:8px;background:#fbfbff}
+.active{background: #ecf7fe;}
+
+.goods_series_item_all{background:white;border-radius:8px;height:560px;border:1px solid #959595;overflow:hidden}
+
+.goods_series_item_all_ul{height:40px;position:relative;background:white;border-bottom:1px solid #959595;border-radius:8px 8px 0 0}
+.goods_series_item_all_ul span{position:absolute;display:inline-block;z-index:2}
+.goods_series_item_all_ul .pre{left:5px;top:3px}
+.goods_series_item_all_ul .next{right:5px;top:3px}
+.goods_series_item_all_ul li{cursor:pointer;float:left;height:40px;width:110px;text-align:center;line-height:40px;border-left:1px solid #959595}
+.goods_series_item_all_ul ul{height:40px;width:4000px;position:relative}
+.goods_series_item_all_ul li:last-child{border-right:1px solid #959595 }
+.goods_series_item_all_ul li:first-child{border-left:none}
+.goods_series_detail>p {border-bottom:1px solid #959595;padding:8px 20px;font-size:15px;margin-bottom:10px}
+.goods_series_detail>p button{float:right;margin-right:10px;width:100px;height:22px;border:none;text-align:center;line-height:22px;color:white;border-radius:12px;background:#59688a}
+.goods_series_detail>p button:hover{background:#515f7e}
+
+.active{background:#c7cddc}

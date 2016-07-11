@@ -82,7 +82,7 @@
         e.service_score as serviceScore,
 	    e.employee_desc as employeeDesc 
     from employee_info e
-    where store_id = #{storeId} and e.level_id in (select level_id from project_commission where is_deleted = 0)
+    where store_id = #{storeId} and e.level_id IS NOT NULL <!-- in (select level_id from project_commission where is_deleted = 0) -->
   </select>
   
   <!-- 根据门店查询员工  by DavidLiang -->
