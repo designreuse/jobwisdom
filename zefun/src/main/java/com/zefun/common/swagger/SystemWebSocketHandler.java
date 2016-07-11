@@ -44,7 +44,6 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         if (storeAccount!=null){
             SOCKETS.put(storeAccount, session);
         }
-        log.info("websocke connenct success, and the online storeAccout is " + storeAccount);
         try {
             Integer userId = Integer.parseInt(session.getAttributes().get(App.Session.USER_ID).toString());
             LOGIN.put(LOGIN_PREFIX + userId, session);
@@ -60,7 +59,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         
-        log.info("message"+message.getPayload().toString());
+//        log.info("message"+message.getPayload().toString());
 //        String storeAccount = (String) session.getAttributes().get(App.Session.STORE_ACCOUNT);
 //        log.info(message.getPayload().toString());
 //        TextMessage message1 = new TextMessage("9999");
@@ -156,7 +155,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
                 try {
                     if (LOGIN.get(loginUser).isOpen()) {
                         LOGIN.get(loginUser).sendMessage(message);
-                        log.info(userId+" , 通知强制下线,被人给干掉了.");
+//                        log.info(userId+" , 通知强制下线,被人给干掉了.");
                     }
                 } 
                 catch (IOException e) {

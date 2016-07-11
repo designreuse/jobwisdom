@@ -10,7 +10,7 @@
 .water_search_top_input>button:hover{background:#4c5976}
 .water_search_top_input em button{width:80px;height:28px;border-radius:12px;color:black;background:white;border:1px solid black;margin-right:20px}
 .water_search_top_content ul{width:730px;height:115px;float:left;border-right:1px solid #9a9a9a}
-.water_search_top_content ul li span{display:inline-block;width:50px;height:26px;}
+.water_search_top_content ul li span{display:inline-block;width:50px;height:26px;cursor: pointer;}
 
 .water_search_top_content ul li{padding-left:15px;height:28px;line-height:28px}
 .water_search_top_content ul li >em{color:#8c8989}
