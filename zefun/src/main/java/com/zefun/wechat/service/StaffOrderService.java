@@ -21,6 +21,7 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.OrderInfoBaseDto;
+import com.zefun.web.dto.PositionInfoShiftMahjongDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.EmployeeInfo;
@@ -32,7 +33,7 @@ import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
-import com.zefun.web.mapper.ProjectInfoMapper;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
@@ -79,8 +80,8 @@ public class StaffOrderService {
     /** rabbitService*/
     @Autowired
     private RabbitService rabbitService;
-    /** 项目*/
-    @Autowired private ProjectInfoMapper projectInfoMapper;
+    /** 岗位*/
+    @Autowired private PositioninfoMapper positioninfoMapper;
     /** 员工*/
     @Autowired private EmployeeInfoMapper employeeInfoMapper;
     /**门店信息操作对象*/
@@ -191,9 +192,6 @@ public class StaffOrderService {
         shiftMahjongEmployee.setState(1);
         //修改员工轮牌状态
         shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
-        
-        //自动获取项目
-        staffService.selfMotionExecute(shiftMahjongEmployee.getShiftMahjongEmployeeId(), storeId);
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
@@ -366,78 +364,25 @@ public class StaffOrderService {
     }
     
     /**
-     * 服务移交
+     * 选择人员
     * @author 王大爷
     * @date 2015年10月20日 下午2:58:46
-    * @param shiftMahjongStepId 轮牌步骤标识
-    * @param type 交接类型
-    * @param detailId 订单明细标识
-    * @param shiftMahjongId 轮牌标识
+    * @param positionId 岗位标识
     * @param storeId 门店标识
     * @return ModelAndView
      */
-    /*public ModelAndView serverAssociate(Integer shiftMahjongStepId, Integer type, Integer detailId, Integer shiftMahjongId, Integer storeId){
+    public ModelAndView serverAssociate(Integer storeId, Integer positionId){
         ModelAndView mav = new ModelAndView();
-        ShiftMahjongProjectStepDto obj = shiftMahjongProjectStepMapper.selectByPrimaryKey(shiftMahjongStepId);
-        Integer projectId = obj.getProjectStep().getProjectId();
-        Integer num = obj.getProjectStep().getProjectStepOrder();
-        
-        ShiftMahjong shiftMahjong = shiftMahjongMapper.selectByPrimaryKey(shiftMahjongId);
-        mav.addObject("shiftMahjong", shiftMahjong);
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("projectId", projectId);
-        map.put("num", num);
-        //查询出满足项目对应级别的员工
-        List<ShiftMahjongEmployee> shiftMahjongEmployeeList = shiftMahjongEmployeeMapper.selectShiftEmployeeList(map);
-        
-        //查询会员信息
-        MemberBaseDto memberBaseDto = memberInfoMapper.selectByDetailId(detailId);
-        
-        OrderDetailDto orderDetailDto = orderDetailMapper.selectByDetailBaseDto(detailId);
-        
-        if (memberBaseDto == null) {
-            memberBaseDto = new MemberBaseDto();
-            memberBaseDto.setName("散客");
-        }
-        
-        Integer shiftMahjongEmployeeId = null;
-        //当存在指定员工时，查询指定员工轮牌
-        if (obj.getEmployeeId() != null) {
-            ShiftMahjongEmployee shiftMahjongEmployee = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(shiftMahjongStepId);
-            shiftMahjongEmployeeId = shiftMahjongEmployee.getShiftMahjongEmployeeId();
-        }
-        
-        Integer isType = 0;
-        
-        int a = 0;
-        
-        if (obj.getIsAssign() == 1) {
-            isType = 1;
-            a = 1;
-        }
-        
-        if (obj.getIsDesignate() == 1){
-            isType = 2;
-            a = 1;
-        }
-
-        if (type == 1 && a == 0) {
-            isType = 3;
-        }
-        mav.addObject("isType", isType); 
-        mav.addObject("shiftMahjongEmployeeId", shiftMahjongEmployeeId);
-        mav.addObject("shiftMahjongEmployeeList", shiftMahjongEmployeeList);
-        mav.addObject("shiftMahjongStepId", shiftMahjongStepId);
-        mav.addObject("type", type);
-        mav.addObject("detailId", detailId);
-        mav.addObject("shiftMahjongId", shiftMahjongId);
-        
-        mav.addObject("memberBaseDto", memberBaseDto);
-        mav.addObject("orderDetailDto", orderDetailDto);
+        List<PositionInfoShiftMahjongDto> positionInfoShiftMahjongDtoList = positioninfoMapper.selectByPositionShiftMahjong(storeId);
+        for (PositionInfoShiftMahjongDto positionInfoShiftMahjongDto : positionInfoShiftMahjongDtoList) {
+			if (positionInfoShiftMahjongDto.getPositionId() == positionId) {
+				mav.addObject("shiftMahjongDtoList", positionInfoShiftMahjongDto.getShiftMahjongDtoList());
+			}
+		}
         mav.setViewName(View.StaffPage.TURN_SHIFTMAHJONG_SERVE);
 
         return mav;
-    }*/
+    }
     
     /**
      * 确定完成订单

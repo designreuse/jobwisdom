@@ -335,7 +335,7 @@ public interface View {
 		public static final String ORDER_LIST = "mobile/staff/orderList";
 		/** 订单详情 */
 		public static final String ORDER_DETAILS = "mobile/staff/orderDetails";
-		/** 服务移交轮牌显示 */
+		/** 选择人员页面 */
 		public static final String TURN_SHIFTMAHJONG_SERVE = "mobile/staff/turnShiftMahjongServe";
 		/** 修改项目 */
 		public static final String CHANGE_PROJECT = "mobile/staff/changeProject";

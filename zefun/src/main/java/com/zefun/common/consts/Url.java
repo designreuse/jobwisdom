@@ -992,7 +992,7 @@ public interface Url {
 		public static final String VIEW_EMPLOYEE_ORDER = "/staff/view/employeeOrderView/{storeId}/{businessType}";
 		/** 接待中心 */
 		public static final String VIEW_RECEPTION = "/staff/view/reception";
-		/** 服务交接 */
+		/** 选择服务人员 */
 		public static final String VIEW_SERVER_ASSOCIATE = "staff/view/serverAssociate";
 		/** 确认完成订单 */
 		public static final String ACTION_FINISH_ORDER_DETAIL = "staff/action/finishOrderDetail";

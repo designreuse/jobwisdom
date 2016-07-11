@@ -52,10 +52,10 @@
 						   <td>
 						      <c:choose>
 						          <c:when test="${step.employeeInfo != null}">
-						             <span <c:if test="${step.isOver == 2}">class="over"</c:if>> ${step.employeeInfo.name}</span>
+						             <span <c:if test="${step.isOver == 2}">class="over"</c:if> <c:if test="${step.isOver == 1}">onclick="serverAssociate(${step.positionId})"</c:if>>${step.employeeInfo.name}</span>
 						          </c:when>
 						          <c:otherwise>
-						             <span class="select_people">+</span>
+						             <span class="select_people" onclick="serverAssociate(${step.positionId})">+</span>
 						          </c:otherwise>
 						       </c:choose>
 						   </td>
@@ -104,6 +104,10 @@ function addDetail(orderId) {
             location.reload();
         }
     });
+}
+
+function serverAssociate(positionId) {
+	window.location.href = baseUrl+"staff/view/serverAssociate?positionId="+positionId;
 }
 </script>
 </html>

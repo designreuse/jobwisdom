@@ -167,26 +167,21 @@ public class StaffOrderController extends BaseController{
     }
     
     /**
-     * 员工服务交接
+     * 选择人员
     * @author 王大爷
     * @date 2015年10月20日 下午2:56:37
     * @param request 返回
     * @param response 请求
-    * @param shiftMahjongStepId 轮牌步骤标识
-    * @param type 交接类型
-    * @param detailId 订单明细标识
-    * @param shiftMahjongId 轮牌标识
     * @return ModelAndView
      */
     @RequestMapping(value = Url.Staff.VIEW_SERVER_ASSOCIATE)
-    public ModelAndView serverAssociate(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongStepId, Integer type, 
-            Integer detailId, Integer shiftMahjongId) {
+    public ModelAndView serverAssociate(HttpServletRequest request, HttpServletResponse response, Integer positionId) {
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
         Integer storeId = getStoreIdByOpenId(openId);
-        return staffOrderService.serverAssociate(shiftMahjongStepId, type, detailId, shiftMahjongId, storeId);
+        return staffOrderService.serverAssociate(storeId, positionId);
     }
     
     /**
