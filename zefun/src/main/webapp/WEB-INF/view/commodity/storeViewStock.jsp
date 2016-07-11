@@ -353,6 +353,7 @@
 				}
 			});
 		}
+		window.location.href=baseUrl+"stock/view";
 	}
 	function modalHide(modal){
 		jQuery(modal).hide('800');
