@@ -274,11 +274,11 @@ function edit(editor, type){
 	    					specialServicesJs[i].employeeCode = data.msg.employeeCode;
 	    					specialServicesJs[i].sImage = data.msg.sImage;
 	    					specialServicesJs[i].content = data.msg.content;
-	    					jQuery(".special-sever_content[id='"+sId+"']").find("img").attr("src", qiniuUrl+data.msg.sImage);
+	    					jQuery(".special-sever_content[id='"+sId+"']").find("img").eq(1).attr("src", qiniuUrl+data.msg.sImage);
 	    					jQuery(".special-sever_content[id='"+sId+"']").find(".special_sever_text").empty();
 	    					var html = '<p><span>服务名称：</span><em>'+data.msg.sName+'</em></p>'+
 		    						   '<p><span>服务项目：</span><em>'+data.msg.projectName+'</em></p>'+
-		    						   '<p><span>造型师：</span><em>'+data.msg.employeeCode+'  '+data.msg.employeeName+'</em></p>';
+		    						   '<p><span>造  型   师：</span><em>'+data.msg.employeeCode+'  '+data.msg.employeeName+'</em></p>';
 	    					jQuery(".special-sever_content[id='"+sId+"']").find(".special_sever_text").append(jQuery(html));
 	    			}
 	    		}
