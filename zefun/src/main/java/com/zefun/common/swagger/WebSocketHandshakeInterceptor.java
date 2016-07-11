@@ -28,10 +28,8 @@ public class WebSocketHandshakeInterceptor
     @Override
     public void afterHandshake(ServerHttpRequest request,
             ServerHttpResponse arg1, WebSocketHandler arg2, Exception arg3) {
-        log.info("enter the afterHandshake");
         ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-        HttpSession session = servletRequest.getServletRequest()
-                .getSession(false);
+        HttpSession session = servletRequest.getServletRequest().getSession(false);
         if (session != null) {
             String userName = (String) session.getAttribute(App.Session.STORE_ACCOUNT);
             log.info(userName);
