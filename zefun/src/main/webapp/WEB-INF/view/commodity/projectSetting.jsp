@@ -213,31 +213,6 @@
 												name="projectImage"
 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img
 												src="<%=basePath%>images/pay_close.png"></span></li>
-<!-- 										<li><em><img onclick="uploadImage(this)" -->
-<!-- 												affiliatedImage="system/profile/add_img.png" -->
-<!-- 												name="affiliatedImage" -->
-<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
-<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
-<!-- 										<li><em><img onclick="uploadImage(this)" -->
-<!-- 												affiliatedImage="system/profile/add_img.png" -->
-<!-- 												name="affiliatedImage" -->
-<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
-<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
-<!-- 										<li><em><img onclick="uploadImage(this)" -->
-<!-- 												affiliatedImage="system/profile/add_img.png" -->
-<!-- 												name="affiliatedImage" -->
-<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
-<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
-<!-- 										<li><em><img onclick="uploadImage(this)" -->
-<!-- 												affiliatedImage="system/profile/add_img.png" -->
-<!-- 												name="affiliatedImage" -->
-<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
-<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
-<!-- 										<li><em><img onclick="uploadImage(this)" -->
-<!-- 												affiliatedImage="system/profile/add_img.png" -->
-<!-- 												name="affiliatedImage" -->
-<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
-<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
 									</ul>
 								</div>
 

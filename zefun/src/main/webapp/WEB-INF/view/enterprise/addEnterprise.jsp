@@ -112,7 +112,7 @@
 	    </div>
 		<div class="province">
 <!-- 		  <p><span style="position:relative;top:18px">省/市</span><input input id="city-picker3" class="form-control" readonly type="text" value="" data-toggle="city-picker"></p> -->
-		  <p><span>详细地址</span><textarea id= "searchtext"></textarea></p>
+		  <p><span>详细地址</span><textarea id= "searchtext" style="margin-top:20px;margin-left:63px;height:55px"></textarea></p>
 		 </div>
 		 <div class="province_button">
 		    <button onclick="saveStoreInfo();">确认</button>
