@@ -15,6 +15,25 @@
 input[type=radio] {
     margin-left: 0px!important;
 }
+.add_pic_ ul li{
+	width: 220px;
+	margin-top: 45px;
+}
+.add_pic_ ul li em img{
+	width: 220px;
+}
+.addImage {
+	position: relative;
+	left: -604px;
+	top: 54px;
+	z-index: 1000;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	display: inline-block;
+	border: 1px solid #fafafa;
+}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -128,23 +147,27 @@ input[type=radio] {
 								<div class="add_pic_">
 									<p>添加图片</p>
 									<ul class="clearfix">
-										<li><em><img style="width: 150px; height: 150px" goodsImage="system/profile/add_img.png" name="goodsImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'goodsImage' ,event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  goodsImage="system/profile/add_img2.png" name="goodsImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'goodsImage' ,event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
 									</ul>
 								</div>
 
 								<div class="item_saying">
 									<p>项目描述</p>
 									<div class="textarea1">
-										<div>
+										<!-- <div>
 											<button id="editImage" style="width: 130px; height: 26px; line-height: 26px; text-align: center; border: none; background: #617195; color: white; border-radius: 10px; margin-top: 10px; margin-left: 10px">插入图片</button>
-										</div>
+										</div> -->
 										<P></P>
 										<div class="clearfix">
+											<span id="editImage" class="addImage" title="插入图片"> <img
+												src="<%=basePath%>images/insert_img.png"
+												style="position: relative; left: 1px; top: 1px">
+											</span>
 											<script id="editor1" type="text/plain" style="width:550px;height:322px;float: left"></script>
 											<div style="float: left; width: 320px; height: 420px; margin-top: 25px" class="textarea_text">
 												<p>在此编辑的内容，将会在移动端－在线商城－商品详情中展示。</p>

@@ -256,7 +256,7 @@ function save(){
 	
 	
 	
-	var memberId = jQuery("input[name='memberId']").val();
+	var memberId = jQuery("#tab2 input[name='memberId']").val();
 	
 	var levelId = "";
 	
