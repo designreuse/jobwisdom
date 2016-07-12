@@ -456,7 +456,9 @@ input[type=radio] {
 	}
 	
 	function saveImage(){
+		if (goodsId==null){savePrice()}
 		if (aId==null){dialog("请先选择一个商品");return;}
+	
 		var data = null;
 		var deptId = jQuery("select[name='deptId']").val();
 		var categoryId = jQuery("select[name='categoryId']").val();
@@ -496,6 +498,7 @@ input[type=radio] {
 	}
 	
 	function savePrice(){
+		if (aId==null){saveImage()};
 		if (goodsId==null){dialog("请先选择一个商品");return;}
 		var deptId = jQuery("select[name='deptId']").val();
 		var goodsPrice = jQuery("input[name='goodsPrice']").val();
