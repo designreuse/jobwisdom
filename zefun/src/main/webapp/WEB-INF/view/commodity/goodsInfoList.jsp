@@ -90,7 +90,7 @@
 									<c:if test="${fn:length(goodsInfos) >= (count-i)}">
 									<li>
 										<div class="setting_write">
-											<a href="<%=basePath %>goods/info/setting?goodsId=${goodsInfos[count-i-1].goodsId }"><img src="<%=basePath%>images/setting_close.png"></a>
+											<a href="<%=basePath %>goods/info/setting?goodsId=${goodsInfos[count-i-1].goodsId }"><img src="<%=basePath%>images/coupon_write.png"></a>
 										</div>
 										<div class="rollBox_top">
 											<img src="<%=qiniuPath%>${goodsInfos[count-i-1].goodsImage }">
