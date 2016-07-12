@@ -185,8 +185,10 @@ public class EnterpriseService {
             employeeDto.setCreateTime(DateUtil.getCurTime());
             
             enterpriseInfoMapper.insertSelective(enterpriseInfo);
+            record.setEnterpriseAccountId(enterpriseInfo.getEnterpriseInfoId());
             enterpriseAccountMapper.insertSelective(record);
             employeeInfoMapper.insert(employeeDto);
+            userAccount.setUserId(employeeDto.getEmployeeId());
             userAccountMapper.insert(userAccount);
         }
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
