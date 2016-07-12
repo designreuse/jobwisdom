@@ -39,7 +39,7 @@
     select 
     *
     from position_info
-    where store_id = #{storeId,jdbcType=INTEGER}
+    where store_id = #{storeId,jdbcType=INTEGER} and is_show = 0
   </select>
   
   <select id="querypositioninfo" parameterType="com.zefun.web.entity.Page" resultType="com.zefun.web.entity.PositionInfo">

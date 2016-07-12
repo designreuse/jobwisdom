@@ -65,7 +65,7 @@
     var shiftMahjongDtoList = eval("(" + shiftMahjongDtoListStr + ")");
     
     //抖动拖拽
-    function drag(){ 
+   function drag(){ 
      jQuery(function() {
        jQuery( ".gridly" ).sortable({
          revert: true

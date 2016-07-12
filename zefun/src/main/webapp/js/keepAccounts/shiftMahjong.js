@@ -60,7 +60,6 @@ jQuery('.adjust_').click(function(){
 	  jQuery("li[name='addEmployeeState']").remove();
 	  jQuery(".free").remove();
 	  drag();
-	  
   });
 
 function caltUpdate() {
@@ -136,7 +135,7 @@ function saveUpdateOrder() {
             infoDIV(date.shiftMahjongEmployeeList);
             jQuery(".adjust_").show();
         	jQuery(".adjust_button").hide();
-        	jQuery( ".gridly" ).sortable( 'disable');
+        	jQuery( ".gridly" ).sortable( 'destroy');
         	dialog("调整顺序成功！");
 		}
 	});

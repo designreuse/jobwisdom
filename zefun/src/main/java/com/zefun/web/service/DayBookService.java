@@ -22,7 +22,6 @@ import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DayBookDto;
 import com.zefun.web.dto.DayBookQueryDto;
-import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberComboDto;
 import com.zefun.web.dto.MemberDto;
@@ -315,7 +314,7 @@ public class DayBookService {
                 
                 for (EmployeeCommission employeeCommission : list) {
                     
-                    EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(employeeCommission.getEmployeeId());
+                	EmployeeInfo employeeInfo = employeeInfoMapper.selectByPrimaryKey(employeeCommission.getEmployeeId());
                     
                     OrderDetailStepDto orderDetailStepDto = new OrderDetailStepDto();
                     orderDetailStepDto.setEmployeeInfo(employeeInfo);
@@ -324,8 +323,7 @@ public class DayBookService {
                     orderDetailStepDto.setCommissionId(employeeCommission.getCommissionId());
                     orderDetailStepDto.setIsAppoint(2);
                     orderDetailStepDto.setIsAssign(2);
-                    orderDetailStepDto.setShiftMahjongName("");
-                    orderDetailStepDto.setProjectStepName("");
+                    orderDetailStepDto.setPositionName("");
                     stepList.add(orderDetailStepDto);
                 } 
                 
