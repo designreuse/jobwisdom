@@ -15,6 +15,13 @@
 input[type=radio] {
     margin-left: 0px!important;
 }
+.add_pic_ ul li{
+	width: 220px;
+	margin-top: 45px;
+}
+.add_pic_ ul li em img{
+	width: 220px;
+}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -128,12 +135,12 @@ input[type=radio] {
 								<div class="add_pic_">
 									<p>添加图片</p>
 									<ul class="clearfix">
-										<li><em><img style="width: 150px; height: 150px" goodsImage="system/profile/add_img.png" name="goodsImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'goodsImage' ,event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img style="width: 150px; height: 150px" affiliatedImage="system/profile/add_img.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  goodsImage="system/profile/add_img2.png" name="goodsImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'goodsImage' ,event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
 									</ul>
 								</div>
 

@@ -688,8 +688,7 @@ public class ProjectInfoController extends BaseController {
         }
         projectService.deleteProject(projectId);
         projectService.cleanRedisCacheByDeptId(deptId);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
-                App.System.API_RESULT_MSG_FOR_SUCCEES);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
 
     /**
