@@ -30,9 +30,25 @@
 					<div class="add_supplier">
 						<p>
 							<button onclick="jQuery('.zzc').show('800');jQuery('.zzc').find('input[type=\'text\']').val('');">添加供应商</button>
-							<input type="text" placeholder="名称/品牌/号码">
+							<input type="text" onkeyup="selectSupplier(this.value)" placeholder="供应商名称">
 						</p>
-						<div class="add_supplier_content">
+						<script>
+						/**搜索供应商*/
+						function selectSupplier(name){
+							if (name == ''){
+								jQuery(".add_supplier_content").children("div").show();
+								return;
+							}
+							jQuery(".add_supplier_content").children("div").each(function (){
+								if (jQuery(this).attr("supplierName").indexOf(name)!=-1){
+									jQuery(this).show();
+								}else {
+									jQuery(this).hide();
+								}
+							})
+						}
+						</script>
+						<div class="add_supplier_content" style="overflow: overlay;">
 							<c:forEach items="${supplierInfoDtos }" var="supplierInfo">
 							<div supplierId="${supplierInfo.supplierId }" supplierName="${supplierInfo.supplierName }" linkName="${supplierInfo.linkName }" linkPhone="${supplierInfo.linkPhone }" class="add_supplier_content_padding clearfix">
 								<div class="add_supplier_content_left ">
@@ -208,7 +224,6 @@ function deleted(opt, id){
 		type: "POST",
 		url: baseUrl+"goodsInfo/deleteGoodsBrand",
         data: data,
-        contentType: "application/x-www-form-urlencoded",
         dataType: "json",
         success: function(data) {
         	jQuery(opt).parents("span[brandId]").hide('800');

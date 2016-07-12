@@ -26,9 +26,20 @@ public class GoodsBrand {
 	
 	/** 供应商标示*/
 	private Integer supplierId;
+	
+	/**  0正常 1删除 */
+	private Integer isDeleted;
 
 	
-	public Integer getSupplierId() {
+	public Integer getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public Integer getSupplierId() {
         return supplierId;
     }
 

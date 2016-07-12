@@ -53,7 +53,7 @@
   </delete>
 
   <insert id="insert" parameterType="com.zefun.web.entity.UserAccount"  useGeneratedKeys="true" keyProperty="userId">
-    insert into user_account(user_id,user_name,user_pwd,pwd_salt,store_id, store_account) values (#{userId},#{userName},#{userPwd},#{pwdSalt},#{storeId},#{storeAccount})
+    insert into user_account(user_id,role_id,user_name,user_pwd,pwd_salt,store_id, store_account) values (#{userId},#{roleId},#{userName},#{userPwd},#{pwdSalt},#{storeId},#{storeAccount})
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.UserAccount" >

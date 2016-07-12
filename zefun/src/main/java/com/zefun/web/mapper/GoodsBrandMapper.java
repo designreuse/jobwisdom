@@ -73,4 +73,13 @@ public interface GoodsBrandMapper {
     * @return        数据结果街
      */
     List<GoodsBrandDto> selectByPage(Page<GoodsBrandDto> page);
+    
+    /**
+     * 品牌删除
+    * @author 骆峰
+    * @date 2016年7月11日 下午1:59:32
+    * @param brandId brandId
+    * @return int
+     */
+    int updateByIsdelete(Integer brandId);
 }

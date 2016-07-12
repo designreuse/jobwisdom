@@ -21,6 +21,8 @@
 .item_card >p{height:34px}
 .rest_money{color:white;position:relative;left:140px}
 .preview_vip_card{margin-bottom:20px}
+.fly_{position:absolute;text-align:left;width:300px;border-radius:8px;background:#fdfde0;box-shadow:0 0 10px #ccc;z-index:2;top:170px}
+.fly_ span{padding:0 2px!important;display:inline-block;width:160px;text-align:center;line-height:30px;height:30px;}
 </style>
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
@@ -216,7 +218,10 @@
 			        <option value="折扣卡">折扣卡</option>
 			        <option value="等级卡">等级卡</option>
 			     </select>
-			     <em>?</em>
+			     <em class="overflow_text">?</em>
+			     <div class="fly_"></div>
+			  
+			     
 		     </span>
 			 <span>会员卡名称<input type="text" name="levelName" ></span>
 		  </div> 
@@ -336,6 +341,26 @@
 <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
 <script>
 
+	//提示气泡
+	var htm = "";
+	jQuery(function() {
+		levelType2 =jQuery("select[name='levelType']").val();
+		if(levelType2=="等级卡"){
+			htm='该种卡可由分店根据等级设置折扣书';
+		}
+		if(levelType2=="折扣卡"){
+			htm='该种卡的折扣均由总店设置，分店无修改权限';
+		}
+		jQuery("body").delegate(".overflow_text", "mouseover", function (){
+			jQuery('.fly_').html('');
+			
+			jQuery(this).parent().find('.fly_').append(htm);
+		});
+		jQuery("body").delegate(".overflow_text", "mouseout", function (){
+			jQuery('.fly_').html('')
+		});
+	})
+
 jQuery(document).ready(function() {    
     jQuery('.business_manage_table td span').click(function(){
     find=jQuery(this).parent().find('.demo_fade');
@@ -369,6 +394,7 @@ jQuery(document).ready(function() {
 	})
   
 function deleteMemberLevel(levelId){
+		  if(confirm("您确定要删除吗？")){
 			jQuery.ajax({
 				type : "post",
 				url : baseUrl + "memberLevel/action/delete",
@@ -383,6 +409,7 @@ function deleteMemberLevel(levelId){
 					jQuery("tr[id='"+levelId+"']").remove();
 				}
 			});
+		  }
 	}
   </script>
 

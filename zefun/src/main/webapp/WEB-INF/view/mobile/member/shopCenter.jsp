@@ -61,6 +61,7 @@
 	        </div>
           <div class="shop_content_  clearfix">
           	<c:forEach items="${aestSellers }" var="goodsList">
+          	<c:if test="${goodsList.goodsPrice != null && goodsList.goodsPrice != ''}">
           	<a href="<%=basePath %>mobile/view/pay/goodsInfo?storeId=${goodsList.storeId }&storeGoodsId=${goodsList.goodsId }">
                   <div class="recommend_shop">
                   	 <div><img src="<%=picPath %>${goodsList.goodsImage}"></div>
@@ -71,6 +72,7 @@
                      </div>
                   </div>
              </a>
+             </c:if>
              </c:forEach>
            </div> 
        </div>
@@ -81,6 +83,7 @@
 	        </div>
           <div class="shop_content_  clearfix">
           	<c:forEach items="${bestSellers }" var="goodsList">
+          	<c:if test="${goodsList.goodsPrice != null && goodsList.goodsPrice != ''}">
           	<a href="<%=basePath %>mobile/view/pay/goodsInfo?storeId=${goodsList.storeId }&storeGoodsId=${goodsList.goodsId }">
                   <div class="recommend_shop">
                   	 <div><img src="<%=picPath %>${goodsList.goodsImage}"></div>
@@ -91,6 +94,7 @@
                      </div>
                   </div>
              </a>
+             </c:if>
              </c:forEach>
            </div> 
        </div>

@@ -130,7 +130,7 @@
         <result property="deptName" column="deptName" />
         <result property="deptCode" column="deptCode"  />
         <result property="isResults" column="isResults"  />
-        <association property="positionInfo" column="deptId" select="getpositionInfo" />
+        <!-- <association property="positionInfo" column="deptId" select="getpositionInfo" /> -->
     </resultMap>
     
     <resultMap type="com.zefun.web.dto.PositionInfoDto" id="PositionInfoMap">

@@ -36,7 +36,12 @@
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
     <script type="text/javascript">
     
-    function editPage (imgUrl) {
+    function editPage (imgUrl, size) {
+    	jQuery("#altContent2").remove();
+    	jQuery("#xiuxiuEditor").remove();
+    	var html = '<div id="altContent2"><h1>美图秀秀2</h1></div>';
+    	jQuery("#flashEditorOut").append(jQuery(html));
+    	xiuxiu.setLaunchVars("cropPresets", size);
     	xiuxiu.embedSWF("altContent2", 5, 700, 500);
     	
     	xiuxiu.onInit = function (id)
@@ -132,7 +137,7 @@
         <div class="imformation_left"> 
 		 <div class="clearfix">
 		    <div class="head_img">
-			  <img onclick="jQuery('.mask').show();editPage(null);chooseType=0;" src="<%=basePath%>images/input_head.png">
+			  <img onclick="jQuery('.mask').show();editPage(null, '200*200');chooseType=0;" src="<%=basePath%>images/input_head.png">
 			  <input type="hidden" name="headImage" value="">
 			</div>
 		    <div class="information">
@@ -152,22 +157,24 @@
 		 </div>
 
 		 <div class="select_job_content clearfix">
-        <div class="select_job_content_left">       
-  		 <p><em>选择岗位</em><select onchange="changeEmployeeLevel(this.value)" name="positionId"><c:forEach items="${positionlist }" var="position"><option value="${position.positionId }">${position.positionName }</option></c:forEach></select></p>
+        <div class="select_job_content_left">   
+          <p><em>角色</em><select name="roleId"><c:forEach items="${rolelist }" var="rolelist"><option value="${rolelist.roleId }">${rolelist.roleName }</option></c:forEach></select></p>    
+  		  <p><em>选择岗位</em><select onchange="changeEmployeeLevel(this.value)" name="positionId"><c:forEach items="${positionlist }" var="position"><option value="${position.positionId }">${position.positionName }</option></c:forEach></select></p>
+		  <p><em>职位</em><select name="levelId"></select></p>
 		  <p><em>部门</em><select name="deptId"><c:forEach items="${deptlist }" var="dept"><option value="${dept.deptId }">${dept.deptName }</option></c:forEach></select></p>
-          <p><em>职位</em><select name="levelId"></select></p>
 		  <p><em>当前状态</em><select name="employeeStatus" ><option value="1">在职</option><option value="2">离职</option></select></p>
 		  <p><em>到职日期</em><input type="text" value="" name="entryDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></p>
 		  <p><em>离职日期</em><input type="text" value="" name="leaveDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></p>
         </div> 
+       
 		<div class="select_job_content_right">
 			<div class="clearfix">
-			<span id="editImage" class="addImage" title="插入图片"> <img
+			<span id="editImage" onclick="jQuery('.mask').show();editPage(null, '375*200');chooseType=1;" class="addImage" title="插入图片"> <img
 				src="<%=basePath%>images/insert_img.png"
 				style="position: relative; left: 1px; top: 1px">
 			</span>
 			<script id="editor1" type="text/plain"
-				style="width: 505px; height: 172px; float: left"></script>
+				style="width: 505px; height: 210px; float: left"></script>
 			</div>
 		   </div>	
 		</div>
@@ -342,6 +349,23 @@ function changeEmployeeLevel(positionId){
 			jQuery("select[name='levelId']").append(jQuery(html));
 		}
 	}
+
+	
+	var roleName =  jQuery("select[name='positionId'] option:checked").text();
+	if(roleName=="店长"){
+		var html1 = '<option name="dz" value=""></option>';
+		jQuery("select[name='levelId']").append(jQuery(html1));
+		jQuery("select[name='deptId']").append(jQuery(html1));
+		jQuery("select[name='levelId']").val("");
+		jQuery("select[name='deptId']").val("");
+		jQuery("select[name='levelId']").attr("disabled",true);
+		jQuery("select[name='deptId']").attr("disabled",true);
+	}
+	else{
+		jQuery("option[name='dz']").remove();
+		jQuery("select[name='levelId']").attr("disabled",false);
+		jQuery("select[name='deptId']").attr("disabled",false);
+	}
 }
 var employeeId = null;
 function saveEmployee(){
@@ -415,6 +439,8 @@ function selectEmp(id){
 			}
 			else {
 				employeeId = id;
+				jQuery("select[name='deptId']").val(e.msg.deptId);
+				jQuery("select[name='levelId']").val(e.msg.levelId);
 				jQuery("input[name='name']").val(e.msg.name);
 				jQuery("input[name='employeeCode']").val(e.msg.employeeCode);
 				jQuery("select[name='sex']").val(e.msg.sex);
@@ -425,14 +451,14 @@ function selectEmp(id){
 				jQuery("select[name='roleId']").val(e.msg.roleId);
 				jQuery("select[name='positionId']").val(e.msg.positionId);
 				changeEmployeeLevel(e.msg.positionId);
-				jQuery("select[name='deptId']").val(e.msg.deptId);
-				jQuery("select[name='levelId']").val(e.msg.levelId);
+
 				jQuery("select[name='employeeStatus']").val(e.msg.employeeStatus);
 				jQuery("input[name='entryDate']").val(e.msg.entryDate);
 				jQuery("input[name='leaveDate']").val(e.msg.leaveDate);
 				u1.setContent(e.msg.employeeDesc);
 				jQuery("input[name='headImage']").val(e.msg.headImage);
 				jQuery("input[name='headImage']").prev().attr("src", qiniuUrl+e.msg.headImage);
+			
 				jQuery(".zzc").show();
 			}
        }
@@ -479,11 +505,17 @@ jQuery(function() {
 		jQuery('.zzc.one').hide();
 		jQuery('.photo-clip-rotateLayer').html('');
 	})
-	jQuery('#editImage').click(function() {
+	/* jQuery('#editImage').click(function() {
 		type = 2;
 		jQuery(".mask").show();
 		editPage(null);
-	})
+	}) */
+	
+	
 })
+
+
+
+
 </script>
 </html>

@@ -428,6 +428,9 @@ public interface Url {
         public static final String GOODS_QUERY_ACCOUNT = "view/storeAccount/store/goods/{storeId}";
         /** 分页查询*/
         public static final String GOODSINFO_SETTING_PAGE = "goodsInfo/view/setting/page";
+        /** 删除*/
+        public static final String GOODSINFO_DELETE_PAGE = "goodsInfo/deleteGoodsBrand";
+        
 	}
 
 	/** 供应商模块 */

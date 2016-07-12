@@ -63,7 +63,7 @@ function refreshTableData(page){
 	             "<td>"+memberLevelDto.integralUnit+"元 = "+memberLevelDto.integralNumber+"积分</td>"+
 	             "<td class='input80'>"+memberLevelDto.levelNotice+"</td>"+
 	             "<td>";
-	    			if(memberLevelDto.levelType=='折扣卡'){
+	    			if(memberLevelDto.levelType=='等级卡'){
 	    				
 	    				 str += "<em onclick='editMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/handle_1.png'></em>";
 	    			}
