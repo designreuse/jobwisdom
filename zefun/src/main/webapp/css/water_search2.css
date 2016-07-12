@@ -1,0 +1,92 @@
+.rightpanel{background:white}
+.content_right {
+    padding: 20px;font-size:14px;color:black
+}
+.water_search_top{border:1px solid black;border-radius:12px;width:1020px;height:160px}
+.water_search_top_input{border-bottom:1px solid #9a9a9a;height:45px;line-height:40px}
+.water_search_top_input >input{border:1px solid black;border-radius:12px;width:200px;margin:0 30px 0 10px}
+.water_search_top_input span>input{border:1px solid black;border-radius:12px;width:112px;margin:0 5px}
+.water_search_top_input>button{width:130px;height:28px;border:none;border-radius:12px;color:white;background:#59688a;margin:0 30px}
+.water_search_top_input>button:hover{background:#4c5976}
+.water_search_top_input em button{width:80px;height:28px;border-radius:12px;color:black;background:white;border:1px solid black;margin-right:20px}
+.water_search_top_content ul{width:730px;height:115px;float:left;border-right:1px solid #9a9a9a}
+.water_search_top_content ul li span{display:inline-block;width:50px;height:26px;cursor: pointer;}
+
+.water_search_top_content ul li{padding-left:15px;height:28px;line-height:28px}
+.water_search_top_content ul li >em{color:#8c8989}
+.water_search_top_content ul li span{color:black;}
+.water_search_top_total{float:left;width:289px}
+.water_search_top_total_top>p>span{display:inline-block;width:130px;padding-left:10px;margin-top:5px}
+.water_search_top_total_top>p:nth-child(1){
+	font-size:16px;font-weight:bold
+}
+.water_search_top_total_top{border-bottom:1px solid #9a9a9a;padding-bottom:6px}
+.water_search_top_total_price span{font-size:16px;font-weight:bold;padding-left:10px;line-height:30px}
+.water_search_top_total_price em{color:#dc0b0b;font-size:16px;position:relative;left:100px}
+.search_table{width:1020px;text-align:center;border:1px solid black;border-radius:8px;}
+.search_table td{height:44px;vertical-align:middle;border:1px solid #cccccd;}
+.search_table td button{width:50px;height:20px;text-align:center;line-height:20px;border:none;border-radius:12px;color:white;background:#59688a}
+.search_table_content{border:1px solid black;border-radius:12px;margin-top:16px;;width:1020px;overflow:hidden;height:495px}
+.search_table tr:nth-child(odd){
+	background:#f6f8fc
+}
+.search_table tr:nth-child(1){
+	background:#ebeff8
+}
+
+.zzc_content{background:white;width:1100px;margin:40px auto;height:540px;box-shadow:0 0 20px black; }
+.zzc_content .zzc_1 td{border:none}
+.zzc_content input {
+    width: 80px;
+    border: none;
+    text-align: center;
+    color: #c1c6d3;
+}
+.water_number{font-size:20px;color:white;background:#2a3244;height:50px;text-align:center;line-height:50px}
+.boss_{background:#edf1f5;padding:12px 20px;font-size:14px}
+.boss_ span{display:inline-block;margin-left:680px}
+.boss_cut{width:1080px;margin-left:10px;border:1px solid #dbdce2;margin-top:20px;}
+.boss_cut select {
+    border: none;
+    width: 80px;
+	color:#c7c7cd;
+}
+
+
+.Korea{width:1080px;margin-left:10px;margin-top:40px;}
+.Korea_{background:#edf1f5;padding:12px 20px;font-size:14px}
+.Korea tr rd{border:none!important}
+.Korea span{display:inline-block;margin-left:790px}
+.Korea select {
+
+    width: 400px;
+    color: #c7c7cd;
+	margin-left:20px;
+	border-radius:5px;
+	box-shadow:0 0 4px #ccc
+}
+.Korea td{width:500px;border:none;text-align:left;padding-left:10px;padding-top:10px}
+.Korea tr{margin-top:10px}
+.water_button button{  
+    width: 220px;
+    height: 40px;
+    border-radius: 8px;
+    background: #2a3244;
+    text-align: center;
+    line-height: 40px;
+    color: #dddddd;
+    box-shadow: 0px 6px 10px #ccc;
+    border: none;
+    margin-right: 10px;
+	font-size:16px;}
+.accounts{margin-left:40px}
+.water_button{width:510px;margin:40px auto;}
+.close_zzc img{height:25px}
+.close_zzc{display:inline-block;position:relative;left:450px;top:2px}
+.boss_ em{padding-left:20px}
+.Korea em{padding-left:20px}
+
+.income_1 span em{display:inline-block;margin-left:8px}
+.income_1 tr td{
+	    vertical-align: middle;
+}

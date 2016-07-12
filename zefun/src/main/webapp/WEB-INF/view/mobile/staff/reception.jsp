@@ -26,21 +26,21 @@
 		   <p><input type="text" name = "handOrderCode" dir="rtl" disabled></p>
 		  <div class="order_content_ul"> 
 		    <ul class="clearfix">
-		      <li><span onclick="setNumber(1)">1</span></li>
-		      <li style="text-align:center" ><span onclick="setNumber(2)">2</span></li>
-			  <li style="text-align:right" ><span onclick="setNumber(3)">3</span></li>
-			  <li ><span onclick="setNumber(4)">4</span></li>
-		      <li style="text-align:center" ><span onclick="setNumber(5)">5</span></li>
-			  <li style="text-align:right" ><span onclick="setNumber(6)">6</span></li>
-			  <li ><span onclick="setNumber(7)">7</span></li>
-		      <li style="text-align:center" ><span onclick="setNumber(8)">8</span></li>
-			  <li style="text-align:right" ><span onclick="setNumber(9)">9</span></li>
-			  <li><em onclick = "clean()"><img src="<%=basePath%>images/mobile/newemployee/clean.png">清除</em></li>
-		      <li style="text-align:center"><span onclick="setNumber(0)">0</span></li>
-			  <li style="text-align:right"><em onclick = "back()"><img src="<%=basePath%>images/mobile/newemployee/back_.png">回退</em></li>
+		      <li><span ontouchstart="setNumber(1)">1</span></li>
+		      <li style="text-align:center" ><span ontouchstart="setNumber(2)">2</span></li>
+			  <li style="text-align:right" ><span ontouchstart="setNumber(3)">3</span></li>
+			  <li ><span ontouchstart="setNumber(4)">4</span></li>
+		      <li style="text-align:center" ><span ontouchstart="setNumber(5)">5</span></li>
+			  <li style="text-align:right" ><span ontouchstart="setNumber(6)">6</span></li>
+			  <li ><span ontouchstart="setNumber(7)">7</span></li>
+		      <li style="text-align:center" ><span ontouchstart="setNumber(8)">8</span></li>
+			  <li style="text-align:right" ><span ontouchstart="setNumber(9)">9</span></li>
+			  <li><em ontouchstart = "clean()"><img src="<%=basePath%>images/mobile/newemployee/clean.png">清除</em></li>
+		      <li style="text-align:center"><span ontouchstart="setNumber(0)">0</span></li>
+			  <li style="text-align:right"><em ontouchstart = "back()"><img src="<%=basePath%>images/mobile/newemployee/back_.png">回退</em></li>
 		  </ul>
 		</div>
-		<p class="order_button"><button onclick="goEasy()">走 起</button></p>
+		<p class="order_button"><button ontouchstart="goEasy()">走 起</button></p>
      </div>
 	<ul class="bottom_fix clearfix">
       <li>

@@ -45,11 +45,11 @@
 		<p>选择部门</p>
 		<ul class="clearfix">
 		  <c:forEach items="${deptList}" var="dept" varStatus="status">
-             <li onclick="changeDept(${dept.deptId})"><span>${dept.deptName}</span></li>
+             <li ontouchstart="changeDept(${dept.deptId})"><span>${dept.deptName}</span></li>
           </c:forEach>
 		</ul> 
 	 </div>	
-   </div>
+</div>
    <c:forEach items="${dtoList}" var="dto" varStatus="status">
        <div class="con" deptId = "${dto.deptId}" <c:if test="${status.index != 0 }">style="display: none;"</c:if>> 
 		  <p class="apartment"><img src="<%=basePath%>images/mobile/newemployee/down_content_.png">${dto.deptName}</p>
@@ -63,7 +63,7 @@
 		  <c:forEach items="${dto.project}" var="projectCategoryDto" varStatus="categoryStatus">
                   <ul class="wash_item <c:if test="${categoryStatus.index != 0 }">hide</c:if>" categoryId="${projectCategoryDto.categoryId }">
                       <c:forEach items="${projectCategoryDto.projectList}" var="projectInfo" varStatus="status">
-                          <li onclick="chooseProjectInfo(${projectInfo.projectId})">
+                          <li ontouchstart="chooseProjectInfo(${projectInfo.projectId})">
 						     <div class="wash_item_img"><img src="<%=picPath%>${projectInfo.projectImage}"></div>
 							 <div class="img_right">
 							   <p>${projectInfo.projectName}</p>
@@ -77,26 +77,26 @@
 	   </div>
    </c:forEach>
 <script type="text/javascript" src="<%=jqueryJsPath%>"> </script>
+<script type="text/javascript" src="<%=basePath%>js/mobile/zepto.min.js"></script>
 <script type="text/javascript">
 var detailId = '${detailId}';
-$(function(){
-    $('.apartment img').click(function(){
-	  $('.zzc').show();
-	  $('body,html').attr('style','overflow:hidden;height:100%');
-	  $('.zzc_conetent').animate({
-         bottom:0
-	  },500);
-	})
-	$('.zzc').click(function(e){
+
+  zepto(".zzc").on("touchend", function(e){
 	   if($(e.target).is('.zzc')){
 	     $('.zzc').hide();
 		 $('.zzc_conetent').attr('style','bottom:-50%');
 		 $('body,html').attr('style','overflow:visible;height:100%');
 	   } 
-	})
   })
  
- 
+  zepto(".apartment").on("touchend", function(){
+	  $('.zzc').show();
+	  $('body,html').attr('style','overflow:hidden;height:100%');
+	  $('.zzc_conetent').animate({
+         bottom:0
+	  },500);
+  })
+	
  $(function(){
    var count=$('.apartment_ul li').size();
    $('.apartment_ul ul').css('width',count*120);

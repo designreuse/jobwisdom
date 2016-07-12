@@ -678,17 +678,13 @@ public class ProjectInfoController extends BaseController {
             HttpServletResponse response, Integer projectId, Integer deptId) {
         ComboProject comboProject = new ComboProject();
         comboProject.setProjectId(projectId);
-        List<ComboProject> comboProjects = comboProjectMapper
-                .selectByProperty(comboProject);
+        List<ComboProject> comboProjects = comboProjectMapper.selectByProperty(comboProject);
         if (comboProjects != null && comboProjects.size() > 0) {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
-                    "该项目在套餐中引用不可删除");
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该项目在套餐中引用不可删除");
         }
-        List<OrderDetail> details = orderDetailMapper
-                .selectHasProjectAndStatus(projectId);
+        List<OrderDetail> details = orderDetailMapper.selectHasProjectAndStatus(projectId);
         if (details != null && details.size() > 0) {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
-                    "项目在订单列表中,不可删除");
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "项目在订单列表中,不可删除");
         }
         projectService.deleteProject(projectId);
         projectService.cleanRedisCacheByDeptId(deptId);

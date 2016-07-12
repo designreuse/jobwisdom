@@ -1,6 +1,6 @@
 .rightpanel{background:white}
 .content_right {
-    padding: 20px;font-size:14px;color:black
+    padding: 20px;font-size:12px;
 }
 .water_search_top{border:1px solid black;border-radius:12px;width:1020px;height:160px}
 .water_search_top_input{border-bottom:1px solid #9a9a9a;height:45px;line-height:40px}
@@ -9,20 +9,19 @@
 .water_search_top_input>button{width:130px;height:28px;border:none;border-radius:12px;color:white;background:#59688a;margin:0 30px}
 .water_search_top_input>button:hover{background:#4c5976}
 .water_search_top_input em button{width:80px;height:28px;border-radius:12px;color:black;background:white;border:1px solid black;margin-right:20px}
-.water_search_top_content ul{width:730px;height:115px;float:left;border-right:1px solid #9a9a9a}
+.water_search_top_content ul{font-size:12px;width:730px;height:115px;float:left;border-right:1px solid #9a9a9a}
 .water_search_top_content ul li span{display:inline-block;width:50px;height:26px;cursor: pointer;}
-
 .water_search_top_content ul li{padding-left:15px;height:28px;line-height:28px}
 .water_search_top_content ul li >em{color:#8c8989}
 .water_search_top_content ul li span{color:black;}
 .water_search_top_total{float:left;width:289px}
 .water_search_top_total_top>p>span{display:inline-block;width:130px;padding-left:10px;margin-top:5px}
 .water_search_top_total_top>p:nth-child(1){
-	font-size:16px;font-weight:bold
+	font-size:15px;font-weight:bold
 }
 .water_search_top_total_top{border-bottom:1px solid #9a9a9a;padding-bottom:6px}
-.water_search_top_total_price span{font-size:16px;font-weight:bold;padding-left:10px;line-height:30px}
-.water_search_top_total_price em{color:#dc0b0b;font-size:16px;position:relative;left:100px}
+.water_search_top_total_price span{font-size:15px;font-weight:bold;padding-left:10px;line-height:30px}
+.water_search_top_total_price em{color:#dc0b0b;font-size:15px;position:relative;left:100px}
 .search_table{width:1020px;text-align:center;border:1px solid black;border-radius:8px;}
 .search_table td{height:44px;vertical-align:middle;border:1px solid #cccccd;}
 .search_table td button{width:50px;height:20px;text-align:center;line-height:20px;border:none;border-radius:12px;color:white;background:#59688a}
@@ -34,59 +33,33 @@
 	background:#ebeff8
 }
 
-.zzc_content{background:white;width:1100px;margin:40px auto;height:540px;box-shadow:0 0 20px black; }
-.zzc_content .zzc_1 td{border:none}
-.zzc_content input {
-    width: 80px;
-    border: none;
-    text-align: center;
-    color: #c1c6d3;
-}
-.water_number{font-size:20px;color:white;background:#2a3244;height:50px;text-align:center;line-height:50px}
-.boss_{background:#edf1f5;padding:12px 20px;font-size:14px}
-.boss_ span{display:inline-block;margin-left:680px}
-.boss_cut{width:1080px;margin-left:10px;border:1px solid #dbdce2;margin-top:20px;}
-.boss_cut select {
-    border: none;
-    width: 80px;
-	color:#c7c7cd;
-}
+.water_search_top_content  .all{color:#e77f7f}
+.search_table td img{vertical-align:middle;margin-left:4px}
+.search_table td>em{color:#cc3434;margin-left:5px}
+.search_table td>p em{color:#cc3434;margin-left:5px}
+.pay_item{text-align:right;color:#5e9be0;margin-right:4px;margin-top:3px}
+.search_table p span em{color:#71a6e2}
+.search_table p span i{color:#f9c499}
+.search_table td .add_server{float:left;margin:5px 40px;width:100px;height:20px;border-radius:0;text-align:center;line-height:20px;color:white;background:#59688a}
+.search_table td>p{position:relative}
+.server_achievement{border-bottom:1px solid #cccccd}
+.server_achievement span{padding:4px;display:inline-block;border-right:1px solid #cccccd}
+.server_achievement span a{position:absolute;right:4px;top:1px}
+.search_table td button:hover{background:#495878}
 
-
-.Korea{width:1080px;margin-left:10px;margin-top:40px;}
-.Korea_{background:#edf1f5;padding:12px 20px;font-size:14px}
-.Korea tr rd{border:none!important}
-.Korea span{display:inline-block;margin-left:790px}
-.Korea select {
-
-    width: 400px;
-    color: #c7c7cd;
-	margin-left:20px;
-	border-radius:5px;
-	box-shadow:0 0 4px #ccc
-}
-.Korea td{width:500px;border:none;text-align:left;padding-left:10px;padding-top:10px}
-.Korea tr{margin-top:10px}
-.water_button button{  
-    width: 220px;
-    height: 40px;
-    border-radius: 8px;
-    background: #2a3244;
-    text-align: center;
-    line-height: 40px;
-    color: #dddddd;
-    box-shadow: 0px 6px 10px #ccc;
-    border: none;
-    margin-right: 10px;
-	font-size:16px;}
-.accounts{margin-left:40px}
-.water_button{width:510px;margin:40px auto;}
-.close_zzc img{height:25px}
-.close_zzc{display:inline-block;position:relative;left:450px;top:2px}
-.boss_ em{padding-left:20px}
-.Korea em{padding-left:20px}
-
-.income_1 span em{display:inline-block;margin-left:8px}
-.income_1 tr td{
-	    vertical-align: middle;
-}
+.zzc,.zzc1{    position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+    font-size: 12px;
+    color: black;}
+.zzc_adjust_{width:320px;height:160px;background:white;margin:13% auto}	
+.zzc_adjust_>p{height:40px;font-size:15px;color:white;text-align:center;line-height:40px;background:#36394f}
+.zzc_adjust_content{text-align:center;margin-top:25px}
+.zzc_adjust_content input{width:120px;height:16px;border:1px solid #898989;border-radius:12px;margin-left:10px}
+.zzc_adjust_button{text-align:center;margin-top:25px}
+.zzc_adjust_button button{margin:0 15px;width:110px;height:24px;color:white;font-size:14px;border:none;text-align:center;line-height:24px;border-radius:12px;background:#5f6b83}
+.zzc_adjust_button button:hover{background:#4d5669}

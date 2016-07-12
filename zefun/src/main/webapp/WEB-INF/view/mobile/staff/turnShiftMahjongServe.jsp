@@ -62,7 +62,7 @@
 		 </ul>
 	   </div>
 	   <c:forEach items="${shiftMahjongDtoList}" var="shiftMahjongDto" varStatus="status">
-	       <ul class="select_detail clearfix <c:if test="${status.index == 0 }">hide</c:if>" shiftMahjongId = "${shiftMahjongDto.shiftMahjongId}">
+	       <ul class="select_detail clearfix" shiftMahjongId = "${shiftMahjongDto.shiftMahjongId}" <c:if test="${status.index != 0 }">style="display: none;"</c:if>>
 	          <c:forEach items="${shiftMahjongDto.shiftMahjongEmployeeList}" var="shiftMahjongEmployee" varStatus="employeeStatus">
 	               <li>
 		     		 <div class="clearfix select_detail_div"
@@ -73,7 +73,6 @@
 		     		       <c:when test="${shiftMahjongEmployee.state == 4}">style="background:#e7a3ef"</c:when>
 		     		    </c:choose>
 		     		    >
-					    <!-- <div cllass="selected_" style="background: url('images/selected.png') no-repeat;  background-size: 36px 24px;"><span>选</span></div> -->
 					    <div class="select_detail_div_num">${shiftMahjongEmployee.shiftMahjongOrder }</div>
 						<div class="select_detail_div_text">
 						   ${shiftMahjongEmployee.employeeCode } ${shiftMahjongEmployee.name }
@@ -81,24 +80,6 @@
 					 </div>
 				   </li>
 	          </c:forEach>
-		      <li>
-	     		 <div class="clearfix select_detail_div"> 
-				    <div class="selected_" style="background:url('images/appoint.png') no-repeat;  background-size: 36px 24px;"><span>选</span></div>
-				    <div class="select_detail_div_num">1</div>
-					<div class="select_detail_div_text">
-					   1100 龙傲天
-					</div>
-				 </div>
-			  </li>
-			   <li>
-	     		 <div class="clearfix select_detail_div"> 
-				    <div class="selected_" style="background:url('images/appoint.png') no-repeat;  background-size: 36px 24px;"><span>选</span></div>
-				    <div class="select_detail_div_num">1</div>
-					<div class="select_detail_div_text">
-					   1100 龙傲天
-					</div>
-				 </div>
-			   </li>
 		   </ul>
 	   </c:forEach>
 	</div>

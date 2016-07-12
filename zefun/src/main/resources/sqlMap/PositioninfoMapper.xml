@@ -39,7 +39,7 @@
     select 
     *
     from position_info
-    where store_id = #{storeId,jdbcType=INTEGER}
+    where store_id = #{storeId,jdbcType=INTEGER} and is_show = 0
   </select>
   
   <select id="querypositioninfo" parameterType="com.zefun.web.entity.Page" resultType="com.zefun.web.entity.PositionInfo">
@@ -130,7 +130,7 @@
         <result property="deptName" column="deptName" />
         <result property="deptCode" column="deptCode"  />
         <result property="isResults" column="isResults"  />
-        <association property="positionInfo" column="deptId" select="getpositionInfo" />
+        <!-- <association property="positionInfo" column="deptId" select="getpositionInfo" /> -->
     </resultMap>
     
     <resultMap type="com.zefun.web.dto.PositionInfoDto" id="PositionInfoMap">
