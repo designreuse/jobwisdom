@@ -320,6 +320,10 @@ function showUpdateLevel(li, levelName, levelIds, positionId){
 
 function saveOrUpdateLevel(){
 	var levelName = jQuery("input[name='levelName']").val();
+	if (levelName == ''){
+		dialog('名称不可为空');
+		return;
+	}
 	var positionId = jQuery("#position").val();
 	var positionName =  jQuery("#position").find("option:selected").text();
 	var storeId = jQuery(".out_roll_ul").find("li[class='active']").attr("storeId");

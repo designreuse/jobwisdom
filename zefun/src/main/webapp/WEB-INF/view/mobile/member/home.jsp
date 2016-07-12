@@ -35,7 +35,7 @@
 				</li>
 				</a>
 				<a href="<%=basePath%>memberCenter/view/memberCoupon/${session_key_store_account}/1">
-				<li>优惠卷数
+				<li>优惠劵数
 					<p>${memberBaseInfo.couponCount }</p>
 				</li>
 				</a>
@@ -60,29 +60,29 @@
 
 		</ul>
 	</div>
-<div class="bottom_fix_content">
-	 <ul class="bottom_fix clearfix">
-	 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
-		      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
-			      <p>我的</p>
-			  </li>
-		    </a>
-		    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account}/1">
-		    	<li><img src="<%=basePath %>images/mobile/member/botton_2.png">
-			       <p>预约</p>
-			    </li>
-		    </a>
-		    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account}/1">
-			  <li><img src="<%=basePath %>images/mobile/member/botton_3.png">
-			    <p>商城</p>
-			  </li>
-		    </a>
-		    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_account}/1">
-		     <li><img src="<%=basePath %>images/mobile/member/botton_4.png">
-			     <p>门店</p>
-			  </li>
-		    </a>
-	 </ul>
-</div>	
+	<div class="bottom_fix_content">
+		 <ul class="bottom_fix clearfix">
+		 		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
+			      <li><img src="<%=basePath %>images/mobile/member/botton_1_1.png">
+				      <p>我的</p>
+				  </li>
+			    </a>
+			    <a href="<%=basePath %>memberCenter/view/orderAppointment/${session_key_store_account}/1">
+			    	<li><img src="<%=basePath %>images/mobile/member/botton_2.png">
+				       <p>预约</p>
+				    </li>
+			    </a>
+			    <a href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account}/1">
+				  <li><img src="<%=basePath %>images/mobile/member/botton_3.png">
+				    <p>商城</p>
+				  </li>
+			    </a>
+			    <a href="<%=basePath%>memberCenter/view/storeInfo/${session_key_store_account}/1">
+			     <li><img src="<%=basePath %>images/mobile/member/botton_4.png">
+				     <p>门店</p>
+				  </li>
+			    </a>
+		 </ul>
+	</div>	
 </body>
 </html>

@@ -136,8 +136,8 @@ public class EmployeelevelController extends BaseController{
 		EmployeeLevel employeeLevel=new EmployeeLevel();
 		employeeLevel.setStoreId(storeId);
 		employeeLevel.setLevelId(levelId);
-		int result =employeelevelService.deleteEmployeelevel(employeeLevel);
-		if (result==1){
+		int result = employeelevelService.deleteEmployeelevel(employeeLevel);
+		if (result == 1){
 			return new BaseDto(-1, "职位已被人员引用，请先删除人员！");
 		}
 		return new BaseDto(0, "删除成功！");

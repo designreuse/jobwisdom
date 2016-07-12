@@ -143,6 +143,7 @@ public class DeptService {
     * @param storeId 
     * @return int
      */
+    @Transactional
     public int deleteDept(Integer deptId, Integer storeId){
         
         Map<String, Object>map=new HashMap<String, Object>();
