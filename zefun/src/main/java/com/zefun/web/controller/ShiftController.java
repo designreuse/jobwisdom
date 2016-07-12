@@ -1,10 +1,12 @@
 package com.zefun.web.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -44,12 +46,14 @@ public class ShiftController extends BaseController{
     * @param request request
     * @param response response
     * @return ModelAndView
+     * @throws IOException 
+     * @throws ServletException 
      */
     @RequestMapping(value = Url.Shift.VIEW_QUERY)
-    public ModelAndView attendanceView(HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView attendanceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         Map<String, Object> params=new HashMap<String, Object>();
         params.put("storeId", getStoreId(request));
-        return shiftService.queryShift(params);
+        return shiftService.queryShift(params, request, response);
     }
      /**
       * 翻页

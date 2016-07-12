@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -95,10 +96,21 @@ public class ShiftService {
     * @date 2015年8月28日 下午1:59:44
     * @param params 参数
     * @return ModelAndView
+    * @param request request
+    * @param response response
+     * @throws IOException   IOException
+     * @throws ServletException  IOException
      */
-    public ModelAndView queryShift(Map<String, Object> params){
+    public ModelAndView queryShift(Map<String, Object> params, HttpServletRequest request, 
+            HttpServletResponse response) throws ServletException, IOException{
         Integer storeId=Integer.parseInt(params.get("storeId").toString());
-        params.put("deptId", deptInfoMapper.selectAllDetpByStoreId(storeId).get(0).getDeptId());
+        try {
+            params.put("deptId", deptInfoMapper.selectAllDetpByStoreId(storeId).get(0).getDeptId());
+        } 
+        catch (Exception e) {
+            request.setAttribute("tip", "该门店尚未设置组织架构中的部门信息");
+            request.getRequestDispatcher("/500.jsp").forward(request, response);
+        }
         Page<ShiftDto> page=selectPageForShift(params, 1, App.System.API_DEFAULT_PAGE_SIZE);
         ModelAndView mav = new ModelAndView("employee/shift/shift");
         mav.addObject("page", page);

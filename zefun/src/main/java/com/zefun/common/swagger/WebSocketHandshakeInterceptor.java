@@ -3,9 +3,9 @@ package com.zefun.common.swagger;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -23,23 +23,29 @@ public class WebSocketHandshakeInterceptor
         extends HttpSessionHandshakeInterceptor {
 
     /**log*/
-    private Logger log = Logger.getLogger(WebSocketHandshakeInterceptor.class);
+//    private Logger log = Logger.getLogger(WebSocketHandshakeInterceptor.class);
 
     @Override
     public void afterHandshake(ServerHttpRequest request,
             ServerHttpResponse arg1, WebSocketHandler arg2, Exception arg3) {
-        ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-        HttpSession session = servletRequest.getServletRequest().getSession(false);
-        if (session != null) {
-            String userName = (String) session.getAttribute(App.Session.STORE_ACCOUNT);
-            log.info(userName);
-        }
+//        ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
+//        HttpSession session = servletRequest.getServletRequest().getSession(false);
+//        if (session != null) {
+//            String userName = (String) session.getAttribute(App.Session.STORE_ACCOUNT);
+//            log.info(userName);
+//        }
     }
 
     @Override
     public boolean beforeHandshake(ServerHttpRequest request,
             ServerHttpResponse arg1, WebSocketHandler handler,
             Map<String, Object> attribute) throws Exception {
+//        ServletServerHttpRequest servletRequest2 = (ServletServerHttpRequest) request;
+//        HttpSession session = servletRequest2.getServletRequest().getSession(false);
+//        if (session != null) {
+//            String userName = (String) session.getAttribute(App.Session.STORE_ACCOUNT);
+//            log.info(userName);
+//        }
         /** 在拦截器内强行修改websocket协议，将部分浏览器不支持的 x-webkit-deflate-frame 扩展修改成 permessage-deflate */
         if (request.getHeaders().containsKey("Sec-WebSocket-Extensions")){
             request.getHeaders().set("Sec-WebSocket-Extensions", "permessage-deflate");

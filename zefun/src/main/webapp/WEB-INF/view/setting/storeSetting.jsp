@@ -110,22 +110,22 @@
                                 </c:if>
                                 <c:if test="${empty storeInfo.pictureArray }">
                                 	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
-                                	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
+                                	<input type="hidden" name="carouselPicture" value="system/profile/click_add.png">
                                 	</li>
                                 	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
-                                	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
+                                	<input type="hidden" name="carouselPicture" value="system/profile/click_add.png">
                                 	</li>
                                 	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
-                                	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
+                                	<input type="hidden" name="carouselPicture" value="system/profile/click_add.png">
                                 	</li>
                                 	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
-                                	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
+                                	<input type="hidden" name="carouselPicture" value="system/profile/click_add.png">
                                 	</li>
                                 	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
-                                	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
+                                	<input type="hidden" name="carouselPicture" value="system/profile/click_add.png">
                                 	</li>
                                 	<li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>system/profile/click_add.png">
-                                	<input type="hidden" name="carouselPicture" value="system/profile/set_img.png">
+                                	<input type="hidden" name="carouselPicture" value="system/profile/click_add.png">
                                 	</li>
                                 </c:if>
 							</ul>

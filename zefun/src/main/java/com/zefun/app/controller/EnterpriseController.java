@@ -62,10 +62,10 @@ public class EnterpriseController extends BaseController{
 	@RequestMapping(value =  Url.Enterprise.ADD_ENTERPRISE, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto addEnterprise (HttpServletRequest request, String enterpriseName, String enterpriseLinkphone, 
-			  String enterpriseLinkname, String storeAccount, String enterpriseProvince, String enterpriseCity, String enterpriseAddress,
+			  String enterpriseLinkname, String storeAccount, 
 			  Integer enterpriseEdition, Integer useTime , Integer enterpriseInfoId) {
-		return enterpriseService.addEnterprise(enterpriseName, enterpriseLinkphone, enterpriseLinkname, storeAccount, enterpriseProvince, 
-				enterpriseCity, enterpriseAddress, enterpriseEdition, useTime , enterpriseInfoId);
+		return enterpriseService.addEnterprise(enterpriseName, enterpriseLinkphone, enterpriseLinkname, storeAccount, null, 
+		        null, null, enterpriseEdition, useTime , enterpriseInfoId);
 	}
 	
 	/**

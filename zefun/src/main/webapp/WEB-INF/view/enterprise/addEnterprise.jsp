@@ -133,9 +133,9 @@
 		var enterpriseLinkphone = jQuery("#enterpriseLinkphone").val();
 		var enterpriseLinkname = jQuery("#enterpriseLinkname").val();
 		var storeAccount = jQuery("#storeAccount").val();
-		var addressList = jQuery("#city-picker3").val().split('/');
+		/* var addressList = jQuery("#city-picker3").val().split('/');
 		var enterpriseProvince = addressList[0];
-		var enterpriseCity = addressList[1];
+		var enterpriseCity = addressList[1]; */
 		var enterpriseAddress = jQuery("#searchtext").val();
 		var enterpriseEdition = jQuery("input[name='enterpriseEdition']:checked").attr("value");
 		var useTime = jQuery("select[name='useTime']").val();
@@ -157,7 +157,7 @@
 	        return;
 	    }
 		
-		if (isEmpty(enterpriseProvince)) {
+		/* if (isEmpty(enterpriseProvince)) {
 			dialog("请选择省");
 			return;
 		}
@@ -168,11 +168,15 @@
 		if (isEmpty(enterpriseAddress)) {
 			dialog("请填写您的店铺地址");
 			return;
+		} */
+		var data = null;
+		if (enterInfoId == null){
+			data = "enterpriseName=" + enterpriseName + "&enterpriseLinkphone=" + enterpriseLinkphone + "&enterpriseLinkname=" + enterpriseLinkname + 
+			"&storeAccount=" + storeAccount + "&enterpriseEdition="+enterpriseEdition+"&useTime="+useTime;
+		}else {
+			data = "enterpriseName=" + enterpriseName + "&enterpriseLinkphone=" + enterpriseLinkphone + "&enterpriseLinkname=" + enterpriseLinkname + 
+			"&storeAccount=" + storeAccount + "&enterpriseEdition="+enterpriseEdition+"&useTime="+useTime+"&enterpriseInfoId="+enterInfoId;
 		}
-		
-		var data = "enterpriseName=" + enterpriseName + "&enterpriseLinkphone=" + enterpriseLinkphone + "&enterpriseLinkname=" + enterpriseLinkname + 
-		"&storeAccount=" + storeAccount +"&enterpriseProvince=" +enterpriseProvince + "&enterpriseCity=" +enterpriseCity + "&enterpriseAddress=" +enterpriseAddress +
-		"&enterpriseEdition="+enterpriseEdition+"&useTime="+useTime+"&enterpriseInfoId="+enterInfoId;
 		submit(data, "保存成功");
 	}
 	
