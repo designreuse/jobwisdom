@@ -147,7 +147,7 @@
 												<button onclick="showSave(2);">添加</button>
 											</p>
 											<c:forEach items="${goodsCategories }" var="goodsCategorie">
-												<li >商品系列
+												<li >${goodsCategorie.categoryName}
 													<p style="display: none;">
 														<span onclick="showUpdate(2, ${goodsCategorie.categoryId}, '${goodsCategorie.categoryName}', this)">修改</span><span onclick="deleted(2, ${goodsCategorie.categoryId})">删除</span>
 													</p>
