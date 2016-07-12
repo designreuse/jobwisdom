@@ -21,7 +21,12 @@
 .bordererror {
 	border: 1px solid red !important
 }
-
+.add_store_sale span{width:330px}
+.add_store_sale input{ width: 118px;
+    height: 22px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
 .addImage {
 	position: relative;
 	left: -604px;
@@ -83,33 +88,7 @@
 	  });	
 
 	  
-	   //轮播
- 
- 	jQuery(function(){
-	     var now_=0, count=jQuery('.roll_ul li').size();
-		 
-	  //向右走
-      jQuery('.right_click').click(function(){
-         if(now_<=count-5){
-		    now_+=1;
-	        jQuery(this).parent('').find('.roll_ul ul').stop(true,true).animate({
-		       left:-187*now_
-		       }) 
-			  }
-		  });
-	  //向左走
-	  
-	  	//向左走
-	 jQuery('.left_click').click(function(){
-         if(now_>=1){
-		    now_-=1;
-	         jQuery(this).parent('').find('.roll_ul ul').stop(true,true).animate({
-		     left:-187*now_
-		     }) 
-		  }	
-	  });
- });
-	
+  
    //接受预约是否
    
     jQuery(function(){
@@ -190,8 +169,8 @@
 												<c:forEach var="deptProject" items="${deptProjectList }">
 													<option value="${deptProject.deptId }">${deptProject.deptName }</option>
 												</c:forEach>
-										</select></span><span>选择大项：<i></i><select name="categoryId"
-											style="position: relative; left: 8px">
+										</select></span><span>选择大项<i></i><select name="categoryId"
+											style="position: relative; left: 45px">
 												<c:forEach var="projectCategoryList"
 													items="${deptProjectList[0].projectCategoryList }">
 													<option value="${projectCategoryList.categoryId }">${projectCategoryList.categoryName }</option>
@@ -203,18 +182,31 @@
 											name="projectName" style="width: 145px;"></span><span><em>项目编号</em><input
 											type="text" name="projectCodeSuffix" style="width: 145px;"></span>
 									</p>
-								</div>
-
-								<div class="add_pic_">
-									<p>添加图片</p>
-									<ul class="clearfix">
+									
+						
+									<ul class="clearfix" style=" position: relative;  top: -100px;left: 680px;">
 										<li><em><img onclick="uploadImage(this)"
 												projectImage="system/profile/add_img.png"
 												name="projectImage"
-												src="<%=qiniu%>system/profile/add_img.png"></em><span><img
-												src="<%=basePath%>images/pay_close.png"></span></li>
+												src="<%=qiniu%>system/profile/add_img.png" style="width:150px;height:86px"></em></li>
 									</ul>
 								</div>
+
+<!-- 								<div class="add_pic_"> -->
+<!-- 									<p>添加图片</p> -->
+<!-- 									<ul class="clearfix"> -->
+<!-- 										<li><em><img onclick="uploadImage(this)" -->
+<!-- 												projectImage="system/profile/add_img.png" -->
+<!-- 												name="projectImage" -->
+<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
+<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
+<!-- 												<li><em><img onclick="uploadImage(this)"  -->
+<!-- 												affiliatedImage="system/profile/add_img.png" -->
+<!-- 												name="affiliatedImage" -->
+<%-- 												src="<%=qiniu%>system/profile/add_img.png"></em><span><img --%>
+<%-- 												src="<%=basePath%>images/pay_close.png"></span></li> --%>
+<!-- 									</ul> -->
+<!-- 								</div> -->
 
 								<div class="item_saying">
 									<p>项目描述</p>
@@ -490,13 +482,19 @@
 	var qiniu = '<%=qiniu%>	';
 	var imgObject;
 	var type = 1;
+	function uploadImage(ul){
+		jQuery(".mask").show();
+		editPage(null);
+		imgObject = jQuery(ul);
+		type = 1;
+	}
 	jQuery(function() {
-		jQuery('.add_pic_ img').click(function() {
-			jQuery(".mask").show();
-			editPage(null);
-			imgObject = jQuery(this);
-			type = 1;
-		})
+// 		jQuery('.add_pic_ img').click(function() {
+// 			jQuery(".mask").show();
+// 			editPage(null);
+// 			imgObject = jQuery(this);
+// 			type = 1;
+// 		})
 		jQuery('.cancelinput').click(function() {
 			jQuery('.zzc.one').hide();
 			jQuery('.photo-clip-rotateLayer').html('');
@@ -548,8 +546,7 @@
 								imgObject.attr("src", qiniu + key);
 							}
 						} else {
-							u1
-									.execCommand(
+							u1.execCommand(
 											'insertHtml',
 											'<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'
 													+ qiniu + key + '">');
@@ -1350,5 +1347,33 @@
 		}
 	}
 	
+</script>
+<script>
+   jQuery(function(){
+     var now_=0;
+  //向右走
+  jQuery(document).on('click','.right_click',function(){
+	  var count=jQuery('.roll_ul ul li').size();
+     if(now_<=count-5){
+	    now_+=1;
+        jQuery(this).parent('').find('.roll_ul ul').stop(true,true).animate({
+	       left:-187*now_
+	       }) 
+		  }
+	  });
+  
+  	//向左走
+ jQuery(document).on('click','.left_click',function(){
+	 var count=jQuery('.roll_ul ul li').size();
+     if(now_>=1){
+	    now_-=1;
+         jQuery(this).parent('').find('.roll_ul ul').stop(true,true).animate({
+	     left:-187*now_
+	     }) 
+	  }	
+    });
+  });
+
+   
 </script>
 </html>

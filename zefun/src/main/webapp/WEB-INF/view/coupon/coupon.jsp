@@ -301,6 +301,10 @@
 				saveDate(datad);
 		 	}
 		}
+		else if(timenum <0){
+			dialog("开始时间不能小于结束时间");
+			return;
+		}
 		else{
 			saveDate(datad);
 		}
@@ -621,7 +625,7 @@
 	    var TwoYear = DateTwo.substring(0,DateTwo.indexOf ('-'));  
 	  
 	    var cha=((Date.parse(OneMonth+'/'+OneDay+'/'+OneYear)- Date.parse(TwoMonth+'/'+TwoDay+'/'+TwoYear))/86400000);   
-	    return Math.abs(cha);  
+	    return cha;  
 	}  
 </script>
 

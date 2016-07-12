@@ -102,6 +102,7 @@ function alertZzc() {
 	    		
 	    		jQuery("ul[name='positionUl']").empty();
 	    		jQuery(".zzc").find(".open_card_alert_state_content").remove();
+	    		jQuery(".zzc").find("div[name='shiftMajone']").remove();
 	    		for (var i = 0; i < positionInfoShiftMahjongDtoList.length; i++) {
 	    			var positionInfoShiftMahjongDto = positionInfoShiftMahjongDtoList[i];
 	    			var str = "";
@@ -527,7 +528,7 @@ function chooseDept (obj) {
 function chooseCategory (categoryId, obj) {
 	jQuery(obj).siblings().removeClass("active");
 	jQuery(obj).addClass("active");
-	jQuery(".zzc2_select_item_content_right_content").hide();
+	jQuery(obj).parents(".zzc2_select_item_content_").find(".zzc2_select_item_content_right_content").hide();
 	jQuery("div[categoryId='"+categoryId+"']").show();
 }
 
@@ -537,7 +538,26 @@ jQuery(".zzc2_select_item_content_right_content").delegate("[name='projectId']",
 })
 
 function saveProject () {
-	var projectId  = jQuery(".zzc2_select_item_content_right").find(".active4").attr("projectId");
+	var parentList = jQuery(".zzc2_select_item_content_");
+	var projectId  = null;
+	for (var j = 0; j < parentList.length; j++) {
+		var parent = jQuery(parentList[j]);
+		if (jQuery(parent).css("display")  != "none") {
+			var contentList = jQuery(parent).find(".zzc2_select_item_content_right_content");
+			
+			for (var i = 0; i < contentList.length; i++) {
+				var content = contentList[i];
+				if (jQuery(content).css("display")  != "none") {
+					projectId  = jQuery(content).find(".active4").attr("projectId");
+				}
+			}
+		}
+	}
+	
+	if (projectId == null) {
+		dialog("请选择项目！");
+		return;
+	}
 	jQuery.ajax({
         type : "post",
         url : baseUrl + "KeepAccounts/action/settingProject",
@@ -551,4 +571,9 @@ function saveProject () {
             location.reload();
         }
     });
+}
+
+var addServerOrderId = "";
+function addServer (obj, orderId) {
+	addServerOrderId = orderId;
 }

@@ -473,5 +473,7 @@ function changePage() {
 		}
 	});
 }
+
+
 </script>
 </html>
