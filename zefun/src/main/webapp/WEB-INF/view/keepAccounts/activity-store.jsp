@@ -100,6 +100,8 @@ jQuery(function(){
 	</div>
 </body>
 <script>
+
+ 
  
 function  deleted(activityStoreId){
 	 	jQuery.ajax({
@@ -148,8 +150,14 @@ function save (){
 		dialog("简述不能为空");
 		return ;
 	}
-	if(daysBetween(sotpTime,statusTime)<0){
+	
+	if(daysBetween(sotpTime,statusTime)<=0){
 		dialog("结束时间不能小于开始时间");
+		return ;
+	}
+	var createdate = newdates();
+	if(daysBetween(createdate,statusTime)>=0){
+		dialog("开始日期不能是过去的日期");
 		return ;
 	}
 	
@@ -165,7 +173,7 @@ function save (){
 		dataType : "json",
 		success : function(e){
 			dialog("保存成功");
-			location.href="http://localhost/jobwisdom/activity/view/showactivitysign";
+			location.href = baseUrl+"activity/view/showactivitysign";
 		}
 	});
 }
@@ -258,6 +266,13 @@ function changePage() {
 			});
 		}
 	});
+}
+function newdates(){
+	var myDate = new Date();
+	myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+	myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+	myDate.getDate();        //获取当前日(1-31)
+	return myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();  
 }
 //dialog('msg');
 </script>

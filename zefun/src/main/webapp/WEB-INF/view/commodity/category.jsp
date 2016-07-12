@@ -147,7 +147,7 @@
 												<button onclick="showSave(2);">添加</button>
 											</p>
 											<c:forEach items="${goodsCategories }" var="goodsCategorie">
-												<li >${goodsCategorie.categoryName}
+												<li categoryId="${goodsCategorie.categoryId}">${goodsCategorie.categoryName}
 													<p style="display: none;">
 														<span onclick="showUpdate(2, ${goodsCategorie.categoryId}, '${goodsCategorie.categoryName}', this)">修改</span><span onclick="deleted(2, ${goodsCategorie.categoryId})">删除</span>
 													</p>
@@ -220,7 +220,7 @@
 							+ data.msg.categoryName + '<p style="display: none;">'
 							+ '<span onclick="showUpdate(' + type + ', '
 							+ data.msg.categoryId + ', \'' + data.msg.categoryName
-							+ '\', this)">修改</span><span>删除</span>' + '</p>'
+							+ '\', this)">修改</span><span onclick="deleted('+type+', '+ data.msg.categoryId + ')">删除</span>' + '</p>'
 							+ '</li>';
 				if (type == 1) {
 					jQuery("#project").find("li[categoryId='" + data.msg.categoryId + "']").remove();

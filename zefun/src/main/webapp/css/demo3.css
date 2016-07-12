@@ -1,4 +1,4 @@
-.add_store_content{width:910px;color:black;height:1115px}
+.add_store_content{width:910px;color:black;height:780px}
 .add_store_button{float:left;width:400px}
 .add_store_button button{width:120px;height:30px;text-align:center;line-height:30px;color:white;border-radius:15px;border:none;background:#59688a;font-size:16px;margin-right:10px}
 .add_store_button button:hover{
@@ -220,7 +220,7 @@
 .roll_ul{height:115px;width:820px;overflow:hidden;border-radius:10px;margin-top:4px;position:relative;}
 .roll_ul ul{width:4000px;position:relative}
 .roll_ul li{border:1px solid black;width:150px;height:90px;border-radius:10px;margin:15px 35px 15px 0;float:left}
-.roll_ul li select{width:70px;height:12px;border-radius:10px;border:1px solid black}
+.roll_ul li select{width:70px;height:15px;border-radius:10px;border:1px solid black}
 .roll_ul li input{height:12px!important}
 .roll_ul ul{margin-left:40px}
 .roll_ul li p{text-align:center;margin-top:5px}

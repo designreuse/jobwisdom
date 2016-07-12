@@ -1821,7 +1821,7 @@ function findAllByNameOrCodeOrPhone() {
 		type : "post",
 		url : baseUrl + "employee/action/listAll",
 		//data : "search=" + search,
-		data : {search : search},
+		data : {"search" : search},
 		dataType : "json",
 		success : function(e){
 			if(e.code != 0){
@@ -1836,66 +1836,72 @@ function findAllByNameOrCodeOrPhone() {
 function refreshTableDataAfterListAll(employeeList){
 	var List = employeeList;
 	var tbody = document.createElement("tbody");
-	
+	jQuery("tr[name='tables']").remove();
 	for (var i = 0; i < List.length; i++) {
 		var employee = List[i];
 		
-		var tr = document.createElement("tr");
-		tr.setAttribute("id", employee.employeeId);
-		
-		var employeeCode = document.createElement("td");
-		employeeCode.innerHTML = employee.employeeCode;
-		employeeCode.setAttribute("style", "text-align: center");
-		tr.appendChild(employeeCode);
-		
-		
-		var name = document.createElement("td");
-		name.innerHTML = employee.name;
-		name.setAttribute("style", "text-align: center");
-		tr.appendChild(name);
-		
-		var sex = document.createElement("td");
-		sex.innerHTML = employee.sex;
-		sex.setAttribute("style", "text-align: center");
-		tr.appendChild(sex);
-		
-		var deptName = document.createElement("td");
-		deptName.innerHTML = employee.deptName;
-		deptName.setAttribute("style", "text-align: center");
-		tr.appendChild(deptName);
-		
-		var positionName = document.createElement("td");
-		positionName.innerHTML = employee.positionName;
-		positionName.setAttribute("style", "text-align: center");
-		tr.appendChild(positionName);
-		
-		var levelName = document.createElement("td");
-		levelName.innerHTML = employee.levelName;
-		levelName.setAttribute("style", "text-align: center");
-		tr.appendChild(levelName);
-		
-		var userName = document.createElement("td");
-		userName.innerHTML = employee.userName;
-		userName.setAttribute("style", "text-align: center");
-		tr.appendChild(userName); 
-		
-		var phone = document.createElement("td");
-		phone.innerHTML = employee.phone;
-		phone.setAttribute("style", "text-align: center");
-		tr.appendChild(phone);
-		
-		var operateTd = document.createElement("td");
-		var editSpan = document.createElement("span");
-		editSpan.setAttribute("class", "iconfa-pencil project-icon");
-		editSpan.setAttribute("onclick", "openedit(" + employee.employeeId + ")");
-		operateTd.appendChild(editSpan);
-		var removeSpan = document.createElement("span");
-		removeSpan.setAttribute("class", "iconfa-trash project-icon");
-		removeSpan.setAttribute("onclick", "deleteinfo(" + employee.employeeId + ")");
-		operateTd.appendChild(removeSpan);
-		tr.appendChild(operateTd);
-		tbody.appendChild(tr);
+//		var tr = document.createElement("tr");
+//		tr.setAttribute("id", employee.employeeId);
+//		
+//		var employeeCode = document.createElement("td");
+//		employeeCode.innerHTML = employee.employeeCode;
+//		employeeCode.setAttribute("style", "text-align: center");
+//		tr.appendChild(employeeCode);
+//		
+//		
+//		var name = document.createElement("td");
+//		name.innerHTML = employee.name;
+//		name.setAttribute("style", "text-align: center");
+//		tr.appendChild(name);
+//		
+//		var sex = document.createElement("td");
+//		sex.innerHTML = employee.sex;
+//		sex.setAttribute("style", "text-align: center");
+//		tr.appendChild(sex);
+//		
+//		var deptName = document.createElement("td");
+//		deptName.innerHTML = employee.deptName;
+//		deptName.setAttribute("style", "text-align: center");
+//		tr.appendChild(deptName);
+//		
+//		var positionName = document.createElement("td");
+//		positionName.innerHTML = employee.positionName;
+//		positionName.setAttribute("style", "text-align: center");
+//		tr.appendChild(positionName);
+//		
+//		var levelName = document.createElement("td");
+//		levelName.innerHTML = employee.levelName;
+//		levelName.setAttribute("style", "text-align: center");
+//		tr.appendChild(levelName);
+//		
+//		var userName = document.createElement("td");
+//		userName.innerHTML = employee.userName;
+//		userName.setAttribute("style", "text-align: center");
+//		tr.appendChild(userName); 
+//		
+//		var phone = document.createElement("td");
+//		phone.innerHTML = employee.phone;
+//		phone.setAttribute("style", "text-align: center");
+//		tr.appendChild(phone);
+//		
+//		var operateTd = document.createElement("td");
+//		var editSpan = document.createElement("span");
+//		editSpan.setAttribute("class", "iconfa-pencil project-icon");
+//		editSpan.setAttribute("onclick", "openedit(" + employee.employeeId + ")");
+//		operateTd.appendChild(editSpan);
+//		var removeSpan = document.createElement("span");
+//		removeSpan.setAttribute("class", "iconfa-trash project-icon");
+//		removeSpan.setAttribute("onclick", "deleteinfo(" + employee.employeeId + ")");
+//		operateTd.appendChild(removeSpan);
+//		tr.appendChild(operateTd);
+//		tbody.appendChild(tr);
+		var tbody = '<tr id='+ employee.employeeId + ' name="tables"><td>'+ employee.employeeCode + '</td>'+
+			'<td>'+ employee.name + '</td>   <td>'+ employee.sex + '</td><td>'+ employee.deptName + '</td><td>'+ employee.positionName + '</td>'  +
+			'<td>'+ employee.levelName + '</td> <td>'+ employee.userName + '</td><td>'+ employee.phone + '</td>'+
+			'<td><span onclick="selectEmp('+ employee.employeeId + ')"> <img src="'+baseUrl+'images/handle_1.png" ></span>'+
+			'<span onclick="deleteinfo('+ employee.employeeId + ')"><img src="'+baseUrl+'images/handle_2.png"></span></td> </tr>';
+			jQuery(".payroll_table").append(tbody);
 	}
-	jQuery(".member-list-table tbody").remove();
-	jQuery(".member-list-table").append(tbody);
+
+
 }

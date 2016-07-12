@@ -106,7 +106,7 @@ public class CouponService {
         
         Page<CouponInfo> page = new Page<>();
         page.setPageNo(1);
-        page.setPageSize(20);
+        page.setPageSize(11);
         Map<String, Object> params = new HashMap<>();
         List<CouponInfo> coupon =null;
       
@@ -177,7 +177,7 @@ public class CouponService {
         // 为空进企业号
         Page<CouponInfo> page = new Page<>();
         page.setPageNo(pageNo);
-        page.setPageSize(20);
+        page.setPageSize(11);
         Map<String, Object> params = new HashMap<>();
         
         if (storeId == null) {
