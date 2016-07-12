@@ -83,7 +83,7 @@
 									              <td colspan="5" name = "projectId" projectId = "${orderDetail.projectId}">
 									                ${orderDetail.projectName}
 									                <span>
-									                    <img src="<%=basePath%>images/architecture_edit.png">
+									                    <img src="<%=basePath%>images/architecture_edit.png" onclick = "showSettingProject(${orderDetail.detailId})">
 									                    <em style="position:absolute;right:-4px;top:-10px"><img onclick="deleteDetailId(${orderDetail.detailId})" src="<%=basePath%>images/hand_close.png"></em>
 									                </span>
 									              </td>
@@ -131,11 +131,13 @@
 							 </div>
 							 
 							 <ul class="clearfix">
-							   <li class="active2"></li>
-							   <li></li>			   
+							   <c:forEach items="${orderDetail.stepList}" var="step" varStatus="status">
+							       <li <c:if test="${status.index == 0 }">class="active2"</c:if>></li>
+							   </c:forEach>
 							 </ul>
 							 <div class="table_content_button">
 							    <button onclick = "settlementOrder(this, ${cashierDto.orderId})">结算</button>
+							    <button onclick = "addServer(this, ${cashierDto.orderId})">结算</button>
 							 </div>
 						   </div> 
 						 </li>
@@ -334,7 +336,7 @@
 			  </div> 
 			  <div class="zzc2_select_item_content_right">
 			    <c:forEach items="${dto.project}" var="projectCategoryDto" varStatus="categoryStatus">
-			        <div class="zzc2_select_item_content_right_content <c:if test="${categoryStatus.index != 0 }">hide</c:if>" categoryId="${projectCategoryDto.categoryId }">
+			        <div class="zzc2_select_item_content_right_content" <c:if test="${categoryStatus.index != 0 }">style="display: none;"</c:if> categoryId="${projectCategoryDto.categoryId }">
 	                   <ul class="clearfix" >
 	                     <c:forEach items="${projectCategoryDto.projectList}" var="projectInfo" varStatus="projectStatus">
 	                        <li <c:if test="${projectStatus.index == 0 }">class="active4"</c:if> name = "projectId" projectId = "${projectInfo.projectId}">
