@@ -573,7 +573,18 @@ function saveProject () {
     });
 }
 
-var addServerOrderId = "";
 function addServer (obj, orderId) {
-	addServerOrderId = orderId;
+	jQuery.ajax({
+        type : "post",
+        url : baseUrl + "KeepAccounts/action/addDetailServer",
+        data : "orderId="+orderId,
+        dataType : "json",
+        success : function(e){
+            if(e.code != 0){
+                dialog(e.msg);
+                return;
+            }
+            location.reload();
+        }
+    });
 }

@@ -516,6 +516,8 @@ public interface Url {
 		public static final String ACTION_DELETE_ORDER_INFO = "KeepAccounts/action/deleteOrderInfo";
 		/** 设置项目*/
 		public static final String ACTION_SETTING_PROJECT = "KeepAccounts/action/settingProject";
+		/** 新增服务*/
+		public static final String ACTION_ADD_DETAIL_SERVER = "KeepAccounts/action/addDetailServer";
 		/* 开卡记账 */
 		/** 初始化开卡记账页面 */
 		public static final String INITIALIZESTOREFLOW = "KeepAccounts/initializeStoreFlow";
