@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.entity.DeptInfo;
 
 /**
@@ -171,5 +172,14 @@ public interface DeptInfoMapper {
     * @return  产生业绩部门集
      */
     List<DeptInfo> selectDeptByStoreId(@Param(value = "storeId")int storeId);
+    
+    /**
+     *  查询部门和大项关系
+    * @author 高国藩
+    * @date 2016年7月13日 下午3:27:54
+    * @param storeId storeId
+    * @return        List<DeptInfoDto>
+     */
+    List<DeptInfoDto> selectDeptInfoProjectCategory(int storeId);
     
 }

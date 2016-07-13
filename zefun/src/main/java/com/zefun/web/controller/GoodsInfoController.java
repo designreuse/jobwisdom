@@ -47,6 +47,7 @@ import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.SupplierInfo;
 import com.zefun.web.mapper.ComboGoodsMapper;
+import com.zefun.web.mapper.GoodsCategoryMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.SupplierInfoMapper;
@@ -73,6 +74,9 @@ public class GoodsInfoController extends BaseController {
     @Autowired private GoodsInfoMapper goodsInfoMapper;
     /**企业门店管理*/
     @Autowired private StoreInfoMapper storeInfoMapper;
+    /**企业门店管理*/
+    @Autowired private GoodsCategoryMapper goodsCategoryMapper;
+    
    /* 
     *//** 日志 *//*
     private Logger logger = Logger.getLogger(SessionContextListener.class);*/
@@ -84,11 +88,13 @@ public class GoodsInfoController extends BaseController {
     * @param request request
     * @param response response
     * @param categoryId categoryId
+    * @param deptId     deptId
     * @param model 视图模型
     * @return ModelAndView
      */
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_LIST)
-    public ModelAndView toGoodsInfoPage(HttpServletRequest request, HttpServletResponse response, Integer categoryId, ModelAndView model) {
+    public ModelAndView toGoodsInfoPage(HttpServletRequest request, HttpServletResponse response, 
+            Integer deptId, Integer categoryId, ModelAndView model) {
         Integer storeId = getStoreId(request);
         
         /*List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
@@ -114,8 +120,15 @@ public class GoodsInfoController extends BaseController {
         model.addObject("deptGoodsBaseDtoJs", JSONArray.fromObject(deptGoodsBaseDto));
         
         List<GoodsInfoDto> goodsInfos = goodsInfoService.selectGoodsInfosByStoreId(storeId);
-        if (categoryId!=null){
+        if (deptId!=null && deptId!=0){
+            goodsInfos = goodsInfos.stream().filter(g -> g.getDeptId().equals(deptId)).collect(Collectors.toList());
+            model.addObject("deptId", deptId);
+        }
+        if (categoryId!=null && categoryId!=0){
             goodsInfos = goodsInfos.stream().filter(g -> g.getCategoryId().equals(categoryId)).collect(Collectors.toList());
+            GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(categoryId);
+            model.addObject("deptId", goodsCategory.getDeptId());
+            model.addObject("categoryId", categoryId);
         }
         
         Long hasFinish = goodsInfos.stream().filter(g -> g.getGoodsPrice()!=null).count();
@@ -270,8 +283,10 @@ public class GoodsInfoController extends BaseController {
         List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
         model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList));
-        List<AccountGoods> goodsInfos = goodsInfoService.selectAccountGoodsInfo(storeAccount); 
-        //goodsInfoService.selectGoodsInfosByStoreIdAndNotPay(storeId);
+        List<AccountGoods> goodsInfos = goodsInfoService.selectAccountGoodsInfo(storeAccount);
+        List<GoodsInfoDto> has = goodsInfoService.selectGoodsInfosByStoreId(storeId);
+        List<String> integers = has.stream().map(h -> h.getaId().toString()).collect(Collectors.toList());
+        goodsInfos = goodsInfos.stream().filter(g -> !integers.contains(g.getGoodsId().toString())).collect(Collectors.toList());
         model.addObject("goodsInfos", goodsInfos);
         
         if (goodsId!=null){

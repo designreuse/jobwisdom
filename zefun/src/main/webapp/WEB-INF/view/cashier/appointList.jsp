@@ -2,6 +2,7 @@
 <%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" href="<%=basePath %>css/appoint.css" type="text/css" />
 <jsp:useBean id="now" class="java.util.Date" />
 <style>
 	.p-part-first {
@@ -19,6 +20,53 @@
 	.status-wrap-person ul{width:100%；}
 	
 </style>
+<script>
+jQuery(function(){
+    var now_=0;	 
+ //向右走
+ jQuery(document).on('click','.order_right',function(){
+   var count=jQuery('.roll_ul_content li').size();
+    if(now_<=count-6){
+	    now_+=3;
+       jQuery(this).parent('').find('.roll_ul_content ul').stop(true,true).animate({
+	       left:-114*now_
+	   
+	       }) 
+		  }
+	  });
+ //向左走
+ 
+ jQuery(document).on('click','.order_left',function(){
+    var count=jQuery('.roll_ul_content li').size();
+    if(now_>=1){
+	    now_-=3;
+        jQuery(this).parent('').find('.roll_ul_content ul').stop(true,true).animate({
+	     left:-114*now_
+	   
+	     }) 
+	  }	
+   		
+ });
+});	
+
+
+//鼠标移动员工上,点击
+jQuery(function(){
+jQuery(document).on('mouseover','.roll_ul_content li',function(){
+ jQuery(this).addClass('change').siblings().removeClass('change')
+
+})
+
+jQuery(document).on('mouseout','.roll_ul_content li',function(){
+ jQuery(this).removeClass('change')
+
+})
+
+jQuery(document).on('click','.roll_ul_content li',function(){
+jQuery(this).addClass('change1').siblings().removeClass('change1')
+})
+})
+</script>
 <body>
 	
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -497,7 +545,7 @@
 		<!--提示框-->
 		<div class="alertWrap hide">
 			<div class="toast">
-				<img src="assets/images/jiazai.gif" alt="" />
+				<img src="<%=basePath%>images/jiazai.gif" alt="" />
 			</div>
 		</div>
 
@@ -524,7 +572,7 @@
 							<!-- 截图-->
 							<div id="tabs-1" class="nopadding">
 								<div class="crop-container">
-									<img src="assets/images/1.jpg" id="cropbox" />
+									<img src="<%=basePath%>images/1.jpg" id="cropbox" />
 								</div>
 
 								<div class="jietu-control">
@@ -544,29 +592,29 @@
 							<div id="tabs-2" class="nopadding">
 								<ul class="tuku-list">
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 									<li class="tuku-item"><img
-										src="assets/images/shop-img.png" alt="图库图片" /></li>
+										src="<%=basePath%>images/shop-img.png" alt="图库图片" /></li>
 
 								</ul>
 								<div class="clearfix"></div>
@@ -581,18 +629,92 @@
 
       </div>
 	</div>
-	<!--RIGHT PANEL结束 -->
-
-	<div class="clearfix"></div>
-
-	<div id="star"></div>
-
 	</div>
-	<!--mainwrapper-->
-
+<div class="zzc" style="display: none;">
+  <div class="order_item">
+     <p>预约项目</p>
+     <div class="order_item_content">
+          <div class="search_vip">
+              搜索会员：<input type="text" placeholder="客户姓名/手机号/卡号">
+          </div>
+		  
+		  <div class="order_item_apartment clearfix">
+		     <ul>
+		       <c:forEach items="${deptInfoList }" var="deptInfo">
+			   <li onclick="findCanAppointEmployeeByDept(this)" value="${deptInfo.deptId }">${deptInfo.deptName }</li>
+			   </c:forEach>
+			 </ul>
+			 <script>jQuery(".order_item_apartment.clearfix").children("ul").find("li").eq(0).addClass("active");</script>
+		     <div class="order_item_apartment_right_content">
+			   <div class="order_item_apartment_right">
+			       <div class="select_emploee">
+				      <p>选择员工</p>
+					  <div class="roll">
+				         <span class="order_left"><img src="<%=basePath%>images/order_left.png"></span>
+                       <div class="roll_ul_content">				        
+						<ul class="clearfix" id="newAppoint">
+						    <%-- <li>
+							  <img src="<%=basePath%>images/roll_img.png">
+							   <div>1101  卡拉曼达</div>
+							</li>  --%>
+						 </ul>
+						</div> 
+					    <span class="order_right"><img src="<%=basePath%>images/order_right.png"></span>
+					  </div>
+				   </div>
+				   
+				   <div class="select_series">
+			          <p>选择系列</p>
+					  <ul class="clearfix" id="deptCategory">
+					    <li class="active">洗剪吹系列</li>
+					    <li>洗剪吹系列</li>
+					    <li>洗剪吹系列</li>
+					    <li>洗剪吹系列</li>
+					    <li>洗剪吹系列</li>
+					    <li>洗剪吹系列</li>
+						 <li>洗剪吹系列</li>
+					    <li>洗剪吹系列</li>
+					  </ul>
+			       </div>
+				   
+				   <div class="selected_emploee">
+				    <span>已选择员工：<em id="employeeCode"></em></span>
+				    <span>已选择系列：<em id="categoryName"></em></span>
+					 <span style="float:right">预约时间：<em id="selectTime">16-15 23：50</em></span>
+				   </div>
+			   </div>
+			 </div>		  
+		  </div> 
+        <div class="order_item_button">
+		   <button onclick="addAppointProject()">确认</button>
+		   <button onclick="jQuery('.zzc').hide();">取消</button>
+		</div>
+            		  
+     </div>
+   </div>
+</div>
 </body>
 
 <%-- <%@ include file="/template/memberData.jsp" %> 已经把memberData.js全部复制到appointList.js中--%>
 <script type="text/javascript" src="<%=basePath %>js/cashier/appointList.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
+<script>
+var deptInfoCategory = eval('('+'${deptInfoCategorys}'+')');
+function selectDeptInfoCategory(deptId){
+	jQuery("#deptCategory").empty();
+	for (var i = 0; i < deptInfoCategory.length; i++) {
+		if (deptId == deptInfoCategory[i].deptId){
+			for (var j = 0; j < deptInfoCategory[i].projectCategoryDtoList.length; j++) {
+				var category = deptInfoCategory[i].projectCategoryDtoList[j];
+				var categoryId = category.categoryId;
+				var categoryName = category.categoryName;
+				var html = '<li value='+categoryId+' onclick="globalProjectId=jQuery(this).val();'+
+				'jQuery(this).addClass(\'active\').siblings().removeClass(\'active\');jQuery(\'#categoryName\').text(jQuery(this).text())">'+categoryName+'</li>';
+				jQuery("#deptCategory").append(jQuery(html));
+			}
+		}
+	}
+}
+selectDeptInfoCategory(deptInfoCategory[0].deptId);
+</script>
 </html>

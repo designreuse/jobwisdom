@@ -140,12 +140,11 @@
 <script type="text/javascript" src="<%=basePath%>js/commodity/project.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/base/roll.js"></script>
 <script>
+	
 	var deptProjectListJs = ${deptProjectListJs};
-	function changeDept(deptId, li){
-		if (deptId == 0){
-			deptId = deptProjectListJs[0].deptId;
-		}
-		jQuery("#dept").text(jQuery(li).text());
+	var deptId = null;
+	function selectDept(deptId){
+		jQuery("#dept").text(jQuery("li[deptId='"+deptId+"']").text());
 		jQuery(".setting_all").eq(1).empty();
 		var html = '<li onclick="changeCategory(0, this)" categoreid="0">全部</li>';
 		jQuery(".setting_all").eq(1).append(jQuery(html));
@@ -160,13 +159,26 @@
 			}
 		}
 	}
+	function selectCagegory(categoryId){
+		console.log(jQuery("li[categoreId='"+categoryId+"']").text())
+		jQuery("#category").text(jQuery("li[categoreId='"+categoryId+"']").text());
+	}
+	if ('${deptId}' != ''){
+		deptId = '${deptId}';
+		selectDept('${deptId}');
+	}
+	if ('${categoryId}' != ''){
+		selectCagegory('${categoryId}');
+	}
+	function changeDept(deptId, li){
+		window.location.href = baseUrl + "project/view/projects?deptId=" + deptId;
+	}
 	function changeCategory(categoryId, li){
 		jQuery("#category").text(jQuery(li).text());
 		var path = "";
-		if (categoryId == 0){
-			path = baseUrl + "project/view/projects";
-		}else{
-			path = baseUrl + "project/view/projects" + "?categoryId=" + categoryId;
+		path = baseUrl + "project/view/projects" + "?categoryId=" + categoryId;
+		if (deptId != null){
+			path = path + "&deptId=" + deptId;
 		}
 		window.location.href = path;
 	}

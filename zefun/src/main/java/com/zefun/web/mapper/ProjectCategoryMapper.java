@@ -99,4 +99,13 @@ public interface ProjectCategoryMapper {
     * @return  项目系列集
      */
     List<ProjectCategory> selectProjectCategoryByCategoryIdArray(int[] categoryIdArray);
+    
+    /**
+     * 根据部门查询项目大项
+    * @author 高国藩
+    * @date 2016年7月13日 下午3:31:28
+    * @param deptId 部门信息
+    * @return       查询结果信息
+     */
+    List<ProjectCategoryDto> selectProjectCategoryByDeptId(Integer deptId);
 }
