@@ -65,7 +65,6 @@ import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.IntegralFlowMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberComboProjectMapper;
-import com.zefun.web.mapper.MemberCouponMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
@@ -97,10 +96,6 @@ public class SelfCashierService {
 	/** 订单详情操作对象 */
 	@Autowired
 	private OrderDetailMapper orderDetailMapper;
-
-	/** 会员优惠券操作对象 */
-	@Autowired
-	private MemberCouponMapper memberCouponMapper;
 
 	/** 会员套餐项目明细操作对象 */
 	@Autowired
@@ -1316,19 +1311,13 @@ public class SelfCashierService {
 
 	/**
 	 * 更新会员账户信息
-	 * 
 	 * @author 张进军
 	 * @date Nov 12, 2015 12:40:24 AM
-	 * @param memberId
-	 *            会员标识
-	 * @param useAmount
-	 *            使用金额
-	 * @param integralAmount
-	 *            获赠积分
-	 * @param time
-	 *            使用时间
-	 * @throws ServiceException
-	 *             如果储值余额小于使用卡金金额，抛出异常
+	 * @param memberId 会员标识
+	 * @param useAmount 使用金额
+	 * @param integralAmount 获赠积分
+	 * @param time 使用时间
+	 * @throws ServiceException 如果储值余额小于使用卡金金额，抛出异常
 	 */
 	@Transactional
 	protected void updateMemberAccount(int memberId, BigDecimal useAmount, int integralAmount, String time)

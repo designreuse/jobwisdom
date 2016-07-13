@@ -106,6 +106,8 @@
 	                                    <li style="margin-right: 0px"><img style="width: 220px;" onclick="zcc(this,'img')" src="<%=qiniuPath%>${ picture }">
 	                                	<input type="hidden" name="carouselPicture" value="${ picture }">
 	                                	</li>
+                       
+                       
                                     </c:forEach>
                                 </c:if>
                                 <c:if test="${empty storeInfo.pictureArray }">
