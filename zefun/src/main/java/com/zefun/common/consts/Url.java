@@ -1339,6 +1339,8 @@ public interface Url {
 		
 		/** 合并订单*/
 		public static final String ACTION_MERGE_ORDER = "selfcashier/action/mergeOrder";
+		/** 修改员工提成*/
+		public static final String ACTION_SAVE_UPDATE_COMMISSION = "selfcashier/action/saveUpdateCommission";
 	}
 
 	/**
