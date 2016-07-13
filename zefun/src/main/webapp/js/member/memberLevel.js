@@ -72,7 +72,6 @@ function refreshTableData(page){
 		jQuery(".vip_card_table table").append(str);
 	}
 }
-
 function editMemberLevel (discountId) {
 	jQuery(".zzc1").show();
 	jQuery.ajax({

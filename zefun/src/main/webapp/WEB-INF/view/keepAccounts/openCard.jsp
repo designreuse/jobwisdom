@@ -25,6 +25,12 @@
 	.select_card_style_content span i{color:#e54b4f;}
 	.select_card_style_content span em{color:#818181}
 	</style>
+		<style>
+		.no_user_content{float:left}
+	 .no_password{float:right;margin-right:30px;}
+	  .no_password button{width:130px;height:60px;border:none;background:#c1c1c1;;color:white;font-size:14px}
+	  .no_password button:hover{background:#5275e8}
+	</style>
 	<script>
 	  jQuery(function(){
 	     jQuery('.recharge_ul_right_content:gt(0)').hide();
@@ -47,7 +53,19 @@
 	   })
 	  })
 	  
+	  	 jQuery(function(){ 
+	   jQuery('.no_user').click(function(){
+	    jQuery('.no_user_content').hide();
+		jQuery('.write_imformation').fadeIn();
+		jQuery(this).parent().hide();
 	  
+	   });
+	   jQuery('.back_').click(function(){
+	     jQuery('.no_user_content').fadeIn();
+		jQuery('.write_imformation').hide();
+	    jQuery('.no_password').fadeIn();
+	   })
+	  })
 	  
 	</script>
 </head>
@@ -258,7 +276,9 @@
 
 							<div class="recharge_user">
 									      <p>填写会员资料</p>
-										  <div class="seach_user">
+									<div class="seach_user">
+									<div class="clearfix"> 
+              
 									         <div class="no_user_content" style="display: block;">
 									         <div class="seach_user">
 									<div class="card-main clearfix" name="fillMemberInfo">
@@ -317,7 +337,13 @@
 										<ul class="member-card" name="subAccountUL">
 										</ul>
 									</div>
-								</div><a href="javascript:;" class="no_user">暂无账号</a></div>
+								</div>
+							</div>
+								<div class="no_password">
+									   <button class="no_user">暂无账号？<p>创建</p></button> 
+							   </div>
+						</div>
+								
 											 <div class="write_imformation" style="display: none;">
 											   <p>
 											      <span><em style="margin-right:30px">姓名</em><input type="text" name = "name"  placeholder="*"/></span>
@@ -340,6 +366,8 @@
 											   </p>
 											 </div>
 									      </div>
+									      
+									      
 									   </div>
 
 							

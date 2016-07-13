@@ -183,7 +183,7 @@
     where employee_id = #{employeeId,jdbcType=INTEGER}
   </delete>
   
-  <insert id="insertSelective" parameterType="com.zefun.web.entity.EmployeeInfo" >
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.EmployeeInfo" useGeneratedKeys="true" keyProperty="employeeId">
     insert into employee_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="employeeId != null" >
