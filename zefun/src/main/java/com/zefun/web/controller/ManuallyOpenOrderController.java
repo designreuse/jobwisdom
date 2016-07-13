@@ -251,4 +251,20 @@ public class ManuallyOpenOrderController extends BaseController{
         return staffService.settingProject(detailId, projectId);
     }
 	
+    /**
+     * 添加服务
+    * @author 老王
+    * @date 2016年7月11日 下午3:53:31 
+    * @param orderId 订单标识
+    * @param request        请求对象
+    * @param response       返回对象
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.KeepAccounts.ACTION_ADD_DETAIL_SERVER, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto addDetailServer (Integer orderId, HttpServletRequest request, HttpServletResponse response) {
+    	Integer storeId = getStoreId(request);
+	    Integer lastOperatorId = getUserId(request);
+        return staffService.addDetailServer(orderId, storeId, lastOperatorId);
+    }
 }

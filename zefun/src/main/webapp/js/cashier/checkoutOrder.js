@@ -440,20 +440,20 @@ function submitOrderInfo() {
 				for (var j = 0; j < stepList.length; j++) {
 					var step = stepList[j];
 					if (j == 0) {
-						table.append('<tr>'+
+						table.append('<tr name = "commission" commissionId = "'+step.commissionId+'">'+
 									    '<td rowspan="3">'+stepCommission.projectName+'</td>'+
 									    '<td >'+step.positionName+'</td>'+
 										'<td >'+step.employeeCodeName+'</td>'+
-										'<td ><input type="text" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
-										'<td ><input type="text" value = "'+step.commissionAmount+'"><em>元</em></td>'+
+										'<td ><input type="text" name = "commissionCalculate" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
+										'<td ><input type="text" name = "commissionAmount" value = "'+step.commissionAmount+'"><em>元</em></td>'+
 									 '</tr>');
 					}
 					else {
-						table.append('<tr>'+
+						table.append('<tr name = "commission" commissionId = "'+step.commissionId+'">'+
 									    '<td >'+step.positionName+'</td>'+
 										'<td >'+step.employeeCodeName+'</td>'+
-										'<td ><input type="text" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
-										'<td ><input type="text" value = "'+step.commissionAmount+'"><em>元</em></td>'+
+										'<td ><input type="text" name = "commissionCalculate" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
+										'<td ><input type="text" name = "commissionAmount" value = "'+step.commissionAmount+'"><em>元</em></td>'+
 									 '</tr>');
 					}
 				}
@@ -476,7 +476,33 @@ function determine () {
 }
 
 function determineUpdate () {
+	var commissionList = jQuery("tr[name='commission']");
+	var commissionSaveList = new Array();
+	for (var i = 0; i < commissionList.length; i++) {
+		var commission = commissionList[i];
+		var commissionId = jQuery(commission).attr("commissionId");
+		var commissionCalculate = jQuery(commission).find("input[name='commissionCalculate']").val();
+		var commissionAmount = jQuery(commission).find("input[name='commissionAmount']").val();
+		var commissionSave = {"commissionId" : commissionId, "commissionCalculate" : commissionCalculate, "commissionAmount" : commissionAmount}
+		commissionSaveList.push(commissionSave);
+	}
 	
+	var commissionSaveListStr = JSON.stringify(commissionSaveList);
+	
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "selfcashier/action/saveUpdateCommission",
+		data : "commissionSaveListStr="+commissionSaveListStr,
+		dataType : "json",
+		success : function(e){
+			if(e.code != 0){
+				dialog(e.msg);
+				return;
+			}
+			dialog("修改成功！");
+			window.location.href = baseUrl + 'selfcashier/view/list';
+		}
+	});
 }
 
 function getBigObj(selector){

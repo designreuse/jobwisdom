@@ -65,7 +65,6 @@ import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.IntegralFlowMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberComboProjectMapper;
-import com.zefun.web.mapper.MemberCouponMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
@@ -80,6 +79,7 @@ import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -97,10 +97,6 @@ public class SelfCashierService {
 	/** 订单详情操作对象 */
 	@Autowired
 	private OrderDetailMapper orderDetailMapper;
-
-	/** 会员优惠券操作对象 */
-	@Autowired
-	private MemberCouponMapper memberCouponMapper;
 
 	/** 会员套餐项目明细操作对象 */
 	@Autowired
@@ -884,6 +880,7 @@ public class SelfCashierService {
 					employeeCommission.setCommissionAmount(empCommission);
 					employeeCommission.setChargeTime(DateUtil.getCurTime());
 					employeeCommissionMapper.insert(employeeCommission);
+					stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
 			        stepList.add(stepOrderMap);
 		        }
 			}
@@ -943,7 +940,8 @@ public class SelfCashierService {
 				employeeCommission.setCommissionAmount(saveCommonCalculate);
 				employeeCommission.setChargeTime(DateUtil.getCurTime());
 				employeeCommissionMapper.insert(employeeCommission);
-	        	
+				
+				stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
 	        	stepList.add(stepOrderMap);
 			}
 			else {
@@ -995,6 +993,7 @@ public class SelfCashierService {
 					employeeCommission.setCommissionAmount(comm);
 					employeeCommission.setChargeTime(DateUtil.getCurTime());
 					employeeCommissionMapper.insert(employeeCommission);
+					stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
 		        	stepList.add(stepOrderMap);
 				}
 			}
@@ -1051,7 +1050,7 @@ public class SelfCashierService {
 				employeeCommission.setCommissionAmount(empCommission);
 				employeeCommission.setChargeTime(DateUtil.getCurTime());
 				employeeCommissionMapper.insert(employeeCommission);
-	        	
+				stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
 	        	stepList.add(stepOrderMap);
 			}
 			else {
@@ -1103,7 +1102,8 @@ public class SelfCashierService {
 					employeeCommission.setCommissionAmount(comm);
 					employeeCommission.setChargeTime(DateUtil.getCurTime());
 					employeeCommissionMapper.insert(employeeCommission);
-		        	
+					
+					stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
 		        	stepList.add(stepOrderMap);
 				}
 			}
@@ -1316,19 +1316,13 @@ public class SelfCashierService {
 
 	/**
 	 * 更新会员账户信息
-	 * 
 	 * @author 张进军
 	 * @date Nov 12, 2015 12:40:24 AM
-	 * @param memberId
-	 *            会员标识
-	 * @param useAmount
-	 *            使用金额
-	 * @param integralAmount
-	 *            获赠积分
-	 * @param time
-	 *            使用时间
-	 * @throws ServiceException
-	 *             如果储值余额小于使用卡金金额，抛出异常
+	 * @param memberId 会员标识
+	 * @param useAmount 使用金额
+	 * @param integralAmount 获赠积分
+	 * @param time 使用时间
+	 * @throws ServiceException 如果储值余额小于使用卡金金额，抛出异常
 	 */
 	@Transactional
 	protected void updateMemberAccount(int memberId, BigDecimal useAmount, int integralAmount, String time)
@@ -1615,6 +1609,30 @@ public class SelfCashierService {
 		return giftmoneyFlowMapper.insert(moneyFlow);
 	}
 
+	/**
+	 * 修改员工提成
+	* @author 老王
+	* @date 2016年7月12日 下午8:31:49 
+	* @param commissionSaveListStr 员工提成信息
+	* @return BaseDto
+	 */
+	public BaseDto saveUpdateCommission (String commissionSaveListStr) {
+		JSONArray commissionArray = JSONArray.fromObject(commissionSaveListStr);
+		for (int i = 0; i < commissionArray.size(); i++) {
+			JSONObject commissionJson = (JSONObject) commissionArray.get(i);
+			Integer commissionId = commissionJson.getInt("commissionId");
+			BigDecimal commissionCalculate = new BigDecimal(commissionJson.get("commissionCalculate").toString());
+			BigDecimal commissionAmount = new BigDecimal(commissionJson.get("commissionAmount").toString());
+			EmployeeCommission employeeCommission = new EmployeeCommission();
+			employeeCommission.setCommissionId(commissionId);
+			employeeCommission.setCommissionCalculate(commissionCalculate);
+			employeeCommission.setCommissionAmount(commissionAmount);
+			
+			employeeCommissionMapper.updateByPrimaryKey(employeeCommission);
+		}
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+	}
+	
 	/**
 	 * 新增资金流水
 	 * 
