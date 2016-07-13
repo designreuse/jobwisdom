@@ -342,7 +342,7 @@ public class StaffService {
             dtoList.add(map);
         }
 
-        mav.addObject("dtoList", dtoList);
+        mav.addObject("dtoListStr", JSONArray.fromObject(dtoList).toString());
         mav.addObject("deptList", deptList);
         mav.addObject("detailId", detailId);
         mav.addObject("deptLength", deptList.size());

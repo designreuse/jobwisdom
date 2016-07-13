@@ -131,13 +131,13 @@
 							 </div>
 							 
 							 <ul class="clearfix">
-							   <c:forEach items="${orderDetail.stepList}" var="step" varStatus="status">
+							   <c:forEach items="${cashierDto.orderDetails}" var="orderDetail" varStatus="status">
 							       <li <c:if test="${status.index == 0 }">class="active2"</c:if>></li>
 							   </c:forEach>
 							 </ul>
 							 <div class="table_content_button">
 							    <button onclick = "settlementOrder(this, ${cashierDto.orderId})">结算</button>
-							    <button onclick = "addServer(this, ${cashierDto.orderId})">结算</button>
+							    <button onclick = "addServer(this, ${cashierDto.orderId})">添加服务</button>
 							 </div>
 						   </div> 
 						 </li>
@@ -152,8 +152,8 @@
 <div class="zzc" name = "openOrderZzc" style="display:none">
   <div class="zzc_open_card_alert">
      <p>开单</p>
-     <div class="zzc_open_card_alert_content" name="memberTR" selectType="3">
-		<div class="vip_open_card">
+     <div class="zzc_open_card_alert_content">
+		<div class="vip_open_card" name="memberTR" selectType="3">
 		  <span>手牌号<em name = "handOrderCode" class="vip_open_card_select"><img src="<%=basePath%>images/open_card_img.png"></em></span>
 		  <i class="vip_search_content" name = "openOrderType" onclick = "openOrderType(this)">
 		     <a href="javascript:;">会员开单

@@ -1,6 +1,5 @@
 package com.zefun.wechat.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -252,12 +251,8 @@ public class StaffOrderService {
     public BaseDto deleteOrderDetail(Integer detailId, Integer storeId, Integer lastOperatorId) {
         OrderInfo orderInfo = orderInfoMapper.selectByDetailId(detailId);
         OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(detailId);
-        //redis操作用（不回滚）
-        List<Integer> detailIdList = new ArrayList<Integer>();
         
         deletes(orderDetail, storeId, lastOperatorId);
-
-        detailIdList.add(detailId);
                 
         List<OrderDetail> list = orderDetailMapper.selectOrderDetail(orderInfo.getOrderId());
         
