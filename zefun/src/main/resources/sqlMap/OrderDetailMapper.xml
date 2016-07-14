@@ -53,6 +53,7 @@
     <result column="detail_code" property="detailCode" jdbcType="CHAR" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="INTEGER" />
     <result column="order_type" property="orderType" jdbcType="INTEGER" />
     <result column="is_appoint" property="isAppoint" jdbcType="INTEGER" />
     <result column="appoint_off" property="appointOff" jdbcType="DECIMAL" />
@@ -74,7 +75,7 @@
     <result column="order_remark" property="orderRemark" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="is_update" property="isUpdate" jdbcType="INTEGER" />
-    <association property="stepList" column="detail_id" select="com.zefun.web.mapper.ShiftMahjongProjectStepMapper.selectOrderStepListByDetailId" />
+    <association property="commissionList" column="detail_id" select="com.zefun.web.mapper.EmployeeCommissionMapper.selectByEmployee" />
   </resultMap>
   
   <resultMap id="SumPriceDtoMap" type="com.zefun.web.dto.SumPriceDto" >
@@ -108,9 +109,10 @@
   
   <select id="selectDetailListByOrderId" parameterType="java.lang.Integer" resultMap="DetailBaseDtoMap">
     select 
-    <include refid="Base_Column_List" />
-    from order_detail
-    where order_id = #{orderId,jdbcType=INTEGER} and is_deleted = 0
+    s.*
+    ,(select dept_name from dept_info where dept_info.dept_id =s.dept_id) as dept_name
+    from order_detail  s
+    where s.order_id = #{orderId,jdbcType=INTEGER} and s.is_deleted = 0 and s.order_type &lt;&gt; 7
   </select>
   
   <select id="selectOrderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -136,9 +138,11 @@
   
   <select id="selectByDetailBaseDto" resultMap="DetailBaseDtoMap" parameterType="java.lang.Integer" >
     select 
-    *
-    from order_detail
-    where detail_id = #{detailId,jdbcType=INTEGER}
+    s.*
+    ,(select dept_name from dept_info where dept_info.dept_id =s.dept_id) as dept_name
+    from order_detail  s
+    where s.detail_id = #{detailId,jdbcType=INTEGER}
+
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

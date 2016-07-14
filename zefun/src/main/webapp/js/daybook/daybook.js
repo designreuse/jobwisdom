@@ -257,6 +257,7 @@ var commissionArray = new Array();
 
 function updateSelectOrder(orderId) {
 	updateOrderId = orderId;
+	var type [];
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "daybook/selectOrderByUpdate",
@@ -271,7 +272,7 @@ function updateSelectOrder(orderId) {
 			var obj = data.orderInfoBaseDto;
 			var employeeInfoList = data.employeeInfoList;
 			
-			jQuery("#orderCodeModel").text("流水单号：" + obj.orderCode);
+			jQuery("#orderCodeModel").text(obj.orderCode);
 			jQuery("#discountAmountModel").text(obj.discountAmount);
 			jQuery("input[name='cashAmountModel']").val(obj.cashAmount);
 			jQuery("input[name='unionpayAmountModel']").val(obj.unionpayAmount);
@@ -279,91 +280,23 @@ function updateSelectOrder(orderId) {
 			jQuery("input[name='alipayAmountModel']").val(obj.alipayAmount);
 			jQuery("input[name='cardAmountModel']").val(obj.cardAmount);
 			jQuery("input[name='groupAmountModel']").val(obj.groupAmount);
-			jQuery("input[name='debtAmountModel']").val(obj.debtAmount);
+			jQuery("i[name='debtAmountModel']").val(obj.debtAmount);
 			jQuery("#realAmountModel").text(obj.realAmount);
 			var privilege = parseFloat(obj.appointOff) + parseFloat(obj.comboAmount) + parseFloat(obj.couponAmount) + parseFloat(obj.giftAmount);
 			jQuery("#privilegeModel").text(privilege);
-			
-			jQuery("#detailExpense").empty();
+			type.push(orderDetailDto.orderType);
 			var orderDetailList = obj.orderDetailList;
 			for (var i = 0; i < orderDetailList.length; i++) {
 				var orderDetailDto = orderDetailList[i];
 				
-				var divObj = jQuery("<div class='boss_cut'></div>");
 				
-				var proStr = "<div class='boss_'>"+orderDetailDto.projectName+"<span><em>应收：¥"+orderDetailDto.discountAmount+"</em>";
-				if (orderDetailDto.privilegeMoney <= 0) {
-					proStr += "";
-				} else {
-					proStr += "<em>"+orderDetailDto.privilegeInfo+" -"+orderDetailDto.privilegeMoney+"</em>"
+				var HTML1 = ' <span>'+orderDetailDto.projectName+'</span> <p>礼金抵扣：<em>¥'+orderDetailDto.giftAmount+'</em></p>';
+				if(orderDetailDto.orderType ==1){
+					jQuery("#divobj2").append(HTML1);
+				}else{
+					jQuery("#divobj1").append(HTML1);
 				}
-				if (orderDetailDto.appointOff <= 0) {
-					proStr += "";
-				}
-				else {
-					proStr += "<em>预约：-"+orderDetailDto.appointOff+"</em>";
-				}
-				if (orderDetailDto.freeAmount > 0) {
-					proStr += "<em>改单金额: +"+orderDetailDto.freeAmount+" </em>"+
-				    "<em>改单备注: "+orderDetailDto.orderRemark+"</em>";
-				} 
-				else if (orderDetailDto.freeAmount < 0){
-					proStr += "<em>改单金额: "+orderDetailDto.freeAmount+" </em>"+
-				    "<em>改单备注: "+orderDetailDto.orderRemark+"</em>";
-				}
-				else {
-					proStr += "";
-				}
-				proStr += "<em>实收: "+orderDetailDto.realPrice+" </em></span></div>";
-				
-				divObj.append(proStr);
-				
-				var stepList = orderDetailDto.stepList;
-				var tbodys = jQuery("<table></table>");
-				for (var j = 0; j < stepList.length; j++) {
-					var orderDetailStepDto = stepList[j];
-					var tbodysStr = "<tr commissionId = '"+orderDetailStepDto.commissionId+"'>"+
-						                "<td>"+orderDetailStepDto.projectStepName+"</td>"+
-						                "<td>"+orderDetailStepDto.shiftMahjongName+"</td>";
-										
-					tbodysStr += "<td><select name='employeeId' class='chzn-select mr5 input-medium'>";
-
-					tbodysStr += "<option value=''>未设置服务人员</option>";
-					for (var k = 0; k < employeeInfoList.length; k++) {
-						if (isEmpty(orderDetailStepDto.employeeInfo) || orderDetailStepDto.employeeInfo == "null") {
-							tbodysStr += "<option value='"+employeeInfoList[k].employeeId+"'><span class='gp'>"+employeeInfoList[k].employeeCode+"</span> <span class='name'>"+employeeInfoList[k].name+"</span></option>";
-						}
-						else {
-							if (orderDetailStepDto.employeeInfo.employeeId == employeeInfoList[k].employeeId) {
-								tbodysStr += "<option selected='selected' value='"+employeeInfoList[k].employeeId+"'><span class='gp'>"+employeeInfoList[k].employeeCode+"</span> <span class='name'>"+employeeInfoList[k].name+"</span></option>";
-							}
-							else {
-								tbodysStr += "<option value='"+employeeInfoList[k].employeeId+"'><span class='gp'>"+employeeInfoList[k].employeeCode+"</span> <span class='name'>"+employeeInfoList[k].name+"</span></option>";
-							}
-						}
-					}
-					if (orderDetailDto.orderType == 1) {
-						tbodysStr += "</select></td><td><select name='isAssign' value = "+orderDetailStepDto.isAssign+">";
-						tbodysStr += "<option value='0'>非指定</option>"+
-				                     "<option value='1'>指定</option></select>";
-						
-						tbodysStr += "<td><select name='isAppoint' value = "+orderDetailStepDto.isAppoint+">";
-						tbodysStr += "<option value='0'>非预约</option>"+
-				                     "<option value='1'>预约</option></select></td>";
-					}
-					
-					tbodysStr = tbodysStr + "<td>提成： <input class='w85' type='text' name = 'commissionAmount' value = '"+orderDetailStepDto.commissionAmount+"' placeholder='0'/></td>"+
-							                "<td>业绩： <input class='w85' type='text' name = 'commissionCalculate' value = '"+orderDetailStepDto.commissionCalculate+"' placeholder='0'/></td>"+
-							            "</tr>";
-					tbodys.append(tbodysStr);
-					var commissionObj = {"commissionId": orderDetailStepDto.commissionId,"commissionAmount":orderDetailStepDto.commissionAmount,"commissionCalculate":orderDetailStepDto.commissionCalculate};
-	                commissionArray.push(commissionObj);
-				}
-				divObj.append(tbodys);
-				jQuery("#detailExpense").append(divObj);
 			}
-			jQuery("select[name='employeeId']").chosen({disable_search_threshold: 3});
-			jQuery("select[name='employeeId']").trigger("liszt:updated");
 			jQuery('.zzc').show();
 		}
 	});

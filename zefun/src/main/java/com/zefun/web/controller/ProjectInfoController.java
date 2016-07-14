@@ -172,15 +172,15 @@ public class ProjectInfoController extends BaseController {
     * @param request    request
     * @param response   response
     * @param categoryId categoryId
+    * @param deptId     deptId
     * @return           ModelAndView
      * @throws IOException 
      */
     @RequestMapping(value = Url.Project.PROJECT_INFO_LIST)
-    public ModelAndView viewProjects(HttpServletRequest request,
-            HttpServletResponse response, Integer categoryId)
+    public ModelAndView viewProjects(HttpServletRequest request, HttpServletResponse response, Integer deptId, Integer categoryId)
             throws IOException {
         Integer storeId = getStoreId(request);
-        return projectService.viewProjects(storeId, categoryId);
+        return projectService.viewProjects(storeId, deptId, categoryId);
     }
 
     // /**

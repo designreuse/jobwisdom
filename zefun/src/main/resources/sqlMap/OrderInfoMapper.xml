@@ -596,6 +596,9 @@
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <association property="memberName" column="member_id" select="com.zefun.web.mapper.MemberInfoMapper.selectMemberNameByMemberId"></association>
     <association property="projectName" column="order_id" select="com.zefun.web.mapper.OrderDetailMapper.selectOrderDetailNameByOrderId"></association>
+	<association property="orderDetailList" column="order_id" select="com.zefun.web.mapper.OrderDetailMapper.selectDetailListByOrderId" />
+	<association property="deptList" column="order_id" select="com.zefun.web.mapper.DeptObjectiveMapper.selectByDapt" />
+ 	
   </resultMap>
 
   <sql id="selectDayBookInfo">

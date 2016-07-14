@@ -129,12 +129,11 @@
 </body>
 <script type="text/javascript" src="<%=basePath%>js/base/roll.js"></script>
 <script>
+
 	var deptGoodsBaseDtoJs = ${deptGoodsBaseDtoJs};
-	function changeDept(deptId, li){
-		if (deptId == 0){
-			deptId = deptGoodsBaseDtoJs[0].deptId;
-		}
-		jQuery("#dept").text(jQuery(li).text());
+	var deptId = null;
+	function selectDept(deptId){
+		jQuery("#dept").text(jQuery("li[deptId='"+deptId+"']").text());
 		jQuery(".setting_all").eq(1).empty();
 		var html = '<li onclick="changeCategory(0, this)" categoreid="0">全部</li>';
 		jQuery(".setting_all").eq(1).append(jQuery(html));
@@ -149,13 +148,27 @@
 			}
 		}
 	}
+	function selectCategory(categoryId){
+		console.log(categoryId);
+		var categoryName = jQuery("li[categoreId='"+categoryId+"']").text();
+		console.log(categoryName);
+		jQuery("#category").text(categoryName);
+	}
+	if ('${deptId}' != ''){
+		deptId = '${deptId}';
+		selectDept('${deptId}')
+	}
+	if ('${categoryId}' != ''){
+		selectCategory('${categoryId}');
+	}
+	function changeDept(deptId, li){
+		window.location.href = baseUrl + "goodsInfo/view/goodsInfoList?deptId=" + deptId;
+	}
 	function changeCategory(categoryId, li){
 		jQuery("#category").text(jQuery(li).text());
-		var path = "";
-		if (categoryId == 0){
-			path = baseUrl + "goodsInfo/view/goodsInfoList";
-		}else{
-			path = baseUrl + "goodsInfo/view/goodsInfoList" + "?categoryId=" + categoryId;
+		var path = baseUrl + "goodsInfo/view/goodsInfoList" + "?categoryId=" + categoryId;
+		if (deptId!=null){
+			path = path + "&deptId=" + deptId;
 		}
 		window.location.href = path;
 	}

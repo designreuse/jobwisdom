@@ -51,9 +51,9 @@ public class EnterpriseController extends BaseController{
 	* @param enterpriseLinkphone  企业联系电话
 	* @param enterpriseLinkname 企业联系人
 	* @param storeAccount 企业代号
-	* @param enterpriseProvince 企业省份
-	* @param enterpriseCity 企业城市
-	* @param enterpriseAddress 企业详细地址
+//	* @param enterpriseProvince 企业省份
+//	* @param enterpriseCity 企业城市
+//	* @param enterpriseAddress 企业详细地址
 	* @param enterpriseEdition 企业版本
 	* @param useTime 使用时间
 	* @param enterpriseInfoId 标识

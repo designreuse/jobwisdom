@@ -1163,28 +1163,34 @@ public class ProjectService {
     * @date 2016年4月27日 下午5:50:18
     * @param storeId storeId
     * @param categoryId categoryId
+    * @param deptId     deptId
     * @return        ModelAndView
      */
-    public ModelAndView viewProjects(Integer storeId, Integer categoryId) {
-        List<ProjectInfo> projectInfos = projectInfoMapper
-                .selectByStoreId(storeId);
+    public ModelAndView viewProjects(Integer storeId, Integer deptId, Integer categoryId) {
+        List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(storeId);
         ModelAndView view = new ModelAndView(View.Project.PROJECT_LIST);
-        if (categoryId != null) {
+        if (deptId != null && deptId != 0){
+            projectInfos = projectInfos.stream()
+                    .filter(p -> p.getDeptId().equals(deptId))
+                    .collect(Collectors.toList());
+            view.addObject("deptId", deptId);
+        }
+        if (categoryId != null && categoryId != 0) {
             projectInfos = projectInfos.stream()
                     .filter(p -> p.getCategoryId().equals(categoryId))
                     .collect(Collectors.toList());
+            ProjectCategory projectCategory = projectCategoryMapper.selectByPrimaryKey(categoryId);
+            view.addObject("deptId", projectCategory.getDeptId());
+            view.addObject("categoryId", categoryId);
         }
         view.addObject("projectInfos", projectInfos);
 
-        Long hasFinish = projectInfos.stream()
-                .filter(p -> p.getProjectPrice() != null).count();
+        Long hasFinish = projectInfos.stream().filter(p -> p.getProjectPrice() != null).count();
         view.addObject("hasFinish", hasFinish);
 
-        List<DeptProjectBaseDto> deptProjectList = getDeptProjectByStoreId(
-                storeId);
+        List<DeptProjectBaseDto> deptProjectList = getDeptProjectByStoreId(storeId);
         view.addObject("deptProjectList", deptProjectList);
-        view.addObject("deptProjectListJs",
-                JSONArray.fromObject(deptProjectList));
+        view.addObject("deptProjectListJs", JSONArray.fromObject(deptProjectList));
 
         return view;
     }

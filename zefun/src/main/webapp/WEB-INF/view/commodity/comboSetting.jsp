@@ -147,6 +147,11 @@
 				var projectCount = jQuery(this).attr("projectCount");
 				price += Number(projectPrice)*Number(projectCount);
 			});
+		   jQuery("#goods").children("li").each(function (){
+				var projectPrice = jQuery(this).attr("goodsPrice");
+				var projectCount = jQuery(this).attr("goodsCounts");
+				price += Number(projectPrice)*Number(projectCount);
+			});
 		   jQuery("#allProjectPrice").text(price+"元");
         });
 	  });	
@@ -311,7 +316,7 @@
 								</div>
 								<div class="item_button" style="text-align: center;">  
 									   <button class="bt" onclick="coverData()">保存</button>
-									   <button onclick="window.location.href='<%=basePath%>comboInfo/view/comboInfoList'">取消</button>
+									   <button class="bt" onclick="window.location.href='<%=basePath%>comboInfo/view/comboInfoList'">取消</button>
 								</div>
 							</div>
 
@@ -322,7 +327,7 @@
 										<table>
 											<tbody>
 												<tr>
-													<td>项目原总价</td>
+													<td>疗程原总价</td>
 													<td>是否有时间限制</td>
 													<td>有效期</td>
 												</tr>
@@ -375,7 +380,7 @@
 							    </div>
 								<div class="item_button" style="text-align: center;">  
 								   <button class="bt" onclick="coverData()">保存</button>
-								   <button onclick="window.location.href='<%=basePath%>comboInfo/view/comboInfoList'">取消</button>
+								   <button class="bt" onclick="window.location.href='<%=basePath%>comboInfo/view/comboInfoList'">取消</button>
 								</div>
 							</div>
 						</div>
@@ -590,7 +595,7 @@ var u1 = UE.getEditor('editor1', toolbars);
 			async : false,
 			success : function(data) {
 				if (data.code == 0){
-					dialog("该套餐已更新");
+					dialog("该疗程已更新");
 					comboId = data.msg.comboId;
 				}
 			}

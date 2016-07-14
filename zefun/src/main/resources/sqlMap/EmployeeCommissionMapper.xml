@@ -14,6 +14,7 @@
     <result column="charge_time" property="chargeTime" jdbcType="CHAR" />
   </resultMap>
   
+  
   <resultMap id="CommissionDtoBaseResultMap" type="com.zefun.web.dto.EmployeeCommissionDto" >
     <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
@@ -23,8 +24,17 @@
     <result column="commission_calculate" property="commissionCalculate" jdbcType="DECIMAL" />
     <result column="commission_amount" property="commissionAmount" jdbcType="DECIMAL" />
     <result column="charge_time" property="chargeTime" jdbcType="CHAR" />
+    <result column="employee_name" property="employeeName" jdbcType="CHAR" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="order_code" property="orderCode" jdbcType="CHAR" />
+  </resultMap>
+  
+    <resultMap id="CommissionDtoByEmployee" type="com.zefun.web.dto.EmployeeCommissionDto" >
+    <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
+    <result column="commission_calculate" property="commissionCalculate" jdbcType="INTEGER" />
+    <result column="commission_amount" property="commissionAmount" jdbcType="INTEGER" />
+    <result column="employee_code" property="employeeCode" jdbcType="INTEGER" />
+    <result column="name" property="employeeName" jdbcType="CHAR" />
   </resultMap>
   
   <resultMap id="EmployeeCommissionOfBossDtoMap" type="com.zefun.wechat.dto.EmployeeCommissionOfBossDto" >
@@ -394,10 +404,12 @@
   
   <select id="selectByDetailId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="Base_Column_List" />
-    from employee_commission
+    *
+    from employee_commission 
     where detail_id = #{detailId,jdbcType=INTEGER} and is_deleted = 0 
   </select>
+  
+
   
   <select id="selectByEmployeeIdShift" resultMap="BaseResultMap" parameterType="java.util.Map" >
     select 
@@ -685,6 +697,17 @@
   	select sum(commission_amount) 
 	from employee_commission 
 	where is_deleted = 0 and employee_id = ${employeeId} and charge_time like "${time}%" 
+  </select>
+  
+    <select id="selectByEmployee" resultMap="CommissionDtoByEmployee" parameterType="java.lang.Integer" >
+    select 
+    e.commission_id,
+    e.commission_calculate,
+	e.commission_amount,
+	emp.employee_code,
+	emp.name
+    from employee_commission e  left join  employee_info emp on emp.employee_id =e.employee_id
+    where e.detail_id = #{detailId,jdbcType=INTEGER} and e.is_deleted = 0 
   </select>
   
 </mapper>

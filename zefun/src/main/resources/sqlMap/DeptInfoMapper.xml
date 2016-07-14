@@ -16,6 +16,7 @@
     <id column="dept_id" property="deptId" jdbcType="INTEGER" />
     <result column="dept_code" property="deptCode" jdbcType="INTEGER" />
     <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <association property="projectCategoryDtoList"  column="dept_id" select="com.zefun.web.mapper.ProjectCategoryMapper.selectProjectCategoryByDeptId"></association>
     <association property="positionInfo"  column="dept_id" select="com.zefun.web.mapper.PositioninfoMapper.getStridePositionInfo"></association>
     <association property="shiftMahjongList"  column="dept_id" select="com.zefun.web.mapper.ShiftMahjongMapper.selectByDeptId"></association>
   </resultMap>
@@ -148,4 +149,13 @@
   	where is_deleted = 0 and store_id = #{storeId}
   </select>
   
+    <resultMap id="DeptInfoCategoryMap" type="com.zefun.web.dto.DeptInfoDto" >
+    <id column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="dept_code" property="deptCode" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <association property="projectCategoryDtoList"  column="dept_id" select="com.zefun.web.mapper.ProjectCategoryMapper.selectProjectCategoryByDeptId"></association>
+  </resultMap>
+  <select id="selectDeptInfoProjectCategory" resultMap="DeptInfoCategoryMap" parameterType="java.lang.Integer">
+  	select * from dept_info where is_deleted = 0 and store_id = #{storeId}
+  </select>
 </mapper>

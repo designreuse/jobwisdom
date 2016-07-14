@@ -241,6 +241,7 @@ function editMemberLevel(levelId){
 					content.append("<div>" + list[i].text + "</div>");
 				}
 			}*/
+			changeType()
 		}
 	});
 	

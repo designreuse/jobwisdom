@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -20,7 +21,9 @@ import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.AppointmentBaseDto;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
+import com.zefun.web.dto.PositionInfoDto;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.MemberAppointment;
@@ -31,10 +34,13 @@ import com.zefun.web.entity.ShiftInfo;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.MemberAppointmentMapper;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ShiftMapper;
 import com.zefun.wechat.service.MemberCenterService;
+
+import net.sf.json.JSONArray;
 
 /**
  * 预约管理服务类
@@ -85,6 +91,10 @@ public class AppointManageService {
     /** 队列操作类 */
     @Autowired
     private RabbitService rabbitService;
+    /** 岗位信息 */
+    @Autowired
+    private PositioninfoMapper positioninfoMapper;
+    
     
     /** 日志打印 */
     private Logger log = Logger.getLogger(AppointManageService.class);
@@ -106,10 +116,12 @@ public class AppointManageService {
     	//该店铺部门列表
     	List<DeptInfo> deptInfoList = deptInfoMapper.selectDeptByStoreId(storeId);
     	
+    	List<DeptInfoDto> deptInfoCategorys = deptInfoMapper.selectDeptInfoProjectCategory(storeId);
     	List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(storeId);
     	
     	mav.addObject("dateMap", dateMap);
     	mav.addObject("deptInfoList", deptInfoList);
+    	mav.addObject("deptInfoCategorys", JSONArray.fromObject(deptInfoCategorys));
     	mav.addObject("projectCategories", projectCategories);
         return mav;
     }
@@ -207,6 +219,10 @@ public class AppointManageService {
     	returnEmployeeList = findCanAppointEmployeeByShift(appointmentYearMonthDay, weekDay, time, employeeInfoList);
     	//排除该时间段已经预约的员工
     	returnEmployeeList = excludeAlreadyReservedEmployee(storeId, appointmentYearMonthDay, time, returnEmployeeList);
+    	//排除岗位，只剩下设计师岗位
+    	List<PositionInfoDto> positionInfoDtos = positioninfoMapper.selectPositionEpmployees(storeId);
+    	returnEmployeeList = returnEmployeeList.stream().filter(r -> r.getPositionId().intValue() == positionInfoDtos.get(0)
+    	        .getPositionId().intValue()).collect(Collectors.toList());
     	
     	return returnEmployeeList;
     }
@@ -344,6 +360,9 @@ public class AppointManageService {
 //    	memberAppointment.setShiftMahjongId(projectStep.getShiftMahjongId());
         
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberAppointment.getMemberId(), false);
+        
+        memberAppointment.setName(memberInfo.getName());
+        memberAppointment.setPhone(memberInfo.getPhone());
     	
     	//处理预约日期(appointment_date,格式yyyy-MM-dd)
     	int year = Integer.valueOf(new SimpleDateFormat("yyyy").format(new Date()));
