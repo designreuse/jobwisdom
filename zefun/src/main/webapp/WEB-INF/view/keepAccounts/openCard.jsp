@@ -24,8 +24,6 @@
 	.select_card_style_content span{display:inline-block;margin-left:20px}
 	.select_card_style_content span i{color:#e54b4f;}
 	.select_card_style_content span em{color:#818181}
-	</style>
-		<style>
 		.no_user_content{float:left}
 	 .no_password{float:right;margin-right:30px;}
 	  .no_password button{width:130px;height:60px;border:none;background:#c1c1c1;;color:white;font-size:14px}

@@ -32,16 +32,16 @@
 	  .order_see_content_num input{border-radius:12px;width:95px;height:14px;position:relative;left:4px;border:1px solid #c6d0e0}
 	  .cash_content{margin-right:-80px;margin-top:10px}
 	  .order_see_content_num{overflow:hidden}
-	  .order_style_content{border-radius:8px;overflow:hidden;border:1px solid #dce3fa;width:1060px;margin:0px auto;margin-bottom:20px;font-size:14px}
+	  .order_style_content{border-radius:8px;border:1px solid #dce3fa;width:1060px;margin:0px auto;margin-bottom:20px;font-size:14px}
 	  .order_style_content_left{float:left;text-align:center;height:116px;width:145px;background:#d8e0f2}
 	  .order_style_content_left>p{font-size:12px;margin-top:4px}
 	  .order_style_content_left>p>em{color:#cb2626}
 	  .order_style_content_left>span{display:inline-block;margin-top:34px}
 	  .order_style_content_right{float:left}
-	  .order_style_content_right span{display:inline-block;text-align:center;margin-left:35px}
-	  .order_style_content_right select{width:86px;padding-left:30px;height:16px;border-radius:12px;border:1px solid #b1c0d6}
+	  .order_style_content_right>li>span{display:inline-block;text-align:center;margin-left:35px}
+	  .order_style_content_right select{width:116px;height:16px;border-radius:12px;border:1px solid #b1c0d6}
 	  .order_style_content_right input{margin-left:8px;width:110px;height:16px;border-radius:12px;border:1px solid #b1c0d6}
-	  .order_style_content_right li{height:38px;line-height:38px;width:915px;background:#f7f9fc;border-bottom:1px solid #dce3fa}
+	  .order_style_content_right>li{height:38px;line-height:38px;width:915px;background:#f7f9fc;border-bottom:1px solid #dce3fa}
 	  .order_style_content_right li:last-child{border-bottom:none}
 	  .order_style_content_{height:260px;overflow-x:hidden;margin-top:20px;overflow-y:overlay}
 	  .order_see_button{text-align:center;margin-top:20px}
@@ -50,44 +50,44 @@
 	</style>
 <body>
 
-<div class="zzc2" style="display:none">
-   <div class="zzc_content">
-	  <div class="water_number">流水单号:<span id="orderCodeModel1"></span><span class="close_zzc"><img src="<%=basePath%>images/close.png"></span ></div>
-	   <table class="zzc_1">
-	     <tr>
-	       <td>应收 </td>
-		   <td>现钞 </td>
-		   <td>银联 </td>
-		   <td>微信 </td>
-		   <td>支付宝</td>
-		   <td>卡金</td>
-		   <td>团购 </td>
-		   <td>优惠抵扣 </td>
-		   <td>挂账 </td>
-		   <td>实收</td>
-	      </tr>
-		   <tr>
-	       <td><span class="red" id = "discountAmountModel"></span></td>
-		   <td><input type="text" name = "cashAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-		   <td><input type="text" name = "unionpayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-		   <td><input type="text" name = "wechatAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-           <td><input type="text" name = "alipayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-           <td><input type="text" name = "cardAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-           <td><input type="text" name = "groupAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-           <td><span class="red" id = "privilegeModel1"></span></td>
-           <td><input type="text" name = "debtAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-           <td><span class="red" id = "realAmountModel"></span></td>
-	      </tr>
-	   </table>
-	   <div id = "detailExpense">
+<!-- <div class="zzc2" style="display:none"> -->
+<!--    <div class="zzc_content"> -->
+<%-- 	  <div class="water_number">流水单号:<span id="orderCodeModel1"></span><span class="close_zzc"><img src="<%=basePath%>images/close.png"></span ></div> --%>
+<!-- 	   <table class="zzc_1"> -->
+<!-- 	     <tr> -->
+<!-- 	       <td>应收 </td> -->
+<!-- 		   <td>现钞 </td> -->
+<!-- 		   <td>银联 </td> -->
+<!-- 		   <td>微信 </td> -->
+<!-- 		   <td>支付宝</td> -->
+<!-- 		   <td>卡金</td> -->
+<!-- 		   <td>团购 </td> -->
+<!-- 		   <td>优惠抵扣 </td> -->
+<!-- 		   <td>挂账 </td> -->
+<!-- 		   <td>实收</td> -->
+<!-- 	      </tr> -->
+<!-- 		   <tr> -->
+<!-- 	       <td><span class="red" id = "discountAmountModel"></span></td> -->
+<!-- 		   <td><input type="text" name = "cashAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td> -->
+<!-- 		   <td><input type="text" name = "unionpayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td> -->
+<!-- 		   <td><input type="text" name = "wechatAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td> -->
+<!--            <td><input type="text" name = "alipayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td> -->
+<!--            <td><input type="text" name = "cardAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td> -->
+<!--            <td><input type="text" name = "groupAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td> -->
+<!--            <td><span class="red" id = "privilegeModel1"></span></td> -->
+<!--            <td><input type="text" name = "debtAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td> -->
+<!--            <td><span class="red" id = "realAmountModel"></span></td> -->
+<!-- 	      </tr> -->
+<!-- 	   </table> -->
+<!-- 	   <div id = "detailExpense"> -->
 	      
-	   </div>
-	 <div class="water_button">
-	   <button class="water_cancel">取消</button>
-	   <button class="accounts">结账</button>
-	 </div>
-	</div>
-</div>
+<!-- 	   </div> -->
+<!-- 	 <div class="water_button"> -->
+<!-- 	   <button class="water_cancel">取消</button> -->
+<!-- 	   <button class="accounts">结账</button> -->
+<!-- 	 </div> -->
+<!-- 	</div> -->
+<!-- </div> -->
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
    <div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -211,38 +211,33 @@
               </c:if>
 	     </td>
 		 <td style="width:140px">
-<!-- 		    <table> -->
-<!-- 		       <tr> -->
-<!-- 		         <td>dsadsa</td> -->
-<!-- 		         <td>dsadsadsa</td> -->
-<!-- 		       </tr> -->
-<!-- 		    </table> -->
 		 	<c:forEach items="${daybook.orderDetailList}" var="orderDetailList"> 
- 		 	  <p> 
-		 	     <i>${orderDetailList.projectName}</i></br> 
+ 		 	   <p class="pay_item">${orderDetailList.projectName}</p>
 	 	     <i class="pay_item" style="text-align: center;"><c:forEach items="${daybook.deptList}" var="deptList">(${deptList.deptName})</c:forEach></i>
- 		 	  </p> 
-		 	  <p class="pay_item server_achievement" ></p> 
-	 	</c:forEach> 
+			</c:forEach> 
 		 </td>
+
 		 <td style="vertical-align:top!important">
 		 <c:forEach items="${daybook.orderDetailList}" var="orderDetailList">
 		 	<c:forEach items="${orderDetailList.commissionList}" var="commissionList">
-			 	<p class="server_achievement">
-				  <span>(${commissionList.employeeCode })<em>${commissionList.employeeName }</em>
-				  <c:if test="${orderDetailList.isAssign eq 1 }">
-				    <i>(指定)</i>
-				  </c:if>
-				    <c:if test="${orderDetailList.isAssign eq 0 }">
-				    <i>(未指定)</i>
-				  </c:if>
-				</span>
-				  <span>业绩:<em>${commissionList.commissionCalculate }</em></span>
+			 	<table class="td_table">
+				 <tr>
+					 <td>
+						<span>(${commissionList.employeeCode })<em>${commissionList.employeeName }</em>
+					  <c:if test="${orderDetailList.isAssign eq 1 }">
+						<i>(指定)</i>
+					  </c:if>
+						<c:if test="${orderDetailList.isAssign eq 0 }">
+						<i>(未指定)</i>
+					  </c:if>
+					</span>
+					<span>业绩:<em>${commissionList.commissionCalculate }</em></span>
 				  <span style="border-right:none">提成:<em>${commissionList.commissionAmount } </em></span>
-			   </p>
+				  </td>
+			   </tr>
+			   	</table>
 			</c:forEach>
 		 </c:forEach>
-		  
 		</td>
 		 <td><button onclick="deleteOrder(${daybook.orderId}, this)">退单</button></td>
 	   </tr>
@@ -262,7 +257,7 @@
      <p>订单查看</p>
      <div class="order_see_content">
        <div class="order_see_content_num">
-	    <p>流水单号：<span id="orderCodeModel"></span><em>挂账<i name = "debtAmountModel">0</i></em><em>优惠折扣<i class="red" id = "privilegeModel"></i></em></p>
+	    <p>流水单号：<span id="orderCodeModel"></span><em>优惠折扣<i class="red" id = "privilegeModel"></i></em><em>应收<i  id = "discountAmountModel"></i></em>  <em>实收<i  id = "realAmountModel"></i></em>  </p>
 		 <div class="cash_content">
 			<ul class="cash_1 clearfix">
 			   <li>现钞<input type="text" name = "cashAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></li>
@@ -275,77 +270,13 @@
 			</ul>
 		 </div>	
 	   </div>
-	  <div class="order_style_content_"> 
-	   <div class="order_style">
-	     <div class="order_style_content clearfix">
-		    <div class="order_style_content_left" id="divobj1">
-			</div>
-			<ul class="order_style_content_right">
-			  <li>
-			     <span>销售人员</span>
-				 <span>第一人</span>
-				 <span><select>
-<%-- 				 <c:forEach items="${employeeInfoList } " var="employeeInfoList"><option id='${employeeInfoList.employeeCode }'>${employeeInfoList.name }</option></c:forEach> --%>
-				 </select></span>
-				 <span style="margin-left:100px">提成<input type="text"></span>
-				 <span>业绩<input type="text"></span>
-			  </li>
-			   <li>
-			     <span>销售人员</span>
-				 <span>第一人</span>
-				 <span><select><option>1201 阿大</option></select></span>
-				 <span style="margin-left:100px">提成<input type="text"></span>
-				 <span>业绩<input type="text"></span>
-			  </li>
-			   <li>
-			     <span>销售人员</span>
-				 <span>第一人</span>
-				 <span><select><option>1201 阿大</option></select></span>
-				 <span style="margin-left:100px">提成<input type="text"></span>
-				 <span>业绩<input type="text"></span>
-			  </li>
-			</ul>
-		 </div>
-	   </div>
-	   
-	   <div class="order_style">
-	     <div class="order_style_content clearfix">
-		    <div class="order_style_content_left" id="divobj2">
-		    
-			</div>
-			<ul class="order_style_content_right">
-			  <li>
-			     <span>洗护牌</span>
-				 <span><select><option>1201 阿大</option></select></span>
-				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非指定</option></select></span>
-				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非预约</option></select></span>
-				 <span style="margin-left:60px">提成<input type="text"></span>
-				 <span>业绩<input type="text"></span>
-			  </li>
-			   <li>
-			     <span>洗护牌</span>
-				 <span><select><option>1201 阿大</option></select></span>
-				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非指定</option></select></span>
-				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非预约</option></select></span>
-				 <span style="margin-left:60px">提成<input type="text"></span>
-				 <span>业绩<input type="text"></span>
-			  </li>
-			   <li>
-			     <span>洗护牌</span>
-				 <span><select><option>1201 阿大</option></select></span>
-				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非指定</option></select></span>
-				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非预约</option></select></span>
-				 <span style="margin-left:60px">提成<input type="text"></span>
-				 <span>业绩<input type="text"></span>
-			  </li>
-			 
-			</ul>
-		 </div>
+	  <div class="order_style_content_" id="divobj"> 
+	
 	   </div> 
 	  </div>
 	  <div class="order_see_button">
-	    <button>确认</button>
-	    <button>取消</button>
+	    <button onclick="confirmModel()">确认</button>
+	    <button class="accounts" onclick="jQuery('.zzc').hide()">取消</button>
 	  </div>
 	 </div>
    </div>

@@ -38,9 +38,11 @@ public class WechatPayController extends BaseController{
     /** 事件通知操作*/
     @Autowired
     private SystemWebSocketHandler systemWebSocketHandler;
+    /** NATIVE 支付名称*/
+    private static String goodsName = "我道系统-门店充值";
     
     /**
-     * 微信NATIVE扫码支付,门店充值
+     * 微信NATIVE支付,门店充值
     * @author 高国藩
     * @date 2016年5月10日 下午4:52:22
     * @param request    request
@@ -49,10 +51,9 @@ public class WechatPayController extends BaseController{
      */
     @RequestMapping(value = Url.AppPay.REQUEST_APP_PAY, method=RequestMethod.GET)
     public ModelAndView getQRCodeUrl(HttpServletRequest request, HttpServletResponse response){
-        String googsName = "我道系统-门店充值";
         String outTradeNo = StringUtil.getKey(); 
         String callback = "/" + Url.AppPay.REQUEST_APP_PAY_CALLBACK.replace("{outTradeNo}", outTradeNo);
-        String code = wechatCallService.payByQrCode(googsName, 300*100, outTradeNo, callback, request);
+        String code = wechatCallService.payByQrCode(goodsName, 300*100, outTradeNo, callback, request);
         String storeAccount = getStoreAccount(request);
         wechatCallService.updateRechargeRecord(storeAccount, 300, outTradeNo, 0, null);
         ModelAndView view = new ModelAndView("wechat/NATIVE");
@@ -74,10 +75,9 @@ public class WechatPayController extends BaseController{
     @ResponseBody
     public BaseDto getNativeCode(HttpServletRequest request, HttpServletResponse response, Integer amount) throws UnsupportedEncodingException {
         String storeAccount = getStoreAccount(request);
-        String googsName = "我道系统-门店充值";
         String outTradeNo = StringUtil.getKey(); 
         String callback = "/" + Url.AppPay.REQUEST_APP_PAY_CALLBACK.replace("{outTradeNo}", outTradeNo).replace("{storeAccount}", storeAccount);
-        String code = wechatCallService.payByQrCode(googsName, amount*100, outTradeNo, callback, request);
+        String code = wechatCallService.payByQrCode(goodsName, amount*100, outTradeNo, callback, request);
         wechatCallService.updateRechargeRecord(storeAccount, amount, outTradeNo, 0, null);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, code);
     }

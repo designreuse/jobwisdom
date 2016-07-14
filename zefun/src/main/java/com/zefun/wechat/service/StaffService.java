@@ -27,6 +27,8 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
+import com.zefun.web.dto.ProjectBaseDto;
+import com.zefun.web.dto.ProjectCategoryBaseDto;
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.ComboInfo;
@@ -320,32 +322,34 @@ public class StaffService {
     * @date 2015年8月20日 下午5:40:29
     * @param storeId 门店标识
     * @param detailId 明细标识
+    * @param deptId 部门标识
     * @return ModelAndView
      */
-    public ModelAndView selectCategory(Integer storeId, Integer detailId){
+    public ModelAndView selectCategory(Integer storeId, Integer detailId, Integer deptId){
         
         ModelAndView mav = new ModelAndView();
 
         List<DeptInfo> deptList = deptInfoMapper.getDeptIdAndNameByStoreId(storeId);
-        
-        List<Map<String, Object>> dtoList = new ArrayList<Map<String, Object>>();
-        
-        for (DeptInfo dept : deptList) {
-            Integer deptId = dept.getDeptId();
-            
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("deptId", deptId);
-            map.put("deptName", dept.getDeptName());
+                
+        if (deptList.size() > 0) {
+        	if (deptId == null) {
+            	deptId = deptList.get(0).getDeptId();
+            }
             DeptProjectBaseDto deptProjectBaseDto = projectService.getDeptProjectByDeptId(deptId);
-            map.put("project", deptProjectBaseDto.getProjectCategoryList());
-            
-            dtoList.add(map);
+            mav.addObject("deptName", deptProjectBaseDto.getDeptName());
+            for (ProjectCategoryBaseDto  projectCategoryBaseDto : deptProjectBaseDto.getProjectCategoryList()) {
+            	List<ProjectBaseDto> projectList = projectCategoryBaseDto.getProjectList();
+            	
+            	for (ProjectBaseDto projectBaseDto : projectList) {
+            		projectBaseDto.setProjectDesc("");
+				}
+			}
+            mav.addObject("projectCategoryList", deptProjectBaseDto.getProjectCategoryList());
         }
-
-        mav.addObject("dtoListStr", JSONArray.fromObject(dtoList).toString());
+        
         mav.addObject("deptList", deptList);
         mav.addObject("detailId", detailId);
-        mav.addObject("deptLength", deptList.size());
+        
         mav.setViewName(View.StaffPage.PROJECT_CATEGORY);
         return mav;
     }

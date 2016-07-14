@@ -76,6 +76,7 @@
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="is_update" property="isUpdate" jdbcType="INTEGER" />
     <association property="commissionList" column="detail_id" select="com.zefun.web.mapper.EmployeeCommissionMapper.selectByEmployee" />
+    <association property="stepList" column="detail_id" select="com.zefun.web.mapper.ShiftMahjongProjectStepMapper.selectOrderStepListByDetailId" />
   </resultMap>
   
   <resultMap id="SumPriceDtoMap" type="com.zefun.web.dto.SumPriceDto" >
@@ -1178,5 +1179,14 @@
 		from combo_project
 			where combo_id = #{comboId,jdbcType=INTEGER}
   </insert>
+  
+  <!-- 根据步骤标识查询对应订单标识 -->
+  <select id="selectOrderIdByStep" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	   select a.order_id as orderId from order_detail a 
+  	   where exists(
+  	                select 1 from shift_mahjong_project_step b 
+  	                where a.detail_id = b.detail_id and b.shift_mahjong_step_id = #{shiftMahjongStepId,jdbcType=INTEGER}) 
+  	         and a.is_deleted = 0
+  </select>
   
   </mapper>

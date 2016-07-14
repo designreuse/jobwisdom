@@ -956,12 +956,16 @@ public interface Url {
 		public static final String ACTION_APPOINT_OPERATE = "/staff/action/appointOperate";
 		/** 完成服务步骤*/
 		public static final String ACTION_OVER_SERVER_EMPLOYEE = "/staff/action/overServerEmployee";
+		/** 服务人员设置*/
+		public static final String ACTION_ADD_OR_UPDATE_SERVER_EMPLOYEE = "/staff/action/addOrUpdateServerEmployee";
 		/** 员工打卡 */
 		public static final String ACTION_SIGN_OPERATE = "/staff/action/signOperate";
 		/** 设置项目 */
 		public static final String ACTION_SETTING_PROJECT = "/staff/action/settingProject";
 		/** 员工中心页面 */
 		public static final String VIEW_STAFF_CENTER = "/staff/view/staffCenter/{storeId}/{businessType}";
+		/** 员工在线学习页面 */
+        public static final String VIEW_STAFF_STUDENT = "/staff/view/student/{storeId}/{businessType}";
 		/** 员工信息页面 */
 		public static final String VIEW_STAFF_INFO = "/staff/view/staffInfo";
 		/** 员工密码页面 */

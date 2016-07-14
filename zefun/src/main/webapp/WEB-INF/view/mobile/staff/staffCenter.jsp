@@ -25,40 +25,42 @@
 	 </div>
 	  
 	 <ul class="person_ul">
-	   <li>
-	      <a href="<%=basePath%>staff/view/staffAppoint/${session_key_store_account}/2/1">
-	         <img src="<%=basePath%>images/mobile/newemployee/personalOne.png">我的预约
-	      </a>
-	   </li>
-	   <li>
-	      <a href="<%=basePath%>staff/view/staffEarning">
-	         <img src="<%=basePath%>images/mobile/newemployee/personalTwo.png">我的业绩
-	      </a>
-	   </li>
-	   <li>
-	       <a href="<%=basePath%>staff/action/selectCommissionInfo">
-	          <img src="<%=basePath%>images/mobile/newemployee/personalThree.png">我的提成
-	       </a>
-	   </li>
-	   <li>
-	       <a href="<%=basePath%>staff/view/individualPerformance">
-	          <img src="<%=basePath%>images/mobile/newemployee/personalFour.png">我的表现
-	       </a>
-	   </li>
-	   <li>
-	       <a href="<%=basePath%>staff/view/myShiftMahjong">
-	           <img src="<%=basePath%>images/mobile/newemployee/personalFive.png">我的轮牌
-	       </a>
-	   </li>
-	   <li>
-	       <a href="<%=basePath%>staff/view/selectViewScheduling">
-	           <img src="<%=basePath%>images/mobile/newemployee/personalSix.png">我的排班</li>
-	       </a>
-	   <li>
-	       <a href="<%=basePath%>staff/view/staffInfo">
+	   <a href="<%=basePath%>staff/view/staffAppoint/${session_key_store_account}/2/1">
+		   <li>
+		      <img src="<%=basePath%>images/mobile/newemployee/personalOne.png">我的预约
+		   </li>
+	    </a>
+	    <a href="<%=basePath%>staff/view/staffEarning">
+		    <li>
+		         <img src="<%=basePath%>images/mobile/newemployee/personalTwo.png">我的业绩
+		    </li>
+	    </a>
+	    <a href="<%=basePath%>staff/action/selectCommissionInfo">
+		    <li>
+		          <img src="<%=basePath%>images/mobile/newemployee/personalThree.png">我的提成
+		    </li>
+	    </a>
+	    <a href="<%=basePath%>staff/view/individualPerformance">
+		    <li>
+		          <img src="<%=basePath%>images/mobile/newemployee/personalFour.png">我的表现
+		    </li>
+	    </a>
+	    <a href="<%=basePath%>staff/view/myShiftMahjong">
+		    <li>
+		           <img src="<%=basePath%>images/mobile/newemployee/personalFive.png">我的轮牌
+		    </li>
+	    </a>
+	    <a href="<%=basePath%>staff/view/selectViewScheduling">
+		    <li>
+		           <img src="<%=basePath%>images/mobile/newemployee/personalSix.png">我的排班
+		    </li>
+ 	    </a>
+ 	     
+	    <a href="<%=basePath%>staff/view/staffInfo">
+	       <li>
 	          <img src="<%=basePath%>images/mobile/newemployee/personalSeven.png">个人设置
-	       </a>
-	   </li>
+	       </li>
+	   </a>
      </ul>
    </div>
 

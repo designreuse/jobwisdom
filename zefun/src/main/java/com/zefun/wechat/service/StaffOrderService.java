@@ -364,9 +364,11 @@ public class StaffOrderService {
     * @date 2015年10月20日 下午2:58:46
     * @param positionId 岗位标识
     * @param storeId 门店标识
+    * @param shiftMahjongStepId 步骤标识
+    * @param type 移交类型
     * @return ModelAndView
      */
-    public ModelAndView serverAssociate(Integer storeId, Integer positionId){
+    public ModelAndView serverAssociate(Integer storeId, Integer positionId, Integer shiftMahjongStepId, Integer type){
         ModelAndView mav = new ModelAndView();
         List<PositionInfoShiftMahjongDto> positionInfoShiftMahjongDtoList = positioninfoMapper.selectByPositionShiftMahjong(storeId);
         for (PositionInfoShiftMahjongDto positionInfoShiftMahjongDto : positionInfoShiftMahjongDtoList) {
@@ -375,7 +377,15 @@ public class StaffOrderService {
 			}
 		}
         mav.setViewName(View.StaffPage.TURN_SHIFTMAHJONG_SERVE);
-
+        mav.addObject("shiftMahjongStepId", shiftMahjongStepId);
+        mav.addObject("type", type);
+        if (type == 1) {
+        	//查询上个步骤对应轮牌员工标识（以修改）
+        	ShiftMahjongProjectStepDto obj = shiftMahjongProjectStepMapper.selectByPrimaryKey(shiftMahjongStepId);
+            mav.addObject("shiftMahjongId", obj.getShiftMahjongId());
+            mav.addObject("employeeId", obj.getEmployeeId());
+            mav.addObject("isAssign", obj.getIsAssign());
+        }
         return mav;
     }
     
@@ -463,7 +473,7 @@ public class StaffOrderService {
         
     	//查询上个步骤对应轮牌员工标识（以修改）
         ShiftMahjongEmployee obj = shiftMahjongEmployeeMapper.selectShiftMahjongEmployee(shiftMahjongStepId);
-        
+                
         Map<String, Integer> map = new HashMap<>();
         map.put("employeeId", employeeId);
         map.put("shiftMahjongId", shiftMahjongId);
@@ -522,9 +532,9 @@ public class StaffOrderService {
             /*orderDetailMapper.updateByPrimaryKey(orderDetail);*/
             //修改被更换员工的轮牌状态（必须在步骤修改完以后才能修改被更换员工的轮牌状态）
             staffService.updateShiftEmployeeState(obj.getShiftMahjongEmployeeId());
-            
         }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+        Integer orderId = orderDetailMapper.selectOrderIdByStep(shiftMahjongStepId);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, orderId);
     }
     
     /**
