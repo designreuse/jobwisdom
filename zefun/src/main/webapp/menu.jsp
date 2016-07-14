@@ -13,81 +13,80 @@
 	<a href="index.html"> <img src="<%=basePath%>images/logo_by.png" alt=""></a>
 </div>
 <div class="leftmenu">
-${session_key_system_head_menu }
-	<%-- <ul class="left_nav">
+<%--${session_key_system_head_menu } --%>
+	 <ul class="left_nav">
 		<li class="active_1_2 border" index="1" url="<%=menuBasePath%>selfcashier/view/list">
 			<div class="nav_img">
-				
+			  <p><img src="<%=basePath %>images/left_1_2.png"/></p>
+			     业务
 			</div>
 			
 		</li>
 		<li class="active_2_1" index="2" url="<%=menuBasePath%>KeepAccounts/initializeOpenCard">
 			<div class="nav_img">
-				
+			 <p><img src="<%=basePath %>images/left_2_1.png"/></p>
+			     会员
 			</div> 
 			
 		</li>
 		<li class="active_3_1" index="3" url="<%=menuBasePath%>view/coupons">
 			<div class="nav_img">
-				
+			  <p><img src="<%=basePath %>images/left_3_1.png"/></p>
+			    营销
 			</div> 
 			 
 		</li>
 		<li class="active_4_1" index="4" url="<%=menuBasePath%>summary/view/summary">
 			<div class="nav_img">
-				
+			  <p><img src="<%=basePath %>images/left_4_1.png"/></p>
+			      统计
 			</div>
 			
 		</li>
 		<li class="active_5_1" index="5" url="<%=menuBasePath%>project/view/categorys">
 			<div class="nav_img">
-				
+			  <p><img src="<%=basePath %>images/left_5_1.png"/></p>
+			     服务
 			</div>
 			
 		</li>
 		<li class="active_6_1" index="6" url="<%=menuBasePath%>goodsInfo/view/goodsInfoList">
 			<div class="nav_img">
-				
+			 <p><img src="<%=basePath %>images/left_6_1.png"/></p>
+			    商品
 			</div> 
 			
 		</li>
 		<li class="active_7_1" index="7" url="<%=menuBasePath%>position/view/positioninfo">
 			<div class="nav_img">
-				
+		     <p><img src="<%=basePath %>images/left_7_1.png"/></p>
+			  员工
 			</div>
 			
 		</li>
 		<li class="active_8_1" index="8" url="<%=menuBasePath%>storeinfo/view/showStoreList">
 			<div class="nav_img">
-				
+			 <p><img src="<%=basePath %>images/left_8_1.png"/></p>
+			   企业
 			</div> 
 		</li>
 		<li class="active_9_1" index="9" url="<%=menuBasePath%>storeinfo/view/storeSetting">
 			<div class="nav_img">
-				
+		     <p><img src="<%=basePath %>images/left_9_1.png"/></p>
+			   微信
 			</div> 
 		</li>
 		<li class="active_10_1" index="10" url="<%=menuBasePath%>system/view/person">
 			<div class="nav_img">
-				
+			 <p><img src="<%=basePath %>images/left_10_1.png"/></p>
+			   设置
 			</div> 
 		</li>
 	</ul>
 	
-	<ul class="left_title">
-	   <li style="top:20px"><span></span>业务中心</li>
-	   <li style="top:90px"><span></span>会员管理</li>
-	   <li style="top:160px"><span></span>营销中心</li>
-	   <li style="top:230px"><span></span>统计分析</li>
-	   <li style="top:300px"><span></span>服务设置</li>
-	   <li style="top:370px"><span></span>商品管理</li>
-	   <li style="top:440px"><span></span>员工管理</li>
-       <li style="top:510px"><span></span>企业管理</li>
-       <li style="top:580px"><span></span>微信管理</li>
-       <li style="top:650px"><span></span>系统设置</li>
-	</ul> --%>
-	${session_key_system_left_submenu }
-	<%-- <div class="left_nav_2" style="height: 840px;">
+
+	<%--${session_key_system_left_submenu }--%>
+	 <div class="left_nav_2" style="height: 840px;">
 		<ul index="0">
 			<a href="<%=menuBasePath%>selfcashier/view/list"><li><span>消费收银</span></li></a>
 			<a href="<%=menuBasePath%>KeepAccounts/initializeManuallyOpenOrder"><li><span>无纸开单</span></li></a>
@@ -159,7 +158,7 @@ ${session_key_system_head_menu }
 			<a href="<%=menuBasePath%>system/view/person"><li class=""><span>账户设置</span></li></a>
 			<a href="<%=menuBasePath%>system/view/baseSetting"><li><span>基础设置</span></li></a>
 		</ul>
-	</div> --%>
+	</div> 
 
 </div>
 

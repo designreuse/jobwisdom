@@ -187,7 +187,7 @@ em{font-style:normal}
 .rollBox_bottom span{display:inline-block;text-align:cente;color:black}
 .rollBox{width:1000px;height:720px;border:1px solid #ccc;border-radius:8px;margin-top:12px}
 .content_right>.setting_first button{
-	width:130px;height:28px;border:none;border-radius:12px;text-align:center;line-height:28px;color:white;font-size:16px;background:#59688a
+	width:130px;height:28px;border:none;border-radius:12px;text-align:center;line-height:28px;color:white;font-size:14px;background:#59688a
 }
 .rollBox_content ul{float:left;width:850px;margin-right:50px}
 .content_right{padding:25px 30px;position:relative}
@@ -197,7 +197,7 @@ em{font-style:normal}
 .setting_close{position:absolute;right:3px;top:3px}
 .setting_mask{position:absolute;width:180px;height:110px;bottom:0;right:0;background:rgba(0,0,0,0.6);font-size:18px;text-align:center;line-height:110px;color:white}
 .rollBox_content_ul{position:relative}
-.content_right>.setting_first>span{position:relative;display:inline-block;color:black;font-size:14px;margin-left:44px}
+.content_right>.setting_first>span{position:relative;display:inline-block;color:black;font-size:12px;margin-left:44px}
 .content_right>.setting_first>span  .setting_all{position:absolute;left:0px;top:28px}
 .content_right>.setting_first>span select{
 	width:100px;height:22px;padding-left:50px;margin-left:12px;font-size:14px
