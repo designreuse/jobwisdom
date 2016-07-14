@@ -125,6 +125,7 @@
 </body>
 <script type="text/javascript" src="<%=basePath%>js/base/roll.js"></script>
 <script>
+	var deptId = null;
 	function changeDept(deptId, li){
 		var path = "";
 		if (deptId == 0){
@@ -133,6 +134,13 @@
 			path = baseUrl + "comboInfo/view/comboInfoList" + "?deptId=" + deptId;
 		}
 		window.location.href = path;
+	}
+	function selectDeptInfo(deptId){
+		jQuery("#dept").text(jQuery("li[deptId='"+deptId+"']").text());
+	}
+	if ('${deptId}'!=''){
+		deptId = '${deptId}';
+		selectDeptInfo(deptId);
 	}
 	jQuery(".close1").on("click", function() {
 		if (confirm("确定要删除该套餐么?")) {
