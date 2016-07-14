@@ -25,10 +25,7 @@
 .search_table{width:1020px;text-align:center;border:1px solid black;border-radius:8px;}
 .search_table td{height:44px;vertical-align:middle;border:1px solid #cccccd;}
 .search_table td button{width:50px;height:20px;text-align:center;line-height:20px;border:none;border-radius:12px;color:white;background:#59688a}
-.search_table_content{border:1px solid black;border-radius:12px;margin-top:16px;;width:1020px;overflow:overlay;height:600px}
-.search_table tr:nth-child(odd){
-	background:#f6f8fc
-}
+.search_table_content{border:1px solid black;border-radius:12px;margin-top:16px;;width:1020px;overflow:hidden;height:495px}
 .search_table tr:nth-child(1){
 	background:#ebeff8
 }
@@ -63,3 +60,11 @@
 .zzc_adjust_button{text-align:center;margin-top:25px}
 .zzc_adjust_button button{margin:0 15px;width:110px;height:24px;color:white;font-size:14px;border:none;text-align:center;line-height:24px;border-radius:12px;background:#5f6b83}
 .zzc_adjust_button button:hover{background:#4d5669}
+
+.td_table tr:nth-child(1){background:white}
+.td_table span{display:inline-block;height:44px;line-height:44px;padding:0 14px}
+.td_table td{border:none;border-bottom:1px solid #cccccd;width:398px}
+.td_table tr:last-child td{border-bottom:none}
+.td_table tr:nth-child(1){font-weight:normal}
+.td_table em{color:#5e9be0}
+.td_table i{color:#f49549}
