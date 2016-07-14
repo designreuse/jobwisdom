@@ -286,14 +286,13 @@
 											<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 											<div class="show_search" name="memberListDIV"
 												style="display: none;">
-												<p>
-													以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+												<p>以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
 													<em><input type="checkbox" name="enterpriseCheck"
 														onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
 													</em>
-												<div class="common_close" onclick="cancleMemberSelect(this)">
-													<img src="<%=basePath%>images/emploee_3.png">
-												</div>
+													<div class="common_close" onclick="cancleMemberSelect(this)">
+														<img src="<%=basePath%>images/emploee_3.png">
+													</div>
 												</p>
 												<div style="height: 400px; overflow: overlay;"
 													name="memberoverDIV"></div>
@@ -321,8 +320,10 @@
 														data-target="#member-data" onclick="showMemberModal(this)"></td>
 													<td name="memberNameSpan" data-toggle="modal"
 														data-target="#member-data" onclick="showMemberModal(this)"></td>
-													<td name="memberSexSpan">男</td>
-													<td name="memberStoreName">华南美联店</td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceAmountSpan"></td>
 													<td style="color: #eb4749"
 														name="memberBalanceGiftmoneyAmountSpan"></td>
 													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
@@ -527,15 +528,20 @@
 														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
 													</tr>
 													<tr>
-														<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
-														<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
-														<td style="color: #eb4749" name="needRefund"></td>
-														<td><span name="subAccountNum"></span>张</td>
-													</tr>
+													<td name="memberPhoneSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
+												</tr>
 													<input type="hidden" name="memberId">
 												</table>
 											</div>
@@ -703,20 +709,19 @@
 													</tr>
 													<tr>
 														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
 														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan"></td>
+														<td name="memberStoreName"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceAmountSpan"></td>
 														<td style="color: #eb4749"
 															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 														<td style="color: #eb4749" name="needRefund"></td>
 														<td><span name="subAccountNum"></span>张</td>
-													</tr>
+												</tr>
 													<input type="hidden" name="memberId">
 												</table>
 											</div>
@@ -799,17 +804,16 @@
 													</tr>
 													<tr>
 														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
 														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan"></td>
+														<td name="memberStoreName"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceAmountSpan"></td>
 														<td style="color: #eb4749"
 															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 														<td style="color: #eb4749" name="needRefund"></td>
 														<td><span name="subAccountNum"></span>张</td>
 													</tr>
@@ -917,22 +921,21 @@
 														<td>会员卡</td>
 														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
 													</tr>
-													<tr>
-														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
-														<td style="color: #eb4749"
-															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
-														<td style="color: #eb4749" name="needRefund"></td>
-														<td><span name="subAccountNum"></span>张</td>
-													</tr>
+												<tr>
+													<td name="memberPhoneSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
+												</tr>
 													<input type="hidden" name="memberId">
 												</table>
 											</div>
@@ -987,17 +990,16 @@
 													</tr>
 													<tr>
 														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
 														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan"></td>
+														<td name="memberStoreName"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceAmountSpan"></td>
 														<td style="color: #eb4749"
 															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 														<td style="color: #eb4749" name="needRefund"></td>
 														<td><span name="subAccountNum"></span>张</td>
 													</tr>
@@ -1068,17 +1070,16 @@
 													</tr>
 													<tr>
 														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
 														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan"></td>
+														<td name="memberStoreName"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceAmountSpan"></td>
 														<td style="color: #eb4749"
 															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 														<td style="color: #eb4749" name="needRefund"></td>
 														<td><span name="subAccountNum"></span>张</td>
 													</tr>
@@ -1238,6 +1239,9 @@
 
 
 <script>
+
+
+
 var memberLevelLists = ' ${memberLevelLists} ';
 var  memberLevelList;
 if (!isEmpty(memberLevelLists)) {
