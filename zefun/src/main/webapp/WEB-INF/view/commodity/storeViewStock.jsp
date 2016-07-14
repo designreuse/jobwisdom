@@ -397,7 +397,7 @@
 		pageNo=page;
 		
 		jQuery("#intable1 tr[name='in']").empty();
-		var inf = (inflows.length - resultPage * page + resultPage)>resultPage ? resultPage : inflows.length;
+		var inf = (inflows.length - resultPage * page + resultPage)>resultPage ? resultPage * page : inflows.length;
 		console.log(inf);
 		for (var i = resultPage*page-resultPage;i < inf; i++) {
 			var html = '<tr name="in"><td>'+inflows[i].createTime+'</td><td>'+inflows[i].flowType+'</td><td><div class="overflow_text">';
@@ -419,7 +419,7 @@
 		pageNo=page;
 		
 		jQuery("#intable2 tr[name='in']").empty();
-		var inf = (outFlows.length - resultPage * page + resultPage)>resultPage ? resultPage : outFlows.length;
+		var inf = (outFlows.length - resultPage * page + resultPage)>resultPage ? resultPage * page: outFlows.length;
 		for (var i = resultPage*page-resultPage;i < inf; i++) {
 			var html = '<tr name="in"><td>'+outFlows[i].createTime+'</td><td>'+outFlows[i].employeeName+'</td><td>'+outFlows[i].flowType+'</td><td><div class="overflow_text">';
 			for (var j = 0; j < outFlows[i].accountGoods.length; j++) {

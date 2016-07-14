@@ -11,6 +11,19 @@
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
   </resultMap>
+  
+   <resultMap id="BaseResultByDeptName" type="com.zefun.web.dto.DeptObjectiveDto" >
+    <id column="objective_id" property="objectiveId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="dept_calculate" property="deptCalculate" jdbcType="DECIMAL" />
+    <result column="calculate_type" property="calculateType" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="dept_name" property="deptName" jdbcType="CHAR" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     objective_id, order_id, dept_id, dept_calculate, calculate_type, is_deleted, create_time, 
     update_time
@@ -21,6 +34,16 @@
     from dept_objective
     where objective_id = #{objectiveId,jdbcType=INTEGER}
   </select>
+  
+    <select id="selectByDapt" resultMap="BaseResultByDeptName" parameterType="java.lang.Integer" >
+    select 
+     s.*,
+    (select dept_name from dept_info d where d.dept_id = s.dept_id) as deptName
+    from dept_objective s
+    where s.order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dept_objective
     where objective_id = #{objectiveId,jdbcType=INTEGER}

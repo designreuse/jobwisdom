@@ -2,9 +2,13 @@ package com.zefun.web.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import com.zefun.web.entity.DeptObjective;
+import com.zefun.web.entity.EmployeeCommission;
 
 import net.sf.json.JSONObject;
 
@@ -82,6 +86,32 @@ public class DayBookDto implements Serializable {
 	
 	/** 统计数量 */
 	private Integer count;
+	
+
+    /** 订单明细 */
+    private List<OrderDetailDto> orderDetailList;
+    
+    /** 订单下提成下的部门*/
+    private List<DeptObjective> deptList;
+
+
+
+    public List<DeptObjective> getDeptList() {
+        return deptList;
+    }
+
+    public void setDeptList(List<DeptObjective> deptList) {
+        this.deptList = deptList;
+    }
+
+    public List<OrderDetailDto> getOrderDetailList() {
+        return orderDetailList;
+    }
+
+    public void setOrderDetailList(List<OrderDetailDto> orderDetailList) {
+        this.orderDetailList = orderDetailList;
+    }
+
 	
 	public Integer getOrderId() {
 		return orderId;

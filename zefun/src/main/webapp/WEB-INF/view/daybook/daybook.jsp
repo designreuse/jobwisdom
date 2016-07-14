@@ -9,11 +9,50 @@
 	color:#e41d1d
 }
 </style>
+ <style>
+	 .zzc {
+		font-size: 12px;
+		color: black;
+		position: fixed;
+		top: 0px;
+		height: 1090px;
+		left: 0px;
+		width: 100%;
+		z-index: 10000;
+		background: rgba(102, 108, 121, 0.8);
+       }
+	   .order_see{width:1100px;height:485px;box-shadow:0 2px 4px #8299bc;background:white;border-radius:8px;overflow:hidden;margin:10% auto}
+	   .order_see>p{height:58px;background:#383849;text-align:center;line-height:58px;color:white;font-size:15px}
+	  .order_see_content{padding:15px 20px}
+	  .order_see_content>.order_see_content_num p{height:30px;line-height:30px;font-size:14px;border-bottom:1px solid #dce3fa}
+	  .order_see_content>.order_see_content_num p>span{color:#ff0f0f}
+	  .order_see_content_num em{float:right;display:inline-block;width:100px;text-align:right}
+	  .order_see_content_num em i{color:#d86451}
+	  .order_see_content_num .cash_1 li{float:left;width:153px}
+	  .order_see_content_num input{border-radius:12px;width:95px;height:14px;position:relative;left:4px;border:1px solid #c6d0e0}
+	  .cash_content{margin-right:-80px;margin-top:10px}
+	  .order_see_content_num{overflow:hidden}
+	  .order_style_content{border-radius:8px;overflow:hidden;border:1px solid #dce3fa;width:1060px;margin:0px auto;margin-bottom:20px;font-size:14px}
+	  .order_style_content_left{float:left;text-align:center;height:116px;width:145px;background:#d8e0f2}
+	  .order_style_content_left>p{font-size:12px;margin-top:4px}
+	  .order_style_content_left>p>em{color:#cb2626}
+	  .order_style_content_left>span{display:inline-block;margin-top:34px}
+	  .order_style_content_right{float:left}
+	  .order_style_content_right span{display:inline-block;text-align:center;margin-left:35px}
+	  .order_style_content_right select{width:86px;padding-left:30px;height:16px;border-radius:12px;border:1px solid #b1c0d6}
+	  .order_style_content_right input{margin-left:8px;width:110px;height:16px;border-radius:12px;border:1px solid #b1c0d6}
+	  .order_style_content_right li{height:38px;line-height:38px;width:915px;background:#f7f9fc;border-bottom:1px solid #dce3fa}
+	  .order_style_content_right li:last-child{border-bottom:none}
+	  .order_style_content_{height:260px;overflow-x:hidden;margin-top:20px;overflow-y:overlay}
+	  .order_see_button{text-align:center;margin-top:20px}
+	  .order_see_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;background:#61678b;border-radius:12px;margin:0 50px;color:white;font-size:14px}
+	  .order_see_button button:hover{background:#515676}
+	</style>
 <body>
 
-<div class="zzc" style="display:none">
+<div class="zzc2" style="display:none">
    <div class="zzc_content">
-	  <div class="water_number">流水单号:<span id="orderCodeModel"></span><span class="close_zzc"><img src="assets/images/close.png"></span ></div>
+	  <div class="water_number">流水单号:<span id="orderCodeModel1"></span><span class="close_zzc"><img src="<%=basePath%>images/close.png"></span ></div>
 	   <table class="zzc_1">
 	     <tr>
 	       <td>应收 </td>
@@ -35,7 +74,7 @@
            <td><input type="text" name = "alipayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
            <td><input type="text" name = "cardAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
            <td><input type="text" name = "groupAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
-           <td><span class="red" id = "privilegeModel"></span></td>
+           <td><span class="red" id = "privilegeModel1"></span></td>
            <td><input type="text" name = "debtAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></td>
            <td><span class="red" id = "realAmountModel"></span></td>
 	      </tr>
@@ -123,83 +162,91 @@
 		 </div>
 		<div class="search_table_content"> 
 		 <table class="search_table">
-		   <tr>
-		     <td>水单号</td>
-			 <td>顾客</td>
-			 <td>消费时间</td>
-			 <td>服务内容</td>
-			 <td>应收</td>
-			 <td>消费金额</td>
-			 <td>抵扣</td>
-			 <td>挂账</td>
-			 <td>实收</td>
-			 <td>状态</td>
-			 <td>操作</td>
-		   </tr>
-		   <c:forEach var="daybook" items="${page.results}" varStatus="status">
-		       <tr>
-		            <td onclick="updateSelectOrder(${daybook.orderId})"><a class="can-click">${daybook.orderCode}</a></td>
-		            <c:choose>
-		                 <c:when test="${daybook.memberId == null}">
-		                 <td>
-		                 	散客（${daybook.sex}）
-		                 </td>
-		                 </c:when>
-		                 <c:otherwise>
-		                   <td class="can-click" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo(${daybook.memberId})">
-		                      ${daybook.memberName}
-		                   </td>
-		                 </c:otherwise>
-	                </c:choose>
-	                <td>${daybook.createTime}</td>
-	                <td>
-	                   ${daybook.projectName}
-	                </td>
-	                <td>${daybook.realPrice}</td>
-	                <td>
-		               <c:if test="${daybook.cashAmount == '0.00' and daybook.unionpayAmount == '0.00' and daybook.wechatAmount == '0.00' and daybook.alipayAmount == '0.00' and daybook.cardAmount == '0.00'}">
-		                   0.00
-		               </c:if>
-		               <c:if test="${daybook.cashAmount != 0}">
-		                   <p>${daybook.cashAmount}<em style="color:red">现金</em></p>
-		               </c:if>
-		               <c:if test="${daybook.unionpayAmount != '0.00'}">
-		                   <p>${daybook.unionpayAmount}<em style="color:blue">银联</em></p>
-		               </c:if>
-		               <c:if test="${daybook.wechatAmount != '0.00'}">
-		                   <p>${daybook.wechatAmount}<em style="color:#59688a">微信</em></p>
-		               </c:if>
-		               <c:if test="${daybook.alipayAmount != '0.00'}">
-		                   <p>${daybook.alipayAmount}<em style="color:green">支付宝</em></p>
-		               </c:if>
-		               <c:if test="${daybook.cardAmount != '0.00'}">
-		                   <p>${daybook.cardAmount}<em style="color:pink">卡金</em></p>
-		               </c:if>
-	                </td>
-                  
-	                <td>
-	                  <c:if test="${daybook.comboAmount == '0.00' and daybook.giftAmount == '0.00' and daybook.couponAmount == '0.00' and daybook.groupAmount == '0.00'}">
-	                     0.00
-	                  </c:if>
-	                  <c:if test="${daybook.comboAmount != '0.00'}">
-		                   <span>${daybook.comboAmount}<em style="color:red;display:block">疗程</em></span>
-		              </c:if>
-		              <c:if test="${daybook.giftAmount != '0.00'}">
-		                   <span>${daybook.giftAmount}<em style="color:blue;display:block">礼金</em></span>
-		              </c:if>
-		              <c:if test="${daybook.couponAmount != '0.00'}">
-		                   <span>${daybook.couponAmount}<em style="color:#59688a;display:block">优惠券</em></span>
-		              </c:if>
-		              <c:if test="${daybook.groupAmount != '0.00'}">
-		                   <span>${daybook.groupAmount}<em style="color:green;display:block">团购</em></span>
-		              </c:if>
-	                </td>
-	                <td>${daybook.debtAmount}</td>
-	                <td>${daybook.realAmount}</td>
-	                <td>正常</td>
-			        <td><button onclick="deleteOrder(${daybook.orderId}, this)">退单</button></td>
-		        </tr> 
-		   </c:forEach>
+		<tr>
+	     <td>水单号</td>
+		 <td>顾客</td>
+		 <td>消费时间</td>
+		 <td >总消费金额</td>
+		 <td >支付明细</td>
+		 <td>消费项目</td>
+		 <td>服务者业绩（员工类型指定）</td>
+		 <td style="width:80px">操作</td>
+	   </tr>
+		    <c:forEach var="daybook" items="${page.results}" varStatus="status">
+		<tr>
+	    <td onclick="updateSelectOrder(${daybook.orderId})"><a class="can-click">${daybook.orderCode}</a></td>
+<%-- 	    <td onclick="jQuery('.zzc').show()"><a class="can-click">${daybook.orderCode}</a></td> --%>
+         <c:choose>
+              <c:when test="${daybook.memberId == null}">
+              <td>
+              	散客（${daybook.sex}）
+              </td>
+              </c:when>
+              <c:otherwise>
+                <td class="can-click" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo(${daybook.memberId})">
+                   ${daybook.memberName}
+                </td>
+              </c:otherwise>
+	     </c:choose>
+		 <td>${daybook.createTime}<img src="<%=basePath%>images/coupon_write.png"></td>
+		 <td>合计 <em>${daybook.realAmount}</em></td>
+		  <td>
+              <c:if test="${daybook.cashAmount == '0.00' and daybook.unionpayAmount == '0.00' and daybook.wechatAmount == '0.00' and daybook.alipayAmount == '0.00' and daybook.cardAmount == '0.00'}">
+                  0.00
+              </c:if>
+              <c:if test="${daybook.cashAmount != 0}">
+                  <p>${daybook.cashAmount}<em style="color:red">现金</em></p>
+              </c:if>
+              <c:if test="${daybook.unionpayAmount != '0.00'}">
+                  <p>${daybook.unionpayAmount}<em style="color:blue">银联</em></p>
+              </c:if>
+              <c:if test="${daybook.wechatAmount != '0.00'}">
+                  <p>${daybook.wechatAmount}<em style="color:#59688a">微信</em></p>
+              </c:if>
+              <c:if test="${daybook.alipayAmount != '0.00'}">
+                  <p>${daybook.alipayAmount}<em style="color:green">支付宝</em></p>
+              </c:if>
+              <c:if test="${daybook.cardAmount != '0.00'}">
+                  <p>${daybook.cardAmount}<em style="color:pink">卡金</em></p>
+              </c:if>
+	     </td>
+		 <td style="width:140px">
+<!-- 		    <table> -->
+<!-- 		       <tr> -->
+<!-- 		         <td>dsadsa</td> -->
+<!-- 		         <td>dsadsadsa</td> -->
+<!-- 		       </tr> -->
+<!-- 		    </table> -->
+		 	<c:forEach items="${daybook.orderDetailList}" var="orderDetailList"> 
+ 		 	  <p> 
+		 	     <i>${orderDetailList.projectName}</i></br> 
+	 	     <i class="pay_item" style="text-align: center;"><c:forEach items="${daybook.deptList}" var="deptList">(${deptList.deptName})</c:forEach></i>
+ 		 	  </p> 
+		 	  <p class="pay_item server_achievement" ></p> 
+	 	</c:forEach> 
+		 </td>
+		 <td style="vertical-align:top!important">
+		 <c:forEach items="${daybook.orderDetailList}" var="orderDetailList">
+		 	<c:forEach items="${orderDetailList.commissionList}" var="commissionList">
+			 	<p class="server_achievement">
+				  <span>(${commissionList.employeeCode })<em>${commissionList.employeeName }</em>
+				  <c:if test="${orderDetailList.isAssign eq 1 }">
+				    <i>(指定)</i>
+				  </c:if>
+				    <c:if test="${orderDetailList.isAssign eq 0 }">
+				    <i>(未指定)</i>
+				  </c:if>
+				</span>
+				  <span>业绩:<em>${commissionList.commissionCalculate }</em></span>
+				  <span style="border-right:none">提成:<em>${commissionList.commissionAmount } </em></span>
+			   </p>
+			</c:forEach>
+		 </c:forEach>
+		  
+		</td>
+		 <td><button onclick="deleteOrder(${daybook.orderId}, this)">退单</button></td>
+	   </tr>
+	 </c:forEach>
 		 </table>
 	  </div>
 		<%@ include file="/template/page.jsp" %>
@@ -210,6 +257,99 @@
 </div>
 </div>
 <!--mainwrapper-->
+<div class="zzc">
+   <div class="order_see">
+     <p>订单查看</p>
+     <div class="order_see_content">
+       <div class="order_see_content_num">
+	    <p>流水单号：<span id="orderCodeModel"></span><em>挂账<i name = "debtAmountModel">0</i></em><em>优惠折扣<i class="red" id = "privilegeModel"></i></em></p>
+		 <div class="cash_content">
+			<ul class="cash_1 clearfix">
+			   <li>现钞<input type="text" name = "cashAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></li>
+			   <li>银联<input type="text" name = "unionpayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></li>
+			   <li>微信<input type="text" name = "wechatAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></li>
+			   <li>支付宝<input type="text" name = "alipayAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></li>
+			   <li>卡金<input type="text" name = "cardAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></li>
+			   <li>团购<input type="text" name = "groupAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></li>
+			   <li>挂账<input type="text" name = "debtAmountModel" onkeyup="checkNum(this)" placeholder="0.00"/></li>
+			</ul>
+		 </div>	
+	   </div>
+	  <div class="order_style_content_"> 
+	   <div class="order_style">
+	     <div class="order_style_content clearfix">
+		    <div class="order_style_content_left" id="divobj1">
+			</div>
+			<ul class="order_style_content_right">
+			  <li>
+			     <span>销售人员</span>
+				 <span>第一人</span>
+				 <span><select>
+<%-- 				 <c:forEach items="${employeeInfoList } " var="employeeInfoList"><option id='${employeeInfoList.employeeCode }'>${employeeInfoList.name }</option></c:forEach> --%>
+				 </select></span>
+				 <span style="margin-left:100px">提成<input type="text"></span>
+				 <span>业绩<input type="text"></span>
+			  </li>
+			   <li>
+			     <span>销售人员</span>
+				 <span>第一人</span>
+				 <span><select><option>1201 阿大</option></select></span>
+				 <span style="margin-left:100px">提成<input type="text"></span>
+				 <span>业绩<input type="text"></span>
+			  </li>
+			   <li>
+			     <span>销售人员</span>
+				 <span>第一人</span>
+				 <span><select><option>1201 阿大</option></select></span>
+				 <span style="margin-left:100px">提成<input type="text"></span>
+				 <span>业绩<input type="text"></span>
+			  </li>
+			</ul>
+		 </div>
+	   </div>
+	   
+	   <div class="order_style">
+	     <div class="order_style_content clearfix">
+		    <div class="order_style_content_left" id="divobj2">
+		    
+			</div>
+			<ul class="order_style_content_right">
+			  <li>
+			     <span>洗护牌</span>
+				 <span><select><option>1201 阿大</option></select></span>
+				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非指定</option></select></span>
+				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非预约</option></select></span>
+				 <span style="margin-left:60px">提成<input type="text"></span>
+				 <span>业绩<input type="text"></span>
+			  </li>
+			   <li>
+			     <span>洗护牌</span>
+				 <span><select><option>1201 阿大</option></select></span>
+				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非指定</option></select></span>
+				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非预约</option></select></span>
+				 <span style="margin-left:60px">提成<input type="text"></span>
+				 <span>业绩<input type="text"></span>
+			  </li>
+			   <li>
+			     <span>洗护牌</span>
+				 <span><select><option>1201 阿大</option></select></span>
+				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非指定</option></select></span>
+				 <span style="margin-left:20px"><select style="width:60px;padding-left:20px"><option>非预约</option></select></span>
+				 <span style="margin-left:60px">提成<input type="text"></span>
+				 <span>业绩<input type="text"></span>
+			  </li>
+			 
+			</ul>
+		 </div>
+	   </div> 
+	  </div>
+	  <div class="order_see_button">
+	    <button>确认</button>
+	    <button>取消</button>
+	  </div>
+	 </div>
+   </div>
+</div>
 
 <%@ include file="/template/memberData.jsp" %>
 <script>
