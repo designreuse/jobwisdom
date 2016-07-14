@@ -71,6 +71,7 @@
     select 
         e.employee_id as employeeId,
         e.level_id as levelId,
+        e.position_id positionId,
         (select level_name from employee_level where level_id = e.level_id) as levelName,
         e.employee_code as employeeCode,
         e.name as name,

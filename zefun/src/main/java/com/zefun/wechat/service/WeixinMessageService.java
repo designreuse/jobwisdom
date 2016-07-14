@@ -389,13 +389,29 @@ public class WeixinMessageService {
         }
         //员工菜单
         else if (groupType == 2) {
+            JSONObject wechatEmployeesButton = new JSONObject();
+            wechatEmployeesButton.put("name", "员工中心");
+            JSONArray wechatEmployeesButtonList = new JSONArray();
+            
             JSONObject staffCenterButton = new JSONObject();
             staffCenterButton.put("type", "view");
             staffCenterButton.put("name", "个人中心");
             staffCenterButton.put("url", App.System.SERVER_BASE_URL + Url.Staff.VIEW_STAFF_CENTER
                     .replace("{storeId}", String.valueOf(storeId))
                     .replace("{businessType}", "2"));
-            buttonList.add(staffCenterButton);
+            wechatEmployeesButtonList.add(staffCenterButton);
+            
+            JSONObject staffStudentButton = new JSONObject();
+            staffStudentButton.put("type", "view");
+            staffStudentButton.put("name", "在线学习");
+            staffStudentButton.put("url", App.System.SERVER_BASE_URL + Url.Staff.VIEW_STAFF_STUDENT
+                    .replace("{storeId}", String.valueOf(storeId))
+                    .replace("{businessType}", "2"));
+            wechatEmployeesButtonList.add(staffStudentButton);
+            
+            wechatEmployeesButton.put("sub_button", wechatEmployeesButtonList);
+            
+            buttonList.add(wechatEmployeesButton);
             
             //打印照片
 //            JSONObject personalButton = new JSONObject();
@@ -468,6 +484,7 @@ public class WeixinMessageService {
         else if (groupType == 4) {
             buttonList = getNormalMenuList(storeId);
         }
+        
         conditionalMenu.put("button", buttonList);
         
         JSONObject matchrule = new JSONObject();

@@ -962,6 +962,8 @@ public interface Url {
 		public static final String ACTION_SETTING_PROJECT = "/staff/action/settingProject";
 		/** 员工中心页面 */
 		public static final String VIEW_STAFF_CENTER = "/staff/view/staffCenter/{storeId}/{businessType}";
+		/** 员工在线学习页面 */
+        public static final String VIEW_STAFF_STUDENT = "/staff/view/student/{storeId}/{businessType}";
 		/** 员工信息页面 */
 		public static final String VIEW_STAFF_INFO = "/staff/view/staffInfo";
 		/** 员工密码页面 */

@@ -1,5 +1,6 @@
 package com.zefun.wechat.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
@@ -492,6 +493,21 @@ public class StaffCentreController extends BaseController{
     public BaseDto findMyAttendanceByPage(int page, int pageSize, Integer employeeId) {
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, 
     			staffCentreService.myAttendancdFindByPage(page, pageSize, employeeId));
+    }
+    
+    /**
+     * 员工在线学习
+    * @author 高国藩
+    * @date 2016年7月14日 上午11:55:13
+    * @param request               request
+    * @param response              response
+    * @throws IOException          IOException
+    * @return return
+     */
+    @RequestMapping(value = Url.Staff.VIEW_STAFF_STUDENT, produces="text/html", method = RequestMethod.GET)
+    @ResponseBody
+    public String staffStudentCenter(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        return "<hr><div style='background-color:red;'>敬请期待</div></hr>";
     }
     
 }
