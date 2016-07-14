@@ -61,7 +61,7 @@
 						   </td>
 						   <td>
 						      <c:if test="${step.isOver == 1}">
-			                     <em style="background: #3ec4e6;">结束</em>
+			                     <em style="background: #3ec4e6;" onclick="overServerEmployee(${step.shiftMahjongStepId})">结束</em>
 			                  </c:if>
 						   </td>  
 						 </tr>
@@ -108,6 +108,23 @@ function addDetail(orderId) {
 
 function serverAssociate(shiftMahjongStepId, positionId, type) {
 	window.location.href = baseUrl+"staff/view/serverAssociate?positionId="+positionId+"&shiftMahjongStepId="+shiftMahjongStepId+"&type="+type;
+}
+
+function overServerEmployee(shiftMahjongStepId) {
+	jQuery.ajax({
+    	url : baseUrl + "staff/action/overServerEmployee",
+    	type : "POST",
+    	data : "shiftMahjongStepId="+shiftMahjongStepId,
+    	success : function(e){
+    		if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+    		var datas = e.msg;
+    		dialog("操作成功！");
+    		location.reload();
+    	}
+    });
 }
 </script>
 </html>

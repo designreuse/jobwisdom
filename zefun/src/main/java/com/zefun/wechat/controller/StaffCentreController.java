@@ -194,16 +194,17 @@ public class StaffCentreController extends BaseController{
     * @date Oct 28, 2015 7:56:49 PM
     * @param request    请求对象
     * @param response   响应对象
+    * @param chooseType 时间类型
     * @return   员工业绩排行页面
      */
     @RequestMapping(value = Url.Staff.VIEW_ALL_EARNING)
-    public ModelAndView allEarning(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView allEarning(HttpServletRequest request, HttpServletResponse response, Integer chooseType) {
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
         int employeeId = getUserIdByOpenId(openId);
-        return staffCentreService.allEarning(employeeId);
+        return staffCentreService.allEarning(employeeId, chooseType);
     }
     
     /**
