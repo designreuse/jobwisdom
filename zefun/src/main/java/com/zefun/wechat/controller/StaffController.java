@@ -208,18 +208,19 @@ public class StaffController extends BaseController {
     * @param detailId 明细标识
     * @param request        请求对象
     * @param response       返回对象
+    * @param deptId 部门标识
     * @return 返回类别信息到页面
      * @throws UnsupportedEncodingException 
      */
     @RequestMapping(value = Url.Staff.VIEW_SELECT_CATEGORY)
     public ModelAndView selectCategory(Integer detailId, HttpServletRequest request, 
-            HttpServletResponse response) throws UnsupportedEncodingException {
+            HttpServletResponse response, Integer deptId) throws UnsupportedEncodingException {
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
         Integer storeId = getStoreIdByOpenId(openId);
-        return staffService.selectCategory(storeId, detailId);
+        return staffService.selectCategory(storeId, detailId, deptId);
     }
     
     /**
@@ -465,7 +466,7 @@ public class StaffController extends BaseController {
     * @param nextProjectObj 项目下一步服务步骤
     * @return ModelAndView
      */
-    @RequestMapping(value = Url.Staff.ACTION_UPDATE_SAVE_DETAIL, method = RequestMethod.POST)
+    /*@RequestMapping(value = Url.Staff.ACTION_UPDATE_SAVE_DETAIL, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto updateSaveDetail(HttpServletRequest request, HttpServletResponse response, Integer detailId, String projectInfo, 
             String employeeObj, String nextProjectObj) {
@@ -476,7 +477,7 @@ public class StaffController extends BaseController {
         int employeeId = getUserIdByOpenId(openId);
         int storeId = getStoreIdByOpenId(openId);
         return staffService.updateSaveDetail(detailId, projectInfo, employeeObj, nextProjectObj, employeeId, storeId);
-    }
+    }*/
     
     /**
      * 查询员工订单页面
@@ -707,7 +708,7 @@ public class StaffController extends BaseController {
     * @param shiftMahjongEmployeeId 员工轮牌标识
     * @param storeId 门店标识
      */
-    public void selfMotionExecute(Integer shiftMahjongEmployeeId, Integer storeId) {
+    /*public void selfMotionExecute(Integer shiftMahjongEmployeeId, Integer storeId) {
         staffService.selfMotionExecute(shiftMahjongEmployeeId, storeId);
-    }
+    }*/
 }

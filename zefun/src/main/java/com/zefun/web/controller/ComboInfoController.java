@@ -126,6 +126,7 @@ public class ComboInfoController extends BaseController {
             
             if (deptId!=null){
                 comboInfos = comboInfos.stream().filter(c -> c.getDeptId().equals(deptId)).collect(Collectors.toList());
+                model.addObject("deptId", deptId);
             }
             
             Long hasFinish = comboInfos.stream().filter(c -> c.getComboSalePrice()!=null).count();

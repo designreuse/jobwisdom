@@ -5,10 +5,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, height = device-height">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta content="telephone=no" name="format-detection" />
     <title>选择服务人员</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/shop.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/app.css" />
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/idangerous.swiper.css">
     <style>
 		.select_server_content{padding:0.7rem 0.5rem;background:white;border-bottom:1px solid #eaeaea}
 		.select_server{margin-top:1rem;}
@@ -23,7 +25,7 @@
 		.select_detail_div_num{margin:0.5rem;float:left;width:2rem;height:2rem;border-radius:1rem;background:white;color:#e44e20;text-align:center;line-height:2rem;font-size:14px;float:left}
 		.select_detail_div_text{float:left;color:white;font-size:14px;line-height:3rem}
 		.selected_{position:absolute;right:-2px;top:0px;width:36px;height:24px;background-size:36px 24px;color:white}
-		.selected_ span{position:relative;left:7px;top:-1px}
+		.selected_ span{position:relative;left:19px;top:-1px}
 		.zzc_conetent{position:absolute;bottom:-50%;left:0;width:100%}
 		.apartment_ul li{color:black;border-bottom:1px solid white;width:120px;float:left;text-align:center;height:3rem;text-align:center;line-height:3rem}
 		.apartment_ul{width:100%;overflow:overlay;background:white;border-bottom:1px solid #e5e5e5;box-shadow:0 2px 2px #e5e5e5 ;}
@@ -38,19 +40,36 @@
 		 .zzc_server_people_content ul li{float:left;width:50%;text-align:center}
 		 .zzc_server_people_content ul li span{display:inline-block;width:6rem;height:6rem;background:#f49549;line-height:6rem;color:white;font-size:14px;}
 		 .zzc_server_people_content ul li span img{vertical-align:middle;width:28px;margin:0 3px}
+		 .cuurent{color:white}
 		 body{background:white}
+		
+	   
+		.ub-f1{background:white;height:60px;border-bottom:1px solid #e5e5e5}
+		.swiper-container1{position:relative;background:#f49549}
+		.bar{top:36px}
+		.swiper-slide .title{line-height:40px}
+		.swiper-slide,.swiper-wrapper,.swiper-slide{height:auto!important}
+		.scroll_{width:50%;float:left;height:3.5rem;margin-top:1rem}
 	</style>
 </head>
 <body>
 <div class="con"> 
-		<div class="apartment_ul clearfix">
-		   <ul>
-		    <c:forEach items="${shiftMahjongDtoList}" var="shiftMahjongDto" varStatus="status">
-		        <li <c:if test="${status.index == 0 }">class="active"</c:if>>${shiftMahjongDto.shiftMahjongName }</li>
-		    </c:forEach>
-		  </ul>
-		</div>
-	<div class="select_server">
+
+		<header>
+			<div class="swiper-container1">
+				<div class="swiper-wrapper">
+				    <c:forEach items="${shiftMahjongDtoList}" var="shiftMahjongDto" varStatus="status">
+				        <div class="swiper-slide mycolor-slide" id="slide${status.index}">
+							<div class="title cuurent" name="title">
+                                 ${shiftMahjongDto.shiftMahjongName }
+							</div>
+						</div>
+				    </c:forEach>
+					<span class="bar" style="left: 2px; width: 64px;background-color: red;"></span>
+				</div>
+				<div class="pagination" style="display: none;"></div>
+			</div>
+		</header>
 	   <div class="select_server_content">
 	     <ul class="selected clearfix">
 		   <li style="color:#f49549"><em style="background:#f49549"></em>选定</li>
@@ -61,59 +80,101 @@
 		   <li style="color:#eede9f"><em style="background:#eede9f"></em>暂休</li> 
 		 </ul>
 	   </div>
-	   <c:forEach items="${shiftMahjongDtoList}" var="shiftMahjongDto" varStatus="status">
-	       <ul class="select_detail clearfix" shiftMahjongId = "${shiftMahjongDto.shiftMahjongId}" <c:if test="${status.index != 0 }">style="display: none;"</c:if>>
-	          <c:forEach items="${shiftMahjongDto.shiftMahjongEmployeeList}" var="shiftMahjongEmployee" varStatus="employeeStatus">
-	               <li>
-		     		 <div class="clearfix select_detail_div"
-		     		    <c:choose>
-		     		       <c:when test="${shiftMahjongEmployee.state == 0}">style="background:#e11e23"</c:when>
-		     		       <c:when test="${shiftMahjongEmployee.state == 1}">style="background:#21d9db"</c:when>
-		     		       <c:when test="${shiftMahjongEmployee.state == 2}">style="background:#eede9f"</c:when>
-		     		       <c:when test="${shiftMahjongEmployee.state == 4}">style="background:#e7a3ef"</c:when>
-		     		    </c:choose>
-		     		    >
-					    <div class="select_detail_div_num">${shiftMahjongEmployee.shiftMahjongOrder }</div>
-						<div class="select_detail_div_text">
-						   ${shiftMahjongEmployee.employeeCode } ${shiftMahjongEmployee.name }
+	   <div class="swiper-container">
+		   <div class="swiper-wrapper">
+		   <c:forEach items="${shiftMahjongDtoList}" var="shiftMahjongDto" varStatus="status">
+			   <div class="swiper-slide">
+				   <div id="wapper${status.index}">
+						<div id="scroll${status.index}">
+						  <c:forEach items="${shiftMahjongDto.shiftMahjongEmployeeList}" var="shiftMahjongEmployee" varStatus="employeeStatus">
+						       <div class="scroll_" onclick="chooseEmployee(${shiftMahjongEmployee.shiftMahjongId }, ${shiftMahjongEmployee.employeesId }, ${shiftMahjongEmployee.employeeCode }, '${shiftMahjongEmployee.name }')">
+									<div class="clearfix select_detail_div" shiftName = "${shiftMahjongEmployee.shiftMahjongId}/${shiftMahjongEmployee.employeesId}"
+					     		    <c:choose>
+					     		       <c:when test="${shiftMahjongEmployee.state == 0}">style="background:#e11e23"</c:when>
+					     		       <c:when test="${shiftMahjongEmployee.state == 1}">style="background:#21d9db"</c:when>
+					     		       <c:when test="${shiftMahjongEmployee.state == 2}">style="background:#eede9f"</c:when>
+					     		       <c:when test="${shiftMahjongEmployee.state == 4}">style="background:#e7a3ef"</c:when>
+					     		    </c:choose>
+					     		    >
+											<!-- <div class="selected_" style="background: url('images/selected.png') no-repeat;  background-size: 36px 24px;"><span>选</span></div> -->
+											<div class="select_detail_div_num">${shiftMahjongEmployee.shiftMahjongOrder }</div>
+											<div class="select_detail_div_text">
+											   ${shiftMahjongEmployee.employeeCode } ${shiftMahjongEmployee.name }
+											</div>
+					                </div>							
+							   </div>
+						  </c:forEach>
 						</div>
-					 </div>
-				   </li>
-	          </c:forEach>
-		   </ul>
-	   </c:forEach>
-	</div>
+					</div>
+				</div>
+		   </c:forEach>
+		  </div>
+	 </div>
 </div>
 <div class="zzc">
     <div class="zzc_server_people">
-   <p>选择服务人员<img src="images/coupon_close.png"></p>
-   <div class="zzc_server_people_content">
-     <p>1100 龙傲天</p>
-      <ul class="clearfix">
-        <li><span>选定<img src="images/choose.png"></span></li>
-	     <li><span style="background:#2bbde7">选定<img src="images/choose.png"></span></li>
-	  </ul>
+      <p>选择服务人员<img src="<%=basePath%>images/mobile/newemployee/coupon_close.png"></p>
+      <div class="zzc_server_people_content">
+        <p name = "shiftMahjongEmployee"></p>
+        <ul class="clearfix">
+         <li><span onclick = "chooses(1)">选定<img src="<%=basePath%>images/mobile/newemployee/choose.png"></span></li>
+	     <li><span onclick = "chooses(2)" style="background:#2bbde7">指定<img src="<%=basePath%>images/mobile/newemployee/choose.png"></span></li>
+	    </ul>
       </div>
     </div>
 </div>
 <script type="text/javascript" src="<%=jqueryJsPath%>"> </script>
-<script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"> </script>
-<script type="text/javascript" src="<%=swiperJsPath%>"></script>
+<script type="text/javascript" src="<%=basePath%>js/mobile/zepto.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/mobile/idangerous.swiper.min-2.4.1.js"></script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"> </script>
 <script type="text/javascript">
-     $(function(){
-	   var count=$('.apartment_ul li').size();
-	   $('.apartment_ul ul').css('width',count*120);
-	   $('.apartment_ul li').click(function(){
-	     $(this).addClass('active').siblings().removeClass('active');
-	   })   
-	 })
-	 
-	 
+   var shiftMahjongStepId = '${shiftMahjongStepId}';
+   var type = '${type}';
+   
+   var shiftMahjongId = '${shiftMahjongId}';
+   var employeeId = '${employeeId}';
+   var isAssign = '${isAssign}';
+   
+   if (!isEmpty(shiftMahjongId)) {
+	   var str = shiftMahjongId + "/" + employeeId;
+	   if (isAssign == 0) {
+		   jQuery("div[shiftName = '"+str+"']").append('<div class="selected_" style="background: url(\''+baseUrl+'images/mobile/newemployee/selected.png\') no-repeat;  background-size: 36px 24px;"><span>选</span></div>');
+	   }
+	   else {
+		   jQuery("div[shiftName = '"+str+"']").append('<div class="selected_" style="background:url(\''+baseUrl+'images/mobile/newemployee/appoint.png\') no-repeat;  background-size: 36px 24px;"><span>指</span></div>');
+	   }
+   }
+   
+   var chooseShiftMahjongId = "";
+   var chooseEmployeeId = "";
+   function chooseEmployee (shiftMahjongId, employeeId, employeeCode, name) {
+	   jQuery("p[name='shiftMahjongEmployee']").text(employeeCode + " " + name);
+	   chooseShiftMahjongId = shiftMahjongId;
+	   chooseEmployeeId = employeeId;
+	   jQuery(".zzc").show();
+   }
+   
+   
+   function chooses (isAssign) {
+	   $.ajax({
+	        type : "post",
+	        url : baseUrl + "staff/action/addOrUpdateServerEmployee",
+	        data : "shiftMahjongId="+chooseShiftMahjongId+"&employeeId="+chooseEmployeeId+"&isAssign="+isAssign+"&type="+type+"&shiftMahjongStepId="+shiftMahjongStepId,
+	        dataType : "json",
+	        success : function(e){
+	            if(e.code != 0){
+	                dialog(e.msg);
+	                return;
+	            }
+	            var orderId = e.msg;
+	            window.location.href = baseUrl+"staff/view/order/all?orderId="+orderId;
+	        }
+	    });
+   }
+   
+   
 </script>
+<script type="text/javascript" src="<%=basePath%>js/mobile/app.js"></script>
 
-<script language="JavaScript">
-     javascript:window.history.forward(1);
-</script>
 </body>
 </html>

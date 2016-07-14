@@ -478,4 +478,13 @@ public interface OrderDetailMapper {
 	 * @return 新增记录数
 	 */
 	int insertMemberComboProject(Map<String, Integer> map);
+	
+	/**
+	 * 根据步骤标识查询对应订单标识
+	* @author 老王
+	* @date 2016年7月13日 下午8:34:22 
+	* @param shiftMahjongStepId 步骤标识
+	* @return Integer
+	 */
+	Integer selectOrderIdByStep(Integer shiftMahjongStepId);
 }

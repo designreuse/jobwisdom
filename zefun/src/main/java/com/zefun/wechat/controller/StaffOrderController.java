@@ -116,6 +116,54 @@ public class StaffOrderController extends BaseController{
     }
     
     /**
+     * 选择人员
+    * @author 王大爷
+    * @date 2015年10月20日 下午2:56:37
+    * @param request 返回
+    * @param response 请求
+    * @param positionId 岗位标识
+    * @param shiftMahjongStepId 轮牌步骤标识
+    * @param type 设置类型
+    * @return ModelAndView
+     */
+    @RequestMapping(value = Url.Staff.VIEW_SERVER_ASSOCIATE)
+    public ModelAndView serverAssociate(HttpServletRequest request, HttpServletResponse response, Integer positionId, 
+    		  Integer shiftMahjongStepId, Integer type) {
+        String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
+        Integer storeId = getStoreIdByOpenId(openId);
+        return staffOrderService.serverAssociate(storeId, positionId, shiftMahjongStepId, type);
+    }
+    
+    /**
+     * 添加或修改服务人员
+    * @author 王大爷
+    * @date 2015年10月21日 下午3:14:20
+    * @param request 返回
+    * @param response 请求
+    * @param shiftMahjongStepId 轮牌步骤标识
+    * @param type 交接类型
+    * @param shiftMahjongId 轮牌标识
+    * @param employeeId 员工标识
+    * @param isAssign 是否指定
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Staff.ACTION_ADD_OR_UPDATE_SERVER_EMPLOYEE)
+    @ResponseBody
+    public BaseDto addOrUpdateServerEmployee(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongStepId, 
+            Integer type, Integer employeeId, Integer shiftMahjongId, Integer isAssign) {
+    	String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
+        Integer storeId = getStoreIdByOpenId(openId);
+        return staffOrderService.serverAssociateShiftMahjong(shiftMahjongStepId, type, shiftMahjongId, employeeId, 
+                storeId, isAssign, getUserId(request));
+    }
+    
+    /**
      * 挂起
     * @author 王大爷
     * @date 2015年12月10日 下午7:30:23
@@ -167,24 +215,6 @@ public class StaffOrderController extends BaseController{
     }
     
     /**
-     * 选择人员
-    * @author 王大爷
-    * @date 2015年10月20日 下午2:56:37
-    * @param request 返回
-    * @param response 请求
-    * @return ModelAndView
-     */
-    @RequestMapping(value = Url.Staff.VIEW_SERVER_ASSOCIATE)
-    public ModelAndView serverAssociate(HttpServletRequest request, HttpServletResponse response, Integer positionId) {
-        String openId = getOpenId(2, request, response);
-        if (openId == null) {
-            return null;
-        }
-        Integer storeId = getStoreIdByOpenId(openId);
-        return staffOrderService.serverAssociate(storeId, positionId);
-    }
-    
-    /**
      * 确定完成订单
     * @author 王大爷
     * @date 2015年11月14日 下午4:45:37
@@ -220,7 +250,7 @@ public class StaffOrderController extends BaseController{
     * @param isType 类型
     * @return BaseDto
      */
-    @RequestMapping(value = Url.Staff.ACTION_SERVER_ASSOCIATE_SHIFTMAHJONG)
+    /*@RequestMapping(value = Url.Staff.ACTION_SERVER_ASSOCIATE_SHIFTMAHJONG)
     @ResponseBody
     public BaseDto serverAssociateShiftMahjong(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongStepId, 
             Integer type, Integer shiftMahjongEmployeeId, Integer detailId, Integer shiftMahjongId, Integer isType) {
@@ -231,7 +261,7 @@ public class StaffOrderController extends BaseController{
         int storeId = getStoreIdByOpenId(openId);
         return staffOrderService.serverAssociateShiftMahjong(shiftMahjongStepId, type, detailId, shiftMahjongId, shiftMahjongEmployeeId, 
                 storeId, isType, getUserId(request));
-    }
+    }*/
     
     /**
      * 等待中心
@@ -241,7 +271,7 @@ public class StaffOrderController extends BaseController{
     * @param response 请求
     * @return ModelAndView
      */
-    @RequestMapping(value = Url.Staff.VIEW_WAITING_CENTRE)
+    /*@RequestMapping(value = Url.Staff.VIEW_WAITING_CENTRE)
     public ModelAndView waitingCentre(HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(2, request, response);
         if (openId == null) {
@@ -249,7 +279,7 @@ public class StaffOrderController extends BaseController{
         }
         Integer storeId = getStoreIdByOpenId(openId);
         return staffOrderService.waitingCentre(storeId);
-    }
+    }*/
     
     /**
      * 等待中心轮牌界面
@@ -261,7 +291,7 @@ public class StaffOrderController extends BaseController{
     * @param shiftMahjongStepId 步骤标识
     * @return ModelAndView
      */
-    @RequestMapping(value = Url.Staff.VIEW_WAITING_CENTRE_SHIFT_MAHJONG)
+    /*@RequestMapping(value = Url.Staff.VIEW_WAITING_CENTRE_SHIFT_MAHJONG)
     public ModelAndView waitingCentreShiftMahjong(HttpServletRequest request, HttpServletResponse response, Integer detailId, 
             Integer shiftMahjongStepId) {
         String openId = getOpenId(2, request, response);
@@ -269,7 +299,7 @@ public class StaffOrderController extends BaseController{
             return null;
         }
         return staffOrderService.waitingCentreShiftMahjong(detailId, shiftMahjongStepId);
-    }
+    }*/
     
     /**
      * 确定等待轮牌更换的员工
