@@ -147,12 +147,12 @@ input[type=radio] {
 								<div class="add_pic_">
 									<p>添加图片</p>
 									<ul class="clearfix">
-										<li><em><img  goodsImage="system/profile/add_img2.png" name="goodsImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'goodsImage' ,event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
-										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em><span onclick="closeImage(this, 'affiliatedImage',event)"><img src="<%=basePath%>images/pay_close.png"></span></li>
+										<li><em><img  goodsImage="system/profile/add_img2.png" name="goodsImage" src="<%=qiniu%>system/profile/add_img2.png"></em></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em></li>
+										<li><em><img  affiliatedImage="system/profile/add_img2.png" name="affiliatedImage" src="<%=qiniu%>system/profile/add_img2.png"></em></li>
 									</ul>
 								</div>
 
@@ -358,12 +358,7 @@ input[type=radio] {
 			   	],maximumWords:3000,elementPathEnabled:false,imageScaleEnabled:false,wordCount:false,autoHeightEnabled:false};
 	var u1 = UE.getEditor('editor1', toolbars);
 	
-	function closeImage(span, id, event){
-		jQuery(span).parent("li").find("img").eq(0).attr(id, "system/profile/add_img.png");
-		jQuery(span).parent("li").find("img").eq(0).attr("src", qiniu+"system/profile/add_img.png");
-		event.stopPropagation();
-		return false;
-	}
+
 </script>
 <script type="text/javascript" src="<%=basePath%>js/base/zcc.js"></script>
 <script>

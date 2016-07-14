@@ -364,7 +364,7 @@ public class WechatCallService {
     }
 
     /**
-     * NATIVE 原生扫码支付
+     * NATIVE 原生支付
     * @author 高国藩
     * @date 2016年5月10日 下午3:58:03
     * @param goodsName goodsName
@@ -459,24 +459,11 @@ public class WechatCallService {
                 if (response.getStatusLine()
                         .getStatusCode() == HttpStatus.SC_OK) {
                     InputStream is = resEntity.getContent();
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(is, "UTF-8"));
-//                    StringBuffer buffer = new StringBuffer();
+                    BufferedReader in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                     String line = "";
                     while ((line = in.readLine()) != null) {
                         resultXml.append(line);
                     }
-                    // end 读取整个页面内容
-//                    String backContent = resultXml.toString();
-
-                    /*
-                     * InputStreamReader reader = new
-                     * InputStreamReader(resEntity.getContent(), "UTF-8");
-                     * char[] buff = new char[1024];
-                     * while ((reader.read(buff)) != -1) {
-                     * resultXml.append(buff);
-                     * }
-                     */
                 }
             } 
             finally {
@@ -531,8 +518,7 @@ public class WechatCallService {
             CloseableHttpResponse response = httpclient.execute(httpPost);
             try {
                 HttpEntity resEntity = response.getEntity();
-                if (response.getStatusLine()
-                        .getStatusCode() == HttpStatus.SC_OK) {
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     InputStream is = resEntity.getContent();
                     BufferedReader in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                     String line = "";
