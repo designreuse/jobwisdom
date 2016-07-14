@@ -791,7 +791,7 @@
   <select id="selectAllGoodsInfoByStoreIdAndNotPay" resultType="com.zefun.web.dto.GoodsInfoDto" parameterType="java.lang.Integer">
   	SELECT gf.goods_id as goodsId, ag.goods_name as goodsName, gf.goods_price as goodsPrice,ag.goods_code_suffix as goodsCodeSuffix, 
   	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId,
-  	gc.category_id as categoryId, gc.category_name as categoryName
+  	gc.category_id as categoryId, gc.category_name as categoryName, gf.a_id as aId
   	from goods_info gf 
   	left join dept_info df on gf.dept_id = df.dept_id
   	left join goods_category gc on gc.category_id = gf.category_id

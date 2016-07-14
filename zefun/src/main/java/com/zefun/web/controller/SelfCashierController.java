@@ -218,4 +218,21 @@ public class SelfCashierController extends BaseController {
 	public BaseDto mergeOrder (HttpServletRequest request, HttpServletResponse response, Integer mainOrderId, Integer removeOrderId) {
 		return selfCashierService.mergeOrder(mainOrderId, removeOrderId);
 	}
+	
+	/**
+	 * 修改员工提成
+	* @author 老王
+	* @date 2016年5月16日 下午12:09:23 
+	* @param request
+	 *            请求对象
+	 * @param response
+	 *            响应对象
+	* @param commissionSaveListStr 员工提成信息
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.SelfCashier.ACTION_SAVE_UPDATE_COMMISSION)
+	@ResponseBody
+	public BaseDto saveUpdateCommission (HttpServletRequest request, HttpServletResponse response, String commissionSaveListStr) {
+		return selfCashierService.saveUpdateCommission(commissionSaveListStr);
+	}
 }

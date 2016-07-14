@@ -484,7 +484,7 @@
 
   <!-- 查询自助收银模块的概要订单详情信息 by luhwen 2015.10.21 18:00:00 -->
   <select id="selectSelfCashierDetailMahjong" parameterType="java.lang.Integer" resultMap="SelfCashierDetailMap">
-  	select detail_id, detail_code, order_type, project_id, project_name, project_count order_status from order_detail where order_id = #{orderId}
+  	select detail_id, detail_code, order_type, project_id, project_name, project_count order_status from order_detail where order_id = #{orderId} and is_deleted = 0
   </select>
   
   <resultMap id="SelfCashierDetailMap" type="com.zefun.web.dto.SelfCashierDetailDto" >

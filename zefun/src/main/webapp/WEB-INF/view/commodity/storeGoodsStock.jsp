@@ -8,9 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="<%=basePath%>css/data.css" type="text/css" />
 <style type="text/css">
-.border {
-	border: 1px solid red !important
-}
+
 </style>
 <script>
 	jQuery(function(){

@@ -21,7 +21,6 @@ var globalCustomerPhone;
 //可预约员工长度(点击部门查看可预约员工时)
 var globalRollEmployeeLength;
 
-
 jQuery(function() {
 	//页面加载默认选中当前日期
 	var now = new Date();
@@ -52,7 +51,8 @@ jQuery(function() {
 	 * 给预约加号绑定click事件
 	 */
 	jQuery(".yuyue").delegate(".add", "click", function() {
-		jQuery("#yuyue").modal("show");
+		/*jQuery("#yuyue").modal("show");*/
+		jQuery(".zzc").show("800");
 		var index = jQuery(this).parent("li").index();
 		
 		//根据globalPeriod,上午(time1),下午(time2),晚上(time3),夜间(time4)之间的时间段来判断是否取用哪个时间
@@ -109,11 +109,12 @@ jQuery(function() {
 //根据部门查询该部门下所有可预约员工
 function findCanAppointEmployeeByDept(obj) {
 	cleanProjectListCategoryList();
-	cleanProjectList();
+	//cleanProjectList();
 	cleanSelectEmployee();
-	cleanSelectProject();
+	//cleanSelectProject();
 	//填充样式自己样式，清除其他兄弟节点样式
-	jQuery(obj).addClass("current").siblings().removeClass("current");
+	jQuery(obj).addClass("active").siblings().removeClass("active");
+	selectDeptInfoCategory(jQuery(obj).val());
 	jQuery.ajax({
 		type : "post",
 		data : {deptId : jQuery(obj).val(), monthAndDay : globalSelectMonthAndDay, weekDay : globalSelectWeekDay, time : globalTime},
@@ -154,8 +155,12 @@ function refreshEmployee(employeeList) {
 	jQuery("#selectTime").text(globalSelectMonthAndDay + " " + globalTime);
 	
 	var ul = document.createElement("ul");
+	jQuery("#newAppoint").empty();
 	for (var i=0; i<employeeList.length; i++) {
 		var employee = employeeList[i];
+		var html = '<li onclick="findProjectCategoryByEmployeeLevel(' + employee.employeeId + ',' + employee.levelId + ', this)"><img src="'+picUrl + employee.headImage+'"><div>'+employee.employeeCode + " " + employee.name+'</div></li>';
+		jQuery("#newAppoint").append(jQuery(html));
+		/*var employee = employeeList[i];
 		var li = document.createElement("li");
 		li.setAttribute("onclick", "findProjectCategoryByEmployeeLevel(" + employee.employeeId + "," + employee.levelId + ", this)");
 		
@@ -168,7 +173,7 @@ function refreshEmployee(employeeList) {
 		nameDiv.innerHTML = employee.employeeCode + " " + employee.name;
 		li.appendChild(nameDiv);
 		
-		ul.appendChild(li);
+		ul.appendChild(li);*/
 	}
 	cleanScrollableListEmployee ();
 	jQuery("#appointmentEmployeeDiv").append(ul);
@@ -178,8 +183,9 @@ function refreshEmployee(employeeList) {
 function findProjectCategoryByEmployeeLevel(employeeId, levelId, obj) {
 	//现在不需要进行查询了, 针对人员进行预约
 	//点击头像出现被选中员工样式
-	jQuery(obj).addClass("current").append('<span class="iconfont icon-xuanzhong"></span>').siblings().removeClass("current");
-    jQuery(obj).append('<span class="iconfont icon-xuanzhong"></span>').siblings().children(".iconfont").remove();
+	jQuery("#employeeCode").text(jQuery(obj).find("div").text());
+	/*jQuery(obj).addClass("current").append('<span class="iconfont icon-xuanzhong"></span>').siblings().removeClass("current");
+    jQuery(obj).append('<span class="iconfont icon-xuanzhong"></span>').siblings().children(".iconfont").remove();*/
     globalEmployeeId = employeeId;
 	return ;
 	cleanProjectList();

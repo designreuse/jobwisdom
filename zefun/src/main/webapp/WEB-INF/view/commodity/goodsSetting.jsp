@@ -404,7 +404,6 @@ input[type=radio] {
 	function queryGoodsInfo(goodsIds){
 		if(goodsIds == "0")return;
 		aId = goodsIds;
-		console.log(aId);
 		jQuery.ajax({
 	        cache: true,
 	        type: "GET",
@@ -496,6 +495,7 @@ input[type=radio] {
 				dialog("该商品更新");
 			}
 		});
+		jQuery("select[name='aId']").attr("disabled",true);
 	}
 	
 	function savePrice(){
@@ -547,6 +547,7 @@ input[type=radio] {
 				dialog("该商品更新");
 			}
 		});
+		jQuery("select[name='aId']").attr("disabled",true);
 	}
 	
 	function addLevel(){jQuery("ul[class='clearfix']").eq(1).append(jQuery('#memberLevelSelect').html());}
@@ -594,6 +595,7 @@ u1.ready(function() {
 	if (queryAID!=''){
 		jQuery("select[name='aId']").val(queryAID);
 		queryGoodsInfo(queryAID);
+		jQuery("select[name='aId']").attr("disabled",true);
 	}
 });
 

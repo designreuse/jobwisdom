@@ -49,7 +49,7 @@ public class MemberAppointment {
 	/** 预约状态(1:预约中,2:已确认,3:已服务,4:已取消,5:已拒绝) */
 	private Integer appointmentStatus;
 
-	/** 预约方式(1:电话预约) */
+	/** 预约方式(1:电话预约 2:微信预约) */
 	private Integer appointmentWay;
 
 	/** 取消时间 */

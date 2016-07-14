@@ -92,7 +92,7 @@
     where commission_id = #{commissionId,jdbcType=INTEGER}
   </delete>
   
-  <insert id="insert" parameterType="com.zefun.web.entity.EmployeeCommission" >
+  <insert id="insert" parameterType="com.zefun.web.entity.EmployeeCommission" useGeneratedKeys = "true" keyProperty="commissionId">
     insert into employee_commission
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="commissionId != null" >

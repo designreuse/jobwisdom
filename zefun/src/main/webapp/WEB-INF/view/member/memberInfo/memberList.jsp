@@ -207,10 +207,12 @@ function deletedMember(memberId, type, tr){
 // 查询冻结账户
 function selectHasDeleted(but){
 	if (jQuery(but).val() == 1){
+		jQuery(".vip_num").children("p").eq(0).show();
 		jQuery(but).val('0');
 		status = "";
 		jQuery(but).text("已冻结账户");
 	}else {
+		jQuery(".vip_num").children("p").eq(0).hide();
 		jQuery(but).val('1');
 		status = "1";
 		jQuery(but).text("未冻结账户");
