@@ -257,11 +257,11 @@ var commissionArray = new Array();
 
 function updateSelectOrder(orderId) {
 	updateOrderId = orderId;
-	var type [];
+	var type = [];
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "daybook/selectOrderByUpdate",
-		data : "orderId="+orderId,
+		data : "orderId="+orderId, 
 		dataType : "json",
 		success : function(e){
 			if(e.code != 0){
@@ -280,27 +280,100 @@ function updateSelectOrder(orderId) {
 			jQuery("input[name='alipayAmountModel']").val(obj.alipayAmount);
 			jQuery("input[name='cardAmountModel']").val(obj.cardAmount);
 			jQuery("input[name='groupAmountModel']").val(obj.groupAmount);
-			jQuery("i[name='debtAmountModel']").val(obj.debtAmount);
+			jQuery("input[name='debtAmountModel']").val(obj.debtAmount);
 			jQuery("#realAmountModel").text(obj.realAmount);
 			var privilege = parseFloat(obj.appointOff) + parseFloat(obj.comboAmount) + parseFloat(obj.couponAmount) + parseFloat(obj.giftAmount);
 			jQuery("#privilegeModel").text(privilege);
-			type.push(orderDetailDto.orderType);
+			jQuery("#divobj").empty();
 			var orderDetailList = obj.orderDetailList;
+			
 			for (var i = 0; i < orderDetailList.length; i++) {
 				var orderDetailDto = orderDetailList[i];
-				
-				
-				var HTML1 = ' <span>'+orderDetailDto.projectName+'</span> <p>礼金抵扣：<em>¥'+orderDetailDto.giftAmount+'</em></p>';
-				if(orderDetailDto.orderType ==1){
-					jQuery("#divobj2").append(HTML1);
-				}else{
-					jQuery("#divobj1").append(HTML1);
+				var lj = "礼金"
+				if(orderDetailDto.offTypeint == 1){
+					lj="套餐"
 				}
+				if(orderDetailDto.offTypeint == 2){
+					lj="优惠券"
+				}
+				
+				var HTML = ' <div class="order_style"> <div class="order_style_content clearfix" >  <div class="order_style_content_left" ><span>'+orderDetailDto.projectName+'</span>';
+				if(orderDetailDto.giftAmount != 0){
+					HTML += '<p>'+lj+'抵扣：<em>¥'+orderDetailDto.giftAmount+'</em></p>';
+				}
+				HTML +='</div>';
+				if(orderDetailDto.orderType ==1){
+					HTML += '<ul class="order_style_content_right">';
+					for (var q = 0; q < orderDetailDto.stepList.length; q++) {
+						var stepList =orderDetailDto.stepList[q];   //订单员工信息
+						HTML += ' <li commissionId = '+stepList.commissionId+' > <span>'+stepList.positionName+'</span><span><select class = "chzn-select w100" name = "employeeSelect">';
+						for (var j = 0; j < employeeInfoList.length; j++) {    //全部员工
+							if(employeeInfoList[j].employeeCode == stepList.employeeInfo.employeeCode){
+								HTML += '<option id='+employeeInfoList[j].employeeCode+' selected="selected">'+employeeInfoList[j].employeeCode+'   '+ employeeInfoList[j].name+'</option>';
+							}
+							else{
+								HTML += '<option id='+employeeInfoList[j].employeeCode+'>'+employeeInfoList[j].employeeCode+'   '+ employeeInfoList[j].name+'</option>';
+							}
+						}
+						HTML += '</select></span><span style="margin-left:20px"><select style="width:60px;padding-left:20px">';
+						if(stepList.isDesignate == 1){
+						    HTML +=	'<option value="1" selected="selected" >指定</option><option value="0">非指定</option></select></span>'	;								
+						}else{
+							HTML +=	'<option value="1">指定</option><option value="0" selected="selected" >非指定</option></select></span>'	;
+									
+								
+						}
+						HTML += '<span style="margin-left:20px"><select style="width:60px;padding-left:20px">';
+						if(stepList.isAppoint == 1){
+							  HTML +=	'<option value="1" selected="selected" >预约</option><option value="0">非预约</option></select></span>'	;		
+						}else{
+							  HTML +=	'<option value="1">预约</option><option value="0" selected="selected" >非预约</option></select></span>'	;		
+								
+						}
+						HTML += '</select> </span><span style="margin-left:60px">提成<input type="text" name="commissionAmount" value ='+stepList.commissionAmount+'></span><span>业绩<input type="text" name="commissionCalculate" value ='+stepList.commissionCalculate+'></span></li>';
+						var commissionObj = {"commissionId": stepList.commissionId,"commissionAmount":stepList.commissionAmount,"commissionCalculate":stepList.commissionCalculate};
+		                commissionArray.push(commissionObj);
+					}
+
+					HTML +='</ul> </div></div> ';
+			
+					
+					jQuery("#divobj").append(HTML);
+				}else{
+					HTML += '<ul class="order_style_content_right">';
+					for (var q = 0; q < orderDetailDto.commissionList.length; q++) {
+						var commissionList =orderDetailDto.commissionList[q];   //订单员工信息
+						var number = "一";
+						if( q == 1){number = "二";}
+						if(q == 2){number = "三";}
+						
+						HTML += ' <li commissionId = '+commissionList.commissionId+'> <span>销售人员</span><span>第'+number+'人</span><span><select class = "chzn-select w100" name = "employeeSelect">';
+						for (var j = 0; j < employeeInfoList.length; j++) {    //全部员工
+							if(commissionList.employeeCode == employeeInfoList[j].employeeCode){
+								HTML += '<option id='+employeeInfoList[j].employeeCode+' selected="selected">'+employeeInfoList[j].employeeCode+'   '+ employeeInfoList[j].name+'</option>';
+							}
+							else{
+								HTML += '<option id='+employeeInfoList[j].employeeCode+'>'+employeeInfoList[j].employeeCode+'   '+ employeeInfoList[j].name+'</option>';
+							}
+						}
+						HTML += '</select> </span><span style="margin-left:100px">提成<input type="text"   name="commissionAmount" value ='+commissionList.commissionAmount+'></span><span>业绩<input type="text"   name="commissionCalculate" value ='+commissionList.commissionCalculate+'></span></li>';
+						var commissionObj = {"commissionId": commissionList.commissionId,"commissionAmount":commissionList.commissionAmount,"commissionCalculate":commissionList.commissionCalculate};
+		                commissionArray.push(commissionObj);
+					}
+					HTML +='</ul> </div></div> ';
+					jQuery("#divobj").append(HTML);
+				}
+			
 			}
+			jQuery("select[name='employeeSelect']").chosen({disable_search_threshold: 3});
+			jQuery("select[name='employeeSelect']").trigger("liszt:updated");
 			jQuery('.zzc').show();
 		}
 	});
 }
+
+
+
 
 function checkNum(obj) {  
     //检查是否是非数字值  
@@ -361,7 +434,7 @@ function confirmModel() {
 	for (var i = 0; i < commissionAmountInput.length; i++) {
 		var commissionAmount = jQuery(commissionAmountInput[i]).val();
 		var commissionCalculate = jQuery(commissionCalculateInput[i]).val();
-		var commissionId = jQuery(commissionAmountInput[i]).parent().parent().attr("commissionId");
+		var commissionId = jQuery(commissionAmountInput[i]).parents("li").attr("commissionId");
 		
 		for (var j = 0; j < commissionArray.length; j++) {
 			if (commissionArray[j].commissionId == commissionId) {
@@ -387,7 +460,7 @@ function confirmModel() {
 				return;
 			}
 			dialog("保存成功！");
-			jQuery("#cancelModel").click();
+			jQuery(".zzc").hide();
 		}
 	});
 }

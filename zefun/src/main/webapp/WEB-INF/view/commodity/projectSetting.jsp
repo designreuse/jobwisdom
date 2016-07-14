@@ -51,8 +51,8 @@
 <script type="text/javascript">
     
     function editPage (imgUrl) {
+    	xiuxiu.setLaunchVars("cropPresets", "375*200");
     	xiuxiu.embedSWF("altContent2", 5, 700, 500);
-    	xiuxiu.setLaunchVars("cropPresets", "200*200");
     	xiuxiu.onInit = function (id)
     	{
             xiuxiu.setUploadType(3);
@@ -427,21 +427,6 @@
 									<button onclick="save3()">保存</button>
 									<button onclick="window.location.href='<%=basePath%>project/view/projects'">取消</button>
 									</div>
-
-									<div class="clearfix"></div>
-
-									<div id="star"></div>
-									<a href="" class="showmenu"></a> <i class="iconfont icon-fuzhi"></i>
-
-
-									<!--返回顶部-->
-									<div id="return-top" class="return-top">
-										<span class="iconfont icon-huidaodingbu"></span>
-									</div>
-
-									<!--轮播-->
-
-
 								</div>
 
 							</div>
@@ -507,52 +492,46 @@
 	})
 	function zccCallback(dataBase64) {
 		var key = "jobwisdom/project/" + new Date().getTime();
-		if ((typeof (imgObject.attr("projectImage"))) != "undefined") {
-			imgObject.attr("projectImage", key);
-		} else {
-			imgObject.attr("affiliatedImage", key);
-		}
 		var data = {
 			"stringBase64" : dataBase64,
 			"key" : key
 		};
 		jQuery('.cancelinput').click();
-		jQuery
-				.ajax({
-					type : "POST",
-					url : baseUrl + "qiniu/base64",
-					data : JSON.stringify(data),
-					contentType : "application/json",
-					dataType : "json",
-					async : true,
-					beforeSend : function() {
-						console.log("beforeSend upload image");
-					},
-					error : function() {
-						console.log("upload image error");
-					},
-					complete : function() {
-						console.log("complete upload image");
-					},
-					success : function(data) {
-						var imageUrl = data.msg.imageUrl;
-						var key = data.msg.key;
-						if (type == 1) {
-							if ((typeof (imgObject.attr("projectimage"))) != "undefined") {
-								imgObject.attr("projectimage", key);
-								imgObject.attr("src", qiniu + key);
-							} else {
-								imgObject.attr("affiliatedImage", key);
-								imgObject.attr("src", qiniu + key);
-							}
+		jQuery.ajax({
+				type : "POST",
+				url : baseUrl + "qiniu/base64",
+				data : JSON.stringify(data),
+				contentType : "application/json",
+				dataType : "json",
+				async : true,
+				beforeSend : function() {
+					console.log("beforeSend upload image");
+				},
+				error : function() {
+					console.log("upload image error");
+				},
+				complete : function() {
+					console.log("complete upload image");
+				},
+				success : function(data) {
+					var imageUrl = data.msg.imageUrl;
+					var key = data.msg.key;
+					if (type == 1) {
+						if ((typeof (imgObject.attr("projectimage"))) != "undefined") {
+							imgObject.attr("projectimage", key);
+							imgObject.attr("src", qiniu + key);
 						} else {
-							u1.execCommand(
-											'insertHtml',
-											'<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'
-													+ qiniu + key + '">');
+							imgObject.attr("affiliatedImage", key);
+							imgObject.attr("src", qiniu + key);
 						}
+					} else {
+						u1.execCommand(
+										'insertHtml',
+										'<img style="margin-top: 0px; width: 100%; padding: 0px; border-color: rgb(30, 155, 232); color: inherit; height: 100%;" data-width="100%" border="0" vspace="0" src="'
+												+ qiniu + key + '">');
 					}
-				});
+				}
+			});
 	}
 
 	var toolbars = {

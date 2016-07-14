@@ -76,6 +76,7 @@
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
     <result column="is_update" property="isUpdate" jdbcType="INTEGER" />
     <association property="commissionList" column="detail_id" select="com.zefun.web.mapper.EmployeeCommissionMapper.selectByEmployee" />
+    <association property="stepList" column="detail_id" select="com.zefun.web.mapper.ShiftMahjongProjectStepMapper.selectOrderStepListByDetailId" />
   </resultMap>
   
   <resultMap id="SumPriceDtoMap" type="com.zefun.web.dto.SumPriceDto" >

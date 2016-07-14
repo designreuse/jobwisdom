@@ -45,7 +45,14 @@
 	        <ul>
 	            <li class="normal-li first-li" >
 	                <span class="normoal-word">服务项目</span>
-	                <span class="fr">${projectName }</span><i class="touch_"><span class="touch"><c:forEach items="${projectCategories }" var="projectCategorie"><em onclick="projectId = jQuery(this).val();" value="${projectCategorie.categoryId }">${projectCategorie.categoryName }</em></c:forEach></span></i>
+	                <span class="fr">${projectName }</span>
+	                <i class="touch_">
+		                <span class="touch">
+			                <c:forEach items="${projectCategories }" var="projectCategorie">
+			                	<em onclick="projectId=${projectCategorie.categoryId };" value="${projectCategorie.categoryId }">${projectCategorie.categoryName }</em>
+		                	</c:forEach>
+	               		</span>
+               		</i>
 	            </li>
 	            <li class="normal-li">
 	                <span class="normoal-word">${levelName }</span>
@@ -96,7 +103,7 @@
 	<div class="foot-confirm">
 	    <div class="info">
 	        <div class="medium-font">
-	             预约时间
+	             	预约时间
 	        </div>
 	        <div class="yellow-word bold-font"><span id="selectTime">请选择</span></div>
 	    </div>
@@ -146,6 +153,10 @@
     function appoint(){
     	if (isEmpty(time)) {
     		dialog("请选择预约时间");
+    		return;
+    	}
+    	if (isEmpty(projectId)) {
+    		dialog("请选择预约大项");
     		return;
     	}
     	data = "employeeId=${employeeId}&mainStoreId=${mainStoreId}&projectId="+projectId;
