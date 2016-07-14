@@ -52,10 +52,10 @@
 						   <td>
 						      <c:choose>
 						          <c:when test="${step.employeeInfo != null}">
-						             <span <c:if test="${step.isOver == 2}">class="over"</c:if> <c:if test="${step.isOver == 1}">onclick="serverAssociate(${step.positionId})"</c:if>>${step.employeeInfo.name}</span>
+						             <span <c:if test="${step.isOver == 2}">class="over"</c:if> <c:if test="${step.isOver == 1}">onclick="serverAssociate(${step.shiftMahjongStepId}, ${step.positionId}, 1)"</c:if>>${step.employeeInfo.name}</span>
 						          </c:when>
 						          <c:otherwise>
-						             <span class="select_people" onclick="serverAssociate(${step.positionId})">+</span>
+						             <span class="select_people" onclick="serverAssociate(${step.shiftMahjongStepId}, ${step.positionId}, 2)">+</span>
 						          </c:otherwise>
 						       </c:choose>
 						   </td>
@@ -106,8 +106,8 @@ function addDetail(orderId) {
     });
 }
 
-function serverAssociate(positionId) {
-	window.location.href = baseUrl+"staff/view/serverAssociate?positionId="+positionId;
+function serverAssociate(shiftMahjongStepId, positionId, type) {
+	window.location.href = baseUrl+"staff/view/serverAssociate?positionId="+positionId+"&shiftMahjongStepId="+shiftMahjongStepId+"&type="+type;
 }
 </script>
 </html>
