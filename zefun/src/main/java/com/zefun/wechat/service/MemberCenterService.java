@@ -69,6 +69,7 @@ import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.MemberRecommend;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.OrderInfo;
+import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectEvaluate;
 import com.zefun.web.entity.ProjectInfo;
@@ -98,6 +99,7 @@ import com.zefun.web.mapper.MemberRecommendMapper;
 import com.zefun.web.mapper.MemberSubAccountMapper;
 import com.zefun.web.mapper.MoneyFlowMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectEvaluateMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
@@ -290,6 +292,10 @@ public class MemberCenterService {
     /** 门店的项目系列*/
     @Autowired
     private ProjectCategoryMapper projectCategoryMapper;
+    /** 岗位信息*/
+    @Autowired
+    private PositioninfoMapper positioninfoMapper;
+    
     
     
     
@@ -956,7 +962,10 @@ public class MemberCenterService {
             MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
             selectStoreId = memberInfo.getStoreId();
         }
+        List<PositionInfo> positionInfos = positioninfoMapper.queryAllByStoreId(selectStoreId);
         List<EmployeeBaseDto> employeeInfos = employeeInfoMapper.selectEmployeeListByStoreId(selectStoreId);
+        employeeInfos = employeeInfos.stream().filter(e -> e.getPositionId().intValue()==positionInfos.get(0)
+                .getPositionId().intValue()).collect(Collectors.toList());
         StoreInfo storeInfo = storeInfoMapper.selectBaseInfoByStoreId(selectStoreId);
         mav.addObject("memberId", memberId);                      /**会员标示,如果没有的话,点击预约进行注册*/
         mav.addObject("storeList", storeList);                    /**企业门店列表*/

@@ -19,6 +19,9 @@ public class EmployeeBaseDto implements Serializable{
     
     /** 门店类型(1:单店，2:连锁总店，3:连锁分店) */
     private Integer storeType;
+    
+    /** 岗位标示*/
+    private Integer positionId;
 
     /** 门店名称 */
     private String storeName;
@@ -55,6 +58,15 @@ public class EmployeeBaseDto implements Serializable{
     
     /** 员工简介 */
     private String employeeDesc;
+
+    
+    public Integer getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Integer positionId) {
+        this.positionId = positionId;
+    }
 
     public Integer getEmployeeId() {
         return employeeId;
