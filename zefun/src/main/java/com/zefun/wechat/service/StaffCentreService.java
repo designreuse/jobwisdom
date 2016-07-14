@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -672,12 +674,17 @@ public class StaffCentreService {
     * @author 王大爷
     * @date 2015年8月19日 下午2:31:48
     * @param employeeId 员工id
+    * @param chooseType 时间类型
     * @return ModelAndView
      */
-    public ModelAndView allEarning(Integer employeeId){
+    public ModelAndView allEarning(Integer employeeId, Integer chooseType){
         ModelAndView mav = new ModelAndView();
-        Map<String, Object> map = selectEmployeeData(employeeId, 1);
+        if (chooseType == null) {
+        	chooseType = 1;
+        }
+        Map<String, Object> map = selectEmployeeData(employeeId, chooseType);
         mav.addObject("hashMap", map);
+        mav.addObject("chooseType", chooseType);
         mav.setViewName(View.StaffPage.ALL_ERANING);
         
         return mav;
@@ -712,9 +719,23 @@ public class StaffCentreService {
         
         List<Integer> idList = employeeInfoMapper.selectEmployeeInfoByEmployeeIdPositionId(employeeId);
         
-        List<Map<String, Object>> dataList= selectListMap(idList, beginTime, endTime);
-        
+        List<Map<String, Object>> dataList = selectListMap(idList, beginTime, endTime);
         objMap.put("dataList", dataList);
+        
+        List<Map<String, Object>> assignProjectList = againReorder(dataList, 1);
+        objMap.put("assignProjectList", assignProjectList);
+        
+        List<Map<String, Object>> scaleList = againReorder(dataList, 2);
+        objMap.put("scaleList", scaleList);
+        
+        List<Map<String, Object>> comboList = againReorder(dataList, 3);
+        objMap.put("comboList", comboList);
+        
+        List<Map<String, Object>> goodsList = againReorder(dataList, 4);
+        objMap.put("goodsList", goodsList);
+        
+        List<Map<String, Object>> chargeList = againReorder(dataList, 5);
+        objMap.put("chargeList", chargeList);
         
         Map<String, Object> toDayMap = selectTotalValue(idList, beginTime, endTime);
         
@@ -726,6 +747,52 @@ public class StaffCentreService {
         objMap.put("totalScale", toDayMap.get("totalScale"));
         
         return objMap;
+    }
+    
+    /**
+     * 重新排序
+    * @author 老王
+    * @date 2016年7月14日 下午2:48:51 
+    * @param dataList 数据集
+    * @param type 比较类型
+    * @return List<Map<String, Object>>
+     */
+    public List<Map<String, Object>> againReorder (List<Map<String, Object>> dataList, Integer type) {
+    	List<Map<String, Object>> projectList = new ArrayList<Map<String, Object>>(dataList);
+    	
+    	Collections.sort(projectList, new Comparator<Map<String, Object>>() {
+    		 
+            
+			@Override
+			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
+               
+            	BigDecimal map1value = new BigDecimal(0);
+            	BigDecimal map2value = new BigDecimal(0);
+            	if (type == 1) {
+            		map1value = new BigDecimal(o1.get("assignProjectValue").toString());
+            		map2value = new BigDecimal(o2.get("assignProjectValue").toString());
+            	}
+            	else if (type == 2) {
+            		map1value = new BigDecimal(o1.get("scale").toString());
+            		map2value = new BigDecimal(o2.get("scale").toString());
+            	}
+            	else if (type == 3) {
+            		map1value = new BigDecimal(o1.get("comboValue").toString());
+            		map2value = new BigDecimal(o2.get("comboValue").toString());
+            	}
+            	else if (type == 4) {
+            		map1value = new BigDecimal(o1.get("goodsValue").toString());
+            		map2value = new BigDecimal(o2.get("goodsValue").toString());
+            	}
+            	else if (type == 5) {
+            		map1value = new BigDecimal(o1.get("chargeValue").toString());
+            		map2value = new BigDecimal(o2.get("chargeValue").toString());
+            	}
+                return map2value.compareTo(map1value);
+            }
+        });
+    	
+    	return projectList;
     }
     
     /**

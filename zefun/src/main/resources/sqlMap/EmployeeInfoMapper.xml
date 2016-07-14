@@ -845,7 +845,7 @@
                      1 
                  from employee_info b 
                  where b.employee_id = #{employeeId,jdbcType=INTEGER} 
-                 and b.position_id = a.position_id 
+                 and b.position_id = a.position_id  and a.dept_id = b.dept_id 
                  and b.is_deleted = 0
                 )
   </select>
