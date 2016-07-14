@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.zefun.web.entity.EmployeeCommission;
+
 /**
  * 订单服务明细
 * @author 张进军
@@ -94,17 +96,40 @@ public class OrderDetailDto implements Serializable{
     /** 优惠信息*/
     private String privilegeInfo;
     
+    /** 部门名称*/
+    private String deptName;
+    
+  
+
     /** 优惠金额*/
     private BigDecimal privilegeMoney;
     
     /** 是否修改*/
     private Integer isUpdate;
     
+    
     /** 步骤集合 */
     private List<OrderDetailStepDto> stepList;
-
-
     
+    /** 员工提成*/
+    private List<EmployeeCommissionDto> commissionList;
+    
+    
+    public List<EmployeeCommissionDto> getCommissionList() {
+        return commissionList;
+    }
+
+    public void setCommissionList(List<EmployeeCommissionDto> commissionList) {
+        this.commissionList = commissionList;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
     
     public Integer getDeptId() {
         return deptId;
@@ -358,6 +383,8 @@ public class OrderDetailDto implements Serializable{
         return updateTime;
     }
 
+
+
     public List<OrderDetailStepDto> getStepList() {
         return stepList;
     }
@@ -365,7 +392,7 @@ public class OrderDetailDto implements Serializable{
     public void setStepList(List<OrderDetailStepDto> stepList) {
         this.stepList = stepList;
     }
-    
+
     /**
      * 
     * @author 王大爷

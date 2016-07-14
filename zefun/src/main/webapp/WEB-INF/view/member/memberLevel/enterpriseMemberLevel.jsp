@@ -214,7 +214,7 @@
 	    <div class="business_level_input clearfix">
 		  <div class="business_level_input_left">
 		     <span>会员卡种类
-			     <select name = "levelType">
+			     <select name = "levelType"  onchange="changeType()">
 			        <option value="折扣卡">折扣卡</option>
 			        <option value="等级卡">等级卡</option>
 			     </select>
@@ -344,12 +344,17 @@
 	//提示气泡
 	var htm = "";
 	jQuery(function() {
+		changeType();
+	})
+
+	
+function changeType(){
 		levelType2 =jQuery("select[name='levelType']").val();
 		if(levelType2=="等级卡"){
-			htm='该种卡可由分店根据等级设置折扣书';
+			htm='该种卡 可由分店根据等级 ，设置折扣数';
 		}
 		if(levelType2=="折扣卡"){
-			htm='该种卡的折扣均由总店设置，分店无修改权限';
+			htm='该种卡 ，折扣均由总店设置，分店无修改权限';
 		}
 		jQuery("body").delegate(".overflow_text", "mouseover", function (){
 			jQuery('.fly_').html('');
@@ -359,8 +364,7 @@
 		jQuery("body").delegate(".overflow_text", "mouseout", function (){
 			jQuery('.fly_').html('')
 		});
-	})
-
+	}
 jQuery(document).ready(function() {    
     jQuery('.business_manage_table td span').click(function(){
     find=jQuery(this).parent().find('.demo_fade');

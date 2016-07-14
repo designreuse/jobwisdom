@@ -46,8 +46,30 @@ public class EmployeeCommissionDto implements Serializable {
 	/** 订单号*/
 	private String orderCode;
 	
-	
-	public Integer getOrderId() {
+	   /** 提成员工名称 */
+    private String employeeName;
+    
+    /** 提成员工名称 */
+    private Integer employeeCode;
+    
+
+    public Integer getEmployeeCode() {
+        return employeeCode;
+    }
+
+    public void setEmployeeCode(Integer employeeCode) {
+        this.employeeCode = employeeCode;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public Integer getOrderId() {
         return orderId;
     }
 

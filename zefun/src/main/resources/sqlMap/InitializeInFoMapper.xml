@@ -156,7 +156,6 @@
          <if test="initializeImage != null" >
         initialize_image = #{initializeImage,jdbcType=INTEGER},
       </if>
-      initialize_image
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -207,6 +206,6 @@
     select 
     i.id, d.dept_name, i.initialize_image, i.goods_price, i.type, i.type_name, i.note, i.date, i.incometype_type, i.isDeleted, i.store_id, s.name as price_name
  	from initialize_info i left join  dept_info d ON i.dept_name=d.dept_id left join incometype s on i.price_name=s.incometype_id
-    where i.isDeleted = 0 and i.store_id = #{params.storeId} 
+    where i.isDeleted = 0 and i.store_id = #{params.storeId}  order by i.id desc
   </select>
 </mapper>
