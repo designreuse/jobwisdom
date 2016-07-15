@@ -127,7 +127,7 @@ input[type=radio] {
 																	<c:forEach items="${goodsInfos }" var="goodsInfo">
 																	<option value="${goodsInfo.goodsId }">${goodsInfo.goodsName }</option>
 																	</c:forEach>
-																  </select></span><span>商品名称：<i name="goodsName"></i></span> <span>商品编号：<i name="goodsCodeSuffix"></i></span>
+																  </select><i  class = "addcolor">*</i></span><span>商品名称：<i name="goodsName"></i></span> <span>商品编号：<i name="goodsCodeSuffix"></i></span>
 									</p>
 									<p>
 										<span><em>所属部门</em>
@@ -186,7 +186,7 @@ input[type=radio] {
 							<div class="add_store_content clearfix" style="display: block;">
 								<div class="shop_price">
 									<p class="shop_price_1">
-										门店价格<span><input name="goodsPrice" type="text"><em>元</em></span>
+										门店价格<span><input name="goodsPrice" type="text"><i  class = "addcolor">*</i><em>元</em></span>
 									</p>
 									<p class="shop_price_2">
 										是否接受礼金<i><input onclick="jQuery(this).parent().next().next().show();jQuery(this).parent().next().next().next().show();" type="radio"  name="isCashDeduction" value="1">是</i><i><input onclick="jQuery('input[name=\'highestDiscount\']').val('0');jQuery(this).parent().next().hide();jQuery(this).parent().next().next().hide();" type="radio" name="isCashDeduction" value="0">否</i><i>最大抵扣礼金</i><span><input name="highestDiscount" type="text"><em>元</em></span>

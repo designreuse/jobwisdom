@@ -203,7 +203,7 @@
 														varStatus="status">
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
-											</select>
+											</select> <i  class = "addcolor">*</i>
 											</span>
 
 										</p>
@@ -345,14 +345,14 @@
 								
 											 <div class="write_imformation" style="display: none;">
 											   <p>
-											      <span><em style="margin-right:30px">姓名</em><input type="text" name = "name"  placeholder="*"/></span>
-												  <span><em style="display:inline-block;margin-right:1px">手机号码</em><input type="Number" name ="phoneNumber_"  placeholder="*"/></span>
+											      <span><em style="margin-right:30px">姓名</em><input type="text" name = "name"  placeholder="*"/><i  class = "addcolor">*</i></span>
+												  <span><em style="display:inline-block;margin-right:1px">手机号码</em><input type="Number" name ="phoneNumber_"  placeholder="*"/><i  class = "addcolor">*</i></span>
 												  <span><em style="margin-left:35px">性别</em><select name="sex"><option>男</option><option>女</option></select></span>
 											   </p>
 											   <p>
 											      
-												  <span><em>支付密码</em><input type="password" name = "payPassword"  placeholder="*"/></span>
-												  <span><em>确认密码</em> <input type="password" name = "password"  placeholder="*"/></span>
+												  <span><em>支付密码</em><input type="password" name = "payPassword"  placeholder="*"/><i  class = "addcolor">*</i></span>
+												  <span><em>确认密码</em> <input type="password" name = "password"  placeholder="*"/><i  class = "addcolor">*</i></span>
 												  <span style="margin-left:12px">短信通知<select style="margin-left:8px" name ="messageType"><option value="1">是</option> <option value="0">否</option></select></span>
 												  <span style="position:relative;left:150px"><button class="back_">返回</button></span>
 											   </p>
@@ -412,7 +412,7 @@
 														varStatus="status">
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
-											</select>
+											</select><i  class = "addcolor">*</i>
 											</span>
 										</p>
 
@@ -589,7 +589,7 @@
 														varStatus="status">
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
-											</select>
+											</select><i  class = "addcolor">*</i>
 											</span>
 
 										</p>
@@ -1009,7 +1009,7 @@
 							<div class="recharge_user">
 								<p>转账金额</p>
 								<div class="seach_user_">
-									<input name = "zzChargeAmount" type="Number"><em>元</em>
+									<input name = "zzChargeAmount" type="Number"><i  class = "addcolor">*</i><em>元</em>
 									<button onclick="zzConfirm()">确认金额</button>
 								</div>
 

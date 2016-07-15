@@ -141,16 +141,16 @@
 			  <input type="hidden" name="headImage" value="">
 			</div>
 		    <div class="information">
-			   <p> <span><em>姓名</em><input type="text" name="name"></span>
-				   <span><em>工号</em><input type="text" value="" name="employeeCode"></span>
+			   <p> <span><em>姓名</em><input type="text" name="name"><i  class = "addcolor">*</i></span>
+				   <span><em>工号</em><input type="text" value="" name="employeeCode"><i  class = "addcolor">*</i></span>
 					<span><em>介绍人</em><select name="recommendId"><c:forEach items="${recommendList }" var="recommend"><option value="${recommend.employeeId }">${recommend.name }</option></c:forEach></select>
 				</p> 
 			   <p><span><em>性别</em><select name="sex"><option value="男">男</option><option value="女">女</option></select></span> 
 				  <span><em>出生日期</em><input type="text" name="birthday" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></span>
-				  <span><em>手机号</em><input type="text" name="phone" value=""></span>
+				  <span><em>手机号</em><input type="text" name="phone" value=""><i  class = "addcolor">*</i></span>
 				</p> 
            
-               <p> <span><em>身份证</em><input type="text" name="identityCard" value="" style="width:350px" ></span>
+               <p> <span><em>身份证</em><input type="text" name="identityCard" value="" style="width:350px" ><i  class = "addcolor">*</i></span>
 				 <span>是否显示在预约中<input type="checkbox" style="margin-left:10px"></span>
 				</p>
 			</div>  

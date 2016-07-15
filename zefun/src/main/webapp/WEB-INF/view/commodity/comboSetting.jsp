@@ -233,7 +233,7 @@
 									</div>
 									<div class="add_store_content_1_center">
 										<p>
-											<em>疗程名称</em><input name="comboName" type="text">
+											<em>疗程名称</em><input name="comboName" type="text"><i  class = "addcolor">*</i>
 										</p>
 										<p>
 											<em>疗程所属部门</em><select name="deptId"><c:forEach items="${deptInfoList }" var="deptInfo"><option value="${deptInfo.deptId }">${deptInfo.deptName }</option></c:forEach></select>

@@ -146,12 +146,12 @@
 				</ul>
 				<div class="coupon_name">
 					<p>
-						<span>优惠券名称<input type="text" name="coupon_name"></span>
+						<span>优惠券名称<input type="text" name="coupon_name"><i  class = "addcolor">*</i></span>
 					</p>
 					<p>
-						<span>优惠券面额<input type="text" name="coupon_price"></span><span>发行量<input
-							name="coupon_number" type="text"></span><span>每人限领<input
-							name="coupon_man" type="text"></span>
+						<span>优惠券面额<input type="text" name="coupon_price"><i  class = "addcolor">*</i></span><span>发行量<input
+							name="coupon_number" type="text"><i  class = "addcolor">*</i></span><span>每人限领<input
+							name="coupon_man" type="text"><i  class = "addcolor">*</i></span>
 					</p>
 				</div>
 				<div class="user_">
@@ -163,11 +163,11 @@
 					</div>
 					<div class="report_time">
 						<span>发布时间<input name="release_time" type="text"
-							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span> <span>结束时间<input
+							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /><i  class = "addcolor">*</i></span> <span>结束时间<input
 							name="coupon_stop_time" type="text"
-							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span>
+							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /><i  class = "addcolor">*</i></span>
 						<div style="margin-top: 20px">
-							<span>有效时间<input name="coupon_start_time" type="text" /></span>
+							<span>有效时间<input name="coupon_start_time" type="text" /><i  class = "addcolor">*</i></span>
 							<span style="margin-right: 4px">选择模板色</span>
 							<div name="coupon_colour" onclick="changesty()"
 								class="select_color" style="position: relative; left: -300px"></div>

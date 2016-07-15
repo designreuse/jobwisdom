@@ -136,7 +136,7 @@
 								<option value="${deptInfo.deptId }">${deptInfo.deptName }</option>
 							</c:forEach>
 					</select></span> <span><em style="position: relative; left: 20px">金额</em> <input
-						id="price1" value=" " type="text"></span>
+						id="price1" value=" " type="Number"></span>
 				</div>
 				<p style="margin-top: 10px">
 					<em style="margin-right: 10px">收支类型</em> <select id="shouzhi1"
@@ -226,7 +226,7 @@
 								<option value="${deptInfo.deptId }">${deptInfo.deptName }</option>
 							</c:forEach>
 					</select></span> <span><em style="position: relative; left: 20px">金额</em> <input
-						id="price2" value=" " type="text"></span>
+						id="price2" value=" " type="Number"></span>
 				</div>
 				<p style="margin-top: 10px">
 					<em style="margin-right: 10px">收支类型</em> <select id="shouzhi2"
