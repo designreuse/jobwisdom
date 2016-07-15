@@ -309,6 +309,7 @@ function submitPhone (obj) {
 				
 				jQuery(obj).parents(".card-main").addClass("hide");
 				jQuery(obj).parents(".card-main").next().removeClass("hide");
+				jQuery(parentsObj).parents("#tab2").find('.no_password').addClass("hide");
 				
 			}
 			else if (jQuery(obj).parents("div[name='memberTR']").attr("selectType") == 3) {
@@ -334,6 +335,7 @@ function submitPhone (obj) {
 				
 				parentsObj.removeClass("hide");
 				jQuery(obj).parents("div[name='memberTR']").addClass("hide");
+				
 			}
 			
 		}
