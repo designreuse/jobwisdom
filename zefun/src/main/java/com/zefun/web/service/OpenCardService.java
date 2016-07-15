@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ import com.zefun.web.entity.MoneyFlow;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ProjectInfo;
+import com.zefun.web.entity.StockFlow;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.DeptObjectiveMapper;
@@ -563,6 +565,15 @@ public class OpenCardService {
     			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
     			BigDecimal rewardAmount, Integer storeId, List<Integer> deptIds, List<BigDecimal> deptCalculates,
     			Integer lastOperatorId, String orderCode, String createTime) throws ParseException {
+	    
+	    Integer accountId = memberId;
+        List<MemberSubAccount> selectListByAccountId = memberSubAccountMapper.selectListByAccountId(accountId);
+        List<MemberSubAccount> collect = selectListByAccountId.stream()
+                .filter(flow -> flow.getLevelId().intValue()==levelId.intValue()).collect(Collectors.toList());
+        if (collect.size()>0) {
+            return new BaseDto(0, "该会员已有此种卡");
+        }
+	    
 		// 添加会员信息表
 		MemberInfo memberInfo = new MemberInfo();
 		memberInfo.setLevelId(levelId);
@@ -572,7 +583,7 @@ public class OpenCardService {
 
 		memberInfoMapper.updateByPrimaryKey(memberInfo);
 		
-	
+		
 
 		BigDecimal balanceAmount = unionpayAmount.add(cashAmount).add(debtAmount).add(wechatAmount).add(alipayAmount);
 		
@@ -596,6 +607,7 @@ public class OpenCardService {
 		hashMap.put("accountId", memberInfo.getMemberId());
  		memberAccountMapper.updateCharge(hashMap);
  		
+ 		
  		//升级子账户卡 并改变其存储总值等
  		Map<String, Object> hashDecrease = new HashMap<String, Object>();
         hashDecrease.put("levelId", levelId);
@@ -603,7 +615,7 @@ public class OpenCardService {
         hashDecrease.put("chargeAmount", receivableAmount);
         hashDecrease.put("rewardAmount", rewardAmount);
         memberSubAccountMapper.updateLevel(hashDecrease);
- 		
+     
  		
 		commissionAndGift(memberId, null, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 6, storeId,

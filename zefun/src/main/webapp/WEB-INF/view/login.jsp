@@ -10,6 +10,20 @@
 .login_content{width:1000px;margin:0 auto}
 .login_mark{color:#808080;font-size:13px;text-align:center}
 em,i{font-style:normal}
+#loadingWrap{position:absolute;top:30%;left:46%}
+.alertWrap .toast {
+    font-size: 18px;
+    min-width: 310px;
+    max-width: 1000px;
+    padding: 0 10px;
+    margin: auto;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.85);
+    text-align: center;
+    color: #e3e3e3;
+    letter-spacing: 1px;z-index:2;position:absolute;top:30%;left:40%}
 html {
   height: 100%;
   background-image: -webkit-radial-gradient(ellipse farthest-corner at center top, #000d4d 0%, #000105 100%);
@@ -138,7 +152,7 @@ body {
 	</div>
 	
        <!--注册-->
-    <div class="register" style="opacity:0;z-index:-1;margin-left:80px">
+  <!--   <div class="register" style="opacity:0;z-index:-1;margin-left:80px">
 	   <div class="register_header">
 	      <span class="login_">登陆</span>
 	      <span class="register_">注册</span>
@@ -166,7 +180,7 @@ body {
 		   </div>
 	   </form>
 	       <p class="login_mark">© 2016 版权所有 ICP证：粤ICP备16038559号-1    </p>
-	</div>
+	</div>-->
 
    
    </div>
@@ -175,7 +189,7 @@ body {
 
 <div id="loadingWrap" class="alertWrap" style="display: none;">
     <div class="loadingImg">
-        <img src="http://7xkv8r.com1.z0.glb.clouddn.com/pc/loadData.gif"/>
+        <img src="<%=basePath %>images/loading.gif"/>
     </div>
 </div>
 <div id="alertWrap" class="alertWrap" style="display: none;">
@@ -193,7 +207,7 @@ body {
 
 jQuery(function(){
 //点击注册
-   jQuery('.login .register_').click(function(){
+   /*jQuery('.login .register_').click(function(){
       jQuery('.login').animate({
 	     marginLeft:'80px',
 		opacity:0
@@ -217,7 +231,7 @@ jQuery(function(){
 		},1000);
 		jQuery('.register').attr('style','z-index:-1;opacity:0')
 		  });
-	  });	
+	  });	*/
  });
  
 var pageValue = "";
