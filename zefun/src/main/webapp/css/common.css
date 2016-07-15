@@ -4,12 +4,7 @@ em,i{font-style:normal}
 .header_{
 	height:53px;
 	width:1100px;
-	background:#2a3244;
-	
-	
-}
-.left_nav .active1{
-	 
+	background:#2a3244;	
 }
 .content_right{background:white}
 .leftpanel{height:auto!important}
@@ -19,13 +14,13 @@ em,i{font-style:normal}
 
 .header_content select{border-radius:20px!important;background:#2a3244;height:20px;width:80px ;border:1px solid #fff;color:white;position:relative;    left: 150px;
     top: -68px;}
-.header_content{width:300px;position:relative;    left: 730px;
+.header_content{width:300px;position:relative;left: 730px;
     top: 20px;
 }
 .header_img {display:inline-block!important;position:relative;left: 140px;top:-30px;margin-left:20px}
 .left_nav li{height:70px;width:70px!important;color:#8d929a;font-size:12px;font-size:14px;}
 .left_nav{background:#2a3244;height:2300px}
-.nav_img{    text-align: center;color:white;font-size:12px}
+.nav_img{    text-align: center;color:#e0e0e0;font-size:12px}
 .left_nav{width:auto!important;}
 .left_nav span{display:inline-block;position:relative;left:10px;top:8px}
 .leftmenu .active a{z-index:0!important}
@@ -137,7 +132,6 @@ ul li{
 	list-style:none
 	 }
 
-
 .preview_1{
 	width:290px;
 	height:180px;
@@ -148,13 +142,11 @@ ul li{
 	color:white;
 }
 .preview_left{float:left;width:100px;position:relative;top:105px;left:70px;font-size:12px}
-
 .preview_right{float:left;width:160px}
 .preview_right ul{margin-top:60px;margin-left:34px}
 .preview_right ul li{height:50px}
 .preview_right span{font-size:12px;position:relative;width:180px;display:inline-block;left:8px;top:-8px}
 .preview_right span em{display:inline-block;height:20px;width:36px;text-align:center;line-height:20px;border:1px solid white;border-radius:12px;margin-left:12px}
-
 .preview_2{
 	width:290px;
 	height:180px;
@@ -162,8 +154,7 @@ ul li{
 	border-radius:8px;
 	background-size:290px 180px;
 	margin:0 auto;
-	color:white;
-	
+	color:white;	
 }
 .preview_2_top span{position:relative;font-size:12px;top:10px;left:260px}
 .preview_2_content_right{float:left;margin-top:54px;width:180px}
@@ -189,8 +180,7 @@ ul li{
     left: 75px;
     font-size: 12px;
 }
-.vip_card_1_content ul{width:290px; position:relative;left: -40px;
-    text-align: center;}
+.vip_card_1_content ul{width:290px; position:relative;left: -40px;text-align: center;}
 .vip_card_1_content ul li{float:left;width:145px;font-size:14px}
 .vip_card_1_content{margin-top:90px}
 .vip_card_1_content span{font-size:12px;display:inline-block;position:relative;left:120px;top:30px}
@@ -266,8 +256,6 @@ ul li{
 .vip_card_4_content ul li{float:left;width:145px;font-size:14px}
 .vip_card_4_content{margin-top:75px}
 .vip_card_4_content span{font-size:12px;display:inline-block;position:relative;left:95px;}
-
-
 
 .common_content{font-size:14px;color:black}
 .common_content>p{font-size:16px;color:black;padding-left:20px;margin-bottom:10px;padding-top:10px}
