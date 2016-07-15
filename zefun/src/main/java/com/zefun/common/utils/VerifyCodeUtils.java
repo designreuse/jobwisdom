@@ -118,7 +118,7 @@ public class VerifyCodeUtils{
 		}
 		
 		// 添加噪点
-		float yawpRate = 0.05f;
+		/*float yawpRate = 0.05f;*/
 		/*// 噪声率
 		int area = (int) (yawpRate * w * h);
 		for (int i = 0; i < area; i++) {
@@ -187,7 +187,7 @@ public class VerifyCodeUtils{
 	* @date 2016年7月15日 下午4:55:31 
 	* @return int
 	 */
-	private static int getRandomIntColor() {
+	/*private static int getRandomIntColor() {
 		int[] rgb = getRandomRgb();
 		int color = 0;
 		for (int c : rgb) {
@@ -195,7 +195,7 @@ public class VerifyCodeUtils{
 			color = color | c;
 		}
 		return color;
-	}
+	}*/
 	
 	/**
 	 * 
@@ -203,13 +203,13 @@ public class VerifyCodeUtils{
 	* @date 2016年7月15日 下午4:55:21 
 	* @return int[]
 	 */
-	private static int[] getRandomRgb() {
+	/*private static int[] getRandomRgb() {
 		int[] rgb = new int[3];
 		for (int i = 0; i < 3; i++) {
 			rgb[i] = random.nextInt(255);
 		}
 		return rgb;
-	}
+	}*/
 
 	/**
 	 * 

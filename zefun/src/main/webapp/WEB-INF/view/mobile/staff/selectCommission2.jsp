@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="<%=swiperCssPath%>"/>
     <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
     <link rel="stylesheet" href="<%=employeeCssPath%>"/>
+    <link rel="stylesheet" href="<%=muiCssPath%>"/>
     <style>
 	    .tc-table{
 	        width: 100%;
@@ -22,7 +23,6 @@
 	        height: 4rem;
 	        line-height: 4rem;
 	        padding: 0 1rem;
-	        font-weight: 700;
 	    }
 	    .tc-table th{
 	        height: 5rem;
@@ -34,15 +34,35 @@
 	        text-align: center;
 	        border: 0;
 	    }
+	
+	    .tc-table-wrap {
+	        padding-top:7rem;
+	    }
 	    .tc-table tr:nth-child(odd) {
 	        background-color: #f5f5f5;
 	    }
 	    .tc-table tr:nth-child(even) {
 	        background-color: #fff;
 	    }
-	    .tc-table-wrap{
-	        padding-top: 7rem;
-			padding-bottom: 1.5rem;
+	    .yg-data{
+	        background-color: #fff;
+	        position: relative;
+	        height: 5rem;
+	        line-height: 5rem;
+	        overflow: hidden;
+	        padding: 0 2rem;
+	    }
+	
+	    .date {
+	        position: absolute;
+	        top:50%;
+	        -webkit-transform: translatey(-50%);
+	        -moz-transform: translatey(-50%);
+	        -ms-transform: translatey(-50%);
+	        -o-transform: translatey(-50%);
+	        transform: translatey(-50%);
+	        right: 2rem;
+	
 	    }
 	    .select-day .swiper-slide {
 	        height: 5.625rem;
@@ -58,13 +78,25 @@
 	        width: 100%;
 	        box-shadow: none;
 	        position: fixed;
-	        bottom: 0;
-			max-width: 768px;
+	        top: 5.625rem;
+	        max-width: 768px;
 	    }
 	    .chart-wrap {
 	        overflow: hidden;
 	        width: 100%;
 	        margin-bottom: 1rem;
+	    }
+	
+	    .tab .score-shop-li {
+	        width: 50% !important;
+	    }
+	
+	    .icon-zhankai {
+	        vertical-align: middle;
+	    }
+	
+	    .chart-wrap {
+	        background-color: #fff;
 	    }
 	</style>
 </head>
@@ -77,67 +109,91 @@
 	            <div class="swiper-slide active score-shop-li" onclick="changeTab(this, 1)">
 	                <img src="<%=basePath%>images/mobile/employee/active-new.png" alt="" class=""/>
 	                <div class="tab-word">
-	                    <div class="zhouyi" name = "dayTop">${nowDay}</div>
+	                    <div class="zhouyi ">按日查询</div>
 	                </div>
 	            </div>
 	            <div class="swiper-slide score-shop-li" onclick="changeTab(this, 2)">
 	                <img src="<%=basePath%>images/mobile/employee/active-new.png" alt="" class="hide"/>
 	                <div class="tab-word">
-	                    <div class="zhouyi" name = "monthTop">${nowMonth}</div>
-	                </div>
-	            </div>
-	            <div class="swiper-slide score-shop-li" onclick="changeTab(this, 3)">
-	                <img src="<%=basePath%>images/mobile/employee/active-new.png" alt="" class="hide"/>
-	                <div class="tab-word">
-	                    <div class="zhouyi">12个月记录</div>
+	                    <div class="zhouyi ">按月查询</div>
 	                </div>
 	            </div>
 	        </div>
 	    </div>
-	
-	    <div class="day tab-control">
-	      <div class="tc-table-wrap">
-		      <div class="btn return-btn" onclick="triggerDay('${nowDay}')">返回当前日</div>
-		      <div class="chart-wrap">
-		              <div id="one-day" style="width: 50%;height: 300px;float: left;"></div>
-		              <div id="two-day" style="width: 50%;height: 300px;float: left;"></div>
-		      </div>
+	    
+	     <div class="day tab-control">
+		      <div class="tc-table-wrap">
+		          <div class="yg-data">
+		              <div class="date fr" id="selectTime">
+		
+		                  <div class="current-select-date">
+		                      ${nowDay}
+		                  </div>
+		                  <div class="date-btn">
+		                      <span class="iconfont icon-zhankai"></span>
+		                  </div>
+		              </div>
+		          </div>
+		
+		          <div class="chart-wrap mt2">
+		             <div>
+		                 <ul class="yg-tab">
+		                     <li class="current" data-target="one-day">业绩</li>
+		                     <li data-target="two-day">提成</li>
+		                 </ul>
+		             </div>
+		          <!--<div class="one-chart fl w50p">-->
+		              <div id="one-day" style="width: 50%;height: 300px; margin: 0 auto"></div>
+		          <!--</div>-->
+		          <!--<div class="two-chart fl w50p">-->
+		              <div id="two-day" class="hide" style="width: 50%;height: 300px; margin: 0 auto"></div>
+		          <!--</div>-->
+		          </div>
+		
 		      <table class="tc-table" cellspacing=0>
 		        <thead >
-			        <tr>
-			            <th>单号</th>
-			            <th>类别</th>
-			            <th>业绩</th>
-			            <th>提成</th>
-			        </tr>
+		        <tr>
+		            <th>单号</th>
+		            <th>业务类型</th>
+		            <th>业绩</th>
+		            <th>提成</th>
+		        </tr>
 		        </thead>
 		        <tbody id = "dayTbody">
-			        
+		            
 		        </tbody>
-		      </table>
+		    </table>
 		
-		      <!-- <table class="tc-table" cellspacing=0>
-		          <thead >
-		          <tr>
-		              <th></th>
-		              <th>业绩</th>
-		              <th>提成</th>
-		          </tr>
-		          </thead>
-		          <tbody id = "daySumTbody">
-
-		          </tbody>
-		      </table> -->
-	      </div>
-	    </div>
+		  </div>
+        </div>
 	    
 	    <div class="month hide tab-control">
 	        <div class="tc-table-wrap">
-	            <div class="btn return-btn" onclick="triggerMonth('${nowMonth}')">返回当前月</div>
-	            <div class="chart-wrap">
-		              <div id="one-month" style="width: 50%;height: 300px;float: left;"></div>
-		              <div id="two-month" style="width: 50%;height: 300px;float: left;"></div>
-		        </div>
+		        <div class="yg-data">
+	              <div class="date fr" id="selectMonth">
+	
+	                  <div class="current-select-date">
+	                      ${nowMonth}
+	                  </div>
+	                  <div class="date-btn">
+	                      <span class="iconfont icon-zhankai"></span>
+	                  </div>
+	              </div>
+	            </div>
+		        <div class="chart-wrap mt2">
+		             <div>
+		                 <ul class="yg-tab">
+		                     <li class="current" data-target="one-month">业绩</li>
+		                     <li data-target="two-month">提成</li>
+		                 </ul>
+		             </div>
+		          <!--<div class="one-chart fl w50p">-->
+		              <div id="one-month" style="width: 50%;height: 300px; margin: 0 auto"></div>
+		          <!--</div>-->
+		          <!--<div class="two-chart fl w50p">-->
+		              <div id="two-month" class="hide" style="width: 50%;height: 300px; margin: 0 auto"></div>
+		          <!--</div>-->
+		          </div>
 	            <table class="tc-table" cellspacing=0>
 	                <thead >
 	                <tr>
@@ -150,19 +206,9 @@
 		                
 	                </tbody>
 	            </table>
-	
-	            <!-- <table class="tc-table" cellspacing=0>
-	                <thead >
-	                <tr>
-	                    <th>业绩分类</th>
-	                    <th>业绩</th>
-	                    <th>提成</th>
-	                </tr>
-	                </thead>
-	                <tbody id = "monthSumTbody">
-
-	                </tbody>
-	            </table> -->
+	            <div class="chart-wrap">
+	                <div id="year-chart" style="width: 100%;height: 300px;"></div>
+	            </div>
 	        </div>
 	    </div>
 	    
@@ -193,7 +239,7 @@
 	            </table>
 	        </div>
 	    </div>
-	    </div>
+	</div>
     
 </div>    
 </div>
@@ -203,10 +249,15 @@
 <script type="text/javascript" src="<%=swiperJsPath%>"></script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/fusioncharts.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/highcharts.src.js"> </script>
+<script type="text/javascript" src="<%=muiJsPath%>"> </script>
+<script type="text/javascript" src="<%=basePath%>js/base/big.js"> </script>
 <script>
 
-var dateListStr = '${dateListStr}';
-var dateList = eval("(" + dateListStr + ")");
+var dayMapStr = '${dayMapStr}';
+var dayMap = eval("(" + dayMapStr + ")");
+
+var monthMapStr = '${monthMapStr}';
+var monthMap = eval("(" + monthMapStr + ")");
 
 var nowMonth = '${nowMonth}';
 
@@ -216,9 +267,22 @@ var orderTypeArray = new Array("", "劳动" , "商品", "套餐", "开卡", "充
 
 var nowCommissionList = "";
 
+var dateType = 1;
+
 $(function () {
-	loadMonthTable(nowMonth);
-	loadDayTable(nowDay);
+	$(".yg-tab li").on("click",function() {
+        $(this).addClass("current").siblings().removeClass("current");
+        if ($(this).attr("data-target") == "two-day" || $(this).attr("data-target") == "one-day") {
+        	$("#one-day,#two-day").addClass("hide");
+        }
+        else {
+        	$("#one-month,#two-month").addClass("hide");
+        }
+        $("#"+$(this).attr("data-target")).removeClass("hide");
+
+    });
+	loadMonthTable(monthMap);
+	loadDayTable(dayMap);
     
 });
 
@@ -237,7 +301,7 @@ function changeTab(obj, type){
     $(".swiper-slide img").addClass("hide");
     $(obj).addClass("active");
     $(obj).find("img").removeClass("hide");
-    
+    dateType = type;
     $(".tab-control").addClass("hide");
     if (type == 1) {
     	$(".day").removeClass("hide");
@@ -245,99 +309,69 @@ function changeTab(obj, type){
     else if (type == 2){
     	$(".month").removeClass("hide");
     }
-    else {
-    	$(".year").removeClass("hide");
-    	loadYearTable();
-    }
+} 
+
+function selectCommission(dateTime) {
+	$.ajax({
+        url : baseUrl + "staff/action/selectCommissionDateType",
+        type : "POST",
+        data : "dateType=" + dateType + "&dateTime=" + dateTime,
+        success : function(e){
+            if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+            var data =  e.msg;
+            if (dateType == 1) {
+            	loadDayTable(data);
+            }
+            else {
+            	loadMonthTable(data);
+            }
+        }
+    });
 }
 
-function triggerMonth (monthTime) {
-	$(".swiper-slide").removeClass("active");
-    $(".swiper-slide img").addClass("hide");
-    
-    $("div[name='monthTop']").parents(".swiper-slide").addClass("active");
-    $("div[name='monthTop']").parents(".swiper-slide").find("img").removeClass("hide");
-    
-    $("div[name='monthTop']").text(monthTime);
-    
-    $(".tab-control").addClass("hide");
-    
-    $(".month").removeClass("hide");
-    
-    loadMonthTable(monthTime);
-}
-
-function triggerDay (dayTime) {
-	$(".swiper-slide").removeClass("active");
-    $(".swiper-slide img").addClass("hide");
-    
-    $("div[name='dayTop']").parents(".swiper-slide").addClass("active");
-    $("div[name='dayTop']").parents(".swiper-slide").find("img").removeClass("hide");
-    
-    $("div[name='dayTop']").text(dayTime);
-    
-    $(".tab-control").addClass("hide");
-    
-    $(".day").removeClass("hide");
-    
-    loadDayTable(dayTime);
-}
-
-function loadDayTable (dayTime) {
+function loadDayTable (dayMapLoad) {
 	$("#daySumTbody").empty();
 	$("#dayTbody").empty();
 	
-	for (var i = 0; i < nowCommissionList.length; i++) {
-		var commission = nowCommissionList[i];
-		if (dayTime == commission.chargeTime) {
-			var dayMap = commission.dayMap;
-			
-			var dtoList = dayMap.dtoList;
-			
-			for (var j = 0; j < dtoList.length; j++) {
-				var employeeCommissionDto = dtoList[j];
-				$("#dayTbody").append("<tr>"+
-							            "<td>"+employeeCommissionDto.orderCode+"</td>"+
-							            "<td>"+orderTypeArray[employeeCommissionDto.orderType]+"</td>"+
-							            "<td>"+employeeCommissionDto.commissionCalculate+"</td>"+
-							            "<td>"+employeeCommissionDto.commissionAmount+"</td>"+
-							          "</tr>");
-			}
-			
-			
-			packageData(1, dayMap);
-			return;
-			/* $("#daySumTbody").append("<tr>"+
-					                    "<td>劳动汇总</td>"+
-						                   "<td>"+dayMap.projectCalculate+"</td>"+
-						                   "<td>"+dayMap.projectAmount+"</td>"+
-						               "</tr>"+
-						               "<tr>"+
-					                    "<td>商品汇总</td>"+
-						                   "<td>"+dayMap.goodsCalculate+"</td>"+
-						                   "<td>"+dayMap.goodsAmount+"</td>"+
-						               "</tr>"+
-						               "<tr>"+
-						                    "<td>套餐汇总</td>"+
-							                   "<td>"+dayMap.comboCalculate+"</td>"+
-							                   "<td>"+dayMap.comboAmount+"</td>"+
-							               "</tr>"+
-						               "<tr>"+
-						               "<td>开卡充值汇总</td>"+
-							                   "<td>"+dayMap.chargeCalculate+"</td>"+
-							                   "<td>"+dayMap.chargeAmount+"</td>"+
-							           "</tr>"); */
-		}
+	var dtoList = dayMapLoad.dtoList;
+	
+	for (var j = 0; j < dtoList.length; j++) {
+		var employeeCommissionDto = dtoList[j];
+		$("#dayTbody").append("<tr>"+
+					            "<td>"+employeeCommissionDto.orderCode+"</td>"+
+					            "<td>"+orderTypeArray[employeeCommissionDto.orderType]+"</td>"+
+					            "<td>"+employeeCommissionDto.commissionCalculate+"</td>"+
+					            "<td>"+employeeCommissionDto.commissionAmount+"</td>"+
+					          "</tr>");
 	}
-	var dayMap = {"projectCalculate" : 0, "projectAmount" : 0, "goodsCalculate" : 0, "goodsAmount" : 0,
-		      "comboCalculate" : 0, "comboAmount" : 0, "chargeCalculate" : 0, "chargeAmount" : 0};
-	packageData(1, dayMap);
+	
+	packageData(1, dayMapLoad);
+
 }
 
-function loadMonthTable (monthTime) {
+function loadMonthTable (obj) {
 	$("#monthTbody").empty();
 	$("#monthSumTbody").empty();
-	for (var i = 0; i < dateList.length; i++) {
+	
+	var commissionList = obj.commissionList;
+	
+	nowCommissionList = commissionList;
+	
+	for (var j = 0; j < commissionList.length; j++) {
+		var commission = commissionList[j];
+		$("#monthTbody").append("<tr onclick = \"triggerDay('"+commission.chargeTime+"')\">"+
+				                    "<td>"+commission.chargeTime+"</td>"+
+				                    "<td>"+commission.sumCommissionCalculate+"</td>"+
+				                    "<td>"+commission.sumCommissionAmount+"</td>"+
+				                "</tr>");
+	}
+	var dayMap = {"projectCalculate" : obj.monthProjectCalculate, "projectAmount" : obj.monthProjectAmount, "goodsCalculate" : obj.monthGoodsCalculate, "goodsAmount" : obj.monthGoodsAmount,
+			      "comboCalculate" : obj.monthComboCalculate, "comboAmount" : obj.monthComboAmount, "chargeCalculate" : obj.monthChargeCalculate, "chargeAmount" : obj.monthChargeAmount};
+	packageData(2, dayMap);
+	/* for (var i = 0; i < dateList.length; i++) {
 		var obj = dateList[i];
 		if (obj.monthDate == monthTime) {
 			var commissionList = obj.commissionList;
@@ -355,33 +389,13 @@ function loadMonthTable (monthTime) {
 			var dayMap = {"projectCalculate" : obj.monthProjectCalculate, "projectAmount" : obj.monthProjectAmount, "goodsCalculate" : obj.monthGoodsCalculate, "goodsAmount" : obj.monthGoodsAmount,
 					      "comboCalculate" : obj.monthComboCalculate, "comboAmount" : obj.monthComboAmount, "chargeCalculate" : obj.monthChargeCalculate, "chargeAmount" : obj.monthChargeAmount};
 			packageData(2, dayMap);
-			/* $("#monthSumTbody").append("<tr>"+
-					                       "<td>劳动汇总</td>"+
-						                   "<td>"+obj.monthProjectCalculate+"</td>"+
-						                   "<td>"+obj.monthProjectAmount+"</td>"+
-						               "</tr>"+
-						               "<tr>"+
-					                       "<td>商品汇总</td>"+
-						                   "<td>"+obj.monthGoodsCalculate+"</td>"+
-						                   "<td>"+obj.monthGoodsAmount+"</td>"+
-						               "</tr>"+
-					                   "<tr>"+
-					                       "<td>套餐汇总</td>"+
-						                   "<td>"+obj.monthComboCalculate+"</td>"+
-						                   "<td>"+obj.monthComboAmount+"</td>"+
-						               "</tr>"+
-					                   "<tr>"+
-					                       "<td>开卡充值汇总</td>"+
-						                   "<td>"+obj.monthChargeCalculate+"</td>"+
-						                   "<td>"+obj.monthChargeAmount+"</td>"+
-						               "</tr>"); */
 			
 			return;
 		}
 	}
 	var dayMap = {"projectCalculate" : 0, "projectAmount" : 0, "goodsCalculate" : 0, "goodsAmount" : 0,
 		      "comboCalculate" : 0, "comboAmount" : 0, "chargeCalculate" : 0, "chargeAmount" : 0};
-	packageData(2, dayMap);
+	packageData(2, dayMap); */
 }
 
 function packageData(type, dayMap) {
@@ -400,6 +414,7 @@ function packageData(type, dayMap) {
 	var obj4 = {"name" : "卡项业绩", "y" : dayMap.chargeCalculate};
 	tatailCalculate = tatailCalculate + dayMap.chargeCalculate;
 	calculateArray.push(obj4);
+	tatailCalculate= new Big(parseFloat(tatailCalculate));
 	
 	var amountArray = new Array();
 	var obj5 = {"name" : "劳动提成", "y" : dayMap.projectAmount};
@@ -421,8 +436,10 @@ function packageData(type, dayMap) {
 	else {
 		valueName = "month";
 	}
-	var calculateObj = {"objId" : "one-"+valueName, "name" : "业绩", "tatail" : tatailCalculate, "arrayObj" : calculateArray};
-	var amountObj = {"objId" : "two-"+valueName, "name" : "提成", "tatail" : tatailAmount, "arrayObj" : amountArray};
+	tatailAmount= new Big(parseFloat(tatailAmount));
+	
+	var calculateObj = {"objId" : "one-"+valueName, "name" : "业绩", "tatail" : tatailCalculate.toFixed(2), "arrayObj" : calculateArray};
+	var amountObj = {"objId" : "two-"+valueName, "name" : "提成", "tatail" : tatailAmount.toFixed(2), "arrayObj" : amountArray};
 	pieMap(calculateObj);
 	pieMap(amountObj);
 }
@@ -646,6 +663,135 @@ function changeTwoDecimal (floatvar){
     }  
     return s_x;  
 }
+
+
+(function($, doc) {
+    $.init();
+    $.ready(function() {
+        //普通示例
+
+        //        年月
+        var yearMonthArray = new Array();
+        for (var i = 0; i < 10; i ++) {
+            var monthArray = new Array();
+            for (var j = 0; j < 12; j ++) {
+            	var a = j + 1;
+                var month = new Object();
+                if (a < 10) {
+                	a = "0" + a;
+                }
+                month.value = a;
+                month.text = a + "月";
+                monthArray.push(month);
+            }
+            var year = new Object();
+            year.value = i + 2016;
+            year.text = i + 2016 + "年";
+            year.children = monthArray;
+            yearMonthArray.push(year);
+        };
+
+        //年月日
+        var yearArray = new Array();
+        for (var i = 0; i < 10; i ++) {
+            var monthArray = new Array();
+            for (var j = 0; j < 12; j ++) {
+                //月的最后一天
+                var year = i + 2016;
+                var month = j;
+                var lastDay = new Date(year, month + 1, 0).getDate();//month 要加1,原本month是从0开始的,但是因为0是这个月的上个月,所以到了上个月.
+                
+                var dayArray = new Array();
+                for(var k = 0; k < lastDay; k ++) {
+                	var a = k + 1;
+                    var day = new Object();
+                    if (a < 10) {
+                    	a = "0" + a;
+                    }
+                    day.value = a;
+                    day.text = a + "日";
+                    dayArray.push(day);
+                }
+                var b = j + 1
+                if (b < 10) {
+                	b = "0" + b;
+                }
+                var month = new Object();
+                month.children = dayArray;
+                month.value = b;
+                month.text = b + "月";
+                monthArray.push(month);
+            }
+            var year = new Object();
+            year.value = i + 2016;
+            year.text = i + 2016 + "年";
+            year.children = monthArray;
+            yearArray.push(year);
+        };
+        console.log(yearArray);
+
+        //        小时分钟
+        var hoursec = new Array();
+        for (var i = 0; i < 24; i ++) {
+            var hsChildrenArray = new Array();
+            for (var j = 0; j < 60; j ++) {
+
+                var childrenObject = new Object();
+                var secTrue = j ;
+                if(j < 10) {
+                    var secTrue = j ;
+                    childrenObject.value = "0" + secTrue;
+                    childrenObject.text = "0" + secTrue;
+                }else {
+                    childrenObject.value = secTrue ;
+                    childrenObject.text = secTrue;
+                }
+
+                hsChildrenArray.push(childrenObject);
+            }
+
+            var object = new Object();
+            if(i < 10) {
+                object.value = "0" + i + ":" ;
+                object.text = "0" + i + ":";
+            }else {
+                object.value = i +":" ;
+                object.text = i + ":";
+            }
+            object.children = hsChildrenArray;
+            hoursec.push(object);
+        };
+
+        var yearMonthDayPicker = new $.PopPicker({layer: 3});
+        yearMonthDayPicker.setData(yearArray);
+        var selectDatePickerButton = doc.getElementById('selectTime');
+        
+        var yearMonthPicker = new $.PopPicker({layer: 3});
+        yearMonthPicker.setData(yearMonthArray);
+        var selectMonthPickerButton = doc.getElementById('selectMonth');
+        
+        var currentSelectDate = doc.getElementsByClassName('current-select-date')[0];
+        var currentSelectDate1 = doc.getElementsByClassName('current-select-date')[1];
+        
+        selectDatePickerButton.addEventListener('tap', function(event) {
+            yearMonthDayPicker.show(function(items) {
+            	var dateValue = items[0].value + "-" + items[1].value + "-" + items[2].value;
+            	currentSelectDate.innerText = dateValue;
+            	selectCommission(dateValue);
+            });
+        }, false);
+        
+        selectMonthPickerButton.addEventListener('tap', function(event) {
+        	yearMonthPicker.show(function(items) {
+            	var dateValue = items[0].value + "-" + items[1].value;
+            	currentSelectDate1.innerText = dateValue;
+            	selectCommission(dateValue);
+            });
+        }, false);
+
+
+    });
+})(mui, document);
 </script>
 </body>
 </html>

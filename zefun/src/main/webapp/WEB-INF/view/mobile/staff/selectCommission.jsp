@@ -8,9 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, height = device-height">
     <meta content="telephone=no" name="format-detection" />
     <title>我的提成</title>
-    <link rel="stylesheet" href="<%=swiperCssPath%>"/>
-    <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
-    <link rel="stylesheet" href="<%=employeeCssPath%>"/>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/shop.css">
     <link rel="stylesheet" href="<%=muiCssPath%>"/>
     <style>
 	    .tc-table{
@@ -98,10 +96,30 @@
 	    .chart-wrap {
 	        background-color: #fff;
 	    }
+	    
+	    .time_rank ul{height:3rem;width:48%}
+		 .time_rank li{height:3rem;line-height:3rem;width:48%}
+		 .time_rank{height:5rem;line-height:5rem;position:relative}
+		 .time_rank .input_{position:absolute;bottom:1rem;right:0.5rem;width:22%;height:2rem}
+		 .percentage_content{padding:1rem;font-size:14px}
+		 .percentage_content_ul li{float:left;width:25%;text-align:center;height:3rem;line-height:3rem}
+		 body{background:white}
+		 .percentage_content_ul li span{color:white;display:inline-block;width:90%;text-align:center;height:3rem;line-height:3rem}
+		 .percentage_content_data table{margin-bottom:2rem;width:100%;border:1px solid #c8c8c8;border-radius:8px}
+		 .percentage_content_data table td{text-align:center;height:3rem;vertical-align:middle;border-bottom:1px solid #c8c8c8}
+		  .percentage_content_data table tr:nth-child(1){color:#e24420;}
+		  .percentage_content_data table tr:last-child td{border-bottom:none}
+		  .percentage_content_data td .cover{color:#61bf40}
+		  .percentage_content_data td .shop{color:#63a9e4}
+		  .percentage_content_data td .card{color:#eaa050}
+		  .percentage_content_data td .work{color:#e95c40}
+		  .percentage_content_data td span img{width:18px;vertical-align:middle;margin-right:5px}
+		  .percentage_content_data td span{display:inline-block;margin-right:1rem}
+		  .percentage_content_data tr:nth-child(2) td{border-bottom:none}
 	</style>
 </head>
 <body>
-<div class="wrap">
+<%-- <div class="wrap">
 <div class="content">
     <div class="yg-wodeticheng">
 	    <div class="select-day tab">
@@ -242,7 +260,107 @@
 	</div>
     
 </div>    
-</div>
+</div> --%>
+<div class="con"> 
+	   <div class="time_rank clearfix">
+	      <ul class="clearfix"> 
+		   <li class="active">按日查询</li>
+		   <li>按月查询</li>
+         </ul>
+         <div class="yg-data">
+             <div class="date fr" id="selectTime">
+
+                 <div class="current-select-date">
+                     ${nowDay}
+                 </div>
+             </div>
+         </div>	 
+    	</div>
+       <div class="percentage_content"> 
+		<!-- <ul class="clearfix percentage_content_ul">
+	       <li><span style="background:#e95c40">劳动提成</span></li>
+	       <li><span style="background:#63a9e4">商品提成</span></li>
+		   <li><span style="background:#61bf40">套餐提成</span></li>
+		   <li><span style="background:#eaa050">卡项提成</span></li>
+	    </ul> -->
+		  <div class="chart-wrap mt2">
+             <div>
+                 <ul class="yg-tab">
+                     <li class="current" data-target="one-day">业绩</li>
+                     <li data-target="two-day">提成</li>
+                 </ul>
+             </div>
+              <div id="one-day" style="width: 50%;height: 300px; margin: 0 auto"></div>
+              <!-- <div id="two-day" class="hide" style="width: 50%;height: 300px; margin: 0 auto"></div> -->
+          </div>
+		  <div class="percentage_content_data">
+		    <table cellpadding="0" cellspacing="0">
+			   <tr>
+	             <td colspan="3">123456789123</td>
+			   </tr>
+			   <tr>
+			     <td style="border-right:1px solid #c8c8c8;width:147px">洗剪吹哈哈哈<em class="cover">（套）</em></td>
+			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
+			   </tr>
+			</table>
+		  
+		   <table cellpadding="0" cellspacing="0">
+			   <tr>
+	             <td colspan="3">123456789123</td>
+			   </tr>
+			   <tr>
+			     <td style="border-right:1px solid #c8c8c8;width:147px" rowspan="3" >洗剪吹哈哈哈<em class="shop">（商）</em></td>
+			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
+			   </tr>
+			   <tr>  
+			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
+			   </tr>
+			    <tr>  
+			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
+			   </tr>
+			</table>
+		  
+		     <table cellpadding="0" cellspacing="0">
+			   <tr>
+	             <td colspan="3">123456789123</td>
+			   </tr>
+			   <tr>
+			     <td style="border-right:1px solid #c8c8c8;width:147px">充值<em class="card">（卡）</em></td>
+			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
+			   </tr>		   
+			</table>
+			<table>
+			  <tr>
+	             <td colspan="3">123456789123</td>
+			   </tr>
+			  <tr>
+			     <td style="border-right:1px solid #c8c8c8;width:147px">洗剪吹哈哈哈<em class="work">（劳）</em></td>
+			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
+			   </tr>
+			</table>
+		  </div>
+		   <div class="percentage_content_data">
+		    <table cellpadding="0" cellspacing="0">
+			   <tr>
+	             <td colspan="3">123456789123</td>
+			   </tr>
+			   <tr>
+			     <td style="border-right:1px solid #c8c8c8;"><span><img src="images/score.png">业绩: 50</span></td>
+			   	 <td><span><img src="images/money.png">提成: 50</span></td>
+			   </tr>
+			</table>
+			 <table cellpadding="0" cellspacing="0">
+			   <tr>
+	             <td colspan="3">123456789123</td>
+			   </tr>
+			   <tr>
+			     <td style="border-right:1px solid #c8c8c8;"><span><img src="images/score.png">业绩: 50</span></td>
+			   	 <td><span><img src="images/money.png">提成: 50</span></td>
+			   </tr>
+			</table>
+		  </div>
+	   </div>   
+    </div>
 <script type="text/javascript" src="<%=jqueryJsPath%>"></script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"></script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"></script>
@@ -457,55 +575,6 @@ function loadYearTable () {
 			break;
 		}
 	}
-	
-	/* FusionCharts.ready(function () {
-		
-	    var visitChart = new FusionCharts({
-	        type: 'msline',
-	        renderAt: 'chartContainer',
-	        width: '100%',
-	        height: '350',
-	        dataFormat: 'json',
-	        dataSource: {
-	            "chart": {
-	                /*"caption": "Number of visitors last week",
-	                "subCaption": "Bakersfield Central vs Los Angeles Topanga",*/
-	                /* "captionFontSize": "14",
-	                "subcaptionFontSize": "14",
-	                "subcaptionFontBold": "0",
-	                "paletteColors": "#fabc53",
-	                "bgcolor": "#ffffff",
-	                "showBorder": "0",
-	                "showShadow": "0",
-	                "showCanvasBorder": "0",
-	                "usePlotGradientColor": "0",
-	                "legendBorderAlpha": "0",
-	                "legendShadow": "0",
-	                "showAxisLines": "1",
-	                "showAlternateHGridColor": "0",
-	                "divlineThickness": "1",
-	                "divLineIsDashed": "1",
-	                "divLineDashLen": "1",
-	                "divLineGapLen": "1",
-	                "xAxisName": "(月)",
-	                "yAxisName": "(千元)",
-	                "rotateYAxisName": "90",
-	                "showValues": "1"
-	            }, 
-	            "categories": [
-	                {
-	                    "category":labelArray 
-	                }
-	            ],
-	            "dataset": [
-	                {
-	                    "seriesname": "月收益",
-	                    "data": valueArray
-	                }
-	            ]
-	        }
-	    }).render();
-	}); */
 	
 	$('#year-chart').highcharts({
         chart: {

@@ -25,7 +25,7 @@
 	.time_rank li.active {
     background: white;
     color: #ea631a;}
-    #toDayUl{padding-top:0rem}
+    .pt7{padding-top:0rem}
     </style>
 </head>
 <body>
@@ -64,8 +64,8 @@
                     <div class="three-border"></div>
                 </div>
             </li> --%>
-            <li class="active" onclick="changeShow(this, 1)">日排行</li>
-		    <li onclick="changeShow(this, 2)">周排行</li>
+            <li class="active" onclick="changeShow(this, 1)">今日</li>
+		    <li onclick="changeShow(this, 2)">本月</li>
         </ul>
     </div>
     <div class="clearfix"></div>
