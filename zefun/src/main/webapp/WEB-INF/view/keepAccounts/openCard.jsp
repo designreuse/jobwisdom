@@ -10,12 +10,12 @@
 <script type="text/javascript"	src="<%=basePath%>js/keepAccounts/openCard.js?date=<%=new Date().getTime()%>"></script>
 	<style>
 	.select_card_style{margin-top: 20px;}
-	.select_card_style>p{margin-bottom: 6px;font-size: 16px;}
+	.select_card_style>p{margin-bottom: 6px;font-size: 12px;}
 	.select_card_style_content{    padding: 10px 20px; background: #d8deed;border-radius: 8px;}
-	.select_card_style_content select{    width:80px;height: 20px;
+	.select_card_style_content select{    width:80px;height: 16px;
     border: 1px solid #717171;
     border-radius: 12px;
-    font-size: 14px;
+    font-size: 12px;
     color: black;
     margin: 0 10px 0 15px;
 	padding-left:30px
@@ -81,6 +81,7 @@
 .select-result1 input{background:white}
 .achievement_recharge_content li input{height:26px;width:66px}
 .achievement_recharge_content_input span em{top:2px}
+.ml-30{margin-left:-45px;position:relative;top:-2px}
 </style>
 
 <body>
