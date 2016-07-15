@@ -15,6 +15,8 @@
 
 package com.zefun.app.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,6 +38,7 @@ import com.zefun.app.common.param.LoginParam;
 import com.zefun.app.service.UserService;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
+import com.zefun.common.utils.VerifyCodeUtils;
 import com.zefun.web.dto.BaseDto;
 
 /**
@@ -125,26 +128,20 @@ public class UserController {
 	/**
 	 * 获取验证码
 	 * 
-	 * @author 高国藩
+	 * @author 老王
 	 * @date 2016年4月23日 下午4:28:20
 	 * @param request 返回
 	 * @param response 请求
-	 * @return 获取验证码
 	 */
-//	@RequestMapping(value = Url.App.GET_YZM_PAGE, method = RequestMethod.POST)
-//	@ResponseBody
-//	public BaseDto getYzmPage(HttpServletRequest request, HttpServletResponse response) {
-//		try {
-////			verifyCodeServlet.service(request, response);
-//		} 
-//		catch (ServletException e) {
-//			e.printStackTrace();
-//		} 
-//		catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
-//	}
+	@RequestMapping(value = Url.App.GET_YZM_PAGE)
+	public void getYzmPage(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			VerifyCodeUtils.outputVerifyImage(71, 35, request, response, 4);
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * 免费门店注册

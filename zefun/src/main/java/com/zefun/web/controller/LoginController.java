@@ -57,6 +57,7 @@ public class LoginController extends BaseController {
 	 * @param username 用户
 	 * @param password 密码
 	 * @param storeAccount storeAccount
+	 * @param verification verification
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
 	 * @throws UnsupportedEncodingException  UnsupportedEncodingException
 	 */
@@ -67,8 +68,8 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = Url.UserLogin.LOGIN, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseDto userLogin(HttpServletRequest request, HttpServletResponse response, String username,
-			    String storeAccount, String password) throws UnsupportedEncodingException {
-		return loginService.login(request, response, username, storeAccount, password, systemWebSocketHandler);
+			    String storeAccount, String password, String verification) throws UnsupportedEncodingException {
+		return loginService.login(request, response, username, storeAccount, password, verification, systemWebSocketHandler);
 	}
 
 	/**

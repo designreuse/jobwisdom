@@ -61,27 +61,35 @@ public class LoginService {
 	 * @param username 用户名
 	 * @param storeAccount 门店账号
 	 * @param password  密码
+	 * @param verification 验证码
 	 * @param systemWebSocketHandler systemWebSocketHandler
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
 	 * @throws UnsupportedEncodingException  UnsupportedEncodingException
 	 */
 	public BaseDto login(HttpServletRequest request, HttpServletResponse response, String username, String storeAccount,
-			  String password, SystemWebSocketHandler systemWebSocketHandler) throws UnsupportedEncodingException {
+			  String password, String verification, SystemWebSocketHandler systemWebSocketHandler) throws UnsupportedEncodingException {
+		HttpSession sessiion = request.getSession();
+		
+		String yzmCode = sessiion.getAttribute("yzmCode").toString();
+		
+		if (!verification.equalsIgnoreCase(yzmCode)) {
+			return new BaseDto(9003, "验证码不一致，请重新输入！");
+		}
+		
 		Map<String, String> mapUser = new HashMap<String, String>();
 		mapUser.put("userName", username);
 		mapUser.put("storeAccount", storeAccount);
 		UserAccount userAccount = userAccountMapper.selectByUserName(mapUser);
+		
 		if (userAccount == null) {
 			return new BaseDto(9001, "亲，确定没记错企业号或工号？");
 		}
 
 		// 检查用户密码
 		if (!StringUtil.md5(password + userAccount.getPwdSalt()).equals(userAccount.getUserPwd())) {
-//			return new BaseDto(9002, "密码不对，努力回忆下");
+			return new BaseDto(9002, "密码不对，努力回忆下");
 		}
 		
-		HttpSession sessiion = request.getSession();
-
 		// 登陆成功
 		Integer userId = userAccount.getUserId();
 		Integer isLogin = (Integer) request.getSession().getServletContext().getAttribute(userId.toString());
