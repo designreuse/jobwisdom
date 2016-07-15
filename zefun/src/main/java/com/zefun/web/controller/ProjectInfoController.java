@@ -130,8 +130,7 @@ public class ProjectInfoController extends BaseController {
         // }
 
         // 会员等级列表
-        List<MemberLevelDto> memberLevelList = memberLevelService
-                .queryByAllStoreId(storeId);
+        List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);
         model.addObject("memberLevelList", JSONArray.fromObject(memberLevelList).toString());
         List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();

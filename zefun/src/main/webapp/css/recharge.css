@@ -1,23 +1,23 @@
 .rightpanel{background:white;color:black}
-.content_right{padding:20px 40px;font-size:14px;color:black}
-.recharge_ul li{height:106px;width:40px;background:url('../images/add_store_back.png') no-repeat;background-size:40px 106px;font-size:16px;text-align:center;cursor:pointer}
+.content_right{padding:20px 40px;font-size:12px;color:black}
+.recharge_ul li{height:106px;width:40px;background:url('../images/add_store_back.png') no-repeat;background-size:40px 106px;font-size:14px;text-align:center;cursor:pointer}
 .recharge_ul .active{background:url('../images/add_store_back_1.png') no-repeat;background-size:40px 106px;color:white}
 .recharge_ul li span{display:inline-block;width:20px;position:relative;top:20px}
 .content_right .recharge_ul{float:left;position:relative;left:1px}
 .recharge_ul_right{overflow:overlay;float:left;width:914px;height:820px;border:1px solid #717171;border-radius:0 8px 8px 8px;padding:16px 22px}
 .seach_user{padding:10px 20px;background:#d8deed;border-radius:8px}
-.recharge_user>p{font-size:16px;margin-bottom:6px}
+.recharge_user>p{font-size:12px;margin-bottom:6px}
 .seach_user input{width:200px;height:18px;border:1px solid #717171;border-radius:12px;margin:0 20px 0 10px}
 .seach_user button{width:130px;height:26px;border-radius:12px;color:white;font-size:14px;text-align:center;line-height:26px;border:none;background:#5c6e85}
 .recharge_way{margin-top:20px}
-.recharge_way>p{margin-bottom:6px;font-size:16px}
+.recharge_way>p{margin-bottom:6px;font-size:12px}
 .recharge_way_content span{display:inline-block;width:210px;height:40px}
 .recharge_way_content span input{width:130px;height:16px;border:1px solid  #717171;border-radius:12px;margin-left:15px}
 .recharge_way_content{padding:10px 20px;background:#d8deed;border-radius:8px}
 .achievement{margin-top:20px}
-.achievement>p{font-size:16px}
+.achievement>p{font-size:12px}
 .achievement_content{height:310px;padding:10px 20px;background:#d8deed;margin-top:6px;border-radius:8px}
-.achievement_detail>p select{width:80px;height:20px;border:1px solid #717171;border-radius:12px;font-size:14px;color:black;margin:0 10px 0 15px}
+.achievement_detail>p select{width:80px;height:20px;border:1px solid #717171;border-radius:12px;font-size:12px;color:black;margin:0 10px 0 15px}
 .achievement_detail>p span select{width:126px}
 .achievement_detail_content{overflow:overlay;height:82px;background:white;border:1px solid #717171;border-radius:8px;margin-top:10px}
 .achievement_detail_content li input{padding-right:15px;margin-left:4px;border:1px solid #717171;width:55px;border-radius:4px}
@@ -67,7 +67,7 @@ margin: 0 10px 0 15px;width: 126px;}
 .write_imformation i{color:#e54b4f}
 .write_imformation a{color:#818181;cursor:text}
 
-.upgrade_vip>p{    font-size: 16px;
+.upgrade_vip>p{    font-size: 12px;
     margin-bottom: 6px;}
 .upgrade_vip_content{    height: 23px;
     padding: 10px 20px;
@@ -82,7 +82,7 @@ margin: 0 10px 0 15px;width: 126px;}
 .upgrade_vip_content i{color:#818181}
 
 .send_manage_{margin-top:16px}
-.send_manage_>p{font-size:16px}
+.send_manage_>p{font-size:12px}
 .send_manage_content_{
   padding: 10px 20px;
   background: #d8deed;
@@ -106,7 +106,7 @@ margin: 0 10px 0 15px;width: 126px;}
 .add_recharge_button button{margin:0 8px;color:black}
 .send_reason{margin-top:10px}
 .send_reason input{width:773px}
-.send_button button{width:130px;height:28px;border:none;border-radius:12px;color:white;text-align:center;line-height:28px;background:#5c6e85;font-size:15px}
+.send_button button{width:130px;height:28px;border:none;border-radius:12px;color:white;text-align:center;line-height:28px;background:#5c6e85;font-size:14px}
 .send_button{text-align:right;margin-top:20px}
 
 .seach_user_{
@@ -124,7 +124,7 @@ margin: 0 10px 0 15px;width: 126px;}
     height: 26px;
     border-radius: 12px;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     line-height: 26px;
     border: none;
@@ -166,3 +166,6 @@ margin: 0 10px 0 15px;width: 126px;}
 .quit_money button{width:130px;height:26px;text-align:center;line-height:26px;color:white;border:none;border-radius:12px;background:#5c6e85;font-size:14px}
 .quit_money button:hover{background:#4a5767}
 .quit_money span{display:inline-block;margin-right:30px}
+
+.seach_user label{font-size:12px}
+.select_card_style_content input{width:108px;height:16px;border:1px solid #717171;border-radius:12px;}

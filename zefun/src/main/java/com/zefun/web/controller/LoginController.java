@@ -120,11 +120,16 @@ public class LoginController extends BaseController {
 			    @ApiResponse(code = 1, message = "" + "(系统错误)", response = String.class) })
 	@RequestMapping(value = Url.UserLogin.LOGOUT)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
-	    ServletContext application  = request.getSession().getServletContext();
-        application.removeAttribute(request.getSession().getAttribute(App.Session.USER_ID).toString());
-        logger.info(new Date().getTime()+" , {" + request.getSession().getId() + " : invalidate()}");
-        request.getSession().invalidate();
-		return new ModelAndView("redirect:/" + Url.UserLogin.INDEX);
+	    try {
+	        ServletContext application  = request.getSession().getServletContext();
+	        application.removeAttribute(request.getSession().getAttribute(App.Session.USER_ID).toString());
+	        logger.info(new Date().getTime()+" , {" + request.getSession().getId() + " : invalidate()}");
+	        request.getSession().invalidate();
+        } 
+	    catch (Exception e) {
+            return new ModelAndView("redirect:/" + Url.UserLogin.INDEX);
+        }
+	    return new ModelAndView("redirect:/" + Url.UserLogin.INDEX);
 	}
 
 }

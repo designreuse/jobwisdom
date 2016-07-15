@@ -235,6 +235,7 @@ function againSearch(obj) {
 	jQuery(obj).parents(".card-main1").find("input[name='memberId']").val("");
 	jQuery(obj).parents(".card-main1").prev().removeClass("hide");
 	jQuery(obj).parents(".card-main1").addClass("hide");
+	jQuery(obj).parents("#tab2").find('.no_password').removeClass("hide");
 }
 
 jQuery('body').delegate('.lcs_check_assignType', 'lcs-statuschange', function() {
