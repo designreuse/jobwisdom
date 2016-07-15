@@ -5,7 +5,7 @@
 .water_search_top{border:1px solid black;border-radius:12px;width:1020px;height:160px}
 .water_search_top_input{border-bottom:1px solid #9a9a9a;height:45px;line-height:40px}
 .water_search_top_input >input{border:1px solid black;border-radius:12px;width:200px;margin:0 30px 0 10px}
-.water_search_top_input span>input{border:1px solid black;border-radius:12px;width:112px;margin:0 5px}
+.water_search_top_input span>input{border:1px solid black;border-radius:12px;width:122px;margin:0 5px}
 .water_search_top_input>button{width:130px;height:28px;border:none;border-radius:12px;color:white;background:#59688a;margin:0 30px}
 .water_search_top_input>button:hover{background:#4c5976}
 .water_search_top_input em button{width:80px;height:28px;border-radius:12px;color:black;background:white;border:1px solid black;margin-right:20px}
@@ -23,9 +23,9 @@
 .water_search_top_total_price span{font-size:15px;font-weight:bold;padding-left:10px;line-height:30px}
 .water_search_top_total_price em{color:#dc0b0b;font-size:15px;position:relative;left:100px}
 .search_table{width:1020px;text-align:center;border:1px solid black;border-radius:8px;}
-.search_table td{height:44px;vertical-align:middle;border:1px solid #cccccd;}
+.search_table td{height:50px;vertical-align:middle;border:1px solid #cccccd;}
 .search_table td button{width:50px;height:20px;text-align:center;line-height:20px;border:none;border-radius:12px;color:white;background:#59688a}
-.search_table_content{border:1px solid black;border-radius:12px;margin-top:16px;;width:1020px;overflow:hidden;height:495px}
+.search_table_content{border:1px solid black;border-radius:12px;margin-top:16px;;width:1020px;overflow-y:overlay;height:600px;overflow-x:hidden}
 .search_table tr:nth-child(1){
 	background:#ebeff8
 }
@@ -43,7 +43,7 @@
 .server_achievement span{padding:4px;display:inline-block;border-right:1px solid #cccccd}
 .server_achievement span a{position:absolute;right:4px;top:1px}
 .search_table td button:hover{background:#495878}
-
+.order_style_content_right>li>span:nth-child(1){width:60px}
 .zzc,.zzc1{    position: fixed;
     top: 0px;
     height: 1090px;
@@ -68,3 +68,9 @@
 .td_table tr:nth-child(1){font-weight:normal}
 .td_table em{color:#5e9be0}
 .td_table i{color:#f49549}
+
+.search_table_  tr:nth-child(1){background:white;}
+.search_table_  tr td{border-left:none;border-top:none}
+.search_table_ p{text-align:center;color:#5e9be0;}
+.search_table_  em{color: #5e9be0;}
+.search_table_  i{color: #f49549;}

@@ -8,7 +8,6 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import com.zefun.web.entity.DeptObjective;
-import com.zefun.web.entity.EmployeeCommission;
 
 import net.sf.json.JSONObject;
 

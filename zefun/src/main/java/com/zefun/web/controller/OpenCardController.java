@@ -285,6 +285,11 @@ public class OpenCardController extends BaseController {
 				deptCalculates.add(new BigDecimal(dept.split(":")[1]));
 			}
 		}
+		
+		
+//		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+		
+		
 		return openCardService.upgradeMemberInfo(memberId, levelId, amountvalue, recommendId, commissionAmount,
 		        calculateAmount, giftmoneyAmount, pastDate, partType, cashAmount, unionpayAmount, wechatAmount,
 				alipayAmount, debtAmount, rewardAmount, getStoreId(request), deptIds, deptCalculates, getUserId(request), 

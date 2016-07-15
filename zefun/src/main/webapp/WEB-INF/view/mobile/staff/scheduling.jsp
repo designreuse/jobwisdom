@@ -8,10 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, height = device-height">
     <meta content="telephone=no" name="format-detection" />
-    <title>服务订单</title>
+    <title>我的排班</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/shop.css">
     <style>
-	  .scheduling{width:94%;margin:2rem auto;background:white;border-radius:8px;overflow:hidden}
+	  .scheduling{width:100%;margin:0rem auto;background:white;overflow:hidden}
 	  .scheduling table{width:100%}
 	  .scheduling table tr td{color:white;font-size:16px;width:33.3%;height:6rem;text-align:center;vertical-align:middle;border-right:1px solid #ebeff8;border-bottom:1px solid #ebeff8}
 	  .scheduling table tr td:last-child{border-right:none}

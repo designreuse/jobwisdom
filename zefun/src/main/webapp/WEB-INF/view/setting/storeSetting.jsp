@@ -82,7 +82,8 @@
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
 				<div class="content_right clearfix">
-					<div class="webchat">
+					<div class="webchat" style="position:relative">
+					  <a onclick="changImge()" style="display:inline-block;width:152px;height:152px;position:absolute;top:156px;left:80px;" href="javascript:;"></a>
 						<div class="webchat_p">
 							<p style="border: none; text-align: center">添加店铺轮播</p>
 							<p>
@@ -308,6 +309,14 @@ jQuery(function(){
 	     jQuery('.webchat_div_').eq(jQuery(this).index()).children("div").eq(1).hide();
    });
 })
+
+function changImge(){
+    jQuery('.webchat_div_').eq(0).show().siblings().hide();
+    jQuery('.webchat_div_').eq(1).children("div").eq(0).show();
+    jQuery('.webchat_div_').eq(2).children("div").eq(1).hide();
+}
+	
+
 /**复制人员*/
 jQuery(function(){
   jQuery('.employeeAll .designer-item-content').click(function(){

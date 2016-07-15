@@ -4,12 +4,7 @@ em,i{font-style:normal}
 .header_{
 	height:53px;
 	width:1100px;
-	background:#2a3244;
-	
-	
-}
-.left_nav .active1{
-	 
+	background:#2a3244;	
 }
 .content_right{background:white}
 .leftpanel{height:auto!important}
@@ -19,22 +14,21 @@ em,i{font-style:normal}
 
 .header_content select{border-radius:20px!important;background:#2a3244;height:20px;width:80px ;border:1px solid #fff;color:white;position:relative;    left: 150px;
     top: -68px;}
-.header_content{width:300px;position:relative;    left: 730px;
+.header_content{width:300px;position:relative;left: 730px;
     top: 20px;
 }
 .header_img {display:inline-block!important;position:relative;left: 140px;top:-30px;margin-left:20px}
-.left_nav li{height:70px;width:70px!important;color:#8d929a;font-size:12px;font-size:14px;font-weight:bold}
+.left_nav li{height:70px;width:70px!important;color:#8d929a;font-size:12px;font-size:14px;}
 .left_nav{background:#2a3244;height:2300px}
-.nav_img{    text-align: center;
-    line-height: 102px;   }
+.nav_img{    text-align: center;color:#bdbdbd;font-size:12px}
 .left_nav{width:auto!important;}
 .left_nav span{display:inline-block;position:relative;left:10px;top:8px}
 .leftmenu .active a{z-index:0!important}
 .leftpanel .logo-wrap{    border-bottom: 4px solid #2a3244!important;}
-
-
+.nav_img img{width:26px}
+.nav_img>p{padding-top:10px}
 .left_nav li{background-position:center center}
-.active_1_1{background:url('../images/left_1.png') no-repeat}
+/*.active_1_1{background:url('../images/left_1.png') no-repeat}
 .active_2_1{background:url('../images/left_2.png') no-repeat}
 .active_3_1{background:url('../images/left_3.png') no-repeat}
 .active_4_1{background:url('../images/left_4.png') no-repeat}
@@ -53,7 +47,7 @@ em,i{font-style:normal}
 .active_7_2{background:url('../images/left_7_1.png') no-repeat}
 .active_8_2{background:url('../images/left_8_1.png') no-repeat}
 .active_9_2{background:url('../images/left_9_1.png') no-repeat}
-.active_10_2{background:url('../images/left_10_1.png') no-repeat}
+.active_10_2{background:url('../images/left_10_1.png') no-repeat}*/
 .border{
 	border-top:1px solid white;
 	 box-shadow: 2px 0px 4px 0px white inset, 1px 2px 4px 1px black;
@@ -62,7 +56,7 @@ em,i{font-style:normal}
 .left_nav_2{height:1000px;margin-left:71px}
 .left_nav_2 li{width:120px!important;height:70px;box-shadow:0 0 0 #fff!important;color:#A69F9F;text-align:center;line-height:80px}
 .left_nav_2 ul{background:#323a4c;height:2300px;background:#323a4c;width:120px!important}
-.left_nav_2 span{display:inline-block;font-size:14px}
+.left_nav_2 span{display:inline-block;font-size:13px}
 .left_nav_2 img{padding:10px;position:relative;top:16px}
 .left_nav_2 .active{background:#2a3244!important;color:#FFFFFF!important}
 .leftmenu .active img{display:inline!important}
@@ -138,7 +132,6 @@ ul li{
 	list-style:none
 	 }
 
-
 .preview_1{
 	width:290px;
 	height:180px;
@@ -149,13 +142,11 @@ ul li{
 	color:white;
 }
 .preview_left{float:left;width:100px;position:relative;top:105px;left:70px;font-size:12px}
-
 .preview_right{float:left;width:160px}
 .preview_right ul{margin-top:60px;margin-left:34px}
 .preview_right ul li{height:50px}
 .preview_right span{font-size:12px;position:relative;width:180px;display:inline-block;left:8px;top:-8px}
 .preview_right span em{display:inline-block;height:20px;width:36px;text-align:center;line-height:20px;border:1px solid white;border-radius:12px;margin-left:12px}
-
 .preview_2{
 	width:290px;
 	height:180px;
@@ -163,8 +154,7 @@ ul li{
 	border-radius:8px;
 	background-size:290px 180px;
 	margin:0 auto;
-	color:white;
-	
+	color:white;	
 }
 .preview_2_top span{position:relative;font-size:12px;top:10px;left:260px}
 .preview_2_content_right{float:left;margin-top:54px;width:180px}
@@ -190,8 +180,7 @@ ul li{
     left: 75px;
     font-size: 12px;
 }
-.vip_card_1_content ul{width:290px; position:relative;left: -40px;
-    text-align: center;}
+.vip_card_1_content ul{width:290px; position:relative;left: -40px;text-align: center;}
 .vip_card_1_content ul li{float:left;width:145px;font-size:14px}
 .vip_card_1_content{margin-top:90px}
 .vip_card_1_content span{font-size:12px;display:inline-block;position:relative;left:120px;top:30px}
@@ -267,8 +256,6 @@ ul li{
 .vip_card_4_content ul li{float:left;width:145px;font-size:14px}
 .vip_card_4_content{margin-top:75px}
 .vip_card_4_content span{font-size:12px;display:inline-block;position:relative;left:95px;}
-
-
 
 .common_content{font-size:14px;color:black}
 .common_content>p{font-size:16px;color:black;padding-left:20px;margin-bottom:10px;padding-top:10px}

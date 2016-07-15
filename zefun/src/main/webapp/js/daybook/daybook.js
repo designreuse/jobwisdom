@@ -187,64 +187,64 @@ function refreshStatData(totalCount, obj) {
 }
 
 function spellTableData(data) {
-	var str = '"<tr><td data-toggle="modal" onclick="updateSelectOrder('+ data.orderId +')"><a class="can-click">'+ data.orderCode +'</a></td>';
-	if(data.memberId == null || data.memberId == '') {
-		str += '<td>散（' + data.sex + '）</td>';
-	} else {
-		str += '<td class="can-click" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo('+data.memberId+')">' + data.memberName + '</td>'
-	}
-	var projectName = data.projectName ;
-	if (isEmpty(projectName) || projectName == 'null') {
-		projectName = "充值开卡";
-	}
-	str += '<td>' + data.createTime + '</td>'
-		+ '<td>'
-	 	+ projectName + '</td>'
-	 	+ '<td>' + data.realPrice + '</td>'
-	    + '<td>';
-    
-	if (data.cashAmount == 0 && data.unionpayAmount == 0 && data.wechatAmount == 0 && data.alipayAmount == 0 && data.cardAmount == 0) {
-		str += 0.00;
-	} 
-	if (data.cashAmount != 0) {
-		str += '<p>'+data.cashAmount+'<em style="color:red">现金</em></p>';
-	} 
-	if (data.unionpayAmount != 0){
-		str += '<p>'+data.unionpayAmount+'<em style="color:blue">银联</em></p>';
-	}
-	if (data.wechatAmount != 0){
-		str += '<p>'+data.wechatAmount+'<em style="color:#59688a">微信</em></p>';
-	}
-	if (data.alipayAmount != 0){
-		str += '<p>'+data.alipayAmount+'<em style="color:green">支付宝</em></p>';
-	}
-	if (data.cardAmount != 0){
-		str += '<p>'+data.cardAmount+'<em style="color:pink">卡金</em></p>';
-	}
-	str += '</td><td>';
-	
-	if (data.comboAmount == 0 && data.giftAmount == 0 && data.couponAmount == 0 && data.groupAmount == 0) {
-		str += 0.00;
-	}
-	if (data.comboAmount != 0) {
-		str += '<span>'+data.comboAmount+'<em style="color:red;display:block">疗程</em></span>';
-	}
-	if (data.giftAmount != 0) {
-		str += '<span>'+data.giftAmount+'<em style="color:blue;display:block">礼金</em></span>';
-	}
-	if (data.couponAmount != 0) {
-		str += '<span>'+data.couponAmount+'<em style="color:#59688a;display:block">优惠券</em></span>';
-	}
-	if (data.groupAmount != 0) {
-		str += '<span>'+data.groupAmount+'<em style="color:green;display:block">团购</em></span>';
-	}
-	str += '</td>'
-		+ '<td>' + data.debtAmount + '</td>'
-		+ '<td>' + data.realAmount + '</td>'
-		+ '<td>正常</td>'
-		+ '<td><button onclick="deleteOrder('+ data.orderId + ', this)">退单</button></td>'
-		+ '</tr>';
-	return str;
+
+	   var str = '<tr><td onclick="updateSelectOrder('+ data.orderId +'}"><a class="can-click">'+ data.orderCode +'</a></td>';
+			if(data.memberId == null || data.memberId == '') {
+				str += '<td>散（' + data.sex + '）</td>';
+				} else {
+				str += '<td class="can-click" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo('+data.memberId+')">' + data.memberName + '</td>'
+			}
+			var projectName = data.projectName ;
+			if (isEmpty(projectName) || projectName == 'null') {
+				projectName = "充值开卡";
+			}
+			 
+			str += '<td><i>' + data.createTime + '</i><img onclick="WdatePicker({el:\'d12\',dateFmt:\'yyyy-MM-dd HH:mm:ss\',onpicked:pickedFunc})" src="'+ baseUrl +'images/coupon_write.png"> <input type="text" class="hidden" id="d12" "></td>'
+				+ '<td>合计 <em>' + data.realAmount+ '</em></td>'
+				+ '<td>' + data.realPrice + '</td>'
+				+ '<td>';
+			if (data.cashAmount == 0 && data.unionpayAmount == 0 && data.wechatAmount == 0 && data.alipayAmount == 0 && data.cardAmount == 0) {
+				str += 0.00;
+			} 
+			if (data.cashAmount != 0) {
+				str += '<p>'+data.cashAmount+'<em style="color:red">现金</em></p>';
+			} 
+			if (data.unionpayAmount != 0){
+				str += '<p>'+data.unionpayAmount+'<em style="color:blue">银联</em></p>';
+			}
+			if (data.wechatAmount != 0){
+				str += '<p>'+data.wechatAmount+'<em style="color:#59688a">微信</em></p>';
+			}
+			if (data.alipayAmount != 0){
+				str += '<p>'+data.alipayAmount+'<em style="color:green">支付宝</em></p>';
+			}
+			if (data.cardAmount != 0){
+				str += '<p>'+data.cardAmount+'<em style="color:pink">卡金</em></p>';
+			}
+			str += '</td><td style="width:140px" colspan="2">';
+			for(var i =0 ; i< data.orderDetailList.length ;i++){
+					var orderDetailList = data.orderDetailList[i];
+					str += '<table class="search_table_"><tr><td rowspan="100" width="241"><p class="pay_item">'+orderDetailList.projectName+'</p><i class="pay_item" style="text-align: center;">';
+				for(var s = 0 ; s< data.deptList.length; s++){
+				    var deptList =  data.deptList[s];
+					str += '('+deptList.deptName+')';
+				}
+				str += '</i></td></tr>';
+				for(var g = 0; g<orderDetailList.commissionList.length ; g++ ){
+				   var commissionList =  orderDetailList.commissionList[g];
+					str += ' <tr><td><span>('+commissionList.employeeCode+')<em>'+commissionList.employeeName+'</em>';	
+				   if(orderDetailList.isAssign == 1){
+					str += '<i>(指定)</i>+';
+				   }
+				   if(orderDetailList.isAssign == 0){
+					str += ' <i>(未指定)</i>+';
+				   }
+				   str += '</span><span>业绩:<em>'+commissionList.commissionCalculate +'</em></span> <span style="border-right:none">提成:<em>'+commissionList.commissionAmount +' </em></span> </td> </tr>';
+				}
+			str += '</table>';
+			}
+			str	+= '<td><button onclick="deleteOrder('+ data.orderId + ', this)">退单</button></td></tr>';
+		return str;
 }
 
 var updateOrderId = "";
@@ -286,7 +286,7 @@ function updateSelectOrder(orderId) {
 			jQuery("#privilegeModel").text(privilege);
 			jQuery("#divobj").empty();
 			var orderDetailList = obj.orderDetailList;
-			
+			var numbertype = 0;
 			for (var i = 0; i < orderDetailList.length; i++) {
 				var orderDetailDto = orderDetailList[i];
 				var lj = "礼金"
@@ -305,6 +305,7 @@ function updateSelectOrder(orderId) {
 				if(orderDetailDto.orderType ==1){
 					HTML += '<ul class="order_style_content_right">';
 					for (var q = 0; q < orderDetailDto.stepList.length; q++) {
+						numbertype++;
 						var stepList =orderDetailDto.stepList[q];   //订单员工信息
 						HTML += ' <li commissionId = '+stepList.commissionId+' > <span>'+stepList.positionName+'</span><span><select class = "chzn-select w100" name = "employeeSelect">';
 						for (var j = 0; j < employeeInfoList.length; j++) {    //全部员工
@@ -316,7 +317,7 @@ function updateSelectOrder(orderId) {
 							}
 						}
 						HTML += '</select></span><span style="margin-left:20px"><select style="width:60px;padding-left:20px">';
-						if(stepList.isDesignate == 1){
+						if(stepList.isAssign == 1){
 						    HTML +=	'<option value="1" selected="selected" >指定</option><option value="0">非指定</option></select></span>'	;								
 						}else{
 							HTML +=	'<option value="1">指定</option><option value="0" selected="selected" >非指定</option></select></span>'	;
@@ -342,6 +343,7 @@ function updateSelectOrder(orderId) {
 				}else{
 					HTML += '<ul class="order_style_content_right">';
 					for (var q = 0; q < orderDetailDto.commissionList.length; q++) {
+						numbertype++;
 						var commissionList =orderDetailDto.commissionList[q];   //订单员工信息
 						var number = "一";
 						if( q == 1){number = "二";}
@@ -367,7 +369,9 @@ function updateSelectOrder(orderId) {
 			}
 			jQuery("select[name='employeeSelect']").chosen({disable_search_threshold: 3});
 			jQuery("select[name='employeeSelect']").trigger("liszt:updated");
-			jQuery('.zzc').show();
+			if(numbertype>0){
+				jQuery('.zzc').show();
+			}
 		}
 	});
 }

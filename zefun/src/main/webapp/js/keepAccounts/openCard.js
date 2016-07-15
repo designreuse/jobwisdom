@@ -208,9 +208,9 @@ function totaiDeleteEmployee(obj){
 }
 
 function checkPhone(phone) {
-	var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
+	var reg = /^1[3|4|5|7|8]\d{9}$/;
 	 if (!reg.test(phone)) {
-		dialog("号码格式有误~");
+		dialog("号码格式有误！");
 		return;
 	 }
 	 jQuery.ajax({
@@ -235,6 +235,7 @@ function againSearch(obj) {
 	jQuery(obj).parents(".card-main1").find("input[name='memberId']").val("");
 	jQuery(obj).parents(".card-main1").prev().removeClass("hide");
 	jQuery(obj).parents(".card-main1").addClass("hide");
+	jQuery(obj).parents("#tab2").find('.no_password').removeClass("hide");
 }
 
 jQuery('body').delegate('.lcs_check_assignType', 'lcs-statuschange', function() {
@@ -278,7 +279,7 @@ function save(){
 	if (memberId == "") {
 		levelId = jQuery("select[name='kkLevelId']").val();
 		
-		phone = jQuery("#tab2").find(".write_imformation input[name = 'phoneNumber']").val();
+		phone = jQuery("#tab2").find(".write_imformation input[name = 'phoneNumber_']").val();
 		
 		if (phone == "") {
 			dialog("手机号不能为空！");
@@ -286,9 +287,10 @@ function save(){
 		}
 		
 		if (checkPhone(phone) == 0) {
-			dialog("号码有误请修改");
+			dialog("已有次会员");
 			return;
 		}
+		
 		
 		name = jQuery("#tab2").find(".write_imformation input[name = 'name']").val();
 		if (name == "") {
@@ -802,11 +804,11 @@ function queren(){
 		return;
 	}
 	var levelId = jQuery("select[name='sjLevelId']").val();
-//	var oldLevelId = jQuery("#tab3").find("input[name = 'levelId']").val();
-//	if (levelId == oldLevelId) {
-//		dialog("升级会员等级相同，不能执行该操作！");
-//		return;
-//	}
+	var oldLevelId = jQuery("#tab3").find("input[name = 'levelId']").val();
+	if (levelId == oldLevelId) {
+		dialog("升级会员等级相同，不能执行该操作！");
+		return;
+	}
 	
 
     
@@ -861,8 +863,8 @@ function queren(){
 		async:false,//使用同步的Ajax请求  
 		dataType : "json",
 		success : function(e){
-			if(e.code != 0){
-				return;
+			if(e.code == 0){
+				return dialog(e.msg); 
 			}
 			dialog("保存成功！");
 			window.location.href = baseUrl + "KeepAccounts/initializeOpenCard";

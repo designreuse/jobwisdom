@@ -254,13 +254,18 @@ background-size: cover;}
 				           <c:forEach items="${selfCashierOrderDto.orderDetails}" var="orderDetail">
 				                <div class="nav_content_div" name= 'projectNameLI' projectId = "${orderDetail.projectId }" detailId = "${orderDetail.detailId }">
 								   <span class="hand_close"></span>
-								     <p><em>${orderDetail.projectName}</em><i>项目价格：${orderDetail.projectPrice}</i></p>
+								      <p><em>${orderDetail.projectName}</em><i>项目价格：${orderDetail.projectPrice}</i></p>
 								      <table>
 								         <c:forEach items="${orderDetail.stepList}" var="step" varStatus="status">
 								            <tr positionId = '${step.positionId}' shiftMahjongStepId = "${step.shiftMahjongStepId}">
 											   <td style="width:210px">${step.positionName }</td>
 												 <td style="width:360px">选择员工
-												      <input type="text" name = 'employeeId' employeeId = '${step.employeeInfo.employeeId }' value="${step.employeeInfo.name }">
+												      <c:if test="${status.index == 0 }">
+												          <input type="text" name = 'employeeId' employeeId = '${step.employeeInfo.employeeId }' value="${step.employeeInfo.name }" chooseType = "1">
+												      </c:if>
+												      <c:if test="${status.index != 0 }">
+												          <input type="text" name = 'employeeId' employeeId = '${step.employeeInfo.employeeId }' value="${step.employeeInfo.name }" chooseType = "2">
+												      </c:if>
 												 </td>
 												 <td>指定<input type="checkbox" name = 'isAssign' <c:if test="${step.isAssign == 1}">checked</c:if>></td>
 												 <c:if test="${status.index == 0 }">
@@ -324,6 +329,12 @@ background-size: cover;}
 	   event = event ? event : window.event; 
 	   var obj = event.srcElement ? event.srcElement : event.target;
        jQuery('.absolute').show();
+       jQuery('.absolute').find("ul").show();
+       if (jQuery(obj).attr("chooseType") == 1) {
+    	   var positionid = jQuery(obj).parents("tr").attr("positionid");
+    	   jQuery('.absolute').find("ul").hide();
+    	   jQuery('.absolute').find("ul[positionid='"+positionid+"']").show();
+       }
        chooseObj = obj;
        var top=jQuery(this).offset().top+30;
 	    jQuery('.absolute').attr('style','position:absolute;top:'+top+'px')

@@ -4,12 +4,10 @@
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/water_search.css" type="text/css" />
-<<style>
-.water_search_top_content ul li .active{
-	color:#e41d1d
-}
-</style>
+
  <style>
+     .search_table_ tr:last-child td{border-bottom:none}
+     .water_search_top_content ul li .active{color:#e41d1d}
 	 .zzc {
 		font-size: 12px;
 		color: black;
@@ -162,17 +160,16 @@
 		 </div>
 		<div class="search_table_content"> 
 		 <table class="search_table">
-		<tr>
-	     <td>水单号</td>
-		 <td>顾客</td>
+	   <tr>
+	     <td width="100">水单号</td>
+		 <td width='100'>顾客</td>
 		 <td>消费时间</td>
-		 <td >总消费金额</td>
-		 <td >支付明细</td>
-		 <td>消费项目</td>
-		 <td>服务者业绩（员工类型指定）</td>
+		 <td colspan="2">总消费金额</td>
+		 <td width="141">消费项目</td>
+		 <td style="width:298px">服务者业绩（员工类型指定）</td>
 		 <td style="width:80px">操作</td>
 	   </tr>
-		    <c:forEach var="daybook" items="${page.results}" varStatus="status">
+	<c:forEach var="daybook" items="${page.results}" varStatus="status">
 		<tr>
 	    <td onclick="updateSelectOrder(${daybook.orderId})"><a class="can-click">${daybook.orderCode}</a></td>
 <%-- 	    <td onclick="jQuery('.zzc').show()"><a class="can-click">${daybook.orderCode}</a></td> --%>
@@ -188,7 +185,8 @@
                 </td>
               </c:otherwise>
 	     </c:choose>
-		 <td>${daybook.createTime}<img src="<%=basePath%>images/coupon_write.png"></td>
+		 <td><i>${daybook.createTime}</i><img onclick="WdatePicker({el:'d12',dateFmt:'yyyy-MM-dd HH:mm:ss',onpicked:pickedFunc})" src="<%=basePath%>images/coupon_write.png"> <input type="text" class="hidden" id="d12" ></td>
+		 
 		 <td>合计 <em>${daybook.realAmount}</em></td>
 		  <td>
               <c:if test="${daybook.cashAmount == '0.00' and daybook.unionpayAmount == '0.00' and daybook.wechatAmount == '0.00' and daybook.alipayAmount == '0.00' and daybook.cardAmount == '0.00'}">
@@ -210,35 +208,33 @@
                   <p>${daybook.cardAmount}<em style="color:pink">卡金</em></p>
               </c:if>
 	     </td>
-		 <td style="width:140px">
-		 	<c:forEach items="${daybook.orderDetailList}" var="orderDetailList"> 
- 		 	   <p class="pay_item">${orderDetailList.projectName}</p>
-	 	     <i class="pay_item" style="text-align: center;"><c:forEach items="${daybook.deptList}" var="deptList">(${deptList.deptName})</c:forEach></i>
-			</c:forEach> 
+		 <td style="width:140px" colspan="2">
+			 <c:forEach items="${daybook.orderDetailList}" var="orderDetailList"> 
+				   <table class="search_table_" width='439'>
+					 <tr>
+					  <td rowspan="100" width="141">
+						<p class="pay_item">${orderDetailList.projectName}</p><i class="pay_item" style="text-align: center;"><c:forEach items="${daybook.deptList}" var="deptList">(${deptList.deptName})</c:forEach></i>
+					  </td>
+					  </tr>
+					  <c:forEach items="${orderDetailList.commissionList}" var="commissionList">
+						 <tr>
+						   <td> 
+								<span>(${commissionList.employeeCode })<em>${commissionList.employeeName }</em>
+								  <c:if test="${orderDetailList.isAssign eq 1 }">
+									<i>(指定)</i>
+								  </c:if>
+									<c:if test="${orderDetailList.isAssign eq 0 }">
+									<i>(未指定)</i>
+								  </c:if>
+								</span>
+								<span>业绩:<em>${commissionList.commissionCalculate }</em></span>
+							  <span style="border-right:none">提成:<em>${commissionList.commissionAmount } </em></span>
+						  </td>
+						 </tr>
+					 </c:forEach>
+			   </table>
+		   </c:forEach>
 		 </td>
-
-		 <td style="vertical-align:top!important">
-		 <c:forEach items="${daybook.orderDetailList}" var="orderDetailList">
-		 	<c:forEach items="${orderDetailList.commissionList}" var="commissionList">
-			 	<table class="td_table">
-				 <tr>
-					 <td>
-						<span>(${commissionList.employeeCode })<em>${commissionList.employeeName }</em>
-					  <c:if test="${orderDetailList.isAssign eq 1 }">
-						<i>(指定)</i>
-					  </c:if>
-						<c:if test="${orderDetailList.isAssign eq 0 }">
-						<i>(未指定)</i>
-					  </c:if>
-					</span>
-					<span>业绩:<em>${commissionList.commissionCalculate }</em></span>
-				  <span style="border-right:none">提成:<em>${commissionList.commissionAmount } </em></span>
-				  </td>
-			   </tr>
-			   	</table>
-			</c:forEach>
-		 </c:forEach>
-		</td>
 		 <td><button onclick="deleteOrder(${daybook.orderId}, this)">退单</button></td>
 	   </tr>
 	 </c:forEach>
@@ -281,7 +277,26 @@
 	 </div>
    </div>
 </div>
-
+ <!--删除提示-->
+	    <div class="modal hide" id="deleteOrderTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content confirm">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" onclick="czCancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                    <h4 class="modal-title" id="myModalLabel">删除订单</h4>
+	                </div>
+	    
+	                <div class="modal-body confirm-body">
+	                                                订单删除后不可恢复，是否确定本次操作？
+	                </div><!--modal-body-->
+	    
+	                <div class="modal-footer">
+	                    <a class="btn cancel-btn modal-cancel" data-dismiss="modal" href="javascript:void(0);">取消</a>
+	                    <a class="btn btn-primary save-btn modal-confirm" href="javascript:deleteOrderConfirm();">确定</a>
+	                </div>
+	            </div>
+	        </div>
+	    </div> 
 <%@ include file="/template/memberData.jsp" %>
 <script>
 	var pageNo = "${page.pageNo}";
@@ -290,6 +305,11 @@
 	var totalRecord = '${page.totalRecord}';
 	
 	var queryParams = JSON.parse('${queryParamsStr}');
+	  
+	   
+   function pickedFunc() {
+	  jQuery(this).parent("td").find("i").text(jQuery("#d12").val());
+	}
    
     //初始化时间控件
     var now = new Date() ;

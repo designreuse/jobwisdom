@@ -11,6 +11,22 @@
     <title>我的业绩</title>
     <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
     <link rel="stylesheet" href="<%=employeeCssPath%>"/>
+    <style type="text/css">
+        .time_rank ul{
+    width: 20rem;
+    height: 3.5rem;
+    margin: 0 auto;
+    line-height: 3,5rem;
+    padding-top: 1.1rem;}
+		 .time_rank li{height:3rem;line-height:3rem;float:left;width:50%;text-align:center;border: 1px solid white;color: white;
+    font-size: 1.6rem;}
+		 .time_rank{height:5rem;line-height:5rem;background: #ea631a;}
+		 
+	.time_rank li.active {
+    background: white;
+    color: #ea631a;}
+    #toDayUl{padding-top:0rem}
+    </style>
 </head>
 <body>
 
@@ -18,9 +34,9 @@
 <div class="content">
 
 <div class="yg-performance-state">
-    <div class="tab t0">
-        <ul >
-            <li class="score-shop-li active w50p" onclick="changeShow(this, 1)">
+    <div class="time_rank clearfix">
+        <ul class= "clearfix">
+            <%-- <li class="score-shop-li active w50p" onclick="changeShow(this, 1)">
                 <a href="javascript:void(0);">
                     <img src="<%=basePath%>images/mobile/employee/active-new.png" alt=""/>
                     <div class="tab-word">
@@ -47,7 +63,9 @@
                     <div class="two-border"></div>
                     <div class="three-border"></div>
                 </div>
-            </li>
+            </li> --%>
+            <li class="active" onclick="changeShow(this, 1)">日排行</li>
+		    <li onclick="changeShow(this, 2)">周排行</li>
         </ul>
     </div>
     <div class="clearfix"></div>
@@ -352,12 +370,8 @@
     function changeShow(obj, type) {
     	$("#toDayUl").addClass("hide");
     	$("#monthUl").addClass("hide");
-    	$(".score-shop-li").removeClass("active");
-    	$(".score-shop-li").find("img").addClass("hide");
-    	$(".border-group").removeClass("hide");
-    	$(obj).find("img").removeClass("hide");
-    	$(obj).find(".border-group").addClass("hide");
-    	$(obj).addClass("active");
+    	jQuery(obj).siblings().removeClass("active");
+    	jQuery(obj).addClass("active");
     	if (type == 1) {
     		$("#toDayUl").removeClass("hide");
     	}

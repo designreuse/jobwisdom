@@ -54,10 +54,10 @@
 
 .add_store_back li{width:40px;height:251px;background:url('../images/add_store_back.png') no-repeat;cursor:pointer;background-size:40px 251px}
 .add_store_back .active{width:40px;height:251px;background:url('../images/add_store_back_1.png') no-repeat;color:white!important;background-size:40px 251px}
-.add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:16px;}
+.add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:14px;}
 .add_store_back {float:left}
 .add_store_div{width:1000px;margin:40px auto}
-.add_store_content{float:left;border:1px solid black;padding:20px;border-radius: 0 0 10px 10px;font-size:14px}
+.add_store_content{float:left;border:1px solid black;padding:20px;border-radius: 0 0 10px 10px;font-size:12px}
 .add_store_span_1{float:right}
 .add_store_span_1 span{color:red;font-size:16px}
 .add_store_span_1{font-size:14px}
@@ -150,7 +150,7 @@
 .select_de{width:882px;height:264px;margin:0 auto;overflow:hidden}
 .select_de table{width:880px}
 .select_item>p{
-	font-size:16px;
+	font-size:14px;
 	color:black;
 	margin-bottom:10px
 }

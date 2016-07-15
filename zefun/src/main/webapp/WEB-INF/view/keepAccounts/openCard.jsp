@@ -10,12 +10,12 @@
 <script type="text/javascript"	src="<%=basePath%>js/keepAccounts/openCard.js?date=<%=new Date().getTime()%>"></script>
 	<style>
 	.select_card_style{margin-top: 20px;}
-	.select_card_style>p{margin-bottom: 6px;font-size: 16px;}
+	.select_card_style>p{margin-bottom: 6px;font-size: 12px;}
 	.select_card_style_content{    padding: 10px 20px; background: #d8deed;border-radius: 8px;}
-	.select_card_style_content select{    width:80px;height: 20px;
+	.select_card_style_content select{    width:80px;height: 16px;
     border: 1px solid #717171;
     border-radius: 12px;
-    font-size: 14px;
+    font-size: 12px;
     color: black;
     margin: 0 10px 0 15px;
 	padding-left:30px
@@ -81,6 +81,7 @@
 .select-result1 input{background:white}
 .achievement_recharge_content li input{height:26px;width:66px}
 .achievement_recharge_content_input span em{top:2px}
+.ml-30{margin-left:-45px;position:relative;top:-2px}
 </style>
 
 <body>
@@ -114,12 +115,11 @@
 											<label class="w60" for="">搜索会员:</label> <input type="text"
 												class="w185" name="phoneNumber" placeholder="会员手机号">
 											<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
-											<div class="show_search" name="memberListDIV"
-												style="display: none;">
+											<div class="show_search" name="memberListDIV" style="display: none;">
 												<p>
 													以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
 													<em><input type="checkbox" name="enterpriseCheck"
-														onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+														onchange="changeAllEnterprise(this)">全企业搜索<span>?</span>
 													</em>
 												<div class="common_close" onclick="cancleMemberSelect(this)">
 													<img src="<%=basePath%>images/emploee_3.png">
@@ -174,15 +174,15 @@
 							<div class="recharge_way">
 								<p>充值金额及支付方式</p>
 								<div class="recharge_way_content">
-									<span> 现金 <input type="text" name="czCashAmount"
+									<span> 现金 <input type="Number" name="czCashAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 银联<input type="text" name="czUnionpayAmount"
+									</span> <span> 银联<input type="Number" name="czUnionpayAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 微信<input type="text" name="czWechatAmount"
+									</span> <span> 微信<input type="Number" name="czWechatAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 支付宝<input type="text" name="czAlipayAmount"
+									</span> <span> 支付宝<input type="Number" name="czAlipayAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 挂账 <input type="text" name="czDebtAmount"
+									</span> <span> 挂账 <input type="Number" name="czDebtAmount"
 										onkeyup="checkNum(this)">
 									</span>
 								</div>
@@ -239,7 +239,7 @@
 							<div class="send_manage">
 								<p>赠送设置</p>
 								<div class="send_manage_content">
-									<span>礼金赠送<input type="text" name = "czGiftmoneyAmount" ></span>
+									<span>礼金赠送<input type="Number" name = "czGiftmoneyAmount" ></span>
 									<span>分期<select name="czPartType">
 											<option value="1">不分期</option>
 											<option value="3">3个月</option>
@@ -254,7 +254,7 @@
 											<option value="9">9个月</option>
 											<option value="12">12个月</option>
 											<option value="24">24个月</option>
-									</select></span> <span>卡金赠送<input type="text" name="czRewardAmount"></span>
+									</select></span> <span>卡金赠送<input type="Number" name="czRewardAmount"></span>
 
 
 								</div>
@@ -286,14 +286,13 @@
 											<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 											<div class="show_search" name="memberListDIV"
 												style="display: none;">
-												<p>
-													以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
+												<p>以<i name="conditionValue">12</i>为条件显示到<i name="showList">20</i>位顾客
 													<em><input type="checkbox" name="enterpriseCheck"
 														onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
 													</em>
-												<div class="common_close" onclick="cancleMemberSelect(this)">
-													<img src="<%=basePath%>images/emploee_3.png">
-												</div>
+													<div class="common_close" onclick="cancleMemberSelect(this)">
+														<img src="<%=basePath%>images/emploee_3.png">
+													</div>
 												</p>
 												<div style="height: 400px; overflow: overlay;"
 													name="memberoverDIV"></div>
@@ -321,8 +320,10 @@
 														data-target="#member-data" onclick="showMemberModal(this)"></td>
 													<td name="memberNameSpan" data-toggle="modal"
 														data-target="#member-data" onclick="showMemberModal(this)"></td>
-													<td name="memberSexSpan">男</td>
-													<td name="memberStoreName">华南美联店</td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceAmountSpan"></td>
 													<td style="color: #eb4749"
 														name="memberBalanceGiftmoneyAmountSpan"></td>
 													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
@@ -345,21 +346,14 @@
 											 <div class="write_imformation" style="display: none;">
 											   <p>
 											      <span><em style="margin-right:30px">姓名</em><input type="text" name = "name"  placeholder="*"/></span>
-												  <span><em style="display:inline-block;margin-right:1px">手机号码</em><input type="text" name = "phoneNumber"  placeholder="*"/></span>
+												  <span><em style="display:inline-block;margin-right:1px">手机号码</em><input type="Number" name ="phoneNumber_"  placeholder="*"/></span>
 												  <span><em style="margin-left:35px">性别</em><select name="sex"><option>男</option><option>女</option></select></span>
-<!-- 												  <span style="margin-left:80px"><em>开卡类型</em> -->
-<!-- 												    <select name="kkLevelId"  tyle="width:100px;margin-left:8px"  onchange="changeMemberLevel(this)"> -->
-<%-- 						                                <c:forEach items="${memberLevelList}" var="memberLevel" varStatus="status"> --%>
-<%-- 							                                <option value="${memberLevel.levelId}">${memberLevel.levelName}</option> --%>
-<%-- 							                            </c:forEach> --%>
-<!-- 						                            </select> -->
-<!-- 												  </span>	   -->
 											   </p>
 											   <p>
 											      
 												  <span><em>支付密码</em><input type="password" name = "payPassword"  placeholder="*"/></span>
 												  <span><em>确认密码</em> <input type="password" name = "password"  placeholder="*"/></span>
-												  <span style="margin-left:4px">短信通知<select style="margin-left:8px" name ="messageType"><option value="1">是</option> <option value="0">否</option></select></span>
+												  <span style="margin-left:12px">短信通知<select style="margin-left:8px" name ="messageType"><option value="1">是</option> <option value="0">否</option></select></span>
 												  <span style="position:relative;left:150px"><button class="back_">返回</button></span>
 											   </p>
 											 </div>
@@ -387,15 +381,15 @@
 							<div class="recharge_way">
 								<p>充值金额及支付方式</p>
 								<div class="recharge_way_content">
-									<span> 现金 <input type="text" name="kkCashAmount"
+									<span> 现金 <input type="Number" name="kkCashAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 银联<input type="text" name="kkUnionpayAmount"
+									</span> <span> 银联<input type="Number" name="kkUnionpayAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 微信<input type="text" name="kkWechatAmount"
+									</span> <span> 微信<input type="Number" name="kkWechatAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 支付宝<input type="text" name="kkAlipayAmount"
+									</span> <span> 支付宝<input type="Number" name="kkAlipayAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 挂账 <input type="text" name="kkDebtAmount"
+									</span> <span> 挂账 <input type="Number" name="kkDebtAmount"
 										onkeyup="checkNum(this)">
 									</span>
 								</div>
@@ -452,7 +446,7 @@
 							<div class="send_manage">
 								<p>赠送设置</p>
 								<div class="send_manage_content">
-									<span>礼金赠送 <input type="text" name="giftmoneyAmount" /></span>
+									<span>礼金赠送 <input type="Number" name="giftmoneyAmount" /></span>
 									<span>分期 <select name="partType">
 											<option value="1">不分期</option>
 											<option value="3">3个月</option>
@@ -467,7 +461,7 @@
 											<option value="9">9个月</option>
 											<option value="12">12个月</option>
 											<option value="24">24个月</option>
-									</select></span> <span>卡金赠送 <input type="text" name="rewardAmount" /></span>
+									</select></span> <span>卡金赠送 <input type="Number" name="rewardAmount" /></span>
 								</div>
 							</div>
 							<div class="recharge_time">
@@ -527,15 +521,20 @@
 														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
 													</tr>
 													<tr>
-														<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
-														<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
-														<td style="color: #eb4749" name="needRefund"></td>
-														<td><span name="subAccountNum"></span>张</td>
-													</tr>
+													<td name="memberPhoneSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
+												</tr>
 													<input type="hidden" name="memberId">
 												</table>
 											</div>
@@ -554,22 +553,22 @@
 														varStatus="status">
 														<option value="${memberLevel.levelId}">${memberLevel.levelName}</option>
 										</c:forEach>
-									</select>升级费用：<em><input type="text" placeholder="0"  name="openType"/>元</em><i>(不计入卡金金额)</i>
+									</select>升级费用：<em><input type="Number" placeholder="0"  name="openType"/>元</em><i>(不计入卡金金额)</i>
 								</div>
 							</div>
 
 							<div class="recharge_way">
 								<p>充值金额及支付方式</p>
 								<div class="recharge_way_content">
-									<span> 现金 <input type="text" name="sjCashAmount"
+									<span> 现金 <input type="Number" name="sjCashAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 银联<input type="text" name="sjUnionpayAmount"
+									</span> <span> 银联<input type="Number" name="sjUnionpayAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 微信<input type="text" name="sjWechatAmount"
+									</span> <span> 微信<input type="Number" name="sjWechatAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 支付宝<input type="text" name="sjAlipayAmount"
+									</span> <span> 支付宝<input type="Number" name="sjAlipayAmount"
 										onkeyup="checkNum(this)">
-									</span> <span> 挂账 <input type="text" name="sjDebtAmount"
+									</span> <span> 挂账 <input type="Number" name="sjDebtAmount"
 										onkeyup="checkNum(this)">
 									</span>
 								</div>
@@ -625,7 +624,7 @@
 							<div class="send_manage">
 								<p>赠送设置</p>
 								<div class="send_manage_content">
-									<span>礼金赠送<input type="text" name = "sjGiftmoneyAmount" ></span>
+									<span>礼金赠送<input type="Number" name = "sjGiftmoneyAmount" ></span>
 									<span>分期<select name="sjPartType">
 											<option value="1">不分期</option>
 											<option value="3">3个月</option>
@@ -640,7 +639,7 @@
 											<option value="9">9个月</option>
 											<option value="12">12个月</option>
 											<option value="24">24个月</option>
-									</select></span> <span>卡金赠送<input type="text" name="sjRewardAmount"></span>
+									</select></span> <span>卡金赠送<input type="Number" name="sjRewardAmount"></span>
 
 
 								</div>
@@ -703,20 +702,19 @@
 													</tr>
 													<tr>
 														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
 														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan"></td>
+														<td name="memberStoreName"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceAmountSpan"></td>
 														<td style="color: #eb4749"
 															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 														<td style="color: #eb4749" name="needRefund"></td>
 														<td><span name="subAccountNum"></span>张</td>
-													</tr>
+												</tr>
 													<input type="hidden" name="memberId">
 												</table>
 											</div>
@@ -730,16 +728,16 @@
 							<div class="recharge_way">
 								<p>充值金额及支付方式</p>
 								<div class="recharge_way_content">
-									<span> 现金 <input type="text" name="hkCashAmount"
+									<span> 现金 <input type="Number" name="hkCashAmount"
 										onkeyup="checkNum(this)">
 									</span> 
-									<span> 银联<input type="text" name="hkUnionpayAmount"
+									<span> 银联<input type="Number" name="hkUnionpayAmount"
 										onkeyup="checkNum(this)">
 									</span> 
-									<span> 微信<input type="text" name="hkWechatAmount"
+									<span> 微信<input type="Number" name="hkWechatAmount"
 										onkeyup="checkNum(this)">
 									</span> 
-									<span> 支付宝<input type="text" name="hkAlipayAmount"
+									<span> 支付宝<input type="Number" name="hkAlipayAmount"
 										onkeyup="checkNum(this)">
 									</span> 
 								</div>
@@ -799,17 +797,16 @@
 													</tr>
 													<tr>
 														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
 														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan"></td>
+														<td name="memberStoreName"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceAmountSpan"></td>
 														<td style="color: #eb4749"
 															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 														<td style="color: #eb4749" name="needRefund"></td>
 														<td><span name="subAccountNum"></span>张</td>
 													</tr>
@@ -827,10 +824,10 @@
 								<p>赠送设置</p>
 								<div class="send_manage_content_">
 									<p>
-										积分赠送<input type="text" name="zsIntegralAmount"><em>分</em>
+										积分赠送<input type="Number" name="zsIntegralAmount"><em>分</em>
 									</p>
 									<p>
-										<span>礼金赠送 <input type="text" name="zsGiftmoneyAmount" /><em>元</em></span>
+										<span>礼金赠送 <input type="Number" name="zsGiftmoneyAmount" /><em>元</em></span>
 										<span> <select name="zsPartType">
 												<option value="1">不分期</option>
 												<option value="3">3个月</option>
@@ -854,7 +851,7 @@
 													<option value="${coupon.couponId }">${coupon.couponName }
 														-${coupon.couponPrice }元</option>
 												</c:forEach>
-										</select> <input type="text" style="width: 60px" name="numberCoupon"><em>张</em>
+										</select> <input type="Number" style="width: 60px" name="numberCoupon"><em>张</em>
 											<button onclick="addCoupon(this)">新增</button>
 										</span>
 									</p>
@@ -917,22 +914,21 @@
 														<td>会员卡</td>
 														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
 													</tr>
-													<tr>
-														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
-														<td style="color: #eb4749"
-															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
-														<td style="color: #eb4749" name="needRefund"></td>
-														<td><span name="subAccountNum"></span>张</td>
-													</tr>
+												<tr>
+													<td name="memberPhoneSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal"
+														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749"
+														name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
+												</tr>
 													<input type="hidden" name="memberId">
 												</table>
 											</div>
@@ -987,17 +983,16 @@
 													</tr>
 													<tr>
 														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
 														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan"></td>
+														<td name="memberStoreName"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceAmountSpan"></td>
 														<td style="color: #eb4749"
 															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 														<td style="color: #eb4749" name="needRefund"></td>
 														<td><span name="subAccountNum"></span>张</td>
 													</tr>
@@ -1014,7 +1009,7 @@
 							<div class="recharge_user">
 								<p>转账金额</p>
 								<div class="seach_user_">
-									<input name = "zzChargeAmount" type="text"><em>元</em>
+									<input name = "zzChargeAmount" type="Number"><em>元</em>
 									<button onclick="zzConfirm()">确认金额</button>
 								</div>
 
@@ -1068,17 +1063,16 @@
 													</tr>
 													<tr>
 														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
 														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data"
-															onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan">男</td>
-														<td name="memberStoreName">华南美联店</td>
+															data-target="#member-data" onclick="showMemberModal(this)"></td>
+														<td name="memberSexSpan"></td>
+														<td name="memberStoreName"></td>
+														<td style="color: #eb4749"
+															name="memberBalanceAmountSpan"></td>
 														<td style="color: #eb4749"
 															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceIntegralSpan"></td>
+														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 														<td style="color: #eb4749" name="needRefund"></td>
 														<td><span name="subAccountNum"></span>张</td>
 													</tr>
@@ -1238,6 +1232,10 @@
 
 
 <script>
+
+
+
+
 var memberLevelLists = ' ${memberLevelLists} ';
 var  memberLevelList;
 if (!isEmpty(memberLevelLists)) {

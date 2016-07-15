@@ -80,7 +80,7 @@ em {
 .hand_detail_left{float:left;width:395px;border:1px solid #ccc;box-shadow: 0 0 3px #ccc;border-radius:8px;height:605px}
 .hand_detail_right{float:left;width:555px;margin-left:45px;border:1px solid #ccc;box-shadow: 0 0 3px #ccc;border-radius:8px;height:605px;background:#e9ebf5}
 .select_part{height:53px;background:#e9ebf5;text-align:center;line-height:53px}
-.select_part_{width:120px;height:26px;border-radius:10px;padding-left:60px;font-size:16px}
+.select_part_{width:120px;height:26px;border-radius:10px;padding-left:60px;font-size:14px}
 .hand_detail_content{margin-left:20px}
 .hand_project li{width:60px;height:30px;text-align:center;line-height:30px;float:left;cursor:pointer;margin-right:25px}
 .hand_project .active{border:1px solid #ccc;border-radius:10px}
@@ -98,9 +98,10 @@ em {
 .hair_series .active{color:#ed4343}
 .hair_content .active{background:#dadce6}
 .nav{height:53px;border-bottom:1px solid #ccc}
-.nav li{float:left;height:53px;text-align:center;line-height:53px;width:185px;font-size:16px;cursor:pointer}
+.nav li{float:left;height:53px;text-align:center;line-height:53px;width:185px;font-size:14px;cursor:pointer}
 .nav .active{background:#d7d9e3;}
 
+.table-toolbar input[type='text']{width:128px;height:16px;border:1px solid #717171;border-radius:12px;}
 .nav_content{width:510px;height:420px;overflow-y:scroll;margin:26px auto}
 .nav_content_div{height:110px;border-radius:10px;background:#dfe1e9;position:relative;margin-bottom:20px}
 .nav_content_div_1{height:40px;border-radius:10px;background:#dfe1e9;position:relative;margin-bottom:20px}

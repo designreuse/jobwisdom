@@ -1,11 +1,9 @@
 
 //轮播
 jQuery(function(){
-	
 	jQuery("div[name='memberTR']").find(".hand_table").hide();
 	jQuery("div[name='memberTR']").find(".hand_table_").show();
-	
-	     var now_=0, count=jQuery('.hair_series li').size();
+	var now_=0, count=jQuery('.hair_series li').size();
 		 
 	  //向右走
       jQuery('.hand_right').click(function(){
@@ -128,8 +126,13 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 			var positionInfo = positionInfos[i];
 			var buzhou = jQuery("<tr positionId = '"+positionInfo.positionId+"'></tr>");
 			buzhou.append("<td  style='width:210px'>"+positionInfo.positionName+"</td>");
-			buzhou.append("<td style='width:360px'><input type='text' name = 'employeeId' employeeId = ''></td>");
 			
+			if (i == 0) {
+				buzhou.append("<td style='width:360px'><input type='text' name = 'employeeId' employeeId = '' chooseType = '1'></td>");
+			}
+			else {
+				buzhou.append("<td style='width:360px'><input type='text' name = 'employeeId' employeeId = '' chooseType = '2'></td>");
+			}
 			buzhou.append("<td>指定:<input type='checkbox' name = 'isAssign'></td>");
 			
 			if (i == 0) {
@@ -148,13 +151,13 @@ function chooceProject(projectId, projectName, projectPrice, type) {
                   "<table class='select_people'>"+
 				      "<tr>"+
 						 "<td style='width:360px'>销售第一人"+
-						    "<input type='text' name = 'employeeId1' employeeId = ''></td>"+
+						    "<input type='text' name = 'employeeId1' employeeId = '' chooseType = '2'></td>"+
 						 "</td>"+
 						 "<td style='width:360px'>销售第二人"+
-						     "<input type='text' name = 'employeeId2' employeeId = ''></td>"+
+						     "<input type='text' name = 'employeeId2' employeeId = '' chooseType = '2'></td>"+
 						 "</td>"+
 						 "<td style='width:360px'>销售第三人"+
-						     "<input type='text' name = 'employeeId3' employeeId = ''></td>"+
+						     "<input type='text' name = 'employeeId3' employeeId = '' chooseType = '2'></td>"+
 					 	 "</td>"+
 					  "</tr>"+
 			      "</table>";
