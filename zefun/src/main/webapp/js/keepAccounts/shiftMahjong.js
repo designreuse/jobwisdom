@@ -76,7 +76,7 @@ function infoDIV(shiftMahjongEmployeeList){
 	for (var j = 0; j < shiftMahjongEmployeeList.length; j++) {
 		var shiftMahjongEmployee = shiftMahjongEmployeeList[j];
 		var imgs = picUrl+shiftMahjongEmployee.headImage;
-		jQuery(".gridly").append("<li class='brick small' shiftMahjongEmployeeId = '"+shiftMahjongEmployee.shiftMahjongEmployeeId+"'>"+
+		jQuery(".gridly").append("<li class='brick small'  shiftMahjongEmployeeId = '"+shiftMahjongEmployee.shiftMahjongEmployeeId+"'>"+
 								    "<div class='roll_pic'>"+
 									   "<img src='"+imgs+"'>"+
 									"</div>"+

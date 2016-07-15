@@ -179,7 +179,14 @@ transform: rotate(1deg);
 
 .brick  p{color:black;text-align:center}
 .state select {padding-left:25px;width:60px;height:16px;background:white;border:none;position:relative;top:4px;left:10px}
-.state{background:#eeeeee}
+.brick1{background:#ee9fa1}
+.brick2{background:#9feed5}
+.brick3{background:#e7a3ef}
+.brick4{background:#efe1a7}
+.state1{background:#c27274}
+.state2{background:#8acab6}
+.state3{background:#b868c1}
+.state3{background:#c4b36c}
 .free{width:91px;position:relative;left:33px;z-index:100;top:1px;display:none}
 
 .free li{width:62px!important;height:26px;background:white;text-align:center;line-height:26px;position:relative;padding-top:0px!important;padding-left:10px}
