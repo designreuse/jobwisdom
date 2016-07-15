@@ -507,8 +507,8 @@ public class StaffCentreController extends BaseController{
      */
     @RequestMapping(value = Url.Staff.VIEW_STAFF_STUDENT, produces="text/html", method = RequestMethod.GET)
     @ResponseBody
-    public String staffStudentCenter(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        return "<hr><div style='background-color:red;'>敬请期待</div></hr>";
+    public ModelAndView staffStudentCenter(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        return new ModelAndView(View.StaffPage.STUDENT_VIEW);
     }
     
 }
