@@ -23,7 +23,7 @@
 .water_search_top_total_price span{font-size:15px;font-weight:bold;padding-left:10px;line-height:30px}
 .water_search_top_total_price em{color:#dc0b0b;font-size:15px;position:relative;left:100px}
 .search_table{width:1020px;text-align:center;border:1px solid black;border-radius:8px;}
-.search_table td{height:44px;vertical-align:middle;border:1px solid #cccccd;}
+.search_table td{height:50px;vertical-align:middle;border:1px solid #cccccd;}
 .search_table td button{width:50px;height:20px;text-align:center;line-height:20px;border:none;border-radius:12px;color:white;background:#59688a}
 .search_table_content{border:1px solid black;border-radius:12px;margin-top:16px;;width:1020px;overflow-y:overlay;height:600px;overflow-x:hidden}
 .search_table tr:nth-child(1){

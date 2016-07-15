@@ -161,7 +161,7 @@
 		<div class="search_table_content"> 
 		 <table class="search_table">
 	   <tr>
-	     <td>水单号</td>
+	     <td width="100">水单号</td>
 		 <td width='100'>顾客</td>
 		 <td>消费时间</td>
 		 <td colspan="2">总消费金额</td>
