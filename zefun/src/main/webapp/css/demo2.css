@@ -1,4 +1,4 @@
-.add_store_content{width:910px;color:black;height:1115px}
+.add_store_content{width:910px;color:black;height:1115px;position:relative;left:-1px}
 .add_store_button{float:left;width:400px}
 .add_store_button button{width:120px;height:30px;text-align:center;line-height:30px;color:white;border-radius:15px;border:none;background:#59688a;font-size:16px;margin-right:10px}
 .add_store_button button:hover{
@@ -54,7 +54,7 @@
 
 .add_store_back li{width:40px;height:251px;background:url('../images/add_store_back.png') no-repeat;cursor:pointer;background-size:40px 251px}
 .add_store_back .active{width:40px;height:251px;background:url('../images/add_store_back_1.png') no-repeat;color:white!important;background-size:40px 251px}
-.add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:16px;}
+.add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:14px;}
 .add_store_back {float:left}
 .add_store_div{width:1000px;margin:70px auto}
 .add_store_content{float:left;border:1px solid black;padding:20px;border-radius: 0 0 10px 10px}
@@ -152,7 +152,7 @@
 .add_pic_{
 	margin-top:20px
 }
-.add_pic_ p{font-size:16px;color:black}
+.add_pic_ p{font-size:14px;color:black}
 .add_pic_ ul{border-radius:10px;background:#d8deed;margin-top:10px}
 .add_pic_ ul li em img{width:150px}
 .add_pic_ ul li{width:150px;height:150px;position:relative;float:left;margin: 15px 43px 10px 34px;}
@@ -182,15 +182,15 @@
 }
 .item_button{text-align:center;margin-top:50px}
 .item_button button{width:130px;height:28px;color:white;border:none;border-radius:10px;text-align:center;line-height:28px;color:white;background:#59688a;margin-right:80px}
-.shop_price{height:100px;border-radius:10px;background:#d8deed;padding: 5px 20px;font-size:14px;color:black}
+.shop_price{height:100px;border-radius:10px;background:#d8deed;padding: 5px 20px;font-size:12px;color:black}
 .shop_price_1 input,.shop_price_2 span input{height:22px;width:120px;border-radius:12px!important;margin-left:26px;border:1px solid black;padding-right:20px}
 .shop_price_1 span,.shop_price_2 span{display:inline-block;position:relative}
 .shop_price_1 em,.shop_price_2 span em{position:absolute;right:10px;top:5px;color:#737373}
 .shop_price_2{margin-top:30px}
 .shop_price_2 i{display:inline-block;margin:0 20px 0 55px}
 .shop_price_2 i input{margin-right:15px}
-.percentage >p{font-size:16px;color:black;margin-top:20px}
-.percentage_content{border-radius:8px;    padding: 5px 20px;font-size:14px;background:#d8deed;height:60px;margin-top:10px}
+.percentage >p{font-size:14px;color:black;margin-top:20px}
+.percentage_content{border-radius:8px; padding: 5px 20px;font-size:12px;background:#d8deed;height:60px;margin-top:10px}
 .percentage_content span{display:inline-block;margin-left:25px}
 .percentage_content span input{margin-right:10px}
 .item_button button:hover{background:#3c4861}
@@ -210,12 +210,12 @@
     color: #737373;
 }
 .vip_price{margin-top:20px}
-.vip_price>p{font-size:16px;color:black;margin-bottom:10px}
+.vip_price>p{font-size:14px;color:black;margin-bottom:10px}
 .vip_roll{background:white;position:relative;border-radius:10px}
 .left_click{position:absolute;z-index:2;top:25px}
 .right_click{position:absolute;z-index:2;top:25px;right:8px}
 .right_click img,.left_click img{width:40px}
-.vip_price_content{font-size:14px;background:#d8deed;padding: 5px 20px 20px 20px;border-radius:10px}
+.vip_price_content{font-size:12px;background:#d8deed;padding: 5px 20px 20px 20px;border-radius:10px}
 .vip_price_content input{width:70px;border:1px solid black;border-radius:8px;margin:0 5px;height:16px}
 .roll_ul{height:115px;width:820px;overflow:hidden;border-radius:10px;margin-top:4px;position:relative;}
 .roll_ul ul{width:4000px;position:relative}

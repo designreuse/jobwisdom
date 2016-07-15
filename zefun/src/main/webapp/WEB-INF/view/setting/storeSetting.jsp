@@ -82,7 +82,8 @@
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
 				<div class="content_right clearfix">
-					<div class="webchat">
+					<div class="webchat" style="position:relative">
+					  <a style="display:inline-block;width:152px;height:152px;position:absolute;top:156px;left:80px;" href="javascript:;"></a>
 						<div class="webchat_p">
 							<p style="border: none; text-align: center">添加店铺轮播</p>
 							<p>

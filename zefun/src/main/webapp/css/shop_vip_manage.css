@@ -113,8 +113,8 @@ input[type=radio]:checked {
     left: 82px;font-style:normal;cursor:pointer;display:none}
 
 .new_data{border:1px solid black;border-radius:8px;margin-top:20px}	
-.new_data>p{color:black;font-size:16px;font-weight:bold;padding:10px}
-.new_data>p select{border:1px solid black;border-radius:8px;color:black;margin-left:10px;width:90px;padding-left:40px;font-size:14px}
+.new_data>p{color:black;font-size:14px;font-weight:bold;padding:10px}
+.new_data>p select{border:1px solid black;border-radius:8px;color:black;margin-left:10px;width:90px;padding-left:40px;font-size:12px}
 
 .new_data table td{position:relative}
 .new_data table td ul{position:absolute;top:28px;left:20px;background:white;display:none;z-index:2}

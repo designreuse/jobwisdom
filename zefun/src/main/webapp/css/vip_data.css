@@ -13,7 +13,7 @@
 	margin:0 5px 0 10px;
 	transform:rotate(180deg);
 }
-.content_right>p>span{font-size:16px;cursor:pointer}
+.content_right>p>span{font-size:14px;cursor:pointer}
 .data_select{border:1px solid #898989;border-radius:12px;overflow:hidden;margin-top:10px}
 .data_select .data_select_content{height:25px;border-bottom:1px solid #898989;background:#d8deed;padding:10px 0 }
 .data_select .data_select_content:last-child{border-bottom:none}

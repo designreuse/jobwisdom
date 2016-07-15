@@ -4,12 +4,10 @@
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/water_search.css" type="text/css" />
-<<style>
-.water_search_top_content ul li .active{
-	color:#e41d1d
-}
-</style>
+
  <style>
+     .search_table_ tr:last-child td{border-bottom:none}
+     .water_search_top_content ul li .active{color:#e41d1d}
 	 .zzc {
 		font-size: 12px;
 		color: black;
@@ -163,11 +161,11 @@
 		<div class="search_table_content"> 
 		 <table class="search_table">
 	   <tr>
-	     <td>水单号</td>
-		 <td>顾客</td>
+	     <td width="100">水单号</td>
+		 <td width='100'>顾客</td>
 		 <td>消费时间</td>
 		 <td colspan="2">总消费金额</td>
-		 <td>消费项目</td>
+		 <td width="141">消费项目</td>
 		 <td style="width:298px">服务者业绩（员工类型指定）</td>
 		 <td style="width:80px">操作</td>
 	   </tr>
@@ -212,9 +210,9 @@
 	     </td>
 		 <td style="width:140px" colspan="2">
 			 <c:forEach items="${daybook.orderDetailList}" var="orderDetailList"> 
-				   <table class="search_table_">
+				   <table class="search_table_" width='439'>
 					 <tr>
-					  <td rowspan="100" width="241">
+					  <td rowspan="100" width="141">
 						<p class="pay_item">${orderDetailList.projectName}</p><i class="pay_item" style="text-align: center;"><c:forEach items="${daybook.deptList}" var="deptList">(${deptList.deptName})</c:forEach></i>
 					  </td>
 					  </tr>
