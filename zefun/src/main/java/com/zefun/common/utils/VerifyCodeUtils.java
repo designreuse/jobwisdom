@@ -7,14 +7,15 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 /**
  * 验证码工具类
 * @author 老王
@@ -56,70 +57,30 @@ public class VerifyCodeUtils{
 	}
 	
 	/**
-	 * 生成随机验证码文件,并返回验证码值
-	 * @param w
-	 * @param h
-	 * @param outputFile
-	 * @param verifySize
-	 * @return
-	 * @throws IOException
-	 */
-	public static String outputVerifyImage(int w, int h, File outputFile, int verifySize) throws IOException{
-		String verifyCode = generateVerifyCode(verifySize);
-		outputImage(w, h, outputFile, verifyCode);
-		return verifyCode;
-	}
-	
-	/**
 	 * 输出随机验证码图片流,并返回验证码值
-	 * @param w
-	 * @param h
-	 * @param os
-	 * @param verifySize
-	 * @return
-	 * @throws IOException
+	 * @param w w
+	 * @param h h
+	 * @param req req
+	 * @param resp resp
+	 * @param verifySize verifySize
+	 * @return String
+	 * @throws IOException IOException
 	 */
-	public static String outputVerifyImage(int w, int h, OutputStream os, int verifySize) throws IOException{
+	public static String outputVerifyImage(int w, int h, HttpServletRequest req, HttpServletResponse resp, int verifySize) throws IOException{
 		String verifyCode = generateVerifyCode(verifySize);
-		outputImage(w, h, os, verifyCode);
+		outputImage(w, h, req, resp, verifyCode);
 		return verifyCode;
 	}
-	
-	/**
-	 * 生成指定验证码图像文件
-	 * @param w
-	 * @param h
-	 * @param outputFile
-	 * @param code
-	 * @throws IOException
-	 */
-	public static void outputImage(int w, int h, File outputFile, String code) throws IOException{
-		if(outputFile == null){
-			return;
-		}
-		File dir = outputFile.getParentFile();
-		if(!dir.exists()){
-			dir.mkdirs();
-		}
-		try{
-			outputFile.createNewFile();
-			FileOutputStream fos = new FileOutputStream(outputFile);
-			outputImage(w, h, fos, code);
-			fos.close();
-		} catch(IOException e){
-			throw e;
-		}
-	}
-	
 	/**
 	 * 输出指定验证码图片流
 	 * @param w w
 	 * @param h h
-	 * @param os os
+	 * @param req req
+	 * @param resp resp
 	 * @param code code
 	 * @throws IOException IOException
 	 */
-	public static void outputImage(int w, int h, OutputStream os, String code) throws IOException{
+	public static void outputImage(int w, int h, HttpServletRequest req, HttpServletResponse resp, String code) throws IOException{
 		int verifySize = code.length();
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 		Random rand = new Random();
@@ -182,20 +143,50 @@ public class VerifyCodeUtils{
 		}
 		
 		g2.dispose();
-		ImageIO.write(image, "jpg", os);
+		
+		HttpSession session = req.getSession();
+	    session.setAttribute("yzmCode", code);
+		
+	    // 禁止图像缓存。
+	    resp.setHeader("Pragma", "no-cache");
+	    resp.setHeader("Cache-Control", "no-cache");
+	    resp.setDateHeader("Expires", 0);
+
+	    resp.setContentType("image/jpeg");
+
+	    // 将图像输出到Servlet输出流中。
+	    ServletOutputStream sos = resp.getOutputStream();
+	    ImageIO.write(image, "jpeg", sos);
+	    sos.close();
 	}
 	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年7月15日 下午4:55:38 
+	* @param fc fc
+	* @param bc bc
+	* @return Color
+	 */
 	private static Color getRandColor(int fc, int bc) {
-		if (fc > 255)
+		if (fc > 255) {
 			fc = 255;
-		if (bc > 255)
+		}
+		if (bc > 255) {
 			bc = 255;
+		}
 		int r = fc + random.nextInt(bc - fc);
 		int g = fc + random.nextInt(bc - fc);
 		int b = fc + random.nextInt(bc - fc);
 		return new Color(r, g, b);
 	}
 	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年7月15日 下午4:55:31 
+	* @return int
+	 */
 	private static int getRandomIntColor() {
 		int[] rgb = getRandomRgb();
 		int color = 0;
@@ -206,6 +197,12 @@ public class VerifyCodeUtils{
 		return color;
 	}
 	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年7月15日 下午4:55:21 
+	* @return int[]
+	 */
 	private static int[] getRandomRgb() {
 		int[] rgb = new int[3];
 		for (int i = 0; i < 3; i++) {
@@ -214,11 +211,29 @@ public class VerifyCodeUtils{
 		return rgb;
 	}
 
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年7月15日 下午4:55:08 
+	* @param g g
+	* @param w1 w1
+	* @param h1 h1
+	* @param color color
+	 */
 	private static void shear(Graphics g, int w1, int h1, Color color) {
 		shearX(g, w1, h1, color);
 		shearY(g, w1, h1, color);
 	}
 	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年7月15日 下午4:54:56 
+	* @param g g
+	* @param w1 w1
+	* @param h1 h1
+	* @param color color
+	 */
 	private static void shearX(Graphics g, int w1, int h1, Color color) {
 
 		int period = random.nextInt(2);
@@ -229,7 +244,7 @@ public class VerifyCodeUtils{
 
 		for (int i = 0; i < h1; i++) {
 			double d = (period >> 1)
-					* Math.sin((double) i / (double) period
+					  * Math.sin((double) i / (double) period
 							+ (6.2831853071795862D * phase)
 							/ frames);
 			g.copyArea(0, i, w1, 1, (int) d, 0);
@@ -242,6 +257,15 @@ public class VerifyCodeUtils{
 
 	}
 
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年7月15日 下午4:54:20 
+	* @param g g
+	* @param w1 w1
+	* @param h1 h1
+	* @param color color
+	 */
 	private static void shearY(Graphics g, int w1, int h1, Color color) {
 
 		int period = random.nextInt(40) + 10; // 50;
@@ -251,7 +275,7 @@ public class VerifyCodeUtils{
 		int phase = 7;
 		for (int i = 0; i < w1; i++) {
 			double d = (period >> 1)
-					* Math.sin((double) i / (double) period
+					  * Math.sin((double) i / (double) period
 							+ (6.2831853071795862D * phase)
 							/ frames);
 			g.copyArea(i, 0, 1, h1, 0, (int) d);
@@ -264,14 +288,12 @@ public class VerifyCodeUtils{
 		}
 
 	}
-	public static void main(String[] args) throws IOException{
+	/*public static void main(String[] args) throws IOException{
 		File dir = new File("F:/verifies");
 		int w = 71; 
 		int h = 35;
-		for (int i = 0; i < 50; i++){
-			String verifyCode = generateVerifyCode(4);
-			File file = new File(dir, verifyCode + ".jpg");
-			outputImage(w, h, file, verifyCode);
-		}
-	}
+		String verifyCode = generateVerifyCode(4);
+		File file = new File(dir, verifyCode + ".jpg");
+		outputImage(w, h, file, verifyCode);
+	}*/
 }
