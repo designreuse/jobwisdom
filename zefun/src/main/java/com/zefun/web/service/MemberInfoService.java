@@ -838,6 +838,9 @@ public class MemberInfoService {
         for (Map<String, Object> membermap : mapList) {
 			Integer detailId = Integer.valueOf(membermap.get("detailId").toString());
 			Integer projectId = Integer.valueOf(membermap.get("projectId").toString());
+	
+			
+			
 			Integer storeId = Integer.valueOf(membermap.get("storeId").toString());
 			Integer orderType = Integer.valueOf(membermap.get("orderType").toString());
 			

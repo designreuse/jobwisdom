@@ -365,4 +365,7 @@
     from member_account a where 
     exists(select 1 from member_info b where b.member_id = a.account_id and b.store_id = #{storeId, jdbcType=INTEGER} and b.is_deleted = 0)
   </select>
+  
+  
+
 </mapper>
