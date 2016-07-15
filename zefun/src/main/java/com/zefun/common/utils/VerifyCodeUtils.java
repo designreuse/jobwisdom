@@ -119,14 +119,14 @@ public class VerifyCodeUtils{
 		
 		// 添加噪点
 		float yawpRate = 0.05f;
-		// 噪声率
+		/*// 噪声率
 		int area = (int) (yawpRate * w * h);
 		for (int i = 0; i < area; i++) {
 			int x = random.nextInt(w);
 			int y = random.nextInt(h);
 			int rgb = getRandomIntColor();
 			image.setRGB(x, y, rgb);
-		}
+		}*/
 		// 使图片扭曲
 		shear(g2, w, h, c);
 
