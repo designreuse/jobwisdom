@@ -34,7 +34,7 @@
 </head>
 <body>
 <div class="con"> 
-	  <div class="time_rank clearfix">
+	    <div class="time_rank clearfix">
 	      <ul class="clearfix"> 
 		   <li <c:if test="${chooseType == 1 }">class="active"</c:if> onclick="changeShow(this, 1)">日排行</li>
 		   <li <c:if test="${chooseType == 2 }">class="active"</c:if> onclick="changeShow(this, 2)">周排行</li>

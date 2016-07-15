@@ -621,7 +621,7 @@
   </sql>
 
   <select id="selectByPage" resultMap="DayBookResultMap" parameterType="com.zefun.web.entity.Page">
-    select distinct oi.order_id, oi.member_id, oi.sex, oi.order_code, ifnull(oi.discount_amount, 0) as discount_amount,
+    select oi.order_id, oi.member_id, oi.sex, oi.order_code, ifnull(oi.discount_amount, 0) as discount_amount,
       ifnull(oi.gift_amount, 0) as gift_amount, ifnull(oi.cash_amount, 0) as cash_amount,
       ifnull(oi.unionpay_amount, 0) as unionpay_amount, ifnull(oi.card_amount, 0) as card_amount,
       ifnull(oi.wechat_amount, 0) as wechat_amount, ifnull(oi.alipay_amount, 0) as alipay_amount,
@@ -700,6 +700,7 @@
 		        <if test="params.daybook.endTime != null">
 		           and oi.create_time &lt;= #{params.daybook.endTime}
 		        </if>
+		        group by oi.order_id
 			      <choose>
 			      	<when test="params.daybook.timeOrder == 1">
 			      		order by oi.create_time asc
