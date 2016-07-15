@@ -25,7 +25,7 @@
 .search_table{width:1020px;text-align:center;border:1px solid black;border-radius:8px;}
 .search_table td{height:44px;vertical-align:middle;border:1px solid #cccccd;}
 .search_table td button{width:50px;height:20px;text-align:center;line-height:20px;border:none;border-radius:12px;color:white;background:#59688a}
-.search_table_content{border:1px solid black;border-radius:12px;margin-top:16px;;width:1020px;overflow:hidden;height:495px}
+.search_table_content{border:1px solid black;border-radius:12px;margin-top:16px;;width:1020px;overflow-y:overlay;height:600px;overflow-x:hidden}
 .search_table tr:nth-child(1){
 	background:#ebeff8
 }
@@ -43,7 +43,7 @@
 .server_achievement span{padding:4px;display:inline-block;border-right:1px solid #cccccd}
 .server_achievement span a{position:absolute;right:4px;top:1px}
 .search_table td button:hover{background:#495878}
-
+.order_style_content_right>li>span:nth-child(1){width:60px}
 .zzc,.zzc1{    position: fixed;
     top: 0px;
     height: 1090px;
@@ -68,3 +68,11 @@
 .td_table tr:nth-child(1){font-weight:normal}
 .td_table em{color:#5e9be0}
 .td_table i{color:#f49549}
+
+
+.search_table_{width:540px}
+.search_table_  tr:nth-child(1){background:white;}
+.search_table_  tr td{border-left:none;border-top:none}
+.search_table_ p{text-align:center;color:#5e9be0;}
+.search_table_  em{color: #5e9be0;}
+.search_table_  i{color: #f49549;}
