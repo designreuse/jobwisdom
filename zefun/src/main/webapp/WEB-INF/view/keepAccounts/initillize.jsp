@@ -14,6 +14,8 @@
 	margin-left: 8px;
 	border: 1px solid black;
 }
+.zzc_add_income_content_left1 span{position:relative;}
+.zzc_add_income_content_left1 .addcolor{position:absolute;}
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js"
 	type="text/javascript"></script>
@@ -136,7 +138,7 @@
 								<option value="${deptInfo.deptId }">${deptInfo.deptName }</option>
 							</c:forEach>
 					</select></span> <span><em style="position: relative; left: 20px">金额</em> <input
-						id="price1" value=" " type="Number"></span>
+						id="price1" value=" " type="Number"><i  class = "addcolor">*</i></span>
 				</div>
 				<p style="margin-top: 10px">
 					<em style="margin-right: 10px">收支类型</em> <select id="shouzhi1"
@@ -226,7 +228,7 @@
 								<option value="${deptInfo.deptId }">${deptInfo.deptName }</option>
 							</c:forEach>
 					</select></span> <span><em style="position: relative; left: 20px">金额</em> <input
-						id="price2" value=" " type="Number"></span>
+						id="price2" value=" " type="Number"> <i  class = "addcolor" >*</i></span>
 				</div>
 				<p style="margin-top: 10px">
 					<em style="margin-right: 10px">收支类型</em> <select id="shouzhi2"
