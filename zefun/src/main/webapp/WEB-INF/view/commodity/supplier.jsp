@@ -82,9 +82,9 @@
 	  <div class="add_supplier_alert">
 	     <p>添加供应商</p>
 	     <div class="add_supplier_alert_content">
-		   <p><em>供应商名称</em><input type="hidden" name="supplierId"><input type="text" name="supplierName"></p>
-		   <p><em>地址</em><input type="text" style="width:200px" name="linkName"></p>
-		   <p><em>联系方式</em><textarea style="border:1px solid black;width:212px;height:50px;border-radius:8px" name="linkPhone"></textarea></p>
+		   <p><em>供应商名称</em><input type="hidden" name="supplierId"><input type="text" name="supplierName"><i  class = "addcolor">*</i></p>
+		   <p><em>地址</em><input type="text" style="width:200px" name="linkName"><i  class = "addcolor">*</i></p>
+		   <p><em>联系方式</em><textarea style="border:1px solid black;width:212px;height:50px;border-radius:8px" name="linkPhone"></textarea><i  class = "addcolor">*</i></p>
 		 
 		  <div class="add_supplier_alert_sure">
 		    <button onclick="saveSupper()">确认</button>  

@@ -11,6 +11,20 @@
 .emploee_right_ul{margin-left:0}
 ::-webkit-scrollbar{height:8px}
 .drag_content{height:600px}
+.open_state {
+    position: absolute;
+    top: 134px;
+    right: 10px;}
+    
+    .open_state em {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 5px;
+    position: relative;
+    top: 3px;
+}
+.open_state span{display:inline-block;margin-right:8px}                                                                                                                                                                        
 </style>
 <body>
 
@@ -20,7 +34,7 @@
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
 			<div class='content_right clearfix'>
-			     <div class="emploee_head clearfix">
+			     <div class="emploee_head clearfix" style="position:relative">
 			      <div style="overflow:hidden;margin-right:-30px" class="clearfix">	   	
 				    <div class="emploee_right">
 					   <ul class="emploee_right_ul clearfix">
@@ -28,6 +42,12 @@
 					   </ul>
 				    </div>
 				</div>	
+			 <div class="open_state">
+			   <span><em style="background:#21d9db"></em>空闲</span>
+			   <span><em style="background:#e11e23"></em>工作</span>
+			   <span><em style="background:#e7a3ef"></em>点客</span>
+			   <span><em style="background:#eede9f"></em>暂休</span>
+			 </div>
 					<div class="adjust"><span class="adjust_"><img src="<%=basePath%>images/adjust.png">调整轮牌</span><span class="adjust_button"><button class="save1" onclick="saveUpdateOrder()">保存</button><button onclick = "caltUpdate()">取消</button></span><em class="adjust_text">点击按钮，然后拖动任务卡片，即可调整排序～</em></div>
 				<div class="drag_content">	
 				

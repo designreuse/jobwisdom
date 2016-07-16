@@ -357,6 +357,8 @@ public interface View {
 		public static final String INDIVIDUAL_PERFORMANCE = "mobile/staff/individualPerformance";
 		/** 员工我的考勤 by DavidLiang */
 		public static final String MY_ATTENDANCE = "mobile/staff/myAttendance";
+		/** 员工在线学习资料*/
+        public static final String STUDENT_VIEW = "mobile/staff/student";
 	}
 
 	/**

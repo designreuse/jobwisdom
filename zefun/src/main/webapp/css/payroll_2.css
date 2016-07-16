@@ -41,7 +41,8 @@
 .head_img{float:left}
 i,em{font-style:normal}
 .information{width:660px;float:left;margin-left:20px}
-.information span{display:inline-block;margin-right:17px}
+.information span{display:inline-block;margin-right:17px;position:relative}
+.information span i{position:absolute;}
 .information input[type='text']{height:16px;width:130px;border:1px solid black;border-radius:12px}
 .information input[type='checkbox']{height:16px;width:16px;border:1px solid black;border-radius:}
 .information select{height:18px;width:130px;border:1px solid black;border-radius:12px}

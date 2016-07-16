@@ -228,19 +228,19 @@
 		<div class="set_name">
 		 <div class="shop_name_">
 		      <p>设置门店名称</p>
-		      <input type="text" id="storeName">
+		      <input type="text" id="storeName"><i  class = "addcolor">*</i>
 	     </div>
 	      <div class="shop_name_">
 		      <p>设置店铺电话(多个以,号分割)</p>
-		      <input type="text" id="storeTel">
+		      <input type="text" id="storeTel"><i  class = "addcolor">*</i>
 	     </div>
 		  <div class="shop_name_">
 		      <p>门店负责人姓名</p>
-		      <input type="text" id="storeLinkname">
+		      <input type="text" id="storeLinkname"><i  class = "addcolor">*</i>
 	     </div>
 		  <div class="shop_name_">
 		      <p>门店负责人电话</p>
-		      <input type="text" id="storeLinkphone">
+		      <input type="text" id="storeLinkphone"><i  class = "addcolor">*</i>
 	     </div>
 	   
 	    </div>
@@ -250,7 +250,7 @@
 	     <P class="shop_address_">店铺地址</P>   
 <!-- 	    	  <input input id="city-picker3" class="form-control" readonly type="text" value="" data-toggle="city-picker"> -->
 		 <div class="select_city">
-		     <input  id="city-picker3" class="form-control"  readonly type="text" value="" data-toggle="city-picker">
+		     <input  id="city-picker3" class="form-control"  readonly type="text" value="" data-toggle="city-picker"><i  class = "addcolor" style="position:absolute;right:-60px">*</i>
 		     
 		     <div class="detail_address">
 			   <div>详细地址</div>
