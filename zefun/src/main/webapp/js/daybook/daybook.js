@@ -199,32 +199,32 @@ function spellTableData(data) {
 				projectName = "充值开卡";
 			}
 			 
-			str += '<td><i>' + data.createTime + '</i><img onclick="WdatePicker({el:\'d12\',dateFmt:\'yyyy-MM-dd HH:mm:ss\',onpicked:pickedFunc})" src="'+ baseUrl +'images/coupon_write.png"> <input type="text" class="hidden" id="d12" "></td>'
-				+ '<td>合计 <em>' + data.realAmount+ '</em></td>'
-				+ '<td>' + data.realPrice + '</td>'
+			str += '<td><i>' + data.createTime + '</i><img onclick="WdatePicker({el:\'d12\',dateFmt:\'yyyy-MM-dd HH:mm:ss\',onpicked:pickedFunc})" src="'+ baseUrl +'images/coupon_write.png"> <input type="text" class="hidden" style="width: 0px" id="d12" "></td>'
+				+ '<td>合计 <em>' + new Big(data.realAmount).toFixed(2)+ '</em></td>'
+				/*+ '<td>' + data.realPrice + '</td>'*/
 				+ '<td>';
 			if (data.cashAmount == 0 && data.unionpayAmount == 0 && data.wechatAmount == 0 && data.alipayAmount == 0 && data.cardAmount == 0) {
-				str += 0.00;
+				str += new Big(0).toFixed(2);
 			} 
 			if (data.cashAmount != 0) {
-				str += '<p>'+data.cashAmount+'<em style="color:red">现金</em></p>';
+				str += '<p>'+new Big(data.cashAmount).toFixed(2)+'<em style="color:red">现金</em></p>';
 			} 
 			if (data.unionpayAmount != 0){
-				str += '<p>'+data.unionpayAmount+'<em style="color:blue">银联</em></p>';
+				str += '<p>'+new Big(data.unionpayAmount).toFixed(2)+'<em style="color:blue">银联</em></p>';
 			}
 			if (data.wechatAmount != 0){
-				str += '<p>'+data.wechatAmount+'<em style="color:#59688a">微信</em></p>';
+				str += '<p>'+new Big(data.wechatAmount).toFixed(2)+'<em style="color:#59688a">微信</em></p>';
 			}
 			if (data.alipayAmount != 0){
-				str += '<p>'+data.alipayAmount+'<em style="color:green">支付宝</em></p>';
+				str += '<p>'+new Big(data.alipayAmount).toFixed(2)+'<em style="color:green">支付宝</em></p>';
 			}
 			if (data.cardAmount != 0){
-				str += '<p>'+data.cardAmount+'<em style="color:pink">卡金</em></p>';
+				str += '<p>'+new Big(data.cardAmount).toFixed(2)+'<em style="color:pink">卡金</em></p>';
 			}
 			str += '</td><td style="width:140px" colspan="2">';
 			for(var i =0 ; i< data.orderDetailList.length ;i++){
 					var orderDetailList = data.orderDetailList[i];
-					str += '<table class="search_table_"><tr><td rowspan="100" width="241"><p class="pay_item">'+orderDetailList.projectName+'</p><i class="pay_item" style="text-align: center;">';
+					str += '<table class="search_table_"  width="439"><tr><td rowspan="100" width="141"><p class="pay_item">'+orderDetailList.projectName+'</p><i class="pay_item" style="text-align: center;">';
 				for(var s = 0 ; s< data.deptList.length; s++){
 				    var deptList =  data.deptList[s];
 					str += '('+deptList.deptName+')';
@@ -239,7 +239,7 @@ function spellTableData(data) {
 				   if(orderDetailList.isAssign == 0){
 					str += ' <i>(未指定)</i>+';
 				   }
-				   str += '</span><span>业绩:<em>'+commissionList.commissionCalculate +'</em></span> <span style="border-right:none">提成:<em>'+commissionList.commissionAmount +' </em></span> </td> </tr>';
+				   str += '</span><span>业绩:<em>'+new Big(commissionList.commissionCalculate).toFixed(2) +'</em></span> <span style="border-right:none">提成:<em>'+new Big(commissionList.commissionAmount).toFixed(2) +' </em></span> </td> </tr>';
 				}
 			str += '</table>';
 			}

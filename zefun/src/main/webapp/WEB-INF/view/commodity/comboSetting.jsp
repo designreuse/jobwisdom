@@ -241,7 +241,7 @@
 									</div>
 									<div class="add_store_content_1_right">
 										<p>
-											<em>疗程编号</em><span><input  type="text" disabled=""></span><input type="text" name="comboCodeSuffix">
+											<em>疗程编号</em><!-- <span><input  type="text" disabled=""></span> --><input type="text" name="comboCodeSuffix">
 										</p>
 									</div>
 								</div>

@@ -592,10 +592,10 @@ public class SelfCashierService {
 			sendFirstConsumeRewardForSharer(recommenderId, orderSubmit.getOrderId(), memberInfo);
 		}
 
-		rabbitService.sendCashierOrderComission(orderId);
-		for (SelfCashierDetailDto detail : ownerDetailList) {
+		/*rabbitService.sendCashierOrderComission(orderId);*/
+		/*for (SelfCashierDetailDto detail : ownerDetailList) {
 			rabbitService.sendCashierUpdateOrderCommission(detail.getDetailId());
-		}
+		}*/
 
 		// 当操作人为0，代表会员自助结账，否则为前台结账，前台结账，向会员发送结账提醒
 		if (memberInfo != null && orderSubmit.getIsNotify() == 1 && employeeId != 0 && cashierDto.getOrderStatus() != 5) {

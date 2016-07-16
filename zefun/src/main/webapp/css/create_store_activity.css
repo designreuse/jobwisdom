@@ -58,7 +58,7 @@ background-size: cover;}
 .join_store{padding:10px 0;overflow:hidden;border-bottom:1px solid #dbdbdb}
 .join_store li{float:left;margin-right:55px;margin-top:8px;margin-bottom:2px}
 .join_store ul{margin-right:-70px;margin-left:75px}
-.join_store li button{width:100px;height:22px;text-align:center;color:white;font-size:16px;line-height:22px;border:none;border-radius:12px;background:#596788}
+.join_store li button{width:50px;height:22px;text-align:center;color:white;font-size:16px;line-height:22px;border:none;border-radius:12px;background:#596788}
 .join_store li button:hover{background:#414e6d}
 
 .textarea_content_{    padding: 12px 0;

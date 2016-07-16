@@ -182,7 +182,7 @@
 					 </div>
 					 <div class="add_store_content">
 					   <div class="add_store_content_ clearfix">
-					     <div class="add_store_button"> <button onclick = "msnRecharge()">充值</button> <button  onclick="rechargeFlow()">充值记录</button></div>
+					     <div class="add_store_button"> <button onclick = "msnRecharge()">购买短信</button> <button  onclick="rechargeFlow()">购买分配记录</button></div>
 						  <div class="add_store_span_1">可分配短信信息：<span name = "msnNumSpan" >${enterpriseAccount.balanceMsnNum }</span></div>
 				       </div> 
 				         <div class="distribution clearfix">
@@ -296,7 +296,7 @@
 	
 <div class="zzc2" style="display:none" name = "modelDiv" id = "msnRechargeDIV">
     <div class="add_balance" style="height:475px">
-	  <p>短信充值</p>
+	  <p>购买短信</p>
 	  <div class="add_balance_content" style="margin:20px auto;height:290px;overflow:visible">
 	    <p>账户余额(元)：<em name = "balanceAmountEM"></em></p>
 	    <p>剩余短信（条）：<em id = "balanceMsnNumEM"></em></p>
@@ -324,7 +324,7 @@
 
 <div class="zzc3" style="display:none" name = "modelDiv" id = "rechargeFlow">
   <div class="assigned">
-     <p>充值分配记录</p>
+     <p>购买分配记录</p>
      <div class="assigned_table">
          <table id = "rechargeFlowTable">
              <tr>

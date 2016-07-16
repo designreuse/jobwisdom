@@ -227,21 +227,21 @@
 			return;
 		}
 		if (isEmpty(couponName)) {
-			dialog("优惠卷名称不能为空");
+			dialog("优惠券名称不能为空");
 			return;
 		}
 		if (isEmpty(couponPrice)) {
-			dialog("优惠卷面额不能为空");
+			dialog("优惠券面额不能为空");
 			return;
 		}
 		if (isEmpty(couponNumber)) {
-			dialog("优惠卷发行不能为空");
+			dialog("优惠券发行不能为空");
 			return;
 		}
-		if (isEmpty(couponMan)) {
-			dialog("优惠卷限领不能为空");
+		/* if (isEmpty(couponMan)) {
+			dialog("优惠券限领不能为空");
 			return;
-		}
+		} */
 		if (isEmpty(releaseTime)) {
 			dialog("开始时间不能为空");
 			return;
@@ -264,7 +264,7 @@
 			priceSigle=0;
 		}else{
 			if (isEmpty(priceSigle)) {
-				dialog("优惠卷单笔满足多少元不能为空");
+				dialog("优惠券单笔满足多少元不能为空");
 				return;
 			}
 		}
@@ -296,7 +296,7 @@
 		});
 		
 		if(timenum==0){
-			if(confirm('开始时间为今天，是否确认优惠卷'))
+			if(confirm('开始时间为今天，是否确认优惠券'))
 			{ 
 				saveDate(datad);
 		 	}
@@ -381,7 +381,7 @@
 					dialog("新增成功");
 				}
 				else{
-					dialog("请在优惠卷结束，有效期过后修改");
+					dialog("请在优惠券结束，有效期过后修改");
 				}
 			}
 		});

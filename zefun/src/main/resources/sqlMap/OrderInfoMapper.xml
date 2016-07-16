@@ -630,22 +630,22 @@
       ifnull(oi.group_amount, 0) as group_amount, ifnull(oi.real_amount, 0) as real_amount,
       DATE_FORMAT(oi.create_time,'%Y-%m-%d %H:%i') as create_time
       from order_info oi
-	  left join order_detail od on oi.order_id = od.order_id
-	  left join employee_commission ec on od.detail_id = ec.detail_id
       <where>
         oi.store_id = #{params.daybook.storeId} and (oi.order_status = 3 or oi.order_status = 4) 
 		      	<if test="params.daybook.queryCode != null and params.daybook.queryCode != ''">
 		      		and (oi.order_code = #{params.daybook.queryCode} 
 		      			 or oi.member_id = (select member_id from member_info where store_id = #{params.daybook.storeId} and phone = #{params.daybook.queryCode} and is_deleted = 0)
-		      			 or exists(select 1 from employee_info ei 
+		      			 or exists(select 1 from employee_info ei, order_detail od 
+	  						left join employee_commission ec on od.detail_id = ec.detail_id
 		      				where ei.employee_code=#{params.daybook.queryCode} 
 		      				and ei.store_id = #{params.daybook.storeId} 
+		      				and oi.order_id = od.order_id  
 		      				and ei.is_deleted = 0 
 		      				and ei.employee_id = ec.employee_id)
 		            )
 		      	</if>
 		      	<if test="params.daybook.orderType != null and params.daybook.orderType != '' and params.daybook.orderType != 0">
-		      		 and od.order_type = #{params.daybook.orderType} 
+		      		 and exists(select 1 from order_detail od where oi.order_id = od.order_id and od.order_type = #{params.daybook.orderType})
 		      	</if>
 		      	<if test="params.daybook.moneyWay != null and params.daybook.moneyWay != '' and params.daybook.moneyWay != 0">
 		      		 <choose>
@@ -692,7 +692,7 @@
 			      </choose>
 		        </if>
 		        <if test="params.daybook.deptId != null and params.daybook.deptId != '' and params.daybook.deptId != 0">
-		            and od.dept_id = #{params.daybook.deptId}
+		            and exists(select 1 from order_detail od where oi.order_id = od.order_id and od.dept_id = #{params.daybook.deptId})
 		        </if>
 	      		<if test="params.daybook.beginTime != null">
 		           and oi.create_time &gt;= #{params.daybook.beginTime}
@@ -700,7 +700,6 @@
 		        <if test="params.daybook.endTime != null">
 		           and oi.create_time &lt;= #{params.daybook.endTime}
 		        </if>
-		        group by oi.order_id
 			      <choose>
 			      	<when test="params.daybook.timeOrder == 1">
 			      		order by oi.create_time asc
@@ -817,23 +816,22 @@
      ifnull(sum(oi.debt_amount), 0) as debtAmount,
      count(1) as count
      from order_info oi
-     left join order_detail od on oi.order_id = od.order_id 
-	 left join employee_commission ec on od.detail_id = ec.detail_id
      <where>
         oi.store_id = #{storeId} and (oi.order_status = 3 or oi.order_status = 4) 
 		      	<if test="queryCode != null and queryCode != ''">
 		      		and (oi.order_code = #{queryCode} 
 		      			or oi.member_id = (select member_id from member_info 
 		      				where store_id = #{storeId} and phone = #{queryCode} and is_deleted = 0)
-		      				or exists(select 1 from employee_info ei 
-		      				where ei.employee_code=#{queryCode} 
+		      				or exists(select 1 from employee_info ei, order_detail od 
+	 						left join employee_commission ec on od.detail_id = ec.detail_id
+		      				where ei.employee_code=#{queryCode} and oi.order_id = od.order_id  
 		      				and ei.store_id = #{storeId} 
 		      				and ei.is_deleted = 0 
 		      				and ei.employee_id = ec.employee_id)
 		            )
 		      	</if>
 		      	<if test="orderType != null and orderType != '' and orderType != 0">
-		      		 and od.order_type = #{orderType} 
+		      		 and exists(select 1 from order_detail od where oi.order_id = od.order_id and od.order_type = #{orderType})
 		      	</if>
 		      	<if test="moneyWay != null and moneyWay != '' and moneyWay != 0">
 		      		 <choose>
@@ -880,7 +878,7 @@
 			      </choose>
 		        </if>
 		        <if test="deptId != null and deptId != '' and deptId != 0">
-		            and od.dept_id = #{deptId}
+		            and exists(select 1 from order_detail od where oi.order_id = od.order_id and od.dept_id = #{deptId})
 		        </if>
 	      		<if test="beginTime != null">
 		           and oi.create_time &gt;= #{beginTime}
