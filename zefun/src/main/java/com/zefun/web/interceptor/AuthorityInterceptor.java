@@ -139,8 +139,9 @@ public class AuthorityInterceptor implements HandlerInterceptor {
         allowUrlPatterns.add("/agentapply/*.*");
         allowUrlPatterns.add("/agentdetail/*.*");
         allowUrlPatterns.add("/wechat/common/*.*");
-        allowUrlPatterns.add("/salesman/*.*");                  //业务员模块
-        allowUrlPatterns.add("/agentFollow/*.*");               //渠道跟踪记录
+        allowUrlPatterns.add("/salesman/*.*");                   //业务员模块
+        allowUrlPatterns.add("/agentFollow/*.*");                //渠道跟踪记录
+        allowUrlPatterns.add("/enterprise/view/showEnterprise"); //企业新增 
         logger.info("拦截器生成匹配规则, " + JSONArray.fromObject(allowUrlPatterns).toString());
     }
 }
