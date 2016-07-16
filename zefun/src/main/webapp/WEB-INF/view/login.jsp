@@ -125,8 +125,8 @@ body {
     <!--登录-->
     <div class="login" >
 	   <div class="login_header">
-	      <span class="login_">登陆</span>
-	      <span class="register_">注册</span>
+	      <span class="login_">登录</span>
+	      <!-- <span class="register_">注册</span> -->
 	   </div>
 	   <p class="login_logo"><img src="<%=basePath %>images/login_logo.png"></p>
 	   
@@ -141,7 +141,7 @@ body {
 		   
 		   
 		   <div class="remember_password"><input type="checkbox" id = "rmbUser"><span class="remember_password_">记住密码</span><a href="javascript:;" style="color:#5258d8;display:inline-block;margin-left:95px;text-decoration:underline">忘记密码</a></div>
-		   <input type="button" name = "loginButton" value="登陆" class="login_1"/>
+		   <input type="button" name = "loginButton" value="登录" class="login_1"/>
 		   <div class="login_bottom">
 		     <span><img src="<%=basePath%>images/login_bottom1.png"></span>
 		     <span><img src="<%=basePath%>images/login_bottom2.png"></span>
