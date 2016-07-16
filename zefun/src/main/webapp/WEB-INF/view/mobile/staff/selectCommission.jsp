@@ -9,9 +9,16 @@
     <meta content="telephone=no" name="format-detection" />
     <title>我的提成</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/shop.css">
+    <link rel="stylesheet" href="<%=swiperCssPath%>"/>
     <link rel="stylesheet" href="<%=muiCssPath%>"/>
+    <link rel="stylesheet" href="<%=employeeCssPath%>"/>
     <style>
-	    .tc-table{
+    .current-select-date{font-size:10px}
+    .content{background:white}
+    .mt2{margin-top:0!important}
+    .current-select-date{width:7.5rem;position:relative;left:1.4rem}
+    .tc-table-wrap{padding-top:0!important}
+       .tc-table{
 	        width: 100%;
 	        margin: 2rem auto;
 	        border: 1px solid #ccc;
@@ -96,7 +103,8 @@
 	    .chart-wrap {
 	        background-color: #fff;
 	    }
-	    
+    
+    
 	    .time_rank ul{height:3rem;width:48%}
 		 .time_rank li{height:3rem;line-height:3rem;width:48%}
 		 .time_rank{height:5rem;line-height:5rem;position:relative}
@@ -119,10 +127,10 @@
 	</style>
 </head>
 <body>
-<%-- <div class="wrap">
+<div class="wrap">
 <div class="content">
     <div class="yg-wodeticheng">
-	    <div class="select-day tab">
+	    <%-- <div class="select-day tab">
 	        <div class="swiper-wrapper">
 	            <div class="swiper-slide active score-shop-li" onclick="changeTab(this, 1)">
 	                <img src="<%=basePath%>images/mobile/employee/active-new.png" alt="" class=""/>
@@ -137,22 +145,21 @@
 	                </div>
 	            </div>
 	        </div>
-	    </div>
-	    
-	     <div class="day tab-control">
-		      <div class="tc-table-wrap">
-		          <div class="yg-data">
-		              <div class="date fr" id="selectTime">
-		
+	    </div> --%>
+	    <div class="time_rank clearfix">
+	      <ul class="clearfix"> 
+			   <li class="active" onclick="changeTab(this, 1)">按日查询</li>
+			   <li onclick="changeTab(this, 2)">按月查询</li>
+          </ul>
+          <div class="date fr" id="selectTime">
 		                  <div class="current-select-date">
 		                      ${nowDay}
 		                  </div>
-		                  <div class="date-btn">
-		                      <span class="iconfont icon-zhankai"></span>
-		                  </div>
 		              </div>
-		          </div>
-		
+    	</div>
+	    
+	     <div class="day tab-control">
+		      <div class="tc-table-wrap">
 		          <div class="chart-wrap mt2">
 		             <div>
 		                 <ul class="yg-tab">
@@ -260,107 +267,7 @@
 	</div>
     
 </div>    
-</div> --%>
-<div class="con"> 
-	   <div class="time_rank clearfix">
-	      <ul class="clearfix"> 
-		   <li class="active">按日查询</li>
-		   <li>按月查询</li>
-         </ul>
-         <div class="yg-data">
-             <div class="date fr" id="selectTime">
-
-                 <div class="current-select-date">
-                     ${nowDay}
-                 </div>
-             </div>
-         </div>	 
-    	</div>
-       <div class="percentage_content"> 
-		<!-- <ul class="clearfix percentage_content_ul">
-	       <li><span style="background:#e95c40">劳动提成</span></li>
-	       <li><span style="background:#63a9e4">商品提成</span></li>
-		   <li><span style="background:#61bf40">套餐提成</span></li>
-		   <li><span style="background:#eaa050">卡项提成</span></li>
-	    </ul> -->
-		  <div class="chart-wrap mt2">
-             <div>
-                 <ul class="yg-tab">
-                     <li class="current" data-target="one-day">业绩</li>
-                     <li data-target="two-day">提成</li>
-                 </ul>
-             </div>
-              <div id="one-day" style="width: 50%;height: 300px; margin: 0 auto"></div>
-              <!-- <div id="two-day" class="hide" style="width: 50%;height: 300px; margin: 0 auto"></div> -->
-          </div>
-		  <div class="percentage_content_data">
-		    <table cellpadding="0" cellspacing="0">
-			   <tr>
-	             <td colspan="3">123456789123</td>
-			   </tr>
-			   <tr>
-			     <td style="border-right:1px solid #c8c8c8;width:147px">洗剪吹哈哈哈<em class="cover">（套）</em></td>
-			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
-			   </tr>
-			</table>
-		  
-		   <table cellpadding="0" cellspacing="0">
-			   <tr>
-	             <td colspan="3">123456789123</td>
-			   </tr>
-			   <tr>
-			     <td style="border-right:1px solid #c8c8c8;width:147px" rowspan="3" >洗剪吹哈哈哈<em class="shop">（商）</em></td>
-			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
-			   </tr>
-			   <tr>  
-			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
-			   </tr>
-			    <tr>  
-			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
-			   </tr>
-			</table>
-		  
-		     <table cellpadding="0" cellspacing="0">
-			   <tr>
-	             <td colspan="3">123456789123</td>
-			   </tr>
-			   <tr>
-			     <td style="border-right:1px solid #c8c8c8;width:147px">充值<em class="card">（卡）</em></td>
-			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
-			   </tr>		   
-			</table>
-			<table>
-			  <tr>
-	             <td colspan="3">123456789123</td>
-			   </tr>
-			  <tr>
-			     <td style="border-right:1px solid #c8c8c8;width:147px">洗剪吹哈哈哈<em class="work">（劳）</em></td>
-			   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
-			   </tr>
-			</table>
-		  </div>
-		   <div class="percentage_content_data">
-		    <table cellpadding="0" cellspacing="0">
-			   <tr>
-	             <td colspan="3">123456789123</td>
-			   </tr>
-			   <tr>
-			     <td style="border-right:1px solid #c8c8c8;"><span><img src="images/score.png">业绩: 50</span></td>
-			   	 <td><span><img src="images/money.png">提成: 50</span></td>
-			   </tr>
-			</table>
-			 <table cellpadding="0" cellspacing="0">
-			   <tr>
-	             <td colspan="3">123456789123</td>
-			   </tr>
-			   <tr>
-			     <td style="border-right:1px solid #c8c8c8;"><span><img src="images/score.png">业绩: 50</span></td>
-			   	 <td><span><img src="images/money.png">提成: 50</span></td>
-			   </tr>
-			</table>
-		  </div>
-	   </div>   
-    </div>
+</div>
 <script type="text/javascript" src="<%=jqueryJsPath%>"></script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"></script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"></script>
@@ -489,31 +396,6 @@ function loadMonthTable (obj) {
 	var dayMap = {"projectCalculate" : obj.monthProjectCalculate, "projectAmount" : obj.monthProjectAmount, "goodsCalculate" : obj.monthGoodsCalculate, "goodsAmount" : obj.monthGoodsAmount,
 			      "comboCalculate" : obj.monthComboCalculate, "comboAmount" : obj.monthComboAmount, "chargeCalculate" : obj.monthChargeCalculate, "chargeAmount" : obj.monthChargeAmount};
 	packageData(2, dayMap);
-	/* for (var i = 0; i < dateList.length; i++) {
-		var obj = dateList[i];
-		if (obj.monthDate == monthTime) {
-			var commissionList = obj.commissionList;
-			
-			nowCommissionList = commissionList;
-			
-			for (var j = 0; j < commissionList.length; j++) {
-				var commission = commissionList[j];
-				$("#monthTbody").append("<tr onclick = \"triggerDay('"+commission.chargeTime+"')\">"+
-						                    "<td>"+commission.chargeTime+"</td>"+
-						                    "<td>"+commission.sumCommissionCalculate+"</td>"+
-						                    "<td>"+commission.sumCommissionAmount+"</td>"+
-						                "</tr>");
-			}
-			var dayMap = {"projectCalculate" : obj.monthProjectCalculate, "projectAmount" : obj.monthProjectAmount, "goodsCalculate" : obj.monthGoodsCalculate, "goodsAmount" : obj.monthGoodsAmount,
-					      "comboCalculate" : obj.monthComboCalculate, "comboAmount" : obj.monthComboAmount, "chargeCalculate" : obj.monthChargeCalculate, "chargeAmount" : obj.monthChargeAmount};
-			packageData(2, dayMap);
-			
-			return;
-		}
-	}
-	var dayMap = {"projectCalculate" : 0, "projectAmount" : 0, "goodsCalculate" : 0, "goodsAmount" : 0,
-		      "comboCalculate" : 0, "comboAmount" : 0, "chargeCalculate" : 0, "chargeAmount" : 0};
-	packageData(2, dayMap); */
 }
 
 function packageData(type, dayMap) {

@@ -278,7 +278,7 @@ jQuery('input[name="loginButton"]').click(function(){
      if(isEmpty(verification)) {
     	 verificationObj.focus();
     	 verificationObj.addClass('error'); 
-         dialog("密码不能为空！");
+         dialog("验证码不能为空！");
          return;
       }else {
     	 verificationObj.removeClass('error');

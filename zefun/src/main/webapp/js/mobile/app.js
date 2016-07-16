@@ -54,7 +54,7 @@ mySwiper.params.onSlidePrev = function() {
 
 /*--------------------socroll---------------------------------------------------*/
 
-document.addEventListener('touchmove', function(event) { 
+/*document.addEventListener('touchmove', function(event) { 
 
 	if (event.targetTouches.length == 1) { 
 	var touch = event.targetTouches[0]; 
@@ -65,7 +65,7 @@ document.addEventListener('touchmove', function(event) {
 	}, false);
 	document.addEventListener('touchmove', function(e) {
 				e.preventDefault();
-}, false);
+}, false);*/
 
 /*--------------------socroll-----------------------------------------------------*/
 function goto(url) {
