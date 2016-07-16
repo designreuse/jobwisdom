@@ -185,7 +185,7 @@
                 </td>
               </c:otherwise>
 	     </c:choose>
-		 <td><i>${daybook.createTime}</i><img onclick="WdatePicker({el:'d12',dateFmt:'yyyy-MM-dd HH:mm:ss',onpicked:pickedFunc})" src="<%=basePath%>images/coupon_write.png"> <input type="text" class="hidden" id="d12" ></td>
+		 <td><i>${daybook.createTime}</i><img onclick="WdatePicker({el:'d12',dateFmt:'yyyy-MM-dd HH:mm:ss',onpicked:pickedFunc})" src="<%=basePath%>images/coupon_write.png"> <input type="text" class="hidden" style="width: 0px" id="d12" ></td>
 		 
 		 <td>合计 <em>${daybook.realAmount}</em></td>
 		  <td>

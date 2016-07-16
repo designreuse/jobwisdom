@@ -136,7 +136,7 @@ public class UserController {
 	@RequestMapping(value = Url.App.GET_YZM_PAGE)
 	public void getYzmPage(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			VerifyCodeUtils.outputVerifyImage(71, 35, request, response, 4);
+			VerifyCodeUtils.outputVerifyImage(70, 34, request, response, 4);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

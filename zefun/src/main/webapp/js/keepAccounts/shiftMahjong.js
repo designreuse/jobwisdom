@@ -66,6 +66,7 @@ function caltUpdate() {
 	var shiftMahjongIdDown = jQuery(".emploee_right_ul").find(".active").attr("shiftMahjongId");
 	refreshShift(shiftMahjongIdDown, 1);
 	jQuery(".adjust_").show();
+	jQuery( ".gridly" ).sortable( 'destroy');
 	jQuery(".adjust_button").hide();
 }
 

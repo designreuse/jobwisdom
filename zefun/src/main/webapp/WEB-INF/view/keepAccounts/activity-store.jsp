@@ -25,7 +25,7 @@ jQuery(function(){
 				<%@include file="/top.jsp"%>
 				
 				<div class="content_right clearfix">
-		 <p><button onclick="jQuery('.zzc').show()">新增计划</button></p>
+		 <p><button onclick="jQuery('.zzc').show()">新增门店活动</button></p>
 		 <div class="new_plan_plan">
 		    <table id="tables">
 		       <tbody><tr>
@@ -61,7 +61,7 @@ jQuery(function(){
 	
 	<div class="zzc" style="display: none;">
   	 <div class="zzc_create_store_activity">
-      <p>创建门店活动</p>
+      <p>新建门店活动</p>
       <div class="zzc_create_store_activity_content">
 	      <p>
 		    <span>活动名称<input type="text" name="activityStoreName" style="width:180px"></span>
@@ -93,7 +93,7 @@ jQuery(function(){
 		  </div>
 	  </div>
 	  <div class="zzc_create_store_activity_button">
-	    <button onclick="save()">确定</button>
+	    <button onclick="save()">发布活动</button>
 		<button onclick="jQuery('.zzc').hide()">取消</button>
 	  </div>
    </div>
@@ -188,7 +188,7 @@ function checkboxs(type){
 			 }
 		}
 		 jQuery(type).attr("id",2);
-		 jQuery(type).text("全不选");
+		 jQuery(type).text("不选");
 	 }
 	 if(button==2){
 		 for (var int = 0; int < li.length; int++) {
@@ -205,7 +205,7 @@ function listen(input){
 	var inputsChecks = jQuery(input).parent().siblings().find("input[type='checkbox']:checked").length;
 	if (inputs == inputsChecks) {
 		 jQuery(".buc").attr("id",2);
-		 jQuery(".buc").text("全不选");
+		 jQuery(".buc").text("不选");
 	}else{
 		 jQuery(".buc").attr("id",1);
 		 jQuery(".buc").text("全选");

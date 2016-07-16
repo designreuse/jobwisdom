@@ -77,7 +77,7 @@
 				   </div> 
 					
 				   <div class="new_activity">
-				      <p><button onclick="jQuery('.zzc').show()">新建活动</button></p> 
+				      <p><button onclick="jQuery('.zzc').show()">新建活动类别</button></p> 
 					  <div class="new_activity_content">
 					    <div class="new_activity_content_datail">
 						  <table id="tables">
@@ -125,7 +125,7 @@
 	
 	<div class="zzc" style="display: none;">
 		   <div class="zzc_new_activity">
-		       <p>新建活动</p>           
+		       <p>新建活动类别</p>           
 		       <div class="zzc_new_activity_content">
 			      <div class="zzc_new_activity_content_datail">
 		            <p>活动</p>
@@ -139,7 +139,7 @@
 
  
 			      <div class="emploee_achievement">
-			        <p>员工业绩折扣</p>
+			        <p>员工业绩提成方案</p>
 			        <div class="emploee_achievement_">
 					   <table id="position_emploee">
 					     <tbody><tr> 
