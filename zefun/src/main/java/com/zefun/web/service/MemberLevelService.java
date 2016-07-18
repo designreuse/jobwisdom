@@ -179,7 +179,7 @@ public class MemberLevelService {
     		mav.addObject("chooseStoreId", storeId);
     	}
     	mav.addObject("showType", showType);
-    	Page<MemberLevelDto> page = selectPageForMemberLevel(null, storeId, 1, 1, App.System.API_DEFAULT_PAGE_SIZE);
+    	Page<MemberLevelDto> page = selectPageForMemberLevel(storeAccount, storeId, 1, 1, App.System.API_DEFAULT_PAGE_SIZE);
         mav.addObject("page", page);
         return mav;
     }
