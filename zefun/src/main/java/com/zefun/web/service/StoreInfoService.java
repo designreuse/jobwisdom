@@ -62,6 +62,7 @@ import com.zefun.web.dto.StoreSummaryDto;
 import com.zefun.web.dto.StoreSummaryResultDto;
 import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.TrendDeptDataDto;
+import com.zefun.web.entity.AccountGoods;
 import com.zefun.web.entity.AgentInfo;
 import com.zefun.web.entity.ComboGoods;
 import com.zefun.web.entity.ComboInfo;
@@ -94,6 +95,7 @@ import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatStore;
+import com.zefun.web.mapper.AccountGoodsMapper;
 import com.zefun.web.mapper.BusinessReportMapper;
 import com.zefun.web.mapper.ComboGoodsMapper;
 import com.zefun.web.mapper.ComboInfoMapper;
@@ -349,6 +351,9 @@ public class StoreInfoService {
     /** 企业信息*/
     @Autowired
     private EnterpriseInfoMapper enterpriseInfoMapper;
+    /** 企业商品信息*/
+    @Autowired
+    private AccountGoodsMapper accountGoodsMapper;
 
     /**
      * 查询门店列表页面
@@ -927,17 +932,11 @@ public class StoreInfoService {
         storeInfo.setCreateTime(DateUtil.getCurTime());
         storeInfoMapper.insert(storeInfo);
         
-        // 在此门店中新增三个岗位 
-        PositionInfo p1 = new PositionInfo(null, storeInfo.getStoreId(), this.P1, DateUtil.getCurDate(), null, null);
-        PositionInfo p2 = new PositionInfo(null, storeInfo.getStoreId(), this.P2, DateUtil.getCurDate(), null, null);
-        PositionInfo p3 = new PositionInfo(null, storeInfo.getStoreId(), this.P3, DateUtil.getCurDate(), null, null);
-        PositionInfo p4 = new PositionInfo(null, storeInfo.getStoreId(), this.P4, DateUtil.getCurDate(), null, null, 1);
-        PositionInfo p5 = new PositionInfo(null, storeInfo.getStoreId(), this.P5, DateUtil.getCurDate(), null, null, 1);
-        positioninfoMapper.insert(p1);
-        positioninfoMapper.insert(p2);
-        positioninfoMapper.insert(p3);
-        positioninfoMapper.insert(p4);
-        positioninfoMapper.insert(p5);
+        // 在此门店中新增三个岗位
+        initStorePosition(storeInfo);
+        
+        // 初始化商品信息
+        initStoreGoodsInfos(storeInfo, storeInfo.getStoreAccount());
         
         EnterpriseAccount record = new EnterpriseAccount();
         record.setEnterpriseAccountId(enterpriseAccount.getEnterpriseAccountId());
@@ -946,6 +945,47 @@ public class StoreInfoService {
         enterpriseAccountMapper.updateByPrimaryKeySelective(record);
         initStoreData(storeInfo.getStoreId(), userName, userPwd, storeInfo.getStoreAccount());
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
+    
+    /**
+     * 创建门店的时候将商品信息复制一份数据
+    * @author 高国藩
+    * @date 2016年7月18日 上午11:41:53
+    * @param storeInfo        storeInfo
+    * @param storeAccount     storeAccount
+     */
+    @Transactional
+    public void initStoreGoodsInfos(StoreInfo storeInfo, String storeAccount){
+        AccountGoods query = new AccountGoods();
+        query.setStoreAccount(storeAccount);
+        List<AccountGoods> accountGoods = accountGoodsMapper.selectByProperties(query);
+        for (int i = 0; i < accountGoods.size(); i++) {
+            GoodsInfo info = new GoodsInfo();
+            info.setStoreId(storeInfo.getStoreId());
+            info.setaId(accountGoods.get(i).getGoodsId());
+            info.setIsDeleted(0);
+            goodsInfoMapper.insertSelective(info);
+        }
+    }
+    
+    /**
+     * 初始化门店岗位信息
+    * @author 高国藩
+    * @date 2016年7月18日 上午11:35:17
+    * @param storeInfo storeInfo
+     */
+    @Transactional
+    public void initStorePosition(StoreInfo storeInfo){
+        PositionInfo p1 = new PositionInfo(null, storeInfo.getStoreId(), P1, DateUtil.getCurDate(), null, null);
+        PositionInfo p2 = new PositionInfo(null, storeInfo.getStoreId(), P2, DateUtil.getCurDate(), null, null);
+        PositionInfo p3 = new PositionInfo(null, storeInfo.getStoreId(), P3, DateUtil.getCurDate(), null, null);
+        PositionInfo p4 = new PositionInfo(null, storeInfo.getStoreId(), P4, DateUtil.getCurDate(), null, null, 1);
+        PositionInfo p5 = new PositionInfo(null, storeInfo.getStoreId(), P5, DateUtil.getCurDate(), null, null, 1);
+        positioninfoMapper.insert(p1);
+        positioninfoMapper.insert(p2);
+        positioninfoMapper.insert(p3);
+        positioninfoMapper.insert(p4);
+        positioninfoMapper.insert(p5);
     }
 
 
