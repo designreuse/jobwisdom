@@ -249,7 +249,7 @@
 	  <div class="content_right_">
 	     <P class="shop_address_">店铺地址</P>   
 <!-- 	    	  <input input id="city-picker3" class="form-control" readonly type="text" value="" data-toggle="city-picker"> -->
-		 <div class="select_city">
+		 <div class="select_city" style="position: relative;">
 		     <input  id="city-picker3" class="form-control"  readonly type="text" value="" data-toggle="city-picker"><i  class = "addcolor" style="position:absolute;right:-60px">*</i>
 		     
 		     <div class="detail_address">
@@ -392,7 +392,12 @@
         </div>
 	</div>
 </div>
-
+<script type="text/javascript" src="<%=basePath %>/js/setting/storeList.js"></script>
+<%-- <script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script> --%>
+<script src="<%=basePath%>js/common/city-picker.data.js"></script>
+<script src="<%=basePath%>js/common/city-picker.js"></script>
+<script src="<%=basePath%>js/common/main.js"></script>
+<script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
 <script type="text/javascript">
 var cssWidth = 200;
 var cssHeight = 200;
@@ -413,12 +418,5 @@ if (!isEmpty(priceMoneyOrTimeStr)) {
 	priceMoneyOrTime = eval("(" + priceMoneyOrTimeStr + ")");
 }
 </script>
-<script type="text/javascript" src="<%=basePath %>/js/setting/storeList.js"></script>
-<script type="text/javascript" src="<%=basePath %>js/base/zcc.js"></script>
-<script src="<%=basePath%>js/common/city-picker.data.js"></script>
-<script src="<%=basePath%>js/common/city-picker.js"></script>
-<script src="<%=basePath%>js/common/main.js"></script>
-<script type="text/javascript" src="<%=basePath %>js/common/md5.js"></script>
-
 </body>
 </html>

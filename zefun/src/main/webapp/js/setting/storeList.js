@@ -262,7 +262,7 @@ function editStore (storeId) {
         	
         }
     });
-	jQuery("#city-picker3").citypicker('destroy');
+	/*jQuery("#city-picker3").citypicker('destroy');*/
 }
 
 function addAuthority () {

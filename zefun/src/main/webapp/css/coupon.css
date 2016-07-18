@@ -36,7 +36,7 @@ table tr:nth-child(1){background:#ebeff8;height:60px}
 .zzc_coupon_table{width:745px;margin-top:26px}
 .zzc_coupon_table li{float:left;width:145px;height:40px;text-align:center;line-height:40px;background:#e4e8f4;border:1px solid black}
 
-.coupon_name p span{display:inline-block;margin-right:54px}
+.coupon_name p span{display:inline-block;margin-right:42px}
 .coupon_name p{height:50px;line-height:50px;margin-right:-60px}
 .coupon_name p input{width:120px;height:20px;border:1px solid black;border-radius:12px;margin-left:20px}
 .coupon_name{margin-top:10px;border-top:1px solid #cccccc;border-bottom:1px solid #cccccc;overflow:hidden}
