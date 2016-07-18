@@ -397,6 +397,10 @@ input[type=radio] {
 	
 	/**查找项目*/
 	function queryGoodsInfo(goodsIds){
+		if(typeof(goodsIds) == "undefined"){
+			dialog("暂无可上架商品");
+			return;
+		}
 		if(goodsIds == "0")return;
 		aId = goodsIds;
 		jQuery.ajax({
