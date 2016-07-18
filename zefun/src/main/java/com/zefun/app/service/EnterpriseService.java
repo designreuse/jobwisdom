@@ -18,13 +18,11 @@ import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.EnterpriseInfoDto;
-import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.EnterpriseAccount;
 import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.Page;
-import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EnterpriseAccountMapper;
@@ -218,6 +216,7 @@ public class EnterpriseService {
             memberLevel.setLastOperatorId(userId);
             memberLevel.setUpdateTime(curTime);
             memberLevel.setLevelTemplate(1);
+            memberLevel.setIsDefault(1);
             memberLevelMapper.insert(memberLevel);
             
             MemberLevelDiscount memberLevelDiscount = new MemberLevelDiscount();
