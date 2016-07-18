@@ -1,11 +1,11 @@
 var  shiftMahjongId = "";
 
 var stateList = new Array();
-var a1 = {"state":"0","name":"工作","imgs":baseUrl+"images/emploee_5.png"};
-var a2 = {"state":"1","name":"空闲","imgs":baseUrl+"images/emploee_6.png"};
-var a3 = {"state":"2","name":"暂休","imgs":baseUrl+"images/emploee_9.png"};
-var a4 = {"state":"3","name":"下牌","imgs":baseUrl+"images/emploee_8.png"};
-var a5 = {"state":"4","name":"点客","imgs":baseUrl+"images/emploee_7.png"};
+var a1 = {"state":"0","name":"工作","imgs":baseUrl+"images/emploee_5.png", "brick" : "brick1", "state": "state1"};
+var a2 = {"state":"1","name":"空闲","imgs":baseUrl+"images/emploee_6.png", "brick" : "brick2", "state": "state2"};
+var a3 = {"state":"2","name":"暂休","imgs":baseUrl+"images/emploee_9.png", "brick" : "brick4", "state": "state4"};
+var a4 = {"state":"3","name":"下牌","imgs":baseUrl+"images/emploee_8.png", "brick" : "brick", "state": "state"};
+var a5 = {"state":"4","name":"点客","imgs":baseUrl+"images/emploee_7.png", "brick" : "brick3", "state": "state3"};
 
 stateList[0] = a1;
 stateList[1] = a2;
@@ -77,12 +77,12 @@ function infoDIV(shiftMahjongEmployeeList){
 	for (var j = 0; j < shiftMahjongEmployeeList.length; j++) {
 		var shiftMahjongEmployee = shiftMahjongEmployeeList[j];
 		var imgs = picUrl+shiftMahjongEmployee.headImage;
-		jQuery(".gridly").append("<li class='brick small'  shiftMahjongEmployeeId = '"+shiftMahjongEmployee.shiftMahjongEmployeeId+"'>"+
+		jQuery(".gridly").append("<li class='brick small "+stateList[shiftMahjongEmployee.state].brick+"'  shiftMahjongEmployeeId = '"+shiftMahjongEmployee.shiftMahjongEmployeeId+"'>"+
 								    "<div class='roll_pic'>"+
 									   "<img src='"+imgs+"'>"+
 									"</div>"+
 									"<p>"+shiftMahjongEmployee.employeeCode+"<em>"+shiftMahjongEmployee.name+"</em></p>"+
-									"<div class='state'>"+
+									"<div class='state "+stateList[shiftMahjongEmployee.state].state+"'>"+
 									 "<i>"+shiftMahjongEmployee.shiftMahjongOrder+"</i><span class='line_'></span> "+
 									 "<em style='position:relative' name = 'chooseStateEM' onclick ='showUpdateState(this, "+shiftMahjongEmployee.state+")'>" +
 									      "<span class='select_'> " +
