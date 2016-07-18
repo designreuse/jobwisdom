@@ -47,7 +47,7 @@
 		<%@include file="/menu.jsp"%>
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
-      	
+      	    <div style="font-size:12px;margin-left:24px"><img src="http://localhost:80/jobwisdom/images/bulb.jpg" style="width:20px;position:relative;top:6px;">注：拖拽流水单到目标单可实现流水单合并</div>
 			<div class='content_right clearfix'>
 			    <div class="change_price_content">
 				   <div class="common_table">   

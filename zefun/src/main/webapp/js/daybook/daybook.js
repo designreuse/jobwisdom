@@ -286,7 +286,6 @@ function updateSelectOrder(orderId) {
 			jQuery("#privilegeModel").text(privilege);
 			jQuery("#divobj").empty();
 			var orderDetailList = obj.orderDetailList;
-			var numbertype = 0;
 			for (var i = 0; i < orderDetailList.length; i++) {
 				var orderDetailDto = orderDetailList[i];
 				var lj = "礼金"
@@ -305,7 +304,6 @@ function updateSelectOrder(orderId) {
 				if(orderDetailDto.orderType ==1){
 					HTML += '<ul class="order_style_content_right">';
 					for (var q = 0; q < orderDetailDto.stepList.length; q++) {
-						numbertype++;
 						var stepList =orderDetailDto.stepList[q];   //订单员工信息
 						HTML += ' <li commissionId = '+stepList.commissionId+' > <span>'+stepList.positionName+'</span><span><select class = "chzn-select w100" name = "employeeSelect">';
 						for (var j = 0; j < employeeInfoList.length; j++) {    //全部员工
@@ -343,7 +341,6 @@ function updateSelectOrder(orderId) {
 				}else{
 					HTML += '<ul class="order_style_content_right">';
 					for (var q = 0; q < orderDetailDto.commissionList.length; q++) {
-						numbertype++;
 						var commissionList =orderDetailDto.commissionList[q];   //订单员工信息
 						var number = "一";
 						if( q == 1){number = "二";}
@@ -369,9 +366,7 @@ function updateSelectOrder(orderId) {
 			}
 			jQuery("select[name='employeeSelect']").chosen({disable_search_threshold: 3});
 			jQuery("select[name='employeeSelect']").trigger("liszt:updated");
-			if(numbertype>0){
-				jQuery('.zzc').show();
-			}
+			jQuery('.zzc').show();
 		}
 	});
 }
