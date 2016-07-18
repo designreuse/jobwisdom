@@ -81,6 +81,8 @@ import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberInfo;
+import com.zefun.web.entity.MemberLevel;
+import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectCommission;
@@ -114,6 +116,7 @@ import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
+import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
@@ -188,9 +191,6 @@ public class StoreInfoService {
     @Autowired
     private StoreSettingMapper storeSettingMapper;
 
-    /**会员等级操作对象*/
-    @Autowired
-    private MemberLevelMapper memberLevelMapper;
 
     /**
      * 门店与微信openid关连信息操作
@@ -351,6 +351,16 @@ public class StoreInfoService {
     /** 企业信息*/
     @Autowired
     private EnterpriseInfoMapper enterpriseInfoMapper;
+    
+    
+    /** 会员折扣操作对象*/
+    @Autowired
+    private MemberLevelDiscountMapper memberLevelDiscountMapper;
+    
+    
+    /** 会员等级数据操作对象 */
+    @Autowired
+    private MemberLevelMapper memberLevelMapper;
     /** 企业商品信息*/
     @Autowired
     private AccountGoodsMapper accountGoodsMapper;
@@ -944,6 +954,17 @@ public class StoreInfoService {
         record.setBalanceStoreNum(enterpriseAccount.getBalanceStoreNum() - 1);
         enterpriseAccountMapper.updateByPrimaryKeySelective(record);
         initStoreData(storeInfo.getStoreId(), userName, userPwd, storeInfo.getStoreAccount());
+        
+        //新增默认会员
+        MemberLevel member = memberLevelMapper.selectMemberLevelBySotreIdAndLevelName(storeInfo.getStoreAccount(), "默认会员卡");
+        
+        Map<String, Integer> params = new HashMap<String, Integer>();
+        params.put("levelId", member.getLevelId());
+        params.put("storeId", 0);
+        MemberLevelDiscount selectByStoreLevel = memberLevelDiscountMapper.selectByStoreLevel(params);
+        selectByStoreLevel.setStoreId(storeInfo.getStoreId());
+        selectByStoreLevel.setCreateTime(DateUtil.getCurTime());
+        memberLevelDiscountMapper.insert(selectByStoreLevel);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
@@ -1059,6 +1080,9 @@ public class StoreInfoService {
         StoreSetting setting = new StoreSetting();
         setting.setStoreId(storeId);
         storeSettingMapper.insert(setting);
+        
+        
+   
     }
 
     /**

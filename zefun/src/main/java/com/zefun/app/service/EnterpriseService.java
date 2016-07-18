@@ -1,8 +1,10 @@
 package com.zefun.app.service;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,15 @@ import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.EnterpriseInfoDto;
 import com.zefun.web.entity.EnterpriseAccount;
 import com.zefun.web.entity.EnterpriseInfo;
+import com.zefun.web.entity.MemberLevel;
+import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EnterpriseAccountMapper;
 import com.zefun.web.mapper.EnterpriseInfoMapper;
+import com.zefun.web.mapper.MemberLevelDiscountMapper;
+import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 
 /**
@@ -57,6 +63,13 @@ public class EnterpriseService {
     @Autowired
     private EnterpriseAccountMapper enterpriseAccountMapper;
 	
+    /** 会员等级数据操作对象 */
+    @Autowired
+    private MemberLevelMapper memberLevelMapper;
+    /** 会员折扣操作对象*/
+    @Autowired
+    private MemberLevelDiscountMapper memberLevelDiscountMapper;
+    
     /**
      * 查询所有的门店记录
     * @author 老王
@@ -103,13 +116,14 @@ public class EnterpriseService {
 	* @param enterpriseAddress 企业详细地址
 	* @param enterpriseEdition 企业版本
 	* @param useTime 使用时间
+	* @param userId userId
 	* @param enterpriseInfoId 标识
 	* @return  BaseDto
 	 */
 	@Transactional
 	public BaseDto addEnterprise (String enterpriseName, String enterpriseLinkphone, 
 			  String enterpriseLinkname, String storeAccount, String enterpriseProvince, String enterpriseCity, String enterpriseAddress,
-			  Integer enterpriseEdition, Integer useTime, Integer enterpriseInfoId) {
+			  Integer enterpriseEdition, Integer useTime, Integer enterpriseInfoId, Integer  userId) {
 	  
 		EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
 		enterpriseInfo.setStoreAccount(storeAccount);
@@ -190,6 +204,37 @@ public class EnterpriseService {
             employeeInfoMapper.insert(employeeDto);
             userAccount.setUserId(employeeDto.getEmployeeId());
             userAccountMapper.insert(userAccount);
+            
+//            //新增默认会员卡
+        
+            MemberLevel memberLevel = new MemberLevel();
+            memberLevel.setLevelName("默认会员卡");
+            memberLevel.setLevelType("等级卡");
+            memberLevel.setLevelLogo("65c294");
+            memberLevel.setStoreAccount(storeAccount);
+            String curTime = DateUtil.getCurTime();
+            memberLevel.setLastOperatorId(userId);
+            memberLevel.setUpdateTime(curTime);
+            memberLevel.setLevelTemplate(1);
+            memberLevel.setIsDefault(1);
+            memberLevelMapper.insert(memberLevel);
+            
+            MemberLevelDiscount memberLevelDiscount = new MemberLevelDiscount();
+            memberLevelDiscount.setProjectDiscount(100);
+            memberLevelDiscount.setStoreId(0);;
+            memberLevelDiscount.setGoodsDiscount(100);
+            memberLevelDiscount.setPerformanceDiscountPercent(1);
+            memberLevelDiscount.setSellAmount(new BigDecimal(0));
+            memberLevelDiscount.setChargeMinMoney(new BigDecimal(0));
+            memberLevelDiscount.setCashDiscountType(0);
+            memberLevelDiscount.setIntegralUnit(1);
+            memberLevelDiscount.setIntegralNumber(1);
+            memberLevelDiscount.setUpdateTime(curTime);
+            memberLevelDiscount.setLevelId(memberLevel.getLevelId());
+            memberLevelDiscount.setLastOperatorId(userId);
+            memberLevelDiscount.setCreateTime(curTime);
+            memberLevelDiscountMapper.insert(memberLevelDiscount);
+            
         }
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}

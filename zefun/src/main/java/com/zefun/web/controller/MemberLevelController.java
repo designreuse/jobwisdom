@@ -82,6 +82,7 @@ public class MemberLevelController extends BaseController {
 		memberLevel.setLevelNotice(levelNotice);
 		memberLevel.setStoreAccount(storeAccount);
 		
+		
 		MemberLevelDiscount memberLevelDiscount = new MemberLevelDiscount();
 		memberLevelDiscount.setDiscountId(discountId);
 		memberLevelDiscount.setProjectDiscount(projectDiscount);

@@ -221,6 +221,8 @@
 		var couponNames ="单笔消费"+priceSigle;
 		//通用时默认单笔消费为零
 	
+
+		
 		
 		if (isEmpty(storeType)) {
 			dialog("门店不能为空");
@@ -269,6 +271,7 @@
 			}
 		}
 		
+		
 		if(addType==0){
 		urltype = baseUrl + "coupons/add";
 		couponid=null;
@@ -276,7 +279,7 @@
 			urltype = baseUrl + "coupons/send/update";
 		}
 		var nowDate = getNowFormatDate();
-		var timenum = daysBetween(nowDate,releaseTime);
+		var timenum = daysBetween(releaseTime,nowDate);
 		var datad =  JSON.stringify({
 			"storeType" : storeType,
 			"couponNames" : couponNames,
@@ -295,6 +298,13 @@
 			"couponId" : couponid
 		});
 		
+		
+		var timeDay = daysBetween(couponStopTime,releaseTime);
+		if(timeDay <0){
+			dialog("开始时间不能小于结束时间");
+			return;
+		}
+		
 		if(timenum==0){
 			if(confirm('开始时间为今天，是否确认优惠券'))
 			{ 
@@ -302,13 +312,14 @@
 		 	}
 		}
 		else if(timenum <0){
-			dialog("开始时间不能小于结束时间");
+			dialog("开始日期不能小于当前日期"+nowDate);
 			return;
 		}
 		else{
 			saveDate(datad);
 		}
 	}
+	
 	
 	jQuery(document).ready(function() {
 		jQuery('.report_way span').click(function() {

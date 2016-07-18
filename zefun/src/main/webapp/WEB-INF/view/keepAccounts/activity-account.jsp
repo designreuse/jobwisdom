@@ -77,7 +77,10 @@
 				   </div> 
 					
 				   <div class="new_activity">
-				      <p><button onclick="jQuery('.zzc').show()">新建活动类别</button></p> 
+				      <p>
+				      <button onclick="jQuery('.zzc').show()">新建活动类别</button>
+				      <button onclick="winHref()">返回</button>
+				      </p> 
 					  <div class="new_activity_content">
 					    <div class="new_activity_content_datail">
 						  <table id="tables">
@@ -474,6 +477,8 @@ function changePage() {
 	});
 }
 
-
+function winHref(){
+	window.location.href= baseUrl +"activity/view/showactivitysign";
+}
 </script>
 </html>

@@ -25,7 +25,11 @@ jQuery(function(){
 				<%@include file="/top.jsp"%>
 				
 				<div class="content_right clearfix">
-		 <p><button onclick="jQuery('.zzc').show()">新增门店活动</button></p>
+		 <p>
+		  <button onclick="jQuery('.zzc').show()">新增门店活动</button>
+		  <button onclick="winHref()">活动类别</button>
+		 </p>
+		
 		 <div class="new_plan_plan">
 		    <table id="tables">
 		       <tbody><tr>
@@ -273,6 +277,10 @@ function newdates(){
 	myDate.getMonth();       //获取当前月份(0-11,0代表1月)
 	myDate.getDate();        //获取当前日(1-31)
 	return myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();  
+}
+
+function winHref(){
+	window.location.href= baseUrl +"activity/view/toactivitysign";
 }
 //dialog('msg');
 </script>

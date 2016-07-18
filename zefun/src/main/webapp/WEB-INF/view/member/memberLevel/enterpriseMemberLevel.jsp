@@ -191,8 +191,10 @@
              </td>
             
 			 <td>
-			 <em onclick="editMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_1.png"></em>
-			 <em onclick="deleteMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_2.png"></em>
+				 <c:if test="${ !memberLevel.levelName eq '默认会员卡'}">
+					 <em onclick="editMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_1.png"></em>
+					 <em onclick="deleteMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_2.png"></em>
+				 </c:if>
 			 </td>
            </tr>
           </c:forEach>
@@ -232,16 +234,6 @@
 		</div>
 		
 		<div class="business_level_back">
-<!-- 		  <p>选择卡背</p> -->
-<!-- 		   <ul class="business_level_back_ul clearfix"> -->
-<%-- 		     <li onclick="chooseMemberPage(1, 'system/profile/vip_card.png', 'system/profile/vip_card1.png')"><img src="<%=qiniuPath %>system/profile/vip_card.png"> --%>
-<%-- 			    <span class = "active"><img src="<%=basePath %>images/checked.png"></span> --%>
-<!-- 			 </li> -->
-		
-	
-<!--            </ul> -->
-           
-   
 		   <div class="business_level_back_text">
 		      <ul class="business_level_back_text_ul clearfix">
 		         <li>项目折扣<input type="text" name="projectDiscount"><i  class = "addcolor">*</i><em style="position:relative;left:-20px">%</em></em></li>
@@ -253,12 +245,12 @@
                  </li>
 				 <li>商品折扣<input type="text" name="goodsDiscount"><i  class = "addcolor">*</i><em style="position:relative;left:-20px">%</em></li>
 				 <li>员工业绩折扣<input type="text" name="performanceDiscountPercent"><em style="position:relative;left:-20px">%</em></li>
-				 <li>开卡费用<input type="text" name="sellAmount"></li>
-				 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:28px"></li>
+				 <li>开卡费用<input type="text" name="sellAmount" ><span style="position:relative;left:-20px">元</span></li>
+				 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:22px"><span style="position:relative">元</span></li>
 				 <li style="width:600px;"><span class="mr10 label12 font-bold">积分计算方式：</span>
 				                            每消费<input type="number" name="integralUnit" class="input30" value="1"><span class="percent-symbol">元</span>
                      <span class="ml10">获得</span>
-                     <input type="number" name="integralNumber" class="input30" value="1"><span class="percent-symbol">分</span>
+                     <input type="number" name="integralNumber" class="input30" value="1" ><span class="percent-symbol">分</span>
                  </li>
 			  </ul>
 		   </div>
@@ -387,7 +379,7 @@ jQuery(document).ready(function() {
 	})
 	
 	jQuery("input[name='levelName']").keyup(function(){
-		jQuery("p[name='levelName']").find("i").text(jQuery("input[name='levelName']").val()/10);
+		jQuery("p[name='levelName']").find("i").text(jQuery("input[name='levelName']").val());
 	})
   
 	jQuery("input[name='projectDiscount']").keyup(function(){
