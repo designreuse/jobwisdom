@@ -305,6 +305,9 @@ function updateSelectOrder(orderId) {
 					HTML += '<ul class="order_style_content_right">';
 					for (var q = 0; q < orderDetailDto.stepList.length; q++) {
 						var stepList =orderDetailDto.stepList[q];   //订单员工信息
+						if(stepList.employeeInfo == null  ){
+							continue;
+						}
 						HTML += ' <li commissionId = '+stepList.commissionId+' > <span>'+stepList.positionName+'</span><span><select class = "chzn-select w100" name = "employeeSelect">';
 						for (var j = 0; j < employeeInfoList.length; j++) {    //全部员工
 							if(employeeInfoList[j].employeeCode == stepList.employeeInfo.employeeCode){
