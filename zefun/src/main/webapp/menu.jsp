@@ -194,7 +194,9 @@ jQuery(function(){
 	})
 })
 
-var menu = {"goods":"goodsInfo/view/goodsInfoList", "project":"project/view/projects", "comboInfo":"comboInfo/view/comboInfoList", "KeepAccounts" : "KeepAccounts/initializeStoreFlow"};
+var menu = {"goods":"goodsInfo/view/goodsInfoList", "project":"project/view/projects", 
+			"comboInfo":"comboInfo/view/comboInfoList", "KeepAccounts" : "KeepAccounts/initializeStoreFlow", 
+			"activity":"activity/view/showactivitysign"};
 function choseMenu(url){
 	if (typeof(jQuery(".left_nav_2").find("a[href='"+url+"']").html()) == 'undefined'){
 		if (url.indexOf("goods")!=-1){
@@ -208,6 +210,9 @@ function choseMenu(url){
 		}
 		if (url.indexOf("KeepAccounts")!=-1){
 			url = baseUrl + menu["KeepAccounts"];
+		}
+		if (url.indexOf("activity")!=-1){
+			url = baseUrl + menu["activity"];
 		}
 		url = url.replace(":80","");
 		choseIcon(url);
