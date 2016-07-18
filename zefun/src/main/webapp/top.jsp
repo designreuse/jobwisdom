@@ -12,8 +12,10 @@ String topBasePath = request.getScheme()+"://"+request.getServerName()+":"+reque
 			 
 			  <div class="ask_responsive">
 			      <div class="tool">
-				     <p><img src="<%=basePath%>images/top4.png"></p>
-					 <em class="ask">咨询</em>
+			         <a target="_blank" href= "http://wpa.qq.com/msgrd?v=3&uin=484492101&site=qq&menu=yes">
+					     <p><img src="<%=basePath%>images/top4.png"></p>
+						 <em class="ask">咨询</em>
+					 </a>
 				  </div>
 				 
 				  <div class="tool">
