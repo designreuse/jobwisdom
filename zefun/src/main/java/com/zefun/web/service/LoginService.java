@@ -147,7 +147,7 @@ public class LoginService {
 			dto.setMsg(Url.Member.VIEW_BASE_MEMBER);
 		} 
 		else {
-			dto.setMsg(Url.SelfCashier.VIEW_HOME);
+			dto.setMsg(Url.KeepAccounts.INITIALIZE_MANUALLY_OPEN_ORDER);
 		}
 
 		return dto;
