@@ -566,6 +566,8 @@ public class StoreInfoService {
      */
     public BaseDto selectStoreInfo (Integer storeId) {
     	StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+    	storeInfo.setCarouselPicture("");
+    	storeInfo.setStoreDesc("");
     	UserAccount userAccount = userAccountMapper.selectSingleStoreAccount(storeId);
     	Map<String, Object> map = new HashMap<>();
     	map.put("storeInfo", storeInfo);
