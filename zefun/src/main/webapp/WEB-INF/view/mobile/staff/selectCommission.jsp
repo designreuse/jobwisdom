@@ -175,7 +175,7 @@
 		          <!--</div>-->
 		          </div>
 		
-		      <table class="tc-table" cellspacing=0>
+		      <!-- <table class="tc-table" cellspacing=0>
 		        <thead >
 		        <tr>
 		            <th>单号</th>
@@ -187,7 +187,53 @@
 		        <tbody id = "dayTbody">
 		            
 		        </tbody>
-		    </table>
+		    </table> -->
+		    <div class="percentage_content_data">
+			    <table cellpadding="0" cellspacing="0">
+				   <tr>
+		             <td colspan="3">123456789123</td>
+				   </tr>
+				   <tr>
+				     <td style="border-right:1px solid #c8c8c8;width:147px">洗剪吹哈哈哈<em class="cover">（套）</em></td>
+				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
+				   </tr>
+				</table>
+			  
+			   <table cellpadding="0" cellspacing="0">
+				   <tr>
+		             <td colspan="3">123456789123</td>
+				   </tr>
+				   <tr>
+				     <td style="border-right:1px solid #c8c8c8;width:147px" rowspan="3" >洗剪吹哈哈哈<em class="shop">（商）</em></td>
+				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
+				   </tr>
+				   <tr>  
+				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
+				   </tr>
+				    <tr>  
+				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
+				   </tr>
+				</table>
+			  
+			     <table cellpadding="0" cellspacing="0">
+				   <tr>
+		             <td colspan="3">123456789123</td>
+				   </tr>
+				   <tr>
+				     <td style="border-right:1px solid #c8c8c8;width:147px">充值<em class="card">（卡）</em></td>
+				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
+				   </tr>		   
+				</table>
+				<table>
+				  <tr>
+		             <td colspan="3">123456789123</td>
+				   </tr>
+				  <tr>
+				     <td style="border-right:1px solid #c8c8c8;width:147px">洗剪吹哈哈哈<em class="work">（劳）</em></td>
+				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
+				   </tr>
+				</table>
+			  </div>
 		
 		  </div>
         </div>
@@ -322,10 +368,8 @@ var swiper = new Swiper('.select-day', {
 
 /*导航滑动选中状态*/
 function changeTab(obj, type){
-    $(".swiper-slide").removeClass("active");
-    $(".swiper-slide img").addClass("hide");
+    $(obj).siblings().removeClass("active");
     $(obj).addClass("active");
-    $(obj).find("img").removeClass("hide");
     dateType = type;
     $(".tab-control").addClass("hide");
     if (type == 1) {
@@ -358,7 +402,7 @@ function selectCommission(dateTime) {
 }
 
 function loadDayTable (dayMapLoad) {
-	$("#daySumTbody").empty();
+	/* $("#daySumTbody").empty(); */
 	$("#dayTbody").empty();
 	
 	var dtoList = dayMapLoad.dtoList;
