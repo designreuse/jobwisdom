@@ -94,6 +94,7 @@ public class MemberLevelService {
         	if (validatorOfMemberLevel != null) {
         		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "添加失败:该等级名称已存在");
         	}
+        	memberLevel.setIsDefault(0);
             memberLevel.setCreateTime(curTime);
             memberLevel.setIsDeleted(0);
             memberLevelMapper.insert(memberLevel);
@@ -131,6 +132,8 @@ public class MemberLevelService {
                 }
 			}
         }
+        
+        //
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES,
                 App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
