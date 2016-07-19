@@ -112,14 +112,14 @@ input[type=radio]:checked {
 .new_data table td i{position:absolute;background:url('../images/data_shop1.png') no-repeat;width:46px;height:28px;display:inline-block;top: -20px;
     left: 82px;font-style:normal;cursor:pointer;display:none}
 
-.new_data{border:1px solid black;border-radius:8px;margin-top:10px;height: 750px;}	
+.new_data{border:1px solid #ccc;border-radius:8px;margin-top:10px;height: 750px;}	
 .new_data>p{color:black;font-size:14px;font-weight:bold;padding:10px}
 .new_data>p select{border:1px solid black;border-radius:8px;color:black;margin-left:10px;width:90px;padding-left:40px;font-size:12px}
-
+.vip_style select{border:1px solid #ccc!important;color:#707070!important}
 .new_data table td{position:relative}
 .new_data table td ul{position:absolute;top:28px;left:20px;background:white;display:none;z-index:2}
 .new_data table td ul li{border:1px solid black;height:24px;width:20px;text-align:center;line-height:24px}
-
+.vip_style select
 .vip_card_table{height:411px;}
 .new_data table td ul li:hover{background:#eff0f2}
 

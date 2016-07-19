@@ -4,7 +4,7 @@
 .recharge_ul .active{background:url('../images/add_store_back_1.png') no-repeat;background-size:40px 106px;color:white}
 .recharge_ul li span{display:inline-block;width:20px;position:relative;top:20px}
 .content_right .recharge_ul{float:left;position:relative;left:1px}
-.recharge_ul_right{overflow:overlay;float:left;width:914px;height:820px;border:1px solid #717171;border-radius:0 8px 8px 8px;padding:16px 22px}
+.recharge_ul_right{overflow:overlay;float:left;width:914px;height:820px;border:1px solid #717171;border-radius:0 8px 8px 8px;padding:16px 22px;}
 .seach_user{padding:10px 20px;background:#d8deed;border-radius:8px}
 .recharge_user>p{font-size:12px;margin-bottom:6px}
 .seach_user input{width:200px;height:18px;border:1px solid #717171;border-radius:12px;margin:0 20px 0 10px}
