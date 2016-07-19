@@ -1,7 +1,7 @@
 .content_right{padding:28px 34px;color:black;font-size:14px}
 .content_right>p>button{width:130px;height:26px;border:none;border-radius:12px;color:white;text-align:center;line-height:26px;background:#596788}
 .content_right>p>button:hover{background:#4a5674}
-.new_plan_plan{overflow:overlay;margin-top:20px;border:1px solid #898989;border-radius:8px;height:600px;}
+.new_plan_plan{overflow:overlay;margin-top:20px;border:1px solid #ccc;border-radius:8px;height:600px;}
 .new_plan_plan table{width:1010px}
 .new_plan_plan td{width:120px;height:40px;text-align:center;vertical-align:middle;border:1px solid #c2c2c2;border-top:none;border-left:none}
 .new_plan_plan td:last-child{border-right:none}

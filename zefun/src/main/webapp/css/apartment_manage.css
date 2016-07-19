@@ -112,7 +112,6 @@
 .adjust>p{height:38px;background:#3e4b5e;text-align:center;line-height:38px;color:white;font-size:14px}
 .adjust_content input{width:150px;height:20px;border-radius:12px;border:1px solid #737373;margin:25px auto}
 .adjust_content{text-align:center}
-.adjust_content_button{margin-top:26px}
 .adjust_content_button button{height:20px;width:78px;line-height:20px;border:none;text-align:center;background:#7b80a1;color:white;margin:0 15px;border-radius:12px}
 .adjust_content_button button:hover{background:#686c8a}
 
@@ -126,12 +125,12 @@
 .num_adjust_content>.depend{position:relative;padding:5px 10px}
 
 .num_adjust_content_detail{text-align:center;margin-top:10px}
-.num_adjust_content_detail select{width:128px;height:14px;border-radius:12px;border:1px solid #6b6b6b;margin-left: 6px;}
+.num_adjust_content_detail select{width:128px;border-radius:12px;border:1px solid #6b6b6b;margin-left: 6px;}
 .first_adjust_content_button{text-align:center;}
 .first_adjust_content_button button{width:80px;height:20px;text-align:center;line-height:20px;background:#7b80a1;border:none;border-radius:12px;color:white;margin:0 15px}
 .first_adjust_content_button{margin-top:15px}
 .first_adjust_content_button button:hover{background:#6a7092}
-
+.data_text ul{margin:0}
 .depend p{position:absolute;bottom:20px;left:35px;display:none}
 .depend p>em{
 	display:inline-block;

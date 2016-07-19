@@ -2,6 +2,11 @@
 <%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="<%=basePath%>css/apartment_manage.css" type="text/css" />
+<style>
+.num_adjust_content_detail i{display:inline-block;width:50px}
+
+
+</style>
 <script>
 	//轮播
 	jQuery(function() {
@@ -122,7 +127,7 @@
 										<button onclick="jQuery(this).parent().prev().hide();jQuery(this).parent().hide();jQuery(this).parent().prev().prev().show();deptId=null;">取消</button>
 									</span>
 								</div>
-								<div class="data_content clearfix">
+								<div class="data_content clearfix" name="deptInfo">
 									<c:forEach items="${deptInfos }" var="deptInfo">
 									<div class="data_text">
 										${deptInfo.deptName }
@@ -142,59 +147,32 @@
              <div class="job_manage_content_ul"> 
 			  <ul class="clearfix">
                  <li class="active">
-				   <p><em positionId="${positionInfos[0].positionId }">${positionInfos[0].positionName }</em><img src="<%=basePath%>images/apartment_write.png"></p>
+				   <p><em positionId="${positionInfos[0].positionId }">${positionInfos[0].positionName }</em><img onclick="showPage(0,'${positionInfos[0].positionName }', ${positionInfos[0].positionId })" src="<%=basePath%>images/apartment_write.png"></p>
 				 </li>
 				 <li class="">
-				   <p><em positionId="${positionInfos[1].positionId }">${positionInfos[1].positionName }</em><img src="<%=basePath%>images/apartment_write.png"></p>
+				   <p><em positionId="${positionInfos[1].positionId }">${positionInfos[1].positionName }</em><img onclick="showPage(1,'${positionInfos[1].positionName }', ${positionInfos[1].positionId })" src="<%=basePath%>images/apartment_write.png"></p>
 
 				 </li>
 				 <li class="">
-				   <p><em positionId="${positionInfos[2].positionId }">${positionInfos[2].positionName }</em><img src="<%=basePath%>images/apartment_write.png"></p>
+				   <p><em positionId="${positionInfos[2].positionId }">${positionInfos[2].positionName }</em><img onclick="showPage(2,'${positionInfos[2].positionName }', ${positionInfos[2].positionId })" src="<%=basePath%>images/apartment_write.png"></p>
 				 </li>
               </ul>
 			  <div class="job_manage_content_">
-			    <div class="job_manage_content_text" style="display: block;" name="job_name" positionId="${positionInfos[0].positionId }">
-					  <p><button onclick="showDiv(this)">新建</button></p>
-					  <div class="job_name   hide" >
-					    <span>职位名称<input type="text" name="levelName"></span>
-						<em>参考<i>?</i></em>
-						<p style="display: none;"><span>${positionInfos[0].positionName }</span><i></i></p>
-						<span style="margin-right:8px">${positionInfos[1].positionName }<select class="referenceFirst"></select></span>
-						<span>${positionInfos[2].positionName }<select class="referenceTwo"></select></span>
-						<span style="margin-left:32px"><button onclick="saveOrUpdateLevel(this)">保存</button><button onclick="jQuery('.job_name').addClass('hide')">取消</button></span>
-					  </div>
-	
-					  <div class="data_content clearfix" style="height:220px" name="data_content1">
+			    <div class="job_manage_content_text" style="display: block;" name="job_name" positionId="${positionInfos[0].positionId }" positionName="${positionInfos[0].positionName }">
+					  <p><button onclick="showDiv(${positionInfos[0].positionId },'${positionInfos[0].positionName }',0)">新建</button></p>
+					  <div class="data_content clearfix" style="height:220px" name="data_content0">
 						</div>
 				</div>
 				
-				<div class="job_manage_content_text" style="display: none;" name="job_name" positionId="${positionInfos[1].positionId }">
-					   <p><button onclick="showDiv(this)">新建</button></p>
-					  <div class="job_name   hide" >
-					    <span>职位名称<input type="text" name="levelName"></span>
-						<em>参考<i>?</i></em>
-						<p style="display: none;"><span>${positionInfos[1].positionName }</span><i></i></p>
-						<span style="margin-right:8px">${positionInfos[0].positionName }<select class="reference"></select></span>
-						<span>${positionInfos[2].positionName }<select class="referenceTwo"></select></span>
-						<span style="margin-left:32px"><button>保存</button><button>确认</button></span>
-					  </div>
-		
-					  <div class="data_content clearfix" style="height:220px"  name="data_content2">
+				<div class="job_manage_content_text" style="display: none;" name="job_name" positionId="${positionInfos[1].positionId }" positionName="${positionInfos[1].positionName }">
+					   <p><button onclick="showDiv(${positionInfos[1].positionId },'${positionInfos[1].positionName }',1)">新建</button></p>
+					  <div class="data_content clearfix" style="height:220px"  name="data_content1">
 						  </div>
 				</div>
 				
-				  <div class="job_manage_content_text" style="display: none;" name="job_name" positionId="${positionInfos[2].positionId }">
-					   <p><button onclick="showDiv(this)">新建</button></p>
-					  <div class="job_name   hide" >
-					    <span>职位名称<input type="text" name="levelName"></span>
-						<em>参考<i>?</i></em>
-						<p style="display: none;"><span>${positionInfos[2].positionName }</span><i></i></p>
-						<span style="margin-right:8px">${positionInfos[0].positionName }<select class="reference"></select></span>
-						<span>${positionInfos[1].positionName }<select class="referenceFirst"></select></span>
-						<span style="margin-left:32px"><button>保存</button><button>确认</button></span>
-					  </div>
-	
-					  <div class="data_content clearfix" style="height:220px" name="data_content3">
+				  <div class="job_manage_content_text" style="display: none;" name="job_name" positionId="${positionInfos[2].positionId }" positionName="${positionInfos[2].positionName }">
+					   <p><button onclick="showDiv(${positionInfos[2].positionId },'${positionInfos[2].positionName }',2)">新建</button></p>
+					  <div class="data_content clearfix" style="height:220px" name="data_content2">
 						</div>
 				</div>
 
@@ -208,39 +186,45 @@
 			</div>
 		</div>
 	</div>
+
+	
 	
 <div class="zzc">
   <div class="adjust">
     <p>修改</p>
     <div class="adjust_content">
-	   <input type="text">
+   <input type="text" name="positionName">
       <div class="adjust_content_button">
-	    <button>确认</button>
-	    <button>取消</button>
+	    <button onclick="updatePosition(this)">确认</button>
+	    <button onclick="jQuery('.zzc').hide();">取消</button>
 	  </div>
 	</div>
   </div>
 </div>
 
+
 <div class="zzc1">
    <div class="first_adjust">
      <p>第一岗位修改</p>
      <div class="first_adjust_content">  
-        <p>职位名称<input type="text"></p>
+        <p>职位名称<input type="text" name="levelName" ></p>
 	    <div class="num_adjust_content">
 	      <div class="depend">参考<span>?</span>
-		    <p><span>21212121</span><em></em></p>
+		    <p><span>该岗位下的人员，在参与了其他岗位、职位下的工作，提成的参考值</span><em></em></p>
+		  </div>
+		 <div class="num_adjust_content_detail">
+		    <i>第一岗位</i><select class="reference"></select>
 		  </div>
           <div class="num_adjust_content_detail">
-		    第二岗位<select><option></option></select>
+		    <i>第二岗位</i><select class="referenceFirst"></select></select>
 		  </div>
           <div class="num_adjust_content_detail">
-		    第三岗位<select><option></option></select>
+		  	<i>第三岗位</i><select class="referenceTwo"></select>
 		  </div>
         </div>
         <div class="first_adjust_content_button">
-           <button>确认</button>
-		   <button>取消</button>
+           <button id ="saveOrUpdateLevel" >确认</button>
+		   <button onclick="hideDiv()">取消</button>
        </div>		
 	 </div>
    </div>
@@ -248,10 +232,25 @@
 </body>
 <script>
 
-function showDiv(s){
-	jQuery(s).parent().siblings(".job_name").removeClass('hide');
-	jQuery(s).parent().siblings(".job_name").find("input[name='levelName']").val();	
+
+function showDiv(positionId,positionName,type){
+	var rsOne = jQuery(".job_manage_content_ul>ul li").eq(0).find("em").text();
+	var rsTwo = jQuery(".job_manage_content_ul>ul li").eq(1).find("em").text();
+	var rsThree = jQuery(".job_manage_content_ul>ul li").eq(2).find("em").text();
+	
+	jQuery(".zzc1").find(".first_adjust").children("p").text("设置<"+positionName+">岗位下的职位");
+	jQuery(".zzc1").find(".num_adjust_content_detail").eq(type).addClass("hide");
+	jQuery(".zzc1").find(".num_adjust_content_detail").eq(0).find("i").text(rsOne);
+	jQuery(".zzc1").find(".num_adjust_content_detail").eq(1).find("i").text(rsTwo);
+	jQuery(".zzc1").find(".num_adjust_content_detail").eq(2).find("i").text(rsThree);
+	
+	jQuery(".zzc1").find(".first_adjust").attr("positionId",positionId);
+	jQuery(".zzc1").find(".first_adjust").attr("positionName",positionName);
+	jQuery(".zzc1").find("#saveOrUpdateLevel").attr("onclick","saveOrUpdateLevel(this,"+type+")");
+	
+	jQuery(".zzc1").show();
 }
+
 var deptId = null;
 function updateDept(li, deptName, deptIds){
 	if (deptId!=null){
@@ -282,10 +281,10 @@ function saveDeptInfo(button){
 			var html = '<div class="data_text">'+deptInfo.deptName+
 							'<ul class="clearfix" style="display: none;">'+
 								'<li onclick="updateDept(this, \''+deptInfo.deptName+'\', '+deptInfo.deptId+')">修改</li>'+
-								'<li>删除</li>'+
+								'<li onclick="deletedDept(this, '+deptInfo.deptId+')">删除</li>'+
 							'</ul>'+
 						'</div>';
-			jQuery(".data_content.clearfix").append(jQuery(html));
+			jQuery("div[name='deptInfo'").append(jQuery(html));
 			jQuery(button).parent().hide();
 			jQuery(button).parent().prev().hide();
 			jQuery(button).parent().prev().prev().show();
@@ -308,7 +307,7 @@ function deletedDept(li, deptIds){
 				}
 				else {
 					dialog(e.msg);
-					jQuery(li).parents(".data_content").remove();
+					jQuery(li).parents(".data_text").remove();
 				}
 			}
 		})
@@ -333,7 +332,7 @@ function updatePosition(button){
 		data : data,
 		dataType : "json",
 		success : function(e){
-			jQuery("input[positionId='"+positionId+"']").val(positionName);
+			jQuery("em[positionId='"+positionId+"']").text(positionName);
 			jQuery(button).next().click();
 		}
 	});
@@ -350,74 +349,100 @@ var empLevels = eval('('+'${empLevels}'+')');
 /**js初始化员工等级*/
 jQuery(function (){
 	initEmployee(empLevels);
-	initEmployeeLevelRes(empLevels, 1, 2);
+// 	initEmployeeLevelRes(empLevels, 1, 2);
+	initEmployeeLevel(empLevels);
 })
 /**初始化职位提成*/
 function initEmployee(epms){
+	jQuery("div[name='data_content0']").empty();
 	jQuery("div[name='data_content1']").empty();
-	for (var i=0,t=1;i<epms.length;i++,t++){
+	jQuery("div[name='data_content2']").empty();
+	var rse = jQuery(".job_manage_content_ul>ul li").eq(0).find("em").attr("positionId");
+	var rsf = jQuery(".job_manage_content_ul>ul li").eq(1).find("em").attr("positionId");
+	var rst = jQuery(".job_manage_content_ul>ul li").eq(2).find("em").attr("positionId");
+	
+	for (var i=0;i<epms.length;i++){
 		var employeeLevel = epms[i];
-		var html = '<div class="data_text" referenceFirst='+employeeLevel.referenceFirst+' referenceTwo='+employeeLevel.referenceTwo+'>'+
+		if (employeeLevel.positionId == rse){
+		var html = '<div class="data_text" id="'+employeeLevel.levelId+'" referenceFirst='+employeeLevel.referenceFirst+' referenceTwo='+employeeLevel.referenceTwo+'>'+
 						employeeLevel.levelName+'<ul class="data_text">'+
-							'<li onclick="showUpdateLevel(this, \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+', '+employeeLevel.positionId+')">修改</li>'+
+							'<li onclick="showUpdateLevel(0, \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+', '+employeeLevel.positionId+')">修改</li>'+
 							'<li onclick="deletedLevel('+employeeLevel.levelId+', this)">删除</li>'+
 						'</ul>'+
 					'</div>';
-		jQuery("div[name='data_content"+t+"']").append(jQuery(html));
-	}
-}
-/**初始化参考职位提成*/
-function initEmployeeLevelRes(epms, rs, rd){
-	jQuery(".referenceFirst").empty();
-	jQuery(".referenceTwo").empty();
-	
-
-
-	var rsf = jQuery(".job_manage_content_ul>ul li").eq(rs).find("em").attr("positionId");;
-	var rst = jQuery(".job_manage_content_ul>ul li").eq(rd).find("em").attr("positionId");;
-	for (var i=0;i<epms.length;i++){
-		var employeeLevel = epms[i];
+		jQuery("div[name='data_content0']").append(html);
+	  }
 		if (employeeLevel.positionId == rsf){
-			var html = '<option value='+employeeLevel.levelId+'>'+employeeLevel.levelName+'</option>';
-			jQuery(".referenceFirst").append(html);
-		}
-	}
-	for (var i=0;i<epms.length;i++){
-		var employeeLevel = epms[i];
+			var html = '<div class="data_text" id="'+employeeLevel.levelId+'" referenceFirst='+employeeLevel.referenceFirst+' referenceTwo='+employeeLevel.referenceTwo+'>'+
+							employeeLevel.levelName+'<ul class="data_text">'+
+								'<li onclick="showUpdateLevel(1, \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+', '+employeeLevel.positionId+')">修改</li>'+
+								'<li onclick="deletedLevel('+employeeLevel.levelId+', this)">删除</li>'+
+							'</ul>'+
+						'</div>';
+			jQuery("div[name='data_content1']").append(html);
+		  }
 		if (employeeLevel.positionId == rst){
-			var html = '<option value='+employeeLevel.levelId+'>'+employeeLevel.levelName+'</option>';
-			jQuery(".referenceTwo").append(html);
-		}
+			var html = '<div class="data_text" id="'+employeeLevel.levelId+'" referenceFirst='+employeeLevel.referenceFirst+' referenceTwo='+employeeLevel.referenceTwo+'>'+
+							employeeLevel.levelName+'<ul class="data_text">'+
+								'<li onclick="showUpdateLevel(2, \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+', '+employeeLevel.positionId+')">修改</li>'+
+								'<li onclick="deletedLevel('+employeeLevel.levelId+', this)">删除</li>'+
+							'</ul>'+
+						'</div>';
+			jQuery("div[name='data_content2']").append(html);
+		  }
 	}
 }
+
+
 var levelId = null;
 function showUpdateLevel(li, levelName, levelIds, positionId){
-	if (levelId!=null){dialog("请先保存当前设置");return;}
-	levelId = levelIds;
-	jQuery("input[name='levelName']").val(levelName);
-	jQuery(li).parents(".job_style").remove();
-	jQuery("#position").val(positionId);
-	selectPosition(positionId);
-	var referencefirst = jQuery(li).parents(".job_style").attr("referencefirst");
-	var referencetwo = jQuery(li).parents(".job_style").attr("referencetwo");
+	jQuery(".zzc1").find("input[name='levelName']").val(levelName);
+	var positionName = jQuery('em[positionid="820"]').text();
+	showDiv(positionId,positionName,li);
+	var referencefirst = jQuery("#"+levelIds).attr("referencefirst");
+	var referencetwo = jQuery("#"+levelIds).attr("referencetwo");
+	if(li == 0){
+		jQuery(".referenceFirst").val(referencefirst);
+		jQuery(".referenceTwo").val(referencetwo);
+	}
+	else if(li == 1){
+		jQuery(".reference").val(referencefirst);
+		jQuery(".referenceTwo").val(referencetwo);
+	}else{
+		jQuery(".reference").val(referencefirst);
+		jQuery(".referenceFirst").val(referencetwo);
+	}
 	
+	levelId=levelIds;
 }
-
-function saveOrUpdateLevels(){
-	var levelName = jQuery(s).parents(".job_name").find("input[name='levelName']").val();
+function saveOrUpdateLevel(s,type){
+	var levelName = jQuery(".zzc1").find("input[name='levelName']").val();
 	if (levelName == ''){
 		dialog('名称不可为空');
 		return;
 	}
-	var positionId = jQuery("#position").val();
-	var positionName =  jQuery("#position").find("option:selected").text();
+	var positionId = jQuery(".zzc1").find(".first_adjust").attr("positionId");
+	var positionName =  jQuery(".zzc1").find(".first_adjust").attr("positionName")
 	var storeId = jQuery(".out_roll_ul").find("li[class='active']").attr("storeId");
 	var data = "levelName="+levelName+"&positionId="+positionId+"&storeId="+storeId;
 	if (levelId!=null){
 		data = data + "&levelId="+levelId;
 	}
-	var referenceFirst = jQuery("#referenceFirst").val();
-	var referenceTwo = jQuery("#referenceTwo").val();
+	var referenceFirst = null;
+	var referenceTwo =  null;
+	if(type == 0){
+		referenceFirst =  jQuery(".zzc1").find(".referenceFirst").val();
+		referenceTwo =  jQuery(".zzc1").find(".referenceTwo").val();
+	}
+	else if(type == 1){
+		referenceFirst = jQuery(".zzc1").find(".reference").val();
+		referenceTwo =  jQuery(".zzc1").find(".referenceTwo").val();
+	}
+	else{
+		referenceFirst = jQuery(".zzc1").find(".reference").val();
+		referenceTwo =  jQuery(".zzc1").find(".referenceFirst").val();
+	}
+	
 	if (referenceFirst!=null){
 		data = data + "&referenceFirst="+referenceFirst;
 	}
@@ -430,21 +455,25 @@ function saveOrUpdateLevels(){
 		data : data,
 		dataType : "json",
 		success : function(e){
+			if (levelId!=null){
+				data = data + "&levelId="+levelId;
+			}
 			levelId = null;
 			jQuery(".job_content.clearfix");
-			var employeeLevel = e.msg;
-			var html = '<div class="job_style" referenceFirst='+employeeLevel.referenceFirst+' referenceTwo='+employeeLevel.referenceTwo+'>'+
-							'<p>职位名称：'+employeeLevel.levelName+'</p>'+
-							'<p>岗位类型：'+positionName+'</p>'+
-							'<ul class="clearfix">'+
-								'<li onclick="showUpdateLevel(this, \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+')">修改</li>'+
-								'<li>删除</li>'+
+			var employeeLevel = e.msg.employeeLevel;
+			jQuery("#"+employeeLevel.levelId).addClass("hide");
+			var html = '<div class="data_text" id="'+employeeLevel.levelId+'" referenceFirst='+employeeLevel.referenceFirst+' referenceTwo='+employeeLevel.referenceTwo+'>'+
+								employeeLevel.levelName+'<ul class="data_text">'+
+							'<li onclick="showUpdateLevel('+type+', \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+', '+employeeLevel.positionId+')">修改</li>'+
+							'<li onclick="deletedLevel('+employeeLevel.levelId+', this)">删除</li>'+
 							'</ul>'+
 						'</div>';
-			jQuery(".job_content.clearfix").append(jQuery(html));
+			jQuery("div[name='data_content"+type+"']").append(html);
+			empLevels=e.msg.empLevels;
+			initEmployeeLevel(empLevels);
 		}
 	});
-	jQuery("input[name='levelName']").val('');
+	hideDiv();
 }
 
 /**更换门店*/
@@ -460,14 +489,14 @@ function selectStore(li, storeId){
 		success : function(e){
 			var deptInfos = e.msg.deptInfos;
 			var positionInfos = e.msg.positionInfos;
-			var empLevels = e.msg.empLevels;
+			empLevels = e.msg.empLevels;
 			
 			jQuery(".data_content.clearfix").empty();
 			for (var i=0;i<deptInfos.length;i++){
 				var dept = '<div class="data_text">'+deptInfos[i].deptName+
 								'<ul class="clearfix" style="display: none;">'+
 									'<li onclick="updateDept(this, \''+deptInfos[i].deptName+'\', '+deptInfos[i].deptId+')">修改</li>'+
-									'<li>删除</li>'+
+									'<li onclick="deletedDept(this, '+deptInfos[i].deptId+')">删除</li>'+
 								'</ul>'+
 							'</div>';
 				jQuery(".data_content.clearfix").append(jQuery(dept));
@@ -491,7 +520,7 @@ function selectStore(li, storeId){
 			}
 			
 			initEmployee(empLevels);
-			initEmployeeLevelRes(empLevels, 1, 2);
+			initEmployeeLevel(empLevels);
 		}
 	});
 }
@@ -529,19 +558,17 @@ function deletedLevel(levelId, li){
 				if (e.code!=0){
 					dialog(e.msg);
 				}else {
-					jQuery(li).parents('.job_style').remove();
+					jQuery(li).parents('.data_text').remove();
 				}
 			}
 		});
 	}
 }
 
-function initEmployeeLevelRes(epms){
+function initEmployeeLevel(epms){
 	jQuery(".referenceFirst").empty();
 	jQuery(".referenceTwo").empty();
-	
-
-
+	jQuery(".reference").empty();
 	var rse = jQuery(".job_manage_content_ul>ul li").eq(0).find("em").attr("positionId");
 	var rsf = jQuery(".job_manage_content_ul>ul li").eq(1).find("em").attr("positionId");
 	var rst = jQuery(".job_manage_content_ul>ul li").eq(2).find("em").attr("positionId");
@@ -551,21 +578,28 @@ function initEmployeeLevelRes(epms){
 			var html = '<option value='+employeeLevel.levelId+'>'+employeeLevel.levelName+'</option>';
 			jQuery(".reference").append(html);
 		}
-	}
-	for (var i=0;i<epms.length;i++){
-		var employeeLevel = epms[i];
 		if (employeeLevel.positionId == rsf){
 			var html = '<option value='+employeeLevel.levelId+'>'+employeeLevel.levelName+'</option>';
 			jQuery(".referenceFirst").append(html);
 		}
-	}
-	for (var i=0;i<epms.length;i++){
-		var employeeLevel = epms[i];
 		if (employeeLevel.positionId == rst){
 			var html = '<option value='+employeeLevel.levelId+'>'+employeeLevel.levelName+'</option>';
 			jQuery(".referenceTwo").append(html);
 		}
 	}
+}
+
+function showPage(t,positionName,positionIds){
+	positionId = positionIds;
+	var rse = jQuery(".job_manage_content_ul>ul li").eq(t).find("em").text();
+	jQuery(".zzc").find("input[name='positionName']").val(rse);
+	jQuery(".zzc").show();
+}
+function hideDiv(){
+	jQuery(".zzc1").hide();
+	jQuery(".zzc1").find("input[name='levelName']").val("");
+	jQuery(".zzc1").find(".num_adjust_content_detail").removeClass("hide");
+	levelId = null;
 }
 </script>
 </html>

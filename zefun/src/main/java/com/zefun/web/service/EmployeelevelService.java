@@ -14,11 +14,15 @@ import com.zefun.common.utils.EntityJsonConverter;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.EmployeeLevelDto;
+import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeLevel;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.PositionInfo;
+import com.zefun.web.entity.StoreInfo;
+import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
+import com.zefun.web.mapper.StoreInfoMapper;
 
 import net.sf.json.JSONObject;
 
@@ -30,6 +34,11 @@ import net.sf.json.JSONObject;
  */
 @Service
 public class EmployeelevelService {
+    /**
+     * 职位
+     */
+    @Autowired
+    private EmployeeLevelMapper employeeLevelMapper;
     /**
      * 职位信息
      */
@@ -222,12 +231,22 @@ public class EmployeelevelService {
     * @return              BaseDto
      */
     public BaseDto saveOrUpdateEmployeeLevel(EmployeeLevel employeeLevel) {
+    
+        Map<String, Object> results = new HashMap<>();
+      
+        
         if (employeeLevel.getLevelId()!=null){
             employeelevelMapper.updateByPrimaryKeySelective(employeeLevel);
         }
         else {
             employeelevelMapper.insert(employeeLevel);
         }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, employeeLevel);
+        EmployeeLevel query = new EmployeeLevel();
+        query.setStoreId(employeeLevel.getStoreId());
+        List<EmployeeLevel> employeeLevels = employeeLevelMapper.queryEmployeeLevel(query);
+        results.put("empLevels", employeeLevels);
+        results.put("employeeLevel", employeeLevel);
+
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, results);
     }
 }
