@@ -17,7 +17,7 @@
 
 		<div class="person_">
 			<%-- <a href="<%=basePath %>memberCenter/view/levelInfo"><span class="vip">${memberBaseInfo.levelName }</span></a> --%>
-			<a href="<%=basePath %>memberCenter/view/levelInfo"><span class="vip" style="background:url('<%=basePath %>images/mobile/member/vip.png')">卡</span></a>
+			<%-- <a href="<%=basePath %>memberCenter/view/levelInfo"><span class="vip" style="background:url('<%=basePath %>images/mobile/member/vip.png')">卡</span></a> --%>
 			<div class="head_pic">
 			<a href="<%=basePath%>memberCenter/view/info">
 				<img src="<%=picPath%>${memberBaseInfo.headUrl }?imageView2/1/w/220/h/220">
@@ -54,8 +54,7 @@
 			<a href="<%=basePath%>memberCenter/view/comboList"><li><img src="<%=basePath%>images/mobile/member/person3.png">疗程</li></a>
 			<a href="<%=basePath%>memberCenter/view/integralFlow"><li><img src="<%=basePath%>images/mobile/member/person4.png">积分</li></a>
 			<a href="<%=basePath%>memberCenter/view/memberCoupon/${session_key_store_account}/1"><li><img src="<%=basePath%>images/mobile/member/person5.png">优惠券</li></a>
-			<%-- a href="<%=basePath%>uboxMall/view/orderList/${session_key_store_id}"><li><img src="<%=basePath%>images/mobile/member/person6.png">购物清单</li></a> --%>
-			<li><img src="<%=basePath%>images/mobile/member/person7.png">储值卡</li>
+			<a href="<%=basePath%>memberCenter/view/levelInfo"><li><img src="<%=basePath%>images/mobile/member/person7.png">储值卡</li></a>
 			<a href="<%=basePath%>memberCenter/view/info"><li><img src="<%=basePath%>images/mobile/member/person8.png">个人设置</li></a>
 
 		</ul>

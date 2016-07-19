@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
+import com.zefun.common.consts.App.Session;
 import com.zefun.common.exception.ServiceException;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
@@ -482,7 +483,13 @@ public class MemberCenterController extends BaseController {
             return null;
         }
         Integer memberId = getUserIdByOpenId(openId);
-        Integer storeId = getStoreId(request);
+        Integer storeId = null;
+        try {
+            Integer.parseInt(request.getSession().getAttribute(Session.STORE_ID).toString());
+        } 
+        catch (Exception e) {
+            // TODO: handle exception
+        }
         return memberCenterService.orderPayAction(orderSubmit, memberId, storeId);
     }
 	

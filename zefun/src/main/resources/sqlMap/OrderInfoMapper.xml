@@ -213,7 +213,7 @@
           when 1 then
               o.project_price
           when 2 then
-              (select c2.coupon_price from coupon_info c2 where c2.coupon_id = (select coupon_id from member_coupon where relevance_id = o.coupon_id))
+              (select c2.coupon_price from coupon_info c2 where c2.coupon_id = (select coupon_id from member_coupon))
           else
               o.gift_amount
       end

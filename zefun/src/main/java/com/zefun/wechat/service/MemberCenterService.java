@@ -559,7 +559,9 @@ public class MemberCenterService {
      */
     public ModelAndView orderPayView(String storeId, Integer orderId){
         ModelAndView mav = new ModelAndView(View.MemberCenter.ORDER_PAY);
-        SelfCashierOrderDto orderDto = selfCashierService.queryOrderDetailAction(orderId, Integer.valueOf(storeId));
+        
+        SelfCashierOrderDto orderDto = selfCashierService.queryOrderDetailAction(orderId, 
+                Integer.valueOf(orderInfoMapper.selectOrderBaseByOrderId(orderId).getStoreId()));
         //检查订单付款状态，如果已付款，直接跳转到小票页面
         if (orderDto.getOrderStatus() == 3 || orderDto.getOrderStatus() == 4) {
             return new ModelAndView("redirect:" + Url.MemberCenter.VIEW_PAYMENT_DETAIL
@@ -599,6 +601,9 @@ public class MemberCenterService {
     * @return   成功返回码0；失败返回其他错误码，返回值为提示语
      */
     public BaseDto orderPayAction(OrderInfoSubmitDto orderSubmit, Integer memberId, Integer storeId) {
+        if (storeId == null){
+            storeId = orderInfoMapper.selectByPrimaryKey(orderSubmit.getOrderId()).getStoreId();
+        }
         return selfCashierService.cashierSubmit(0, orderSubmit, memberId, storeId);
     }
     
