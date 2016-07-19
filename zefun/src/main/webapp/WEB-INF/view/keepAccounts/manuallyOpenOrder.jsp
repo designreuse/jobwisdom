@@ -80,6 +80,8 @@ background-size: cover;}
 
 .nav_right_content input[type='text']{width:88px}
 .absolute ul{border-bottom:1px dashed #e1dfdf;padding:5px 0}
+.common_table table{width:998px!important;margin-left:30px}
+.show_search{left:60px!important}
 </style>
 <body>
 

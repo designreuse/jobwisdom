@@ -16,6 +16,9 @@
 }
 .zzc_add_income_content_left1 span{position:relative;}
 .zzc_add_income_content_left1 .addcolor{position:absolute;}
+.add_income_table{height:650px;border:1px solid #d5d5d5;    border-radius: 12px;
+    overflow: hidden;}
+
 </style>
 <script src="http://open.web.meitu.com/sources/xiuxiu.js"
 	type="text/javascript"></script>
@@ -119,8 +122,9 @@
 
 							</tbody>
 						</table>
-						<%@ include file="/template/page.jsp"%>
+						
 					</div>
+					<%@ include file="/template/page.jsp"%>
 				</div>
 
 

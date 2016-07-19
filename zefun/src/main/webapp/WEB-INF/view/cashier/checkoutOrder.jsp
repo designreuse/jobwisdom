@@ -5,6 +5,7 @@
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath %>css/change_price.css" type="text/css" />
 <style>
+    .common_table{margin-top:0!important}
 	.zzc{font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);}    
 	.zzc_sure{width:600px;height:430px;margin:50px auto;background:white}
 	.zzc_sure>p{height:66px;text-align:center;font-size:18px;color:white;line-height:66px;color:white;background:#454560}
@@ -47,7 +48,7 @@
 		<%@include file="/menu.jsp"%>
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
-      	    <div style="font-size:12px;margin-left:24px"><img src="http://localhost:80/jobwisdom/images/bulb.jpg" style="width:20px;position:relative;top:6px;">注：拖拽流水单到目标单可实现流水单合并</div>
+      	    <div style="font-size:12px;margin-left:24px"><img src="http://localhost:80/jobwisdom/images/bulb.jpg" style="width:20px;position:relative;top:6px;">注：未结账完成的订单，会自动保存到待结账页面中！</div>
 			<div class='content_right clearfix'>
 			    <div class="change_price_content">
 				   <div class="common_table">   

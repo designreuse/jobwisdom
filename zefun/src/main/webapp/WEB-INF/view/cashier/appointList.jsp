@@ -19,6 +19,8 @@
 	}
 	.status-wrap-person ul{width:100%；}
 	
+	.status-time li{height:188px!important}
+	.contentinner{background:white!important}
 </style>
 <script>
 jQuery(function(){

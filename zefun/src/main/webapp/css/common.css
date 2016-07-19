@@ -262,7 +262,7 @@ ul li{
 .common_content>p{font-size:16px;color:black;padding-left:20px;margin-bottom:10px;padding-top:10px}
 .common_table table{width:1048px;background:#ebeff8;border-bottom:1px solid #e0e0e0;border-top:1px solid #e0e0e0;}
 .common_table table td{vertical-align:middle;text-align:center;padding:5px;}
-.common_table td img{width:50px;border-radius:25px}
+.common_table td img{width:50px;border-radius:25px;height:50px}
 .common_table tr:nth-child(1){color:#75777c!important}
 .common_table tr button{width:130px;height:40px;line-height:40px;text-align:center;color:white;border:none;border-radius:8px;background:#5b6080;font-size:16px}
 .common_content .recharge{height:32px;font-size:16px;line-height:32px;padding:0 20px;background:#ebeff8}
@@ -270,7 +270,7 @@ ul li{
 .seach_person{width:470px;margin:10px auto;}
 .seach_person >p>input{border:1px solid black;width:200px;height:22px;}
 .seach_person button{width:130px;height:28px;border-radius:12px;color:white;text-align:center;line-height:28px;border:none;background:#5b6080;font-size:16px;margin-left:22px}
-.show_search{position:absolute;z-index:2;background:white;width:468px;font-size:12px}
+.show_search{position:absolute;z-index:2;background:white;width:468px;font-size:12px;z-index:1000}
 .show_search ul{width:470px;height:400px;}
 .show_search{border:1px solid black;height:400px;left:110px;overflow: overlay;}
 .show_search>p{padding:5px 10px;font-size:12px;text-align:left;}
