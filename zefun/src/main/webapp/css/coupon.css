@@ -1,7 +1,7 @@
 .content_right{padding:30px 40px;font-size:12px}
 .coupon_button{margin-bottom:15px}
 .coupon_button button{width:130px;height:26px;border-radius:12px;color:white;background:#676583;font-size:14px;border:none}
-.coupon_table{width:1000px;height:560px;border:1px solid black;border-radius:8px;overflow:hidden}
+.coupon_table{width:1000px;height:560px;border:1px solid #ccc;border-radius:8px;overflow:hidden}
 .coupon_table table{width:1000px;}
 .coupon_table table td{height:42px;text-align:center;vertical-align:middle;border-bottom:1px solid #b6b6b6;border-right:1px solid #b6b6b6}
 .coupon_table table td img{position:relative;top:4px;left:10px}
