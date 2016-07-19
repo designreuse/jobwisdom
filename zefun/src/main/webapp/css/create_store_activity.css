@@ -27,7 +27,7 @@
     background: rgba(102, 108, 121, 0.8);
 }
 .zzc_create_store_activity{width:770px;height:550px;background:white;margin:2% auto}
-.zzc_create_store_activity>p{font-size:18px;color:white;height:60px;line-height:60px;text-align:center;background:#454560}
+.zzc_create_store_activity>p{font-size:16px;color:white;height:60px;line-height:60px;text-align:center;background:#454560}
 .zzc_create_store_activity_content{padding:15px 20px 15px 30px }
 .zzc_create_store_activity_content>p{padding-bottom:10px;border-bottom:1px solid #dbdbdb}
 .zzc_create_store_activity_content>p span{display;inline-block;margin-right:28px}
