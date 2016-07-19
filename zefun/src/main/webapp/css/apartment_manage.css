@@ -1,4 +1,4 @@
-.content_right{padding:32px;background:white;font-size:14px}
+.content_right{padding:32px;background:white;font-size:12px}
 .out_roll li{width:138px;height:66px;border:1px solid black;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
 .click_left{position:absolute;z-index:2;top:2px;}
 .click_right{position:absolute;right:-50px;top:2px;z-index:2}
@@ -13,9 +13,13 @@
 .out_tab li{width:336px;height:36px;float:left;border:1px solid black;border-radius:10px 10px 0 0;text-align:center;line-height:36px;font-size:16px;color:black;cursor:pointer;font-weight:bold}
 .out_tab .active{border-bottom:none}
 .out_tab ul{height:37px}
-
-.manage_content{height:960px;border:1px solid black;border-radius:8px;margin-top:22px;color:black;padding:20px}
-.manage_content .manage_num>p{font-size:18px;padding:0 0 15px 20px}
+.job_name select{width: 128px;
+    height: 16px;
+    border: 1px solid #6e6e6f;
+    border-radius: 12px;
+    margin-left: 5px;}
+.manage_content{height:960px;border-radius:8px;margin-top:22px;color:black;padding:20px 0}
+.manage_content .manage_num>p{font-size:15px;padding:0 0 15px 5px}
 .manage_num_content{height:200px;border-radius:8px;background:#d8deed;padding:10px}
 .manage_button button{font-size:14px;width:130px;height:26px;border:none;text-align:center;line-height:26px;color:white;border-radius:12px;background:#5c6e85}
 .manage_button input{width:120px;height:18px;border:1px solid black;border-radius:12px;margin:0 30px 0 0px}
@@ -24,28 +28,29 @@
 .data_text{margin:10px 33px;position:relative;float:left;font-size:14px;width:160px;height:26px;text-align:center;line-height:26px;color:black;border:1px solid black;border-radius:12px}
 .manage_button>button{margin-right:80px}
 .data_text ul{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;background:rgba(76,76,76,0.9);cursor:pointer;display:none}
-.data_text ul li{float:left;width:50%;text-align:center;line-height:28px;font-size:16px;color:white}
+.data_text ul li{float:left;width:50%;text-align:center;line-height:28px;font-size:14px;color:white}
 
 .job_manage{margin-top:20px}
-.job_manage >p{ font-size: 18px; padding: 0 0 15px 20px;}   
+.job_manage >p{ font-size: 15px; padding: 0 0 15px 5px;}   
 .job_manage_content{background:#d8deed;padding:10px;border-radius:8px;overflow:hidden}   
 .job_manage_content ul li input{border:1px solid black;border-radius:12px;width:140px;height:18px;margin:0 10px}
 .job_manage_content ul{margin-right:-80px}
-.job_manage_content ul li>p{margin:10px 0}
+
 .job_manage_content ul li>div{padding-left:56px;display:none}
 .job_manage_content ul li>p>span{color:#92a1d5;cursor:pointer}
 .job_manage_content ul li>div em{display:inline-block;margin-left:10px;cursor:pointer}
 .job_manage_content ul li>div span{cursor:pointer}
-.job_manage_content ul li{float:left;width:344px}
+.job_manage_content .job_manage_content_ul>ul>li{font-size:14px;cursor:pointer;float:left;width:331px;text-align:center;line-height:60px;height:60px;color:black}
+.job_manage_content ul li.active{background:#646f89;color:white;}
 .set{margin-left:65px}
+.job_manage_content .job_manage_content_ul>ul>li:nth-child(1){border-right: 1px solid black;}
 .set i{display:inline-block;margin:0 20px;color:#616161}
 .set>div input{width:140px;height:18px;border-radius:12px;border:1px solid black}
 .set>div span{display:inline-block;margin:0 10px;cursor:pointer}
 .set>div em{cursor:pointer}
 
-.job_manage_content ul li .active{color:#9fa1a4}
 .emploee_name{margin-top:25px}
-.emploee_name>p{ font-size: 18px;padding: 0 0 15px 20px;}
+.emploee_name>p{ font-size: 15px;padding: 0 0 15px 20px;}
 .emploee_name_content{  
     border-radius: 8px;
     background: #d8deed;
@@ -83,3 +88,73 @@
 	font-size:26px
 	}
 .set span,.set em{display:inline-block;width:50px;height:26px;text-align:center;line-height:26px;border-radius:12px;background:#5c6e85;color:white}
+
+
+.job_manage_content_ul{height:426px;border:1px solid black;border-radius:8px;overflow:hidden}
+.job_manage_content_{background:white;height:365px}
+.job_manage_content_text{padding:15px 20px}
+
+.job_manage_content_text>p>button{border:none;width:130px;height:26px;text-align:center;line-height:26px;color:white;background:#5c6e85;border-radius:12px}
+
+.job_name{position:relative;background:#d8deed;border-radius:12px;padding:0 8px;margin:14px 0;height:34px;line-height:30px}
+.job_name input{width:128px;height:16px;border:1px solid #6e6e6f;border-radius:12px;margin-left:5px}
+.job_name span{display:inline-block}
+.job_name em{display:inline-block;margin:0 4px 0 30px}
+.job_name em i{cursor:pointer;display:inline-block;width:15px;height:15px;border-radius:8px;background:#ff0000;color:white;line-height:15px;text-align:center;font-size:14px;margin:0 2px}
+
+.data_content_ .data_text{margin:10px 35px 10px 0}
+.data_content_{margin-right:-50px}
+
+.job_name span button{width:100px;height:22px;text-align: center;line-height: 22px;color: white;background: #5c6e85;border-radius: 12px;border:none;margin:0 5px}
+
+.zzc{display:none;position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
+.adjust{border-radius:12px;overflow:hidden;width:264px;height:160px;background:white;margin:15% auto}
+.adjust>p{height:38px;background:#3e4b5e;text-align:center;line-height:38px;color:white;font-size:14px}
+.adjust_content input{width:150px;height:20px;border-radius:12px;border:1px solid #737373;margin:25px auto}
+.adjust_content{text-align:center}
+.adjust_content_button{margin-top:26px}
+.adjust_content_button button{height:20px;width:78px;line-height:20px;border:none;text-align:center;background:#7b80a1;color:white;margin:0 15px;border-radius:12px}
+.adjust_content_button button:hover{background:#686c8a}
+
+.zzc1{display:none;position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
+.first_adjust{width:240px;height:265px;background:white;border-radius:12px;overflow:hidden;margin:12% auto}
+.first_adjust>p{height:60px;background:#3e4b5e;text-align:center;line-height:60px;color:white;font-size:14px}
+
+.first_adjust_content input{width:128px;height:14px;border-radius:12px;border:1px solid #6b6b6b;margin-left:6px}
+.first_adjust_content>p{height:48px;line-height:48px;border-bottom:1px solid #cacaca;text-align:center;}
+.num_adjust_content>.depend>span{margin-left:3px;cursor:pointer;display:inline-block;width:14px;height:14px;color:white;background:#ff0707;border-radius:7px;text-align:center;line-height:12px}
+.num_adjust_content>.depend{position:relative;padding:5px 10px}
+
+.num_adjust_content_detail{text-align:center;margin-top:10px}
+.num_adjust_content_detail select{width:128px;height:14px;border-radius:12px;border:1px solid #6b6b6b;margin-left: 6px;}
+.first_adjust_content_button{text-align:center;}
+.first_adjust_content_button button{width:80px;height:20px;text-align:center;line-height:20px;background:#7b80a1;border:none;border-radius:12px;color:white;margin:0 15px}
+.first_adjust_content_button{margin-top:15px}
+.first_adjust_content_button button:hover{background:#6a7092}
+
+.depend p{position:absolute;bottom:20px;left:35px;display:none}
+.depend p>em{
+	display:inline-block;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid #e8be9e;
+	position:absolute;
+	bottom:4px;
+	left:0px
+}
+.depend p>span{display:inline-block;margin-bottom:20px;background:#e8be9e;color:white;width:110px;overflow-wrap: break-word;border-radius:8px;position:relative;top:6px;left:-35px;}
+.job_name>p {position:absolute;bottom:30px;left:260px;display:none;}
+.job_name>p>i{display:inline-block;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid #e8be9e;
+	position:absolute;
+	bottom:4px;
+	left:0px}
+.job_name>p>span{padding-left:4px;display:inline-block;margin-bottom:20px;background:#e8be9e;color:white;width:140px;overflow-wrap: break-word;border-radius:8px;position:relative;top:6px;left:-58px;}
+.job_manage_content_ul>ul>li:nth-child(2){border-right:1px solid black}
+.job_manage_content_ul>ul{border-bottom:1px solid black}
