@@ -26,12 +26,12 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
-	<context:property-placeholder location="classpath*:properties/dev/*.properties" />
+	<context:property-placeholder location="classpath*:properties/test/*.properties" />
 	<import resource="datasource-context.xml" />
 	<!-- <import resource="redis-cluster.xml"/> -->
 	<import resource="redis-context.xml" />
 	<import resource="rabbitmq-context.xml" />
-	<import resource="producer.xml" />
+	<!-- <import resource="producer.xml" /> -->
 	
 	<bean id="toolSpring" class="com.zefun.common.utils.ToolSpring"></bean>
 </beans>

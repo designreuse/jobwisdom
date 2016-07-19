@@ -139,4 +139,13 @@ public interface MemberAppointmentMapper {
     List<MemberAppointment> selectAppointByStoreAndTime(@Param(value="storeId")int storeId, 
     		  @Param(value="appointmentDate")String appointmentDate, @Param(value="appointmentTime")String appointmentTime);
     
+    
+    /**
+     * 根据门店标识查询可服务单
+    * @author 老王
+    * @date 2016年7月19日 上午11:22:47 
+    * @param storeId 门店标识
+    * @return MemberAppointment
+     */
+    List<MemberAppointment> selectByStoreIdServer(Integer storeId);
 }

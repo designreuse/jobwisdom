@@ -25,6 +25,8 @@ import com.zefun.web.dto.ProjectMahjongProjectStepDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.entity.MemberAppointment;
+import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.PositionInfo;
@@ -36,6 +38,7 @@ import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.MemberAppointmentMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
@@ -90,6 +93,8 @@ public class ManuallyOpenOrderService {
 	@Autowired private SelfCashierService selfCashierService;
 	/** */
 	@Autowired private MemberInfoMapper memberInfoMapper;
+	/** */
+	@Autowired private MemberAppointmentMapper memberAppointmentMapper;
 	/**
 	 * 初始化轮职排班界面
 	* @author laowang
@@ -212,6 +217,19 @@ public class ManuallyOpenOrderService {
 		
 		List<Integer> handOrderCodeList = orderInfoMapper.selectIsUserHandOrderCode(storeId);
 		map.put("handOrderCodeList", handOrderCodeList);
+		
+		List<MemberAppointment> memberAppointmentList = memberAppointmentMapper.selectByStoreIdServer(storeId);
+		List<Map<String, Object>> appointObjList = new ArrayList<>();
+		for (MemberAppointment memberAppointment : memberAppointmentList) {
+			Map<String, Object> appointObj = new HashMap<>();
+			appointObj.put("appointmentId", memberAppointment.getAppointmentId());
+			MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberAppointment.getMemberId());
+			appointObj.put("memberId", memberAppointment.getMemberId());
+			appointObj.put("memberName", memberInfo.getName());
+			appointObj.put("sex", memberInfo.getSex());
+			appointObj.put("phone", memberInfo.getPhone());
+			appointObj.put("phone", memberInfo.getPhone());
+		}
 		
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
 	}

@@ -420,4 +420,12 @@
   	and store_id = ${storeId} and appointment_date = #{appointmentDate} and appointment_time = #{appointmentTime} 
   </select>
   
+  <!-- 根据门店查询预约单 -->
+  <select id="selectByStoreIdServer" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select <include refid="Base_Column_List" /> 
+  	from member_appointment 
+  	where is_deleted = 0 and appointment_status = 2 
+  	and store_id = ${storeId} and is_deleted = 0
+  </select>
+  
 </mapper>
