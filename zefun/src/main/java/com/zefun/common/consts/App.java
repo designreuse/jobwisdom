@@ -34,8 +34,8 @@ public interface App {
 		// public static final String SERVER_HOST = "moffatt.maywant.com";
 		// public static final String SERVER_HOST = "uat.maywant.com";
 		// public static final String SERVER_HOST = "wechat.maywant.com";
-		// public static final String SERVER_HOST = "www.livesall.cn";
-		public static final String SERVER_HOST = "job.jobwisdom.cn";
+		public static final String SERVER_HOST = "wang.jobwisdom.cn";
+//		public static final String SERVER_HOST = "job.jobwisdom.cn";
 
 		/** 服务器基础地址 */
 		public static final String SERVER_BASE_URL = "http://" + SERVER_HOST + "/jobwisdom";
