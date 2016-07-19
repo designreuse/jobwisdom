@@ -964,6 +964,7 @@ public class StoreInfoService {
         MemberLevelDiscount selectByStoreLevel = memberLevelDiscountMapper.selectByStoreLevel(params);
         selectByStoreLevel.setStoreId(storeInfo.getStoreId());
         selectByStoreLevel.setCreateTime(DateUtil.getCurTime());
+        selectByStoreLevel.setDiscountId(null);
         memberLevelDiscountMapper.insert(selectByStoreLevel);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
