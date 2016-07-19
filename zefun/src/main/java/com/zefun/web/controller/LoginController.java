@@ -102,7 +102,7 @@ public class LoginController extends BaseController {
 				return new ModelAndView("redirect:/" + Url.Member.VIEW_BASE_MEMBER);
 			} 
 			else {
-				return new ModelAndView("redirect:/" + Url.SelfCashier.VIEW_HOME);
+				return new ModelAndView("redirect:/" + Url.KeepAccounts.INITIALIZE_MANUALLY_OPEN_ORDER);
 			}
 		}
 	}

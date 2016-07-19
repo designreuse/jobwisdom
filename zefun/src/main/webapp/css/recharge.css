@@ -14,6 +14,7 @@
 .recharge_way_content span{display:inline-block;width:210px;height:40px}
 .recharge_way_content span input{width:130px;height:16px;border:1px solid  #717171;border-radius:12px;margin-left:15px}
 .recharge_way_content{padding:10px 20px;background:#d8deed;border-radius:8px}
+.chzn-single{border-radius:12px;border: 1px solid #717171; }
 .achievement{margin-top:20px}
 .achievement>p{font-size:12px}
 .achievement_content{height:310px;padding:10px 20px;background:#d8deed;margin-top:6px;border-radius:8px}

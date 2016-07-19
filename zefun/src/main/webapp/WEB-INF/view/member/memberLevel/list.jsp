@@ -5,6 +5,21 @@
 <link rel="stylesheet" href="<%=basePath%>css/shop_vip_manage.css" type="text/css" />
 <body>
 <style>
+.vip_style {
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+}
+.vip_style select {
+    border: 1px solid black;
+    border-radius: 8px;
+    color: black;
+    margin-left: 10px;
+    width: 90px;
+    padding-left: 40px;
+    font-size: 12px;
+}
 .preview_vip_card {
     width: 280px;
     height: 180px;
@@ -60,9 +75,7 @@ width:55px!important}
 			   <span class="click_right"><img src="<%=basePath%>images/right_click.png"></span>
 			 </div>
 			</div>
-			
-			<div class="new_data">
-			   <p>会员卡类型 
+			 <p class="vip_style">会员卡类型 
 			      <span>
 				      <select name = "levelType" onchange="changeType()">
 					      <option value="1">等级卡</option>
@@ -70,6 +83,8 @@ width:55px!important}
 					      <option value="0">全部</option>
 				      </select>
 			      </span></p>
+			<div class="new_data">
+			  
 		     <div class="vip_card_table"> 	  
 			  <table>
 			     <tr>
@@ -124,9 +139,9 @@ width:55px!important}
 				
 					  
 			   </table>
-			   <%@ include file="/template/page.jsp" %>
 			 </div>
 			</div>
+			<%@ include file="/template/page.jsp" %>
 		  </div>
     </div>
 </div>

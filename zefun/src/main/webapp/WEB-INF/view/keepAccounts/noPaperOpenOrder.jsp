@@ -36,6 +36,7 @@
     margin-left: 2px;
     background-size: 18px;}
 	.vip_open_card{text-align:center}
+	.open_card_content>ul{border:1px solid #d5d5d5;border-radius:12px;margin-top:14px;height:780px;overflow:overlay}
 </style>
 <body>
 

@@ -38,7 +38,7 @@
 .vip_num_table table{width:1010px}
 .vip_num_table table td{width:90px;height:55px;text-align:center;vertical-align:middle;border:1px solid #c1c1c1;border-top:none;border-left:none}
 .vip_num_table table td:last-child{border-right:none}
-.vip_num_table{border:1px solid #898989;border-radius:8px;overflow:hidden}
+.vip_num_table{height:679px;border:1px solid #898989;border-radius:8px;overflow:hidden}
 .vip_num_table table  button{height:20px;border:none;text-align:center;line-height:20px;border-radius:4px;color:white;background:#df1616}
 .vip_num_table{margin-top:14px}
 .vip_num_table p{height:28px;line-height:28px}

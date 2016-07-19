@@ -444,6 +444,8 @@ public class SelfCashierService {
 			stepCommissionList.add(stepCommissionMap);
 		}
 
+		
+		
 		if (realAmount.compareTo(BigDecimal.ZERO) == -1) {
 			realAmount = BigDecimal.ZERO;
 		}

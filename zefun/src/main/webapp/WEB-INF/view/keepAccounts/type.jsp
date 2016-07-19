@@ -46,9 +46,9 @@
 
 				<div class="content_right clearfix">
 					<div class="add_store_div clearfix">
-						<ul class="clearfix add_store_back">
+						<!-- <ul class="clearfix add_store_back">
 							<li class="active"><span>收支方式</span></li>
-						</ul>
+						</ul> -->
 						<div class="system_manage_content">
 							<div class="income_way" style="display: block;">
 								<div class="income_out_way">
