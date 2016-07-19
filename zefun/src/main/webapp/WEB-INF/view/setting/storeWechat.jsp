@@ -45,49 +45,49 @@
                                 <td class="fl" colspan="2">以下为微信通知模板的配置项</td>
                             </tr>
                             <tr>
-                                <td class="text-right fb">客户预约申请通知</td>
+                                <td class="text-right fb">客户预约提醒</td>
                                 <td>
                                      <input type="text" name="tmAppointApply" value="${storeWechat.tmAppointApply }" class="name"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right fb">客户预约结果通知</td>
+                                <td class="text-right fb">预约结果通知</td>
                                 <td>
                                      <input type="text" name="tmAppointResult" value="${storeWechat.tmAppointResult }" class="name"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right fb">客户预约到时提醒</td>
+                                <td class="text-right fb">预约服务提醒</td>
                                 <td>
                                      <input type="text" name="tmAppointRemind" value="${storeWechat.tmAppointRemind }" class="name"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right fb">客户充值结果提醒</td>
+                                <td class="text-right fb">会员充值提醒</td>
                                 <td>
                                      <input type="text" name="tmChargeResult" value="${storeWechat.tmChargeResult }" class="name"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right fb">客户结账信息通知</td>
+                                <td class="text-right fb">商户结算提醒</td>
                                 <td>
                                      <input type="text" name="tmPaymentInfo" value="${storeWechat.tmPaymentInfo }" class="name"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right fb">员工服务移交通知</td>
+                                <td class="text-right fb">任务处理通知</td>
                                 <td>
                                      <input type="text" name="tmServiceTurn" value="${storeWechat.tmServiceTurn }" class="name"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right fb">服务计划推送通知</td>
+                                <td class="text-right fb">服务订单通知</td>
                                 <td>
                                      <input type="text" name="tmServiceTopic" value="${storeWechat.tmServiceTopic }" class="name"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right fb">优惠券到期提醒</td>
+                                <td class="text-right fb">卡券库存提醒</td>
                                 <td>
                                      <input type="text" name="tmCouponOverdue" value="${storeWechat.tmCouponOverdue }" class="name"/>
                                 </td>
