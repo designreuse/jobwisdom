@@ -26,8 +26,6 @@ jQuery(document).ready(function () {
       jQuery(this).parents('.customer_content').find('li').eq(_now).addClass("active2").siblings().removeClass('active2');
 	   
     });
-
-  
 });
 
 jQuery(function(){
@@ -92,12 +90,44 @@ function alertZzc() {
 	                return;
 	            }
 	    		var datas = e.msg;
+	    		
 	    		var positionInfoShiftMahjongDtoList = datas.positionInfoShiftMahjongDtoList;
 	    		var handOrderCodeList = datas.handOrderCodeList;
+	    		var appointObjList = datas.appointObjList;
 	    		
 	    		for (var i = 0; i < handOrderCodeList.length; i++) {
 	    			var handOrderCode = handOrderCodeList[i];
 	    			jQuery("ul[name='handNumberUl']").find("[name='"+handOrderCode+"']").addClass("active");
+	    		}
+	    		
+	    		jQuery("div[name='appointDIV']").empty();
+	    		
+	    		for (var i = 0; i < appointObjList.length; i++) {
+	    			var appointObj = appointObjList[i];
+	    			var str = '<div class="order_open_card_content" chooseAppoint("'+appointObj.memberName+'", "'+appointObj.sex+'", "'+appointObj.phone+'", '+appointObj.appointmentId+', '+memberId+')>'+
+							   '<div class="order_open_card_content_left">'+
+								  '<div class="img">'+
+									'<img src="'+qiniuUrl+appointObj.headUrl+'">'+
+								  '</div>'+
+								  '<div class="img_right">'+
+									 '<div>'+appointObj.memberName+'</div>'+
+									 '<p>'+appointObj.phone+'</p>';
+	    			if (appointObj.appointmentWay == 1) {
+	    				str += '<span>电话预约</span>';
+	    			}
+	    			else {
+	    				str += '<span>微信预约</span>';
+	    			}
+	    			str += 	'</div>'+
+					    '</div>'+
+						'<div class="order_open_card_content_right">'+
+						   '<p>'+appointObj.categoryName+'</p>'+
+						   '<span>预约时间'+appointObj.appointmentDate+'</span>'+
+						   '<div>'+appointObj.employeeName+'</div>'+
+						   '<div>'+appointObj.levelName+'</div>'+
+					   '</div>'+
+					'</div>';
+	    			jQuery("div[name='appointDIV']").append(str);
 	    		}
 	    		
 	    		jQuery("ul[name='positionUl']").empty();
@@ -164,6 +194,16 @@ function alertZzc() {
 	    	}
 	    });
 	  jQuery("div[name='openOrderZzc']").show();
+}
+
+function chooseAppoint (memberName, sex, phone, appointmentId, memberId) {
+	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", memberId);
+	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("appointmentId", appointmentId);
+	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text(memberName);
+	 jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text(phone);
+	 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").empty();
+	 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").attr("memberSex", sex);
+	 orderOpenCardClose();
 }
 
 function choosePositionShiftMahjong (obj, positionId) {
@@ -482,6 +522,7 @@ function openOrderType (obj) {
 		 jQuery("[name='seekName']").show();
 		 
 		 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", "");
+		 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("appointmentId", "");
 		 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text("");
 		 jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text("");
 		 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").empty();
@@ -492,6 +533,7 @@ function openOrderType (obj) {
 		 jQuery(obj).find("i").addClass("active_border");
 		 if (jQuery(obj).attr("type") == 2) {
 			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", "");
+			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("appointmentId", "");
 			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text("散客");
 			 jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text("---");
 			 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").empty();
@@ -500,6 +542,7 @@ function openOrderType (obj) {
 		 }
 		 else {
 			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", "");
+			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("appointmentId", "");
 			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text("");
 			 jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text("");
 			 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").empty();

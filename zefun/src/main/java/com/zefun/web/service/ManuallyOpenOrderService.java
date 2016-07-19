@@ -30,6 +30,7 @@ import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.PositionInfo;
+import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
@@ -43,6 +44,7 @@ import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
+import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
@@ -95,6 +97,8 @@ public class ManuallyOpenOrderService {
 	@Autowired private MemberInfoMapper memberInfoMapper;
 	/** */
 	@Autowired private MemberAppointmentMapper memberAppointmentMapper;
+	/** */
+	@Autowired private ProjectCategoryMapper projectCategoryMapper;
 	/**
 	 * 初始化轮职排班界面
 	* @author laowang
@@ -223,14 +227,26 @@ public class ManuallyOpenOrderService {
 		for (MemberAppointment memberAppointment : memberAppointmentList) {
 			Map<String, Object> appointObj = new HashMap<>();
 			appointObj.put("appointmentId", memberAppointment.getAppointmentId());
+			appointObj.put("appointmentWay", memberAppointment.getAppointmentWay());
+			appointObj.put("appointmentDate", memberAppointment.getAppointmentDate() + " " + memberAppointment.getAppointmentTime());
 			MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberAppointment.getMemberId());
+			//设置会员信息
 			appointObj.put("memberId", memberAppointment.getMemberId());
 			appointObj.put("memberName", memberInfo.getName());
 			appointObj.put("sex", memberInfo.getSex());
 			appointObj.put("phone", memberInfo.getPhone());
-			appointObj.put("phone", memberInfo.getPhone());
+			appointObj.put("headUrl", memberInfo.getHeadUrl());
+			EmployeeDto employeeDto = employeeInfoMapper.selectEmployeeBaseInfo(memberAppointment.getEmployeeId());
+			//设置员工信息
+			appointObj.put("employeeId", employeeDto.getEmployeeId());
+			appointObj.put("employeeName", employeeDto.getName());
+			appointObj.put("levelName", employeeDto.getLevelName());
+			//预约大项目
+			ProjectCategory projectCategory = projectCategoryMapper.selectByPrimaryKey(memberAppointment.getProjectId());
+			appointObj.put("categoryName", projectCategory.getCategoryName());
+			appointObjList.add(appointObj);
 		}
-		
+		map.put("appointObjList", appointObjList);
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
 	}
 	

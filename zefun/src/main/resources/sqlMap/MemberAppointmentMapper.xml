@@ -59,6 +59,30 @@
     </association>
   </resultMap>
   
+  <resultMap id="AppointmentBaseResultMap" type="com.zefun.web.entity.MemberAppointment" >
+    <id column="appointment_id" property="appointmentId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_step_order" property="projectStepOrder" jdbcType="INTEGER" />
+    <result column="shift_mahjong_id" property="shiftMahjongId" jdbcType="INTEGER" />
+    <result column="appointment_date" property="appointmentDate" jdbcType="CHAR" />
+    <result column="appointment_time" property="appointmentTime" jdbcType="CHAR" />
+    <result column="appointment_price" property="appointmentPrice" jdbcType="DECIMAL" />
+    <result column="service_time" property="serviceTime" jdbcType="CHAR" />
+    <result column="appointment_status" property="appointmentStatus" jdbcType="INTEGER" />
+    <result column="appointment_way" property="appointmentWay" jdbcType="INTEGER" />
+    <result column="cancel_time" property="cancelTime" jdbcType="CHAR" />
+    <result column="cancel_reason" property="cancelReason" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+  </resultMap>
+  
   <resultMap id="MemberAppointResultMap" type="com.zefun.web.dto.AppointmentBaseDto" >
     <id column="appointment_id" property="appointmentId" jdbcType="INTEGER" />
     <result column="member_id" property="memberId" jdbcType="INTEGER" />
@@ -421,11 +445,11 @@
   </select>
   
   <!-- 根据门店查询预约单 -->
-  <select id="selectByStoreIdServer" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-  	select <include refid="Base_Column_List" /> 
+  <select id="selectByStoreIdServer" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+  	select *
   	from member_appointment 
   	where is_deleted = 0 and appointment_status = 2 
-  	and store_id = ${storeId} and is_deleted = 0
+  	and store_id = #{storeId,jdbcType=INTEGER}
   </select>
   
 </mapper>
