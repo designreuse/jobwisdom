@@ -24,11 +24,13 @@ import com.zefun.web.dto.PositionInfoShiftMahjongDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.EmployeeInfo;
+import com.zefun.web.entity.MemberAppointment;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
 import com.zefun.web.mapper.EmployeeInfoMapper;
+import com.zefun.web.mapper.MemberAppointmentMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
@@ -88,7 +90,9 @@ public class StaffOrderService {
     /** 会员信息*/
     @Autowired
     private MemberInfoService memberInfoService;
-    
+    /** 会员预约*/
+    @Autowired 
+    private MemberAppointmentMapper memberAppointmentMapper;
     
     /**
      * 查询店内所有订单
@@ -355,6 +359,14 @@ public class StaffOrderService {
             record.setDetailId(orderDetail.getDetailId());
             record.setIsDeleted(1);
             orderDetailMapper.updateByPrimaryKey(record);
+        }
+        
+        if (orderDetail.getIsAppoint() != 0) {
+        	MemberAppointment memberAppointment = memberAppointmentMapper.selectByPrimaryKey(orderDetail.getIsAppoint());
+        	MemberAppointment record = new MemberAppointment();
+        	record.setAppointmentId(memberAppointment.getAppointmentId());
+        	record.setAppointmentStatus(2);
+        	memberAppointmentMapper.updateByPrimaryKey(record);
         }
     }
     
