@@ -62,6 +62,15 @@ public interface MemberAppointmentMapper {
     List<String> selectAppointDateByEmployee(int employeeId);
     
     /**
+     * 根据门店标识查询可服务单
+    * @author 老王
+    * @date 2016年7月19日 上午11:22:47 
+    * @param storeId 门店标识
+    * @return MemberAppointment
+     */
+    List<MemberAppointment> selectByStoreIdServer(int storeId);
+    
+    /**
      * 根据会员标识查询预约列表
     * @author 张进军
     * @date Oct 21, 2015 10:33:37 PM

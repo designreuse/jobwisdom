@@ -318,6 +318,7 @@ function submitPhone (obj) {
 				jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text(memberBaseDto.phone);
 				jQuery("div[name='memberNoPage']").find("td[name='memberSex']").text(memberBaseDto.sex);
 				jQuery("div[name='memberNoPage']").find("td[name='memberSex']").attr("memberSex", memberBaseDto.sex);
+				jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("appointmentId", "");
 			}
 			else {
 				var parentsObj = jQuery(obj).parents("div[name='memberTR']").next();

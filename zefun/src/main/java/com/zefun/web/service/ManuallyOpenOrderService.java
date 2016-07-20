@@ -25,9 +25,12 @@ import com.zefun.web.dto.ProjectMahjongProjectStepDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.entity.MemberAppointment;
+import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.PositionInfo;
+import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
@@ -36,10 +39,12 @@ import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.MemberAppointmentMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
+import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
@@ -90,6 +95,10 @@ public class ManuallyOpenOrderService {
 	@Autowired private SelfCashierService selfCashierService;
 	/** */
 	@Autowired private MemberInfoMapper memberInfoMapper;
+	/** */
+	@Autowired private MemberAppointmentMapper memberAppointmentMapper;
+	/** */
+	@Autowired private ProjectCategoryMapper projectCategoryMapper;
 	/**
 	 * 初始化轮职排班界面
 	* @author laowang
@@ -195,7 +204,6 @@ public class ManuallyOpenOrderService {
         mav.addObject("deptList", deptList);
 		
 		return mav;
-		
 	}
 	
 	/**
@@ -213,6 +221,31 @@ public class ManuallyOpenOrderService {
 		List<Integer> handOrderCodeList = orderInfoMapper.selectIsUserHandOrderCode(storeId);
 		map.put("handOrderCodeList", handOrderCodeList);
 		
+		List<MemberAppointment> memberAppointmentList = memberAppointmentMapper.selectByStoreIdServer(storeId);
+		List<Map<String, Object>> appointObjList = new ArrayList<>();
+		for (MemberAppointment memberAppointment : memberAppointmentList) {
+			Map<String, Object> appointObj = new HashMap<>();
+			appointObj.put("appointmentId", memberAppointment.getAppointmentId());
+			appointObj.put("appointmentWay", memberAppointment.getAppointmentWay());
+			appointObj.put("appointmentDate", memberAppointment.getAppointmentDate() + " " + memberAppointment.getAppointmentTime());
+			MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberAppointment.getMemberId());
+			//设置会员信息
+			appointObj.put("memberId", memberAppointment.getMemberId());
+			appointObj.put("memberName", memberInfo.getName());
+			appointObj.put("sex", memberInfo.getSex());
+			appointObj.put("phone", memberInfo.getPhone());
+			appointObj.put("headUrl", memberInfo.getHeadUrl());
+			EmployeeDto employeeDto = employeeInfoMapper.selectEmployeeBaseInfo(memberAppointment.getEmployeeId());
+			//设置员工信息
+			appointObj.put("employeeId", employeeDto.getEmployeeId());
+			appointObj.put("employeeName", employeeDto.getName());
+			appointObj.put("levelName", employeeDto.getLevelName());
+			//预约大项目
+			ProjectCategory projectCategory = projectCategoryMapper.selectByPrimaryKey(memberAppointment.getProjectId());
+			appointObj.put("categoryName", projectCategory.getCategoryName());
+			appointObjList.add(appointObj);
+		}
+		map.put("appointObjList", appointObjList);
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
 	}
 	
@@ -234,8 +267,7 @@ public class ManuallyOpenOrderService {
     		  Integer storeId, Integer appointmentId, Integer lastOperatorId) {
     	Integer orderId = addOrderInfo(handOrderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId);
         //暂时未做
-        Integer isAppointment = 0;
-        addDetail(orderId, employeeObj, storeId, isAppointment, lastOperatorId);
+        addDetail(orderId, employeeObj, storeId, appointmentId, lastOperatorId);
         
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("storeId", storeId);
@@ -261,13 +293,20 @@ public class ManuallyOpenOrderService {
     * @param orderId 订单标识
     * @param employeeObj 指定员工
     * @param storeId 门店标识
-    * @param isAppointment 是否预约
+    * @param appointmentId 是否预约
     * @param lastOperatorId 操作人
      */
     public void addDetail(Integer orderId, String employeeObj, Integer storeId, 
-            Integer isAppointment, Integer lastOperatorId) {
-
-        Integer detailId = addOrderDetail(orderId, isAppointment, DateUtil.getCurTime(), storeId, lastOperatorId);
+            Integer appointmentId, Integer lastOperatorId) {
+        MemberAppointment memberAppointment = null;
+    	if (appointmentId != null) {
+    		memberAppointment = memberAppointmentMapper.selectByPrimaryKey(appointmentId);
+    		MemberAppointment record = new MemberAppointment();
+    		record.setAppointmentId(memberAppointment.getAppointmentId());
+    		record.setAppointmentStatus(6);
+    		memberAppointmentMapper.updateByPrimaryKey(record);
+    	}
+        Integer detailId = addOrderDetail(orderId, appointmentId, DateUtil.getCurTime(), storeId, lastOperatorId);
         
         //获取项目指定轮牌员工
         JSONArray empjsonArray =JSONArray.fromObject(employeeObj);
@@ -277,6 +316,7 @@ public class ManuallyOpenOrderService {
             Integer positionId = jsonEmployee.getInt("positionId");
             //是否指定
             Integer isAssign = jsonEmployee.getInt("isAssign");
+            Integer isAppoint = 0;
             
             Integer shiftMahjongId = null;
             if (!jsonEmployee.get("shiftMahjongId").toString().isEmpty()) {
@@ -288,9 +328,12 @@ public class ManuallyOpenOrderService {
             if (!jsonEmployee.get("employeeId").toString().isEmpty()) {
             	//指定员工对应轮牌员工标识
             	employeeId = jsonEmployee.getInt("employeeId");
+            	if (memberAppointment != null && employeeId.intValue() == memberAppointment.getEmployeeId().intValue()) {
+            		isAppoint = 1;
+            	}
             }
             
-            addShiftMahjongProjectStep(detailId, shiftMahjongId, employeeId, positionId, isAssign, lastOperatorId);
+            addShiftMahjongProjectStep(detailId, shiftMahjongId, employeeId, positionId, isAssign, isAppoint, lastOperatorId);
         }
         
         
@@ -299,7 +342,6 @@ public class ManuallyOpenOrderService {
         //状态进行中
         orderInfo.setOrderStatus(1);
         orderInfoMapper.updateByPrimaryKey(orderInfo);
-        
     }
     
     /**
@@ -353,6 +395,7 @@ public class ManuallyOpenOrderService {
         orderDetail.setOrderId(orderId);
         orderDetail.setOrderType(1);
         orderDetail.setIsAssign(0);
+        orderDetail.setIsAppoint(isAppointment);
         orderDetail.setProjectCount(1);
         orderDetail.setStoreId(storeId);
         orderDetail.setOrderStatus(2);
@@ -373,10 +416,11 @@ public class ManuallyOpenOrderService {
     * @param employeeId 员工标识
     * @param positionId 岗位标识
     * @param isAssign 是否指定
+    * @param isAppoint 是否预约
     * @param lastOperatorId 操作人员
      */
     public void addShiftMahjongProjectStep(Integer detailId, Integer shiftMahjongId, Integer employeeId, Integer positionId, Integer isAssign, 
-    		  Integer lastOperatorId){
+    		  Integer isAppoint, Integer lastOperatorId){
     	
     	ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
     	shiftMahjongProjectStep.setDetailId(detailId);

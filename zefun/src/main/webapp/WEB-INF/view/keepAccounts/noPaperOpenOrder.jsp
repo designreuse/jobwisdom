@@ -224,65 +224,9 @@
    
       <div class="order_open_card" style="display:none">
 	    <div class="order_open_card_close" onclick="orderOpenCardClose()"><img src="<%=basePath%>images/open_card_close.png"></div>
-	    <p>2016／06/23 16:57</p>
-		 <div class="order_open_card_ clearfix">
-			<div class="order_open_card_content">
-			   <div class="order_open_card_content_left">
-				  <div class="img">
-					<img src="assets/images/seo_pic.png">
-				  </div>
-				  <div class="img_right">
-					 <div>实打实的</div>
-					 <p>1313131313113</p>
-					 <span>收银预约</span>
-				  </div>
-			   </div>
-				<div class="order_open_card_content_right">
-				   <p>啊啊啊啊啊啊系列</p>
-				   <span>预约时间16:30 已过期</span>
-				   <div>110 名啊字</div>
-				   <div>美发发型师</div>
-			   </div>
-			</div>
+	    <!-- <p>2016／06/23 16:57</p> -->
+		 <div class="order_open_card_ clearfix" name = "appointDIV">
 			
-			<div class="order_open_card_content">
-			   <div class="order_open_card_content_left" onclick="orderOpenCardClose()">
-				  <div class="img">
-					<img src="assets/images/seo_pic.png">
-				  </div>
-				  <div class="img_right">
-					 <div>实打实的</div>
-					 <p>1313131313113</p>
-					 <span>收银预约</span>
-				  </div>
-			   </div>
-			   <div class="order_open_card_content_right">
-				   <p>啊啊啊啊啊啊系列</p>
-				   <span>预约时间16:30 已过期</span>
-				   <div>110 名啊字</div>
-				   <div>美发发型师</div>
-			   </div>
-			</div>
-			
-			
-				<div class="order_open_card_content">
-			   <div class="order_open_card_content_left">
-				  <div class="img">
-					<img src="assets/images/seo_pic.png">
-				  </div>
-				  <div class="img_right">
-					 <div>实打实的</div>
-					 <p>1313131313113</p>
-					 <span>收银预约</span>
-				  </div>
-			   </div>
-				<div class="order_open_card_content_right">
-				   <p>啊啊啊啊啊啊系列</p>
-				   <span>预约时间16:30 已过期</span>
-				   <div>110 名啊字</div>
-				   <div>美发发型师</div>
-			   </div>
-			</div>
 			
 		 </div>
          

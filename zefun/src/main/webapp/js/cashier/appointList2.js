@@ -810,6 +810,69 @@ var flowTypeArray =new Array("","-","+");
 
 var debtTypeArray =new Array("","挂账","还款");
 
+var memberList = "";
+
+jQuery(document).ready(function(){
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "member/action/selectStoreMemberInfo",
+		dataType : "json",
+		beforeSend : function(){
+		},
+		complete : function(){
+		},
+		success : function(e){
+			if(e.code != 0){
+				dialog(e.msg);
+				return;
+			}
+			memberList = e.msg;
+		}
+	});
+});
+
+function dimSelectMember (obj, str) {
+	var a = 1;
+	var parentsObj = jQuery(obj).parents("div[name='memberTR']");
+	parentsObj.find(".fuzzysearch").empty();
+	for (var i = 0; i < inputMemberList.length; i++) {
+		var mMap = inputMemberList[i];
+		var name = mMap.name.toString();
+		var phone = mMap.phone.toString();
+		if (name.indexOf(str.toString()) != -1){
+			parentsObj.find(".fuzzysearch").append("<li class='text-center' onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
+			a++;
+			if (a == 10) {
+				break;
+			}
+			continue;
+		}
+		if (phone.indexOf(str) != -1) {
+			parentsObj.find(".fuzzysearch").append("<li class='text-center' onclick = choosePhone(this,'"+phone+"')><sapn><span class='mr10'>"+name+":</span>"+phone+"</sapn></li>");
+			a++;
+			if (a == 10) {
+				break;
+			}
+			continue;
+		}
+		inputMemberList.splice(i,1);//从下标为i的元素开始，连续删除1个元素
+        i--;//因为删除下标为i的元素后，该位置又被新的元素所占据，所以要重新检测该位置
+	}
+	parentsObj.find(".fuzzysearch").append("<em class='t-border'></em>"+
+                                           "<span class='t-content'></span>")
+}
+
+function choosePhone (obj, phone) {
+	jQuery(obj).parents("div[name='memberTR']").find("input[name='phoneNumber']").val(phone);
+	submitPhone (obj);
+}
+
+jQuery("body").delegate(".searchinpput","blur", function(event){
+	setTimeout(function () {
+		jQuery(".fuzzysearch").css("display", "none");
+	},500);
+});
+
 //hover delegate绑定，鼠标移动到预约员工显示弹框，移走隐藏预约员工弹框
 jQuery("body").delegate(".yuyue-p", "mouseenter", function (event) {  
 	jQuery(this).children(".yuyue-yg-s").removeClass("hide");
@@ -817,6 +880,29 @@ jQuery("body").delegate(".yuyue-p", "mouseenter", function (event) {
 	jQuery(this).children(".yuyue-yg-s").addClass("hide");
 });
 
+jQuery("body").delegate(".searchinpput","focus", function(event){
+	
+	event = event ? event : window.event; 
+	var obj = event.srcElement ? event.srcElement : event.target;
+	
+	if (isEmpty(jQuery(obj).val()) || obj != inputMemberObj) {
+		jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").empty();
+		inputMemberList = JSON.parse(JSON.stringify(memberList));
+		inputPhoneNum = 0;
+		inputMemberObj = obj;
+		jQuery(obj).val("");
+		return;
+	}
+
+	dimSelectMember(obj, jQuery(obj).val());
+	
+	jQuery(obj).parents("div[name='memberTR']").find(".fuzzysearch").css("display", "block");
+});
+
+//当前
+var inputMemberObj = "";
+var inputPhoneNum = 0;
+var inputMemberList = "";
 
 jQuery("#orderComboTBODY").delegate(".project-toggle", "click", function(event){
 	event = event ? event : window.event; 
@@ -1369,10 +1455,5 @@ function zeroValue (value) {
 	return value;
 }
 
-function againSearch(obj) {
-	jQuery(obj).parents("[name='memberTR']").find("input[name='memberId']").val("");
-	jQuery(obj).parents("[name='memberTR']").prev().removeClass("hide");
-	jQuery(obj).parents("[name='memberTR']").addClass("hide");
-}
 //-----------------------end老王memberData.js--------------------
 
