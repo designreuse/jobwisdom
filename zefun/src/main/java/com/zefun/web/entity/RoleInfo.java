@@ -13,6 +13,28 @@ public class RoleInfo {
     private String roleName;
     /**排序*/
     private Integer roleSort;
+    
+    /**一级菜单*/
+    private String fristMenu;
+    /**二级菜单*/
+    private String secondMenu;
+    
+   
+    public String getFristMenu() {
+        return fristMenu;
+    }
+
+    public void setFristMenu(String fristMenu) {
+        this.fristMenu = fristMenu;
+    }
+
+    public String getSecondMenu() {
+        return secondMenu;
+    }
+
+    public void setSecondMenu(String secondMenu) {
+        this.secondMenu = secondMenu;
+    }
 
     public Integer getRoleId() {
         return roleId;
