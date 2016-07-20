@@ -73,6 +73,14 @@ public class MemberAppointment {
 	/** 员工信息 */
 	private EmployeeInfo employeeInfo;
 
+	public Integer getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
+	}
+
 	/**
 	 * @param appointmentId
 	 *            预约标识
@@ -84,19 +92,6 @@ public class MemberAppointment {
 	/** @return 预约标识 */
 	public Integer getAppointmentId() {
 		return appointmentId;
-	}
-
-	/**
-	 * @param storeId
-	 *            门店标识
-	 */
-	public void setStoreId(Integer storeId) {
-		this.storeId = storeId;
-	}
-
-	/** @return 门店标识 */
-	public Integer getStoreId() {
-		return storeId;
 	}
 
 	/**
