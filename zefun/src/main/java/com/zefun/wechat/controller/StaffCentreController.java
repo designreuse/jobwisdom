@@ -52,11 +52,6 @@ public class StaffCentreController extends BaseController{
 	@Autowired
 	private EmployeeCommissionMapper employeeCommissionMapper;
 	
-    
-	Integer employeeId = 2046;
-	
-	Integer storeId = 1158;
-	
     /**
      * 个人中心
     * @author 王大爷
@@ -70,11 +65,11 @@ public class StaffCentreController extends BaseController{
     @RequestMapping(value = Url.Staff.VIEW_STAFF_CENTER)
     public ModelAndView staffCenter(@PathVariable String storeId, @PathVariable int businessType,
             HttpServletRequest request, HttpServletResponse response) {
-        /*String openId = getOpenId(storeId, businessType, request, response);
+        String openId = getOpenId(storeId, businessType, request, response);
         if (openId == null) {
             return null;
-        }*/
-    	/*int employeeId = getUserIdByOpenId(openId)*/;
+        }
+    	int employeeId = getUserIdByOpenId(openId);
         return staffCentreService.staffCenter(employeeId);
     }
     
@@ -367,12 +362,12 @@ public class StaffCentreController extends BaseController{
      */
     @RequestMapping(value = Url.Staff.VIEW_SELECT_COMMISSION_INFO)
     public ModelAndView selectCommissionInfo(HttpServletRequest request, HttpServletResponse response) {
-        /*String openId = getOpenId(2, request, response);
+        String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
         int employeeId = getUserIdByOpenId(openId);
-        int storeId = getStoreIdByOpenId(openId);*/
+        int storeId = getStoreIdByOpenId(openId);
         return staffCentreService.selectCommissionInfo(storeId, employeeId);
     }
     
