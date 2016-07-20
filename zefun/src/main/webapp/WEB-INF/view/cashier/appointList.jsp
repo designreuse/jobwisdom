@@ -313,117 +313,6 @@ jQuery(this).addClass('change1').siblings().removeClass('change1')
 				</div>
 			</div>
 
-			<!--预约模态框-->
-			<div class="modal hide in" id="yuyue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content yuyue-modal">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h4 class="modal-title" id="myModalLabel">预约项目</h4>
-						</div>
-						<!-- 部门 -->
-						<div class="modal-body">
-							<div class="yuyue-tab">
-								<ul id="appointmentDeptUL">
-									<c:forEach items="${deptInfoList }" var="deptInfo" varStatus="index">
-										<c:choose>
-											<c:when test="${ index.index == 0}">
-												<li class="current" value="${deptInfo.deptId }" onclick="findCanAppointEmployeeByDept(this)">${deptInfo.deptName }</li>
-											</c:when>
-											<c:otherwise>
-												<li value="${deptInfo.deptId }" onclick="findCanAppointEmployeeByDept(this)">${deptInfo.deptName }</li>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-								</ul>
-							</div>
-							<!--人员-->
-							<div class="yuyue-work">
-								<div class="m-arr-left fl">
-									<span class="iconfont icon-qianjinyibu"></span>
-								</div>
-								<div id="appointmentEmployeeDiv" class="fl work-name">
-									<ul>
-										<!-- 滚动员工列表 -->
-									</ul>
-								</div>
-								<div class="m-arr-right fr">
-									<span class="iconfont icon-houtuiyibu"></span>
-								</div>
-							</div>
-							<div>
-								<span>选择项目</span>
-								<div class="select-target">
-									<div class="select-style-wrap">
-
-										<!--选择类型的系列-->
-										<div class="selected-child-select">
-											<ul id="projectCategoryUl">
-												<c:forEach items="${projectCategories }" var="projectCategorie">
-													<li onclick="jQuery(this).siblings().removeClass('active');jQuery(this).addClass('active');globalProjectId=jQuery(this).val()" value="${projectCategorie.categoryId }" class="selected-item" style="cursor: pointer">${projectCategorie.categoryName }</li>
-												</c:forEach>
-												<!-- 项目系列列表处 -->
-											</ul>
-										</div>
-
-										<div class="all-kind-wrap">
-											<ul id="projectUl">
-												<!-- 项目列表处 -->
-											</ul>
-										</div>
-										<!--选择具体的项目-->
-
-									</div>
-
-								</div>
-								<p style="height: 62px; line-height: 62px;">
-									已选择员工： <span id="selectEmployee" class="yuyue-co"></span> 
-									已选择项目： <span id="selectProject" class="yuyue-co"></span>
-									预约时间： <span id="selectTime" class="yuyue-co"></span>
-									<!-- 调用老王查询会员 -->
-	                           		<div class="p-part-first" id="partDIV" name="memberTR">
-				                        <label class="w60 ml10 kaidan-label" for="">客户:</label>
-				                        <div style="display: inline-block;" name= "seekTD">
-				                           <input id="customerPhone" type="text" class="w185 searchinpput" name = "phoneNumber" placeholder="手机号"/>
-				                           <ul class="fuzzysearch" >
-			
-					                       </ul>
-				                           <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
-				                        </div>
-				                        <div name="resultTD" style="display: none;">
-			                                <span data-toggle="modal" data-target="#member-data" class="can-click"></span>
-			                                <input id="memberId" type="hidden" name = "memberId">
-			                                <span class="ml10" name = "balance"></span>
-			                                <span class="iconsweets-magnifying ml10 mt-5" name="breakName"></span>
-			                            </div>
-				                    </div>
-				                    
-				                    <span id="customerNameSpan">姓名：</span> <input id="customerName" type="text" placeholder="姓名" />
-								</p>
-								<div>
-									<!-- <span>客户姓名：</span> <input id="customerName" type="text" /> 
-									<span>手机号：</span> <input id="customerPhone" type="text" /> -->
-	                           		
-								</div>
-							</div>
-						</div>
-						<!--modal-body-->
-						<div class="modal-footer">
-							<div class="fr f-btn">
-								<button class="btn" data-dismiss="modal">取消</button>
-								<button class="btn" onclick="addAppointProject()">确定预约</button>
-							</div>
-						</div>
-					</div>
-					<!--modal-content-->
-				</div>
-				<!--modal-dialog-->
-			</div>
-			<!--modal-->
-
 			<script>
 				//点击上午,下午,晚上,夜间之间的切换
 				jQuery(function() {
@@ -636,9 +525,53 @@ jQuery(this).addClass('change1').siblings().removeClass('change1')
   <div class="order_item">
      <p>预约项目</p>
      <div class="order_item_content">
-          <div class="search_vip">
-              搜索会员：<input type="text" placeholder="客户姓名/手机号/卡号">
+          <div class="search_vip" name="memberTR" selectType="2"> 搜索会员：
+                   <input type="text"name="phoneNumber" class = "input_content" placeholder="会员手机号">
+			       <span class="iconfont icon-sousuo ml-30 mt5" name="seekName" style="display: none;"></span>
+				   <div class="show_search" name="memberListDIV"
+						style="display: none;">
+						<p>
+							以<i name="conditionValue"></i>为条件显示到<i name="showList"></i>位顾客
+							<em><input type="checkbox" name="enterpriseCheck"
+								onchange="changeAllEnterprise(this)">全店搜索<span>?</span>
+							</em>
+						</p>
+						<div class="common_close" onclick="cancleMemberSelect(this)">
+							<img src="<%=basePath%>images/emploee_3.png">
+						</div>
+						<div style="height: 400px; overflow: overlay;"
+							name="memberoverDIV"></div>
+					</div>
           </div>
+          <div class="card-main1 clearfix hide" name = "memberTR" style="height: 70px;">
+               <div class="common_table">   
+				  	   <table style="width: 870px;">
+					     <tr>
+						   <td rowspan="2"><img src="" name = "memberImg"></td>
+						   <td>手机号</td>
+						   <td>姓名</td>
+						   <td>性别</td>
+						   <td>开卡门店</td>
+						   <td>余额</td>
+						   <td>礼金</td>
+						   <td>欠款</td>
+						   <td>会员卡</td>
+						   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+						 </tr>
+						 <tr>
+						   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+						   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
+						   <td name = "memberSexSpan">男</td>
+						   <td name = "memberStoreName">华南美联店</td>
+						   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
+						   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
+						   <td style="color:#eb4749" name = "needRefund"></td>
+						   <td ><span name = "subAccountNum"></span>张</td>
+						 </tr>
+						 <input type="hidden" name = "memberId">
+					   </table>
+				    </div>
+               </div>
 		  
 		  <div class="order_item_apartment clearfix">
 		     <ul>
@@ -695,9 +628,9 @@ jQuery(this).addClass('change1').siblings().removeClass('change1')
      </div>
    </div>
 </div>
+<%@ include file="/template/memberData.jsp"%>
 </body>
 
-<%-- <%@ include file="/template/memberData.jsp" %> 已经把memberData.js全部复制到appointList.js中--%>
 <script type="text/javascript" src="<%=basePath %>js/cashier/appointList.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
 <script>

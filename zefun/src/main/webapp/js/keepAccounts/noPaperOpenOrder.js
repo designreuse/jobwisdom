@@ -104,7 +104,7 @@ function alertZzc() {
 	    		
 	    		for (var i = 0; i < appointObjList.length; i++) {
 	    			var appointObj = appointObjList[i];
-	    			var str = '<div class="order_open_card_content" chooseAppoint("'+appointObj.memberName+'", "'+appointObj.sex+'", "'+appointObj.phone+'", '+appointObj.appointmentId+', '+memberId+')>'+
+	    			var str = '<div class="order_open_card_content" onclick = "chooseAppoint(\''+appointObj.memberName+'\', \''+appointObj.sex+'\', \''+appointObj.phone+'\', '+appointObj.appointmentId+', '+appointObj.memberId+', '+appointObj.employeeId+')">'+
 							   '<div class="order_open_card_content_left">'+
 								  '<div class="img">'+
 									'<img src="'+qiniuUrl+appointObj.headUrl+'">'+
@@ -137,7 +137,7 @@ function alertZzc() {
 	    			var positionInfoShiftMahjongDto = positionInfoShiftMahjongDtoList[i];
 	    			var str = "";
 	    			if (i == 0) {
-	    				jQuery("ul[name='positionUl']").append('<li class="active" onclick = "choosePositionShiftMahjong(this, '+positionInfoShiftMahjongDto.positionId+')">'+positionInfoShiftMahjongDto.positionName+'</li>');
+	    				jQuery("ul[name='positionUl']").append('<li class="active" positionId = "'+positionInfoShiftMahjongDto.positionId+'" onclick = "choosePositionShiftMahjong(this, '+positionInfoShiftMahjongDto.positionId+')">'+positionInfoShiftMahjongDto.positionName+'</li>');
 	    				
 	    				str = '<div name = "shiftMajone" positionId = "'+positionInfoShiftMahjongDto.positionId+'"><p class = "shift_majone_name">'+
 							        '<span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = "" disabled="disabled"></span>'+
@@ -196,13 +196,22 @@ function alertZzc() {
 	  jQuery("div[name='openOrderZzc']").show();
 }
 
-function chooseAppoint (memberName, sex, phone, appointmentId, memberId) {
+function chooseAppoint (memberName, sex, phone, appointmentId, memberId, employeeId) {
 	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", memberId);
 	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("appointmentId", appointmentId);
 	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text(memberName);
 	 jQuery("div[name='memberNoPage']").find("td[name='memberPhone']").text(phone);
 	 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").empty();
 	 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").attr("memberSex", sex);
+	 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").text(sex);
+	 
+	 var activeLi = jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).attr("name");
+	 if (!isEmpty(activeLi)) {
+		 jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).click();
+		 var positionid = jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).parents("div[name='shiftMajone']").attr("positionid");
+		 jQuery("ul[name='positionUl']").find("li[positionid='"+positionid+"']").click();
+	 }
+	 
 	 orderOpenCardClose();
 }
 

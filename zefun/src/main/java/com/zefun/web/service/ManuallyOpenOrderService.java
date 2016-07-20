@@ -204,7 +204,6 @@ public class ManuallyOpenOrderService {
         mav.addObject("deptList", deptList);
 		
 		return mav;
-		
 	}
 	
 	/**
@@ -268,8 +267,7 @@ public class ManuallyOpenOrderService {
     		  Integer storeId, Integer appointmentId, Integer lastOperatorId) {
     	Integer orderId = addOrderInfo(handOrderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId);
         //暂时未做
-        Integer isAppointment = 0;
-        addDetail(orderId, employeeObj, storeId, isAppointment, lastOperatorId);
+        addDetail(orderId, employeeObj, storeId, appointmentId, lastOperatorId);
         
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("storeId", storeId);
@@ -295,13 +293,20 @@ public class ManuallyOpenOrderService {
     * @param orderId 订单标识
     * @param employeeObj 指定员工
     * @param storeId 门店标识
-    * @param isAppointment 是否预约
+    * @param appointmentId 是否预约
     * @param lastOperatorId 操作人
      */
     public void addDetail(Integer orderId, String employeeObj, Integer storeId, 
-            Integer isAppointment, Integer lastOperatorId) {
-
-        Integer detailId = addOrderDetail(orderId, isAppointment, DateUtil.getCurTime(), storeId, lastOperatorId);
+            Integer appointmentId, Integer lastOperatorId) {
+        MemberAppointment memberAppointment = null;
+    	if (appointmentId != null) {
+    		memberAppointment = memberAppointmentMapper.selectByPrimaryKey(appointmentId);
+    		MemberAppointment record = new MemberAppointment();
+    		record.setAppointmentId(memberAppointment.getAppointmentId());
+    		record.setAppointmentStatus(6);
+    		memberAppointmentMapper.updateByPrimaryKey(record);
+    	}
+        Integer detailId = addOrderDetail(orderId, appointmentId, DateUtil.getCurTime(), storeId, lastOperatorId);
         
         //获取项目指定轮牌员工
         JSONArray empjsonArray =JSONArray.fromObject(employeeObj);
@@ -311,6 +316,7 @@ public class ManuallyOpenOrderService {
             Integer positionId = jsonEmployee.getInt("positionId");
             //是否指定
             Integer isAssign = jsonEmployee.getInt("isAssign");
+            Integer isAppoint = 0;
             
             Integer shiftMahjongId = null;
             if (!jsonEmployee.get("shiftMahjongId").toString().isEmpty()) {
@@ -322,9 +328,12 @@ public class ManuallyOpenOrderService {
             if (!jsonEmployee.get("employeeId").toString().isEmpty()) {
             	//指定员工对应轮牌员工标识
             	employeeId = jsonEmployee.getInt("employeeId");
+            	if (memberAppointment != null && employeeId.intValue() == memberAppointment.getEmployeeId().intValue()) {
+            		isAppoint = 1;
+            	}
             }
             
-            addShiftMahjongProjectStep(detailId, shiftMahjongId, employeeId, positionId, isAssign, lastOperatorId);
+            addShiftMahjongProjectStep(detailId, shiftMahjongId, employeeId, positionId, isAssign, isAppoint, lastOperatorId);
         }
         
         
@@ -333,7 +342,6 @@ public class ManuallyOpenOrderService {
         //状态进行中
         orderInfo.setOrderStatus(1);
         orderInfoMapper.updateByPrimaryKey(orderInfo);
-        
     }
     
     /**
@@ -387,6 +395,7 @@ public class ManuallyOpenOrderService {
         orderDetail.setOrderId(orderId);
         orderDetail.setOrderType(1);
         orderDetail.setIsAssign(0);
+        orderDetail.setIsAppoint(isAppointment);
         orderDetail.setProjectCount(1);
         orderDetail.setStoreId(storeId);
         orderDetail.setOrderStatus(2);
@@ -407,10 +416,11 @@ public class ManuallyOpenOrderService {
     * @param employeeId 员工标识
     * @param positionId 岗位标识
     * @param isAssign 是否指定
+    * @param isAppoint 是否预约
     * @param lastOperatorId 操作人员
      */
     public void addShiftMahjongProjectStep(Integer detailId, Integer shiftMahjongId, Integer employeeId, Integer positionId, Integer isAssign, 
-    		  Integer lastOperatorId){
+    		  Integer isAppoint, Integer lastOperatorId){
     	
     	ShiftMahjongProjectStep shiftMahjongProjectStep = new ShiftMahjongProjectStep();
     	shiftMahjongProjectStep.setDetailId(detailId);
