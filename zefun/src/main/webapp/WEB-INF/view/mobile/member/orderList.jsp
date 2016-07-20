@@ -138,11 +138,11 @@
        window.location.href = baseUrl + "memberCenter/view/share?orderId=" + orderId ;
    }
    function goDetail(orderId){
-       window.location.href = baseUrl + "memberCenter/view/paymentDetail/${session_key_store_id}/1?orderId=" + orderId ;
+       window.location.href = baseUrl + "memberCenter/view/paymentDetail/${session_key_store_account}/1?orderId=" + orderId ;
    }
    
    function pay(orderId){
-	   window.location.href = baseUrl + "memberCenter/view/orderPay/${session_key_store_id}/1?orderId=" + orderId ;
+	   window.location.href = baseUrl + "memberCenter/view/orderPay/${session_key_store_account}/1?orderId=" + orderId ;
    }
 </script>
 </body>

@@ -45,7 +45,7 @@
 	                          <img src="<%=picPath %>${step.employeeInfo.headImage }?imageView2/1/w/90/h/68" alt=""/>
 	                          <div class="fuwu-p">
 	                              <div class="name">${step.employeeInfo.name }</div>
-	                              <div class="zhiwei">${step.employeeInfo.levelName }</div>
+	                              <%-- <div class="zhiwei">${step.employeeInfo.levelName }</div> --%>
 	                          </div>
 	                          <input employeeId="${step.employeeInfo.employeeId }" detailId="${detail.detailId }" type="number" name="employeeEvaluate" class="rating input-id mt0" data-size="md" value="5" >
 	                      </div>
@@ -97,7 +97,7 @@ var data =
 };
 
 function backHome(){
-    window.location.href = baseUrl + "memberCenter/view/home/${session_key_store_id}/1";
+    window.location.href = baseUrl + "memberCenter/view/home/${session_key_store_account}/1";
 }
 
 function evaluate(){
