@@ -4,10 +4,12 @@
   <resultMap id="BaseResultMap" type="com.zefun.web.entity.RoleInfo" >
     <id column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="frist_menu" property="fristMenu" jdbcType="LONGVARCHAR" />
+    <result column="second_menu" property="secondMenu" jdbcType="LONGVARCHAR" />
     <result column="role_sort" property="roleSort" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    role_id, role_name, role_sort
+    role_id, role_name, role_sort,  frist_menu, second_menu
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,9 +22,9 @@
     where role_id = #{roleId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zefun.web.entity.RoleInfo" >
-    insert into role_info (role_id, role_name, role_sort
+    insert into role_info (role_id, role_name, role_sort, frist_menu, second_menu
       )
-    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleSort,jdbcType=INTEGER}
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleSort,jdbcType=INTEGER}, #{fristMenu,jdbcType=LONGVARCHAR}, #{secondMenu,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zefun.web.entity.RoleInfo" >
@@ -37,6 +39,12 @@
       <if test="roleSort != null" >
         role_sort,
       </if>
+       <if test="fristMenu != null" >
+        frist_menu,
+      </if>
+        <if test="secondMenu != null" >
+        second_menu,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="roleId != null" >
@@ -47,6 +55,12 @@
       </if>
       <if test="roleSort != null" >
         #{roleSort,jdbcType=INTEGER},
+      </if>
+      <if test="fristMenu != null" >
+        #{fristMenu,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="secondMenu != null" >
+        #{secondMenu,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -59,12 +73,20 @@
       <if test="roleSort != null" >
         role_sort = #{roleSort,jdbcType=INTEGER},
       </if>
+      <if test="fristMenu != null" >
+        frist_menu = #{fristMenu,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="secondMenu != null" >
+        second_menu = #{secondMenu,jdbcType=LONGVARCHAR},
+       </if>
     </set>
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.RoleInfo" >
     update role_info
     set role_name = #{roleName,jdbcType=VARCHAR},
+    frist_menu = #{fristMenu,jdbcType=LONGVARCHAR},
+     second_menu = #{secondMenu,jdbcType=LONGVARCHAR},
       role_sort = #{roleSort,jdbcType=INTEGER}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>

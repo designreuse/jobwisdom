@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.MenuIdQuoteMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.MenuIdQuote" >
+    <result column="menu_type" property="menuType" jdbcType="INTEGER" />
+    <result column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="quote_id" property="quoteId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zefun.web.entity.MenuIdQuote" extends="BaseResultMap" >
+    <result column="menu_html" property="menuHtml" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Blob_Column_List" >
+    menu_html
+  </sql>
+  <insert id="insert" parameterType="com.zefun.web.entity.MenuIdQuote" >
+    insert into menu_id_quote (menu_type, menu_id, quote_id, 
+      menu_html)
+    values (#{menuType,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{quoteId,jdbcType=INTEGER}, 
+      #{menuHtml,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.MenuIdQuote" >
+    insert into menu_id_quote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuType != null" >
+        menu_type,
+      </if>
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="quoteId != null" >
+        quote_id,
+      </if>
+      <if test="menuHtml != null" >
+        menu_html,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuType != null" >
+        #{menuType,jdbcType=INTEGER},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="quoteId != null" >
+        #{quoteId,jdbcType=INTEGER},
+      </if>
+      <if test="menuHtml != null" >
+        #{menuHtml,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

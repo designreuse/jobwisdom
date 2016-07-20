@@ -288,7 +288,7 @@ function clickProject(obj, projectId, projectPrice) {
 
 //新增会员预约项目
 function addAppointProject() {
-	var memberId = jQuery("#memberId").val();
+	var memberId = jQuery("input[name='memberId']").val();
 	var customerName = jQuery("#customerName").val();
 	var customerPhone = jQuery("#customerPhone").val();
 	//如果是会员
@@ -325,7 +325,7 @@ function addAppointProject() {
 		type : "post",
 		dataType : "json",
 		url : baseUrl + "appoint/action/addAppointProject",
-		data : {name : customerName, phone : customerPhone, employeeId : globalEmployeeId, projectId : globalProjectId, 
+		data : {employeeId : globalEmployeeId, projectId : globalProjectId, 
 			appointmentDate : globalSelectMonthAndDay, appointmentTime : globalTime, appointmentPrice : globalProjectPrice, 
 			memberId : memberId},
 		success : function(returnData) {
