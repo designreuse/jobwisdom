@@ -21,8 +21,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import net.sf.json.JSONObject;
-
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -48,7 +46,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
-import com.zefun.wechat.utils.MyX509TrustManagerUtil;
+import net.sf.json.JSONObject;
 
 /**
  * 
@@ -156,7 +154,7 @@ public class HttpClientUtil {
                     return sendGetReq(newuri, null);
                 }
             }
-            logger.info("请求地址：" + url + "；响应状态：" + httpResponse.getStatusLine());
+//            logger.info("请求地址：" + url + "；响应状态：" + httpResponse.getStatusLine());
             HttpEntity entity = httpResponse.getEntity();
             return EntityUtils.toString(entity, charset);
         }

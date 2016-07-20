@@ -53,6 +53,7 @@ public class WechatTokenJob {
                 JSONObject jsapiTicketJSON = JSONObject.fromObject(jsapiTicketRes);
                 String jsapiTicket = jsapiTicketJSON.getString("ticket");
                 redisService.hset(App.Redis.STORE_WECHAT_JSAPI_TICKET_KEY_HASH, storeAccount, jsapiTicket);
+                logger.info(storeAccount+" :"+appId+", "+appSecret+", "+accessToken);
             }
 //	        Set<String> storeSet = redisService.hkeys(App.Redis.STORE_WECHAT_APP_ID_KEY_HASH);
 //	        for (String storeId : storeSet) {
@@ -62,7 +63,6 @@ public class WechatTokenJob {
         catch (Exception e) {
             logger.error("WechatTokenJob execute error : ", e);
         }
-	    
 		logger.info("WechatTokenJob execute finish! ");
 	}
 }
