@@ -13,13 +13,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aliyun.openservices.ons.api.Message;
-import com.aliyun.openservices.ons.api.Producer;
-import com.aliyun.openservices.ons.api.SendResult;
-import com.aliyun.openservices.ons.api.exception.ONSClientException;
 import com.zefun.common.consts.App;
 import com.zefun.common.utils.DateUtil;
-import com.zefun.common.utils.ToolSpring;
 import com.zefun.web.dto.ChatDataDto;
 import com.zefun.web.dto.ChatNoticeDto;
 import com.zefun.web.dto.CouponInfoDto;
@@ -75,7 +70,7 @@ public class RabbitService {
      */
     public void send(String routingKey, Object object) {
     	
-    	Producer producer = (Producer) ToolSpring.getBean("producer");
+    	/*Producer producer = (Producer) ToolSpring.getBean("producer");
     	Message msg = new Message("jobwisdom_Topic_test", routingKey, toByteArray(object));
 
         msg.setKey("ORDERID_100");
@@ -85,9 +80,9 @@ public class RabbitService {
             assert sendResult != null;
         }
         catch (ONSClientException e) {
-        }
-//        logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
-//        rabbitTemplate.convertAndSend(routingKey, object);
+        }*/
+        logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
+        rabbitTemplate.convertAndSend(routingKey, object);
     }
     
     /**
