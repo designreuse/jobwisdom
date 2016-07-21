@@ -20,7 +20,6 @@ import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.EntityJsonConverter;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.EnterpriseInfoDto;
 import com.zefun.web.dto.GoodsInfoDto;
@@ -72,8 +71,6 @@ import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.ProjectService;
 import com.zefun.web.service.RedisService;
 import com.zefun.web.service.ShiftMahjongService;
-
-import net.sf.json.JSONArray;
 
 /**
  * 员工端service
@@ -432,13 +429,24 @@ public class StaffService {
     	EmployeeShift employeeShift = employeeShiftMapper.selectEmployeeShiftByEmployeeId(employeeId);
     	
     	List<Integer> shiftList = new ArrayList<>();
-    	shiftList.add(employeeShift.getShifIda());
-    	shiftList.add(employeeShift.getShifIdb());
-    	shiftList.add(employeeShift.getShifIdc());
-    	shiftList.add(employeeShift.getShifIdd());
-    	shiftList.add(employeeShift.getShifIde());
-    	shiftList.add(employeeShift.getShifIdf());
-    	shiftList.add(employeeShift.getShifIdg());
+    	if (employeeShift == null) {
+    		shiftList.add(null);
+        	shiftList.add(null);
+        	shiftList.add(null);
+        	shiftList.add(null);
+        	shiftList.add(null);
+        	shiftList.add(null);
+        	shiftList.add(null);
+    	}
+    	else {
+    		shiftList.add(employeeShift.getShifIda());
+        	shiftList.add(employeeShift.getShifIdb());
+        	shiftList.add(employeeShift.getShifIdc());
+        	shiftList.add(employeeShift.getShifIdd());
+        	shiftList.add(employeeShift.getShifIde());
+        	shiftList.add(employeeShift.getShifIdf());
+        	shiftList.add(employeeShift.getShifIdg());
+    	}
     	
     	List<Map<String, Object>> maps = new ArrayList<>();
     	
@@ -473,15 +481,20 @@ public class StaffService {
 				mondayMap.put("cname", "周日");
     	    	mondayMap.put("ename", "Sunday");
 			}
-			if (shifId != 0) {
-		    	ShiftInfo shiftInfo = shiftMapper.selectByPrimaryKey(shifId);
-		    	mondayMap.put("shifName", shiftInfo.getShifName());
-		    	mondayMap.put("startTime", shiftInfo.getStartTime());
-		    	mondayMap.put("endTime", shiftInfo.getEndTime());
-			}
-			else {
-				mondayMap.put("shifName", "休息日");
-			}
+    		if (shifId == null) {
+    			mondayMap.put("shifName", "未设置");
+    		}
+    		else {
+    			if (shifId != 0) {
+    		    	ShiftInfo shiftInfo = shiftMapper.selectByPrimaryKey(shifId);
+    		    	mondayMap.put("shifName", shiftInfo.getShifName());
+    		    	mondayMap.put("startTime", shiftInfo.getStartTime());
+    		    	mondayMap.put("endTime", shiftInfo.getEndTime());
+    			}
+    			else {
+    				mondayMap.put("shifName", "休息日");
+    			}
+    		}
 			maps.add(mondayMap);
 		}
     	mav.addObject("maps", maps);
@@ -1114,7 +1127,7 @@ public class StaffService {
     * @param storeId 门店标识
     * @return ModelAndView
      */
-    public ModelAndView selectAllShiftMahjong(Integer storeId){
+    /*public ModelAndView selectAllShiftMahjong(Integer storeId){
         ModelAndView mav =  new ModelAndView(View.StaffPage.ALL_SHIFTMAHJONG);
         List<DeptInfoDto> deptList = deptInfoMapper.selectByshiftMahjong(storeId);
         mav.addObject("deptList", deptList);
@@ -1124,7 +1137,7 @@ public class StaffService {
             mav.addObject("typeNumber", deptList.size());
         }
         return mav;
-    }
+    }*/
     
     /**
      * 查询订单详情

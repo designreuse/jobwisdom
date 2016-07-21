@@ -1162,6 +1162,8 @@ public class StaffCentreService {
         BigDecimal chargeCalculate = new BigDecimal(0);
         BigDecimal chargeAmount = new BigDecimal(0);
         
+        List<Map<String, Object>> orderList =  new ArrayList<>();
+        
         for (EmployeeCommissionDto employeeCommissionDto : dtoList) {
             if (employeeCommissionDto.getOrderType() == 1) {
                 projectAmount = projectAmount.add(employeeCommissionDto.getCommissionAmount());
@@ -1179,6 +1181,55 @@ public class StaffCentreService {
                 chargeCalculate = chargeCalculate.add(employeeCommissionDto.getCommissionCalculate());
                 chargeAmount = chargeAmount.add(employeeCommissionDto.getCommissionAmount());
             }
+            
+            if (orderList.size() > 0) {
+            	Integer type = 0;
+            	for (Map<String, Object> orderMap : orderList) {
+            		Integer orderId = Integer.valueOf(orderMap.get("orderId").toString());
+					if (orderId.intValue() == employeeCommissionDto.getOrderId().intValue()) {
+						List<Map<String, Object>> detailList = (List<Map<String, Object>>) orderMap.get("detailList");
+						Map<String, Object> detailMap = new HashMap<>();
+						detailMap.put("projectName", employeeCommissionDto.getProjectName());
+						detailMap.put("commissionCalculate", employeeCommissionDto.getCommissionCalculate());
+						detailMap.put("commissionAmount", employeeCommissionDto.getCommissionAmount());
+						detailMap.put("orderType", employeeCommissionDto.getOrderType());
+						detailList.add(detailMap);
+						type = 1;
+					}
+				}
+            	if (type == 0) {
+            		Map<String, Object> orderMap = new HashMap<>();
+            		orderMap.put("orderId", employeeCommissionDto.getOrderId());
+            		orderMap.put("orderCode", employeeCommissionDto.getOrderCode());
+            		List<Map<String, Object>> detailList = new ArrayList<>();
+            		Map<String, Object> detailMap = new HashMap<>();
+					detailMap.put("projectName", employeeCommissionDto.getProjectName());
+					detailMap.put("commissionCalculate", employeeCommissionDto.getCommissionCalculate());
+					detailMap.put("commissionAmount", employeeCommissionDto.getCommissionAmount());
+					detailMap.put("orderType", employeeCommissionDto.getOrderType());
+					detailList.add(detailMap);
+					
+					orderMap.put("detailList", detailList);
+					
+					orderList.add(orderMap);
+            	}
+            }
+            else {
+            	Map<String, Object> orderMap = new HashMap<>();
+        		orderMap.put("orderId", employeeCommissionDto.getOrderId());
+        		orderMap.put("orderCode", employeeCommissionDto.getOrderCode());
+        		List<Map<String, Object>> detailList = new ArrayList<>();
+        		Map<String, Object> detailMap = new HashMap<>();
+				detailMap.put("projectName", employeeCommissionDto.getProjectName());
+				detailMap.put("commissionCalculate", employeeCommissionDto.getCommissionCalculate());
+				detailMap.put("commissionAmount", employeeCommissionDto.getCommissionAmount());
+				detailMap.put("orderType", employeeCommissionDto.getOrderType());
+				detailList.add(detailMap);
+				
+				orderMap.put("detailList", detailList);
+				
+				orderList.add(orderMap);
+            }
         }
         
         Map<String, Object> dtoMap = new HashMap<String, Object>();
@@ -1194,7 +1245,7 @@ public class StaffCentreService {
         dtoMap.put("chargeCalculate", chargeCalculate);
         dtoMap.put("chargeAmount", chargeAmount);
         
-        dtoMap.put("dtoList", dtoList);
+        dtoMap.put("orderList", orderList);
         
         dtoMap.put("dateTime", dayTime);
         return dtoMap;
