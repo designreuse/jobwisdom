@@ -43,31 +43,23 @@
 	     </div>
 	    <div style="height:6rem"></div>
 	    <ul class="bottom_fix clearfix">
-	      <li>
-	          <a href="<%=basePath%>staff/view/reception">
-		          <img src="<%=basePath%>images/mobile/newemployee/bottomOne.png">
-			      <p>接待</p>
-		      </a>
+	      <li ontouchstart = "chooseTypePage(1, '${session_key_store_account}')">
+	          <img src="<%=basePath%>images/mobile/newemployee/bottomOne.png">
+		      <p>接待</p>
 		  </li>
-		  <li>
-		     <a href="<%=basePath%>staff/view/employeeOrderView/${session_key_store_account}/2">
-		        <img src="<%=basePath%>images/mobile/newemployee/bottomTwo_.png">
-		        <p>服务</p>
-		     </a>
+		  <li ontouchstart = "chooseTypePage(2, '${session_key_store_account}')">
+	          <img src="<%=basePath%>images/mobile/newemployee/bottomTwo_.png">
+	          <p>订单</p>
 		  </li>
-		  <li>
-		    <a href="<%=basePath%>staff/view/allEarning">
+		  <li ontouchstart = "chooseTypePage(3, '${session_key_store_account}')">
 			    <img src="<%=basePath%>images/mobile/newemployee/bottomThree.png">
 			    <p>排行</p>
-		    </a>
 		  </li>
-		  <li>
-		     <a href="<%=basePath%>staff/view/staffCenter/${session_key_store_account}/2">
+		  <li ontouchstart = "chooseTypePage(4, '${session_key_store_account}')">
 			     <img src="<%=basePath%>images/mobile/newemployee/bottomFour.png">
 			     <p>我的</p>
-		     </a>
 		  </li>
-	    </ul>
+	    </ul> 
 <script type="text/javascript" src="<%=jqueryJsPath%>"> </script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"> </script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"> </script>
@@ -87,6 +79,21 @@ function overServerEmployee(shiftMahjongStepId) {
     		location.reload();
     	}
     });
+}
+
+function chooseTypePage (type, storeId) {
+	if (type == 1) {
+		window.location.href = baseUrl+"staff/view/reception";
+	}
+	else if (type == 2) {
+		window.location.href = baseUrl+"staff/view/employeeOrderView/"+storeId+"/2";
+	}
+	else if (type == 3) {
+		window.location.href = baseUrl+"staff/view/allEarning";
+	}
+	else {
+		window.location.href = baseUrl+"staff/view/staffCenter/"+storeId+"/2";
+	}
 }
 </script>
 </body>

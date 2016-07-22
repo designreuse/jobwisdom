@@ -70,18 +70,18 @@ public class RabbitService {
      */
     public void send(String routingKey, Object object) {
     	
-//    	Producer producer = (Producer) ToolSpring.getBean("producer");
-//    	Message msg = new Message("jobwisdom_Topic_test", routingKey, toByteArray(object));
-//
-//        msg.setKey("ORDERID_100");
-//        // 发送消息，只要不抛异常就是成功
-//        try {
-//            SendResult sendResult = producer.send(msg);
-//            assert sendResult != null;
-//        }
-//        catch (ONSClientException e) {
-//        }
-//        logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
+    	/*Producer producer = (Producer) ToolSpring.getBean("producer");
+    	Message msg = new Message("jobwisdom_Topic_test", routingKey, toByteArray(object));
+
+        msg.setKey("ORDERID_100");
+        // 发送消息，只要不抛异常就是成功
+        try {
+            SendResult sendResult = producer.send(msg);
+            assert sendResult != null;
+        }
+        catch (ONSClientException e) {
+        }*/
+        logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
         rabbitTemplate.convertAndSend(routingKey, object);
     }
     

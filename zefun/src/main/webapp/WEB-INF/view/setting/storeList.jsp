@@ -139,7 +139,7 @@
 						    <div class="left_detail">
 						     <p>授权码<p>
 							 <input type="text" name = "authorityValue" class = ""  style="width: 130px;height: 22px;">
-							  <span><a href="javascript:;" class= "tishi">?</a>
+							  <span style="top: -64px;left: 50px;"><a href="javascript:;" class= "tishi">?</a>
 							    <em><i>请输入6位密码，
 				数字和字母组合。</i></em>
 							  </span>

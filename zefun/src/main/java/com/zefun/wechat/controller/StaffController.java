@@ -507,7 +507,7 @@ public class StaffController extends BaseController {
     * @param response 请求
     * @return ModelAndView
      */
-    @RequestMapping(value = Url.Staff.SELECT_ALL_SHIFTMAHJONG)
+    /*@RequestMapping(value = Url.Staff.SELECT_ALL_SHIFTMAHJONG)
     public ModelAndView selectAllShiftMahjong(HttpServletRequest request, HttpServletResponse response){
         String openId = getOpenId(2, request, response);
         if (openId == null) {
@@ -515,7 +515,7 @@ public class StaffController extends BaseController {
         }
         Integer storeId = getStoreIdByOpenId(openId);
         return staffService.selectAllShiftMahjong(storeId);
-    }
+    }*/
     
     /**
      * 轮牌上移

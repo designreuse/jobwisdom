@@ -20,6 +20,7 @@
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
     <result column="position_id" property="positionId" jdbcType="INTEGER" />
     <result column="order_type" property="orderType" jdbcType="DECIMAL" />
+    <result column="project_name" property="projectName" jdbcType="DECIMAL" />
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
     <result column="commission_calculate" property="commissionCalculate" jdbcType="DECIMAL" />
     <result column="commission_amount" property="commissionAmount" jdbcType="DECIMAL" />
@@ -441,10 +442,12 @@
   
   <select id="selectCommissionByDay" resultMap="CommissionDtoBaseResultMap" parameterType="java.util.Map" >
      select 
-         a.commission_id, a.detail_id, a.shift_mahjong_step_id, a.order_type, a.employee_id, a.commission_calculate, a.commission_amount,
+         a.commission_id, a.detail_id, a.shift_mahjong_step_id, a.order_type, c.project_name, a.employee_id, a.commission_calculate, a.commission_amount,
          a.charge_time, b.order_id, b.order_code
-     from employee_commission a, order_info b
-     where a.is_deleted = 0 and exists(select 1 from order_detail c where a.detail_id = c.detail_id and c.order_id = b.order_id and c.is_deleted = 0) 
+     from employee_commission a
+     left join order_detail c on a.detail_id = c.detail_id
+     left join order_info b on c.order_id = b.order_id
+     where a.is_deleted = 0 and c.is_deleted = 0  and b.is_deleted = 0
      and a.employee_id = #{employeeId,jdbcType=INTEGER} 
      and  substring(charge_time, 1, 10) = #{dateTime,jdbcType=CHAR} 
   </select>
