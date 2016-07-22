@@ -45,7 +45,6 @@ import com.zefun.web.entity.MoneyFlow;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.ProjectInfo;
-import com.zefun.web.entity.StockFlow;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.DeptObjectiveMapper;
@@ -255,6 +254,12 @@ public class OpenCardService {
     			String payPassword, List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer openRecommendId,
     			Integer storeId, Integer lastOperatorId, String orderCode, String createTime) throws ParseException {
 
+	    MemberInfo selectPhone = memberInfoMapper.selectMemberByStoreIdAndPhone(storeId, phone);
+        if (selectPhone.getMemberId() != null) {
+            return new BaseDto(-1, "该电话已有会员使用");
+        }
+	    
+	    
 	    if (memberId != null) {
 	        //校验是否存在同样的卡，存在则返回错误代码
 	    	Map<String, Integer> map = new HashMap<>();
@@ -267,6 +272,8 @@ public class OpenCardService {
 	            }
 	        }
 	    }
+	  
+	    
 	    
 		// 储值总金额
 		BigDecimal receivableAmount = balanceAmount.add(rewardAmount);

@@ -450,6 +450,7 @@ public class EmployeeService {
 		UserAccount userInfo = new UserAccount();
 		userInfo.setUserId(employeeDto.getEmployeeId());
 		userInfo.setRoleId(employeeDto.getRoleId());
+		userInfo.setUserName(employeeDto.getPhone());
 		userAccountMapper.updateUserRole(userInfo);
 		// 先删除之前的介绍人
 		int employeeId = employeeDto.getEmployeeId();

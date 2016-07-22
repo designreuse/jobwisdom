@@ -27,7 +27,7 @@
 			targetPackage="com.zefun.web.mapper" targetProject="mybatis-generator-usage">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-		<table tableName="menu_id_quote" domainObjectName="MenuIdQuote"
+		<table tableName="account_role_info" domainObjectName="AccountRoleInfo"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>

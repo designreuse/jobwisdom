@@ -1,6 +1,7 @@
 package com.zefun.web.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,11 +20,14 @@ import com.zefun.common.swagger.SystemWebSocketHandler;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
-import com.zefun.web.entity.MemberMenu;
+import com.zefun.web.entity.AccountRoleInfo;
+import com.zefun.web.entity.MenuIdQuote;
 import com.zefun.web.entity.UserAccount;
+import com.zefun.web.mapper.AccountRoleInfoMapper;
 import com.zefun.web.mapper.AuthorityRequestMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.MemberMenuMapper;
+import com.zefun.web.mapper.MenuIdQuoteMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 
 /**
@@ -50,7 +54,15 @@ public class LoginService {
 	/** 菜单权限表 */
 	@Autowired
 	private MemberMenuMapper memberMenuMapper;
+	
+	/** 角色菜单权限表 */
+	@Autowired
+	private AccountRoleInfoMapper accountRoleInfoMapper;
 
+	/** 菜单权限表 */
+    @Autowired
+    private MenuIdQuoteMapper menuIdQuoteMapper;
+	
 	/**
 	 * 登陆服务方法
 	 * 
@@ -118,10 +130,65 @@ public class LoginService {
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName()
 				  + (request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + path + "/";
-		// 查询出该用户所拥有的菜单权限,将其放入session中
-		MemberMenu memberMenu = memberMenuMapper.selectMenuByRoleId(userAccount.getRoleId());
-		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("<%=menuBasePath%>", basePath));
-		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, memberMenu.getSecontMenu().replace("<%=menuBasePath%>", basePath));
+	
+		Map<String, Object> mapMenu = new HashMap<String, Object>();
+		mapMenu.put("roleId", roleId);
+		mapMenu.put("storeAccount", storeAccount);
+		List<AccountRoleInfo> selectAccountMenuByRoleId = accountRoleInfoMapper.selectAccountMenuByRoleId(mapMenu);
+	  
+	    ArrayList<Integer> listFirst = new ArrayList<Integer>();
+		mapMenu.put("menuType", 1);
+		for (String str : selectAccountMenuByRoleId.get(0).getFristMenu().split(",")) {
+		    int i = Integer.parseInt(str);
+		    listFirst.add(i);
+		}
+		mapMenu.put("menuId", listFirst);
+		List<MenuIdQuote> firstMenu = menuIdQuoteMapper.selectByMemuRoles(mapMenu);
+		//拼接一级菜单
+		StringBuffer firstSb =  new StringBuffer();
+		firstSb.append("<ul class='left_nav'>");
+		for (int i = 0; i < firstMenu.size(); i++) {
+		    firstSb.append(firstMenu.get(i).getMenuHtml().replace("<%=menuBasePath%>", basePath));
+        }        
+		firstSb.append("</ul>");
+		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, firstSb.toString());
+		
+		//拼接二级菜单
+		ArrayList<Integer> arrayList = new ArrayList<Integer>(); 
+		StringBuffer secontSb =  new StringBuffer();
+		mapMenu.put("menuType", "2");
+		
+		ArrayList<Integer> secontFirst = new ArrayList<Integer>();
+        for (String str : selectAccountMenuByRoleId.get(0).getSecondMenu().split(",")) {
+            int i = Integer.parseInt(str);
+            secontFirst.add(i);
+        }
+        mapMenu.put("menuId", secontFirst);
+        List<MenuIdQuote> secontMenu = menuIdQuoteMapper.selectByMemuRoles(mapMenu);
+        List<MenuIdQuote> secontMenugroup = menuIdQuoteMapper.selectGroupByMemuRoles(mapMenu);
+        
+        secontSb.append("<div class='left_nav_2' style='height: 840px;'>"); 
+        for (int i = 0; i < secontMenugroup.size(); i++) {
+            Integer quoteId = secontMenugroup.get(i).getQuoteId();
+           
+            if (!compareTonumber(quoteId , arrayList)) {  //如果这个 quoteId 没有被引用
+                int index = quoteId -1;
+                arrayList.add(quoteId);
+                secontSb.append("<ul index='"+index+"'>");
+                for (int j = 0; j < secontMenu.size(); j++) {
+                    if (secontMenu.get(j).getQuoteId()==quoteId) {  //如果这个 quoteId相等 拼接2级菜单
+                        secontSb.append(secontMenu.get(j).getMenuHtml().replace("<%=menuBasePath%>", basePath));
+                    }
+                }
+                secontSb.append("</ul>");
+            }
+        }
+        secontSb.append("</div>");
+        sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, secontSb.toString());
+// 查询出该用户所拥有的菜单权限,将其放入session中
+//      MemberMenu memberMenu = memberMenuMapper.selectMenuByRoleId(userAccount.getRoleId());
+//		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("<%=menuBasePath%>", basePath));
+//		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, memberMenu.getSecontMenu().replace("<%=menuBasePath%>", basePath));
 
 		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
 		
@@ -151,6 +218,24 @@ public class LoginService {
 		}
 
 		return dto;
+	}
+	
+	
+	/**
+	 * 
+	* @author 骆峰
+	* @date 2016年7月21日 下午12:04:06
+	* @param number number
+	* @param arrayList arrayList
+	* @return boolean
+	 */
+	private boolean compareTonumber (Integer number , ArrayList<Integer> arrayList){
+	    for (int i = 0; i < arrayList.size(); i++) {
+	        if (number == arrayList.get(i)) {
+	            return true;
+	        }
+        }
+	    return false;
 	}
 
 }
