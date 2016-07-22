@@ -327,7 +327,7 @@
   }
   //拼装table
   function initTable(e){
-	  var tbody = '<tr><td>手机号</td><td>姓名</td><td>性别</td><td>储值余额</td><td>积分余额</td><td>累计消费</td><td>消费均额</td><td>礼金金额</td><td>注册日期</td><td>会员等级</td><td>生日</td><td>挂账金额</td><td colspan="2">操作</td></tr>';
+	  var tbody = '<tr><td>手机号</td><td>姓名</td><td>性别</td><td>储值余额</td><td>积分余额</td><td>累计消费</td><td>消费均额</td><td>礼金金额</td><td>注册日期</td><td>会员等级</td><td>生日</td><td>挂账金额</td><td colspan="3">操作</td></tr>';
 	  jQuery("#init_member").append(jQuery(tbody));
 	  for (var i = 0; i < e.msg.results.length; i++) {
 			var tr = jQuery("<tr></tr>");
@@ -363,17 +363,15 @@
 			}else{
 				td10 = jQuery("<td class='input80'>"+e.msg.results[i].createTime.substring(0,10)+"</td>");
 			}
-			var td11 = jQuery('<td class="can-click m-btn update" style="text-decoration: none">'+
-									'<span class="iconfont icon-icon07 "></span>'+
-				            		'<span class="cursor memberlevel-default-setting hide" style="display: none;">修改</span>'+
-				        	  '</td>');
 			var td14 = jQuery("<td>"+e.msg.results[i].debtAmount+"</td>");
 			var td13 = jQuery('<td><i class="iconfont icon-xx ml10" onclick="deleteMemberTip('+e.msg.results[i].memberId+',this);"></i></td>');
 			var td16;
+			var td17;
 			if (status!=""){
-				td16= jQuery('<td><p><button style="background: #4e6fb3" onclick="deletedMember('+e.msg.results[i].memberId+', 0, this)">解冻</button></p></td>');
+				td16= jQuery('<td><p><button style="background: #4e6fb3" onclick="deletedMember('+e.msg.results[i].memberId+', 0, this)">解</button></p></td>');
 			}else{
-				td16= jQuery('<td><p><button style="background: #4e6fb3" onclick="deletedMember('+e.msg.results[i].memberId+', 1, this)">冻结</button></p></td>');
+				td16= jQuery('<td><p><button style="background: #4e6fb3" onclick="deletedMember('+e.msg.results[i].memberId+', 1, this)">冻</button></p></td>');
+				td17= jQuery('<td><p><button class="update" style="background: #2eb725">改</button></p></td>');
 			}
 			tr.append(td1);
 			tr.append(td2);
@@ -389,8 +387,7 @@
 			tr.append(td14);
 			if (status==""){tr.append(td44);}
 			tr.append(td16);
-			/*tr.append(td4);
-			tr.append(td5);*/
+			tr.append(td17);
 			jQuery("#init_member").append(tr);
 		}
   }

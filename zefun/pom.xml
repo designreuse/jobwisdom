@@ -49,12 +49,12 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
-	        <groupId>org.springframework.mobile</groupId>
-	        <artifactId>spring-mobile-device</artifactId>
-	        <version>1.1.4.RELEASE</version>
-	    </dependency>
+			<groupId>org.springframework.mobile</groupId>
+			<artifactId>spring-mobile-device</artifactId>
+			<version>1.1.4.RELEASE</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -400,26 +400,26 @@
 	<profiles>
 		<profile>
 			<id>dev</id>
-			<properties>
-				<package.environment>dev</package.environment>
-			</properties>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<os>
+					<family>Windows</family>
+				</os>
 			</activation>
 		</profile>
 		<profile>
 			<id>test</id>
-			<properties>
-				<package.environment>test</package.environment>
-			</properties>
-		</profile>
-		<profile>
-			<id>prod</id>
-			<properties>
-				<package.environment>prod</package.environment>
-			</properties>
+			<activation>
+				<os>
+					<family>UNIX</family>
+				</os>
+			</activation>
 		</profile>
 	</profiles>
+	<!-- <profiles> <profile> <id>dev</id> <properties> <package.environment>dev</package.environment> 
+		</properties> <activation> <activeByDefault>true</activeByDefault> </activation> 
+		</profile> <profile> <id>test</id> <properties> <package.environment>test</package.environment> 
+		</properties> </profile> <profile> <id>prod</id> <properties> <package.environment>prod</package.environment> 
+		</properties> </profile> </profiles> -->
 	<build>
 		<finalName>jobwisdom</finalName>
 		<plugins>

@@ -13,13 +13,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aliyun.openservices.ons.api.Message;
-import com.aliyun.openservices.ons.api.Producer;
-import com.aliyun.openservices.ons.api.SendResult;
-import com.aliyun.openservices.ons.api.exception.ONSClientException;
 import com.zefun.common.consts.App;
 import com.zefun.common.utils.DateUtil;
-import com.zefun.common.utils.ToolSpring;
 import com.zefun.web.dto.ChatDataDto;
 import com.zefun.web.dto.ChatNoticeDto;
 import com.zefun.web.dto.CouponInfoDto;
@@ -75,7 +70,7 @@ public class RabbitService {
      */
     public void send(String routingKey, Object object) {
     	
-    	Producer producer = (Producer) ToolSpring.getBean("producer");
+    	/*Producer producer = (Producer) ToolSpring.getBean("producer");
     	Message msg = new Message("jobwisdom_Topic_test", routingKey, toByteArray(object));
 
         msg.setKey("ORDERID_100");
@@ -85,9 +80,9 @@ public class RabbitService {
             assert sendResult != null;
         }
         catch (ONSClientException e) {
-        }
-//        logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
-//        rabbitTemplate.convertAndSend(routingKey, object);
+        }*/
+        logger.info("Publish message --> routingKey : " + routingKey + ", Message : " + JSONObject.fromObject(object));
+        rabbitTemplate.convertAndSend(routingKey, object);
     }
     
     /**
@@ -301,7 +296,17 @@ public class RabbitService {
         record.put("createTime", DateUtil.getCurTime());
 //        send(App.Queue.APPOINTMENT_APPLY_NOTICE, record);
         rabbitTemplate.convertAndSend(App.Queue.APPOINTMENT_APPLY_NOTICE, record);
-        //检查门店是否需要预约语音提示
+    }
+    
+    /**
+     * 对门店进行声音的推送
+    * @author 高国藩
+    * @date 2016年7月22日 上午10:27:29
+    * @param storeId        storeId
+    * @param employeeId     employeeId
+     */
+    public void storeAppointVoice(Integer storeId, Integer employeeId){
+      //检查门店是否需要预约语音提示
         StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
         if (storeSetting.getSpeechType() == 1) {
             /**给聊天室门店下在线用户发送通知*/
@@ -318,12 +323,12 @@ public class RabbitService {
                 chat.setData(data);
                 for (String userId : set) {
                     chat.setToUser(userId);
-                    send(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
                     rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
                 }
             }
         }
     }
+
     
     
     /**

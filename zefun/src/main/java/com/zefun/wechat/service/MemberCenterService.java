@@ -59,6 +59,7 @@ import com.zefun.web.dto.SelfCashierDetailDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.IntegralFlow;
@@ -520,9 +521,10 @@ public class MemberCenterService {
     * @author 张进军
     * @date Aug 19, 2015 4:21:25 PM
     * @param memberId       会员标识
+    * @param orderType      orderType
     * @return           会员预约列表页面
      */
-    public ModelAndView orderListView(int memberId){
+    public ModelAndView orderListView(int memberId, Integer orderType){
         ModelAndView mav = new ModelAndView(View.MemberCenter.ORDER_LIST);
         List<MemberOrderDto> orderList = orderInfoMapper.selectOrderListByMemberId(memberId);
         
@@ -543,6 +545,17 @@ public class MemberCenterService {
             else if (isProject && order.getOrderStatus() == 4) {
             	order.setOrderStatus(101);
             }
+        }
+        if (orderType != null){
+            orderList.stream().forEach(c -> {
+                    List<OrderDetailDto> detailDtos = c.getDetailList()
+                        .stream().filter(p -> p.getOrderType()
+                                .equals(orderType)).collect(Collectors.toList());
+                    c.setDetailList(detailDtos);
+                });
+            orderList = orderList
+                    .stream().filter(p -> p.getDetailList()!=null && p.getDetailList().size()>0)
+                    .collect(Collectors.toList());
         }
         mav.addObject("orderList", orderList);
         return mav;
@@ -1198,13 +1211,8 @@ public class MemberCenterService {
         memberAppointment.setStoreId(storeId);
         memberAppointment.setEmployeeId(employeeId);
         memberAppointment.setProjectId(projectId);
-//        memberAppointment.setProjectStepOrder(projectStepOrder);
-//        memberAppointment.setShiftMahjongId(shiftMahjongId);
         memberAppointment.setAppointmentDate(appointDate);
         memberAppointment.setAppointmentTime(appointTime);
-//        ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
-//        memberAppointment.setAppointmentPrice(projectService.getProjectPriceByMember(memberInfo.getLevelId(), 
-//                projectId, projectInfo.getProjectPrice(), memberInfo.getStoreId()));
         String curTime = DateUtil.getCurTime();
         memberAppointment.setCreateTime(curTime);
         memberAppointment.setUpdateTime(curTime);
@@ -1212,6 +1220,7 @@ public class MemberCenterService {
         memberAppointment.setIsDeleted(0);
         memberAppointment.setLastOperatorId(0);
         memberAppointment.setAppointmentWay(2);
+        
         memberAppointmentMapper.insert(memberAppointment);
         
         //发送预约通知给员工
@@ -1219,8 +1228,12 @@ public class MemberCenterService {
         if (StringUtils.isNotBlank(openId)) {
             rabbitService.sendAppointmentApplyNotice(storeId, mainStoreId, App.System.SERVER_BASE_URL 
                     + Url.Staff.VIEW_STAFF_APPOINT.replace("{storeId}", mainStoreId + "").replace("{businessType}", "2").replace("{type}", "1"), 
-                    employeeId, openId, memberInfo.getName(), memberInfo.getLevelName(), "到店体验", appointDate + " " + appointTime);
+                    employeeId, openId, memberInfo.getName(), memberInfo.getLevelName(), 
+                    projectCategoryMapper.selectByPrimaryKey(projectId).getCategoryName(), 
+                    appointDate + " " + appointTime);
         }
+        //推送声音到门店
+        rabbitService.storeAppointVoice(storeId, employeeId);
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
@@ -1390,10 +1403,16 @@ public class MemberCenterService {
         StoreShop storeShop = new StoreShop();
         storeShop.setStoreId(ownerStoreId);
         StoreShop shop = storeShopMapper.selectByProties(storeShop);
-        List<Integer> paramsAestSellers = Stream.of(shop.getNewArrival().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
-        List<Integer> paramsBestSellers = Stream.of(shop.getBestSellers().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
-        List<GoodsInfoDto> aestSellers = goodsInfoService.queryByGoodsIds(paramsAestSellers);
-        List<GoodsInfoDto> bestSellers = goodsInfoService.queryByGoodsIds(paramsBestSellers);
+        List<Integer> paramsAestSellers = null;
+        List<Integer> paramsBestSellers = null;
+        List<GoodsInfoDto> aestSellers = null;
+        List<GoodsInfoDto> bestSellers = null;
+        if (shop != null && !"".equals(shop.getNewArrival())){
+            paramsAestSellers = Stream.of(shop.getNewArrival().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
+            paramsBestSellers = Stream.of(shop.getBestSellers().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
+            aestSellers = goodsInfoService.queryByGoodsIds(paramsAestSellers);
+            bestSellers = goodsInfoService.queryByGoodsIds(paramsBestSellers);
+        }
         
         mav.addObject("aestSellers", aestSellers);
         mav.addObject("bestSellers", bestSellers);
@@ -1972,8 +1991,13 @@ public class MemberCenterService {
      */
     public ModelAndView storeInfoViewSpecail(Integer sId) {
         SpecialService specialService = specialServiceMapper.selectByPrimaryKey(sId);
+        Integer storeId = specialService.getStoreId();
+        Integer employeeCode = specialService.getEmployeeCode();
+        List<EmployeeInfo> employeeInfos = employeeInfoMapper.selectEmployeeList(storeId);
+        employeeInfos = employeeInfos.stream().filter(p -> p.getEmployeeCode().equals(employeeCode)).collect(Collectors.toList());
         ModelAndView view = new ModelAndView(View.MemberCenter.STORE_SPE);
         view.addObject("specialService", specialService);
+        view.addObject("employeeId", employeeInfos.get(0).getEmployeeId());
         return view;
     }
 

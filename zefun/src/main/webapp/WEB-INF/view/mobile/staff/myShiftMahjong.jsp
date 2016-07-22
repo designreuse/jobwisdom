@@ -1,162 +1,120 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <%@include file="/base.jsp" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, height = device-height">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta content="telephone=no" name="format-detection" />
     <title>我的轮牌</title>
-    <link rel="stylesheet" href="<%=swiperCssPath%>"/>
-    <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
-    <link rel="stylesheet" href="<%=employeeCssPath%>"/>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/shop.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/app.css" />
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/idangerous.swiper.css">
+    <style>
+		.select_server_content{padding:0.7rem 0.5rem;background:white;border-bottom:1px solid #eaeaea}
+		.select_server{margin-top:1rem;}
+		.ui-navigator .ui-navigator-list li a, .ui-navigator .ui-navigator-fix{font-size:14px}
+	
+		.selected li{padding-left:2px;width:14%;float:left;}
+		.selected li em{display:inline-block;width:1rem;height:1rem;margin-right:2px;position:relative;top:1px}
+		
+		.select_detail{width:100%;overflow:overlay;border-radius:8px;margin-top:1rem}
+		.select_detail li{float:left;width:50%;margin-top:1rem;height:4rem;text-align:center}
+		.select_detail_div{width:130px;height:3rem;box-shadow:0 2px 2px #787878;background:#21d9db;border-radius:8px;overflow:hidden;position:relative;margin:0 auto}
+		.select_detail_div_num{margin:0.5rem;float:left;width:2rem;height:2rem;border-radius:1rem;background:white;color:#e44e20;text-align:center;line-height:2rem;font-size:14px;float:left}
+		.select_detail_div_text{float:left;color:white;font-size:14px;line-height:3rem}
+		.selected_{position:absolute;right:-2px;top:0px;width:36px;height:24px;background-size:36px 24px;color:white}
+		.selected_ span{position:relative;left:19px;top:-1px}
+		.zzc_conetent{position:absolute;bottom:-50%;left:0;width:100%}
+		.apartment_ul li{color:black;border-bottom:1px solid white;width:120px;float:left;text-align:center;height:3rem;text-align:center;line-height:3rem}
+		.apartment_ul{width:100%;overflow:overlay;background:white;border-bottom:1px solid #e5e5e5;box-shadow:0 2px 2px #e5e5e5 ;}
+		.active { font-size: 13px;color: #ea631a!important; border-bottom: 1px solid #ea631a!important;}
+	
+	    .zzc{ position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;background: rgba(102, 108, 121, 0.8);z-index: 2;display:none}
+	    .zzc_server_people{width:22rem;height:13rem;background:white;margin:20% auto}
+		 .zzc_server_people>p{height:3rem;background:#ea631a;color:white;line-height:3rem;text-align:center;position:relative;font-size:14px}
+		 .zzc_server_people>p img{position:absolute;right:8px;width:14px;top:4px}
+		 
+		 .zzc_server_people_content>p{margin-bottom:0.5rem;text-align:center;height:2rem;line-height:2rem;color:black}
+		 .zzc_server_people_content ul li{float:left;width:50%;text-align:center}
+		 .zzc_server_people_content ul li span{display:inline-block;width:6rem;height:6rem;background:#f49549;line-height:6rem;color:white;font-size:14px;}
+		 .zzc_server_people_content ul li span img{vertical-align:middle;width:28px;margin:0 3px}
+		 .cuurent{color:white}
+		 body{background:white}
+		
+	   
+		.ub-f1{background:white;height:60px;border-bottom:1px solid #e5e5e5}
+		.swiper-container1{position:relative;background:#f49549}
+		.bar{top:36px}
+		.swiper-slide .title{line-height:40px}
+		.swiper-slide,.swiper-wrapper,.swiper-slide{height:auto!important}
+		.scroll_{width:50%;float:left;height:3.5rem;margin-top:1rem}
+	</style>
 </head>
 <body>
-<div class="wrap">
-<div class="content">
- <div class="bd-gray mb-footer">
-  <c:forEach items="${shiftMahjongDtoList}" var="shiftMahjongDto" varStatus="listStatus">
-      <div class="lunpai-project">
-	    <div class="lunpai-content">
-	      <div class="lunpai-kind-project">
-	        <ul class="all-rotating-ul">
-	          <li class="item">
-	            <span>${shiftMahjongDto.shiftMahjongName}</span>
-	          </li>
-	        </ul>
-	      </div>
-	      <div class="lunpai-people">
-	        <div class="swiper-container-daohang lunpai lunpaiHead${listStatus.index}" size="${fn:length(shiftMahjongDto.shiftMahjongEmployeeList)}">
-	          <div class="swiper-wrapper">
-	            <c:forEach items="${shiftMahjongDto.shiftMahjongEmployeeList}" var="shiftMahjongEmployee" varStatus="shiftStatus">
-		            <div class="swiper-slide score-shop-li line-height-center">
-		              <div class="lunpai-img">
-		                <img src="<%=picPath%>${shiftMahjongEmployee.headImage}" alt="" class=""/>
-		                <div class="lunpai-yg-name">${shiftMahjongEmployee.employeeCode} ${shiftMahjongEmployee.name}</div>
-		              </div>
-		              <div class="lunpai-state" name= "${shiftMahjongEmployee.state}">
-	                      <div class="lunpai-people-state">
-	                          <div class="center kongxianzhong">
-	                              <div class="zhuangtai">
-	                                  <span class="iconfont icon-iconkafei"></span>
-	                              </div>
-	                              <div class="zhuangtai-word"></div>
-	                              <div class="select-word-wrap">
-	                            <span><c:if test="${shiftMahjongEmployee.appointNumber == 0}">未指定</c:if><c:if test="${shiftMahjongEmployee.appointNumber != 0}">指定+${shiftMahjongEmployee.appointNumber}</c:if></span>
-	                        </div>
-	                              <div class="clearfix"></div>
-	                          </div>
-	                      </div>
-	                      <div class="clearfix"></div>
-	                  </div>
-		            </div>
-	            </c:forEach>
-	            
-	          </div>
-	        </div>
-	      </div>
-	    </div><!--lunpai-content-->
-	  </div>
-  </c:forEach>
-     
-</div>
+<div class="con"> 
+
+		<header>
+			<div class="swiper-container1">
+				<div class="swiper-wrapper">
+				    <c:forEach items="${shiftMahjongDtoList}" var="shiftMahjongDto" varStatus="status">
+				        <div class="swiper-slide mycolor-slide" id="slide${status.index}">
+							<div class="title cuurent" name="title">
+                                 ${shiftMahjongDto.shiftMahjongName }
+							</div>
+						</div>
+				    </c:forEach>
+					<span class="bar" style="left: 2px; width: 64px;background-color: red;"></span>
+				</div>
+				<div class="pagination" style="display: none;"></div>
+			</div>
+		</header>
+	   <div class="select_server_content">
+	     <ul class="selected clearfix">
+		   <li style="color:#21d9db"><em style="background:#21d9db"></em>空闲</li> 
+		   <li style="color:#e11e23"><em style="background:#e11e23"></em>工作</li> 
+		   <li style="color:#e7a3ef"><em style="background:#e7a3ef"></em>点客</li> 
+		   <li style="color:#eede9f"><em style="background:#eede9f"></em>暂休</li> 
+		 </ul>
+	   </div>
+	   <div class="swiper-container">
+		   <div class="swiper-wrapper">
+		   <c:forEach items="${shiftMahjongDtoList}" var="shiftMahjongDto" varStatus="status">
+			   <div class="swiper-slide">
+				   <div id="wapper${status.index}">
+						<div id="scroll${status.index}">
+						  <c:forEach items="${shiftMahjongDto.shiftMahjongEmployeeList}" var="shiftMahjongEmployee" varStatus="employeeStatus">
+						       <div class="scroll_" onclick="chooseEmployee(${shiftMahjongEmployee.shiftMahjongId }, ${shiftMahjongEmployee.employeesId }, ${shiftMahjongEmployee.employeeCode }, '${shiftMahjongEmployee.name }')">
+									<div class="clearfix select_detail_div" shiftName = "${shiftMahjongEmployee.shiftMahjongId}/${shiftMahjongEmployee.employeesId}"
+					     		    <c:choose>
+					     		       <c:when test="${shiftMahjongEmployee.state == 0}">style="background:#e11e23"</c:when>
+					     		       <c:when test="${shiftMahjongEmployee.state == 1}">style="background:#21d9db"</c:when>
+					     		       <c:when test="${shiftMahjongEmployee.state == 2}">style="background:#eede9f"</c:when>
+					     		       <c:when test="${shiftMahjongEmployee.state == 4}">style="background:#e7a3ef"</c:when>
+					     		    </c:choose>
+					     		    >
+											<!-- <div class="selected_" style="background: url('images/selected.png') no-repeat;  background-size: 36px 24px;"><span>选</span></div> -->
+											<div class="select_detail_div_num">${shiftMahjongEmployee.shiftMahjongOrder }</div>
+											<div class="select_detail_div_text">
+											   ${shiftMahjongEmployee.employeeCode } ${shiftMahjongEmployee.name }
+											</div>
+					                </div>							
+							   </div>
+						  </c:forEach>
+						</div>
+					</div>
+				</div>
+		   </c:forEach>
+		  </div>
+	 </div>
 </div>
 <script type="text/javascript" src="<%=jqueryJsPath%>"> </script>
-<script type="text/javascript" src="<%=swiperJsPath%>"></script>
-<script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"> </script>
+<script type="text/javascript" src="<%=basePath%>js/mobile/zepto.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/mobile/idangerous.swiper.min-2.4.1.js"></script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"> </script>
-<script>	
-	var stateList = new Array();
-	var a1 = {"state":"0","name":"工作中","styles":"gongzuozhong","icon":"icon-scissors"};
-	var a2 = {"state":"1","name":"空闲中","styles":"kongxianzhong","icon":"icon-iconkafei"};
-	var a3 = {"state":"2","name":"暂时离开","styles":"zanshilikai","icon":"icon-bbgshizhong"};
-	var a4 = {"state":"3","name":"离开","styles":"likai","icon":"icon-ico-date"};
-	var a5 = {"state":"4","name":"指定服务","styles":"zhidingfuwu","icon":"icon-zhiding"};
-	
-	stateList[0] = a1;
-	stateList[1] = a2;
-	stateList[2] = a3;
-	stateList[3] = a4;
-	stateList[4] = a5;
+   
+<script type="text/javascript" src="<%=basePath%>js/mobile/app.js"></script>
 
-	$(function (){
-		
-		var swiperList = $(".swiper-container-daohang");
-/* 	    var clientWidth = $(window).width() - 16;
-	    var number;
-	    if($.browser.versions.android){
-	          number = clientWidth / 128;
-	    }else if($.browser.versions.ios){
-	    	number = clientWidth / 144;
-	    } */
-	    var sArr = new Array();
-	    for (var i = 0; i < swiperList.length; i++) {
-            var s = new Swiper(".lunpaiHead" + i, {
-                slidesPerView: 'auto',
-                paginationClickable: true,
-                spaceBetween: 0,
-                freeMode: true
-            });
-            sArr[i] = s;
-            sArr[i].onResize();
-        } 
-	    
-	    //渲染员工状态
-        var stateObj = $(".lunpai-state");
-        for (var i = 0; i < stateObj.length; i++) {
-            var num = $(stateObj[i]).attr("name");
-            
-            for (var k = 0; k < stateList.length; k++) {
-                if(stateList[k].state == num){
-                    $(stateObj[i]).find(".center").removeClass("kongxianzhong");
-                    $(stateObj[i]).find(".center").addClass(stateList[k].styles);
-                    $(stateObj[i]).find(".iconfont").addClass("icon-iconkafei");
-                    $(stateObj[i]).find(".iconfont").addClass(stateList[k].icon);
-                    $(stateObj[i]).find(".zhuangtai-word").text("");
-                    $(stateObj[i]).find(".zhuangtai-word").text(stateList[k].name);
-                }
-            }
-        }
-	    
-	    /*判断浏览器类型*/
-	    var browser={
-	      versions:function(){
-	        var u = navigator.userAgent, app = navigator.appVersion;
-	        return {
-	          trident: u.indexOf('Trident') > -1, //IE内核
-	          presto: u.indexOf('Presto') > -1, //opera内核
-	          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-	          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
-	          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-	          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-	          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-	          iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
-	          iPad: u.indexOf('iPad') > -1, //是否iPad
-	          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-	        };
-	      }(),
-	      language:(navigator.browserLanguage || navigator.language).toLowerCase()
-	    }
-	
-	    /*给元素定义高度*/
-	    var contentHeight = function(){
-	      var height =  document.body.clientHeight;
-	      var projectUlHeight;
-	      if(browser.versions.android){
-	        projectUlHeight = height - 162 + 53;
-	      }else if(browser.versions.ios){
-	        projectUlHeight = height - 162 + 44;
-	      }
-	      $(".project-list").css("height", projectUlHeight);
-	      $(".project-type-ul").css("height", projectUlHeight);
-	    }
-	
-	    contentHeight();
-	    
-	  })
-</script>
-</div>
 </body>
 </html>

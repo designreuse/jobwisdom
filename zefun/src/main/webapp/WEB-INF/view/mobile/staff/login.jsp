@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@include file="/base.jsp" %>
-<html lang="en" style="background:url('<%=basePath%>images/mobile/newemployee/login_back.jpg') no-repeat;background-size:100% 100%;height:100%">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, height = device-height">
@@ -10,8 +10,8 @@
     <title>内部登录</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/shop.css">
 </head>
-<body style="background:none;height:100%">
-	<div class="con">
+<body style="background:none;height:100%;overflow:hidden;background:url('<%=basePath%>images/mobile/newemployee/login_back.png') no-repeat;background-size:100% 100%;height:100%">
+	<div class="con" style="">
        <div class="login">
 	     <div class="login_content " >
 		    <p><img src="<%=basePath%>images/login_logo.png"></p>
@@ -37,6 +37,12 @@
 <script src="<%=mobileBaseJsPath%>"></script>
 <script src="<%=basePath%>js/mobile/md5.js"></script>
 <script>
+
+    $(function(){
+	   var height=$(document).height();
+	   $('body').css('height',height)
+	})
+
 	function login(){
 		var phone = $("#phone").val();
 		var password = $("#password").val();

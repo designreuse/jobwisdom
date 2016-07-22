@@ -574,7 +574,7 @@ jQuery(this).addClass('change1').siblings().removeClass('change1')
                </div>
 		  
 		  <div class="order_item_apartment clearfix">
-		     <ul>
+		     <ul id="appointmentDeptUL">
 		       <c:forEach items="${deptInfoList }" var="deptInfo">
 			   <li onclick="findCanAppointEmployeeByDept(this)" value="${deptInfo.deptId }">${deptInfo.deptName }</li>
 			   </c:forEach>
@@ -586,7 +586,7 @@ jQuery(this).addClass('change1').siblings().removeClass('change1')
 				      <p>选择员工</p>
 					  <div class="roll">
 				         <span class="order_left"><img src="<%=basePath%>images/order_left.png"></span>
-                       <div class="roll_ul_content">				        
+                       <div class="roll_ul_content" >				        
 						<ul class="clearfix" id="newAppoint">
 						    <%-- <li>
 							  <img src="<%=basePath%>images/roll_img.png">

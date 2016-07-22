@@ -23,6 +23,9 @@ public class EmployeeCommissionDto implements Serializable {
 	/** 订单明细标识 */
 	private Integer detailId;
 	
+	/** 项目名称*/
+	private String projectName;
+	
 	/** 轮牌步骤标识*/
 	private Integer positionId;
 	
@@ -53,7 +56,17 @@ public class EmployeeCommissionDto implements Serializable {
     private Integer employeeCode;
     
 
-    public Integer getEmployeeCode() {
+    
+    
+    public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public Integer getEmployeeCode() {
         return employeeCode;
     }
 

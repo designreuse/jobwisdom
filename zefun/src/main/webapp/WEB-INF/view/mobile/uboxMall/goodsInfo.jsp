@@ -101,12 +101,14 @@
 	    <div class="swiper-container">
 	        <div class="swiper-wrapper">
 	        	<div class="swiper-slide">
-	                <img class="lazy" name="lazyImage" src="<%=picPath %>${goodsInfo.goodsImage}" data-original="${goodsInfo.goodsImage}"/>
+	               	<img class="lazy" name="lazyImage" src="<%=picPath %>${goodsInfo.goodsImage}" data-original="${goodsInfo.goodsImage}"/>
 	            </div>
 	        	<c:forEach items="${fn:split(goodsInfo.affiliatedImage, ',') }" var="img">
-	        		<div class="swiper-slide">
-		                <img class="lazy" name="lazyImage" src="<%=picPath %>${img}" data-original="${img }"/>
-		            </div>
+	        		<c:if test="${img != 'system/profile/add_img.png'}">
+	        			<div class="swiper-slide">
+			        		<img class="lazy" name="lazyImage" src="<%=picPath %>${img}" data-original="${img }"/>
+			            </div>
+	        		</c:if>
 	        	</c:forEach>
 	        </div>
 	        <div class="pagination"></div>

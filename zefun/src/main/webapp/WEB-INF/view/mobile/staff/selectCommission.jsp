@@ -114,7 +114,7 @@
 		 body{background:white}
 		 .percentage_content_ul li span{color:white;display:inline-block;width:90%;text-align:center;height:3rem;line-height:3rem}
 		 .percentage_content_data table{margin-bottom:2rem;width:100%;border:1px solid #c8c8c8;border-radius:8px}
-		 .percentage_content_data table td{text-align:center;height:3rem;vertical-align:middle;border-bottom:1px solid #c8c8c8}
+		 .percentage_content_data table td{font-size:12px;text-align:center;height:3rem;vertical-align:middle;border-bottom:1px solid #c8c8c8}
 		  .percentage_content_data table tr:nth-child(1){color:#e24420;}
 		  .percentage_content_data table tr:last-child td{border-bottom:none}
 		  .percentage_content_data td .cover{color:#61bf40}
@@ -123,7 +123,6 @@
 		  .percentage_content_data td .work{color:#e95c40}
 		  .percentage_content_data td span img{width:18px;vertical-align:middle;margin-right:5px}
 		  .percentage_content_data td span{display:inline-block;margin-right:1rem}
-		  .percentage_content_data tr:nth-child(2) td{border-bottom:none}
 	</style>
 </head>
 <body>
@@ -148,14 +147,21 @@
 	    </div> --%>
 	    <div class="time_rank clearfix">
 	      <ul class="clearfix"> 
-			   <li class="active" onclick="changeTab(this, 1)">按日查询</li>
-			   <li onclick="changeTab(this, 2)">按月查询</li>
+			   <li class="active" ontouchstart="changeTab(this, 1)">按日查询</li>
+			   <li ontouchstart="changeTab(this, 2)">按月查询</li>
           </ul>
           <div class="date fr" id="selectTime">
-		                  <div class="current-select-date">
-		                      ${nowDay}
-		                  </div>
-		              </div>
+              <div class="current-select-date">
+                  ${nowDay}
+              </div>
+          </div>
+          
+          <div class="date fr hide" id="selectMonth">
+              <div class="current-select-date">
+                  ${nowMonth}
+              </div>
+          </div>
+          
     	</div>
 	    
 	     <div class="day tab-control">
@@ -167,90 +173,18 @@
 		                     <li data-target="two-day">提成</li>
 		                 </ul>
 		             </div>
-		          <!--<div class="one-chart fl w50p">-->
 		              <div id="one-day" style="width: 50%;height: 300px; margin: 0 auto"></div>
-		          <!--</div>-->
-		          <!--<div class="two-chart fl w50p">-->
 		              <div id="two-day" class="hide" style="width: 50%;height: 300px; margin: 0 auto"></div>
-		          <!--</div>-->
 		          </div>
-		
-		      <!-- <table class="tc-table" cellspacing=0>
-		        <thead >
-		        <tr>
-		            <th>单号</th>
-		            <th>业务类型</th>
-		            <th>业绩</th>
-		            <th>提成</th>
-		        </tr>
-		        </thead>
-		        <tbody id = "dayTbody">
-		            
-		        </tbody>
-		    </table> -->
-		    <div class="percentage_content_data">
-			    <table cellpadding="0" cellspacing="0">
-				   <tr>
-		             <td colspan="3">123456789123</td>
-				   </tr>
-				   <tr>
-				     <td style="border-right:1px solid #c8c8c8;width:147px">洗剪吹哈哈哈<em class="cover">（套）</em></td>
-				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
-				   </tr>
-				</table>
-			  
-			   <table cellpadding="0" cellspacing="0">
-				   <tr>
-		             <td colspan="3">123456789123</td>
-				   </tr>
-				   <tr>
-				     <td style="border-right:1px solid #c8c8c8;width:147px" rowspan="3" >洗剪吹哈哈哈<em class="shop">（商）</em></td>
-				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
-				   </tr>
-				   <tr>  
-				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
-				   </tr>
-				    <tr>  
-				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td> 
-				   </tr>
-				</table>
-			  
-			     <table cellpadding="0" cellspacing="0">
-				   <tr>
-		             <td colspan="3">123456789123</td>
-				   </tr>
-				   <tr>
-				     <td style="border-right:1px solid #c8c8c8;width:147px">充值<em class="card">（卡）</em></td>
-				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
-				   </tr>		   
-				</table>
-				<table>
-				  <tr>
-		             <td colspan="3">123456789123</td>
-				   </tr>
-				  <tr>
-				     <td style="border-right:1px solid #c8c8c8;width:147px">洗剪吹哈哈哈<em class="work">（劳）</em></td>
-				   	 <td><span><img src="images/score.png">业绩: 50</span><span><img src="images/money.png">提成: 50</span></td>
-				   </tr>
-				</table>
-			  </div>
-		
+
+			    <div class="percentage_content_data" id = "dayTbody">
+				   
+				</div>
 		  </div>
         </div>
 	    
 	    <div class="month hide tab-control">
 	        <div class="tc-table-wrap">
-		        <div class="yg-data">
-	              <div class="date fr" id="selectMonth">
-	
-	                  <div class="current-select-date">
-	                      ${nowMonth}
-	                  </div>
-	                  <div class="date-btn">
-	                      <span class="iconfont icon-zhankai"></span>
-	                  </div>
-	              </div>
-	            </div>
 		        <div class="chart-wrap mt2">
 		             <div>
 		                 <ul class="yg-tab">
@@ -258,14 +192,10 @@
 		                     <li data-target="two-month">提成</li>
 		                 </ul>
 		             </div>
-		          <!--<div class="one-chart fl w50p">-->
 		              <div id="one-month" style="width: 50%;height: 300px; margin: 0 auto"></div>
-		          <!--</div>-->
-		          <!--<div class="two-chart fl w50p">-->
 		              <div id="two-month" class="hide" style="width: 50%;height: 300px; margin: 0 auto"></div>
-		          <!--</div>-->
 		          </div>
-	            <table class="tc-table" cellspacing=0>
+	            <!-- <table class="tc-table" cellspacing=0>
 	                <thead >
 	                <tr>
 	                    <th>日期</th>
@@ -276,10 +206,10 @@
 	                <tbody id = "monthTbody">
 		                
 	                </tbody>
-	            </table>
-	            <div class="chart-wrap">
-	                <div id="year-chart" style="width: 100%;height: 300px;"></div>
-	            </div>
+	            </table> -->
+	            <div class="percentage_content_data" id = "monthTbody">
+				    
+				 </div>
 	        </div>
 	    </div>
 	    
@@ -341,7 +271,7 @@ var nowCommissionList = "";
 var dateType = 1;
 
 $(function () {
-	$(".yg-tab li").on("click",function() {
+	$(".yg-tab li").on("touchstart",function() {
         $(this).addClass("current").siblings().removeClass("current");
         if ($(this).attr("data-target") == "two-day" || $(this).attr("data-target") == "one-day") {
         	$("#one-day,#two-day").addClass("hide");
@@ -372,11 +302,14 @@ function changeTab(obj, type){
     $(obj).addClass("active");
     dateType = type;
     $(".tab-control").addClass("hide");
+    $(".date").addClass("hide");
     if (type == 1) {
     	$(".day").removeClass("hide");
+    	$("#selectTime").removeClass("hide");
     }
     else if (type == 2){
     	$(".month").removeClass("hide");
+    	$("#selectMonth").removeClass("hide");
     }
 } 
 
@@ -402,19 +335,39 @@ function selectCommission(dateTime) {
 }
 
 function loadDayTable (dayMapLoad) {
-	/* $("#daySumTbody").empty(); */
 	$("#dayTbody").empty();
 	
-	var dtoList = dayMapLoad.dtoList;
+	var orderList = dayMapLoad.orderList;
 	
-	for (var j = 0; j < dtoList.length; j++) {
-		var employeeCommissionDto = dtoList[j];
-		$("#dayTbody").append("<tr>"+
-					            "<td>"+employeeCommissionDto.orderCode+"</td>"+
-					            "<td>"+orderTypeArray[employeeCommissionDto.orderType]+"</td>"+
-					            "<td>"+employeeCommissionDto.commissionCalculate+"</td>"+
-					            "<td>"+employeeCommissionDto.commissionAmount+"</td>"+
-					          "</tr>");
+	for (var j = 0; j < orderList.length; j++) {
+		var orderMap = orderList[j];
+		var str = '<table>'+
+					  '<tr>'+
+				        '<td colspan="3">'+orderMap.orderCode+'</td>'+
+					  '</tr>';
+		var detailList = orderMap.detailList;			  
+		for (var i = 0; i < detailList.length; i++) {
+			var detailObj = detailList[i];
+			str += '<tr>'+
+				     '<td style="border-right:1px solid #c8c8c8;width:147px">'+detailObj.projectName;
+		    if (detailObj.orderType == 1) {
+		    	str += '<em class="work">（劳）</em></td>';
+		    }
+		    else if (detailObj.orderType == 2) {
+		    	str += '<em class="shop">（商）</em></td>';
+		    }
+		    else if (detailObj.orderType == 3) {
+		    	str += '<em class="shop">（套）</em></td>';
+		    }
+		    else {
+		    	str += '<em class="card">（卡）</em></td>';
+		    }
+		    str +=	 '<td><span><img src="'+baseUrl+'images/mobile/newemployee/score.png">业绩: '+detailObj.commissionCalculate+'</span><span><img src="'+baseUrl+'images/mobile/newemployee/money.png">提成: '+detailObj.commissionAmount+'</span></td>'+
+				   '</tr>';
+		}
+		str += '</table>';
+		
+		$("#dayTbody").append(str);
 	}
 	
 	packageData(1, dayMapLoad);
@@ -423,7 +376,6 @@ function loadDayTable (dayMapLoad) {
 
 function loadMonthTable (obj) {
 	$("#monthTbody").empty();
-	$("#monthSumTbody").empty();
 	
 	var commissionList = obj.commissionList;
 	
@@ -431,11 +383,15 @@ function loadMonthTable (obj) {
 	
 	for (var j = 0; j < commissionList.length; j++) {
 		var commission = commissionList[j];
-		$("#monthTbody").append("<tr onclick = \"triggerDay('"+commission.chargeTime+"')\">"+
-				                    "<td>"+commission.chargeTime+"</td>"+
-				                    "<td>"+commission.sumCommissionCalculate+"</td>"+
-				                    "<td>"+commission.sumCommissionAmount+"</td>"+
-				                "</tr>");
+		$("#monthTbody").append('<table cellpadding="0" cellspacing="0">'+
+								   '<tr>'+
+						             '<td colspan="3">'+commission.chargeTime+'</td>'+
+								   '</tr>'+
+								   '<tr>'+
+								     '<td style="border-right:1px solid #c8c8c8;"><span><img src="'+baseUrl+'images/mobile/newemployee/score.png">业绩: '+commission.sumCommissionCalculate+'</span></td>'+
+								   	 '<td><span><img src="'+baseUrl+'images/mobile/newemployee/money.png">提成: '+commission.sumCommissionAmount+'</span></td>'+
+								   '</tr>'+
+								'</table>');
 	}
 	var dayMap = {"projectCalculate" : obj.monthProjectCalculate, "projectAmount" : obj.monthProjectAmount, "goodsCalculate" : obj.monthGoodsCalculate, "goodsAmount" : obj.monthGoodsAmount,
 			      "comboCalculate" : obj.monthComboCalculate, "comboAmount" : obj.monthComboAmount, "chargeCalculate" : obj.monthChargeCalculate, "chargeAmount" : obj.monthChargeAmount};

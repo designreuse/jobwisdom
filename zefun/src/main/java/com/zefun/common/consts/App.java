@@ -31,9 +31,6 @@ public interface App {
 		public static final String APP_USER_ROLE_BOSS = "boss";
 
 		/** 服务器域名 */
-		// public static final String SERVER_HOST = "moffatt.maywant.com";
-		// public static final String SERVER_HOST = "uat.maywant.com";
-		// public static final String SERVER_HOST = "wechat.maywant.com";
 		public static final String SERVER_HOST = "wang.jobwisdom.cn";
 //		public static final String SERVER_HOST = "job.jobwisdom.cn";
 
@@ -76,7 +73,7 @@ public interface App {
 		public static final int SYSTEM_ROLE_STORE_EMPLOYEE = 4;
 		
 		/** 百度语音token*/
-		public static final String SYSTEM_VOICE = "24.2abdf97e9f4bd52a623fd025346673e6.2592000.1468641911.282335-7977080";
+		public static final String SYSTEM_VOICE = "24.ec7ed8464a648aa249a2c828a641f184.2592000.1471593113.282335-7977080";
 	}
 
 	/** 队列通道常量 */

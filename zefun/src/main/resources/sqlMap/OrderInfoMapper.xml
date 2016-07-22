@@ -1875,7 +1875,7 @@
         hand_order_code as handOrderCode
     from order_info
     where store_id = #{storeId}
-        and order_status in (1, 2, 5)
+        and order_status = 1
         and is_deleted = 0
   </select>
   

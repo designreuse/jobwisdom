@@ -215,8 +215,7 @@ input[type=radio] {
 									<p>会员价格</p>
 									<div class="vip_price_content">
 										<p>
-											为不同会员设置折扣，会员低于<input type="text">％设置固定价格<span
-												style="display: inline-block; width: 16px; height: 16px; background: #ef4f4f; color: white; border-radius: 16px; line-height: 16px; text-align: center; margin-left: 5px; font-size: 16px">?</span>
+											为不同会员设置折扣
 											<button onclick="addLevel()" style="width: 126px; height: 26px; text-align: center; line-height: 26px; border-radius: 10px; color: white; border: none; background: #657392; position: relative; left: 330px">新建</button>
 										</p>
 										<div class="vip_roll">
