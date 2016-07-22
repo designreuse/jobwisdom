@@ -520,9 +520,10 @@ public class MemberCenterService {
     * @author 张进军
     * @date Aug 19, 2015 4:21:25 PM
     * @param memberId       会员标识
+    * @param orderType      orderType
     * @return           会员预约列表页面
      */
-    public ModelAndView orderListView(int memberId){
+    public ModelAndView orderListView(int memberId, Integer orderType){
         ModelAndView mav = new ModelAndView(View.MemberCenter.ORDER_LIST);
         List<MemberOrderDto> orderList = orderInfoMapper.selectOrderListByMemberId(memberId);
         
@@ -543,6 +544,17 @@ public class MemberCenterService {
             else if (isProject && order.getOrderStatus() == 4) {
             	order.setOrderStatus(101);
             }
+        }
+        if (orderType != null){
+            orderList.stream().forEach(c -> {
+                    List<OrderDetailDto> detailDtos = c.getDetailList()
+                        .stream().filter(p -> p.getOrderType()
+                                .equals(orderType)).collect(Collectors.toList());
+                    c.setDetailList(detailDtos);
+                });
+            orderList = orderList
+                    .stream().filter(p -> p.getDetailList()!=null && p.getDetailList().size()>0)
+                    .collect(Collectors.toList());
         }
         mav.addObject("orderList", orderList);
         return mav;
@@ -1198,13 +1210,8 @@ public class MemberCenterService {
         memberAppointment.setStoreId(storeId);
         memberAppointment.setEmployeeId(employeeId);
         memberAppointment.setProjectId(projectId);
-//        memberAppointment.setProjectStepOrder(projectStepOrder);
-//        memberAppointment.setShiftMahjongId(shiftMahjongId);
         memberAppointment.setAppointmentDate(appointDate);
         memberAppointment.setAppointmentTime(appointTime);
-//        ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
-//        memberAppointment.setAppointmentPrice(projectService.getProjectPriceByMember(memberInfo.getLevelId(), 
-//                projectId, projectInfo.getProjectPrice(), memberInfo.getStoreId()));
         String curTime = DateUtil.getCurTime();
         memberAppointment.setCreateTime(curTime);
         memberAppointment.setUpdateTime(curTime);
@@ -1212,6 +1219,7 @@ public class MemberCenterService {
         memberAppointment.setIsDeleted(0);
         memberAppointment.setLastOperatorId(0);
         memberAppointment.setAppointmentWay(2);
+        
         memberAppointmentMapper.insert(memberAppointment);
         
         //发送预约通知给员工
@@ -1219,8 +1227,12 @@ public class MemberCenterService {
         if (StringUtils.isNotBlank(openId)) {
             rabbitService.sendAppointmentApplyNotice(storeId, mainStoreId, App.System.SERVER_BASE_URL 
                     + Url.Staff.VIEW_STAFF_APPOINT.replace("{storeId}", mainStoreId + "").replace("{businessType}", "2").replace("{type}", "1"), 
-                    employeeId, openId, memberInfo.getName(), memberInfo.getLevelName(), "到店体验", appointDate + " " + appointTime);
+                    employeeId, openId, memberInfo.getName(), memberInfo.getLevelName(), 
+                    projectCategoryMapper.selectByPrimaryKey(projectId).getCategoryName(), 
+                    appointDate + " " + appointTime);
         }
+        //推送声音到门店
+        rabbitService.storeAppointVoice(storeId, employeeId);
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }

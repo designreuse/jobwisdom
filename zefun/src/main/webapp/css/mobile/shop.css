@@ -48,7 +48,8 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 .shop_content .recommend_{font-size: 1.6rem;font-weight: bold;color:black}
 .shop_content a{position: relative;float:right;color: #665493}
 .shop_content .recommend{font-size: 1.5rem;font-weight: bold;}
-.recommend_shop{width: 46%;margin-left: 3%;float: left;border-radius: 0.5rem;border:1px solid #e1e1e1;background: white;margin-bottom: 1rem}
+.shop_content_ > a{width: 46%;margin-left: 3%;border-radius: 0.5rem;border:1px solid #e1e1e1;background: white;margin-bottom: 1rem;display: inline-block;}
+
 .recommend_shop> span{display: block;margin:0.5rem 0rem 1rem 0.2rem; font-weight: bold;color:black;font-size: 1.3rem}
 .al_sell{padding-left: 0.2rem;margin-bottom: 0.5rem}
 .al_sell .number_{color:#9f9f9f;font-size: 0.6rem}

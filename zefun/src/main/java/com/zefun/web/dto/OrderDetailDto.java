@@ -9,8 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.zefun.web.entity.EmployeeCommission;
-
 /**
  * 订单服务明细
 * @author 张进军
@@ -33,7 +31,7 @@ public class OrderDetailDto implements Serializable{
     /** 部门标识*/
     private Integer deptId;
 
-    /** 订单类型(1:项目,2:商品,3:套餐) */
+    /** 订单类型(1:项目,2:商品,3:套餐,4:开卡,5:充值,6:升级,7:赠送,8:还款) */
     private Integer orderType;
 
     /** 是否预约(1:是,2:否) */
