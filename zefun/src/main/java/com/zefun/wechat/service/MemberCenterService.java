@@ -59,6 +59,7 @@ import com.zefun.web.dto.SelfCashierDetailDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.IntegralFlow;
@@ -1402,10 +1403,16 @@ public class MemberCenterService {
         StoreShop storeShop = new StoreShop();
         storeShop.setStoreId(ownerStoreId);
         StoreShop shop = storeShopMapper.selectByProties(storeShop);
-        List<Integer> paramsAestSellers = Stream.of(shop.getNewArrival().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
-        List<Integer> paramsBestSellers = Stream.of(shop.getBestSellers().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
-        List<GoodsInfoDto> aestSellers = goodsInfoService.queryByGoodsIds(paramsAestSellers);
-        List<GoodsInfoDto> bestSellers = goodsInfoService.queryByGoodsIds(paramsBestSellers);
+        List<Integer> paramsAestSellers = null;
+        List<Integer> paramsBestSellers = null;
+        List<GoodsInfoDto> aestSellers = null;
+        List<GoodsInfoDto> bestSellers = null;
+        if (shop != null && !"".equals(shop.getNewArrival())){
+            paramsAestSellers = Stream.of(shop.getNewArrival().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
+            paramsBestSellers = Stream.of(shop.getBestSellers().split(",")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
+            aestSellers = goodsInfoService.queryByGoodsIds(paramsAestSellers);
+            bestSellers = goodsInfoService.queryByGoodsIds(paramsBestSellers);
+        }
         
         mav.addObject("aestSellers", aestSellers);
         mav.addObject("bestSellers", bestSellers);
@@ -1984,8 +1991,13 @@ public class MemberCenterService {
      */
     public ModelAndView storeInfoViewSpecail(Integer sId) {
         SpecialService specialService = specialServiceMapper.selectByPrimaryKey(sId);
+        Integer storeId = specialService.getStoreId();
+        Integer employeeCode = specialService.getEmployeeCode();
+        List<EmployeeInfo> employeeInfos = employeeInfoMapper.selectEmployeeList(storeId);
+        employeeInfos = employeeInfos.stream().filter(p -> p.getEmployeeCode().equals(employeeCode)).collect(Collectors.toList());
         ModelAndView view = new ModelAndView(View.MemberCenter.STORE_SPE);
         view.addObject("specialService", specialService);
+        view.addObject("employeeId", employeeInfos.get(0).getEmployeeId());
         return view;
     }
 
