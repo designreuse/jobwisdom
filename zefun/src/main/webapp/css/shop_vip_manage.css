@@ -1,4 +1,4 @@
-.content_right{padding: 0px 32px;background:white;}
+.content_right{padding: 20px 32px;background:white;}
 .out_roll li{width:138px;height:66px;border:1px solid black;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
 .click_left{position:absolute;z-index:2;top:2px;}
 .click_right{position:absolute;right:-50px;top:2px;z-index:2}
