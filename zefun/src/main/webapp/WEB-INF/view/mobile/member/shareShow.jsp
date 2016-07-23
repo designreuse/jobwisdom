@@ -14,7 +14,7 @@
 
 <div class="content wrap">
 	<div class="click-share bg-white">
-	  <img id="headImg" src="<%=picPath %>mobile/share/hairstyle_show.png?imageView2/1/w/640/h/640" class="click-share-img"/>
+	 <%--  <img id="headImg" src="<%=picPath %>mobile/share/hairstyle_show.png?imageView2/1/w/640/h/640" class="click-share-img"/> --%>
 	  <div class="share-btn-group">
 	    <div class="btn-content">
 	      <div class="paizhao" onclick="chooseImgage()">
@@ -73,7 +73,7 @@ function share(){
 }
 
 function backHome(){
-	window.location.href = baseUrl + "memberCenter/view/home/${session_key_store_id}/1";
+	window.location.href = baseUrl + "memberCenter/view/home/${session_key_store_account}/1";
 }
 
 var titleArray = ['之前只能算是剃头，在这家美发店，我终于做了一回“造型”！',
@@ -83,7 +83,7 @@ var titleArray = ['之前只能算是剃头，在这家美发店，我终于做�
 var title = titleArray[Math.floor((Math.random()*titleArray.length))];
 var content = "无内容";
 var desc = '';
-var link = baseUrl + 'memberCenter/view/shareInfo?code=${code}&orderId=${orderId}&mainStoreId=${session_key_store_id}';
+var link = baseUrl + 'memberCenter/view/shareInfo?code=${code}&orderId=${orderId}&mainStoreId=${session_key_store_account}';
 var imgUrl = 'http://7xkv8r.com1.z0.glb.clouddn.com/faxing.jpg?imageView2/1/w/200/h/200';
 
 var hairImg = "";

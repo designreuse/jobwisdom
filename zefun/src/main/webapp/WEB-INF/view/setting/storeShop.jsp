@@ -52,8 +52,8 @@
 									<div>新品上市</div></li>
 								<li onclick="exchange('rxsp')"><img src="<%=basePath%>images/phone_goods_2.png">
 									<div>热销商品</div></li>
-								<li><img src="<%=basePath%>images/phone_goods_3.png">
-									<div>积分兑换</div></li>
+								<li onclick="dialog('该项无需配置');"><img src="<%=basePath%>images/phone_goods_3.png">
+									<div>疗程卡项</div></li>
 							</ul>
 							<div class="phone_content" >
 								<p class="default">
@@ -253,7 +253,7 @@ jQuery('.adjust_list').click(function() {
 		if(jQuery(this).attr("class").indexOf("active")>0)return;
 		var goodsId = jQuery(this).attr("goodsId");
 		var html = '<div class="adjust_list clearfix" goodsId="'+goodsId+'"><span class="img"><img src="'+baseUrl+'images/seo_close.png"></span>'+
-						'<em class="shoes_">鞋子</em>'+
+						'<em class="shoes_">商品</em>'+
 						'<div class="shoes_right">'+
 							'<span class="shoes_right_new">可丝莹565</span>'+
 						'</div>'+

@@ -742,7 +742,7 @@ var titleArray = ['之前只能算是剃头，在这家美发店，我终于做�
 var title = titleArray[Math.floor((Math.random()*titleArray.length))];
 var desc = '';
 var code = "${code}";
-var link = baseUrl + 'memberCenter/view/shareInfo?code=' + code + '&orderId=${orderId}&mainStoreId=${mainStoreId}';
+var link = baseUrl + 'memberCenter/view/shareInfo?code=' + code + '&orderId=${orderId}&mainStoreId=${session_key_store_account}';
 
 wx.ready(function () {
 	wx.onMenuShareAppMessage({

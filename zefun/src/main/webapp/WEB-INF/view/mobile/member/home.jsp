@@ -16,8 +16,6 @@
 	<div class="con">
 
 		<div class="person_">
-			<%-- <a href="<%=basePath %>memberCenter/view/levelInfo"><span class="vip">${memberBaseInfo.levelName }</span></a> --%>
-			<%-- <a href="<%=basePath %>memberCenter/view/levelInfo"><span class="vip" style="background:url('<%=basePath %>images/mobile/member/vip.png')">卡</span></a> --%>
 			<div class="head_pic">
 			<a href="<%=basePath%>memberCenter/view/info">
 				<img src="<%=picPath%>${memberBaseInfo.headUrl }?imageView2/1/w/220/h/220">

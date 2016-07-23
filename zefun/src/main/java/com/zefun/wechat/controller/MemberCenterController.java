@@ -407,16 +407,17 @@ public class MemberCenterController extends BaseController {
     * @date Aug 19, 2015 4:21:25 PM
     * @param request        请求对象
     * @param response       返回对象
+    * @param orderType      orderType
     * @return           会员预约列表页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_ORDER_LIST)
-    public ModelAndView orderListView(HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView orderListView(HttpServletRequest request, HttpServletResponse response, Integer orderType){
         String openId = getOpenId(1, request, response);
         if (openId == null) {
             return null;
         }
         int memberId = getUserIdByOpenId(openId);
-        return memberCenterService.orderListView(memberId);
+        return memberCenterService.orderListView(memberId, orderType);
     }
     
     
@@ -643,7 +644,7 @@ public class MemberCenterController extends BaseController {
      * 访问分享信息页面
     * @author 张进军
     * @date Aug 19, 2015 7:08:55 PM
-    * @param storeAccount	分享着所属公众号门店标识
+    * @param mainStoreId	分享着所属公众号门店标识
     * @param code   		分享者标识
     * @param orderId  		分享订单标识
     * @param request        请求对象
@@ -652,16 +653,16 @@ public class MemberCenterController extends BaseController {
      * @throws Exception 	加密时抛出的异常
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_SHARE_INFO, method = RequestMethod.GET)
-    public ModelAndView shareInfoView(String storeAccount, String code, Integer orderId,
+    public ModelAndView shareInfoView(String mainStoreId, String code, Integer orderId,
             HttpServletRequest request, HttpServletResponse response) throws Exception{
-    	String openId = getOpenId(storeAccount, 1, request, response);
+    	String openId = getOpenId(mainStoreId, 1, request, response);
         if (openId == null) {
             return null;
         }
-        setJsapiSignData(storeAccount, request);
+        setJsapiSignData(mainStoreId, request);
         Integer memberId = getUserIdByOpenId(openId);
         Integer ownerMemberId = Integer.parseInt(code);
-        return memberCenterService.shareInfoView(code, ownerMemberId, memberId, orderId, ownerMemberId.equals(memberId), storeAccount);
+        return memberCenterService.shareInfoView(code, ownerMemberId, memberId, orderId, ownerMemberId.equals(memberId), mainStoreId);
     }
     
     

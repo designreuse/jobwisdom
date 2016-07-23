@@ -13,23 +13,23 @@ jQuery('.timePickerClean').datetimepicker({
 //});
 var objTr;
 /** 弹出修改信息模态框 */
-jQuery("body").delegate(".can-click.m-btn.update","click",function(){
+jQuery("body").delegate(".update","click",function(){
 	var tr = jQuery(this).parents("tr");
 	objTr = tr;
 	var memberId = tr.children("td").eq(1).attr("id");
 	var phone = tr.children("td").eq(0).text();
 	var name = tr.children("td").eq(1).text();
 	var sex = tr.children("td").eq(2).text();
-	var birthday = tr.children("td").eq(4).text();
-	var levelName = tr.children("td").eq(3).text();
-	var community = tr.children("td").eq(0).attr("community");
+	var birthday = tr.children("td").eq(10).text();
+	/*var levelName = tr.children("td").eq(3).text();*/
+	var community = tr.children("td").eq(3).attr("community");
 	var balanceAmount = tr.children("td").eq(5).text();
 	var balanceIntegral = tr.children("td").eq(6).text();
 	var totalConsumeAmount = tr.children("td").eq(7).text();
 	var avgConsumeAmount = tr.children("td").eq(8).text();
 	var createTime = tr.children("td").eq(9).text();
 	
-	jQuery("#member-xiugai").find("tbody").children("tr").eq(0).children("td").eq(1).text(levelName);
+	/*jQuery("#member-xiugai").find("tbody").children("tr").eq(0).children("td").eq(1).text(levelName);*/
 	jQuery("#member-xiugai").find("tbody").children("tr").eq(0).children("td").eq(3).text(balanceAmount);
 	jQuery("#member-xiugai").find("tbody").children("tr").eq(1).children("td").eq(1).text(balanceIntegral);
 	jQuery("#member-xiugai").find("tbody").children("tr").eq(1).children("td").eq(3).text(totalConsumeAmount);
@@ -55,7 +55,7 @@ jQuery("body").delegate(".can-click.m-btn.update","click",function(){
 	
 	jQuery("#member-xiugai").find(".xg-title").find("li").eq(2).find("input").val(birthday);
 	jQuery("#member-xiugai").find(".xg-title").find("li").eq(3).find("input").val(phone);
-	jQuery("#member-xiugai").find(".xg-title").find("li").eq(4).find("input").val(community.trim());
+	jQuery("#member-xiugai").find(".xg-title").find("li").eq(4).find("input").val(community);
 	
 	jQuery("#member-xiugai").modal();
 });
@@ -107,8 +107,7 @@ function updateMember(){
 				jQuery(objTr).children("td").eq(0).text(phone);
 				jQuery(objTr).children("td").eq(1).text(name);
 				jQuery(objTr).children("td").eq(2).text(sex);
-				jQuery(objTr).children("td").eq(4).text(birthday);
-//				jQuery(objTr).children("td").eq(12).text(community);
+				jQuery(objTr).children("td").eq(10).text(birthday);
 				jQuery(objTr).children("td").eq(0).attr("community", community);
 				jQuery("#member-xiugai").modal('hide');
 			}else{
