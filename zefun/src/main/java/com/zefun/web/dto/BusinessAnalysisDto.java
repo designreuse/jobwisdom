@@ -15,12 +15,12 @@ public class BusinessAnalysisDto {
     private BigDecimal cashConsumption;
     /**划卡消费*/
     private BigDecimal cardConsumption;
-    /**套餐*/
+    /**疗程*/
     private BigDecimal comboDeductible;
     
     /**项目消费*/
     private BigDecimal projectConsumption;
-    /**卡项(套餐)消费*/
+    /**卡项(疗程)消费*/
     private BigDecimal cardComboConsumption;
     /**商品销售*/
     private BigDecimal goodsDeductible;
@@ -221,7 +221,7 @@ public class BusinessAnalysisDto {
             objects1.add(analysisDto.getCashConsumption());
             objects2.add("划卡业绩  "+analysisDto.getCardConsumption());
             objects2.add(analysisDto.getCardConsumption());
-            objects3.add("套餐消费  "+analysisDto.getComboDeductible());
+            objects3.add("疗程消费  "+analysisDto.getComboDeductible());
             objects3.add(analysisDto.getComboDeductible());
             List<List<Object>> list = new ArrayList<>();
             list.add(objects1);
@@ -234,7 +234,7 @@ public class BusinessAnalysisDto {
             objects1.add(0);
             objects2.add("划卡业绩  "+0);
             objects2.add(0);
-            objects3.add("套餐消费  "+0);
+            objects3.add("疗程消费  "+0);
             objects3.add(0);
             List<List<Object>> list = new ArrayList<>();
             list.add(objects1);
@@ -259,7 +259,7 @@ public class BusinessAnalysisDto {
         if (analysisDto!=null){
             objects1.add("项目消费  "+analysisDto.getProjectConsumption());
             objects1.add(analysisDto.getProjectConsumption());
-            objects2.add("卡项/套餐销售 "+analysisDto.getCardComboConsumption());
+            objects2.add("卡项/疗程销售 "+analysisDto.getCardComboConsumption());
             objects2.add(analysisDto.getCardComboConsumption());
             objects3.add("商品销售  "+analysisDto.getGoodsDeductible());
             objects3.add(analysisDto.getGoodsDeductible());
@@ -272,7 +272,7 @@ public class BusinessAnalysisDto {
         else {
             objects1.add("项目消费  "+0);
             objects1.add(0);
-            objects2.add("卡项/套餐销售"+0);
+            objects2.add("卡项/疗程销售"+0);
             objects2.add(0);
             objects3.add("商品销售  "+0);
             objects3.add(0);

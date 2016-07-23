@@ -53,7 +53,7 @@
     combo_code_suffix
   </sql>
   
-  <!-- 根据门店标识查询套餐标识集合，by 张小胖 -->
+  <!-- 根据门店标识查询疗程标识集合，by 张小胖 -->
   <select id="selectComboIdByStoreId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
   	select combo_id from combo_info where store_id = #{storeId}
   </select>
@@ -616,7 +616,7 @@
 	GROUP BY ci.combo_id
 	ORDER BY comboAmount DESC
   </select>
- <!--  查询套餐是否有次数限制 -->
+ <!--  查询疗程是否有次数限制 -->
   <select id="checkComboCountLimit" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     select count(*) as countTime from combo_info a where exists(select 1 from member_combo_project c 
   	where c.is_deleted = 0 and c.detail_id = #{detailId,jdbcType=INTEGER} and c.combo_id = a.combo_id)

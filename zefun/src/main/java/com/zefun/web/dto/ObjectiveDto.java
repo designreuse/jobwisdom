@@ -34,7 +34,7 @@ public class ObjectiveDto {
 	/** 指定项目目标 */
 	private Integer assignProjectSales;
 
-	/** 套餐目标 */
+	/** 疗程目标 */
 	private Integer comboSales;
 
 	/** 商品目标 */

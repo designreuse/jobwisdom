@@ -264,7 +264,7 @@ var nowMonth = '${nowMonth}';
 
 var nowDay = '${nowDay}';
 
-var orderTypeArray = new Array("", "劳动" , "商品", "套餐", "开卡", "充值", "升级");
+var orderTypeArray = new Array("", "劳动" , "商品", "疗程", "开卡", "充值", "升级");
 
 var nowCommissionList = "";
 
@@ -408,7 +408,7 @@ function packageData(type, dayMap) {
 	var obj2 = {"name" : "商品业绩", "y" : dayMap.goodsCalculate};
 	tatailCalculate = tatailCalculate + dayMap.goodsCalculate;
 	calculateArray.push(obj2);
-	var obj3 = {"name" : "套餐业绩", "y" :dayMap.comboCalculate};
+	var obj3 = {"name" : "疗程业绩", "y" :dayMap.comboCalculate};
 	tatailCalculate = tatailCalculate + dayMap.comboCalculate;
 	calculateArray.push(obj3);
 	var obj4 = {"name" : "卡项业绩", "y" : dayMap.chargeCalculate};
@@ -423,7 +423,7 @@ function packageData(type, dayMap) {
 	var obj6 = {"name" : "商品提成", "y" : dayMap.goodsAmount};
 	tatailAmount = tatailAmount + dayMap.goodsAmount;
 	amountArray.push(obj6);
-	var obj7 = {"name" : "套餐提成", "y" : dayMap.comboAmount};
+	var obj7 = {"name" : "疗程提成", "y" : dayMap.comboAmount};
 	tatailAmount = tatailAmount + dayMap.comboAmount;
 	amountArray.push(obj7);
 	var obj8 = {"name" : "卡项提成", "y" : dayMap.chargeAmount};

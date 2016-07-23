@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class ChargedIncomePart extends SummaryResultDto {
     /**充值金额*/
     private BigDecimal chargedAmt=new BigDecimal(0);
-    /**套餐金额*/
+    /**疗程金额*/
     private BigDecimal comboAmt=new BigDecimal(0);
     /**开卡金额*/
     private BigDecimal openCardAmt=new BigDecimal(0);

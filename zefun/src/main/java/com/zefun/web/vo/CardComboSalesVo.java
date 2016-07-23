@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 */
 public class CardComboSalesVo {
     
-    /**卡金销售套餐数量*/
+    /**卡金销售疗程数量*/
     private Integer cardComboCnt;
     
-    /**卡金销售套餐业绩*/
+    /**卡金销售疗程业绩*/
     private BigDecimal cardComboAmt;
 
     public Integer getCardComboCnt() {

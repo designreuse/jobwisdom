@@ -129,6 +129,7 @@ background-size: cover;}
 								   <td>开卡门店</td>
 								   <td>余额</td>
 								   <td>礼金</td>
+								   <td>积分</td>
 								   <td>欠款</td>
 								   <td>会员卡</td>
 								   <td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
@@ -136,8 +137,9 @@ background-size: cover;}
 								 <tr>
 								   <td name = "memberPhoneSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
 								   <td name = "memberNameSpan" data-toggle="modal"  data-target="#member-data" onclick="showMemberModal(this)"></td>
-								   <td name = "memberSexSpan">男</td>
-								   <td name = "memberStoreName">华南美联店</td>
+								   <td name = "memberSexSpan"></td>
+								   <td name = "memberStoreName"></td>
+								   <td style="color:#eb4749" name = "memberBalanceAmountSpan"></td>
 								   <td style="color:#eb4749" name = "memberBalanceGiftmoneyAmountSpan"></td>
 								   <td style="color:#eb4749" name = "memberBalanceIntegralSpan"></td>
 								   <td style="color:#eb4749" name = "needRefund"></td>

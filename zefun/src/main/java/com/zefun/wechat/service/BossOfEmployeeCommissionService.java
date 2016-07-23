@@ -91,7 +91,7 @@ public class BossOfEmployeeCommissionService {
 		List<EmployeeCommissionOfBossDto> cardCommissionList = employeeCommissionMapper.selectEmployeeCardCommissionByBoss(storeId, positionId, time);
 		//合并现金业绩集和卡金业绩集(卡金加到现金中去)
 		cashCommissionList = mergeTwoEmployeeCommissionOfBossDtoList(cashCommissionList, cardCommissionList);
-		//可能会出现会员用套餐抵扣项目情况，需额外查order_detail中off_type = 1 && combo_id != null的值
+		//可能会出现会员用疗程抵扣项目情况，需额外查order_detail中off_type = 1 && combo_id != null的值
 		List<EmployeeCommissionOfBossDto> cardCommissionOfComboPeductionProjectList 
 				  = employeeCommissionMapper.selectEmployeeCardCommissionOfComboDeductionProjectByBoss(storeId, positionId, time);
 		cashCommissionList = mergeTwoEmployeeCommissionOfBossDtoList(cashCommissionList, cardCommissionOfComboPeductionProjectList);
@@ -171,7 +171,7 @@ public class BossOfEmployeeCommissionService {
 		List<CommissionValueAndTypeDto> cardCommissionDetailList = employeeCommissionMapper
 				  .selectCardCommissionDetailByEmployeeIdAndTime(employeeId, time);
 		EmployeeCommissionDetailOfBossDto employeeCommissionDetailOfBossDto = new EmployeeCommissionDetailOfBossDto();
-		//再加上会员用套餐抵扣项目中的业绩到  卡金业绩中的项目业绩  中去
+		//再加上会员用疗程抵扣项目中的业绩到  卡金业绩中的项目业绩  中去
 		Double comboDeductionProjectValue = employeeCommissionMapper.selectComboDeductionProjectEmployeeCommissionDetail(employeeId, time);
 		if (employeeCommissionDetailOfBossDto != null && comboDeductionProjectValue != null) {
 			employeeCommissionDetailOfBossDto.setCardCommissionOfProject(
@@ -180,7 +180,7 @@ public class BossOfEmployeeCommissionService {
 		employeeCommissionDetailOfBossDto = fillCommissionDistribute(
 				  employeeCommissionDetailOfBossDto, cashCommissionDetailList, cardCommissionDetailList);
 		/**
-		 * 技能分析(只包含项目，不包含套餐和商品)
+		 * 技能分析(只包含项目，不包含疗程和商品)
 		 */
 		/*//大小项
 		List<Map<String, Object>> customerCountOfProjectTypeList = employeeCommissionMapper.selectCustomerCountGroupByProjectType(employeeId, time);

@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
@@ -40,15 +38,18 @@ import com.zefun.web.service.GoodsInfoService;
 import com.zefun.web.service.MemberLevelService;
 import com.zefun.web.service.ProjectService;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 /**
- * 套餐
+ * 疗程
 * @author 洪秋霞
 * @date 2015年8月6日 上午10:07:42 
 *
  */
 @Controller
 public class ComboInfoController extends BaseController {
-    /**套餐*/
+    /**疗程*/
     @Autowired 
     ComboInfoService comboInfoService;
     /**项目*/
@@ -60,15 +61,15 @@ public class ComboInfoController extends BaseController {
     /**会员等级*/
     @Autowired 
     private MemberLevelService memberLevelService;
-    /**会员套餐关联*/
+    /**会员疗程关联*/
     @Autowired
     private MemberComboRecordMapper memberComboRecordMapper;
-    /**套餐*/
+    /**疗程*/
     @Autowired
     private ComboInfoMapper comboInfoMapper;
 
     /**
-     * 进入套餐页面
+     * 进入疗程页面
     * @author 洪秋霞
     * @date 2015年8月11日 上午10:13:25
     * @param request request
@@ -85,7 +86,7 @@ public class ComboInfoController extends BaseController {
             comboInfo.setStoreId(storeId);
             List<ComboInfo> comboInfos = comboInfoMapper.selectByProperty(comboInfo);
 
-//            // 部门，套餐列表
+//            // 部门，疗程列表
 //            List<DeptInfoDto> deptInfoCmboInfoList = comboInfoService.getDetpInfoByCombo(storeId);
 //            model.addObject("deptInfoCmboInfoList", deptInfoCmboInfoList);
 //
@@ -143,7 +144,7 @@ public class ComboInfoController extends BaseController {
     }
     
     /**
-     * 新增套餐页面
+     * 新增疗程页面
     * @author 高国藩
     * @date 2016年6月6日 下午7:51:42
     * @param request   request
@@ -197,7 +198,7 @@ public class ComboInfoController extends BaseController {
     }
     
     /**
-     * 套餐的修改新增操作
+     * 疗程的修改新增操作
     * @author 高国藩
     * @date 2016年6月7日 上午10:16:40
     * @param request     request
@@ -219,12 +220,12 @@ public class ComboInfoController extends BaseController {
     
 
     /**
-     * 保存套餐
+     * 保存疗程
     * @author 洪秋霞
     * @date 2015年8月11日 上午10:16:55
     * @param request request
     * @param response response
-    * @param comboInfo 套餐
+    * @param comboInfo 疗程
     * @return BaseDto ajax返回对象
      */
     @RequestMapping(value = Url.ComboInfo.SAVE_COMBOINFO)
@@ -239,7 +240,7 @@ public class ComboInfoController extends BaseController {
             String[] projectCount = request.getParameterValues("projectCounts");
             String[] comboPerformanceCal = request.getParameterValues("comboPerformanceCal");
             String[] royaltyRate = request.getParameterValues("royaltyRate");
-            /**将所有的项目的次数相加,存入套餐总数中*/
+            /**将所有的项目的次数相加,存入疗程总数中*/
             Integer projectCount1 = 0;
             for (int i = 0; i < projectCount.length; i++) {
                 projectCount1 = projectCount1 + Integer.parseInt(projectCount[i]);
@@ -284,7 +285,7 @@ public class ComboInfoController extends BaseController {
                 Integer comboId = comboInfo.getComboId();
                 List<MemberComboRecord> memberComboRecords = memberComboRecordMapper.selectByComboId(comboId);
                 if (memberComboRecords!=null&&memberComboRecords.size()>0){
-                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "当前套餐正在使用中,不可更改");
+                    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "当前疗程正在使用中,不可更改");
                 }
                 else {
                     // 编辑
@@ -299,18 +300,18 @@ public class ComboInfoController extends BaseController {
         }
         catch (Exception e) {
             e.printStackTrace();
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "请为套餐设置项目");
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "请为疗程设置项目");
         }
     }
     
     /**
-     * 批量保存套餐
+     * 批量保存疗程
     * @author 洪秋霞
     * @date 2015年8月11日 上午10:16:55
     * @param request request
     * @param response response
     * @param deptId     部门标识
-    * @param comboName  套餐名字集合
+    * @param comboName  疗程名字集合
     * @return BaseDto ajax返回对象
      */
     @RequestMapping(value = Url.ComboInfo.SAVE_COMBOINFO_LIST, method = RequestMethod.POST)
@@ -324,12 +325,12 @@ public class ComboInfoController extends BaseController {
     
 
     /**
-     * 根据套餐id查询
+     * 根据疗程id查询
     * @author 洪秋霞
     * @date 2015年8月6日 下午5:28:55
     * @param request request
     * @param response response
-    * @param comboId 套餐id
+    * @param comboId 疗程id
     * @return BaseDto
      */
     @RequestMapping(value = Url.ComboInfo.QUERY_COMBOINFO_BYID)
@@ -337,13 +338,13 @@ public class ComboInfoController extends BaseController {
     public BaseDto queryComboInfoById(HttpServletRequest request, HttpServletResponse response, Integer comboId) {
         try {
             ComboInfo comboInfo = comboInfoService.queryComboInfoById(comboId);
-            // 套餐内项目列表
+            // 疗程内项目列表
             List<ComboProject> comboProjectList = comboInfoService.queryComboProject(comboId);
-            // 套餐会员等级关联信息
+            // 疗程会员等级关联信息
             ComboMemberLevel comboMemberLevel = comboInfoService.queryComboMemberLevelByComboId(comboId);
-            // 根据套餐id查询套餐项目提成列表
+            // 根据疗程id查询疗程项目提成列表
             //List<ComboInfoProjectCommissionDto> comboProjectCommissionList = comboInfoService.queryComboCommissionByProjectId(comboId);
-            // 套餐商品关联列表
+            // 疗程商品关联列表
             List<ComboGoods> comboGoods = comboInfoService.queryComboGoods(comboId);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("comboInfo", comboInfo);
@@ -360,10 +361,10 @@ public class ComboInfoController extends BaseController {
     }
 
     /**
-     * 删除套餐
+     * 删除疗程
     * @author 洪秋霞
     * @date 2015年8月11日 上午10:19:05
-    * @param comboId 套餐id
+    * @param comboId 疗程id
     * @return BaseDto
      */
     @RequestMapping(value = Url.ComboInfo.DELETE_COMBOINFO)

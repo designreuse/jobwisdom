@@ -57,7 +57,7 @@
 	select rule_id ruleId,objective_project objectiveProject,
 	if(objective_project=1,"劳动业绩目标",
 		if(objective_project=2,"指定业绩目标",
-		if(objective_project=3,"套餐销售目标",
+		if(objective_project=3,"疗程销售目标",
 		if(objective_project=4,"商品销售目标",
 		if(objective_project=5,"开卡充值目标",
 		"现金业绩"))))) projectName,

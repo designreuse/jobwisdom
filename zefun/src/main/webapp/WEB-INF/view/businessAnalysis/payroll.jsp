@@ -33,7 +33,7 @@
 		                    <th colspan="2" class="text-center">基本工资</th>
 		                    <th colspan="2" class="text-center">劳动业绩提成</th>
 		                    <th colspan="2" class="text-center">商品销售提成</th>
-		                    <th colspan="2" class="text-center">套餐销售提成</th>
+		                    <th colspan="2" class="text-center">疗程销售提成</th>
 		                    <th colspan="2" class="text-center">开充卡提成</th>
 		                    <th rowspan="2" class="text-center">考勤奖惩</th>
 		                    <th rowspan="2" class="text-center">行为奖惩</th>

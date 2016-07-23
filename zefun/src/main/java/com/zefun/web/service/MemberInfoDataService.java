@@ -46,7 +46,7 @@ public class MemberInfoDataService {
     /** 订单明细*/
     @Autowired
     private OrderDetailMapper orderDetailMapper;
-    /** 会员套餐*/
+    /** 会员疗程*/
     @Autowired
     private MemberComboRecordMapper memberComboRecordMapper;
     /** 积分*/
@@ -175,7 +175,7 @@ public class MemberInfoDataService {
                     memberId);
             return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, pageMoneyFlowDto);
         }
-        //套餐
+        //疗程
         else if (type == 2) {
             Page<MemberComboDto> pageMemberComboDto = selectPageForOrderCombo(pageNo, pageSize,
                     memberId);
@@ -237,7 +237,7 @@ public class MemberInfoDataService {
     }
     
     /**
-     * 会员消费套餐分页
+     * 会员消费疗程分页
     * @author 王大爷
     * @date 2015年11月30日 下午3:58:23
     * @param pageNo 页数

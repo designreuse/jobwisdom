@@ -30,7 +30,7 @@ public class MemberOrderDto {
     /** 会员卡支付 */
     private BigDecimal cardAmount;
 
-    /** 套餐抵扣 */
+    /** 疗程抵扣 */
     private BigDecimal comboAmount;
 
     /** 优惠券抵扣 */

@@ -37,7 +37,7 @@
                         <select data-placeholder="选择目标"  id="objectiveProject" class="chzn-select-search input-small" style="width: 150px;">
                             <option value="1">劳动业绩目标</option>
                             <option value="2">指定业绩目标</option>
-                            <option value="3">套餐销售目标</option>
+                            <option value="3">疗程销售目标</option>
                             <option value="4">商品销售目标</option>
                             <option value="5">开卡充值目标</option>
                             <option value="6">现金业绩</option>
@@ -76,7 +76,7 @@
                 			<option value="">全部</option>
                             <option value="1">劳动业绩目标</option>
                             <option value="2">指定业绩目标</option>
-                            <option value="3">套餐销售目标</option>
+                            <option value="3">疗程销售目标</option>
                             <option value="4">商品销售目标</option>
                             <option value="5">开卡充值目标</option>
                             <option value="6">现金业绩</option>

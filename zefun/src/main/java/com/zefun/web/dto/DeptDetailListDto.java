@@ -16,7 +16,7 @@ public class DeptDetailListDto {
     /**商品业绩*/
     private BigDecimal goodsAmount;
     
-    /**套餐业绩*/
+    /**疗程业绩*/
     private BigDecimal comboAmount;
     
     /**开卡业绩*/
@@ -31,7 +31,7 @@ public class DeptDetailListDto {
     /**刷卡消费*/
     private BigDecimal cardCosumeAmount;
     
-    /**套餐折扣*/
+    /**疗程折扣*/
     private BigDecimal comboDisCountAmount;
     
     /**礼金折扣*/

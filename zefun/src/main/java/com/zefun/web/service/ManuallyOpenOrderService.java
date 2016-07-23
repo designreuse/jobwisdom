@@ -71,7 +71,7 @@ public class ManuallyOpenOrderService {
 	@Autowired private ProjectService projectService;
 	/** 商品*/
 	@Autowired private GoodsInfoService goodsInfoService;
-	/** 套餐*/
+	/** 疗程*/
 	@Autowired private ComboInfoMapper comboInfoMapper;
 	/** 项目*/
 	@Autowired private ProjectInfoMapper projectInfoMapper;

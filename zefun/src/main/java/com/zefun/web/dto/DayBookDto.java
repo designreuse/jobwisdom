@@ -71,7 +71,7 @@ public class DayBookDto implements Serializable {
 	/** 优惠券抵扣 */
 	private BigDecimal couponAmount;
 	
-	/** 套餐抵扣 */
+	/** 疗程抵扣 */
 	private BigDecimal comboAmount;
 	
 	/** 签单 */

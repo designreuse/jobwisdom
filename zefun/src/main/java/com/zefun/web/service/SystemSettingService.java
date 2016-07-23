@@ -144,15 +144,15 @@ public class SystemSettingService {
     @Autowired
     private WechatMemberMapper wechatMemberMapper;
     
-    /** 套餐基础信息操作对象 */
+    /** 疗程基础信息操作对象 */
     @Autowired
     private ComboInfoMapper comboInfoMapper;
     
-    /** 会员套餐记录操作对象 */
+    /** 会员疗程记录操作对象 */
     @Autowired
     private MemberComboRecordMapper memberComboRecordMapper;
     
-    /** 会员套餐明细操作对象 */
+    /** 会员疗程明细操作对象 */
     @Autowired
     private MemberComboProjectMapper memberComboProjectMapper;
     
@@ -428,7 +428,7 @@ public class SystemSettingService {
     	String[] openidArray = null;
     	List<Integer> memberIdList = memberInfoMapper.selectMemberIdByStoreId(storeId);
     	if (memberIdList != null && memberIdList.size() > 0) {
-    		//会员礼金明细、礼金流水、账户信息、账户流水，积分流水、套餐记录、套餐记录明细、会员微信关联信息、会员信息
+    		//会员礼金明细、礼金流水、账户信息、账户流水，积分流水、疗程记录、疗程记录明细、会员微信关联信息、会员信息
         	//8.清除礼金流水
         	giftmoneyFlowMapper.deleteByMemberIdList(memberIdList);
         	//9.清除礼金账户
@@ -441,7 +441,7 @@ public class SystemSettingService {
         	memberAccountMapper.deleteByMemberIdList(memberIdList);
         	//13.清除会员信息
         	memberInfoMapper.deleteByMemberIdList(memberIdList);
-        	//14.清除会员套餐记录
+        	//14.清除会员疗程记录
         	List<Integer> comboIdList = comboInfoMapper.selectComboIdByStoreId(storeId);
         	if (comboIdList != null && comboIdList.size() > 0) {
         		memberComboRecordMapper.deleteByComboIdList(comboIdList);

@@ -88,7 +88,7 @@ public class StaffService {
     /** 员工信息*/
     @Autowired private EmployeeInfoMapper employeeInfoMapper;
     
-    /** 套餐信息*/
+    /** 疗程信息*/
     @Autowired private ComboInfoMapper comboInfoMapper;
 
     /** 订单信息*/
@@ -542,7 +542,7 @@ public class StaffService {
     * @param orderId 订单标识
     * @param memberId 会员信息标识
     * @param levelId 会员等级标识
-    * @param orderType 订单类型(1:项目,2:商品,3:套餐)
+    * @param orderType 订单类型(1:项目,2:商品,3:疗程)
     * @param projectId 项目标识
     * @param projectName 项目名称
     * @param projectPrice 项目价格

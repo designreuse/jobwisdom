@@ -253,7 +253,7 @@ function save() {
 		var projectObjStr = {"type":1, "projectId":projectId, "appoint" : appoint, "projectStepArrayObjStr":projectStepArrayObjStr};
 		arrayObj.push(projectObjStr);
 	}
-	//套餐
+	//疗程
 	var comboObj = jQuery("div[name='comboNameLI']").find(".nav_content_div_1");
 	for (var i = 0; i < comboObj.length; i++) {
 		var comboId = jQuery(comboObj[i]).attr("comboId");
@@ -270,7 +270,7 @@ function save() {
 		arrayObj.push(projectObjStr);
 	}
 	if (arrayObj.length == 0) {
-		dialog("请添加项目、商品或套餐！");
+		dialog("请添加项目、商品或疗程！");
 		return;
 	}
 	var arrayObjStr = JSON.stringify(arrayObj);

@@ -36,7 +36,7 @@ import com.zefun.web.vo.CashComboSalesVo;
 import com.zefun.web.vo.DiscountComboSalesVo;
 
 /**
- * 套餐
+ * 疗程
 * @author 洪秋霞
 * @date 2015年8月6日 上午10:08:18 
 *
@@ -51,16 +51,16 @@ public class ComboInfoService {
     /**用户id*/
     // private Integer userId = 1;
     
-    /** 套餐信息 */
+    /** 疗程信息 */
     @Autowired private ComboInfoMapper comboInfoMapper;
 
-    /** 套餐项目关联 */
+    /** 疗程项目关联 */
     @Autowired private ComboProjectMapper comboProjectMapper;
 
-    /** 套餐项目提成 */
+    /** 疗程项目提成 */
     @Autowired private ComboProjectCommissionMapper comboProjectCommissionMapper;
 
-    /** 套餐会员等级关联表 */
+    /** 疗程会员等级关联表 */
     @Autowired private ComboMemberLevelMapper comboMemberLevelMapper;
     /***/
     @Autowired
@@ -71,10 +71,10 @@ public class ComboInfoService {
     
 
     /**
-     * 查询套餐
+     * 查询疗程
     * @author 洪秋霞
     * @date 2015年8月5日 下午4:20:25
-    * @param comboInfo 套餐信息
+    * @param comboInfo 疗程信息
     * @return List<ComboInfoDto>
      */
     public List<ComboInfo> queryComboInfo(ComboInfo comboInfo) {
@@ -82,7 +82,7 @@ public class ComboInfoService {
     }
 
     /**
-     * 查询部门，套餐列表
+     * 查询部门，疗程列表
     * @author 洪秋霞
     * @date 2015年9月16日 下午2:29:06
     * @param storeId 门店Id
@@ -93,10 +93,10 @@ public class ComboInfoService {
     }
 
     /**
-     * 根据套餐id查询
+     * 根据疗程id查询
     * @author 洪秋霞
     * @date 2015年8月6日 下午5:35:24
-    * @param comboId 套餐id
+    * @param comboId 疗程id
     * @return ComboInfo
      */
     public ComboInfo queryComboInfoById(Integer comboId) {
@@ -104,10 +104,10 @@ public class ComboInfoService {
     }
 
     /**
-     * 查询套餐关联的项目
+     * 查询疗程关联的项目
     * @author 洪秋霞
     * @date 2015年8月6日 下午1:57:01
-    * @param comboId 套餐id
+    * @param comboId 疗程id
     * @return List<ComboProject>
      */
     public List<ComboProject> queryComboProject(Integer comboId) {
@@ -117,10 +117,10 @@ public class ComboInfoService {
     }
 
     /**
-     * 根据套餐id查询套餐会员等级信息
+     * 根据疗程id查询疗程会员等级信息
     * @author 洪秋霞
     * @date 2015年9月15日 上午11:45:58
-    * @param comboId 套餐id
+    * @param comboId 疗程id
     * @return ComboMemberLevel
      */
     public ComboMemberLevel queryComboMemberLevelByComboId(Integer comboId) {
@@ -128,16 +128,16 @@ public class ComboInfoService {
     }
 
     /**
-     * 保存套餐
+     * 保存疗程
     * @author 洪秋霞
     * @date 2015年8月5日 下午4:28:04
     * @param userId 用户Id
-    * @param comboInfo 套餐信息
+    * @param comboInfo 疗程信息
     * @param projectId 项目id
     * @param projectName 项目名称
     * @param projectPrice 项目价格
     * @param projectCount 项目次数
-    * @param comboPerformanceCal 套餐内业绩计算
+    * @param comboPerformanceCal 疗程内业绩计算
     * @param royaltyRate 提成比例
     * @param levelId 会员级别id 
     * @param validDateVip 优惠有效期限
@@ -156,14 +156,14 @@ public class ComboInfoService {
             String[] assignCash, String[] assignCard, String[] nonAssignCash, String[] nonAssignCard) {
 //        List<StoreUser> storeUserList = storeInfoService.queryStoreUserList(userId);
 //        if (storeUserList.size() > 1) {
-//            // 总店套餐保存
+//            // 总店疗程保存
 //            comboInfo.setComboParentId(0);
 //            comboInfo.setCreateTime(DateUtil.getCurTime());
 //            comboInfoMapper.insertSelective(comboInfo);
 //            Integer comboId = comboInfo.getComboId();
-//            // 保存套餐项目关联
+//            // 保存疗程项目关联
 //            saveComboProject(comboId, projectId, projectName, projectPrice, projectCount, comboPerformanceCal, levelId, validDateVip);
-//            // 保存套餐项目提成
+//            // 保存疗程项目提成
 //            saveComboProjectCommission(comboId, projectId, empLevelId, assignType, assignCash, assignCard, nonAssignCash, nonAssignCard);
 //
 //            for (int i = 0; i < storeUserList.size(); i++) {
@@ -180,7 +180,7 @@ public class ComboInfoService {
 //            return comboId;
 //        }
 //        else {
-            // 单店套餐保存
+            // 单店疗程保存
         comboInfo.setCreateTime(DateUtil.getCurTime());
         comboInfoMapper.insertSelective(comboInfo);
         saveComboProject(comboInfo.getComboId(), projectId, projectName, projectPrice, projectCount, comboPerformanceCal, 
@@ -192,16 +192,16 @@ public class ComboInfoService {
     }
 
     /**
-     * 编辑套餐
+     * 编辑疗程
     * @author 洪秋霞
     * @date 2015年8月11日 上午11:52:33
     * @param userId 用户Id
-    * @param comboInfo 套餐信息
+    * @param comboInfo 疗程信息
     * @param projectId 项目id
     * @param projectName 项目名称
     * @param projectPrice 项目价格
     * @param projectCount 项目次数
-    * @param comboPerformanceCal 套餐内业绩计算
+    * @param comboPerformanceCal 疗程内业绩计算
     * @param royaltyRate 提成比例
     * @param levelId 会员级别id
     * @param validDateVip 优惠有效期限
@@ -222,14 +222,14 @@ public class ComboInfoService {
         comboProject.setComboId(comboId);
         @SuppressWarnings("unused")
         List<ComboProject> comboProjectList = comboProjectMapper.selectByProperty(comboProject);
-        // 1.删除套餐项目关联
+        // 1.删除疗程项目关联
         deleteComboProject(comboInfo.getComboId());
-        // 2.新增套餐项目关联
+        // 2.新增疗程项目关联
         saveComboProject(comboId, projectId, projectName, projectPrice, projectCount, comboPerformanceCal, royaltyRate, levelId, validDateVip);
-        // 3.保存套餐项目提成
+        // 3.保存疗程项目提成
         //saveComboProjectCommission(comboId, projectId, empLevelId, assignType, assignCash, assignCard, nonAssignCash, nonAssignCard);
 
-        // 分店编辑套餐
+        // 分店编辑疗程
         ComboInfo comboInfoNew = new ComboInfo();
         comboInfoNew.setComboParentId(comboId);
         List<ComboInfo> comboInfoDtoList = comboInfoMapper.selectByProperty(comboInfoNew);
@@ -237,15 +237,15 @@ public class ComboInfoService {
             Integer queryComboId = comboInfoDtoList.get(i).getComboId();
             ComboProject queryComboProject = new ComboProject();
             queryComboProject.setComboId(queryComboId);
-            // 查找分店套餐项目关联列表
+            // 查找分店疗程项目关联列表
             @SuppressWarnings("unused")
             List<ComboProject> queryComboProjectList = comboProjectMapper.selectByProperty(queryComboProject);
-            // 1.删除套餐项目关联
+            // 1.删除疗程项目关联
             deleteComboProject(comboInfo.getComboId());
-            // 2.新增套餐项目关联
+            // 2.新增疗程项目关联
             saveComboProject(queryComboId, projectId, projectName, projectPrice, projectCount, 
                     comboPerformanceCal, royaltyRate, levelId, validDateVip);
-            // 3.保存套餐项目提成
+            // 3.保存疗程项目提成
             //saveComboProjectCommission(queryComboId, projectId, empLevelId, assignType, assignCash, assignCard, nonAssignCash, nonAssignCard);
         }
         
@@ -253,19 +253,19 @@ public class ComboInfoService {
       /*  List<StoreUser> storeUserList = storeInfoService.queryStoreUserList(userId);
         Integer comboId = comboInfo.getComboId();
         if (storeUserList.size() > 1) {
-            // 总店编辑套餐
+            // 总店编辑疗程
             comboInfoMapper.updateByPrimaryKeySelective(comboInfo);
             ComboProject comboProject = new ComboProject();
             comboProject.setComboId(comboId);
             List<ComboProject> comboProjectList = comboProjectMapper.selectByProperty(comboProject);
-            // 1.删除套餐项目关联
+            // 1.删除疗程项目关联
             deleteComboProject(comboInfo.getComboId());
-            // 2.新增套餐项目关联
+            // 2.新增疗程项目关联
             saveComboProject(comboId, projectId, projectName, projectPrice, projectCount, comboPerformanceCal, levelId, validDateVip);
-            // 3.保存套餐项目提成
+            // 3.保存疗程项目提成
             saveComboProjectCommission(comboId, projectId, empLevelId, assignType, assignCash, assignCard, nonAssignCash, nonAssignCard);
 
-            // 分店编辑套餐
+            // 分店编辑疗程
             ComboInfo comboInfoNew = new ComboInfo();
             comboInfoNew.setComboParentId(comboId);
             List<ComboInfo> comboInfoDtoList = comboInfoMapper.selectByProperty(comboInfoNew);
@@ -273,41 +273,41 @@ public class ComboInfoService {
                 Integer queryComboId = comboInfoDtoList.get(i).getComboId();
                 ComboProject queryComboProject = new ComboProject();
                 queryComboProject.setComboId(queryComboId);
-                // 查找分店套餐项目关联列表
+                // 查找分店疗程项目关联列表
                 List<ComboProject> queryComboProjectList = comboProjectMapper.selectByProperty(queryComboProject);
-                // 1.删除套餐项目关联
+                // 1.删除疗程项目关联
                 deleteComboProject(comboInfo.getComboId());
-                // 2.新增套餐项目关联
+                // 2.新增疗程项目关联
                 saveComboProject(queryComboId, projectId, projectName, projectPrice, projectCount, comboPerformanceCal, levelId, validDateVip);
-                // 3.保存套餐项目提成
+                // 3.保存疗程项目提成
                 saveComboProjectCommission(queryComboId, projectId, empLevelId, assignType, assignCash, assignCard, nonAssignCash, nonAssignCard);
             }
         }
         else {
-            // 单店编辑套餐
+            // 单店编辑疗程
             comboInfoMapper.updateByPrimaryKeySelective(comboInfo);
             ComboProject comboProject = new ComboProject();
             comboProject.setComboId(comboId);
             List<ComboProject> comboProjectList = comboProjectMapper.selectByProperty(comboProject);
-            // 1.删除套餐项目关联
+            // 1.删除疗程项目关联
             deleteComboProject(comboInfo.getComboId());
-            // 2.新增套餐项目关联
+            // 2.新增疗程项目关联
             saveComboProject(comboId, projectId, projectName, projectPrice, projectCount, comboPerformanceCal, levelId, validDateVip);
-            // 3.保存套餐项目提成
+            // 3.保存疗程项目提成
             saveComboProjectCommission(comboId, projectId, empLevelId, assignType, assignCash, assignCard, nonAssignCash, nonAssignCard);
         }*/
     }
 
     /**
-     * 保存套餐项目关联
+     * 保存疗程项目关联
     * @author 洪秋秋秋秋秋秋秋秋秋秋秋秋秋秋秋霞
     * @date 2015年8月17日 上午10:04:35
-    * @param comboId 套餐id
+    * @param comboId 疗程id
     * @param projectId 项目id
     * @param projectName 项目名称
     * @param projectPrice 项目价格
     * @param projectCount 项目次数
-    * @param comboPerformanceCal 套餐内业绩计算
+    * @param comboPerformanceCal 疗程内业绩计算
     * @param royaltyRate 提成比例
     * @param levelId 会员级别id
     * @param validDateVip 优惠有效期限
@@ -330,7 +330,7 @@ public class ComboInfoService {
         comboProjectMapper.insertComboProject(cProjectList);
 
         if (levelId!=null && !levelId.equals("")){
-            // 套餐会员等级关联表
+            // 疗程会员等级关联表
             ComboMemberLevel comboMemberLevel = new ComboMemberLevel();
             comboMemberLevel.setComboId(comboId);
             comboMemberLevel.setLevelId(Integer.parseInt(levelId));
@@ -347,10 +347,10 @@ public class ComboInfoService {
     }
 
     /**
-     * 删除套餐项目关联
+     * 删除疗程项目关联
     * @author 洪秋霞
     * @date 2015年8月17日 下午3:00:27
-    * @param comboId 套餐项目关联列表
+    * @param comboId 疗程项目关联列表
      */
     private void deleteComboProject(Integer comboId) {
         ComboProject comboProject = new ComboProject();
@@ -375,10 +375,10 @@ public class ComboInfoService {
     }
 
     /**
-     * 保存套餐项目提成表
+     * 保存疗程项目提成表
     * @author 洪秋霞
     * @date 2015年9月24日 上午10:14:48
-    * @param comboId 套餐Id
+    * @param comboId 疗程Id
     * @param projectId 项目Id
     * @param empLevelId 职位id
     * @param assignType 提成方式:1:按业绩比例,2:按固定金额
@@ -491,25 +491,25 @@ public class ComboInfoService {
     }
 
     /**
-     * 删除套餐
+     * 删除疗程
     * @author 洪秋霞
     * @date 2015年8月11日 上午11:54:34
-    * @param comboId 套餐id
+    * @param comboId 疗程id
      */
     public void deleteComboInfo(Integer comboId) {
-        // 总店套餐删除
+        // 总店疗程删除
         ComboInfo comboInfo = new ComboInfo();
         comboInfo.setComboId(comboId);
         comboInfo.setIsDeleted(1); // 1:删除
         comboInfoMapper.updateByPrimaryKeySelective(comboInfo);
-        //删除项目商品套餐关联信息
+        //删除项目商品疗程关联信息
         ComboProject comboProject = new ComboProject();
         comboProject.setComboId(comboId);
         comboProjectMapper.deleteByPrimaryKey(comboProject);
         ComboGoods comboGoods = new ComboGoods();
         comboGoods.setComboId(comboId);
         comboGoodsMapper.deleteByPrimaryKey(comboGoods);
-        // 分店套餐删除
+        // 分店疗程删除
         ComboInfo comboInfoStore = new ComboInfo();
         comboInfoStore.setComboParentId(comboId);
         List<ComboInfo> comboInfoDtoList = comboInfoMapper.selectByProperty(comboInfoStore);
@@ -524,10 +524,10 @@ public class ComboInfoService {
     }
 
     /**
-     * 根据套餐id查询套餐项目提成列表
+     * 根据疗程id查询疗程项目提成列表
     * @author 洪秋霞
     * @date 2015年9月24日 下午2:50:39
-    * @param comboId 套餐id
+    * @param comboId 疗程id
     * @return List<ComboProjectCommission>
      */
     public List<ComboInfoProjectCommissionDto> queryComboCommissionByProjectId(Integer comboId) {
@@ -538,17 +538,17 @@ public class ComboInfoService {
     }
 
     /**
-     * 保存套餐商品关联信息
+     * 保存疗程商品关联信息
     * @author 高国藩
     * @date 2015年11月11日 上午10:05:57
-    * @param comboId 套餐ID
+    * @param comboId 疗程ID
     * @param goodsId 商品ID
     * @param goodsNames 商品名称
     * @param goodsPrice 商品价格
     * @param goodsCounts 商品数量
     * @param goodsCommissionTypeDate 折扣类型
     * @param commissionAmount 折扣金额
-    * @param comboGoodsPerformanceCal 套餐内业绩计算
+    * @param comboGoodsPerformanceCal 疗程内业绩计算
      */
     public void saveComboGoods(Integer comboId, String[] goodsId,
             String goodsNames, String[] goodsPrice, String[] goodsCounts,
@@ -574,10 +574,10 @@ public class ComboInfoService {
     }
 
     /**
-     * 查询套餐关联商品信息
+     * 查询疗程关联商品信息
     * @author 高国藩
     * @date 2015年11月11日 上午9:55:07
-    * @param comboId 套餐ID
+    * @param comboId 疗程ID
     * @return 结合
      */
     public List<ComboGoods> queryComboGoods(Integer comboId) {
@@ -588,11 +588,11 @@ public class ComboInfoService {
 
     
     /**
-     * 保存套餐信息
+     * 保存疗程信息
     * @author 高国藩
     * @date Nov 12, 2015 9:29:27 PM
     * @param deptId     部门标识
-    * @param comboName  套餐名称
+    * @param comboName  疗程名称
     * @param userId     用户标识
     * @param storeId    门店标识
     * @return   成功返回码为0，失败为其他返回码
@@ -617,7 +617,7 @@ public class ComboInfoService {
     * @author 乐建建
     * @date 2016年1月21日 下午2:48:33
     * @param dto 封装所需条件为对象 包括起始时间 终止时间 门店标志
-    * @return 部门下套餐汇总数据
+    * @return 部门下疗程汇总数据
     */
     public List<DeptComboSummaryDto> getComboInfo(SummaryResultDto dto){
         List<DeptComboSummaryDto> results=comboInfoMapper.getComboDetail(dto);
@@ -628,7 +628,7 @@ public class ComboInfoService {
             BigDecimal deptTotal=new BigDecimal(0);
             Integer deptCnt=0;
             List<ComboSummaryDto> deptCombos=dept.getCombosBelongToDept();
-            //遍历部门下的套餐
+            //遍历部门下的疗程
             for (int j=0; j<deptCombos.size(); j++){
             	dto.setProjectId(deptCombos.get(j).getComboId());
                 //获取现金和卡金销售金额
@@ -654,7 +654,7 @@ public class ComboInfoService {
     * @author 乐建建
     * @date 2016年1月21日 下午4:30:35
     * @param dto 封装所需条件为对象 包括起始时间 终止时间 门店标志
-    * @return 给定条件下套餐的销售排行
+    * @return 给定条件下疗程的销售排行
     */
     public List<ComboSummaryDto> getComboRank(SummaryResultDto dto){
         List<ComboSummaryDto>  comboRank=comboInfoMapper.getComboRank(dto);
@@ -676,7 +676,7 @@ public class ComboInfoService {
     * @author 乐建建
     * @date 2016年1月22日 上午11:52:26
     * @param dto 封装所需条件为对象 包括起始时间 终止时间 门店标志
-    * @return 给定条件下套餐的月份汇总数据
+    * @return 给定条件下疗程的月份汇总数据
     */
     public List<TrendDeptDataDto> getComboTrendData(SummaryResultDto dto){
         List<TrendDeptDataDto> data=comboInfoMapper.getComboTrendData(dto);
@@ -701,7 +701,7 @@ public class ComboInfoService {
     /**
     * @author 乐建建
     * @date 2016年1月27日 下午7:09:21
-    * @param dto 套餐排行详细数据
+    * @param dto 疗程排行详细数据
     * @return 名字
     */
     public Map<String, Integer> getNameForRank(List<ComboSummaryDto> dto){
@@ -787,7 +787,7 @@ public class ComboInfoService {
     }
 
     /**
-     * 新增或者修改套餐
+     * 新增或者修改疗程
     * @author 高国藩
     * @date 2016年6月7日 上午10:14:25
     * @param comboInfo        comboInfo

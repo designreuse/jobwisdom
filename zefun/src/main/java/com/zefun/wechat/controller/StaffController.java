@@ -376,7 +376,7 @@ public class StaffController extends BaseController {
     }*/
     
     /**
-     * 附加项目（或商品、套餐）
+     * 附加项目（或商品、疗程）
     * @author 王大爷
     * @date 2015年11月5日 上午11:08:50
     * @param request 返回

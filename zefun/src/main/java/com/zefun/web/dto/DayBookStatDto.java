@@ -23,7 +23,7 @@ public class DayBookStatDto implements Serializable {
 	/** 商品消费 */
 	private BigDecimal goodsAmount;
 	
-	/** 套餐消费 */
+	/** 疗程消费 */
 	private BigDecimal comboAmount;
 	
 	/** 开卡充值消费 */

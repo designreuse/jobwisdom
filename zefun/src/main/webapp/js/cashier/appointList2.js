@@ -954,7 +954,7 @@ function page(moneyFlowPageNo, moneyFlowPageSize, type){
 				moneyFlow(page);
 				initPageClickData("pagination-demo4",type,page.pageNo,page.pageSize,page.totalPage);
 			}
-			//套餐
+			//疗程
 	        else if (type == 2) {
 	        	orderCombo(page);
 	        	initPageClickData("pagination-demo2",type,page.pageNo,page.pageSize,page.totalPage);
@@ -1174,7 +1174,7 @@ function previousPageButton(type){
 			removeDisable("previousMoneyFlow");
 		}
 	}
-	//套餐
+	//疗程
     else if (type == 2) {
     	if(memberDatePageNo.orderComboPageNo == 1){
 			return;
@@ -1293,7 +1293,7 @@ function nextPageButton (type){
 		}
 		removeDisable("previousMoneyFlow");
 	}
-	//套餐
+	//疗程
     else if (type == 2) {
     	if(memberDatePageNo.orderComboPageNo == memberDateTotalPage.orderComboTotalPage){
 			return;

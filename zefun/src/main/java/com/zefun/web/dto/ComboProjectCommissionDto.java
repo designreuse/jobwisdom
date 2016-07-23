@@ -1,7 +1,7 @@
 package com.zefun.web.dto;
 
 /**
- * 套餐项目提成Dto
+ * 疗程项目提成Dto
 * @author 洪秋霞
 * @date 2015年9月25日 下午2:04:14
  */
@@ -9,7 +9,7 @@ public class ComboProjectCommissionDto {
     /** 标识 */
     private Integer commissionId;
 
-    /** 套餐Id */
+    /** 疗程Id */
     private Integer comboId;
 
     /** 项目Id */

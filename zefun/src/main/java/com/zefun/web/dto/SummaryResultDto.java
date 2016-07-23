@@ -85,7 +85,7 @@ public class SummaryResultDto {
     private Integer deptId;
     
     /**
-     * 套餐id
+     * 疗程id
      * */
     private Integer projectId;
     

@@ -6,18 +6,18 @@ import java.util.List;
 /**
 * @author 乐建建
 * @date 2016年1月20日 下午8:16:00 
-* 部门下套餐汇总
+* 部门下疗程汇总
 */
 public class DeptComboSummaryDto {
     /**部门id*/
     private Integer deptId;
     /**部门名称*/
     private String deptName;
-    /**部门下套餐列表*/
+    /**部门下疗程列表*/
     private List<ComboSummaryDto> combosBelongToDept;
-    /**部门套餐销售额汇总*/
+    /**部门疗程销售额汇总*/
     private BigDecimal deptComboSummary;
-    /**部门下套餐销量*/
+    /**部门下疗程销量*/
     private Integer deptComboSales;
     
     public Integer getDeptComboSales() {

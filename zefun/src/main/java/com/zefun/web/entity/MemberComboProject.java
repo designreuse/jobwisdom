@@ -10,7 +10,7 @@ public class MemberComboProject {
     
     /** 详情标识*/
     private Integer detailId;
-	/** 套餐标识 */
+	/** 疗程标识 */
 	private Integer comboId;
 	/** 记录标识*/
 	private Integer recordId;

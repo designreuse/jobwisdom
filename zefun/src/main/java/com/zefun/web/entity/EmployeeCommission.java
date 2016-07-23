@@ -28,7 +28,7 @@ public class EmployeeCommission implements Serializable {
 	/** 岗位标识 */
 	private Integer positionId;
 
-	/** 订单类型(1:项目,2:商品,3:套餐,4、开卡充值) */
+	/** 订单类型(1:项目,2:商品,3:疗程,4、开卡充值) */
 	private Integer orderType;
 
 	/** 提成员工标识 */

@@ -25,7 +25,7 @@ public class DeptInfoDto {
     private List<ShiftMahjong> shiftMahjongList;
     /**项目类别Dto*/
     private List<ProjectCategoryDto> projectCategoryDtoList;
-    /**套餐信息*/
+    /**疗程信息*/
     private List<ComboInfo> comboInfoList;
     /**商品类别*/
     private List<GoodsCategoryDto> goodsCategoryDtoList;

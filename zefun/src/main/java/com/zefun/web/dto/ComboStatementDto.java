@@ -4,22 +4,22 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 套餐项目提成Dto
+ * 疗程项目提成Dto
 * @author 王大爷
 * @date 2015年9月25日 下午2:04:14
  */
 public class ComboStatementDto {
 
-    /**套餐Id */
+    /**疗程Id */
     private Integer comboId;
     
-    /**套餐名字*/
+    /**疗程名字*/
     private String comboName;
     
     /** 部门标识*/
     private Integer deptId;
     
-    /** 套餐销售总价*/
+    /** 疗程销售总价*/
     private BigDecimal comboSaleTatailPrice;
     
     /** 销售次数*/

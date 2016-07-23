@@ -38,7 +38,7 @@
                 <div class="swiper-slide m-swiper-slide-active" onclick="changeHead(this, 0)">现金收入</div>
                 <div class="swiper-slide" onclick="changeHead(this, 1)">划卡消费</div>
                 <div class="swiper-slide" onclick="changeHead(this, 2)">劳动业绩</div>
-                <div class="swiper-slide" onclick="changeHead(this, 3)">套餐销售</div>
+                <div class="swiper-slide" onclick="changeHead(this, 3)">疗程销售</div>
                 <div class="swiper-slide" onclick="changeHead(this, 4)">外卖销售</div>
             </div>
             
@@ -75,7 +75,7 @@
             <!-- <div class="pie-legent pl3 pr3">
                 <div class="">
                     <div class="legent-cell w50p"><div class="legent-tag lengent-one"></div>商品业绩</div>
-                    <div class="legent-cell w50p"><div class="legent-tag lengent-two"></div>套餐业绩</div>
+                    <div class="legent-cell w50p"><div class="legent-tag lengent-two"></div>疗程业绩</div>
                 </div>
                 <div>
                     <div class="legent-cell w50p"><div class="legent-tag lengent-three"></div>项目业绩</div>
@@ -312,17 +312,17 @@
             <div class="summary-item">
                 <img class="left-tag-line" src="<%=basePath%>images/mobile/boss-newer/tab-line.png" alt="">
                 <div class="part-tag">
-                                                            套餐购买统计
+                                                            疗程购买统计
                 </div>
                 <div>
                     <ul>
                         <li>
                             <div><div class="gz-num di" name = "seriesComboTatailTime"></div><span class="f30">/人</span></div>
-                            <div class="item-name">累计新增购买疗程套餐</div>
+                            <div class="item-name">累计新增购买疗程疗程</div>
                         </li>
                         <li>
                         	<div><div class="sum-gz-num di" name = "timeComboTatailTime"></div><span class="f30">/人</span></div>
-                            <div class="item-name">累计新增购买年季月套餐</div>
+                            <div class="item-name">累计新增购买年季月疗程</div>
                         </li>
                     </ul>
                 </div>
@@ -331,30 +331,30 @@
         </div>
         <!--part-chart-->
 
-        <!--套餐详情-->
+        <!--疗程详情-->
         <div class="part-chart">
             <img class="left-tag-line" src="<%=basePath%>images/mobile/boss-newer/tab-line.png" alt="">
 
             <div class="part-tag">
-                                            套餐余量分析
+                                            疗程余量分析
             </div>
 
             <div class="chart-wrap">
                 <div class="t-tab">
                     <ul class="tab-title">
-                        <li class="current" onclick="chooseComboType(this, 1)">疗程套餐</li>
-                        <li onclick="chooseComboType(this, 2)">月季年套餐</li>
+                        <li class="current" onclick="chooseComboType(this, 1)">疗程疗程</li>
+                        <li onclick="chooseComboType(this, 2)">月季年疗程</li>
                     </ul>
                     <!-- <div class="part-search">
-                        <input type="text" class="btn-search" placeholder="搜索套餐" id="search"/>
+                        <input type="text" class="btn-search" placeholder="搜索疗程" id="search"/>
                         <span class="iconfont icon-sousuo"></span>
                     </div> -->
                    <!--  <div class="part-wrap">
                          <ul>
                              <li><span class="t-higher">a</span>善款稍等</li>
-                             <li><span class="t-higher">营养套餐</span>善款稍等</li>
-                             <li><span class="t-higher">营养套餐</span>善款稍等</li>
-                             <li><span class="t-higher">营养套餐</span>善款稍等</li>
+                             <li><span class="t-higher">营养疗程</span>善款稍等</li>
+                             <li><span class="t-higher">营养疗程</span>善款稍等</li>
+                             <li><span class="t-higher">营养疗程</span>善款稍等</li>
                          </ul>
                      </div> -->
                     <div class="tc-labour" name="seriesCombo">
@@ -627,7 +627,7 @@
     		cashAmountArray.push(projectObj);
     		var goodsObj = {"name" : "商品销售", "y" : parseFloat(cashAmountMap.goodsCashAmount)};
     		cashAmountArray.push(goodsObj);
-    		var comboObj = {"name" : "套餐销售", "y" : parseFloat(cashAmountMap.comboCashAmount)};
+    		var comboObj = {"name" : "疗程销售", "y" : parseFloat(cashAmountMap.comboCashAmount)};
     		cashAmountArray.push(comboObj);
     		var chargeObj = {"name" : "卡项销售", "y" : parseFloat(cashAmountMap.chargeCashAmount)};
     		cashAmountArray.push(chargeObj); 
@@ -648,7 +648,7 @@
     		divName = "container-right";
     		colorsArray = ['#62b1ff','#2068b3'];
     		textTitle = '<div style="text-align: center"><span style="font-size: 20px;color: #b8c2cc">'+ parseFloat(cashAmountMap.tatailAmount) + '</span><br><span style="font-size: 14px;color: #7f868d">总业绩</span></div>';
-    		var cardObj = {"name" : "卡金/套餐业绩", "y" : parseFloat(cashAmountMap.cardAmount)};
+    		var cardObj = {"name" : "卡金/疗程业绩", "y" : parseFloat(cashAmountMap.cardAmount)};
     		cashAmountArray.push(cardObj);
     		var cashObj = {"name" : "现金劳动业绩", "y" : parseFloat(cashAmountMap.cashAmount)};
     		cashAmountArray.push(cashObj);
@@ -669,7 +669,7 @@
     		cashAmountArray.push(projectObj);
     		var goodsObj = {"name" : "商品购买", "y" : parseFloat(cashAmountMap.goodsCashAmount)};
     		cashAmountArray.push(goodsObj);
-    		var comboObj = {"name" : "套餐购买", "y" : parseFloat(cashAmountMap.comboCashAmount)};
+    		var comboObj = {"name" : "疗程购买", "y" : parseFloat(cashAmountMap.comboCashAmount)};
     		cashAmountArray.push(comboObj);
     		yValue = -35;
     	}
@@ -994,7 +994,7 @@
                 name: '现金销售',
                 data: cashTatailAmountList
             }, {
-                name: '卡金\套餐',
+                name: '卡金\疗程',
                 data: cardTatailAmountList
             }]
         });
@@ -1006,8 +1006,8 @@
     	var seriesValue = "";
     	if (taocanType == 1) {
     		categoriesValue = [
-    	                    '疗程套餐',
-    	                    '年季月套餐'
+    	                    '疗程疗程',
+    	                    '年季月疗程'
     	                     ];
     		
     		seriesValue = [{
@@ -1340,7 +1340,7 @@
 			  <div class="jiner">
 				  <div>
 					  <p class="sum-gz-num f18">{{comboSaleTatailPrice}}</p>
-					  <p class="mt2 f12">套餐销售金额</p>
+					  <p class="mt2 f12">疗程销售金额</p>
 				  </div>
 				  <div>
 					  <p class="gz-num f18 mt2">{{newAddTime}}</p>
@@ -1354,7 +1354,7 @@
 	  </div>
 	  
       <div class="chart-title xiangmu">
-           <span>套餐项目次数统计</span>
+           <span>疗程项目次数统计</span>
       </div>
       <div class="chart-wrap">
            <table class="small-table">
@@ -1387,7 +1387,7 @@
                   <div class="jiner-time">
                        <div>
 					       <p class="sum-gz-num f18">{{comboSaleTatailPrice}}</p>
-					       <p class="mt1 f12">套餐销售金额</p>
+					       <p class="mt1 f12">疗程销售金额</p>
 				       </div>
 				       <div class="mt2">
 					       <p class="gz-num f18">{{newAddTime}}</p>

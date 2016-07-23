@@ -1,6 +1,6 @@
 package com.zefun.web.entity;
 /**
- * 套餐会员等级关联表
+ * 疗程会员等级关联表
 * @author 洪秋霞
 * @date 2015年9月15日 上午10:38:52
  */
@@ -9,7 +9,7 @@ public class ComboMemberLevel {
     /** 会员等级标识 */
     private Integer levelId;
 
-    /** 套餐标识 */
+    /** 疗程标识 */
     private Integer comboId;
     
     /** 有效期限 */

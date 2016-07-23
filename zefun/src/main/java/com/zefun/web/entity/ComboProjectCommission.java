@@ -1,7 +1,7 @@
 package com.zefun.web.entity;
 
 /**
- * 套餐项目提成
+ * 疗程项目提成
 * @author 洪秋霞
 * @date 2015年9月23日 下午4:46:02
  */
@@ -9,7 +9,7 @@ public class ComboProjectCommission {
     /** 标识 */
     private Integer commissionId;
 
-    /** 套餐Id */
+    /** 疗程Id */
     private Integer comboId;
 
     /** 项目Id */

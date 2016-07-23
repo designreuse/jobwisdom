@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 */
 public class CashComboSalesVo {
     
-    /**现金购买套餐数量*/
+    /**现金购买疗程数量*/
     private Integer cashComboCnt;
-    /**现金购买套餐业绩*/
+    /**现金购买疗程业绩*/
     private BigDecimal cashComboAmt;
     
     public Integer getCashComboCnt() {

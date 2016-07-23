@@ -339,7 +339,7 @@
                 innerSize: '65%',
                 showInLegend: true,
                 data: include/* [
-                    ['套餐抵扣  1000',  1000],
+                    ['疗程抵扣  1000',  1000],
                     ['现金消费  1000',  1000],
                     ['划卡消费  1000',  100],
                 ] */
@@ -361,7 +361,7 @@
                 },
                 itemMarginBottom:5,
                 labelFormatter: function () {
-	            	if(this.name.indexOf("卡项/套餐销售")!=-1){
+	            	if(this.name.indexOf("卡项/疗程销售")!=-1){
 	            		return this.name.substring(0, 7);
 	            	}
 	            	else {
@@ -413,7 +413,7 @@
                 showInLegend: true,
                 data: consumption/* [
                     ['项目消费 1000',    1000],
-                    ['卡项(套餐)  1000',   1000],
+                    ['卡项(疗程)  1000',   1000],
                     ['商品销售  1000',   1000]
                 ] */
             }]

@@ -44,10 +44,19 @@ public class OrderInfoSubmitDto {
     
     /** 改价集合*/
     private String updatePricArray;
+    
+    /** 授权员工标识*/
+    private Integer authorityEmployeeId;
 
     
-    
 
+	public Integer getAuthorityEmployeeId() {
+		return authorityEmployeeId;
+	}
+
+	public void setAuthorityEmployeeId(Integer authorityEmployeeId) {
+		this.authorityEmployeeId = authorityEmployeeId;
+	}
 
 	public String getUpdatePricArray() {
 		return updatePricArray;

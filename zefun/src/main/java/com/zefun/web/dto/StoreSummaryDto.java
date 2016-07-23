@@ -62,7 +62,7 @@ public class StoreSummaryDto {
     protected double groupAmount = 0;
 
     /**
-     * 套餐抵扣
+     * 疗程抵扣
      */
     protected double comboAmount = 0;
 
@@ -102,7 +102,7 @@ public class StoreSummaryDto {
     protected double unionpayAmount = 0;
 
     /**
-     * 订单类型(1:项目,2:商品,3:套餐,4、开卡,5:充值,6:升级)
+     * 订单类型(1:项目,2:商品,3:疗程,4、开卡,5:充值,6:升级)
      */
     protected Integer orderType = 0;
 

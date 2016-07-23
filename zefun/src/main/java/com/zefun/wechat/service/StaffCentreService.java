@@ -431,7 +431,7 @@ public class StaffCentreService {
         comboOrderTypeList.add(3);
         Map<String, Object> comboCalculateMap = commissionMap;
         comboCalculateMap.put("orderTypeList", comboOrderTypeList);
-        //套餐业绩
+        //疗程业绩
         BigDecimal toDayComboCalculate = employeeCommissionMapper.selectBySectionDayCalculate(comboCalculateMap);
         
         mav.addObject("toDayComboCalculate", toDayComboCalculate);
@@ -485,7 +485,7 @@ public class StaffCentreService {
         yesterdayComboOrderTypeList.add(3);
         Map<String, Object> yesterdayComboCalculateMap = yesterdayCommissionMap;
         yesterdayComboCalculateMap.put("orderTypeList", yesterdayComboOrderTypeList);
-        //套餐业绩
+        //疗程业绩
         BigDecimal yesterdayComboCalculate = employeeCommissionMapper.selectBySectionDayCalculate(yesterdayComboCalculateMap);
         
         mav.addObject("yesterdayComboCalculate", yesterdayComboCalculate);
@@ -543,7 +543,7 @@ public class StaffCentreService {
         monthComboOrderTypeList.add(3);
         Map<String, Object> monthComboCalculateMap = monthCommissionMap;
         monthComboCalculateMap.put("orderTypeList", monthComboOrderTypeList);
-        //套餐业绩
+        //疗程业绩
         BigDecimal monthComboCalculate = employeeCommissionMapper.selectBySectionDayCalculate(monthComboCalculateMap);
         
         mav.addObject("monthComboCalculate", monthComboCalculate);
@@ -627,7 +627,7 @@ public class StaffCentreService {
                         .multiply(new BigDecimal(100)));
             }
             
-            //套餐销售业绩
+            //疗程销售业绩
             map.put("comboSales", obj.getComboSales());
             map.put("actualComboSales", obj.getActualComboSales());
             if (obj.getComboSales().compareTo(zore) <= 0) {
@@ -960,7 +960,7 @@ public class StaffCentreService {
             map.put("scale", scale);
         }
         
-        //套餐业绩
+        //疗程业绩
         BigDecimal comboCalculate = new BigDecimal(calculateObjMap.get("comboCalculate").toString());
         
         map.put("comboValue", comboCalculate);

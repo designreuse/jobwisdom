@@ -142,7 +142,7 @@ String memberPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
                     </div>
                     <!-- 项目消费信息结束 -->
 
-                    <!-- 套餐购买信息开始 -->
+                    <!-- 疗程购买信息开始 -->
                     <div id="tabs-3">
                         <div id="custom-toolbar" class="clearfix">
                             <div class="table-toolbar">
@@ -166,11 +166,11 @@ String memberPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
                         <table class="table table-bordered table-striped expense-calendar-table">
                             <thead>
                             <tr>
-                                <th>套餐名称</th>
+                                <th>疗程名称</th>
                                 <th>项目次数</th>
                                 <th>剩余次数</th>
                                 <th>项目总价</th>
-                                <th>套餐价格</th>
+                                <th>疗程价格</th>
                                 <th>推荐员工</th>
                                 <th>消费时间</th>
                                 <th>过期时间</th>
@@ -187,7 +187,7 @@ String memberPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
 							</ul>
 						</div>
                     </div>
-                    <!-- 套餐购买信息结束 -->
+                    <!-- 疗程购买信息结束 -->
 
                     <!-- 商品购买信息开始 -->
                     <div id="tabs-4">

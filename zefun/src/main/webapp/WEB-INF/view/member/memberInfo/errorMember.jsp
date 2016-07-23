@@ -76,7 +76,7 @@
 			                <th>最后消费日</th>
 			                <th>删除</th>
 			                <th>余额迁移</th>
-			                <!-- <th>套餐迁移</th> -->
+			                <!-- <th>疗程迁移</th> -->
 			            </tr>
 			            </thead>
 			            <tbody id="init_member">
@@ -685,13 +685,13 @@
 </div><!--modal-->
 
 
-<!--套餐迁移模态框-->
+<!--疗程迁移模态框-->
 <div class="modal hide" id="taocanqianyi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content member-yichang">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"> 套餐迁移</h4>
+                <h4 class="modal-title" id="myModalLabel"> 疗程迁移</h4>
             </div>
             <div class="modal-body">
                 <div class="modal-wrap">
@@ -726,9 +726,9 @@
                             <ul>
                             	<li><span>会员姓名:</span>暂无</li>
                             	<li>
-                            		<span>选择套餐:</span>
-                            		<select data-placeholder="选择套餐" class="chzn-select input-medium" style="width:178px !important;" onchange="changeCombo(this)" name="comboId">
-	                                	<option value="0" >请选择一个套餐</option>
+                            		<span>选择疗程:</span>
+                            		<select data-placeholder="选择疗程" class="chzn-select input-medium" style="width:178px !important;" onchange="changeCombo(this)" name="comboId">
+	                                	<option value="0" >请选择一个疗程</option>
 	                                	<c:forEach items="${comboInfos }" var="comboInfo" >
 	                                		<option value="${comboInfo.comboId }">${comboInfo.comboName }</option>
 	                           			</c:forEach>
@@ -756,7 +756,7 @@
         <div class="modal-content taocan-table" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"> 套餐迁移</h4>
+                <h4 class="modal-title" id="myModalLabel"> 疗程迁移</h4>
             </div>
             <div class="modal-body">
                 <table class="table table-bordered table-striped ">
@@ -765,7 +765,7 @@
                         <th>
                            	疗程卡
                         </th>
-                        <th>套餐</th>
+                        <th>疗程</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -773,7 +773,7 @@
 	                    <tr class="tcqy">
 	                        <td data_id="${projectName }">项目名称 : ${projectName }</td>
 	                        <td>
-								<select data-placeholder="选择套餐"  class="chzn-select input80" name="comboId" >
+								<select data-placeholder="选择疗程"  class="chzn-select input80" name="comboId" >
 		                        	<c:forEach var="combo" items="${comboInfos }" >
 		                        		<option value="${combo.comboId }">${combo.comboName }</option>
 		                        	</c:forEach>

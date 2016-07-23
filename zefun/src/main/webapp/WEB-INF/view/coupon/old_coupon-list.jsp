@@ -52,7 +52,7 @@
                         </select>
                     </td>
                     <td id="select_view">
-                                                         当前为通用优惠券  <!-- 项目/商品/套餐 -->
+                                                         当前为通用优惠券  <!-- 项目/商品/疗程 -->
                     </td>
                     <td><input type="text" id="couponPrice" class="input-small"></td>
                     <td><input type="text"  id="couponVantages" class="input-small"></td>

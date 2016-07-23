@@ -146,7 +146,7 @@ public class DeptController extends BaseController{
             return new BaseDto(-1, "部门已经被商品引用，请先删除商品！");
         }
         if (result==4){
-            return new BaseDto(-1, "部门已经被套餐引用，请先删除套餐！");
+            return new BaseDto(-1, "部门已经被疗程引用，请先删除疗程！");
         }
         if (result==5){
             return new BaseDto(-1, "部门已经被商品类别引用，请先删除商品类别！");

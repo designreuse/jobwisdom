@@ -409,7 +409,7 @@ var u1 = UE.getEditor('editor1', toolbars);
 	var deptInfoListDate = eval(<%=request.getAttribute("js_deptInfoList")%>);
 	var goodsinfos = eval(<%=request.getAttribute("goodsinfos_js")%>);
 	
-	// 选择查看了一个套餐
+	// 选择查看了一个疗程
 	u1.ready(function(){
 	if (!'${comboId}' == ""){
 		comboId = '${comboId}';
@@ -452,7 +452,7 @@ var u1 = UE.getEditor('editor1', toolbars);
 		console.log(comboId);
 	}
 	})
-	/**保存套餐内的项目*/
+	/**保存疗程内的项目*/
 	function saveProject(tr){
 		var projectId = jQuery("select[name='projectId']").val();
 		var projectName = jQuery("select[name='projectId']").children("option:selected").text();

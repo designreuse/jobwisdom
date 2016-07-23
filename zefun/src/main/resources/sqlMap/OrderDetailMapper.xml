@@ -38,6 +38,7 @@
     <result column="gift_amount" property="giftAmount" jdbcType="DECIMAL" />
     <result column="free_amount" property="freeAmount" jdbcType="CHAR" />
     <result column="order_remark" property="orderRemark" jdbcType="VARCHAR" />
+    <result column="free_employee_id" property="freeEmployeeId" jdbcType="INTEGER" />
     <result column="service_length" property="serviceLength" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
     <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
@@ -99,7 +100,7 @@
   <sql id="Base_Column_List" >
     detail_id, detail_code, order_id, dept_id, order_type, is_appoint, appoint_off, is_assign, 
     project_id, project_name, project_price, project_count, project_image, discount_amount, 
-    real_price, off_type, combo_id, coupon_id, gift_amount, free_amount, order_remark, 
+    real_price, off_type, combo_id, coupon_id, gift_amount, free_amount, order_remark, free_employee_id,
     service_length, store_id, order_status, is_deleted, is_update, create_time, update_time, last_operator_id
   </sql>
   
@@ -217,6 +218,9 @@
       <if test="orderRemark != null" >
         order_remark,
       </if>
+      <if test="freeEmployeeId != null" >
+        free_employee_id,
+      </if>
       <if test="serviceLength != null" >
         service_length,
       </if>
@@ -305,6 +309,9 @@
       </if>
       <if test="orderRemark != null" >
         #{orderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="freeEmployeeId != null" >
+        #{freeEmployeeId,jdbcType=INTEGER},
       </if>
       <if test="serviceLength != null" >
         #{serviceLength,jdbcType=INTEGER},
@@ -395,6 +402,9 @@
       </if>
       <if test="orderRemark != null" >
         order_remark = #{orderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="freeEmployeeId != null" >
+        free_employee_id = #{freeEmployeeId,jdbcType=INTEGER},
       </if>
       <if test="serviceLength != null" >
         service_length = #{serviceLength,jdbcType=INTEGER},
@@ -943,7 +953,7 @@
      and exists(select 1 from order_info c where a.order_id = c.order_id and c.is_deleted = 0 and c.order_status > 2)
   </select>
   
-  <!-- 查询年季月套餐信用次数 -->
+  <!-- 查询年季月疗程信用次数 -->
   <select id="selectComboStatementTime" parameterType="java.util.Map" resultType="java.lang.Integer">
      select 
         count(*) 

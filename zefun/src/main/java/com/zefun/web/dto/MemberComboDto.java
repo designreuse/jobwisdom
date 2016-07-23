@@ -6,7 +6,7 @@ import java.util.List;
 import com.zefun.web.entity.MemberComboProject;
 
 /**
- * 会员套餐信息传输对象
+ * 会员疗程信息传输对象
 * @author 张进军
 * @date Oct 24, 2015 10:50:14 AM 
 */
@@ -14,16 +14,16 @@ public class MemberComboDto {
     /** 记录标识 */
     private Integer recordId;
 
-    /** 套餐标识 */
+    /** 疗程标识 */
     private Integer comboId;
 
-    /** 套餐名称 */
+    /** 疗程名称 */
     private String comboName;
 
-    /** 套餐价格 */
+    /** 疗程价格 */
     private BigDecimal comboPrice;
 
-    /** 套餐图片 */
+    /** 疗程图片 */
     private String comboImage;
 
     /** 项目总价 */

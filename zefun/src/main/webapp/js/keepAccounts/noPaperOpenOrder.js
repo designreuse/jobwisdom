@@ -283,9 +283,26 @@ function submits(){
 		return;
 	}
 	
+	var typeValue = jQuery(".active_color").attr('typeValue');
+	
+	if (isEmpty(typeValue)) {
+		typeValue = jQuery(".active_border_").attr('typeValue');
+	}
+	
 	var sex = jQuery("td[name='memberSex']").attr("memberSex");
 	var memberId = jQuery("td[name='memberName']").attr("memberId");
 	var appointmentId = jQuery("td[name='memberName']").attr("appointmentId");
+	
+	if (isEmpty(memberId) && typeValue == 1) {
+		dialog("当前选中会员，请选择一个会员！");
+		return;
+	}
+	
+	if (isEmpty(memberId) && typeValue == 3) {
+		dialog("当前选中预约，请选择一个预约单！");
+		return;
+	}
+	
 	if (isEmpty(memberId)) {
 		memberId = "";
 	}
@@ -540,7 +557,7 @@ function openOrderType (obj) {
 	 else {
 		 jQuery(obj).addClass("active_border_");
 		 jQuery(obj).find("i").addClass("active_border");
-		 if (jQuery(obj).attr("type") == 2) {
+		 if (jQuery(obj).attr("typeValue") == 2) {
 			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", "");
 			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("appointmentId", "");
 			 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text("散客");
