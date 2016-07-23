@@ -64,7 +64,7 @@
 	                                   <span class= "state combo">商品</span>
 	                               </c:when>
 	                               <c:when test="${detail.orderType == 3 }">
-                                       <span class= "state combo">套餐</span>
+                                       <span class= "state combo">疗程</span>
                                    </c:when>
                                    <c:when test="${detail.orderType == 4 }">
                                         <span class= "state doing">开卡</span>

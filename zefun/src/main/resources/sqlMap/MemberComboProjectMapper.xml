@@ -21,7 +21,7 @@
     remaining_count, create_time, is_deleted, update_time, last_operator_id
   </sql>
   
-  <!-- 根据套餐标识列表删除会员套餐记录，by 张小胖 -->
+  <!-- 根据疗程标识列表删除会员疗程记录，by 张小胖 -->
   <delete id="deleteByComboIdList" parameterType="java.util.List">
   	delete from member_combo_record where combo_id in 
   	<foreach collection="list" open="(" separator="," close=")" item="item">

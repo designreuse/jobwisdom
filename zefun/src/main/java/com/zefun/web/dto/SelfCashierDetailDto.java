@@ -25,7 +25,7 @@ public class SelfCashierDetailDto implements Serializable {
     /** 订单号 */
     private String detailCode;
     
-    /** 订单类型(1：项目，2:商品，3:套餐) */
+    /** 订单类型(1：项目，2:商品，3:疗程) */
     private Integer orderType;
     
     /** 是否预约 */
@@ -66,7 +66,7 @@ public class SelfCashierDetailDto implements Serializable {
     /** 服务时长 */
     private String createTime;
     
-    /** 优惠类型(1:套餐，2:优惠券，3:礼金) */
+    /** 优惠类型(1:疗程，2:优惠券，3:礼金) */
     private Integer offType;
     
     /** 优惠名称 */

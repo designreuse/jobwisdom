@@ -196,11 +196,11 @@ public interface OrderDetailMapper {
     List<OrderProjectPageDto> selectByOrderGoodsPage(Page<OrderProjectPageDto> page);
     
     /**
-     * 根据明细标识查询套餐名称
+     * 根据明细标识查询疗程名称
     * @author 王大爷
     * @date 2015年11月30日 下午4:26:08
     * @param detailId 明细标识
-    * @return 套餐名称
+    * @return 疗程名称
      */
     String selectComboNameByDetailId(Integer detailId);
     
@@ -288,35 +288,35 @@ public interface OrderDetailMapper {
     BigDecimal selectTataiProject(Map<String, Object> map);
     
     /**
-     * 查询使用套餐抵扣的项目业绩总值
+     * 查询使用疗程抵扣的项目业绩总值
      * @param map 参数
      * @return BigDecimal
      */
     BigDecimal selectTataiProjectUseCombo(Map<String, Object> map);
     
     /**
-     * 根据项目类型查询类型对应项目使用套餐抵扣金额
+     * 根据项目类型查询类型对应项目使用疗程抵扣金额
      * @param map 参数
      * @return BigDecimal
      */
     BigDecimal selectTataiAmountUseComboProject(Map<String, Object> map);
     
     /**
-     * 查询使用套餐抵扣的总额
+     * 查询使用疗程抵扣的总额
      * @param map   查询参数
      * @return  抵扣总额
      */
     BigDecimal selectTataiUseComboProjectAmountType(Map<String, Object> map);
     
     /**
-     * 大小项套餐抵扣
+     * 大小项疗程抵扣
      * @param map 参数
      * @return BigDecimal
      */
     BigDecimal selectTataiUseComboProjectSizeType(Map<String, Object> map);
     
     /**
-     * 查询购买套餐中商品价格
+     * 查询购买疗程中商品价格
      * @param map 参数
      * @return BigDecimal
      */
@@ -354,7 +354,7 @@ public interface OrderDetailMapper {
     BigDecimal selectTataiCardByType(Map<String, Object> map);
     
     /**
-     * 查询区域时间内购买套餐次数
+     * 查询区域时间内购买疗程次数
     * @author 王大爷
     * @date 2016年1月21日 下午5:36:50
     * @param map 参数
@@ -377,7 +377,7 @@ public interface OrderDetailMapper {
     Integer selectBuyGoodsTime(Map<String, Object> map);
     
     /**
-     * 区域时间内消费抵扣套餐项目次数
+     * 区域时间内消费抵扣疗程项目次数
     * @author 王大爷
     * @date 2016年1月25日 上午10:25:05
     * @param map 参数
@@ -466,14 +466,14 @@ public interface OrderDetailMapper {
 	List<Map<String, Object>> selectIsNotOverOrderDetail(Integer memberId);
 	
 	/**
-	 * 新增会员套餐
+	 * 新增会员疗程
 	 * @param map map
 	 * @return 新增记录数
 	 */
 	int insertMemberComboRecord(Map<String, Integer> map);
 	
 	/**
-	 * 新增会员套餐项目
+	 * 新增会员疗程项目
 	 * @param map map
 	 * @return 新增记录数
 	 */

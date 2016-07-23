@@ -158,19 +158,19 @@
 				 </li>
               </ul>
 			  <div class="job_manage_content_">
-			    <div class="job_manage_content_text" style="display: block;" name="job_name" positionId="${positionInfos[0].positionId }" positionName="${positionInfos[0].positionName }">
+			    <div class="job_manage_content_text" style="display: block;" name="job_name" >
 					  <p><button onclick="showDiv(${positionInfos[0].positionId },'${positionInfos[0].positionName }',0)">新建</button></p>
 					  <div class="data_content clearfix" style="height:220px" name="data_content0">
 						</div>
 				</div>
 				
-				<div class="job_manage_content_text" style="display: none;" name="job_name" positionId="${positionInfos[1].positionId }" positionName="${positionInfos[1].positionName }">
+				<div class="job_manage_content_text" style="display: none;" name="job_name">
 					   <p><button onclick="showDiv(${positionInfos[1].positionId },'${positionInfos[1].positionName }',1)">新建</button></p>
 					  <div class="data_content clearfix" style="height:220px"  name="data_content1">
 						  </div>
 				</div>
 				
-				  <div class="job_manage_content_text" style="display: none;" name="job_name" positionId="${positionInfos[2].positionId }" positionName="${positionInfos[2].positionName }">
+				  <div class="job_manage_content_text" style="display: none;" name="job_name">
 					   <p><button onclick="showDiv(${positionInfos[2].positionId },'${positionInfos[2].positionName }',2)">新建</button></p>
 					  <div class="data_content clearfix" style="height:220px" name="data_content2">
 						</div>
@@ -213,13 +213,22 @@
 		    <p><span>该岗位下的人员，在参与了其他岗位、职位下的工作，提成的参考值</span><em></em></p>
 		  </div>
 		 <div class="num_adjust_content_detail">
-		    <i>第一岗位</i><select class="reference"></select>
+		    <i>第一岗位</i>
+		    <select class="reference">
+		        <option>请选择参考职位</option>
+		    </select>
 		  </div>
           <div class="num_adjust_content_detail">
-		    <i>第二岗位</i><select class="referenceFirst"></select></select>
+		    <i>第二岗位</i>
+		    <select class="referenceFirst">
+		        <option>请选择参考职位</option>
+		    </select>
 		  </div>
           <div class="num_adjust_content_detail">
-		  	<i>第三岗位</i><select class="referenceTwo"></select>
+		  	<i>第三岗位</i>
+		  	<select class="referenceTwo">
+		  	   <option>请选择参考职位</option>
+		  	</select>
 		  </div>
         </div>
         <div class="first_adjust_content_button">
@@ -501,23 +510,21 @@ function selectStore(li, storeId){
 							'</div>';
 				jQuery(".data_content.clearfix").append(jQuery(dept));
 			}
-			jQuery("input[positionid]").eq(0).val(positionInfos[0].positionName);
-			jQuery("input[positionid]").eq(0).attr("positionid", positionInfos[0].positionId);
-			jQuery("input[positionid]").eq(0).next().attr("onclick", "updatePositon(1, '"+positionInfos[0].positionName+"', "+positionInfos[0].positionId+")");
+			jQuery(".job_manage_content_ul>ul li").eq(0).find("em").text(positionInfos[0].positionName);
+			jQuery(".job_manage_content_ul>ul li").eq(0).find("em").attr("positionid", positionInfos[0].positionId);
+			jQuery(".job_manage_content_ul>ul li").eq(0).find("img").attr("onclick", "showPage(1, '"+positionInfos[0].positionName+"', "+positionInfos[0].positionId+")");
 			
-			jQuery("input[positionid]").eq(1).val(positionInfos[1].positionName);
-			jQuery("input[positionid]").eq(1).attr("positionid", positionInfos[1].positionId);
-			jQuery("input[positionid]").eq(1).next().attr("onclick", "updatePositon(1, '"+positionInfos[1].positionName+"', "+positionInfos[1].positionId+")");
+			jQuery(".job_manage_content_ul>ul li").eq(1).find("em").text(positionInfos[1].positionName);
+			jQuery(".job_manage_content_ul>ul li").eq(1).find("em").attr("positionid", positionInfos[1].positionId);
+			jQuery(".job_manage_content_ul>ul li").eq(1).find("img").attr("onclick", "showPage(1, '"+positionInfos[1].positionName+"', "+positionInfos[1].positionId+")");
 			
-			jQuery("input[positionid]").eq(2).val(positionInfos[2].positionName);
-			jQuery("input[positionid]").eq(2).attr("positionid", positionInfos[2].positionId);
-			jQuery("input[positionid]").eq(2).next().attr("onclick", "updatePositon(1, '"+positionInfos[2].positionName+"', "+positionInfos[2].positionId+")");
+			jQuery(".job_manage_content_ul>ul li").eq(2).find("em").text(positionInfos[2].positionName);
+			jQuery(".job_manage_content_ul>ul li").eq(2).find("em").attr("positionid", positionInfos[2].positionId);
+			jQuery(".job_manage_content_ul>ul li").eq(2).find("img").attr("onclick", "showPage(1, '"+positionInfos[2].positionName+"', "+positionInfos[2].positionId+")");
 			
-			jQuery("#position").empty();
-			for (var i=0;i<positionInfos.length;i++){
-				var html = '<option index='+i+' value="'+positionInfos[i].positionId+'">'+positionInfos[i].positionName+'</option>';
-				jQuery("#position").append(jQuery(html));
-			}
+			jQuery("div[name='job_name']").eq(0).find("button").attr("onclick", "showDiv("+positionInfos[0].positionId+", '"+positionInfos[0].positionName+"', 0)");
+			jQuery("div[name='job_name']").eq(1).find("button").attr("onclick", "showDiv("+positionInfos[1].positionId+", '"+positionInfos[1].positionName+"', 1)");
+			jQuery("div[name='job_name']").eq(2).find("button").attr("onclick", "showDiv("+positionInfos[2].positionId+", '"+positionInfos[2].positionName+"', 2)");
 			
 			initEmployee(empLevels);
 			initEmployeeLevel(empLevels);
@@ -566,9 +573,9 @@ function deletedLevel(levelId, li){
 }
 
 function initEmployeeLevel(epms){
-	jQuery(".referenceFirst").empty();
-	jQuery(".referenceTwo").empty();
-	jQuery(".reference").empty();
+	jQuery(".referenceFirst").find("option :gt(0)").remove();
+	jQuery(".referenceTwo").find("option :gt(0)").remove();
+	jQuery(".reference").find("option :gt(0)").remove();
 	var rse = jQuery(".job_manage_content_ul>ul li").eq(0).find("em").attr("positionId");
 	var rsf = jQuery(".job_manage_content_ul>ul li").eq(1).find("em").attr("positionId");
 	var rst = jQuery(".job_manage_content_ul>ul li").eq(2).find("em").attr("positionId");

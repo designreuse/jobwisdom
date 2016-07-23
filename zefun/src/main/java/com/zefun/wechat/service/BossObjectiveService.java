@@ -77,14 +77,14 @@ public class BossObjectiveService {
     @Autowired
     private MemberLevelMapper memberLevelMapper;
     
-    /** 套餐Mapper*/
+    /** 疗程Mapper*/
     @Autowired 
     private ComboInfoMapper comboInfoMapper;
     /** 数据字典Mapper*/
     @Autowired 
     private CodeLibraryMapper codeLibraryMapper;
     
-    /** 会员套餐关联*/
+    /** 会员疗程关联*/
     @Autowired
     private MemberComboRecordMapper memberComboRecordMapper;
     
@@ -456,7 +456,7 @@ public class BossObjectiveService {
                 //不同结账方式的项目金额
                 BigDecimal totalAmount = orderDetailMapper.selectTataiProject(weekMap);
                 
-                //用套餐抵扣的项目
+                //用疗程抵扣的项目
                 BigDecimal totalComboAmount = orderDetailMapper.selectTataiProjectUseCombo(weekMap);
                 dateList.add(weekDay.substring(6, 10));
                 tendencyList.add(totalAmount.add(totalComboAmount));
@@ -481,7 +481,7 @@ public class BossObjectiveService {
                 monthMap.put("orderType", 1);
                 monthMap.put("deptId", deptId);
                 BigDecimal totalAmount = orderDetailMapper.selectTataiProject(monthMap);
-                //用套餐抵扣的项目
+                //用疗程抵扣的项目
                 BigDecimal totalComboAmount = orderDetailMapper.selectTataiProjectUseCombo(monthMap);
                 dateList.add(monthDay.substring(6, 10));
                 
@@ -508,7 +508,7 @@ public class BossObjectiveService {
                 yearMap.put("orderType", 1);
                 yearMap.put("deptId", deptId);
                 BigDecimal totalAmount = orderDetailMapper.selectTataiProject(yearMap);
-                //用套餐抵扣的项目
+                //用疗程抵扣的项目
                 BigDecimal totalComboAmount = orderDetailMapper.selectTataiProjectUseCombo(yearMap);
                 dateList.add(df.format(yearDay));
                 
@@ -543,7 +543,7 @@ public class BossObjectiveService {
     }
     
     /**
-     * 套餐业绩
+     * 疗程业绩
     * @author 王大爷
     * @date 2016年1月18日 下午6:00:10
     * @param storeId 门店标识
@@ -614,14 +614,14 @@ public class BossObjectiveService {
         comboMap.put("isCountLimit", 1);
         List<ComboStatementDto> timeStatementDtoList = comboInfoMapper.selectComboByTimeSize(comboMap);
         
-        //组装套餐数据
+        //组装疗程数据
         for (ComboStatementDto comboStatementDto : timeStatementDtoList) {
             amountMap.put("comboId", comboStatementDto.getComboId());
             Integer comboTime = orderDetailMapper.selectBuyComboTime(amountMap);
             
             comboStatementDto.setNewAddTime(comboTime);
             
-            //疗程套餐项目
+            //疗程疗程项目
             List<ComboStatementProjectDto> statementProjectDtoList = comboStatementDto.getStatementProjectDtoList();
             Map<String, Object> tataiMap = new HashMap<String, Object>();
             
@@ -659,7 +659,7 @@ public class BossObjectiveService {
         List<ComboStatementDto> packageStatementDtoList = comboInfoMapper.selectComboByTimeSize(comboMap);
         
         for (ComboStatementDto comboStatementDto : packageStatementDtoList) {
-        	//查询套餐有效个数
+        	//查询疗程有效个数
             Integer validNumber = memberComboRecordMapper.selectValidByComboId(comboStatementDto.getComboId());
             comboStatementDto.setValidNumber(validNumber);
             
@@ -871,7 +871,7 @@ public class BossObjectiveService {
             
             BigDecimal cardTatailAmount = orderDetailMapper.selectTataiAmountProject(amountMap);
             
-            //套餐抵扣
+            //疗程抵扣
             cardTatailAmount = cardTatailAmount.add(orderDetailMapper.selectTataiAmountUseComboProject(amountMap));
             
             cardTatailAmountList.add(cardTatailAmount);
@@ -899,7 +899,7 @@ public class BossObjectiveService {
         
         amountMap.put("caType", 1);
         BigDecimal cardAmount = orderDetailMapper.selectTataiProjectAmountType(amountMap);
-        //套餐抵扣
+        //疗程抵扣
         cardAmount = cardAmount.add(orderDetailMapper.selectTataiUseComboProjectAmountType(amountMap));
         
         amountMap.put("caType", 2);

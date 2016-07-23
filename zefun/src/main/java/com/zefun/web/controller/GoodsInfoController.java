@@ -9,9 +9,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.App.Session;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
-import com.zefun.common.consts.App.Session;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
@@ -54,6 +51,9 @@ import com.zefun.web.mapper.SupplierInfoMapper;
 import com.zefun.web.service.GoodsInfoService;
 import com.zefun.web.service.MemberLevelService;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 /**
  * 商品
 * @author 洪秋霞
@@ -66,7 +66,7 @@ public class GoodsInfoController extends BaseController {
     @Autowired private GoodsInfoService goodsInfoService;
     /**会员等级*/
     @Autowired private MemberLevelService memberLevelService;
-    /**套餐商品关联*/
+    /**疗程商品关联*/
     @Autowired private ComboGoodsMapper comboGoodsMapper;
     /**供应商管理处理*/
     @Autowired private SupplierInfoMapper supplierInfoMapper;
@@ -557,7 +557,7 @@ public class GoodsInfoController extends BaseController {
         comboGoods.setGoodsId(goodsId);
         List<ComboGoods> goods = comboGoodsMapper.selectByPrimaryKey(comboGoods);
         if (goods!=null&&goods.size()>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该商品在套餐中引用,不可删除"); 
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该商品在疗程中引用,不可删除"); 
         }
         goodsInfoService.deleteGoodsInfo(goodsId);
         goodsInfoService.deleteGoodsRedis(deptId.toString());

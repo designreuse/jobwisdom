@@ -13,7 +13,7 @@ public class MemberComboRecord {
 	/** 会员标识 */
 	private Integer memberId;
 
-	/** 套餐标识 */
+	/** 疗程标识 */
 	private Integer comboId;
 
 	/** 门店标识 */
@@ -22,13 +22,13 @@ public class MemberComboRecord {
 	/** 订单明细标识*/
 	private Integer detailId;
 
-	/** 套餐名称 */
+	/** 疗程名称 */
 	private String comboName;
 
-	/** 套餐价格 */
+	/** 疗程价格 */
 	private BigDecimal comboPrice;
 
-	/** 套餐图片 */
+	/** 疗程图片 */
 	private String comboImage;
 
 	/** 项目总价 */
@@ -101,12 +101,12 @@ public class MemberComboRecord {
 		return memberId;
 	}
 
-	/** @param comboId	套餐标识 */
+	/** @param comboId	疗程标识 */
 	public void setComboId(Integer comboId){
 		this.comboId = comboId;
 	}
 
-	/** @return	套餐标识 */
+	/** @return	疗程标识 */
 	public Integer getComboId(){
 		return comboId;
 	}
@@ -121,32 +121,32 @@ public class MemberComboRecord {
 		return storeId;
 	}
 
-	/** @param comboName	套餐名称 */
+	/** @param comboName	疗程名称 */
 	public void setComboName(String comboName){
 		this.comboName = comboName;
 	}
 
-	/** @return	套餐名称 */
+	/** @return	疗程名称 */
 	public String getComboName(){
 		return comboName;
 	}
 
-	/** @param comboPrice	套餐价格 */
+	/** @param comboPrice	疗程价格 */
 	public void setComboPrice(BigDecimal comboPrice){
 		this.comboPrice = comboPrice;
 	}
 
-	/** @return	套餐价格 */
+	/** @return	疗程价格 */
 	public BigDecimal getComboPrice(){
 		return comboPrice;
 	}
 
-	/** @param comboImage	套餐图片 */
+	/** @param comboImage	疗程图片 */
 	public void setComboImage(String comboImage){
 		this.comboImage = comboImage;
 	}
 
-	/** @return	套餐图片 */
+	/** @return	疗程图片 */
 	public String getComboImage(){
 		return comboImage;
 	}

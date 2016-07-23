@@ -7,10 +7,10 @@ import java.math.BigDecimal;
  * @date 2015年08月10日 PM 22:38:58
  */
 public class ComboInfo {
-	/** 套餐标识 */
+	/** 疗程标识 */
 	private Integer comboId;
 	
-	/** 上级套餐id */
+	/** 上级疗程id */
 	private Integer comboParentId;
 
 	/** 门店标识 */
@@ -22,13 +22,13 @@ public class ComboInfo {
     /**部门名称*/
     private String deptName;
 
-	/** 套餐名称 */
+	/** 疗程名称 */
 	private String comboName;
 
-	/** 套餐图片 */
+	/** 疗程图片 */
 	private String comboImage;
 
-	/** 套餐描述 */
+	/** 疗程描述 */
 	private String comboDesc;
 	
 	/** 项目数量 */
@@ -37,7 +37,7 @@ public class ComboInfo {
 	/** 项目总价 */
 	private BigDecimal projectAmount;
 
-	/** 套餐销售价 */
+	/** 疗程销售价 */
 	private BigDecimal comboSalePrice;
 
 	/** 提成方式(1:按业绩比例,2:按固定金额) */
@@ -88,16 +88,16 @@ public class ComboInfo {
 	/** 最后操作人标识 */
 	private Integer lastOperatorId;
 	
-	/**套餐规格设置*/
+	/**疗程规格设置*/
 	private Integer standard;
 	
 	/**是否进行身份认证*/
 	private Integer isAttestation;
 	
-	/**套餐业绩计算*/
+	/**疗程业绩计算*/
 	private BigDecimal comboPerformance;
 	
-	/**套餐编号*/
+	/**疗程编号*/
 	private String comboCodeSuffix;
 	
 	
@@ -149,22 +149,22 @@ public class ComboInfo {
         this.isAttestation = isAttestation;
     }
 
-    /** @param comboId	套餐标识 */
+    /** @param comboId	疗程标识 */
 	public void setComboId(Integer comboId){
 		this.comboId = comboId;
 	}
 
-	/** @return	套餐标识 */
+	/** @return	疗程标识 */
 	public Integer getComboId(){
 		return comboId;
 	}
 	
-	/** @return    上级套餐标识 */
+	/** @return    上级疗程标识 */
 	public Integer getComboParentId() {
         return comboParentId;
     }
 
-	/** @param comboParentId 上级套餐标识 */
+	/** @param comboParentId 上级疗程标识 */
     public void setComboParentId(Integer comboParentId) {
         this.comboParentId = comboParentId;
     }
@@ -189,33 +189,33 @@ public class ComboInfo {
         this.deptId = deptId;
     }
 
-	/** @param comboName	套餐名称 */
+	/** @param comboName	疗程名称 */
 	public void setComboName(String comboName){
 		this.comboName = comboName;
 	}
 
-	/** @return	套餐名称 */
+	/** @return	疗程名称 */
 	public String getComboName(){
 		return comboName;
 	}
 
 	
-	/** @param comboImage	套餐图片 */
+	/** @param comboImage	疗程图片 */
 	public void setComboImage(String comboImage){
 		this.comboImage = comboImage;
 	}
 
-	/** @return	套餐图片 */
+	/** @return	疗程图片 */
 	public String getComboImage(){
 		return comboImage;
 	}
 
-	/** @param comboDesc	套餐描述 */
+	/** @param comboDesc	疗程描述 */
 	public void setComboDesc(String comboDesc){
 		this.comboDesc = comboDesc;
 	}
 
-	/** @return	套餐描述 */
+	/** @return	疗程描述 */
 	public String getComboDesc(){
 		return comboDesc;
 	}
@@ -230,12 +230,12 @@ public class ComboInfo {
 		return projectAmount;
 	}
 	
-	/** @return 套餐销售价 */
+	/** @return 疗程销售价 */
 	public BigDecimal getComboSalePrice() {
         return comboSalePrice;
     }
 
-	/** @param comboSalePrice 套餐销售价 */
+	/** @param comboSalePrice 疗程销售价 */
     public void setComboSalePrice(BigDecimal comboSalePrice) {
         this.comboSalePrice = comboSalePrice;
     }

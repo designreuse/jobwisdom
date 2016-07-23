@@ -85,7 +85,7 @@
 		                        <div class="select-list">
 		                            <ul>
 		                                <li class="select-item active" style="cursor:pointer;" onclick="changeType(this, 'project')">项目</li>
-		                                <li class="select-item" style="cursor:pointer;" onclick="changeType(this, 'combo')">套餐</li>
+		                                <li class="select-item" style="cursor:pointer;" onclick="changeType(this, 'combo')">疗程</li>
 		                                <li class="select-item" style="cursor:pointer;" onclick="changeType(this, 'goods')">商品</li>
 		                            </ul>
 		                        </div>
@@ -101,7 +101,7 @@
 		                        
 		                        <div class="selected-child-select hide" name = "comboUL">
 		                            <ul>
-		                                <li class="selected-item active" style="cursor:pointer;">套餐</li>
+		                                <li class="selected-item active" style="cursor:pointer;">疗程</li>
 		                            </ul>
 		                        </div>
 		                        
@@ -136,7 +136,7 @@
 		                            <c:forEach items="${dept.comboInfoList}" var="comboInfo">
 		                                <li class="detail-item" style="cursor:pointer;" onclick="chooceProject(${comboInfo.comboId}, '${comboInfo.comboName}', ${comboInfo.comboSalePrice}, 3)">
 			                                <div><span class="name">${comboInfo.comboName}</span></div>
-			                                <div>套餐价格:<span class="item-price">￥${comboInfo.comboSalePrice}</span></div>
+			                                <div>疗程价格:<span class="item-price">￥${comboInfo.comboSalePrice}</span></div>
 			                            </li>
 		                            </c:forEach>
 		                        </ul>
@@ -185,7 +185,7 @@
 	                    </li>
 	                    <li class="xiaofei-item" name= "comboNameLI">
 	                        <div class="xiaofei-name">
-	                            <span class="name mr20">套餐销售</span>
+	                            <span class="name mr20">疗程销售</span>
 	                        </div>
 	
 	                    </li>

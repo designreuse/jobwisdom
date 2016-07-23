@@ -185,7 +185,7 @@ function submitOrderInfo() {
 		detailId = $this.attr("detailId");
 		if (!isEmpty(detailId)) {
 			var detailType = $this.attr("detailType");
-			//检查该笔订单是否包含套餐，散客不能购买套餐
+			//检查该笔订单是否包含疗程，散客不能购买疗程
 			if (!isMember && detailType == 3) {
 				isErr = true;
 			}
@@ -198,7 +198,7 @@ function submitOrderInfo() {
 		}
 	});
 	if (isErr) {
-		dialog("只有会员才能购买套餐，请先开卡");
+		dialog("只有会员才能购买疗程，请先开卡");
 		return;
 	}
 
@@ -345,7 +345,7 @@ function addCashierDetail(orderInfo){
 			
 			realMoney = new Big(detail.discountAmount - detail.appointOff);
 			
-			//套餐/礼金/优惠券抵扣，组装数据
+			//疗程/礼金/优惠券抵扣，组装数据
 			var selectOff = document.createElement("select");
 			selectOff.setAttribute("detailid", detail.detailId);
 			selectOff.setAttribute("class", "chzn-select");
@@ -538,7 +538,7 @@ jQuery(".money_card_content").delegate("li", "click", function(event){
 		var detailId = $this.attr("detailId");
 		if (!isEmpty(detailId)) {
 			var detailType = $this.attr("detailType");
-			//购买套餐直接跳过
+			//购买疗程直接跳过
 			if (detailType != 3) {
 				//更新折扣价格
 				var discountAmount = discountMap[detailId + "_" + subAccountId];
@@ -554,7 +554,7 @@ jQuery(".money_card_content").delegate("li", "click", function(event){
 				}
 				
 				//更新实收价格
-				var offType = $this.attr("offtype");//1:项目套餐，2:商品套餐，3:优惠券，4:礼金
+				var offType = $this.attr("offtype");//1:项目疗程，2:商品疗程，3:优惠券，4:礼金
 				if (offType == 3 || offType == 0) {
 					var offAmount = $this.attr("offAmount");
 					var realAmount = new Big(discountAmount - offAmount);

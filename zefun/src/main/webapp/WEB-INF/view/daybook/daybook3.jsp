@@ -109,7 +109,7 @@
 	  <span>应收款：<em id="receivableAmount">${countBook.receivableAmount}</em></span>
 	  <span>礼金抵扣：<em id="giftAmount">${countBook.giftAmount }</em></span>
 	  <span>优惠券抵扣：<em id="couponAmount">${countBook.couponAmount }</em></span>
-	  <span>套餐抵扣：<em id="comboAmount">${countBook.comboAmount }</em></span>
+	  <span>疗程抵扣：<em id="comboAmount">${countBook.comboAmount }</em></span>
 	  <span>划卡：<em id="cardAmount">${countBook.cardAmount }</em></span>
 	  <span>现金实收：<em id="realPrice">${countBook.realPrice }</em></span>
 	</div>

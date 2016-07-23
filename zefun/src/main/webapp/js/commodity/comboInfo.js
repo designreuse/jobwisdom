@@ -1,11 +1,11 @@
 jQuery(function(){
 	
     jQuery('.lcs_check').lc_switch('是', '否');
-    //套餐是否时间限制
+    //疗程是否时间限制
     jQuery('.standard').lc_switch('是', '否');
     //是否进行身份认证
     jQuery('.isAttestation').lc_switch('是', '否');
-    //套餐是否次数限制
+    //疗程是否次数限制
     jQuery('.isCountLimit').lc_switch('是', '否');
     
     jQuery('.lcs_check_type').lc_switch('比例','固定');
@@ -69,7 +69,7 @@ jQuery(function(){
         format:'Y/m/d'
     });
     
-    /*套餐的展示与隐藏*/
+    /*疗程的展示与隐藏*/
     jQuery('.project-name').on("click", function(){
         var th = jQuery(this)
         var target = th.siblings();
@@ -104,7 +104,7 @@ jQuery(function(){
     
 });
 
-/**搜索套餐*/
+/**搜索疗程*/
 function searchComboInfo(obj){
 	jQuery(".fuzzysearch").empty();
 	var str = "";
@@ -144,7 +144,7 @@ function addCombo(obj){
 	jQuery("#comboInfoForm")[0].reset();
 }
 
-/**根据id查询套餐信息*/
+/**根据id查询疗程信息*/
 function queryComboInfoById(comboId,obj){
 	stopBubble(obj);
 	jQuery(".project-sublist-content").removeClass("active");
@@ -164,7 +164,7 @@ function queryComboInfoById(comboId,obj){
             	jQuery("#isUpdate").val(1);
             	var map = data.msg;
             	var comboInfo = map["comboInfo"];
-            	jQuery(".dingdanzhuantai").text("正在修改套餐 : "+comboInfo.comboName);
+            	jQuery(".dingdanzhuantai").text("正在修改疗程 : "+comboInfo.comboName);
             	
             	if(comboInfo.comboImage != null && comboInfo.comboImage != ""){
             		jQuery("img[name='headImg']").attr("src", picUrl + comboInfo.comboImage);
@@ -247,7 +247,7 @@ function queryComboInfoById(comboId,obj){
             	jQuery("#comboPerformance").val(comboInfo.comboPerformance);
             	
             	jQuery("#projectSetTbody").empty();
-            	//套餐关联的项目列表
+            	//疗程关联的项目列表
             	var comboProjectList = map["comboProjectList"];
             	var status = 0;
             	for(var i=0; i<comboProjectList.length; i++){
@@ -288,7 +288,7 @@ function queryComboInfoById(comboId,obj){
             		jQuery("input[name='isCountLimit']").val(0);
             		jQuery("input[name='projectCounts']").hide();
             	}
-            	//套餐商品信息
+            	//疗程商品信息
             	var comboGoods = map["comboGoods"];
             	var tbody = jQuery("#goodsSetTbody");
             	tbody.empty();
@@ -318,7 +318,7 @@ function queryComboInfoById(comboId,obj){
             		jQuery("#goodsSetTbody").children("tr").eq(i).find("input[name='commissionAmount']").val(comboGoods[i].commissionAmount);
 				}
             	
-            	//套餐会员等级信息
+            	//疗程会员等级信息
             	var comboMemberLevel = map["comboMemberLevel"];
 //            	jQuery("#levelId").val(comboMemberLevel.levelId);
 //            	jQuery("#levelId").trigger("liszt:updated");
@@ -377,7 +377,7 @@ function deleteProjectList(obj){
 function deleteGoodsList(obj){
 	jQuery(obj).parents("tr").remove();
 }
-/**保存套餐*/
+/**保存疗程*/
 function saveComboInfo(){
 	var projectNameObj = jQuery("select[name='projectIds']").siblings().find("span");
 	var projectName = "";
@@ -450,7 +450,7 @@ function saveComboInfo(){
     });
 }
 
-/**删除套餐*/
+/**删除疗程*/
 function deleteComboInfo(comboId,obj){
 	stopBubble(obj);
 	jQuery.ajax({
@@ -505,7 +505,7 @@ function changeProjectSel(obj){
             	var projectCommissionTbody = jQuery(obj).parent().parent().next().find("tbody");
             	projectCommissionTbody.empty();
             	var projectCommissionList = data.msg;
-            	//显示套餐所选项目提成
+            	//显示疗程所选项目提成
             	showProjectCommission(projectCommissionList,projectCommissionTbody);
             	jQuery(projectCommissionTbody).find("select").chosen();
             	jQuery(obj).parent().parent().next().find(".lcs_check_type").lc_switch('比例','固定');
@@ -553,7 +553,7 @@ function changeGoodsSel(obj){
 function trim(str){ //删除左右两端的空格
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
-/**显示套餐所选项目提成*/
+/**显示疗程所选项目提成*/
 function showProjectCommission(projectCommissionList,projectCommissionTbody){
 	for(var i=0; i<projectCommissionList.length; i++){
 		var projectCommission = projectCommissionList[i];
@@ -649,7 +649,7 @@ function countGoodNum(){
 	jQuery("#projectAmount").val(projectAmount);
 	jQuery("#projectAmount").next().text(projectAmount+"  元");
 }
-/**批量新增套餐*/
+/**批量新增疗程*/
 function addComboList(deptId,obj){
 	stopBubble(obj);
 	clearInput();
@@ -660,7 +660,7 @@ function addComboList(deptId,obj){
 	
 }
 function addModalInputCombo(obj){
-	var str = '<div><br><span>套餐名称：</span> <input type="text" placeholder="套餐名称" name="comboListName" class="mr10 ml10 input-medium"><span class="fr font-span minus"><i class="iconfa-minus" onclick="deleteModalInputCombo(this)"></i></span></div>';
+	var str = '<div><br><span>疗程名称：</span> <input type="text" placeholder="疗程名称" name="comboListName" class="mr10 ml10 input-medium"><span class="fr font-span minus"><i class="iconfa-minus" onclick="deleteModalInputCombo(this)"></i></span></div>';
 	jQuery(obj).parents(".modal-body").children(".modal-btn-group").before(str);
 }
 function deleteModalInputCombo(obj){
@@ -851,7 +851,7 @@ function clearInput(){
 	jQuery("#projectAmount").val('');
 	jQuery("#projectAmount").next().text('');
 	jQuery("#goodsSetTbody").empty();
-	jQuery(".dingdanzhuantai").text("正在新增套餐");
+	jQuery(".dingdanzhuantai").text("正在新增疗程");
 }
 
 

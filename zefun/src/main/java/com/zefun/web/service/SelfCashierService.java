@@ -98,7 +98,7 @@ public class SelfCashierService {
 	@Autowired
 	private OrderDetailMapper orderDetailMapper;
 
-	/** 会员套餐项目明细操作对象 */
+	/** 会员疗程项目明细操作对象 */
 	@Autowired
 	private MemberComboProjectMapper memberComboProjectMapper;
 
@@ -158,7 +158,7 @@ public class SelfCashierService {
 	@Autowired
 	private StoreSettingMapper storeSettingMapper;
 
-	/** 套餐信息 */
+	/** 疗程信息 */
 	@Autowired
 	private ComboInfoMapper comboInfoMapper;
 
@@ -332,6 +332,11 @@ public class SelfCashierService {
   		    payType = 1;
   		}
   		List<Map<String, Object>> stepCommissionList = new ArrayList<>();
+  		
+  		String updatePricArrayStr = orderSubmit.getUpdatePricArray();
+  		//获取改价对象
+  		JSONArray updatePricArray =JSONArray.fromObject(updatePricArrayStr);
+  		
 		// 依次遍历所有支付的明细信息
 		for (OrderDetaiSubmitDto detail : orderSubmit.getDetailList()) {
 			SelfCashierDetailDto ownerDetail = detailMap.get(String.valueOf(detail.getDetailId()));
@@ -359,27 +364,23 @@ public class SelfCashierService {
 				else {
 					tempAmount = ownerDetail.getDiscountAmount();
 				}
-				// 处理改价的问题
-				tempAmount = tempAmount.add(new BigDecimal(ownerDetail.getFreeAmount().trim()));
-
 				ownerDetail.setDiscountAmount(tempAmount);
-				orderDetail.setRealPrice(ownerDetail.getDiscountAmount());
-
-				// 优惠类型为套餐
+				orderDetail.setDiscountAmount(tempAmount);
+				orderDetail.setRealPrice(tempAmount);
+				discountAmount = discountAmount.add(tempAmount);
+				// 优惠类型为疗程
 				if (detail.getOffType() == 1 || detail.getOffType() == 2) {
-					// 减去套餐次数
+					// 减去疗程次数
 					updateMemberComboInfo(ownerMemberId, detail.getOffId(), curTime);
 					Integer comboId = memberComboProjectMapper.selectComboIdByDetailId(detail.getOffId());
 					if (comboId == null) {
-						throw new ServiceException(-1, "对不起，您不存在此套餐！");
+						throw new ServiceException(-1, "对不起，您不存在此疗程！");
 					}
 					comboAmount = comboAmount.add(ownerDetail.getProjectPrice());
 					orderDetail.setGiftAmount(ownerDetail.getProjectPrice());
-					orderDetail.setDiscountAmount(ownerDetail.getProjectPrice());
 					orderDetail.setRealPrice(BigDecimal.ZERO);
 					orderDetail.setComboId(detail.getOffId());
 					orderDetail.setOffType(1);
-					discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());
 				}
 				// 优惠类型为礼金
 				else if (detail.getOffType() == 4) {
@@ -393,17 +394,9 @@ public class SelfCashierService {
 					orderDetail.setGiftAmount(detail.getOffAmount());
 
 					// 检查是否有礼金抵扣
-					if (StringUtils.isNotBlank(ownerDetail.getFreeAmount()) && !"0".equals(ownerDetail.getFreeAmount())
-							  && !"0.00".equals(ownerDetail.getFreeAmount())) {
-						orderDetail.setRealPrice(ownerDetail.getDiscountAmount().subtract(detail.getOffAmount()));
-					} 
-					else {
-						orderDetail.setRealPrice(ownerDetail.getProjectPrice().subtract(detail.getOffAmount()));
-					}
+					orderDetail.setRealPrice(ownerDetail.getDiscountAmount().subtract(detail.getOffAmount()));
 
-					orderDetail.setDiscountAmount(ownerDetail.getProjectPrice());
 					orderDetail.setOffType(3);
-					discountAmount = discountAmount.add(ownerDetail.getProjectPrice());
 				}
 				// 优惠类型为优惠券
 				else if (detail.getOffType() == 3) {
@@ -421,9 +414,6 @@ public class SelfCashierService {
 					orderDetail.setOffType(2);
 					discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());*/
 				} 
-				else {
-					discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());
-				}
 				appointOff = appointOff.add(ownerDetail.getAppointOff());
 				BigDecimal rm = orderDetail.getRealPrice().subtract(ownerDetail.getAppointOff());
 				if (rm.compareTo(BigDecimal.ZERO) == -1) {
@@ -435,6 +425,21 @@ public class SelfCashierService {
 				discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());
 			}
 
+			for (int j = 0; j < updatePricArray.size(); j++) {
+				JSONObject updatePricObj = updatePricArray.getJSONObject(j);
+				Integer detailId = updatePricObj.getInt("detailId");
+				if (detailId.intValue() == orderDetail.getDetailId().intValue()) {
+					String freeAmount = updatePricObj.getString("freeAmount");
+					String orderRemark = updatePricObj.getString("orderRemark");
+					orderDetail.setFreeAmount(freeAmount);
+					orderDetail.setOrderRemark(orderRemark);
+					orderDetail.setFreeEmployeeId(orderSubmit.getAuthorityEmployeeId());
+					
+					orderDetail.setRealPrice(orderDetail.getRealPrice().add(new BigDecimal(freeAmount)));
+				}
+				
+			}
+			
 			realAmount = realAmount.add(orderDetail.getRealPrice());
 			orderDetailMapper.updateByPrimaryKey(orderDetail);
 			
@@ -670,7 +675,7 @@ public class SelfCashierService {
 		// 业绩计算
         BigDecimal tataliCommonCalculate = null;
 		if (orderDetail.getOffType() == 1) {
-            //套餐计算比例
+            //疗程计算比例
 			tataliCommonCalculate = employeeObjectiveMapper.selectByComboCommonCalculate(orderDetail.getComboId());
         }
         else if (orderDetail.getCouponId() != null) {
@@ -697,7 +702,7 @@ public class SelfCashierService {
             	tataliCommonCalculate = tataliCommonCalculate.subtract(goodsInfoDto.getCostPrice());
         	}
         	else {
-        		//套餐成本价未计算
+        		//疗程成本价未计算
         		
         	}
         }
@@ -897,7 +902,7 @@ public class SelfCashierService {
 			
 			List<CommissionScheme> commissionSchemeList = commissionSchemeMapper.selectByStoreId(storeId);
 			
-			Map<String, Object> stepOrderMap = new HashMap<>();
+			Map<String, Object> stepOrderMap = null;
 			
 			Integer calculationType = goodsInfoDto.getCalculationType();
 			if (calculationType == 1) {
@@ -928,6 +933,7 @@ public class SelfCashierService {
 			}
 			
 			if (stepDtoList.size() == 1) {
+				stepOrderMap = new HashMap<>();
 				stepOrderMap.put("employeeId", stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
 	        	stepOrderMap.put("employeeCodeName", stepDtoList.get(0).getEmployeeInfo().getEmployeeCode() 
 	        			  + " " + stepDtoList.get(0).getEmployeeInfo().getName());
@@ -981,6 +987,7 @@ public class SelfCashierService {
 					
 					BigDecimal comm = empCommission.multiply(new BigDecimal(commProportion)).divide(hundred);
 					
+					stepOrderMap = new HashMap<>();
 					stepOrderMap.put("employeeId", stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
 		        	stepOrderMap.put("employeeCodeName", stepDtoList.get(i).getEmployeeInfo().getEmployeeCode() 
 		        			  + " " + stepDtoList.get(i).getEmployeeInfo().getName());
@@ -1010,7 +1017,7 @@ public class SelfCashierService {
 			
 			List<CommissionScheme> commissionSchemeList = commissionSchemeMapper.selectByStoreId(storeId);
 			
-			Map<String, Object> stepOrderMap = new HashMap<>();
+			Map<String, Object> stepOrderMap = null;
 			
 			Integer commissionType = comboInfo.getCommissionType();
 			if (commissionType == 1) {
@@ -1038,6 +1045,7 @@ public class SelfCashierService {
 			saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
 			
 			if (stepDtoList.size() == 1) {
+				stepOrderMap = new HashMap<>();
 				stepOrderMap.put("employeeId", stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
 	        	stepOrderMap.put("employeeCodeName", stepDtoList.get(0).getEmployeeInfo().getEmployeeCode() 
 	        			  + " " + stepDtoList.get(0).getEmployeeInfo().getName());
@@ -1079,6 +1087,9 @@ public class SelfCashierService {
 				}
 				String[] twoCommission = commissionStr.split(",");
 				for (int i = 0; i < twoCommission.length; i++) {
+					
+					stepOrderMap = new HashMap<>();
+					
 					String commission = twoCommission[i];
 					//业绩比例
 					Integer calculationProportion = Integer.valueOf(commission.split(":")[0]);
@@ -1119,8 +1130,8 @@ public class SelfCashierService {
 
 	
 	/**
-	 * 添加用户套餐信息
-	 * @param comboId 套餐标识
+	 * 添加用户疗程信息
+	 * @param comboId 疗程标识
 	 * @param employeeId 员工标识
 	 * @param memberId 会员标识
 	 * @param detailId 明细标识
@@ -1132,14 +1143,14 @@ public class SelfCashierService {
 		map.put("employeeId", employeeId);
 		map.put("memberId", memberId);
 		map.put("detailId", detailId);
-		// 添加用户套餐
+		// 添加用户疗程
 		Integer recordId = orderDetailMapper.insertMemberComboRecord(map);
 		
 		Map<String, Integer> projectMap = new HashMap<String, Integer>();
 		projectMap.put("recordId", recordId);
 		projectMap.put("employeeId", employeeId);
 		projectMap.put("comboId", comboId);
-        //会员套餐项目明细表
+        //会员疗程项目明细表
 		orderDetailMapper.insertMemberComboProject(map);
 		
 		
@@ -1385,22 +1396,22 @@ public class SelfCashierService {
 	}*/
 
 	/**
-	 * 更新会员的套餐信息
+	 * 更新会员的疗程信息
 	 * 
 	 * @author 张进军
 	 * @date Nov 11, 2015 9:56:51 PM
 	 * @param memberId
 	 *            会员标识
 	 * @param detailId
-	 *            会员套餐明细标识
+	 *            会员疗程明细标识
 	 * @param time
 	 *            更新时间
 	 * @throws ServiceException
-	 *             如不存在可用套餐，抛出异常
+	 *             如不存在可用疗程，抛出异常
 	 */
 	@Transactional
 	protected void updateMemberComboInfo(int memberId, int detailId, String time) throws ServiceException {
-		// TODO 判断套餐抵扣时，没有次数限制不做扣减
+		// TODO 判断疗程抵扣时，没有次数限制不做扣减
 		Integer countTime = comboInfoMapper.checkComboCountLimit(detailId);
 		if (countTime == 0) {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -1719,12 +1730,12 @@ public class SelfCashierService {
 		// 遍历每个具体消费项目
 		for (SelfCashierDetailDto detail : orderInfo.getOrderDetails()) {
 			List<PaymentOffDto> paymentOffList = new ArrayList<PaymentOffDto>();
-			// 套餐无任何优惠，直接过滤
+			// 疗程无任何优惠，直接过滤
 			if (detail.getOrderType() == 3) {
 				detail.setRealPrice(detail.getProjectPrice());
 				continue;
 			}
-			// 如果是项目，先查询套餐抵扣
+			// 如果是项目，先查询疗程抵扣
 			else if (detail.getOrderType() == 1) {
 				map.put("projectId", detail.getProjectId());
 				paymentOffList = memberComboProjectMapper.selectPaymentOffListByMemberIdAndProjectId(map);

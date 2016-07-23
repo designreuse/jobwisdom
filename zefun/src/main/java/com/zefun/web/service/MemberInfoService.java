@@ -217,10 +217,10 @@ public class MemberInfoService {
     /**项目*/
     @Autowired
     private MemberComboRecordMapper memberComboRecordMapper;
-    /**套餐*/
+    /**疗程*/
     @Autowired
     private ComboInfoMapper comboInfoMapper;
-    /**套餐查询类*/
+    /**疗程查询类*/
     @Autowired
     private ComboInfoService comboInfoService;
     /**订单查询类*/
@@ -966,7 +966,7 @@ public class MemberInfoService {
         }
         // 会员等级和名称对应,方便取值
         Map<String, Integer> levelMap = packLevelMap(storeId);
-        // 将其中的套餐的行数保存下载,用于生成error数据,提供查询
+        // 将其中的疗程的行数保存下载,用于生成error数据,提供查询
         List<Integer> rowNums = new ArrayList<>();
         List<TempTableSc> tableScs = new ArrayList<>();
         a: for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
@@ -1073,7 +1073,7 @@ public class MemberInfoService {
                 tableScs.add(tableSc);
             }
         }
-        // 将套餐类型的数据输出为异常会员数据
+        // 将疗程类型的数据输出为异常会员数据
         if (rowNums.size()>0){
             executeExcleSc(sheet, rowNums, storeId);
         }
@@ -1202,7 +1202,7 @@ public class MemberInfoService {
     }
     
     /**
-     * 盛传的会员数据中存在套餐格式的数据
+     * 盛传的会员数据中存在疗程格式的数据
     * @author 高国藩
     * @date 2015年11月19日 下午5:04:58
     * @param sheet  表单数据
@@ -1391,7 +1391,7 @@ public class MemberInfoService {
             tableXy.setStoreId(storeId);
             tableXies.add(tableXy);
         }
-        // 将套餐类型的数据输出为新的excle
+        // 将疗程类型的数据输出为新的excle
         if (rowNums.size()>0){
             errorMemberInsert(tr, rowNums, storeId);
         }
@@ -1503,7 +1503,7 @@ public class MemberInfoService {
     }
 
     /**
-     * 左右的会员数据中存在套餐格式的数据,将其提取出啦,插入error表中
+     * 左右的会员数据中存在疗程格式的数据,将其提取出啦,插入error表中
     * @author 高国藩
     * @date 2015年11月19日 下午5:04:58
     * @param tr  表单数据
@@ -3491,7 +3491,7 @@ public class MemberInfoService {
 
 
     /**
-     *  异常会员套餐迁移
+     *  异常会员疗程迁移
     * @author 高国藩
     * @date 2015年12月19日 下午1:47:11
     * @param storeId          门店信息
@@ -3511,7 +3511,7 @@ public class MemberInfoService {
     }
     
     /**
-     * 异常会员套餐迁移
+     * 异常会员疗程迁移
     * @author 高国藩
     * @date 2016年3月14日 下午3:43:13
     * @param storeId storeId 
@@ -3538,7 +3538,7 @@ public class MemberInfoService {
 
 
     /**
-     *  盛传异常会员套餐迁移
+     *  盛传异常会员疗程迁移
     * @author 高国藩
     * @date 2015年12月19日 下午1:47:11
     * @param storeId          门店信息
@@ -3600,7 +3600,7 @@ public class MemberInfoService {
     }
 
     /**
-     * 盛传异常会员套餐迁移
+     * 盛传异常会员疗程迁移
     * @author 高国藩
     * @date 2016年3月14日 下午3:47:48
     * @param storeId storeId
@@ -3815,7 +3815,7 @@ public class MemberInfoService {
         }
         // 会员等级和名称对应,方便取值
         Map<String, Integer> levelMap = packLevelMap(storeId);
-        // 将其中的套餐的行数保存下载,用于生成error数据,提供查询
+        // 将其中的疗程的行数保存下载,用于生成error数据,提供查询
         List<Integer> rowNums = new ArrayList<>();
         List<TempTableSc> tableScs = new ArrayList<>();
         a: for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
@@ -3918,7 +3918,7 @@ public class MemberInfoService {
                 tableScs.add(tableSc);
             }
         }
-        // 将套餐类型的数据输出为异常会员数据
+        // 将疗程类型的数据输出为异常会员数据
         if (rowNums.size()>0){
             insertErrorGy(sheet, rowNums, storeId, lastOperatorId);
         }
@@ -4283,7 +4283,7 @@ public class MemberInfoService {
         }
         // 会员等级和名称对应,方便取值
         Map<String, Integer> levelMap = packLevelMap(storeId);
-        // 将其中的套餐的行数保存下载,用于生成error数据,提供查询
+        // 将其中的疗程的行数保存下载,用于生成error数据,提供查询
         List<Integer> rowNums = new ArrayList<>();
         List<TempTableSc> tableScs = new ArrayList<>();
         a: for (int rowNum = 2; rowNum <= sheet.getLastRowNum(); rowNum++) {
@@ -4519,7 +4519,7 @@ public class MemberInfoService {
         }
         // 会员等级和名称对应,方便取值
         Map<String, Integer> levelMap = packLevelMap(storeId);
-        // 将其中的套餐的行数保存下载,用于生成error数据,提供查询
+        // 将其中的疗程的行数保存下载,用于生成error数据,提供查询
         List<Integer> rowNums = new ArrayList<>();
         List<TempTableSc> tableScs = new ArrayList<>();
         a: for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
@@ -4760,7 +4760,7 @@ public class MemberInfoService {
         }
         // 会员等级和名称对应,方便取值
         Map<String, Integer> levelMap = packLevelMap(storeId);
-        // 将其中的套餐的行数保存下载,用于生成error数据,提供查询
+        // 将其中的疗程的行数保存下载,用于生成error数据,提供查询
         List<Integer> rowNums = new ArrayList<>();
         List<TempTableSc> tableScs = new ArrayList<>();
         a: for (int rowNum = 4; rowNum <= sheet.getLastRowNum(); rowNum++) {

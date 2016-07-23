@@ -107,7 +107,7 @@
   SELECT COUNT(0) from goods_info where dept_id=#{deptId} and store_id=#{storeId} and is_deleted=0
   </select>
   
-  <!-- 统计套餐是否有引用部门 -->
+  <!-- 统计疗程是否有引用部门 -->
   <select id="countComboDept" parameterType="java.util.Map" resultType="java.lang.Integer">
   SELECT COUNT(0) from combo_info where dept_id=#{deptId} and store_id=#{storeId} and is_deleted=0
   </select>

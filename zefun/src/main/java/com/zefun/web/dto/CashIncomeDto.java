@@ -19,7 +19,7 @@ public class CashIncomeDto extends SummaryResultDto{
     private BigDecimal totalProjectAmt;
     /**商品现金收入*/
     private BigDecimal totalGoodsAmt;
-    /**套餐现金收入*/
+    /**疗程现金收入*/
     private BigDecimal totalComboAmt;
     /**开卡现金收入*/
     private BigDecimal openCardAmt;
@@ -85,7 +85,7 @@ public class CashIncomeDto extends SummaryResultDto{
         Map<Integer, String> typeForName=new HashMap<Integer, String>();
         typeForName.put(1, "项目");
         typeForName.put(2, "商品");
-        typeForName.put(3, "套餐");
+        typeForName.put(3, "疗程");
         typeForName.put(4, "开卡");
         typeForName.put(5, "充值");
         typeForName.put(6, "升级");

@@ -65,7 +65,7 @@
 		                  <th>划卡</th>
 		                  <th>项目劳动(<span id="projectSalesCount">${detailCount.projectSalesCount}</span>单)</th>
 		                  <th>商品销售(<span id="goodsSalesCount">${detailCount.goodsSalesCount}</span>单)</th>
-		                  <th>套餐销售(<span id="comboSalesCount">${detailCount.comboSalesCount}</span>单)</th>
+		                  <th>疗程销售(<span id="comboSalesCount">${detailCount.comboSalesCount}</span>单)</th>
 		                  <th>开卡充值(<span id="cardSalesCount">${detailCount.cardSalesCount}</span>单)</th>
 		                  <th>卡金赠送(<span id="presentCount">${detailCount.presentCount}</span>单)</th>
 		              </tr>
@@ -99,7 +99,7 @@
 	                                <td id="giftAmount">${countBook.giftAmount }</td>
 	                                <td>优惠券抵扣：</td>
 	                                <td id="couponAmount">${countBook.couponAmount }</td>
-	                                <td>套餐抵扣：</td>
+	                                <td>疗程抵扣：</td>
                                     <td id="comboAmount">${countBook.comboAmount }</td>
                                     <td>划卡：</td>
                                     <td id="cardAmount">${countBook.cardAmount }</td>
@@ -153,7 +153,7 @@
 	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>
 	                    </div>
 	                  </th>
-	                  <th class="cursor" onclick="changeOrderByType('comboOrder', this);">套餐
+	                  <th class="cursor" onclick="changeOrderByType('comboOrder', this);">疗程
 	                    <div class="paixu">
 	                      <i class="FontAwesome iconfa-caret-up afont "></i>
 	                      <i class="FontAwesome iconfa-caret-down afont" style="position: absolute;"></i>

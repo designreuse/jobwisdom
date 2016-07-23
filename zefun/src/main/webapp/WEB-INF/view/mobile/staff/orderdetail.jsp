@@ -82,7 +82,7 @@
 							                 <span class="state shop">商品</span>
 							              </c:if>
 							              <c:if test="${orderDetail.orderType == 3 }">
-							                 <span class="state shop">套餐</span>
+							                 <span class="state shop">疗程</span>
 							              </c:if>
 							            </div>
 						          </div>

@@ -26,7 +26,7 @@ public class OrderProjectPageDto {
     private String privilegeInfo;
     /** 优惠金额*/
     private BigDecimal privilegeMoney;
-    /** 折扣类型(1:套餐，2:优惠券，3:礼金)*/
+    /** 折扣类型(1:疗程，2:优惠券，3:礼金)*/
     private Integer offType;
     /** 销售人员*/
     private String lastOperatorName;

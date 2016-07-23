@@ -19,7 +19,7 @@ public class OrderDetail {
 	/** 部门标识 */
 	private Integer deptId;
 
-	/** 订单类型(1:项目,2:商品,3:套餐,4、开卡充值升级) */
+	/** 订单类型(1:项目,2:商品,3:疗程,4、开卡充值升级) */
 	private Integer orderType;
 
 	/** 是否预约(0：否，1：是) */
@@ -54,11 +54,14 @@ public class OrderDetail {
 
 	/** 签单金额 */
 	private String freeAmount;
+	
+	/** 授权全人*/
+	private Integer freeEmployeeId;
 
-	/** 折扣类型(1:套餐，2:优惠券，3:礼金) */
+	/** 折扣类型(1:疗程，2:优惠券，3:礼金) */
 	private Integer offType;
 
-	/** 套餐标识 */
+	/** 疗程标识 */
 	private Integer comboId;
 
 	/** 优惠券标识 */
@@ -96,6 +99,16 @@ public class OrderDetail {
 
 	/***/
 	private ProjectInfo projectInfo;
+
+	
+	
+	public Integer getFreeEmployeeId() {
+		return freeEmployeeId;
+	}
+
+	public void setFreeEmployeeId(Integer freeEmployeeId) {
+		this.freeEmployeeId = freeEmployeeId;
+	}
 
 	public ProjectInfo getProjectInfo() {
 		return projectInfo;
@@ -178,13 +191,13 @@ public class OrderDetail {
 
 	/**
 	 * @param orderType
-	 *            订单类型(1:项目,2:商品,3:套餐,4、开卡充值升级)
+	 *            订单类型(1:项目,2:商品,3:疗程,4、开卡充值升级)
 	 */
 	public void setOrderType(Integer orderType) {
 		this.orderType = orderType;
 	}
 
-	/** @return 订单类型(1:项目,2:商品,3:套餐,4、开卡充值升级) */
+	/** @return 订单类型(1:项目,2:商品,3:疗程,4、开卡充值升级) */
 	public Integer getOrderType() {
 		return orderType;
 	}
@@ -316,26 +329,26 @@ public class OrderDetail {
 
 	/**
 	 * @param offType
-	 *            折扣类型(1:套餐，2:优惠券，3:礼金)
+	 *            折扣类型(1:疗程，2:优惠券，3:礼金)
 	 */
 	public void setOffType(Integer offType) {
 		this.offType = offType;
 	}
 
-	/** @return 折扣类型(1:套餐，2:优惠券，3:礼金) */
+	/** @return 折扣类型(1:疗程，2:优惠券，3:礼金) */
 	public Integer getOffType() {
 		return offType;
 	}
 
 	/**
 	 * @param comboId
-	 *            套餐标识
+	 *            疗程标识
 	 */
 	public void setComboId(Integer comboId) {
 		this.comboId = comboId;
 	}
 
-	/** @return 套餐标识 */
+	/** @return 疗程标识 */
 	public Integer getComboId() {
 		return comboId;
 	}

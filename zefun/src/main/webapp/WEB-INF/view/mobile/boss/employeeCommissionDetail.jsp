@@ -108,7 +108,7 @@
                 </div>
                 <div>
                     <div class="legent-cell w50p"><div class="legent-tag lengent-four"></div>卡项提成</div>
-                    <div class="legent-cell w50p"><div class="legent-tag lengent-three"></div>套餐销售</div>
+                    <div class="legent-cell w50p"><div class="legent-tag lengent-three"></div>疗程销售</div>
                 </div>
             </div> -->
             <!--chart-wrap-->
@@ -389,7 +389,7 @@ var cardCommissionOfCard = ${employeeCommissionDetailOfBossDto.cardCommissionOfC
                 name: '商品销售',
                 data: [Number(cashCommissionOfGoods), Number(cardCommissionOfGoods)],
             }, {
-                name: '套餐销售',
+                name: '疗程销售',
                 data: [Number(cashCommissionOfPackage), Number(cardCommissionOfPackage)],
             }, {
                 name: '卡项销售',
@@ -660,7 +660,7 @@ var cardCommissionOfCard = ${employeeCommissionDetailOfBossDto.cardCommissionOfC
                     ['卡项提成', Number('${employeeCommissionDetailOfBossDto.employeeCommissionOfCard}')],
                     ['项目提成', Number('${employeeCommissionDetailOfBossDto.employeeCommissionOfProject}')],
                     ['商品提成', Number('${employeeCommissionDetailOfBossDto.employeeCommissionOfGoods}')],
-                    ['套餐提成', Number('${employeeCommissionDetailOfBossDto.employeeCommissionOfPackage}')]
+                    ['疗程提成', Number('${employeeCommissionDetailOfBossDto.employeeCommissionOfPackage}')]
                 ]
             }]
         });

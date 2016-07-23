@@ -15,7 +15,7 @@
  <div class="maincontent">
     <div class="contentinner">
         <h4 class="widgettitle">
-            <span class="dingdanzhuantai">套餐销售</span>
+            <span class="dingdanzhuantai">疗程销售</span>
             <!-- <span class="video" style="float: right; font-weight: 400;color: #333;">视频帮助 <span class="iconfont icon-video" style="margin-top: 1px;"></span></span> -->
         </h4>
         <div class="report-title">
@@ -50,21 +50,21 @@
             <ul>
             	<li>
 					<h1>${commodityResult.cashStoreSales.cashStoreCnt }</h1>
-					<p>${searchType}现金套餐销售数量</p>
+					<p>${searchType}现金疗程销售数量</p>
 				</li>
 				<li>
 					<fmt:formatNumber value="${commodityResult.cashStoreSales.cashStoreAmt}" pattern="##.##" minFractionDigits="2" var="income" />
 					<h1>${income}</h1>
-					<p>${searchType}现金套餐销售业绩</p>
+					<p>${searchType}现金疗程销售业绩</p>
 				</li>
 				<li>
 					<h1>${commodityResult.cardStoreSales.cardStoreCnt }</h1>
-					<p>${searchType}卡金套餐销售数量</p>
+					<p>${searchType}卡金疗程销售数量</p>
 				</li>
 				<li>
 					<fmt:formatNumber value="${commodityResult.cardStoreSales.cardStoreAmt}" pattern="##.##" minFractionDigits="2" var="price" />
 					<h1>${price}</h1>
-					<p>${searchType }卡金套餐销售业绩</p>
+					<p>${searchType }卡金疗程销售业绩</p>
 				</li>
 				<li>
 					<fmt:formatNumber value="${commodityResult.lastGoodAmt}" pattern="##.##" minFractionDigits="2" var="lastIncome" />
@@ -589,14 +589,14 @@
         </div>
         
        
-        <!--连锁套餐销售排行-->
+        <!--连锁疗程销售排行-->
         
         <!-- 
         
         <div class="widgetcontent">
             <div class="more-toolbar" >
                 <div class="table-toolbar">
-                    <span class="font-size-16 btn-color mr10">套餐销售排行</span>
+                    <span class="font-size-16 btn-color mr10">疗程销售排行</span>
                     <span class="fr">时间：<span id="tableDate">2015年2月4日</span> 单位：元</span>
                 </div>
                 <div class="clearfix"></div>
@@ -676,14 +676,14 @@
         
          -->
         
-        <!--连锁店套餐销售总业绩排行-->
+        <!--连锁店疗程销售总业绩排行-->
         
          <!--
         
         <div class="widgetcontent">
             <div class="more-toolbar" >
                 <div class="table-toolbar">
-                    <span class="font-size-16 btn-color mr10">连锁店套餐销售总业绩排行</span>
+                    <span class="font-size-16 btn-color mr10">连锁店疗程销售总业绩排行</span>
                     <span class="fr">时间：<span id="tableDate">2015年2月4日</span> 单位：元</span>
                 </div>
                 <div class="clearfix"></div>
@@ -775,7 +775,7 @@
             
             var colors = Highcharts.getOptions().colors,
                     categories = [
-                                  /* '常规项目', '套餐', '疗程', '商品' */
+                                  /* '常规项目', '疗程', '疗程', '商品' */
                                 <c:forEach items="${commodityResult.deptGoodSummary }" var="dept" varStatus="deptStatus">
       							'${dept.deptName }'<c:if test="${not deptStatus.last }">,</c:if>
       							</c:forEach>
@@ -1026,7 +1026,7 @@
                 type: 'column'
             },
             title: {
-                text: '套餐消费统计'
+                text: '疗程消费统计'
             },
             subtitle: {
                 text: ''

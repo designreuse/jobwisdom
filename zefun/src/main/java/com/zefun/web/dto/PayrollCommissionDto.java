@@ -23,10 +23,10 @@ public class PayrollCommissionDto {
     /** 项目业绩 */
     private BigDecimal projectPerformance;
     
-    /** 套餐提成 */
+    /** 疗程提成 */
     private BigDecimal comboCommission;
     
-    /** 套餐业绩 */
+    /** 疗程业绩 */
     private BigDecimal comboPerformance;
     
     /** 商品提成 */

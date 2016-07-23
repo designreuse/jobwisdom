@@ -9,33 +9,33 @@ import com.zefun.web.vo.DiscountComboSalesVo;
 /**
   *@author Administrator
   *@date 2016年1月20日
-  *@description 套餐汇总dto
+  *@description 疗程汇总dto
   */
 public class ComboSummaryDto {
     
-    /**套餐销售额*/
+    /**疗程销售额*/
     private BigDecimal comboAmount;
     
-    /**套餐销量*/
+    /**疗程销量*/
     private Integer comboCnt;
     
-    /**套餐id*/
+    /**疗程id*/
     private Integer comboId;
     
-    /**套餐名字*/
+    /**疗程名字*/
     private String comboName;
     
-    /**套餐排行*/
+    /**疗程排行*/
     private Integer comboRank;
     
     /**平均价格*/
     private BigDecimal avgPrice;
     
-    /**卡金套餐销售业绩*/
+    /**卡金疗程销售业绩*/
     private CardComboSalesVo cardComboSales;     
-    /**现金套餐销售业绩*/
+    /**现金疗程销售业绩*/
     private CashComboSalesVo cashComboSales;
-    /**抵扣套餐销售业绩*/
+    /**抵扣疗程销售业绩*/
     private DiscountComboSalesVo discountComboSales;
     
     public BigDecimal getAvgPrice() {
@@ -46,7 +46,7 @@ public class ComboSummaryDto {
         this.avgPrice = avgPrice;
     }
 
-    /**上期套餐排行*/
+    /**上期疗程排行*/
     private String lastRank;
     
     public String getLastRank() {
@@ -75,12 +75,12 @@ public class ComboSummaryDto {
     /**
     * @author 乐建建
     * @date 2016年1月21日 下午9:08:31
-    * @param comboId 套餐id
-    * @param comboName 套餐名字
-    * @param comboCnt 套餐销量
-    * @param comboAmount 套餐销售额
+    * @param comboId 疗程id
+    * @param comboName 疗程名字
+    * @param comboCnt 疗程销量
+    * @param comboAmount 疗程销售额
     * @param deptId 所属部门id
-    * @param comboRank  套餐排行
+    * @param comboRank  疗程排行
     */
     public ComboSummaryDto(Integer comboId, String comboName, Integer comboCnt,
             BigDecimal comboAmount, Integer deptId, Integer comboRank) {

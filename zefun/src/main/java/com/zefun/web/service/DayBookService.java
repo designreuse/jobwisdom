@@ -137,11 +137,11 @@ public class DayBookService {
 	@Autowired
 	private MemberLevelMapper memberLevelMapper;
 	
-	/** 会员套餐项目明细*/
+	/** 会员疗程项目明细*/
 	@Autowired
 	private MemberComboProjectMapper memberComboProjectMapper;
 	
-	/** 会员套餐记录*/
+	/** 会员疗程记录*/
 	@Autowired
 	private MemberComboRecordMapper memberComboRecordMapper;
 	
@@ -276,7 +276,7 @@ public class DayBookService {
         for (OrderDetailDto orderDetailDto : orderDetailList) {
             if (orderDetailDto.getOffType() == 1) {
 //                String comboName = orderDetailMapper.selectComboNameByDetailId(orderDetailDto.getDetailId());
-                orderDetailDto.setPrivilegeInfo("套餐：");
+                orderDetailDto.setPrivilegeInfo("疗程：");
             }
             else if (orderDetailDto.getOffType() == 2) {
 //                Map<String, Object> map = orderDetailMapper.selectCouponNameByDetailId(orderDetailDto.getDetailId());
@@ -599,7 +599,7 @@ public class DayBookService {
 //            goodsInfoMapper.updateGoodsStock(goodsInfo);
         }
         else if (orderDetail.getOrderType() == 3) {
-            //清除员工套餐
+            //清除员工疗程
             MemberComboDto dto = memberComboRecordMapper.selectComboListByDetailId(detailId);
             if (dto != null) {
                 MemberComboRecord record = new MemberComboRecord();
@@ -640,7 +640,7 @@ public class DayBookService {
         }
         //回滚抵扣
         if (orderDetail.getOffType() == 1) {
-            //回滚会员对应套餐
+            //回滚会员对应疗程
             Integer detailComboId = orderDetail.getComboId();
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("detailId", detailComboId);

@@ -290,7 +290,7 @@ function updateSelectOrder(orderId) {
 				var orderDetailDto = orderDetailList[i];
 				var lj = "礼金"
 				if(orderDetailDto.offTypeint == 1){
-					lj="套餐"
+					lj="疗程"
 				}
 				if(orderDetailDto.offTypeint == 2){
 					lj="优惠券"

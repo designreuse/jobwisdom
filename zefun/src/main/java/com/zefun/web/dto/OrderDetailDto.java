@@ -9,8 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.zefun.web.entity.EmployeeCommission;
-
 /**
  * 订单服务明细
 * @author 张进军
@@ -33,7 +31,7 @@ public class OrderDetailDto implements Serializable{
     /** 部门标识*/
     private Integer deptId;
 
-    /** 订单类型(1:项目,2:商品,3:套餐) */
+    /** 订单类型(1:项目,2:商品,3:疗程) */
     private Integer orderType;
 
     /** 是否预约(1:是,2:否) */
@@ -66,7 +64,7 @@ public class OrderDetailDto implements Serializable{
     /** 折扣价格 */
     private BigDecimal discountAmount;
     
-    /** 折扣类型(1:套餐，2:优惠券，3:礼金)*/
+    /** 折扣类型(1:疗程，2:优惠券，3:礼金)*/
     private Integer offType;
     
     /** 礼金抵扣*/
@@ -75,7 +73,7 @@ public class OrderDetailDto implements Serializable{
     /** 签单金额*/
     private String freeAmount;
 
-    /** 套餐标识 */
+    /** 疗程标识 */
     private Integer comboId;
 
     /** 优惠券标识 */
@@ -233,12 +231,12 @@ public class OrderDetailDto implements Serializable{
         return orderId;
     }
 
-    /** @param orderType    订单类型(1:项目,2:商品,3:套餐) */
+    /** @param orderType    订单类型(1:项目,2:商品,3:疗程) */
     public void setOrderType(Integer orderType){
         this.orderType = orderType;
     }
 
-    /** @return 订单类型(1:项目,2:商品,3:套餐) */
+    /** @return 订单类型(1:项目,2:商品,3:疗程) */
     public Integer getOrderType(){
         return orderType;
     }
@@ -333,12 +331,12 @@ public class OrderDetailDto implements Serializable{
         return discountAmount;
     }
 
-    /** @param comboId  套餐标识 */
+    /** @param comboId  疗程标识 */
     public void setComboId(Integer comboId){
         this.comboId = comboId;
     }
 
-    /** @return 套餐标识 */
+    /** @return 疗程标识 */
     public Integer getComboId(){
         return comboId;
     }

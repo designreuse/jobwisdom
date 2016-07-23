@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class BusinessDiscountPart extends SummaryResultDto {
     /**预约优惠金额*/
     private BigDecimal appointAmt=new BigDecimal(0);
-    /**套餐优惠*/
+    /**疗程优惠*/
     private BigDecimal comboAmt=new BigDecimal(0);
     /**优惠券金额*/
     private BigDecimal couponAmt=new BigDecimal(0);

@@ -31,11 +31,8 @@ public interface App {
 		public static final String APP_USER_ROLE_BOSS = "boss";
 
 		/** 服务器域名 */
-		// public static final String SERVER_HOST = "moffatt.maywant.com";
-		// public static final String SERVER_HOST = "uat.maywant.com";
-		// public static final String SERVER_HOST = "wechat.maywant.com";
 		public static final String SERVER_HOST = "wang.jobwisdom.cn";
-//		public static final String SERVER_HOST = "job.jobwisdom.cn";
+		//public static final String SERVER_HOST = "job.jobwisdom.cn";
 
 		/** 服务器基础地址 */
 		public static final String SERVER_BASE_URL = "http://" + SERVER_HOST + "/jobwisdom";
@@ -265,7 +262,7 @@ public interface App {
 
 		/** 会员信息 */
 		public static final String SESSION_KEY_MEMBER_INFO = "session_key_member_info";
-		/** 订单类型(1:项目,2:商品,3:套餐) */
+		/** 订单类型(1:项目,2:商品,3:疗程) */
 		public static final String SESSION_KEY_ORDER_TYPE = "session_key_order_type";
 		/** 订单项目标识 */
 		public static final String SESSION_KEY_ORDER_PROJECT_ID = "session_key_order_project_id";

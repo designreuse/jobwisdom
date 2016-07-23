@@ -48,7 +48,7 @@
                 <li>
                     <fmt:formatNumber value="${summaryResult.totalPackageAmount}" pattern="##.##" minFractionDigits="2" var="stotalPackageAmount" />
                     <h1>${stotalPackageAmount }</h1>
-                    <p>${searchType }套餐划卡</p>
+                    <p>${searchType }疗程划卡</p>
                 </li>
                 <li>
                     <fmt:formatNumber value="${summaryResult.totalCommoditysAmount}" pattern="##.##" minFractionDigits="2" var="stotalCommoditysAmount" />
@@ -105,7 +105,7 @@
                             <th>部门</th>
                             <th>项目</th>
                             <th>商品</th>
-                            <th>套餐</th>
+                            <th>疗程</th>
                             <th class="table-part2">划卡金额汇总</th>
                             <c:forEach var="memberLevel" items="${summaryResult.memberLevels }">
                             <th>${memberLevel.levelName }消费人数</th>
@@ -412,7 +412,7 @@ sdate = '${summaryResult.begin}-${summaryResult.end}';
                 innerSize: '50%',
                 data: [
                     ['项目', ${stotalProjectAmount}],
-                    ['套餐', ${stotalPackageAmount}],
+                    ['疗程', ${stotalPackageAmount}],
                     ['商品', ${stotalCommoditysAmount}],
                     {
                         y: 0.2,
@@ -546,7 +546,7 @@ sdate = '${summaryResult.begin}-${summaryResult.end}';
 </c:forEach>
                        ]
             }, {
-                name: '套餐',
+                name: '疗程',
                 data: [<c:forEach items="${summaryResult.deptInfos }" var="dept" varStatus="deptStatus">
                 <c:forEach items="${summaryResult.deptOrderTypeSums[dept.deptId] }" var="typeEntry">
                 <c:if test="${typeEntry.key == 3 }"><fmt:formatNumber value="${typeEntry.value.amount}" pattern="##.##" minFractionDigits="2" var="samount" />${samount }</c:if>
@@ -629,7 +629,7 @@ sdate = '${summaryResult.begin}-${summaryResult.end}';
                   </c:forEach><c:if test="${not orderTypeSumEntryStatus.last }">,</c:if>
                   </c:forEach>]
               }, {
-                  name: '套餐',
+                  name: '疗程',
                   data: [<c:forEach items="${summaryResult.dateOrderTypeSums }" var="orderTypeSumEntry" varStatus="orderTypeSumEntryStatus">
                   <c:forEach items="${orderTypeSumEntry.value }" var="typeEntry">
                   <c:if test="${typeEntry.key == 3 }"><fmt:formatNumber value="${typeEntry.value.amount}" pattern="##.##" minFractionDigits="2" var="samount" />${samount }</c:if>

@@ -559,7 +559,7 @@
 		</if>
 	group by ec.employee_id
   </select>
-  <!-- boss端查询用套餐抵扣项目的卡金业绩总汇 -->
+  <!-- boss端查询用疗程抵扣项目的卡金业绩总汇 -->
   <select id="selectEmployeeCardCommissionOfComboDeductionProjectByBoss" resultMap="EmployeeCommissionOfBossDtoMap">
   	select ei.employee_id as employee_id, 
   		ei.name as employee_name, 
@@ -617,7 +617,7 @@
 	group by od.order_type
   </select>
   
-  <!-- 计算  业绩分布  中的套餐抵扣项目的员工业绩值 -->
+  <!-- 计算  业绩分布  中的疗程抵扣项目的员工业绩值 -->
   <select id="selectComboDeductionProjectEmployeeCommissionDetail" resultType="java.lang.Double">
   	select sum(ec.commission_calculate) 
 	from order_info oi, order_detail od, employee_commission ec 

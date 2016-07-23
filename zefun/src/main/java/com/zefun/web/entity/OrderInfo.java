@@ -58,7 +58,7 @@ public class OrderInfo {
 	/** 团购支付金额 */
 	private BigDecimal groupAmount;
 
-	/** 套餐抵扣 */
+	/** 疗程抵扣 */
 	private BigDecimal comboAmount;
 
 	/** 优惠券抵扣 */
@@ -270,12 +270,12 @@ public class OrderInfo {
 		return groupAmount;
 	}
 
-	/** @param comboAmount	套餐抵扣 */
+	/** @param comboAmount	疗程抵扣 */
 	public void setComboAmount(BigDecimal comboAmount){
 		this.comboAmount = comboAmount;
 	}
 
-	/** @return	套餐抵扣 */
+	/** @return	疗程抵扣 */
 	public BigDecimal getComboAmount(){
 		return comboAmount;
 	}

@@ -15,7 +15,7 @@ public class DeptCashIncomeDto {
     private BigDecimal projectAmt;
     /**商品收入*/
     private BigDecimal goodsAmt;
-    /**套餐收入*/
+    /**疗程收入*/
     private BigDecimal comboAmt;
     /**开卡收入*/
     private BigDecimal openCardAmt;
@@ -32,7 +32,7 @@ public class DeptCashIncomeDto {
     * @param deptId 部门id
     * @param projectAmt 项目现金
     * @param goodsAmt 商品现金
-    * @param comboAmt 套餐现金
+    * @param comboAmt 疗程现金
     * @param openCardAmt 开卡现金
     * @param chargedAmt 充值现金
     * @param upgradeAmt 升级现金

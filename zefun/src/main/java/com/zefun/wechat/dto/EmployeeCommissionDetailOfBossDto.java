@@ -18,7 +18,7 @@ public class EmployeeCommissionDetailOfBossDto {
 	private double cashCommissionOfProject;
 	/** 商品现金业绩(order_detail.order_type = 2) */
 	private double cashCommissionOfGoods;
-	/** 套餐现金业绩(order_detail.order_type = 3) */
+	/** 疗程现金业绩(order_detail.order_type = 3) */
 	private double cashCommissionOfPackage;
 	/** 卡项现金业绩(order_detail.order_type = 4,5,6) */
 	private double cashCommissionOfCard;
@@ -29,7 +29,7 @@ public class EmployeeCommissionDetailOfBossDto {
 	private double cardCommissionOfProject;
 	/** 商品卡金业绩(order_detail.order_type = 2) */
 	private double cardCommissionOfGoods;
-	/** 套餐卡金业绩(order_detail.order_type = 3) */
+	/** 疗程卡金业绩(order_detail.order_type = 3) */
 	private double cardCommissionOfPackage;
 	/** 卡项卡金业绩(order_detail.order_type = 4,5,6) */
 	private double cardCommissionOfCard;
@@ -63,7 +63,7 @@ public class EmployeeCommissionDetailOfBossDto {
 	private BigDecimal employeeCommissionOfProject;
 	/** 商品提成 */
 	private BigDecimal employeeCommissionOfGoods;
-	/** 套餐提成 */
+	/** 疗程提成 */
 	private BigDecimal employeeCommissionOfPackage;
 	/** 开卡充值提成 */
 	private BigDecimal employeeCommissionOfCard;

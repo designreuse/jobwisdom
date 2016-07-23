@@ -722,7 +722,7 @@ public class GoodsInfoService {
     * @author 乐建建
     * @date 2016年1月22日 上午11:52:26
     * @param dto 封装所需条件为对象 包括起始时间 终止时间 门店标志
-    * @return 给定条件下套餐的月份汇总数据
+    * @return 给定条件下疗程的月份汇总数据
     */
     public List<TrendDeptDataDto> getGoodTrendData(SummaryResultDto dto){
         List<TrendDeptDataDto> data=goodsInfoMapper.getDeptGoodTrendData(dto);
@@ -770,7 +770,7 @@ public class GoodsInfoService {
     /**
     * @author 乐建建
     * @date 2016年1月27日 下午7:09:21
-    * @param dto 套餐排行详细数据
+    * @param dto 疗程排行详细数据
     * @return 名字
     */
     public Map<String, Integer> getNameForRank(List<GoodSalesSummaryDto> dto){

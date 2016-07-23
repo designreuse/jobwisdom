@@ -109,7 +109,7 @@
             </div>
         </li>
         <li class="font-333 yeji-item yeji-taocan" id = "comboCalculateLi">
-            <div class="font-size-28">套餐销售业绩</div>
+            <div class="font-size-28">疗程销售业绩</div>
             <div class="today-num">
                 <span class="fr">今日${toDayComboCalculate}</span>
             </div>
@@ -202,7 +202,7 @@
 	            </div>
 	        </li>
 	        <li class="font-333 yeji-item yeji-taocan" id = "monthComboCalculateLi">
-	            <div class="font-size-28">套餐销售业绩</div>
+	            <div class="font-size-28">疗程销售业绩</div>
 	            <div class="today-num">
 	                <span class="fr">实现${monthComboCalculate}</span>
 	            </div>
@@ -299,7 +299,7 @@
     //指定项目目标
     var toDayAssignProjectCalculate = '${toDayAssignProjectCalculate}';
     var yesterdayAssignProjectCalculate = '${yesterdayAssignProjectCalculate}';
-    //套餐销售目标
+    //疗程销售目标
     var toDayComboCalculate = '${toDayComboCalculate}';
     var yesterdayComboCalculate = '${yesterdayComboCalculate}';
     //商品销售目标
@@ -316,7 +316,7 @@
     //指定项目目标
     var monthAssignProjectCalculate = '${monthAssignProjectCalculate}';
     var totalAssignProjectCalculate = '${totalAssignProjectCalculate}';
-    //套餐销售目标
+    //疗程销售目标
     var monthComboCalculate = '${monthComboCalculate}';
     var totalComboCalculate = '${totalComboCalculate}';
     //商品销售目标
@@ -422,7 +422,7 @@
 					                "<td>"+obj.assignProjectScale+"%</td>"+
 					             "</tr>"+
 					             "<tr>"+
-					                "<td>套餐销售业绩</td>"+
+					                "<td>疗程销售业绩</td>"+
 					                "<td>"+obj.comboSales+"</td>"+
 					                "<td>"+obj.actualComboSales+"</td>"+
 					                "<td>"+obj.comboScale+"%</td>"+

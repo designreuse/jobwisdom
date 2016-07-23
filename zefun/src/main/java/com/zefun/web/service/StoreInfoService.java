@@ -277,7 +277,7 @@ public class StoreInfoService {
     /**商品*/
     @Autowired
     private GoodsInfoService goodsInfoService;
-    /**套餐*/
+    /**疗程*/
     @Autowired
     private ComboInfoService comboInfoService;
     /**岗位信息 */
@@ -313,13 +313,13 @@ public class StoreInfoService {
     /**项目折扣*/
     @Autowired
     private ProjectDiscountMapper projectDiscountMapper;
-    /**套餐信息*/
+    /**疗程信息*/
     @Autowired
     private ComboInfoMapper comboInfoMapper;
-    /**套餐商品*/
+    /**疗程商品*/
     @Autowired
     private ComboGoodsMapper comboGoodsMapper;
-    /**套餐项目*/
+    /**疗程项目*/
     @Autowired
     private ComboProjectMapper comboProjectMapper;
     /**特色服务*/
@@ -800,6 +800,27 @@ public class StoreInfoService {
     		map.put("createTime", DateUtil.getCurTime());
     	}
     	return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+    }
+    
+    /**
+     * 根据授权码查询授权员工
+    * @author 老王
+    * @date 2016年7月22日 上午11:39:54 
+    * @param storeId 门店标识
+    * @param authorityValue 授权码
+    * @return BaseDto
+     */
+    public BaseDto selectAuthorityByAuthorityValue (Integer storeId, String authorityValue) {
+    	EnterpriseStoreAuthority record = new EnterpriseStoreAuthority();
+    	record.setAuthorityValue(authorityValue);
+    	record.setStoreId(storeId);
+    	List<EnterpriseStoreAuthority> authorityList = enterpriseStoreAuthorityMapper.selectByProperties(record);
+    	if (authorityList.isEmpty() || authorityList.size() == 0) {
+    		return  new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "授权码不存在，请重新输入！");
+    	}
+    	else {
+    		return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, authorityList.get(0).getEmployeeId());
+    	}
     }
     
     /**
@@ -1941,14 +1962,14 @@ public class StoreInfoService {
 
 
     /**
-     * 套餐信息初始化
+     * 疗程信息初始化
     * @author 高国藩
     * @date 2016年1月20日 上午10:22:47
     * @param storeId      门店
     * @param deptId       部门
     * @param projectInfo  项目信息
     * @param operateId    最后操作人
-    * @param comboName    套餐名字
+    * @param comboName    疗程名字
     * @param validDate    时间限制
     * @return             初始化结果
      */
@@ -2441,7 +2462,7 @@ public class StoreInfoService {
      */
     @Transactional
     public BaseDto storeInfoCopy(Integer storeId, Integer operateId, Integer copyStoreId) {
-        //拿到所有的部门,岗位,职位,会员卡,轮牌,项目,商品,套餐信息
+        //拿到所有的部门,岗位,职位,会员卡,轮牌,项目,商品,疗程信息
         List<DeptInfo> deptInfos = deptInfoMapper.selectAllDetpByStoreId(copyStoreId);
         List<PositionInfo> positionInfos = positioninfoMapper.queryAllByStoreId(copyStoreId);
         List<EmployeeLevel> employeeLevels = employeeLevelMapper.selectAllByStoreId(copyStoreId);
@@ -2612,7 +2633,7 @@ public class StoreInfoService {
             }
         }
 
-        // 套餐
+        // 疗程
         Map<Integer, Integer> comboInfosKv = new HashMap<>();
         for (ComboInfo comboInfo2 : comboInfos) {
             Integer comboId = comboInfo2.getComboId();
@@ -2621,7 +2642,7 @@ public class StoreInfoService {
             comboInfo2.setComboId(null);
             comboInfoMapper.insertSelective(comboInfo2);
             comboInfosKv.put(comboId, comboInfo2.getComboId());
-            // 套餐商品
+            // 疗程商品
             ComboGoods comboGoods = new ComboGoods();
             comboGoods.setComboId(comboId);
             List<ComboGoods> goods = comboGoodsMapper.selectByPrimaryKey(comboGoods);
@@ -2630,7 +2651,7 @@ public class StoreInfoService {
                 comboGoods2.setComboId(comboInfo2.getComboId());
                 comboGoodsMapper.insert(comboGoods2);
             }
-            // 套餐项目
+            // 疗程项目
             ComboProject comboProject = new ComboProject();
             comboProject.setComboId(comboId);
             List<ComboProject> comboProjects = comboProjectMapper.selectByProperty(comboProject);

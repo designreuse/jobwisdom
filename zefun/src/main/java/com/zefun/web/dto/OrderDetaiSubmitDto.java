@@ -14,7 +14,7 @@ public class OrderDetaiSubmitDto {
     /** 优惠标识 */
     private Integer offId;
     
-    /** 优惠类型(1:项目套餐，2:商品套餐，3:优惠券，4:礼金) */
+    /** 优惠类型(1:项目疗程，2:商品疗程，3:优惠券，4:礼金) */
     private Integer offType;
     
     /** 优惠金额 */

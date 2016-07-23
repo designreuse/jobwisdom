@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, height = device-height">
     <meta content="telephone=no" name="format-detection" />
-    <title>我的套餐</title>
+    <title>我的疗程</title>
     <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
     <link rel="stylesheet" href="<%=memberCssPath%>"/>
   </head>
@@ -23,7 +23,7 @@
 	                    <div class="list-desc">
 	                        <div class="list-name">${combo.comboName }</div>
 	                        <div class="faxingshi">
-	                            <span class="word">套餐价格</span>
+	                            <span class="word">疗程价格</span>
 	                            <span class="num">￥${combo.comboPrice }</span>
 	                        </div>
 	                        <div class="dingdan">
@@ -61,7 +61,7 @@
    <div class="kongjilv">
         <div class="center">
             <div class="iconfont icon-xingzhuang14"></div>
-            <div>您暂未购买任何套餐，欢迎来店购买</div>
+            <div>您暂未购买任何疗程，欢迎来店购买</div>
         </div>
     </div>
 </c:if>

@@ -57,7 +57,7 @@
 	            </li>
 	            <li class="function-item normal-li">
 	                <a href="javascript:void(0);">
-	                    <span><i class="iconfont icon-re"></i> <span class="ml">热销套餐</span></span>
+	                    <span><i class="iconfont icon-re"></i> <span class="ml">热销疗程</span></span>
 	                    <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
 	                </a>
 	            </li>

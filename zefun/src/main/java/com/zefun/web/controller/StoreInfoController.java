@@ -199,6 +199,22 @@ public class StoreInfoController extends BaseController {
 		String storeAccount = getStoreAccount(request);
 		return storeInfoService.addOrUpdateAuthority(storeAccount, storeAuthorityId, storeId, employeeId, authorityValue);
 	}
+	
+	/**
+	 * 根据授权码查询授权员工
+	* @author 老王
+	* @date 2016年7月22日 上午11:42:12 
+	* @param request 返回
+	* @param authorityValue 授权码
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.StoreInfo.SELECT_AUTHORITY_BY_AUTHORITY_VALUE)
+	@ResponseBody
+	public BaseDto selectAuthorityByAuthorityValue (HttpServletRequest request, String authorityValue) {
+		Integer storeId = getStoreId(request);
+		return storeInfoService.selectAuthorityByAuthorityValue(storeId, authorityValue);
+	}
+	
 	/**
 	 * 删除门店授权码
 	* @author 老王

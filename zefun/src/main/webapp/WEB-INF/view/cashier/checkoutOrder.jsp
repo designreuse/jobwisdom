@@ -40,6 +40,28 @@
 		top:-10px
 	}
 	.bubble_{color:#3a3a3a}
+	
+	.zzc3{
+		font-size: 12px;
+		color: black;
+		position: fixed;
+		top: 0px;
+		height: 1090px;
+		left: 0px;
+		width: 100%;
+		z-index: 10000;
+		background: rgba(102, 108, 121, 0.8);
+	   }
+	  .zzc3 .alert_operate{margin:100px auto;width:300px;height:150px;background:white;border-radius:12px;overflow:hidden}
+	  .zzc3 .alert_operate>p{font-size:14px;background:#343e49;height:40px;line-height:40px;color:white;text-align:center;}
+	  .alert_operate_content{padding:20px}
+	  .alert_operate_content input{margin-left:5px;width:160px;height:16px;border-radius:12px;border:1px solid #728293}
+	  .alert_operate_content>p{margin-top:5px}
+	  .alert_operate_button button{margin:0 12px;width:100px;height:24px;line-height:24px;text-align:center;border-radius:12px;color:white;background:#606f81;font-size:14px;border:none}
+	  .alert_operate_button{margin-top:20px}
+	  .alert_operate_button button:hover{background:#526071}
+	
+	  .zzc_change_price_content i {display: inline-block;width: 85px;}
 </style>
 <body>
 
@@ -212,7 +234,7 @@
 				    <c:if test="${memberType == 1 }">
 				                  发送通知：<span><input type="radio" name="isNotify" value="1" checked="checked">是</span><span><input type="radio" name="isNotify" value="0">否</span>
 				    </c:if>
-				   <button onclick="submitOrderInfo()">结账</button>
+				   <button onclick="checkIsChangePric()">结账</button>
 				  </div>
 				</div>
 			  </div> 
@@ -229,10 +251,10 @@
   <div class="zzc_change_price">
      <p>改价</p>
      <div class="zzc_change_price_content">
-        <p>应收金额：<em name= "freeMustAmount"></em></p>
-	    <p>改价后金额<input type="text" name = "freeAmount"></p>
+        <p><i>应收金额</i><em name= "freeMustAmount"></em></p>
+	    <p style="margin-top:14px"><i>改价后金额</i><input type="text" name = "freeAmount"></p>
 	    <div class="change_reason">
-	      <span>改价原因</span><textarea name = "orderRemark"></textarea>  
+	      <span><i>改价原因</i></span><textarea name = "orderRemark"></textarea>  
 		</div>
 		<div class="zzc_change_price_button">
 		  <button onclick="confirm()">确定</button>
@@ -278,6 +300,19 @@
 		 </div>
 	 </div>
    </div>
+</div>
+
+<div class="zzc3" style="display:none">
+  <div class="alert_operate">
+    <p>操作员授权码</p>
+    <div class="alert_operate_content">  
+      <p>输入授权码：<input type="password" name = "authorityValue"></p>
+	  <div class="alert_operate_button">
+	    <button onclick = "subminChangePric()">确认</button>
+		<button onclick = "canle()">取消</button>
+	  </div>
+	</div>
+  </div>
 </div>
 
 

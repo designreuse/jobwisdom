@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 * @date Nov 30, 2015 2:06:07 AM 
 */
 public class OrderDetailCountDto {
-    /**订单类型(1:项目,2:商品,3:套餐,4、开卡充值升级)*/
+    /**订单类型(1:项目,2:商品,3:疗程,4、开卡充值升级)*/
     private Integer type;
     
-    /**订单类型(1:项目,2:商品,3:套餐,4、开卡充值升级)*/
+    /**订单类型(1:项目,2:商品,3:疗程,4、开卡充值升级)*/
     private String typeName;
     
     /**应收统计*/

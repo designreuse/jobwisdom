@@ -130,10 +130,10 @@
                     <th rowspan="2" class="text-center">部门</th>
                     <th colspan="3" class="text-center table-part dep-bottom-botrder">营业收入</th>
                  
-                    <th colspan="5" class="text-center table-part dep-bottom-botrder">储值及套餐销售</th>
+                    <th colspan="5" class="text-center table-part dep-bottom-botrder">储值及疗程销售</th>
                    <!--  <th colspan="3" class="text-center table-part dep-bottom-botrder">会员刷卡</th> -->
                     <th colspan="4" class="text-center  table-part dep-bottom-botrder">营业扣减</th>
-                    <th rowspan="2" class="text-center  table-part">套餐消费</th>
+                    <th rowspan="2" class="text-center  table-part">疗程消费</th>
                     <th rowspan="2" class="text-center  table-part">会员划卡</th>
                     <th rowspan="2" class="text-center  table-part">现金实收</th>
                 </tr>
@@ -146,7 +146,7 @@
                     <th class="table-part">开卡</th>
                     <th>充值</th>
                     <th>升级</th>
-                    <th>套餐购买</th>
+                    <th>疗程购买</th>
                     <th >汇总</th>
                     <th class="table-part">礼金</th>
                     <th>优惠券</th>

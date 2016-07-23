@@ -15,7 +15,7 @@
 			<div class="maincontent">
 				<div class="contentinner">
 					<h4 class="widgettitle">
-						<span class="dingdanzhuantai">套餐销售</span> <span class="video"
+						<span class="dingdanzhuantai">疗程销售</span> <span class="video"
 							style="float: right; font-weight: 400; color: #333;">视频帮助
 							<span class="iconfont icon-video" style="margin-top: 1px;"></span>
 						</span>
@@ -61,21 +61,21 @@
 						<ul>
 							<li>
 								<h1>${combo.cashComboSales.cashComboCnt }</h1>
-								<p>${searchType}现金套餐销售数量</p>
+								<p>${searchType}现金疗程销售数量</p>
 							</li>
 							<li>
 							<fmt:formatNumber value="${combo.cashComboSales.cashComboAmt}" pattern="##.##" minFractionDigits="2" var="income" />
 								<h1>${income}</h1>
-								<p>${searchType}现金套餐销售业绩</p>
+								<p>${searchType}现金疗程销售业绩</p>
 							</li>
 							<li>
 								<h1>${combo.cardComboSales.cardComboCnt }</h1>
-								<p>${searchType}卡金套餐销售数量</p>
+								<p>${searchType}卡金疗程销售数量</p>
 							</li>
 							<li>
 							<fmt:formatNumber value="${combo.cardComboSales.cardComboAmt}" pattern="##.##" minFractionDigits="2" var="price" />
 								<h1>${price}</h1>
-								<p>${searchType }卡金套餐销售业绩</p>
+								<p>${searchType }卡金疗程销售业绩</p>
 							</li>
 							<li>
 							<fmt:formatNumber value="${combo.lastComboAmount}" pattern="##.##" minFractionDigits="2" var="lastIncome" />
@@ -133,11 +133,11 @@
             			<div id="cash-day2" style="width: 1050px;height:400px;<c:if test="${empty combo.dateType or combo.dateType == 0 or combo.dateType == 1 or combo.dateType == 2 }">display:none;</c:if>"></div>
 					</div>
 
-					<!--套餐销售业绩分类汇总-->
+					<!--疗程销售业绩分类汇总-->
 					<div class="widgetcontent">
 						<div class="more-toolbar">
 							<div class="table-toolbar">
-								<span class="font-size-16 btn-color mr10">套餐销售业绩分类汇总</span> <span
+								<span class="font-size-16 btn-color mr10">疗程销售业绩分类汇总</span> <span
 									class="fr">时间：<span id="tableDate">${combo.begin }-${combo.end }</span> 
 									<c:choose>
 							           <c:when test="${not empty combo.dateType and 2 == combo.dateType || 3 == combo.dateType || 4 == combo.dateType}">
@@ -158,7 +158,7 @@
 							<thead>
 								<tr>
 									<th>部门</th>
-									<th>套餐</th>
+									<th>疗程</th>
 									<th>数量</th>
 									<th>数量占比</th>
 									<th>现金销售金额</th>
@@ -390,11 +390,11 @@
 			                <div class="clearfix"></div>
 			            </div> 
 					</div>
-					<!--套餐销售排行 -->
+					<!--疗程销售排行 -->
 					<div class="widgetcontent">
 						<div class="more-toolbar">
 							<div class="table-toolbar">
-								<span class="font-size-16 btn-color mr10">套餐销售排行</span> <span
+								<span class="font-size-16 btn-color mr10">疗程销售排行</span> <span
 									class="fr">时间：<span id="tableDate">${combo.begin }-${combo.end }</span>
 									 <c:choose>
 							           <c:when test="${not empty combo.dateType and 2 == combo.dateType || 3 == combo.dateType || 4 == combo.dateType}">
@@ -561,12 +561,12 @@
 			                <div class="clearfix"></div>
 			            </div> 
 					</div>
-					<!--连锁套餐销售排行-->
+					<!--连锁疗程销售排行-->
 					<!-- 
 					<div class="widgetcontent">
 						<div class="more-toolbar">
 							<div class="table-toolbar">
-								<span class="font-size-16 btn-color mr10">套餐销售排行</span> <span
+								<span class="font-size-16 btn-color mr10">疗程销售排行</span> <span
 									class="fr">时间：<span id="tableDate">2015年2月4日</span> 单位：元
 								</span>
 							</div>
@@ -648,14 +648,14 @@
 					</div>
 					
 					 -->
-					<!--连锁店套餐销售总业绩排行-->
+					<!--连锁店疗程销售总业绩排行-->
 					
 					<!-- 
 					
 					<div class="widgetcontent">
 						<div class="more-toolbar">
 							<div class="table-toolbar">
-								<span class="font-size-16 btn-color mr10">连锁店套餐销售总业绩排行</span> <span
+								<span class="font-size-16 btn-color mr10">连锁店疗程销售总业绩排行</span> <span
 									class="fr">时间：<span id="tableDate">2015年2月4日</span> 单位：元
 								</span>
 							</div>
@@ -833,12 +833,12 @@
 						
 						var colors = Highcharts.getOptions().colors,
 						categories = [
-							/*	'常规项目', '套餐', '疗程', '商品' */
+							/*	'常规项目', '疗程', '疗程', '商品' */
 							<c:forEach items="${combo.deptComboSummary }" var="dept" varStatus="deptStatus">
 							'${dept.deptName }'<c:if test="${not deptStatus.last }">,</c:if>
 							</c:forEach>									
 								],
-						name = '套餐收入分布', 
+						name = '疗程收入分布', 
 						data = [
 						        
 						<c:forEach items="${combo.deptComboSummary }" var="dept" varStatus="deptStatus">
@@ -892,10 +892,10 @@
 												type : 'column'
 											},
 											title : {
-												text : '套餐销售收入分布'
+												text : '疗程销售收入分布'
 											},
 											subtitle : {
-												text : '点击柱状条查看分类套餐收入分布'
+												text : '点击柱状条查看分类疗程收入分布'
 											},
 											xAxis : {
 												categories : categories
@@ -911,7 +911,7 @@
 							                    },
 							                    min: 0,
 												title : {
-													text : '套餐收入金额'
+													text : '疗程收入金额'
 												}
 											},
 											plotOptions : {
@@ -954,13 +954,13 @@
 											tooltip : {
 												formatter : function() {
 													var point = this.point, s = this.x
-															+"套餐业绩合计"+ ':￥<b>'
+															+"疗程业绩合计"+ ':￥<b>'
 															+ this.y
 															+ '</b><br/>';
 													if (point.drilldown) {
 														s += '查看'
 																+ point.category
-																+ '各套餐详情';
+																+ '各疗程详情';
 													} else {
 														s += '返回查看各部门汇总';
 													}
@@ -1008,7 +1008,7 @@
 			                type: 'column'
 			            },
 			            title: {
-			                text: '套餐消费统计'
+			                text: '疗程消费统计'
 			            },
 			            subtitle: {
 			                text: ''
@@ -1093,7 +1093,7 @@
 			                    type: 'spline'
 			                },
 			                title: {
-			                    text: '套餐收入('+dateType2+'走势)'
+			                    text: '疗程收入('+dateType2+'走势)'
 			                },
 			                subtitle: {
 			                    text: '${combo.begin}-${combo.end}'

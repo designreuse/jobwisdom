@@ -23,7 +23,7 @@ public interface ComboInfoMapper {
      * 删除
     * @author 洪秋霞
     * @date 2015年8月11日 上午10:47:01
-    * @param comboId 套餐id
+    * @param comboId 疗程id
     * @return int
      */
     int deleteByPrimaryKey(Integer comboId);
@@ -32,7 +32,7 @@ public interface ComboInfoMapper {
      * 插入
     * @author 洪秋霞
     * @date 2015年8月11日 上午10:47:10
-    * @param comboInfo 套餐
+    * @param comboInfo 疗程
     * @return int
      */
     int insertSelective(ComboInfo comboInfo);
@@ -41,7 +41,7 @@ public interface ComboInfoMapper {
      * 查询
     * @author 洪秋霞
     * @date 2015年8月11日 上午10:47:45
-    * @param comboId 套餐id
+    * @param comboId 疗程id
     * @return ComboInfo
      */
     ComboInfo selectByPrimaryKey(Integer comboId);
@@ -50,7 +50,7 @@ public interface ComboInfoMapper {
      * 更新
     * @author 洪秋霞
     * @date 2015年8月11日 上午10:48:03
-    * @param comboInfo 套餐
+    * @param comboInfo 疗程
     * @return int
      */
     int updateByPrimaryKeySelective(ComboInfo comboInfo);
@@ -59,13 +59,13 @@ public interface ComboInfoMapper {
      * 动态查询
     * @author 洪秋霞
     * @date 2015年8月11日 上午10:48:21
-    * @param comboInfo 套餐
+    * @param comboInfo 疗程
     * @return List<ComboInfoDto>
      */
     List<ComboInfo> selectByProperty(ComboInfo comboInfo);
     
     /**
-     * 查询部门，套餐列表
+     * 查询部门，疗程列表
     * @author 洪秋霞
     * @date 2015年9月16日 下午2:26:56
     * @param storeId 门店id
@@ -74,7 +74,7 @@ public interface ComboInfoMapper {
     List<DeptInfoDto> getDetpInfoByCombo(Integer storeId);
     
     /**
-     * 根据门店标识、部门标识查询套餐
+     * 根据门店标识、部门标识查询疗程
     * @author 王大爷
     * @date 2015年10月14日 上午9:43:35
     * @param deptId 部门标识
@@ -83,16 +83,16 @@ public interface ComboInfoMapper {
     List<ComboInfo> getComboInfo(Integer deptId);
     
     /**
-     * 根据门店标识查询套餐标识列表
+     * 根据门店标识查询疗程标识列表
     * @author 张进军
     * @date Dec 25, 2015 9:50:24 PM
     * @param storeId	门店标识
-    * @return	套餐标识列表
+    * @return	疗程标识列表
      */
     List<Integer> selectComboIdByStoreId(int storeId);
     
     /**
-     * 根据门店标识查询套餐报表数据
+     * 根据门店标识查询疗程报表数据
     * @author 王大爷
     * @date 2016年1月21日 下午3:11:22
     * @param map 参数
@@ -114,7 +114,7 @@ public interface ComboInfoMapper {
     * @author 乐建建
     * @date 2016年1月21日 上午11:36:40
     * @param dto 封装所需条件为对象 包括起始时间 终止时间 门店标志
-    * @return 部门下套餐汇总数据
+    * @return 部门下疗程汇总数据
     */
     List<DeptComboSummaryDto> getComboDetail(SummaryResultDto dto);
     
@@ -122,7 +122,7 @@ public interface ComboInfoMapper {
     * @author 乐建建
     * @date 2016年1月21日 下午4:08:25
     * @param dto 封装所需条件为对象 包括起始时间 终止时间 门店标志
-    * @return 套餐排行数据
+    * @return 疗程排行数据
     */
     List<ComboSummaryDto> getComboRank(SummaryResultDto dto);
     
@@ -131,7 +131,7 @@ public interface ComboInfoMapper {
     * @author 乐建建
     * @date 2016年1月27日 下午6:07:50
     * @param dto 封装所需条件为对象 包括起始时间 终止时间 部门id
-    * @return 分部门的套餐排行数据
+    * @return 分部门的疗程排行数据
     */
     List<ComboSummaryDto> getComboRankByDept(SummaryResultDto dto);
     
@@ -144,7 +144,7 @@ public interface ComboInfoMapper {
     List<TrendDeptDataDto> getComboTrendData(SummaryResultDto dto);
     
     /**
-     * 根据订单明细标识查询对应套餐是否有次数限制
+     * 根据订单明细标识查询对应疗程是否有次数限制
      * @param detailId 明细标识
      * @return 是否（》0为存在）
      */
@@ -154,7 +154,7 @@ public interface ComboInfoMapper {
     * @author 乐建建
     * @date 2016年3月15日 上午10:37:10
     * @param dto 查询条件
-    * @return 现金套餐购买封装类
+    * @return 现金疗程购买封装类
     */
     CashComboSalesVo getCashComboSale(SummaryResultDto dto);
     
@@ -162,7 +162,7 @@ public interface ComboInfoMapper {
     * @author 乐建建
     * @date 2016年3月15日 上午10:44:23
     * @param dto 查询条件
-    * @return 卡金套餐购买封装类
+    * @return 卡金疗程购买封装类
     */
     CardComboSalesVo getCardComboSale(SummaryResultDto dto);
     
@@ -170,7 +170,7 @@ public interface ComboInfoMapper {
      * @author 张洋
      * @date 2016年3月19日 下午13:26:10
      * @param dto 查询条件
-     * @return 抵扣套餐封装类
+     * @return 抵扣疗程封装类
      */
     DiscountComboSalesVo getDiscountComboSale(SummaryResultDto dto);
 }

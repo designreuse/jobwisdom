@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.App.Session;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
-import com.zefun.common.consts.App.Session;
 import com.zefun.common.exception.ServiceException;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
@@ -536,12 +536,12 @@ public class MemberCenterController extends BaseController {
     
     
     /**
-     * 查看会员套餐列表
+     * 查看会员疗程列表
     * @author 张进军
     * @date Aug 19, 2015 4:21:25 PM
     * @param request        请求对象
     * @param response       返回对象
-    * @return           会员套餐列表页面
+    * @return           会员疗程列表页面
      */
     @RequestMapping(value = Url.MemberCenter.VIEW_COMBO_LIST)
     public ModelAndView comboListView(HttpServletRequest request, HttpServletResponse response){

@@ -80,7 +80,7 @@ public class DayBookQueryDto implements Serializable {
 	private Integer netpayOrder;
 	/** 卡金支付排序，1:升序，2:降序 */
     private Integer cardOrder;
-    /** 套餐抵扣排序，1:升序，2:降序 */
+    /** 疗程抵扣排序，1:升序，2:降序 */
     private Integer comboOrder;
     /** 礼金抵扣排序，1:升序，2:降序 */
     private Integer giftOrder;

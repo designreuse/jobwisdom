@@ -11,7 +11,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * 自助收银套餐订单相关
+ * 自助收银疗程订单相关
 * @author luhw
 * @date 2015年10月21日 下午4:20:00
  */

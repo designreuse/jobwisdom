@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class BusinessIncomePart  extends SummaryResultDto{
     /**项目消费*/
     private BigDecimal projectConsumedAmt=new BigDecimal(0);
-    /**套餐消费*/
+    /**疗程消费*/
     private BigDecimal comboConsumedAmt=new BigDecimal(0);
     /**商品消费*/
     private BigDecimal goodsConsumedAmt=new BigDecimal(0);

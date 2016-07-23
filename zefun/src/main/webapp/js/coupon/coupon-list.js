@@ -104,7 +104,7 @@
 		if(ctype=="3"){
 			var mealId = jQuery("#meal").val();
 			if(mealId == 0){
-				dialog("请先选择一个套餐");
+				dialog("请先选择一个疗程");
 				return ;
 			}
 			var couponName = jQuery("#couponName").val();
@@ -191,7 +191,7 @@
 		jQuery(".seo-1-save.add").show('slow');
 		jQuery('.add_new_').hide('slow');
 	});
-	//动态生成商品项目套餐信息
+	//动态生成商品项目疗程信息
 	function changeEniy(type){
 		ctype = type;
 		if(type=="0"){

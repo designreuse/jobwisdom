@@ -205,7 +205,7 @@ public class ObjectiveService {
     	List<EmployeeDto> objectlist=employeeObjectiveMapper.downloadExcle(map);
     	List<Map<String, Object>> list=createExcelRecord(objectlist);
     	//列名
-        String [] columnNames={"员工编码", "员工姓名", "部门", "岗位", "劳动业绩总体目标", "制定业绩目标", "套餐销售目标", "商品销售目标", "开卡/充值目标"};
+        String [] columnNames={"员工编码", "员工姓名", "部门", "岗位", "劳动业绩总体目标", "制定业绩目标", "疗程销售目标", "商品销售目标", "开卡/充值目标"};
         //map中的key
         String [] keys ={"employeeCode", "name", "deptName", "positionName", "totalProjectSales", 
             "assignProjectSales", "comboSales", "goodsSales", "chargeSales"};
@@ -342,7 +342,7 @@ public class ObjectiveService {
         List<EmployeeDto> objectlist=employeeObjectiveMapper.downloadExcle(map);
         List<Map<String, Object>> list=createExcelRecord1(objectlist);
         //列名
-        String [] columnNames={"员工编码", "员工姓名", "部门", "岗位", "目标日期", "劳动业绩总体目标", "制定业绩目标", "套餐销售目标", "商品销售目标", "开卡/充值目标"};
+        String [] columnNames={"员工编码", "员工姓名", "部门", "岗位", "目标日期", "劳动业绩总体目标", "制定业绩目标", "疗程销售目标", "商品销售目标", "开卡/充值目标"};
         //map中的key
         String [] keys ={"employeeCode", "name", "deptName", "positionName", "objectiveMonth", "totalProjectSales", 
             "assignProjectSales", "comboSales", "goodsSales", "chargeSales"};

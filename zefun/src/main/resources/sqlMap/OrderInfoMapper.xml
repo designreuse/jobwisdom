@@ -200,7 +200,7 @@
       service_length as serviceLength,
       case o.off_type
           when 1 then
-              '套餐抵扣'
+              '疗程抵扣'
           when 2 then
               '优惠券抵扣'
           when 3 then

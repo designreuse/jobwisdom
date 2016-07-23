@@ -21,7 +21,7 @@ public class DeptSummaryDto {
     private BusinessDiscountPart businessDiscount;
     /**会员刷卡部分*/
     private BigDecimal cardConsumedAmt=new BigDecimal(0);
-    /**添加套餐抵扣部分*/
+    /**添加疗程抵扣部分*/
     private BigDecimal comboDiscount=new BigDecimal(0);
     
     public BigDecimal getComboDiscount() {

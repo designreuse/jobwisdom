@@ -3,13 +3,13 @@ package com.zefun.web.entity;
 import java.math.BigDecimal;
 
 /**
- * 套餐商品关联
+ * 疗程商品关联
 * @author 高国藩
 * @date 2015年11月10日 下午3:54:16
  */
 public class ComboGoods {
     
-    /**套餐标识*/
+    /**疗程标识*/
     private Integer comboId;
     /**商品标识*/
     private Integer goodsId;
@@ -21,7 +21,7 @@ public class ComboGoods {
     private String goodsImage;
     /**商品数量*/
     private Integer goodsCounts;
-    /**套餐内业绩计算*/
+    /**疗程内业绩计算*/
     private BigDecimal comboPerformanceCal;
     /**提成方式(1:按业绩比例,2:按固定金额)*/
     private Integer commissionType;
