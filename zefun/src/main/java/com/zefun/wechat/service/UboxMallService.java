@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
-import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
-import com.zefun.common.utils.StringUtil;
 import com.zefun.common.utils.UboxApiUtil;
 import com.zefun.common.utils.XmlUtil;
 import com.zefun.web.dto.BaseDto;
@@ -25,7 +22,6 @@ import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberSubAccountDto;
-import com.zefun.web.dto.ubox.UboxStoreGoodsDto;
 import com.zefun.web.dto.ubox.UboxTransactionDto;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.GoodsInfo;
@@ -45,7 +41,6 @@ import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.TransactionInfoMapper;
 import com.zefun.web.mapper.UboxMachineInfoMapper;
-import com.zefun.web.mapper.UboxStoreGoodsMapper;
 import com.zefun.web.mapper.UboxTransactionMapper;
 import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.RedisService;
@@ -70,10 +65,6 @@ public class UboxMallService {
     /** 友宝交易信息操作对象 */
     @Autowired
     private UboxTransactionMapper uboxTransactionMapper;
-    
-    /** 友宝门店商品信息操作对象 */
-    @Autowired
-    private UboxStoreGoodsMapper uboxStoreGoodsMapper;
     
     /** 友宝机器信息操作对象 */
     @Autowired
@@ -161,63 +152,63 @@ public class UboxMallService {
     }
     
     
-    /**
-     * 商品支付操作
-    * @author 张进军
-    * @date Jan 31, 2016 9:47:21 AM
-    * @param openId         微信用户标识
-    * @param memberId       会员标识
-    * @param storeGoodsId   门店商品标识
-    * @param payType        支付类型(1、金额＋积分，2、单金额)
-    * @param request        请求对象
-    * @return   微信支付所需参数
-     */
-    @Transactional
-    public BaseDto goodsPayAction(String openId, Integer memberId, Integer storeGoodsId, int payType, HttpServletRequest request){
-        UboxStoreGoodsDto storeGoods = uboxStoreGoodsMapper.selectGoodsInfoByStoreGoodsId(storeGoodsId);
-        MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
-        Integer totalFee = 1;
-        boolean flag = payType == 1 && memberInfo != null && memberInfo.getBalanceIntegral() >= storeGoods.getStoreGoodsIntegral();
-        if (flag) {
-            totalFee = storeGoods.getStoreGoodsPrice();
-        }
-        else {
-            totalFee = storeGoods.getGoodsInfo().getUboxOriginalPrice();
-        }
-        
-        //查询门店售货机编码
-        String vmid = uboxMachineInfoMapper.selectVmidByStoreId(storeGoods.getStoreId());
-        int stock = UboxApiUtil.getGoodsStockByVmidAndGoodsId(vmid, storeGoods.getUboxGoodsId());
-        if (stock <= 0) {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该商品已售罄，正在火速补货中...");
-        }
-        
-        String transactionId = StringUtil.getKey();
-        String callback = Url.UboxMall.ACTION_GOODS_PAY_CALLBACK.replace("{transactionId}", transactionId);
-        BaseDto res = wechatCallService.pay(App.System.WECHAT_YOUMEI_STORE_ID, storeGoods.getGoodsInfo().getGoodsName(), 
-                totalFee, openId, transactionId, callback, request);
-        if (res.getCode() == App.System.API_RESULT_CODE_FOR_SUCCEES) {
-            UboxTransaction uboxTransaction = new UboxTransaction();
-            uboxTransaction.setTransactionId(transactionId);
-            uboxTransaction.setTransactionAmount(totalFee);
-            uboxTransaction.setGoodsId(storeGoodsId);
-            uboxTransaction.setUboxGoodsId(storeGoods.getUboxGoodsId());
-            uboxTransaction.setVmid(vmid);
-            uboxTransaction.setMemberId(memberId);
-            uboxTransaction.setPayChannel(1);
-            uboxTransaction.setPayStatus(1);
-            uboxTransaction.setRewardsCouponId(storeGoods.getRewardsCouponId());
-            uboxTransaction.setRewardsGiftAmount(storeGoods.getRewardsGiftAmount());
-            uboxTransaction.setCreateTime(DateUtil.getCurTime());
-            uboxTransactionMapper.insert(uboxTransaction);
-            
-            if (flag) {
-                memberInfoService.changeIntegralToMember(memberId, storeGoods.getStoreGoodsIntegral(), 1, "购买商品时抵扣", null, transactionId);
-            }
-        }
-        
-        return res;
-    }
+//    /**
+//     * 商品支付操作
+//    * @author 张进军
+//    * @date Jan 31, 2016 9:47:21 AM
+//    * @param openId         微信用户标识
+//    * @param memberId       会员标识
+//    * @param storeGoodsId   门店商品标识
+//    * @param payType        支付类型(1、金额＋积分，2、单金额)
+//    * @param request        请求对象
+//    * @return   微信支付所需参数
+//     */
+//    @Transactional
+//    public BaseDto goodsPayAction(String openId, Integer memberId, Integer storeGoodsId, int payType, HttpServletRequest request){
+//        UboxStoreGoodsDto storeGoods = uboxStoreGoodsMapper.selectGoodsInfoByStoreGoodsId(storeGoodsId);
+//        MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
+//        Integer totalFee = 1;
+//        boolean flag = payType == 1 && memberInfo != null && memberInfo.getBalanceIntegral() >= storeGoods.getStoreGoodsIntegral();
+//        if (flag) {
+//            totalFee = storeGoods.getStoreGoodsPrice();
+//        }
+//        else {
+//            totalFee = storeGoods.getGoodsInfo().getUboxOriginalPrice();
+//        }
+//        
+//        //查询门店售货机编码
+//        String vmid = uboxMachineInfoMapper.selectVmidByStoreId(storeGoods.getStoreId());
+//        int stock = UboxApiUtil.getGoodsStockByVmidAndGoodsId(vmid, storeGoods.getUboxGoodsId());
+//        if (stock <= 0) {
+//            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该商品已售罄，正在火速补货中...");
+//        }
+//        
+//        String transactionId = StringUtil.getKey();
+//        String callback = Url.UboxMall.ACTION_GOODS_PAY_CALLBACK.replace("{transactionId}", transactionId);
+//        BaseDto res = wechatCallService.pay(App.System.WECHAT_YOUMEI_STORE_ID, storeGoods.getGoodsInfo().getGoodsName(), 
+//                totalFee, openId, transactionId, callback, request);
+//        if (res.getCode() == App.System.API_RESULT_CODE_FOR_SUCCEES) {
+//            UboxTransaction uboxTransaction = new UboxTransaction();
+//            uboxTransaction.setTransactionId(transactionId);
+//            uboxTransaction.setTransactionAmount(totalFee);
+//            uboxTransaction.setGoodsId(storeGoodsId);
+//            uboxTransaction.setUboxGoodsId(storeGoods.getUboxGoodsId());
+//            uboxTransaction.setVmid(vmid);
+//            uboxTransaction.setMemberId(memberId);
+//            uboxTransaction.setPayChannel(1);
+//            uboxTransaction.setPayStatus(1);
+//            uboxTransaction.setRewardsCouponId(storeGoods.getRewardsCouponId());
+//            uboxTransaction.setRewardsGiftAmount(storeGoods.getRewardsGiftAmount());
+//            uboxTransaction.setCreateTime(DateUtil.getCurTime());
+//            uboxTransactionMapper.insert(uboxTransaction);
+//            
+//            if (flag) {
+//                memberInfoService.changeIntegralToMember(memberId, storeGoods.getStoreGoodsIntegral(), 1, "购买商品时抵扣", null, transactionId);
+//            }
+//        }
+//        
+//        return res;
+//    }
     
     
     /**

@@ -312,12 +312,12 @@ public interface App {
 		/** 智放微信支付API密钥 */
 		public static final String MCH_PAY_KEY_ZEFUN = "123456789qwasdfghjklertyuiopzxcv";
 
-		/** 智放微信应用ID */
-		public static final String PAY_APP_KEY_YOUMEI = "wx287441046c9f38b2";
-		/** 智放微信支付商户号 */
-		public static final String MCH_ID_YOUMEI = "1335522901";
-		/** 智放微信支付API密钥 */
-		public static final String MCH_PAY_KEY_YOUMEI = "123456789qwasdfghjklertyuiopzxcv";
+//		/** 智放微信应用ID */
+//		public static final String PAY_APP_KEY_YOUMEI = "wx287441046c9f38b2";
+//		/** 智放微信支付商户号 */
+//		public static final String MCH_ID_YOUMEI = "1335522901";
+//		/** 智放微信支付API密钥 */
+//		public static final String MCH_PAY_KEY_YOUMEI = "123456789qwasdfghjklertyuiopzxcv";
 
 		/** 币种 */
 		public static final String FEE_TYPE = "CNY";

@@ -37,7 +37,6 @@ import com.zefun.web.entity.MemberScreening;
 import com.zefun.web.entity.MsgReply;
 import com.zefun.web.entity.PictureLibrary;
 import com.zefun.web.entity.StoreSetting;
-import com.zefun.web.entity.StoreWechat;
 import com.zefun.web.entity.WechatSubscribe;
 import com.zefun.web.mapper.AutomaticKeyMapper;
 import com.zefun.web.mapper.AutomaticReplyMapper;
@@ -48,7 +47,6 @@ import com.zefun.web.mapper.MemberScreeningMapper;
 import com.zefun.web.mapper.MsgReplyMapper;
 import com.zefun.web.mapper.PictureLibraryMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
-import com.zefun.web.mapper.StoreWechatMapper;
 import com.zefun.web.mapper.WechatGroupInfoMapper;
 import com.zefun.web.mapper.WechatMemberMapper;
 import com.zefun.web.mapper.WechatSubscribeMapper;
@@ -112,12 +110,15 @@ public class WeixinMessageService {
     /**会员信息服务对象*/
     @Autowired
     private MemberInfoService memberInfoService;
-    /**门店微信关联操作对象*/
-    @Autowired
-    private StoreWechatMapper storeWechatMapper;
+//    /**门店微信关联操作对象*/
+//    @Autowired
+//    private StoreWechatMapper storeWechatMapper;
     /** 微信分组信息操作对象 */
     @Autowired
     private WechatGroupInfoMapper wechatGroupInfoMapper;
+//    /** 微信信息*/
+//    @Autowired
+//    private WeixinMessageService weixinMessageService;
 	/** 日志*/
 	private Logger logger = Logger.getLogger(WeixinMessageService.class);
 	
@@ -136,6 +137,10 @@ public class WeixinMessageService {
 			String toUserName = requestMap.get("ToUserName");
 			logger.info("消息关注者 "+fromUserName);
 			logger.info("开发者 "+toUserName);
+			
+			/**根据微信开发者id进行查询门店设置内容*/
+//            StoreWechat storeWechat = storeWechatMapper.selectByWechatId(toUserName);
+//            String storeAccount = storeWechat.getStoreAccount();
 			/**消息类型 */
 			String msgType = requestMap.get("MsgType");
             /**事件推送*/
@@ -144,8 +149,6 @@ public class WeixinMessageService {
 				
 				/**订阅*/
 				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-				    /**根据微信开发者id进行查询门店设置内容*/
-                    StoreWechat storeWechat = storeWechatMapper.selectByWechatId(toUserName);
                     
 				    //如果用户是首次关注，需要查询门店是否有赠送内容
 				    WechatSubscribe wechatSubscribe = wechatSubscribeMapper.selectByPrimaryKey(fromUserName);
@@ -215,6 +218,13 @@ public class WeixinMessageService {
                     ws.setUpdateTime(DateUtil.getCurTime());
                     wechatSubscribeMapper.updateByPrimaryKey(ws);
                     redisService.hset(App.Redis.WECHAT_SUBSCRIBE_KEY_HASH, fromUserName, "0");
+                    
+                    // 如果是会员的话呢, 模拟一次logout操作
+//                    weixinMessageService.moveGroupByGroupType(storeWechat.getStoreAccount(), 4, fromUserName);
+//                    redisService.hdel(App.Redis.WECHAT_OPENID_TO_USERID_KEY_HASH, fromUserName);
+//                    redisService.hdel(App.Redis.WECHAT_OPENID_TO_BUSINESS_TYPE_KEY_HASH, fromUserName);
+//                    redisService.hdel(App.Redis.WECHAT_OPENID_TO_STORE_KEY_HASH, fromUserName);
+//                    wechatMemberMapper.deleteByPrimaryKey(fromUserName);
                 }
 				/**自定义菜单点击事件*/
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {

@@ -41,6 +41,38 @@ public class StoreWechat {
 
     /** 优惠券到期提醒 */
     private String tmCouponOverdue;
+    
+    /** 微信支付商户ID*/
+    private String appId;
+    /** 微信支付商户ID*/
+    private String mchId;
+    /** 微信支付商户ID*/
+    private String mchKey;
+
+    
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getMchId() {
+        return mchId;
+    }
+
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
+    }
+
+    public String getMchKey() {
+        return mchKey;
+    }
+
+    public void setMchKey(String mchKey) {
+        this.mchKey = mchKey;
+    }
 
     public String getStoreAccount() {
         return storeAccount;

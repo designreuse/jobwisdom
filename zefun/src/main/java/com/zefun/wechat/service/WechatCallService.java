@@ -61,12 +61,14 @@ import com.zefun.web.entity.EnterpriseAccount;
 import com.zefun.web.entity.EnterpriseAccountFlow;
 import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.RechargeRecord;
+import com.zefun.web.entity.StoreWechat;
 import com.zefun.web.entity.TransactionInfo;
 import com.zefun.web.entity.UboxTransaction;
 import com.zefun.web.mapper.EnterpriseAccountFlowMapper;
 import com.zefun.web.mapper.EnterpriseAccountMapper;
 import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.RechargeRecordMapper;
+import com.zefun.web.mapper.StoreWechatMapper;
 import com.zefun.web.mapper.TransactionInfoMapper;
 import com.zefun.web.mapper.UboxTransactionMapper;
 import com.zefun.web.service.QiniuService;
@@ -75,7 +77,7 @@ import net.sf.json.JSONObject;
 
 /**
  * 微信相关api操作业务逻辑类
-* @author 张进军
+* @author 高国藩
 * @date Aug 13, 2015 2:30:27 PM 
 */
 @Service
@@ -106,12 +108,15 @@ public class WechatCallService {
     /** 企业信息表操作*/
     @Autowired
     private EnterpriseAccountMapper enterpriseAccountMapper;
+    /** 微信门店设置*/
+    @Autowired
+    private StoreWechatMapper storeWechatMapper;
     
     
 
     /**
      *  微信授权回调处理
-    * @author 张进军
+    * @author 高国藩
     * @date Aug 17, 2015 3:54:23 PM
     * @param redirect       重定向地址
     * @param code           微信返回，用于获取授权的access token
@@ -166,7 +171,7 @@ public class WechatCallService {
 
     /**
      * 微信支付回调处理
-    * @author 张进军
+    * @author 高国藩
     * @date Sep 23, 2015 5:23:58 PM
     * @param data   支付结果
     * @return       业务处理成功返回SUCCESS
@@ -208,8 +213,9 @@ public class WechatCallService {
 
     /**
      * 系统服务模块的微信支付
-    * @author 张进军
+    * @author 高国藩
     * @date Jan 16, 2016 9:07:46 PM
+    * @param storeAccount storeAccount
     * @param storeId    门店标识
     * @param goodsType  商品类型(1、门店开通，2、门店续费，3、短息购买，4、商品购买，5、参加会议)
     * @param goodsId    商品标识
@@ -220,12 +226,12 @@ public class WechatCallService {
     * @param request    请求对象
     * @return   微信支付所属参数对象
      */
-    public BaseDto wepayForZefun(Integer storeId, int goodsType,
+    public BaseDto wepayForZefun(String storeAccount, Integer storeId, int goodsType,
             Integer goodsId, String goodsName, Integer totalFee, String openId,
             String callback, HttpServletRequest request) {
         String transactionId = StringUtil.getKey();
         callback = callback.replace("{transactionId}", transactionId);
-        BaseDto result = pay(App.System.WECHAT_ZEFUN_STORE_ID, goodsName, totalFee, openId, transactionId, callback, request);
+        BaseDto result = pay(storeAccount, goodsName, totalFee, openId, transactionId, callback, request);
         if (result.getCode() == App.System.API_RESULT_CODE_FOR_SUCCEES) {
             // 新建订单
             TransactionInfo transactionInfo = new TransactionInfo();
@@ -246,52 +252,34 @@ public class WechatCallService {
 
     /**
      * 
-    * @author 张进军
+    * @author 小高
     * @date Sep 23, 2015 5:45:28 PM
-    * @param payTarge       支付目标公众号
     * @param goodsName      商品名称
     * @param totalFee       支付金额(单位：分)
     * @param openId         支付用户标识
     * @param outTradeNo     支付订单号
     * @param callBackUrl    支付成功回调接口
     * @param request        请求对象
+    * @param storeAccount   企业标示
     * @return               支付申请结果
      */
-    public BaseDto pay(int payTarge, String goodsName, Integer totalFee,
+    public BaseDto pay(String storeAccount, String goodsName, Integer totalFee,
             String openId, String outTradeNo, String callBackUrl,
             HttpServletRequest request) {
-        String appId = "";
-        String mchId = "";
-        String mchKey = "";
-        if (payTarge == App.System.WECHAT_ZEFUN_STORE_ID) {
-            appId = App.Wechat.PAY_APP_KEY_ZEFUN;
-            mchId = App.Wechat.MCH_ID_ZEFUN;
-            mchKey = App.Wechat.MCH_PAY_KEY_ZEFUN;
-        } 
-        else {
-            appId = App.Wechat.PAY_APP_KEY_YOUMEI;
-            mchId = App.Wechat.MCH_ID_YOUMEI;
-            mchKey = App.Wechat.MCH_PAY_KEY_YOUMEI;
+        
+        StoreWechat storeWechat = storeWechatMapper.selectByPrimaryKey(storeAccount);
+        String appId = storeWechat.getAppId();
+        String mchId = storeWechat.getMchId();
+        String mchKey = storeWechat.getMchKey();
+        
+        if (StringUtils.isEmpty(appId) || StringUtils.isEmpty(mchId) || StringUtils.isEmpty(mchKey)){
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该商户未设置支付信息, 请到店体验.");
         }
 
         String deviceInfo = "xxoo";
 
         String spbillCreateIp = StringUtil.getIpAddr(request);
         String uuid = UUID.randomUUID().toString().replace("-", "");
-
-        // Map<String, String> sParaTemp = new HashMap<String, String>();
-        // sParaTemp.put("appid", appId);
-        // sParaTemp.put("mch_id", mchId);
-        // sParaTemp.put("device_info", deviceInfo);
-        // sParaTemp.put("nonce_str", uuid);
-        // sParaTemp.put("body", goodsName);
-        // sParaTemp.put("out_trade_no", outTradeNo);
-        // sParaTemp.put("total_fee", String.valueOf(totalFee));
-        // sParaTemp.put("spbill_create_ip", spbillCreateIp);
-        // sParaTemp.put("notify_url", App.System.SERVER_BASE_URL +
-        // callBackUrl.replace("{transactionId}", outTradeNo));
-        // sParaTemp.put("trade_type", "JSAPI");
-        // sParaTemp.put("openid", openId);
 
         SortedMap<Object, Object> parameters = new TreeMap<Object, Object>();
         parameters.put("appid", appId);
@@ -307,8 +295,6 @@ public class WechatCallService {
         parameters.put("openid", openId);
         String mySign = SignUtil.createSign("UTF-8", parameters, mchKey);
         parameters.put("sign", mySign);
-        // String sign = SignUtil.paySign(sParaTemp, mchKey);
-        // sParaTemp.put("sign", mySign);
 
         logger.info("sign result : " + parameters);
         String preXml = "";
@@ -329,15 +315,6 @@ public class WechatCallService {
             String prepayId = preXml.substring(preXml.indexOf("<prepay_id>") + 11, preXml.indexOf("</prepay_id>"));
             String xpackage = "prepay_id=" + prepayId;
             String ts = Long.toString(System.currentTimeMillis());
-
-            /*
-             * Map<String, String> singMap2 = new HashMap<String, String>();
-             * singMap2.put("appId", appId);
-             * singMap2.put("timeStamp", ts);
-             * singMap2.put("nonceStr", uuid);
-             * singMap2.put("signType", App.Wechat.SIGN_TYPE);
-             * singMap2.put("package", xpackage);
-             */
 
             SortedMap<Object, Object> parameters2 = new TreeMap<Object, Object>();
             parameters2.put("appId", appId);
@@ -415,7 +392,7 @@ public class WechatCallService {
 
     /**
      *微信统一下单api，获取预付单信息
-    * @author 张进军
+    * @author 高国藩
     * @date Sep 23, 2015 7:31:07 PM
     * @param xo                         订单信息
     * @return                           预付单信息
@@ -550,9 +527,9 @@ public class WechatCallService {
         try {
             String path = Thread.currentThread().getContextClassLoader()
                     .getResource("").getPath() + "cert/wechat/";
-            String appid = App.Wechat.PAY_APP_KEY_YOUMEI;
-            String mchId = App.Wechat.MCH_ID_YOUMEI;
-            String payKey = App.Wechat.MCH_PAY_KEY_YOUMEI;
+            String appid = App.Wechat.PAY_APP_KEY_ZEFUN;
+            String mchId = App.Wechat.MCH_ID_ZEFUN;
+            String payKey = App.Wechat.MCH_PAY_KEY_ZEFUN;
             String keyPath = path + "apiclient_cert_youmei.p12";
 
             UboxTransaction uboxTransaction = uboxTransactionMapper
@@ -617,7 +594,7 @@ public class WechatCallService {
 
     /**
      * 
-    * @author 张进军
+    * @author 高国藩
     * @date Aug 22, 2015 11:56:02 AM
     * @param mediaid        微信的资源id
     * @param key            七牛目标地址

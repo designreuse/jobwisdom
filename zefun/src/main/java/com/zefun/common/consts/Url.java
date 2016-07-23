@@ -1679,7 +1679,7 @@ public interface Url {
         public static final String REQUEST_APP_PAY = "app/pay/qr";
         /** NATIVE扫码支付请求回调 */
         public static final String REQUEST_APP_PAY_CALLBACK = "app/pay/qr/call/{outTradeNo}/{storeAccount}";
-        /**商城吊起微信支付*/
+        /** 商城调起微信支付*/
         public static final String GOODSINFO_PAY = "app/goodsinfo/wechat/init/pay";
         /**支付成功回调接口*/
         public static final String GOODSINFO_PAY_CALLBACK = "app/goodsinfo/wechat/pay/callback/{transactionId}";
