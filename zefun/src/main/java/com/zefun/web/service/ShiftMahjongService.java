@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
@@ -75,12 +78,14 @@ public class ShiftMahjongService {
 	* @author 老王
 	* @date 2016年6月24日 下午4:57:27 
 	* @param storeAccount 企业代号
+	* @param request      request
 	* @return ModelAndView
 	 */
-	public ModelAndView initializeEnterpriseShiftMahjong (String storeAccount) {
+	public ModelAndView initializeEnterpriseShiftMahjong (String storeAccount, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(View.KeepAccounts.ENTERPRISE_SHIFT_MAJONG);
 		List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
+		
 		Integer storeId = storeInfoList.get(0).getStoreId();
 		List<PositionInfo> positionInfoList  = positioninfoMapper.queryAllByStoreId(storeId);
 		

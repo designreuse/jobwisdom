@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
+import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.EntityJsonConverter;
@@ -1202,9 +1205,11 @@ public class ProjectService {
     * @param storeAccount storeAccount
     * @param storeId      storeId
     * @param deptId       deptId
+    * @param request      request
     * @return        页面
      */
-    public ModelAndView projectCategoryView(String storeAccount, Integer storeId, Integer deptId) {
+    public ModelAndView projectCategoryView(String storeAccount, Integer storeId, Integer deptId, HttpServletRequest request) {
+        ModelAndView view = null;
         List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
         if (storeId == null){
             storeId = storeInfos.get(0).getStoreId();
@@ -1218,7 +1223,7 @@ public class ProjectService {
         final Integer deptIds = deptId;
         projectCategories = projectCategories.stream().filter(p -> p.getDeptId().intValue()== deptIds.intValue()).collect(Collectors.toList());
         goodsCategories = goodsCategories.stream().filter(g -> g.getDeptId().intValue() == deptIds.intValue()).collect(Collectors.toList());
-        ModelAndView view = new ModelAndView(View.Project.CATEGORY);
+        view = new ModelAndView(View.Project.CATEGORY);
         view.addObject("projectCategories", projectCategories);
         view.addObject("goodsCategories", goodsCategories);
         view.addObject("storeInfos", storeInfos);

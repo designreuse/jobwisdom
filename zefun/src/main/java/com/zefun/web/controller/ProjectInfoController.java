@@ -424,7 +424,7 @@ public class ProjectInfoController extends BaseController {
     @RequestMapping(value = Url.Project.PROJECT_CATEGORY_VIEW)
     public ModelAndView projectCategoryView(HttpServletRequest request, HttpServletResponse response, Integer storeId, Integer deptId) {
         String storeAccount = getStoreAccount(request);
-        return projectService.projectCategoryView(storeAccount, storeId, deptId);
+        return projectService.projectCategoryView(storeAccount, storeId, deptId, request);
     }
     
     /**
