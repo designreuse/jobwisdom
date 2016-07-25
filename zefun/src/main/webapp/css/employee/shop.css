@@ -130,6 +130,59 @@ em,i{font-style:normal}
     text-align: center;
 }
 
+/*我的预约*/
+.myForward{height:5rem;background:#ea631a}
+.myForward ul{width:20rem;height:2.8rem;margin:0 auto;position:relative;top:1rem}
+.myForward ul li{width:32.5%;border:1px solid white;float:left;height:100%;text-align:center;line-height:2.8rem;color:white;font-size:16px}
+.myForward ul li.active{background:white;color:#ea631a}
+
+.myForward_content_right{float:right;margin-right:0.7rem;font-size:16px;color:#ea631a}
+.myForward_content_tab{
+    -webkit-box-sizing: border-box;
+	box-sizing:border-box
+}
+.myForward_content>p{color:black}
+.myForward_content_center{float:left}
+.myForward_content_center>p{font-size:14px;color:black;margin-bottom:4px}
+.myForward_content_left{float:left;margin:0 0.5rem}
+.myForward_content_detail{  margin-top:4px;padding:0.9rem 0 1.2rem 0}
+.myForward_content_left img{vertical-align:middle;width:40px;margin-left:1px}
+.myForward_content_left span{font-size:14px;color:black}
+.myForward_content_right img{width:50px;float:left;margin:0 0.5rem 0 .7rem;}
+.forward_price{-webkit-box-flex:1;box-flex:1;}
+.forward_price{color:#e94727;text-align:center;line-height:5rem;}
+.forward_item{position:relative;top:0.8rem}
+.hair_item .item{color:black;}
+.myForward_content>p{padding-top:1rem;padding-left:0.5rem}
+.hair_item em{font-size:10px}
+.forward_>span{display:inline-block;width:50%;;text-align:center;line-height:2rem;color:white;font-size:16px;-webkit-box-sizing:border-box;box-sizing:border-box;float:left}
+.forward_ .refuse{background:#bababa}
+.forward_  .accept{background:#ea631a}
+.myForward_content{margin-bottom:1rem;background:white}
+.accept_alert{width:21rem;height:12rem;background:white;margin:45% auto}
+.accept_alert>p{background:#ea631a;height:3rem;color:white;font-size:16px;line-height:3rem;text-align:center}
+.accept_alert_content>p{padding:1rem;font-size:13px;line-height:2rem}
+.accept_if button{border:none;width:32%;margin:0 1rem;height:2rem;font-size:16px;color:white;background:#cacaca;border-radius:4px}
+.accept_if{text-align:center;margin-top:0.2rem}
+.immediate{background:#ea631a;color:white;font-size:16px;text-align:center}
+.forward_ .cancle{background:#8e8e8e;padding:0 0.7rem;line-height:1.6rem}
+.forward_{height:2rem;line-height:2rem;color:white}
+.forward_ em{padding-left:1rem}
+
+.mask{position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    background: rgba(102, 108, 121, 0.8);z-index:2;display:none}
+    
+.mask_1{position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    background: rgba(102, 108, 121, 0.8);z-index:2;display:none}
+
 /*订单*/
 .goods {height:4rem;background:#ea631a;color:white;line-height:4rem}
 .goods li{float:left;width:33.3%;text-align:center;font-size:14px}
