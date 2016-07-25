@@ -125,6 +125,8 @@ public class OpenCardController extends BaseController {
 			}
 		}
 
+		
+		
 		return openCardService.addMemberInfo(memberId, phone, name, sex, levelId, amountvalue, recommendId,
 				commissionAmount, calculateAmount, giftmoneyAmount, pastDate, partType, balanceAmount, rewardAmount,
 				messageType, cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, payPassword, deptIds,

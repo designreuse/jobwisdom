@@ -101,6 +101,17 @@ public interface Url {
 		public static final String VIEW_SHARE = "system/view/share";
 		/** 保存门店分享机制 */
 		public static final String ACTION_SAVE_SHARE = "action/save/share";
+		/** 权限分配页面 */
+		public static final String SYSTEM_VIEW_SHOWROLE = "system/view/showRole";
+		/** 查询系统角色权限 */
+		public static final String SYSTEM_VIEW_SELECTROLE = "system/view/selectRole";
+		/** 查询系统角色权限 */
+		public static final String SYSTEM_VIEW_SAVEROLE = "system/view/saveRole";
+		/** 查询企业角色权限 */
+		public static final String SYSTEM_VIEW_DELETEROLE = "system/view/deleteRole";
+		
+		
+		
 	}
 
 	/**

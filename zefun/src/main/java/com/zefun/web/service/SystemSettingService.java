@@ -1,8 +1,12 @@
 package com.zefun.web.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,14 +22,18 @@ import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
+import com.zefun.web.entity.AccountRoleInfo;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.EmployeeInfo;
+import com.zefun.web.entity.MenuIdQuote;
+import com.zefun.web.entity.RoleInfo;
 import com.zefun.web.entity.StoreAccount;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.entity.StoreWechat;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatGroupInfo;
+import com.zefun.web.mapper.AccountRoleInfoMapper;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.EmployeeAttendanceMapper;
@@ -40,9 +48,11 @@ import com.zefun.web.mapper.MemberComboProjectMapper;
 import com.zefun.web.mapper.MemberComboRecordMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
+import com.zefun.web.mapper.MenuIdQuoteMapper;
 import com.zefun.web.mapper.MoneyFlowMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.RoleInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
 import com.zefun.web.mapper.StoreAccountMapper;
@@ -55,6 +65,7 @@ import com.zefun.web.mapper.WechatMemberMapper;
 import com.zefun.wechat.service.WeixinConfigService;
 import com.zefun.wechat.service.WeixinMessageService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -67,6 +78,10 @@ public class SystemSettingService {
     /**员工操作对象*/
     @Autowired
     private EmployeeInfoMapper employeeInfoMapper;
+    
+    /**菜单操作对象*/
+    @Autowired
+    private MenuIdQuoteMapper menuIdQuoteMapper;
     
     /**用户账户操作对象*/
     @Autowired
@@ -179,6 +194,14 @@ public class SystemSettingService {
     /** 微信信息处理服务对象 */
     @Autowired
     private WeixinMessageService weixinMessageService;
+    
+    /** 系统角色*/
+    @Autowired
+    private RoleInfoMapper roleInfoMapper;
+    
+    /** 企业角色*/
+    @Autowired
+    private  AccountRoleInfoMapper accountRoleInfoMapper;
     
     /**
      * 个人设置操作
@@ -530,5 +553,185 @@ public class SystemSettingService {
         storeSetting.setMemberShareReward(shareReward.toString());
         storeSettingMapper.updateByPrimaryKey(storeSetting);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "保存成功");
+    }
+
+    /**
+     *  权限分配显示页面
+    * @author 骆峰
+    * @date 2016年7月21日 下午3:49:06
+    * @param storeAccount storeAccount
+    * @return ModelAndView
+     */
+    @Transactional
+    public ModelAndView viewRole(String storeAccount) {
+        ModelAndView view = new ModelAndView(View.Setting.VIEW_COMMISSION_ROLE);
+        
+        List<RoleInfo> selectSystemRoles = roleInfoMapper.selectSystemRoles();
+        
+        
+        view.addObject("selectSystemRoles", selectSystemRoles);
+        
+        Map<String, Object> mapMenu = new HashMap<String, Object>();
+        mapMenu.put("storeAccount", storeAccount);
+        mapMenu.put("roleId", null);
+        List<AccountRoleInfo> selectRoles = accountRoleInfoMapper.selectAccountMenuByRoleId(mapMenu);
+        view.addObject("selectRoles", selectRoles); 
+        return view;
+    }
+
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年7月21日 下午5:34:09
+    * @param storeAccount storeAccount
+    * @param roleId roleId
+    * @param accountRoleId accountRoleId
+    * @return BaseDto
+     */
+    @Transactional
+    public BaseDto viewAddRole(String storeAccount, Integer roleId,
+            Integer accountRoleId) {
+        //企业角色
+        AccountRoleInfo accountRoleInfo = new AccountRoleInfo();
+        if (accountRoleId != 0) {
+            accountRoleInfo = accountRoleInfoMapper.selectByPrimaryKey(accountRoleId);
+        }
+        
+        //系统角色  引用
+        RoleInfo selectSystemRole = roleInfoMapper.selectSystemRole(roleId);
+        
+        ArrayList<Integer> listFirst = new ArrayList<Integer>();
+        
+        Map<String, Object> mapMenu = new HashMap<String, Object>();
+        mapMenu.put("roleId", roleId);
+        mapMenu.put("menuType", 1);
+        for (String str : selectSystemRole.getFristMenu().split(",")) {
+            int i = Integer.parseInt(str);
+            listFirst.add(i);
+        }
+        mapMenu.put("menuId", listFirst);
+        List<MenuIdQuote> firstMenu = menuIdQuoteMapper.selectByMemuRoles(mapMenu);
+        //拼接一级
+        String regex="([\u4e00-\u9fa5]+)";
+        JSONArray jsonarr = new JSONArray();
+        for (int i = 0; i < firstMenu.size(); i++) {
+           
+            JSONObject jsono = new JSONObject();
+            jsono.accumulate("memuId", firstMenu.get(i).getMenuId());
+            Matcher matcher = Pattern.compile(regex).matcher(firstMenu.get(i).getMenuHtml());
+            if (matcher.find()){
+                jsono.accumulate("fristMemuName", matcher.group(0));
+            }
+            jsonarr.add(jsono);
+        }      
+        
+        
+        //二级菜单
+        ArrayList<Integer> secontFirst = new ArrayList<Integer>();
+        
+        for (String str : selectSystemRole.getSecondMenu().split(",")) {
+            int i = Integer.parseInt(str);
+            secontFirst.add(i);
+        }
+        mapMenu.put("menuId", secontFirst);
+        
+        mapMenu.put("menuType", "2");
+        
+        List<MenuIdQuote> secontMenu = menuIdQuoteMapper.selectByMemuRoles(mapMenu);
+        
+        ArrayList<Integer> arrayList = new ArrayList<Integer>(); 
+        for (int i = 0; i < jsonarr.size(); i++) {
+            JSONObject jsonObject = jsonarr.getJSONObject(i);
+            Integer quoteId = jsonObject.getInt("memuId");
+            if (!compareTonumber(quoteId , arrayList)) {  //如果这个 quoteId 没有被引用
+                arrayList.add(quoteId);
+                JSONArray array = new JSONArray();
+                for (int j = 0; j < secontMenu.size(); j++) {
+                    if (secontMenu.get(j).getQuoteId()==quoteId) {  //如果这个 quoteId相等 拼接2级菜单
+                        JSONObject jsonMemu = new JSONObject();
+                        Matcher matcher = Pattern.compile(regex).matcher(secontMenu.get(j).getMenuHtml());
+                        if (matcher.find()){
+                            jsonMemu.accumulate("secendMemuName", matcher.group(0));
+                        }
+                        jsonMemu.accumulate("memuId", secontMenu.get(j).getMenuId());
+                        array.add(jsonMemu);
+                    }
+                }
+                jsonObject.accumulate("secendMemu", array);
+            }
+        }
+    
+        JSONObject jsono = new JSONObject();
+        jsono.accumulate("jsonarr", jsonarr);
+        jsono.accumulate("accountRoleInfo", accountRoleInfo);
+        
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, jsono);
+    }
+    
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年7月21日 下午12:04:06
+    * @param number number
+    * @param arrayList arrayList
+    * @return boolean
+     */
+    private boolean compareTonumber (Integer number , ArrayList<Integer> arrayList){
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (number == arrayList.get(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 新增角色保存
+    * @author 骆峰
+    * @date 2016年7月22日 上午10:39:31
+    * @param storeAccount storeAccount
+    * @param fristMemu fristMemu
+    * @param secendMemu secendMemu
+    * @param roleId roleId
+    * @param accountRoleName accountRoleName
+    * @param accountRoleId accountRoleId
+    * @return BaseDto
+     */
+    public BaseDto viewSaveRole(String storeAccount, String[] fristMemu,
+            String[] secendMemu , String accountRoleName, Integer roleId , Integer accountRoleId) {
+        AccountRoleInfo accountRoleInfo = new AccountRoleInfo();
+        accountRoleInfo.setFristMenu(Arrays.toString(fristMemu).replace("[", "").replace("]", ""));
+        accountRoleInfo.setSecondMenu(Arrays.toString(secendMemu).replace("[", "").replace("]", ""));
+        accountRoleInfo.setIsDeleted(0);
+        accountRoleInfo.setAccountRoleName(accountRoleName);
+        accountRoleInfo.setStoreAccount(storeAccount);
+        accountRoleInfo.setRoleId(roleId);
+        accountRoleInfo.setAccountRoleId(accountRoleId);
+        if (accountRoleId != 0) {
+            accountRoleInfoMapper.updateByPrimaryKeySelective(accountRoleInfo);
+        }
+        else  {
+            accountRoleInfoMapper.insertSelective(accountRoleInfo);
+        }
+            
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, accountRoleInfo);
+    }
+
+
+    /**
+     * 查询系统角色
+    * @author 骆峰
+    * @date 2016年7月22日 下午12:06:04
+    * @param storeAccount storeAccount
+    * @param accountRoleId accountRoleId
+    * @return BaseDto
+     */
+    public BaseDto viewDeleteRole(String storeAccount,
+            Integer accountRoleId) {
+        AccountRoleInfo accountRoleInfo = new  AccountRoleInfo();
+        accountRoleInfo.setIsDeleted(1);
+        accountRoleInfo.setAccountRoleId(accountRoleId);
+        accountRoleInfoMapper.updateByPrimaryKeySelective(accountRoleInfo);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
 }

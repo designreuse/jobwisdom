@@ -67,9 +67,6 @@ public class AppointmentBaseDto {
     /** 预约员工信息 */
     private EmployeeBaseDto employeeInfo;
     
-    /** 预约项目信息 */
-    private ProjectBaseDto projectInfo;
-    
     /** 预约的大项*/
     private ProjectCategory category;
 
@@ -233,14 +230,5 @@ public class AppointmentBaseDto {
     public void setEmployeeInfo(EmployeeBaseDto employeeInfo) {
         this.employeeInfo = employeeInfo;
     }
-
-    public ProjectBaseDto getProjectInfo() {
-        return projectInfo;
-    }
-
-    public void setProjectInfo(ProjectBaseDto projectInfo) {
-        this.projectInfo = projectInfo;
-    }
-    
     
 }

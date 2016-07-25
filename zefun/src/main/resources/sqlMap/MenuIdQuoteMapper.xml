@@ -5,13 +5,35 @@
     <result column="menu_type" property="menuType" jdbcType="INTEGER" />
     <result column="menu_id" property="menuId" jdbcType="INTEGER" />
     <result column="quote_id" property="quoteId" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.zefun.web.entity.MenuIdQuote" extends="BaseResultMap" >
     <result column="menu_html" property="menuHtml" jdbcType="LONGVARCHAR" />
   </resultMap>
-  <sql id="Blob_Column_List" >
-    menu_html
-  </sql>
+
+
+
+ <select id="selectByMemuRoles" resultMap="BaseResultMap" parameterType="java.util.Map"  >
+ 	select 
+ 		menu_type,menu_id,quote_id,menu_html 
+ 		from menu_id_quote  
+ 		where
+ 	  menu_type = #{menuType}   and menu_id in 
+ 	  <foreach item="menuId" collection="menuId" separator="," open="(" close=")" index="">  
+      #{menuId}  
+    </foreach> 
+ 	
+ </select>
+ 
+  <select id="selectGroupByMemuRoles" resultMap="BaseResultMap" parameterType="java.util.Map"  >
+ 	select 
+ 		menu_type,menu_id,quote_id,menu_html 
+ 		from menu_id_quote  
+ 		where
+ 	  menu_type = #{menuType}   and menu_id in
+ 	   <foreach item="menuId" collection="menuId" separator="," open="(" close=")" index="">  
+      #{menuId}  
+    </foreach>  
+ 	    group by  quote_id
+ </select>
+ 	
   <insert id="insert" parameterType="com.zefun.web.entity.MenuIdQuote" >
     insert into menu_id_quote (menu_type, menu_id, quote_id, 
       menu_html)

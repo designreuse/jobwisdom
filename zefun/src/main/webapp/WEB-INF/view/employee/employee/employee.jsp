@@ -137,7 +137,7 @@
         <div class="imformation_left"> 
 		 <div class="clearfix">
 		    <div class="head_img">
-			  <img onclick="jQuery('.mask').show();editPage(null, '200*200');chooseType=0;" src="<%=basePath%>images/input_head.png">
+			  <img onclick="jQuery('.mask').show();editPage(null, '200*200');chooseType=0;" src="http://7xss26.com1.z0.glb.clouddn.com/jobwisdom/project/1468392992738">
 			  <input type="hidden" name="headImage" value="">
 			</div>
 		    <div class="information">

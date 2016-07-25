@@ -234,6 +234,7 @@ public class EmployeeController extends BaseController{
 //        JSONObject jasonObject = JSONObject.fromObject(addData);
         EmployeeDto employeeDto = (EmployeeDto)JSONObject.toBean(jasonObject, EmployeeDto.class); 
         employeeDto.setStoreId(getStoreId(request));
+        employeeDto.setUserName(employeeDto.getPhone());
         employeeDto.setCreateTime(DateUtil.getCurTime());
         employeeDto.setLastOperatorId(getUserId(request));
        /* @SuppressWarnings("unchecked")
@@ -247,6 +248,7 @@ public class EmployeeController extends BaseController{
             return new BaseDto(-2, "员工编码已经被人引用过了！");
         }
         
+      
         return new BaseDto(0, "修改成功");
     }
     /**

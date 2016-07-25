@@ -298,7 +298,7 @@ public class StaffCentreController extends BaseController{
         if (openId == null) {
             return null;
         }
-        int employeeId = getUserIdByOpenId(openId);
+        int employeeId =getUserIdByOpenId(openId);
         return staffCentreService.staffAppoint(employeeId, type);
     }
     
@@ -310,8 +310,6 @@ public class StaffCentreController extends BaseController{
     * @param type           操作类型(1:同意，2:拒绝)
     * @param appointmentId  预约标识
     * @param memberId       会员标识
-    * @param projectName    项目名称
-    * @param appointTime    预约时间
     * @param reason         取消原因
     * @param request    请求对象
     * @param response   响应对象
@@ -319,7 +317,7 @@ public class StaffCentreController extends BaseController{
      */
     @RequestMapping(value = Url.Staff.ACTION_APPOINT_OPERATE)
     @ResponseBody
-    public BaseDto appointOperate(int type, int appointmentId, int memberId, String projectName, String appointTime, String reason,
+    public BaseDto appointOperate(int type, int appointmentId, int memberId, String reason,
             HttpServletRequest request, HttpServletResponse response) {
         String openId = getOpenId(2, request, response);
         if (openId == null) {
@@ -327,7 +325,7 @@ public class StaffCentreController extends BaseController{
         }
         int employeeId = getUserIdByOpenId(openId);
         int storeId = getStoreIdByOpenId(openId);
-        return staffCentreService.appointOperate(type, storeId, employeeId, appointmentId, memberId, projectName, appointTime, reason);
+        return staffCentreService.appointOperate(type, storeId, employeeId, appointmentId, memberId, reason);
     }
     
     /**
@@ -339,7 +337,7 @@ public class StaffCentreController extends BaseController{
     * @param appointmentId 预约标识
     * @return BaseDto
      */
-    @RequestMapping(value = Url.Staff.ACTION_START_APPOINT)
+    /*@RequestMapping(value = Url.Staff.ACTION_START_APPOINT)
     @ResponseBody
     public BaseDto startAppoint(HttpServletRequest request, HttpServletResponse response, Integer appointmentId) {
         String openId = getOpenId(2, request, response);
@@ -349,7 +347,7 @@ public class StaffCentreController extends BaseController{
         Integer storeId = getStoreIdByOpenId(openId);
         Integer employeeId = getUserIdByOpenId(openId);
         return staffCentreService.startAppoint(appointmentId, storeId, employeeId);
-    }
+    }*/
     
     
     /**

@@ -1,5 +1,6 @@
 package com.zefun.web.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -214,6 +215,74 @@ public class SystemSettingController extends BaseController{
     public BaseDto actionSaveShareSetting(HttpServletRequest request, @RequestBody JSONObject shareReward){
         int storeId = getStoreId(request);
         return systemSettingService.actionUpdateShare(storeId, shareReward);
+    }
+    
+    
+    /**
+     *   权限页面
+    * @author 骆峰
+    * @date 2016年7月21日 下午3:47:27
+    * @param request request
+    * @return ModelAndView
+     */
+    @RequestMapping(value = Url.SystemSetting.SYSTEM_VIEW_SHOWROLE)
+    @ResponseBody
+    public ModelAndView viewRole(HttpServletRequest request){
+        String storeAccount = getStoreAccount(request);
+        return systemSettingService.viewRole(storeAccount);
+    }
+    
+    /**
+     * 查询系统角色
+    * @author 骆峰
+    * @date 2016年7月21日 下午5:16:56
+    * @param request request
+    * @param roleId roleId
+    * @param accountRoleId accountRoleId
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.SystemSetting.SYSTEM_VIEW_SELECTROLE)
+    @ResponseBody
+    public BaseDto viewAddRole(HttpServletRequest request, Integer roleId, Integer accountRoleId){
+        String storeAccount = getStoreAccount(request);
+        return systemSettingService.viewAddRole(storeAccount, roleId, accountRoleId);
+    }
+    
+    /**
+     *   保存角色
+    * @author 骆峰
+    * @date 2016年7月22日 上午10:32:13
+    * @param request request
+    * @param fristMemu fristMemu
+    * @param secendMemu secendMemu
+    * @param accountRoleName accountRoleName
+    * @param roleId roleId
+    * @param accountRoleId accountRoleId
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.SystemSetting.SYSTEM_VIEW_SAVEROLE)
+    @ResponseBody
+    public BaseDto viewSaveRole(HttpServletRequest request, String [] fristMemu, String []  secendMemu,
+            String accountRoleName, Integer roleId, Integer accountRoleId){
+        String storeAccount = getStoreAccount(request);
+        return systemSettingService.viewSaveRole(storeAccount, fristMemu, secendMemu, accountRoleName, roleId, accountRoleId);
+        
+    }
+    
+    
+    /**
+     *  查询系统角色
+    * @author 骆峰
+    * @date 2016年7月22日 下午12:05:06
+    * @param request request
+    * @param accountRoleId accountRoleId
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.SystemSetting.SYSTEM_VIEW_DELETEROLE)
+    @ResponseBody
+    public BaseDto viewDeleteRole(HttpServletRequest request, Integer accountRoleId){
+        String storeAccount = getStoreAccount(request);
+        return systemSettingService.viewDeleteRole(storeAccount, accountRoleId);
     }
     
 }
