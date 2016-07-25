@@ -21,10 +21,11 @@
 </head>
 <style>
 .shop_content {
-	padding: 0;
+	line-height: 4rem;
 	height: 4rem;
 	width: 100%;
-	box-shadow: 0 1px 2px #d8d8d8
+	box-shadow: 0 1px 2px #d8d8d8;
+	margin-bottom: 0rem;
 }
 
 .shop_content li {
@@ -39,10 +40,6 @@
 .shop_content li.active {
 	border-bottom: 1px solid #7b3187;
 	color: #3b1b40
-}
-
-.img {
-	height: 6.6rem
 }
 
 .shop_content_ {
@@ -111,7 +108,18 @@
 
 .zzc_slide_content ul li a.active1 {
 	background: #8627a2;
-	color: white
+	color: white!important
+}
+
+.shop_content .recommend {
+	float: left;
+	margin-left: 1rem
+}
+
+.shop_content a {
+	float: right;
+	color: #E23B3B;
+	font-size: 14px;
 }
 </style>
 <body>
@@ -122,7 +130,7 @@
 			<ul class="clearfix">
 				<c:forEach items="${storeList }" var="store">
 					<li>
-						<a storeId="${store.storeId }" href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account }/1?selectedStoreId=${store.storeId }" >${store.storeName }</a>
+						<a storeId="${store.storeId }" href="<%=basePath%>memberCenter/view/shopCenter/${session_key_store_account }/1?selectedStoreId=${store.storeId }">${store.storeName }</a>
 					</li>
 				</c:forEach>
 			</ul>
@@ -167,7 +175,7 @@
 			</div>
 		</div>
 		<div id="aestSellers">
-			<div class="shop_content">
+			<div class="shop_content" >
 				<p>
 					<span class="recommend_">新品上市</span>
 					<a href="<%=basePath %>memberCenter/view/shopCenter/list/${session_key_store_account}?selectStoreId=${storeId}">更多>></a>
@@ -217,6 +225,50 @@
 				</c:forEach>
 			</div>
 		</div>
+
+		<div id="coupon" class="hide" style="margin-bottom: 7rem;">
+			<ul class="shop_content u clearfix" style="padding:0;">
+				<li class="active">
+					<span>项目</span>
+				</li>
+				<li>
+					<span>疗程</span>
+				</li>
+			</ul>
+			<div class="shop_content_  clearfix">
+				<c:forEach items="${projectInfos }" var="projectInfo">
+				<a>
+					<div class="recommend_shop">
+						<div>
+							<img src="<%=qiniuPath %>${projectInfo.projectImage}">
+						</div>
+						<span>${projectInfo.projectName }</span>
+	
+						<div class="al_sell">
+							<span class="number_">已服务${projectInfo.salesCount }人</span>
+						</div>
+					</div>
+				</a>
+				</c:forEach>
+			</div>
+			<div class="shop_content_  clearfix" style="display: none;">
+				<c:forEach items="${comboInfos }" var="comboInfo">
+				<a>
+					<div class="recommend_shop">
+						<div>
+							<img src="<%=qiniuPath %>${comboInfo.comboImage}">
+						</div>
+						<span>${comboInfo.comboName }</span>
+	
+						<div class="al_sell">
+							<span class="number_">已服务${comboInfo.salesCount }人</span>
+						</div>
+					</div>
+				</a>
+				</c:forEach>
+			</div>
+		</div>
+
 	</div>
 
 	<!-- 积分兑换 -->
@@ -318,9 +370,14 @@
 	<script type="text/javascript" src="<%=basePath%>js/mobile/jquery.lazyload.min.js"></script>
 	<script type="text/javascript">
 		var storeId = '${storeId }';
-		$(".zzc").find("a[storeId='"+storeId+"']").addClass("active1");
+		$(".zzc").find("a[storeId='" + storeId + "']").addClass("active1");
 		//更多门店
 		$(function() {
+			$('.u li').on('touchstart',function(){
+			    $(this).addClass('active').siblings().removeClass('active');
+			    
+				$(this).parent().siblings('.shop_content_').eq($(this).index()).show().siblings('.shop_content_').hide();
+			})
 			//选择
 			$('.zzc_slide_content ul li a').on(
 					'touchstart',

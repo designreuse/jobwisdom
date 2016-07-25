@@ -14,11 +14,14 @@
     <result column="tm_service_turn" property="tmServiceTurn" jdbcType="VARCHAR" />
     <result column="tm_service_topic" property="tmServiceTopic" jdbcType="VARCHAR" />
     <result column="tm_coupon_overdue" property="tmCouponOverdue" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="mch_id" property="mchId" jdbcType="VARCHAR" />
+    <result column="mch_key" property="mchKey" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     store_account, wechat_id, wechat_appid, wechat_appsecret, tm_appoint_apply, tm_appoint_result, 
     tm_appoint_remind, tm_charge_result, tm_payment_info, tm_service_turn, tm_service_topic, 
-    tm_coupon_overdue
+    tm_coupon_overdue, app_id, mch_id, mch_key
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -34,11 +37,13 @@
     insert into store_wechat (store_account, wechat_id, wechat_appid, 
       wechat_appsecret, tm_appoint_apply, tm_appoint_result, 
       tm_appoint_remind, tm_charge_result, tm_payment_info, 
-      tm_service_turn, tm_service_topic, tm_coupon_overdue)
+      tm_service_turn, tm_service_topic, tm_coupon_overdue,
+      app_id, mch_id, mch_key)
     values (#{storeAccount,jdbcType=VARCHAR}, #{wechatId,jdbcType=VARCHAR}, #{wechatAppid,jdbcType=VARCHAR}, 
       #{wechatAppsecret,jdbcType=VARCHAR}, #{tmAppointApply,jdbcType=VARCHAR}, #{tmAppointResult,jdbcType=VARCHAR}, 
       #{tmAppointRemind,jdbcType=VARCHAR}, #{tmChargeResult,jdbcType=VARCHAR}, #{tmPaymentInfo,jdbcType=VARCHAR}, 
-      #{tmServiceTurn,jdbcType=VARCHAR}, #{tmServiceTopic,jdbcType=VARCHAR}, #{tmCouponOverdue,jdbcType=VARCHAR})
+      #{tmServiceTurn,jdbcType=VARCHAR}, #{tmServiceTopic,jdbcType=VARCHAR}, #{tmCouponOverdue,jdbcType=VARCHAR},
+      #{appId,jdbcType=VARCHAR}, #{mchId,jdbcType=VARCHAR}, #{mchKey,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zefun.web.entity.StoreWechat" >
     insert into store_wechat
@@ -79,6 +84,15 @@
       <if test="tmCouponOverdue != null" >
         tm_coupon_overdue,
       </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+       <if test="mchId != null" >
+        mch_id,
+      </if>
+       <if test="mchKey != null" >
+        mch_key,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="storeAccount != null" >
@@ -116,6 +130,15 @@
       </if>
       <if test="tmCouponOverdue != null" >
         #{tmCouponOverdue,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+       <if test="mchId != null" >
+        #{mchId,jdbcType=VARCHAR},
+      </if>
+       <if test="mchKey != null" >
+       #{mchKey,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -155,6 +178,16 @@
       <if test="tmCouponOverdue != null" >
         tm_coupon_overdue = #{tmCouponOverdue,jdbcType=VARCHAR},
       </if>
+      
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="mchId != null" >
+        mch_id = #{mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="mchKey != null" >
+        mch_key = #{mchKey,jdbcType=VARCHAR},
+      </if>
     </set>
     where store_account = #{storeAccount,jdbcType=VARCHAR}
   </update>
@@ -170,7 +203,10 @@
       tm_payment_info = #{tmPaymentInfo,jdbcType=VARCHAR},
       tm_service_turn = #{tmServiceTurn,jdbcType=VARCHAR},
       tm_service_topic = #{tmServiceTopic,jdbcType=VARCHAR},
-      tm_coupon_overdue = #{tmCouponOverdue,jdbcType=VARCHAR}
+      tm_coupon_overdue = #{tmCouponOverdue,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      mch_id = #{mchId,jdbcType=VARCHAR},
+      mch_key = #{mchKey,jdbcType=VARCHAR}
     where store_account = #{storeAccount,jdbcType=VARCHAR}
   </update>
   

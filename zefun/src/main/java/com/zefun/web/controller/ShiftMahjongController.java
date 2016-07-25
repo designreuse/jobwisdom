@@ -44,7 +44,7 @@ public class ShiftMahjongController extends BaseController{
 	@RequestMapping(value = Url.KeepAccounts.INITIALIZE_ENTERPRISE_SHIFT_MAHJONG, method = RequestMethod.GET)
 	public ModelAndView initializeEnterpriseShiftMahjong (HttpServletRequest request, HttpServletResponse response) {
 		String storeAccount = getStoreAccount(request);
-		return shiftMahjongService.initializeEnterpriseShiftMahjong(storeAccount);
+		return shiftMahjongService.initializeEnterpriseShiftMahjong(storeAccount, request);
 	}
 	
 	/**

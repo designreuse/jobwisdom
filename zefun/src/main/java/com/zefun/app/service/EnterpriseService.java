@@ -18,17 +18,21 @@ import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.EnterpriseInfoDto;
+import com.zefun.web.entity.AccountRoleInfo;
 import com.zefun.web.entity.EnterpriseAccount;
 import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.Page;
+import com.zefun.web.entity.RoleInfo;
 import com.zefun.web.entity.UserAccount;
+import com.zefun.web.mapper.AccountRoleInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EnterpriseAccountMapper;
 import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
+import com.zefun.web.mapper.RoleInfoMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 
 /**
@@ -45,6 +49,17 @@ public class EnterpriseService {
 	 */
 	@Autowired
 	private EnterpriseInfoMapper enterpriseInfoMapper;
+	
+	/**
+	 * 新建角色信息
+	 */
+	@Autowired
+	private AccountRoleInfoMapper accountRoleInfoMapper;
+	/**
+	 * 角色信息
+	 */
+	@Autowired
+	private RoleInfoMapper roleInfoMapper;
 	/**
 	 * 账户表
 	 */
@@ -235,6 +250,21 @@ public class EnterpriseService {
             memberLevelDiscount.setCreateTime(curTime);
             memberLevelDiscountMapper.insert(memberLevelDiscount);
             
+            //默认插入角色
+            List<RoleInfo> selectSystemRoles = roleInfoMapper.selectSystemRoles();
+            
+            AccountRoleInfo accountRoleInfo = new AccountRoleInfo();
+            for (int i = 0; i < selectSystemRoles.size(); i++) {
+                RoleInfo roleInfo = selectSystemRoles.get(i);
+                accountRoleInfo.setAccountRoleName(roleInfo.getRoleName());
+                accountRoleInfo.setFristMenu(roleInfo.getFristMenu());
+                accountRoleInfo.setSecondMenu(roleInfo.getSecondMenu());
+                accountRoleInfo.setRoleId(roleInfo.getRoleId());
+                accountRoleInfo.setStoreAccount(storeAccount);
+                accountRoleInfo.setIsDeleted(0);
+                accountRoleInfoMapper.insertSelective(accountRoleInfo);
+            }
+
         }
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}

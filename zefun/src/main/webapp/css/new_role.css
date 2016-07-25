@@ -1,0 +1,41 @@
+.new_role_content li{position:relative;width:205px;height:160px;border:1px solid #a2badd;overflow: hidden;float: left;border-left:none;border-top:none}
+
+.content_right{font-size:12px;padding:25px}
+.content_right>button{width:130px;height:26px;line-height:26px;font-size:14px;color:white;border:none;border-radius:12px;text-align:center;background:#686f8e}
+.content_right>button:hover{background:#5c6380}
+
+.new_role_content{border:1px solid #34508f;background:#d8e0f2;height:643px;overflow:hidden;border-radius:8px;margin-top:15px}
+.zzc{font-size: 12px;color: black; position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
+.zzc_new_role{width:880px;height:530px;background:white;margin:50px auto;border-radius:12px;overflow:hidden}
+.zzc_new_role>p{height:60px;font-size:15px;color:white;text-align:center;line-height:60px;background:#3c4057}
+.zzc_new_role_content span{display:inline-block;margin-right:34px}
+.zzc_new_role_content p span input{width:130px;height:14px;border-radius:12px;border:1px solid #aeaeae}
+.zzc_new_role_content p span select{padding:2px 0px 2px 5px;width:130px;border-radius:12px;border:1px solid #aeaeae}
+.zzc_new_role_content{padding:22px}
+.zzc_new_role_content em{color:#fb1010;display:inline-block;margin:0px 4px 0 2px;position:relative;top:4px;font-size:14px}
+.appoint>p{color:#7e7e7e;margin-bottom:2px}
+.appoint_content{overflow:hidden;height:140px;border-radius:12px;overflow:hidden;border:1px solid #34508f;background:#d8e0f2}
+.appoint{margin-top:16px}
+.appoint_ul{height:40px;border-bottom:1px solid #a6b5d4}
+.appoint_ul li{cursor:pointer;float:left;width:91px;height:40px;text-align:center;line-height:40px;border-right:1px solid #a6b5d4}
+.appoint_ul li:last-child{border-right:none}
+.appoint_ul li.active{background:#b8c7ea}
+.appoint_ul_index li{background-color:white;margin:14px 8px 0 8px;cursor:pointer;float:left;width:120px;height:28px;text-align:center;line-height:28px;border-radius:12px;border:1px solid #7d93c6}
+.appoint_ul_index li.active1{background:#b8c7ea}
+.appoint_ul_index{height:100px;overflow-y:overlay;overflow-x:auto}
+
+.new_role_button{text-align:center;margin-top:20px}
+.new_role_button button{margin:0 57px;width:130px;height:26px;text-align:center;line-height:26px;color:white;background:#6b7793;border:none;border-radius:12px}
+.new_role_button button:hover{background:#5e6983}
+.appoint_ul_index li.active{background:#b8c7ea}
+.second .appoint_ul_index li{position:relative}
+
+.second .appoint_ul_index li img{position:absolute;top:5px;right:8px;width:18px}
+.appoint_ul_index img{position:absolute}
+.new_role_content>ul{margin-right:-40px}
+.new_role_content .circle{position:relative;width:120px;height:120px;border-radius:60px;background:#22c0ef;margin:20px auto}
+.new_role_content .adjust{text-align:center;bottom:30px;left:30px;position:absolute;background:url(../images/new_roll_back.png) no-repeat;width:142px;height:33px}
+.new_role_content .adjust span{cursor:pointer;margin-top:6px;display:inline-block;width:44px;height:20px;text-align:center;line-height:20px;border-radius:8px;background:white;color:#1586c0}
+.circle>p{color:white;text-align:center;position:relative;top:40px;font-size:14px}
+.circle>span{position:absolute;right:2px;top:18px}
+.circle>span img{width:16px}

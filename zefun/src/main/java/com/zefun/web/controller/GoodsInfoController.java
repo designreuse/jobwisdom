@@ -153,7 +153,6 @@ public class GoodsInfoController extends BaseController {
         String storeAccount = getStoreAccount(request);
         ModelAndView model = null;
         List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
-        
         Object storeId = request.getSession().getAttribute(Session.STORE_ID);
         if (storeId!=null){
             model = new ModelAndView(View.GoodsInfo.GOOD_SETTING_STORE);

@@ -113,4 +113,16 @@
   	select role_id from role_info where role_name = #{roleName}
   </select>
   
+<!--    系统默认角色 -->
+   <select id="selectSystemRoles" resultMap="BaseResultMap">
+   	select 
+    <include refid="Base_Column_List" />
+    from role_info where role_id in (1,2,3)
+  </select>
+  
+    <select id="selectSystemRole" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+   	select 
+    <include refid="Base_Column_List" />
+    from role_info where role_id = #{roleId}
+  </select>
 </mapper>

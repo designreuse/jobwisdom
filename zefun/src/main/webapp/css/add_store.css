@@ -1,4 +1,4 @@
-.add_store_content{width:950px;color:black;height:705px}
+.add_store_content{width:950px;color:black;height:705px;position:relative;left:-1px}
 .add_store_button{float:left;width:400px}
 .add_store_button button{width:120px;height:30px;text-align:center;line-height:30px;color:white;border-radius:15px;border:none;background:#59688a;font-size:14px;margin-right:10px}
 .add_store_button button:hover{

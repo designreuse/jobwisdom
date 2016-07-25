@@ -123,6 +123,9 @@ public interface View {
 		
 		/**提成分配方案*/
         public static final String VIEW_COMMISSION_SCHEME = "setting/commissionScheme";
+        
+        /**权限分配页面展示*/
+        public static final String VIEW_COMMISSION_ROLE = "setting/addRole";
 	}
 
 	/**

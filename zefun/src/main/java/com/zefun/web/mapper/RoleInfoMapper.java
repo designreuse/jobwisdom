@@ -102,4 +102,21 @@ public interface RoleInfoMapper {
      * @return  角色id
      */
     int selectRoleIdByRoleName(String roleName);
+    
+    /**
+     * 查询默认4个角色
+    * @author 骆峰
+    * @date 2016年7月20日 下午7:49:42
+    * @return List
+     */
+    List<RoleInfo> selectSystemRoles();
+    
+    /**
+     *  单个系统角色
+    * @author 骆峰
+    * @date 2016年7月21日 下午5:38:17
+    * @param roleId roleId
+    * @return RoleInfo
+     */
+    RoleInfo selectSystemRole(Integer roleId);
 }

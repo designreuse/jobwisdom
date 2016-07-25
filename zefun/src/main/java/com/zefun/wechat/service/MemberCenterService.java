@@ -57,6 +57,7 @@ import com.zefun.web.dto.ProjectBaseDto;
 import com.zefun.web.dto.ProjectEvaluateDto;
 import com.zefun.web.dto.SelfCashierDetailDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
+import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
 import com.zefun.web.entity.EmployeeInfo;
@@ -83,6 +84,7 @@ import com.zefun.web.entity.StoreShop;
 import com.zefun.web.entity.StoreWechat;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatMember;
+import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.EmployeeEvaluateMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -296,6 +298,10 @@ public class MemberCenterService {
     /** 岗位信息*/
     @Autowired
     private PositioninfoMapper positioninfoMapper;
+    /** 套餐信息*/
+    @Autowired
+    private ComboInfoMapper comboInfoMapper;
+    
     
     
     
@@ -1414,6 +1420,9 @@ public class MemberCenterService {
             bestSellers = goodsInfoService.queryByGoodsIds(paramsBestSellers);
         }
         
+        List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(ownerStoreId);
+        List<ComboInfo> comboInfos = comboInfoMapper.selectByProperty(new ComboInfo(ownerStoreId));
+        
         mav.addObject("aestSellers", aestSellers);
         mav.addObject("bestSellers", bestSellers);
         mav.addObject("storeShop", shop);
@@ -1423,6 +1432,9 @@ public class MemberCenterService {
         mav.addObject("storeList", storeList);
         
         mav.addObject("storeId", ownerStoreId);
+        
+        mav.addObject("projectInfos", projectInfos);
+        mav.addObject("comboInfos", comboInfos);
         
         return mav;
     }

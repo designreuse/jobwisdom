@@ -1675,7 +1675,7 @@ function deleteinfo(id){
 					return;
 				}
 				dialog(e.msg);
-				jQuery(".member-list-table tr[id='" + id + "']").fadeOut(800).remove();
+				jQuery(".payroll_table tr[id='" + id + "']").fadeOut(800).remove();
 			}
 		});
 		}

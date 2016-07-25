@@ -398,5 +398,24 @@ public class ComboInfo {
 	public Integer getLastOperatorId(){
 		return lastOperatorId;
 	}
+	
+	/**
+	 * 构造器
+	* @author 高国藩
+	* @date 2016年7月22日 下午4:07:14
+	 */
+	public ComboInfo() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * 构造器
+	* @author 高国藩
+	* @date 2016年7月22日 下午4:07:21
+	* @param storeId  storeId
+	 */
+    public ComboInfo(Integer storeId) {
+        this.storeId = storeId;
+    }
 
 }

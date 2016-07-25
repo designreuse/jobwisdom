@@ -264,8 +264,8 @@
 													<td><select onchange="descProjectPrice(this)" name="projectId"><c:forEach items="${projectInfoDtoList }" var="projectInfo"><option projectPrice="${projectInfo.projectPrice }" value="${projectInfo.projectId }">${projectInfo.projectName }</option></c:forEach></select></td>
 													<td>0.00 元</td>
 													<td><span><input type="radio" name="isCountLimit" value="1" checked="checked">是</span><span><input type="radio" name="isCountLimit" value="0">否</span></td>
-													<td><input type="text" name="projectCount" value="0"><i>个</i></td>
-													<td><input type="text" name="comboPerformance" value="0" style="padding-right: 20px; width: 106px"><i>元</i></td>
+													<td><input type="text" name="projectCount" ><i>个</i></td>
+													<td><input type="text" name="comboPerformance" style="padding-right: 20px; width: 106px"><i>元</i></td>
 												</tr>
 											</tbody>
 										</table>
@@ -297,8 +297,8 @@
 												<tr style="display: none">
 													<td><select onchange="descGoodsPrice(this)" name="goodsId"><c:forEach items="${goodsinfos }" var="goodsinfo"><option goodsPrice="${goodsinfo.goodsPrice }" value="${goodsinfo.goodsId }">${goodsinfo.goodsName }</option></c:forEach></select></td>
 													<td>0.00元</td>
-													<td><input type="text" name="goodsCounts" value="0"><i style="right: 50px;">个</i></td>
-													<td><input type="text" name="comboPerformanceCal" value="0" style="padding-right: 20px; width: 106px"><i style="right: 48px">元</i></td>
+													<td><input type="text" name="goodsCounts" ><i style="right: 50px;">个</i></td>
+													<td><input type="text" name="comboPerformanceCal"  style="padding-right: 20px; width: 106px"><i style="right: 48px">元</i></td>
 												</tr>
 											</tbody>
 										</table>
@@ -334,7 +334,7 @@
 												<tr>
 													<td id="allProjectPrice">0.00元</td>
 													<td><span><input onclick="jQuery(this).parent().parent().next().show();" type="radio" checked="checked" name="standard" value="1">是</span><span><input onclick="jQuery('input[name=\'validDate\']').val('0');jQuery(this).parent().parent().next().hide();" type="radio" name="standard" value="0">否</span></td>
-													<td><input type="number" name="validDate" value="0" style="width: 80px; padding-right: 20px"><i>天</i></td>
+													<td><input type="number" name="validDate"  style="width: 80px; padding-right: 20px"><i>天</i></td>
 												</tr>
 											</tbody>
 										</table>
@@ -348,11 +348,11 @@
 													<td>员工销售业绩计算</td>
 												</tr>
 												<tr>
-													<td><input type="number" name="comboSalePrice" value="0"><i style="right: 40px">元</i></td>
+													<td><input type="number" name="comboSalePrice" ><i style="right: 40px">元</i></td>
 													<td><span><input onclick="jQuery(this).parents('tr').find('i').text('元');jQuery(this).parents('tr').find('i').eq(0).text('元')" type="radio" name="commissionType" checked="checked" value="2">固定</span><span><input onclick="jQuery(this).parents('tr').find('i').text('%');jQuery(this).parents('tr').find('i').eq(0).text('元')" type="radio" name="commissionType" value="1">比例</span></td>
-													<td><input type="number" name="cashCommission" value="0" style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
-													<td><input type="number" name="cardCommission" value="0" style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
-													<td><input type="number" name="saleComboPerformance" value="0" style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
+													<td><input type="number" name="cashCommission"  style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
+													<td><input type="number" name="cardCommission"  style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
+													<td><input type="number" name="saleComboPerformance"  style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
 												</tr>
 											</tbody>
 										</table>

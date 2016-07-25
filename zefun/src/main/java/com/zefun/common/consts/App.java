@@ -31,8 +31,8 @@ public interface App {
 		public static final String APP_USER_ROLE_BOSS = "boss";
 
 		/** 服务器域名 */
-		public static final String SERVER_HOST = "wang.jobwisdom.cn";
-		//public static final String SERVER_HOST = "job.jobwisdom.cn";
+//		public static final String SERVER_HOST = "wang.jobwisdom.cn";
+		public static final String SERVER_HOST = "job.jobwisdom.cn";
 
 		/** 服务器基础地址 */
 		public static final String SERVER_BASE_URL = "http://" + SERVER_HOST + "/jobwisdom";
@@ -59,6 +59,9 @@ public interface App {
 
 		/** 系统角色：总店负责人 */
 		public static final int SYSTEM_ROLE_STORE_MAIN_OWNER = 101;
+		
+		/** 系统角色：总店负责人 */
+        public static final int SYSTEM_ROLE_STORE_MAIN_JOBWISDOM = 100;
 
 		/** 系统角色：连锁分店负责人 */
 		public static final int SYSTEM_ROLE_STORE_BRANCH_OWNER = 102;
@@ -312,12 +315,12 @@ public interface App {
 		/** 智放微信支付API密钥 */
 		public static final String MCH_PAY_KEY_ZEFUN = "123456789qwasdfghjklertyuiopzxcv";
 
-		/** 智放微信应用ID */
-		public static final String PAY_APP_KEY_YOUMEI = "wx287441046c9f38b2";
-		/** 智放微信支付商户号 */
-		public static final String MCH_ID_YOUMEI = "1335522901";
-		/** 智放微信支付API密钥 */
-		public static final String MCH_PAY_KEY_YOUMEI = "123456789qwasdfghjklertyuiopzxcv";
+//		/** 智放微信应用ID */
+//		public static final String PAY_APP_KEY_YOUMEI = "wx287441046c9f38b2";
+//		/** 智放微信支付商户号 */
+//		public static final String MCH_ID_YOUMEI = "1335522901";
+//		/** 智放微信支付API密钥 */
+//		public static final String MCH_PAY_KEY_YOUMEI = "123456789qwasdfghjklertyuiopzxcv";
 
 		/** 币种 */
 		public static final String FEE_TYPE = "CNY";

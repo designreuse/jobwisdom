@@ -75,10 +75,6 @@ public class UboxMallController extends BaseController {
             return null;
         }
         setJsapiSignData(storeAccount, request);
-        /*String wechatPayOpenId = getOpenIdForYoumei(1, request, response);
-        if (wechatPayOpenId == null) {
-            return null;
-        }*/
         Integer memberId = getUserIdByOpenId(openId);
         return uboxMallService.goodsInfoView(storeGoodsId, memberId);
     }
@@ -102,15 +98,9 @@ public class UboxMallController extends BaseController {
         if (openId == null) {
             return null;
         }
-       /* String wechatPayOpenId = getOpenIdForYoumei(1, request, response);
-        if (wechatPayOpenId == null) {
-            return null;
-        }*/
-//        Integer memberId = getUserIdByOpenId(openId);
-        
         GoodsInfoDto goodsInfoDto = goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
         String callback = "/" + Url.AppPay.GOODSINFO_PAY_CALLBACK;
-        return wechatCallService.wepayForZefun(storeId, 4, goodsId, goodsInfoDto.getGoodsName(), 
+        return wechatCallService.wepayForZefun(storeAccount, storeId, 4, goodsId, goodsInfoDto.getGoodsName(), 
                 goodsInfoDto.getGoodsPrice().intValue(), openId, callback, request);
     }
     

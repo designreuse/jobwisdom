@@ -67,7 +67,6 @@
     	}
     	
     }
-	
     </script>
 </head>
 <body>
@@ -417,6 +416,12 @@ var priceMoneyOrTime;
 if (!isEmpty(priceMoneyOrTimeStr)) {
 	priceMoneyOrTime = eval("(" + priceMoneyOrTimeStr + ")");
 }
+jQuery(function (){
+	var voice = '${voice}';
+	if (voice!=''){
+		dialog(voice);
+	}}
+)
 </script>
 </body>
 </html>
