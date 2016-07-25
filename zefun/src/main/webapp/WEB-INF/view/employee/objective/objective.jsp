@@ -17,7 +17,7 @@
             <span class="dingdanzhuantai blue">目标统计</span>
             <span class="ml10">劳动业绩总体<span class="red a"></span></span>
             <span class="ml10">指定业绩<span class="red b"></span></span>
-            <span class="ml10">套餐销售<span class="red c"></span></span>
+            <span class="ml10">疗程销售<span class="red c"></span></span>
             <span class="ml10">商品销售<span class="red d"></span></span>
             <span class="ml10">开卡充值<span class="red e"></span></span>
             <span class="ml10">现金业绩<span class="red f"></span></span>
@@ -81,7 +81,7 @@
                 <th>岗位 </th>
                 <th>劳动业绩总体</th>
                 <th>指定业绩</th>
-                <th>套餐销售</th>
+                <th>疗程销售</th>
                 <th>商品销售</th>
                 <th>开卡/充值</th>
                 <th>现金业绩</th>

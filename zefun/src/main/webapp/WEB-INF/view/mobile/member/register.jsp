@@ -2,7 +2,7 @@
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/base.jsp"%>
-<html lang="en" style="background:url('<%=basePath%>images/mobile/member/login_back.jpg') no-repeat;background-size:100% 100%;height:100%">
+<html lang="en">
 <link rel="stylesheet" href="<%=basePath%>css/mobile/style.css" />
 <link rel="stylesheet" href="<%=basePath%>css/mobile/shop.css?date=<%=new Date() %>" />
 <head>
@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="<%=iconfontCssPath%>" />
 <link rel="stylesheet" href="<%=memberCssPath%>" />
 </head>
-<body style="background: none; ">
+<body style="background: none;background:url('<%=basePath%>images/mobile/member/login_back.jpg') no-repeat;background-size:100% 100%;height:100%">
 	<div class="con">
 		<div class="login">
 			<div class="login_content ">
@@ -34,6 +34,11 @@
 		</div>
 		<%@include file="../memberBase.jsp"%>
 		<script type="text/javascript">
+			$(function(){
+			   var height=$(document).height();
+			   $('body').css('height',height)
+			 
+			 })
 			var windowHeight = $(window).height()
 			$(".login-wrap").css({
 				"height" : windowHeight

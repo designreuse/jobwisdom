@@ -123,7 +123,7 @@ var detailOffMap = new Object();
     		var payOffContent = jq("[name='payOffContent'][detailId='" + detail.detailId + "']");
     		
     		var detailOffList = new Array();
-    		//套餐/礼金/优惠券抵扣，组装数据
+    		//疗程/礼金/优惠券抵扣，组装数据
     		var pickerData = new Array();
     		var d = {};
             d["uid"] = 0;
@@ -186,7 +186,7 @@ $(function(){
 				var $this = jQuery(this);
 				var detailId = $this.attr("detailId");
 				var detailType = $this.attr("detailType");
-				//购买套餐直接跳过
+				//购买疗程直接跳过
 				if (detailType != 3) {
 					//更新折扣价格
 					var discountAmount = discountMap[detailId + "_" + subAccountId];
@@ -194,7 +194,7 @@ $(function(){
 					$this.attr("discountAmount", discountAmount.toFixed(2));
 					
 					//更新实收价格
-					var offType = $this.attr("offtype");//1:项目套餐，2:商品套餐，3:优惠券，4:礼金
+					var offType = $this.attr("offtype");//1:项目疗程，2:商品疗程，3:优惠券，4:礼金
 					if (offType == 3 || offType == 0) {
 						var offAmount = $this.attr("offAmount");
 						var realAmount = new Big(discountAmount - offAmount);

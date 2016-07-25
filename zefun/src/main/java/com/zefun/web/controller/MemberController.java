@@ -63,6 +63,7 @@ import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.mapper.RumorsCourseMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 import com.zefun.web.service.MemberInfoService;
+
 import net.sf.json.JSONObject;
 
 /**
@@ -392,7 +393,7 @@ public class MemberController extends BaseController{
     
     
     /**
-     *  异常会员套餐迁移
+     *  异常会员疗程迁移
     * @author 高国藩
     * @date 2015年12月19日 下午1:47:11
     * @param request          请求数据
@@ -410,7 +411,7 @@ public class MemberController extends BaseController{
     }
     
     /**
-     * 异常会员套餐迁移-单个
+     * 异常会员疗程迁移-单个
     * @author 高国藩
     * @date 2016年3月14日 下午3:41:59
     * @param request request
@@ -656,13 +657,16 @@ public class MemberController extends BaseController{
         try {
             sslContext = SSLContext.getInstance("SSL");
             final X509TrustManager trustManager = new X509TrustManager() {
-                public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                @Override
+				public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
                 }
 
-                public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                @Override
+				public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
                 }
 
-                public X509Certificate[] getAcceptedIssuers() {
+                @Override
+				public X509Certificate[] getAcceptedIssuers() {
                     return null;
                 }
             };

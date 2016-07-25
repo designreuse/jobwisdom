@@ -92,6 +92,26 @@
                                      <input type="text" name="tmCouponOverdue" value="${storeWechat.tmCouponOverdue }" class="name"/>
                                 </td>
                             </tr>
+                            
+                            <tr>
+                                <td class="text-right fb">appId</td>
+                                <td>
+                                     <input type="text" name="appId" value="${storeWechat.appId }" class="name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right fb">商户ID</td>
+                                <td>
+                                     <input type="text" name="mchId" value="${storeWechat.mchId }" class="name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right fb">api秘钥</td>
+                                <td>
+                                     <input type="text" name="mchKey" value="${storeWechat.mchKey }" class="name"/>
+                                </td>
+                            </tr>
+                            
 			                <tr>
 	                            <td class="text-right fb"><a class="btn btn-primary" href="javascript:save();">保存</a></td>
 	                            <td></td>

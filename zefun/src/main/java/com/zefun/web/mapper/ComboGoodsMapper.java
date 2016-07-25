@@ -5,7 +5,7 @@ import java.util.List;
 import com.zefun.web.entity.ComboGoods;
 
 /**
- * 套餐商品关联mapper
+ * 疗程商品关联mapper
 * @author 高国藩
 * @date 2015年11月10日 下午3:54:51
  */

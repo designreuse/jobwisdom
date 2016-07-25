@@ -150,7 +150,7 @@ function redrawPerformanceChart(employeeCommissionDetailOfBossDto) {
 			employeeCommissionDetailOfBossDto.cashCommissionOfProject, employeeCommissionDetailOfBossDto.cardCommissionOfProject);
 	addPerformanceChartSeries(globalPerformanceChart, "商品销售", 
 			employeeCommissionDetailOfBossDto.cashCommissionOfGoods, employeeCommissionDetailOfBossDto.cardCommissionOfGoods);
-	addPerformanceChartSeries(globalPerformanceChart, "套餐销售", 
+	addPerformanceChartSeries(globalPerformanceChart, "疗程销售", 
 			employeeCommissionDetailOfBossDto.cashCommissionOfPackage, employeeCommissionDetailOfBossDto.cardCommissionOfPackage);
 	addPerformanceChartSeries(globalPerformanceChart, "卡项销售", 
 			employeeCommissionDetailOfBossDto.cashCommissionOfCard, employeeCommissionDetailOfBossDto.cardCommissionOfCard);
@@ -206,7 +206,7 @@ function redrawCommissionChart(employeeCommissionDetailOfBossDto) {
                ['卡项提成', Number(employeeCommissionDetailOfBossDto.employeeCommissionOfCard)],
                ['项目提成', Number(employeeCommissionDetailOfBossDto.employeeCommissionOfProject)],
                ['商品提成', Number(employeeCommissionDetailOfBossDto.employeeCommissionOfGoods)],
-               ['套餐提成', Number(employeeCommissionDetailOfBossDto.employeeCommissionOfPackage)]
+               ['疗程提成', Number(employeeCommissionDetailOfBossDto.employeeCommissionOfPackage)]
         ]
 	}, false);
 	globalCommissionChart.setTitle({text: '<div style="text-align: center"><span style="font-size: 20px;color: #b8c2cc">'

@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +48,9 @@ import com.zefun.web.service.EmployeelevelService;
 import com.zefun.web.service.MemberLevelService;
 import com.zefun.web.service.ProjectService;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 /**
  * 项目
 * @author 洪秋霞
@@ -74,7 +75,7 @@ public class ProjectInfoController extends BaseController {
     /**订单列表*/
     @Autowired
     private OrderDetailMapper orderDetailMapper;
-    /**套餐项目关联*/
+    /**疗程项目关联*/
     @Autowired
     private ComboProjectMapper comboProjectMapper;
     /** 岗位操作 */
@@ -423,7 +424,7 @@ public class ProjectInfoController extends BaseController {
     @RequestMapping(value = Url.Project.PROJECT_CATEGORY_VIEW)
     public ModelAndView projectCategoryView(HttpServletRequest request, HttpServletResponse response, Integer storeId, Integer deptId) {
         String storeAccount = getStoreAccount(request);
-        return projectService.projectCategoryView(storeAccount, storeId, deptId);
+        return projectService.projectCategoryView(storeAccount, storeId, deptId, request);
     }
     
     /**
@@ -511,7 +512,7 @@ public class ProjectInfoController extends BaseController {
                         .selectByProperty(comboProject);
                 if (comboProjects != null && comboProjects.size() > 0) {
                     return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL,
-                            "该系列下项目在套餐中引用不可删除");
+                            "该系列下项目在疗程中引用不可删除");
                 }
                 projectService.deleteProject(Integer.parseInt(projectIds[j]));
             }
@@ -679,7 +680,7 @@ public class ProjectInfoController extends BaseController {
         comboProject.setProjectId(projectId);
         List<ComboProject> comboProjects = comboProjectMapper.selectByProperty(comboProject);
         if (comboProjects != null && comboProjects.size() > 0) {
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该项目在套餐中引用不可删除");
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该项目在疗程中引用不可删除");
         }
         List<OrderDetail> details = orderDetailMapper.selectHasProjectAndStatus(projectId);
         if (details != null && details.size() > 0) {

@@ -101,6 +101,9 @@ public class LoginController extends BaseController {
 			else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {
 				return new ModelAndView("redirect:/" + Url.Member.VIEW_BASE_MEMBER);
 			} 
+			else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_JOBWISDOM) {
+			    return new ModelAndView("redirect:/" + Url.Enterprise.VIEW_SHOW_ENTERPRISE);
+	        } 
 			else {
 				return new ModelAndView("redirect:/" + Url.KeepAccounts.INITIALIZE_MANUALLY_OPEN_ORDER);
 			}

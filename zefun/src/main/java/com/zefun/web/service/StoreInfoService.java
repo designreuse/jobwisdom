@@ -15,9 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -35,8 +32,6 @@ import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.common.utils.StringUtil;
-import com.zefun.web.controller.ProjectInfoController;
-import com.zefun.web.controller.ShiftMahjongController;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.BusinessSummaryDto;
 import com.zefun.web.dto.BusinessSummaryTrend;
@@ -54,7 +49,6 @@ import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.EnterpriseInfoDto;
 import com.zefun.web.dto.GoodSalesSummaryDto;
-import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectLaborRank;
 import com.zefun.web.dto.ServiceReportDto;
 import com.zefun.web.dto.StoreIncomeDto;
@@ -64,33 +58,23 @@ import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.TrendDeptDataDto;
 import com.zefun.web.entity.AccountGoods;
 import com.zefun.web.entity.AgentInfo;
-import com.zefun.web.entity.ComboGoods;
-import com.zefun.web.entity.ComboInfo;
-import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.CommissionScheme;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
-import com.zefun.web.entity.EmployeeLevel;
 import com.zefun.web.entity.EnterpriseAccount;
 import com.zefun.web.entity.EnterpriseAccountFlow;
 import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.EnterpriseMsnFlow;
 import com.zefun.web.entity.EnterpriseStoreAuthority;
 import com.zefun.web.entity.GoodsCategory;
-import com.zefun.web.entity.GoodsDiscount;
 import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.PositionInfo;
-import com.zefun.web.entity.ProjectCategory;
-import com.zefun.web.entity.ProjectCommission;
-import com.zefun.web.entity.ProjectDiscount;
 import com.zefun.web.entity.ProjectInfo;
-import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.entity.SalesmanInfo;
-import com.zefun.web.entity.ShiftMahjong;
 import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreAccount;
 import com.zefun.web.entity.StoreInfo;
@@ -99,20 +83,14 @@ import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatStore;
 import com.zefun.web.mapper.AccountGoodsMapper;
 import com.zefun.web.mapper.BusinessReportMapper;
-import com.zefun.web.mapper.ComboGoodsMapper;
-import com.zefun.web.mapper.ComboInfoMapper;
-import com.zefun.web.mapper.ComboProjectMapper;
 import com.zefun.web.mapper.CommissionSchemeMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
-import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.EnterpriseAccountFlowMapper;
 import com.zefun.web.mapper.EnterpriseAccountMapper;
 import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.EnterpriseMsnFlowMapper;
 import com.zefun.web.mapper.EnterpriseStoreAuthorityMapper;
-import com.zefun.web.mapper.GoodsCategoryMapper;
-import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
@@ -121,13 +99,8 @@ import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
-import com.zefun.web.mapper.ProjectCategoryMapper;
-import com.zefun.web.mapper.ProjectCommissionMapper;
-import com.zefun.web.mapper.ProjectDiscountMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
-import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.SalesmanInfoMapper;
-import com.zefun.web.mapper.ShiftMahjongMapper;
 import com.zefun.web.mapper.SpecialServiceMapper;
 import com.zefun.web.mapper.StoreAccountMapper;
 import com.zefun.web.mapper.StoreFlowMapper;
@@ -262,66 +235,21 @@ public class StoreInfoService {
     @Autowired
     private MemberAccountMapper memberAccountMapper;
 
-    /**部门操作类*/
-    @Autowired
-    private DeptService deptService;
-    /**岗位操作类*/
-    @Autowired
-    private PositioninfoService positioninfoService;
-    /**职位操作类*/
-    @Autowired
-    private EmployeelevelService employeelevelService;
-    /**项目操作类*/
-    @Autowired
-    private ProjectService projectService;
     /**商品*/
     @Autowired
     private GoodsInfoService goodsInfoService;
-    /**套餐*/
+    /**疗程*/
     @Autowired
     private ComboInfoService comboInfoService;
     /**岗位信息 */
     @Autowired
     private PositioninfoMapper positioninfoMapper;
-    /**轮牌信息*/
-    @Autowired
-    private ShiftMahjongMapper shiftMahjongMapper;
-    /**职位*/
-    @Autowired
-    private EmployeeLevelMapper employeeLevelMapper;
-    /**商品类别*/
-    @Autowired
-    private GoodsCategoryMapper goodsCategoryMapper;
     /**商品*/
     @Autowired
     private GoodsInfoMapper goodsInfoMapper;
-    /**商品折扣*/
-    @Autowired
-    private GoodsDiscountMapper goodsDiscountMapper;
-    /**项目类别*/
-    @Autowired
-    private ProjectCategoryMapper projectCategoryMapper;
     /**项目*/
     @Autowired
     private ProjectInfoMapper projectInfoMapper;
-    /**项目步骤*/
-    @Autowired
-    private ProjectStepMapper projectStepMapper;
-    /**项目提成*/
-    @Autowired
-    private ProjectCommissionMapper projectCommissionMapper;
-    /**项目折扣*/
-    @Autowired
-    private ProjectDiscountMapper projectDiscountMapper;
-    /**套餐信息*/
-    @Autowired
-    private ComboInfoMapper comboInfoMapper;
-    /**套餐商品*/
-    @Autowired
-    private ComboGoodsMapper comboGoodsMapper;
-    /**套餐项目*/
-    @Autowired
-    private ComboProjectMapper comboProjectMapper;
     /**特色服务*/
     @Autowired
     private SpecialServiceMapper specialServiceMapper;
@@ -803,6 +731,27 @@ public class StoreInfoService {
     }
     
     /**
+     * 根据授权码查询授权员工
+    * @author 老王
+    * @date 2016年7月22日 上午11:39:54 
+    * @param storeId 门店标识
+    * @param authorityValue 授权码
+    * @return BaseDto
+     */
+    public BaseDto selectAuthorityByAuthorityValue (Integer storeId, String authorityValue) {
+    	EnterpriseStoreAuthority record = new EnterpriseStoreAuthority();
+    	record.setAuthorityValue(authorityValue);
+    	record.setStoreId(storeId);
+    	List<EnterpriseStoreAuthority> authorityList = enterpriseStoreAuthorityMapper.selectByProperties(record);
+    	if (authorityList.isEmpty() || authorityList.size() == 0) {
+    		return  new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "授权码不存在，请重新输入！");
+    	}
+    	else {
+    		return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, authorityList.get(0).getEmployeeId());
+    	}
+    }
+    
+    /**
      * 删除授权码
     * @author 老王
     * @date 2016年6月20日 下午4:43:50 
@@ -931,7 +880,6 @@ public class StoreInfoService {
     * @return   成功返回码为0，失败为其它返回码
      */
     @Transactional
-    @SuppressWarnings("static-access")
     public BaseDto addStoreInfo(StoreInfo storeInfo, Integer userName, String userPwd) {
         EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeInfo.getStoreAccount());
 
@@ -1794,273 +1742,7 @@ public class StoreInfoService {
     }
 
 
-    /**
-     * 初始化门店
-    * @author 高国藩
-    * @date 2016年1月18日 下午2:58:12
-    * @param storeId      门店信息
-    * @param operateId    最后操作人
-    * @param request                请求信息
-    * @param response               返回数据
-    * @param shiftMahjongController 新增轮牌
-    * @param projectInfoController  项目操作类
-    * @return             返回状态
-     */
-    @Transactional
-    public BaseDto storeInitialize(Integer storeId, Integer operateId, HttpServletRequest request,
-            HttpServletResponse response, ShiftMahjongController shiftMahjongController, ProjectInfoController projectInfoController) {
-        List<DeptInfo> deptInfos = deptInfoMapper.getDeptInfo(storeId);
-        if (deptInfos!=null && deptInfos.size()>0){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "检查到您的门店有数据,不可初始化");
-        }
-        return initializeDept(storeId, operateId, request, response, shiftMahjongController, projectInfoController);
-    }
 
-
-    /**
-     * 初始化门店的部门,岗位,职位,轮牌信息
-    * @author 高国藩
-    * @date 2016年1月18日 下午2:20:08
-    * @param storeId                门店ID
-    * @param operateId              登陆人员
-    * @param request                请求信息
-    * @param response               返回数据
-    * @param shiftMahjongController 新增轮牌
-    * @param projectInfoController  项目操作类
-    * @return                       初始化结果
-     */
-    private BaseDto initializeDept(Integer storeId, Integer operateId, HttpServletRequest request,
-            HttpServletResponse response, ShiftMahjongController shiftMahjongController, ProjectInfoController projectInfoController) {
-        DeptInfo deptInfo=new DeptInfo();
-        deptInfo.setDeptCode(1);
-        deptInfo.setDeptName("美发部");
-        deptInfo.setStoreId(storeId);
-        deptInfo.setIsResults(1);
-        deptInfo.setOperateTime(DateUtil.getCurTime());
-        deptInfo.setOperateId(operateId);
-        deptService.adddDept(deptInfo);
-        if (deptInfo.getDeptId()==null){
-            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "检查到您的门店有数据,不可初始化");
-        }
-        PositionInfo positioninfo = new PositionInfo();
-        positioninfo.setStoreId(storeId);
-        positioninfo.setLastOperatorId(operateId);
-        positioninfo.setCreateTime(DateUtil.getCurTime());
-        positioninfo.setPositionName("发型师");
-        positioninfoService.addPositioninfo(positioninfo);
-
-        PositionInfo positioninfo2 = new PositionInfo();
-        positioninfo2.setStoreId(storeId);
-        positioninfo2.setLastOperatorId(operateId);
-        positioninfo2.setCreateTime(DateUtil.getCurTime());
-        positioninfo2.setPositionName("烫染技师");
-        positioninfoService.addPositioninfo(positioninfo2);
-
-        PositionInfo positioninfo3 = new PositionInfo();
-        positioninfo3.setStoreId(storeId);
-        positioninfo3.setLastOperatorId(operateId);
-        positioninfo3.setCreateTime(DateUtil.getCurTime());
-        positioninfo3.setPositionName("洗护助理");
-        positioninfoService.addPositioninfo(positioninfo3);
-
-
-        EmployeeLevel employeeLevel = new EmployeeLevel();
-        employeeLevel.setPositionId(positioninfo.getPositionId());
-        employeeLevel.setLevelName("高级发型师");
-        employeeLevel.setStoreId(storeId);
-        employeeLevel.setCreateTime(DateUtil.getCurTime());
-        employeeLevel.setLastOperatorId(operateId);
-        employeelevelService.addEmployeelevel(employeeLevel);
-
-        EmployeeLevel employeeLevel2 = new EmployeeLevel();
-        employeeLevel2.setStoreId(storeId);
-        employeeLevel2.setCreateTime(DateUtil.getCurTime());
-        employeeLevel2.setLastOperatorId(operateId);
-        employeeLevel2.setPositionId(positioninfo2.getPositionId());
-        employeeLevel2.setLevelName("高级烫染技师");
-        employeelevelService.addEmployeelevel(employeeLevel2);
-
-        EmployeeLevel employeeLevel3 = new EmployeeLevel();
-        employeeLevel3.setStoreId(storeId);
-        employeeLevel3.setCreateTime(DateUtil.getCurTime());
-        employeeLevel3.setLastOperatorId(operateId);
-        employeeLevel3.setPositionId(positioninfo3.getPositionId());
-        employeeLevel3.setLevelName("高级洗护助理");
-        employeelevelService.addEmployeelevel(employeeLevel3);
-
-        ShiftMahjong shiftMahjong = initShiftMahjong(deptInfo, positioninfo3, shiftMahjongController, request, response, "洗护牌");
-        ShiftMahjong shiftMahjong2 = initShiftMahjong(deptInfo, positioninfo, shiftMahjongController, request, response, "剪发牌");
-        ShiftMahjong shiftMahjong3 = initShiftMahjong(deptInfo, positioninfo2, shiftMahjongController, request, response, "烫染牌");
-
-        BaseDto baseDto = projectInfoController.saveProjectCategoryList(request, response, deptInfo.getDeptId(), new String[]{"洗剪吹"});
-        BaseDto baseDto2 = projectInfoController.saveProjectCategoryList(request, response, deptInfo.getDeptId(), new String[]{"烫发"});
-        BaseDto baseDto3 = projectInfoController.saveProjectCategoryList(request, response, deptInfo.getDeptId(), new String[]{"染发"});
-        BaseDto baseDto4 = projectInfoController.saveProjectCategoryList(request, response, deptInfo.getDeptId(), new String[]{"护发"});
-
-        ProjectInfo projectInfo = initProjectInfo(baseDto, deptInfo.getDeptId(), request, response, employeeLevel.getLevelId(),
-                employeeLevel2.getLevelId(), null, shiftMahjong.getShiftMahjongId(), shiftMahjong2.getShiftMahjongId(), null, storeId,
-                operateId, "洗剪吹", new BigDecimal(55), 2);
-        initProjectInfo(baseDto2, deptInfo.getDeptId(), request, response, employeeLevel2.getLevelId(), employeeLevel3.getLevelId(),
-                employeeLevel.getLevelId(), shiftMahjong2.getShiftMahjongId(),  shiftMahjong3.getShiftMahjongId(),  shiftMahjong.getShiftMahjongId(),
-                storeId, operateId, "烫发", new BigDecimal(128), 1);
-        initProjectInfo(baseDto3, deptInfo.getDeptId(), request, response, employeeLevel.getLevelId(), employeeLevel3.getLevelId(),
-                employeeLevel2.getLevelId(), shiftMahjong.getShiftMahjongId(), shiftMahjong3.getShiftMahjongId(), shiftMahjong2.getShiftMahjongId(),
-                storeId, operateId, "染发", new BigDecimal(288), 1);
-        ProjectInfo projectInfo4 = initProjectInfo(baseDto4, deptInfo.getDeptId(), request, response, employeeLevel.getLevelId(), null, null,
-                shiftMahjong.getShiftMahjongId(), null, null, storeId, operateId, "洗护", new BigDecimal(30), 2);
-
-        initComboInfo(storeId, deptInfo.getDeptId(), projectInfo4, operateId, "洗发季卡", 90);
-        return initComboInfo(storeId, deptInfo.getDeptId(), projectInfo, operateId, "剪发年卡", 360);
-    }
-
-
-    /**
-     * 初始化轮牌
-    * @author 高国藩
-    * @date 2016年1月21日 上午10:45:58
-    * @param deptInfo                   部门信息
-    * @param positioninfo               岗位信息
-    * @param shiftMahjongController     轮牌操作
-    * @param request                    请求信息
-    * @param response                   返回信息
-    * @param shiftName                  轮牌名称
-    * @return                           轮牌信息
-     */
-    private ShiftMahjong initShiftMahjong(DeptInfo deptInfo, PositionInfo positioninfo, ShiftMahjongController shiftMahjongController,
-            HttpServletRequest request, HttpServletResponse response, String shiftName) {
-        ShiftMahjong shiftMahjong = new ShiftMahjong();
-        shiftMahjong.setDeptId(deptInfo.getDeptId());
-        shiftMahjong.setNature(1);
-        shiftMahjong.setShiftMahjongName(shiftName);
-        shiftMahjong.setShiftMahjongRule(1);
-        shiftMahjong.setShiftMahjongUp(1);
-        String positionIdListStr = positioninfo.getPositionId().toString()+":1";
-        shiftMahjongController.addUpdateShiftMahjong(request, response, shiftMahjong, positionIdListStr);
-        return shiftMahjong;
-    }
-
-
-    /**
-     * 套餐信息初始化
-    * @author 高国藩
-    * @date 2016年1月20日 上午10:22:47
-    * @param storeId      门店
-    * @param deptId       部门
-    * @param projectInfo  项目信息
-    * @param operateId    最后操作人
-    * @param comboName    套餐名字
-    * @param validDate    时间限制
-    * @return             初始化结果
-     */
-    private BaseDto initComboInfo(Integer storeId, Integer deptId, ProjectInfo projectInfo, Integer operateId, String comboName, Integer validDate) {
-        ComboInfo comboInfo = new ComboInfo();
-        comboInfo.setCardCommission(new BigDecimal(1));
-        comboInfo.setCashCommission(new BigDecimal(1));
-        comboInfo.setComboDesc(comboName);
-        comboInfo.setComboImage("zefun/images/pic_none.gif");
-        comboInfo.setComboPerformance(new BigDecimal(1));
-        comboInfo.setComboName(comboName);
-        comboInfo.setSalesPeople(120);
-        comboInfo.setCommissionType(1);
-        comboInfo.setStoreId(storeId);
-        comboInfo.setDeptId(deptId);
-        comboInfo.setIsAttestation(1);
-        comboInfo.setProjectAmount(new BigDecimal(100));
-        comboInfo.setStandard(1);
-        comboInfo.setValidDate(validDate);
-        comboInfo.setProjectCount(1);
-        String[] projectId = new String[]{projectInfo.getProjectId().toString()};
-        String[] projectName = new String[]{projectInfo.getProjectName().toString()};
-        String[] projectPrice = new String[]{projectInfo.getProjectPrice().toString()};
-        String[] projectCount = new String[]{"1"};
-        String[] comboPerformanceCal = new String[]{"1"};
-        comboInfoService.saveComboInfo(operateId, comboInfo, projectId, projectName, projectPrice, projectCount,
-                comboPerformanceCal, null, null, null, null, null, null, null, null, null);
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "初始化门店成功");
-    }
-
-
-
-    /**
-     * 初始化项目
-    * @author 高国藩
-    * @date 2016年1月22日 下午2:14:22
-    * @param baseDto           数据
-    * @param deptId         数据
-    * @param request         数据
-    * @param response         数据
-    * @param empLevelIds1         数据
-    * @param empLevelIds2         数据
-    * @param empLevelIds3         数据
-    * @param shiftMahjongId1         数据
-    * @param shiftMahjongId2         数据
-    * @param shiftMahjongId3         数据
-    * @param storeId         数据
-    * @param operateId         数据
-    * @param projectName         数据
-    * @param projectPrice         数据
-    * @param projectType         数据
-    * @return         数据
-     */
-    @SuppressWarnings("unchecked")
-    private ProjectInfo initProjectInfo(BaseDto baseDto, Integer deptId, HttpServletRequest request, HttpServletResponse response,
-            Integer empLevelIds1, Integer empLevelIds2, Integer empLevelIds3, Integer shiftMahjongId1, Integer shiftMahjongId2,
-            Integer shiftMahjongId3, Integer storeId, Integer operateId, String projectName, BigDecimal projectPrice, Integer projectType) {
-        ProjectInfo projectInfo= new ProjectInfo();
-        projectInfo.setAffiliatedImage("zefun/images/pic_none.gif,zefun/images/pic_none.gif,zefun/images/pic_none.gif,zefun/images/pic_none.gif");
-        projectInfo.setAppointmentPrice(new BigDecimal(5));
-        projectInfo.setCategoryId(((List<ProjectCategory>)baseDto.getMsg()).get(0).getCategoryId());
-        projectInfo.setCostPrice(new BigDecimal(10));
-        projectInfo.setDeptId(deptId);
-        projectInfo.setHighestDiscount(new BigDecimal(5));
-        projectInfo.setIsAppointment(1);
-        projectInfo.setIsGiftCash(1);
-        projectInfo.setProjectDesc(projectName);
-        projectInfo.setProjectImage("zefun/images/pic_none.gif");
-        projectInfo.setProjectName(projectName);
-        projectInfo.setProjectType(projectType.toString());
-        projectInfo.setProjectPrice(projectPrice);
-
-        String[] empLevelId = new String[]{empLevelIds1.toString()};
-        String[] assignType = new String[]{"2", "2", "2"};
-        String[] assignCash = new String[]{"6", "6", "6"};
-        String[] assignCard = new String[]{"5", "5", "5"};
-        String[] nonAssignCash = new String[]{"5", "5", "5"};
-        String[] nonAssignCard = new String[]{"5", "5", "5"};
-        String[] appointmentReward = new String[]{"0", "0", "0"};
-        String[] shiftMahjongIdArr = new String[]{};
-        String[] shiftStepNameArr = new String[]{"标准轮牌步骤"};
-        String[] isDisableArr = new String[]{"1", "1", "1"};
-        String[] stepPerformanceType = new String[]{"2", "1", "1"};
-        String[] stepPerformance = new String[]{"5", "5", "5"};
-        String[] zhiweinum = new String[]{"1"};
-
-        if (empLevelIds3!=null){
-            empLevelId = new String[]{empLevelIds1.toString(), empLevelIds2.toString(), empLevelIds3.toString()};
-            shiftMahjongIdArr = new String[]{shiftMahjongId1.toString(), shiftMahjongId2.toString(), shiftMahjongId3.toString()};
-            shiftStepNameArr = new String[]{"洗护", "烫染", "剪吹"};
-            zhiweinum = new String[]{"1", "1", "1"};
-        }
-        else if (empLevelIds2!=null){
-            empLevelId = new String[]{empLevelIds1.toString(), empLevelIds2.toString()};
-            shiftMahjongIdArr = new String[]{shiftMahjongId1.toString(), shiftMahjongId2.toString()};
-            shiftStepNameArr = new String[]{"洗发", "剪发"};
-            zhiweinum = new String[]{"1", "1"};
-        }
-        else {
-            shiftMahjongIdArr = new String[]{shiftMahjongId1.toString()};
-            shiftStepNameArr = new String[]{"洗护"};
-            zhiweinum = new String[]{"1"};
-        }
-
-        projectInfo.setStoreId(storeId);
-        projectInfo.setCreateTime(DateUtil.getCurTime());
-        Integer projectId = projectService.saveProject(operateId, projectInfo, null, null, null, null, empLevelId, assignType,
-                assignCash, assignCard, nonAssignCash, nonAssignCard, appointmentReward, shiftMahjongIdArr, shiftStepNameArr,
-                null, isDisableArr, zhiweinum, stepPerformanceType, stepPerformance);
-        projectInfo.setProjectId(projectId);
-        return projectInfo;
-    }
 
 
     /**
@@ -2430,218 +2112,7 @@ public class StoreInfoService {
     }
 
 
-    /**
-     * 门店复制
-    * @author 高国藩
-    * @date 2016年3月2日 下午3:52:33
-    * @param storeId storeId
-    * @param operateId operateId
-    * @param copyStoreId copyStoreId
-    * @return copyStoreId
-     */
-    @Transactional
-    public BaseDto storeInfoCopy(Integer storeId, Integer operateId, Integer copyStoreId) {
-        //拿到所有的部门,岗位,职位,会员卡,轮牌,项目,商品,套餐信息
-        List<DeptInfo> deptInfos = deptInfoMapper.selectAllDetpByStoreId(copyStoreId);
-        List<PositionInfo> positionInfos = positioninfoMapper.queryAllByStoreId(copyStoreId);
-        List<EmployeeLevel> employeeLevels = employeeLevelMapper.selectAllByStoreId(copyStoreId);
-        List<ShiftMahjong> shiftMahjongs = shiftMahjongMapper.selectAllByStoreId(copyStoreId);
-        List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByStoreId(copyStoreId);
-        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectByStoreId(copyStoreId);
-        List<MemberLevelDto> memberLevels = memberLevelMapper.selectByStoreId(copyStoreId);
-        List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(copyStoreId);
-        List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(copyStoreId);
-        ComboInfo comboInfo = new ComboInfo();
-        comboInfo.setStoreId(copyStoreId);
-        List<ComboInfo> comboInfos = comboInfoMapper.selectByProperty(comboInfo);
-
-
-        Map<Integer, Integer> deptKv = new HashMap<>();
-        for (int i = 0; i < deptInfos.size(); i++) {
-            Integer deptId = deptInfos.get(i).getDeptId();
-            deptInfos.get(i).setStoreId(storeId);
-            deptInfos.get(i).setDeptId(null);
-            deptInfoMapper.insert(deptInfos.get(i));
-            deptKv.put(deptId, deptInfos.get(i).getDeptId());
-        }
-
-        Map<Integer, Integer> positionKv = new HashMap<>();
-        for (int i = 0; i < positionInfos.size(); i++) {
-            Integer positionId = positionInfos.get(i).getPositionId();
-            positionInfos.get(i).setStoreId(storeId);
-            positionInfos.get(i).setPositionId(null);
-            positioninfoMapper.insert(positionInfos.get(i));
-            positionKv.put(positionId, positionInfos.get(i).getPositionId());
-        }
-
-        Map<Integer, Integer> employeeLevelKv = new HashMap<>();
-        for (int i = 0; i < employeeLevels.size(); i++) {
-            Integer employeeLevelId = employeeLevels.get(i).getLevelId();
-            employeeLevels.get(i).setStoreId(storeId);
-            employeeLevels.get(i).setPositionId(positionKv.get(employeeLevels.get(i).getPositionId()));
-            employeeLevels.get(i).setLevelId(null);
-            employeeLevelMapper.insert(employeeLevels.get(i));
-            employeeLevelKv.put(employeeLevelId, employeeLevels.get(i).getLevelId());
-        }
-
-        Map<Integer, Integer> shiftMahjongKv = new HashMap<>();
-        for (int i = 0; i < shiftMahjongs.size(); i++) {
-            Integer shiftMahjongId = shiftMahjongs.get(i).getShiftMahjongId();
-            shiftMahjongs.get(i).setStoreId(storeId);
-            String positionId =  shiftMahjongs.get(i).getPositionId();
-            if (positionId!=null&&!positionId.equals("")){
-                String[] positionIds = positionId.split(",");
-                StringBuffer sql = new StringBuffer();
-                for (int j = 0; j < positionIds.length; j++) {
-                    String pId = positionIds[j].split(":")[0];
-                    String type = positionIds[j].split(":")[1];
-                    sql.append(positionKv.get(Integer.parseInt(pId)).toString());
-                    sql.append(":");
-                    sql.append(type);
-                    if (j != positionIds.length-1){
-                        sql.append(",");
-                    }
-                }
-                shiftMahjongs.get(i).setPositionId(sql.toString());
-            }
-            shiftMahjongs.get(i).setDeptId(deptKv.get(shiftMahjongs.get(i).getDeptId()));
-            shiftMahjongs.get(i).setShiftMahjongId(null);
-            shiftMahjongs.get(i).setStoreId(storeId);
-            shiftMahjongMapper.insert(shiftMahjongs.get(i));
-            shiftMahjongKv.put(shiftMahjongId, shiftMahjongs.get(i).getShiftMahjongId());
-        }
-
-        Map<Integer, Integer> goodsCategorieKv = new HashMap<>();
-        for (int i = 0; i < goodsCategories.size(); i++) {
-            Integer goodsCategorieId = goodsCategories.get(i).getCategoryId();
-            goodsCategories.get(i).setStoreId(storeId);
-            goodsCategories.get(i).setDeptId(deptKv.get(goodsCategories.get(i).getDeptId()));
-            goodsCategories.get(i).setCategoryId(null);
-            goodsCategoryMapper.insertSelective(goodsCategories.get(i));
-            goodsCategorieKv.put(goodsCategorieId, goodsCategories.get(i).getCategoryId());
-        }
-
-        Map<Integer, Integer> goodsInfoKv = new HashMap<>();
-        for (int i = 0; i < goodsInfos.size(); i++) {
-            Integer goodsInfoId = goodsInfos.get(i).getGoodsId();
-            goodsInfos.get(i).setStoreId(storeId);
-            goodsInfos.get(i).setCategoryId(goodsCategorieKv.get(goodsInfos.get(i).getCategoryId()));
-            goodsInfos.get(i).setGoodsId(null);
-            goodsInfoMapper.insertSelective(goodsInfos.get(i));
-            goodsInfoKv.put(goodsInfoId, goodsInfos.get(i).getGoodsId());
-            //商品抵扣
-            GoodsDiscount goodsDiscount = new GoodsDiscount();
-            goodsDiscount.setGoodsId(goodsInfoId);
-            List<GoodsDiscount> goodsDiscounts = goodsDiscountMapper.selectByProperty(goodsDiscount);
-            for (GoodsDiscount goodsDiscount2 : goodsDiscounts) {
-                goodsDiscount2.setGoodsId(goodsInfos.get(i).getGoodsId());
-                goodsDiscount2.setLevelId(deptKv.get(goodsDiscount2.getLevelId()));
-                goodsDiscount2.setDiscountId(null);
-                goodsDiscountMapper.insertSelective(goodsDiscount2);
-            }
-        }
-
-        Map<Integer, Integer> memberLevelKv = new HashMap<>();
-        for (int i = 0; i < memberLevels.size(); i++) {
-            Integer memberLevelId = memberLevels.get(i).getLevelId();
-            memberLevels.get(i).setStoreId(storeId);
-            memberLevels.get(i).setLevelId(null);
-//            memberLevelMapper.insert(memberLevels.get(i));
-            memberLevelKv.put(memberLevelId, memberLevels.get(i).getLevelId());
-        }
-
-        // 项目类别
-        Map<Integer, Integer> projectCategoriesKv = new HashMap<>();
-        for (int i = 0; i < projectCategories.size(); i++) {
-            Integer projectCategorieId = projectCategories.get(i).getCategoryId();
-            projectCategories.get(i).setStoreId(storeId);
-            projectCategories.get(i).setDeptId(deptKv.get(projectCategories.get(i).getDeptId()));
-            projectCategories.get(i).setCategoryId(null);
-            projectCategoryMapper.insertSelective(projectCategories.get(i));
-            projectCategoriesKv.put(projectCategorieId, projectCategories.get(i).getCategoryId());
-        }
-
-        // 项目信息
-        Map<Integer, Integer> projectInfosKv = new HashMap<>();
-        for (int i = 0; i < projectInfos.size(); i++) {
-            Integer projectInfoId = projectInfos.get(i).getProjectId();
-            projectInfos.get(i).setStoreId(storeId);
-            projectInfos.get(i).setDeptId(deptKv.get(projectInfos.get(i).getDeptId()));
-            projectInfos.get(i).setCategoryId(projectCategoriesKv.get(projectInfos.get(i).getCategoryId()));
-            projectInfos.get(i).setProjectId(null);
-            projectInfoMapper.insertSelective(projectInfos.get(i));
-            projectInfosKv.put(projectInfoId, projectInfos.get(i).getProjectId());
-        }
-
-        // 步骤信息
-        Map<Integer, Integer> projectStepIdsKv = new HashMap<>();
-        // 提成信息
-        Map<Integer, Integer> projectCommissionsKv = new HashMap<>();
-        for (Map.Entry<Integer, Integer> entry:projectInfosKv.entrySet()){
-            List<ProjectStep> projectSteps = projectStepMapper.queryProjectStepByPIdList(entry.getKey());
-            for (ProjectStep projectStep : projectSteps) {
-                Integer stepId = projectStep.getProjectStepId();
-                projectStep.setProjectId(entry.getValue());
-                projectStep.setShiftMahjongId(shiftMahjongKv.get(projectStep.getShiftMahjongId()));
-                projectStep.setProjectStepId(null);
-                projectStepMapper.insert(projectStep);
-                projectStepIdsKv.put(stepId, projectStep.getProjectStepId());
-            }
-            //步骤
-            ProjectCommission query = new ProjectCommission();
-            query.setProjectId(entry.getKey());
-            List<ProjectCommission> projectCommissions = projectCommissionMapper.selectByProperty(query);
-            for (ProjectCommission projectCommission : projectCommissions) {
-                Integer commissionId = projectCommission.getCommissionId();
-                projectCommission.setShiftMahjongId(shiftMahjongKv.get(projectCommission.getShiftMahjongId()));
-                projectCommission.setProjectId(entry.getValue());
-                projectCommission.setLevelId(memberLevelKv.get(projectCommission.getLevelId()));
-                projectCommission.setCommissionId(null);
-                projectCommissionMapper.insertSelective(projectCommission);
-                projectCommissionsKv.put(commissionId, projectCommission.getCommissionId());
-            }
-            //折扣
-            ProjectDiscount queryPd = new ProjectDiscount();
-            queryPd.setProjectId(entry.getKey());
-            List<ProjectDiscount> projectDiscounts = projectDiscountMapper.selectByProperty(queryPd);
-            for (ProjectDiscount projectDiscount : projectDiscounts) {
-                projectDiscount.setProjectId(entry.getValue());
-                projectDiscount.setLevelId(memberLevelKv.get(projectDiscount.getLevelId()));
-                projectDiscount.setDiscountId(null);
-                projectDiscountMapper.insertSelective(projectDiscount);
-            }
-        }
-
-        // 套餐
-        Map<Integer, Integer> comboInfosKv = new HashMap<>();
-        for (ComboInfo comboInfo2 : comboInfos) {
-            Integer comboId = comboInfo2.getComboId();
-            comboInfo2.setDeptId(deptKv.get(comboInfo2.getDeptId()));
-            comboInfo2.setStoreId(storeId);
-            comboInfo2.setComboId(null);
-            comboInfoMapper.insertSelective(comboInfo2);
-            comboInfosKv.put(comboId, comboInfo2.getComboId());
-            // 套餐商品
-            ComboGoods comboGoods = new ComboGoods();
-            comboGoods.setComboId(comboId);
-            List<ComboGoods> goods = comboGoodsMapper.selectByPrimaryKey(comboGoods);
-            for (ComboGoods comboGoods2 : goods) {
-                comboGoods2.setGoodsId(goodsInfoKv.get(comboGoods2.getGoodsId()));
-                comboGoods2.setComboId(comboInfo2.getComboId());
-                comboGoodsMapper.insert(comboGoods2);
-            }
-            // 套餐项目
-            ComboProject comboProject = new ComboProject();
-            comboProject.setComboId(comboId);
-            List<ComboProject> comboProjects = comboProjectMapper.selectByProperty(comboProject);
-            for (ComboProject comboProject2 : comboProjects) {
-                comboProject2.setProjectId(projectInfosKv.get(comboProject2.getProjectId()));
-                comboProject2.setComboId(comboInfo2.getComboId());
-                comboProjectMapper.insertSelective(comboProject2);
-            }
-        }
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "复制成功");
-    }
+ 
     /**
      * 按地区统计门店信息
      * @author gebing

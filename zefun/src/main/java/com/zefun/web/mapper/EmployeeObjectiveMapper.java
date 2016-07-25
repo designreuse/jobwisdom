@@ -180,7 +180,7 @@ public interface EmployeeObjectiveMapper {
     Map<String, Object> selectStoreSetting(Integer storeId);
     
     /**
-     * 用套餐抵扣时，对应的套餐业绩，提成计算
+     * 用疗程抵扣时，对应的疗程业绩，提成计算
     * @author 王大爷
     * @date 2015年11月20日 下午3:55:41
     * @param comboId 参数

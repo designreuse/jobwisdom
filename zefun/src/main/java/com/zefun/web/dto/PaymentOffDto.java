@@ -11,7 +11,7 @@ public class PaymentOffDto {
     /** 优惠标识 */
     private String id;
     
-    /** 优惠类型(1:项目套餐，2:商品套餐，3:优惠券，4:礼金) */
+    /** 优惠类型(1:项目疗程，2:商品疗程，3:优惠券，4:礼金) */
     private int type;
     
     /** 优惠名称 */
@@ -20,7 +20,7 @@ public class PaymentOffDto {
     /** 可使用数量 */
     private int count;
     
-    /** 剩余使用数量,套餐/优惠券为数量，礼金为总余额 */
+    /** 剩余使用数量,疗程/优惠券为数量，礼金为总余额 */
     private BigDecimal balance;
     
     /** 优惠金额 */

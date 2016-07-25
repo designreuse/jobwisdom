@@ -60,7 +60,7 @@ public class OrderInfoBaseDto {
     /** 预约优惠金额*/
     private BigDecimal appointOff;
 
-    /** 套餐抵扣 */
+    /** 疗程抵扣 */
     private BigDecimal comboAmount;
 
     /** 优惠券抵扣 */

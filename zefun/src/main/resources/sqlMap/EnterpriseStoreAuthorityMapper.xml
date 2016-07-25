@@ -34,6 +34,12 @@
     <if test="employeeId != null">
   		and employee_id = #{employeeId, jdbcType=VARCHAR}
   	</if>
+  	<if test="authorityValue != null">
+  		and authority_value = #{authorityValue, jdbcType=INTEGER}
+  	</if>
+  	<if test="storeId != null">
+  		and store_id = #{storeId, jdbcType=INTEGER}
+  	</if>
   </select>
   
   <select id="selectIsExistsAuthorityValue" resultType="java.lang.Integer" parameterType="com.zefun.web.entity.EnterpriseStoreAuthority" >

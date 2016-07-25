@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * @date 2015年08月10日 PM 22:38:58
  */
 public class ComboProject {
-	/** 套餐标识 */
+	/** 疗程标识 */
 	private Integer comboId;
 
 	/** 项目标识 */
@@ -25,7 +25,7 @@ public class ComboProject {
 	/** 项目数量 */
 	private Integer projectCount;
 	
-	/** 套餐内单次服务业绩计算 */
+	/** 疗程内单次服务业绩计算 */
     private BigDecimal comboPerformanceCal;
     
     /** 提成比例*/
@@ -51,12 +51,12 @@ public class ComboProject {
         this.royaltyRate = royaltyRate;
     }
 
-    /** @param comboId	套餐标识 */
+    /** @param comboId	疗程标识 */
 	public void setComboId(Integer comboId){
 		this.comboId = comboId;
 	}
 
-	/** @return	套餐标识 */
+	/** @return	疗程标识 */
 	public Integer getComboId(){
 		return comboId;
 	}
@@ -111,12 +111,12 @@ public class ComboProject {
 		return projectCount;
 	}
 	
-	/** @return 套餐内业绩计算 */
+	/** @return 疗程内业绩计算 */
     public BigDecimal getComboPerformanceCal() {
         return comboPerformanceCal;
     }
 
-    /** @param comboPerformanceCal 套餐内业绩计算 */
+    /** @param comboPerformanceCal 疗程内业绩计算 */
     public void setComboPerformanceCal(BigDecimal comboPerformanceCal) {
         this.comboPerformanceCal = comboPerformanceCal;
     }

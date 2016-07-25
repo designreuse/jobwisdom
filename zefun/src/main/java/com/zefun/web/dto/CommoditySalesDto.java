@@ -307,8 +307,8 @@ public class CommoditySalesDto extends SummaryResultDto{
     /**
     * @author 乐建建
     * @date 2016年1月21日 下午5:26:24
-    * @param lastDept 上期部门的套餐排行
-    * @return 上期部门套餐的排行 以<套餐名,排名>方式
+    * @param lastDept 上期部门的疗程排行
+    * @return 上期部门疗程的排行 以<疗程名,排名>方式
     */
     private Map<String, Integer> extractRank(
             List<GoodSalesSummaryDto> lastDept) {
@@ -324,9 +324,9 @@ public class CommoditySalesDto extends SummaryResultDto{
     /**
     * @author 乐建建
     * @date 2016年1月27日 下午8:11:47
-    * @param comboRank2 封装套餐销售排行数据
+    * @param comboRank2 封装疗程销售排行数据
     * @param idForName2 部门id和名字对应表
-    * @return 填充名字之后的套餐排行数据 
+    * @return 填充名字之后的疗程排行数据 
     */
     private List<GoodSalesSummaryDto> fillName(List<GoodSalesSummaryDto> comboRank2,
             Map<Integer, String> idForName2) {

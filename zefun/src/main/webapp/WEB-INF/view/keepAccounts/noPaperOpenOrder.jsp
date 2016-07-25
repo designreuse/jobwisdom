@@ -156,7 +156,7 @@
      <div class="zzc_open_card_alert_content">
 		<div class="vip_open_card" name="memberTR" selectType="3">
 		  <span>手牌号<em name = "handOrderCode" class="vip_open_card_select"><img src="<%=basePath%>images/open_card_img.png"></em></span>
-		  <i class="vip_search_content" name = "openOrderType" onclick = "openOrderType(this)">
+		  <i class="vip_search_content" name = "openOrderType" typeValue = "1" onclick = "openOrderType(this)">
 		     <a href="javascript:;">会员开单
 		       <input type="text"name="phoneNumber" class = "input_content" placeholder="会员手机号" style="display: none;">
 		       <span class="iconfont icon-sousuo ml-30 mt5" name="seekName" style="display: none;"></span>
@@ -171,14 +171,13 @@
 					<div class="common_close" onclick="cancleMemberSelect(this)">
 						<img src="<%=basePath%>images/emploee_3.png">
 					</div>
-					<div style="height: 400px; overflow: overlay;"
-						name="memberoverDIV"></div>
+					<div style="height: 400px; overflow: overlay;" name="memberoverDIV"></div>
 				</div>
 		     </a>
 		     <em><i name = "vip_em"></i></em>
 		  </i>
-		  <em class="visitor active_border_" name = "openOrderType" type = "2" onclick = "openOrderType(this)">散客开单<i class = "active_border" name = "vip_em"></i></em>
-		  <em class="visitor" name = "openOrderType" type = "3" onclick = "openOrderType(this)">预约开单<i name = "vip_em"></i></em>
+		  <em class="visitor active_border_" name = "openOrderType" typeValue = "2" onclick = "openOrderType(this)">散客开单<i class = "active_border" name = "vip_em"></i></em>
+		  <em class="visitor" name = "openOrderType" typeValue = "3" onclick = "openOrderType(this)">预约开单<i name = "vip_em"></i></em>
 		</div>
 		<div class="open_card_table" name = "memberNoPage">
 		   <table>
@@ -211,7 +210,6 @@
 			  <button onclick = "hideModal()">取消</button>
 			</div>
 		</div>
- 
        </div> 
    
       <div class="card_number" style="display:none">
@@ -227,10 +225,7 @@
 	    <!-- <p>2016／06/23 16:57</p> -->
 		 <div class="order_open_card_ clearfix" name = "appointDIV">
 			
-			
 		 </div>
-         
-        		 
 	  </div>
    </div>
 </div>

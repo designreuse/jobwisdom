@@ -8,7 +8,7 @@ var memberDateTotalPage = {"moneyFlowTotalPage":0, "orderComboTotalPage":0, "int
 
 var businessTypeArray = new Array("","消费","充值","转账","开卡","升级", "卡金", "会员导入", "数据迁移");
 
-var offTypeArray = new Array("", "套餐", "优惠券", "礼金");
+var offTypeArray = new Array("", "疗程", "优惠券", "礼金");
 
 var inOutTypeArray = new Array("", "支出", "收入");
 
@@ -380,7 +380,7 @@ function page(moneyFlowPageNo, moneyFlowPageSize, type){
 				moneyFlow(page);
 				initPageClickData("pagination-demo4",type,page.pageNo,page.pageSize,page.totalPage);
 			}
-			//套餐
+			//疗程
 	        else if (type == 2) {
 	        	orderCombo(page);
 	        	initPageClickData("pagination-demo2",type,page.pageNo,page.pageSize,page.totalPage);
@@ -606,7 +606,7 @@ function previousPageButton(type){
 			removeDisable("previousMoneyFlow");
 		}
 	}
-	//套餐
+	//疗程
     else if (type == 2) {
     	if(memberDatePageNo.orderComboPageNo == 1){
 			return;
@@ -725,7 +725,7 @@ function nextPageButton (type){
 		}
 		removeDisable("previousMoneyFlow");
 	}
-	//套餐
+	//疗程
     else if (type == 2) {
     	if(memberDatePageNo.orderComboPageNo == memberDateTotalPage.orderComboTotalPage){
 			return;

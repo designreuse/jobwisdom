@@ -103,7 +103,7 @@
                         </tr>
                         <tr class="h90 line-height90">
                             <td class="font-gray">${hashMap.totalComboScale}元</td>
-                            <td class="font-999 text-center">套餐业绩</td>
+                            <td class="font-999 text-center">疗程业绩</td>
                             <c:set var="underClass" value="" />
                             <c:if test="${toDay.comboValue < hashMap.totalComboScale}"><c:set var="underClass" value="font-red" /></c:if>
                             <td class="${underClass } text-right">${toDay.comboValue}元</td>
@@ -253,7 +253,7 @@ function chooseDateType(type) {
                 partDIV = partDIV + "</tr>"+
 					                "<tr class='h90 line-height90'>"+
 					                    "<td class='font-gray'>"+data.totalComboScale+"元</td>"+
-					                    "<td class='font-999 text-center'>套餐业绩</td>";
+					                    "<td class='font-999 text-center'>疗程业绩</td>";
                     
 				if (dataObj.comboValue < data.totalComboScale) {
 				    partDIV = partDIV + "<td class='text-right font-red'>"+dataObj.comboValue+"元</td>";

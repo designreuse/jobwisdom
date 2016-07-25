@@ -245,13 +245,13 @@ public interface EmployeeCommissionMapper {
     List<EmployeeCommissionOfBossDto> selectEmployeeCardCommissionByBoss(@Param(value = "storeId")int storeId, 
     		  @Param(value = "positionId")Integer positionId, @Param(value = "time")String time);
     /**
-     * boss端查询用套餐抵扣项目的卡金业绩总汇
+     * boss端查询用疗程抵扣项目的卡金业绩总汇
     * @author DavidLiang
     * @date 2016年2月27日 下午5:16:21
     * @param storeId  店铺id
     * @param positionId  岗位id
     * @param time  查询时间
-    * @return  员工(套餐抵扣项目)卡金绩效dto集
+    * @return  员工(疗程抵扣项目)卡金绩效dto集
      */
     List<EmployeeCommissionOfBossDto> selectEmployeeCardCommissionOfComboDeductionProjectByBoss(
     		  @Param(value = "storeId")int storeId, @Param(value = "positionId")Integer positionId, @Param(value = "time")String time);
@@ -288,7 +288,7 @@ public interface EmployeeCommissionMapper {
     		  @Param(value = "employeeId")int employeeId, @Param(value = "time")String time);
     
     /**
-     * 计算  业绩分布  中的套餐抵扣项目的员工业绩值
+     * 计算  业绩分布  中的疗程抵扣项目的员工业绩值
     * @author DavidLiang
     * @date 2016年2月27日 下午8:32:37
     * @param employeeId  员工id

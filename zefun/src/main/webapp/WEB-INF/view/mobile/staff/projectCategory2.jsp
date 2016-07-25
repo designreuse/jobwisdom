@@ -63,7 +63,7 @@
                         <img src="<%=basePath%>images/mobile/employee/active-new.png" alt="" class="hide"/>
                         <div class="tab-word">
                             <span class="iconfont icon-taocan0240 ml5 font-size-44"></span>
-                            <span>套餐</span>
+                            <span>疗程</span>
                         </div>
                     </a>
                 </li>

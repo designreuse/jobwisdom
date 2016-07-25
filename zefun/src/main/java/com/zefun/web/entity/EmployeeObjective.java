@@ -25,10 +25,10 @@ public class EmployeeObjective {
 	/** 实际指定项目目标 */
 	private BigDecimal actualAssignProjectSales;
 
-	/** 套餐目标 */
+	/** 疗程目标 */
 	private BigDecimal comboSales;
 
-	/** 实际套餐销售目标 */
+	/** 实际疗程销售目标 */
 	private BigDecimal actualComboSales;
 
 	/** 商品目标 */

@@ -67,7 +67,7 @@
 			                </div>
 			            </c:if>
 	            	</c:when>
-	            	<c:when test="${detail.offType == '套餐抵扣' }">
+	            	<c:when test="${detail.offType == '疗程抵扣' }">
 	            		<c:if test="${detail.offAmount > 0 }">
 			               <div class="clearfix"></div>
 			                <div class="xiaofei-col two">

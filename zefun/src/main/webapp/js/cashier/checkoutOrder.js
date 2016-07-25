@@ -183,6 +183,7 @@ function confirm () {
 
 function canle () {
 	jQuery(".zzc").hide();
+	jQuery(".zzc3").hide();
 }
 
 //查询当前礼金余量，修改其他option中礼金金额
@@ -238,7 +239,7 @@ function changeGiftmoney (uid) {
 	}
 }
 
-//查询当前套餐抵扣，修改其他option中套餐
+//查询当前疗程抵扣，修改其他option中疗程
 function changeCombo (uid) {
 	var tatailGiftmoney = new Big(allOffMap[uid]);
 	//查询所有已选中的礼金总额
@@ -345,6 +346,39 @@ function changeOff (obj) {
 	tatailProc();
 }
 
+function checkIsChangePric () {
+	if (changePricList.length > 0 && isEmpty(authorityEmployeeId)) {
+		jQuery(".zzc3").show();
+	}
+	else {
+		submitOrderInfo();
+	}
+}
+var authorityEmployeeId = "";
+function subminChangePric () {
+	var authorityValue = jQuery("input[name='authorityValue']").val();
+	if (isEmpty(authorityValue)) {
+		dialog("授权码不能为空");
+		return;
+	}
+	jQuery.ajax({
+        type: "POST",
+        url: baseUrl + "storeinfo/action/selectAuthorityByAuthorityValue",
+        data: "authorityValue="+authorityValue,
+        success: function(data) {
+			if(data.code != 0) {
+				dialog(data.msg);
+				jQuery("input[name='authorityValue']").val("");
+				jQuery("input[name='authorityValue']").focus();
+				return;
+			}
+			authorityEmployeeId = data.msg;
+			submitOrderInfo();
+			jQuery(".zzc3").hide();
+        }
+	});
+}
+
 /**
  * 提交订单
  */
@@ -358,7 +392,7 @@ function submitOrderInfo() {
 		detailId = $this.attr("detailId");
 		if (!isEmpty(detailId)) {
 			var detailType = $this.attr("detailType");
-			//检查该笔订单是否包含套餐，散客不能购买套餐
+			//检查该笔订单是否包含疗程，散客不能购买疗程
 			if (memberType == 0 && detailType == 3) {
 				isErr = true;
 			}
@@ -371,7 +405,7 @@ function submitOrderInfo() {
 		}
 	});
 	if (isErr) {
-		dialog("只有会员才能购买套餐，请先开卡");
+		dialog("只有会员才能购买疗程，请先开卡");
 		return;
 	}
 
@@ -417,7 +451,7 @@ function submitOrderInfo() {
 	var data = {'orderId':orderId,'cardAmount':cardAmount,'cashAmount':cashAmount,
         	'unionpayAmount':unionpayAmount,'wechatAmount':wechatAmount,'alipayAmount':alipayAmount,
         	'groupAmount':groupAmount,'debtAmount':debtAmount,'detailList':details,'isNotify':isNotify,
-        	'subAccountId':subAccountId, 'updatePricArray' : JSON.stringify(changePricList)};
+        	'subAccountId':subAccountId, 'updatePricArray' : JSON.stringify(changePricList), 'authorityEmployeeId': authorityEmployeeId};
 	
 	jQuery.ajax({
         type: "POST",
@@ -439,23 +473,22 @@ function submitOrderInfo() {
 				var table = jQuery("<table></table>");
 				for (var j = 0; j < stepList.length; j++) {
 					var step = stepList[j];
+					var str = '<tr name = "commission" commissionId = "'+step.commissionId+'">';
 					if (j == 0) {
-						table.append('<tr name = "commission" commissionId = "'+step.commissionId+'">'+
-									    '<td rowspan="3">'+stepCommission.projectName+'</td>'+
-									    '<td >'+step.positionName+'</td>'+
-										'<td >'+step.employeeCodeName+'</td>'+
-										'<td ><input type="text" name = "commissionCalculate" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
-										'<td ><input type="text" name = "commissionAmount" value = "'+step.commissionAmount+'"><em>元</em></td>'+
-									 '</tr>');
+						str += '<td rowspan="3">'+stepCommission.projectName+'</td>';
+					}
+					if (isEmpty(step.positionName)) {
+						str += '<td ></td>';
 					}
 					else {
-						table.append('<tr name = "commission" commissionId = "'+step.commissionId+'">'+
-									    '<td >'+step.positionName+'</td>'+
-										'<td >'+step.employeeCodeName+'</td>'+
-										'<td ><input type="text" name = "commissionCalculate" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
-										'<td ><input type="text" name = "commissionAmount" value = "'+step.commissionAmount+'"><em>元</em></td>'+
-									 '</tr>');
+						str += '<td >'+step.positionName+'</td>';
 					}
+					str += '<td >'+step.employeeCodeName+'</td>'+
+						   '<td ><input type="text" name = "commissionCalculate" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
+							'<td ><input type="text" name = "commissionAmount" value = "'+step.commissionAmount+'"><em>元</em></td>'+
+						 '</tr>';
+					table.append(str);
+
 				}
 				jQuery(".wash_way_content").append(table);
 			}

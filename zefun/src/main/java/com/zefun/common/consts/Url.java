@@ -184,7 +184,7 @@ public interface Url {
 		/** 优惠卷修改*/
 		public static final String COUPONS_UPDATE = "coupons/send/update";
 		
-		  /** 查询套餐商品项目信息 */
+		  /** 查询疗程商品项目信息 */
         public static final String LIST_USE_COUPONS = "serch/coupons/use";
         /** 发布优惠券 */
         public static final String UPDATE_COUPON_USE = "update/coupons/use";
@@ -231,9 +231,9 @@ public interface Url {
 		public static final String ACTION_UPDATE_MEMBER = "member/update/member/info";
 		/** 会员余额迁移 */
 		public static final String MEMBER_BALAND_MOVE = "member/move/baland/info";
-		/** 会员套餐迁移 */
+		/** 会员疗程迁移 */
 		public static final String MEMBER_COMBO_MOVE = "/member/move/combo/info";
-		/** 会员套餐迁移全部 */
+		/** 会员疗程迁移全部 */
 		public static final String MEMBER_COMBO_MOVE_ALL = "/member/move/combo/info/all";
 		/** 会员删除 */
 		public static final String MEMBER_DELETED = "member/view/member/delete";
@@ -353,19 +353,19 @@ public interface Url {
         public static final String DELETED_UPDATE_CATEGORY = "project/delete/category";
 	}
 
-	/** 套餐模块 */
+	/** 疗程模块 */
 	class ComboInfo {
-		/** 进入套餐页面 */
+		/** 进入疗程页面 */
 		public static final String COMBOINFO_LIST = "comboInfo/view/comboInfoList";
-		/** 分页查询套餐信息 */
+		/** 分页查询疗程信息 */
 		public static final String ACTION_LIST = "comboInfo/action/list";
-		/** 保存套餐 */
+		/** 保存疗程 */
 		public static final String SAVE_COMBOINFO = "comboInfo/saveComboInfo";
-		/** 批量保存套餐 */
+		/** 批量保存疗程 */
 		public static final String SAVE_COMBOINFO_LIST = "comboInfo/saveComboInfos";
-		/** 根据套餐id查询 */
+		/** 根据疗程id查询 */
 		public static final String QUERY_COMBOINFO_BYID = "comboInfo/queryComboInfoById";
-		/** 删除套餐 */
+		/** 删除疗程 */
 		public static final String DELETE_COMBOINFO = "comboInfo/deleteComboInfo";
 		/** 根据项目id查询提成职位列表 */
 		public static final String QUERY_COMMISSIONBY_PROJECTID = "comboInfo/queryCommissionByProjectId";
@@ -375,9 +375,9 @@ public interface Url {
 		public static final String IS_WECHATSELL = "comboInfo/isWechatSell";
 		/** 是否禁用 */
 		public static final String IS_DISABLE = "comboInfo/isDisable";
-		/** 套餐设置页面*/
+		/** 疗程设置页面*/
         public static final String COMBOINFO_SETTING = "comboInfo/setting";
-        /** 套餐设置*/
+        /** 疗程设置*/
         public static final String SAVE_ALL_COMBOINFO = "comboInfo/save/all/setting";
 	}
 
@@ -830,7 +830,7 @@ public interface Url {
 		public static final String VIEW_ORDER_EVALUATE = "/memberCenter/view/orderEvaluate";
 		/** 会员订单评价操作 */
 		public static final String ACTION_ORDER_EVALUATE = "/memberCenter/action/orderEvaluate";
-		/** 会员套餐列表页面 */
+		/** 会员疗程列表页面 */
 		public static final String VIEW_COMBO_LIST = "/memberCenter/view/comboList";
 		/** 会员取消预约 */
 		public static final String ACTION_CANCEL_APPOINTMENT = "/memberCenter/view/cancelAppointment";
@@ -1032,7 +1032,7 @@ public interface Url {
 		public static final String VIEW_WAITING_CENTRE_SHIFT_MAHJONG = "staff/view/waitingCentreShiftMahjong";
 		/** */
 		public static final String ACTION_WAITING_ASSOCIATE_SHIFTMAHJONG = "staff/action/waitingAssociateShiftMahjong";
-		/** 附加项目、商品、套餐 */
+		/** 附加项目、商品、疗程 */
 		public static final String VIEW_APPEND_DETAIL = "staff/view/appendDetail";
 		/** 订单详情 */
 		public static final String VIEW_SELECT_ORDER_DETAIL = "/staff/view/selectOrderDetail/{storeId}/{businessType}";
@@ -1305,6 +1305,8 @@ public interface Url {
 		public static final String RECHARGE_FLOW = "/storeinfo/action/rechargeFlow";
 		/** 新增门店授权码*/
 		public static final String ADD_OR_UPDATE_AUTHORITY = "/storeinfo/action/addOrUpdateAuthority";
+		/** 根据授权码查询授权员工*/
+		public static final String SELECT_AUTHORITY_BY_AUTHORITY_VALUE = "/storeinfo/action/selectAuthorityByAuthorityValue";
 		/** 删除授权码*/
 		public static final String DELETE_AUTHORITY = "/storeinfo/action/deleteAuthority";
 		/** 升级续费*/
@@ -1375,7 +1377,7 @@ public interface Url {
 		public static final String LABORPERFORMANCE = "laborperformance/view/laborperformance";
 		/** 划卡消费 */
 		public static final String CARDCONSUMPTION = "cardconsumption/view/cardconsumption";
-		/** 套餐消费 */
+		/** 疗程消费 */
 		public static final String PACKAGESALES = "packagesales/view/packagesales";
 		/** 商品消费 */
 		public static final String COMMODITYSALES = "commoditysales/view/commoditysales";
@@ -1383,9 +1385,9 @@ public interface Url {
 		public static final String LABORPERFORMANCERANKBYDEPT = "laborperformance/view/laborperformance/GoodsRankByDate";
 		/** 项目劳动业绩分销量(销售额)排行 */
 		public static final String LABORPERFORMANCERANKBYNUM = "laborperformance/view/laborperformance/GoodsRankByNum";
-		/** 套餐分部门排行 */
+		/** 疗程分部门排行 */
 		public static final String COMBORANKBYDEPT = "packagesales/view/packagesales/rankComboByDept";
-		/** 项目套餐收入分销量(销售额)排行 */
+		/** 项目疗程收入分销量(销售额)排行 */
 		public static final String COMBORANKBYNUMORSALES = "packagesales/view/packagesales/rankComboByNumOrSales";
 		/** 商品销售分部门排行 */
 		public static final String GOODSRANKBYDEPT = "commoditysales/view/commoditysales/searchGoodsByDept";
@@ -1690,7 +1692,7 @@ public interface Url {
         public static final String REQUEST_APP_PAY = "app/pay/qr";
         /** NATIVE扫码支付请求回调 */
         public static final String REQUEST_APP_PAY_CALLBACK = "app/pay/qr/call/{outTradeNo}/{storeAccount}";
-        /**商城吊起微信支付*/
+        /** 商城调起微信支付*/
         public static final String GOODSINFO_PAY = "app/goodsinfo/wechat/init/pay";
         /**支付成功回调接口*/
         public static final String GOODSINFO_PAY_CALLBACK = "app/goodsinfo/wechat/pay/callback/{transactionId}";

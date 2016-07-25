@@ -14,7 +14,7 @@
     <c:set var="chargeTitle" value="续费方式" />
     <c:if test="${businessType == 2 }">
     	<c:set var="pageTitle" value="短信购买" />
-    	<c:set var="chargeTitle" value="短信套餐" />
+    	<c:set var="chargeTitle" value="短信疗程" />
     </c:if>
     <title>${pageTitle }</title>
 </head>

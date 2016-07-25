@@ -108,7 +108,7 @@ function changeToMemberInfo(obj){
 }
 
 
-/** 套餐迁移
+/** 疗程迁移
  * type 1:盛传数据,2:待定
  * moveType 1:异常会员迁移,2:疗程卡迁移
  *  */
@@ -152,7 +152,7 @@ function comboMove(type, id, obj, moveType){
 		data = data +"&overdueTime="+overdueTime;
 		for (var i = 0; i < jQuery("input[name='projectCount']").length; i++) {
 			if(jQuery("input[name='projectCount']").eq(i).next("input[name='projectCounts']").val()<jQuery("input[name='projectCount']").eq(i).val()){
-				dialog("设置的次数不可大于套餐中次数");
+				dialog("设置的次数不可大于疗程中次数");
 				data = "";
 				return;
 			}
@@ -160,7 +160,7 @@ function comboMove(type, id, obj, moveType){
 		}
 		var comboId = jQuery("select[name='comboId']").val();
 		if(comboId == "0"){
-			dialog("请选择一个套餐进行迁移");
+			dialog("请选择一个疗程进行迁移");
 			data = "";
 			return;
 		}
@@ -231,7 +231,7 @@ function comboPhone(obj){
 	});
 }
 
-/**查询套餐信息*/
+/**查询疗程信息*/
 function changeCombo(obj){
 	jQuery("input[name='projectCount']").parent().remove();
 	var comboId = jQuery(obj).val();

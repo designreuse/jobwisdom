@@ -143,7 +143,7 @@
 		selectDeptInfo(deptId);
 	}
 	jQuery(".close1").on("click", function() {
-		if (confirm("确定要删除该套餐么?")) {
+		if (confirm("确定要删除该疗程么?")) {
 			var comboId = jQuery(this).attr("comboId");
 			jQuery.ajax({
 				cache : true,

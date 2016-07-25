@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
+
 import com.zefun.web.entity.DeptInfo;
 
 /**
@@ -24,7 +26,7 @@ public class CardconsumptionStoreSummaryResultDto extends SummaryResultDto {
     private double totalProjectAmount = 0;
 
     /**
-     * 套餐划卡消费
+     * 疗程划卡消费
      */
     private double totalPackageAmount = 0;
 
@@ -39,7 +41,7 @@ public class CardconsumptionStoreSummaryResultDto extends SummaryResultDto {
     private double lastTotalProjectAmount = 0;
 
     /**
-     * 按时间, 根据{@link #dateType}判断的前一段时间的套餐划卡消费
+     * 按时间, 根据{@link #dateType}判断的前一段时间的疗程划卡消费
      */
     private double lastTotalPackageAmount = 0;
 

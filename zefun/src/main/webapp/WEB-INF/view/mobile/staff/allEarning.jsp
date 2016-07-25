@@ -61,7 +61,7 @@
 					</div>
 					<div class="swiper-slide mycolor-slide" id="slide3">
 						<div class="title cuurent" name="title">
-							套餐业绩
+							疗程业绩
 						</div>
 					</div>
 					<div class="swiper-slide mycolor-slide" id="slide4">
@@ -115,7 +115,7 @@
 										<span>实际：${toDay.scale}%</span>
 									  </li>
 									  <li>
-									            套餐业绩
+									            疗程业绩
 										<p>平均:¥${hashMap.totalComboScale}</p>
 										<span>实际：¥${toDay.comboValue}</span>
 									  </li>
@@ -168,7 +168,7 @@
 										<span>实际：${toDay.scale}%</span>
 									  </li>
 									  <li>
-									            套餐业绩
+									            疗程业绩
 										<p>平均:¥${hashMap.totalComboScale}</p>
 										<span>实际：¥${toDay.comboValue}</span>
 									  </li>
@@ -221,7 +221,7 @@
 										<span>实际：${toDay.scale}%</span>
 									  </li>
 									  <li>
-									            套餐业绩
+									            疗程业绩
 										<p>平均:¥${hashMap.totalComboScale}</p>
 										<span>实际：¥${toDay.comboValue}</span>
 									  </li>
@@ -253,7 +253,7 @@
 										  <img src="<%=picPath%>${toDay.headImage}">
 										  <em>${toDay.name}</em>
 										  <em>${toDay.employeeCode}</em>
-										  <i>套餐业绩：<span>¥${toDay.comboValue}</span>
+										  <i>疗程业绩：<span>¥${toDay.comboValue}</span>
 										  <img src="<%=basePath%>images/mobile/newemployee/right.png"></i>
 									   </div>
 									</div>
@@ -274,7 +274,7 @@
 										<span>实际：${toDay.scale}%</span>
 									  </li>
 									  <li>
-									            套餐业绩
+									            疗程业绩
 										<p>平均:¥${hashMap.totalComboScale}</p>
 										<span>实际：¥${toDay.comboValue}</span>
 									  </li>
@@ -327,7 +327,7 @@
 										<span>实际：${toDay.scale}%</span>
 									  </li>
 									  <li>
-									            套餐业绩
+									            疗程业绩
 										<p>平均:¥${hashMap.totalComboScale}</p>
 										<span>实际：¥${toDay.comboValue}</span>
 									  </li>
@@ -380,7 +380,7 @@
 										<span>实际：${toDay.scale}%</span>
 									  </li>
 									  <li>
-									            套餐业绩
+									            疗程业绩
 										<p>平均:¥${hashMap.totalComboScale}</p>
 										<span>实际：¥${toDay.comboValue}</span>
 									  </li>

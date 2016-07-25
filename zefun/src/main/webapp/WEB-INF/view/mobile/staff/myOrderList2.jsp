@@ -128,7 +128,7 @@
                                        <div class="faxingshi">
                                         </div>
                                         <div class="dingdan">
-                                            <span class= "state shop">套餐</span>
+                                            <span class= "state shop">疗程</span>
                                         </div>
                                 </c:if>
                             </div>

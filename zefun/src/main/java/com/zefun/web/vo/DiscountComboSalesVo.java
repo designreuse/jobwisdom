@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 */
 public class DiscountComboSalesVo {
 	
-	/**折扣套餐数量*/
+	/**折扣疗程数量*/
     private Integer discountComboCnt;
-    /**折扣套餐业绩*/
+    /**折扣疗程业绩*/
     private BigDecimal discountComboAmt;
     
 	public Integer getDiscountComboCnt() {

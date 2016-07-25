@@ -57,6 +57,7 @@ import com.zefun.web.dto.ProjectBaseDto;
 import com.zefun.web.dto.ProjectEvaluateDto;
 import com.zefun.web.dto.SelfCashierDetailDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
+import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.EmployeeEvaluate;
 import com.zefun.web.entity.EmployeeInfo;
@@ -83,6 +84,7 @@ import com.zefun.web.entity.StoreShop;
 import com.zefun.web.entity.StoreWechat;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatMember;
+import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.EmployeeEvaluateMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -188,7 +190,7 @@ public class MemberCenterService {
     @Autowired
     private GiftmoneyFlowMapper giftmoneyFlowMapper;
     
-    /**会员套餐记录操作对象*/
+    /**会员疗程记录操作对象*/
     @Autowired
     private MemberComboRecordMapper memberComboRecordMapper;
     
@@ -296,6 +298,10 @@ public class MemberCenterService {
     /** 岗位信息*/
     @Autowired
     private PositioninfoMapper positioninfoMapper;
+    /** 套餐信息*/
+    @Autowired
+    private ComboInfoMapper comboInfoMapper;
+    
     
     
     
@@ -528,7 +534,7 @@ public class MemberCenterService {
         ModelAndView mav = new ModelAndView(View.MemberCenter.ORDER_LIST);
         List<MemberOrderDto> orderList = orderInfoMapper.selectOrderListByMemberId(memberId);
         
-        //检查订单的评价状态，商品/套餐订单暂不能评价
+        //检查订单的评价状态，商品/疗程订单暂不能评价
         for (MemberOrderDto order : orderList) {
             boolean isProject = false;
             for (OrderDetailDto detail : order.getDetailList()) {
@@ -708,11 +714,11 @@ public class MemberCenterService {
     
     
     /**
-     * 查看会员套餐列表
+     * 查看会员疗程列表
     * @author 张进军
     * @date Aug 19, 2015 4:21:25 PM
     * @param memberId       会员标识
-    * @return           会员套餐列表页面
+    * @return           会员疗程列表页面
      */
     public ModelAndView comboListView(int memberId){
         ModelAndView mav = new ModelAndView(View.MemberCenter.COMBO_LIST);
@@ -1414,6 +1420,9 @@ public class MemberCenterService {
             bestSellers = goodsInfoService.queryByGoodsIds(paramsBestSellers);
         }
         
+        List<ProjectInfo> projectInfos = projectInfoMapper.selectByStoreId(ownerStoreId);
+        List<ComboInfo> comboInfos = comboInfoMapper.selectByProperty(new ComboInfo(ownerStoreId));
+        
         mav.addObject("aestSellers", aestSellers);
         mav.addObject("bestSellers", bestSellers);
         mav.addObject("storeShop", shop);
@@ -1423,6 +1432,9 @@ public class MemberCenterService {
         mav.addObject("storeList", storeList);
         
         mav.addObject("storeId", ownerStoreId);
+        
+        mav.addObject("projectInfos", projectInfos);
+        mav.addObject("comboInfos", comboInfos);
         
         return mav;
     }

@@ -15,7 +15,7 @@
 
 	<div class="con">
 
-		<div class="person_">
+		<div class="person_" style="background:url('<%=basePath %>images/mobile/member/back.png') no-repeat">
 			<div class="head_pic">
 			<a href="<%=basePath%>memberCenter/view/info">
 				<img src="<%=picPath%>${memberBaseInfo.headUrl }?imageView2/1/w/220/h/220">

@@ -158,7 +158,7 @@ public interface View {
 		public static final String LABORPERFORMANCE = "businessreport/laborperformance";
 		/** 划卡消费 */
 		public static final String CARDCONSUPTION = "businessreport/cardconsumption";
-		/** 套餐销售 */
+		/** 疗程销售 */
 		public static final String COMBOSALES = "businessreport/packagesales";
 		/** 商品销售 */
 		public static final String GOODSSALES = "businessreport/commoditysales";
@@ -267,7 +267,7 @@ public interface View {
 		public static final String PAYMENT_DETAIL = "mobile/member/paymentDetail";
 		/** 会员订单评价 */
 		public static final String ORDER_EVALUATE = "mobile/member/orderEvaluate";
-		/** 会员套餐列表 */
+		/** 会员疗程列表 */
 		public static final String COMBO_LIST = "mobile/member/comboList";
 		/** 门店列表 */
 		public static final String STORE_LIST = "mobile/member/storeList";
@@ -410,15 +410,15 @@ public interface View {
 	}
 
 	/**
-	 * 套餐
+	 * 疗程
 	 * 
 	 * @author 洪秋霞
 	 * @date 2015年8月11日 下午2:04:32
 	 */
 	class ComboInfo {
-		/** 套餐设置页面 */
+		/** 疗程设置页面 */
 		public static final String COMBOINFO = "commodity/comboInfo";
-		/** 套餐设置页面*/
+		/** 疗程设置页面*/
         public static final String COMBO_SETTING = "commodity/comboSetting";
 	}
 

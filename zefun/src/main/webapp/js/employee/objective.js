@@ -320,7 +320,7 @@ function openedit(id){
 	addData["assignProjectSales"] = assignProjectSales;
 	var comboSales=jQuery("#"+id+"").children().find("input[name='comboSales']").val();
 	if (isNaN(totalProjectSales)){
-        dialog("套餐销售目标只能为数字或者小数！");
+        dialog("疗程销售目标只能为数字或者小数！");
         return;
      }
 	if(comboSales==null||comboSales==""){

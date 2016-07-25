@@ -5,15 +5,15 @@ import java.util.List;
 
 
 /**
- * 单个套餐查询数据
+ * 单个疗程查询数据
 * @author 高国藩
 * @date 2015年10月20日 下午7:45:54
  */
 public class ComboInfoProjectCommissionDto {
 
-    /**套餐Id */
+    /**疗程Id */
     private Integer comboId;
-    /**套餐名字*/
+    /**疗程名字*/
     private String comboName;
     /**项目Id */
     private Integer projectId;
@@ -33,9 +33,9 @@ public class ComboInfoProjectCommissionDto {
     private String endDate;
     /**有效天数*/
     private String validDate;
-    /**套餐原价*/
+    /**疗程原价*/
     private BigDecimal projectAmount;
-    /**套餐销售价格*/
+    /**疗程销售价格*/
     private BigDecimal comboSalePrice;
     /**提成方式*/
     private Integer commissionType;
@@ -47,7 +47,7 @@ public class ComboInfoProjectCommissionDto {
     private BigDecimal projectPrice;
     /** 项目数量 */
     private Integer projectCount;
-    /** 套餐内业绩计算 */
+    /** 疗程内业绩计算 */
     private BigDecimal comboPerformanceCal;
     /** 提成比例 */
     private BigDecimal royaltyRate;

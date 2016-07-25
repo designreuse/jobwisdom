@@ -11,7 +11,7 @@ public class DetailPaymentDto {
     /** 明细标识 */
     private Integer detailId;
 
-    /** 订单类型(1:项目,2:商品,3:套餐) */
+    /** 订单类型(1:项目,2:商品,3:疗程) */
     private Integer orderType;
 
     /** 是否预约(1:是,2:否) */
@@ -38,7 +38,7 @@ public class DetailPaymentDto {
     /** 折扣价格 */
     private BigDecimal discountAmount;
 
-    /** 优惠类型(具体套餐抵扣，优惠券抵扣，礼金抵扣) */
+    /** 优惠类型(具体疗程抵扣，优惠券抵扣，礼金抵扣) */
     private String offType;
     
     /** 优惠金额 */

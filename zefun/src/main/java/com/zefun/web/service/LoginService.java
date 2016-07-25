@@ -210,7 +210,10 @@ public class LoginService {
         } 
 		else if (roleId == App.System.SYSTEM_ROLE_STORE_EMPLOYEE) {
 			dto.setMsg(Url.SystemSetting.VIEW_PERSON_SETTING);
-		} 
+		}
+		else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_JOBWISDOM) {
+            dto.setMsg(Url.Enterprise.VIEW_SHOW_ENTERPRISE);
+        } 
 		else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {
 			dto.setMsg(Url.Member.VIEW_BASE_MEMBER);
 		} 

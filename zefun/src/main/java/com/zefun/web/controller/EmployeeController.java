@@ -66,7 +66,7 @@ public class EmployeeController extends BaseController{
 	 */
 	@RequestMapping(value = Url.Employee.VIEW_POSITION_LEVEL, method=RequestMethod.GET)
     public ModelAndView accountViewStorePosition(HttpServletRequest request, HttpServletResponse response){
-        return employeeService.accountViewStorePosition(getStoreAccount(request));
+        return employeeService.accountViewStorePosition(getStoreAccount(request), request);
     }
 	
 	/**

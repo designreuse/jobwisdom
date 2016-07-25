@@ -20,7 +20,7 @@ import com.zefun.web.vo.CashComboSalesVo;
 /**
 * @author 乐建建
 * @date 2016年1月20日 下午8:41:25
-* 套餐汇总页面对象 
+* 疗程汇总页面对象 
 */
 public class ComboSummaryViewDto extends SummaryResultDto{
     /**
@@ -37,26 +37,26 @@ public class ComboSummaryViewDto extends SummaryResultDto{
         int last = cal.getActualMaximum(Calendar.DATE);
         return last;
     }
-    /**套餐销售业绩增长率*/
+    /**疗程销售业绩增长率*/
     private BigDecimal amountIncrementRate;  
-    /**卡金套餐销售业绩*/
+    /**卡金疗程销售业绩*/
     private CardComboSalesVo cardComboSales;     
-    /**现金套餐销售业绩*/
+    /**现金疗程销售业绩*/
     private CashComboSalesVo cashComboSales;
-    /**套餐销售总额*/
+    /**疗程销售总额*/
     private BigDecimal comboAmount;    
-    /**套餐排行数据*/
+    /**疗程排行数据*/
     private List<ComboSummaryDto> comboRank;   
-    /**套餐总销量*/
+    /**疗程总销量*/
     private Integer comboSales;
     /**当前门店下的部门汇总数据*/
     private List<DeptComboSummaryDto> deptComboSummary;
     /**部门id和名称对应表*/
     private Map<Integer, String> idForName;
 
-    /**上期套餐销售总额*/
+    /**上期疗程销售总额*/
     private BigDecimal lastComboAmount;
-    /**上期套餐排行*/
+    /**上期疗程排行*/
     private Map<String, Integer> lastComboRank;
     /**部门下月趋势数据*/
     private List<TrendDeptDataDto> trendData;
@@ -75,15 +75,15 @@ public class ComboSummaryViewDto extends SummaryResultDto{
     * @param begin 起始点
     * @param end 终止点
     * @param dateType 日期类型
-    * @param deptSummarys 当期部门的套餐汇总数据
-    * @param comboRank2 当前部门的套餐排行
-    * @param lastdeptSummarys 上期部门的套餐汇总数据
-    * @param lastcomboRank  上期部门的套餐排行
+    * @param deptSummarys 当期部门的疗程汇总数据
+    * @param comboRank2 当前部门的疗程排行
+    * @param lastdeptSummarys 上期部门的疗程汇总数据
+    * @param lastcomboRank  上期部门的疗程排行
     * @param deptsInfo 部门详细信息
     * @param trendData 趋势数据
     * @param storeId 门店id
-    * @param cash 现金套餐销售业绩
-    * @param card 卡金套餐销售业绩
+    * @param cash 现金疗程销售业绩
+    * @param card 卡金疗程销售业绩
     */
     public ComboSummaryViewDto(CashComboSalesVo cash, CardComboSalesVo card, List<StoreInfo> stores, 
             List<TrendDeptDataDto> trendData, String begin, String end, Integer dateType, 
@@ -121,8 +121,8 @@ public class ComboSummaryViewDto extends SummaryResultDto{
     /**
     * @author 乐建建
     * @date 2016年1月21日 下午5:00:42
-    * @param deptSummarys 当期部门的套餐汇总数据
-    * @return  门店下的套餐总销售额
+    * @param deptSummarys 当期部门的疗程汇总数据
+    * @return  门店下的疗程总销售额
     */
     private BigDecimal computeAmount(List<DeptComboSummaryDto> deptSummarys) {
         BigDecimal totalAmount=new BigDecimal(0);
@@ -137,8 +137,8 @@ public class ComboSummaryViewDto extends SummaryResultDto{
     /**
     * @author 乐建建
     * @date 2016年1月21日 下午5:08:02
-    * @param deptSummarys 当期部门的套餐汇总数据
-    * @return 门店下的套餐总销售数量
+    * @param deptSummarys 当期部门的疗程汇总数据
+    * @return 门店下的疗程总销售数量
     */
     private Integer computeCnt(List<DeptComboSummaryDto> deptSummarys) {
         Integer num=0;
@@ -204,9 +204,9 @@ public class ComboSummaryViewDto extends SummaryResultDto{
     /**
     * @author 乐建建
     * @date 2016年1月21日 下午5:20:52
-    * @param comboAmount2 当期套餐总销售额
-    * @param lastComboAmount2 上期套餐销售额
-    * @return 套餐总销售额增长率
+    * @param comboAmount2 当期疗程总销售额
+    * @param lastComboAmount2 上期疗程销售额
+    * @return 疗程总销售额增长率
     */
     private BigDecimal computeRate(BigDecimal comboAmount2,
             BigDecimal lastComboAmount2) {
@@ -235,8 +235,8 @@ public class ComboSummaryViewDto extends SummaryResultDto{
     /**
     * @author 乐建建
     * @date 2016年1月21日 下午5:26:24
-    * @param lastcomboRank2 上期部门的套餐排行
-    * @return 上期部门套餐的排行 以<套餐名,排名>方式
+    * @param lastcomboRank2 上期部门的疗程排行
+    * @return 上期部门疗程的排行 以<疗程名,排名>方式
     */
     private Map<String, Integer> extractRank(
             List<ComboSummaryDto> lastcomboRank2) {
@@ -250,9 +250,9 @@ public class ComboSummaryViewDto extends SummaryResultDto{
     /**
     * @author 乐建建
     * @date 2016年1月27日 下午8:11:47
-    * @param comboRank2 封装套餐销售排行数据
+    * @param comboRank2 封装疗程销售排行数据
     * @param idForName2 部门id和名字对应表
-    * @return 填充名字之后的套餐排行数据 
+    * @return 填充名字之后的疗程排行数据 
     */
     private List<ComboSummaryDto> fillName(List<ComboSummaryDto> comboRank2,
             Map<Integer, String> idForName2) {

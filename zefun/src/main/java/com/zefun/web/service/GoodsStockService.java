@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.zefun.common.consts.View;
 import com.zefun.common.consts.App.Session;
 import com.zefun.common.utils.DateUtil;
@@ -66,6 +67,7 @@ public class GoodsStockService {
         
         ModelAndView model = null; 
         List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
+        
         Object storeId = request.getSession().getAttribute(Session.STORE_ID);
         if (storeId!=null){
             model = new ModelAndView(View.Stock.VIEW_STORE_STOCK);

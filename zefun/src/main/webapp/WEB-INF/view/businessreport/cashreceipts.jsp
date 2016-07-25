@@ -60,7 +60,7 @@
                 <li>
                     <fmt:formatNumber value="${summaryResult.totalComboAmt}" pattern="##.##" minFractionDigits="2" var="stotal3" />
                     <h1>${stotal3 }</h1>
-                    <p>${searchType }套餐现金</p>
+                    <p>${searchType }疗程现金</p>
                 </li>
                 <li>
                     <fmt:formatNumber value="${summaryResult.openCardAmt}" pattern="##.##" minFractionDigits="2" var="stotal4" />
@@ -142,7 +142,7 @@
                             <th>部门</th>
                             <th>项目</th>
                             <th>商品</th>
-                            <th>套餐</th>
+                            <th>疗程</th>
                             <th>开卡</th>
                             <th>充值/升级</th>
                             <th>汇总</th>
@@ -422,7 +422,7 @@
                 data: [
                     ['项目', ${summaryResult.totalProjectAmt}],
                     ['商品',  ${summaryResult.totalGoodsAmt}],
-                    ['套餐', ${summaryResult.totalComboAmt}],
+                    ['疗程', ${summaryResult.totalComboAmt}],
                     ['开卡',  ${summaryResult.openCardAmt}],
                     ['充值',  ${summaryResult.chargeCardAmt}],
                     ['升级',  ${summaryResult.upgradeAmt}],
@@ -546,7 +546,7 @@
 </c:forEach>
                        ]
             }, {
-                name: '套餐',
+                name: '疗程',
                 data: [
 <c:forEach items="${summaryResult.deptSummary }" var="dept" varStatus="deptStatus">
 <fmt:formatNumber value="${dept.deptDto.comboAmt}" pattern="##.##" minFractionDigits="2" var="scashRealAmount" />${scashRealAmount }

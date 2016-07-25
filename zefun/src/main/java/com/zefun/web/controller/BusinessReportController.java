@@ -194,7 +194,7 @@ public class BusinessReportController extends BaseController {
     }
 
     /**
-    * 套餐销售
+    * 疗程销售
     * @author 乐建建
     * @date 2016年1月21日 下午2:22:14
     * @param begin 日期区间起始点
@@ -306,7 +306,7 @@ public class BusinessReportController extends BaseController {
     }
 
     /**
-     * 套餐分部门排行
+     * 疗程分部门排行
     * @author 乐建建
     * @date 2016年1月27日 下午5:43:34
     * @param dateType 日期区间类型
@@ -345,7 +345,7 @@ public class BusinessReportController extends BaseController {
     }
 
     /**
-     * 套餐销售按照销量或者销售额排行
+     * 疗程销售按照销量或者销售额排行
     * @author 乐建建
     * @date 2016年1月27日 下午7:41:36
     * @param storeId 当前传入的门店id
