@@ -36,7 +36,6 @@ import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
-import com.zefun.web.mapper.ShiftMahjongMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.service.MemberInfoService;
@@ -65,8 +64,6 @@ public class StaffOrderService {
     /** 订单明细*/
     @Autowired
     private OrderDetailMapper orderDetailMapper;
-    /** 轮牌*/
-    @Autowired private ShiftMahjongMapper shiftMahjongMapper;
     /** 轮牌步骤*/
     @Autowired
     private ShiftMahjongProjectStepMapper shiftMahjongProjectStepMapper;

@@ -26,7 +26,6 @@ import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.controller.BaseController;
-import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.AgentInfo;
 import com.zefun.web.entity.AgentRecommendRecord;
 import com.zefun.web.entity.RechargeSetting;
@@ -37,7 +36,6 @@ import com.zefun.web.service.AgentRecommendRecordService;
 import com.zefun.web.service.RechargeSettingService;
 import com.zefun.web.service.StoreInfoService;
 import com.zefun.web.service.UserAccountService;
-import com.zefun.wechat.service.WechatCallService;
 
 /**
  * 门店信息控制器
@@ -77,11 +75,11 @@ public class StoreDetailController extends BaseController {
     @Autowired
     private RechargeSettingService rechargeSettingService;
 
-    /**
-     * 微信回调操作
-     */
-    @Autowired
-    private WechatCallService wechatCallService;
+//    /**
+//     * 微信回调操作
+//     */
+//    @Autowired
+//    private WechatCallService wechatCallService;
 
     /**测试数据*/
 //    private String openId = "oVeRPuAYeJBizrexSgVccJxd1tWg";
@@ -378,37 +376,6 @@ public class StoreDetailController extends BaseController {
 
 
     /**
-     * 系统开通操作
-    * @author 张进军
-    * @date Feb 22, 2016 11:45:28 AM
-    * @param sysType    系统开通类型
-    * @param smsType    短信购买类型
-    * @param request    请求对象
-    * @param response   响应对象
-    * @return   微信支付预申请结果
-     */
-    @RequestMapping(value = Url.StoreDetail.ACTION_DETAIL_OPEN_SYS, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto openSysAction(Integer sysType, Integer smsType,
-            HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
-        if (openId == null) {
-            return null;
-        }
-
-        StoreInfo storeInfo = storeInfoService.getStoreByOpenId(openId);
-        RechargeSetting sysSetting = rechargeSettingService.getById(sysType);
-        RechargeSetting smsSetting = rechargeSettingService.getById(smsType);
-        Double rechargeAmount = sysSetting.getAmount() + smsSetting.getAmount();
-        int amount = (int) (rechargeAmount * 100);
-        String goodsName = "系统使用" + sysSetting.getQuantity() + "月，短信数量" + smsSetting.getQuantity() + "条";
-        String callback = Url.StoreDetail.ACTION_CALLBACK_SYS_OPEN.replace("{storeId}", String.valueOf(storeInfo.getStoreId())).
-                    replace("{sysType}", String.valueOf(sysType)).replace("{smsType}", String.valueOf(smsType));
-        return wechatCallService.wepayForZefun(App.System.WECHAT_ZEFUN_STORE_ID, 1, null, goodsName, amount, openId, callback, request);
-    }
-
-
-    /**
      * 开通系统的支付回调处理
     * @author 张进军
     * @date Feb 22, 2016 1:54:28 PM
@@ -488,45 +455,6 @@ public class StoreDetailController extends BaseController {
         mav.addObject("storeId", storeInfo.getStoreId());
 
         return mav;
-    }
-
-
-    /**
-     * 系统充值/短信购买的支付操作
-    * @author 张进军
-    * @date Feb 23, 2016 4:55:53 PM
-    * @param businessType    业务类型（1：系统续费，2:短信购买）
-    * @param productType    产品类型（同数据库）
-    * @param request        请求对象
-    * @param response       响应对象
-    * @return   微信预支付数据
-     */
-    @RequestMapping(value = Url.StoreDetail.ACTION_DETAIL_CHARGE_SYS, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto chargeSysAction(Integer businessType, Integer productType,
-            HttpServletRequest request, HttpServletResponse response) {
-        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
-        if (openId == null) {
-            return null;
-        }
-
-        StoreInfo storeInfo = storeInfoService.getStoreByOpenId(openId);
-        RechargeSetting rechargeSetting = rechargeSettingService.getById(productType);
-        int amount = (int) (rechargeSetting.getAmount() * 100);
-//        int amount = 1;
-        String goodsName = "";
-        int goodsType = 2;
-        if (businessType == 1) {
-            goodsName = "系统使用" + rechargeSetting.getQuantity() + "月";
-        }
-        else {
-            goodsType = 3;
-            goodsName = "短信数量" + rechargeSetting.getQuantity() + "条";
-        }
-        String callback = Url.StoreDetail.ACTION_CALLBACK_SYS_CHARGE.replace("{storeId}", String.valueOf(storeInfo.getStoreId())).
-                replace("{businessType}", String.valueOf(businessType)).replace("{productType}", String.valueOf(productType));
-        return wechatCallService.wepayForZefun(App.System.WECHAT_ZEFUN_STORE_ID, goodsType, rechargeSetting.getId(),
-                goodsName, amount, openId, callback, request);
     }
 
 

@@ -67,7 +67,6 @@ import com.zefun.web.mapper.ShiftMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatEmployeeMapper;
 import com.zefun.web.service.EmployeeService;
-import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.ProjectService;
 import com.zefun.web.service.RedisService;
 import com.zefun.web.service.ShiftMahjongService;
@@ -143,9 +142,6 @@ public class StaffService {
     /**员工信息服务对象*/
     @Autowired private EmployeeService employeeService;
     
-    /**会员信息服务对象*/
-    @Autowired private MemberInfoService memberInfoService;
-
     /** 微信api服务对象 */
     @Autowired
     private WeixinMessageService weixinMessageService;
