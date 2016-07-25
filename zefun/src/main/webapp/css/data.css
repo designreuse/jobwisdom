@@ -76,8 +76,8 @@ width:130px;height:26px;border:none;border-radius:12px;text-align:center;line-he
 	border-radius: 10px 10px 0 0;overflow:hidden;
 	margin:50px auto
 }
-.new_shop_content{font-size:14px}
-.new_shop> p{height:60px;line-height:60px;text-align:center;font-size:18px;color:white;background:#2a3244;}
+.new_shop_content{font-size:12px}
+.new_shop> p{height:60px;line-height:60px;text-align:center;font-size:14px;color:white;background:#2a3244;}
 .new_shop_content{padding:22px 35px;color:black}
 .new_shop_content p span{display:inline-block;margin-right:30px;position:relative}
 .new_shop_content p .money{position:absolute;right:4px;color:black;top:3px}
@@ -87,7 +87,7 @@ width:130px;height:26px;border:none;border-radius:12px;text-align:center;line-he
 }
 .new_shop_content p i{display:inline-block;margin-left:24px;font-style:normal}
 .new_shop_content p span em{display:inline-block;width:70px;font-style:normal}
-.new_shop_content p input[type="text"]{width:120px;height:20px;border:1px solid black;border-radius:12px;margin-left:5px}
+.new_shop_content p input[type="text"]{width:120px;height:16px;border:1px solid black;border-radius:12px;margin-left:5px}
 input[type=radio]:checked {
     background: #eb2218!important;
 }
