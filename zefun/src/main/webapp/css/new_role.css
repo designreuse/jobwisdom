@@ -9,7 +9,8 @@
 .zzc_new_role{width:880px;height:530px;background:white;margin:50px auto;border-radius:12px;overflow:hidden}
 .zzc_new_role>p{height:60px;font-size:15px;color:white;text-align:center;line-height:60px;background:#3c4057}
 .zzc_new_role_content span{display:inline-block;margin-right:34px}
-.zzc_new_role_content p span input,.zzc_new_role_content p span select{width:130px;height:14px;border-radius:12px;border:1px solid #aeaeae}
+.zzc_new_role_content p span input{width:130px;height:14px;border-radius:12px;border:1px solid #aeaeae}
+.zzc_new_role_content p span select{padding:2px 0px 2px 5px;width:130px;border-radius:12px;border:1px solid #aeaeae}
 .zzc_new_role_content{padding:22px}
 .zzc_new_role_content em{color:#fb1010;display:inline-block;margin:0px 4px 0 2px;position:relative;top:4px;font-size:14px}
 .appoint>p{color:#7e7e7e;margin-bottom:2px}

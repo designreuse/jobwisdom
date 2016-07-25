@@ -21,6 +21,7 @@ import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.entity.AccountRoleInfo;
+import com.zefun.web.entity.MemberMenu;
 import com.zefun.web.entity.MenuIdQuote;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.mapper.AccountRoleInfoMapper;
@@ -151,7 +152,7 @@ public class LoginService {
 		    firstSb.append(firstMenu.get(i).getMenuHtml().replace("<%=menuBasePath%>", basePath));
         }        
 		firstSb.append("</ul>");
-		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, firstSb.toString());
+//		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, firstSb.toString());
 		
 		//拼接二级菜单
 		ArrayList<Integer> arrayList = new ArrayList<Integer>(); 
@@ -184,11 +185,11 @@ public class LoginService {
             }
         }
         secontSb.append("</div>");
-        sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, secontSb.toString());
-// 查询出该用户所拥有的菜单权限,将其放入session中
-//      MemberMenu memberMenu = memberMenuMapper.selectMenuByRoleId(userAccount.getRoleId());
-//		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("<%=menuBasePath%>", basePath));
-//		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, memberMenu.getSecontMenu().replace("<%=menuBasePath%>", basePath));
+//        sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, secontSb.toString());
+//       查询出该用户所拥有的菜单权限,将其放入session中
+        MemberMenu memberMenu = memberMenuMapper.selectMenuByRoleId(userAccount.getRoleId());
+		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("<%=menuBasePath%>", basePath));
+		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, memberMenu.getSecontMenu().replace("<%=menuBasePath%>", basePath));
 
 		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
 		

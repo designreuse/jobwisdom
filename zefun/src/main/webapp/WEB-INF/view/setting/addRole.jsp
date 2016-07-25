@@ -11,27 +11,35 @@
    jQuery(document).on('click','.first .appoint_ul li',function(){
      jQuery(this).addClass('active').siblings().removeClass('active');
 	 jQuery('.first .appoint_ul_index ul').eq(jQuery(this).index()).show().siblings().hide();
+	 jQuery('.second .appoint_ul li').eq(jQuery(this).index()).addClass('active').siblings().removeClass('active');
+	 jQuery('.second .appoint_ul_index ul').eq(jQuery(this).index()).show().siblings().hide();
    
    });
    jQuery(document).on('click','.first .appoint_ul_index li',function(){
      var index=jQuery(this).parent().index();
-	 var ind=jQuery(this).index()
+	 var ind=jQuery(this).index();
      var img='<img src="<%=basePath%>images/setting_close.png">';
-	 jQuery(this).attr('name','parent'+index+'child'+ind)
-	  var background=jQuery(this).css('background-color');
-	  html=jQuery(this).clone(); 
-	  if(background=='rgb(184, 199, 234)')
-	   return;
-	 else{
-         jQuery('.second .appoint_ul_index ul').eq(index).append(html);
+	 jQuery(this).attr({'name':'parent'+index+'child'+ind,'number':ind});
+	 if(jQuery(this).css('background-color')=='rgb(255, 255, 255)'){
+	    var background=jQuery(this).css('background-color');
+	    html=jQuery(this).clone(); 
+	   if(background=='rgb(184, 199, 234)')
+	     return;
+	   else{
+		 jQuery('.second .appoint_ul_index ul').eq(index).append(html);
 		 jQuery('.second .appoint_ul_index ul').eq(index).find('li img').remove();
-         jQuery('.second .appoint_ul_index ul').eq(index).find('li').append(img);
-     	}
+		 jQuery('.second .appoint_ul_index ul').eq(index).find('li').append(img);
+     	  }
 		jQuery(this).addClass('active');	 
 		jQuery('.second .appoint_ul li').eq(index).addClass('active').siblings().removeClass('active');
-		jQuery('.second .appoint_ul_index ul').eq(index).show().siblings().hide()
-		
+		jQuery('.second .appoint_ul_index ul').eq(index).show().siblings().hide();
+	   }	
+    else{
+       jQuery('.second .appoint_ul_index').find("li[name=parent"+index+"child"+ind+"]").remove(); 
+       jQuery(this).removeClass('active');	   
+     }
    })
+ 
   })
  
  //second 
@@ -39,8 +47,9 @@
    jQuery('.second .appoint_ul_index ul:gt(0)').hide();
    jQuery(document).on('click','.second .appoint_ul li',function(){
      jQuery(this).addClass('active').siblings().removeClass('active');
-	 jQuery('.second .appoint_ul_index ul').eq(jQuery(this).index()).show().siblings().hide();;
-     
+	 jQuery('.second .appoint_ul_index ul').eq(jQuery(this).index()).show().siblings().hide();
+	 jQuery('.first .appoint_ul li').eq(jQuery(this).index()).addClass('active').siblings().removeClass('active');
+     jQuery('.first .appoint_ul_index ul').eq(jQuery(this).index()).show().siblings().hide();
    });
   })
  //点击删除
@@ -49,6 +58,7 @@ jQuery(function(){
     var name=jQuery(this).parent('li').attr('name');
     jQuery('.first .appoint_ul_index').find("li[name="+name+"]").removeClass('active');
 	jQuery(this).parent().remove();
+		
  })
 }) 
   </script>
