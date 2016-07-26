@@ -129,8 +129,8 @@ public class MemberLevelController extends BaseController {
 	public ModelAndView listView(HttpServletRequest request){
 	    int storeId = 0;
 	    int roleId = getRoleId(request);
-	    AccountRoleInfo selectByPrimaryKey = accountRoleInfoMapper.selectByPrimaryKey(roleId);
-	    if (selectByPrimaryKey.getRoleId() != 1) {
+	   
+	    if (roleId != 1) {
 	    	storeId = getStoreId(request);
 	    }
 	    String storeAccount = getStoreAccount(request);
