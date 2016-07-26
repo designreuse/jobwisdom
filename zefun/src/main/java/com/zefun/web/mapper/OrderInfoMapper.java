@@ -604,4 +604,13 @@ public interface OrderInfoMapper {
     * @return SelfCashierOrderDto
      */
     SelfCashierOrderDto selectByNoPageOrderId(Integer orderId);
+    
+    /**
+     * 专业修改订单是否可操作20年
+    * @author 老王
+    * @date 2016年7月26日 下午2:27:55 
+    * @param record 订单对象
+    * @return 是否成功
+     */
+    Integer updateIsOrderOption(OrderInfo record);
 }
