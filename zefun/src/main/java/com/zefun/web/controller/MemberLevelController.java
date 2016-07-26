@@ -14,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberLevelDto;
+import com.zefun.web.entity.AccountRoleInfo;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
+import com.zefun.web.mapper.AccountRoleInfoMapper;
 import com.zefun.web.service.MemberLevelService;
 
 /**
@@ -28,6 +30,9 @@ public class MemberLevelController extends BaseController {
     /** 会员等级操作对象 */
 	@Autowired
 	private MemberLevelService memberLevelService;
+	/** 菜单操作对象 */
+    @Autowired
+	private AccountRoleInfoMapper accountRoleInfoMapper;
 	
 	/**
 	 * 企业查询所有会员卡信息
@@ -124,7 +129,8 @@ public class MemberLevelController extends BaseController {
 	public ModelAndView listView(HttpServletRequest request){
 	    int storeId = 0;
 	    int roleId = getRoleId(request);
-	    if (roleId != 1) {
+	    AccountRoleInfo selectByPrimaryKey = accountRoleInfoMapper.selectByPrimaryKey(roleId);
+	    if (selectByPrimaryKey.getRoleId() != 1) {
 	    	storeId = getStoreId(request);
 	    }
 	    String storeAccount = getStoreAccount(request);
