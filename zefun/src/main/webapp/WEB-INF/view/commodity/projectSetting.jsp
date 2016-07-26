@@ -242,7 +242,7 @@
 									<p class="shop_price_1">
 										门店价格<span><input name="projectPrice" type="number"><em>元</em></span><i
 											style="display: inline-block; width: 105px; margin-left: 72px">成本价格</i><span><input
-											name="projectPrice" type="costPrice"><em>元</em></span>
+											name="costPrice" type="text"><em>元</em></span>
 									</p>
 									<p class="shop_price_2">
 										接受礼金<i><input
