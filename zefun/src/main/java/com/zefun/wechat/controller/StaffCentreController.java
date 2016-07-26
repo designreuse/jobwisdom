@@ -74,8 +74,8 @@ public class StaffCentreController extends BaseController{
     }
     
     /**
-     * 打卡操作，包括签到、签退
-    * @author 张进军
+     * 员工上牌接口
+    * @author 老王
     * @date Oct 28, 2015 6:10:05 PM
     * @param request 返回
     * @param response 请求
