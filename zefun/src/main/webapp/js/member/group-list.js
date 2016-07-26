@@ -1,7 +1,16 @@
-var groupId;
+var groupId = null;
 //查询满足该分组条件的会员信息 
-jQuery(".chart_message").on("click",function(){
+jQuery(".vip_group_left_content_detail").on("click",function(){
+	if (jQuery(this).children("p").children("em").text()=="0人"){
+		dialog("该分组下没有会员数据");
+		groupId = jQuery(this).attr("id");
+		jQuery(this).addClass('active').siblings().removeClass('active');
+		jQuery("#serch_member_list").empty();
+		jQuery(".pagination-demo").prev().text("");
+		return;
+	}
 	groupId = jQuery(this).attr("id");
+	jQuery(this).addClass('active').siblings().removeClass('active');
 	var groupName = jQuery(this).parent().parent().children("td").eq(0).text();
 	jQuery("#group_name_show").text("当前分组:"+groupName);
 	jQuery("#renyuan").show();
@@ -22,13 +31,7 @@ jQuery(".chart_message").on("click",function(){
 					var td1 = jQuery("<td>"+e.msg.results[i].phone+"</td>");
 					var td2 = jQuery('<td class="can-click" data-target="#member-data" data-toggle="modal" onclick="selectMemberInfo('+e.msg.results[i].memberId+')">'+e.msg.results[i].name+'</td>');
 					var td3 = jQuery("<td>"+e.msg.results[i].sex+"</td>");
-					var td4 = jQuery("<td>"+e.msg.results[i].levelName+"</td>");
-					var td5;
-					if(e.msg.results[i].birthday == null){
-						td5 = jQuery("<td></td>");
-					}else{
-						td5 = jQuery("<td>"+e.msg.results[i].birthday+"</td>");
-					}
+					var td4 = jQuery("<td>"+e.msg.results[i].birthday+"</td>");
 					var td6 = jQuery("<td>"+e.msg.results[i].balanceAmount+"</td>");
 					var td7 = jQuery("<td>"+e.msg.results[i].balanceIntegral+"</td>");
 					var td8 = jQuery("<td>"+e.msg.results[i].totalConsumeAmount+"</td>");
@@ -42,7 +45,6 @@ jQuery(".chart_message").on("click",function(){
 					tr.append(td2);
 					tr.append(td3);
 					tr.append(td4);
-					tr.append(td5);
 					tr.append(td6);
 					tr.append(td7);
 					tr.append(td8);
@@ -51,7 +53,6 @@ jQuery(".chart_message").on("click",function(){
 					jQuery("#serch_member_list").append(tr);
 				}
 				unbuildPagination();
-				jQuery("html,body").animate({scrollTop: jQuery("#renyuan").offset().top}, 1000);
 			}else{
 				jQuery("#serch_member_list").empty();
 			}
@@ -61,7 +62,7 @@ jQuery(".chart_message").on("click",function(){
 //删除分组
 jQuery(".delete_group").on("click",function(){
 	var i = jQuery(this);
-	var groupId = jQuery(this).attr("id");
+	if (groupId == null){dialog("暂无选择的分组");return;}
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "member/delete/census",
@@ -69,8 +70,7 @@ jQuery(".delete_group").on("click",function(){
 		dataType : "json",
 		success : function(e){
 			if(e.code == 0){
-				i.parents("tr").hide();
-				jQuery("#renyuan").hide();
+				jQuery(".vip_group_left_content_detail.active").remove();
 			}else{
 				dialog(e.msg);
 			}
@@ -118,13 +118,7 @@ function changePage(){
 					var td1 = jQuery("<td>"+e.msg.results[i].phone+"</td>");
 					var td2 = jQuery("<td class='can-click' onclick='selectMemberInfo("+e.msg.results[i].memberId+")' data-target='#member-data' data-toggle='modal'>"+e.msg.results[i].name+"</td>");
 					var td3 = jQuery("<td>"+e.msg.results[i].sex+"</td>");
-					var td4 = jQuery("<td>"+e.msg.results[i].levelName+"</td>");
-					var td5;
-					if(e.msg.results[i].birthday == null){
-						td5 = jQuery("<td></td>");
-					}else{
-						td5 = jQuery("<td>"+e.msg.results[i].birthday+"</td>");
-					}
+					var td4 = jQuery("<td>"+e.msg.results[i].birthday+"</td>");
 					var td6 = jQuery("<td>"+e.msg.results[i].balanceAmount+"</td>");
 					var td7 = jQuery("<td>"+e.msg.results[i].balanceIntegral+"</td>");
 					var td8 = jQuery("<td>"+e.msg.results[i].totalConsumeAmount+"</td>");
@@ -138,7 +132,6 @@ function changePage(){
 					tr.append(td2);
 					tr.append(td3);
 					tr.append(td4);
-					tr.append(td5);
 					tr.append(td6);
 					tr.append(td7);
 					tr.append(td8);
