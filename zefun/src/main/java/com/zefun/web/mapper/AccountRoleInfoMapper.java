@@ -70,4 +70,6 @@ public interface AccountRoleInfoMapper {
     * @return int
      */
     int updateByPrimaryKey(AccountRoleInfo record);
+    
+
 }

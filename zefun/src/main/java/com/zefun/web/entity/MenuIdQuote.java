@@ -1,5 +1,7 @@
 package com.zefun.web.entity;
 
+import java.util.List;
+
 /**
  * 菜单
 * @author 骆峰
@@ -17,6 +19,18 @@ public class MenuIdQuote {
 
     /** 菜单html */
     private String menuHtml;
+    
+    /** 二级菜单集合*/
+    private List<MenuIdQuote> menuIdQuotes;
+
+    
+    public List<MenuIdQuote> getMenuIdQuotes() {
+        return menuIdQuotes;
+    }
+
+    public void setMenuIdQuotes(List<MenuIdQuote> menuIdQuotes) {
+        this.menuIdQuotes = menuIdQuotes;
+    }
 
     public Integer getMenuType() {
         return menuType;

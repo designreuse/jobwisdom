@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.dto.UserAccountDto;
 import com.zefun.web.entity.UserAccount;
 
 /**
@@ -56,6 +57,15 @@ public interface UserAccountMapper {
 	 * @return 用户账户信息
 	 */
 	UserAccount selectByUserName(Map<String, String> mapUser);
+	
+	/**
+	 * 查询该企业下的管理员
+	* @author 骆峰
+	* @date 2016年7月25日 上午11:39:26
+	* @param mapUser mapUser
+	* @return List
+	 */
+	List<UserAccountDto> selectByAccout(Map<String, Object> mapUser);
 
 	/**
 	 * 更新

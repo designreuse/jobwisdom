@@ -6,9 +6,24 @@
     <result column="menu_id" property="menuId" jdbcType="INTEGER" />
     <result column="quote_id" property="quoteId" jdbcType="INTEGER" />
     <result column="menu_html" property="menuHtml" jdbcType="LONGVARCHAR" />
+    <collection property="menuIdQuotes"  column="menu_id" select="selectMemberSecounds"></collection>
+  </resultMap>
+  <resultMap id="BaseResultSecondsMap" type="com.zefun.web.entity.MenuIdQuote" >
+    <result column="menu_type" property="menuType" jdbcType="INTEGER" />
+    <result column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="quote_id" property="quoteId" jdbcType="INTEGER" />
+    <result column="menu_html" property="menuHtml" jdbcType="LONGVARCHAR" />
   </resultMap>
 
-
+ <select id="selectMemberFirts" resultMap="BaseResultMap" parameterType="java.util.Map">
+ 	select * from menu_id_quote where menu_type = 1 and menu_id in 
+ 	<foreach item="menuId" collection="menuId" separator="," open="(" close=")" index="">  
+      #{menuId}  
+    </foreach> 
+ </select>
+ <select id="selectMemberSecounds" resultMap="BaseResultSecondsMap" parameterType="java.lang.Integer">
+ 	select * from menu_id_quote where menu_type = 2 and quote_id = #{menu_id}
+ </select>
 
  <select id="selectByMemuRoles" resultMap="BaseResultMap" parameterType="java.util.Map"  >
  	select 

@@ -257,7 +257,7 @@
 			 </div>
 		
 			 <div class="detail_address">
-			   <div>操作员工号<em style="color:red;font-size:16px;font-weight:bold;display:inline-block;margin-left:4px" id = "userName">1007</em></div>
+			   <div class="hide">操作员工号<em style="color:red;font-size:16px;font-weight:bold;display:inline-block;margin-left:4px" id = "userName">1007</em></div>
 			  <!--  <input type="text" id = "userName" readonly>  -->       		   
 			 </div>
 		 

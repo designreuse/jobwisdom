@@ -11,6 +11,16 @@ import com.zefun.web.entity.MenuIdQuote;
 * @date 2016年7月20日 下午4:02:20
  */
 public interface MenuIdQuoteMapper {
+    
+    /**
+     * 嵌套查询
+    * @author 骆峰
+    * @date 2016年7月25日 下午6:47:10
+    * @param params params
+    * @return       List<MenuIdQuote>
+     */
+    List<MenuIdQuote> selectMemberFirts(Map<String, Object> params);
+    
     /**
      * 新增
     * @author 骆峰

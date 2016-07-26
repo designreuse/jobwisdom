@@ -17,6 +17,7 @@ import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreInfo;
+import com.zefun.web.entity.UserAccount;
 import com.zefun.web.service.StoreInfoService;
 
 import net.sf.json.JSONObject;
@@ -372,4 +373,65 @@ public class StoreInfoController extends BaseController {
 		Integer operateId = getUserId(request);
 		return storeInfoService.storeInfoCopy(storeId, operateId, copyStoreId);
 	}
+	
+	
+	/**
+	 *  管理员设置页面
+	* @author 骆峰
+	* @date 2016年7月25日 上午11:27:38
+	* @param request request
+	* @return ModelAndView
+	 */
+	@RequestMapping(value = Url.SystemSetting.SYSTEM_VIEW_ADMINISTRATOR, method = RequestMethod.GET)
+    @ResponseBody
+	public ModelAndView userAccount(HttpServletRequest request){
+        return storeInfoService.userAccount(getStoreAccount(request));
+	}
+	
+	/**
+	 *  管理员保存
+	* @author 骆峰
+	* @date 2016年7月25日 下午3:03:15
+    * @param request request
+    * @param userAccount userAccount
+    * @param employeeName 名称
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.SystemSetting.ADMINISTRATOR_SAVEUPDATE, method = RequestMethod.POST)
+    @ResponseBody
+	public BaseDto userAccountSave(HttpServletRequest request, UserAccount userAccount, String employeeName){
+        return storeInfoService.userAccountSave(getStoreAccount(request), userAccount, employeeName);
+	    
+	}
+	
+	/**
+	 *  管理员条件查询
+	* @author 骆峰
+	* @date 2016年7月25日 下午4:02:55
+	* @param codeName codeName  编号或者姓名
+	* @param role 引用角色
+	* @param request 引用request
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.SystemSetting.ADMINISTRATOR_SELECTUSER, method = RequestMethod.POST)
+    @ResponseBody
+	public BaseDto selectUser(String codeName, Integer role, HttpServletRequest request){
+        return storeInfoService.selectUser(codeName, role, getStoreAccount(request));
+	}
+	
+	/**
+	 *  管理员删除
+	* @author 骆峰
+	* @date 2016年7月25日 下午4:23:54
+	* @param userId userId
+	* @param request request
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.SystemSetting.ADMINISTRATOR_DELETEUSER, method = RequestMethod.POST)
+	@ResponseBody
+    public BaseDto  deleteUser(Integer userId,  HttpServletRequest request){
+        return storeInfoService.deleteUser(userId, getStoreAccount(request));
+    }
+    
+	
 }

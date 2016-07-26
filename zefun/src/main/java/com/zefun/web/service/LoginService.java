@@ -5,29 +5,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.util.Streams;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 
 import com.zefun.common.consts.App;
-import com.zefun.common.consts.Url;
 import com.zefun.common.swagger.SystemWebSocketHandler;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.entity.AccountRoleInfo;
-import com.zefun.web.entity.MemberMenu;
 import com.zefun.web.entity.MenuIdQuote;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.mapper.AccountRoleInfoMapper;
-import com.zefun.web.mapper.AuthorityRequestMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
-import com.zefun.web.mapper.MemberMenuMapper;
 import com.zefun.web.mapper.MenuIdQuoteMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 
@@ -43,18 +44,18 @@ public class LoginService {
 	/** 用户账户表操作类 */
 	@Autowired
 	private UserAccountMapper userAccountMapper;
-	/** 接口权限 */
-	@Autowired
-	private AuthorityRequestMapper authorityRequestMapper;
+//	/** 接口权限 */
+//	@Autowired
+//	private AuthorityRequestMapper authorityRequestMapper;
 	/** 员工处理 */
 	@Autowired
 	private EmployeeInfoMapper employeeInfoMapper;
-	/** redis操作 */
-	@Autowired
-	private RedisService redisService;
-	/** 菜单权限表 */
-	@Autowired
-	private MemberMenuMapper memberMenuMapper;
+//	/** redis操作 */
+//	@Autowired
+//	private RedisService redisService;
+//	/** 菜单权限表 */
+//	@Autowired
+//	private MemberMenuMapper memberMenuMapper;
 	
 	/** 角色菜单权限表 */
 	@Autowired
@@ -120,13 +121,13 @@ public class LoginService {
 
 		int roleId = userAccount.getRoleId();
 		// 要查询出该用户所拥有的接口权限,将其放入session中
-		List<String> authorUrl = authorityRequestMapper.selectByUserRoleId(userAccount.getRoleId());
-		// 将接口权限放入redis中一份
-		redisService.del(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId);
-		redisService.sadd(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId,
-				  authorUrl.toArray(new String[authorUrl.size()]));
-		// 将roleName放入redis中 下面并没从redis中直接取出,是因为可能放入错误的数据 比如新增了权限,人员角色调整.
-		redisService.hset(App.Redis.PC_USER_ID_ROLE_HASH, userId, roleId);
+//		List<String> authorUrl = authorityRequestMapper.selectByUserRoleId(userAccount.getRoleId());
+//		// 将接口权限放入redis中一份
+//		redisService.del(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId);
+//		redisService.sadd(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId,
+//				  authorUrl.toArray(new String[authorUrl.size()]));
+//		// 将roleName放入redis中 下面并没从redis中直接取出,是因为可能放入错误的数据 比如新增了权限,人员角色调整.
+//		redisService.hset(App.Redis.PC_USER_ID_ROLE_HASH, userId, roleId);
 
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName()
@@ -136,60 +137,44 @@ public class LoginService {
 		mapMenu.put("roleId", roleId);
 		mapMenu.put("storeAccount", storeAccount);
 		List<AccountRoleInfo> selectAccountMenuByRoleId = accountRoleInfoMapper.selectAccountMenuByRoleId(mapMenu);
-	  
+		
 	    ArrayList<Integer> listFirst = new ArrayList<Integer>();
-		mapMenu.put("menuType", 1);
-		for (String str : selectAccountMenuByRoleId.get(0).getFristMenu().split(",")) {
-		    int i = Integer.parseInt(str);
-		    listFirst.add(i);
-		}
+	    ArrayList<Integer> listSecond = new ArrayList<Integer>();
+	    // 存放权限菜单的ID集合
+	    Stream.of(selectAccountMenuByRoleId.get(0).getFristMenu().split(",")).forEach(str -> listFirst.add(Integer.parseInt(str.trim())));
+	    Stream.of(selectAccountMenuByRoleId.get(0).getSecondMenu().split(",")).forEach(str -> listSecond.add(Integer.parseInt(str.trim())));
+	    
 		mapMenu.put("menuId", listFirst);
-		List<MenuIdQuote> firstMenu = menuIdQuoteMapper.selectByMemuRoles(mapMenu);
-		//拼接一级菜单
+		List<MenuIdQuote> idQuotes = menuIdQuoteMapper.selectMemberFirts(mapMenu);
+		
 		StringBuffer firstSb =  new StringBuffer();
 		firstSb.append("<ul class='left_nav'>");
-		for (int i = 0; i < firstMenu.size(); i++) {
-		    firstSb.append(firstMenu.get(i).getMenuHtml().replace("<%=menuBasePath%>", basePath));
-        }        
-		firstSb.append("</ul>");
-//		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, firstSb.toString());
 		
-		//拼接二级菜单
-		ArrayList<Integer> arrayList = new ArrayList<Integer>(); 
-		StringBuffer secontSb =  new StringBuffer();
-		mapMenu.put("menuType", "2");
-		
-		ArrayList<Integer> secontFirst = new ArrayList<Integer>();
-        for (String str : selectAccountMenuByRoleId.get(0).getSecondMenu().split(",")) {
-            int i = Integer.parseInt(str);
-            secontFirst.add(i);
-        }
-        mapMenu.put("menuId", secontFirst);
-        List<MenuIdQuote> secontMenu = menuIdQuoteMapper.selectByMemuRoles(mapMenu);
-        List<MenuIdQuote> secontMenugroup = menuIdQuoteMapper.selectGroupByMemuRoles(mapMenu);
-        
-        secontSb.append("<div class='left_nav_2' style='height: 840px;'>"); 
-        for (int i = 0; i < secontMenugroup.size(); i++) {
-            Integer quoteId = secontMenugroup.get(i).getQuoteId();
-           
-            if (!compareTonumber(quoteId , arrayList)) {  //如果这个 quoteId 没有被引用
-                int index = quoteId -1;
-                arrayList.add(quoteId);
+        StringBuffer secontSb =  new StringBuffer();
+        secontSb.append("<div class='left_nav_2' style='height: 840px;'>");
+        // 封装二级菜单
+        idQuotes.stream().forEach(f -> {
+                int index = Integer.parseInt(Jsoup.parse(f.getMenuHtml()).select("li").attr("index").trim())-1;
+                List<String> selectMenu = new ArrayList<>();
                 secontSb.append("<ul index='"+index+"'>");
-                for (int j = 0; j < secontMenu.size(); j++) {
-                    if (secontMenu.get(j).getQuoteId()==quoteId) {  //如果这个 quoteId相等 拼接2级菜单
-                        secontSb.append(secontMenu.get(j).getMenuHtml().replace("<%=menuBasePath%>", basePath));
-                    }
-                }
+                f.getMenuIdQuotes().stream().filter(s -> listSecond.contains(s.getMenuId())).collect(Collectors.toList()).stream().forEach(s -> {
+                        selectMenu.add(Jsoup.parse(s.getMenuHtml()).select("a").attr("href"));
+                        secontSb.append(s.getMenuHtml().replace("<%=menuBasePath%>", basePath));
+                    });
                 secontSb.append("</ul>");
-            }
-        }
+                String html = Jsoup.parse(f.getMenuHtml()).select("img").toString().replace("<%=menuBasePath%>", basePath).toString();
+//                System.out.println(html);
+                firstSb.append(Jsoup.parse(f.getMenuHtml()).select("li").toString().replace("<%=menuBasePath%>", basePath));
+//                firstSb.append(Jsoup.parse(f.getMenuHtml()).select("li").attr("url", "<%=menuBasePath%>")
+//                        .toString().replace("<%=menuBasePath%>", selectMenu.get(0)).replace("<%=menuBasePath%>", basePath));
+            });
+    
+		firstSb.append("</ul>");
+		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, firstSb.toString());
         secontSb.append("</div>");
-//        sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, secontSb.toString());
-//       查询出该用户所拥有的菜单权限,将其放入session中
-        MemberMenu memberMenu = memberMenuMapper.selectMenuByRoleId(userAccount.getRoleId());
-		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, memberMenu.getFirstMenu().replace("<%=menuBasePath%>", basePath));
-		sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, memberMenu.getSecontMenu().replace("<%=menuBasePath%>", basePath));
+        sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, secontSb.toString());
+        Document document = Jsoup.parse(secontSb.toString());
+        String url = document.select("div").eq(0).select("ul").eq(0).select("a").eq(0).attr("href");
 
 		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
 		
@@ -204,42 +189,9 @@ public class LoginService {
 		// 如果登陆成功将挑战的地址首页放入basedto中,用于跳转
 		BaseDto dto = new BaseDto();
 		dto.setCode(App.System.API_RESULT_CODE_FOR_SUCCEES);
-
-		if (roleId == App.System.SYSTEM_ROLE_STORE_BOSS) {
-            dto.setMsg(Url.StoreInfo.SHOW_STORE_LIST);
-        } 
-		else if (roleId == App.System.SYSTEM_ROLE_STORE_EMPLOYEE) {
-			dto.setMsg(Url.SystemSetting.VIEW_PERSON_SETTING);
-		}
-		else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_JOBWISDOM) {
-            dto.setMsg(Url.Enterprise.VIEW_SHOW_ENTERPRISE);
-        } 
-		else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {
-			dto.setMsg(Url.Member.VIEW_BASE_MEMBER);
-		} 
-		else {
-			dto.setMsg(Url.KeepAccounts.INITIALIZE_MANUALLY_OPEN_ORDER);
-		}
+		dto.setMsg(url.replaceAll(basePath, ""));
 
 		return dto;
-	}
-	
-	
-	/**
-	 * 
-	* @author 骆峰
-	* @date 2016年7月21日 下午12:04:06
-	* @param number number
-	* @param arrayList arrayList
-	* @return boolean
-	 */
-	private boolean compareTonumber (Integer number , ArrayList<Integer> arrayList){
-	    for (int i = 0; i < arrayList.size(); i++) {
-	        if (number == arrayList.get(i)) {
-	            return true;
-	        }
-        }
-	    return false;
 	}
 
 }
