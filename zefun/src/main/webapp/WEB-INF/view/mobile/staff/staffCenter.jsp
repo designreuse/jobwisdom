@@ -20,7 +20,7 @@
 	   <div class="person_name">
 	       <H1>${employeeInfo.name }<img src="<%=basePath%>images/mobile/newemployee/sex.png"></H1>
 	       <p>${employeeInfo.levelName}</p>
-		   <span onclick="initMap()">签到</span>
+		   <span onclick="initMap()">上牌</span>
 	   </div>
 	 </div>
 	  

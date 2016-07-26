@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zefun.app.common.param.SigeCheckParam;
 import com.zefun.common.consts.App;
 import com.zefun.common.enums.EmployeeRewardTypeEnum;
 import com.zefun.common.utils.DateUtil;
@@ -19,7 +18,6 @@ import com.zefun.common.utils.EmployeeAttendanceDateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.EmployeeAttendance;
 import com.zefun.web.entity.EmployeeReward;
-import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreManageRule;
 import com.zefun.web.mapper.EmployeeAttendanceMapper;
 import com.zefun.web.mapper.EmployeeRewardMapper;
@@ -207,7 +205,7 @@ public class EmployeeAttendanceService {
      * @since JDK 1.8
      */
     
-    @Transactional
+    /*@Transactional
     public BaseDto signCheck(SigeCheckParam param) {
     	//首先根据经纬度判断该员工是否在店铺附近
         StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(param.getStoreId());
@@ -232,10 +230,10 @@ public class EmployeeAttendanceService {
         if (StringUtils.isBlank(workTime)) {
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "今天是您的休息日，如需上牌请调整班次！");
         }
-        /**
+        *//**
          * 拆分workTime(eg:08:45,12:00 或者 22:00,04:00),
          * 拼接日期
-         */
+         *//*
         String[] workTimeArray = workTime.split(",");  //eg:workTimeArray[0] -> 08:45, workTimeArray[1] -> 12:00
         String[] beginTimeArray = workTimeArray[0].split(":"); //eg:beginTimeArray[0] -> 08, beginTimeArray[1] -> 45
         String[] endTimeArray = workTimeArray[1].split(":"); //eg:endTimeArray[0] -> 12, endTimeArray[1] -> 00
@@ -265,11 +263,11 @@ public class EmployeeAttendanceService {
             employeeAttendance.setSignInTime(curTime);
             //curTime:员工当前打卡时间，workTime:数据库中查询的工作时间(eg:08:35,20:00)
             int signInOffset = DateUtil.getTwoTimeBetween(curTime, workTimeArray[0]);
-            /**
+            *//**
              * 如果签到时间差(signInOffset)为负数，代表迟到了，
              * 就查询该员工所在店铺定义的迟到规则，比对时间看是否满足迟到条件，
              * 如果满足，就往employee_reward()添加条数据。
-             */
+             *//*
             if (signInOffset < 0) {
             	StoreManageRule rule = null ;
             	for (StoreManageRule s : srList) {
@@ -338,7 +336,7 @@ public class EmployeeAttendanceService {
             dto.setMsg("您今日已完成签到、签退操作！");
         }
         return dto;
-    }
+    }*/
     
     /**
      * 计算该店铺违规时间(分钟)

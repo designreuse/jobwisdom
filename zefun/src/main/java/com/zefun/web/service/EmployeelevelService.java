@@ -10,21 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
-import com.zefun.common.utils.EntityJsonConverter;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.EmployeeLevelDto;
-import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeLevel;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.PositionInfo;
-import com.zefun.web.entity.StoreInfo;
-import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
-import com.zefun.web.mapper.StoreInfoMapper;
-
-import net.sf.json.JSONObject;
 
 /**
  * 职位信息
@@ -129,7 +122,7 @@ public class EmployeelevelService {
 	* @param map bean
 	* @return int
 	 */
-	public int updateEmployeelevel(Map<String, Object> map){
+	/*public int updateEmployeelevel(Map<String, Object> map){
 		//判断职位名称是否已经存在
 		List<EmployeeLevel> list=employeelevelMapper.islevelName(EntityJsonConverter.
 		        json2Entity(JSONObject.fromObject(map).toString(), EmployeeLevel.class));
@@ -154,7 +147,7 @@ public class EmployeelevelService {
 		    shiftMahjongService.addShiftMahjongEmployee(employeeDto);
         }
 		return 0;
-	}
+	}*/
 	/**
 	 * 删除岗位信息
 	* @author chendb
