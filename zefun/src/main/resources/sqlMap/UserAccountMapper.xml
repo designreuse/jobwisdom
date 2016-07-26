@@ -104,7 +104,9 @@
        <if test="status != null" >
         status = #{status,jdbcType=CHAR},
       </if>
-      
+       <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=CHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>

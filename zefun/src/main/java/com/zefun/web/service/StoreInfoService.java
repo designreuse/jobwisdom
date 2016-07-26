@@ -2371,6 +2371,7 @@ public class StoreInfoService {
         if (userAccounts.size() != 0 && userAccount.getUserId() ==null){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有该工号，请修改再保存");
         }
+        userAccount.setStoreId(userAccount.getStoreId()==0?null:userAccount.getStoreId());
         
         if (userAccount.getUserId() != null){
             EmployeeInfo employeeDto=new EmployeeInfo();

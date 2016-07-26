@@ -66,9 +66,9 @@
 		</p>
 		<p><span>所属门店：</span>
 			<select name = "store">
-				<option stroeid="" >企业</option>
+				<option storeId = "0" >企业</option>
 				<c:forEach items="${storeInfo }" var="storeInfo">
-					<option stroeid="${storeInfo.storeId }">${storeInfo.storeName }</option>
+					<option storeId="${storeInfo.storeId }">${storeInfo.storeName }</option>
 				</c:forEach>	
 			</select>
 		</p>
@@ -97,13 +97,13 @@ function saveAdmin(){
 	userPwd = CryptoJS.MD5(CryptoJS.MD5(userPwd).toString().toUpperCase()).toString().toUpperCase();
 	var userName = jQuery("input[name='userName']").val();
 	var employeeName = jQuery("input[name='employee']").val();
-	var storeId = jQuery("select[name='store']").find("option:selected").attr("stroeid");
+	var storeId = jQuery("select[name='store']").find("option:selected").attr("storeId");
 	var roleId =  jQuery("select[name='role']").find("option:selected").attr("roleId");
 	var roleName = jQuery("select[name='role']").find("option:selected").text();
 	var storeName = jQuery("select[name='store']").find("option:selected").text();
 	var data = "userPwd="+userPwd+"&userName="+userName+"&employeeName="+employeeName+"&roleId="+roleId+"&userId="+updateUserId+"&storeId="+storeId;
 	if(updateUserId==null){
-		data = "userPwd="+userPwd+"&userName="+userName+"&employeeName="+employeeName+"&roleId="+roleId;
+		data = "userPwd="+userPwd+"&userName="+userName+"&employeeName="+employeeName+"&roleId="+roleId+"&storeId="+storeId;
 	}
 	jQuery.ajax({
         type: "POST",
@@ -118,10 +118,10 @@ function saveAdmin(){
         	var userAccount = data.msg;
         	var html = '<tr id="'+userAccount.userId+'"><td>'+userAccount.userName+'</td> <td>'+employeeName+'</td><td>'+roleName+'</td><td>'+storeName+'</td>';
         	html +='<td><img onclick="updateUser(this)" src="'+baseUrl+'images/add_store_1.png"><img   onclick="deleteUser(this)" src="'+baseUrl+'images/add_store_2.png"></td></tr>'
-        	jQuery(".tr").after(html);
         	if(updateUserId != null){
         		jQuery("#"+updateUserId).remove();
         	}
+        	jQuery(".tr").after(html);
         	clearZcc();
         	dialog("新增成功");
         }

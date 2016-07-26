@@ -429,8 +429,8 @@
       <if test="accreditCode != null" >
         accredit_code = #{accreditCode,jdbcType=INTEGER},
       </if>
-      <if test="userName != null" >
-        username = #{userName,jdbcType=VARCHAR},
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
