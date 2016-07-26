@@ -311,15 +311,15 @@ public class ConferenceController extends BaseController {
         if (openId == null) {
             return null;
         }
-        
+        String storeAccount = getStoreAccount(request);
+        Integer storeId = getStoreId(request);
         ConferenceInfo conferenceInfo = conferenceService.getConferenceInfoById(conferenceId);
         Integer totalFee = conferenceInfo.getRegistrationAmount();
         totalFee = 1;
         goodsName = "参会费用";
         String callback = "/" + Url.Conference.WECHAT_CALLBACK_CONFERENCE_PAY.replace("{personnelId}", String.valueOf(personnelId))
         		  .replace("{conferenceId}", String.valueOf(conferenceId));
-        return wechatService.wepayForZefun(App.System.WECHAT_ZEFUN_STORE_ID, 5, conferenceId, goodsName, 
-                totalFee, openId, callback, request);
+        return wechatService.wepayForZefun(storeAccount, storeId, 5, conferenceId, "渠道会议申请费用", totalFee, openId, callback, request);
     }
     
     /**

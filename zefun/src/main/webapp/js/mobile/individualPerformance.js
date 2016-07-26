@@ -23,11 +23,9 @@ function findemployeeCommissionDetailByNowDayOrMonth(obj) {
 	//jQuery(this).addClass("current").siblings().removeClass("current");
 	//添加本日/本月样式
 	jQuery(obj).addClass("active");
-	jQuery(obj).find("img").removeClass("hide");
 	//移除本月/本日样式
 	jQuery(obj).siblings().removeClass("active");
-	jQuery(obj).siblings().find("img").addClass("hide");
-	var now = jQuery(obj).children("a").children("div").attr("id");
+	var now = jQuery(obj).attr("id");
 	var date = new Date();
 	if (now == "selectTime") {
 		jQuery(".current-select-date").text(date.getFullYear() + "-" + Number(date.getMonth() + 1) + "-" + date.getDate());

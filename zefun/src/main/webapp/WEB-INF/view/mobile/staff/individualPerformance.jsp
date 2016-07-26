@@ -87,7 +87,7 @@
         padding: 1rem;
     }
     .employee-detail {
-        padding-top: 7rem;
+        padding-top: 0rem;
     }
     thead th {
         background-color: #fff;
@@ -130,14 +130,28 @@
     .part-chart {
         box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
     }
+    
+    .time_rank ul{
+    width: 20rem;
+    height: 3.5rem;
+    margin: 0 auto;
+    line-height: 3,5rem;
+    padding-top: 1.1rem;}
+		 .time_rank li{height:3rem;line-height:3rem;float:left;width:50%;text-align:center;border: 1px solid white;color: white;
+    font-size: 1.6rem;}
+		 .time_rank{height:5rem;line-height:5rem;background: #ea631a;}
+		 
+	.time_rank li.active {
+    background: white;
+    color: #ea631a;}
 </style>
 </head>
 <body>
 <div class="wrap">
 	<div class="content">
-		<div class="tab t0">
+		<div class="time_rank clearfix">
 		    <ul >
-		        <li class="score-shop-li active w50p" data-target="yeji-d" onclick="findemployeeCommissionDetailByNowDayOrMonth(this)">
+		        <%-- <li class="score-shop-li active w50p" data-target="yeji-d" onclick="findemployeeCommissionDetailByNowDayOrMonth(this)">
 		            <a href="javascript:void(0);">
 		                <img src="<%=basePath %>images/mobile/boss-newer/active-new.png" alt=""/>
 		                <div class="tab-word"  id="selectTime">
@@ -152,7 +166,9 @@
 		                    <span>本月</span>
 		                </div>
 		            </a>
-		        </li>
+		        </li> --%>
+		        <li class="active" onclick="findemployeeCommissionDetailByNowDayOrMonth(this)" id="selectTime">今日</li>
+		    	<li onclick="findemployeeCommissionDetailByNowDayOrMonth(this)" id="selectDate">本月</li>
 		    </ul>
 		</div>
 		<div class="clearfix"></div>
@@ -163,9 +179,9 @@
 		
 		        <div class="top-fix">
 		            <div class="date" id="selectDate">
-		                <div class="date-btn">
+		                <!-- <div class="date-btn">
 		                    <span class="iconfont icon-zhankai"></span>
-		                </div>
+		                </div> -->
 		                <div class="current-select-date" onclick="selectDate()">
 		                    2016-03-07
 		                </div>

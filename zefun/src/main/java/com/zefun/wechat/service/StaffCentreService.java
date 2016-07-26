@@ -40,8 +40,6 @@ import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeObjective;
 import com.zefun.web.entity.MemberAppointment;
 import com.zefun.web.entity.Page;
-import com.zefun.web.entity.ProjectInfo;
-import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.mapper.EmployeeAttendanceMapper;
 import com.zefun.web.mapper.EmployeeCommissionMapper;
@@ -49,8 +47,6 @@ import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeObjectiveMapper;
 import com.zefun.web.mapper.MemberAppointmentMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
-import com.zefun.web.mapper.ProjectInfoMapper;
-import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.service.MemberInfoService;
@@ -100,13 +96,13 @@ public class StaffCentreService {
     private MemberAppointmentMapper memberAppointmentMapper;
     
     /** */
-    @Autowired private StaffService staffService;
+    /*@Autowired private StaffService staffService;*/
     
     /** 轮派员工信息*/
-    @Autowired private ShiftMahjongEmployeeMapper shiftMahjongEmployeeMapper;
+    /*@Autowired private ShiftMahjongEmployeeMapper shiftMahjongEmployeeMapper;*/
     
     /** 项目*/
-    @Autowired private ProjectInfoMapper projectInfoMapper;
+    /*@Autowired private ProjectInfoMapper projectInfoMapper;*/
     
     /** 员工目标*/
     @Autowired private EmployeeObjectiveMapper employeeObjectiveMapper;
@@ -220,22 +216,36 @@ public class StaffCentreService {
     public ModelAndView staffAppoint(int employeeId, int type) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("employeeId", employeeId);
-        map.put("status", "1");
-        if (type == 2) {
-            map.put("status", "2");
-        } 
-        else if (type == 3) {
-            map.put("status", "4, 5");
-        }
-        List<AppointmentBaseDto> appointList = memberAppointmentMapper.selectAppointmentByEmployeeId(map);
-        if (!appointList.isEmpty()) {
-            for (AppointmentBaseDto appointment : appointList) {
+        map.put("appointType", "1");
+        List<AppointmentBaseDto> appointList1 = memberAppointmentMapper.selectAppointmentByEmployeeId(map);
+        map.put("appointType", "2");
+        List<AppointmentBaseDto> appointList2 = memberAppointmentMapper.selectAppointmentByEmployeeId(map);
+        map.put("appointType", "3");
+        List<AppointmentBaseDto> appointList3 = memberAppointmentMapper.selectAppointmentByEmployeeId(map);
+        
+        if (!appointList1.isEmpty()) {
+            for (AppointmentBaseDto appointment : appointList1) {
                 appointment.setMemberInfo(memberInfoService.getMemberBaseInfo(appointment.getMemberId(), true));
             }
         }
+        
+        if (!appointList2.isEmpty()) {
+            for (AppointmentBaseDto appointment : appointList2) {
+                appointment.setMemberInfo(memberInfoService.getMemberBaseInfo(appointment.getMemberId(), true));
+            }
+        }
+        
+        if (!appointList3.isEmpty()) {
+            for (AppointmentBaseDto appointment : appointList3) {
+                appointment.setMemberInfo(memberInfoService.getMemberBaseInfo(appointment.getMemberId(), true));
+            }
+        }
+        
         ModelAndView mav = new ModelAndView(View.StaffPage.STAFF_APPOINT);
         mav.addObject("type", type);
-        mav.addObject("appointmentList", appointList);
+        mav.addObject("appointmentList1", appointList1);
+        mav.addObject("appointmentList2", appointList2);
+        mav.addObject("appointmentList3", appointList3);
         return mav;
     }
     
@@ -250,16 +260,16 @@ public class StaffCentreService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("employeeId", param.getEmployeeId());
         /**定义默认值为预约中*/
-        map.put("status", AppConfig.APP_APPOINT_STATUS_APPOINTING);
+        map.put("appointType", AppConfig.APP_APPOINT_STATUS_APPOINTING);
         if (param.getAppointType() == AppConfig.APP_APPOINT_TYPE_APPOINTED) {
-            map.put("status", AppConfig.APP_APPOINT_STATUS_CONFIRED);
+            map.put("appointType", AppConfig.APP_APPOINT_STATUS_CONFIRED);
         } 
         else if (param.getAppointType() == AppConfig.APP_APPOINT_TYPE_CANCEL) {
         	/**
         	 * APP_APPOINT_STATUS_CANCELED = 4;
         	 * APP_APPOINT_STATUS_REJECTED = 5;
         	 */
-            map.put("status", "4, 5");
+            map.put("appointType", "3");
         }
         List<AppointmentBaseDto> appointList = memberAppointmentMapper.selectAppointmentByEmployeeId(map);
         if (!appointList.isEmpty()) {
@@ -283,13 +293,10 @@ public class StaffCentreService {
     * @param employeeId     员工标识
     * @param appointmentId  预约标识
     * @param memberId       会员标识
-    * @param projectName    项目名称
-    * @param appointTime    预约时间
     * @param reason         取消原因
     * @return   成功返回码0；失败返回其他错误码，返回值为提示语
      */
-    public BaseDto appointOperate(int type, int storeId, int employeeId, int appointmentId, int memberId, 
-            String projectName, String appointTime, String reason){
+    public BaseDto appointOperate(int type, int storeId, int employeeId, int appointmentId, int memberId, String reason){
         String curTime = DateUtil.getCurTime();
         MemberAppointment memberAppointment = new MemberAppointment();
         memberAppointment.setAppointmentId(appointmentId);
@@ -312,8 +319,9 @@ public class StaffCentreService {
                         + Url.MemberCenter.VIEW_ORDER_APPOINTMENT.replace("{storeId}", storeId + "").replace("{businessType}", "1")
                         + "?selectStoreId=" + memberInfo.getStoreId();
             }
+            AppointmentBaseDto obj = memberAppointmentMapper.selectAppointmentByAppointmentId(appointmentId);
             rabbitService.sendAppointmentResultNotice(type, storeId, url, openId, 
-                    memberInfo.getName(), memberInfo.getLevelName(), projectName, appointTime, reason);
+                    memberInfo.getName(), memberInfo.getLevelName(), obj.getCategory().getCategoryName(), obj.getAppointmentTime(), reason);
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
@@ -328,7 +336,7 @@ public class StaffCentreService {
     * @param lastOperatorId 操作人
     * @return BaseDto
      */
-    public BaseDto startAppoint(Integer appointmentId, Integer storeId, Integer lastOperatorId){
+    /*public BaseDto startAppoint(Integer appointmentId, Integer storeId, Integer lastOperatorId){
         
         MemberAppointment memberAppointment = memberAppointmentMapper.selectByPrimaryKey(appointmentId);
         
@@ -381,7 +389,7 @@ public class StaffCentreService {
         memberAppointmentMapper.updateByPrimaryKey(record);
         
         return dto;
-    }
+    }*/
     
     
     /**
@@ -1187,7 +1195,8 @@ public class StaffCentreService {
             	for (Map<String, Object> orderMap : orderList) {
             		Integer orderId = Integer.valueOf(orderMap.get("orderId").toString());
 					if (orderId.intValue() == employeeCommissionDto.getOrderId().intValue()) {
-						List<Map<String, Object>> detailList = (List<Map<String, Object>>) orderMap.get("detailList");
+						@SuppressWarnings("unchecked")
+                        List<Map<String, Object>> detailList = (List<Map<String, Object>>) orderMap.get("detailList");
 						Map<String, Object> detailMap = new HashMap<>();
 						detailMap.put("projectName", employeeCommissionDto.getProjectName());
 						detailMap.put("commissionCalculate", employeeCommissionDto.getCommissionCalculate());

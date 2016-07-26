@@ -3,7 +3,6 @@ package com.zefun.web.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,12 +32,6 @@ public class StoreInfoController extends BaseController {
 	/** 门店信息服务对象 */
 	@Autowired
 	private StoreInfoService storeInfoService;
-	/** 轮牌操作 */
-	@Autowired
-	private ShiftMahjongController shiftMahjongController;
-	/** 项目操作 */
-	@Autowired
-	private ProjectInfoController projectInfoController;
 
 	/**
 	 * 查询门店列表页面
@@ -336,45 +329,6 @@ public class StoreInfoController extends BaseController {
 	public BaseDto addStoreInfo(String name, String phone, String storeName, Integer storeType, Integer parentId) {
 		return storeInfoService.addStoreInfo(name, phone, storeName, storeType, parentId);
 	}*/
-
-	/**
-	 * 初始化门店数据(部门-岗位-职位)
-	 * 
-	 * @author 高国藩
-	 * @date 2016年1月17日 下午5:59:31
-	 * @param request
-	 *            请求
-	 * @param response
-	 *            返回
-	 * @return 状态
-	 */
-	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_INITIALIZE, method = RequestMethod.POST)
-	@ResponseBody
-	public BaseDto storeInitialize(HttpServletRequest request, HttpServletResponse response) {
-		Integer storeId = getStoreId(request);
-		Integer operateId = getUserId(request);
-		return storeInfoService.storeInitialize(storeId, operateId, request, response, shiftMahjongController,
-				projectInfoController);
-	}
-
-	/**
-	 * 门店复制
-	 * @author 高国藩
-	 * @date 2016年3月2日 下午3:48:19
-	 * @param request request
-	 * @param response response
-	 * @param copyStoreId copyStoreId
-	 * @return response
-	 */
-	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_COPY, method = RequestMethod.GET)
-	@ResponseBody
-	public BaseDto storeInfoCopy(HttpServletRequest request, HttpServletResponse response, Integer copyStoreId) {
-		Integer storeId = getStoreId(request);
-		Integer operateId = getUserId(request);
-		return storeInfoService.storeInfoCopy(storeId, operateId, copyStoreId);
-	}
-	
-	
 	/**
 	 *  管理员设置页面
 	* @author 骆峰
@@ -433,5 +387,4 @@ public class StoreInfoController extends BaseController {
         return storeInfoService.deleteUser(userId, getStoreAccount(request));
     }
     
-	
 }

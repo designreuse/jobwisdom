@@ -51,7 +51,7 @@ public class WechatPayController extends BaseController{
      */
     @RequestMapping(value = Url.AppPay.REQUEST_APP_PAY, method=RequestMethod.GET)
     public ModelAndView getQRCodeUrl(HttpServletRequest request, HttpServletResponse response){
-        String outTradeNo = StringUtil.getKey(); 
+        String outTradeNo = StringUtil.getKey();
         String callback = "/" + Url.AppPay.REQUEST_APP_PAY_CALLBACK.replace("{outTradeNo}", outTradeNo);
         String code = wechatCallService.payByQrCode(goodsName, 300*100, outTradeNo, callback, request);
         String storeAccount = getStoreAccount(request);
