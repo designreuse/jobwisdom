@@ -269,7 +269,8 @@ function updateDept(li, deptName, deptIds){
 	jQuery(".manage_button").find("button").eq(0).click();
 	jQuery("input[name='deptName']").val(deptName);
 	deptId = deptIds;
-	jQuery(li).parents(".data_text").remove();
+	jQuery(li).parents(".data_text").attr("id",deptId);
+// 	jQuery(li).parents(".data_text").addClass("hide");
 }
 /**保存部门数据*/
 function saveDeptInfo(button){
@@ -278,6 +279,7 @@ function saveDeptInfo(button){
 	var data = "deptName="+deptName+"&storeId="+storeId;
 	if (deptId != null){
 		data = data+"&deptId="+deptId;
+		jQuery("#"+deptId).remove();
 	}
 	jQuery.ajax({
 		type : "post",

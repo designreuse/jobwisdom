@@ -84,7 +84,7 @@ public class EmployeelevelController extends BaseController{
 	* @param addData 参数
 	* @return BaseDto
 	 */
-	@RequestMapping(value = Url.EmployeeLevel.UPDATE)
+	/*@RequestMapping(value = Url.EmployeeLevel.UPDATE)
 	@ResponseBody
 	public BaseDto updateEmployeelevel(HttpServletRequest request, HttpServletResponse response, String addData){
 	    JSONObject  jasonObject = JSONObject.fromObject(addData);
@@ -101,7 +101,7 @@ public class EmployeelevelController extends BaseController{
 		}
 		List<DeptInfoDto>list= positioninfoMapper.getDetpInfo(getStoreId(request));
 		return new BaseDto(0, list);
-	}
+	}*/
 	
 	/**
 	 * 保存或者修改员工等级

@@ -115,7 +115,7 @@ public interface Url {
 		public static final String ADMINISTRATOR_SAVEUPDATE = "administrator/action/saveUpdate";
 		/** 管理员设置 条件查询*/
 		public static final String ADMINISTRATOR_SELECTUSER = "administrator/action/selectUser";
-		/** 管理员设置 条件查询*/
+		/** 管理员设置 删除*/
 		public static final String ADMINISTRATOR_DELETEUSER = "administrator/action/deleteUser";
 		
 		
@@ -977,7 +977,7 @@ public interface Url {
 		public static final String ACTION_OVER_SERVER_EMPLOYEE = "/staff/action/overServerEmployee";
 		/** 服务人员设置*/
 		public static final String ACTION_ADD_OR_UPDATE_SERVER_EMPLOYEE = "/staff/action/addOrUpdateServerEmployee";
-		/** 员工打卡 */
+		/** 员工上牌 */
 		public static final String ACTION_SIGN_OPERATE = "/staff/action/signOperate";
 		/** 设置项目 */
 		public static final String ACTION_SETTING_PROJECT = "/staff/action/settingProject";

@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
-import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
@@ -748,8 +747,8 @@ public class ShiftMahjongService {
             shiftMahjongEmployee.setState(1);
             shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
             
-            staffService.selfMotionExecute(shiftMahjongEmployeeList.get(i).getShiftMahjongEmployeeId(), 
-                    Integer.valueOf(map.get("storeId").toString()));
+            /*staffService.selfMotionExecute(shiftMahjongEmployeeList.get(i).getShiftMahjongEmployeeId(), 
+                    Integer.valueOf(map.get("storeId").toString()));*/
             
         }
         //删除缓存

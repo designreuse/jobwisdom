@@ -102,6 +102,7 @@
 					                </div>							
 							   </div>
 						  </c:forEach>
+						  <div style="width:100%;height:2.4rem;line-height:2.4rem;background:#f49549;color:white;text-align:center">上牌</div>
 						</div>
 					</div>
 				</div>
@@ -115,6 +116,21 @@
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"> </script>
    
 <script type="text/javascript" src="<%=basePath%>js/mobile/app.js"></script>
+<script type="text/javascript">
+function upOrDown(){
+	$.ajax({
+		url : baseUrl + "staff/action/signOperate",
+		type : "POST",
+		dataType : "json",
+		success : function(e){
+			if(e.code == 0){
+				$(globalSignObj).addClass("hide").siblings(".qiandao").removeClass("hide");
+			}
+			dialog(e.msg);
+		}
+	});
+} 
+</script>
 
 </body>
 </html>

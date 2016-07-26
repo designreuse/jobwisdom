@@ -101,7 +101,10 @@ function saveAdmin(){
 	var roleId =  jQuery("select[name='role']").find("option:selected").attr("roleId");
 	var roleName = jQuery("select[name='role']").find("option:selected").text();
 	var storeName = jQuery("select[name='store']").find("option:selected").text();
-	var data = "userPwd="+userPwd+"&userName="+userName+"&employeeName="+employeeName+"&storeId="+storeId+"&roleId="+roleId+"&userId="+updateUserId;
+	var data = "userPwd="+userPwd+"&userName="+userName+"&employeeName="+employeeName+"&roleId="+roleId+"&userId="+updateUserId+"&storeId="+storeId;
+	if(updateUserId==null){
+		data = "userPwd="+userPwd+"&userName="+userName+"&employeeName="+employeeName+"&roleId="+roleId;
+	}
 	jQuery.ajax({
         type: "POST",
         url: baseUrl + "administrator/action/saveUpdate",

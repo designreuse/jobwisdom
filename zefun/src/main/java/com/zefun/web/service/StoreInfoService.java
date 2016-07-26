@@ -131,6 +131,7 @@ import net.sf.json.JSONObject;
 * @date Nov 9, 2015 11:21:30 AM
  */
 @Service
+@Transactional
 public class StoreInfoService {
 
     /**一号岗位*/
@@ -2359,24 +2360,27 @@ public class StoreInfoService {
     * @param employeeName employeeName
     * @return BaseDto
      */
+    
     public BaseDto userAccountSave(String storeAccount, UserAccount userAccount,
             String employeeName) {
         Map<String, Object> mapUser = new HashMap<String, Object>();
         mapUser.put("storeAccount", storeAccount);
         mapUser.put("userName", userAccount.getUserName());
         List<UserAccountDto> userAccounts = userAccountMapper.selectByAccout(mapUser);
-        if (userAccounts.size() != 0){
+        
+        if (userAccounts.size() != 0 && userAccount.getUserId() ==null){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有该工号，请修改再保存");
         }
+        
         if (userAccount.getUserId() != null){
-            EmployeeDto employeeDto=new EmployeeDto();
+            EmployeeInfo employeeDto=new EmployeeInfo();
             employeeDto.setStoreId(userAccount.getStoreId());
             employeeDto.setDeptId(0);
             employeeDto.setName(employeeName);
             employeeDto.setHeadImage("pc/defaulf_male.png");
             employeeDto.setIsDeleted(1);
             employeeDto.setEmployeeId(userAccount.getUserId());
-            employeeInfoMapper.updateByPrimaryKey(employeeDto);
+            employeeInfoMapper.updateByPrimaryKeySelective(employeeDto);
             
             
             String hash = StringUtil.encryptPwd(userAccount.getUserPwd());
