@@ -450,7 +450,7 @@ public class WeixinMessageService {
             
             JSONObject receptionButton = new JSONObject();
             receptionButton.put("type", "view");
-            receptionButton.put("name", "手机开单");
+            receptionButton.put("name", "手机接待");
             receptionButton.put("url", App.System.SERVER_BASE_URL + Url.Staff.VIEW_HOME
                     .replace("{storeId}", String.valueOf(storeId))
                     .replace("{businessType}", "2"));
@@ -458,7 +458,7 @@ public class WeixinMessageService {
             
             JSONObject orderListButton = new JSONObject();
             orderListButton.put("type", "view");
-            orderListButton.put("name", "我的订单");
+            orderListButton.put("name", "我的服务");
             orderListButton.put("url", App.System.SERVER_BASE_URL + Url.Staff.VIEW_EMPLOYEE_ORDER
                     .replace("{storeId}", String.valueOf(storeId))
                     .replace("{businessType}", "2"));
