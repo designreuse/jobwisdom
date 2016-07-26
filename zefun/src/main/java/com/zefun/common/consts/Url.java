@@ -115,7 +115,7 @@ public interface Url {
 		public static final String ADMINISTRATOR_SAVEUPDATE = "administrator/action/saveUpdate";
 		/** 管理员设置 条件查询*/
 		public static final String ADMINISTRATOR_SELECTUSER = "administrator/action/selectUser";
-		/** 管理员设置 条件查询*/
+		/** 管理员设置 删除*/
 		public static final String ADMINISTRATOR_DELETEUSER = "administrator/action/deleteUser";
 		
 		

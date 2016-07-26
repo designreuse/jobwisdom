@@ -35,7 +35,6 @@ public class UserAccount {
 
 	/** 门店账号 */
 	private String storeAccount;
-	
 	/**
 	 * 状态 0 正常 1禁用
 	 */
