@@ -57,7 +57,7 @@
 	    <p><span>姓名：</span><input type="text" name = "employee"><i>*</i></p>
 <!-- 		<p><span>密码：</span><input type="text" ><i>*</i></p> -->
 		<p><span>系统角色：</span>
-			<select name = "role">
+			<select name = "role"  onchange="tyep">
 				<c:forEach items="${accountRoleInfo }" var="accountRoleInfo">
 				<option roleId="${accountRoleInfo.accountRoleId }">${accountRoleInfo.accountRoleName }</option>
 				</c:forEach>
