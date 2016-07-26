@@ -49,7 +49,7 @@
 	  </li>
 	  <li ontouchstart = "chooseTypePage(2, '${session_key_store_account}')">
           <img src="<%=basePath%>images/mobile/newemployee/bottomTwo.png">
-          <p>订单</p>
+          <p>服务</p>
 	  </li>
 	  <li ontouchstart = "chooseTypePage(3, '${session_key_store_account}')">
 		    <img src="<%=basePath%>images/mobile/newemployee/bottomThree.png">
