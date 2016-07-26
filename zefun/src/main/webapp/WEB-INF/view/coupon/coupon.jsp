@@ -167,7 +167,7 @@
 							name="coupon_stop_time" type="text"
 							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /><i  class = "addcolor">*</i></span>
 						<div style="margin-top: 10px">
-							<span style="position:relative">有效时间<input name="coupon_start_time" type="text" /><em style="position:absolute;right:16px;top:3px">元</em><i  class = "addcolor">*</i></span>
+							<span style="position:relative">有效时间<input name="coupon_start_time" type="text" /><em style="position:absolute;right:16px;top:3px">天</em><i  class = "addcolor">*</i></span>
 							<span style="margin-right: 4px">选择模板色</span>
 							<div name="coupon_colour" onclick="changesty()"
 								class="select_color" style="position: relative; left: -300px"></div>

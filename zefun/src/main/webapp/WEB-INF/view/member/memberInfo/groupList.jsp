@@ -1,179 +1,85 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/head.jsp" %>
+<%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" href="<%=basePath%>css/project.css" type="text/css" />
+<link rel="stylesheet" href="<%=basePath%>css/vip_group.css" type="text/css" />
 <body>
 
-<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
-	<div class="leftpanel" style="height: 840px; margin-left: 0px;">
-		<%@include file="/menu.jsp"%>
-		<div class="rightpanel" style="margin-left: 200px; position: relative">
-			<%@include file="/top.jsp"%>
-      	<!-- 页面代码 -->
-   <div class="maincontent">
-    <div class="contentinner">
-    
-         <div class="more-toolbar" >
-            <div class="table-toolbar">
-                <span class="font-size-16 btn-color mr10">会员分组</span>
-            </div>
-            <div class="clearfix"></div>
-        </div><!--more-toolbar-->
-        
-        
-        <c:if test="${type == 1 }">
-		<table class="table table-bordered table-striped member-list-table">
-            <thead class="t-fix">
-            <tr>
-                <th>名单代号</th>
-                <th>筛选人数</th>
-                <th class="input-xxlarge">筛选条件</th>
-                <th>本月新增人数</th>
-                <th>创建时间</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${groupDtos }" var="groupDto" varStatus="index">
-              <c:if test="${index.index == 0 }"><tr class="t-table"></c:if>
-              <c:if test="${index.index != 0 }"><tr></c:if>
-                <td style="cursor: pointer">${groupDto.groupName }</td>
-                <td>${groupDto.memberCount }</td>
-                <td>${groupDto.groupCondition }</td>
-                <td>${groupDto.newMember }</td>
-                <td>${groupDto.createTime }</td>
-                <td>
-                    <i class="iconfa-search project-icon chart_message" id="${groupDto.groupId }"></i>
-                    <i class="iconfa-trash project-icon delete_group" id="${groupDto.groupId }"></i>
-                </td>
-            </tr>
-            </c:forEach>
-           
-            </tbody>
-        </table>
-		</c:if>
-        
-        
-		<c:if test="${type == 2 }">
-		<table class="table table-bordered table-striped member-list-table">
-            <thead>
-            <tr>
-                <th>名单代号</th>
-                <th>筛选人数</th>
-                <th class="input-xxlarge">筛选条件</th>
-                <th>创建时间</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${groupDtos }" var="groupDto">
-            <tr>
-                <td style="cursor: pointer">${groupDto.groupName }</td>
-                <td>${groupDto.memberCount }</td>
-                <td>${groupDto.groupCondition }</td>
-                <td>${groupDto.createTime }</td>
-                <td>
-                    <i class="iconfa-search project-icon chart_message" id="${groupDto.groupId }"></i>
-                    <i class="iconfa-trash project-icon delete_group" id="${groupDto.groupId }"></i>
-                </td>
-            </tr>
-            </c:forEach>
-           
-            </tbody>
-        </table>
-		</c:if>
-        
-        <br><br>
-      <!--根据筛选名称显示人员列表-->
-      <div id="renyuan" class="hide">
-      <div class="more-toolbar">
-        <div class="clearfix"></div>
-      </div>
-        <!-- <br> -->
-        <table class="table table-bordered table-striped member-list-table">
-            <thead>
-            <c:if test="${type == 2 }">
-            <tr>
-            	<th>所属门店</th>
-                <th>手机号</th>
-                <th>姓名</th>
-                <th>性别</th>
-                <th>会员等级</th>
-                <th>生日</th>
-                <th>储值余额</th>
-                <th>积分余额</th>
-                <th>累计消费</th>
-                <th>消费均额</th>
-                <th>注册日期</th>
-            </tr>
-            </c:if>
-            <c:if test="${type != 2 }">
-            <tr>
-                <th>手机号</th>
-                <th>姓名</th>
-                <th>性别</th>
-                <th>会员等级</th>
-                <th>生日</th>
-                <th>储值余额</th>
-                <th>积分余额</th>
-                <th>累计消费</th>
-                <th>消费均额</th>
-                <th>注册日期</th>
-            </tr>
-            </c:if>
-            </thead>
-            <tbody id="serch_member_list">
-            </tbody>
-        </table>
-        <!-- 分页 -->
-		<div class="fenye hide">
-			<span>共找到了 0  条数据, 共 0  页</span>
-			<ul id="pagination-demo" class="pagination pagination-sm">
-			</ul>
+	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
+		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
+			<%@include file="/menu.jsp"%>
+			<div class="rightpanel" style="margin-left: 200px; position: relative">
+				<%@include file="/top.jsp"%>
+				<div class="content_right clearfix">
+					<div class="vip_group_left">
+						<p>会员分组</p>
+						<div class="vip_group_left_content">
+							<c:forEach items="${groupDtos }" var="groupDto" varStatus="index">
+								<div id="${groupDto.groupId }" class="vip_group_left_content_detail">
+									<p>
+										<span>${groupDto.groupName }</span><em>${groupDto.memberCount }人</em>
+									</p>
+									<div class="save_price">储值余额：${groupDto.groupCondition }</div>
+									<div class="create_time">
+										<span>创建日期：${groupDto.createTime }</span> <em>本月新增:${groupDto.newMember }人</em>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+
+						<div class="vip_group_bottom">
+							<span class="delete_group">删除</span>
+						</div>
+					</div>
+
+					<div class="vip_group_right">
+						<table>
+							<thead>
+								<tr>
+									<td>手机号</td>
+									<td>姓名</td>
+									<td>性别</td>
+									<td>生日</td>
+									<td>储值余额</td>
+									<td>积分余额</td>
+									<td>累计消费</td>
+									<td>消费均额</td>
+									<td>注册日期</td>
+								</tr>
+							</thead>
+							<tbody id="serch_member_list">
+								<tr>
+									<td>150154231521</td>
+									<td>姓名姓名</td>
+									<td>男</td>
+									<td>12-12</td>
+									<td>5000</td>
+									<td>5050</td>
+									<td>200</td>
+									<td>400</td>
+									<td>2016-12-12 23:1:12:12</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="fenye hide">
+							<span>共找到了 0  条数据, 共 0  页</span>
+							<ul id="pagination-demo" class="pagination pagination-sm">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<!-- 分页 -->
-      </div>
-        <!--根据筛选名称显示人员列表-->
-    </div>
-	</div>
-</div>
-     
-</div><!--mainwrapper--></div>
-<%@ include file="/template/memberData.jsp" %>
+		<%@ include file="/template/memberData.jsp"%>
 </body>
 <script>
-jQuery(document).ready(function(){
-	/*表头置顶*/
-	var a=[];
-    jQuery(".mainwrapper").show()
-    var tlength=jQuery(".t-fix th").length;
-        for(i=0;i<tlength;i++)  {
-        a[i]=jQuery(".t-fix th").eq(i).width();
-    }
-
-   function table() {
-       jQuery(".mainwrapper").show()
-       var fix=jQuery(".t-fix").offset();
-       var tableT=fix.top;
-       jQuery(window).scroll(function(event){
-           var scH=jQuery(window).scrollTop();
-           if(scH>tableT){
-               jQuery(".t-fix").addClass("add-fix");
-               for(i=0;i<jQuery(".t-fix th").length;i++){
-                   var tdwidth=a[i];
-                   var tbwidth=a[i];
-                   jQuery(".t-fix th").eq(i).css("width",tdwidth);
-                   jQuery(".t-table td").eq(i).css("width",tbwidth);
-
-               }
-           }
-           else{
-               jQuery(".t-fix").removeClass("add-fix");
-           }
-       })
-   }
-   table(); 
-})
+var id = null;
+/* jQuery(function(){
+  jQuery(document).on('click','.vip_group_left_content_detail',function(){
+    jQuery(this).addClass('active').siblings().removeClass('active');
+  });
+})   */
+ </script>
+<script>
 	//获取加载页面时的页码信息
 	var pageNo = 1;
 	var pageSize = 50;
