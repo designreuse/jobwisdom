@@ -1,70 +1,371 @@
-.content_right {padding:15px 30px;color:black}
-.supplier_manage_brand_top{height:74px;border:1px solid #00479d;border-radius:12px;line-height:74px}
-.supplier_manage_brand_top input{margin-left:22px;width:176px;height:20px;border:1px solid #000000;border-radius:12px 0 0 12px}
-.supplier_manage_brand_top >button{position:relative;left:-6px;width:100px;height:30px;border-radius:0 12px 12px 0;color:white;font-size:14px;background:#59688a;text-align:center;border:none;line-height:30px}
-.supplier_manage_brand_top>span>button{width:128px;height:30px;border-radius:12px;color:white;font-size:14px;background:#59688a;text-align:center;border:none;line-height:26px}
-.supplier_manage_brand_top>span>button:hover{background:#4f5d7d}
-.supplier_manage_brand_content{background:#e4eaf9;overflow:hidden;border:1px solid #00479d;border-radius:12px;height:538px;margin-top:28px}
-.supplier_manage_brand_content_left{float:left;width:380px;border-right:1px solid #9fb9dd;height:538px;}
-.supplier_manage_brand_content_left>p{background:#c1ceed;;text-align:center;height:42px;line-height:42px;font-size:14px;border-bottom:1px solid #00479d}
-.supplier_manage_brand_content_left>ul li{color:#504f4f;height:108px;border-bottom:1px solid #9fb9dd}
-.supplier_manage_brand_content_left_ul{position:relative;top:10px;background:white;margin:0px auto;width:364px;height:86px;border:1px solid #00479d;border-radius:12px}
-.supplier_manage_brand_content_left_ul>p{overflow:hidden;height:28px;line-height:28px;padding-left:15px;position:relative}
-.supplier_manage_brand_content_left_ul>p>span{cursor:pointer;position:absolute;display:inline-block;width:46px;height:18px;top:5px;line-height:18px;border-radius:12px;text-align:center;right:10px;border:1px solid #00479d;background:#f6f6fe}
-.supplier_manage_brand_content_top>.details{font-size:14px;color:black;text-align:center;height:40px;float:left;line-height:40px;width: 380px;border-right: 1px solid #9fb9dd;}
-.supplier_manage_brand_content_top>.goods{font-size:14px;color:black;;width:635px;text-align:center;float:left;height:40px;line-height:40px;text-align:center;}
-.supplier_manage_brand_content_top{border-bottom:1px solid #00479d}
-.supplier_manage_brand_content_{overflow:overlay;height:500px}
-.supplier_manage_brand_content_right{float:left;width:635px;height: 538px;}
-.supplier_manage_brand_content_right>ul>li{color: #504f4f;height: 108px;border-bottom: 1px solid #9fb9dd;}
-.supplier_manage_brand_content_right_text{width: 584px;height: 86px;overflow:overlay;background:white;border:1px solid #00479d;border-radius:12px;background:white;margin:0 auto;position: relative;top: 10px}
-.supplier_manage_brand_content_right_text li{border:1px solid #00479d;float:left;margin:12px 0px 0 12px;cursor:pointer;text-align:center;width:130px;height:26px;line-height:26px;text-align:center;border-radius:12px;position: relative;overflow:hidden;}
-.supplier_manage_brand_content_right_text li>p{display:none;background:rgba(76,76,76,09);position:absolute;left:0;top:0;width:100%;height:100%;border-radius:12px;color:white}
-.supplier_manage_brand_content_right_text li>p>span{display:inline-block;width:48%;text-align:center;height:24px;line-height:24px}
-.supplier_manage_brand_content_right_text li.active{border:1px solid white!important}
-.supplier_manage_brand_content_right_text li img{position:relative;top:3px}
-.zzc{font-size: 12px;color: black;position: fixed;top: 0px;height:100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
-.zzc .add_supplier{width:624px;background:white;margin:50px auto;box-shadow:0 5px 10px #373d4b}
-.zzc .add_supplier>p{height:60px;line-height:60px;text-align:center;color:white;font-size:14px;background:#333b4e}
-.add_supplier_content{padding:30px}
-.add_supplier_content>p{margin-bottom:15px}
-.add_supplier_content>p>span{display:inline-block;width:74px;vertical-align:top}
-.add_supplier_content>p>input{width:196px;height:16px;border-radius:12px;border:1px solid #333b4e}
-.add_supplier_content>p>textarea{height:48px;width:460px;border-radius:12px;border:1px solid #333b4e}
-.add_supplier_button button{margin-right:24px;color:black;background:#d7dcea;width:128px;height:26px;text-align:center;border:none;border-radius:12px;border:1px solid #242222}
-.add_supplier_button button:hover{background:#cdd1df}
-.textarea{width:97%!important;height:120px!important;border-radius:12px;border:1px solid #333b4e;overflow:overlay;resize:none;margin-top:10px}
-.add_supplier_content_button{margin-top:24px;text-align:center}
-.add_supplier_content_button button{margin:0 37px;width:130px;height:26px;border:none;text-align:center;line-height:26px;font-size:14px;color:white;border-radius:12px;background:#59688a}
-.add_supplier_content_button button:hover{background:#515f7e}
-.zzc1{
-	  position: fixed;
-    top: 0px;
-    height: 1090px;
-    left: 0px;
-    width: 100%;
-    z-index: 10000;
-    background: rgba(102, 108, 121, 0.8);
-	
+.content_right {
+	padding: 15px 30px;
+	color: black
 }
-.zzc1_div{width:385px;
-	height:230px;
-	margin:50px auto;
-	background:white;
-	
+
+.supplier_manage_brand_top {
+	height: 74px;
+	border: 1px solid #00479d;
+	border-radius: 12px;
+	line-height: 74px
 }
-.zzc1_div input{
-	border-radius:10px;
-	border:1px solid black;
+
+.supplier_manage_brand_top input {
+	margin-left: 22px;
+	width: 176px;
+	height: 20px;
+	border: 1px solid #000000;
+	border-radius: 12px 0 0 12px
+}
+
+.supplier_manage_brand_top>button {
+	position: relative;
+	left: -6px;
+	width: 100px;
+	height: 30px;
+	border-radius: 0 12px 12px 0;
+	color: white;
+	font-size: 14px;
+	background: #59688a;
+	text-align: center;
+	border: none;
+	line-height: 30px
+}
+
+.supplier_manage_brand_top>span>button {
+	width: 128px;
+	height: 30px;
+	border-radius: 12px;
+	color: white;
+	font-size: 14px;
+	background: #59688a;
+	text-align: center;
+	border: none;
+	line-height: 26px
+}
+
+.supplier_manage_brand_top>span>button:hover {
+	background: #4f5d7d
+}
+
+.supplier_manage_brand_content {
+	background: #e4eaf9;
+	overflow: hidden;
+	border: 1px solid #00479d;
+	border-radius: 12px;
+	height: 538px;
+	margin-top: 28px
+}
+
+.supplier_manage_brand_content_left {
+	float: left;
+	width: 380px;
+	border-right: 1px solid #9fb9dd;
+	height: 538px;
+}
+
+.supplier_manage_brand_content_left>p {
+	background: #c1ceed;;
+	text-align: center;
+	height: 42px;
+	line-height: 42px;
+	font-size: 14px;
+	border-bottom: 1px solid #00479d
+}
+
+.supplier_manage_brand_content_left>ul li {
+	color: #504f4f;
+	height: 108px;
+	border-bottom: 1px solid #9fb9dd
+}
+
+.supplier_manage_brand_content_left_ul {
+	position: relative;
+	top: 10px;
+	background: white;
+	margin: 0px auto;
+	width: 364px;
+	height: 86px;
+	border: 1px solid #00479d;
+	border-radius: 12px
+}
+
+.supplier_manage_brand_content_left_ul>p {
+	overflow: hidden;
+	height: 28px;
+	line-height: 28px;
+	padding-left: 15px;
+	position: relative
+}
+
+.supplier_manage_brand_content_left_ul>p>span {
+	cursor: pointer;
+	position: absolute;
+	display: inline-block;
+	width: 46px;
+	height: 18px;
+	top: 5px;
+	line-height: 18px;
+	border-radius: 12px;
+	text-align: center;
+	right: 10px;
+	border: 1px solid #00479d;
+	background: #f6f6fe
+}
+
+.supplier_manage_brand_content_top>.details {
+	font-size: 14px;
+	color: black;
+	text-align: center;
+	height: 40px;
+	float: left;
+	line-height: 40px;
+	width: 380px;
+	border-right: 1px solid #9fb9dd;
+}
+
+.supplier_manage_brand_content_top>.goods {
+	font-size: 14px;
+	color: black;;
+	width: 635px;
+	text-align: center;
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+}
+
+.supplier_manage_brand_content_top {
+	border-bottom: 1px solid #00479d
+}
+
+.supplier_manage_brand_content_ {
+	overflow: overlay;
+	height: 500px
+}
+
+.supplier_manage_brand_content_right {
+	float: left;
+	width: 635px;
+	height: 538px;
+}
+
+.supplier_manage_brand_content_right>ul>li {
+	color: #504f4f;
+	height: 108px;
+	border-bottom: 1px solid #9fb9dd;
+}
+
+.supplier_manage_brand_content_right_text {
+	width: 584px;
+	height: 86px;
+	overflow: overlay;
+	background: white;
+	border: 1px solid #00479d;
+	border-radius: 12px;
+	background: white;
+	margin: 0 auto;
+	position: relative;
+	top: 10px
+}
+
+.supplier_manage_brand_content_right_text li {
+	border: 1px solid #00479d;
+	float: left;
+	margin: 12px 0px 0 12px;
+	cursor: pointer;
+	text-align: center;
+	width: 130px;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	border-radius: 12px;
+	position: relative;
+	overflow: hidden;
+}
+
+.supplier_manage_brand_content_right_text li>p {
+	display: none;
+	background: rgba(76, 76, 76, 09);
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 12px;
+	color: white
+}
+
+.supplier_manage_brand_content_right_text li>p>span {
+	display: inline-block;
+	width: 48%;
+	text-align: center;
+	height: 24px;
+	line-height: 24px
+}
+
+.supplier_manage_brand_content_right_text li.active {
+	border: 1px solid white !important
+}
+
+.supplier_manage_brand_content_right_text li img {
+	position: relative;
+	top: 3px
+}
+
+.zzc {
+	font-size: 12px;
+	color: black;
+	position: fixed;
+	top: 0px;
+	height: 100%;
+	left: 0px;
+	width: 100%;
+	z-index: 10000;
+	background: rgba(102, 108, 121, 0.8);
+}
+
+.zzc .add_supplier {
+	width: 624px;
+	background: white;
+	margin: 50px auto;
+	box-shadow: 0 5px 10px #373d4b
+}
+
+.zzc .add_supplier>p {
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	color: white;
+	font-size: 14px;
+	background: #333b4e
+}
+
+.add_supplier_content {
+	padding: 30px
+}
+
+.add_supplier_content>p {
+	margin-bottom: 15px
+}
+
+.add_supplier_content>p>span {
+	display: inline-block;
+	width: 74px;
+	vertical-align: top
+}
+
+.add_supplier_content>p>input {
+	width: 196px;
+	height: 16px;
+	border-radius: 12px;
+	border: 1px solid #333b4e
+}
+
+.add_supplier_content>p>textarea {
+	height: 48px;
+	width: 460px;
+	border-radius: 12px;
+	border: 1px solid #333b4e
+}
+
+.add_supplier_button button {
+	margin-right: 24px;
+	color: black;
+	background: #d7dcea;
+	width: 128px;
+	height: 26px;
+	text-align: center;
+	border: none;
+	border-radius: 12px;
+	border: 1px solid #242222
+}
+
+.add_supplier_button button:hover {
+	background: #cdd1df
+}
+
+.textarea {
+	width: 97% !important;
+	height: 120px !important;
+	border-radius: 12px;
+	border: 1px solid #333b4e;
+	overflow: overlay;
+	resize: none;
+	margin-top: 10px
+}
+
+.add_supplier_content_button {
+	margin-top: 24px;
+	text-align: center
+}
+
+.add_supplier_content_button button {
+	margin: 0 37px;
+	width: 130px;
+	height: 26px;
+	border: none;
+	text-align: center;
+	line-height: 26px;
+	font-size: 14px;
+	color: white;
+	border-radius: 12px;
+	background: #59688a
+}
+
+.add_supplier_content_button button:hover {
+	background: #515f7e
+}
+
+.zzc1 {
+	position: fixed;
+	top: 0px;
+	height: 1090px;
+	left: 0px;
+	width: 100%;
+	z-index: 10000;
+	background: rgba(102, 108, 121, 0.8);
+}
+
+.zzc1_div {
+	width: 385px;
+	height: 230px;
+	margin: 50px auto;
+	background: white;
+}
+
+.zzc1_div input {
+	border-radius: 10px;
+	border: 1px solid black;
 	margin-top: 30px;
-	margin-left:80px
+	margin-left: 80px
 }
-.zzc1_div button{
-	border:none;
-	width:100px;height:28px;color:white;
-	border-radius:10px;background:#59688a;
-	margin-right:40px;margin-left:20px
+
+.zzc1_div button {
+	border: none;
+	width: 100px;
+	height: 28px;
+	color: white;
+	border-radius: 10px;
+	background: #59688a;
+	margin-right: 40px;
+	margin-left: 20px
 }
-.zzc1_div button:hover{background:#2a3244}
-.zzc_div_button{margin-top:40px; text-align:center}
-.zzc1_div p{height:54px;text-align:center;line-height:54px;font-size:16px;background:#2a3244;color:white; }
+
+.zzc1_div button:hover {
+	background: #2a3244
+}
+
+.zzc_div_button {
+	margin-top: 40px;
+	text-align: center
+}
+
+.zzc1_div p {
+	height: 54px;
+	text-align: center;
+	line-height: 54px;
+	font-size: 16px;
+	background: #2a3244;
+	color: white;
+}
