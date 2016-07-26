@@ -157,7 +157,7 @@ public class LoginService {
                 secontSb.append("</ul>");
                 firstSb.append(Jsoup.parse(f.getMenuHtml()).select("li").attr("url", "<%=url%>")
                         .toString().replace("<%=menuBasePath%>", basePath)
-                        .replace("<%=url%>", selectMenu.get(0)).replace("<%=menuBasePath%>", basePath));
+                        .replace("<%=url%>", selectMenu.size()>0?selectMenu.get(0):"").replace("<%=menuBasePath%>", basePath));
             });
 		firstSb.append("</ul>");
 		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, firstSb.toString());
