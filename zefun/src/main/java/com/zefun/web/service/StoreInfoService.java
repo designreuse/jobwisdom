@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -56,7 +57,9 @@ import com.zefun.web.dto.StoreSummaryDto;
 import com.zefun.web.dto.StoreSummaryResultDto;
 import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.TrendDeptDataDto;
+import com.zefun.web.dto.UserAccountDto;
 import com.zefun.web.entity.AccountGoods;
+import com.zefun.web.entity.AccountRoleInfo;
 import com.zefun.web.entity.AgentInfo;
 import com.zefun.web.entity.CommissionScheme;
 import com.zefun.web.entity.DeptInfo;
@@ -82,6 +85,7 @@ import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatStore;
 import com.zefun.web.mapper.AccountGoodsMapper;
+import com.zefun.web.mapper.AccountRoleInfoMapper;
 import com.zefun.web.mapper.BusinessReportMapper;
 import com.zefun.web.mapper.CommissionSchemeMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
@@ -127,6 +131,7 @@ import net.sf.json.JSONObject;
 * @date Nov 9, 2015 11:21:30 AM
  */
 @Service
+@Transactional
 public class StoreInfoService {
 
     /**一号岗位*/
@@ -164,6 +169,9 @@ public class StoreInfoService {
     @Autowired
     private StoreSettingMapper storeSettingMapper;
 
+    /**企业角色*/
+    @Autowired
+    private AccountRoleInfoMapper accountRoleInfoMapper;
 
     /**
      * 门店与微信openid关连信息操作
@@ -901,7 +909,7 @@ public class StoreInfoService {
         record.setAlreadyStoreNum(enterpriseAccount.getAlreadyStoreNum() + 1);
         record.setBalanceStoreNum(enterpriseAccount.getBalanceStoreNum() - 1);
         enterpriseAccountMapper.updateByPrimaryKeySelective(record);
-        initStoreData(storeInfo.getStoreId(), userName, userPwd, storeInfo.getStoreAccount());
+//        initStoreData(storeInfo.getStoreId(), userName, userPwd, storeInfo.getStoreAccount());
         
         //新增默认会员
         MemberLevel member = memberLevelMapper.selectMemberLevelBySotreIdAndLevelName(storeInfo.getStoreAccount(), "默认会员卡");
@@ -2321,5 +2329,129 @@ public class StoreInfoService {
         specialServiceMapper.updateByPrimaryKeySelective(specialService);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除成功");
     }
+
+    /**
+     *  管理员设置
+     *  
+    * @author 骆峰
+    * @date 2016年7月25日 上午11:36:49
+    * @param storeAccount storeAccount
+    * @return ModelAndView
+     */
+    public ModelAndView userAccount(String storeAccount) {
+        ModelAndView view = new ModelAndView(View.Setting.VIEW_ADMINISTRATOR);
+        Map<String, Object> mapUser = new HashMap<String, Object>();
+        mapUser.put("storeAccount", storeAccount);
+        List<UserAccountDto> userAccount = userAccountMapper.selectByAccout(mapUser);
+        view.addObject("userAccount", userAccount);
+        List<AccountRoleInfo> accountRoleInfo = accountRoleInfoMapper.selectAccountMenuByRoleId(mapUser);
+        view.addObject("accountRoleInfo", accountRoleInfo);
+        List<StoreInfo> storeInfo = storeInfoMapper.selectByStoreAccount(storeAccount);
+        view.addObject("storeInfo", storeInfo);
+        return view;
+    }
+
+    /**
+     *   管理员设置保存
+    * @author 骆峰
+    * @date 2016年7月25日 下午3:09:37
+    * @param storeAccount storeAccount
+    * @param userAccount userAccount
+    * @param employeeName employeeName
+    * @return BaseDto
+     */
+    
+    public BaseDto userAccountSave(String storeAccount, UserAccount userAccount,
+            String employeeName) {
+        Map<String, Object> mapUser = new HashMap<String, Object>();
+        mapUser.put("storeAccount", storeAccount);
+        mapUser.put("userName", userAccount.getUserName());
+        List<UserAccountDto> userAccounts = userAccountMapper.selectByAccout(mapUser);
+        
+        if (userAccounts.size() != 0 && userAccount.getUserId() ==null){
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有该工号，请修改再保存");
+        }
+        
+        if (userAccount.getUserId() != null){
+            EmployeeInfo employeeDto=new EmployeeInfo();
+            employeeDto.setStoreId(userAccount.getStoreId());
+            employeeDto.setDeptId(0);
+            employeeDto.setName(employeeName);
+            employeeDto.setHeadImage("pc/defaulf_male.png");
+            employeeDto.setIsDeleted(1);
+            employeeDto.setEmployeeId(userAccount.getUserId());
+            employeeInfoMapper.updateByPrimaryKeySelective(employeeDto);
+            
+            
+            String hash = StringUtil.encryptPwd(userAccount.getUserPwd());
+            String userPwd = hash.split(":")[0];
+            String passwordSalt = hash.split(":")[1];
+            userAccount.setUserPwd(userPwd);
+            userAccount.setPwdSalt(passwordSalt);
+            userAccountMapper.updateByPrimaryKey(userAccount);
+        }
+        else {
+            EmployeeDto employeeDto=new EmployeeDto();
+            employeeDto.setStoreId(userAccount.getStoreId());
+            employeeDto.setDeptId(0);
+            employeeDto.setName(employeeName);
+            employeeDto.setHeadImage("pc/defaulf_male.png");
+            employeeDto.setIsDeleted(1);
+            employeeInfoMapper.insert(employeeDto);
+
+
+            userAccount.setUserId(employeeDto.getEmployeeId());
+            String hash = StringUtil.encryptPwd(userAccount.getUserPwd());
+            String userPwd = hash.split(":")[0];
+            String passwordSalt = hash.split(":")[1];
+            userAccount.setUserPwd(userPwd);
+            userAccount.setPwdSalt(passwordSalt);
+            userAccount.setCreateTime(DateUtil.getCurTime());
+            userAccount.setStoreAccount(storeAccount);
+            userAccountMapper.insert(userAccount);
+        }
+       
+        
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, userAccount);
+    }
+
+    /**
+     *  管理员 条件查询
+    * @author 骆峰
+    * @date 2016年7月25日 下午4:04:29
+    * @param codeName codeName
+    * @param role role
+    * @param storeAccount storeAccount
+    * @return BaseDto
+     */
+    public BaseDto selectUser(String codeName, Integer role, String storeAccount) {
+        Map<String, Object> mapUser = new HashMap<String, Object>();
+        mapUser.put("storeAccount", storeAccount);
+        mapUser.put("role", role);
+        mapUser.put("codeName", codeName);
+        List<UserAccountDto> userAccount = userAccountMapper.selectByAccout(mapUser);
+        if (userAccount.size() == 0) {
+            return new BaseDto(-1, "没有查询出该管理员");
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, userAccount);
+    }
+
+    
+    /**
+     * 管理员删除
+    * @author 骆峰
+    * @date 2016年7月25日 下午4:24:45
+    * @param userId userId
+    * @param storeAccount storeAccount
+    * @return BaseDto
+     */
+    public BaseDto deleteUser(Integer userId, String storeAccount) {
+        UserAccount userInfo = new  UserAccount();
+        userInfo.setStatus("1");
+        userInfo.setUserId(userId);
+        userAccountMapper.updateByPrimaryKey(userInfo);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, userInfo);
+    }
+    
 
 }

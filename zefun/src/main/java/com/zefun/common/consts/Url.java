@@ -105,10 +105,18 @@ public interface Url {
 		public static final String SYSTEM_VIEW_SHOWROLE = "system/view/showRole";
 		/** 查询系统角色权限 */
 		public static final String SYSTEM_VIEW_SELECTROLE = "system/view/selectRole";
-		/** 查询系统角色权限 */
+		/** 系统角色权限保存 */
 		public static final String SYSTEM_VIEW_SAVEROLE = "system/view/saveRole";
-		/** 查询企业角色权限 */
+		/** 删除企业角色权限 */
 		public static final String SYSTEM_VIEW_DELETEROLE = "system/view/deleteRole";
+		/** 管理员设置 */
+		public static final String SYSTEM_VIEW_ADMINISTRATOR = "system/view/administrator";
+		/** 管理员设置 保存*/
+		public static final String ADMINISTRATOR_SAVEUPDATE = "administrator/action/saveUpdate";
+		/** 管理员设置 条件查询*/
+		public static final String ADMINISTRATOR_SELECTUSER = "administrator/action/selectUser";
+		/** 管理员设置 删除*/
+		public static final String ADMINISTRATOR_DELETEUSER = "administrator/action/deleteUser";
 		
 		
 		
@@ -969,7 +977,7 @@ public interface Url {
 		public static final String ACTION_OVER_SERVER_EMPLOYEE = "/staff/action/overServerEmployee";
 		/** 服务人员设置*/
 		public static final String ACTION_ADD_OR_UPDATE_SERVER_EMPLOYEE = "/staff/action/addOrUpdateServerEmployee";
-		/** 员工打卡 */
+		/** 员工上牌 */
 		public static final String ACTION_SIGN_OPERATE = "/staff/action/signOperate";
 		/** 设置项目 */
 		public static final String ACTION_SETTING_PROJECT = "/staff/action/settingProject";
@@ -1250,7 +1258,7 @@ public interface Url {
 		public static final String AUTH_CALLBACK = "/sms/auth/callback";
 	}
 
-	/** 用户登陆模块 */
+	/** 用户登陆模块 */ 
 	class UserLogin {
 		/** 登陆 */
 		public static final String LOGIN = "/user/login";

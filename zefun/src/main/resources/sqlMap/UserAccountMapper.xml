@@ -14,6 +14,27 @@
     <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="CHAR" />
   </resultMap>
+  
+  
+
+  
+  
+    <resultMap id="BaseResultMapByEmployee" type="com.zefun.web.dto.UserAccountDto" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="pwd_salt" property="pwdSalt" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="roleName" property="roleName" jdbcType="CHAR" />
+    <result column="storeName" property="storeName" jdbcType="CHAR" />
+    <result column="employeeName" property="employeeName" jdbcType="CHAR" />
+  </resultMap>
 
   <sql id="Base_Column_List" >
     user_id, role_id, user_name, user_pwd, pwd_salt, create_time, update_time, last_operator_id, store_id, store_account, status
@@ -154,5 +175,31 @@
   <update id="updateDisableAndStart" parameterType="com.zefun.web.entity.UserAccount" >
   update user_account set status=#{status} where   role_id = 1 and   store_account=#{storeAccount}
   </update> 
+  
+  
+    <select id="selectByAccout" resultMap="BaseResultMapByEmployee" parameterType="java.util.Map" >
+    select
+	     u.user_id, u.role_id, u.user_name, u.user_pwd, u.pwd_salt, u.create_time, 
+	     u.update_time, u.last_operator_id, u.store_id, u.store_account, u.status,
+	     e.name as employeeName, a.account_role_name as roleName, s.store_name as storeName
+    from user_account u
+    	 left  join employee_info     e on u.user_id  = e.employee_id
+    	 left  join store_info        s on u.store_id = s.store_id
+    	 left  join account_role_info a on u.role_id  = a.account_role_id
+    where u.status = 0
+    <if test="storeAccount!=null">
+    and u.store_account = #{storeAccount}  
+    </if>
+     <if test="codeName">
+    and ( u.user_name = #{codeName}   or e.name= #{codeName} )
+    </if>
+     <if test="role">
+    and u.role_id = #{role} 
+    </if>
+      <if test="userName">
+    and u.user_name = #{userName} 
+    </if>
+    and e.is_deleted = 1
+  </select>
   
 </mapper>

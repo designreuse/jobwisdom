@@ -55,9 +55,9 @@ em,i{font-style:normal}
 .vip{display:inline-block;position:absolute;left:2rem;background:url(../images/vip.png);height:5.2rem;width:3.2rem;background-size:cover;text-align:center;color:black;font-weight:bold;font-size:1.4rem;line-height:5rem}
 .person_ul li{height:4.2rem;border-bottom:1px solid #ccc!important;line-height:4.2rem;color:#210a0a;font-size:1.4rem}
 .person_ul{padding:1rem 1rem ;background:white;margin-bottom:7rem}
-.person_ul li img{margin-right:1rem;width:28px}
+.person_ul li img{margin-right:1rem;width:28px;    vertical-align: middle;}
 .person_ul li:last-child{border:none}
-.person_name{color:white}	
+.person_name{color:white;position: relative;}	
 .person_name h1{padding-left:2rem;text-align:center;margin-top:1rem}
 .person_name h1 img{width:36px;margin-left:1rem}
 .person_name p{text-align:center;opacity:0.7;font-size:1.5rem;margin-top:0.5rem}
@@ -133,7 +133,7 @@ em,i{font-style:normal}
 /*我的预约*/
 .myForward{height:5rem;background:#ea631a}
 .myForward ul{width:20rem;height:2.8rem;margin:0 auto;position:relative;top:1rem}
-.myForward ul li{width:32.5%;border:1px solid white;float:left;height:100%;text-align:center;line-height:2.8rem;color:white;font-size:16px}
+.myForward ul li{width:31.5%;border:1px solid white;float:left;height:100%;text-align:center;line-height:2.8rem;color:white;font-size:16px}
 .myForward ul li.active{background:white;color:#ea631a}
 
 .myForward_content_right{float:right;margin-right:0.7rem;font-size:16px;color:#ea631a}
@@ -146,7 +146,7 @@ em,i{font-style:normal}
 .myForward_content_center>p{font-size:14px;color:black;margin-bottom:4px}
 .myForward_content_left{float:left;margin:0 0.5rem}
 .myForward_content_detail{  margin-top:4px;padding:0.9rem 0 1.2rem 0}
-.myForward_content_left img{vertical-align:middle;width:40px;margin-left:1px}
+.myForward_content_left img{vertical-align:middle;width:40px;height:40px;margin-left:1px}
 .myForward_content_left span{font-size:14px;color:black}
 .myForward_content_right img{width:50px;float:left;margin:0 0.5rem 0 .7rem;}
 .forward_price{-webkit-box-flex:1;box-flex:1;}

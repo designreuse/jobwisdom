@@ -1,4 +1,4 @@
-package com.zefun.web.entity;
+package com.zefun.web.dto;
 
 /**
  * 用户账户表
@@ -6,7 +6,7 @@ package com.zefun.web.entity;
  * @author 张进军
  * @date 2015年08月13日 PM 18:26:36
  */
-public class UserAccount {
+public class UserAccountDto {
 	/** 员工标识 */
 	private Integer userId;
 
@@ -35,7 +35,44 @@ public class UserAccount {
 
 	/** 门店账号 */
 	private String storeAccount;
-	/**
+	
+	
+	   /**引用角色名称 */ 
+    private String roleName;
+    /** 门店名称 */
+    private String storeName;
+    /** 操作员名称 */
+    private String employeeName;
+	
+	public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+
+
+    /**
 	 * 状态 0 正常 1禁用
 	 */
 	private String status;

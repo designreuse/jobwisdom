@@ -1195,7 +1195,8 @@ public class StaffCentreService {
             	for (Map<String, Object> orderMap : orderList) {
             		Integer orderId = Integer.valueOf(orderMap.get("orderId").toString());
 					if (orderId.intValue() == employeeCommissionDto.getOrderId().intValue()) {
-						List<Map<String, Object>> detailList = (List<Map<String, Object>>) orderMap.get("detailList");
+						@SuppressWarnings("unchecked")
+                        List<Map<String, Object>> detailList = (List<Map<String, Object>>) orderMap.get("detailList");
 						Map<String, Object> detailMap = new HashMap<>();
 						detailMap.put("projectName", employeeCommissionDto.getProjectName());
 						detailMap.put("commissionCalculate", employeeCommissionDto.getCommissionCalculate());

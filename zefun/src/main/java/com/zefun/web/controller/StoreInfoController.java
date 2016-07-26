@@ -3,7 +3,6 @@ package com.zefun.web.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +16,7 @@ import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreInfo;
+import com.zefun.web.entity.UserAccount;
 import com.zefun.web.service.StoreInfoService;
 
 import net.sf.json.JSONObject;
@@ -32,12 +32,6 @@ public class StoreInfoController extends BaseController {
 	/** 门店信息服务对象 */
 	@Autowired
 	private StoreInfoService storeInfoService;
-	/** 轮牌操作 */
-	@Autowired
-	private ShiftMahjongController shiftMahjongController;
-	/** 项目操作 */
-	@Autowired
-	private ProjectInfoController projectInfoController;
 
 	/**
 	 * 查询门店列表页面
@@ -335,41 +329,62 @@ public class StoreInfoController extends BaseController {
 	public BaseDto addStoreInfo(String name, String phone, String storeName, Integer storeType, Integer parentId) {
 		return storeInfoService.addStoreInfo(name, phone, storeName, storeType, parentId);
 	}*/
-
 	/**
-	 * 初始化门店数据(部门-岗位-职位)
-	 * 
-	 * @author 高国藩
-	 * @date 2016年1月17日 下午5:59:31
-	 * @param request
-	 *            请求
-	 * @param response
-	 *            返回
-	 * @return 状态
+	 *  管理员设置页面
+	* @author 骆峰
+	* @date 2016年7月25日 上午11:27:38
+	* @param request request
+	* @return ModelAndView
 	 */
-	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_INITIALIZE, method = RequestMethod.POST)
-	@ResponseBody
-	public BaseDto storeInitialize(HttpServletRequest request, HttpServletResponse response) {
-		Integer storeId = getStoreId(request);
-		Integer operateId = getUserId(request);
-		return storeInfoService.storeInitialize(storeId, operateId, request, response, shiftMahjongController,
-				projectInfoController);
+	@RequestMapping(value = Url.SystemSetting.SYSTEM_VIEW_ADMINISTRATOR, method = RequestMethod.GET)
+    @ResponseBody
+	public ModelAndView userAccount(HttpServletRequest request){
+        return storeInfoService.userAccount(getStoreAccount(request));
 	}
-
+	
 	/**
-	 * 门店复制
-	 * @author 高国藩
-	 * @date 2016年3月2日 下午3:48:19
-	 * @param request request
-	 * @param response response
-	 * @param copyStoreId copyStoreId
-	 * @return response
+	 *  管理员保存
+	* @author 骆峰
+	* @date 2016年7月25日 下午3:03:15
+    * @param request request
+    * @param userAccount userAccount
+    * @param employeeName 名称
+	* @return BaseDto
 	 */
-	@RequestMapping(value = Url.StoreInfo.ACTION_STORE_COPY, method = RequestMethod.GET)
-	@ResponseBody
-	public BaseDto storeInfoCopy(HttpServletRequest request, HttpServletResponse response, Integer copyStoreId) {
-		Integer storeId = getStoreId(request);
-		Integer operateId = getUserId(request);
-		return storeInfoService.storeInfoCopy(storeId, operateId, copyStoreId);
+	@RequestMapping(value = Url.SystemSetting.ADMINISTRATOR_SAVEUPDATE, method = RequestMethod.POST)
+    @ResponseBody
+	public BaseDto userAccountSave(HttpServletRequest request, UserAccount userAccount, String employeeName){
+        return storeInfoService.userAccountSave(getStoreAccount(request), userAccount, employeeName);
+	    
 	}
+	
+	/**
+	 *  管理员条件查询
+	* @author 骆峰
+	* @date 2016年7月25日 下午4:02:55
+	* @param codeName codeName  编号或者姓名
+	* @param role 引用角色
+	* @param request 引用request
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.SystemSetting.ADMINISTRATOR_SELECTUSER, method = RequestMethod.POST)
+    @ResponseBody
+	public BaseDto selectUser(String codeName, Integer role, HttpServletRequest request){
+        return storeInfoService.selectUser(codeName, role, getStoreAccount(request));
+	}
+	
+	/**
+	 *  管理员删除
+	* @author 骆峰
+	* @date 2016年7月25日 下午4:23:54
+	* @param userId userId
+	* @param request request
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.SystemSetting.ADMINISTRATOR_DELETEUSER, method = RequestMethod.POST)
+	@ResponseBody
+    public BaseDto  deleteUser(Integer userId,  HttpServletRequest request){
+        return storeInfoService.deleteUser(userId, getStoreAccount(request));
+    }
+    
 }

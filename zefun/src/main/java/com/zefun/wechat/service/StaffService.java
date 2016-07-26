@@ -46,6 +46,7 @@ import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.entity.WechatEmployee;
+import com.zefun.web.mapper.AccountRoleInfoMapper;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
@@ -67,7 +68,6 @@ import com.zefun.web.mapper.ShiftMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatEmployeeMapper;
 import com.zefun.web.service.EmployeeService;
-import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.ProjectService;
 import com.zefun.web.service.RedisService;
 import com.zefun.web.service.ShiftMahjongService;
@@ -143,9 +143,6 @@ public class StaffService {
     /**员工信息服务对象*/
     @Autowired private EmployeeService employeeService;
     
-    /**会员信息服务对象*/
-    @Autowired private MemberInfoService memberInfoService;
-
     /** 微信api服务对象 */
     @Autowired
     private WeixinMessageService weixinMessageService;
@@ -163,6 +160,10 @@ public class StaffService {
     /** 排班*/
     @Autowired
     private ShiftMapper shiftMapper;
+    /** 企业角色信息*/
+    @Autowired
+    private AccountRoleInfoMapper accountRoleInfoMapper;
+    
     
     /**
      * 查看员工主页
@@ -241,7 +242,8 @@ public class StaffService {
         wechatEmployeeMapper.insert(wechatEmployee);
         
         //将该用户移动到微信员工组中，刷新个性菜单
-        int roleId = userAccount.getRoleId();
+        Integer roleId = userAccount.getRoleId();
+        roleId = accountRoleInfoMapper.selectByPrimaryKey(roleId).getRoleId();
         if (roleId == App.System.SYSTEM_ROLE_STORE_BOSS) {
             weixinMessageService.moveGroupByGroupType(storeId, 3, openId);
         }

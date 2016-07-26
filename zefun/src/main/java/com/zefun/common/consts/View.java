@@ -126,6 +126,9 @@ public interface View {
         
         /**权限分配页面展示*/
         public static final String VIEW_COMMISSION_ROLE = "setting/addRole";
+        
+        /**权限分配页面展示*/
+        public static final String VIEW_ADMINISTRATOR = "setting/administrator";
 	}
 
 	/**

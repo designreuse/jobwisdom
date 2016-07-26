@@ -7,6 +7,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -91,22 +93,14 @@ public class LoginController extends BaseController {
 			return new ModelAndView(View.Index.LOGIN);
 		} 
 		else {
-			Integer roleId = (Integer) request.getSession().getAttribute(App.Session.ROLE_ID);
-			if (roleId == App.System.SYSTEM_ROLE_STORE_BOSS) {
-                return new ModelAndView("redirect:/" + Url.StoreInfo.SHOW_STORE_LIST);
-            } 
-			else if (roleId == App.System.SYSTEM_ROLE_STORE_EMPLOYEE) {
-				return new ModelAndView("redirect:/" + Url.SystemSetting.VIEW_PERSON_SETTING);
-			} 
-			else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_OWNER) {
-				return new ModelAndView("redirect:/" + Url.Member.VIEW_BASE_MEMBER);
-			} 
-			else if (roleId == App.System.SYSTEM_ROLE_STORE_MAIN_JOBWISDOM) {
-			    return new ModelAndView("redirect:/" + Url.Enterprise.VIEW_SHOW_ENTERPRISE);
-	        } 
-			else {
-				return new ModelAndView("redirect:/" + Url.KeepAccounts.INITIALIZE_MANUALLY_OPEN_ORDER);
-			}
+		    String url = request.getSession().getAttribute(App.Session.SYSTEM_LEFT_SUB_MENU).toString();
+		    Document document = Jsoup.parse(url.toString());
+	        url = document.select("div").eq(0).select("ul").eq(0).select("a").eq(0).attr("href");
+		    String path = request.getContextPath();
+	        String basePath = request.getScheme() + "://" + request.getServerName()
+	                  + (request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + path + "/";
+		    return new ModelAndView("redirect:/" + url.replaceAll(basePath, ""));
+		    
 		}
 	}
 

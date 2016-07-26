@@ -24,6 +24,7 @@ import java.util.UUID;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
+
 /**
  * 验证工具列
 * @author 高国藩
@@ -72,7 +73,7 @@ public class SignUtil {
 
     /**
      * 微信js api签名
-    * @author 小高
+    * @author 高国藩
     * @date Aug 17, 2015 4:30:08 PM
     * @param jsapiTicket    js api票据
     * @param url            需要使用js api的地址路径
@@ -115,7 +116,7 @@ public class SignUtil {
 
     /**
      * 微信 地址api签名
-    * @author 小高
+    * @author 高国藩
     * @date Aug 17, 2015 4:31:27 PM
     * @param accessToken        口令
     * @param url            需要使用地址api的地址路径
@@ -158,7 +159,7 @@ public class SignUtil {
 
     /**
      * 生成支付签名
-    * @author 小高
+    * @author 高国藩
     * @date Sep 23, 2015 8:35:46 PM
     * @param params     支付参数
     * @param payKey     微信商户支付密钥
@@ -187,8 +188,7 @@ public class SignUtil {
      * @return sign       sign
      */
     @SuppressWarnings("rawtypes")
-    public static String createSign(String characterEncoding,
-            SortedMap<Object, Object> parameters, String mchKey) {
+    public static String createSign(String characterEncoding, SortedMap<Object, Object> parameters, String mchKey) {
         StringBuffer sb = new StringBuffer();
         Set es = parameters.entrySet(); // 所有参与传参的参数按照accsii排序（升序）
         Iterator it = es.iterator();
@@ -202,14 +202,14 @@ public class SignUtil {
             }
         }
         sb.append("key=" + mchKey);
-        String sign = MD5Util.md5Encode(sb.toString(), characterEncoding)
-                .toUpperCase();
+        String sign = MD5Util.md5Encode(sb.toString(), characterEncoding).toUpperCase();
         return sign;
     }
+    
 
     /**
      * 将map参数转为url参数并排序
-    * @author 小高
+    * @author 高国藩
     * @date Sep 23, 2015 8:36:18 PM
     * @param params     map参数
     * @return           排序后的参数字符串
@@ -243,7 +243,7 @@ public class SignUtil {
 
     /**
      * 获取uuid随机字符串
-    * @author 小高
+    * @author 高国藩
     * @date Aug 17, 2015 4:23:52 PM
     * @return   uuid随机字符串
      */
@@ -253,7 +253,7 @@ public class SignUtil {
 
     /**
      * 获取时间戳
-    * @author 小高
+    * @author 高国藩
     * @date Aug 17, 2015 4:24:12 PM
     * @return   当前秒数
      */
@@ -263,7 +263,7 @@ public class SignUtil {
 
     /**
      * byte数组转16进制字符串
-    * @author 小高
+    * @author 高国藩
     * @date Aug 17, 2015 4:24:48 PM
     * @param hash   byte数组
     * @return       字符串
