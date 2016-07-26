@@ -120,14 +120,7 @@ public class LoginService {
 		sessiion.setAttribute(App.Session.USER_ID, userId);
 
 		int roleId = userAccount.getRoleId();
-		// 要查询出该用户所拥有的接口权限,将其放入session中
-//		List<String> authorUrl = authorityRequestMapper.selectByUserRoleId(userAccount.getRoleId());
-//		// 将接口权限放入redis中一份
-//		redisService.del(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId);
-//		redisService.sadd(App.Redis.AUTHORITY_ACCESS_SET_ROLE_PREFIX + roleId,
-//				  authorUrl.toArray(new String[authorUrl.size()]));
-//		// 将roleName放入redis中 下面并没从redis中直接取出,是因为可能放入错误的数据 比如新增了权限,人员角色调整.
-//		redisService.hset(App.Redis.PC_USER_ID_ROLE_HASH, userId, roleId);
+
 
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName()
@@ -162,20 +155,16 @@ public class LoginService {
                         secontSb.append(s.getMenuHtml().replace("<%=menuBasePath%>", basePath));
                     });
                 secontSb.append("</ul>");
-                String html = Jsoup.parse(f.getMenuHtml()).select("img").toString().replace("<%=menuBasePath%>", basePath).toString();
-//                System.out.println(html);
-                firstSb.append(Jsoup.parse(f.getMenuHtml()).select("li").toString().replace("<%=menuBasePath%>", basePath));
-//                firstSb.append(Jsoup.parse(f.getMenuHtml()).select("li").attr("url", "<%=menuBasePath%>")
-//                        .toString().replace("<%=menuBasePath%>", selectMenu.get(0)).replace("<%=menuBasePath%>", basePath));
+                firstSb.append(Jsoup.parse(f.getMenuHtml()).select("li").attr("url", "<%=url%>")
+                        .toString().replace("<%=menuBasePath%>", basePath)
+                        .replace("<%=url%>", selectMenu.get(0)).replace("<%=menuBasePath%>", basePath));
             });
-    
 		firstSb.append("</ul>");
 		sessiion.setAttribute(App.Session.SYSTEM_HEAD_MENU, firstSb.toString());
         secontSb.append("</div>");
         sessiion.setAttribute(App.Session.SYSTEM_LEFT_SUB_MENU, secontSb.toString());
         Document document = Jsoup.parse(secontSb.toString());
         String url = document.select("div").eq(0).select("ul").eq(0).select("a").eq(0).attr("href");
-
 		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
 		
 		if (employeeInfo != null) {
