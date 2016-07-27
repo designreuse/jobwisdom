@@ -914,6 +914,10 @@ public class GoodsInfoService {
      */
     public BaseDto saveGoodsInfoBase(String storeAccount, JSONObject data) {
         AccountGoods goodsInfo = (AccountGoods) JSONObject.toBean(data, AccountGoods.class);
+        List<AccountGoods> accountGoods = accountGoodsMapper.selectHasGoodsInfo(goodsInfo);
+        if (accountGoods.size() > 0){
+            return new BaseDto(-1, "当前系统存存在重复的名称或编号");
+        }
         if (goodsInfo.getGoodsId()!=null){
             accountGoodsMapper.updateByPrimaryKeySelective(goodsInfo);
             List<GoodsInfo> info = goodsInfoMapper.selectByStoreAccount(goodsInfo.getGoodsId());

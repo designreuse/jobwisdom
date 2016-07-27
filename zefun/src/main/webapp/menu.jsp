@@ -198,6 +198,7 @@ var menu = {"goods":"goodsInfo/view/goodsInfoList", "project":"project/view/proj
 			"comboInfo":"comboInfo/view/comboInfoList", "KeepAccounts" : "KeepAccounts/initializeStoreFlow", 
 			"activity":"activity/view/showactivitysign", "selfcashier":"selfcashier/view/list"};
 function choseMenu(url){
+	if (url.indexOf("?")!=-1){url = url.substring(0,url.indexOf("?"));}
 	if (typeof(jQuery(".left_nav_2").find("a[href='"+url+"']").html()) == 'undefined'){
 		if (url.indexOf("goods")!=-1){
 			url = baseUrl + menu["goods"];
