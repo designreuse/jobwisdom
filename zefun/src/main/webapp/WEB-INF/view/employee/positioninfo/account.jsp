@@ -613,8 +613,8 @@ function initEmployeeLevel(epms){
 
 function showPage(t,positionName,positionIds){
 	positionId = positionIds;
-	var rse = jQuery(".job_manage_content_ul>ul li").eq(t).find("em").text();
-	jQuery(".zzc").find("input[name='positionName']").val(rse);
+// 	var rse = jQuery(".job_manage_content_ul>ul li").eq(t).find("em").text();
+	jQuery(".zzc").find("input[name='positionName']").val(positionName);
 	jQuery(".zzc").show();
 }
 function hideDiv(){

@@ -116,7 +116,7 @@
 .adjust_content_button button:hover{background:#686c8a}
 
 .zzc1{display:none;position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
-.first_adjust{width:240px;height:265px;background:white;border-radius:12px;overflow:hidden;margin:12% auto}
+.first_adjust{width:240px;background:white;border-radius:12px;overflow:hidden;margin:12% auto}
 .first_adjust>p{height:60px;background:#3e4b5e;text-align:center;line-height:60px;color:white;font-size:14px}
 
 .first_adjust_content input{width:128px;height:14px;border-radius:12px;border:1px solid #6b6b6b;margin-left:6px}
@@ -126,7 +126,7 @@
 
 .num_adjust_content_detail{text-align:center;margin-top:10px}
 .num_adjust_content_detail select{width:128px;border-radius:12px;border:1px solid #6b6b6b;margin-left: 6px;}
-.first_adjust_content_button{text-align:center;}
+.first_adjust_content_button{text-align:center;margin-bottom:15px}
 .first_adjust_content_button button{width:80px;height:20px;text-align:center;line-height:20px;background:#7b80a1;border:none;border-radius:12px;color:white;margin:0 15px}
 .first_adjust_content_button{margin-top:15px}
 .first_adjust_content_button button:hover{background:#6a7092}

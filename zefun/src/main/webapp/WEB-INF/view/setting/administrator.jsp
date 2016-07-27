@@ -168,19 +168,19 @@ function selectUser (){
         success: function(data) {
         	if (data.code != 0) {
                 dialog(data.msg);
-                jQuery(".trs").empty();
+                jQuery(".trs tr:gt(0)").empty();
                 return;
             }
         	var userAccounts = data.msg;
         
-        	var html = '<tr class="tr"> <td>工号</td><td>姓名</td><td>系统角色</td><td>所属门店</td><td>操作</td></tr>';
+        	var html = '';
         	for (var i = 0; i < userAccounts.length; i++) {
         		 var  userAccount = userAccounts[i];
         	     html += '<tr id="'+userAccount.userId+'"> <td>'+userAccount.userName +'</td><td>'+userAccount.employeeName+'</td>';
         	     html += '<td>'+userAccount.roleName+'</td><td>'+userAccount.storeName+'</td><td><img onclick="updateUser(this)" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleteUser(this)" src="'+baseUrl+'images/add_store_2.png"></td></tr>'
 			}
-        	jQuery(".trs").empty();
-        	jQuery(".trs").after(html);
+        	jQuery(".trs tr:gt(0)").empty();
+        	jQuery(".trs").append(html);
         	dialog("查询完成");
         }
     });
