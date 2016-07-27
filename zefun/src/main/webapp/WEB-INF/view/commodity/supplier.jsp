@@ -71,7 +71,8 @@
 													<li brandId="${brand.brandId }" brandName="${brand.brandName }" class="">
 														${brand.brandName }
 														<p style="display: none;">
-															<span onclick="updateBrand(this, ${brand.brandId })">修改</span> <span onclick="deleted(this, ${brand.brandId })">删除</span>
+															<span onclick="updateBrand(this, ${brand.brandId })">修改</span> 
+															<span onclick="deleted(this, ${brand.brandId })">删除</span>
 														</p>
 													</li>
 												</c:forEach>
@@ -288,7 +289,7 @@
 					data : data,
 					dataType : "json",
 					success : function(data) {
-						jQuery(opt).parents("span[brandId]").hide('800');
+						jQuery(opt).parents("li[brandId]").hide('800');
 					}
 				});
 			}

@@ -31,6 +31,7 @@
 	background-color: #fff5d4;
 	border: 1px solid #dcac6c;
 }
+.payroll_2_head{padding:20px 40px;border:1px solid #74aad7;border-radius:12px;background:#b8c7ea}
 </style>
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
@@ -79,7 +80,7 @@
     
 <div class='content_right clearfix'>
     <div class="payroll_2_head">
-	   <button id="downLondimport">导出模板下载</button><button id="downLond">导出</button><button data-toggle="modal" data-target="#toLeadModal">导入</button><button onclick="jQuery('.zzc').show();employeeId=null;">添加员工</button>
+	   <button id="downLondimport">导出模板下载</button><button id="downLond">导出</button><button data-toggle="modal" data-target="#toLeadModal">导入</button><button onclick="showView()">添加员工</button>
 	   <span class="payroll_1_search">
 	     <input type="search" id="search" placeholder="员工姓名/工号/手机号"/>
          <input type="hidden" id="querygangwei">
@@ -106,7 +107,6 @@
 			  <td>部门</td>
 			  <td>岗位</td>
 			  <td>职位</td>
-			  <td>员工账号</td>
 			  <td>手机号</td>
 			  <td>操作</td>
 			 
@@ -118,7 +118,6 @@
 				  <td>${employee.sex }</td>
 				  <td>${employee.deptName }</td>
 				  <td>${employee.positionName }</td>
-				  <td>${employee.levelName }</td>
 				  <td>${employee.userName }</td>
 				  <td>${employee.phone }</td>
 				  <td><span onclick="selectEmp(${employee.employeeId})"><img src="<%=basePath %>images/handle_1.png" ></span><span onclick="deleteinfo(${employee.employeeId})"><img src="<%=basePath %>images/handle_2.png"></span></td>
@@ -135,9 +134,10 @@
       <p>员工资料</p>
       <div class="emploee_content clearfix">  
         <div class="imformation_left"> 
-		 <div class="clearfix">
+		 <div class="clearfix" style="border-bottom:1px dotted #ccc;padding-bottom:10px">
 		    <div class="head_img">
-			  <img onclick="jQuery('.mask').show();editPage(null, '200*200');chooseType=0;" src="http://7xss26.com1.z0.glb.clouddn.com/jobwisdom/project/1468392992738">
+			  <img name ="head_img" onclick="jQuery('.mask').show();editPage(null, '200*200');chooseType=0;" 
+			  src="http://7xss26.com1.z0.glb.clouddn.com/system/profile/employee.png">
 			  <input type="hidden" name="headImage" value="">
 			</div>
 		    <div class="information">
@@ -156,14 +156,14 @@
 				</p> 
            
                <p> <span><em>身份证</em><input type="text" name="identityCard" value="" style="width:350px" ><i  class = "addcolor">*</i></span>
-				 <span>是否显示在预约中<input type="checkbox" style="margin-left:10px"></span>
+				 <span>基本工资<input type="Number"   name = "baseSalaries" style="height: 16px;width: 130px;border: 1px solid black;margin-left:8px;border-radius: 12px;"></span>
 				</p>
 			</div>  
 		 </div>
 
 		 <div class="select_job_content clearfix">
         <div class="select_job_content_left">   
-          <p><em>角色</em><select name="roleId"><c:forEach items="${rolelist }" var="rolelist"><option value="${rolelist.roleId }">${rolelist.roleName }</option></c:forEach></select></p>    
+          <p><em>角色</em><select name="roleId"><c:forEach items="${rolelist }" var="rolelist"><option value="${rolelist.accountRoleId }">${rolelist.accountRoleName }</option></c:forEach></select></p>    
   		  <p><em>选择岗位</em><select onchange="changeEmployeeLevel(this.value)" name="positionId"><c:forEach items="${positionlist }" var="position"><option value="${position.positionId }">${position.positionName }</option></c:forEach></select></p>
 		  <p><em>职位</em><select name="levelId"></select></p>
 		  <p><em>部门</em><select name="deptId"><c:forEach items="${deptlist }" var="dept"><option value="${dept.deptId }">${dept.deptName }</option></c:forEach></select></p>
@@ -183,6 +183,7 @@
 			</div>
 		   </div>	
 		</div>
+
 	  <div class="imformation_button">
 	     <button onclick="saveEmployee()">保存</button>
 		 <button onclick="jQuery('.zzc').hide()">取消</button>
@@ -357,7 +358,7 @@ function changeEmployeeLevel(positionId){
 
 	
 	var roleName =  jQuery("select[name='positionId'] option:checked").text();
-	if(roleName=="店长"){
+	if(roleName=="店长" || roleName=="收银员"){
 		var html1 = '<option name="dz" value=""></option>';
 		jQuery("select[name='levelId']").append(jQuery(html1));
 		jQuery("select[name='deptId']").append(jQuery(html1));
@@ -394,7 +395,11 @@ function saveEmployee(){
 	var leaveDate = jQuery("input[name='leaveDate']").val();
 	var employeeDesc = u1.getContent();  
 	var headImage = jQuery("input[name='headImage']").val();
+	var baseSalaries = jQuery("input[name='baseSalaries']").val();
 	
+	if(baseSalaries == "" || baseSalaries == null){
+		baseSalaries =0;
+	}
 	if(!checkMobile(phone)){
 		dialog("电话号码格式不对");
 		return ;
@@ -407,7 +412,7 @@ function saveEmployee(){
 	
 	var data = {"employeeId":employeeId, "employeeCode":employeeCode, "sex":sex, "birthday":birthday, "recommendId":recommendId, "phone":phone, "identityCard":identityCard, 
 			    "roleId":roleId, "positionId":positionId, "deptId":deptId, "levelId":levelId, "employeeStatus":employeeStatus, "entryDate":entryDate, "leaveDate":leaveDate, 
-			    "employeeDesc":employeeDesc, "name":name, "headImage":headImage};
+			    "employeeDesc":employeeDesc, "name":name, "headImage":headImage, "baseSalaries":baseSalaries};
 	console.log(data);
 	jQuery.ajax({
 		type : "post",
@@ -453,6 +458,7 @@ function selectEmp(id){
 				jQuery("select[name='recommendId']").val(e.msg.recommendId);
 				jQuery("input[name='phone']").val(e.msg.phone);
 				jQuery("input[name='identityCard']").val(e.msg.identityCard);
+				jQuery("input[name='baseSalaries']").val(e.msg.baseSalaries);
 				jQuery("select[name='roleId']").val(e.msg.roleId);
 				jQuery("select[name='positionId']").val(e.msg.positionId);
 				changeEmployeeLevel(e.msg.positionId);
@@ -526,8 +532,22 @@ jQuery(function() {
 	
 })
 
-
-
-
+function showView(){
+	jQuery("input[name='name']").val("");
+	jQuery("input[name='employeeCode']").val("");
+	jQuery("input[name='birthday']").val("");
+	jQuery("input[name='phone']").val("");
+	jQuery("select[name='employeeStatus']").val("");
+	jQuery("input[name='entryDate']").val("");
+	jQuery("input[name='leaveDate']").val("");
+	jQuery("input[name='headImage']").val("");
+	jQuery("input[name='identityCard']").val("");
+	jQuery("input[name='baseSalaries']").val("");
+	jQuery("img[name='head_img']").attr("src","http://7xss26.com1.z0.glb.clouddn.com/system/profile/employee.png");  
+	jQuery('.zzc').show();
+	
+	u1.execCommand('cleardoc');
+	employeeId=null;
+}
 </script>
 </html>

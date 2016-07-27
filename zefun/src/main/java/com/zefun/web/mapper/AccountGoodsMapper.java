@@ -67,4 +67,13 @@ public interface AccountGoodsMapper {
     * @return         i
      */
     List<AccountGoods> selectByProperties(AccountGoods accountGoods);
+    
+    /**
+     * 查询是否存在满足条件的商品信息
+    * @author 高国藩
+    * @date 2016年7月27日 下午5:40:03
+    * @param goodsInfo goodsInfo
+    * @return    List<AccountGoods>
+     */
+    List<AccountGoods> selectHasGoodsInfo(AccountGoods goodsInfo);
 }

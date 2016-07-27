@@ -46,7 +46,7 @@ public class QiniuTestUpload {
 	    
 	    File file = new File("D:\\111.png");
 	    Response response = uploadManager.put(file,
-              "system/profile/add_img2.png", auth.uploadToken(QINIU_SCOPE));
+              "system/profile/employee.png", auth.uploadToken(QINIU_SCOPE));
           String key = response.jsonToMap().get("key").toString();
           System.out.println(key);
 	    
