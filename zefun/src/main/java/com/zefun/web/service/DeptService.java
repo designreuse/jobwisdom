@@ -281,12 +281,12 @@ public class DeptService {
         DeptInfo dept = new DeptInfo();
         dept.setDeptName(deptInfo.getDeptName());     
         dept.setStoreId(deptInfo.getStoreId());
-        List<DeptInfo> deptName = deptInfoMapper.getDeptName(dept);
+        DeptInfo deptName = deptInfoMapper.getDeptDetail(dept);
         
         if (deptInfo.getDeptId()!=null) {
             deptInfoMapper.updateByPrimaryKeySelective(deptInfo);
         }
-        else if (deptName.size() == 0) {
+        else if (deptName.getDeptId() == null) {
             deptInfoMapper.insert(deptInfo);
         }
         else {

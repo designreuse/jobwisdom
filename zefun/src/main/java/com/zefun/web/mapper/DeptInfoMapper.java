@@ -85,14 +85,7 @@ public interface DeptInfoMapper {
     DeptInfo getDeptDetail(DeptInfo deptInfo);
     
     
-    /**
-     * 
-    * @author 骆峰
-    * @date 2016年7月26日 下午8:50:23
-    * @param deptInfo deptInfo
-    * @return List
-     */
-    List<DeptInfo> getDeptName(DeptInfo deptInfo);
+
     /**
      * 根据门店编号查询部门编号列表
     * @author 张进军
