@@ -330,7 +330,7 @@ public class MemberCenterService {
             }
             //员工
             else {
-                return staffService.receptionView(ownerStoreId);
+                return staffService.receptionView(userId);
             }
 	    }
         return storeInfoView(storeId, ownerStoreId);

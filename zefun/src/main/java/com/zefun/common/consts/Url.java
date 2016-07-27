@@ -1044,6 +1044,8 @@ public interface Url {
 		public static final String VIEW_APPEND_DETAIL = "staff/view/appendDetail";
 		/** 订单详情 */
 		public static final String VIEW_SELECT_ORDER_DETAIL = "/staff/view/selectOrderDetail/{storeId}/{businessType}";
+		/** 修改订单操作性*/
+		public static final String ACTION_UPDATE_IS_ORDER_OPTION = "staff/action/updateIsOrderOption";
 		/** 删除订单明细 */
 		public static final String ACTION_DELETE_ORDER_DETAIL = "staff/action/deleteOrderDetail";
 		/** 删除订单 */

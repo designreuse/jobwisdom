@@ -52,6 +52,7 @@ import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.RabbitService;
 import com.zefun.web.service.RedisService;
+import com.zefun.web.service.ShiftMahjongService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -99,7 +100,7 @@ public class StaffCentreService {
     /*@Autowired private StaffService staffService;*/
     
     /** 轮派员工信息*/
-    /*@Autowired private ShiftMahjongEmployeeMapper shiftMahjongEmployeeMapper;*/
+    @Autowired private ShiftMahjongService shiftMahjongService;
     
     /** 项目*/
     /*@Autowired private ProjectInfoMapper projectInfoMapper;*/
@@ -112,6 +113,7 @@ public class StaffCentreService {
     
     /** 员工账号操作对象 */
     @Autowired private UserAccountMapper userAccountMapper;
+    
     
     /**日志记录对象*/
 //    private Logger logger = Logger.getLogger(StaffCentreService.class);
@@ -996,8 +998,24 @@ public class StaffCentreService {
     public ModelAndView myShiftMahjong(Integer employeeId){
         ModelAndView mav =  new ModelAndView(View.StaffPage.MY_SHIFTMAHJONG);
         List<ShiftMahjongDto> shiftMahjongDtoList = shiftMahjongMapper.selectByEmployeeId(employeeId);
+        
         mav.addObject("shiftMahjongDtoList", shiftMahjongDtoList);
+        mav.addObject("employeeId", employeeId);
         return mav;
+    }
+    
+    /**
+     * 员工上下牌
+    * @author 老王
+    * @date 2016年7月26日 下午8:37:32 
+    * @param shiftMahjongId 轮牌标识
+    * @param employeeId 员工标识
+    * @param type 上下排类型
+    * @return BaseDto
+     */
+    public BaseDto upShiftMahjong (Integer shiftMahjongId, Integer employeeId, Integer type) {
+    	shiftMahjongService.upOrDownShiftMahjong(shiftMahjongId, employeeId, type);
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
     /**

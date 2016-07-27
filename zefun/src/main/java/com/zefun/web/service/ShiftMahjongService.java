@@ -729,54 +729,41 @@ public class ShiftMahjongService {
     }
 	
     /**
-     * 上牌接口
+     * 上下牌接口
     * @author 王大爷
     * @date 2015年11月10日 上午10:20:06
+    * @param shiftMahjongId 轮牌标识
     * @param employeeId 员工标识
+    * @param type 类型
      */
-    public void upShiftMahjong(Integer employeeId){
-        Map<String, Object> map = employeeInfoMapper.getDetail(employeeId);
-        //查询所须修改资料员工对应的轮牌员工表标识
-        List<ShiftMahjongEmployee> shiftMahjongEmployeeList = shiftMahjongEmployeeMapper.selectShiftMahjongEmployeeList(employeeId);
-        for (int i = 0; i < shiftMahjongEmployeeList.size(); i++) {
-            Integer shiftMahjongOrder = shiftMahjongEmployeeMapper.selectByCount(shiftMahjongEmployeeList.get(i).getShiftMahjongId());
-            
-            ShiftMahjongEmployee shiftMahjongEmployee = new ShiftMahjongEmployee();
-            shiftMahjongEmployee.setShiftMahjongEmployeeId(shiftMahjongEmployeeList.get(i).getShiftMahjongEmployeeId());
-            shiftMahjongEmployee.setShiftMahjongOrder(shiftMahjongOrder + 1);
-            shiftMahjongEmployee.setState(1);
-            shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
-            
-            /*staffService.selfMotionExecute(shiftMahjongEmployeeList.get(i).getShiftMahjongEmployeeId(), 
-                    Integer.valueOf(map.get("storeId").toString()));*/
-            
-        }
-        //删除缓存
-        redisService.hdel(App.Redis.DEPT_PROJECT_MAHJONG_INFO_KEY_HASH, String.valueOf(map.get("deptId")));
-    }
-    
-    /**
-     * 下牌接口
-    * @author 王大爷
-    * @date 2015年11月10日 上午10:22:36
-    * @param employeeId 员工标识
-     */
-    public void downShiftMahjong(Integer employeeId){
-        Map<String, Object> map = employeeInfoMapper.getDetail(employeeId);
-        //查询所须修改资料员工对应的轮牌员工表标识
-        List<ShiftMahjongEmployee> shiftMahjongEmployeeList = shiftMahjongEmployeeMapper.selectShiftMahjongEmployeeList(employeeId);
-        for (int i = 0; i < shiftMahjongEmployeeList.size(); i++) {
-            if (shiftMahjongEmployeeList.get(i).getState()  == 0 || shiftMahjongEmployeeList.get(i).getState()  == 4) {
-                throw new RuntimeException("员工服务中，无法签退！");
-            }
-            ShiftMahjongEmployee shiftMahjongEmployee = new ShiftMahjongEmployee();
-            shiftMahjongEmployee.setShiftMahjongEmployeeId(shiftMahjongEmployeeList.get(i).getShiftMahjongEmployeeId());
-            shiftMahjongEmployee.setShiftMahjongOrder(999);
-            shiftMahjongEmployee.setState(3);
-            shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
-        }
-        //删除缓存
-        redisService.hdel(App.Redis.DEPT_PROJECT_MAHJONG_INFO_KEY_HASH, String.valueOf(map.get("deptId")));
+    public void upOrDownShiftMahjong(Integer shiftMahjongId, Integer employeeId, Integer type){
+    	Map<String, Integer> map = new HashMap<>();
+    	map.put("shiftMahjongId", shiftMahjongId);
+    	map.put("employeeId", employeeId);
+    	ShiftMahjongEmployee obj = shiftMahjongEmployeeMapper.selectEmployeeByStepId(map);
+    	
+    	if (obj != null) {
+    		
+    		if (type == 1) {
+    			Integer shiftMahjongOrder = shiftMahjongEmployeeMapper.selectByCount(shiftMahjongId);
+                
+                ShiftMahjongEmployee shiftMahjongEmployee = new ShiftMahjongEmployee();
+                shiftMahjongEmployee.setShiftMahjongEmployeeId(obj.getShiftMahjongEmployeeId());
+                shiftMahjongEmployee.setShiftMahjongOrder(shiftMahjongOrder + 1);
+                shiftMahjongEmployee.setState(1);
+                shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
+    		}
+    		else {
+    			if (obj.getState()  == 0 || obj.getState()  == 4) {
+                    throw new RuntimeException("员工服务中，无法签退！");
+                }
+                ShiftMahjongEmployee shiftMahjongEmployee = new ShiftMahjongEmployee();
+                shiftMahjongEmployee.setShiftMahjongEmployeeId(obj.getShiftMahjongEmployeeId());
+                shiftMahjongEmployee.setShiftMahjongOrder(999);
+                shiftMahjongEmployee.setState(3);
+                shiftMahjongEmployeeMapper.updateByPrimaryKeySelective(shiftMahjongEmployee);
+    		}
+    	}
     }
     
 	/**

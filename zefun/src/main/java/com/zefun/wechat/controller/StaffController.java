@@ -90,8 +90,8 @@ public class StaffController extends BaseController {
         if (openId == null) {
             return null;
         }
-        Integer storeId = getStoreIdByOpenId(openId);
-        return staffService.receptionView(storeId);
+        int employeeId = getUserIdByOpenId(openId);
+        return staffService.receptionView(employeeId);
     }
     
     /**
