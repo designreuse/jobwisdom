@@ -27,6 +27,7 @@
     <result column="real_amount" property="realAmount" jdbcType="DECIMAL" />
     <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
     <result column="is_order_option" property="isOrderOption" jdbcType="INTEGER" />
+    <result column="option_employee_id" property="optionEmployeeId" jdbcType="INTEGER" />
     <result column="order_evaluate" property="orderEvaluate" jdbcType="VARCHAR" />
     <result column="appointment_id" property="appointmentId" jdbcType="INTEGER" />
     <result column="is_share" property="isShare" jdbcType="INTEGER" />
@@ -169,7 +170,7 @@
     order_id, store_id, order_type, member_id, sex, dept_id, order_code, hand_order_code, receivable_amount,
     discount_amount, cash_amount, unionpay_amount, card_amount, gift_amount, wechat_amount,
     alipay_amount, group_amount, combo_amount, coupon_amount, appoint_off, free_amount, debt_amount,
-    real_amount, order_status, is_order_option, order_evaluate, appointment_id, is_share, is_deleted,
+    real_amount, order_status, is_order_option, option_employee_id, order_evaluate, appointment_id, is_share, is_deleted,
     create_time, update_time, last_operator_id
   </sql>
 	
@@ -432,7 +433,8 @@
   
   <update id="updateIsOrderOption" parameterType="com.zefun.web.entity.OrderInfo" >
     update order_info
-       is_order_option = #{isOrderOption,jdbcType=INTEGER}
+       set is_order_option = #{isOrderOption,jdbcType=INTEGER},
+           option_employee_id = #{optionEmployeeId,jdbcType=INTEGER}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
 
@@ -1893,6 +1895,15 @@
     where store_id = #{storeId}
         and hand_order_code = #{handOrderCode}
         and order_status = 1 
+        and is_deleted = 0
+  </select>
+  
+  <select id="selectByOptionEmployeeId" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+        *
+    from order_info
+    where is_order_option = 1
+        and option_employee_id = #{optionEmployeeId} 
         and is_deleted = 0
   </select>
 </mapper>

@@ -81,6 +81,11 @@ public class OrderInfo {
 	
 	/** 订单是否操作中（0：否，1：是）*/
 	private Integer isOrderOption;
+	
+	/**
+	 * 订单操作员工标识
+	 */
+	private Integer optionEmployeeId;
 
 	/** 挂账备注 */
 	private String orderEvaluate;
@@ -105,6 +110,14 @@ public class OrderInfo {
 
 	
 	
+	public Integer getOptionEmployeeId() {
+		return optionEmployeeId;
+	}
+
+	public void setOptionEmployeeId(Integer optionEmployeeId) {
+		this.optionEmployeeId = optionEmployeeId;
+	}
+
 	public Integer getIsOrderOption() {
 		return isOrderOption;
 	}

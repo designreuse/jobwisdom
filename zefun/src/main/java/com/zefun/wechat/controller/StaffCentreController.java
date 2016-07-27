@@ -73,36 +73,6 @@ public class StaffCentreController extends BaseController{
         return staffCentreService.staffCenter(employeeId);
     }
     
-    /**
-     * 员工上牌接口
-    * @author 老王
-    * @date Oct 28, 2015 6:10:05 PM
-    * @param request 返回
-    * @param response 请求
-    * @return   打卡成功返回0；失败返回其它错误码。
-     */
-    @RequestMapping(value = Url.Staff.ACTION_SIGN_OPERATE, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto signOperate(HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(2, request, response);
-        if (openId == null) {
-            return null;
-        }
-        int employeeId = getUserIdByOpenId(openId);
-        int storeId = getStoreIdByOpenId(openId);
-        /*//首先根据经纬度判断该员工是否在店铺附近
-        StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
-        if (storeInfo == null || storeInfo.getLatitude() == null || storeInfo.getLongitude() == null) {
-        	return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "您所在店铺还未设置坐标，暂无法签到");
-        }
-        double distance = EmployeeAttendanceDateUtil.getDistance(latitude, longitude, 
-        		  Double.parseDouble(storeInfo.getLatitude()), Double.parseDouble(storeInfo.getLongitude()));
-        if (SIGN_IN_DISTANCE < distance) {
-        	return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "请在店铺内进行签到");
-        }*/
-        return employeeAttendanceService.signOperate(storeId, employeeId);
-    }
-    
     
     /**
      * 员工个人信息页面
@@ -278,6 +248,38 @@ public class StaffCentreController extends BaseController{
         }
         int employeeId = getUserIdByOpenId(openId);
         return staffCentreService.myShiftMahjong(employeeId);
+    }
+    
+    
+    /**
+     * 员工上牌接口
+    * @author 老王
+    * @date Oct 28, 2015 6:10:05 PM
+    * @param request 返回
+    * @param response 请求
+    * @param shiftMahjongId 轮牌标识
+    * @param type 上下排类型
+    * @return   打卡成功返回0；失败返回其它错误码。
+     */
+    @RequestMapping(value = Url.Staff.ACTION_SIGN_OPERATE, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto signOperate(HttpServletRequest request, HttpServletResponse response, Integer shiftMahjongId, Integer type){
+        String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
+        int employeeId = getUserIdByOpenId(openId);
+        /*//首先根据经纬度判断该员工是否在店铺附近
+        StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
+        if (storeInfo == null || storeInfo.getLatitude() == null || storeInfo.getLongitude() == null) {
+        	return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "您所在店铺还未设置坐标，暂无法签到");
+        }
+        double distance = EmployeeAttendanceDateUtil.getDistance(latitude, longitude, 
+        		  Double.parseDouble(storeInfo.getLatitude()), Double.parseDouble(storeInfo.getLongitude()));
+        if (SIGN_IN_DISTANCE < distance) {
+        	return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "请在店铺内进行签到");
+        }*/
+        return staffCentreService.upShiftMahjong(shiftMahjongId, employeeId, type);
     }
     
     /**

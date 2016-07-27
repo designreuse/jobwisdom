@@ -613,4 +613,13 @@ public interface OrderInfoMapper {
     * @return 是否成功
      */
     Integer updateIsOrderOption(OrderInfo record);
+    
+    /**
+     * 查询员工正在操作的订单
+    * @author 老王
+    * @date 2016年7月26日 下午4:51:42 
+    * @param optionEmployeeId 订单操作员工标识
+    * @return List<OrderInfo>
+     */
+    List<OrderInfo> selectByOptionEmployeeId(Integer optionEmployeeId);
 }

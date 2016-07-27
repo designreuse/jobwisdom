@@ -283,13 +283,21 @@ public class StaffService {
      * 员工接待页面
     * @author 王大爷
     * @date 2016年1月12日 上午9:50:00
-    * @param storeId 门店标识
+    * @param employeeId 员工标识
     * @return ModelAndView
      */
-    public ModelAndView receptionView(Integer storeId) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName(View.StaffPage.RECEPTION);
-        return mav;
+    public ModelAndView receptionView(Integer employeeId) {
+    	
+    	List<OrderInfo>orderInfoList =  orderInfoMapper.selectByOptionEmployeeId(employeeId);
+    	
+    	if (!orderInfoList.isEmpty() && orderInfoList.size() > 0) {
+    		return staffOrderService.allOrderView(orderInfoList.get(0).getOrderId(), employeeId);
+    	}
+    	else {
+    		ModelAndView mav = new ModelAndView();
+            mav.setViewName(View.StaffPage.RECEPTION);
+            return mav;
+    	}
     }
     
     /**
@@ -308,6 +316,9 @@ public class StaffService {
     	
     	if (orderInfo == null) {
     		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "服务单已完成或不存在！");
+    	}
+    	else if (orderInfo.getIsOrderOption() == 1) {
+    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该服务订单正在操作，无法进入！");
     	}
     	else {
     		Integer orderId = orderInfo.getOrderId();
