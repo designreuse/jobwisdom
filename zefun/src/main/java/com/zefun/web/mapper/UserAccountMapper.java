@@ -210,6 +210,15 @@ public interface UserAccountMapper {
 	String selectUserNameByStoreIdAndRoleId(Map<String, Integer> map);
 	
 	/**
+	 *  企业下的角色引用
+	* @author 骆峰
+	* @date 2016年7月26日 下午7:34:05
+	* @param map map
+	* @return UserAccount
+	 */
+	List<UserAccount> selectStoreAccountRole (Map<String, Object> map);
+	
+	/**
 	 *    根据企业代号查询出该企业的数据
 	* @author 骆峰
 	* @date 2016年6月28日 下午6:59:59

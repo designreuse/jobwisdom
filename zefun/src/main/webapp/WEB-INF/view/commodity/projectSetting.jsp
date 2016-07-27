@@ -179,12 +179,12 @@
 									</p>
 									<p>
 										<span><em>项目名称</em><input type="text"
-											name="projectName" style="width: 145px;"><i  class = "addcolor">*</i></span><span><em>项目编号</em><input
+											name="projectName" style="width: 145px;" maxlength="8"><i  class = "addcolor">*</i></span><span><em>项目编号</em><input
 											type="text" name="projectCodeSuffix" style="width: 145px;"></span>
 									</p>
 									
 						
-									<ul class="clearfix" style=" position: relative;  top: -100px;left: 680px;">
+									<ul class="clearfix" style=" position: relative;  top: -100px;left: 680px;"> 
 										<li><em><img onclick="uploadImage(this)"
 												projectImage="system/profile/add_img.png"
 												name="projectImage"
@@ -242,7 +242,7 @@
 									<p class="shop_price_1">
 										门店价格<span><input name="projectPrice" type="number"><em>元</em></span><i
 											style="display: inline-block; width: 105px; margin-left: 72px">成本价格</i><span><input
-											name="projectPrice" type="costPrice"><em>元</em></span>
+											name="costPrice" type="text"><em>元</em></span>
 									</p>
 									<p class="shop_price_2">
 										接受礼金<i><input
@@ -338,7 +338,6 @@
 																 <td>卡金</td>
 																 <td>疗程</td>
 															</tr>
-
 														</tbody>
 													</table>
 												</div>
@@ -409,12 +408,10 @@
 													     <td>现金</td>
 														 <td>卡金</td>
 														 <td>疗程</td>
-														  <td>现金</td>
+														 <td>现金</td>
 														 <td>卡金</td>
 														 <td>疗程</td>
 													   </tr>
-											
-
 														</tbody>
 													</table>
 												</div>
@@ -646,8 +643,7 @@
 		var appointmentPrice = jQuery("input[name='appointmentPrice']").val();
 		var highestDiscount = jQuery("input[name='highestDiscount']").val();
 		var isGiftCash = jQuery('input:radio[name="isGiftCash"]:checked').val();
-		var isAppointment = jQuery('input:radio[name="isAppointment"]:checked')
-				.val();
+		var isAppointment = jQuery('input:radio[name="isAppointment"]:checked').val();
 		data = {
 			"storeId" : storeId,
 			"projectId" : projectId,

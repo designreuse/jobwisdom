@@ -78,6 +78,7 @@ public class SystemSettingService {
     /**员工操作对象*/
     @Autowired
     private EmployeeInfoMapper employeeInfoMapper;
+
     
     /**菜单操作对象*/
     @Autowired
@@ -567,8 +568,6 @@ public class SystemSettingService {
         ModelAndView view = new ModelAndView(View.Setting.VIEW_COMMISSION_ROLE);
         
         List<RoleInfo> selectSystemRoles = roleInfoMapper.selectSystemRoles();
-        
-        
         view.addObject("selectSystemRoles", selectSystemRoles);
         
         Map<String, Object> mapMenu = new HashMap<String, Object>();
@@ -707,11 +706,19 @@ public class SystemSettingService {
         accountRoleInfo.setStoreAccount(storeAccount);
         accountRoleInfo.setRoleId(roleId);
         accountRoleInfo.setAccountRoleId(accountRoleId);
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("storeAccount", storeAccount);
+        map.put("accountRoleName", accountRoleName);
+        List<AccountRoleInfo> selectByAccountRoleName = accountRoleInfoMapper.selectByAccountRoleName(map);
         if (accountRoleId != 0) {
             accountRoleInfoMapper.updateByPrimaryKeySelective(accountRoleInfo);
         }
-        else  {
+        else  if(selectByAccountRoleName.size() == 0){
             accountRoleInfoMapper.insertSelective(accountRoleInfo);
+        }
+        else{
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有该名称的角色");
         }
             
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, accountRoleInfo);
@@ -728,6 +735,14 @@ public class SystemSettingService {
      */
     public BaseDto viewDeleteRole(String storeAccount,
             Integer accountRoleId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("storeAccount", storeAccount);
+        map.put("accountRoleId", accountRoleId);
+        List<UserAccount> selectStoreAccountRole = userAccountMapper.selectStoreAccountRole(map);
+        if (selectStoreAccountRole.size() !=0) {
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有管理员引用该角色，不能删除");
+            
+        }
         AccountRoleInfo accountRoleInfo = new  AccountRoleInfo();
         accountRoleInfo.setIsDeleted(1);
         accountRoleInfo.setAccountRoleId(accountRoleId);

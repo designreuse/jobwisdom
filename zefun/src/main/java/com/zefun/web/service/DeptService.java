@@ -278,11 +278,19 @@ public class DeptService {
      */
     @Transactional
     public BaseDto saveOrUpdateDeptInfo(DeptInfo deptInfo) {
-        if (deptInfo.getDeptId()!=null){
+        DeptInfo dept = new DeptInfo();
+        dept.setDeptName(deptInfo.getDeptName());     
+        dept.setStoreId(deptInfo.getStoreId());
+        DeptInfo deptName = deptInfoMapper.getDeptDetail(dept);
+        
+        if (deptInfo.getDeptId()!=null) {
             deptInfoMapper.updateByPrimaryKeySelective(deptInfo);
         }
-        else {
+        else if (deptName.getDeptId() == null) {
             deptInfoMapper.insert(deptInfo);
+        }
+        else {
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有该部门名称");
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, deptInfo);
     }

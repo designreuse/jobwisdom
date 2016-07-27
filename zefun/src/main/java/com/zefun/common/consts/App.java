@@ -32,7 +32,7 @@ public interface App {
 
 		/** 服务器域名 */
 		public static final String SERVER_HOST = "wang.jobwisdom.cn";
-	  //public static final String SERVER_HOST = "job.jobwisdom.cn";
+//		public static final String SERVER_HOST = "job.jobwisdom.cn";
 
 
 		/** 服务器基础地址 */
@@ -253,6 +253,8 @@ public interface App {
         public static final String STORE_ACCOUNT = "session_key_store_account";
 		/** 当前用户的roleid */
 		public static final String ROLE_ID = "session_key_role_id";
+		/** 当前用户的roleid */
+		public static final String ACCOUNT_ROLE_ID = "session_key_account_role_id";
 		/** 当前用户所在门店id */
 		public static final String STORE_ID = "session_key_store_id";
 		/** 当前用户所在门店名称 */

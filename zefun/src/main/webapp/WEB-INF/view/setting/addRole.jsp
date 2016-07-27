@@ -77,11 +77,11 @@ jQuery(function(){
 	       <c:forEach items="${selectRoles }" var="role">
 			 <li id="${role.accountRoleId }">
 			    <div class="circle">
-				  <span onclick="deleteRole(${role.accountRoleId })"><img src="<%=basePath%>images/setting_close.png"></span>
-				  <p>${role.accountRoleName }</p>			  
+				 <span onclick="deleteRole(${role.accountRoleId })"><img src="<%=basePath%>images/setting_close.png"></span>
+				 <p>${role.accountRoleName }</p>			  
 				</div>
 				<div class="adjust">
-				  <span onclick="roleChange(${role.roleId },${role.accountRoleId })">修改</span>
+			  	<span onclick="roleChange(${role.roleId },${role.accountRoleId })">修改</span>
 				</div>
 			 </li>
 		</c:forEach>
@@ -105,7 +105,7 @@ jQuery(function(){
 	     </select></span>
 	   </p>
 	   <div class="appoint"  name="systemMemu">
-	     <p>*选择引用角色</p>
+	     <p>*选择菜单</p>
 	     <div class="appoint_content first">
 		    <ul class="appoint_ul clearfix"  name="firestMemu">
 			</ul>
@@ -115,7 +115,7 @@ jQuery(function(){
 	   </div>
 	   
 	     <div class="appoint">
-	     <p>*已选择引用角色</p>
+	     <p>*已选择菜单</p>
 	     <div class="appoint_content second">
 		    <ul class="appoint_ul clearfix" name="roleMemu">
 			</ul>
@@ -231,19 +231,29 @@ function saveRole (){
 	if(accountRoleName == null || accountRoleName == ""){
 		return dialog("角色名称不能为空");
 	}
-	jQuery.ajax({
-		type : "POST",
-		url : baseUrl + "system/view/saveRole",
-		data : datas,
-		dataType : "json",
-		success : function(data) {
-			var accountRoleInfo = data.msg;
-			dialog('保存成功');
-// 			jQuery(".zzc").find("input[name='accountRoleName']").attr("accountRoleId",0);
-// 			jQuery(".zzc").addClass("hide");
-			window.location.href = baseUrl +"system/view/showRole";
-		}
-	});
+	if(secendMemu.length == 0){
+		dialog('不能一个菜单都不选');
+	}
+	else{
+		jQuery.ajax({
+			type : "POST",
+			url : baseUrl + "system/view/saveRole",
+			data : datas,
+			dataType : "json",
+			success : function(data) {
+				if (data.code != 0) {
+	                dialog(data.msg);
+	                return;
+	            }
+				var accountRoleInfo = data.msg;
+				dialog('保存成功');
+//	 			jQuery(".zzc").find("input[name='accountRoleName']").attr("accountRoleId",0);
+//	 			jQuery(".zzc").addClass("hide");
+				window.location.href = baseUrl +"system/view/showRole";
+			}
+		});
+	}
+	
 }
 
 function deleteRole(accountRoleId){
@@ -255,6 +265,10 @@ function deleteRole(accountRoleId){
 			data : datas,
 			dataType : "json",
 			success : function(data) {
+				if (data.code != 0) {
+	                dialog(data.msg);
+	                return;
+	            }
 				dialog('删除成功');
 				jQuery(".content_right").find("li[id='"+accountRoleId+"']").attr("style"," display: none;")
 			}

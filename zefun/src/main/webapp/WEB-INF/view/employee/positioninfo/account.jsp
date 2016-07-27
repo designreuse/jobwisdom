@@ -215,19 +215,19 @@
 		 <div class="num_adjust_content_detail">
 		    <i>第一岗位</i>
 		    <select class="reference">
-		        <option>请选择参考职位</option>
+		        <option value="">请选择参考职位</option>
 		    </select>
 		  </div>
           <div class="num_adjust_content_detail">
 		    <i>第二岗位</i>
 		    <select class="referenceFirst">
-		        <option>请选择参考职位</option>
+		        <option value="">请选择参考职位</option>
 		    </select>
 		  </div>
           <div class="num_adjust_content_detail">
 		  	<i>第三岗位</i>
 		  	<select class="referenceTwo">
-		  	   <option>请选择参考职位</option>
+		  	   <option value="">请选择参考职位</option>
 		  	</select>
 		  </div>
         </div>
@@ -287,6 +287,10 @@ function saveDeptInfo(button){
 		data : data,
 		dataType : "json",
 		success : function(e){
+			if (e.code != 0){
+				dialog(e.msg);
+				return;
+			}
 			deptId = null;
 			var deptInfo = e.msg;
 			var html = '<div class="data_text">'+deptInfo.deptName+
@@ -403,8 +407,6 @@ function initEmployee(epms){
 		  }
 	}
 }
-
-
 var levelId = null;
 function showUpdateLevel(li, levelName, levelIds, positionId){
 	jQuery(".zzc1").find("input[name='levelName']").val(levelName);
@@ -457,8 +459,14 @@ function saveOrUpdateLevel(s,type){
 	if (referenceFirst!=null){
 		data = data + "&referenceFirst="+referenceFirst;
 	}
+	else {
+		data = data + "&referenceFirst="+"";
+	}
 	if (referenceTwo!=null){
 		data = data + "&referenceTwo="+referenceTwo;
+	}
+	else {
+		data = data + "&referenceTwo="+"";
 	}
 	jQuery.ajax({
 		type : "post",
@@ -466,10 +474,15 @@ function saveOrUpdateLevel(s,type){
 		data : data,
 		dataType : "json",
 		success : function(e){
+			if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
 			if (levelId!=null){
 				data = data + "&levelId="+levelId;
 			}
 			levelId = null;
+			
 			jQuery(".job_content.clearfix");
 			var employeeLevel = e.msg.employeeLevel;
 			jQuery("#"+employeeLevel.levelId).addClass("hide");

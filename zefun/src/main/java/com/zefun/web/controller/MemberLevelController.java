@@ -124,6 +124,7 @@ public class MemberLevelController extends BaseController {
 	public ModelAndView listView(HttpServletRequest request){
 	    int storeId = 0;
 	    int roleId = getRoleId(request);
+	   
 	    if (roleId != 1) {
 	    	storeId = getStoreId(request);
 	    }
