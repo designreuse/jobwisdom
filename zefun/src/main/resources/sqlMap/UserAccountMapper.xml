@@ -171,7 +171,8 @@
   </select>
   
    <select id="selectTouserByUserAccount" parameterType="com.zefun.web.entity.UserAccount" resultType="com.zefun.web.entity.UserAccount">
-  	select user_id as userId  from user_account where store_account=#{storeAccount}  AND role_id = 1 
+  	  	SELECT u.user_id AS userId  FROM user_account u WHERE u.store_account=#{storeAccount}   AND 
+  	EXISTS (SELECT 1 FROM account_role_info c WHERE c.store_account = u.store_account AND u.role_id = c.account_role_id)
   </select>
   
   <update id="updateDisableAndStart" parameterType="com.zefun.web.entity.UserAccount" >
@@ -203,6 +204,9 @@
     </if>
     and e.is_deleted = 1
   </select>
+  
+  
+
   
     <select id="selectStoreAccountRole" resultMap="BaseResultMap" parameterType="java.util.Map" >
     select

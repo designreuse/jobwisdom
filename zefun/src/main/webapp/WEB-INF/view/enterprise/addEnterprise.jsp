@@ -136,7 +136,7 @@
 		/* var addressList = jQuery("#city-picker3").val().split('/');
 		var enterpriseProvince = addressList[0];
 		var enterpriseCity = addressList[1]; */
-		var enterpriseAddress = jQuery("#searchtext").val();
+		var enterpriseAddress = jQuery("#searchtext").text();
 		var enterpriseEdition = jQuery("input[name='enterpriseEdition']:checked").attr("value");
 		var useTime = jQuery("select[name='useTime']").val();
 		if (isEmpty(enterpriseName)) {
@@ -201,6 +201,7 @@
 	}
 	
 	function showModal() {
+		
 		jQuery(".zzc").show();
 	}
 	
@@ -216,6 +217,7 @@
 		jQuery("#city-picker3").citypicker('reset');
 		jQuery("#storeAccount").removeAttr("disabled");
 		jQuery("select[name='useTime']").removeAttr("disabled");
+		jQuery("input[name='storeAccount']").removeAttr("disabled");
 		enterInfoId=null;
 	}
 	
@@ -255,6 +257,7 @@
 		});
 		jQuery("#storeAccount").attr("disabled","true");
 		jQuery("select[name='useTime']").attr("disabled","disabled");
+		jQuery("input[name='storeAccount']").attr("disabled","disabled");
 		jQuery(".zzc").show();
 	  }
 	  

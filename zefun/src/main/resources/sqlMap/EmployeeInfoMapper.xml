@@ -23,6 +23,7 @@
     <result column="service_score" property="serviceScore" jdbcType="REAL" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="base_salaries" property="baseSalaries" jdbcType="INTEGER" />
     <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
     <result column="accredit_code" property="accreditCode" jdbcType="INTEGER" />
@@ -441,6 +442,7 @@
       <if test="employeeDesc != null" >
         employee_desc = #{employeeDesc,jdbcType=LONGVARCHAR},
       </if>
+    
     </set>
     
     where employee_id = #{employeeId,jdbcType=INTEGER}
@@ -513,8 +515,12 @@
         accredit_code,
       </if>
       <if test="employeeDesc != null">
-      	employee_desc
+      	employee_desc,
       </if>
+       <if test="baseSalaries != null">
+      	base_salaries
+      </if>
+      
      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -584,6 +590,9 @@
       <if test="employeeDesc != null">
       	#{employeeDesc}
       </if>
+       <if test="baseSalaries != null">
+      		#{baseSalaries}
+      </if>
     </trim>
   </insert>
   
@@ -648,7 +657,10 @@
         last_operator_id = #{lastOperatorId,jdbcType=INTEGER},
       </if>
       <if test="employeeDesc != null">
-      	employee_desc = #{employeeDesc}
+      	employee_desc = #{employeeDesc},
+      </if>
+       <if test="baseSalaries != null">
+      	base_salaries= #{baseSalaries}
       </if>
     </set>
     ,dept_id = #{deptId,jdbcType=INTEGER},  level_id = #{levelId,jdbcType=INTEGER}

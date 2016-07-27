@@ -24,8 +24,20 @@
      <if test="roleId != null" >
        and  account_role_id = #{roleId}
      </if>
+       <if test="roleIds != null" >
+       and  role_id = #{roleIds}
+     </if>
     and  store_account = #{storeAccount}  and  is_deleted = 0
   </select>
+  
+      <select id="selectByStoreAccout" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select * from account_role_info where  store_account = #{storeAccount} and  is_deleted = 0 and
+	 exists( select
+				 u.role_id
+	   			 from user_account u
+	   			 where u.status = 0    and u.store_account = #{storeAccount}     and u.store_id = #{storeId}  and u.role_id =role_id  GROUP BY  role_id)  
+  </select>
+  
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
