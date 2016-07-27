@@ -62,9 +62,7 @@
 						</div>
 
 					<div class="new_data">
-						<button onclick="jQuery('.zzc1').modal();jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
-						<button>导入模块下载</button>
-						<button style="width: 60px">导入</button>
+						<button onclick="jQuery('.zzc1').modal();jQuery('textarea[name=\'goodsDesc\']').val('');jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
 						<button style="width: 60px" onclick="exportTable('ag')">导出</button>
 						<span class="data_number"> <input type="text" placeholder="名称/编号"> <em><img src="<%=basePath%>images/seach.png"></em>
 						</span>
@@ -174,13 +172,23 @@
 								'<td>'+accountGood.goodsCodeSuffix +'</td>'+
 								'<td>'+accountGood.goodsName +'</td>'+
 								'<td>'+brandList[accountGood.isSellProduct]+'</td>'+
-								'<td>'+accountGood.costPrice +'</td>'+
-								'<td>'+goodsStock +'</td>'+
+								'<td>'+accountGood.costPrice +'</td>';
+				if (goodsStock == undefined){
+					html += '<td></td>'+
 								'<td>'+brandName +'</td>'+
 								'<td>'+
 								'<span><img onclick="queryGoods('+accountGood.goodsId +',this)" src="'+baseUrl+'images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>'+
 								'<i style="display: none;">停止</i></td>'+
 							'</tr>';
+				}else {
+					html += '<td>'+goodsStock +'</td>'+
+								'<td>'+brandName +'</td>'+
+								'<td>'+
+								'<span><img onclick="queryGoods('+accountGood.goodsId +',this)" src="'+baseUrl+'images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>'+
+								'<i style="display: none;">停止</i></td>'+
+							'</tr>';
+				}
+								
 				if (goodsId == null){
 					html = '<tr goodsDesc="'+accountGood.goodsDesc +'" goodsId="'+accountGood.goodsId +'" isSellProduct="'+accountGood.isSellProduct +'"  supplierId="'+accountGood.supplierId +'" brandId="'+accountGood.brandId +'">'+
 								'<td>'+accountGood.goodsCodeSuffix +'</td>'+
