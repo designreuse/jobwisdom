@@ -1433,6 +1433,19 @@ public interface Url {
 	}
 
 	/**
+	 * 方案
+	* @author 老王
+	* @date 2016年7月27日 上午11:44:14
+	 */
+	class Programme {
+		/** 大客户分析*/
+		public static final String VIEW_BIG_CUSTOMER_ANALYSIS = "programme/view/bigCustomerAnalysis";
+		
+		/** 初始化规则*/
+		public static final String ACTION_INITIALIZATION_SETTING_RULE = "programme/action/initializationSettingRule";
+	}
+	
+	/**
 	 * 流水查詢
 	 *
 	 * @author luhhwen

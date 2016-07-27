@@ -827,6 +827,16 @@ public interface View {
 		/** 营业分析 */
 		public static final String BUSINESS = "businessAnalysis/business";
 	}
+	
+	/**
+	 * 方案
+	* @author 老王
+	* @date 2016年7月27日 下午2:19:29
+	 */
+	class Programme {
+		/** 大客户分析*/
+		public static final String VIEW_BIG_CUSTOMER_ANALYSIS = "programme/bigCustomerAnalysis";
+	}
 
 	/**
 	 * 友宝商城
