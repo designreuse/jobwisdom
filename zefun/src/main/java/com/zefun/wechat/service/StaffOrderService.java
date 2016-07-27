@@ -92,17 +92,41 @@ public class StaffOrderService {
     private MemberAppointmentMapper memberAppointmentMapper;
     
     /**
-     * 查询店内所有订单
+     * 查询看手牌对应订单
     * @author 张进军
     * @date Oct 13, 2015 9:43:06 PM
     * @param orderId 订单标识
+    * @param employeeId 员工标识
     * @return   全部订单页面
      */
-    public ModelAndView allOrderView(Integer orderId){
+    public ModelAndView allOrderView(Integer orderId, Integer employeeId){
+    	OrderInfo record = new OrderInfo();
+    	record.setOrderId(orderId);
+    	record.setIsOrderOption(1);
+    	record.setOptionEmployeeId(employeeId);
+    	//将订单状态改为正在操作
+    	orderInfoMapper.updateIsOrderOption(record);
         ModelAndView mav = new ModelAndView(View.StaffPage.ORDER_LIST);
         SelfCashierOrderDto orderDto = orderInfoMapper.selectByNoPageOrderId(orderId);
         mav.addObject("orderDto", orderDto);
         return mav;
+    }
+    
+    /**
+     * 修改订单状态为可操作
+    * @author 老王
+    * @date 2016年7月26日 下午3:07:26 
+    * @param orderId 订单标识
+    * @return 是否成功
+     */
+    public BaseDto updateIsOrderOption(Integer orderId){
+    	OrderInfo record = new OrderInfo();
+    	record.setOrderId(orderId);
+    	record.setIsOrderOption(0);
+    	record.setOptionEmployeeId(null);
+    	//将订单状态改为正在操作
+    	orderInfoMapper.updateIsOrderOption(record);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
     /**
@@ -145,14 +169,15 @@ public class StaffOrderService {
     * @date 2015年11月10日 上午10:34:21
     * @param orderId 订单标识
     * @param storeId 门店标识
+    * @param employeeId 员工标识
     * @return ModelAndView
      */
-    public ModelAndView selectOrderDetail(Integer orderId, Integer storeId) {
+    public ModelAndView selectOrderDetail(Integer orderId, Integer storeId, Integer employeeId) {
         
         OrderInfo obj = orderInfoMapper.selectByPrimaryKey(orderId);
         ModelAndView mav = new ModelAndView();
         if (obj.getIsDeleted() == 1) {
-            return staffService.receptionView(storeId);
+            return staffService.receptionView(employeeId);
         }
         
         OrderInfoBaseDto orderInfo = orderInfoService.getOrderInfoBaseDto(orderId);  

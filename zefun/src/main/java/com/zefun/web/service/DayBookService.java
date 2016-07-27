@@ -43,7 +43,6 @@ import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberComboProject;
 import com.zefun.web.entity.MemberComboRecord;
-import com.zefun.web.entity.MemberCoupon;
 import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.MemberSubAccount;
 import com.zefun.web.entity.MoneyFlow;
@@ -650,10 +649,10 @@ public class DayBookService {
         }
         else if (orderDetail.getOffType() == 2){
             //回滚优惠卷
-            MemberCoupon record = new MemberCoupon();
+            /*MemberCoupon record = new MemberCoupon();
             record.setRelevanceId(orderDetail.getCouponId());
             record.setIsUsed(0);
-            memberCouponMapper.updateByPrimaryKey(record);
+            memberCouponMapper.updateByPrimaryKey(record);*/
         }
         else if (orderDetail.getOffType() == 3){
             //回滚礼金(出现两个记录的话 ，我会骂街)

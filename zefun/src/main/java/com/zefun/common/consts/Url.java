@@ -1044,6 +1044,8 @@ public interface Url {
 		public static final String VIEW_APPEND_DETAIL = "staff/view/appendDetail";
 		/** 订单详情 */
 		public static final String VIEW_SELECT_ORDER_DETAIL = "/staff/view/selectOrderDetail/{storeId}/{businessType}";
+		/** 修改订单操作性*/
+		public static final String ACTION_UPDATE_IS_ORDER_OPTION = "staff/action/updateIsOrderOption";
 		/** 删除订单明细 */
 		public static final String ACTION_DELETE_ORDER_DETAIL = "staff/action/deleteOrderDetail";
 		/** 删除订单 */
@@ -1430,6 +1432,19 @@ public interface Url {
 		public static final String VIEW_ANALYSIS_BUSINESS = "businessAnalysis/view/business";
 	}
 
+	/**
+	 * 方案
+	* @author 老王
+	* @date 2016年7月27日 上午11:44:14
+	 */
+	class Programme {
+		/** 大客户分析*/
+		public static final String VIEW_BIG_CUSTOMER_ANALYSIS = "programme/view/bigCustomerAnalysis";
+		
+		/** 初始化规则*/
+		public static final String ACTION_INITIALIZATION_SETTING_RULE = "programme/action/initializationSettingRule";
+	}
+	
 	/**
 	 * 流水查詢
 	 *

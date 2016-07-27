@@ -48,7 +48,8 @@ public class StaffOrderController extends BaseController{
         if (openId == null) {
             return null;
         }
-        return staffOrderService.allOrderView(orderId);
+        Integer employeeId = getUserIdByOpenId(openId);
+        return staffOrderService.allOrderView(orderId, employeeId);
     }
     
     /**
@@ -91,7 +92,27 @@ public class StaffOrderController extends BaseController{
             return null;
         }
         int ownerStoreId = getStoreIdByOpenId(openId);
-        return staffOrderService.selectOrderDetail(orderId, ownerStoreId);
+        Integer employeeId = getUserIdByOpenId(openId);
+        return staffOrderService.selectOrderDetail(orderId, ownerStoreId, employeeId);
+    }
+    
+    /**
+     * 修改订单可操作
+    * @author 老王
+    * @date 2016年7月26日 下午3:10:47 
+    * @param request 返回
+    * @param response 请求
+    * @param orderId 订单标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Staff.ACTION_UPDATE_IS_ORDER_OPTION)
+    @ResponseBody
+    public BaseDto updateIsOrderOption (HttpServletRequest request, HttpServletResponse response, Integer orderId) {
+    	String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
+    	return staffOrderService.updateIsOrderOption(orderId);
     }
     
     /**
