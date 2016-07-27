@@ -25,6 +25,11 @@
     dept_id, store_id, dept_code, dept_name, operate_time, operate_id, is_results, is_deleted
   </sql>
   
+    <select id="getDeptName" resultType="BaseResultMap" parameterType="com.zefun.web.entity.DeptInfo" >
+	   select  <include refid="Base_Column_List" /> from dept_info where store_id=#{storeId} and is_deleted=0
+	   and dept_name=#{deptName}
+	</select>
+  
   <!-- 根据门店编号查询部门编号列表，by 张进军 -->
   <select id="selectDeptIdByStoreId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
     select dept_id from dept_info where store_id = #{storeId} and is_deleted=0
@@ -97,6 +102,8 @@
    and dept_code=#{deptCode}
    </if>
   </select>
+  
+ 
   <!-- 统计项目是否有引用部门 -->
   <select id="countProjectDept" parameterType="java.util.Map" resultType="java.lang.Integer">
   SELECT COUNT(0) from project_info where dept_id=#{deptId} and store_id=#{storeId} and is_deleted=0

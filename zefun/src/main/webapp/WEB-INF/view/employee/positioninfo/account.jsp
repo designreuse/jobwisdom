@@ -287,6 +287,10 @@ function saveDeptInfo(button){
 		data : data,
 		dataType : "json",
 		success : function(e){
+			if (e.code != 0){
+				dialog(e.msg);
+				return;
+			}
 			deptId = null;
 			var deptInfo = e.msg;
 			var html = '<div class="data_text">'+deptInfo.deptName+
@@ -470,10 +474,15 @@ function saveOrUpdateLevel(s,type){
 		data : data,
 		dataType : "json",
 		success : function(e){
+			if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
 			if (levelId!=null){
 				data = data + "&levelId="+levelId;
 			}
 			levelId = null;
+			
 			jQuery(".job_content.clearfix");
 			var employeeLevel = e.msg.employeeLevel;
 			jQuery("#"+employeeLevel.levelId).addClass("hide");

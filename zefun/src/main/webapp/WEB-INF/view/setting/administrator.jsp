@@ -40,7 +40,14 @@
 						  <td>${userAccount.employeeName }</td>
 						  <td>${userAccount.roleName }</td>
 						  <td>${userAccount.storeName }</td>
-						  <td><img onclick="updateUser(this)" src="<%=basePath%>images/add_store_1.png"><img onclick="deleteUser(this)" src="<%=basePath%>images/add_store_2.png"></td>
+						<c:choose>
+						   <c:when test="${userAccount.userName eq '10000'}">  
+						   <td></td>    
+						   </c:when>
+						   <c:otherwise> 
+							<td><img onclick="updateUser(this)" src="<%=basePath%>images/add_store_1.png"><img onclick="deleteUser(this)" src="<%=basePath%>images/add_store_2.png"></td>
+						   </c:otherwise>
+						</c:choose>
 						 </tr>
 					 </c:forEach>
 				  </tbody></table>
@@ -57,19 +64,20 @@
 	    <p><span>姓名：</span><input type="text" name = "employee"><i>*</i></p>
 <!-- 		<p><span>密码：</span><input type="text" ><i>*</i></p> -->
 		<p><span>系统角色：</span>
-			<select name = "role"  onchange="tyep">
+			<select name = "role"  onchange="tyep(this)"  >
 				<c:forEach items="${accountRoleInfo }" var="accountRoleInfo">
-				<option roleId="${accountRoleInfo.accountRoleId }">${accountRoleInfo.accountRoleName }</option>
+				<option roleId="${accountRoleInfo.accountRoleId }"  systemRole="${accountRoleInfo.roleId }">${accountRoleInfo.accountRoleName }</option>
 				</c:forEach>
 			</select>
 			<i>*</i>
 		</p>
 		<p><span>所属门店：</span>
 			<select name = "store">
-				<option storeId = "0" >企业</option>
+				
 				<c:forEach items="${storeInfo }" var="storeInfo">
 					<option storeId="${storeInfo.storeId }">${storeInfo.storeName }</option>
 				</c:forEach>	
+				<option  storeId = "0" >企业</option>
 			</select>
 		</p>
 		<div class="zzc_manage_content_button">
@@ -81,6 +89,27 @@
 </div>
 </body>
 <script>
+
+function tyep(s){
+	var systemRole =jQuery(s).find("option:selected").attr("systemRole");
+	if(systemRole == 1){
+		jQuery("select[name='store']").val("企业");
+		jQuery("select[name='store']").attr('disabled','disabled');
+// 		jQuery("select[name='store']").val("")
+	}
+	
+	else{
+		if(jQuery("select[name='store'] option").length ==1){
+			  dialog("没有分店");
+			  jQuery("select[name='store']").val("企业");
+			  return;
+		}
+		jQuery("select[name='store']").attr('disabled',false);
+		jQuery('select option[storeid="0"]').attr('disabled','disabled');
+		jQuery("select[name='store']").find("option").eq(0).attr("selected",true);
+	}
+}
+
 function showViwe(){
 	jQuery(".zzc").show();
 	}
@@ -139,9 +168,11 @@ function selectUser (){
         success: function(data) {
         	if (data.code != 0) {
                 dialog(data.msg);
+                jQuery(".trs").empty();
                 return;
             }
         	var userAccounts = data.msg;
+        
         	var html = '<tr class="tr"> <td>工号</td><td>姓名</td><td>系统角色</td><td>所属门店</td><td>操作</td></tr>';
         	for (var i = 0; i < userAccounts.length; i++) {
         		 var  userAccount = userAccounts[i];

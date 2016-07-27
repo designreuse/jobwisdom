@@ -24,6 +24,15 @@ public interface AccountRoleInfoMapper {
     AccountRoleInfo selectByPrimaryKey(Integer accountRoleId);
     
     /**
+     * 
+    * @author 骆峰
+    * @date 2016年7月26日 下午8:06:19
+    * @param mapMenu  mapMenumapMenu
+    * @return AccountRoleInfo AccountRoleInfo
+     */
+    List<AccountRoleInfo> selectByAccountRoleName(Map<String, Object> mapMenu);
+    
+    /**
      *   查询该权限下的菜单
     * @author 骆峰
     * @date 2016年7月21日 上午11:06:34

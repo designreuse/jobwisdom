@@ -226,13 +226,19 @@ public class EmployeelevelService {
     public BaseDto saveOrUpdateEmployeeLevel(EmployeeLevel employeeLevel) {
     
         Map<String, Object> results = new HashMap<>();
-      
-        
+        EmployeeLevel selectEmp = new EmployeeLevel();
+        selectEmp.setStoreId(employeeLevel.getStoreId());
+        selectEmp.setLevelName(employeeLevel.getLevelName());
+        selectEmp.setPositionId(employeeLevel.getPositionId());
+        List<EmployeeLevelDto> selectByKey = employeelevelMapper.selectByKey(selectEmp);
         if (employeeLevel.getLevelId()!=null){
             employeelevelMapper.updateByPrimaryKeySelective(employeeLevel);
         }
-        else {
+        else if (selectByKey.size() == 0) {
             employeelevelMapper.insert(employeeLevel);
+        }
+        else {
+            return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该岗位下已有该名称的员工");
         }
         EmployeeLevel query = new EmployeeLevel();
         query.setStoreId(employeeLevel.getStoreId());
