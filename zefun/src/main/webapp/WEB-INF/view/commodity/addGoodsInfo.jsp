@@ -62,7 +62,7 @@
 						</div>
 
 					<div class="new_data">
-						<button onclick="jQuery('.zzc1').modal();jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
+						<button onclick="jQuery('.zzc1').modal();jQuery('textarea[name=\'goodsDesc\']').val('');jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
 						<button>导入模块下载</button>
 						<button style="width: 60px">导入</button>
 						<button style="width: 60px" onclick="exportTable('ag')">导出</button>
