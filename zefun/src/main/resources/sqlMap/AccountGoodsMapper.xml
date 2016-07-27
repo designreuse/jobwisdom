@@ -156,4 +156,9 @@
     <if test="isSellProduct != null" > and ag.is_sell_product = #{isSellProduct,jdbcType=INTEGER}</if>
   </select>
   
+  <select id="selectHasGoodsInfo" parameterType="com.zefun.web.entity.AccountGoods" resultMap="BaseResultMap">
+  	select * from account_goods where 1=1 and (goods_name=#{goodsName} or goods_code_suffix=#{goodsCodeSuffix})
+  	<if test="goodsId != null" > and goods_id != #{goodsId}</if>
+  </select>
+  
 </mapper>
