@@ -123,6 +123,7 @@
 </body>
 
 <script>
+	
 	var storeAccount = '${session_key_store_account}';
 	var supplierInfoDtosJs = ${supplierInfoDtosJs};
 	var goodsId = null;
@@ -255,6 +256,7 @@
 	}
 	
 	function choseStore(li){
+		
 		var storeId = jQuery(li).attr("storeId");
 		jQuery(li).siblings().removeClass("active");
 		jQuery(li).addClass("active");
@@ -305,6 +307,7 @@
 	/**分页查询*/
 	function changePage(){
 		var data = "pageNo="+pageNo+"&pageSize="+pageSize;
+	
 		jQuery.ajax({
 			type : "post",
 			url : baseUrl + "goodsInfo/view/setting/page",
