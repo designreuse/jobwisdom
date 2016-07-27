@@ -47,17 +47,7 @@
 								</tr>
 							</thead>
 							<tbody id="serch_member_list">
-								<tr>
-									<td>150154231521</td>
-									<td>姓名姓名</td>
-									<td>男</td>
-									<td>12-12</td>
-									<td>5000</td>
-									<td>5050</td>
-									<td>200</td>
-									<td>400</td>
-									<td>2016-12-12 23:1:12:12</td>
-								</tr>
+								
 							</tbody>
 						</table>
 						<div class="fenye hide">

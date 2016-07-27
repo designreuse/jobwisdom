@@ -32,7 +32,7 @@ public interface App {
 
 		/** 服务器域名 */
 		public static final String SERVER_HOST = "wang.jobwisdom.cn";
-	  //public static final String SERVER_HOST = "job.jobwisdom.cn";
+//		public static final String SERVER_HOST = "job.jobwisdom.cn";
 
 
 		/** 服务器基础地址 */
