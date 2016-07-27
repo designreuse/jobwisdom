@@ -424,7 +424,7 @@
   <select id="selectStepByStatusOfInServeOrWating" resultMap="BaseResultMap" parameterType="java.lang.Integer">
   	select * 
 	from shift_mahjong_project_step 
-	where is_deleted = 0 and is_over in (1, 2) and employee_id = ${employeeId}
+	where is_deleted = 0 and is_over = 1 and employee_id = ${employeeId}
   </select>
   
   
