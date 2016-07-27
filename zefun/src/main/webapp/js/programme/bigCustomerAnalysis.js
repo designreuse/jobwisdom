@@ -25,7 +25,24 @@ function saveRule () {
 }
 
 jQuery(function () {
-    
+    if (analysisType == 1) {
+    	dialog("未创建门店");
+    	
+    	/*if(confirm("确认要删除该条信息吗？")){ 
+    		jQuery.ajax({
+    			type : "post",
+    			url : baseUrl + "shift/action/deleteemployeeshift",
+    			data : "employeeId=" + id,
+    			dataType : "json",
+    			success : function(e){
+    				
+    				dialog(e.msg);
+    				jQuery(".collect-money-table tr[id='"+id+ "']").fadeOut(800).remove();
+    			}
+    		});
+    	}*/
+    }
+	
     var colors = Highcharts.getOptions().colors,
         categories = ['0-300元', '300-500元', '500-1000元', '1000-3000元', '3000元以上'],
         name = '消费分析',

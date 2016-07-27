@@ -256,10 +256,10 @@
 			   <textarea style="height:86px;margin-top:10px;border-radius:8px!important;width:220px;position:relative;left:10px" id = "searchtext"></textarea>
 			 </div>
 		
-			 <div class="detail_address">
+			 <!-- <div class="detail_address">
 			   <div class="hide">操作员工号<em style="color:red;font-size:16px;font-weight:bold;display:inline-block;margin-left:4px" id = "userName">1007</em></div>
-			  <!--  <input type="text" id = "userName" readonly>  -->       		   
-			 </div>
+			   <input type="text" id = "userName" readonly>        		   
+			 </div> -->
 		 
 		 </div>
 	 </div>
