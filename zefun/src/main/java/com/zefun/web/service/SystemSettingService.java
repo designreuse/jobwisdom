@@ -714,10 +714,10 @@ public class SystemSettingService {
         if (accountRoleId != 0) {
             accountRoleInfoMapper.updateByPrimaryKeySelective(accountRoleInfo);
         }
-        else  if(selectByAccountRoleName.size() == 0){
+        else if (selectByAccountRoleName.size() == 0) {
             accountRoleInfoMapper.insertSelective(accountRoleInfo);
         }
-        else{
+        else {
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有该名称的角色");
         }
             
