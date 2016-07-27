@@ -96,6 +96,7 @@ public class EmployeeController extends BaseController{
 	public ModelAndView employeeLevelView(HttpServletRequest request, HttpServletResponse response){
 		Map<String, Object> params=new HashMap<String, Object>();
 		params.put("storeId", getStoreId(request));
+		params.put("storeAccount", getStoreAccount(request));
 		return employeeService.queryEmployeeInfo(params);
 	}
 	/**
@@ -176,7 +177,7 @@ public class EmployeeController extends BaseController{
 		map.put("createTime", DateUtil.getCurTime());
 		map.put("lastOperatorId", getUserId(request));*/
 		
-		int result=employeeService.addEmployee(employeeDto);
+		int result=employeeService.addEmployee(employeeDto, getStoreAccount(request));
 		if (result==1){
 			return new BaseDto(-2, "员工编码已经被人引用过了！");
 		}

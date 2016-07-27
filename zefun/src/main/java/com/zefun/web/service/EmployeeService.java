@@ -51,6 +51,7 @@ import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.entity.AccountRoleInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeLevel;
@@ -61,6 +62,7 @@ import com.zefun.web.entity.RoleInfo;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.UserAccount;
+import com.zefun.web.mapper.AccountRoleInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
@@ -140,6 +142,10 @@ public class EmployeeService {
 	/** 门店*/
 	@Autowired
 	private StoreInfoMapper storeInfoMapper;
+	
+	/** 企业角色*/
+	@Autowired
+	private AccountRoleInfoMapper accountRoleInfoMapper;
 
 	/**
 	 * 查询某个店铺的职位信息 默认返回该门店最前面10条数据
@@ -156,6 +162,7 @@ public class EmployeeService {
 
 		// 获取人员 选择推荐人要用的下拉框
 		Integer storeId = Integer.parseInt(params.get("storeId").toString());
+		String storeAccount = params.get("storeAccount").toString();
 		List<EmployeeInfo> recommendList = employeeInfoMapper.getRecommendlist(storeId);
 		mav.addObject("recommendList", recommendList);
 
@@ -176,7 +183,10 @@ public class EmployeeService {
 		mav.addObject("employeeDtoList", employeeDtoList);
 		
 		// 获取人员角色
-		List<RoleInfo> rolelist = roleInfoMapper.selectAllRoles();
+        Map<String, Object> map = new HashMap<String, Object>(); 
+        map.put("storeAccount", storeAccount);
+        map.put("storeId", storeId);
+        List<AccountRoleInfo> rolelist = accountRoleInfoMapper.selectByStoreAccout(map);
 		mav.addObject("rolelist", rolelist);
 		
 		List<Map<String, Object>> storeDtoList = new ArrayList<>();
@@ -311,12 +321,12 @@ public class EmployeeService {
 	 * 
 	 * @author 陈端斌
 	 * @date 2015年8月10日 下午4:49:20
-	 * @param employeeDto
-	 *            参数
+	 * @param employeeDto 参数
+	 * @param storeAccount storeAccount
 	 * @return int
 	 */
 	@Transactional
-	public int addEmployee(EmployeeDto employeeDto) {
+	public int addEmployee(EmployeeDto employeeDto, String storeAccount) {
 		// 判断编码是否已经存在了
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("employeeCode", employeeDto.getEmployeeCode());
@@ -339,11 +349,11 @@ public class EmployeeService {
 		String headImg = employeeDto.getHeadImage();
 		if (headImg == null || StringUtils.isEmpty(headImg)) {
 			if ("男".equals(sex)) {
-				employeeDto.setHeadImage("pc/defaulf_male.png");
+				employeeDto.setHeadImage("system/profile/employee.png");
 				// map.put("headImage", "pc/defaulf_male.png");
 			} 
 			else {
-				employeeDto.setHeadImage("pc/defaulf_female.png");
+				employeeDto.setHeadImage("system/profile/employee.png");
 				// map.put("headImage", "pc/defaulf_female.png");
 			}
 		}
@@ -356,6 +366,7 @@ public class EmployeeService {
 		UserAccount userAccount = new UserAccount();
 		userAccount.setUserPwd(password);
 		userAccount.setPwdSalt(salt);
+		userAccount.setStoreAccount(storeAccount);
 		userAccount.setUserId(employeeDto.getEmployeeId());
 		userAccount.setUserName(employeeDto.getPhone());
 		userAccount.setRoleId(employeeDto.getRoleId());
@@ -451,7 +462,7 @@ public class EmployeeService {
 		userInfo.setUserId(employeeDto.getEmployeeId());
 		userInfo.setRoleId(employeeDto.getRoleId());
 		userInfo.setUserName(employeeDto.getPhone());
-		userAccountMapper.updateUserRole(userInfo);
+		userAccountMapper.updateByPrimaryKey(userInfo);
 		// 先删除之前的介绍人
 		int employeeId = employeeDto.getEmployeeId();
 		employeeInfoMapper.deleteRecommend(employeeId);

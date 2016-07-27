@@ -81,20 +81,18 @@ public class StoreInfoController extends BaseController {
 	* @author 老王
 	* @date 2016年4月30日 下午4:52:22 
 	* @param storeInfo 门店信息
-	* @param userName 操作员
-	* @param userPwd 操作原密码
 	* @param request 返回
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.StoreInfo.SAVE_UPDATE_STORE)
 	@ResponseBody
-	public BaseDto saveUpdateStore (StoreInfo storeInfo, Integer userName, String userPwd, HttpServletRequest request) {
+	public BaseDto saveUpdateStore (StoreInfo storeInfo, HttpServletRequest request) {
 		if (storeInfo.getStoreId() == null) {
 			String storeAccount = getStoreAccount(request);
 			storeInfo.setStoreAccount(storeAccount);
 			storeInfo.setStoreType(3);
 			//新增操作员
-			return storeInfoService.saveStore(storeInfo, userName, userPwd);
+			return storeInfoService.saveStore(storeInfo);
 		}
 		else {
 			return storeInfoService.storeSettingAction(storeInfo);

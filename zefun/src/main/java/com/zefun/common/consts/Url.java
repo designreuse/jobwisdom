@@ -882,7 +882,7 @@ public interface Url {
 		/** 友宝回调接口 */
 		public static final String ACTION_CALLBACK = "/callback/ubox";
 	}
-
+	
 	/** 员工模块 */
 	class Employee {
 		/** 显示人员信息页面 */

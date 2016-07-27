@@ -415,4 +415,8 @@
   </div>
 </body>
 <script type="text/javascript" src="<%=basePath %>js/programme/bigCustomerAnalysis.js"></script>
+<script type="text/javascript">
+   var analysisType = '${analysisType}';
+</script>
+
 </html>
