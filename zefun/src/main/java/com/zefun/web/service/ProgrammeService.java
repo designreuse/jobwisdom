@@ -42,7 +42,8 @@ public class ProgrammeService {
 		ModelAndView mav = new ModelAndView(View.Programme.VIEW_BIG_CUSTOMER_ANALYSIS);
 		List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
         if (storeInfoList.isEmpty() || storeInfoList.size() == 0) {
-			
+        	mav.addObject("analysisType", 1);
+        	return mav;
 		}
 		mav.addObject("storeAccount", storeAccount);
 		mav.addObject("storeInfoList", storeInfoList);

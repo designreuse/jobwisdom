@@ -46,7 +46,6 @@ jQuery(function(){
 }) 
 
 function addStore() {
-	jQuery("#userName").text(new Big(10000).plus(new Big(alreadyStoreNum)).plus(new Big(1)));
 	jQuery("#addOrUpdateStore").find("[type='hidden']").val('');
 	jQuery("#addOrUpdateStore").find("[type='text']").val('');
 	jQuery("#addOrUpdateStore").find("[type='checkbox']").removeAttr("checked");
@@ -245,7 +244,6 @@ function editStore (storeId) {
             }
         	var obj = data.msg;
         	var storeInfo = obj.storeInfo;
-        	var userName = obj.userName;
       
         	imgKey = storeInfo.storeLogo;
         	jQuery("img[name='affiliatedImage']").attr("src", qiniuUrl + storeInfo.storeLogo);
@@ -257,7 +255,6 @@ function editStore (storeId) {
         	jQuery("#city-picker3").citypicker('destroy');
         	jQuery("#city-picker3").citypicker({province: storeInfo.storeProvince, city: storeInfo.storeCity});
         	jQuery("#searchtext").val(storeInfo.storeAddress);
-        	jQuery("#userName").text(userName);
         	jQuery("input[name='storeId']").val(storeInfo.storeId);
         	
         }
@@ -539,13 +536,9 @@ function saveStoreInfo(){
 	var storeCity = addressList[1];
 	var street = jQuery("#searchtext").val();
 	
-	var userName  = jQuery("#userName").text();
-	var userPwd  = "123456";
 	
 	var storeId = jQuery("input[name='storeId']").val();
-	
-	userPwd = CryptoJS.MD5(CryptoJS.MD5(userPwd).toString().toUpperCase()).toString().toUpperCase();
-	
+		
 	if (isEmpty(storeProvince)) {
 		dialog("请选择省");
 		return;
@@ -604,7 +597,7 @@ function saveStoreInfo(){
 		return;
 	} */
 	var data = "storeId="+storeId+"&storeLogo=" + storeLogo + "&storeName=" + storeName + "&storeTel=" + storeTel + "&storeAddress=" + storeAddress + "&storeProvince=" + storeProvince + "&storeCity=" + storeCity
-		+ "&storeLinkname=" + storeLinkname + "&storeLinkphone=" + storeLinkphone +"&userName=" + userName + "&userPwd="+userPwd;
+		+ "&storeLinkname=" + storeLinkname + "&storeLinkphone=" + storeLinkphone;
 	submit(data, "保存成功，已更新您的店铺信息");
 }
 
