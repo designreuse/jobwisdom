@@ -1,5 +1,30 @@
 function showZzc () {
+	var selectStore = jQuery("select[name='selectStore']").val();
+	jQuery("select[name='chooseStore']").val(selectStore);
+	chooseActiveStore();
 	jQuery(".zzc").show();
+}
+
+function chooseActiveStore () {
+	var chooseStore = jQuery("select[name='chooseStore']").val();
+	
+	for (var i = 0; i < storeRuleList.length; i++) {
+		var rule = storeRuleList[i];
+		if (rule.storeIdOrAccount == chooseStore) {
+			var settingRule = rule.settingRule;
+			var ruleInfo = settingRule.ruleInfo;
+			var ruleList = ruleInfo.split(":");
+			jQuery("input[name='start1']").val(ruleList[0]);
+			jQuery("input[name='end1']").val(ruleList[1]);
+			jQuery("input[name='start2']").val(ruleList[1]);
+			jQuery("input[name='end2']").val(ruleList[2]);
+			jQuery("input[name='start3']").val(ruleList[2]);
+			jQuery("input[name='end3']").val(ruleList[3]);
+			jQuery("input[name='start4']").val(ruleList[3]);
+			jQuery("input[name='end4']").val(ruleList[4]);
+			jQuery("input[name='start5']").val(ruleList[4]);
+		}
+	}
 }
 
 function cancal () {
@@ -13,10 +38,8 @@ function saveRule () {
 	var end2 = jQuery("[name='end2']").val();
 	var end3 = jQuery("[name='end3']").val();
 	var end4 = jQuery("[name='end4']").val();
-	
-	var start5 = jQuery("[name='start5']").val();
-	
-	if (isEmpty(start1) || isEmpty(end1) || isEmpty(end2) || isEmpty(end3) || isEmpty(end4) || isEmpty(start5)) {
+		
+	if (isEmpty(start1) || isEmpty(end1) || isEmpty(end2) || isEmpty(end3) || isEmpty(end4)) {
 		dialog("规则消费金额不能存在空值");
         return;
 	}
@@ -26,21 +49,8 @@ function saveRule () {
 
 jQuery(function () {
     if (analysisType == 1) {
-    	dialog("未创建门店");
-    	
-    	/*if(confirm("确认要删除该条信息吗？")){ 
-    		jQuery.ajax({
-    			type : "post",
-    			url : baseUrl + "shift/action/deleteemployeeshift",
-    			data : "employeeId=" + id,
-    			dataType : "json",
-    			success : function(e){
-    				
-    				dialog(e.msg);
-    				jQuery(".collect-money-table tr[id='"+id+ "']").fadeOut(800).remove();
-    			}
-    		});
-    	}*/
+    	dialog("未创建门店, 请先创建门店");
+    	return;
     }
 	
     var colors = Highcharts.getOptions().colors,
@@ -111,13 +121,8 @@ jQuery(function () {
         exporting: {
             enabled: false
         }
-    })
+    }).highcharts(); // return chart
 
-    .highcharts(); // return chart
-});				
-  
-//第二个图表  
-  jQuery(function () {
     var colors = Highcharts.getOptions().colors,
         categories = ['0-300元', '300-500元', '500-1000元', '1000-3000元', '3000元以上'],
         name = '消费分析',
@@ -187,15 +192,12 @@ jQuery(function () {
         exporting: {
             enabled: false
         }
-    })
-
-    .highcharts(); // return chart
-});				
-  
-  jQuery(function(){
+    }).highcharts(); // return chart
+    
     jQuery('.customer_analyse_content_:gt(0)').hide();
     jQuery('.content_right ul li').click(function(){
 	  jQuery(this).addClass('active').siblings().removeClass('active');
 	  jQuery('.customer_analyse_content_').eq(jQuery(this).index()).show().siblings().hide();
 	})
-  })
+});				
+  

@@ -19,10 +19,12 @@
 				 <div class="customer_analyse_content_">
 				  <div class="customer_analyse_content_datail">
 				     <div class="customer_analyse_search">
-					   <select>
+					   <select name = "selectStore">
 					     <option value="${storeAccount}">全企业</option>
 					     <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
-					         <option value="${storeInfo.storeId}">${storeInfo.storeName}</option>
+					         <option value="${storeInfo.storeId}" 
+					            <c:if test = "${status.index == 0 }">selected = "selected"</c:if>
+					         >${storeInfo.storeName}</option>
 					     </c:forEach>
 					   </select>
 					   <button>查询</button>
@@ -394,7 +396,7 @@
 	    <p>设置消费金额</p>
 	    <div class="set_pay_content">
 	      <p>企业或门店<span></span>
-	                  <select name="chooseStore">
+	                  <select name="chooseStore" onchange="chooseActiveStore()">
 					     <option value="${storeAccount}">全企业</option>
 					     <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
 					         <option value="${storeInfo.storeId}">${storeInfo.storeName}</option>
@@ -402,10 +404,10 @@
 					   </select>
 		  </p>
 	      <p><input type="text" name = "start1"><span>至</span><input type="text" name = "end1"></p>
-		  <p><input type="text" name = "start2"><span>至</span><input type="text" name = "end2"></p>
-		  <p><input type="text" name = "start3"><span>至</span><input type="text" name = "end3"></p>
-		  <p><input type="text" name = "start4"><span>至</span><input type="text" name = "end4"></p>
-		  <p><input type="text" name = "start5"><span>以上</span></p>
+		  <p><input type="text" name = "start2" class="active1" disabled><span>至</span><input type="text" name = "end2"></p>
+		  <p><input type="text" name = "start3" class="active1" disabled><span>至</span><input type="text" name = "end3"></p>
+		  <p><input type="text" name = "start4" class="active1" disabled><span>至</span><input type="text" name = "end4"></p>
+		  <p><input type="text" name = "start5" class="active1" disabled><span>以上</span></p>
 		  <div class="set_pay_content_button">
 		    <button onclick = "saveRule()">确认</button>
 		    <button onclick = "cancal()">取消</button>
@@ -414,9 +416,12 @@
 	  </div> 
   </div>
 </body>
-<script type="text/javascript" src="<%=basePath %>js/programme/bigCustomerAnalysis.js"></script>
 <script type="text/javascript">
-   var analysisType = '${analysisType}';
-</script>
 
+   var analysisType = '${analysisType}';
+   
+   var ruleListStr = '${ruleListStr}';
+   var storeRuleList = eval("(" + ruleListStr + ")");
+</script>
+<script type="text/javascript" src="<%=basePath %>js/programme/bigCustomerAnalysis.js"></script>
 </html>

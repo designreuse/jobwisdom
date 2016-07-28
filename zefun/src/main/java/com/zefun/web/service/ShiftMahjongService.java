@@ -85,35 +85,38 @@ public class ShiftMahjongService {
 		mav.setViewName(View.KeepAccounts.ENTERPRISE_SHIFT_MAJONG);
 		List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
 		
-		Integer storeId = storeInfoList.get(0).getStoreId();
-		List<PositionInfo> positionInfoList  = positioninfoMapper.queryAllByStoreId(storeId);
-		
-		List<ShiftMahjong> shiftMahjongList = shiftMahjongMapper.selectAllByStoreId(storeId);
-		
-		for (ShiftMahjong shiftMahjong : shiftMahjongList) {
-			String positionStr = "";
-			String[] positionIdList = shiftMahjong.getPositionId().split(",");
-            for (int i = 0; i < positionIdList.length; i++) {
-                String positionIdStr = positionIdList[i];
-                for (PositionInfo positionInfo : positionInfoList) {
-                	Integer positionId =  positionInfo.getPositionId();
-                	if (positionIdStr.equals(positionId.toString())) {
-                		if (i == 0) {
-                			positionStr = positionInfo.getPositionName();
-                		}
-                		else {
-                			positionStr = positionStr + "," + positionInfo.getPositionName();
-                		}
-                	}
-				}
-            }
-            
-            shiftMahjong.setPosition(positionStr);
+		if (!storeInfoList.isEmpty() && storeInfoList.size() > 0) {
+			Integer storeId = storeInfoList.get(0).getStoreId();
+			List<PositionInfo> positionInfoList  = positioninfoMapper.queryAllByStoreId(storeId);
+			
+			List<ShiftMahjong> shiftMahjongList = shiftMahjongMapper.selectAllByStoreId(storeId);
+			
+			for (ShiftMahjong shiftMahjong : shiftMahjongList) {
+				String positionStr = "";
+				String[] positionIdList = shiftMahjong.getPositionId().split(",");
+	            for (int i = 0; i < positionIdList.length; i++) {
+	                String positionIdStr = positionIdList[i];
+	                for (PositionInfo positionInfo : positionInfoList) {
+	                	Integer positionId =  positionInfo.getPositionId();
+	                	if (positionIdStr.equals(positionId.toString())) {
+	                		if (i == 0) {
+	                			positionStr = positionInfo.getPositionName();
+	                		}
+	                		else {
+	                			positionStr = positionStr + "," + positionInfo.getPositionName();
+	                		}
+	                	}
+					}
+	            }
+	            
+	            shiftMahjong.setPosition(positionStr);
+			}
+			
+			mav.addObject("shiftMahjongList", shiftMahjongList);
+			mav.addObject("positionInfoList", positionInfoList);
+			mav.addObject("storeInfoList", storeInfoList);
 		}
 		
-		mav.addObject("shiftMahjongList", shiftMahjongList);
-		mav.addObject("positionInfoList", positionInfoList);
-		mav.addObject("storeInfoList", storeInfoList);
 		return mav;
 	}
 	
