@@ -191,10 +191,10 @@
              </td>
             
 			 <td>
-				 <c:if test="${ !memberLevel.levelName eq '默认会员卡'}">
+<%-- 				 <c:if test="${ memberLevel.levelName eq '默认会员卡'}"> --%>
 					 <em onclick="editMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_1.png"></em>
 					 <em onclick="deleteMemberLevel(${memberLevel.levelId})"><img src="<%=basePath %>images/handle_2.png"></em>
-				 </c:if>
+<%-- 				 </c:if> --%>
 			 </td>
            </tr>
           </c:forEach>
@@ -338,7 +338,51 @@
 	jQuery(function() {
 		changeType();
 	})
-
+//分页处理
+function changePage(){
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "/memberLevel/view/enterpriseMemberLevelList",
+		data : "pageNo=" + pageNo,
+		dataType : "json",
+		success : function(e){
+			if(e.code != 0){
+				dialog(e.msg);
+				return;
+			}
+			var memberLevels = e.msg.results;
+			jQuery(".business_manage_table tr:gt(0)").remove();
+			for (var i = 0; i < memberLevels.length; i++) {
+				var memberLevel = memberLevels[i];
+			
+			html =' <tr id="'+memberLevel.levelId +'"><td>'+memberLevel.levelType+'</td> <td>'+memberLevel.levelName;
+             if(memberLevel.isDefault == 1 ){
+            	 html += '<span class="font-999">默认等级</span>';
+             }
+             html += '</td><td>'+memberLevel.projectDiscount+'%</td><td>'+memberLevel.goodsDiscount +'%</td><td>'+memberLevel.chargeMinMoney +'元</td><td>'+memberLevel.sellAmount +'元 </td>';
+           	 if(memberLevel.cashDiscountType == 0){
+           		 html += '<td>不打折';
+           	 }else{
+           		html += '<td>打折';
+           	 }
+           	 html += '</td><td>'+memberLevel.performanceDiscountPercent +'% </td><td>'+memberLevel.integralUnit +'元 = '+memberLevel.integralNumber +'积分</td>';
+           	 html += '<td class="input80">'+memberLevel.levelNotice +'  </td> <td>';
+	         if(memberLevel.levelName != '默认会员卡'){
+	        	 html += '<em onclick="editMemberLevel('+memberLevel.levelId+')"><img src="<%=basePath %>images/handle_1.png"></em>';
+	        	 html += ' <em onclick="deleteMemberLevel('+memberLevel.levelId+')"><img src="<%=basePath %>images/handle_2.png"></em>';
+	         }    
+	         html +='</td></tr>'  ;
+	         jQuery(".business_manage_table").append(html);
+			}
+	         
+	      
+		}
+	});
+}
+	
+	
+	
+	
 	
 function changeType(){
 		levelType2 =jQuery("select[name='levelType']").val();

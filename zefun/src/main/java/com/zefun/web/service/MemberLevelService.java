@@ -44,7 +44,7 @@ public class MemberLevelService {
 
     /**
      * 查询某个店铺的会员等级信息
-     * 默认返回该门店最前面10条数据
+     * 默认返回该门店最前面18条数据
     * @author 
     * @date Aug 5, 2015 7:58:33 PM
     * @param storeAccount 企业代号
@@ -413,6 +413,22 @@ public class MemberLevelService {
      */
     public List<MemberLevelDto> queryByAllStoreId(Integer storeId) {
         return memberLevelMapper.selectByStoreId(storeId);
+    }
+
+
+    /**
+     *  会员卡分页查询
+    * @author 骆峰
+    * @date 2016年7月28日 上午10:59:34
+    * @param storeAccount  storeAccount
+    * @param pageNo pageNo
+    * @return BaseDtoBaseDto
+     */
+    public BaseDto enterpriseMemberLevelListPage(String storeAccount,
+            Integer pageNo) {
+        Page<MemberLevelDto> page = selectPageForMemberLevel(storeAccount, 0, 0, pageNo, 18); 
+        
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
     }
 
     
