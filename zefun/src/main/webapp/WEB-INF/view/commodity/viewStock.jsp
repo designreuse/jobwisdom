@@ -585,8 +585,7 @@
 		pageNo=page;
 		
 		jQuery("#intable1 tr[name='in']").empty();
-		var inf = (inflows.length - resultPage * page + resultPage)>resultPage ? resultPage : inflows.length;
-		console.log(inf);
+		var inf = (inflows.length - resultPage * page + resultPage)>resultPage ? resultPage * page : inflows.length;
 		for (var i = resultPage*page-resultPage;i < inf; i++) {
 			var html = '<tr name="in"><td>'+inflows[i].createTime+'</td><td>'+inflows[i].flowType+'</td><td><div class="overflow_text">';
 			for (var j = 0; j < inflows[i].accountGoods.length; j++) {
@@ -595,7 +594,6 @@
 			}
 			html +='</div><div class="fly_"></div></td></tr>';
 			jQuery("#intable1").append(jQuery(html));
-			console.log("数据:"+i);
 		}
 		
 	}
