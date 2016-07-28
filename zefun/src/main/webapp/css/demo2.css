@@ -180,7 +180,7 @@
 .left_nav{
 	height:1300px!important
 }
-.item_button{text-align:center;margin-top:50px}
+.item_button{text-align:center;margin-top:20px}
 .item_button button{width:130px;height:28px;color:white;border:none;border-radius:10px;text-align:center;line-height:28px;color:white;background:#59688a;margin-right:80px}
 .shop_price{height:100px;border-radius:10px;background:#d8deed;padding: 5px 20px;font-size:12px;color:black}
 .shop_price_1 input,.shop_price_2 span input{height:22px;width:120px;border-radius:12px!important;margin-left:26px;border:1px solid black;padding-right:20px}
@@ -209,6 +209,7 @@
     top: 5px;
     color: #737373;
 }
+
 .vip_price{margin-top:20px}
 .vip_price>p{font-size:14px;color:black;margin-bottom:10px}
 .vip_roll{background:white;position:relative;border-radius:10px}
@@ -216,11 +217,11 @@
 .right_click{position:absolute;z-index:2;top:25px;right:8px}
 .right_click img,.left_click img{width:40px}
 .vip_price_content{font-size:12px;background:#d8deed;padding: 5px 20px 20px 20px;border-radius:10px}
-.vip_price_content input{width:70px;border:1px solid black;border-radius:8px;margin:0 5px;height:16px}
+.vip_price_content input{width:70px;border:1px solid black;border-radius:12px;margin:0 5px;height:16px}
 .roll_ul{height:115px;width:820px;overflow:hidden;border-radius:10px;margin-top:4px;position:relative;}
 .roll_ul ul{width:4000px;position:relative}
-.roll_ul li{border:1px solid black;width:150px;height:90px;border-radius:10px;margin:15px 35px 15px 0;float:left}
-.roll_ul li select{width:70px;height:12px;border-radius:10px;border:1px solid black}
+.roll_ul li{padding-left:5px;border:1px solid black;width:150px;height:90px;border-radius:10px;margin:15px 35px 15px 0;float:left}
+.roll_ul li select{margin-left: 7px;padding:0;width:80px;height:20px;border-radius:10px;border:1px solid black}
 .roll_ul li input{height:12px!important}
 .roll_ul ul{margin-left:40px}
 .roll_ul li p{margin-top:5px}
