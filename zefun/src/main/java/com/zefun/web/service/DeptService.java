@@ -286,7 +286,7 @@ public class DeptService {
         if (deptInfo.getDeptId()!=null) {
             deptInfoMapper.updateByPrimaryKeySelective(deptInfo);
         }
-        else if (deptName.getDeptId() == null) {
+        else if (deptName == null) {
             deptInfoMapper.insert(deptInfo);
         }
         else {

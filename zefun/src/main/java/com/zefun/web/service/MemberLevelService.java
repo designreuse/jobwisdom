@@ -51,7 +51,7 @@ public class MemberLevelService {
     * @return ModelAndView
     */
     public ModelAndView enterpriseMemberLevelList(String storeAccount) {
-        Page<MemberLevelDto> page = selectPageForMemberLevel(storeAccount, 0, 0, 1, App.System.API_DEFAULT_PAGE_SIZE);
+        Page<MemberLevelDto> page = selectPageForMemberLevel(storeAccount, 0, 0, 1, 18); 
         ModelAndView mav = new ModelAndView(View.MemberLevel.ENTERPRISE_MEMBER_LEVEL);
         mav.addObject("page", page);
         return mav;
