@@ -7,6 +7,7 @@
 .business_level_back_ul .active{
    display:block;
 }
+.business_manage_table_content{border:1px solid #dbdce2;overflow:hidden;border-radius:12px;width:1020px}
 
 .preview_vip_card{
  width:280px;height:180px;
@@ -145,6 +146,7 @@
       	<!-- 页面代码 -->
 		<div class='content_right clearfix'>
     <button class="new_vip" onclick="showAddMemberLevel()">新建会员卡</button>
+   <div class="business_manage_table_content">
 	<table class="business_manage_table">
 	   <tr>
 	     <td id = "lite">会员卡类别</td>
@@ -202,6 +204,7 @@
 	
 	
 	</table>
+  </div>	
 	<%@ include file="/template/page.jsp" %>
   </div>
     </div>
@@ -238,7 +241,7 @@
 		      <ul class="business_level_back_text_ul clearfix">
 		         <li>项目折扣<input type="text" name="projectDiscount"><i  class = "addcolor">*</i><em style="position:relative;left:-20px">%</em></em></li>
 				 <li>现金支付打折
-				     <select name="cashDiscountType" class="chzn-select wthn100">
+				     <select name="cashDiscountType" >
                         <option value="0">不打折</option>
                         <option value="1">打折</option>
                    	 </select>

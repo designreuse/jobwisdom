@@ -156,7 +156,7 @@ public class MemberLevelService {
     /**
      * 查询某个店铺的会员等级信息
      * 默认返回该门店最前面10条数据
-    * @author 张进军
+    * @author 
     * @date Aug 5, 2015 7:58:33 PM
     * @param storeId	门店标识
     * @param roleId 角色标识
@@ -179,7 +179,7 @@ public class MemberLevelService {
     		mav.addObject("chooseStoreId", storeId);
     	}
     	mav.addObject("showType", showType);
-    	Page<MemberLevelDto> page = selectPageForMemberLevel(storeAccount, storeId, 1, 1, App.System.API_DEFAULT_PAGE_SIZE);
+    	Page<MemberLevelDto> page = selectPageForMemberLevel(storeAccount, storeId, 1, 1, 16);
         mav.addObject("page", page);
         return mav;
     }
