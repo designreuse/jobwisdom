@@ -1,0 +1,54 @@
+.content_right{padding:45px 40px}
+.content_right .base_manage{background:#ebeff8;color:black;border:1px solid #898989;border-radius:12px;height:auto}
+.content_right .base_manage table{width:100%}
+.content_right .base_manage td{height:39px;vertical-align:middle;text-align:center;text-align:center}
+.content_right .base_manage td input[type='radio']{margin:0 10px}
+.content_right .base_manage td span{display:inline-block;width:80px;text-align:left}
+table tr:nth-child(1){font-weight:normal!important}
+input[type=radio]:checked {
+    background: #ff0242!important;
+}
+input[type=radio]{width:16px!important;height:16px!important}
+.base_manage td{border:1px solid #898989;border-top:none;border-left:none}
+.base_manage td:last-child{border-right:none}
+.base_manage tr:last-child td{border-bottom:none}
+.base_manage tr td input[type='text']{width:40px;height:14px;border:1px solid #898989;margin-right:10px}
+
+input[type="checkbox"]{ -webkit-appearance: none;
+    appearance: none;
+	 -moz-appearance:none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    position: relative;
+    top: -3px;
+	margin-right:8px;
+	background:none
+    }
+	
+input[type="checkbox"]:checked {
+    background: url(../images/checked.png) no-repeat;
+    background-position: center center;
+    border: 1px solid #d93717;
+background-size: cover;}
+
+.active {
+    color: #eb1e34;
+}
+.base_manage_content{margin-top:16px;color:black; border: 1px solid #898989;padding:10px;
+    border-radius: 12px;background:#ebeff8}
+.base_manage_content>p{font-size:14px;}
+.base_manage_content>p>em{color:#898989;display:inline-block;margin-left:4px;font-size:12px}
+.base_manage_content_detail{margin-top:10px;}
+.base_manage_content_detail_left{float:left}
+.base_manage_content_detail ul{float:left;width:900px;}
+.base_manage_content_detail ul li{float:left;margin-left:34px;margin-bottom:10px}
+.send_money input{width:90px;height:14px;border-radius:12px;border:1px solid #898989;margin-left:45px;padding-right:20px}
+.send_money em{position:relative;right:18px;position:relative;top:1px }
+input[type=radio]::after{left:5px!important;top:5px!important}
+
+.base_manage tr td:last-child{text-align:left;padding-left:10px}
+
+.base_manage_manage{margin-top:10px;text-align:center}
+.base_manage_manage button:hover{background:#4d5872}
+.base_manage_manage button{float:right;border:none;width:130px;height:26px;border-radius:12px;color:white;font-size:14px;line-height:26px;background:#59647f}

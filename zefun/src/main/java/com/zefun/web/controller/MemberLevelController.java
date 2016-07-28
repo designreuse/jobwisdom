@@ -42,6 +42,22 @@ public class MemberLevelController extends BaseController {
 		return memberLevelService.enterpriseMemberLevelList(storeAccount);
 	}
 	
+	
+	/**
+	 *   会员卡分页查询
+	* @author 骆峰
+	* @date 2016年7月28日 上午10:59:00
+	* @param request request
+	* @param pageNo pageNo
+	* @return BaseDto
+	 */
+    @RequestMapping(value = Url.MemberLevel.ENTERPRISE_MEMBERLEVEL_LIST, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto enterpriseMemberLevelListPage(HttpServletRequest request, Integer pageNo){
+        String storeAccount = getStoreAccount(request);
+        return memberLevelService.enterpriseMemberLevelListPage(storeAccount, pageNo);
+    }
+    
 	/**
 	 * 企业保存会员卡信息
 	* @author 老王

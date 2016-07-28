@@ -2,18 +2,20 @@
 function chooseStore(obj, storeId) {
 	jQuery(obj).addClass("active");
 	jQuery(obj).siblings().removeClass("active");
-	
+	changes = true;
 	chooseStoreId = storeId;
-	
+	pageNo = 1;
 	changePage();
 }
 
 function changeType () {
 	pageNo = 1;
+	changes = true;
 	changePage();
 }
 
 //分页处理
+var changes = false;
 function changePage(){
 	var type = jQuery("select[name='levelType']").val();
 	jQuery.ajax({
@@ -25,6 +27,14 @@ function changePage(){
 			if(e.code != 0){
 				dialog(e.msg);
 				return;
+			}
+			pageNo = e.msg.pageNo;
+			pageSize = e.msg.pageSize;
+			totalPage = e.msg.totalPage;
+			totalRecord = e.msg.totalRecord;
+			if(changes){
+				unbuildPagination();
+				changes = false;
 			}
 			refreshTableData(e.msg);
 			totalRecord = e.msg.totalRecord;
@@ -63,7 +73,7 @@ function refreshTableData(page){
 	             "<td>"+memberLevelDto.integralUnit+"元 = "+memberLevelDto.integralNumber+"积分</td>"+
 	             "<td class='input80'>"+memberLevelDto.levelNotice+"</td>"+
 	             "<td>";
-	    			if(memberLevelDto.levelType=='折扣卡'){
+	    			if(memberLevelDto.levelType=='等级卡'){
 	    				
 	    				 str += "<em onclick='editMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/handle_1.png'></em>";
 	    			}

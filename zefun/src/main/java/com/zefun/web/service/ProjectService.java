@@ -1210,27 +1210,30 @@ public class ProjectService {
     public ModelAndView projectCategoryView(String storeAccount, Integer storeId, Integer deptId, HttpServletRequest request) {
         ModelAndView view = null;
         List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
-        if (storeId == null){
-            storeId = storeInfos.get(0).getStoreId();
-        }
-        List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(storeId);
-        List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByStoreId(storeId);
-        List<DeptInfo> deptInfos = deptInfoMapper.selectAllDetpByStoreId(storeId);
-        if (deptId == null && deptInfos.size()>0){
-            deptId = deptInfos.get(0).getDeptId();
-        }
-        final Integer deptIds = deptId;
-        if (projectCategories.size() > 0 && goodsCategories.size() > 0){
-            projectCategories = projectCategories.stream().filter(p -> p.getDeptId().intValue()== deptIds.intValue()).collect(Collectors.toList());
-            goodsCategories = goodsCategories.stream().filter(g -> g.getDeptId().intValue() == deptIds.intValue()).collect(Collectors.toList());
-        }
         view = new ModelAndView(View.Project.CATEGORY);
-        view.addObject("projectCategories", projectCategories);
-        view.addObject("goodsCategories", goodsCategories);
-        view.addObject("storeInfos", storeInfos);
-        view.addObject("deptInfos", deptInfos);
-        view.addObject("storeId", storeId);
-        view.addObject("deptId", deptId);
+        if (storeInfos.size() > 0){
+            if (storeId == null){
+                storeId = storeInfos.get(0).getStoreId();
+            }
+            List<ProjectCategory> projectCategories = projectCategoryMapper.selectAllProjectByStoreId(storeId);
+            List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByStoreId(storeId);
+            List<DeptInfo> deptInfos = deptInfoMapper.selectAllDetpByStoreId(storeId);
+            if (deptId == null && deptInfos.size()>0){
+                deptId = deptInfos.get(0).getDeptId();
+            }
+            final Integer deptIds = deptId;
+            if (projectCategories.size() > 0 && goodsCategories.size() > 0){
+                projectCategories = projectCategories.stream().filter(p ->
+                p.getDeptId().intValue()== deptIds.intValue()).collect(Collectors.toList());
+                goodsCategories = goodsCategories.stream().filter(g -> g.getDeptId().intValue() == deptIds.intValue()).collect(Collectors.toList());
+            }
+            view.addObject("projectCategories", projectCategories);
+            view.addObject("goodsCategories", goodsCategories);
+            view.addObject("storeInfos", storeInfos);
+            view.addObject("deptInfos", deptInfos);
+            view.addObject("storeId", storeId);
+            view.addObject("deptId", deptId);
+        }
         return view;
     }
 

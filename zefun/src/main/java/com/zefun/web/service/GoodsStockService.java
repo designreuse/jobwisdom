@@ -65,60 +65,49 @@ public class GoodsStockService {
      */
     public ModelAndView viewGoodsStock(String storeAccount, HttpServletRequest request) {
         
-        ModelAndView model = null; 
+        ModelAndView model = new ModelAndView(View.Stock.VIEW_STOCK);
         List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
-        
-        Object storeId = request.getSession().getAttribute(Session.STORE_ID);
-        if (storeId!=null){
-            model = new ModelAndView(View.Stock.VIEW_STORE_STOCK);
+        if (storeInfos.size() > 0){
+            Object storeId = request.getSession().getAttribute(Session.STORE_ID);
+            if (storeId!=null){
+                model = new ModelAndView(View.Stock.VIEW_STORE_STOCK);
+            }
+            else {
+                storeId = storeInfos.get(0).getStoreId();
+                model = new ModelAndView(View.Stock.VIEW_STOCK);
+            }
+            
+            StockFlow query = new StockFlow();
+            query.setStoreAccount(storeAccount);
+            List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(query);
+            
+            final Integer queryStoreId = Integer.parseInt(storeId.toString());
+            
+            List<EmployeeInfo> employeeInfos = employeeInfoMapper.selectEmployeeByStoreId(queryStoreId);
+            model.addObject("employeeInfos", employeeInfos);
+            
+            /**入库管理*/
+            List<StockFlow> inFlows = stockFlows.stream()
+                    .filter(flow -> flow.getStockType()==1&&flow.getToStore().equals(queryStoreId))
+                    .collect(Collectors.toList());
+            /**出库管理*/
+            List<StockFlow> outFlows = stockFlows.stream()
+                    .filter(flow -> flow.getStockType()==2&&flow.getFromStore().equals(queryStoreId))
+                    .collect(Collectors.toList());
+            /**商品调拨管理*/
+            List<StockFlow> moveFlows = stockFlows.stream().filter(flow -> flow.getStockType()==3).collect(Collectors.toList());
+            
+            model.addObject("inFlows", JSONArray.fromObject(inFlows));
+            model.addObject("outFlows", JSONArray.fromObject(outFlows));
+            model.addObject("moveFlows", JSONArray.fromObject(moveFlows));
+            
+            AccountGoods accountGoods = new AccountGoods();
+            accountGoods.setStoreAccount(storeAccount);
+            List<AccountGoods> goods = accountGoodsMapper.selectByProperties(accountGoods);
+            
+            model.addObject("storeInfos", storeInfos);
+            model.addObject("goods", goods);
         }
-        else {
-            storeId = storeInfos.get(0).getStoreId();
-            model = new ModelAndView(View.Stock.VIEW_STOCK);
-        }
-        
-        
-//        Page<StockFlow> page = new Page<>();
-//        page.setPageNo(1);
-//        page.setPageSize(9);
-//        Map<String, Object> params = new HashMap<>();
-//        
-        StockFlow query = new StockFlow();
-        query.setStoreAccount(storeAccount);
-//        
-//        params.put("storeAccount", storeAccount);
-//        page.setParams(params);
-//        List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(page);
-        List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(query);
-        
-        final Integer queryStoreId = Integer.parseInt(storeId.toString());
-        
-        List<EmployeeInfo> employeeInfos = employeeInfoMapper.selectEmployeeByStoreId(queryStoreId);
-        model.addObject("employeeInfos", employeeInfos);
-        
-        /**入库管理*/
-        List<StockFlow> inFlows = stockFlows.stream()
-                .filter(flow -> flow.getStockType()==1&&flow.getToStore().equals(queryStoreId))
-                .collect(Collectors.toList());
-        /**出库管理*/
-        List<StockFlow> outFlows = stockFlows.stream()
-                .filter(flow -> flow.getStockType()==2&&flow.getFromStore().equals(queryStoreId))
-                .collect(Collectors.toList());
-        /**商品调拨管理*/
-        List<StockFlow> moveFlows = stockFlows.stream().filter(flow -> flow.getStockType()==3).collect(Collectors.toList());
-        
-//        page.setResults(inFlows);
-        model.addObject("inFlows", JSONArray.fromObject(inFlows));
-        model.addObject("outFlows", JSONArray.fromObject(outFlows));
-        model.addObject("moveFlows", JSONArray.fromObject(moveFlows));
-//        model.addObject("page", page);
-        
-        AccountGoods accountGoods = new AccountGoods();
-        accountGoods.setStoreAccount(storeAccount);
-        List<AccountGoods> goods = accountGoodsMapper.selectByProperties(accountGoods);
-        
-        model.addObject("storeInfos", storeInfos);
-        model.addObject("goods", goods);
         return model;
     }
 

@@ -134,6 +134,15 @@ function saveAdmin(){
 	if(updateUserId==null){
 		data = "userPwd="+userPwd+"&userName="+userName+"&employeeName="+employeeName+"&roleId="+roleId+"&storeId="+storeId;
 	}
+	if(userName == "" || userName == null ){
+		  dialog("工号不能为空");
+          return;
+	}
+	if(employeeName == "" || employeeName == null ){
+		  dialog("名称不能为空");
+          return;
+	}
+	
 	jQuery.ajax({
         type: "POST",
         url: baseUrl + "administrator/action/saveUpdate",
