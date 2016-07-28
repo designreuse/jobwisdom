@@ -39,7 +39,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
 
     /** 客户端连接后,将session存放,以便发送 */
     @Override
-    public void afterConnectionEstablished(WebSocketSession session)throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         String storeAccount = (String) session.getAttributes().get(App.Session.STORE_ACCOUNT);
         if (storeAccount!=null){
             SOCKETS.put(storeAccount, session);
