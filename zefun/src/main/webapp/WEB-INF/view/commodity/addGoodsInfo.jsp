@@ -69,7 +69,7 @@
 
 						<table id="ag">
 							<tbody>
-								<tr>
+								<tr class="tr">
 									<td>商品编号</td>
 									<td>商品名称</td>
 									<td>是否卖品</td>
@@ -201,7 +201,7 @@
 								'<span><img onclick="queryGoods('+accountGood.goodsId +',this)" src="'+baseUrl+'images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>'+
 								'<i style="display: none;">停止</i></td>'+
 							'</tr>';
-					jQuery("tbody").append(jQuery(html));
+					jQuery(".tr").after(jQuery(html));
 				}else{
 					jQuery("tr[goodsId="+accountGood.goodsId+"]").replaceWith(html);
 				}
@@ -366,13 +366,14 @@ changePage();
 	}
 	function initTable(e){
 		jQuery("tbody").empty();
-		var tr = '<tr>'+
+		var tr = '<tr class="tr">'+
 					'<td>商品编号</td>'+
 					'<td>商品名称</td>'+
 					'<td>是否卖品</td>'+
 					'<td>成本价（元）</td>'+
 					'<td>库存</td>'+
 					'<td>品牌</td>'+
+					'<td>操作</td>'+
 				'</tr>';
 		jQuery("tbody").append(jQuery(tr));
 		var isSell = ['否','是'];
@@ -389,6 +390,9 @@ changePage();
 			var supplierName = e.msg.results[i].supplierName;
 			var brandId = e.msg.results[i].brandId;
 			var brandName = e.msg.results[i].brandName;
+			if(goodsStock ==null){
+				goodsStock ="";
+			}
 			var html = '<tr goodsstock="'+goodsStock+'" goodsdesc="'+goodsDesc+'" goodsid="'+goodsId+'" issellproduct="'+isSellProduct+'" supplierid="'+supplierId+'" brandid="'+brandId+'">'+
 							'<td>'+goodsCodeSuffix+'</td>'+
 							'<td>'+goodsName+'</td>'+
@@ -396,7 +400,10 @@ changePage();
 							'<td>'+costPrice+'</td>'+
 							'<td>'+goodsStock+'</td>'+
 							'<td>'+brandName+'</td>'+
-						'</tr>';
+							'<td>'+
+							'<span><img onclick="queryGoods('+e.msg.results[i].aId +',this)" src="'+baseUrl+'images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>'+
+							'<i style="display: none;">停止</i></td>'+
+							'</tr>';
 			jQuery("tbody").append(jQuery(html));
 		}
 	}
