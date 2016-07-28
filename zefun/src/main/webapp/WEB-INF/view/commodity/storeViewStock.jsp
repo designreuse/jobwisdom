@@ -308,6 +308,7 @@
 			stockCount = stockCount.substring(0,(stockCount.length-1));
 			var fromStore = '${session_key_store_id}';
 			var libraryObject = jQuery("select[name='libraryObject']").val();
+			if (libraryObject == undefined){dialog("请选择出库员工");return;}
 			var data = {"stockType":stockType, "flowType":flowType, "stockDesc":stockDesc, "aIds":aIds, "stockCount":stockCount, "libraryObject":libraryObject, "fromStore":fromStore};
 			console.log(data);
 			jQuery.ajax({

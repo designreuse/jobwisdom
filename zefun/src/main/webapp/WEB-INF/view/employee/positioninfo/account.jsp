@@ -209,7 +209,7 @@
      <div class="first_adjust_content">  
         <p>职位名称<input type="text" name="levelName" ></p>
 	    <div class="num_adjust_content">
-	      <div class="depend">参考<span>?</span>
+	      <div class="depend">跨岗位业绩提成参考<span>?</span>
 		    <p><span>该岗位下的人员，在参与了其他岗位、职位下的工作，提成的参考值</span><em></em></p>
 		  </div>
 		 <div class="num_adjust_content_detail">

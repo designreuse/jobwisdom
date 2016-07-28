@@ -24,7 +24,9 @@ webSocket.onopen = function(event) {
 webSocket.onmessage = function(event) {
 	onMessage(event);
 };
-
+webSocket.onclose = function (event){
+	onClose(event);
+}
 //处理从服务端发送过来的数据
 function onMessage(event) {
 	loginOut(true);
@@ -34,5 +36,8 @@ function onOpen(event) {
 }
 function onError(event) {
 	console.log("ws onError");
+}
+function onClose(event){
+	console.log("ws onClose");
 }
 </script>
