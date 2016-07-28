@@ -66,17 +66,10 @@ public class SystemWebSocketHandler implements WebSocketHandler {
 //        sendMessageToSTOREUSER(message1);
     }
 
-    /** 传输错误时触发 */
+//    /** 传输错误时触发 */
     @Override
-    public void handleTransportError(WebSocketSession session,
-            Throwable exception) throws Exception {
-        if (session.isOpen()) {
-            session.close();
-        }
-        removeMapKeyValue(SOCKETS, session);
-        removeMapKeyValue(LOGIN, session);
-//        SOCKETS.remove(session);
-//        LOGIN.remove(session);
+    public void handleTransportError(WebSocketSession session, Throwable exception) {
+
     }
 
     /** 连接关闭时触发 */
@@ -85,8 +78,6 @@ public class SystemWebSocketHandler implements WebSocketHandler {
             CloseStatus closeStatus) throws Exception {
         removeMapKeyValue(SOCKETS, session);
         removeMapKeyValue(LOGIN, session);
-//        SOCKETS.remove(session);
-//        LOGIN.remove(session);
     }
 
     @Override
