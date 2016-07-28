@@ -17,8 +17,9 @@
     width: 1020px;
     border-radius: 8px;
     
-	margin-top:16px
+
 }
+.business_manage_table_content{margin-top:16px;height:800px}
 .business_manage_table td{
 	    height: 40px;
     text-align: center;
@@ -72,7 +73,7 @@
 .business_level_content_left{padding:24px 30px;color:black}
 .business_level_content_left select{
 	width:130px;
-	height:18px;
+	
 	border-radius:12px;
 	border:1px solid black;
 	margin:0 8px 0 20px
@@ -103,7 +104,7 @@
 .business_level_back_text_ul{padding:30px 0px}
 .business_level_back_text_ul li input{
 	width:130px;border:1px solid black;
-	border-radius:12px;margin-left:34px
+	border-radius:12px;margin-left:24px
 }
 .chzn-container{
 	width: 126px!important;

@@ -309,7 +309,7 @@ public interface Url {
         /** 门店活动保存 */
         public static final String SHOW_ACTIVITYSAVE = "activity/view/showactivitysave";
         
-        /** 门店活动保存 */
+        /** 门店活动删除 */
         public static final String SHOW_ACTIVITYDELETE = "activity/view/showactivitydelete";
 	}
 

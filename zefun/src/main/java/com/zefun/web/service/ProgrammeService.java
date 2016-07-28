@@ -1,6 +1,9 @@
 package com.zefun.web.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,8 @@ import com.zefun.web.entity.SettingRule;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.SettingRuleMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
+
+import net.sf.json.JSONArray;
 
 
 /**
@@ -45,9 +50,43 @@ public class ProgrammeService {
         	mav.addObject("analysisType", 1);
         	return mav;
 		}
-		mav.addObject("storeAccount", storeAccount);
-		mav.addObject("storeInfoList", storeInfoList);
-		return mav;
+        else {
+        	Map<String, Object> map = new HashMap<>();
+        	map.put("storeIdOrAccount", storeAccount);
+        	map.put("ruleType", 1);
+        	SettingRule settingRule = settingRuleMapper.selectByStoreIdOrAccount(map);
+        	
+        	List<Map<String, Object>> list = new ArrayList<>();
+        	
+        	Map<String, Object> map1 = new HashMap<>();
+        	//查看企业号是否存在规则
+        	if (settingRule == null) {
+        		initializationSettingRule(storeAccount, 1);
+        		settingRule = settingRuleMapper.selectByStoreIdOrAccount(map);
+        		map1.put("storeIdOrAccount", storeAccount);
+        		map1.put("settingRule", settingRule);
+        		list.add(map1);
+        	}
+        	
+        	for (StoreInfo storeInfo : storeInfoList) {
+        		map.put("storeIdOrAccount", storeInfo.getStoreId());
+            	SettingRule obj = settingRuleMapper.selectByStoreIdOrAccount(map);
+            	
+            	if (obj == null) {
+            		initializationStoreRule(storeInfo.getStoreId(), 1);
+            		obj = settingRuleMapper.selectByStoreIdOrAccount(map);
+            	}
+            	
+            	Map<String, Object> map2 = new HashMap<>();
+            	map2.put("storeIdOrAccount", storeInfo.getStoreId());
+            	map2.put("settingRule", obj);
+            	list.add(map2);
+			}
+        	mav.addObject("ruleListStr", JSONArray.fromObject(list).toString());
+        	mav.addObject("storeAccount", storeAccount);
+    		mav.addObject("storeInfoList", storeInfoList);
+    		return mav;
+        }
 	}
 	
 	/**
@@ -55,13 +94,13 @@ public class ProgrammeService {
 	* @author 老王
 	* @date 2016年7月27日 下午3:26:05 
 	* @param storeAccount 企业号
-	* @return BaseDto
+	* @param ruleType 规则类型
 	 */
-	public BaseDto initializationSettingRule (String storeAccount) {
+	public void initializationSettingRule (String storeAccount, Integer ruleType) {
 		SettingRule record = new SettingRule();
 		record.setStoreIdOrAccount(storeAccount);
 		record.setRuleType(1);
-		record.setRuleInfo("0:500:2000:5000:10000:30000");
+		record.setRuleInfo("0:500:2000:5000:10000");
 		settingRuleMapper.insertSelective(record);
 		
 		List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccount);
@@ -70,21 +109,38 @@ public class ProgrammeService {
 			record.setStoreIdOrAccount(storeInfo.getStoreId().toString());
 			settingRuleMapper.insertSelective(record);
 		}
-		
-		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+	}
+	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年7月28日 上午9:54:50 
+	* @param storeId 门店标识
+	* @param ruleType 规则类型
+	 */
+	public void initializationStoreRule (Integer storeId, Integer ruleType) {
+		SettingRule record = new SettingRule();
+		record.setRuleType(1);
+		record.setRuleInfo("0:500:2000:5000:10000");
+		record.setStoreIdOrAccount(storeId.toString());
+		settingRuleMapper.insertSelective(record);
 	}
 	
 	/**
      * 保存方案规则
     * @author 老王
     * @date 2016年7月27日 下午3:19:41 
-    * @param storeIdOrAccount 方案规则归宿（门店或者企业）
+    * @param settingRuleId 方案规则标识
     * @param ruleType 方案规则类型（1：大客户分析）
     * @param ruleInfo 累计账号数量
     * @return BaseDto
      */
-	public BaseDto updateSettingRule (String storeIdOrAccount, Integer ruleType, String ruleInfo) {
-		
+	public BaseDto updateSettingRule (Integer settingRuleId, Integer ruleType, String ruleInfo) {
+		SettingRule record = new SettingRule();
+		record.setRuleInfo(ruleInfo);
+		record.setRuleType(ruleType);
+		record.setSettingRuleId(settingRuleId);
+		settingRuleMapper.insertSelective(record);
 		
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}

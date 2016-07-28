@@ -588,7 +588,7 @@
         #{accreditCode,jdbcType=INTEGER},
       </if>
       <if test="employeeDesc != null">
-      	#{employeeDesc}
+      	#{employeeDesc},
       </if>
        <if test="baseSalaries != null">
       		#{baseSalaries}

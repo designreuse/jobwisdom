@@ -304,6 +304,7 @@ function saveDeptInfo(button){
 			jQuery(button).parent().prev().hide();
 			jQuery(button).parent().prev().prev().show();
 			jQuery("input[name='deptName']").val('');
+			dialog("添加成功");
 		}
 	});
 }
@@ -321,7 +322,7 @@ function deletedDept(li, deptIds){
 					dialog(e.msg);
 				}
 				else {
-					dialog(e.msg);
+					dialog("删除成功");
 					jQuery(li).parents(".data_text").remove();
 				}
 			}
@@ -468,6 +469,7 @@ function saveOrUpdateLevel(s,type){
 	else {
 		data = data + "&referenceTwo="+"";
 	}
+	
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "employeelevel/action/saveOrUpdate",
@@ -478,14 +480,12 @@ function saveOrUpdateLevel(s,type){
                 dialog(e.msg);
                 return;
             }
-			if (levelId!=null){
-				data = data + "&levelId="+levelId;
-			}
+		
 			levelId = null;
 			
 			jQuery(".job_content.clearfix");
 			var employeeLevel = e.msg.employeeLevel;
-			jQuery("#"+employeeLevel.levelId).addClass("hide");
+			jQuery("#"+employeeLevel.levelId).remove();
 			var html = '<div class="data_text" id="'+employeeLevel.levelId+'" referenceFirst='+employeeLevel.referenceFirst+' referenceTwo='+employeeLevel.referenceTwo+'>'+
 								employeeLevel.levelName+'<ul class="data_text">'+
 							'<li onclick="showUpdateLevel('+type+', \''+employeeLevel.levelName+'\', '+employeeLevel.levelId+', '+employeeLevel.positionId+')">修改</li>'+

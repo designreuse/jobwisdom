@@ -54,7 +54,7 @@ background-size: cover;}
     z-index: 10000;
     background: rgba(102, 108, 121, 0.8);}
 
-.zzc .set_pay{width:410px;height:275px;border-radius:12px;overflow:hidden;background:white;margin:50px auto}
+.zzc .set_pay{width:410px;height:310px;border-radius:12px;overflow:hidden;background:white;margin:50px auto}
 .zzc .set_pay>p{height:50px;line-height:50px;text-align:center;color:white;font-size:14px;background:#3f465c}
 .set_pay_content{padding:12px 22px}
 .set_pay_content input{width:140px;height:14px;border-radius:12px;border:1px solid #cacaca}
@@ -63,3 +63,5 @@ background-size: cover;}
 .set_pay_content_button{text-align:center;margin-top:10px}
 .set_pay_content_button button{width:130px;height:26px;text-align:center;line-height:26px;color:white;font-size:14px;border:none;background:#717b96;border-radius:12px;margin:0 25px}
 .set_pay_content_button button:hover{background:#68718b}
+
+.active1{background:#dbdbdb!important}

@@ -2,6 +2,11 @@
 <%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="<%=basePath%>css/vip_group.css" type="text/css" />
+<style>
+#serch_member_list tr:nth-child(1){
+	font-weight: normal;
+}
+</style>
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">

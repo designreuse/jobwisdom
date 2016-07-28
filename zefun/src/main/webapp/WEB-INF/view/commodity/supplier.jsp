@@ -186,6 +186,7 @@
 			function saveSupper() {
 				var supplierIds = jQuery("input[name='supplierId']").val();
 				var supplierName = jQuery("input[name='supplierName']").val();
+				if (supplierName==""){dialog("名称可不能为空哦");return;}
 				var linkName = jQuery("input[name='linkName']").val();
 				var linkPhone = jQuery("textarea[name='linkPhone']").val();
 				var data = "";
@@ -236,6 +237,7 @@
 			function saveBrand() {
 				var brandId = jQuery("input[name='brandId']").val();
 				var brandName = jQuery("input[name='brandName']").val();
+				if (brandName==""){dialog("名称可不能为空哦");return;}
 				if (brandId == "") {
 					data = "brandName=" + brandName + "&supplierId="
 							+ supplierId;

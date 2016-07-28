@@ -10,6 +10,16 @@ function showAddMemberLevel () {
 function cancelModal () {
 	jQuery("#memberLevelModal").hide();
 	jQuery("#textarea").val("");
+	jQuery("select[name='levelType']").attr("disabled","disabled");
+	levelType2 =jQuery("select[name='levelType']").val();
+	jQuery("input[name='goodsDiscount']").removeAttr("disabled");
+	jQuery("input[name='projectDiscount']").removeAttr("disabled");
+	jQuery("input[name='sellAmount']").removeAttr("disabled");
+	jQuery("input[name='performanceDiscountPercent']").removeAttr("disabled");
+	jQuery("input[name='chargeMinMoney']").removeAttr("disabled");
+	jQuery("input[name='integralUnit']").removeAttr("disabled");
+	jQuery("input[name='integralNumber']").removeAttr("disabled");
+	jQuery("select[name='cashDiscountType']").removeAttr("disabled");
 }
 
 var updatePositivePageUrl = 'system/profile/vip_card.png';
@@ -207,6 +217,8 @@ function changetype(s){
 //修改会员等级信息
 function editMemberLevel(levelId){
 	jQuery("#memberLevelModal").show();
+	
+	
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "memberLevel/view/selectEnterpriseMember",
@@ -241,7 +253,20 @@ function editMemberLevel(levelId){
 					content.append("<div>" + list[i].text + "</div>");
 				}
 			}*/
-			changeType()
+			changeType();
+			jQuery("select[name='levelType']").attr("disabled","disabled");
+			levelType2 =jQuery("select[name='levelType']").val();
+			if(levelType2=="等级卡"){
+				jQuery("input[name='goodsDiscount']").attr("disabled","disabled");
+				jQuery("input[name='projectDiscount']").attr("disabled","disabled");
+				jQuery("input[name='sellAmount']").attr("disabled","disabled");
+				jQuery("input[name='performanceDiscountPercent']").attr("disabled","disabled");
+				jQuery("input[name='chargeMinMoney']").attr("disabled","disabled");
+				jQuery("input[name='integralUnit']").attr("disabled","disabled");
+				jQuery("input[name='integralNumber']").attr("disabled","disabled");
+				jQuery("select[name='cashDiscountType']").attr("disabled","disabled");
+			}
+			
 		}
 	});
 	
