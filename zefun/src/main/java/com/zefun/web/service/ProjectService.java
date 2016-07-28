@@ -204,7 +204,7 @@ public class ProjectService {
 
     /**
      * 根据部门编号查询部门下所有项目信息，包含项目类别
-    * @author 张进军
+    * @author 
     * @date Oct 15, 2015 12:13:00 AM
     * @param deptId 部门编号
     * @return   项目列表
