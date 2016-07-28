@@ -304,6 +304,7 @@ function saveDeptInfo(button){
 			jQuery(button).parent().prev().hide();
 			jQuery(button).parent().prev().prev().show();
 			jQuery("input[name='deptName']").val('');
+			dialog("添加成功");
 		}
 	});
 }
@@ -321,7 +322,7 @@ function deletedDept(li, deptIds){
 					dialog(e.msg);
 				}
 				else {
-					dialog(e.msg);
+					dialog("删除成功");
 					jQuery(li).parents(".data_text").remove();
 				}
 			}

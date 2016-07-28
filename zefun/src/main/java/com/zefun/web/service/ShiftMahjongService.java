@@ -34,7 +34,6 @@ import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
-import com.zefun.wechat.service.StaffService;
 
 import net.sf.json.JSONArray;
 
@@ -59,9 +58,6 @@ public class ShiftMahjongService {
 	
 	/** 轮牌*/
 	@Autowired private ShiftMahjongMapper shiftMahjongMapper;
-	
-	/** */
-	@Autowired private StaffService staffService;
 	
 	/** 考勤*/
 	@Autowired private EmployeeAttendanceMapper employeeAttendanceMapper;

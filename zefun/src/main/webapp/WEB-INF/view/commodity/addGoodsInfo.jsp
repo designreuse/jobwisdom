@@ -62,9 +62,7 @@
 						</div>
 
 					<div class="new_data">
-						<button onclick="jQuery('.zzc1').modal();jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
-						<button>导入模块下载</button>
-						<button style="width: 60px">导入</button>
+						<button onclick="jQuery('.zzc1').modal();jQuery('textarea[name=\'goodsDesc\']').val('');jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
 						<button style="width: 60px" onclick="exportTable('ag')">导出</button>
 						<span class="data_number"> <input type="text" placeholder="名称/编号"> <em><img src="<%=basePath%>images/seach.png"></em>
 						</span>
@@ -174,13 +172,23 @@
 								'<td>'+accountGood.goodsCodeSuffix +'</td>'+
 								'<td>'+accountGood.goodsName +'</td>'+
 								'<td>'+brandList[accountGood.isSellProduct]+'</td>'+
-								'<td>'+accountGood.costPrice +'</td>'+
-								'<td>'+goodsStock +'</td>'+
+								'<td>'+accountGood.costPrice +'</td>';
+				if (goodsStock == undefined){
+					html += '<td></td>'+
 								'<td>'+brandName +'</td>'+
 								'<td>'+
 								'<span><img onclick="queryGoods('+accountGood.goodsId +',this)" src="'+baseUrl+'images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>'+
 								'<i style="display: none;">停止</i></td>'+
 							'</tr>';
+				}else {
+					html += '<td>'+goodsStock +'</td>'+
+								'<td>'+brandName +'</td>'+
+								'<td>'+
+								'<span><img onclick="queryGoods('+accountGood.goodsId +',this)" src="'+baseUrl+'images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>'+
+								'<i style="display: none;">停止</i></td>'+
+							'</tr>';
+				}
+								
 				if (goodsId == null){
 					html = '<tr goodsDesc="'+accountGood.goodsDesc +'" goodsId="'+accountGood.goodsId +'" isSellProduct="'+accountGood.isSellProduct +'"  supplierId="'+accountGood.supplierId +'" brandId="'+accountGood.brandId +'">'+
 								'<td>'+accountGood.goodsCodeSuffix +'</td>'+
@@ -288,41 +296,45 @@
 		var storeId = jQuery(li).attr("storeId");
 		jQuery(li).siblings().removeClass("active");
 		jQuery(li).addClass("active");
-		var storeId = jQuery(li).attr("storeId");
-		var url = baseUrl + "view/storeAccount/store/goods/" + storeId;
-		jQuery.ajax({
-			type : "POST",
-			url : url,
-			dataType : "json",
-			async : false,
-			success : function(data) {
-				if(isStore){
-					isStore = false;
-					unbuildPagination();
-				}
-				var goodsInfoDtos = data.msg.results;
-				var htmltr = '<tr><td>商品编号</td><td>商品名称</td><td>是否卖品</td><td>成本价（元）</td><td>库存</td><td>品牌</td><td>操作</td></tr>';
-				jQuery("#ag").children().empty();
-				jQuery("#ag").children().append(jQuery(htmltr));
-				for (var i = 0; i < goodsInfoDtos.length; i++) {
-					var accountGood = goodsInfoDtos[i];
-					var brandList = ['否','是'];
-					if (accountGood.goodsStock == null){accountGood.goodsStock = "";}
-					var html = '<tr goodsStock="'+accountGood.goodsStock+'" goodsDesc="'+accountGood.goodsDesc +'" goodsId="'+accountGood.aId +'" isSellProduct="'+accountGood.isSellProduct +'"  supplierId="'+accountGood.supplierId +'" brandId="'+accountGood.brandId +'">'+
-									'<td>'+accountGood.goodsCodeSuffix +'</td>'+
-									'<td>'+accountGood.goodsName +'</td>'+
-									'<td>'+brandList[accountGood.isSellProduct]+'</td>'+
-									'<td>'+accountGood.costPrice +'</td>'+
-									'<td>'+accountGood.goodsStock +'</td>'+
-									'<td>'+accountGood.brandName +'</td>'+
-									'<td>'+
-									'<span><img onclick="queryGoods('+accountGood.aId +',this)" src="'+baseUrl+'images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>'+
-									'<i style="display: none;">停止</i></td>'+
-								'</tr>';
-					jQuery("#ag").children().append(jQuery(html));
-				}
-			}
-		});
+		pageNo=1;
+	
+// 		var storeId = jQuery(li).attr("storeId");
+// 		var url = baseUrl + "view/storeAccount/store/goods/" + storeId;
+// 		jQuery.ajax({
+// 			type : "POST",
+// 			url : url,
+// 			dataType : "json",
+// 			async : false,
+// 			success : function(data) {
+// 				if(isStore){
+// 					isStore = false;
+// 					unbuildPagination();
+// 				}
+// 				var goodsInfoDtos = data.msg.results;
+// 				var htmltr = '<tr><td>商品编号</td><td>商品名称</td><td>是否卖品</td><td>成本价（元）</td><td>库存</td><td>品牌</td><td>操作</td></tr>';
+// 				jQuery("#ag").children().empty();
+// 				jQuery("#ag").children().append(jQuery(htmltr));
+// 				for (var i = 0; i < goodsInfoDtos.length; i++) {
+// 					var accountGood = goodsInfoDtos[i];
+// 					var brandList = ['否','是'];
+// 					if (accountGood.goodsStock == null){accountGood.goodsStock = "";}
+// 					var html = '<tr goodsStock="'+accountGood.goodsStock+'" goodsDesc="'+accountGood.goodsDesc +'" goodsId="'+accountGood.aId +'" isSellProduct="'+accountGood.isSellProduct +'"  supplierId="'+accountGood.supplierId +'" brandId="'+accountGood.brandId +'">'+
+// 									'<td>'+accountGood.goodsCodeSuffix +'</td>'+
+// 									'<td>'+accountGood.goodsName +'</td>'+
+// 									'<td>'+brandList[accountGood.isSellProduct]+'</td>'+
+// 									'<td>'+accountGood.costPrice +'</td>'+
+// 									'<td>'+accountGood.goodsStock +'</td>'+
+// 									'<td>'+accountGood.brandName +'</td>'+
+// 									'<td>'+
+// 									'<span><img onclick="queryGoods('+accountGood.aId +',this)" src="'+baseUrl+'images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>'+
+// 									'<i style="display: none;">停止</i></td>'+
+// 								'</tr>';
+// 					jQuery("#ag").children().append(jQuery(html));
+// 				}
+// 			}
+// 		});
+changePage();
+
 	}
 	
 	/**分页查询*/
@@ -335,12 +347,17 @@
 			data : data,
 			dataType : "json",
 			success : function(e){
+				
 				if(e.code == 0){
 					initTable(e);
 					pageNo = e.msg.pageNo;
 					pageSize = e.msg.pageSize;
 					totalPage = e.msg.totalPage;
 					totalRecord = e.msg.totalRecord;
+					if(isStore){
+						isStore = false;
+						unbuildPagination();
+					}
 				}else{
 					dialog('查询错误,请稍后重试');
 				}

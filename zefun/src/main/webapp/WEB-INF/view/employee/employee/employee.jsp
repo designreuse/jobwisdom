@@ -405,6 +405,17 @@ function saveEmployee(){
 		return ;
 	}
 	
+	if(employeeCode=="" || employeeCode ==null){
+		dialog("工号不能为空");
+		return ;
+	}
+	
+	if(name=="" || name ==null){
+		dialog("名称不能为空");
+		return ;
+	}
+	
+	
 	if(!isCardNo(identityCard)){
 		dialog("身份证号码格式不对，请修改");
 		return ;
