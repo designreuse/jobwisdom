@@ -216,7 +216,7 @@ public class ActivityService {
         
         Page<ActivityStore> page = new Page<>();
         page.setPageNo(1);
-        page.setPageSize(10);
+        page.setPageSize(13);
         Map<String, Object> params = new HashMap<>();
         params.put("storeAccount", storeAccount);
         
@@ -275,7 +275,7 @@ public class ActivityService {
       
         Page<ActivityStore> page = new Page<>();
         page.setPageNo(pageNo);
-        page.setPageSize(10);
+        page.setPageSize(13);
         Map<String, Object> params = new HashMap<>();
         params.put("storeAccount", storeAccount);
         

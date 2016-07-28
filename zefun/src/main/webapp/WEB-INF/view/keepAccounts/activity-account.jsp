@@ -289,15 +289,18 @@ function updated(activity,id){
 			jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(0).text(activityPositionThree);
 			
 			
-			jQuery(".zzc").find("#position_emploee tr").eq(1).find("td").eq(1).find("select").val(activity.positionOneType); 
+			jQuery(".zzc").find("#position_emploee tr").eq(1).find("td").eq(1).find("select").val(activity.positionOneType);
+			changeprice(jQuery(".zzc").find("#position_emploee tr").eq(1).find("td").eq(1).find("select"),2);
 		 	jQuery(".zzc").find("#position_emploee tr").eq(1).find("td").eq(2).find("input").val(activity.positionOnePush);
 		 	jQuery(".zzc").find("#position_emploee tr").eq(1).find("td").eq(3).find("input").val(activity.positionOneResult);
 		 	
 		 	jQuery(".zzc").find("#position_emploee tr").eq(2).find("td").eq(1).find("select").val(activity.positionTwoType); 
+		 	changeprice(jQuery(".zzc").find("#position_emploee tr").eq(2).find("td").eq(1).find("select"),2);
 		 	jQuery(".zzc").find("#position_emploee tr").eq(2).find("td").eq(2).find("input").val(activity.positionTwoPush);
 		 	jQuery(".zzc").find("#position_emploee tr").eq(2).find("td").eq(3).find("input").val(activity.positionTwoResult);
 		 	
 		 	jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(1).find("select").val(activity.positionThreeType); 
+		 	changeprice(jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(1).find("select"),2);
 		 	jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(2).find("input").val(activity.positionThreePush);
 		 	jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(3).find("input").val(activity.positionThreeResult);
 		 	

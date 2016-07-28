@@ -108,17 +108,18 @@ jQuery(function(){
  
  
 function  deleted(activityStoreId){
-	 	jQuery.ajax({
-			type : "post",
-			url : baseUrl +"activity/view/showactivitydelete",
-			data : 	"activityStoreId="+activityStoreId,
-			dataType : "json",
-			success : function(e){
-				dialog(" 删除成功");
-				jQuery("tr[id='"+activityStoreId+"']").attr("style","display: none;")
-			}
-		});
-	
+		if(confrim("确定要删除吗？")){
+			jQuery.ajax({
+				type : "post",
+				url : baseUrl +"activity/view/showactivitydelete",
+				data : 	"activityStoreId="+activityStoreId,
+				dataType : "json",
+				success : function(e){
+					dialog(" 删除成功");
+					jQuery("tr[id='"+activityStoreId+"']").attr("style","display: none;")
+				}
+			});
+		}
 	}
 
 function save (){
