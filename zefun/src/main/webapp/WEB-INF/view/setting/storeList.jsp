@@ -326,13 +326,18 @@
      <p>购买分配记录</p>
      <div class="assigned_table">
          <table id = "rechargeFlowTable">
-             <tr>
-			   <td>公司/门店</td>
-			   <td>时间</td>
-			   <td>当前余量（条）</td>
-			   <td>数量（条）</td>
+             <tr style="position:fixed;">
+			   <td style="width: 129px">公司/门店</td>
+			   <td style="width: 206px">时间</td>
+			   <td style="width: 71px">当前余量（条）</td>
+			   <td style="width: 71px">数量（条）</td>
 			 </tr>
-			
+			 <tr>
+			   <td></td>
+			   <td></td>
+			   <td></td>
+			   <td></td>
+			 </tr>
       	 </table>  
     </div> 
 	<div class="assigned_button">

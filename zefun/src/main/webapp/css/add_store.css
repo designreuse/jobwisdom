@@ -127,7 +127,7 @@
 
 .assigned{width:610px;height:410px;margin:50px auto;background:white}
 .assigned p{height:64px;line-height:64px;text-align:center;background:#323b4e;color:white;font-size:16px}
-.assigned_table{width:562px;height:262px;margin:20px auto;overflow:overlay;}
+.assigned_table{width:562px;height:262px;margin:20px auto;overflow-y: overlay;overflow-x: hidden;}
 .assigned_table table{width:562px;box-shadow:0 0 10px #dbdce2;}
 .assigned_table td{height:38px;text-align:center;border:1px solid black;vertical-align:middle;padding:0 10px}
 .assigned_table tr:nth-child(1){background:#d7dcea;height:41px;font-size:14px}

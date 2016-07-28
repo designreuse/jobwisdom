@@ -30,11 +30,9 @@ jQuery(function(){
 });	
 
 //点击分配，弹出浮窗
-jQuery(function(){
-	jQuery('.distribution_list>p span').click(function(){
+jQuery('.distribution').delegate(".distribution_list>p span", "click", function(){
 	jQuery(this).parents('.distribution_list').find('.distribution_alert').fadeIn();
-	})
-}) 
+})
 
 //提示气泡
 jQuery(function(){
@@ -336,9 +334,9 @@ function deleteAuthority (obj, storeAuthorityId) {
 		if(confirm("正在编辑授权码，需要取消编辑吗？")){
 			clinAuthority();
 		}
-	}
-	else {
-		return;
+		else {
+			return;
+		}
 	}
 	
 	if(confirm("确认要删除该条授权码吗？")){
@@ -436,7 +434,7 @@ function rechargeFlow() {
             }
         	var objList = data.msg;
         	
-        	jQuery("#rechargeFlowTable tr:gt(0)").remove();
+        	jQuery("#rechargeFlowTable tr:gt(1)").remove();
         	for (var i = 0; i < objList.length; i++) {
         		var storeObj = objList[i];
         		jQuery("#rechargeFlowTable").append("<tr>"+
@@ -463,6 +461,7 @@ function distributionMsn (obj, storeId) {
                 dialog(data.msg);
                 return;
             }
+        	dialog("分配成功！");
         	var obj = data.msg;
         	var objList = obj.storeInfoList;
         	var msnNum = obj.msnNum;
