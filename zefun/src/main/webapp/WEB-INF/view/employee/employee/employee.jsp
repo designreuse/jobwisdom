@@ -414,10 +414,12 @@ function saveEmployee(){
 		dialog("名称不能为空");
 		return ;
 	}
-	
-	
+	if(identityCard=="" || identityCard ==null){
+		dialog("身份证号码不能为空");
+		return ;
+	}
 	if(!isCardNo(identityCard)){
-		dialog("身份证号码格式不对，请修改");
+		dialog("身份证号码不对，请重新修改");
 		return ;
 	}
 	
