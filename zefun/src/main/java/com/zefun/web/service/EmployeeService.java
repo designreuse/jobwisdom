@@ -1440,17 +1440,18 @@ public class EmployeeService {
     public ModelAndView accountViewStorePosition(String storeAccount, HttpServletRequest request) {
         ModelAndView view = new ModelAndView(View.Position.VIEW_ACCOUNT);
         List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
-        
-        List<DeptInfo> deptInfos = deptInfoMapper.selectAllDetpByStoreId(storeInfos.get(0).getStoreId());
-        List<PositionInfo> positionInfos = positioninfoMapper.queryAllByStoreId(storeInfos.get(0).getStoreId());
-        
-        EmployeeLevel query = new EmployeeLevel();
-        query.setStoreId(storeInfos.get(0).getStoreId());
-        
-        view.addObject("empLevels", JSONArray.fromObject(employeeLevelMapper.queryEmployeeLevel(query)));
-        view.addObject("storeInfos", storeInfos);
-        view.addObject("deptInfos", deptInfos);
-        view.addObject("positionInfos", positionInfos);
+        if (storeInfos.size() > 0){
+            List<DeptInfo> deptInfos = deptInfoMapper.selectAllDetpByStoreId(storeInfos.get(0).getStoreId());
+            List<PositionInfo> positionInfos = positioninfoMapper.queryAllByStoreId(storeInfos.get(0).getStoreId());
+            
+            EmployeeLevel query = new EmployeeLevel();
+            query.setStoreId(storeInfos.get(0).getStoreId());
+            
+            view.addObject("empLevels", JSONArray.fromObject(employeeLevelMapper.queryEmployeeLevel(query)));
+            view.addObject("storeInfos", storeInfos);
+            view.addObject("deptInfos", deptInfos);
+            view.addObject("positionInfos", positionInfos);
+        }
         return view;
     }
 

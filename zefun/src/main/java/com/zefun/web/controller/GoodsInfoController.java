@@ -151,50 +151,46 @@ public class GoodsInfoController extends BaseController {
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_SETTING)
     public ModelAndView toGoodsInfoSeting(HttpServletRequest request, HttpServletResponse response, Integer goodsId) {
         String storeAccount = getStoreAccount(request);
-        ModelAndView model = null;
+        ModelAndView model = new ModelAndView(View.GoodsInfo.GOOD_SETTING);;
         List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
-        Object storeId = request.getSession().getAttribute(Session.STORE_ID);
-        if (storeId!=null){
-            model = new ModelAndView(View.GoodsInfo.GOOD_SETTING_STORE);
+        if (storeInfos.size() > 0){
+            Object storeId = request.getSession().getAttribute(Session.STORE_ID);
+            if (storeId!=null){
+                model = new ModelAndView(View.GoodsInfo.GOOD_SETTING_STORE);
+            }
+            else {
+                storeId = storeInfos.get(0).getStoreId();
+                model = new ModelAndView(View.GoodsInfo.GOOD_SETTING);
+            }
+            final Integer queryStoreId = Integer.parseInt(storeId.toString());
+            
+            model.addObject("storeInfos", storeInfos);
+            
+            SupplierInfo supplierInfo = new SupplierInfo();
+            supplierInfo.setStoreAccount(storeAccount);
+            
+            /** 供应商品牌库*/
+            List<SupplierInfoDto> supplierInfoDtos = supplierInfoMapper.selectInfoByAccount(supplierInfo);
+            List<GoodsBrand> brands = supplierInfoDtos.
+                    stream().
+                    filter(info -> info.getBrands()!=null).
+                    flatMap(info -> info.getBrands().stream()).
+                    collect(Collectors.toList());
+            model.addObject("brands", brands);
+            
+            model.addObject("supplierInfoDtos", supplierInfoDtos);
+            model.addObject("supplierInfoDtosJs", JSONArray.fromObject(supplierInfoDtos));
+            
+            Page<GoodsInfoDto> page = new Page<>();
+            page.setPageNo(1);
+            page.setPageSize(15);
+            Map<String, Object> params = new HashMap<>();
+            params.put("storeId", queryStoreId);
+            page.setParams(params);
+            List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreIdByPage(page);
+            page.setResults(goodsInfoDtos);
+            model.addObject("page", page);
         }
-        else {
-            storeId = storeInfos.get(0).getStoreId();
-            model = new ModelAndView(View.GoodsInfo.GOOD_SETTING);
-        }
-        final Integer queryStoreId = Integer.parseInt(storeId.toString());
-        
-        model.addObject("storeInfos", storeInfos);
-        
-        SupplierInfo supplierInfo = new SupplierInfo();
-        supplierInfo.setStoreAccount(storeAccount);
-        
-        /** 供应商品牌库*/
-        List<SupplierInfoDto> supplierInfoDtos = supplierInfoMapper.selectInfoByAccount(supplierInfo);
-        List<GoodsBrand> brands = supplierInfoDtos.
-                stream().
-                filter(info -> info.getBrands()!=null).
-                flatMap(info -> info.getBrands().stream()).
-                collect(Collectors.toList());
-        model.addObject("brands", brands);
-        
-        model.addObject("supplierInfoDtos", supplierInfoDtos);
-        model.addObject("supplierInfoDtosJs", JSONArray.fromObject(supplierInfoDtos));
-        
-        Page<GoodsInfoDto> page = new Page<>();
-        page.setPageNo(1);
-        page.setPageSize(15);
-        Map<String, Object> params = new HashMap<>();
-        params.put("storeId", queryStoreId);
-        page.setParams(params);
-        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreIdByPage(page);
-        page.setResults(goodsInfoDtos);
-        model.addObject("page", page);
-//        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreId(queryStoreId);
-//        model.addObject("goodsInfoDtos", goodsInfoDtos);
-//        AccountGoods accountGoods = new AccountGoods();
-//        accountGoods.setStoreAccount(storeAccount);
-//        List<AccountGoods> list = accountGoodsMapper.selectByProperties(accountGoods);
-//        model.addObject("accountGoods", list);
         return model;
     }
     

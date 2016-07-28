@@ -135,14 +135,15 @@ public class WeixinMessageService {
 			Map<String, String> requestMap = MessageUtil.parseXml(request);
 			String fromUserName = requestMap.get("FromUserName");
 			String toUserName = requestMap.get("ToUserName");
+			/**消息类型 */
+            String msgType = requestMap.get("MsgType");
 			logger.info("消息关注者 "+fromUserName);
 			logger.info("开发者 "+toUserName);
 			
 			/**根据微信开发者id进行查询门店设置内容*/
 //            StoreWechat storeWechat = storeWechatMapper.selectByWechatId(toUserName);
 //            String storeAccount = storeWechat.getStoreAccount();
-			/**消息类型 */
-			String msgType = requestMap.get("MsgType");
+			
             /**事件推送*/
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
 				String eventType = requestMap.get("Event");
@@ -218,13 +219,6 @@ public class WeixinMessageService {
                     ws.setUpdateTime(DateUtil.getCurTime());
                     wechatSubscribeMapper.updateByPrimaryKey(ws);
                     redisService.hset(App.Redis.WECHAT_SUBSCRIBE_KEY_HASH, fromUserName, "0");
-                    
-                    // 如果是会员的话呢, 模拟一次logout操作
-//                    weixinMessageService.moveGroupByGroupType(storeWechat.getStoreAccount(), 4, fromUserName);
-//                    redisService.hdel(App.Redis.WECHAT_OPENID_TO_USERID_KEY_HASH, fromUserName);
-//                    redisService.hdel(App.Redis.WECHAT_OPENID_TO_BUSINESS_TYPE_KEY_HASH, fromUserName);
-//                    redisService.hdel(App.Redis.WECHAT_OPENID_TO_STORE_KEY_HASH, fromUserName);
-//                    wechatMemberMapper.deleteByPrimaryKey(fromUserName);
                 }
 				/**自定义菜单点击事件*/
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
