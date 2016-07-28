@@ -410,6 +410,7 @@
 			stockCount = stockCount.substring(0,(stockCount.length-1));
 			var fromStore = jQuery(".clearfix.out_roll_ul").children("li[class='active']").attr("storeId");
 			var libraryObject = jQuery("select[name='libraryObject']").val();
+			if (libraryObject == undefined){dialog("请选择出库员工");return;}
 			var data = {"stockType":stockType, "flowType":flowType, "stockDesc":stockDesc, "aIds":aIds, "stockCount":stockCount, "libraryObject":libraryObject, "fromStore":fromStore};
 			console.log(data);
 			jQuery.ajax({

@@ -95,6 +95,7 @@ function random(){
 	jQuery("input[name='amount']").removeAttr("checked");
 }
 function changeAmount(amount){
+	if (parseInt(amount)!=amount){return dialog("请输入整数金额");}
 	jQuery('.webchat_').slideUp('slow',function(){
 	     jQuery('.ul_li').slideUp('normal');
     });
