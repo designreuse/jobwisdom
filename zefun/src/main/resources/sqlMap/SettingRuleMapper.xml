@@ -66,4 +66,11 @@
     </set>
     where setting_rule_id = #{settingRuleId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByStoreIdOrAccount" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from setting_rule
+    where store_id_or_account = #{storeIdOrAccount,jdbcType=VARCHAR} and rule_type = #{ruleType,jdbcType=INTEGER}
+  </select>
 </mapper>

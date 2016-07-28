@@ -39,22 +39,7 @@ public class ProgrammeController extends BaseController{
     	String storeAccount = getStoreAccount(request);
     	return programmeService.bigCustomerAnalysis(storeAccount);
     }
-    
-    /**
-     * 初始化该企业的规则数据
-    * @author 老王
-    * @date 2016年7月27日 下午3:23:55 
-    * @param request	请求对象
-    * @param response	响应对象
-    * @param ruleType   规则类型
-    * @return BaseDto
-     */
-    @RequestMapping(value = Url.Programme.ACTION_INITIALIZATION_SETTING_RULE)
-    @ResponseBody
-    public BaseDto initializationSettingRule (HttpServletRequest request, HttpServletResponse response, Integer ruleType) {
-    	String storeAccount = getStoreAccount(request);
-    	return programmeService.initializationSettingRule(storeAccount);
-    }
+
     
     /**
      * 保存方案规则
@@ -62,14 +47,16 @@ public class ProgrammeController extends BaseController{
     * @date 2016年7月27日 下午3:19:41 
     * @param request	请求对象
     * @param response	响应对象
-    * @param storeIdOrAccount 方案规则归宿（门店或者企业）
+    * @param settingRuleId 方案规则标识
     * @param ruleType 方案规则类型（1：大客户分析）
     * @param ruleInfo 累计账号数量
     * @return BaseDto
      */
-    public BaseDto updateSettingRule (HttpServletRequest request, HttpServletResponse response, 
-    		  String storeIdOrAccount, Integer ruleType, String ruleInfo) {
-    	return programmeService.updateSettingRule(storeIdOrAccount, ruleType, ruleInfo);
+    @RequestMapping(value = Url.Programme.ACTION_INITIALIZATION_SETTING_RULE)
+    @ResponseBody
+    public BaseDto updateSettingRule (HttpServletRequest request, HttpServletResponse response, Integer settingRuleId,
+    		  Integer ruleType, String ruleInfo) {
+    	return programmeService.updateSettingRule(settingRuleId, ruleType, ruleInfo);
     }
 
 }

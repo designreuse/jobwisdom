@@ -1,5 +1,7 @@
 package com.zefun.web.mapper;
 
+import java.util.Map;
+
 import com.zefun.web.entity.SettingRule;
 
 /**
@@ -43,5 +45,14 @@ public interface SettingRuleMapper {
     * @return int
      */
     int updateByPrimaryKeySelective(SettingRule record);
+    
+    /**
+     * 根据门店或企业查询
+    * @author 老王
+    * @date 2016年7月27日 下午8:26:04 
+    * @param map 参数
+    * @return SettingRule
+     */
+    SettingRule selectByStoreIdOrAccount(Map<String, Object> map);
 
 }
