@@ -408,7 +408,7 @@
 		  <p><input type="text" name = "start3" class="active1" disabled><span>至</span><input type="text" name = "end3"></p>
 		  <p><input type="text" name = "start4" class="active1" disabled><span>至</span><input type="text" name = "end4"></p>
 		  <p><input type="text" name = "start5" class="active1" disabled><span>以上</span></p>
-		  <div class="set_pay_content_button">
+		  <div class="set_pay_content_button" setting_rule_id>
 		    <button onclick = "saveRule()">确认</button>
 		    <button onclick = "cancal()">取消</button>
 		  </div>
