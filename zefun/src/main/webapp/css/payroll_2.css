@@ -1,6 +1,10 @@
 .content_right{padding:40px}
 .payroll_2_head{padding-left: 20px;}
+<<<<<<< HEAD
 .payroll_2_head button{padding:5px 15px;border-radius:12px;color:white;text-align:center;border:none;background:#5b6080;margin-right:20px}
+=======
+.payroll_2_head button{box-shadow:0 0 0!important;padding:5px 15px;border-radius:8px;color:white;text-align:center;border:none;background:#5b6080;margin-right:20px}
+>>>>>>> 4839f0831624e72cdbddefb4dfc25ac8c63173a1
 .payroll_2_head button:hover{
 	background:#4f5471
 }
@@ -10,9 +14,9 @@
 .payroll_1{width:11px;height:9px;background:url('../images/payroll_1.png') no-repeat;display:inline-block;cursor:pointer}
 .payroll_2_left{float:left;width:160px;height:510px;border:1px solid #ccc;padding:10px 0 0 20px;overflow-y:scroll;box-shadow:0 0 10px #dbdce2}
 .payroll_2_content{margin-top:35px;}
-.payroll_2_right{float:left;margin-left:22px;border-radius:14px;height:530px;width:100%;}
+.payroll_2_right{float:left;border-radius:14px;height:630px;width:100%;border:1px solid #b8c7ea;overflow:overlay}
 .payroll_table td{height:38px;text-align:center;border:1px solid #dbdce2;vertical-align:middle;padding:0 10px}
-.payroll_table{box-shadow:0 0 10px #dbdce2;width:96%;}
+.payroll_table{box-shadow:0 0 10px #dbdce2;width:100%;}
 .payroll_table_content{margin-top:20px;}
 .payroll_table tr:nth-child(even){background:#f6f8fc}
 .payroll_table tr:nth-child(1){background:#ebeff8;height:60px}
@@ -96,7 +100,7 @@ background-size: cover;}
     border-radius: 12px;}
 .select_job_content_left em{display:inline-block;width:60px}
 
-.select_job_content{margin-top:30px}
+.select_job_content{margin-top:20px}
 .select_job_content_left p{height:42px;line-height:42px}
 
 .select_job_content_right{float:left;}

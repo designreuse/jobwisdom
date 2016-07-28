@@ -84,6 +84,8 @@ public interface DeptInfoMapper {
      */
     DeptInfo getDeptDetail(DeptInfo deptInfo);
     
+    
+
     /**
      * 根据门店编号查询部门编号列表
     * @author 张进军

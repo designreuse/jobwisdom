@@ -42,6 +42,7 @@ import com.zefun.web.mapper.UserAccountMapper;
  * @date Sep 18, 2015 4:54:45 PM
  */
 @Service
+@Transactional
 public class EnterpriseService {
 	
 	/**
@@ -174,18 +175,37 @@ public class EnterpriseService {
     		record.setBalanceStoreNum(999);
     	}
 	   
-    	
+		  //默认插入角色
+        List<RoleInfo> selectSystemRoles = roleInfoMapper.selectSystemRoles();
+        
+        AccountRoleInfo accountRoleInfo = new AccountRoleInfo();
+        for (int i = 0; i < selectSystemRoles.size(); i++) {
+            RoleInfo roleInfo = selectSystemRoles.get(i);
+            accountRoleInfo.setAccountRoleName(roleInfo.getRoleName());
+            accountRoleInfo.setFristMenu(roleInfo.getFristMenu());
+            accountRoleInfo.setSecondMenu(roleInfo.getSecondMenu());
+            accountRoleInfo.setRoleId(roleInfo.getRoleId());
+            accountRoleInfo.setStoreAccount(storeAccount);
+            accountRoleInfo.setIsDeleted(0);
+            if (enterpriseInfoId == null) {
+                accountRoleInfoMapper.insertSelective(accountRoleInfo);
+            }
+            
+        }
 		
 		EmployeeDto employeeDto = new EmployeeDto();
 		employeeDto.setName(enterpriseLinkname);
 		employeeDto.setPhone(enterpriseLinkphone);
 	
-		
-		
+		Map<String, Object> map = new HashMap<String, Object>();
+		//系统权限1,企业号
+		map.put("roleIds", 1);
+		map.put("storeAccount", storeAccount);
+		List<AccountRoleInfo> selectAccountMenuByRoleId = accountRoleInfoMapper.selectAccountMenuByRoleId(map);
 		// 保存用户信息初始密码123456
 		UserAccount userAccount = new UserAccount();
 		userAccount.setStoreAccount(storeAccount);
-		userAccount.setRoleId(1);
+		userAccount.setRoleId(selectAccountMenuByRoleId.get(0).getAccountRoleId());
 		userAccount.setUserName("10000");
 		userAccount.setUserId(employeeDto.getEmployeeId());
 		String password = StringUtil.md5(StringUtil.md5("123456"));
@@ -196,6 +216,7 @@ public class EnterpriseService {
 		userAccount.setPwdSalt(salt);
 		userAccount.setCreateTime(DateUtil.getCurTime());
 		
+		//修改
 		if (enterpriseInfoId != null) {
             enterpriseInfo.setEnterpriseInfoId(enterpriseInfoId);
             enterpriseInfoMapper.updateByPrimaryKeySelective(enterpriseInfo);
@@ -250,20 +271,7 @@ public class EnterpriseService {
             memberLevelDiscount.setCreateTime(curTime);
             memberLevelDiscountMapper.insert(memberLevelDiscount);
             
-            //默认插入角色
-            List<RoleInfo> selectSystemRoles = roleInfoMapper.selectSystemRoles();
-            
-            AccountRoleInfo accountRoleInfo = new AccountRoleInfo();
-            for (int i = 0; i < selectSystemRoles.size(); i++) {
-                RoleInfo roleInfo = selectSystemRoles.get(i);
-                accountRoleInfo.setAccountRoleName(roleInfo.getRoleName());
-                accountRoleInfo.setFristMenu(roleInfo.getFristMenu());
-                accountRoleInfo.setSecondMenu(roleInfo.getSecondMenu());
-                accountRoleInfo.setRoleId(roleInfo.getRoleId());
-                accountRoleInfo.setStoreAccount(storeAccount);
-                accountRoleInfo.setIsDeleted(0);
-                accountRoleInfoMapper.insertSelective(accountRoleInfo);
-            }
+          
 
         }
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);

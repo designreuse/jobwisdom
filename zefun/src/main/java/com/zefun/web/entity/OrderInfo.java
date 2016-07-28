@@ -78,6 +78,14 @@ public class OrderInfo {
 
 	/** 订单状态(1：进行中、2：待结账、3：待评价(已结账)、4：已评价、5：已通知买单) */
 	private Integer orderStatus;
+	
+	/** 订单是否操作中（0：否，1：是）*/
+	private Integer isOrderOption;
+	
+	/**
+	 * 订单操作员工标识
+	 */
+	private Integer optionEmployeeId;
 
 	/** 挂账备注 */
 	private String orderEvaluate;
@@ -102,6 +110,22 @@ public class OrderInfo {
 
 	
 	
+	public Integer getOptionEmployeeId() {
+		return optionEmployeeId;
+	}
+
+	public void setOptionEmployeeId(Integer optionEmployeeId) {
+		this.optionEmployeeId = optionEmployeeId;
+	}
+
+	public Integer getIsOrderOption() {
+		return isOrderOption;
+	}
+
+	public void setIsOrderOption(Integer isOrderOption) {
+		this.isOrderOption = isOrderOption;
+	}
+
 	public String getHandOrderCode() {
 		return handOrderCode;
 	}

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.util.Streams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,14 +165,15 @@ public class LoginService {
         Document document = Jsoup.parse(secontSb.toString());
         String url = document.select("div").eq(0).select("ul").eq(0).select("a").eq(0).attr("href");
 		EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(userId);
-		
+		AccountRoleInfo selectByPrimaryKey = accountRoleInfoMapper.selectByPrimaryKey(roleId);
 		if (employeeInfo != null) {
 			sessiion.setAttribute(App.Session.STORE_ID, employeeInfo.getStoreId());
 			sessiion.setAttribute(App.Session.STORE_NAME, employeeInfo.getStoreName());
 			sessiion.setAttribute(App.Session.USER_INFO, employeeInfo);
 		}
 		sessiion.setAttribute(App.Session.STORE_ACCOUNT, storeAccount);
-		sessiion.setAttribute(App.Session.ROLE_ID, roleId);
+		sessiion.setAttribute(App.Session.ROLE_ID, selectByPrimaryKey.getRoleId());
+		sessiion.setAttribute(App.Session.ACCOUNT_ROLE_ID, roleId);
 		sessiion.setAttribute(App.Session.ONE_LOGIN_TIME, 1);
 		// 如果登陆成功将挑战的地址首页放入basedto中,用于跳转
 		BaseDto dto = new BaseDto();

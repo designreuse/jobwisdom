@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -509,10 +508,8 @@ public class StoreInfoService {
     	StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(storeId);
     	storeInfo.setCarouselPicture("");
     	storeInfo.setStoreDesc("");
-    	UserAccount userAccount = userAccountMapper.selectSingleStoreAccount(storeId);
     	Map<String, Object> map = new HashMap<>();
     	map.put("storeInfo", storeInfo);
-    	map.put("userName", userAccount.getUserName());
     	return  new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }
     
@@ -792,13 +789,11 @@ public class StoreInfoService {
     * @author 老王
     * @date 2016年4月30日 下午4:55:19 
     * @param storeInfo 门店信息
-    * @param userName 操作员名称
-    * @param userPwd 操作员密码
     * @return BaseDto
      */
     @Transactional
-    public BaseDto saveStore (StoreInfo storeInfo, Integer userName, String userPwd) {
-    	return addStoreInfo(storeInfo, userName, userPwd);
+    public BaseDto saveStore (StoreInfo storeInfo) {
+    	return addStoreInfo(storeInfo);
     }
     
 
@@ -883,12 +878,10 @@ public class StoreInfoService {
     * @author 张进军
     * @date Oct 29, 2015 11:45:28 AM
     * @param storeInfo       用户姓名
-    * @param userName      门店电话
-    * @param userPwd  门店名称
     * @return   成功返回码为0，失败为其它返回码
      */
     @Transactional
-    public BaseDto addStoreInfo(StoreInfo storeInfo, Integer userName, String userPwd) {
+    public BaseDto addStoreInfo(StoreInfo storeInfo) {
         EnterpriseAccount enterpriseAccount = enterpriseAccountMapper.selectByStoreAccount(storeInfo.getStoreAccount());
 
     	if (enterpriseAccount.getBalanceStoreNum() <= 0) {
@@ -2371,6 +2364,7 @@ public class StoreInfoService {
         if (userAccounts.size() != 0 && userAccount.getUserId() ==null){
             return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有该工号，请修改再保存");
         }
+        userAccount.setStoreId(userAccount.getStoreId()==0?null:userAccount.getStoreId());
         
         if (userAccount.getUserId() != null){
             EmployeeInfo employeeDto=new EmployeeInfo();

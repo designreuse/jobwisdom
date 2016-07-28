@@ -65,7 +65,7 @@
     select
     <include refid="Base_Column_List" />
     from user_account
-    where user_id = #{userId,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER} and status = 0
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -104,7 +104,9 @@
        <if test="status != null" >
         status = #{status,jdbcType=CHAR},
       </if>
-      
+       <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=CHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -169,7 +171,8 @@
   </select>
   
    <select id="selectTouserByUserAccount" parameterType="com.zefun.web.entity.UserAccount" resultType="com.zefun.web.entity.UserAccount">
-  	select user_id as userId  from user_account where store_account=#{storeAccount}  AND role_id = 1 
+  	  	SELECT u.user_id AS userId  FROM user_account u WHERE u.store_account=#{storeAccount}   AND 
+  	EXISTS (SELECT 1 FROM account_role_info c WHERE c.store_account = u.store_account AND u.role_id = c.account_role_id)
   </select>
   
   <update id="updateDisableAndStart" parameterType="com.zefun.web.entity.UserAccount" >
@@ -200,6 +203,16 @@
     and u.user_name = #{userName} 
     </if>
     and e.is_deleted = 1
+  </select>
+  
+  
+
+  
+    <select id="selectStoreAccountRole" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from user_account
+    where role_id = #{accountRoleId} and store_account = #{storeAccount}  and status=0 
   </select>
   
 </mapper>

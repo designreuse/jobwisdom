@@ -62,7 +62,7 @@
 						</div>
 
 					<div class="new_data">
-						<button onclick="jQuery('.zzc1').modal();jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
+						<button onclick="jQuery('.zzc1').modal();jQuery('textarea[name=\'goodsDesc\']').val('');jQuery('.new_shop_content').find('input[type=\'text\']').val('')">新建</button>
 						<button>导入模块下载</button>
 						<button style="width: 60px">导入</button>
 						<button style="width: 60px" onclick="exportTable('ag')">导出</button>
@@ -147,10 +147,11 @@
 	 */
 	function save() {
 		var data = coverDate();
-		console.log(data);
+		if (data.brandId==null){dialog("该供应商下没有品牌");return;}
+		if (data.supplierId==null){dialog("请先新增一个供应商吧");return;}
 		var isOk = true;
 		jQuery.each(data, function(name, value) {
-			if (!isNotNull(value) && name != "goodsId") {
+			if (!isNotNull(value) && name != "goodsId" && name != "goodsDesc") {
 				isOk = false;
 				return false;
 			}
@@ -166,6 +167,7 @@
 			contentType : "application/json",
 			async : false,
 			success : function(data) {
+				if (data.code==-1){dialog(data.msg);return;}
 				var brandList = ['否','是'];
 				var accountGood = data.msg;
 				var html = '<tr goodsDesc="'+accountGood.goodsDesc +'" goodsId="'+accountGood.goodsId +'" isSellProduct="'+accountGood.isSellProduct +'"  supplierId="'+accountGood.supplierId +'" brandId="'+accountGood.brandId +'">'+

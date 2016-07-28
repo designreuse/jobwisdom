@@ -114,6 +114,7 @@
     select * from employee_level where store_id = #{storeId,jdbcType=INTEGER} and is_deleted = 0
     <if test="positionId != null " > and position_id = #{positionId,jdbcType=INTEGER} </if>
     <if test="levelId != null " > and level_id = #{levelId,jdbcType=INTEGER} </if>
+    <if test="levelName != null " > and level_name = #{levelName} </if>
   </select>
   <!-- 获取职位底下员工 -->
  <select id="getlevelemployee" parameterType="java.util.Map" resultType="com.zefun.web.dto.EmployeeDto">
