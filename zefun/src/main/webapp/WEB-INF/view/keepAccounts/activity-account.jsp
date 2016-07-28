@@ -101,8 +101,10 @@
 							   <c:if test="${activityInfo.activityType eq 1 }"><td>折扣</td></c:if><c:if test="${activityInfo.activityType eq 2 }"><td>现金</td></c:if><c:if test="${activityInfo.activityType eq 3 }"><td>体验</td></c:if>
 							   <td>&nbsp;${activityInfo.activityCl}</td>
 							   <td>
-							      <p><span><i id="one">${activityInfo.activityPositionOne }</i><c:if test="${activityInfo.positionOneType eq 1 }"><em>固定</em></c:if><c:if test="${activityInfo.positionOneType eq 2 }"><em>比例</em></c:if></span>
-								  	<span><i>提成</i><em>${activityInfo.positionOnePush }元</em></span><span><i>业绩</i><em>${activityInfo.positionOneResult }元</em></span></p>
+							      <p><span><i id="one">${activityInfo.activityPositionOne }</i>
+							      <c:if test="${activityInfo.positionOneType eq 1 }"><em>固定</em></span>	<span><i>提成</i><em>${activityInfo.positionOnePush }元</em></span><span><i>业绩</i><em>${activityInfo.positionOneResult }元</em></span></c:if>
+							      <c:if test="${activityInfo.positionOneType eq 2 }"><em>比例</em></span>	<span><i>提成</i><em>${activityInfo.positionOnePush }%</em></span><span><i>业绩</i><em>${activityInfo.positionOneResult }%</em></span></c:if>
+								  </p>
 							      <p><span><i id="two">${activityInfo.activityPositionTwo }</i><c:if test="${activityInfo.positionTwoType eq 1 }"><em>固定</em></c:if><c:if test="${activityInfo.positionTwoType eq 2 }"><em>比例</em></c:if></span>
 								 	 <span><i>提成</i><em>${activityInfo.positionTwoPush }元</em></span><span><i>业绩</i><em>${activityInfo.positionTwoResult }元</em></span></p>
 								  <p><span><i id="three">${activityInfo.activityPositionThree }</i><c:if test="${activityInfo.positionThreeType eq 1 }"><em>固定</em></c:if><c:if test="${activityInfo.positionThreeType eq 2 }"><em>比例</em></c:if></span>
@@ -280,13 +282,13 @@ function updated(activity,id){
 			}
 			
 			jQuery(".zzc").find("#position_emploee tr").eq(1).find("td").eq(0).attr("id",activity.activityPositionOne);
-			jQuery(".zzc").find("#position_emploee tr").eq(1).find("td").eq(0).text(activityPositionOne);
+// 			jQuery(".zzc").find("#position_emploee tr").eq(1).find("td").eq(0).text(activityPositionOne);
 			
 			jQuery(".zzc").find("#position_emploee tr").eq(2).find("td").eq(0).attr("id",activity.activityPositionTwo);
-			jQuery(".zzc").find("#position_emploee tr").eq(2).find("td").eq(0).text(activityPositionTwo);
+// 			jQuery(".zzc").find("#position_emploee tr").eq(2).find("td").eq(0).text(activityPositionTwo);
 			
 			jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(0).attr("id",activity.activityPositionThree);
-			jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(0).text(activityPositionThree);
+// 			jQuery(".zzc").find("#position_emploee tr").eq(3).find("td").eq(0).text(activityPositionThree);
 			
 			
 			jQuery(".zzc").find("#position_emploee tr").eq(1).find("td").eq(1).find("select").val(activity.positionOneType);
