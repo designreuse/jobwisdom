@@ -19,28 +19,39 @@
 		.server_text>p img{width:26px;vertical-align:middle;margin-left:3px}
 		.server_button{float:right;margin:1.5rem 1rem 0 0 }
 		.server_button button{border:none;background:#ed5f19;color:white;font-size:14px;text-align:center;width:5rem;height:2rem;line-height:2rem;border-radius:4px;}
+        body{background:white;text-align: center}
+    	.emptyImg {display:inline-block;width:80%;}
+    	.empty{padding-top:30%}
     </style>
   </head>
   
     <body>
-    <div class="con"> 
-         <c:forEach items="${mapList}" var="map">
-              <div class="server clearfix">
-				 <div class="server_img">
-				   <img src="<%=qiniuPath %>${map.memberBaseDto.headUrl }">
+        <c:choose>
+            <c:when test="${fn:length(mapList) > 0 }">
+               <div class="con"> 
+			         <c:forEach items="${mapList}" var="map">
+			              <div class="server clearfix">
+							 <div class="server_img">
+							   <img src="<%=qiniuPath %>${map.memberBaseDto.headUrl }">
+							 </div>
+							 <div class="server_text">
+							  <p>顾客：${map.memberBaseDto.name }<c:if test="${map.memberBaseDto.sex == '男'}"><img src="<%=basePath%>images/mobile/newemployee/sex.png"></c:if> <c:if test="${map.memberBaseDto.sex == '女'}"><img src="<%=basePath%>images/mobile/newemployee/sex_woman.png"></c:if></p>
+							  <div>${map.shiftMahjongName }</div>
+							  <div>开始时间:${fn:substring(map.beginTime, 11, 16)}</div>
+							 </div>
+							 <div class="server_button">
+							   <button onclick = "overServerEmployee(${map.shiftMahjongStepId})">结束</button>
+							 </div>
+						  </div>
+			         </c:forEach>
 				 </div>
-				 <div class="server_text">
-				  <p>顾客：${map.memberBaseDto.name }<c:if test="${map.memberBaseDto.sex == '男'}"><img src="<%=basePath%>images/mobile/newemployee/sex.png"></c:if> <c:if test="${map.memberBaseDto.sex == '女'}"><img src="<%=basePath%>images/mobile/newemployee/sex_woman.png"></c:if></p>
-				  <div>${map.shiftMahjongName }</div>
-				  <div>开始时间:${fn:substring(map.beginTime, 11, 16)}</div>
-				 </div>
-				 <div class="server_button">
-				   <button onclick = "overServerEmployee(${map.shiftMahjongStepId})">结束</button>
-				 </div>
-			  </div>
-         </c:forEach>
-
-	     </div>
+            </c:when>
+            <c:otherwise>
+               <div class="empty">
+			     <img class = "emptyImg" src="<%=qiniuPath %>system/profile/order_empty_1.png">
+			   </div> 
+            </c:otherwise>
+        </c:choose>
 	    <div style="height:6rem"></div>
 	    <ul class="bottom_fix clearfix">
 	      <li ontouchstart = "chooseTypePage(1, '${session_key_store_account}')">
