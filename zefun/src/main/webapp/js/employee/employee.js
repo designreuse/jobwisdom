@@ -1897,7 +1897,7 @@ function refreshTableDataAfterListAll(employeeList){
 //		tbody.appendChild(tr);
 		var tbody = '<tr id='+ employee.employeeId + ' name="tables"><td>'+ employee.employeeCode + '</td>'+
 			'<td>'+ employee.name + '</td>   <td>'+ employee.sex + '</td><td>'+ employee.deptName + '</td><td>'+ employee.positionName + '</td>'  +
-			'<td>'+ employee.levelName + '</td> <td>'+ employee.userName + '</td><td>'+ employee.phone + '</td>'+
+			'<td>'+ employee.levelName + '</td> <td>'+ employee.phone + '</td>'+
 			'<td><span onclick="selectEmp('+ employee.employeeId + ')"> <img src="'+baseUrl+'images/handle_1.png" ></span>'+
 			'<span onclick="deleteinfo('+ employee.employeeId + ')"><img src="'+baseUrl+'images/handle_2.png"></span></td> </tr>';
 			jQuery(".payroll_table").append(tbody);
