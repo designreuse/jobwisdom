@@ -1278,9 +1278,9 @@
 			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>";
 			if(type==1){
 				html+="<td><span><input  placeholder='0' type='text'><i id='"+levelId+"' >元</i></span></td>";
-				html+="<td><span><input    placeholder='0' type='text'><i id='"+levelId+"'  name='cardyu'>元</i></span></td></tr>";
+				html+="<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'  name='cardyu'>元</i></span></td></tr>";
 			}else{
-				html+="<td><span><input    placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td></tr>";
+				html+="<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td></tr>";
 			}
 			
 			jQuery("#"+type).append(jQuery(html));

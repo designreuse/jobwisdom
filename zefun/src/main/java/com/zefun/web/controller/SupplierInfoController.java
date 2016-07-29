@@ -127,7 +127,7 @@ public class SupplierInfoController extends BaseController {
         try {
             if (supplierInfo.getSupplierId() == null) {
                 // 保存
-                supplierInfo.setStoreId(getStoreId(request));
+//                supplierInfo.setStoreId(getStoreId(request));
                 supplierInfo.setThirtySales(0);
                 supplierInfo.setCreateTime(DateUtil.getCurTime());
                 supplierInfo.setStoreAccount(storeAccount);

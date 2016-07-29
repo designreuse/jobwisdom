@@ -1013,6 +1013,7 @@ public class GoodsInfoService {
     * @param brandId brandId
     * @return BaseDto
      */
+    @Transactional
     public BaseDto deleteBrand(Integer brandId) {
         int updateByIsdelete = goodsBrandMapper.updateByIsdelete(brandId);
         if (updateByIsdelete ==0) {
@@ -1020,4 +1021,21 @@ public class GoodsInfoService {
         }
         return  new BaseDto(0, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
+
+    /**
+     * 删除供应商
+    * @author 高国藩
+    * @date 2016年7月29日 下午5:27:01
+    * @param supplierId supplierId
+    * @return           BaseDto
+     */
+    @Transactional
+    public BaseDto deletedSupiler(Integer supplierId) {
+        SupplierInfo supplierInfo = new SupplierInfo();
+        supplierInfo.setIsDeleted(1);
+        supplierInfo.setSupplierId(supplierId);
+        supplierInfoMapper.updateByPrimaryKeySelective(supplierInfo);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除供应商成功");
+    }
+    
 }
