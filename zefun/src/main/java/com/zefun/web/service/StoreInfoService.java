@@ -532,27 +532,27 @@ public class StoreInfoService {
     	BigDecimal balanceAmount = new BigDecimal(0);
     	Integer msnNum = 0;
     	if (msnRechargeType == 1) {
-    		balanceAmount = new BigDecimal(9);
+    		balanceAmount = new BigDecimal(10);
     		msnNum = 100;
     	}
     	else if (msnRechargeType == 2){
-    		balanceAmount = new BigDecimal(45);
+    		balanceAmount = new BigDecimal(50);
     		msnNum = 500;
     	}
         else if (msnRechargeType == 3){
-    		balanceAmount = new BigDecimal(90);
+    		balanceAmount = new BigDecimal(100);
     		msnNum = 1000;
     	}
 		else if (msnRechargeType == 4){
-    		balanceAmount = new BigDecimal(180);
+    		balanceAmount = new BigDecimal(200);
     		msnNum = 2000;
 		}
 		else if (msnRechargeType == 5){
-    		balanceAmount = new BigDecimal(900);
+    		balanceAmount = new BigDecimal(1000);
     		msnNum = 10000;
 		}
 		else if (msnRechargeType == 6){
-			balanceAmount = new BigDecimal(msnNumber * 9/10);
+			balanceAmount = new BigDecimal(msnNumber * 0.1);
 			msnNum = msnNumber;
 		}
 		if (enterpriseAccount.getBalanceAmount().compareTo(balanceAmount) < 1) {

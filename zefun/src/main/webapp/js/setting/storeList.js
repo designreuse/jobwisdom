@@ -377,9 +377,52 @@ function msnRecharge () {
 	jQuery("#msnRechargeDIV").show();
 }
 
+jQuery("input[name='msnRechargeType']").click(function () {
+	var msnRechargeType = jQuery(this).val();
+	if (msnRechargeType ==  1) {
+		jQuery("span[name='msnMoney']").text("10.00元");
+		jQuery("input[name='msnNumber']").val("");
+		jQuery("input[name='msnNumber']").attr("disabled", "disabled");
+    	jQuery("input[name='msnNumber']").attr("style", "background-color: #ccc");
+	}
+	else if (msnRechargeType ==  2) {
+		jQuery("span[name='msnMoney']").text("50.00元");
+		jQuery("input[name='msnNumber']").val("");
+		jQuery("input[name='msnNumber']").attr("disabled", "disabled");
+    	jQuery("input[name='msnNumber']").attr("style", "background-color: #ccc");
+	}
+    else if (msnRechargeType ==  3) {
+    	jQuery("span[name='msnMoney']").text("100.00元");
+    	jQuery("input[name='msnNumber']").val("");
+    	jQuery("input[name='msnNumber']").attr("disabled", "disabled");
+    	jQuery("input[name='msnNumber']").attr("style", "background-color: #ccc");
+	}
+    else if (msnRechargeType ==  4) {
+    	jQuery("span[name='msnMoney']").text("200.00元");
+    	jQuery("input[name='msnNumber']").val("");
+    	jQuery("input[name='msnNumber']").attr("disabled", "disabled");
+    	jQuery("input[name='msnNumber']").attr("style", "background-color: #ccc");
+    }
+    else if (msnRechargeType ==  5) {
+    	jQuery("span[name='msnMoney']").text("1000.00元");
+    	jQuery("input[name='msnNumber']").val("");
+    	jQuery("input[name='msnNumber']").attr("disabled", "disabled");
+    	jQuery("input[name='msnNumber']").attr("style", "background-color: #ccc");
+    }
+    else {
+    	jQuery("input[name='msnNumber']").removeAttr("disabled");
+    	jQuery("input[name='msnNumber']").removeAttr("style");
+    	jQuery("span[name='msnMoney']").text("0.00元");
+    }
+})
+
 function saveMsnRecharge () {
 	var msnRechargeType = jQuery("input[name='msnRechargeType']:checked").val();
 	var msnNumber = jQuery("input[name='msnNumber']").val();
+	if (msnRechargeType == 6 && (isEmpty(msnNumber) || msnNumber == 0)) {
+		dialog("请输入充值条数！");
+		return;
+	}
 	jQuery.ajax({
         cache: true,
         type: "POST",
@@ -398,13 +441,11 @@ function saveMsnRecharge () {
     });
 }
 
-function msnInputFocus (obj) {
-	jQuery(obj).parents(".clearfix").find("input[name='msnRechargeType']").each(function () {
-		if (jQuery(this).val() == 6) {
-			jQuery(this).prop("checked",true);
-		}
-	});
-}
+jQuery("input[name='msnNumber']").keyup(function () {
+	var msnNumber = jQuery(this).val();
+	var money = (new Big(msnNumber).div(new Big(10))).toFixed(2);
+	jQuery("span[name='msnMoney']").text(money + "元");
+})
 
 function cancel() {
 	jQuery("div[name='modelDiv']").hide();
@@ -434,14 +475,14 @@ function rechargeFlow() {
             }
         	var objList = data.msg;
         	
-        	jQuery("#rechargeFlowTable tr:gt(1)").remove();
+        	jQuery("#rechargeFlowTable").empty();
         	for (var i = 0; i < objList.length; i++) {
         		var storeObj = objList[i];
         		jQuery("#rechargeFlowTable").append("<tr>"+
-										               "<td>"+storeObj.storeName+"</td>"+
-													   "<td>"+storeObj.createTime+"</td>"+
-													   "<td>"+storeObj.balanceAmount+"</td>"+
-													   "<td>"+storeObj.flowAmount+"</td>"+
+										               "<td style='width:149px'>"+storeObj.storeName+"</td>"+
+													   "<td style='width:225px'>"+storeObj.createTime+"</td>"+
+													   "<td style='width:91px'>"+storeObj.balanceAmount+"</td>"+
+													   "<td style='width:92px'>"+storeObj.flowAmount+"</td>"+
 													 "</tr>")
         	}
         }
@@ -491,7 +532,7 @@ function distributionMsn (obj, storeId) {
 }
 
 function consumptionRecord () {
-	jQuery("#consumptionRecordTBODY tr:gt(0)").remove();
+	jQuery("#consumptionRecordTBODY").empty();
 	jQuery.ajax({
         cache: true,
         type: "POST",
@@ -507,14 +548,14 @@ function consumptionRecord () {
         		var obj = objData[i];
         		var str = "<tr>";
         		if (obj.flowType == 2) {
-        			str += "<td style='color:green'>"+obj.flowAmount+"</td>";
+        			str += "<td style='color:green;width:96px'>"+obj.flowAmount+"</td>";
         		}
         		else {
-        			str += "<td>"+obj.flowAmount+"</td>";
+        			str += "<td style='width:96px'>"+obj.flowAmount+"</td>";
         		}
-        		str += "<td>"+obj.balanceAmount+"</td>"+
-					   "<td>"+obj.businessType+"</td>"+
-					   "<td>"+obj.createTime+"</td>"+
+        		str += "<td style='width:96px'>"+obj.balanceAmount+"</td>"+
+					   "<td style='width:155px'>"+obj.businessType+"</td>"+
+					   "<td style='width:315px'>"+obj.createTime+"</td>"+
 					 "</tr>";
 															 
 															 
