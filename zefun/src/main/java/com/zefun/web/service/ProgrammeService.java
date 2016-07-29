@@ -63,15 +63,20 @@ public class ProgrammeService {
         	if (settingRule == null) {
         		initializationSettingRule(storeAccount, 1);
         		settingRule = settingRuleMapper.selectByStoreIdOrAccount(map);
-        		map1.put("storeIdOrAccount", storeAccount);
-        		map1.put("settingRule", settingRule);
-        		list.add(map1);
         	}
+        	map1.put("storeIdOrAccount", storeAccount);
+    		map1.put("settingRule", settingRule);
+    		list.add(map1);
         	
-        	for (StoreInfo storeInfo : storeInfoList) {
+    		String ruleInfo  = null;
+        	for (int i =0; i < storeInfoList.size(); i++) {
+        		
+        		StoreInfo storeInfo = storeInfoList.get(i);
         		map.put("storeIdOrAccount", storeInfo.getStoreId());
             	SettingRule obj = settingRuleMapper.selectByStoreIdOrAccount(map);
-            	
+            	if (i == 0) {
+            		ruleInfo = obj.getRuleInfo();
+            	}
             	if (obj == null) {
             		initializationStoreRule(storeInfo.getStoreId(), 1);
             		obj = settingRuleMapper.selectByStoreIdOrAccount(map);
@@ -82,6 +87,7 @@ public class ProgrammeService {
             	map2.put("settingRule", obj);
             	list.add(map2);
 			}
+        	
         	mav.addObject("ruleListStr", JSONArray.fromObject(list).toString());
         	mav.addObject("storeAccount", storeAccount);
     		mav.addObject("storeInfoList", storeInfoList);
@@ -140,7 +146,7 @@ public class ProgrammeService {
 		record.setRuleInfo(ruleInfo);
 		record.setRuleType(ruleType);
 		record.setSettingRuleId(settingRuleId);
-		settingRuleMapper.insertSelective(record);
+		settingRuleMapper.updateByPrimaryKeySelective(record);
 		
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}

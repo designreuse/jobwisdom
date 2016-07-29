@@ -156,8 +156,7 @@ public class WechatCallService {
         if (accessTokenJson.containsKey("errcode")) {
             String errcode = accessTokenJson.get("errcode").toString();
             String errmsg = accessTokenJson.get("errmsg").toString();
-            logger.error("use weixin login err, code " + code + ", errcode "
-                    + errcode + ", errmsg " + errmsg);
+            logger.error("use weixin login err, code " + code + ", errcode " + errcode + ", errmsg " + errmsg);
             response.sendRedirect(redirect);
             return;
         }
@@ -617,8 +616,7 @@ public class WechatCallService {
     * @param i            0:入单,1:改单
      */
     @Transactional
-    public void updateRechargeRecord(String storeAccount, Integer totalFee, 
-            String outTradeNo, Integer i, String openId) {
+    public void updateRechargeRecord(String storeAccount, Integer totalFee, String outTradeNo, Integer i, String openId) {
         if (i == 0){
             EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
             enterpriseInfo.setStoreAccount(storeAccount);
@@ -651,6 +649,8 @@ public class WechatCallService {
             
             EnterpriseAccountFlow enterpriseAccountFlow = new EnterpriseAccountFlow();
             enterpriseAccountFlow.setBusinessType("充值");
+            enterpriseAccountFlow.setFlowType(2);
+            enterpriseAccountFlow.setCreateTime(DateUtil.getCurTime());
             enterpriseAccountFlow.setEnterpriseAccountId(rechargeRecord.getEnterpriseAccountId());
             enterpriseAccountFlow.setBalanceAmount(enterpriseAccount.getBalanceAmount());
             enterpriseAccountFlow.setFlowAmount(rechargeRecord.getRechargeAmount());
