@@ -114,7 +114,7 @@
 							</div>
 							<div class="out_tab_content_" style="display: none;">
 								<div class="out_tab_2">
-									<button onclick="jQuery('.zzc1').show('800')">选择商品入库</button>
+									<button onclick="jQuery('.zzc1').show('800')">选择商品出库</button>
 									<input type="text" placeholder="名称/编码">
 								</div>
 								<table class="payroll_table" id="intable2">

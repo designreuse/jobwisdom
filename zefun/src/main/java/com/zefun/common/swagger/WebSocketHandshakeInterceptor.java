@@ -3,14 +3,13 @@ package com.zefun.common.swagger;
 import java.util.HashMap;
 import java.util.Map;
 
-//import javax.servlet.http.HttpSession;
-
-//import org.apache.log4j.Logger;
+import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import com.zefun.common.consts.App;
 
@@ -19,8 +18,7 @@ import com.zefun.common.consts.App;
 * @author 高国藩
 * @date 2016年5月23日 下午4:34:38
  */
-public class WebSocketHandshakeInterceptor
-        extends HttpSessionHandshakeInterceptor {
+public class WebSocketHandshakeInterceptor implements HandshakeInterceptor /** extends HttpSessionHandshakeInterceptor */{
 
     /**log*/
 //    private Logger log = Logger.getLogger(WebSocketHandshakeInterceptor.class);
@@ -40,18 +38,18 @@ public class WebSocketHandshakeInterceptor
     public boolean beforeHandshake(ServerHttpRequest request,
             ServerHttpResponse arg1, WebSocketHandler handler,
             Map<String, Object> attribute) throws Exception {
-//        ServletServerHttpRequest servletRequest2 = (ServletServerHttpRequest) request;
-//        HttpSession session = servletRequest2.getServletRequest().getSession(false);
-//        if (session != null) {
+        ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
+        HttpSession session = servletRequest.getServletRequest().getSession(false);
+        if (session != null) {
 //            String userName = (String) session.getAttribute(App.Session.STORE_ACCOUNT);
 //            log.info(userName);
-//        }
+        }
         /** 在拦截器内强行修改websocket协议，将部分浏览器不支持的 x-webkit-deflate-frame 扩展修改成 permessage-deflate */
         if (request.getHeaders().containsKey("Sec-WebSocket-Extensions")){
             request.getHeaders().set("Sec-WebSocket-Extensions", "permessage-deflate");
         }
         if (request instanceof ServerHttpRequest) {
-            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
+//            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             Map<String, String> mapRequest = urlRequest(servletRequest.getURI().toString());
             for (String strRequestKey: mapRequest.keySet()) {
                 String strRequestValue = mapRequest.get(strRequestKey);

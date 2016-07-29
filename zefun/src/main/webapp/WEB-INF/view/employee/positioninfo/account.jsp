@@ -209,25 +209,25 @@
      <div class="first_adjust_content">  
         <p>职位名称<input type="text" name="levelName" ></p>
 	    <div class="num_adjust_content">
-	      <div class="depend">参考<span>?</span>
-		    <p><span>该岗位下的人员，在参与了其他岗位、职位下的工作，提成的参考值</span><em></em></p>
+	      <div class="depend">跨岗位业绩提成参考<span>?</span>
+		    <p><span>该职位员工做了其他岗位下服务项目后的提成参考</span><em></em></p>
 		  </div>
 		 <div class="num_adjust_content_detail">
 		    <i>第一岗位</i>
 		    <select class="reference">
-		        <option value="">请选择参考职位</option>
+		        <option value="">请选择提成参考职位</option>
 		    </select>
 		  </div>
           <div class="num_adjust_content_detail">
 		    <i>第二岗位</i>
 		    <select class="referenceFirst">
-		        <option value="">请选择参考职位</option>
+		        <option value="">请选择提成参考职位</option>
 		    </select>
 		  </div>
           <div class="num_adjust_content_detail">
 		  	<i>第三岗位</i>
 		  	<select class="referenceTwo">
-		  	   <option value="">请选择参考职位</option>
+		  	   <option value="">请选择提成参考职位</option>
 		  	</select>
 		  </div>
         </div>
