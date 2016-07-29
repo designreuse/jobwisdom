@@ -403,12 +403,12 @@
 					     </c:forEach>
 					   </select>
 		  </p>
-	      <p><input type="text" name = "start1"><span>至</span><input type="text" name = "end1"></p>
-		  <p><input type="text" name = "start2" class="active1" disabled><span>至</span><input type="text" name = "end2"></p>
-		  <p><input type="text" name = "start3" class="active1" disabled><span>至</span><input type="text" name = "end3"></p>
-		  <p><input type="text" name = "start4" class="active1" disabled><span>至</span><input type="text" name = "end4"></p>
-		  <p><input type="text" name = "start5" class="active1" disabled><span>以上</span></p>
-		  <div class="set_pay_content_button" setting_rule_id>
+	      <p><input type="number" name = "start1"><span>至</span><input type="number" name = "end1"></p>
+		  <p><input type="number" name = "start2" class="active1" disabled><span>至</span><input type="number" name = "end2"></p>
+		  <p><input type="number" name = "start3" class="active1" disabled><span>至</span><input type="number" name = "end3"></p>
+		  <p><input type="number" name = "start4" class="active1" disabled><span>至</span><input type="number" name = "end4"></p>
+		  <p><input type="number" name = "start5" class="active1" disabled><span>以上</span></p>
+		  <div class="set_pay_content_button" settingRuleId = "">
 		    <button onclick = "saveRule()">确认</button>
 		    <button onclick = "cancal()">取消</button>
 		  </div>
