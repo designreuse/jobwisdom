@@ -210,8 +210,7 @@ public class ProjectService {
     * @return   项目列表
      */
     public DeptProjectBaseDto getDeptProjectByDeptId(int deptId) {
-        String deptProjectBaseInfoJson = redisService
-                .hget(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, deptId);
+        String deptProjectBaseInfoJson = redisService.hget(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, deptId);
         DeptProjectBaseDto deptProject = null;
         // 首先从缓存中获取，如果缓存中不存在，则从数据库查出并缓存
         if (StringUtils.isBlank(deptProjectBaseInfoJson)) {
@@ -223,12 +222,13 @@ public class ProjectService {
         }
         // 缓存中存在则直接转换为对象
         else {
-            deptProject = EntityJsonConverter.json2Entity(
-                    deptProjectBaseInfoJson, DeptProjectBaseDto.class);
+            deptProject = EntityJsonConverter.json2Entity(deptProjectBaseInfoJson, DeptProjectBaseDto.class);
         }
         return deptProject;
     }
 
+
+    
     /**
      * 获取部门，项目类别和项目列表
     * @author 洪秋霞

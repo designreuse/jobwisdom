@@ -290,6 +290,22 @@ function selectHasDeleted(but){
 	jQuery("#serch").click();
 }
 </script>
+<script>
+jQuery(function(){
+	
+	jQuery(document).click(function(e){	
+		var tar=e.target;
+		
+		if(!jQuery(e.target).is('.fuzzysearch,#serchMemberByNameOrPhone')){
+			jQuery('.fuzzysearch').hide();
+		}
+		
+		
+	})
+	
+})
+
+</script>
 <script src="<%=basePath%>js/member/member-list.js" type="text/javascript"></script>
 <script src="<%=basePath%>js/member/memberUpdate.js" type="text/javascript"></script>
 </html>
