@@ -63,7 +63,6 @@ import com.zefun.web.mapper.IntegralFlowMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberComboProjectMapper;
 import com.zefun.web.mapper.MemberComboRecordMapper;
-import com.zefun.web.mapper.MemberCouponMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.MemberSubAccountMapper;
@@ -144,9 +143,6 @@ public class DayBookService {
 	@Autowired
 	private MemberComboRecordMapper memberComboRecordMapper;
 	
-	/** 用户优惠券*/
-	@Autowired
-	private MemberCouponMapper memberCouponMapper;
 	
 	/** 积分*/
 	@Autowired

@@ -29,6 +29,7 @@ public class DeptService {
     /**班次*/
     @Autowired
     private ShiftMapper shiftMapper;
+    
     /**
      * 关于部门
      */
@@ -285,6 +286,9 @@ public class DeptService {
         
         if (deptInfo.getDeptId()!=null) {
             deptInfoMapper.updateByPrimaryKeySelective(deptInfo);
+            redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, deptInfo.getDeptId());
+            redisService.hdel(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH , deptInfo.getDeptId());
+            redisService.hdel(App.Redis.DEPT_PROJECT_MAHJONG_INFO_KEY_HASH , deptInfo.getDeptId());
         }
         else if (deptName == null) {
             deptInfoMapper.insert(deptInfo);

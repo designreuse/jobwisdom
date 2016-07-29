@@ -423,6 +423,10 @@ public class GoodsInfoService {
         return deptGoodsList;
     }
 
+    
+
+
+    
     /**
      * 根据部门编号查询部门下所有商品信息，包含商品类别
     * @author 高国藩
