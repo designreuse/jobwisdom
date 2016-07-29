@@ -255,7 +255,7 @@ public class OpenCardService {
     			Integer storeId, Integer lastOperatorId, String orderCode, String createTime) throws ParseException {
 
 	    MemberInfo selectPhone = memberInfoMapper.selectMemberByStoreIdAndPhone(storeId, phone);
-        if (selectPhone.getMemberId() != null) {
+        if (selectPhone != null) {
             return new BaseDto(-1, "该电话已有会员使用");
         }
 	    

@@ -35,6 +35,13 @@
     cursor: pointer;
     font-size: 16px;
 }
+
+.inputmsnNumber{
+    width: 120px;
+    border-radius: 8px;
+    margin-left: 2px;
+    border: 1px solid black;
+}
 </style>
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
@@ -93,7 +100,7 @@
 					   <div class="dd_store_content_2">
 					     <ul class="clearfix">
 						   <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
-					           <li>
+					           <%-- <li>
 							    <span class="business">营业</span>
 							      <p class="shop_name">${storeInfo.storeName}</p>
 								  <span class="shop_pic"><img  src="<%=qiniuPath%>${storeInfo.storeLogo}"></span>
@@ -111,7 +118,29 @@
 									        删除<span><img src="<%=basePath%>images/add_store_2.png"></span>
 									 </div>
 								  </div>
-							    </li>
+							    </li> --%>
+							    
+							    <li>
+								    <p class="add_store_top"><img src="<%=qiniuPath%>system/profile/add_store_top.png"></p>
+								    <div class="add_store_top_content">
+									  <p>${storeInfo.storeName} </p>
+									  <div class="add_store_top_content_ clearfix">
+									    <div class="add_store_top_content_left">
+										  <img src="<%=qiniuPath%>${storeInfo.storeLogo}">
+						            	</div>
+									    <div class="add_store_top_content_right">
+										  <span>联系人</span>
+										  <p>${storeInfo.storeLinkname}</p>
+										  <span>电话号码</span>
+										  <p>${storeInfo.storeLinkphone}</p>
+						            	</div>
+						
+									  </div>
+									  <div class="add_store_editor">
+										  <button onclick="editStore(${storeInfo.storeId})">编辑</button>
+										</div>
+									</div>
+								 </li>
 					       </c:forEach>
 						 </ul>
 					   </div>
@@ -213,7 +242,7 @@
 
 <div class="zzc" style="display:none" name = "modelDiv" id = "addOrUpdateStore">
  
-	<div class="set_content clearfix" >
+	<div class="set_content clearfix" style="border-radius: 12px;overflow: hidden;">
 	   <p class="new_shop">新建店铺</p>
 	  <div class="clearfix add_store_content_1"> 
 	   <div class="content_left" > 
@@ -273,16 +302,16 @@
 </div>
 
 <div class="zzc1" style="display:none" name = "modelDiv" id = "consumptionRecordDiv">
-    <div class="add_balance">
+    <div class="add_balance" style="border-radius: 12px;overflow: hidden;">
 	  <p>收支明细</p>
+	  <ul class="add_balance_fix clearfix">
+			 <li style="width:95px">收支金额（元）</li>
+			 <li style="width:95px">当前金额（元）</li>
+			 <li style="width:154px">收支类型</li>
+			 <li style="width:314px;border-right:1px solid black">消费时间</li>
+	 </ul>
 	  <div class="add_balance_content">
 	     <table id = "consumptionRecordTBODY">
-		   <tr>
-			 <td style="color:black">收支金额（元）</td>
-			 <td>当前金额（元）</td>
-			 <td>收支类型</td>
-			 <td>消费时间</td>
-		   </tr>
 
 		 </table>
 	  
@@ -294,7 +323,7 @@
 </div>
 	
 <div class="zzc2" style="display:none" name = "modelDiv" id = "msnRechargeDIV">
-    <div class="add_balance" style="height:475px">
+    <div class="add_balance" style="height:475px;border-radius: 12px;overflow: hidden;">
 	  <p>购买短信</p>
 	  <div class="add_balance_content" style="margin:20px auto;height:290px;overflow:visible">
 	    <p>账户余额(元)：<em name = "balanceAmountEM"></em></p>
@@ -302,15 +331,14 @@
 		<div class="this_buy">
 		  <p>本次购买</p>
 		  <ul class="clearfix">
-		    <li><input type="radio" name = "msnRechargeType" value = "1"><span>100条（9元）</span></li>
-			 <li><input type="radio" name = "msnRechargeType" value = "2"><span>500条（45元）</span></li>
-			  <li><input type="radio" name = "msnRechargeType" value = "3"><span>1000条（90元）</span></li>
-			   <li><input type="radio" name = "msnRechargeType" value = "4"><span>2000条（180元）</span></li>
-			  <li><input type="radio" name = "msnRechargeType" value = "5"><span>10000条（900元）</span></li>
-			  <li><input type="radio" name = "msnRechargeType" value = "6">其他<em><input type="text" name = "msnNumber" onfocus="msnInputFocus(this)"  placeholder="输入购买数量"></em></li>
-			  
+		    <li><input type="radio" name = "msnRechargeType" value = "1" checked="checked"><span>100条（10元）</span></li>
+			 <li><input type="radio" name = "msnRechargeType" value = "2"><span>500条（50元）</span></li>
+			  <li><input type="radio" name = "msnRechargeType" value = "3"><span>1000条（100元）</span></li>
+			   <li><input type="radio" name = "msnRechargeType" value = "4"><span>2000条（200元）</span></li>
+			  <li><input type="radio" name = "msnRechargeType" value = "5"><span>10000条（1000元）</span></li>
+			  <li><input type="radio" name = "msnRechargeType" value = "6">其他<em><input type="number" name = "msnNumber" class = "inputmsnNumber" onfocus="msnInputFocus(this)"  placeholder="输入购买数量" disabled="disabled" style="background-color: #ccc"></em></li>
 		  </ul>
-		  <div class="total_price">总付：<span>60元</span></div>
+		  <div class="total_price">总付：<span name = "msnMoney">10元</span></div>
 		</div>
 	  </div>
 	  <div class="add_balance_button" style="position:relative;top:20px">
@@ -322,17 +350,17 @@
 </div>	
 
 <div class="zzc3" style="display:none" name = "modelDiv" id = "rechargeFlow">
-  <div class="assigned">
+  <div class="assigned" style="width: 590px; height: 410px;border-radius: 12px;overflow: hidden;">
      <p>购买分配记录</p>
+     <ul class="assigned_table_point clearfix">
+		   <li style="width:149px">公司/门店 </li>
+		   <li style="width:225px">时间 </li>
+		   <li style="width:91px">当前余量（条）</li>
+		   <li style="width:92px;border-right:1px solid black">数量（条）</li>
+     </ul>
      <div class="assigned_table">
          <table id = "rechargeFlowTable">
-             <tr>
-			   <td>公司/门店</td>
-			   <td>时间</td>
-			   <td>当前余量（条）</td>
-			   <td>数量（条）</td>
-			 </tr>
-			
+             
       	 </table>  
     </div> 
 	<div class="assigned_button">
@@ -344,7 +372,7 @@
 
 <div class="zzc4" style="display:none" name = "modelDiv" id = "upgradeRenew">
   
-     <div class="assigned">
+     <div class="assigned" style="border-radius: 12px;overflow: hidden;">
       <p>升级 续费</p>
 	  <div class="assigned_table" style="overflow:visible">
 	    <span class="assigned_table_span"><em>当前版本</em><em name = "enterpriseEditionUpgradeRenew">${enterpriseAccount.enterpriseEdition }</em></span>
