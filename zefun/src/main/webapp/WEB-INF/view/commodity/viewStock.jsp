@@ -42,7 +42,7 @@
 
 	jQuery(function() {
 		jQuery('.out_tab_content_:gt(0)').hide();
-		jQuery('.clearfix >li').click(
+		jQuery('.clearfix.b >li').click(
 				function() {
 					jQuery(this).addClass('active').siblings().removeClass(
 							'active');
@@ -102,7 +102,7 @@
 					</div>
 
 					<div class="out_tab">
-						<ul class="clearfix">
+						<ul class="clearfix b" id="type">
 							<li class="active">入库管理</li>
 							<li class="">出库管理</li>
 							<li class="">商品调拨管理</li>
@@ -486,8 +486,6 @@
 				jQuery("li[name = 'pageSize']").remove();
 				pageNo=1;
 				initPage();
-				
-				
 			}
 		});
 	}
