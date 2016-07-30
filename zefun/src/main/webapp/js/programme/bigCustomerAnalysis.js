@@ -5,6 +5,14 @@ function showZzc () {
 	jQuery(".zzc").show();
 }
 
+jQuery("input[name='end1'], input[name='end2'], input[name='end3'], input[name='end4']").keyup(function (){
+	var name = jQuery(this).attr("name");
+	var value = jQuery(this).val();
+	var type = name.charAt(name.length - 1);
+	type = parseInt(type) + 1;
+	jQuery("input[name='start"+type+"']").val(value);
+})
+
 function chooseActiveStore () {
 	var chooseStore = jQuery("select[name='chooseStore']").val();
 	
@@ -23,6 +31,8 @@ function chooseActiveStore () {
 			jQuery("input[name='start4']").val(ruleList[3]);
 			jQuery("input[name='end4']").val(ruleList[4]);
 			jQuery("input[name='start5']").val(ruleList[4]);
+			
+			jQuery(".set_pay_content_button").attr("settingRuleId", settingRule.settingRuleId);
 		}
 	}
 }
@@ -32,7 +42,8 @@ function cancal () {
 }
 
 function saveRule () {
-	var chooseStore = jQuery("[name='chooseStore']").val();
+	var chooseStore = jQuery("select[name='chooseStore']").val();
+	var settingRuleId = jQuery(".set_pay_content_button").attr("settingRuleId");
 	var start1 = jQuery("[name='start1']").val();
 	var end1 = jQuery("[name='end1']").val();
 	var end2 = jQuery("[name='end2']").val();
@@ -44,7 +55,35 @@ function saveRule () {
         return;
 	}
 	
+	if (parseInt(start1) >= parseInt(end1) || parseInt(end1) >= parseInt(end2) || parseInt(end2) >= parseInt(end3) || parseInt(end3) >= parseInt(end4)) {
+		dialog("区域开始金额不能大于等于区域结束金额");
+        return;
+	}
 	
+	var ruleInfo = start1 + ":" + end1 + ":" + end2 + ":" + end3 + ":" + end4;
+	
+	jQuery.ajax({
+    	url : baseUrl + "programme/action/initializationSettingRule",
+    	type : "POST",
+    	data : "settingRuleId=" + settingRuleId + "&ruleType=1&ruleInfo=" + ruleInfo,
+    	success : function(e){
+    		if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+    		dialog("规则消费金额成功");
+    		
+    		for (var i = 0; i < storeRuleList.length; i++) {
+    			var rule = storeRuleList[i];
+    			if (rule.storeIdOrAccount == chooseStore) {
+    				var settingRule = rule.settingRule;
+    				settingRule.ruleInfo = ruleInfo;
+    			}
+    		}
+    		
+    		jQuery(".zzc").hide();
+    	}
+    });
 }
 
 jQuery(function () {
