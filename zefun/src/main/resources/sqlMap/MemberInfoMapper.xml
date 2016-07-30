@@ -571,6 +571,18 @@
     </if>
     AND wx.is_deleted = 0
   </select>
+   
+   <!-- 根据会员标识分页查询会员信息 -->
+   <select id="selectMemberInfosByRulePage" parameterType="com.zefun.web.entity.Page" resultMap="ResultDto">
+  SELECT wx.*,rt.*,si.store_name from member_info wx, member_account rt, store_info si
+    WHERE wx.store_id = si.store_id
+    AND rt.account_id = wx.member_id 
+    AND wx.member_id IN
+	  <foreach collection="params.memberIdList" open="(" separator="," close=")" item="memberId">
+	  	${memberId}
+	  </foreach>
+    AND wx.is_deleted = 0
+  </select>
 
 
   <select id="selectMemberInfoByWechatParams" parameterType="java.util.List" resultMap="BaseResultMap">

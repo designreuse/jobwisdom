@@ -28,7 +28,7 @@
     select 
     <include refid="Base_Column_List" />
     from enterprise_account_flow a
-    where exists(select 1 from enterprise_info b where b.enterprise_info_id = a.enterprise_account_id and b.store_account = #{storeAccount,jdbcType=VARCHAR}) and a.is_deleted = 0 
+    where exists(select 1 from enterprise_info b where b.enterprise_info_id = a.enterprise_account_id and b.store_account = #{storeAccount,jdbcType=VARCHAR}) and a.is_deleted = 0 order by a.create_time desc
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

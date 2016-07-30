@@ -65,7 +65,7 @@ function saveRule () {
 	jQuery.ajax({
     	url : baseUrl + "programme/action/initializationSettingRule",
     	type : "POST",
-    	data : "settingRuleId=" + settingRuleId + "&ruleType=1&ruleInfo=" + ruleInfo,
+    	data : "settingRuleId=" + settingRuleId + "&ruleType="+pageType+"&ruleInfo=" + ruleInfo,
     	success : function(e){
     		if (e.code != 0) {
                 dialog(e.msg);
@@ -86,34 +86,187 @@ function saveRule () {
     });
 }
 
-jQuery(function () {
-    if (analysisType == 1) {
-    	dialog("未创建门店, 请先创建门店");
-    	return;
-    }
-	
-    var colors = Highcharts.getOptions().colors,
-        categories = ['0-300元', '300-500元', '500-1000元', '1000-3000元', '3000元以上'],
-        name = '消费分析',
-        data = [{
-                y: 6000,
-                color: colors[0]
-            }, {
-                y: 5000,
-                color: colors[1]
-            }, {
-                y:300,
-                color: colors[2]
-            }, {
-                y: 5000,
-                color: colors[3]
-            }, {
-                y: 500,
-                color: colors[4],
-             
-            }];
+var memberRuleArray = new Array();
 
-    function setChart(name, categories, data, color) {
+function packgTable (rule, ruleType) {
+	var settingRule = rule.settingRule;
+	jQuery("table[name='boyTable'] tr").find("td:gt(0)").remove();
+	jQuery("table[name='grilTable'] tr").find("td:gt(0)").remove();
+	
+	var storeIdOrAccount = settingRule.storeIdOrAccount;
+	
+	jQuery.ajax({
+    	url : baseUrl + "programme/action/bigMemberData",
+    	type : "POST",
+    	data : "storeIdOrAccount="+storeIdOrAccount+"&ruleType="+ruleType+"&pageType="+pageType,
+    	success : function(e){
+    		if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+    		var dataMap = e.msg;
+    		var girlObjList = dataMap.girlObjList;
+    		var boyObjList = dataMap.boyObjList;
+    		
+    		var regionArray = new Array();
+    		
+    		var grilTotalVlaueArray = new Array();
+    		
+    		var boyTotalVlaueArray = new Array();
+    		
+    		var colors = Highcharts.getOptions().colors;
+    		
+    		for (var i = 0; i < girlObjList.length; i++) {
+    			var girlObj = girlObjList[i];
+    			regionArray.push(girlObj.rule);
+    			
+    			var obj = {y: girlObj.totalVlaue, color: colors[i]}
+    			
+    			grilTotalVlaueArray.push(obj);
+    			
+    			var memberRuleObj = {"ruleType" : "1_"+i, "memberIdList" : girlObj.memberIdList}
+    			
+    			memberRuleArray.push(memberRuleObj);
+    			
+    			jQuery("table[name='grilTable']").find("tr").eq(0).append('<td>'+girlObj.rule+'</td>')
+    			jQuery("table[name='grilTable']").find("tr").eq(1).append('<td onclick = "selectMember(\'1_'+i+'\')">'+girlObj.memberNumber+'人</td>');
+    			jQuery("table[name='grilTable']").find("tr").eq(2).append('<td>'+girlObj.numProportion+'%</td>');
+    			jQuery("table[name='grilTable']").find("tr").eq(3).append('<td>'+girlObj.totalVlaue+'</td>');
+    			jQuery("table[name='grilTable']").find("tr").eq(4).append('<td>'+girlObj.totalProportion+'%</td>');
+    			jQuery("table[name='grilTable']").find("tr").eq(5).append('<td>'+girlObj.avgProportion+'</td>');
+    		}
+    		
+    		for (var i =0; i < boyObjList.length; i++) {
+    			var girlObj = boyObjList[i];
+    			
+                var obj = {y: girlObj.totalVlaue, color: colors[i]}
+    			
+                boyTotalVlaueArray.push(obj);
+                
+                var memberRuleObj = {"ruleType" : "2_"+i, "memberIdList" : girlObj.memberIdList}
+    			
+    			memberRuleArray.push(memberRuleObj);
+
+    			jQuery("table[name='boyTable']").find("tr").eq(0).append('<td>'+girlObj.rule+'</td>')
+    			jQuery("table[name='boyTable']").find("tr").eq(1).append('<td onclick = "selectMember(\'2_'+i+'\')">'+girlObj.memberNumber+'人</td>');
+    			jQuery("table[name='boyTable']").find("tr").eq(2).append('<td>'+girlObj.numProportion+'%</td>');
+    			jQuery("table[name='boyTable']").find("tr").eq(3).append('<td>'+girlObj.totalVlaue+'</td>');
+    			jQuery("table[name='boyTable']").find("tr").eq(4).append('<td>'+girlObj.totalProportion+'%</td>');
+    			jQuery("table[name='boyTable']").find("tr").eq(5).append('<td>'+girlObj.avgProportion+'</td>');
+    		}
+    		
+    		var valueTitle = null;
+    		if (pageType == 1) {
+    			valueTitle = "大客户消费分析";
+    		}
+    		else if (pageType == 2) {
+    			valueTitle = "忠诚度分析";
+    		}
+    		else {
+    			valueTitle = "距今几日未到店";
+    		}
+    		
+    		packgPage ("container1", "(女客)" + valueTitle, valueTitle, regionArray, grilTotalVlaueArray);
+    		packgPage ("container2", "(男客)" + valueTitle, valueTitle, regionArray, boyTotalVlaueArray)
+    	}
+    });
+}
+
+var parentMemberIdList = null;
+
+function selectMember (ruleType) {
+	for (var i = 0; i < memberRuleArray.length; i++) {
+		var memberRuleObj = memberRuleArray[i];
+		if (ruleType == memberRuleObj.ruleType) {
+			var memberIdList = memberRuleObj.memberIdList;
+			if (memberIdList.length == 0) {
+				dialog("暂无客户");
+				return;
+			}
+			parentMemberIdList = memberIdList;
+			pageNo = 1;	
+			pageSize = 15;	
+			changePage();
+		}
+	}
+}
+
+/*分页*/
+//上一页
+function previous(){
+	if(pageNo <= 1){
+		return;
+	}
+	pageNo--;
+	changePage();
+}
+//下一页
+function next(){
+	if(pageNo >= totalPage){
+		return;
+	}
+	pageNo++;
+	changePage();
+}
+//更改每页显示数量
+function changePageSize(size){
+	pageNo = 1;
+	pageSize = size;
+	jQuery(".perpage").html(size + " <span class='iconfa-caret-down afont'></span>");
+	changePage();
+}
+//分页处理
+function changePage(){
+
+	  jQuery.ajax({
+	    	url : baseUrl + "programme/action/ruleMemberIdList",
+	    	type : "POST",
+	    	data : "pageNo="+pageNo+"&pageSize="+pageSize+"&memberIdListStr=" + JSON.stringify(parentMemberIdList),
+	    	success : function(e){
+	    		if (e.code != 0) {
+	                dialog(e.msg);
+	                return;
+	            }
+	    		jQuery(".perpage").text(e.msg.pageSize);
+				jQuery("#init_member").find("tr :gt(0)").remove();
+				initTable(e);
+				pageNo = e.msg.pageNo;
+				pageSize = e.msg.pageSize;
+				totalPage = e.msg.totalPage;
+				totalRecord = e.msg.totalRecord;
+				unbuildPagination();
+				jQuery(".content_right ul").find("li").eq(1).click();
+	    	}
+	    });
+}
+
+function initTable (e) {
+	var memberInfoDtos = e.msg.results;
+	for (var i =0; i < memberInfoDtos.length; i++) {
+		var dto = memberInfoDtos[i];
+		jQuery("#init_member").append('<tr>'+
+									     '<td><input type="checkbox"></td>'+
+									     '<td>'+dto.name+'</td>'+
+										 '<td>'+dto.sex+'</td>'+
+										 '<td>'+dto.phone+'</td>'+
+										 '<td>'+dto.totalAmount+'</td>'+
+										 '<td>'+dto.consumeCount+'</td>'+
+										 '<td>'+dto.lastConsumeTime+'</td>'+
+										 '<td>'+dto.birthday+'</td>'+
+										 '<td>'+dto.createTime+'</td>'+
+										 '<td>'+dto.storeName+'</td>'+
+									   '</tr>');
+	}
+}
+
+function packgPage (id, nameTitle, endName, regionArray, totalVlaueArray) {
+	
+	var colors = Highcharts.getOptions().colors,
+	    categories = regionArray,
+	    name = endName,
+	    data = totalVlaueArray;
+	
+	function setChart(name, categories, data, color) {
 		chart.xAxis[0].setCategories(categories, false);
 		chart.series[0].remove(false);
 		chart.addSeries({
@@ -122,116 +275,69 @@ jQuery(function () {
 			color: color || 'white'
 		}, false);
 		chart.redraw();
-    }
-//第一个图表
-    var chart = jQuery('#container1').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: '(女客)大客户消费分析'
-        },
-      
-        xAxis: {
-            categories: categories
-        },
-      
-        plotOptions: {
-            column: {
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    color: colors[0],
-                    style: {
-                        fontWeight: 'bold'
-                    },
-                    formatter: function() {
-                        return this.y +'';
-                    }
-                }
-            }
-        },
-       
-        series: [{
-            name: name,
-            data: data,
-            color: 'white'
-        }],
-        exporting: {
-            enabled: false
-        }
-    }).highcharts(); // return chart
+	}
+	//第一个图表
+	var chart = jQuery('#'+id).highcharts({
+	    chart: {
+	        type: 'column'
+	    },
+	    title: {
+	        text: nameTitle
+	    },
+	  
+	    xAxis: {
+	        categories: categories
+	    },
+	  
+	    plotOptions: {
+	        column: {
+	            cursor: 'pointer',
+	            dataLabels: {
+	                enabled: true,
+	                color: colors[0],
+	                style: {
+	                    fontWeight: 'bold'
+	                },
+	                formatter: function() {
+	                    return this.y +'';
+	                }
+	            }
+	        }
+	    },
+	   
+	    series: [{
+	        name: name,
+	        data: data,
+	        color: 'white'
+	    }],
+	    exporting: {
+	        enabled: false
+	    }
+	}).highcharts(); // return chart
+	
+}
 
-    var colors = Highcharts.getOptions().colors,
-        categories = ['0-300元', '300-500元', '500-1000元', '1000-3000元', '3000元以上'],
-        name = '消费分析',
-        data = [{
-                y: 5000,
-                color: colors[0]
-            }, {
-                y: 6000,
-                color: colors[1]
-            }, {
-                y: 2000,
-                color: colors[2]
-            }, {
-                y: 1000,
-                color: colors[3]
-            }, {
-                y: 500,
-                color: colors[4],
-             
-            }];
+function chooseStoreSelect(obj) {
+	var storeIdOrAccount = jQuery(obj).val();
+	var ruleType = jQuery(obj).find('[value="'+storeIdOrAccount+'"]').attr("storeType");
+	
+	for (var i = 0; i < storeRuleList.length; i++) {
+		var rule = storeRuleList[i];
+		if (rule.storeIdOrAccount == storeIdOrAccount) {
+			packgTable(rule, ruleType);
+		}
+	}
+}
 
-    function setChart(name, categories, data, color) {
-	chart.xAxis[0].setCategories(categories, false);
-	chart.series[0].remove(false);
-	chart.addSeries({
-		name: name,
-		data: data,
-		color: color || 'white'
-	}, false);
-	chart.redraw();
+jQuery(function () {
+    if (analysisType == 1) {
+    	dialog("未创建门店, 请先创建门店");
+    	return;
     }
-//第一个图表
-    var chart = jQuery('#container2').highcharts({
-        chart: {
-            type: 'column',
-			
-        },
-        title: {
-            text: '(男客)大客户消费分析'
-        },
-      
-        xAxis: {
-            categories: categories
-        },
-      
-        plotOptions: {
-            column: {
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    color: colors[0],
-                    style: {
-                        fontWeight: 'bold'
-                    },
-                    formatter: function() {
-                        return this.y +'';
-                    }
-                }
-            }
-        },
-       
-        series: [{
-            name: name,
-            data: data,
-            color: 'white'
-        }],
-        exporting: {
-            enabled: false
-        }
-    }).highcharts(); // return chart
+	
+    var rule = storeRuleList[1];
+    packgTable(rule, 1);
+    
     
     jQuery('.customer_analyse_content_:gt(0)').hide();
     jQuery('.content_right ul li').click(function(){
