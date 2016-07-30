@@ -113,12 +113,12 @@ public class WeixinMessageService {
 //    /**门店微信关联操作对象*/
 //    @Autowired
 //    private StoreWechatMapper storeWechatMapper;
-    /** 微信分组信息操作对象 */
-    @Autowired
-    private WechatGroupInfoMapper wechatGroupInfoMapper;
 //    /** 微信信息*/
 //    @Autowired
 //    private WeixinMessageService weixinMessageService;
+    /** 微信分组信息操作对象 */
+    @Autowired
+    private WechatGroupInfoMapper wechatGroupInfoMapper;
 	/** 日志*/
 	private Logger logger = Logger.getLogger(WeixinMessageService.class);
 	
@@ -137,8 +137,8 @@ public class WeixinMessageService {
 			String toUserName = requestMap.get("ToUserName");
 			/**消息类型 */
             String msgType = requestMap.get("MsgType");
-			logger.info("消息关注者 "+fromUserName);
-			logger.info("开发者 "+toUserName);
+			logger.info("消息关注者 " + fromUserName);
+			logger.info("开发者 " + toUserName);
 			
 			/**根据微信开发者id进行查询门店设置内容*/
 //            StoreWechat storeWechat = storeWechatMapper.selectByWechatId(toUserName);
@@ -198,18 +198,11 @@ public class WeixinMessageService {
 				    }
                     redisService.hset(App.Redis.WECHAT_SUBSCRIBE_KEY_HASH, fromUserName, "1");
                     
-//					Map<String, Integer> map = new HashMap<String, Integer>();
-//					map.put("storeId", storeWechat.getStoreId());
-//					map.put("msgStatus", 1);
-//					MsgReply msgReply =  msgReplyMapper.selectReplyByParam(map);
-//					/**判断回复类型进行回复*/
-//					if (msgReply!=null&&msgReply.getMsgType().equals("text")) {
-//						return replyTextMessage(msgReply.getMsgText(), fromUserName, toUserName);
-//					} 
-//					else if (msgReply!=null&&msgReply.getMsgType().equals("news")) {
-//						/**回复图文消息*/
-//						return replyNewsMessage(msgReply.getMediaId(), fromUserName, toUserName);
-//					}
+                    if ("qrscene_101".equals(requestMap.get("EventKey"))){
+                        logger.info("扫描时间二维码进入公众号, 进行了关注, senc_id: "+ requestMap.get("EventKey"));
+                        return replyTextMessage("你的奖励已发放到您的账户中, 请点击会员中心进行体验吧.", fromUserName, toUserName);
+                    }
+                   
 				}
 				/** 取消订阅*/
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
