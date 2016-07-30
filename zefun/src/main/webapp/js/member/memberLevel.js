@@ -58,6 +58,7 @@ function refreshTableData(page){
 	    	str += "<span class='font-999'>默认等级</span>";
 	    }
 	    str +=   "</td>"+
+	             "<td>"+memberLevelDto.levelType+"</td>"+
 	             "<td>"+memberLevelDto.projectDiscount+"%</td>"+
 	             "<td>"+memberLevelDto.goodsDiscount+"%</td>"+
 	             "<td>"+memberLevelDto.chargeMinMoney+"元</td>"+
@@ -73,7 +74,7 @@ function refreshTableData(page){
 	             "<td>"+memberLevelDto.integralUnit+"元 = "+memberLevelDto.integralNumber+"积分</td>"+
 	             "<td class='input80'>"+memberLevelDto.levelNotice+"</td>"+
 	             "<td>";
-	    			if(memberLevelDto.levelType=='等级卡'){
+	    			if(memberLevelDto.levelType=='折扣卡'){
 	    				
 	    				 str += "<em onclick='editMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/handle_1.png'></em>";
 	    			}
