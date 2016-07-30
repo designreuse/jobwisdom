@@ -179,10 +179,10 @@ em{font-style:normal}
 .rollBox_content li{width:180px;height:190px;border-radius:8px ;box-shadow:0 0 10px #ccc;float:left;position:relative;margin:0 32px 20px 0}
 .rollBox_top{height:80px;}
 .rollBox_top> img{height:80px;width:180px;border-radius:8px 8px 0 0 }
-.rollBox_center{padding-left:20px}
-.rollBox_center p{font-size:10px;color:black}
-.rollBox_bottom{border-top:1px solid #ccc;width:140px;margin:0px auto;padding:5px 0;height:30px;text-align:center}
-.rollBox_bottom_num{width:50%;float:left;border-right:1px solid #ccc}
+.rollBox_center{padding-left:20px;margin:3px 0}
+.rollBox_center p{font-size:10px;color:black;line-height:18px}
+.rollBox_bottom{border-bottom:1px solid #dadada;color:black;border-top:1px solid #dadada;width:180px;margin:0px auto;height:20px;line-height:20px;text-align:center}
+.rollBox_bottom_num{width:50%;float:left;border-right:1px solid #dadada}
 .rollBox_bottom p{text-align:center}
 .rollBox_bottom span{display:inline-block;text-align:cente;color:black}
 .rollBox{width:1000px;height:720px;border:1px solid #ccc;border-radius:8px;margin-top:12px}
@@ -197,16 +197,17 @@ em{font-style:normal}
 .setting_close{position:absolute;right:3px;top:3px}
 .setting_mask{position:absolute;width:180px;height:110px;bottom:0;right:0;background:rgba(0,0,0,0.6);font-size:18px;text-align:center;line-height:110px;color:white}
 .rollBox_content_ul{position:relative}
-.content_right>.setting_first>span{position:relative;display:inline-block;color:black;font-size:12px;margin-left:44px}
-.content_right>.setting_first>span  .setting_all{position:absolute;left:0px;top:28px}
+.content_right>.setting_first>span{position:relative;display:inline-block;color:black;font-size:12px;}
+.content_right>.setting_first>span  .setting_all{position:absolute;left:0px;top:29px}
 .content_right>.setting_first>span select{
 	width:100px;height:22px;padding-left:50px;margin-left:12px;font-size:14px
 }
-.setting_all{position:absolute;width:300px;height:90px;border:1px solid #e6461b;z-index:3;background:white;padding:10px 5px;display:none}
-.setting_all li{float:left;padding: 0 5px;height:26px;text-align:center;line-height:26px;font-size:12px;color:#646464;}
+.setting_all{position:absolute;width:300px;height:90px;border:1px solid #0d9bd6;z-index:3;background:white;padding:10px 5px;display:none;border-radius:0px 12px 12px 12px}
+.setting_all li{float:left;width:60px;overflow:hidden;height:30px;text-align:center;line-height:30px;font-size:12px;color:#646464;}
+.setting_all li:hover{color:#0d9bd6}
 .content_right>.setting_first em{display:inline-block;width:150px;height:28px;text-align:center;line-height:28px;margin-left:12px;position:relative;z-index:10;cursor:pointer}
-.setting_first .active{border:1px solid #e6461b!important;border-bottom:1px solid white!important;z-index:10;position:relative}
-.content_right>.setting_first em i{display:inline-block;width:150px;height:28px;z-index:10;border:1px solid #ccc;position;relative}
+.setting_first .active{color:#0d9bd6;border-radius:12px 12px 0 0!important;border:1px solid #0d9bd6!important;border-bottom:1px solid white!important;z-index:10;position:relative}
+.content_right>.setting_first em i{display:inline-block;width:150px;height:28px;z-index:10;border-radius:12px;border:1px solid #b8b8b8;position;relative}
 .total_text i{color:#e6461b}
 .rollBox_top_mask{
 	position: absolute;
@@ -223,3 +224,10 @@ em{font-style:normal}
 }
 .rollBox_top_mask span{display:inline-block;width:50%;text-align:center;position:relative;top:-25px}
 .setting_write{position:absolute;left:3px;top:3px}
+
+.active_img.active1{display:inline-block;width:19px;height:13px;background:url('../images/setting_down.png') no-repeat;background-size:15px 10px;position:relative;top:4px;left:5px}
+.active_img.active2{display:inline-block;width:19px;height:13px;background-size:15px 10px;position:relative;top:4px;left:5px;background:url('../images/active_img.png') no-repeat;}
+.rollBox_bottom_price em{color:#ef0909}
+.rollBox_content_ul li>p{text-align:center}
+.rollBox_content_ul li>p>button{border:none;border-radius:12px;text-align:center;width:132px;height:20px;line-height:20px;color:white;background:#0d9bd6}
+.rollBox_content_ul li>p>button:hover{background:#0b94cd}
