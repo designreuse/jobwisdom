@@ -732,6 +732,21 @@ public class GoodsInfoController extends BaseController {
     public BaseDto serchBrand(HttpServletRequest request, Integer brandId){
         return goodsInfoService.deleteBrand(brandId);
     }
+    
+    /**
+     * 删除供应商
+    * @author 骆峰
+    * @date 2016年7月11日 下午2:13:53
+    * @param request request
+    * @param supplierId supplierId
+    * @return BaseDto
+     */
+    
+    @RequestMapping(value = Url.GoodsInfo.GOODSINFO_DELETE_SUPILER, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto deletedSupiler(HttpServletRequest request, Integer supplierId){
+        return goodsInfoService.deletedSupiler(supplierId);
+    }
    
     
 }
