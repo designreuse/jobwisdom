@@ -53,7 +53,7 @@
 			if (now_ <= count - 7) {
 				now_ += 1;
 				jQuery(this).parent().find('ul').stop(true, true).animate({
-					left : -132 * now_
+					left : -152 * now_
 				})
 			}
 		});
@@ -62,7 +62,7 @@
 			if (now_ >= 1) {
 				now_ -= 1;
 				jQuery(this).parent().find('ul').stop(true, true).animate({
-					left : -132 * now_
+					left : -152 * now_
 				})
 			}
 		});
@@ -245,7 +245,7 @@
 			jQuery.ajax({
 				type : "post",
 				url : baseUrl + "project/delete/category",
-				data : "type=" + types + "&categoryId=" + id,
+				data : "type=" + types + "&categoryId=" + id+ "&deptId=" + deptId,
 				dataType : "json",
 				async : false,
 				success : function(data) {
