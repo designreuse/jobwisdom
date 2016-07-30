@@ -131,7 +131,7 @@ public class MemberLevelController extends BaseController {
 	/**
 	 * 查询某个店铺的会员等级信息
 	 * 默认返回该门店最前面10条数据
-	* @author 张进军
+	* @author 
 	* @date Aug 5, 2015 7:58:33 PM
 	* @param request 返回
 	* @return ModelAndView

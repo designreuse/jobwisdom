@@ -33,17 +33,18 @@
 	})
 
 	//选择全部
-	jQuery(function() {
-		jQuery('.setting_first em').hover(function() {
-			jQuery(this).parent().find('.setting_all').show();
-			jQuery(this).find('i').addClass('active')
-
-		}, function() {
-			jQuery(this).parent().find('.setting_all').hide();
-			jQuery(this).find('i').removeClass('active')
-
-		})
-	})
+    jQuery(function(){
+	   jQuery('.setting_first em').hover(function(){
+	      jQuery(this).parent().find('.setting_all').show();
+		  jQuery(this).find('i').addClass('active');
+		  jQuery(this).find('.active_img').removeClass('active1').addClass('active2')
+	      
+	   },function(){
+	     jQuery(this).parent().find('.setting_all').hide();
+		   jQuery(this).find('i').removeClass('active');
+	      jQuery(this).find('.active_img').removeClass('active2').addClass('active1')
+	   })
+	})   
 	// 遮罩层
 	jQuery(function() {
 		jQuery('.rollBox_content_ul li').hover(function() {
@@ -65,12 +66,13 @@
 				<div class="content_right">
 					<div class="setting_first">
 						<a href="<%=basePath %>goods/info/setting"><button>上架</button></a>
-						<span>部门 <em><i class="" id="dept">全部<img src="<%=basePath%>images/setting_down.png" style="position: relative; left: 10px; top: 1px; width: 15px"></i>
+						<span> <em><i class="" id="dept">部门<span class="active_img active1"></span></i></i>
 								<ul class="setting_all clearfix" style="display: none;">
 									<li onclick="changeDept(0, this)">全部</li>
 									<c:forEach items="${deptGoodsBaseDto }" var="deptGoodsBaseDto"><li onclick="changeDept(${deptGoodsBaseDto.deptId }, this)" deptId="${deptGoodsBaseDto.deptId }">${deptGoodsBaseDto.deptName }</li></c:forEach>
-								</ul> </em></span> <img src="<%=basePath%>images/settiong_right.png" style="position: relative; left: 20px"><span>系列<em> <i class="" id="category">全部<img src="<%=basePath%>images/setting_down.png"
-									style="position: relative; left: 10px; top: 1px; width: 15px"></i>
+								</ul>
+								 </em></span>
+								 <span><em> <i class="" id="category">系列<span class="active_img active1"></span></i>
 								<ul class="setting_all clearfix" style="display: none;">
 									<li onclick="changeCategory(0, this)">全部</li>
 									<c:forEach items="${deptGoodsBaseDto[0].goodsCategoryBaseDto }" var="goodsCategory"><li onclick="changeCategory(${goodsCategory.categoryId }, this)" categoreId="${goodsCategory.categoryId }">${goodsCategory.categoryName }</li></c:forEach>

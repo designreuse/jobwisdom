@@ -435,6 +435,23 @@
 		// 收支方式
 		var typeName = jQuery("input[id=money" + type + "]:checked").val();
 		var initializeImage = jQuery("img[name='img1']").attr("src");
+		if(dapt == ""|| dapt ==null){
+			dialog("部门不能为空");
+			return;
+		}
+		if(name == ""|| name ==null){
+			dialog("名称不能为空");
+			return;
+		}
+		if(date == ""|| date ==null){
+			dialog("时间不能为空");
+			return;
+		}
+		if(price == ""|| price ==null){
+			dialog("金额不能为空");
+			return;
+		}
+		
 		if(reg.test(price)==true){
 			jQuery.ajax({
 				type : "post",
@@ -541,7 +558,28 @@
 	    var dapt = jQuery("#bumen3  option:selected").val();
 	    var data = jQuery("#date" + number).val();
 	    var initializeImage =   jQuery("img[name='img2']").attr("src");
-	  
+	    
+		// 部门
+		var dapt = jQuery("#bumen1  option:selected").val();
+		// 金额
+		var price = Trim(jQuery("#price1").val());
+		if(dapt == ""|| dapt ==null){
+			dialog("部门不能为空");
+			return;
+		}
+		if(price_name == ""|| price_name ==null){
+			dialog("名称不能为空");
+			return;
+		}
+		if(data == ""|| data ==null){
+			dialog("时间不能为空");
+			return;
+		}
+		if(goods_price == ""|| goods_price ==null){
+			dialog("金额不能为空");
+			return;
+		}
+	    
 	   jQuery.ajax({
 			type : "post",
 			url : baseUrl + "KeepAccounts/initializeStoreFlow/update",

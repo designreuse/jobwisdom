@@ -292,7 +292,7 @@ function selectHasDeleted(but){
 </script>
 <script>
 jQuery(function(){
-	
+
 	jQuery(document).click(function(e){	
 		var tar=e.target;
 		

@@ -1332,6 +1332,7 @@ public class ProjectService {
             else {
                 goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
             }
+            redisService.hdel(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, jsonObject.get("deptId").toString());
             return new BaseDto(0, goodsCategory);
         }
        
@@ -1343,9 +1344,10 @@ public class ProjectService {
     * @date 2016年7月4日 下午2:34:50
     * @param categoryId categoryId
     * @param type       type
+    * @param deptId       deptId
     * @return           BaseDto
      */
-    public BaseDto deletedCategory(Integer categoryId, Integer type) {
+    public BaseDto deletedCategory(Integer categoryId, Integer type, Integer deptId) {
         if (type == 1){
             ProjectInfoDto projectInfoDto = new ProjectInfoDto();
             projectInfoDto.setIsDeleted(0);
@@ -1357,6 +1359,7 @@ public class ProjectService {
             projectCategory.setIsDeleted(1);
             projectCategory.setCategoryId(categoryId);
             projectCategoryMapper.updateByPrimaryKeySelective(projectCategory);
+            redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, deptId);
             return new BaseDto(0, "删除成功");
         }
         else {
@@ -1370,7 +1373,9 @@ public class ProjectService {
             goodsCategory.setCategoryId(categoryId);
             goodsCategory.setIsDeleted(1);
             goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
+            redisService.hdel(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, deptId);
             return new BaseDto(0, "删除成功");
         }
+        
     }
 }

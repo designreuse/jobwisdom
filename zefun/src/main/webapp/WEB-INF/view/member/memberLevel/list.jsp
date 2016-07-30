@@ -89,6 +89,7 @@ width:55px!important}
 			  <table>
 			     <tr>
 				   <td>会员卡名称</td>
+				   <td>会员卡类型</td>
 				   <td>项目折扣</td>
 				   <td>商品折扣</td>
 				   <td>最低充值</td>
@@ -104,6 +105,7 @@ width:55px!important}
 			             <td>${memberLevel.levelName }
 			              <c:if test="${memberLevel.isDefault == 1 }"><span class="font-999">默认等级</span></c:if>
 			             </td>
+			             <td>${memberLevel.levelType }</td>
 			             <td>${memberLevel.projectDiscount }%</td>
 			             <td>${memberLevel.goodsDiscount }%</td>
 			             <td>${memberLevel.chargeMinMoney }元</td>
@@ -129,7 +131,7 @@ width:55px!important}
 			             </td>
 			             
 			             <td> 
-			             <c:if test="${memberLevel.levelType == '等记卡' }">
+			             <c:if test="${memberLevel.levelType eq '折扣卡' }">
 			             <em onclick="editMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/handle_1.png"></em>
 			           	</c:if>
 			             <em onclick="showMemberLevel(${memberLevel.discountId})"><img src="<%=basePath %>images/shop_vip.png"></em>
