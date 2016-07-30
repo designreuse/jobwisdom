@@ -311,21 +311,18 @@
 													<td>开卡门店</td>
 													<td>余额</td>
 													<td>礼金</td>
+													<td>积分</td>
 													<td>欠款</td>
 													<td>会员卡</td>
 													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
 												</tr>
 												<tr>
-													<td name="memberPhoneSpan" data-toggle="modal"
-														data-target="#member-data" onclick="showMemberModal(this)"></td>
-													<td name="memberNameSpan" data-toggle="modal"
-														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
 													<td name="memberSexSpan"></td>
 													<td name="memberStoreName"></td>
-													<td style="color: #eb4749"
-														name="memberBalanceAmountSpan"></td>
-													<td style="color: #eb4749"
-														name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
 													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 													<td style="color: #eb4749" name="needRefund"></td>
 													<td><span name="subAccountNum"></span>张</td>
@@ -509,28 +506,25 @@
 											<div class="common_table">
 												<table>
 													<tr>
-														<td rowspan="2"><img src="" name="memberImg"></td>
-														<td>手机号</td>
-														<td>姓名</td>
-														<td>性别</td>
-														<td>开卡门店</td>
-														<td>余额</td>
-														<td>礼金</td>
-														<td>欠款</td>
-														<td>会员卡</td>
-														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-													</tr>
-													<tr>
-													<td name="memberPhoneSpan" data-toggle="modal"
-														data-target="#member-data" onclick="showMemberModal(this)"></td>
-													<td name="memberNameSpan" data-toggle="modal"
-														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td rowspan="2"><img src="" name="memberImg"></td>
+													<td>手机号</td>
+													<td>姓名</td>
+													<td>性别</td>
+													<td>开卡门店</td>
+													<td>余额</td>
+													<td>礼金</td>
+													<td>积分</td>
+													<td>欠款</td>
+													<td>会员卡</td>
+													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+												</tr>
+												<tr>
+													<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
 													<td name="memberSexSpan"></td>
 													<td name="memberStoreName"></td>
-													<td style="color: #eb4749"
-														name="memberBalanceAmountSpan"></td>
-													<td style="color: #eb4749"
-														name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
 													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 													<td style="color: #eb4749" name="needRefund"></td>
 													<td><span name="subAccountNum"></span>张</td>
@@ -689,31 +683,28 @@
 											<div class="common_table">
 												<table>
 													<tr>
-														<td rowspan="2"><img src="" name="memberImg"></td>
-														<td>手机号</td>
-														<td>姓名</td>
-														<td>性别</td>
-														<td>开卡门店</td>
-														<td>余额</td>
-														<td>礼金</td>
-														<td>欠款</td>
-														<td>会员卡</td>
-														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-													</tr>
-													<tr>
-														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan"></td>
-														<td name="memberStoreName"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
-														<td style="color: #eb4749" name="needRefund"></td>
-														<td><span name="subAccountNum"></span>张</td>
+													<td rowspan="2"><img src="" name="memberImg"></td>
+													<td>手机号</td>
+													<td>姓名</td>
+													<td>性别</td>
+													<td>开卡门店</td>
+													<td>余额</td>
+													<td>礼金</td>
+													<td>积分</td>
+													<td>欠款</td>
+													<td>会员卡</td>
+													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+												</tr>
+												<tr>
+													<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749" name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
 												</tr>
 													<input type="hidden" name="memberId">
 												</table>
@@ -784,32 +775,29 @@
 											<div class="common_table">
 												<table>
 													<tr>
-														<td rowspan="2"><img src="" name="memberImg"></td>
-														<td>手机号</td>
-														<td>姓名</td>
-														<td>性别</td>
-														<td>开卡门店</td>
-														<td>余额</td>
-														<td>礼金</td>
-														<td>欠款</td>
-														<td>会员卡</td>
-														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-													</tr>
-													<tr>
-														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan"></td>
-														<td name="memberStoreName"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
-														<td style="color: #eb4749" name="needRefund"></td>
-														<td><span name="subAccountNum"></span>张</td>
-													</tr>
+													<td rowspan="2"><img src="" name="memberImg"></td>
+													<td>手机号</td>
+													<td>姓名</td>
+													<td>性别</td>
+													<td>开卡门店</td>
+													<td>余额</td>
+													<td>礼金</td>
+													<td>积分</td>
+													<td>欠款</td>
+													<td>会员卡</td>
+													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+												</tr>
+												<tr>
+													<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749" name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
+												</tr>
 													<input type="hidden" name="memberId">
 												</table>
 											</div>
@@ -903,28 +891,25 @@
 											<div class="common_table">
 												<table>
 													<tr>
-														<td rowspan="2"><img src="" name="memberImg"></td>
-														<td>手机号</td>
-														<td>姓名</td>
-														<td>性别</td>
-														<td>开卡门店</td>
-														<td>余额</td>
-														<td>礼金</td>
-														<td>欠款</td>
-														<td>会员卡</td>
-														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-													</tr>
+													<td rowspan="2"><img src="" name="memberImg"></td>
+													<td>手机号</td>
+													<td>姓名</td>
+													<td>性别</td>
+													<td>开卡门店</td>
+													<td>余额</td>
+													<td>礼金</td>
+													<td>积分</td>
+													<td>欠款</td>
+													<td>会员卡</td>
+													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+												</tr>
 												<tr>
-													<td name="memberPhoneSpan" data-toggle="modal"
-														data-target="#member-data" onclick="showMemberModal(this)"></td>
-													<td name="memberNameSpan" data-toggle="modal"
-														data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
 													<td name="memberSexSpan"></td>
 													<td name="memberStoreName"></td>
-													<td style="color: #eb4749"
-														name="memberBalanceAmountSpan"></td>
-													<td style="color: #eb4749"
-														name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
 													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
 													<td style="color: #eb4749" name="needRefund"></td>
 													<td><span name="subAccountNum"></span>张</td>
@@ -970,32 +955,29 @@
 											<div class="common_table">
 												<table>
 													<tr>
-														<td rowspan="2"><img src="" name="memberImg"></td>
-														<td>手机号</td>
-														<td>姓名</td>
-														<td>性别</td>
-														<td>开卡门店</td>
-														<td>余额</td>
-														<td>礼金</td>
-														<td>欠款</td>
-														<td>会员卡</td>
-														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-													</tr>
-													<tr>
-														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan"></td>
-														<td name="memberStoreName"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
-														<td style="color: #eb4749" name="needRefund"></td>
-														<td><span name="subAccountNum"></span>张</td>
-													</tr>
+													<td rowspan="2"><img src="" name="memberImg"></td>
+													<td>手机号</td>
+													<td>姓名</td>
+													<td>性别</td>
+													<td>开卡门店</td>
+													<td>余额</td>
+													<td>礼金</td>
+													<td>积分</td>
+													<td>欠款</td>
+													<td>会员卡</td>
+													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+												</tr>
+												<tr>
+													<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749" name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
+												</tr>
 													<input type="hidden" name="memberId">
 												</table>
 											</div>
@@ -1049,33 +1031,30 @@
 											style="overflow: hidden">
 											<div class="common_table">
 												<table>
-													<tr>
-														<td rowspan="2"><img src="" name="memberImg"></td>
-														<td>手机号</td>
-														<td>姓名</td>
-														<td>性别</td>
-														<td>开卡门店</td>
-														<td>余额</td>
-														<td>礼金</td>
-														<td>欠款</td>
-														<td>会员卡</td>
-														<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
-													</tr>
-													<tr>
-														<td name="memberPhoneSpan" data-toggle="modal"
-															data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberNameSpan" data-toggle="modal"
-															data-target="#member-data" onclick="showMemberModal(this)"></td>
-														<td name="memberSexSpan"></td>
-														<td name="memberStoreName"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceAmountSpan"></td>
-														<td style="color: #eb4749"
-															name="memberBalanceGiftmoneyAmountSpan"></td>
-														<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
-														<td style="color: #eb4749" name="needRefund"></td>
-														<td><span name="subAccountNum"></span>张</td>
-													</tr>
+												<tr>
+													<td rowspan="2"><img src="" name="memberImg"></td>
+													<td>手机号</td>
+													<td>姓名</td>
+													<td>性别</td>
+													<td>开卡门店</td>
+													<td>余额</td>
+													<td>礼金</td>
+													<td>积分</td>
+													<td>欠款</td>
+													<td>会员卡</td>
+													<td rowspan="2"><button onclick="againSearch(this)">重新搜索</button></td>
+												</tr>
+												<tr>
+													<td name="memberPhoneSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberNameSpan" data-toggle="modal" data-target="#member-data" onclick="showMemberModal(this)"></td>
+													<td name="memberSexSpan"></td>
+													<td name="memberStoreName"></td>
+													<td style="color: #eb4749" name="memberBalanceAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceGiftmoneyAmountSpan"></td>
+													<td style="color: #eb4749" name="memberBalanceIntegralSpan"></td>
+													<td style="color: #eb4749" name="needRefund"></td>
+													<td><span name="subAccountNum"></span>张</td>
+												</tr>
 													<input type="hidden" name="memberId">
 												</table>
 											</div>

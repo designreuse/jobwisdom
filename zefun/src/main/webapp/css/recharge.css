@@ -26,7 +26,7 @@
 .achievement_detail_content li{margin-right:26px;margin-bottom:10px;float:left;border:1px solid #717171;border-radius:8px;width:140px;height:36px;border-radius:8px;line-height:36px;text-align:center;position:relative}
 .achievement_detail_content li img{position:absolute;right:-5px;top:-5px}
 .achievement_detail_content li em{position:relative;left:-15px;color:#c0c7d9}
-.select-result i{color:black}
+.select-result i{vertical-align:middle;display:inline-block;color:black;width:48px;overflow:hidden;height:36px}
 .achievement_recharge_content{    overflow: overlay;
     height: 82px;
     background: white;
