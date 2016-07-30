@@ -151,6 +151,14 @@
 			var serviceDay = td.attr("serviceDay");
 			var serviceHoure = td.attr("serviceHoure");
 			var isSms = td.attr("isSms");
+			if(tempName ==null || tempName == ""){
+				dialog("模板名称不能为空");
+				return ;
+			}
+			if(theme ==null || theme == ""){
+				dialog("主题不能为空不能为空");
+				return ;
+			}
 			var da = {
 					"tId" : tIds,
 					"tempName" : tempName,

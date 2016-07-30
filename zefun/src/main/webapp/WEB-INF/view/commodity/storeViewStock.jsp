@@ -89,13 +89,14 @@
 							<li style="width: 505px" class="">出库管理</li>
 						</ul>
 						<div class="out_tab_content">
+						
 							<div class="out_tab_content_">
 								<div class="out_tab_shop">
 									<button class="select_button" onclick="jQuery('.zzc2').show('800')">选择商品入库</button>
 									<!-- <i><span>开始日期<input type="date"></span><span>结束日期<input type="date"></span><select><option>入库方式</option></select>
 										<button class="query">查询</button></i> -->
 								</div>
-
+                               <div style="height:420px;">
 								<table class="payroll_table" id="intable1">
 									<tbody >
 										<tr>
@@ -106,6 +107,7 @@
 										
 									</tbody>
 								</table>
+							</div>	
 									<div class="fenye" id="fenye1">
 										<span>共找到了<i name="result1">0</i>条数据, 共 <i name="page1">0</i> 页</span>
 										<ul id="pagination-demo" class="pagination pagination-sm">
@@ -117,6 +119,7 @@
 									<button onclick="jQuery('.zzc1').show('800')">选择商品出库</button>
 									<input type="text" placeholder="名称/编码">
 								</div>
+							<div style="height:420px;">
 								<table class="payroll_table" id="intable2">
 									<tbody>
 										<tr>
@@ -127,6 +130,7 @@
 										</tr>
 									</tbody>
 								</table>
+							</div>	
 									<div class="fenye" id="fenye2">
 										<span>共找到了<i name="result2">0</i>条数据, 共 <i name="page2">0</i> 页</span>
 										<ul id="pagination-demo" class="pagination pagination-sm">
