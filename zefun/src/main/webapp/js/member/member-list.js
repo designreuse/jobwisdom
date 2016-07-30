@@ -1,6 +1,7 @@
   var sex = "全部";
   var levelId = 0;	
   var serchType = 0;
+  var status = "";
   jQuery("#show_more").on("click",function(){
 	    var detailInfo = jQuery(".more-condition-table");
 	    //将会员手机姓名条件清空
@@ -109,6 +110,13 @@
     	}
     }
     jQuery(".fuzzysearch").delegate("li","click",function(){
+    	
+    	var text=jQuery(this).text();
+    	jQuery('#serchMemberByNameOrPhone').val(text)
+    	
+    	
+    	
+    	
     	var memberId = jQuery(this).attr("memberid");
     	for (var i = 0; i < memberArray.length; i++) {
     		if(memberArray[i].memberId == memberId){

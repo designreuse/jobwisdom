@@ -595,6 +595,7 @@
 	var isCommit = false;
 	function save3() {
 		var data = coverDate();
+		if (data.projectInfo.categoryId == null){dialog("请选择项目大项");return;}
 // 		if (!isCommit) {
 // 			dialog("当前项目为可预约项目,请至少设置一个可预约的步骤!");
 // 			return;
@@ -753,7 +754,19 @@
 	project.push({"projectId":projectId,"isDeleted":0,"positionId":positionId,"stepPerformanceType":stepPerformanceType,"stepPerformance":stepPerformance});
 	var positionId=jQuery('#active3').val(); 	
 	var stepPerformanceType =jQuery('#active13 :checked').val();
-	var stepPerformance =jQuery('#active113').val()
+	var stepPerformance =jQuery('#active113').val();
+	if(positionId < 0){
+		dialog("员工业绩不能小于零");
+		return ;
+	}
+	if(stepPerformanceType < 0){
+		dialog("员工业绩不能小于零");
+		return ;	
+    }
+	if(stepPerformance < 0){
+		dialog("员工业绩不能小于零");
+		return ;
+	}
 	stepPerformance=checked(stepPerformance);
 	for (var i = 0; i < jQuery(".tr3").length; i++) {
 		var levelId =jQuery(".tr3").eq(i).find('td').eq(0).attr('value');
@@ -1206,43 +1219,26 @@
 		}
 		jQuery("tr[shiftmahjongid='" + shiftmahjongid + "']").each(
 				function(index) {
-					var projectstepname = jQuery(this).children(
-							"td[projectstepname]").attr("projectstepname");
-					jQuery("input[name='projectStepName']")
-							.val(projectstepname);
-					var stepperformancetype = jQuery(this).children(
-							"td[stepperformancetype]").attr(
-							"stepperformancetype");
-					jQuery("select[name='stepPerformanceType']").val(
-							stepperformancetype);
-					var stepperformance = jQuery(this).children(
-							"td[stepperformance]").attr("stepperformance");
-					jQuery("input[name='stepPerformance']")
-							.val(stepperformance);
-					var isdisable = jQuery(this).children("td[isdisable]")
-							.attr("isdisable");
+					var projectstepname = jQuery(this).children("td[projectstepname]").attr("projectstepname");
+					jQuery("input[name='projectStepName']").val(projectstepname);
+					var stepperformancetype = jQuery(this).children( "td[stepperformancetype]").attr( "stepperformancetype");
+					jQuery("select[name='stepPerformanceType']").val( stepperformancetype);
+					var stepperformance = jQuery(this).children( "td[stepperformance]").attr("stepperformance");
+					jQuery("input[name='stepPerformance']") .val(stepperformance);
+					var isdisable = jQuery(this).children("td[isdisable]") .attr("isdisable");
 					if (isdisable != jQuery("input[name='isDisable']").val()) {
 						jQuery("input[name='isDisable']").click();
 					}
-					var levelid = jQuery(this).children("td[levelid]").attr(
-							"levelid");
-					var assigntype = jQuery(this).children("td[assigntype]")
-							.attr("assigntype");
-					var assigncash = jQuery(this).children("td[assigncash]")
-							.attr("assigncash");
-					var assigncard = jQuery(this).children("td[assigncard]")
-							.attr("assigncard");
-					var appointmentreward = jQuery(this).children(
-							"td[appointmentreward]").attr("appointmentreward");
+					var levelid = jQuery(this).children("td[levelid]").attr( "levelid");
+					var assigntype = jQuery(this).children("td[assigntype]") .attr("assigntype");
+					var assigncash = jQuery(this).children("td[assigncash]") .attr("assigncash");
+					var assigncard = jQuery(this).children("td[assigncard]") .attr("assigncard");
+					var appointmentreward = jQuery(this).children( "td[appointmentreward]").attr("appointmentreward");
 					jQuery("select[name='levelId']").eq(index).val(levelid);
-					jQuery("select[name='assignType']").eq(index).val(
-							assigntype);
-					jQuery("input[name='assignCash']").eq(index)
-							.val(assigncash);
-					jQuery("input[name='assignCard']").eq(index)
-							.val(assigncard);
-					jQuery("input[name='appointmentReward']").eq(index).val(
-							appointmentreward);
+					jQuery("select[name='assignType']").eq(index).val( assigntype);
+					jQuery("input[name='assignCash']").eq(index) .val(assigncash);
+					jQuery("input[name='assignCard']").eq(index) .val(assigncard);
+					jQuery("input[name='appointmentReward']").eq(index).val( appointmentreward);
 				});
 		jQuery("tr[shiftmahjongid='" + shiftmahjongid + "']").remove();
 	}
@@ -1256,8 +1252,6 @@
 		}
 		
 	}
-	
-	
 	function changeprice1(s,levelId,type){
 		var price_step = jQuery(s).val();
 		if(price_step==1){
@@ -1278,9 +1272,9 @@
 			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>";
 			if(type==1){
 				html+="<td><span><input  placeholder='0' type='text'><i id='"+levelId+"' >元</i></span></td>";
-				html+="<td><span><input    placeholder='0' type='text'><i id='"+levelId+"'  name='cardyu'>元</i></span></td></tr>";
+				html+="<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'  name='cardyu'>元</i></span></td></tr>";
 			}else{
-				html+="<td><span><input    placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td></tr>";
+				html+="<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td></tr>";
 			}
 			
 			jQuery("#"+type).append(jQuery(html));
@@ -1298,20 +1292,16 @@
 		        if(selectShowStep[i].stepPerformanceType==2){
 		    		jQuery("#price_step"+n).text("%");
 		        }
-		        
-				
 		}
 		for (var j = 0; j < selectShow.length; j++) {
 			jQuery("input[value='"+selectShow[j].levelId+"']").click();
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(1).find("select").val(selectShow[j].assignCashType);
-			
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(2).find("input").val(selectShow[j].commissionCash);
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(3).find("input").val(selectShow[j].commissionGold);
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(4).find("input").val(selectShow[j].commissionCourse);
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(5).find("input").val(selectShow[j].commissionNoCash);
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(6).find("input").val(selectShow[j].commissionNoGold);
 			jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(7).find("input").val(selectShow[j].commissionNoCourse);
-			
 			if(selectShow[j].commissionCard != "" && selectShow[j].commissionCard >0){
 				jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(8).find("input").val(selectShow[j].commissionCard);
 			}

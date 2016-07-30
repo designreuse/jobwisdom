@@ -450,12 +450,13 @@ public class ProjectInfoController extends BaseController {
     * @param response   response
     * @param categoryId categoryId
     * @param type       type
+    * @param deptId       deptId
     * @return           BaseDto
      */
     @RequestMapping(value = Url.Project.DELETED_UPDATE_CATEGORY, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto deletedCategory(HttpServletRequest request, HttpServletResponse response, Integer categoryId, Integer type) {
-        return projectService.deletedCategory(categoryId, type);
+    public BaseDto deletedCategory(HttpServletRequest request, HttpServletResponse response, Integer categoryId, Integer type, Integer deptId) {
+        return projectService.deletedCategory(categoryId, type, deptId);
     }
 
     /**

@@ -450,7 +450,7 @@ public class MemberInfoService {
     public ModelAndView selectMemberByStoreId(Integer storeId) {
         Page<MemberInfoDto> page = new Page<MemberInfoDto>();
         page.setPageNo(1);
-        page.setPageSize(20);
+        page.setPageSize(11);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("storeId", storeId);
         page.setParams(map);

@@ -43,6 +43,7 @@ public class WechatTokenJob {
                 String accessTokenRes = HttpClientUtil.sendGetReq(getAccessTokenUrl, "utf-8");
                 JSONObject accessTokenJSON = JSONObject.fromObject(accessTokenRes);
                 if (!accessTokenJSON.containsKey("access_token")) {
+                    logger.info(storeAccount+" :"+appId+", "+appSecret+", 更新失败.......");
                     continue;
                 }
                 String accessToken = accessTokenJSON.getString("access_token");
@@ -53,12 +54,8 @@ public class WechatTokenJob {
                 JSONObject jsapiTicketJSON = JSONObject.fromObject(jsapiTicketRes);
                 String jsapiTicket = jsapiTicketJSON.getString("ticket");
                 redisService.hset(App.Redis.STORE_WECHAT_JSAPI_TICKET_KEY_HASH, storeAccount, jsapiTicket);
-                logger.info(storeAccount+" :"+appId+", "+appSecret+", "+accessToken);
+                logger.info(storeAccount+" :"+appId+", "+appSecret+", "+accessToken + " 更新成功......");
             }
-//	        Set<String> storeSet = redisService.hkeys(App.Redis.STORE_WECHAT_APP_ID_KEY_HASH);
-//	        for (String storeId : storeSet) {
-//	            
-//	        }
         }
         catch (Exception e) {
             logger.error("WechatTokenJob execute error : ", e);

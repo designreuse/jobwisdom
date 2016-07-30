@@ -105,10 +105,15 @@
 							      <c:if test="${activityInfo.positionOneType eq 1 }"><em>固定</em></span>	<span><i>提成</i><em>${activityInfo.positionOnePush }元</em></span><span><i>业绩</i><em>${activityInfo.positionOneResult }元</em></span></c:if>
 							      <c:if test="${activityInfo.positionOneType eq 2 }"><em>比例</em></span>	<span><i>提成</i><em>${activityInfo.positionOnePush }%</em></span><span><i>业绩</i><em>${activityInfo.positionOneResult }%</em></span></c:if>
 								  </p>
-							      <p><span><i id="two">${activityInfo.activityPositionTwo }</i><c:if test="${activityInfo.positionTwoType eq 1 }"><em>固定</em></c:if><c:if test="${activityInfo.positionTwoType eq 2 }"><em>比例</em></c:if></span>
-								 	 <span><i>提成</i><em>${activityInfo.positionTwoPush }元</em></span><span><i>业绩</i><em>${activityInfo.positionTwoResult }元</em></span></p>
-								  <p><span><i id="three">${activityInfo.activityPositionThree }</i><c:if test="${activityInfo.positionThreeType eq 1 }"><em>固定</em></c:if><c:if test="${activityInfo.positionThreeType eq 2 }"><em>比例</em></c:if></span>
-								 	 <span><i>提成</i><em>${activityInfo.positionThreePush }元</em></span><span><i>业绩</i><em>${activityInfo.positionThreeResult }元</em></span></p>
+							      <p><span><i id="two">${activityInfo.activityPositionTwo }</i>
+							      <c:if test="${activityInfo.positionTwoType eq 1 }"><em>固定</em></span>	<span><i>提成</i><em>${activityInfo.positionTwoPush }元</em></span><span><i>业绩</i><em>${activityInfo.positionTwoResult }元</em></span></c:if>
+							      <c:if test="${activityInfo.positionTwoType eq 2 }"><em>比例</em></span>	<span><i>提成</i><em>${activityInfo.positionTwoPush }%</em></span><span><i>业绩</i><em>${activityInfo.positionTwoResult }%</em></span></c:if>
+							
+								 </p>
+								  <p><span><i id="three">${activityInfo.activityPositionThree }</i>
+								   <c:if test="${activityInfo.positionThreeType eq 1 }"><em>固定</em></span>	<span><i>提成</i><em>${activityInfo.positionThreePush }元</em></span><span><i>业绩</i><em>${activityInfo.positionThreeResult }元</em></span></c:if>
+							      <c:if test="${activityInfo.positionThreeType eq 2 }"><em>比例</em></span>	<span><i>提成</i><em>${activityInfo.positionThreePush }%</em></span><span><i>业绩</i><em>${activityInfo.positionThreeResult }%</em></span></c:if>
+								 </p>
 							   </td>
 							   <c:if test="${activityInfo.activityDiscount eq 1 }"><td>是</td></c:if>
 							   <c:if test="${activityInfo.activityDiscount eq 2 }"><td>否</td></c:if>
@@ -450,25 +455,32 @@ function changePage() {
 					html += "<td>"+value.activityCl+"</td><td><p><span><i id='one'>"+value.activityPositionOne+"</i>";
 					if(value.positionOneType == 1 ){
 						html += "<em>固定</em>";
+						html +="</span><span><i>提成</i><em>"+value.positionOnePush+"元</em></span><span><i>业绩</i><em>"+value.positionOneResult+"元</em></span></p><p><span><i id='two'>"+value.activityPositionTwo+"</i>";
 					}
 					if(value.positionOneType == 2 ){
 						html += "<em>比例</em>";
+						html +="</span><span><i>提成</i><em>"+value.positionOnePush+"%</em></span><span><i>业绩</i><em>"+value.positionOneResult+"%</em></span></p><p><span><i id='two'>"+value.activityPositionTwo+"</i>";
 					}
-					html +="</span><span><i>提成</i><em>"+value.positionOnePush+"元</em></span><span><i>业绩</i><em>"+value.positionOneResult+"元</em></span></p><p><span><i id='two'>"+value.activityPositionTwo+"</i>";
+					
 					if(value.positionTwoType == 1 ){
 						html += "<em>固定</em>";
+						html +="</span><span><i>提成</i><em>"+value.positionTwoPush+"元</em></span><span><i>业绩</i><em>"+value.positionTwoResult+"元</em></span></p><p><span><i id='two'>"+value.activityPositionThree+"</i>";
 					}
 					if(value.positionTwoType == 2 ){
 						html += "<em>比例</em>";
+						html +="</span><span><i>提成</i><em>"+value.positionTwoPush+"%</em></span><span><i>业绩</i><em>"+value.positionTwoResult+"%</em></span></p><p><span><i id='two'>"+value.activityPositionThree+"</i>";
 					}
-					html +="</span><span><i>提成</i><em>"+value.positionTwoPush+"元</em></span><span><i>业绩</i><em>"+value.positionTwoResult+"元</em></span></p><p><span><i id='two'>"+value.activityPositionThree+"</i>";
+					
 					if(value.positionThreeType == 1 ){
 						html += "<em>固定</em>";
+						html +="</span><span><i>提成</i><em>"+value.positionThreePush+"元</em></span><span><i>业绩</i><em>"+value.positionThreeResult+"元</em></span></p>";
+						
 					}
 					if(value.positionThreeType == 2 ){
 						html += "<em>比例</em>";
+						html +="</span><span><i>提成</i><em>"+value.positionThreePush+"%</em></span><span><i>业绩</i><em>"+value.positionThreeResult+"%</em></span></p>";
 					}
-					html +="</span><span><i>提成</i><em>"+value.positionThreePush+"元</em></span><span><i>业绩</i><em>"+value.positionThreeResult+"元</em></span></p>";
+					
 					if(value.activityDiscount == 1 ){
 						html += "<td>是</td>";
 					}

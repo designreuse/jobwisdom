@@ -50,19 +50,19 @@
 		var now_ = 0, count = jQuery('.goods_series_item_all_ul li').size();
 		//向右走
 		jQuery('.next').click(function() {
-			if (now_ <= count - 9) {
-				now_ += 4;
+			if (now_ <= count - 7) {
+				now_ += 1;
 				jQuery(this).parent().find('ul').stop(true, true).animate({
-					left : -110 * now_
+					left : -152 * now_
 				})
 			}
 		});
 		//向左走
 		jQuery('.pre').click(function() {
 			if (now_ >= 1) {
-				now_ -= 4;
+				now_ -= 1;
 				jQuery(this).parent().find('ul').stop(true, true).animate({
-					left : -110 * now_
+					left : -152 * now_
 				})
 			}
 		});
@@ -245,7 +245,7 @@
 			jQuery.ajax({
 				type : "post",
 				url : baseUrl + "project/delete/category",
-				data : "type=" + types + "&categoryId=" + id,
+				data : "type=" + types + "&categoryId=" + id+ "&deptId=" + deptId,
 				dataType : "json",
 				async : false,
 				success : function(data) {
