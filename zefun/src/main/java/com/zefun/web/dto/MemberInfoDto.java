@@ -41,6 +41,8 @@ public class MemberInfoDto {
     private Integer balanceIntegral;
     /** 累计消费总额 */
     private BigDecimal totalConsumeAmount;
+    /** 累计消费次数 */
+    private Integer consumeCount;
     /** 单次消费均价 */
     private BigDecimal avgConsumeAmount;
     /** 最后消费时间 */
@@ -61,7 +63,17 @@ public class MemberInfoDto {
     private List<MemberSubAccountDto> memberSubAccounts;
     
 
-    public List<MemberSubAccountDto> getMemberSubAccounts() {
+    
+    
+    public Integer getConsumeCount() {
+		return consumeCount;
+	}
+
+	public void setConsumeCount(Integer consumeCount) {
+		this.consumeCount = consumeCount;
+	}
+
+	public List<MemberSubAccountDto> getMemberSubAccounts() {
         return memberSubAccounts;
     }
 
