@@ -1223,9 +1223,8 @@ public class ProjectService {
             }
             final Integer deptIds = deptId;
             if (projectCategories.size() > 0 && goodsCategories.size() > 0){
-                projectCategories = projectCategories.stream().filter(p ->
-                p.getDeptId().intValue()== deptIds.intValue()).collect(Collectors.toList());
-                goodsCategories = goodsCategories.stream().filter(g -> g.getDeptId().intValue() == deptIds.intValue()).collect(Collectors.toList());
+                projectCategories = projectCategories.stream().filter(p -> p.getDeptId().equals(deptIds)).collect(Collectors.toList());
+                goodsCategories = goodsCategories.stream().filter(g -> g.getDeptId().equals(deptIds)).collect(Collectors.toList());
             }
             view.addObject("projectCategories", projectCategories);
             view.addObject("goodsCategories", goodsCategories);

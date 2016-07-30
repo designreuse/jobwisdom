@@ -1,6 +1,7 @@
 package com.zefun.wechat.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1653,9 +1654,11 @@ public class MemberCenterService {
     * @param isOwner	是否为分享者
     * @param storeAccount	公众号对应门店标识
     * @return	分享信息页面
+     * @throws UnsupportedEncodingException 
      */
     public ModelAndView shareInfoView(String code, Integer ownerId, Integer memberId, Integer orderId, 
-    		    Boolean isOwner, String storeAccount){
+    		    Boolean isOwner, String storeAccount) throws UnsupportedEncodingException{
+        String accessToken = redisService.hget(App.Redis.STORE_WECHAT_ACCESS_TOKEN_KEY_HASH, storeAccount);
     	ModelAndView mav = new ModelAndView(View.MemberCenter.SHARE_INFO);
     	Map<String, Integer> map = new HashMap<String, Integer>();
     	map.put("memberId", ownerId);
@@ -1697,24 +1700,24 @@ public class MemberCenterService {
     		String firstConsumeDesc = "";
     		if (firstConsumeRewardType == 3) {
     			Map<String, Object> firstConsumeMap = getShareReward(sharerRewardType, sharerRewardContent);
-    			firstConsumeDesc = "您推荐的好友首次消费时，您可以获得<span class='bold'>一张" 
-    			        + firstConsumeMap.get("rewardAmount").toString() + firstConsumeMap.get("rewardName").toString() + "</span>";
+    			firstConsumeDesc = "您推荐的好友首次消费时，您可以获得一张"
+    			        + firstConsumeMap.get("rewardAmount").toString() + firstConsumeMap.get("rewardName").toString();
     		}
     		else {
-    			firstConsumeDesc = "您推荐的好友首次消费时，每消费<span class='bold'>" 
-    			        + firstConsumeRewardUnit + "</span>元，您可以获得<span class='bold'>" + firstConsumeRewardContent;
+    			firstConsumeDesc = "您推荐的好友首次消费时，每消费"
+    			        + firstConsumeRewardUnit + "元，您可以获得" + firstConsumeRewardContent;
     			if (firstConsumeRewardType == 1) {
     				firstConsumeDesc += "元账户礼金";
         		}
     			else {
     				firstConsumeDesc += "分商城积分";
     			}
-    			firstConsumeDesc += "</span>";
+    			firstConsumeDesc += "";
     		}
     		mav.addObject("firstConsumeDesc", firstConsumeDesc);
     	}
     	
-    	//如果查看分享页面的为分享者，统计推荐数据
+    	//如果查看分享页面的为分享者, 统计推荐数据
     	if (isOwner) {
     		List<Integer> recommendList = memberRecommendMapper.selectRecommendIdByMemberId(ownerId);
     		mav.addObject("isOwner", isOwner);
@@ -1726,6 +1729,20 @@ public class MemberCenterService {
     	
     	MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
     	mav.addObject("memberInfo", memberInfo);
+    	if (memberInfo==null){
+    	    Map<String, Object> ticket = new HashMap<>();
+    	    ticket.put("expire_seconds", 604800);
+    	    ticket.put("action_name", "QR_SCENE");
+    	    Map<String, Object> scene = new HashMap<>();
+    	    Map<String, Object> sceneId = new HashMap<>();
+    	    sceneId.put("scene_id", 101);
+    	    scene.put("scene", sceneId);
+    	    ticket.put("action_info", scene);
+    	    JSONObject result = WeixinUploadService.httpRequest(Url.Wechat.TICKET.replace("ACCESS_TOKEN", accessToken), 
+    	            "POST", JSONObject.fromObject(ticket).toString());
+    	    String tick = result.getString("ticket");
+    	    mav.addObject("ticket", java.net.URLEncoder.encode(tick, "utf-8"));
+    	}
     	
     	ProjectInfo projectInfo = projectService.queryProjectInfoById(projectShare.getProjectId());
     	mav.addObject("projectInfo", projectInfo);
@@ -1738,7 +1755,6 @@ public class MemberCenterService {
     	mav.addObject("orderId", orderId);
     	return mav;
     }
-    
     
     /**
      * 获取解析后的奖励方式、奖励内容
@@ -1755,19 +1771,20 @@ public class MemberCenterService {
     	//如果为优惠券，查询出优惠券信息
 		if (rewardType == 3) {
 			CouponInfo couponInfo = couponInfoMapper.selectNormalByCouponId(rewardAmount);
-			switch (couponInfo.getCouponType()) {
-    			case 0:
-    				rewardName = "通用优惠券";
-    				break;
-    			case 1:
-    				rewardName = "项目优惠券";
-    				break;
-    			case 2:
-    				rewardName = "商品优惠券";
-    				break;
-    			default:
-    				break;
-			}
+			rewardName = couponInfo.getCouponName();
+//			switch (couponInfo.getCouponType()) {
+//    			case 0:
+//    				rewardName = "通用优惠券";
+//    				break;
+//    			case 1:
+//    				rewardName = "项目优惠券";
+//    				break;
+//    			case 2:
+//    				rewardName = "商品优惠券";
+//    				break;
+//    			default:
+//    				break;
+//			}
 			rewardAmount = couponInfo.getCouponPrice();
 			rewardDesc = "一张" + rewardAmount + "元" + rewardName;
 		}
