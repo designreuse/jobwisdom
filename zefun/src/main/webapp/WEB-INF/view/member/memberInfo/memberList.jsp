@@ -42,12 +42,12 @@
 								积分余额<span><input type="text" id="jifenye1"><i>元</i><em><img src="<%=basePath%>images/dash.png"></em><input type="text" id="jifenye2"><i>元</i></span>
 							</div>
 							<div>
-								生<a style="display: inline-block; margin-left: 25px; color: black; cursor: text" href="javascript:">日</a><span><input type="text" id="birthday-start" onfocus="WdatePicker({dateFmt:'MM-dd'})"><i>天</i><em ><img src="<%=basePath%>images/dash.png"></em><input type="text" id="birthday-end" onfocus="WdatePicker({dateFmt:'MM-dd'})" ><i>天</i></span>
+								生<a style="display: inline-block; margin-left: 25px; color: black; cursor: text" href="javascript:">日</a><span><input type="text" id="birthday-start" onfocus="WdatePicker({dateFmt:'MM-dd'})"><i>日</i><em ><img src="<%=basePath%>images/dash.png"></em><input type="text" id="birthday-end" onfocus="WdatePicker({dateFmt:'MM-dd'})" ><i>日</i></span>
 							</div>
 						</div>
 						<div class="data_select_content">
 							<div>
-								注册日期<span><input type="text" id="register-start" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" ><i>天</i><em><img src="<%=basePath%>images/dash.png"></em><input type="text" id="register-end" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" ><i>天</i></span>
+								注册日期<span><input type="text" id="register-start" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" ><i>日</i><em><img src="<%=basePath%>images/dash.png"></em><input type="text" id="register-end" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" ><i>日</i></span>
 							</div>
 							<div>
 								消费余额<span><input type="text" id="xiaofje1"><i>元</i><em><img src="<%=basePath%>images/dash.png"></em><input type="text" id="xiaofje2"><i>元</i></span>
@@ -58,7 +58,7 @@
 						</div>
 						<div class="data_select_content">
 							<div>
-								距上次消费<span style="margin-left: 7px"><input type="text" id="scxf1"><i>天</i><em><img src="<%=basePath%>images/dash.png"></em><input type="text" id="scxf2"><i>天</i></span>
+								距上次消费<span style="margin-left: 7px"><input type="text" id="scxf1"><i>日</i><em><img src="<%=basePath%>images/dash.png"></em><input type="text" id="scxf2"><i>日</i></span>
 							</div>
 							<div>
 								礼金金额<span><input type="text" id="ljye1"><i>元</i><em><img src="<%=basePath%>images/dash.png"></em><input type="text" id="ljye2"><i>元</i></span>
