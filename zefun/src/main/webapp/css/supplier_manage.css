@@ -53,6 +53,44 @@
 }
 
 .content_right {
+<<<<<<< HEAD
+    padding: 32px;
+    background: white;
+}
+.add_supplier button{
+	width:128px;
+	height:28px;
+	text-align:center;
+	line-height:28px;
+	color:white;
+	border:none;
+	border-radius:12px;
+	background:#59688a;
+	font-size:14px
+}
+.add_supplier button:hover{
+	background:#485573
+}
+.add_supplier p  input{
+	width:160px;
+	border:1px solid black;
+	border-radius:12px;
+	position:relative;
+	left:714px
+}
+.add_supplier >p{margin:20px 0}
+.add_supplier_content{border:1px solid black;height:521px;border-radius:10px;padding:14px 10px;}
+
+.add_supplier_content_left{position:relative;float:left;border:1px solid black;width:350px;height:86px;border-radius:8px;overflow:overlay;font-size:12px;padding:4px 0 0 4px}
+.add_supplier_content_right{float:left;border:1px solid black;width:600px;overflow:overlay;height:86px;border-radius:8px;overflow:overlay;font-size:12px;padding:4px 0 0 4px;margin-left:25px}
+.add_supplier_adjust span{position:absolute;right:4px;display:inline-block;width:46px;height:18px;border-radius:8px;border:1px solid #ccc;text-align:center;line-height:18px;cursor:pointer}
+.add_supplier_adjust span:hover{color:#e92021;border:1px solid #e92021;}
+.add_supplier_content_right input{
+    border-radius: 10px 0 0 10px;
+    border: 1px solid black;
+    position:relative;
+    top:-1px
+=======
 	padding: 32px;
 	background: white;
 }
@@ -79,6 +117,7 @@
 	border-radius: 10px;
 	position: relative;
 	left: 714px
+>>>>>>> 4839f0831624e72cdbddefb4dfc25ac8c63173a1
 }
 
 .add_supplier>p {

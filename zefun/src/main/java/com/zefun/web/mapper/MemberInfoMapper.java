@@ -135,6 +135,15 @@ public interface MemberInfoMapper {
     * @return 结合
      */
     List<MemberInfoDto> selectMemberInfosByPage(Page<MemberInfoDto> page);
+    
+    /**
+     * 根据会员标识分页查询会员信息
+    * @author 老王
+    * @date 2015年9月28日 下午4:12:50
+    * @param page page对象
+    * @return 结合
+     */
+    List<MemberInfoDto> selectMemberInfosByRulePage(Page<MemberInfoDto> page);
 
     /**
      * 将预选的会员id集合中的发送次数为0的会员查询出来

@@ -738,7 +738,7 @@ function hkConfirm(){
 	var realPrice = parseInt(cashAmount) + parseInt(unionpayAmount) + parseInt(wechatAmount) + parseInt(alipayAmount);
 	var createTime = jQuery("input[name='createTime4']").val();
 	var orderCode = jQuery("input[name='orderCodetab4']").val();
-	if (realPrice > parseInt(needRefund)) {
+	if (realPrice > Math.abs(parseInt(needRefund))) {
 		dialog("还款金额大于欠款金额！");
 		return;
 	}
@@ -747,7 +747,7 @@ function hkConfirm(){
 		dialog("还款金额必须大于0！");
 		return;
 	}
-	
+
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "KeepAccounts/refundMemberinfo",
