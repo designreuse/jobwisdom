@@ -133,7 +133,7 @@
         <property name="errorHandler" ref="mqErrorHandler" />
     </bean>
     
-    <!-- 处理会员预约申请通知队列 -->
+    <!-- 处理会员预约结果通知队列 -->
     <bean class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory" />
         <property name="acknowledgeMode" ref="ackManual" />
