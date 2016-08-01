@@ -68,7 +68,7 @@ function changeOrderByType(typeName, obj){
 
 //分页处理
 function changePage(queryCode){
-	var data = queryParams;
+	
 	//如果查询内容不为空，为精准查询
 	/*if (isEmpty(queryCode)) {*/
 		var beginTimes = jQuery("#startDate").val();
@@ -112,7 +112,7 @@ function changePage(queryCode){
 	else {
 		data = {"queryCode":queryCode, "pageNo":pageNo, "isDeleted":0};
 	}*/
-	
+	var data = queryParams;
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "daybook/action/list",
@@ -187,8 +187,7 @@ function refreshStatData(totalCount, obj) {
 }
 
 function spellTableData(data) {
-
-	   var str = '<tr><td onclick="updateSelectOrder('+ data.orderId +'}"><a class="can-click">'+ data.orderCode +'</a></td>';
+	   var str = '<tr><td onclick="updateSelectOrder('+ data.orderId +')"><a class="can-click">'+ data.orderCode +'</a></td>';
 			if(data.memberId == null || data.memberId == '') {
 				str += '<td>散（' + data.sex + '）</td>';
 				} else {
