@@ -176,7 +176,7 @@ jQuery(function(){
 jQuery(function(){
 	jQuery('.left_nav li').on("click", function(){
 		var index = jQuery(this).attr("index");
-		jQuery(this).addClass('active_'+index+'_2 border').siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10');
+		jQuery(this).addClass('active_'+index+'_2 border').siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10 active_14_14');
 		window.location.href = jQuery(this).attr("url");
 	});
 })
@@ -234,7 +234,7 @@ function choseIcon(url){
 	jQuery('.left_nav li').eq(0).addClass('active_1_1');
 	var index = jQuery(".left_nav_2").find("a[href='"+url+"']").parent("ul").attr("index");
 	var index_ = Number(index)+1;
-	jQuery(".left_nav li[index='"+index_+"']").addClass("active_"+(index_)+"_2  border").siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10');
+	jQuery(".left_nav li[index='"+index_+"']").addClass("active_"+(index_)+"_2  border").siblings().removeClass('border active_1_2 active_2_2 active_3_3 active_4_4 active_5_5 active_6_6 active_7_7 active_8_8 active_9_9 active_10_10 active_14_14');
 }
 
 choseMenu(requestUrl);
