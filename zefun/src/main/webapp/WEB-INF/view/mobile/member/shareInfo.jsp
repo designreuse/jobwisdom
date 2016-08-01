@@ -42,13 +42,13 @@ html{font-family: 微软雅黑;}
 .swin img{width:10rem;}
 .iphone{position:absolute;right:-6rem;top:2rem;z-index:2}
 .iphone img{width:10rem;}
-.integration_header{z-index:30;transform:rotate(25deg);-webkit-transform:rotate(25deg);right:-4rem;top:1rem;position:absolute;background:rgba(201,216,218,0.8)}
+.integration_header{z-index:30;transform:rotate(25deg);-webkit-transform:rotate(25deg);right:-4rem;top:1rem;position:absolute;background:rgba(201,216,218,0.8);height:4.8rem}
 .integration_header_left{padding:0.5em 0.2rem 0.5rem 0.5rem;float:left;width:3.6rem;height:3.6rem;border-radius:2rem;-webkit-border-radius:2rem;overflow:hidden;}
 .integration_header_left img{height:3.6rem;width:3.6rem;border-radius:2rem;-webkit-border-radius:2rem;}
 .integration_header_right{float:left;margin-left:6px}
 .integration_header_right p{color:black;margin-top:0.4rem;}
 .integration_header_right p span{color:#e1471e;font-size:14px}
-.integration_header em{display:inline-block;width: 0;height: 0; border-left: 0px solid transparent;border-right: 13px solid transparent;border-top: 25px solid rgba(201,216,218,0.8);position:relative; top: 4.5rem;right: 46%;}
+.integration_header em{float:left;display:inline-block;width: 0;height: 0; border-left: 0px solid transparent;border-right: 13px solid transparent;border-top: 25px solid rgba(201,216,218,0.8);position:relative; top: 4.5rem;right: 46%;}
 .fly_left{float:left;position:absolute}
 .fly_left img{width:7rem}
 .ewm{margin-top:4rem;padding-top:1rem;float:left;width:100%;background:rgba(146,197,232,0.3);}
@@ -65,7 +65,7 @@ html{font-family: 微软雅黑;}
 .saying{margin:1rem 0 0.2rem 0;padding-left:1rem}
 .share{margin-top:1rem;margin-bottom:3rem;text-align:center}
 .share button{-webkit-border-radius:5px;border-radius:5px;width:14rem;height:4rem;text-align:center;line-height:4rem;color:white;border-radius:5px;background:#e2721f;font-size:14px;border:none;box-shadow:0 2px 2px #9f9e93}
-
+input{-webkit-appearance:none;appearance:none;}
 .integration_text_input{height:15rem;overflow:hidden;width:80%;margin:7rem auto}
 .integration_text_input input{font-size:14px;box-shadow:0px 0px 2px white;padding-left:6px;color:white;margin-bottom:1rem;width:97%;height:3.6rem;line-height:3.6rem;border-radius:4px;background:rgba(206,226,231,0.7)}
 .integration_text_content{margin-top:2rem}
@@ -272,14 +272,16 @@ input[type=tel]{
 		}
 	}
 
+	var isCode = false;
 	function getVerifyCode() {
 		var phone = $("#phone").val();
 		var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
 		if (!reg.test(phone)) {
 			alert("请输入正确的手机号码!");
-			return false;
+			isCode = false;
+			return;
 		}else {
-			return true;
+			isCode = true;
 		}
 
 		$("#getDiv").addClass("hide");
@@ -355,7 +357,8 @@ input[type=tel]{
 	//倒计时
 	$(function() {
 		$('input[type="button"]').on('click', function(e) {
-			if (!getVerifyCode()){
+			getVerifyCode();
+			if (!isCode){
 				return;
 			}
 			var time = 60;
@@ -374,14 +377,6 @@ input[type=tel]{
 
 		})
 	})
-	//点击分享	
-	/* $(function() {
-		$('.integration_text_content .share button').on('touchstart',
-				function() {
-					$('.integration_text_content').fadeOut()
-					$('.ewm_content').fadeIn()
-				})
-	}) */
 
 	//点击遮罩层
 	$(function() {
