@@ -85,41 +85,6 @@ public class ComboInfoController extends BaseController {
             ComboInfo comboInfo = new ComboInfo();
             comboInfo.setStoreId(storeId);
             List<ComboInfo> comboInfos = comboInfoMapper.selectByProperty(comboInfo);
-
-//            // 部门，疗程列表
-//            List<DeptInfoDto> deptInfoCmboInfoList = comboInfoService.getDetpInfoByCombo(storeId);
-//            model.addObject("deptInfoCmboInfoList", deptInfoCmboInfoList);
-//
-//            // 部门列表
-//            List<DeptInfo> deptInfoList = projectService.queryDeptInfoList(storeId);
-//            model.addObject("deptInfoList", deptInfoList);
-//            model.addObject("js_deptInfoList", JSONArray.fromObject(deptInfoList));
-//
-//            // 项目列表
-//            ProjectInfoDto projectInfoDto = new ProjectInfoDto();
-//            projectInfoDto.setStoreId(storeId);
-//            projectInfoDto.setIsDeleted(0);
-//            List<ProjectInfoDto> projectInfoDtoList = projectService.queryProjectInfoList(projectInfoDto);
-//            model.addObject("projectInfoDtoList", projectInfoDtoList);
-//            model.addObject("projectInfoList", JSONArray.fromObject(projectInfoDtoList));
-//            
-//            //商品列表
-//            GoodsInfo goodsInfo = new GoodsInfo();
-//            goodsInfo.setStoreId(storeId);
-//            goodsInfo.setIsDeleted(0);
-//            List<GoodsInfo> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
-//            model.addObject("goodsinfos", goodsinfos);
-//            model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
-//            // 会员等级列表
-//            List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
-//            model.addObject("memberLevels", memberLevelList);
-//            
-//            List<CodeLibraryDto> images = codeLibraryMapper.selectProjectImage();
-//            model.addObject("images", images);
-            
-//            List<DeptInfo> deptInfoList = projectService.queryDeptInfoList(storeId);
-//            model.addObject("deptInfoList", deptInfoList);
-//            model.addObject("deptInfoListJs", JSONArray.fromObject(deptInfoList));
             
             List<DeptGoodsBaseDto> deptGoodsBaseDto = goodsInfoService.getDeptGoodsByStoreId(storeId);
             model.addObject("deptGoodsBaseDto", deptGoodsBaseDto);

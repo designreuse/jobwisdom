@@ -43,11 +43,11 @@ button:hover{background:#575773}
 .goods_series_item_all_ul{height:40px;position:relative;background:white;border-bottom:1px solid #959595;border-radius:8px 8px 0 0}
 .goods_series_item_all_ul span{position:absolute;display:inline-block;z-index:2}
 .goods_series_item_all_ul .pre{left:5px;top:3px}
-.goods_series_item_all_ul .next{right:5px;top:3px}
-.goods_series_item_all_ul li{cursor:pointer;float:left;height:40px;width:110px;text-align:center;line-height:40px;border-left:1px solid #959595}
+.goods_series_item_all_ul .next{right:15px;top:3px}
+.goods_series_item_all_ul li{border-right:1px solid #959595;cursor:pointer;float:left;height:40px;width:130px;text-align:center;line-height:40px;border-left:1px solid #959595;margin-left:20px}
 .goods_series_item_all_ul ul{height:40px;width:4000px;position:relative}
 .goods_series_item_all_ul li:last-child{border-right:1px solid #959595 }
-.goods_series_item_all_ul li:first-child{border-left:none}
+
 .goods_series_detail>p {border-bottom:1px solid #959595;padding:8px 20px;font-size:15px;margin-bottom:10px}
 .goods_series_detail>p button{float:right;margin-right:10px;width:100px;height:22px;border:none;text-align:center;line-height:22px;color:white;border-radius:12px;background:#59688a}
 .goods_series_detail>p button:hover{background:#515f7e}

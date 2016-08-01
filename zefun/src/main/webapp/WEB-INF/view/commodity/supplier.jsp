@@ -48,13 +48,13 @@
 						<div class="supplier_manage_brand_content_ clearfix">
 							<div class="supplier_manage_brand_content_left">
 								<ul>
-									<c:forEach items="${supplierInfoDtos }" var="supplierInfo">
+									<c:forEach items="${supplierInfoDtos }" var="supplierInfo" varStatus="index">
 										<li supplierId="${supplierInfo.supplierId }" supplierName="${supplierInfo.supplierName }" linkName="${supplierInfo.linkName }" linkPhone="${supplierInfo.linkPhone }">
 											<div class="supplier_manage_brand_content_left_ul">
 												<p>
 													供应商：${supplierInfo.supplierName }<span onclick="updateSupper(${supplierInfo.supplierId }, this)">修改</span>
 												</p>
-												<p>地址：${supplierInfo.linkName }</p>
+												<p>地址：${supplierInfo.linkName }<span onclick="deleteSupper(${supplierInfo.supplierId }, ${index.count-1 })">删除</span></p>
 												<p>联系方式：${supplierInfo.linkPhone }</p>
 											</div>
 										</li>
@@ -207,6 +207,7 @@
 						dataType : "json",
 						success : function(data) {
 							var supplierInfo = data.msg;
+							window.location.href = baseUrl + "view/storeAccount/suplier";
 							console.log(supplierInfo);
 							if (jQuery("li[supplierId=" + supplierInfo.supplierId + "]").length == 1) {
 								jQuery("li[supplierId=" + supplierInfo.supplierId + "]").attr("supplierName", supplierInfo.supplierName);
@@ -292,6 +293,23 @@
 					dataType : "json",
 					success : function(data) {
 						jQuery(opt).parents("li[brandId]").hide('800');
+					}
+				});
+			}
+			function deleteSupper(id, index){
+				var length = jQuery(".supplier_manage_brand_content_right").children("ul").children("li").eq(index).children("ul").find("li").length;
+				if (length > 1){
+					dialog("该供应商下拥有品牌, 不可删除");
+					return;
+				}
+				var data = "supplierId="+id;
+				jQuery.ajax({
+					type : "POST",
+					url : baseUrl + "goodsInfo/deleteSuplier",
+					data : data,
+					dataType : "json",
+					success : function(data) {
+						if (data.code!=-1) window.location.href = baseUrl + "view/storeAccount/suplier";
 					}
 				});
 			}

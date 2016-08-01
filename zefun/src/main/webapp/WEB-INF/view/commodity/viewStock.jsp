@@ -350,7 +350,7 @@
 	function moveGoodsInfo(modal, goodsId, goodsName, code, tr){
 		jQuery(tr).addClass("hide");
 		var html = '<div goodsId="'+goodsId+'" class="out_number">'+
-						'<i onclick="backMoveGoods(\''+modal+'\','+goodsId+', this)"><img src="'+baseUrl+'images/hand_close.png"></i>'+
+						'<i style="z-index:2;" onclick="backMoveGoods(\''+modal+'\','+goodsId+', this)"><img src="'+baseUrl+'images/hand_close.png"></i>'+
 						'<div class="out_content">'+
 							'<span>'+goodsName+'</span><em>'+code+'</em>'+
 						'</div>'+

@@ -449,6 +449,8 @@ public interface Url {
         public static final String GOODSINFO_SETTING_PAGE = "goodsInfo/view/setting/page";
         /** 删除*/
         public static final String GOODSINFO_DELETE_PAGE = "goodsInfo/deleteGoodsBrand";
+        /** 删除供应商*/
+        public static final String GOODSINFO_DELETE_SUPILER = "goodsInfo/deleteSuplier";
         
 	}
 

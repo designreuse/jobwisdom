@@ -109,6 +109,13 @@
     	}
     }
     jQuery(".fuzzysearch").delegate("li","click",function(){
+    	
+    	var text=jQuery(this).text();
+    	jQuery('#serchMemberByNameOrPhone').val(text)
+    	
+    	
+    	
+    	
     	var memberId = jQuery(this).attr("memberid");
     	for (var i = 0; i < memberArray.length; i++) {
     		if(memberArray[i].memberId == memberId){

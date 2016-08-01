@@ -142,7 +142,22 @@ function saveAdmin(){
 		  dialog("名称不能为空");
           return;
 	}
-	
+	if(jQuery("select[name='store'] option").length ==1){
+		  dialog("没有分店");
+		  jQuery("select[name='store']").val("企业");
+		  return;
+	}
+	var systemRole =jQuery("select[name='role']").find("option:selected").attr("systemRole");
+	if(jQuery("select[name='store']").find("option:selected").attr("storeId") == "0" && systemRole!=1) {
+		if(jQuery("select[name='store'] option").length ==1){
+			  dialog("没有门店不能创建门店管理员");
+			  return;
+		}
+		else{
+			 dialog("该角色只能是企业角色，不能创建门店管理员");
+	         return;
+		}
+	}
 	jQuery.ajax({
         type: "POST",
         url: baseUrl + "administrator/action/saveUpdate",

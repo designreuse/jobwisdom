@@ -181,7 +181,9 @@ public class EmployeeRewardService {
     	er.setReasons(vo.getReasons());
     	er.setModifyer(userId);
     	StoreManageRule smr = getMoneyByType(vo.getType(), storeId);
-    	er.setNumber(smr.getProcessMoney().doubleValue());
+    	if (smr != null) {
+    	    er.setNumber(smr.getProcessMoney().doubleValue());
+    	}
     	//请假单独处理
     	if (vo.getType() != null && vo.getType().equals("3")) {
     		er.setStarttime(vo.getStartTime());
