@@ -76,8 +76,8 @@
 						   <p class="guest_detail">修改密码</p>
 						   <div class="account_set_head_1">
 						     <p class="account_name_">原密码：<span><input type="text" id="oldPwd"></span></p>
-							 <p class="account_name_">新密码：<span><input type="text" id="newPwd"></span></p>
-							<p class="account_name_" style="position:relative;left:-12px"/>确认密码：<span><input type="text" id="repeatPwd"></span></p>
+							 <p class="account_name_">新密码：<span><input type="password" id="newPwd"></span></p>
+							<p class="account_name_" style="position:relative;left:-12px"/>确认密码：<span><input type="password" id="repeatPwd"></span></p>
 						      
 							  <button class="account_sure" onclick = "updatePassword();">确认</button>
 						   </div>

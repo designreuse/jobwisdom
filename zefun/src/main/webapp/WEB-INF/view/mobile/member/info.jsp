@@ -196,7 +196,7 @@
 	        <input class="clearInput" type="tel" maxlength="6" id="oldPwd" placeholder="当前密码"/><span class="iconfont icon-guanbi ml-4 hide"></span>
 	    </div>
 	    <div class="input-wrap">
-	        <input class="clearInput" type="tel" maxlength="6" id="newPwd" placeholder="新密码"/><span class="iconfont icon-guanbi ml-4 hide"></span>
+	        <input class="clearInput" type="password" maxlength="6" id="newPwd" placeholder="新密码"/><span class="iconfont icon-guanbi ml-4 hide"></span>
 	    </div>
 	    <div class="input-wrap">
 	        <input class="clearInput" type="tel" maxlength="6" id="repeatPwd" placeholder="重复密码"/><span class="iconfont icon-guanbi ml-4 hide"></span>
@@ -408,6 +408,7 @@
                     dialog(e.msg);
                     return;
                 }
+                dialog("修改成功");
                 hideOperate(".fix-password");
             }
         });

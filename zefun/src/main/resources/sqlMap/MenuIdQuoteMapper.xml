@@ -17,10 +17,15 @@
 
  <select id="selectMemberFirts" resultMap="BaseResultMap" parameterType="java.util.Map">
  	select * from menu_id_quote where menu_type = 1 and menu_id in 
- 	<foreach item="menuId" collection="menuId" separator="," open="(" close=")" index="">  
-      #{menuId}  
+ 	<foreach item="menuIds" collection="menuId" separator="," open="(" close=")" index="">  
+      #{menuIds}  
+    </foreach> 
+    ORDER BY FIELD(menu_id,
+  	<foreach item="menuIds" collection="menuId" separator="," open=" " close=")" index="">  
+      #{menuIds}  
     </foreach> 
  </select>
+ 
  <select id="selectMemberSecounds" resultMap="BaseResultSecondsMap" parameterType="java.lang.Integer">
  	select * from menu_id_quote where menu_type = 2 and quote_id = #{menu_id}
  </select>
@@ -31,10 +36,13 @@
  		from menu_id_quote  
  		where
  	  menu_type = #{menuType}   and menu_id in 
- 	  <foreach item="menuId" collection="menuId" separator="," open="(" close=")" index="">  
-      #{menuId}  
+ 	  <foreach item="menuIds" collection="menuId" separator="," open="(" close=")" index="">  
+      #{menuIds}  
     </foreach> 
- 	
+       ORDER BY FIELD(menu_id,
+  	<foreach item="menuIds" collection="menuId" separator="," open=" " close=")" index="">  
+      #{menuIds}  
+    </foreach> 
  </select>
  
   <select id="selectGroupByMemuRoles" resultMap="BaseResultMap" parameterType="java.util.Map"  >
