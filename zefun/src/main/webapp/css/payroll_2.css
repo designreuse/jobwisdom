@@ -1,6 +1,10 @@
 .content_right{padding:40px}
 .payroll_2_head{padding-left: 20px;}
+<<<<<<< HEAD
+.payroll_2_head button{padding:5px 15px;border-radius:12px;color:white;text-align:center;border:none;background:#5b6080;margin-right:20px}
+=======
 .payroll_2_head button{box-shadow:0 0 0!important;padding:5px 15px;border-radius:8px;color:white;text-align:center;border:none;background:#5b6080;margin-right:20px}
+>>>>>>> 4839f0831624e72cdbddefb4dfc25ac8c63173a1
 .payroll_2_head button:hover{
 	background:#4f5471
 }
