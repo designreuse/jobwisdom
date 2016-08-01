@@ -1678,7 +1678,8 @@ public class MemberCenterService {
     		Integer watcherRewardType = json.getInt("watcherRewardType");
     		Integer watcherRewardContent = json.getInt("watcherRewardContent");
     		Map<String, Object> watcherMap = getShareReward(watcherRewardType, watcherRewardContent);
-    		mav.addObject("rewardName", watcherMap.get("rewardName"));
+//    		mav.addObject("rewardName", watcherMap.get("rewardName"));
+    		mav.addObject("rewardName", Stream.of(watcherMap.get("rewardName").toString().split("")).collect(Collectors.toList()));
     		mav.addObject("rewardAmount", watcherMap.get("rewardAmount"));
     		if (watcherRewardType == 1) {
     			mav.addObject("rewardUnit", "分");
