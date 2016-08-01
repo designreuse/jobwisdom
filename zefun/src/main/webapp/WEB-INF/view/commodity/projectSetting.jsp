@@ -595,6 +595,7 @@
 	var isCommit = false;
 	function save3() {
 		var data = coverDate();
+		if (data.projectInfo.categoryId == null){dialog("请选择项目大项");return;}
 // 		if (!isCommit) {
 // 			dialog("当前项目为可预约项目,请至少设置一个可预约的步骤!");
 // 			return;

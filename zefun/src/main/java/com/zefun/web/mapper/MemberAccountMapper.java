@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.zefun.web.dto.BigMemberDto;
 import com.zefun.web.entity.MemberAccount;
 
 /**
@@ -135,4 +136,14 @@ public interface MemberAccountMapper {
     * @return Map<String, Object>
      */
     Map<String, Object> selectMemberUserByStoreId(Integer storeId);
+    
+    /**
+     * 大客户分析
+    * @author 老王
+    * @date 2016年7月29日 下午4:27:01 
+    * @param map 门店标识
+    * @return List<Map<String, Object>>
+     */
+    List<BigMemberDto> selectBigMember(Map<String, Object> map);
+    
 }

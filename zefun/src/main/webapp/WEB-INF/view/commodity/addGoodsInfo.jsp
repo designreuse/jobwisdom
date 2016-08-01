@@ -147,6 +147,7 @@
 		var data = coverDate();
 		if (data.brandId==null){dialog("该供应商下没有品牌");return;}
 		if (data.supplierId==null){dialog("请先新增一个供应商吧");return;}
+		if (isNaN(data.goodsCodeSuffix)){dialog("商品编号请输入五位数字");return;}
 		var isOk = true;
 		jQuery.each(data, function(name, value) {
 			if (!isNotNull(value) && name != "goodsId" && name != "goodsDesc") {

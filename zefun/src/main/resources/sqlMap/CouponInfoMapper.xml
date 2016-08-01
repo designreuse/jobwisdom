@@ -67,7 +67,7 @@
 	END AS status
   </sql>
   
-    <select id="selectCouponListByStoreId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectCouponListByStoreId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     
       	SELECT   i.* from coupon_store s  LEFT JOIN  coupon_info   i  ON  s.coupon_id=i.coupon_id   WHERE
   	  s.store_id =#{storeId}   AND  i.is_delete=0  and  coupon_stop_time &gt;= curdate() and curdate() &gt;= release_time

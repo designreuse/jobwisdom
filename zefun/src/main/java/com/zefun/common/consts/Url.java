@@ -674,6 +674,8 @@ public interface Url {
 		public static final String SEND_COUPON = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
 		/** 微信图文消息预览 */
 		public static final String ITEM_PRE_VIEW = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token=ACCESS_TOKEN";
+		/** 二维码临时ticket*/
+		public static final String TICKET = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
 
 		/** 微信七牛上传图片存储图片,用于图片库 */
 		public static final String QINNIU_UPLOAD = "wechat/qiniu/upload";
@@ -1445,6 +1447,12 @@ public interface Url {
 		
 		/** 初始化规则*/
 		public static final String ACTION_INITIALIZATION_SETTING_RULE = "programme/action/initializationSettingRule";
+		
+		/** 大客户分析*/
+		public static final String ACTION_BIG_MEMBER_DATA = "programme/action/bigMemberData";
+		
+		/** 查询会员信息*/
+		public static final String ACTION_RULE_MEMBERID_LIST = "programme/action/ruleMemberIdList";
 	}
 	
 	/**

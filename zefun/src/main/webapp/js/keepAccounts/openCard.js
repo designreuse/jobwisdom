@@ -155,7 +155,7 @@ function addCoupon(obj){
 	var couponId = jQuery(obj).parent().find("select[id='couponSelect']").val();
 	var name = jQuery(obj).parent().find("select[id='couponSelect']").find("option[value='"+couponId+"']").text();
 	var number = jQuery(obj).parent().find("input[name='numberCoupon']").val();
-	var html="<li  value="+couponId+" name='couponId'><p name='couponName'  value="+couponId+" >"+name+"</p><p id="+couponId+"><i name='number'>"+number+"</i>张</p><div class='add_recharge_button'><button onclick='upcoupon(this)'>编辑</button><button onclick='decoupon(this)'>删除</button></div></li>";
+	var html="<li  value="+couponId+" name='couponId'><p name='couponName'  value="+couponId+" >"+name+"</p><p id="+couponId+"><i name='number'>"+number+"</i>张</p><div class='add_recharge_button'><button onclick='decoupon(this)'>删除</button></div></li>";
 	parentObj.find(".send_manage_content_ ul").append(html);      
 	jQuery(obj).parent().find("select[id='couponSelect']").find("option[value='"+couponId+"']").remove();      
 	jQuery(obj).trigger("liszt:updated");	
@@ -738,7 +738,7 @@ function hkConfirm(){
 	var realPrice = parseInt(cashAmount) + parseInt(unionpayAmount) + parseInt(wechatAmount) + parseInt(alipayAmount);
 	var createTime = jQuery("input[name='createTime4']").val();
 	var orderCode = jQuery("input[name='orderCodetab4']").val();
-	if (realPrice > parseInt(needRefund)) {
+	if (realPrice > Math.abs(parseInt(needRefund))) {
 		dialog("还款金额大于欠款金额！");
 		return;
 	}

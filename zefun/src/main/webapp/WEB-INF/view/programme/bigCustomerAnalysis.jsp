@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath%>css/customer_analyse.css" type="text/css" />
+<style>
+.grilTable td {height: 45px;}
+</style>
 <body>
 
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -12,22 +15,29 @@
 			<%@include file="/top.jsp"%>
 			 <div class='content_right clearfix'>
 			    <ul class="clearfix">
-				  <li class="active">大客户分析</li>
+				  <li class="active">
+				     <c:choose>
+				        <c:when test="${pageType == 1}">大客户分析</c:when>
+				        <c:when test="${pageType == 2}">忠诚客户分析</c:when>
+				        <c:otherwise>活跃客户分析</c:otherwise>
+				     </c:choose>
+				  </li>
 				  <li>解决方案</li>
 				</ul>
 				<div class="customer_analyse_content">
 				 <div class="customer_analyse_content_">
 				  <div class="customer_analyse_content_datail">
 				     <div class="customer_analyse_search">
-					   <select name = "selectStore">
-					     <option value="${storeAccount}">全企业</option>
-					     <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
-					         <option value="${storeInfo.storeId}" 
-					            <c:if test = "${status.index == 0 }">selected = "selected"</c:if>
-					         >${storeInfo.storeName}</option>
-					     </c:forEach>
-					   </select>
-					   <button>查询</button>
+				       <c:if test="${roleId == 1}">
+				           <select name = "selectStore" onchange="chooseStoreSelect(this)">
+						     <option value="${storeAccount}" storeType = "2">全企业</option>
+						     <c:forEach items="${storeInfoList}" var="storeInfo" varStatus="status">
+						         <option value="${storeInfo.storeId}" storeType = "1"
+						            <c:if test = "${status.index == 0 }">selected = "selected"</c:if>
+						         >${storeInfo.storeName}</option>
+						     </c:forEach>
+						   </select>
+				       </c:if>
 					   <span><button onclick = "showZzc()">设置会员指标</button></span>
 					 </div>
 				      
@@ -37,123 +47,55 @@
 					
 					<div class="customer_analyse_table clearfix">
 					  <div class="customer_analyse_table_left">
-					    <table>
+					    <table name = "grilTable" class = "grilTable">
 						   <tr>
-						      <td>平均年消费</td>
-							  <td>0-300元</td>
-							  <td>300-500元</td>
-							  <td>500-1000元</td>
-							  <td>1000-3000元</td>
-							  <td>3000元以上</td>
+						      <c:choose>
+						        <c:when test="${pageType == 1}"><td>平均年消费</td></c:when>
+						        <c:when test="${pageType == 2}"><td>年到店次数</td></c:when>
+						        <c:otherwise><td>几天未到店</td></c:otherwise>
+						      </c:choose>
 						   </tr>
 						   <tr>
 						      <td>消费人数</td>
-							  <td>3</td>
-							  <td>3</td>
-							  <td>3</td>
-							  <td>3</td>
-							  <td>3</td>
 						   </tr>
 						   <tr>
 						      <td>人数占比</td>
-							  <td>37%</td>
-							  <td>37%</td>
-							  <td>37%</td>
-							  <td>37%</td>
-							  <td>37%</td>
 						   </tr>
 						   <tr>
 						      <td>消费总额</td>
-							  <td>340.00</td>
-							  <td>340.00</td>
-							  <td>340.00</td>
-							  <td>340.00</td>
-							  <td>340.00</td>
 						   </tr>
 						   <tr>
 						      <td>消费占比</td>
-							  <td>3.1%</td>
-							  <td>3.1%</td>
-							  <td>3.1%</td>
-							  <td>3.1%</td>
-							  <td>3.1%</td>
 						   </tr>
 						    <tr>
 						      <td>平均消费单价</td>
-							  <td>133.33</td>
-							  <td>133.33</td>
-							  <td>133.33</td>
-							  <td>133.33</td>
-							  <td>133.33</td>
 						    </tr>
-						   <tr>
-						     <td>合计</td>
-						     <td>3840.00</td>
-							 <td>3840.00</td>
-							 <td>3840.00</td>
-							 <td>3840.00</td>
-						     <td>3840.00</td>
-						   </tr>
 						</table>
 					  </div>		
 					  <div class="customer_analyse_table_right">
-					    <table>
+					    <table name = "boyTable" class = "grilTable">
 						   <tr>
-						      <td>平均年消费</td>
-							  <td>0-300元</td>
-							  <td>300-500元</td>
-							  <td>500-1000元</td>
-							  <td>1000-3000元</td>
-							  <td>3000元以上</td>
+						      <c:choose>
+						        <c:when test="${pageType == 1}"><td>平均年消费</td></c:when>
+						        <c:when test="${pageType == 2}"><td>年到店次数</td></c:when>
+						        <c:otherwise><td>几天未到店</td></c:otherwise>
+						      </c:choose>
 						   </tr>
 						   <tr>
 						      <td>消费人数</td>
-							  <td>3</td>
-							  <td>3</td>
-							  <td>3</td>
-							  <td>3</td>
-							  <td>3</td>
 						   </tr>
 						   <tr>
 						      <td>人数占比</td>
-							  <td>37%</td>
-							  <td>37%</td>
-							  <td>37%</td>
-							  <td>37%</td>
-							  <td>37%</td>
 						   </tr>
 						   <tr>
 						      <td>消费总额</td>
-							  <td>340.00</td>
-							  <td>340.00</td>
-							  <td>340.00</td>
-							  <td>340.00</td>
-							  <td>340.00</td>
 						   </tr>
 						   <tr>
 						      <td>消费占比</td>
-							  <td>3.1%</td>
-							  <td>3.1%</td>
-							  <td>3.1%</td>
-							  <td>3.1%</td>
-							  <td>3.1%</td>
 						   </tr>
 						    <tr>
 						      <td>平均消费单价</td>
-							  <td>133.33</td>
-							  <td>133.33</td>
-							  <td>133.33</td>
-							  <td>133.33</td>
-							  <td>133.33</td>
 						    </tr>
-						   <tr>
-						     <td>合计</td>
-						     <td>3840.00</td>
-							 <td>3840.00</td>
-							 <td>3840.00</td>
-							 <td>3840.00</td>
-						     <td>3840.00</td>
-						   </tr>
 						</table>
 						
 					  </div>	
@@ -170,219 +112,23 @@
 					
 					<div class="solve_way">
 					  <div class="solve_way_table">
-					    <table>
+					    <table id = "init_member">
 					       <tr>
 						     <td><input type="checkbox"><span>全选</span></td>
 						     <td>姓名</td>
 							 <td>性别</td>
 							 <td>电话号码</td>
-							 <td>卡号</td>
 							 <td>总金额消费</td>
-							 <td>总到点次数</td>
+							 <td>总到店次数</td>
 							 <td>距今今日未到店</td>
-							 <td>年龄</td>
+							 <td>生日</td>
 							 <td>首次到店时间</td>
 							 <td>登记门店</td>
 						   </tr>
-					       <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						    <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						    <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						    <tr>
-						     <td><input type="checkbox"><span>1</span></td>
-						     <td>打死</td>
-							 <td>女客</td>
-							 <td>13020205050</td>
-							 <td>13020205050</td>
-							 <td>10000</td>
-							 <td>34</td>
-							 <td>2</td>
-							 <td>29</td>
-							 <td>2016-16-12</td>
-							 <td>中邦我道一号店</td>
-						   </tr>
-						   
 					    </table>
 					  </div>
-					</div>	  
+					</div>	
+					<%@ include file="/template/page.jsp" %>  
 				  </div>	  
 				</div>
 			  </div> 
@@ -422,6 +168,11 @@
    
    var ruleListStr = '${ruleListStr}';
    var storeRuleList = eval("(" + ruleListStr + ")");
+   
+   var pageNo = 1;	
+   var pageSize = 15;	
+   
+   var pageType = '${pageType}';
 </script>
 <script type="text/javascript" src="<%=basePath %>js/programme/bigCustomerAnalysis.js"></script>
 </html>

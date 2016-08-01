@@ -203,7 +203,8 @@ em{font-style:normal}
 	width:100px;height:22px;padding-left:50px;margin-left:12px;font-size:14px
 }
 .setting_all{position:absolute;width:300px;height:90px;border:1px solid #0d9bd6;z-index:3;background:white;padding:10px 5px;display:none;border-radius:0px 12px 12px 12px}
-.setting_all li{float:left;width:60px;overflow:hidden;height:30px;text-align:center;line-height:30px;font-size:12px;color:#646464;}
+.setting_all li{float:left;width:70px;overflow:hidden;height:30px;text-align:center;line-height:30px;font-size:12px;color:#646464;text-overflow: ellipsis;white-space: nowrap;}
+.setting_all li:hover{text-overflow:inherit;overflow:visible;}
 .setting_all li:hover{color:#0d9bd6}
 .content_right>.setting_first em{display:inline-block;width:150px;height:28px;text-align:center;line-height:28px;margin-left:12px;position:relative;z-index:10;cursor:pointer}
 .setting_first .active{color:#0d9bd6;border-radius:12px 12px 0 0!important;border:1px solid #0d9bd6!important;border-bottom:1px solid white!important;z-index:10;position:relative}

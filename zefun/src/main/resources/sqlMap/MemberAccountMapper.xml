@@ -366,6 +366,49 @@
     exists(select 1 from member_info b where b.member_id = a.account_id and b.store_id = #{storeId, jdbcType=INTEGER} and b.is_deleted = 0)
   </select>
   
+  <resultMap id="BigMemberMap" type="com.zefun.web.dto.BigMemberDto" >
+    <result column="yearAverageVlaue" property="yearAverageVlaue" jdbcType="DECIMAL" />
+    <result column="totalAverageVlaue" property="totalAverageVlaue" jdbcType="DECIMAL" />
+    <result column="avgConsumeAmount" property="avgConsumeAmount" jdbcType="DECIMAL" />
+    <result column="memberId" property="memberId" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+  </resultMap>
   
+  <select id="selectBigMember" resultMap="BigMemberMap" parameterType="java.util.Map" >
+    select
+        <choose>
+           <when test="pageType == 1">
+               (CASE WHEN TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) = 0 THEN 1 
+				ELSE TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) 
+				END)* a.total_consume_amount/12
+           </when>
+           <when test="pageType == 2">
+               (CASE WHEN TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) = 0 THEN 1 
+				ELSE TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) 
+				END)* a.consume_count/12
+           </when>
+           <otherwise>
+                CASE WHEN TIMESTAMPDIFF(DAY, a.last_consume_time, sysdate()) = 0 THEN 1 
+				ELSE TIMESTAMPDIFF(DAY, a.create_time, sysdate()) 
+				END
+           </otherwise>
+        </choose>
+		as yearAverageVlaue, 
+	    a.total_consume_amount as totalAverageVlaue,
+		a.avg_consume_amount as avgConsumeAmount,
+		b.member_id as memberId,
+		b.sex as sex
+	from member_account a 
+	left join member_info b on a.account_id = b.member_id
+	where b.is_deleted = 0 
+	<choose>
+	   <when test="ruleType == 1">
+	       and b.store_id = #{storeIdOrAccount}
+	   </when>
+	   <otherwise>
+	       and exists(select 1 from store_info c where b.store_id = c.store_id and c.store_account = #{storeIdOrAccount})
+	   </otherwise>
+	</choose>
+  </select>
 
 </mapper>
