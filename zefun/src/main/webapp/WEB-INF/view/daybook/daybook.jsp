@@ -36,7 +36,7 @@
 	  .order_style_content_left>p>em{color:#cb2626}
 	  .order_style_content_left>span{display:inline-block;margin-top:34px}
 	  .order_style_content_right{float:left}
-	  .order_style_content_right>li>span{display:inline-block;text-align:center;margin-left:35px}
+	  .order_style_content_right>li>span{display:inline-block;text-align:center;margin-left:15px}
 	  .order_style_content_right select{width:116px;height:16px;border-radius:12px;border:1px solid #b1c0d6}
 	  .order_style_content_right input{margin-left:8px;width:110px;height:16px;border-radius:12px;border:1px solid #b1c0d6}
 	  .order_style_content_right>li{height:38px;line-height:38px;width:915px;background:#f7f9fc;border-bottom:1px solid #dce3fa}

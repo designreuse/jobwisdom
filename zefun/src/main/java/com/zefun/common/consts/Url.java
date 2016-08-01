@@ -1445,6 +1445,12 @@ public interface Url {
 		/** 大客户分析*/
 		public static final String VIEW_BIG_CUSTOMER_ANALYSIS = "programme/view/bigCustomerAnalysis";
 		
+		/** 忠诚度分析*/
+		public static final String VIEW_CUSTOMER_LOYAL_ANALYSIS = "programme/view/customerLoyalAnalysis";
+		
+		/** 活跃度分析*/
+		public static final String VIEW_CUSTOMER_ACTIVE_ANALYSIS = "programme/view/customerActiveAnalysis";
+		
 		/** 初始化规则*/
 		public static final String ACTION_INITIALIZATION_SETTING_RULE = "programme/action/initializationSettingRule";
 		
