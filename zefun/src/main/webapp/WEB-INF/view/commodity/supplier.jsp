@@ -292,7 +292,7 @@
 					data : data,
 					dataType : "json",
 					success : function(data) {
-						jQuery(opt).parents("li[brandId]").hide('800');
+						jQuery(opt).parents("li[brandId]").remove();
 					}
 				});
 			}
