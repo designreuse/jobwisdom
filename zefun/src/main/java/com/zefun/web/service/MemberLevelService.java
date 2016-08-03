@@ -123,7 +123,9 @@ public class MemberLevelService {
                 	map.put("levelId", memberLevel.getLevelId());
                 	map.put("storeId", storeInfo.getStoreId());
                 	MemberLevelDiscount discount = memberLevelDiscountMapper.selectByStoreLevel(map);
-                	memberLevelDiscount.setDiscountId(discount.getDiscountId());
+                	if (discount != null) {
+                	    memberLevelDiscount.setDiscountId(discount.getDiscountId());
+                	}
                 	memberLevelDiscountMapper.updateByPrimaryKey(memberLevelDiscount);
                 }	
                 else {

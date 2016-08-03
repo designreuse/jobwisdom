@@ -390,10 +390,11 @@ function changePage(){
 function changeType(){
 		levelType2 =jQuery("select[name='levelType']").val();
 		if(levelType2=="等级卡"){
-			htm='该种卡 可由分店根据等级 ，设置折扣数';
+			htm='该种卡 ，折扣均由总店设置，分店无修改权限';
 		}
 		if(levelType2=="折扣卡"){
-			htm='该种卡 ，折扣均由总店设置，分店无修改权限';
+			htm='该种卡 可由分店根据等级 ，设置折扣数';
+			
 		}
 		jQuery("body").delegate(".overflow_text", "mouseover", function (){
 			jQuery('.fly_').html('');

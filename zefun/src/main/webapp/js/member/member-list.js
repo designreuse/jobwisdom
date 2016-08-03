@@ -141,7 +141,9 @@
     //根据会员名称和电话查询
     jQuery("#serchMemberByNameOrPhoneDoc").on("click",function(){
   	  var content = jQuery("#serchMemberByNameOrPhone").val();
-      content = content.split(":")[1];
+  	  if(content.split(":").length > 1){
+  		  content = content.split(":")[1];
+  	  }
   	  if(content == ""){
   		  location.reload();
   		  return;

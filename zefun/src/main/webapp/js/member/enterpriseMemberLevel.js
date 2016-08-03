@@ -10,16 +10,25 @@ function showAddMemberLevel () {
 function cancelModal () {
 	jQuery("#memberLevelModal").hide();
 	jQuery("#textarea").val("");
-	jQuery("select[name='levelType']").attr("disabled","disabled");
+	
 	levelType2 =jQuery("select[name='levelType']").val();
-	jQuery("input[name='goodsDiscount']").removeAttr("disabled");
-	jQuery("input[name='projectDiscount']").removeAttr("disabled");
-	jQuery("input[name='sellAmount']").removeAttr("disabled");
-	jQuery("input[name='performanceDiscountPercent']").removeAttr("disabled");
-	jQuery("input[name='chargeMinMoney']").removeAttr("disabled");
-	jQuery("input[name='integralUnit']").removeAttr("disabled");
-	jQuery("input[name='integralNumber']").removeAttr("disabled");
+	jQuery("select[name='levelType']").attr("disabled","disabled");
+//	jQuery("input[name='goodsDiscount']").removeAttr("disabled");
+//	jQuery("input[name='projectDiscount']").removeAttr("disabled");
+//	jQuery("input[name='sellAmount']").removeAttr("disabled");
+//	jQuery("input[name='performanceDiscountPercent']").removeAttr("disabled");
+//	jQuery("input[name='chargeMinMoney']").removeAttr("disabled");
+//	jQuery("input[name='integralUnit']").removeAttr("disabled");
+//	jQuery("input[name='integralNumber']").removeAttr("disabled");
 	jQuery("select[name='cashDiscountType']").removeAttr("disabled");
+	jQuery("input[name='goodsDiscount']").attr({"disabled":false,"style":"background:#fff"});
+	jQuery("input[name='projectDiscount']").attr({"disabled":false,"style":"background:#fff"});
+	jQuery("input[name='sellAmount']").attr({"disabled":false,"style":"background:#fff"});
+	jQuery("input[name='performanceDiscountPercent']").attr({"disabled":false,"style":"background:#fff"});
+	jQuery("input[name='chargeMinMoney']").attr({"disabled":false,"style":"background:#fff;position:relative;left:22px"});
+	jQuery("input[name='integralUnit']").attr({"disabled":false,"style":"background:#fff"});
+	jQuery("input[name='integralNumber']").attr({"disabled":false,"style":"background:#fff"});
+	jQuery("select[name='cashDiscountType']").attr({"disabled":false,"style":"background:#fff"});
 }
 
 var updatePositivePageUrl = 'system/profile/vip_card.png';
@@ -257,14 +266,14 @@ function editMemberLevel(levelId){
 			jQuery("select[name='levelType']").attr("disabled","disabled");
 			levelType2 =jQuery("select[name='levelType']").val();
 			if(levelType2=="等级卡"){
-				jQuery("input[name='goodsDiscount']").attr("disabled","disabled");
-				jQuery("input[name='projectDiscount']").attr("disabled","disabled");
-				jQuery("input[name='sellAmount']").attr("disabled","disabled");
-				jQuery("input[name='performanceDiscountPercent']").attr("disabled","disabled");
-				jQuery("input[name='chargeMinMoney']").attr("disabled","disabled");
-				jQuery("input[name='integralUnit']").attr("disabled","disabled");
-				jQuery("input[name='integralNumber']").attr("disabled","disabled");
-				jQuery("select[name='cashDiscountType']").attr("disabled","disabled");
+				jQuery("input[name='goodsDiscount']").attr({"disabled":"disabled","style":"background:#eee"});
+				jQuery("input[name='projectDiscount']").attr({"disabled":"disabled","style":"background:#eee"});
+				jQuery("input[name='sellAmount']").attr({"disabled":"disabled","style":"background:#eee"});
+				jQuery("input[name='performanceDiscountPercent']").attr({"disabled":"disabled","style":"background:#eee"});
+				jQuery("input[name='chargeMinMoney']").attr({"disabled":"disabled","style":"background:#eee;position:relative;left:22px"});
+				jQuery("input[name='integralUnit']").attr({"disabled":"disabled","style":"background:#eee"});
+				jQuery("input[name='integralNumber']").attr({"disabled":"disabled","style":"background:#eee"});
+				jQuery("select[name='cashDiscountType']").attr({"disabled":"disabled","style":"background:#eee"});
 			}
 			
 		}

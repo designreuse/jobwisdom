@@ -863,7 +863,7 @@ function queren(){
 		async:false,//使用同步的Ajax请求  
 		dataType : "json",
 		success : function(e){
-			if(e.code == 0){
+			if(e.code != 0){
 				return dialog(e.msg); 
 			}
 			dialog("保存成功！");
