@@ -632,7 +632,7 @@ public class OpenCardService {
 		memberInfoService.wipeCache(memberId);
 		
 		memberInfoService.syncLevelId(memberId);
-		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "升级成功");
 	}
 
 	/**
