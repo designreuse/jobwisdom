@@ -343,10 +343,6 @@ public class TemplateNoticeService {
         int code = resJson.getInt("errcode");
         if (code != 0) {
             logger.error("push group join msg error, data : " + params + " result : " + res);
-//            if (code == 43004 || code == 40036) {
-//                return true;
-//            }
-//            return false;
         }
         logger.info("push group join msg success, data : " + params);
         return true;

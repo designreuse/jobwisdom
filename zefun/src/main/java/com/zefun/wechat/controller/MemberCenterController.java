@@ -792,21 +792,8 @@ public class MemberCenterController extends BaseController {
         }
         int memberId = getUserIdByOpenId(openId);
         String storeAccount = getStoreAccount(request);
-        return memberCenterService.orderAppointmentAction(memberId, storeAccount, appointDate, appointTime, projectId, employeeId);
+        return memberCenterService.orderAppointmentAction(memberId, storeAccount, appointDate, appointTime, projectId, employeeId, request);
     }
-//    @RequestMapping(value = Url.MemberCenter.ACTION_ORDER_APPOINTMENT, method = RequestMethod.POST)
-//    @ResponseBody
-//    public BaseDto orderAppointmentAction(String appointDate, String appointTime, int projectId, String projectName, int projectStepOrder, 
-//            int shiftMahjongId, int employeeId, HttpServletRequest request, HttpServletResponse response){
-//        String openId = getOpenId(1, request, response);
-//        if (openId == null) {
-//            return null;
-//        }
-//        int memberId = getUserIdByOpenId(openId);
-//        String storeAccount = getStoreAccount(request);
-//        return memberCenterService.orderAppointmentAction(memberId, storeAccount, appointDate, appointTime, projectId, projectName, 
-//                projectStepOrder, shiftMahjongId, employeeId);
-//    }
     
     
     /**

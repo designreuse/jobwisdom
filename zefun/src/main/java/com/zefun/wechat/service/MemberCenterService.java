@@ -1203,10 +1203,11 @@ public class MemberCenterService {
     * @param appointTime    预约时间
     * @param projectId      项目标识
     * @param employeeId     员工标识
+    * @param request        request
     * @return   成功返回码0；失败返回其他错误码，返回值为提示语
      */
     public BaseDto orderAppointmentAction(int memberId, String mainStoreId, String appointDate, 
-            String appointTime, Integer projectId, Integer employeeId){
+            String appointTime, Integer projectId, Integer employeeId, HttpServletRequest request){
         //获取预约员工的门店标识
         int storeId = employeeInfoMapper.selectByPrimaryKey(employeeId).getStoreId();
         MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
@@ -1240,7 +1241,7 @@ public class MemberCenterService {
                     appointDate + " " + appointTime);
         }
         //推送声音到门店
-        rabbitService.storeAppointVoice(storeId, employeeId);
+        rabbitService.storeAppointVoice(storeId, employeeId, request);
         
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
@@ -1269,22 +1270,25 @@ public class MemberCenterService {
         memberAppointment.setUpdateTime(curTime);
         memberAppointment.setAppointmentStatus(4);
         memberAppointmentMapper.updateByPrimaryKey(memberAppointment);
+        projectName = projectCategoryMapper.selectByPrimaryKey(memberAppointmentMapper.
+                selectAppointmentByAppointmentId(appointmentId).getProjectId()).getCategoryName();
+        
         
         //发送预约取消通知给员工
         String openId = redisService.hget(App.Redis.WECHAT_EMPLOYEEID_TO_OPENID_KEY_HASH, employeeId);
         if (StringUtils.isNotBlank(openId)) {
+            String storeAccount = storeInfoMapper.selectByPrimaryKey(storeId).getStoreAccount();
             MemberBaseDto memberInfo = memberInfoService.getMemberBaseInfo(memberId, false);
             String url = App.System.SERVER_BASE_URL 
-                    + Url.Staff.VIEW_STAFF_APPOINT.replace("{storeId}", storeId + "").replace("{businessType}", "2").replace("{type}", "3");
+                    + Url.Staff.VIEW_STAFF_APPOINT.replace("{storeId}", storeAccount + "").replace("{businessType}", "2").replace("{type}", "3");
             //如果是会员
             if (memberInfo != null) {
             	rabbitService.sendAppointmentResultNotice(3, storeId, url, openId, 
-                        memberInfo.getName(), memberInfo.getLevelName(), "", appointmentTime, reason);
+            	        memberInfo.getName(), memberInfo.getLevelName(), projectName, appointmentTime, reason);
             }
             //如果是散客
             else {
-            	rabbitService.sendAppointmentResultNotice(3, storeId, url, openId, 
-                        "散客", "无等级", "", appointmentTime, reason);
+            	rabbitService.sendAppointmentResultNotice(3, storeId, url, openId, "散客", "无等级", projectName, appointmentTime, reason);
             }
         }
         

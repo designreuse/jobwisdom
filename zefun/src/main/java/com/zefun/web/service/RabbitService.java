@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -294,7 +296,6 @@ public class RabbitService {
         record.put("projectName", projectName);
         record.put("appointTime", appointTime);
         record.put("createTime", DateUtil.getCurTime());
-//        send(App.Queue.APPOINTMENT_APPLY_NOTICE, record);
         rabbitTemplate.convertAndSend(App.Queue.APPOINTMENT_APPLY_NOTICE, record);
     }
     
@@ -304,8 +305,9 @@ public class RabbitService {
     * @date 2016年7月22日 上午10:27:29
     * @param storeId        storeId
     * @param employeeId     employeeId
+    * @param request        request
      */
-    public void storeAppointVoice(Integer storeId, Integer employeeId){
+    public void storeAppointVoice(Integer storeId, Integer employeeId, HttpServletRequest request){
       //检查门店是否需要预约语音提示
         StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
         if (storeSetting.getSpeechType() == 1) {
@@ -322,8 +324,11 @@ public class RabbitService {
                 data.setCreateTime(DateUtil.getCurTime());
                 chat.setData(data);
                 for (String userId : set) {
-                    chat.setToUser(userId);
-                    rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
+                    Integer isLogin = (Integer) request.getSession().getServletContext().getAttribute(userId);
+                    if (isLogin != null){
+                        chat.setToUser(userId);
+                        rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
+                    }
                 }
             }
         }
@@ -360,12 +365,13 @@ public class RabbitService {
             remark = "原因：" + reason;
             result = "预约取消";
         }
-        int mainId = storeInfoMapper.selectMainIdByStoreId(storeId);
+        
+        String storeAccount = storeInfoMapper.selectByPrimaryKey(storeId).getStoreAccount(); //storeInfoMapper.selectMainIdByStoreId(storeId);
         Map<String, Object> record = new HashMap<String, Object>();
         record.put("title", title);
         record.put("remark", remark);
         record.put("result", result);
-        record.put("storeId", mainId);
+        record.put("storeId", storeAccount);
         record.put("url", url);
         record.put("openId", openId);
         record.put("memberName", memberName);
@@ -373,7 +379,6 @@ public class RabbitService {
         record.put("projectName", projectName);
         record.put("appointTime", appointTime);
         rabbitTemplate.convertAndSend(App.Queue.APPOINTMENT_RESULT_NOTICE, record);
-//        send(App.Queue.APPOINTMENT_RESULT_NOTICE, record);
     }
     
     
