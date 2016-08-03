@@ -353,7 +353,7 @@
 			var td4 = jQuery(level);
 			var deleteLevel = '<td>';
 			for (var j = 0; j < e.msg.results[i].memberSubAccounts.length; j++) {
-				deleteLevel += '<p><button>退</button></p>';
+				deleteLevel += '<p><button onclick="returnCard('+e.msg.results[i].memberId+', '+e.msg.results[i].memberSubAccounts[j].levelId+', this)">退</button></p>';
 			}
 			deleteLevel += '</td>';
 			var td44 = jQuery(deleteLevel);
