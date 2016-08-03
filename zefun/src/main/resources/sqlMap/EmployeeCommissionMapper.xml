@@ -85,13 +85,21 @@
      FROM 
      employee_info e LEFT JOIN  employee_commission c   ON e.employee_id = c.employee_id 
      WHERE  e.is_deleted = 0 AND c.is_deleted = 0
-     <if test="stroe != null" >
-        and  e.store_id = #{stroe}
+     <if test="store != null" >
+        and  e.store_id = #{store}
      </if>
-      <if test="time != null" >
+      <if test="stroes != null" >
+        and  e.store_id in 
+          <foreach item="stroe" index="index" collection="stroes" open="(" separator="," close=")">  
+			  #{stroe}  
+			</foreach>  
+     </if>
+
+      <if test="time != null " >
       and  LEFT(c.charge_time,7)=#{time}
      </if>
-      <if test="code != null" >
+
+      <if test="code != null and  code != ''" >
       and  exists(select 1 FROM employee_info em where em.employee_id = e.employee_id  and em.name = #{code} 
       union all select 1 FROM employee_info ems where ems.employee_id = e.employee_id  and   ems.employee_code = #{code})
      </if>

@@ -945,6 +945,8 @@ public interface Url {
         public static final String VIEW_POSITION_LEVEL_STORE = "employee/account/store/positon";
         /** 员工工资单*/
         public static final String VIEW_POSITION_LEVEL_WAGES = "employee/account/store/wages";
+        /** 员工工资单*/
+        public static final String VIEW_POSITION_LEVEL_SELECTWAGES = "employee/account/store/selectwages";
 
 	}
 

@@ -22,7 +22,7 @@ public class EmployeeInfoDto  {
     private Integer employeeId;
     
           /** 提成金额 */
-    private BigDecimal commissionAmount;
+    private double commissionAmount;
     
           
       /** 订单类型(1:项目,2:商品,3:疗程,4、开卡充值) */
@@ -47,11 +47,12 @@ public class EmployeeInfoDto  {
         this.employeeCode = employeeCode;
     }
 
-    public BigDecimal getCommissionAmount() {
+
+    public double getCommissionAmount() {
         return commissionAmount;
     }
 
-    public void setCommissionAmount(BigDecimal commissionAmount) {
+    public void setCommissionAmount(double commissionAmount) {
         this.commissionAmount = commissionAmount;
     }
 

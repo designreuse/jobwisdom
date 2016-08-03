@@ -332,6 +332,14 @@ public interface EmployeeInfoMapper {
     * @return   员工列表
      */
     List<EmployeeBaseDto> selectEmployeeListByStoreId(int storeId);
+    /**
+     *  查询员工列表(门店或者企业)
+    * @author 骆峰
+    * @date 2016年8月3日 下午8:14:25
+    * @param map map
+    * @return List
+     */
+    List<EmployeeBaseDto> selectEmployeeListByStoreIdAll(Map<String, Object> map);
     
     /**
      * 根据门店查询员工

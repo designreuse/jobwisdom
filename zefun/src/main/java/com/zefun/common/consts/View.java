@@ -490,6 +490,8 @@ public interface View {
 	class Wages{
 	    /**	工资单     	     */
 	    public static final String VIEW_POSITION_LEVEL_WAGES = "employee/wages/wages";
+	    /**	工资单     	     */
+	    public static final String VIEW_POSITION_STORE_WAGES = "employee/store/wages";
 	}
 	/**
 	 * 职位信息页面
