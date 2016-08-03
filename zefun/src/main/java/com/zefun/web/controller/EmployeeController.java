@@ -607,4 +607,18 @@ public class EmployeeController extends BaseController{
 		employeeService.downloadImportModelOfEmployeeInfo(request, response, getStoreId(request));
     }
     
+    /**
+     * 工资单展示
+    * @author 骆峰
+    * @date 2016年8月3日 上午10:16:42
+    * @param request request
+    * @return ModelAndView
+     */
+    @RequestMapping(value = Url.Employee.VIEW_POSITION_LEVEL_WAGES, method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView showViweWages(HttpServletRequest request){
+        return employeeService.showViweWages(getStoreAccount(request));
+        
+    }
+    
 }

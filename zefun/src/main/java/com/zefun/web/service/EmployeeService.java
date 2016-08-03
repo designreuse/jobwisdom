@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -51,6 +52,7 @@ import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.dto.EmployeeInfoDto;
 import com.zefun.web.entity.AccountRoleInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
@@ -64,6 +66,7 @@ import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.mapper.AccountRoleInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
+import com.zefun.web.mapper.EmployeeCommissionMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.EmployeeObjectiveMapper;
@@ -75,6 +78,7 @@ import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatEmployeeMapper;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 人员信息
@@ -100,6 +104,11 @@ public class EmployeeService {
 	 */
 	@Autowired
 	private PositioninfoMapper positioninfoMapper;
+	/**
+	 * 提成信息
+	 */
+	@Autowired
+	private EmployeeCommissionMapper employeeCommissionMapper;
 	/**
 	 * 部门
 	 */
@@ -1473,6 +1482,77 @@ public class EmployeeService {
         results.put("positionInfos", positionInfos);
         results.put("empLevels", employeeLevels);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, results);
+    }
+
+    /**
+     *   工资单展示
+    * @author 骆峰
+    * @date 2016年8月3日 上午10:16:20
+    * @param storeAccount storeAccount
+    * @return ModelAndView
+     */
+    public ModelAndView showViweWages(String storeAccount) {
+        ModelAndView view = new ModelAndView(View.Wages.VIEW_POSITION_LEVEL_WAGES);
+        List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
+        view.addObject("selectByStoreAccount", selectByStoreAccount);
+        Calendar a=Calendar.getInstance();
+        String year = String.valueOf(a.get(Calendar.YEAR));
+        String month = String.valueOf(a.get(Calendar.MONTH)+1);
+        String yearMonth ="";
+        if (Integer.parseInt(month)<10) {
+            yearMonth = year +"-0"+month;
+        }
+        else {
+            yearMonth = year +"-"+month;
+        }
+       
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("time", yearMonth);
+        if (selectByStoreAccount.size() != 0) {
+            map.put("stroe", selectByStoreAccount.get(0).getStoreId()) ;
+        }
+        ArrayList<Object> list = new ArrayList<Object>();
+        JSONArray jsona = new JSONArray();
+        JSONObject jsono = new JSONObject();
+        List<EmployeeInfoDto> commission = employeeCommissionMapper.selectEmployeeInfoByCommission(map);
+        commission.stream().forEach(f ->{
+                if (!list.contains(f.getEmployeeId())) {
+                    list.add(f.getEmployeeId());
+                    jsono.accumulate("code", f.getEmployeeCode());
+                    jsono.accumulate("name", f.getEmployeeName());
+                    jsono.accumulate("baseSalaries", f.getBaseSalaries());
+                    BigDecimal onePrice = new BigDecimal(0);
+                    BigDecimal twoPrice =  new BigDecimal(0);
+                    BigDecimal threePrice =  new BigDecimal(0);
+                    BigDecimal fourPrice =  new BigDecimal(0);
+                    BigDecimal fivePrice  =  new BigDecimal(0);
+                    BigDecimal total  =  new BigDecimal(0);
+                    commission.stream().filter(c -> c.getEmployeeId().equals(f.getEmployeeId())).forEach(c ->{
+                            if (c.getOrderType().compareTo(new BigDecimal(1)) == 0) {
+                                onePrice.add(c.getCommissionAmount());
+                            }
+                            if (c.getOrderType().compareTo(new BigDecimal(2)) == 0) {
+                                twoPrice.add(c.getCommissionAmount());
+                            }
+                            if (c.getOrderType().compareTo(new BigDecimal(3)) == 0) {
+                                threePrice.add(c.getCommissionAmount());
+                            }
+                            if (c.getOrderType().compareTo(new BigDecimal(4)) == 0) {
+                                fourPrice.add(c.getCommissionAmount());
+                            }
+                        });
+                    jsono.accumulate("onePrice", onePrice);
+                    jsono.accumulate("twoPrice", twoPrice);
+                    jsono.accumulate("ThreePrice", threePrice);
+                    jsono.accumulate("fourPrice", fourPrice);
+                    jsono.accumulate("fivePrice", fivePrice);
+                    total= onePrice.add(twoPrice).add(threePrice).add(fourPrice).add(fivePrice).add(f.getBaseSalaries());
+                    jsono.accumulate("total", total);
+                    jsona.add(jsono);
+                }
+            });
+        view.addObject("jsona", jsona);
+        return view;
     }
 
 }
