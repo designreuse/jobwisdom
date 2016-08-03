@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, height = device-height">
     <meta content="telephone=no" name="format-detection" />
-    <title>店铺介绍</title>
+    <title>门店介绍</title>
     <link rel="stylesheet" href="<%=swiperCssPath%>"/>
     <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
     <link rel="stylesheet" href="<%=memberCssPath%>"/>
