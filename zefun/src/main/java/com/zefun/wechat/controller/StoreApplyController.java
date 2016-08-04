@@ -10,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.web.controller.BaseController;
-import com.zefun.web.dto.BaseDto;
 import com.zefun.web.service.StoreInfoService;
 
 /**
@@ -73,42 +71,6 @@ public class StoreApplyController extends BaseController {
         ModelAndView mav = new ModelAndView(View.Store.STORE_APPLY);
         mav.addObject("code", code);
         return mav;
-    }
-
-    /**
-     * 进行门店申请
-     * @author gebing
-     * @date 2015年12月4日
-     * @param code 推荐人openid
-     * @param name 申请人姓名
-     * @param phone 申请人手机号
-     * @param verifyCode 验证码
-     * @param storeType 申请的门店类型
-     * @param hqUserName 总店账号
-     * @param storeName  门店名称
-     * @param province 省份
-     * @param city 城市
-     * @param request 请求
-     * @param response 响应
-     * @return 申请结果
-     */
-    @RequestMapping(value=Url.StoreApply.ACTION_STORE_APPLY, method = RequestMethod.POST)
-    @ResponseBody
-    public BaseDto actionStoreApply(String code, String name, String phone, 
-            String verifyCode, Integer storeType, String hqUserName, String storeName, String province, String city, 
-            HttpServletRequest request, HttpServletResponse response){
-        String openId = getOpenId(new Integer(App.System.WECHAT_ZEFUN_STORE_ID).toString(), 4, request, response);
-        if (openId == null) {
-            return null;
-        }
-
-        //校验验证码是否正确
-        String c = redisService.get(App.Redis.PHONE_VERIFY_CODE_KEY_PRE + phone);
-        if (!verifyCode.equals(c)) {
-            return new BaseDto(10001, "验证码错误");
-        }
-
-        return storeInfoService.addStoreApplyInfo(code, name, phone, storeType, hqUserName, storeName, province, city, openId);
     }
 
 }
