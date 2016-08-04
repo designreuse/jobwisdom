@@ -180,7 +180,7 @@
 									<p>
 										<span><em>项目名称</em><input type="text"
 											name="projectName" style="width: 145px;" maxlength="8"><i  class = "addcolor">*</i></span><span><em>项目编号</em><input
-											type="text" name="projectCodeSuffix" style="width: 145px;"></span>
+											type="text" maxlength="5" name="projectCodeSuffix" style="width: 145px;"></span>
 									</p>
 									
 						

@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +52,9 @@ import com.zefun.common.utils.ExcelUtil;
 import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.dto.EmployeeInfoDto;
 import com.zefun.web.entity.AccountRoleInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
@@ -64,6 +68,7 @@ import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.UserAccount;
 import com.zefun.web.mapper.AccountRoleInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
+import com.zefun.web.mapper.EmployeeCommissionMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.EmployeeLevelMapper;
 import com.zefun.web.mapper.EmployeeObjectiveMapper;
@@ -75,6 +80,7 @@ import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatEmployeeMapper;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 人员信息
@@ -100,6 +106,11 @@ public class EmployeeService {
 	 */
 	@Autowired
 	private PositioninfoMapper positioninfoMapper;
+	/**
+	 * 提成信息
+	 */
+	@Autowired
+	private EmployeeCommissionMapper employeeCommissionMapper;
 	/**
 	 * 部门
 	 */
@@ -1475,4 +1486,146 @@ public class EmployeeService {
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, results);
     }
 
+    /**
+     *   工资单展示
+    * @author 骆峰
+    * @date 2016年8月3日 上午10:16:20
+    * @param storeAccount storeAccount
+    * @param storeId storeId
+    * @return ModelAndView
+     */
+    public ModelAndView showViweWages(String storeAccount , Object storeId) {
+        ModelAndView view = new ModelAndView(View.Wages.VIEW_POSITION_LEVEL_WAGES);
+        List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
+        view.addObject("selectByStoreAccount", selectByStoreAccount);
+        Calendar a=Calendar.getInstance();
+        String year = String.valueOf(a.get(Calendar.YEAR));
+        String month = String.valueOf(a.get(Calendar.MONTH));
+        String yearMonth ="";
+        if (Integer.parseInt(month)<10) {
+            yearMonth = year +"-0"+month;
+        }
+        else {
+            yearMonth = year +"-"+month;
+        }
+       
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("time", yearMonth);
+        if (selectByStoreAccount.size() != 0) {
+            map.put("stroe", selectByStoreAccount.get(0).getStoreId()) ;
+        }
+        if (storeId !=null) {
+            map.put("stroe", storeId) ;
+            view.addObject("view", 1);
+        }
+        JSONObject jsonos = jsonWages(map);
+        view.addObject("jsonos", jsonos);
+        return view;
+    }
+ 
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月3日 下午8:10:13
+    * @param map map
+    * @return JSONObject
+     */
+    public JSONObject jsonWages(Map<String, Object> map){
+        JSONArray jsona = new JSONArray();
+        JSONArray jsonn = new JSONArray();
+        JSONArray jsont = new JSONArray();
+        JSONObject jsono = new JSONObject();
+        JSONObject jsonos = new JSONObject();
+        List<EmployeeInfoDto> commission = employeeCommissionMapper.selectEmployeeInfoByCommission(map);
+        List<EmployeeBaseDto> employeeList =  employeeInfoMapper.selectEmployeeListByStoreIdAll(map);
+        employeeList.stream().forEach(em ->{
+                jsono.clear();
+                jsono.accumulate("code", em.getEmployeeCode());
+                jsono.accumulate("name", em.getName());
+                jsono.accumulate("baseSalaries", new BigDecimal(em.getBaseSalaries()));
+                BigDecimal total = new BigDecimal(0);
+                for (Integer i = 1; i < 5; i++) {
+                    BigDecimal t = new BigDecimal(i.toString());
+                    List<EmployeeInfoDto> commissionList 
+                        = commission.parallelStream().filter(p -> p.getEmployeeId().intValue() == em.getEmployeeId().intValue() 
+                         && p.getOrderType().compareTo(t) == 0)
+                        .collect(Collectors.toList());
+                    
+                    double tatailCommission = 0.0;
+                    if (commissionList.size() != 0) {
+                        tatailCommission = commissionList.parallelStream()
+                                .mapToDouble(EmployeeInfoDto::getCommissionAmount).average().getAsDouble();
+                    }
+                   
+                
+                    if (i == 1) {
+                        jsono.accumulate("ld", new BigDecimal(tatailCommission).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    }
+                    if (i == 2) {
+                        jsono.accumulate("sp", new BigDecimal(tatailCommission).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    }
+                    if (i == 3) {
+                        jsono.accumulate("lc", new BigDecimal(tatailCommission).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    }
+                    if (i == 4) {
+                        jsono.accumulate("kk", new BigDecimal(tatailCommission).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    }
+                }
+               
+                if (!jsono.containsKey("ld")) {
+                    jsono.accumulate("ld", new BigDecimal(0));
+                }
+                if (!jsono.containsKey("sp")) {
+                    jsono.accumulate("sp", new BigDecimal(0));
+                }
+                if (!jsono.containsKey("lc")) {
+                    jsono.accumulate("lc", new BigDecimal(0));
+                }
+                if (!jsono.containsKey("kk")) {
+                    jsono.accumulate("kk", new BigDecimal(0));
+                }
+                jsono.accumulate("tc", total.add((BigDecimal) jsono.get("kk")) .add((BigDecimal) jsono.get("lc")).add((BigDecimal) jsono.get("sp"))
+                        .add((BigDecimal) jsono.get("ld")).add((BigDecimal) jsono.get("baseSalaries")));
+                jsona.add(jsono);
+                jsont.add(jsono.get("tc"));
+                jsonn.add(em.getName());
+            });
+        jsonos.accumulate("jsona", jsona);
+        jsonos.accumulate("jsont", jsont);
+        jsonos.accumulate("jsonn", jsonn);
+        return jsonos;
+         
+    }
+
+    /**
+     * 工资单条件查询
+    * @author 骆峰
+    * @date 2016年8月3日 下午8:25:48
+    * @param store storeId
+    * @param time 时间 年月
+    * @param code 工号/名称
+    * @param storeAccount storeAccount
+    * @return BaseDto
+     */
+    public BaseDto checkWages(Integer store, String time, String code, String storeAccount) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (StoreInfo storeInfo : selectByStoreAccount) {
+            list.add(storeInfo.getStoreId());
+        }
+        if (store != 0) {
+            map.put("store", store);
+        }
+        else {
+            map.put("stores", list);
+        }
+        if (time != "") {
+            map.put("time", time);
+        }
+        if (time != "") {
+            map.put("code", code);
+        }
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, jsonWages(map));
+    }
 }

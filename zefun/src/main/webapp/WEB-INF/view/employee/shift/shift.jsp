@@ -61,8 +61,8 @@
                             <button class="btn" data-target="#add-emp-yuangong-banci" onclick="addshift()">新增员工排班</button>
                             <input type="search" id="search" placeholder="员工工号/姓名"/>
                             <button class="button-search btn width100 ml-10" onclick="changePage()">查询</button>
-                            <button class="btn" data-toggle="modal" data-target="#toLeadModal">导入</button>
-                            <button class="btn" id="downLondimport">导入模板下载</button>
+                            <!-- <button class="btn" data-toggle="modal" data-target="#toLeadModal">导入</button>
+                            <button class="btn" id="downLondimport">导入模板下载</button> -->
                             <!-- <div class="table-pagination fr">
                                 <button data-toggle="dropdown" class="btn dropdown-toggle perpage">
                                     10 <span class="iconfa-caret-down afont"></span>

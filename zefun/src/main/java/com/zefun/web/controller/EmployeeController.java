@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
+import com.zefun.common.consts.App.Session;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeDto;
@@ -606,5 +607,39 @@ public class EmployeeController extends BaseController{
     public void downloadImportModelOfEmployeeInfo(HttpServletRequest request, HttpServletResponse response) {
 		employeeService.downloadImportModelOfEmployeeInfo(request, response, getStoreId(request));
     }
+    
+    /**
+     * 工资单展示
+    * @author 骆峰
+    * @date 2016年8月3日 上午10:16:42
+    * @param request request
+    * @return ModelAndView
+     */
+    @RequestMapping(value = Url.Employee.VIEW_POSITION_LEVEL_WAGES, method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView showViweWages(HttpServletRequest request){
+        Object storeId = request.getSession().getAttribute(Session.STORE_ID);
+        return employeeService.showViweWages(getStoreAccount(request), storeId);
+        
+    }
+    
+    
+    /**
+     *  工资单条件查询
+    * @author 骆峰
+    * @date 2016年8月3日 下午8:25:13
+    * @param store store
+    * @param time time
+    * @param code code
+    * @param request request
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Employee.VIEW_POSITION_LEVEL_SELECTWAGES, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto checkWages(Integer store, String time, String code, HttpServletRequest request){
+        return employeeService.checkWages(store, time, code, getStoreAccount(request));
+        
+    }
+    
     
 }
