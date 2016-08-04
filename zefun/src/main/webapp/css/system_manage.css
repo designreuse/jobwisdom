@@ -33,7 +33,7 @@ height:670px;width:950px;
 }
 
 
-.zzc_income_way{width:256px;height:164px;margin:100px auto}
+.zzc_income_way{width:256px;height:164px;margin:100px auto;border-radius: 12px;overflow: hidden;}
 .zzc_income_way>p{height:40px;line-height:40px;text-align:center;color:white;font-size:16px;background:#2a3244}
 .zzc_income_way_content{width:256px;height:120px;background:white}
 .zzc_income_way_content>p>input{width:180px;height:20px;border-radius:12px;}

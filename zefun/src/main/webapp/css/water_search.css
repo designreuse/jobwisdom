@@ -2,10 +2,10 @@
 .content_right {
     padding: 20px;font-size:12px;
 }
-.water_search_top{border:1px solid black;border-radius:12px;width:1020px;height:160px}
-.water_search_top_input{border-bottom:1px solid #9a9a9a;height:45px;line-height:40px}
-.water_search_top_input >input{border:1px solid black;border-radius:12px;width:200px;margin:0 30px 0 10px}
-.water_search_top_input span>input{border:1px solid black;border-radius:12px;width:122px;margin:0 5px}
+.water_search_top{border:1px solid #d5d5d5;border-radius:12px;width:1020px;height:160px}
+.water_search_top_input{border-bottom:1px solid #717171;height:45px;line-height:40px}
+.water_search_top_input >input{border:1px solid #717171;border-radius:12px;width:200px;margin:0 30px 0 10px}
+.water_search_top_input span>input{border:1px solid #717171;border-radius:12px;width:122px;margin:0 5px}
 .water_search_top_input>button{width:130px;height:28px;border:none;border-radius:12px;color:white;background:#59688a;margin:0 30px}
 .water_search_top_input>button:hover{background:#4c5976}
 .water_search_top_input em button{width:80px;height:28px;border-radius:12px;color:black;background:white;border:1px solid black;margin-right:20px}
@@ -25,7 +25,7 @@
 .search_table{width:1020px;text-align:center;border:1px solid black;border-radius:8px;}
 .search_table td{height:50px;vertical-align:middle;border:1px solid #cccccd;}
 .search_table td button{width:50px;height:20px;text-align:center;line-height:20px;border:none;border-radius:12px;color:white;background:#59688a}
-.search_table_content{border:1px solid black;border-radius:12px;margin-top:16px;;width:1020px;overflow-y:overlay;height:600px;overflow-x:hidden}
+.search_table_content{border:1px solid #d5d5d5;border-radius:12px;margin-top:16px;;width:1020px;overflow-y:overlay;height:600px;overflow-x:hidden}
 .search_table tr:nth-child(1){
 	background:#ebeff8
 }
