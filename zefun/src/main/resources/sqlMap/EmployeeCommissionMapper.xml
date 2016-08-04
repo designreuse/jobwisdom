@@ -15,6 +15,9 @@
   </resultMap>
   
   
+  
+
+  
   <resultMap id="CommissionDtoBaseResultMap" type="com.zefun.web.dto.EmployeeCommissionDto" >
     <id column="commission_id" property="commissionId" jdbcType="INTEGER" />
     <result column="detail_id" property="detailId" jdbcType="INTEGER" />
@@ -67,6 +70,44 @@
     <result column="project_type" property="projectType" jdbcType="INTEGER"/>
   </resultMap>
   
+    <resultMap id="EmployeeCommissionMap" type="com.zefun.web.dto.EmployeeInfoDto" >
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="employee_code" property="employeeCode" jdbcType="INTEGER" />
+    <result column="name" property="employeeName" jdbcType="VARCHAR" />
+     <result column="base_salaries" property="baseSalaries" jdbcType="DECIMAL" />
+    <result column="order_type" property="orderType" jdbcType="DECIMAL" />
+    <result column="commission_amount" property="commissionAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  
+    <select id="selectEmployeeInfoByCommission" parameterType="java.util.Map" resultMap="EmployeeCommissionMap">
+    SELECT  
+     e.employee_id,e.employee_code, e.name,e.base_salaries,  c.order_type, c.commission_amount
+     FROM 
+     employee_info e LEFT JOIN  employee_commission c   ON e.employee_id = c.employee_id 
+     WHERE  e.is_deleted = 0 AND c.is_deleted = 0
+     <if test="store != null" >
+        and  e.store_id = #{store}
+     </if>
+      <if test="stroes != null" >
+        and  e.store_id in 
+          <foreach item="stroe" index="index" collection="stroes" open="(" separator="," close=")">  
+			  #{stroe}  
+			</foreach>  
+     </if>
+
+      <if test="time != null " >
+      and  LEFT(c.charge_time,7)=#{time}
+     </if>
+
+      <if test="code != null and  code != ''" >
+      and  exists(select 1 FROM employee_info em where em.employee_id = e.employee_id  and em.name = #{code} 
+      union all select 1 FROM employee_info ems where ems.employee_id = e.employee_id  and   ems.employee_code = #{code})
+     </if>
+   </select>
+  
+  
+  
+  
   <sql id="Base_Column_List" >
     commission_id, detail_id, shift_mahjong_step_id, position_id, order_type, employee_id, commission_calculate, commission_amount, is_deleted,
     charge_time
@@ -77,8 +118,19 @@
   	delete from employee_commission where detail_id in (select detail_id from order_detail where store_id = #{storeId})
   </delete>
   
+  
   <select id="selectServiceDayMoneyByEmployeeId" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
     select IFNULL(sum(commission_calculate), 0) from employee_commission where employee_id = #{employeeId} and to_days(charge_time) = to_days(now()) and is_deleted = 0
+  </select>
+  
+  
+  
+  
+    <select id="selectEmployeeCommissions" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_commission
+    where commission_id = #{commissionId,jdbcType=INTEGER}
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

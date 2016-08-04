@@ -480,6 +480,19 @@ public interface View {
         public static final String VIEW_ACCOUNT_STORE = "employee/positioninfo/storeAccountEmps";
 	}
 
+	
+    /**
+     * 工资单
+     * 
+     * @author 骆峰
+     * @date 2016年8月3日10:24:49
+     */
+	class Wages{
+	    /**	工资单     	     */
+	    public static final String VIEW_POSITION_LEVEL_WAGES = "employee/wages/wages";
+	    /**	工资单     	     */
+	    public static final String VIEW_POSITION_STORE_WAGES = "employee/store/wages";
+	}
 	/**
 	 * 职位信息页面
 	 * 

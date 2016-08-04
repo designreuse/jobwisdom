@@ -98,9 +98,9 @@ jQuery(function(){
      <div class="zzc_new_role_content">
 	   <p>
 	     <span>角色名称<em>*</em><input type="text" name="accountRoleName" accountRoleId="0" changeRoleId="1"></span>
-	     <span>引用名称<em>*</em><select onchange="systemRoleChange(this)" name="roleId">
+	     <span>菜单<em>*</em><select onchange="systemRoleChange(this)" name="roleId">
 	     <c:forEach items="${selectSystemRoles }" var="selectSystemRoles">
-	     <option id="${selectSystemRoles.roleId }">${selectSystemRoles.roleName }</option>
+	     <option val="${selectSystemRoles.roleId }" id="${selectSystemRoles.roleId }">${selectSystemRoles.roleName }</option>
 	     </c:forEach>
 	     </select></span>
 	   </p>
@@ -125,7 +125,7 @@ jQuery(function(){
 	   </div>
 	   <div class="new_role_button">
 	     <button  onclick="saveRole()">确定</button>
-		 <button  onclick="jQuery('.zzc').addClass('hide'); jQuery('.zzc').find('input').attr('accountRoleId',0);">取消</button>
+		 <button  onclick="hideRole()">取消</button>
 	   </div>
     </div>
   </div>
@@ -147,7 +147,10 @@ function roleChange(roleId, accountRoleId) {
 	jQuery(".zzc").find("div[name='secendMemu']").empty();
 	jQuery(".zzc").find("ul[name='firestMemu']").empty();
 	jQuery(".zzc").find("ul[name='roleMemu']").empty();
-	jQuery(".zzc").find("input[name='accountRoleName']").val("");
+	jQuery(".zzc").find("input[name=' ']").val("");
+	jQuery("select[name='roleId']").val(roleId);
+	
+// 	jQuery("select[name='roleId']").empty();
 	var datas = "roleId=" + roleId + "&accountRoleId=" + accountRoleId ;
 	jQuery.ajax({
 		type : "POST",
@@ -191,7 +194,9 @@ function roleChange(roleId, accountRoleId) {
 			jQuery(".zzc").find("ul[name='firestMemu']").append(html);
 			jQuery(".zzc").find("ul[name='roleMemu']").append(html);
 			
-			if(accountRoleId != 0 ){   //修改的时候
+			if(accountRoleId != 0 ){
+				//修改的时候
+				
 				var accountRoleInfo = data.msg.accountRoleInfo;
 				var secondMenu = accountRoleInfo.secondMenu.split(",");
 				for (var g = 0; g < secondMenu.length; g++) {
@@ -199,6 +204,7 @@ function roleChange(roleId, accountRoleId) {
 				} 
 				jQuery(".zzc").find("input[name='accountRoleName']").val(accountRoleInfo.accountRoleName);
 				jQuery(".zzc").find("input[name='accountRoleName']").attr("accountRoleId",accountRoleId);
+				jQuery("select[name='roleId']").attr("disabled","disabled");
 			}
 			jQuery(".zzc").removeClass("hide");
 		}
@@ -246,6 +252,7 @@ function saveRole (){
 	                return;
 	            }
 				var accountRoleInfo = data.msg;
+				jQuery("select[name='roleId']").removeAttr("disabled");
 				dialog('保存成功');
 //	 			jQuery(".zzc").find("input[name='accountRoleName']").attr("accountRoleId",0);
 //	 			jQuery(".zzc").addClass("hide");
@@ -275,7 +282,11 @@ function deleteRole(accountRoleId){
 		});
 	}
 }
-
+function hideRole(){
+	jQuery('.zzc').addClass('hide'); 
+	jQuery('.zzc').find('input').attr('accountRoleId',0);
+	jQuery("select[name='roleId']").removeAttr("disabled");
+}
 //dialog('msg');
 </script>
 </html>
