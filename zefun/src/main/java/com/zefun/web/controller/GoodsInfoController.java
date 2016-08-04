@@ -207,15 +207,25 @@ public class GoodsInfoController extends BaseController {
      */
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_SETTING_PAGE)
     @ResponseBody
-    public BaseDto toGoodsInfoSeting(HttpServletRequest request, HttpServletResponse response, Integer pageNo, Integer pageSize, Integer storeId) {
+    public BaseDto toGoodsInfoSeting(HttpServletRequest request, HttpServletResponse response, Integer pageNo, Integer pageSize, Integer storeId, 
+            String queryname, String querysupplierid, String querybrandid) {
         if (storeId == null){
-            storeId = getStoreId(request);
+            storeId = storeInfoMapper.selectByStoreAccount(getStoreAccount(request)).get(0).getStoreId();
         }
         Page<GoodsInfoDto> page = new Page<>();
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
         Map<String, Object> params = new HashMap<>();
         params.put("storeId", storeId);
+        if (queryname != null){
+            params.put("queryName", queryname);
+        }
+        if (querysupplierid != null){
+            params.put("supplierId", querysupplierid);
+        }
+        if (querybrandid != null){
+            params.put("brandId", querybrandid);
+        }
         page.setParams(params);
         List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreIdByPage(page);
         page.setResults(goodsInfoDtos);
