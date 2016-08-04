@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="<%=basePath%>css/vip_group.css" type="text/css" />
 <style>
 #serch_member_list tr:nth-child(1){
@@ -23,7 +24,9 @@
 									<p>
 										<span>${groupDto.groupName }</span><em>${groupDto.memberCount }人</em>
 									</p>
-									<div class="save_price">储值余额：${groupDto.groupCondition }</div>
+									<div class="save_price">分组条件：
+								       <c:out value="${fn:substring(groupDto.groupCondition, 0, fn:length(groupDto.groupCondition)-1)}" /> 
+									<%-- ${groupDto.groupCondition  --%></div>
 									<div class="create_time">
 										<span>创建日期：${groupDto.createTime }</span> <em>本月新增:${groupDto.newMember }人</em>
 									</div>

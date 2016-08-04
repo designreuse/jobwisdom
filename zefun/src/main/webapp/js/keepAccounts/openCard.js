@@ -555,6 +555,7 @@ function czConfirm(type){
 	rewardAmount = valueZero(rewardAmount);
 	var createTime = jQuery("input[name='createTime1']").val();
 	var orderCode = jQuery("input[name='orderCodetab1']").val();
+
 	dataAjax = {"subAccountId" : subAccountId, "chargeAmount" : chargeAmount, "cashAmount" : cashAmount, "unionpayAmount" : unionpayAmount, "wechatAmount" : wechatAmount, "alipayAmount" : alipayAmount, "debtAmount" : debtAmount, "recommend" : recommend, "giftmoneyAmount" : giftmoneyAmount, 
 			"pastDate": pastDate, "partType" : partType, "rewardAmount" : rewardAmount, "type" : type, "deptStr" : deptStr, "orderCode" : orderCode, "createTime" : createTime}
 	

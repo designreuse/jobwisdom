@@ -1258,8 +1258,10 @@ public interface Url {
 	class StoreManageRule {
 		/** 查看管理制度主页 */
 		public static final String VIEW_HOME = "storeManageRule/view/home";
-		/** 修改规则信息 */
-		public static final String ACTION_UPDATE = "storeManageRule/action/update";
+		/** 保存或者修改管理制度主页 */
+		public static final String SAVE_HOME = "storeManageRule/save/home";
+		/** 删除规则信息 */
+		public static final String ACTION_DELETE = "storeManageRule/delete/home";
 	}
 
 	/** 短信模块 */
