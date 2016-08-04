@@ -33,20 +33,48 @@ public class ProgrammeController extends BaseController{
 	
 	/**
      * 大客户分析
-    * @author 张进军
+    * @author 老王
     * @date Jan 13, 2016 8:19:34 PM
     * @param request	请求对象
     * @param response	响应对象
-    * @param pageType 页面类型
     * @return	客情分析页面
      */
     @RequestMapping(value = Url.Programme.VIEW_BIG_CUSTOMER_ANALYSIS)
-    public ModelAndView bigCustomerAnalysis(HttpServletRequest request, HttpServletResponse response, Integer pageType){
+    public ModelAndView bigCustomerAnalysis(HttpServletRequest request, HttpServletResponse response){
     	String storeAccount = getStoreAccount(request);
     	Integer roleId = getRoleId(request);
-    	return programmeService.bigCustomerAnalysis(storeAccount, pageType, roleId);
+    	return programmeService.bigCustomerAnalysis(storeAccount, 1, roleId);
+    }
+    
+    /**
+     * 忠诚度分析
+    * @author 老王
+    * @date Jan 13, 2016 8:19:34 PM
+    * @param request	请求对象
+    * @param response	响应对象
+    * @return	客情分析页面
+     */
+    @RequestMapping(value = Url.Programme.VIEW_CUSTOMER_LOYAL_ANALYSIS)
+    public ModelAndView customerLoyalAnalysis(HttpServletRequest request, HttpServletResponse response){
+    	String storeAccount = getStoreAccount(request);
+    	Integer roleId = getRoleId(request);
+    	return programmeService.bigCustomerAnalysis(storeAccount, 2, roleId);
     }
 
+    /**
+     * 忠诚度分析
+    * @author 老王
+    * @date Jan 13, 2016 8:19:34 PM
+    * @param request	请求对象
+    * @param response	响应对象
+    * @return	客情分析页面
+     */
+    @RequestMapping(value = Url.Programme.VIEW_CUSTOMER_ACTIVE_ANALYSIS)
+    public ModelAndView customerActiveAnalysis(HttpServletRequest request, HttpServletResponse response){
+    	String storeAccount = getStoreAccount(request);
+    	Integer roleId = getRoleId(request);
+    	return programmeService.bigCustomerAnalysis(storeAccount, 3, roleId);
+    }
     
     /**
      * 保存方案规则

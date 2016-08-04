@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.zefun.web.dto.EmployeeCommissionDto;
 import com.zefun.web.dto.EmployeeDto;
+import com.zefun.web.dto.EmployeeInfoDto;
 import com.zefun.web.entity.EmployeeCommission;
 import com.zefun.wechat.dto.CommissionValueAndTypeDto;
 import com.zefun.wechat.dto.EmployeeCommissionOfBossDto;
@@ -44,6 +45,9 @@ public interface EmployeeCommissionMapper {
     * @return   提成记录
      */
     EmployeeCommission selectByPrimaryKey(Integer commissionId);
+    
+    
+    
 
     /**
      * 根据提成标识修改提成记录
@@ -71,6 +75,16 @@ public interface EmployeeCommissionMapper {
     * @return 当日提成金额
      */
     BigDecimal selectBySectionDayCommission(Map<String, Object> map);
+    
+    
+    /**
+     * 业绩报表查询
+    * @author 骆峰
+    * @date 2016年8月3日 下午3:05:00
+    * @param map map
+    * @return List
+     */
+    List<EmployeeInfoDto> selectEmployeeInfoByCommission(Map<String, Object> map);
     
     /**
      * 计算时间区间，类型的业绩 

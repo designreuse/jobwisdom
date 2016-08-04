@@ -58,8 +58,19 @@ public class EmployeeBaseDto implements Serializable{
     
     /** 员工简介 */
     private String employeeDesc;
+    
+    /** 基本工资 */
+    private  double baseSalaries;
 
     
+    public double getBaseSalaries() {
+        return baseSalaries;
+    }
+
+    public void setBaseSalaries(double baseSalaries) {
+        this.baseSalaries = baseSalaries;
+    }
+
     public Integer getPositionId() {
         return positionId;
     }

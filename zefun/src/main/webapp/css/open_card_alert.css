@@ -8,9 +8,9 @@
     z-index: 10000;
     background: rgba(102, 108, 121, 0.8);}
 	
-.zzc_open_card_alert{background:white;width:900px;height:610px;margin:1% auto;background:white;position:relative}	
-.zzc_open_card_alert>p{font-size:15px;color:white;text-align:center;height:60px;line-height:60px;background:#2b394a}
-.zzc_open_card_alert_content{padding:20px}
+.zzc_open_card_alert{background:white;width:900px;height:580px;margin:1% auto;background:white;position:relative;border-radius: 12px;overflow: hidden;}	
+.zzc_open_card_alert>p{font-size:15px;color:white;text-align:center;height:50px;line-height:50px;background:#2b394a}
+.zzc_open_card_alert_content{padding:10px}
 
 input[type="checkbox"]{ -webkit-appearance: none;
     appearance: none;
@@ -38,7 +38,7 @@ background-size: cover;}
 .zzc_open_card_alert_content>p> em input{margin-left:5px}
 .zzc_open_card_alert_content>p{text-align:center}
 
-.open_card_alert_state{height:320px;padding:12px;border:1px solid #6d6d6d;border-radius:8px;margin-top:15px;position:relative}
+.open_card_alert_state{height:320px;padding:8px;border:1px solid #6d6d6d;border-radius:8px;margin-top:15px;position:relative}
 .open_card_alert_state >ul{height:30px;position:relative;top:1px}
 .open_card_alert_state >ul>li{padding-left:30px;cursor:pointer;float:left;width:117px;height:30px;line-height:30px;background:url('../images/open_card.png') no-repeat}
 .open_card_alert_state .active{background:url('../images/open_card_active.png') no-repeat;color:white}

@@ -376,6 +376,7 @@ public class StaffService {
     public BaseDto settingProject (Integer detailId, Integer projectId) {
     	OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(detailId);
     	ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
+    	orderDetail.setDeptId(projectInfo.getDeptId());
     	orderDetail.setProjectId(projectId);
     	orderDetail.setProjectName(projectInfo.getProjectName());
     	orderDetail.setProjectPrice(projectInfo.getProjectPrice());
@@ -551,7 +552,6 @@ public class StaffService {
      * 保存订单明细
     * @author 王大爷
     * @date 2015年9月19日 下午3:50:07
-    * @param detailCode 订单明细编号
     * @param orderId 订单标识
     * @param memberId 会员信息标识
     * @param levelId 会员等级标识
@@ -567,7 +567,7 @@ public class StaffService {
     * @param lastOperatorId 操作员工
     * @return 订单明细标识
      */
-    public Integer addOrderDetail(String detailCode, Integer orderId, Integer memberId, Integer levelId, 
+    public Integer addOrderDetail(Integer orderId, Integer memberId, Integer levelId, 
             Integer orderType, Integer projectId, String projectName, 
             BigDecimal projectPrice, Integer projectCount, String projectImage, Integer isAppointment, String openOrderDate,
             Integer storeId, Integer lastOperatorId) {
@@ -612,7 +612,7 @@ public class StaffService {
             }
             
             orderDetail.setDiscountAmount(discountAmount);
-            orderDetail.setOrderStatus(1);
+            orderDetail.setOrderStatus(3);
         }
         
         //商品
@@ -656,7 +656,6 @@ public class StaffService {
             orderDetail.setOrderStatus(3);
         }
         
-        orderDetail.setDetailCode(detailCode);
         orderDetail.setOrderType(orderType);
         orderDetail.setIsAssign(0);
         orderDetail.setProjectId(projectId);

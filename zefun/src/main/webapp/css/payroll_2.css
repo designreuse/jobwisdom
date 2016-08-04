@@ -40,7 +40,7 @@
     background: rgba(102, 108, 121, 0.8);
     color: black;
     font-size: 12px;}
-.zzc .emploee_information{width:820px;margin:2% auto;background:white}
+.zzc .emploee_information{width:820px;margin:2% auto;background:white;border-radius: 12px;overflow: hidden;}
 .zzc .emploee_information>p{height:50px;text-align:center;line-height:50px;color:white;font-size:15px;background:#323b4e}
 .head_img{float:left}
 i,em{font-style:normal}

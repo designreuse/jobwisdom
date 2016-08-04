@@ -1,5 +1,6 @@
 package com.zefun.web.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import com.zefun.web.dto.DeptProjectBaseDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
+import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.PositionInfoShiftMahjongDto;
 import com.zefun.web.dto.ProjectMahjongProjectStepDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
@@ -31,6 +33,7 @@ import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectCategory;
+import com.zefun.web.entity.ProjectDiscount;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ShiftMahjongEmployee;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
@@ -41,10 +44,12 @@ import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.MemberAppointmentMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
+import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
+import com.zefun.web.mapper.ProjectDiscountMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
@@ -99,6 +104,10 @@ public class ManuallyOpenOrderService {
 	@Autowired private MemberAppointmentMapper memberAppointmentMapper;
 	/** */
 	@Autowired private ProjectCategoryMapper projectCategoryMapper;
+	/** */
+	@Autowired private ProjectDiscountMapper projectDiscountMapper;
+	/** */
+	@Autowired private MemberLevelMapper memberLevelMapper;
 	/**
 	 * 初始化轮职排班界面
 	* @author laowang
@@ -238,6 +247,7 @@ public class ManuallyOpenOrderService {
 			EmployeeDto employeeDto = employeeInfoMapper.selectEmployeeBaseInfo(memberAppointment.getEmployeeId());
 			//设置员工信息
 			appointObj.put("employeeId", employeeDto.getEmployeeId());
+			appointObj.put("employeeCode", employeeDto.getEmployeeCode());
 			appointObj.put("employeeName", employeeDto.getName());
 			appointObj.put("levelName", employeeDto.getLevelName());
 			//预约大项目
@@ -266,7 +276,6 @@ public class ManuallyOpenOrderService {
     public BaseDto addOrder(String sex, String handOrderCode, String employeeObj, Integer memberId, 
     		  Integer storeId, Integer appointmentId, Integer lastOperatorId) {
     	Integer orderId = addOrderInfo(handOrderCode, memberId, storeId, sex, DateUtil.getCurTime(), lastOperatorId);
-        //暂时未做
         addDetail(orderId, employeeObj, storeId, appointmentId, lastOperatorId);
         
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -493,12 +502,9 @@ public class ManuallyOpenOrderService {
         else {
             memberBaseDto.setSex(sex);
         }
-        
-        boolean typeDate = false;
-        
+                
         if (StringUtil.isEmpty(openOrderDate)) {
 			openOrderDate = DateUtil.getCurTime();
-			typeDate = true;
 		}
         else {
         	openOrderDate = openOrderDate.replace("T", " ");
@@ -541,21 +547,51 @@ public class ManuallyOpenOrderService {
                 }
             	
                 Integer appoint = jsonObj.getInt("appoint");
+                        
+                ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
                 
                 if (detailId == null) {
-                	ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
-                    String detailCode = "";
-            		if (typeDate) {
-            			detailCode = staffService.getOrderCode("order_detail", storeId);
-            		}
-            		else {
-            			detailCode = "999";
-            		}
-            		
-                    detailId = staffService.addOrderDetail(detailCode, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
+                    detailId = staffService.addOrderDetail(orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
                             projectInfo.getProjectName(), projectInfo.getProjectPrice(), 1, projectInfo.getProjectImage(),
                             appoint, openOrderDate, storeId, lastOperatorId);
+                }
+                else {
+                	OrderDetail orderDetail = new OrderDetail();
+                	orderDetail.setDetailId(detailId);
+                    BigDecimal discountAmount = projectInfo.getProjectPrice();
+                    BigDecimal rate = new BigDecimal(100);
                     
+                    //计算折扣价
+                    if (memberId != null) {
+                        Map<String, Integer> map = new HashMap<String, Integer>();
+                        map.put("levelId", memberBaseDto.getLevelId());
+                        map.put("projectId", projectId);
+                        ProjectDiscount obj = projectDiscountMapper.selectDiscountPorjectIdAndLevelId(map);
+                        
+                        //该项目对应该会员的会员等级不存在特定价格
+                        if (obj == null) {
+                        	Map<String, Integer> memberMap = new HashMap<>();
+                        	memberMap.put("storeId", storeId);
+                        	memberMap.put("levelId", memberBaseDto.getLevelId());
+                            //计算会员折扣价
+                            MemberLevelDto memberLevel = memberLevelMapper.selectByEnterprise(memberMap);
+                            discountAmount = projectInfo.getProjectPrice().multiply(new BigDecimal(memberLevel.getProjectDiscount()).divide(rate));
+                        }
+                        //该项目对应该会员的会员等级存在特定价格
+                        else {
+                            discountAmount = obj.getDiscountAmount();
+                        }
+                        
+                        //记录预约优惠金额
+                        if (appoint == 1) {
+                            orderDetail.setAppointOff(projectInfo.getAppointmentPrice());
+                            orderDetail.setIsAppoint(appoint);
+                        }
+                    }
+                    
+                    orderDetail.setDiscountAmount(discountAmount);
+                    orderDetail.setOrderStatus(3);
+                    orderDetailMapper.updateByPrimaryKey(orderDetail);
                 }
                 
                 String projectStepArrayObjStr = jsonObj.getString("projectStepArrayObjStr");
@@ -611,7 +647,7 @@ public class ManuallyOpenOrderService {
                 
                 JSONObject employeeIdObj = JSONObject.fromObject(employeeIds);
                 
-                Integer detailId = staffService.addOrderDetail(null, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
+                Integer detailId = staffService.addOrderDetail(orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
                 		  goodsInfo.getGoodsName(), goodsInfo.getGoodsPrice(), 1, goodsInfo.getGoodsImage(), 0, openOrderDate, 
                 		  storeId, lastOperatorId);
                 
@@ -659,7 +695,7 @@ public class ManuallyOpenOrderService {
                 ComboInfo comboInfo = comboInfoMapper.selectByPrimaryKey(projectId);
                 String employeeIds = jsonObj.getString("projectStepArrayObjStr");
 
-                Integer detailId = staffService.addOrderDetail(null, orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
+                Integer detailId = staffService.addOrderDetail(orderId, memberId, memberBaseDto.getLevelId(), orderType, projectId, 
                 		  comboInfo.getComboName(), comboInfo.getComboSalePrice(), 1, comboInfo.getComboImage(), 0, openOrderDate, 
                 		  storeId, lastOperatorId);
                 

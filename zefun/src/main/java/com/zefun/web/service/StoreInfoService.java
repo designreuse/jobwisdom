@@ -59,7 +59,6 @@ import com.zefun.web.dto.TrendDeptDataDto;
 import com.zefun.web.dto.UserAccountDto;
 import com.zefun.web.entity.AccountGoods;
 import com.zefun.web.entity.AccountRoleInfo;
-import com.zefun.web.entity.AgentInfo;
 import com.zefun.web.entity.CommissionScheme;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
@@ -76,7 +75,6 @@ import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.entity.PositionInfo;
 import com.zefun.web.entity.ProjectInfo;
-import com.zefun.web.entity.SalesmanInfo;
 import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreAccount;
 import com.zefun.web.entity.StoreInfo;
@@ -103,12 +101,10 @@ import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
-import com.zefun.web.mapper.SalesmanInfoMapper;
 import com.zefun.web.mapper.SpecialServiceMapper;
 import com.zefun.web.mapper.StoreAccountMapper;
 import com.zefun.web.mapper.StoreFlowMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
-import com.zefun.web.mapper.StoreManageRuleMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
 import com.zefun.web.mapper.UserAccountMapper;
 import com.zefun.web.mapper.WechatStoreMapper;
@@ -119,7 +115,6 @@ import com.zefun.web.vo.CashStoreSalesVo;
 import com.zefun.wechat.dto.ComboSummaryViewDto;
 import com.zefun.wechat.dto.RegionCountDto;
 import com.zefun.wechat.dto.RegionCountRankDto;
-import com.zefun.wechat.service.SalesmanInfoService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -147,10 +142,6 @@ public class StoreInfoService {
      * 剩余使用天数少于该值的正常使用的门店需要续费提醒
      */
     private static final int STORE_RENEW_DAYS = 7;
-
-    /** 业务员信息映射 */
-    @Autowired
-    private SalesmanInfoMapper salesmanInfoMapper;
 
     /**员工信息操作对象*/
     @Autowired
@@ -183,26 +174,11 @@ public class StoreInfoService {
      */
     @Autowired
     private StoreAccountMapper storeAccountMapper;
-
-    /** 业务员信息服务 */
-    @Autowired
-    private SalesmanInfoService salesmanInfoService;
-
-    /**
-     * 渠道操作
-     */
-    @Autowired
-    private AgentInfoService agentService;
-
     /**
      * 门店流水操作
      */
     @Autowired
     private StoreFlowMapper storeFlowMapper;
-
-    /** 门店管理制度操作对象 */
-    @Autowired
-    private StoreManageRuleMapper storeManageRuleMapper;
 
     /**
      * 订单信息操作类
@@ -902,7 +878,8 @@ public class StoreInfoService {
         record.setAlreadyStoreNum(enterpriseAccount.getAlreadyStoreNum() + 1);
         record.setBalanceStoreNum(enterpriseAccount.getBalanceStoreNum() - 1);
         enterpriseAccountMapper.updateByPrimaryKeySelective(record);
-//        initStoreData(storeInfo.getStoreId(), userName, userPwd, storeInfo.getStoreAccount());
+        
+        initStoreData(storeInfo.getStoreId(), storeInfo.getStoreAccount());
         
         //新增默认会员
         MemberLevel member = memberLevelMapper.selectMemberLevelBySotreIdAndLevelName(storeInfo.getStoreAccount(), "默认会员卡");
@@ -965,13 +942,11 @@ public class StoreInfoService {
     * @author 张进军
     * @date Feb 22, 2016 2:18:30 PM
     * @param storeId    门店标识
-    * @param userName  门店类型
-    * @param userPwd       负责人姓名
     * @param storeAccount 企业代号
      */
     @Transactional
-    public void initStoreData(int storeId, Integer userName, String userPwd, String storeAccount){
-        EmployeeDto employeeDto=new EmployeeDto();
+    public void initStoreData(int storeId, String storeAccount){
+        /*EmployeeDto employeeDto=new EmployeeDto();
         employeeDto.setStoreId(storeId);
         employeeDto.setDeptId(0);
         employeeDto.setName("操作员");
@@ -993,7 +968,7 @@ public class StoreInfoService {
         userAccount.setStoreId(storeId);
         userAccount.setCreateTime(DateUtil.getCurTime());
         userAccount.setStoreAccount(storeAccount);
-        userAccountMapper.insert(userAccount);
+        userAccountMapper.insert(userAccount);*/
 
         //如果是总店，添加默认等级
        /* if (storeType != 3) {
@@ -1015,7 +990,7 @@ public class StoreInfoService {
             storeManageRuleMapper.initStoreRuleByStoreId(storeId);
         }*/
 
-        storeManageRuleMapper.initStoreRuleByStoreId(storeId);
+        /*storeManageRuleMapper.initStoreRuleByStoreId(storeId);*/
         
         CommissionScheme record = new CommissionScheme();
         record.setStoreId(storeId);
@@ -1034,128 +1009,6 @@ public class StoreInfoService {
         
    
     }
-
-    /**
-     * 添加门店申请信息, 如果是申请连锁分店, 总店账号必须存在(不为空且存能根据总店账号查到记录)
-     * @author gebing
-     * @date 2015年12月4日
-     * @param code 推荐人openId
-     * @param name 申请人姓名
-     * @param phone 申请人手机号
-     * @param storeType 申请的门店类型
-     * @param hqUserName 申请连锁分店时的总店账号
-     * @param storeName 门店名称
-     * @param province 省份
-     * @param city 城市
-     * @param openId 申请人的openid
-     * @return 申请结果
-     */
-    @Transactional
-    public BaseDto addStoreApplyInfo(String code, String name, String phone, Integer storeType,
-            String hqUserName, String storeName, String province, String city, String openId) {
-        if (storeType == 3 && StringUtils.isBlank(hqUserName)) {
-            return new BaseDto(3, "总店账号不能为空");
-        }
-        Integer hqStoreId = null;
-        if (storeType == 3) {
-            UserAccount hqAccount = new UserAccount()/*userAccountMapper.selectByUserName(hqUserName)*/;
-            StoreInfo hqStoreInfo = storeInfoMapper.selectByPrimaryKey(hqAccount.getStoreId());
-            if (hqStoreInfo == null || hqStoreInfo.getStoreType() != 2) {
-                return new BaseDto(4, "总店账号不可用");
-            }
-            hqStoreId = hqStoreInfo.getStoreId();
-        }
-
-        StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setStoreLinkname(name);
-        storeInfo.setStoreLinkphone(phone);
-        storeInfo.setStoreType(storeType);
-        storeInfo.setHqStoreId(hqStoreId);
-        storeInfo.setStoreName(storeName);
-        storeInfo.setStoreProvince(province);
-        storeInfo.setStoreCity(city);
-        storeInfo.setCreateTime(DateUtil.getCurTime());
-        storeInfoMapper.insert(storeInfo);
-
-        Integer storeId = storeInfo.getStoreId();
-        StoreAccount storeAccount = new StoreAccount();
-        storeAccount.setStoreId(storeId);
-        if (storeType == 2) {
-            storeAccount.setStoreStatus(3);
-            storeAccountMapper.insert(storeAccount);
-
-            initStoreData(storeId, storeType, storeName, phone);
-        }
-        else {
-            storeAccountMapper.insert(storeAccount);
-        }
-
-
-        //查询所选城市是否存在渠道商，如果存在，归当地渠道商所有，否则归智放旗下
-        AgentInfo regionAgentInfo = agentService.getByRegion(province, city);
-        int agentId = App.System.DEFAULT_RECOMMEND_AGENT_ID;
-        if (regionAgentInfo != null) { // 如果注册的城市有渠道商, 则归属该渠道商
-            agentId = regionAgentInfo.getAgentId();
-            SalesmanInfo salesman = null;
-            if (StringUtils.isNotBlank(code)) {
-                salesman = salesmanInfoMapper.selectSalesmanByOpenId(code);
-            }
-            if (salesman != null) {
-                //查询该业务员所在渠道的渠道商id
-                salesmanInfoService.salesmanRecommendStore(storeId, salesman.getSalesmanId(), salesman.getAgentId(), agentId, 1);
-            }
-            else {
-                Integer recomendId = null;
-                if (StringUtils.isNotBlank(code)) {
-                    AgentInfo recommendAgentInfo = agentService.getByOpenId(code);
-                    if (recommendAgentInfo != null) {
-                        recomendId = recommendAgentInfo.getAgentId();
-                    }
-                }
-                agentService.recommend(agentId, storeId, recomendId, 1);
-            }
-        }
-        else { // 否则归属智放
-            Integer recomendId = null;
-            if (StringUtils.isNotBlank(code)) {
-                AgentInfo recommendAgentInfo = agentService.getByOpenId(code);
-                if (recommendAgentInfo != null) {
-                    recomendId = recommendAgentInfo.getAgentId();
-                }
-            }
-            agentService.recommend(agentId, storeId, recomendId, 1);
-        }
-
-//        Integer recomendId = null;
-//        //如果code(推荐者openId)不为空，就要建立一系列推荐关系
-//        if (StringUtils.isNotBlank(code)) {
-//            /**
-//             * 先要判断是渠道商还是业务员(没有对应角色字段，根据查询是否存在判断该推荐者角色)
-//             */
-//            //业务员
-//            SalesmanInfo salesman = salesmanInfoMapper.selectSalesmanByOpenId(code);
-//            //渠道商
-//            AgentInfo recommendAgentInfo = agentService.getByOpenId(code);
-//            //如果推荐者是业务员
-//            if (salesman != null) {
-//                //查询该业务员所在渠道的渠道商id
-//                salesmanInfoService.salesmanRecommendStore(storeId, salesman.getSalesmanId(), salesman.getAgentId(), agentId, 1);
-//            }
-//            //如果是推荐者是渠道商
-//            else if (recommendAgentInfo != null) {
-//                recomendId = recommendAgentInfo.getAgentId();
-//                agentService.recommend(agentId, storeId, recomendId, 1);
-//            }
-//        }
-
-        WechatStore wechatStore = new WechatStore();
-        wechatStore.setOpenId(openId);
-        wechatStore.setStoreId(storeId);
-        wechatStoreMapper.insert(wechatStore);
-
-        return new BaseDto(0, "申请成功");
-    }
-
 
     /**
      * 根据openid查询门店信息

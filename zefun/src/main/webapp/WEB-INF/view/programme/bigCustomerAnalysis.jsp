@@ -23,6 +23,7 @@
 				     </c:choose>
 				  </li>
 				  <li>解决方案</li>
+				  <li>图文介绍</li>
 				</ul>
 				<div class="customer_analyse_content">
 				 <div class="customer_analyse_content_">
@@ -129,6 +130,15 @@
 					  </div>
 					</div>	
 					<%@ include file="/template/page.jsp" %>  
+				  </div>
+				  <div class="customer_analyse_content_">
+				     <div style="height: 760px; overflow-x: hidden;overflow-y: scroll;">
+				        <c:choose>
+					        <c:when test="${pageType == 1}"><img src="<%=qiniuPath%>system/profile/bigCustomer.jpg"></c:when>
+					        <c:when test="${pageType == 2}"><img src="<%=qiniuPath%>system/profile/customerLoyal.jpg"></c:when>
+					        <c:otherwise><img src="<%=qiniuPath%>system/profile/customerActive.jpg"></c:otherwise>
+					    </c:choose>
+				     </div>
 				  </div>	  
 				</div>
 			  </div> 

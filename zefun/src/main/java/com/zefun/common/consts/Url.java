@@ -943,6 +943,10 @@ public interface Url {
         public static final String VIEW_POSITION_LEVEL = "employee/account/positon";
         /** 门店查看组织架构*/
         public static final String VIEW_POSITION_LEVEL_STORE = "employee/account/store/positon";
+        /** 员工工资单*/
+        public static final String VIEW_POSITION_LEVEL_WAGES = "employee/account/store/wages";
+        /** 员工工资单*/
+        public static final String VIEW_POSITION_LEVEL_SELECTWAGES = "employee/account/store/selectwages";
 
 	}
 
@@ -1444,6 +1448,12 @@ public interface Url {
 	class Programme {
 		/** 大客户分析*/
 		public static final String VIEW_BIG_CUSTOMER_ANALYSIS = "programme/view/bigCustomerAnalysis";
+		
+		/** 忠诚度分析*/
+		public static final String VIEW_CUSTOMER_LOYAL_ANALYSIS = "programme/view/customerLoyalAnalysis";
+		
+		/** 活跃度分析*/
+		public static final String VIEW_CUSTOMER_ACTIVE_ANALYSIS = "programme/view/customerActiveAnalysis";
 		
 		/** 初始化规则*/
 		public static final String ACTION_INITIALIZATION_SETTING_RULE = "programme/action/initializationSettingRule";
