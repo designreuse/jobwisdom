@@ -115,10 +115,25 @@
 </body>
 <script>
 var jsonos = ${jsonos };
+var views = ${type };
  jQuery(function(){
 	 var json = jsonos.jsona;
 	 showTable(json);
 	 showViwe(jsonos.jsonn,jsonos.jsont);
+	 var myDate = new Date();
+	 var year = myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+	 var month = myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+	 var year_month = year + "-"+month;
+	 jQuery("input[name='time1']").val(year_month);
+	 jQuery("input[name='time2']").val(year_month);
+	
+	 if(views == 1){
+		 jQuery("select[name='store1']").attr("class","hide");
+		 jQuery("select[name='store2']").attr("class","hide");
+	 }
+	 jQuery("select option:nth-child(2)").attr("selected" , "selected");  
+// 	 jQuery("select[name='store1']").options[1].selected = true;
+// 	 jQuery("select[name='store2']").options[1].selected = true;
  });
  function showTable(s){
 	 jQuery("tbody[name='tab']").empty();
@@ -144,6 +159,7 @@ function  checkWages(g){
 	}
    var time =  jQuery("input[name='"+t+"']").val();
    var store =  jQuery("select[name='"+n+"']").val();
+
    var data = "code="+code+"&time="+time+"&store="+store;
 	jQuery.ajax({
 		type : "post",
@@ -151,12 +167,15 @@ function  checkWages(g){
 		data : data,
 		dataType : "json",
 		success : function(e){
-				dialog('查询成功');
-				jsonos = e.msg;
+				 dialog('查询成功');
+				 jsonos = e.msg;
 				 var json = jsonos.jsona;
 				 showTable(json);
 				 showViwe(jsonos.jsonn,jsonos.jsont);
-				
+			     jQuery("select[name='store1']").val(store);
+			     jQuery("select[name='store2']").val(store);
+			     jQuery("input[name='time2']").val(time);
+			     jQuery("input[name='time1']").val(time);
 		}
 	});
 	
