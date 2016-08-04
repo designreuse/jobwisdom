@@ -1258,8 +1258,10 @@ public interface Url {
 	class StoreManageRule {
 		/** 查看管理制度主页 */
 		public static final String VIEW_HOME = "storeManageRule/view/home";
-		/** 修改规则信息 */
-		public static final String ACTION_UPDATE = "storeManageRule/action/update";
+		/** 保存或者修改管理制度主页 */
+		public static final String SAVE_HOME = "storeManageRule/save/home";
+		/** 删除规则信息 */
+		public static final String ACTION_DELETE = "storeManageRule/delete/home";
 	}
 
 	/** 短信模块 */
@@ -1448,6 +1450,12 @@ public interface Url {
 	class Programme {
 		/** 大客户分析*/
 		public static final String VIEW_BIG_CUSTOMER_ANALYSIS = "programme/view/bigCustomerAnalysis";
+		
+		/** 忠诚度分析*/
+		public static final String VIEW_CUSTOMER_LOYAL_ANALYSIS = "programme/view/customerLoyalAnalysis";
+		
+		/** 活跃度分析*/
+		public static final String VIEW_CUSTOMER_ACTIVE_ANALYSIS = "programme/view/customerActiveAnalysis";
 		
 		/** 初始化规则*/
 		public static final String ACTION_INITIALIZATION_SETTING_RULE = "programme/action/initializationSettingRule";

@@ -91,6 +91,8 @@ function alertZzc() {
 	            }
 	    		var datas = e.msg;
 	    		
+	    		jQuery("[name='openOrderType'][typevalue = '2']").click();
+	    		jQuery("span[name='appointEmployee']").parent().hide();
 	    		var positionInfoShiftMahjongDtoList = datas.positionInfoShiftMahjongDtoList;
 	    		var handOrderCodeList = datas.handOrderCodeList;
 	    		var appointObjList = datas.appointObjList;
@@ -104,7 +106,7 @@ function alertZzc() {
 	    		
 	    		for (var i = 0; i < appointObjList.length; i++) {
 	    			var appointObj = appointObjList[i];
-	    			var str = '<div class="order_open_card_content" onclick = "chooseAppoint(\''+appointObj.memberName+'\', \''+appointObj.sex+'\', \''+appointObj.phone+'\', '+appointObj.appointmentId+', '+appointObj.memberId+', '+appointObj.employeeId+')">'+
+	    			var str = '<div class="order_open_card_content" onclick = "chooseAppoint(\''+appointObj.memberName+'\', \''+appointObj.sex+'\', \''+appointObj.phone+'\', '+appointObj.appointmentId+', '+appointObj.memberId+', \''+appointObj.employeeCode+'\',\''+appointObj.employeeName+'\',\''+appointObj.categoryName+'\')">'+
 							   '<div class="order_open_card_content_left">'+
 								  '<div class="img">'+
 									'<img src="'+qiniuUrl+appointObj.headUrl+'">'+
@@ -196,7 +198,7 @@ function alertZzc() {
 	  jQuery("div[name='openOrderZzc']").show();
 }
 
-function chooseAppoint (memberName, sex, phone, appointmentId, memberId, employeeId) {
+function chooseAppoint (memberName, sex, phone, appointmentId, memberId, employeeCode, employeeName, categoryName) {
 	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", memberId);
 	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("appointmentId", appointmentId);
 	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").text(memberName);
@@ -205,13 +207,19 @@ function chooseAppoint (memberName, sex, phone, appointmentId, memberId, employe
 	 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").attr("memberSex", sex);
 	 jQuery("div[name='memberNoPage']").find("td[name='memberSex']").text(sex);
 	 
-	 var activeLi = jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).attr("name");
+	 /*var activeLi = jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).attr("name");
 	 if (!isEmpty(activeLi)) {
-		 jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).click();
+		 if (!jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).find("a").hasClass("active3")) {
+			 jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).click();
+		 }
 		 var positionid = jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).parents("div[name='shiftMajone']").attr("positionid");
 		 jQuery("ul[name='positionUl']").find("li[positionid='"+positionid+"']").click();
-	 }
+		 jQuery(jQuery("li[shiftMahjongEmployeeId='"+employeeId+"']")[0]).parents("div[name='shiftMajone']").find("input[name='isAssign']").attr("checked",'true');
+	 }*/
 	 
+	 jQuery("span[name='appointEmployee']").text(employeeCode + " " + employeeName);
+	 jQuery("span[name='appointProject']").text(categoryName);
+	 jQuery("span[name='appointEmployee']").parent().show();
 	 orderOpenCardClose();
 }
 

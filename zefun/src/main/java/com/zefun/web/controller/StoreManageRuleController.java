@@ -15,10 +15,10 @@ import com.zefun.web.entity.StoreManageRule;
 import com.zefun.web.service.StoreManageRuleService;
 
 /**
- * 门店制度管理控制类
-* @author 张进军
-* @date Dec 5, 2015 6:24:57 PM 
-*/
+ * 
+* @author 骆峰
+* @date 2016年8月4日 下午2:06:14
+ */
 @Controller
 public class StoreManageRuleController extends BaseController {
 
@@ -29,10 +29,10 @@ public class StoreManageRuleController extends BaseController {
     
     /**
      * 查看管理制度主页
-    * @author 张进军
-    * @date Dec 5, 2015 7:15:47 PM
-    * @param request    请求对象
-    * @return   管理制度主页
+    * @author 骆峰
+    * @date 2016年8月4日 下午2:06:05
+    * @param request request
+    * @return ModelAndView
      */
     @RequestMapping(value = Url.StoreManageRule.VIEW_HOME)
     public ModelAndView homeView(HttpServletRequest request){
@@ -40,17 +40,32 @@ public class StoreManageRuleController extends BaseController {
         return storeManageRuleService.homeView(storeId);
     }
     
+    /**
+     *保存或者修改规则信息
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:38:37
+    * @param storeManageRule storeManageRule
+    * @param request request
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.StoreManageRule.SAVE_HOME, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto saveOrUpdate(StoreManageRule storeManageRule, HttpServletRequest request){
+        Integer storeId = getStoreId(request);
+        return storeManageRuleService.saveOrUpdate(storeManageRule, storeId);
+        
+    }
     
     /**
-     * 修改规则信息
-    * @author 张进军
-    * @date Dec 5, 2015 11:56:19 PM
-    * @param storeManageRule    规则信息
-    * @return   成功返回码为0，失败为其他异常信息
+     *    删除
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:38:56
+    * @param ruleId ruleId
+    * @return BaseDto
      */
-    @RequestMapping(value = Url.StoreManageRule.ACTION_UPDATE, method = RequestMethod.POST)
+    @RequestMapping(value = Url.StoreManageRule.ACTION_DELETE, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto updateAction(StoreManageRule storeManageRule){
-        return storeManageRuleService.updateAction(storeManageRule);
+    public BaseDto deleteAction(Integer ruleId){
+        return storeManageRuleService.deleteAction(ruleId);
     }
 }

@@ -46,7 +46,7 @@
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
 			<div class='content_right clearfix'>
-			    <p><button onclick = "alertZzc()">点击进入开单</button><input type="text" placeholder="输入手牌号"><button>查找</button></p>
+			    <p><button onclick = "alertZzc()">点击添加服务</button><input type="text" placeholder="输入手牌号"><button>查找</button></p>
 			    <div class="open_card_content">
 				   <ul class="clearfix">
 				     <c:forEach items="${cashierDtoList}" var="cashierDto">
@@ -138,7 +138,7 @@
 							 </ul>
 							 <div class="table_content_button">
 							    <button onclick = "settlementOrder(this, ${cashierDto.orderId})">结算</button>
-							    <button onclick = "addServer(this, ${cashierDto.orderId})">添加服务</button>
+							    <button onclick = "addServer(this, ${cashierDto.orderId})">添加</button>
 							 </div>
 						   </div> 
 						 </li>
@@ -152,12 +152,12 @@
 
 <div class="zzc" name = "openOrderZzc" style="display:none">
   <div class="zzc_open_card_alert">
-     <p>开单</p>
+     <p>服务</p>
      <div class="zzc_open_card_alert_content">
 		<div class="vip_open_card" name="memberTR" selectType="3">
 		  <span>手牌号<em name = "handOrderCode" class="vip_open_card_select"><img src="<%=basePath%>images/open_card_img.png"></em></span>
 		  <i class="vip_search_content" name = "openOrderType" typeValue = "1" onclick = "openOrderType(this)">
-		     <a href="javascript:;">会员开单
+		     <a href="javascript:;">会员服务
 		       <input type="text"name="phoneNumber" class = "input_content" placeholder="会员手机号" style="display: none;">
 		       <span class="iconfont icon-sousuo ml-30 mt5" name="seekName" style="display: none;"></span>
 			   <div class="show_search" name="memberListDIV"
@@ -176,8 +176,8 @@
 		     </a>
 		     <em><i name = "vip_em"></i></em>
 		  </i>
-		  <em class="visitor active_border_" name = "openOrderType" typeValue = "2" onclick = "openOrderType(this)">散客开单<i class = "active_border" name = "vip_em"></i></em>
-		  <em class="visitor" name = "openOrderType" typeValue = "3" onclick = "openOrderType(this)">预约开单<i name = "vip_em"></i></em>
+		  <em class="visitor active_border_" name = "openOrderType" typeValue = "2" onclick = "openOrderType(this)">散客服务<i class = "active_border" name = "vip_em"></i></em>
+		  <em class="visitor" name = "openOrderType" typeValue = "3" onclick = "openOrderType(this)">预约服务<i name = "vip_em"></i></em>
 		</div>
 		<div class="open_card_table" name = "memberNoPage">
 		   <table>
@@ -198,6 +198,10 @@
 			  <ul class="clearfix" name = "positionUl">
 			    
 			  </ul>
+			  <div style="position:absolute;right:10px;top:10px;display: none;">
+		     	    预约人：<span style="color:red" name = "appointEmployee"></span>
+			               大项：<span style="color:red" name = "appointProject"></span>
+			  </div>
 			  <div class="open_state" style="top:54px">
 			   <span><em style="background:#21d9db"></em>空闲</span>
 			   <span><em style="background:#e11e23"></em>工作</span>

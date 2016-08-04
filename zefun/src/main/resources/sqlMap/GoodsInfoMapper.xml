@@ -762,6 +762,9 @@
   	left join goods_brand gb on gb.brand_id = ag.brand_id
   	left join supplier_info si on ag.supplier_id = si.supplier_id
   	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{params.storeId} and ag.is_deleted = 0
+  	<if test="params.queryName != null"> and (ag.goods_name like CONCAT('%','${params.queryName}','%' ) or ag.goods_code_suffix like CONCAT('%','${params.queryName}','%' ) )</if>
+  	<if test="params.supplierId != null"> and (si.supplier_id = #{params.supplierId})</if>
+  	<if test="params.brand_id != null"> and (gb.brand_id = #{params.brand_id})</if>
   </select>
   
   <select id="queryByGoodsIds" parameterType="list" resultMap="GoodsInfoDtoMap">
