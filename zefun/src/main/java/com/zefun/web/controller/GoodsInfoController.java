@@ -157,6 +157,7 @@ public class GoodsInfoController extends BaseController {
             Object storeId = request.getSession().getAttribute(Session.STORE_ID);
             if (storeId!=null){
                 model = new ModelAndView(View.GoodsInfo.GOOD_SETTING_STORE);
+                model.addObject("storeId", storeId);
             }
             else {
                 storeId = storeInfos.get(0).getStoreId();
@@ -203,6 +204,9 @@ public class GoodsInfoController extends BaseController {
     * @param pageNo     pageNo
     * @param pageSize   pageSize
     * @param storeId    storeId
+    * @param queryname  queryname
+    * @param querysupplierid  querysupplierid
+    * @param querybrandid  querybrandid
     * @return           BaseDto
      */
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_SETTING_PAGE)
