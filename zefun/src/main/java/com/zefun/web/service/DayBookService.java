@@ -229,7 +229,7 @@ public class DayBookService {
 		List<DayBookDto> dayBookInfos = orderInfoMapper.selectByPage(page);
 		for (DayBookDto dayBookDto : dayBookInfos) {
 			dayBookDto.setCreateTime(dayBookDto.getCreateTime().substring(5));
-			dayBookDto.setOrderCode(dayBookDto.getOrderCode().substring(4));
+			/*dayBookDto.setOrderCode(dayBookDto.getOrderCode().substring(4));*/
 		}
 	    
 

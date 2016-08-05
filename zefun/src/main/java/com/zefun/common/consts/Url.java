@@ -969,8 +969,12 @@ public interface Url {
 		public static final String ACTION_LOGOUT = "/staff/action/logout";
 		/** 查询所有订单 */
 		public static final String VIEW_ALL_ORDER = "/staff/view/order/all";
+		/**  */
+		public static final String ACTION_SELECT_NO_PAGE_ORDERID = "/staff/action/selectNoPageOrderId";
 		/** 查询员工排班 */
 		public static final String VIEW_SELECT_VIEW_SCHEDULING = "/staff/view/selectViewScheduling";
+		/** 判断是否存在以操作的的订单 */
+		public static final String ACTION_IS_EXIST_OPERATION = "/staff/action/isExistOperation";
 		/** 通知会员买单 */
 		public static final String ACTION_ORDER_NOTITY = "/staff/action/order/notify";
 		/** 查询我的预约 */
@@ -1056,6 +1060,8 @@ public interface Url {
 		public static final String VIEW_SELECT_ORDER_DETAIL = "/staff/view/selectOrderDetail/{storeId}/{businessType}";
 		/** 修改订单操作性*/
 		public static final String ACTION_UPDATE_IS_ORDER_OPTION = "staff/action/updateIsOrderOption";
+		/** 通知买单*/
+		public static final String ACTION_NOTICE_CHECKOUT = "staff/action/noticeCheckout";
 		/** 删除订单明细 */
 		public static final String ACTION_DELETE_ORDER_DETAIL = "staff/action/deleteOrderDetail";
 		/** 删除订单 */
@@ -1260,8 +1266,10 @@ public interface Url {
 	class StoreManageRule {
 		/** 查看管理制度主页 */
 		public static final String VIEW_HOME = "storeManageRule/view/home";
-		/** 修改规则信息 */
-		public static final String ACTION_UPDATE = "storeManageRule/action/update";
+		/** 保存或者修改管理制度主页 */
+		public static final String SAVE_HOME = "storeManageRule/save/home";
+		/** 删除规则信息 */
+		public static final String ACTION_DELETE = "storeManageRule/delete/home";
 	}
 
 	/** 短信模块 */

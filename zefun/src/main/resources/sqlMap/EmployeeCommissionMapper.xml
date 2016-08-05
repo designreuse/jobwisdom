@@ -88,10 +88,10 @@
      <if test="store != null" >
         and  e.store_id = #{store}
      </if>
-      <if test="stroes != null" >
+      <if test="storeIds != null" >
         and  e.store_id in 
-          <foreach item="stroe" index="index" collection="stroes" open="(" separator="," close=")">  
-			  #{stroe}  
+          <foreach item="storeId" index="index" collection="storeIds" open="(" separator="," close=")">  
+			  #{storeId}  
 			</foreach>  
      </if>
 

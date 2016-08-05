@@ -1501,9 +1501,11 @@ public class EmployeeService {
         ModelAndView view = new ModelAndView(View.Wages.VIEW_POSITION_LEVEL_WAGES);
         List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
         view.addObject("selectByStoreAccount", selectByStoreAccount);
+        int type = 0;
         Calendar a=Calendar.getInstance();
         String year = String.valueOf(a.get(Calendar.YEAR));
         String month = String.valueOf(a.get(Calendar.MONTH));
+        
         String yearMonth ="";
         if (Integer.parseInt(month)<10) {
             yearMonth = year +"-0"+month;
@@ -1519,8 +1521,9 @@ public class EmployeeService {
         }
         if (storeId !=null) {
             map.put("stroe", storeId) ;
-            view.addObject("view", 1);
+            type = 1;
         }
+        view.addObject("type", type);
         JSONObject jsonos = jsonWages(map);
         view.addObject("jsonos", jsonos);
         return view;
@@ -1621,7 +1624,7 @@ public class EmployeeService {
             map.put("store", store);
         }
         else {
-            map.put("stores", list);
+            map.put("storeIds", list);
         }
         if (time != "") {
             map.put("time", time);

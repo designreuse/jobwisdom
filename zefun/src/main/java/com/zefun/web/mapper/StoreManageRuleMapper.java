@@ -2,67 +2,84 @@ package com.zefun.web.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.zefun.web.entity.StoreManageRule;
 
 /**
- * 门店管理制度操作类
-* @author 张进军
-* @date Dec 5, 2015 6:19:03 PM
+ *  
+* @author 骆峰
+* @date 2016年8月4日 下午1:49:34
  */
 public interface StoreManageRuleMapper {
     
     /**
-     * 根据规则标识查询规则信息
-    * @author 张进军
-    * @date Dec 5, 2015 6:19:23 PM
-    * @param ruleId 规则标识
-    * @return   规则信息
+     * 
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:49:52
+    * @param ruleId ruleId
+    * @return int
+     */
+    int deleteByPrimaryKey(Integer ruleId);
+    
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:57:21
+    * @param ruleId ruleId
+    * @return int
+     */
+    int initStoreRuleByStoreId(Integer ruleId);
+    
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:53:14
+    * @param storeId storeId
+    * @return List
+     */
+    List<StoreManageRule> selectRuleListByStoreId(Integer  storeId);
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:49:55
+    * @param record record
+    * @return int
+     */
+    int insert(StoreManageRule record);
+
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:50:00
+    * @param record record
+    * @return int
+     */
+    int insertSelective(StoreManageRule record);
+
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:50:04
+    * @param ruleId ruleId
+    * @return StoreManageRule
      */
     StoreManageRule selectByPrimaryKey(Integer ruleId);
 
-    
     /**
-     * 修改规则信息
-    * @author 张进军
-    * @date Dec 5, 2015 6:20:09 PM
-    * @param record 规则信息
-    * @return   0:失败，1:成功
+     * 
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:50:09
+    * @param record record
+    * @return int
+     */
+    
+    int updateByPrimaryKeySelective(StoreManageRule record);
+
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月4日 下午1:50:13
+    * @param record record
+    * @return int
      */
     int updateByPrimaryKey(StoreManageRule record);
-    
-    
-    /**
-     * 根据门店查询管理制度列表
-    * @author 张进军
-    * @date Dec 5, 2015 7:03:07 PM
-    * @param storeId    门店标识
-    * @return   门店查询管理制度列表
-     */
-    List<StoreManageRule> selectRuleListByStoreId(int storeId);
-    
-    /**
-     * 初始化门店管理制度规则
-    * @author 张进军
-    * @date Dec 9, 2015 12:01:07 PM
-    * @param storeId    需要初始化的门店标识
-    * @return   0:失败，1:成功
-     */
-    int initStoreRuleByStoreId(int storeId);
-    
-    /**
-     * 根据店铺id查询迟到规则
-     * @param storeId  店铺id
-     * @return 该店铺规则
-     */
-    StoreManageRule selectStoreRuleByStoreId(int storeId);
-    
-    /**
-     * 根据ruleName和storeId查询该店铺规则
-     * @param storeId  店铺id
-     * @param ruleName  规则名称
-     * @return  该店铺规则
-     */
-    StoreManageRule selectRuleByRuleNameAndStoreId(@Param(value="storeId")int storeId, @Param(value="ruleName")String ruleName);
 }

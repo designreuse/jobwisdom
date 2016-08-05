@@ -46,13 +46,13 @@
 		<div class="rightpanel" style="margin-left: 200px; position: relative">
 			<%@include file="/top.jsp"%>
 			<div class='content_right clearfix'>
-			    <p><button onclick = "alertZzc()">点击添加服务</button><input type="text" placeholder="输入手牌号"><button>查找</button></p>
+			    <p><button onclick = "alertZzc()">点击添加服务</button><input type="text" name = "selectHandCode" placeholder="输入手牌号"><button onclick="selectNoPageOrder()">查找</button></p>
 			    <div class="open_card_content">
 				   <ul class="clearfix">
 				     <c:forEach items="${cashierDtoList}" var="cashierDto">
 				        <li>
 						   <img src="<%=basePath%>images/money_close.png" onclick="deleteOrderInfo(${cashierDto.orderId })">
-						   <p>手牌号${cashierDto.handOrderCode}</p>
+						   <p name = "handOrderCodeP"  handOrderCodeP = "${cashierDto.handOrderCode}">手牌号${cashierDto.handOrderCode}</p>
 						   <div class="customer">
 						     <c:choose>
 					           <c:when test="${cashierDto.memberId != null}">

@@ -21,6 +21,7 @@ import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.OrderInfoBaseDto;
 import com.zefun.web.dto.PositionInfoShiftMahjongDto;
+import com.zefun.web.dto.SelfCashierDetailDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.dto.ShiftMahjongProjectStepDto;
 import com.zefun.web.entity.EmployeeInfo;
@@ -97,9 +98,10 @@ public class StaffOrderService {
     * @date Oct 13, 2015 9:43:06 PM
     * @param orderId 订单标识
     * @param employeeId 员工标识
+    * @param pageType 是否存在操作订单标识
     * @return   全部订单页面
      */
-    public ModelAndView allOrderView(Integer orderId, Integer employeeId){
+    public ModelAndView allOrderView(Integer orderId, Integer employeeId, Integer pageType){
     	OrderInfo record = new OrderInfo();
     	record.setOrderId(orderId);
     	record.setIsOrderOption(1);
@@ -107,9 +109,24 @@ public class StaffOrderService {
     	//将订单状态改为正在操作
     	orderInfoMapper.updateIsOrderOption(record);
         ModelAndView mav = new ModelAndView(View.StaffPage.ORDER_LIST);
-        SelfCashierOrderDto orderDto = orderInfoMapper.selectByNoPageOrderId(orderId);
+        OrderInfo orderDto = orderInfoMapper.selectByPrimaryKey(orderId);
         mav.addObject("orderDto", orderDto);
+        mav.addObject("orderId", orderDto.getOrderId());
+        mav.addObject("pageType", pageType);
         return mav;
+    }
+    
+    /**
+     * 
+    * @author 老王
+    * @date 2016年8月5日 下午5:50:03 
+    * @param orderId 订单标识
+    * @return BaseDto
+     */
+    public BaseDto selectNoPageOrderId (Integer orderId) {
+    	SelfCashierOrderDto dto = orderInfoMapper.selectByNoPageOrderId(orderId);
+    	List<SelfCashierDetailDto> orderDetails = dto.getOrderDetails();
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, orderDetails);
     }
     
     /**
@@ -130,6 +147,28 @@ public class StaffOrderService {
     	OrderInfo  info = orderInfoMapper.selectByPrimaryKey(orderId);
     	rabbitService.storeBalanceVoice(info.getStoreId(), info.getHandOrderCode(), null);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
+    }
+    
+    /**
+     * 通知买单
+    * @author 老王
+    * @date 2016年8月5日 上午10:48:01 
+    * @param orderId 订单标识
+    * @return BaseDto
+     */
+    public BaseDto noticeCheckout (Integer orderId) {
+    	
+    	
+    	List<OrderDetail> orderDetailList = orderDetailMapper.selectOrderDetail(orderId);
+    	
+    	
+    	
+    	OrderInfo record = new OrderInfo();
+    	record.setOrderId(orderId);
+    	record.setIsOrderOption(2);
+    	record.setOptionEmployeeId(null);
+    	orderInfoMapper.updateIsOrderOption(record);
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
     /**
@@ -172,15 +211,14 @@ public class StaffOrderService {
     * @date 2015年11月10日 上午10:34:21
     * @param orderId 订单标识
     * @param storeId 门店标识
-    * @param employeeId 员工标识
     * @return ModelAndView
      */
-    public ModelAndView selectOrderDetail(Integer orderId, Integer storeId, Integer employeeId) {
+    public ModelAndView selectOrderDetail(Integer orderId, Integer storeId) {
         
         OrderInfo obj = orderInfoMapper.selectByPrimaryKey(orderId);
         ModelAndView mav = new ModelAndView();
         if (obj.getIsDeleted() == 1) {
-            return staffService.receptionView(employeeId);
+            return staffService.receptionView();
         }
         
         OrderInfoBaseDto orderInfo = orderInfoService.getOrderInfoBaseDto(orderId);  

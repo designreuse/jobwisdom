@@ -65,6 +65,28 @@
 <script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"></script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"> </script>
 <script type="text/javascript">
+   
+   var pageOrderId = '${orderId}';
+   
+   $(document).ready(function(){
+	  //判断是否存在以操作的订单
+	  $.ajax({
+	        type : "post",
+	        url : baseUrl + "staff/action/isExistOperation",
+	        dataType : "json",
+	        success : function(e){
+	            if(e.code != 0){
+	                dialog(e.msg);
+	                return;
+	            }
+	            var orderId = e.msg;
+	            if (!isEmpty(orderId)) {
+	      		  window.location.href = baseUrl+"staff/view/order/all?orderId="+orderId+"&pageType=1";
+	      	  }
+	        }
+	    });
+   }); 
+
    function setNumber (num) {
 	   var handOrderCode = jQuery("input[name='handOrderCode']").val();
 	   if (isEmpty(handOrderCode)) {
@@ -105,7 +127,7 @@
 	                return;
 	            }
 	            var orderId = e.msg;
-	            window.location.href = baseUrl+"staff/view/order/all?orderId="+orderId;
+	            window.location.href = baseUrl+"staff/view/order/all?orderId="+orderId+"&pageType=0";
 	        }
 	    });
    }

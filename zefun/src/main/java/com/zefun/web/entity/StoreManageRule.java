@@ -3,151 +3,96 @@ package com.zefun.web.entity;
 import java.math.BigDecimal;
 
 /**
- * @author 张进军
- * @date 2015年12月05日 PM 18:57:32
+ * 
+* @author 骆峰
+* @date 2016年8月4日 下午1:51:41
  */
 public class StoreManageRule {
-	/** 规则标识 */
-	private Integer ruleId;
+    /** 规则标识 */
+    private Integer ruleId;
 
-	/** 门店标识 */
-	private Integer storeId;
+    /** 门店标识 */
+    private Integer storeId;
 
-	/** 规则类型(1:考勤，2:行为，3:服务) */
-	private Integer ruleType;
+    /** 规则名称 */
+    private String ruleName;
 
-	/** 规则名称 */
-	private String ruleName;
+    /** 规则描述 */
+    private String ruleDesc;
 
-	/** 规则描述 */
-	private String ruleDesc;
+    /** 处理方式(1:奖励，2:惩罚) */
+    private Integer processType;
 
-	/** 指标类型(1:分钟，2:小时，3:分数) */
-	private Integer targetType;
+    /** 奖惩金额 */
+    private BigDecimal processMoney;
 
-	/** 指标值 */
-	private Integer targetValue;
+    /** 最后操作人标识 */
+    private Integer lastOperatorId;
 
-	/** 处理方式(1:奖励，2:惩罚) */
-	private Integer processType;
+    /** 最后操作时间 */
+    private String lastOperatorTime;
 
-	/** 奖惩金额 */
-	private BigDecimal processMoney;
+    public Integer getRuleId() {
+        return ruleId;
+    }
 
-	/** 最后操作人标识 */
-	private Integer lastOperatorId;
+    public void setRuleId(Integer ruleId) {
+        this.ruleId = ruleId;
+    }
 
-	/** 最后操作时间 */
-	private String lastOperatorTime;
+    public Integer getStoreId() {
+        return storeId;
+    }
 
-	/** @param ruleId	规则标识 */
-	public void setRuleId(Integer ruleId){
-		this.ruleId = ruleId;
-	}
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
+    }
 
-	/** @return	规则标识 */
-	public Integer getRuleId(){
-		return ruleId;
-	}
+    public String getRuleName() {
+        return ruleName;
+    }
 
-	/** @param storeId	门店标识 */
-	public void setStoreId(Integer storeId){
-		this.storeId = storeId;
-	}
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName == null ? null : ruleName.trim();
+    }
 
-	/** @return	门店标识 */
-	public Integer getStoreId(){
-		return storeId;
-	}
+    public String getRuleDesc() {
+        return ruleDesc;
+    }
 
-	/** @param ruleType	规则类型(1:考勤，2:行为，3:服务) */
-	public void setRuleType(Integer ruleType){
-		this.ruleType = ruleType;
-	}
+    public void setRuleDesc(String ruleDesc) {
+        this.ruleDesc = ruleDesc == null ? null : ruleDesc.trim();
+    }
 
-	/** @return	规则类型(1:考勤，2:行为，3:服务) */
-	public Integer getRuleType(){
-		return ruleType;
-	}
+    public Integer getProcessType() {
+        return processType;
+    }
 
-	/** @param ruleName	规则名称 */
-	public void setRuleName(String ruleName){
-		this.ruleName = ruleName;
-	}
+    public void setProcessType(Integer processType) {
+        this.processType = processType;
+    }
 
-	/** @return	规则名称 */
-	public String getRuleName(){
-		return ruleName;
-	}
+    public BigDecimal getProcessMoney() {
+        return processMoney;
+    }
 
-	/** @param ruleDesc	规则描述 */
-	public void setRuleDesc(String ruleDesc){
-		this.ruleDesc = ruleDesc;
-	}
+    public void setProcessMoney(BigDecimal processMoney) {
+        this.processMoney = processMoney;
+    }
 
-	/** @return	规则描述 */
-	public String getRuleDesc(){
-		return ruleDesc;
-	}
+    public Integer getLastOperatorId() {
+        return lastOperatorId;
+    }
 
-	/** @param targetType	指标类型(1:分钟，2:小时，3:分数) */
-	public void setTargetType(Integer targetType){
-		this.targetType = targetType;
-	}
+    public void setLastOperatorId(Integer lastOperatorId) {
+        this.lastOperatorId = lastOperatorId;
+    }
 
-	/** @return	指标类型(1:分钟，2:小时，3:分数) */
-	public Integer getTargetType(){
-		return targetType;
-	}
+    public String getLastOperatorTime() {
+        return lastOperatorTime;
+    }
 
-	/** @param targetValue	指标值 */
-	public void setTargetValue(Integer targetValue){
-		this.targetValue = targetValue;
-	}
-
-	/** @return	指标值 */
-	public Integer getTargetValue(){
-		return targetValue;
-	}
-
-	/** @param processType	处理方式(1:奖励，2:惩罚) */
-	public void setProcessType(Integer processType){
-		this.processType = processType;
-	}
-
-	/** @return	处理方式(1:奖励，2:惩罚) */
-	public Integer getProcessType(){
-		return processType;
-	}
-
-	/** @param processMoney	奖惩金额 */
-	public void setProcessMoney(BigDecimal processMoney){
-		this.processMoney = processMoney;
-	}
-
-	/** @return	奖惩金额 */
-	public BigDecimal getProcessMoney(){
-		return processMoney;
-	}
-
-	/** @param lastOperatorId	最后操作人标识 */
-	public void setLastOperatorId(Integer lastOperatorId){
-		this.lastOperatorId = lastOperatorId;
-	}
-
-	/** @return	最后操作人标识 */
-	public Integer getLastOperatorId(){
-		return lastOperatorId;
-	}
-
-	/** @param lastOperatorTime	最后操作时间 */
-	public void setLastOperatorTime(String lastOperatorTime){
-		this.lastOperatorTime = lastOperatorTime;
-	}
-
-	/** @return	最后操作时间 */
-	public String getLastOperatorTime(){
-		return lastOperatorTime;
-	}
-
+    public void setLastOperatorTime(String lastOperatorTime) {
+        this.lastOperatorTime = lastOperatorTime == null ? null : lastOperatorTime.trim();
+    }
 }
