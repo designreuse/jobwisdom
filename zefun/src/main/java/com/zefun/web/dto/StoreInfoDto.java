@@ -2,7 +2,7 @@ package com.zefun.web.dto;
 
 import java.util.List;
 
-
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.FavourableAccount;
 
 
@@ -20,6 +20,9 @@ public class StoreInfoDto {
 
 	/** 门店代号 */
 	private String storeAccount;
+	
+	/** 员工人员*/
+	private List<EmployeeInfo> employeeInfos;
 	
 	/** 活动具体类 */
 	private List<FavourableAccount> favourableAccount;
@@ -56,6 +59,12 @@ public class StoreInfoDto {
         this.storeAccount = storeAccount;
     }
 
+    public List<EmployeeInfo> getEmployeeInfos() {
+        return employeeInfos;
+    }
 
-
+    public void setEmployeeInfos(List<EmployeeInfo> employeeInfos) {
+        this.employeeInfos = employeeInfos;
+    }
+    
 }

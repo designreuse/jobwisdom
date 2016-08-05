@@ -55,9 +55,79 @@ public class EmployeeCommissionDto implements Serializable {
     /** 提成员工名称 */
     private Integer employeeCode;
     
+    /** 项目业绩*/
+    private BigDecimal projectCommissionCalculate;
+    /** 商品业绩*/
+    private BigDecimal goodsCommissionCalculate;
+    /** 疗程业绩*/
+    private BigDecimal comboCommissionCalculate;
+    /** 开卡业绩*/
+    private BigDecimal cardCommissionCalculate;
+    /** 是否指定*/
+    private Integer isAssign;
+    /** 服务名称，包括项目名称商品名称疗程名称*/
+    private String serverName;
+    /** 服务对象等级，散客会员卡*/
+    private String levelName;
 
     
-    
+    public Integer getIsAssign() {
+        return isAssign;
+    }
+
+    public void setIsAssign(Integer isAssign) {
+        this.isAssign = isAssign;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
+    }
+
+    public BigDecimal getProjectCommissionCalculate() {
+        return projectCommissionCalculate;
+    }
+
+    public void setProjectCommissionCalculate(
+            BigDecimal projectCommissionCalculate) {
+        this.projectCommissionCalculate = projectCommissionCalculate;
+    }
+
+    public BigDecimal getGoodsCommissionCalculate() {
+        return goodsCommissionCalculate;
+    }
+
+    public void setGoodsCommissionCalculate(BigDecimal goodsCommissionCalculate) {
+        this.goodsCommissionCalculate = goodsCommissionCalculate;
+    }
+
+    public BigDecimal getComboCommissionCalculate() {
+        return comboCommissionCalculate;
+    }
+
+    public void setComboCommissionCalculate(BigDecimal comboCommissionCalculate) {
+        this.comboCommissionCalculate = comboCommissionCalculate;
+    }
+
+    public BigDecimal getCardCommissionCalculate() {
+        return cardCommissionCalculate;
+    }
+
+    public void setCardCommissionCalculate(BigDecimal cardCommissionCalculate) {
+        this.cardCommissionCalculate = cardCommissionCalculate;
+    }
+
     public String getProjectName() {
 		return projectName;
 	}

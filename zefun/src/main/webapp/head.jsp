@@ -55,4 +55,5 @@
 	<style>
     .mainwrapper{overflow-x:hidden!important}
     </style>
+    <meta http-equiv="pragma" content="no-cache">
 </head>

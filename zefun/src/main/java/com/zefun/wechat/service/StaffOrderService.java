@@ -126,6 +126,9 @@ public class StaffOrderService {
     	record.setOptionEmployeeId(null);
     	//将订单状态改为正在操作
     	orderInfoMapper.updateIsOrderOption(record);
+    	// 发送pc端通知操作
+    	OrderInfo  info = orderInfoMapper.selectByPrimaryKey(orderId);
+    	rabbitService.storeBalanceVoice(info.getStoreId(), info.getHandOrderCode(), null);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
