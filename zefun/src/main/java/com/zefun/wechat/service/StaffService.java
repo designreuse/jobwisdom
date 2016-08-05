@@ -283,21 +283,29 @@ public class StaffService {
      * 员工接待页面
     * @author 王大爷
     * @date 2016年1月12日 上午9:50:00
-    * @param employeeId 员工标识
     * @return ModelAndView
      */
-    public ModelAndView receptionView(Integer employeeId) {
-    	
+    public ModelAndView receptionView() {
+    	ModelAndView mav = new ModelAndView();
+        mav.setViewName(View.StaffPage.RECEPTION);
+        return mav;
+    }
+    
+    /**
+     * 判断是否存在以操作的的订单
+    * @author 王大爷
+    * @date 2016年1月12日 上午9:50:00
+    * @param employeeId 员工标识
+    * @return BaseDto
+     */
+    public BaseDto isExistOperation (Integer employeeId) {
     	List<OrderInfo>orderInfoList =  orderInfoMapper.selectByOptionEmployeeId(employeeId);
-    	
+    	Integer orderId = null;
     	if (!orderInfoList.isEmpty() && orderInfoList.size() > 0) {
-    		return staffOrderService.allOrderView(orderInfoList.get(0).getOrderId(), employeeId);
+    		orderId = orderInfoList.get(0).getOrderId();
     	}
-    	else {
-    		ModelAndView mav = new ModelAndView();
-            mav.setViewName(View.StaffPage.RECEPTION);
-            return mav;
-    	}
+
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, orderId);
     }
     
     /**

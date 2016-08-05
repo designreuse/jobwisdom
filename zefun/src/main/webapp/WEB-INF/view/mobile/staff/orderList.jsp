@@ -8,6 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, height = device-height">
     <meta content="telephone=no" name="format-detection" />
+    <meta http-equiv="expires" content="0">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
     <title>服务订单</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/employee/shop.css">
        <style>
@@ -29,63 +32,20 @@
   <body>
      <div class="con"> 
 		   <ul class="clearfix goods">
-		      <c:choose>
+		      <%-- <c:choose>
 		          <c:when test="${orderDto.memberId != null }">
 		              <li>顾客:${orderDto.memberName }</li>
 		          </c:when>
 		          <c:otherwise>
 		              <li>顾客:散客</li>
 		          </c:otherwise>
-		      </c:choose>
+		      </c:choose> --%>
 			  <li>手牌号：${orderDto.handOrderCode }</li>
-			  <li>开单时间：${fn:substring(orderDto.createTime, 11, 16)}</li>
+			  <li>开单时间：${fn:substring(orderDto.createTime, 11, 16)} </li>
+			  <li><button style="border:none;border-radius:5px;color:#ea631a;height:2.6rem;width:7rem;background:white;text-align:center" onclick="noticeCheckout(${orderDto.orderId})">通知买单</button></li>
+			  
 		   </ul>
-		   <c:forEach items="${orderDto.orderDetails}" var="orderDetail" varStatus="status">
-                <div class="order_style">
-                   <c:choose>
-			           <c:when test="${orderDetail.projectId == null}">
-			               <p style="background:#fbcd8e;color:white;font-size:32px" onclick = "selectCategory(${orderDetail.detailId})">+<img src="<%=basePath%>images/mobile/newemployee/order_close.png" name = "deleteShow" detailId = "${orderDetail.detailId}" deleteType = "1"></p>
-			           </c:when>
-			           <c:otherwise>
-			                <p>${orderDetail.projectName}<button onclick = "selectCategory(${orderDetail.detailId})">修改</button><img src="<%=basePath%>images/mobile/newemployee/order_close.png" name = "deleteShow" detailId = "${orderDetail.detailId}" deleteType = "1"></p>	
-			           </c:otherwise>
-			        </c:choose>
-			       <table cellpadding="0" cellspacing="0">
-				     <tr>
-					   <td>岗位</td>
-					   <td>开始时间</td>
-					   <td>结束时间</td>
-					   <td>服务者</td> 
-					   <td>操作</td> 
-					 </tr>
-					 <c:forEach items="${orderDetail.stepList}" var="step" varStatus="status">
-					      <tr>
-						   <td>${fn:substring(step.positionName, 0, 3)}</td>
-					       <td>${fn:substring(step.beginTime, 0, 5)}</td>
-					       <td>${fn:substring(step.finishTime, 0, 5)}</td>
-						   <td>
-						      <c:choose>
-						          <c:when test="${step.employeeInfo != null}">
-						             <span <c:if test="${step.isOver == 2}">class="over"</c:if> <c:if test="${step.isOver == 1}">onclick="serverAssociate(${step.shiftMahjongStepId}, ${step.positionId}, 1)"</c:if>>${step.employeeInfo.name}</span>
-						          </c:when>
-						          <c:otherwise>
-						             <span class="select_people" onclick="serverAssociate(${step.shiftMahjongStepId}, ${step.positionId}, 2)">+</span>
-						          </c:otherwise>
-						       </c:choose>
-						   </td>
-						   <td>
-						      <c:if test="${step.isOver == 1}">
-			                     <em class="select_people_over" onclick="overServerEmployee(${step.shiftMahjongStepId})">结束</em>
-			                  </c:if>
-			                  <c:if test="${step.isOver == 2}">
-			                     <em>结束</em>
-			                  </c:if>
-						   </td>  
-						 </tr>
-					 </c:forEach>
-				  </table> 
-				 </div>
-           </c:forEach>
+
 	  </div>
 	  <div style="height:4rem"></div>
 	  <div class="order_ul">	
@@ -93,7 +53,7 @@
 		   <li onclick="addDetail(${orderDto.orderId})">添加服务项</li>
 		   <li>
 	      	   <span style="background:#949494" name = "deleteShow" detailId = "${orderDto.orderId}" deleteType = "2">删除</span>
-	      	   <span style="background:#ea631a" onclick = "overServer(${orderDto.orderId})">结束</span>
+	      	   <span style="background:#ea631a" onclick = "overServer(${orderDto.orderId})">操作结束</span>
 		   </li>
 		</ul>
 	  </div>	
@@ -114,7 +74,87 @@
 <script type="text/javascript" src="<%=jqueryJsPath%>"> </script>
 <script type="text/javascript" src="<%=basePath%>js/mobile/employee.js"> </script>
 <script type="text/javascript" src="<%=mobileBaseJsPath%>"> </script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"> </script>
 <script>
+
+var pageType = '${pageType}';
+
+var pageOrderId = '${orderId}';
+
+$(document).ready(function(){
+	if (pageType == '1') {
+		dialog("该订单为正常退出，请先结束您的操作！");
+	}
+	$.ajax({
+        type : "post",
+        url : baseUrl + "staff/action/selectNoPageOrderId",
+        data : "orderId="+pageOrderId,
+        dataType : "json",
+        success : function(e){
+            if(e.code != 0){
+                dialog(e.msg);
+                return;
+            }
+            var orderDetails = e.msg;
+            jQuery(".order_style").remove();
+        	for (var i = 0; i < orderDetails.length; i++) {
+        		var orderDetail = orderDetails[i];
+        		var str = '<div class="order_style">';
+        		
+        		if (isEmpty(orderDetail.projectId)) {
+        			str += '<p style="background:#fbcd8e;color:white;font-size:32px" onclick = "selectCategory('+orderDetail.detailId+')">+<img src="'+baseUrl+'images/mobile/newemployee/order_close.png" name = "deleteShow" detailId = "'+orderDetail.detailId+'" deleteType = "1"></p>';
+        		}
+        		else {
+        			str += '<p>'+orderDetail.projectName+'<button onclick = "selectCategory('+orderDetail.detailId+')">修改</button><img src="'+baseUrl+'images/mobile/newemployee/order_close.png" name = "deleteShow" detailId = "'+orderDetail.detailId+'" deleteType = "1"></p>';
+        		}
+        		str += '<table cellpadding="0" cellspacing="0">'+
+        				 '<tr>'+
+        				   '<td>岗位</td>'+
+        				   '<td>开始时间</td>'+
+        				   '<td>结束时间</td>'+
+        				   '<td>服务者</td>'+
+        				   '<td>操作</td>'+ 
+        				 '</tr>';
+        		var stepList = orderDetail.stepList;	 
+                for (var j = 0; j < stepList.length; j++) {
+                	var step = stepList[j];
+                	str += '<tr>'+
+        					   '<td>'+step.positionName.substring(0, 3)+'</td>'+
+        				       '<td>'+step.beginTime.substring(0, 5)+'</td>'+
+        				       '<td>'+step.finishTime.substring(0, 5)+'</td>'+
+        					   '<td>';
+        		    if (step.employeeInfo != null) {
+        		    	str += '<span ';
+        		    	if (step.isOver == 2) {
+        		    		str += 'class="over">';
+        		    	}
+        		    	else if (step.isOver == 1) {
+        		    		str += 'onclick="serverAssociate('+step.shiftMahjongStepId+', '+step.positionId+', 1)">';
+        		    	}
+        		    	str += step.employeeInfo.name + '</span>';
+        		    }
+        		    else {
+        		    	str += '<span class="select_people" onclick="serverAssociate('+step.shiftMahjongStepId+', '+step.positionId+', 2)">+</span>';
+        		    }
+        		    str += '</td>'+
+        				   '<td>';
+        		    if (step.isOver == 1) {
+        		    	str += '<em class="select_people_over" onclick="overServerEmployee('+step.shiftMahjongStepId+')">结束</em>';
+        		    }
+        		    else if (step.isOver == 2) {
+        		    	str += '<em>结束</em>';
+        		    }
+        		    str += '</td>'+
+        				 '</tr>';
+                }
+                str += '</table>'+
+           	 		'</div>';
+           	 	jQuery(".con").append(str);
+        	}
+        }
+    });
+});
+
 function selectCategory (detailId) {
 	window.location.href = baseUrl+"staff/view/selectCategory?detailId="+detailId;
 }
@@ -130,7 +170,7 @@ function overServer (orderId) {
                 dialog(e.msg);
                 return;
             }
-            window.location.href = baseUrl+"staff/view/reception";
+            window.history.go(-1);
         }
     });
 }
@@ -195,10 +235,6 @@ jQuery("[name='deleteShow']").click(function(event){
 	return false;
 });
 
-function deleteShow (oId, type) {
-	
-}
-
 function deleteDetailId (detailId) {
 	jQuery.ajax({
 		type : "post",  
@@ -215,7 +251,7 @@ function deleteDetailId (detailId) {
 				location.reload();
 			}
 			else {
-				window.location.href = baseUrl+"staff/view/reception";
+				window.history.go(-1);
 			}
 		}
 	});
@@ -236,6 +272,22 @@ function deleteOrderInfo (orderId) {
 			window.location.href = baseUrl+"staff/view/reception";
 		}
 	});
+}
+
+function noticeCheckout (orderId) {
+	$.ajax({
+        type : "post",
+        url : baseUrl + "staff/action/noticeCheckout",
+        data : "orderId="+orderId,
+        dataType : "json",
+        success : function(e){
+            if(e.code != 0){
+                dialog(e.msg);
+                return;
+            }
+            window.location.href = baseUrl+"staff/view/reception";
+        }
+    });
 }
 </script>
 </html>

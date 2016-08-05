@@ -90,8 +90,26 @@ public class StaffController extends BaseController {
         if (openId == null) {
             return null;
         }
+        return staffService.receptionView();
+    }
+    
+    /**
+     * 判断是否存在以操作的的订单
+    * @author 老王
+    * @date 2016年8月5日 下午2:46:41 
+    * @param request        请求对象
+    * @param response       返回对象
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Staff.ACTION_IS_EXIST_OPERATION, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto isExistOperation (HttpServletRequest request, HttpServletResponse response) {
+    	String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
         int employeeId = getUserIdByOpenId(openId);
-        return staffService.receptionView(employeeId);
+        return staffService.isExistOperation(employeeId);
     }
     
     /**
