@@ -198,6 +198,21 @@ function alertZzc() {
 	  jQuery("div[name='openOrderZzc']").show();
 }
 
+function selectNoPageOrder () {
+	var selectHandCode = jQuery("input[name='selectHandCode']").val();
+	
+	if (isEmpty(selectHandCode)) {
+		jQuery("p[name='handOrderCodeP']").parent().show();
+	}
+	else {
+		jQuery("p[name='handOrderCodeP']").parent().hide();
+		if (!isEmpty(jQuery("p[handOrderCodeP='"+selectHandCode+"']").attr("name"))) {
+			jQuery("p[handOrderCodeP='"+selectHandCode+"']").parent().show();
+		}
+	}
+
+}
+
 function chooseAppoint (memberName, sex, phone, appointmentId, memberId, employeeCode, employeeName, categoryName) {
 	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("memberId", memberId);
 	 jQuery("div[name='memberNoPage']").find("td[name='memberName']").attr("appointmentId", appointmentId);
