@@ -43,7 +43,7 @@
 									<td>操作</td>
 								</tr>
 								<c:forEach items="${page.results }" var="accountGood">
-									<tr goodsStock="${accountGood.goodsStock }" goodsDesc="${accountGood.goodsDesc }" goodsId="${accountGood.aId }" isSellProduct="${accountGood.isSellProduct }"  supplierId="${accountGood.supplierId }" brandId="${accountGood.brandId }">
+									<tr unit="${accountGood.unit }" goodsStock="${accountGood.goodsStock }" goodsDesc="${accountGood.goodsDesc }" goodsId="${accountGood.aId }" isSellProduct="${accountGood.isSellProduct }"  supplierId="${accountGood.supplierId }" brandId="${accountGood.brandId }">
 										<td>${accountGood.goodsCodeSuffix }</td>
 										<td>${accountGood.goodsName }</td>
 										<c:if test="${accountGood.isSellProduct == 1 }"><td>是</td></c:if>
@@ -72,7 +72,7 @@
 	    <div class="zzc_shop_data_content">
 	      <p><span><em>商品编号</em><input type="text" maxlength="5" name="goodsCodeSuffix"></span><span><em>商品名称</em><input name="goodsName"  type="text"></span></p>
 	      <p>是否非卖品 <input type="radio" name="isSellProduct" checked="checked" value="1">是<input type="radio" value="0" name="isSellProduct" >否</p>
-		  <p><span><em>成本价</em><input name="costPrice" type="text"><i>元</i></span></p>
+		  <p><span><em>成本价</em><input name="costPrice" type="text"><i>元</i></span><span><em>单位</em><input name="unit" type="text"></span></p>
 		  <p><span><em>供应商</em><select name="supplierId" onchange="selectBrand(this.value)">
 								<c:forEach items="${supplierInfoDtos }" var="supplierInfo"><option value="${supplierInfo.supplierId }">${supplierInfo.supplierName }</option></c:forEach>
 							</select></span>
@@ -156,8 +156,8 @@
 		brandName = jQuery("select[name='brandId'] option:selected").text();
 		var costPrice = jQuery("input[name='costPrice']").val();
 		var goodsDesc = jQuery("textarea[name='goodsDesc']").val();
-		var isSellProduct = jQuery('input:radio[name="isSellProduct"]:checked')
-				.val();
+		var isSellProduct = jQuery('input:radio[name="isSellProduct"]:checked').val();
+		var unit = jQuery("input[name='unit']").val();
 		data = {
 			"storeAccount" : storeAccount,
 			"goodsId" : goodsId,
@@ -167,7 +167,8 @@
 			"costPrice" : costPrice,
 			"goodsCodeSuffix" : goodsCodeSuffix,
 			"isSellProduct" : isSellProduct,
-			"goodsDesc" : goodsDesc
+			"goodsDesc" : goodsDesc,
+			"unit" : unit
 		};
 		return data;
 	}
@@ -225,15 +226,17 @@
 		var goodsDesc = jQuery(opt).parents("tr").attr("goodsDesc");
 		var supplierId = jQuery(opt).parents("tr").attr("supplierId");
 		var brandId = jQuery(opt).parents("tr").attr("brandId");
-		var goodsCodeSuffix = jQuery(opt).parents("tr").children("td").eq(0)
-				.text();
+		var unit = jQuery(opt).parents("tr").attr("unit");
+		var goodsCodeSuffix = jQuery(opt).parents("tr").children("td").eq(0).text();
 		var goodsName = jQuery(opt).parents("tr").children("td").eq(1).text();
 		var costPrice = jQuery(opt).parents("tr").children("td").eq(3).text();
+		
 		goodsStock = jQuery(opt).parents("tr").attr("goodsStock");
 
 		jQuery("input[name='goodsName']").val(goodsName);
 		jQuery("input[name='goodsCodeSuffix']").val(goodsCodeSuffix);
 		jQuery("select[name='supplierId']").val(supplierId);
+		jQuery("input[name='unit']").val(unit);
 		selectBrand(supplierId);
 		jQuery("select[name='brandId']").val(brandId);
 		jQuery("input[name='costPrice']").val(costPrice);
@@ -298,10 +301,11 @@
 			var supplierName = e.msg.results[i].supplierName;
 			var brandId = e.msg.results[i].brandId;
 			var brandName = e.msg.results[i].brandName;
+			var unit = e.msg.results[i].unit;
 			if (goodsStock == null) {
 				goodsStock = "";
 			}
-			var html = '<tr goodsstock="'+goodsStock+'" goodsdesc="'+goodsDesc+'" goodsid="'+goodsId+'" issellproduct="'+isSellProduct+'" supplierid="'+supplierId+'" brandid="'+brandId+'">'
+			var html = '<tr unit="'+unit+'" goodsstock="'+goodsStock+'" goodsdesc="'+goodsDesc+'" goodsid="'+goodsId+'" issellproduct="'+isSellProduct+'" supplierid="'+supplierId+'" brandid="'+brandId+'">'
 					+ '<td>'
 					+ goodsCodeSuffix
 					+ '</td>'

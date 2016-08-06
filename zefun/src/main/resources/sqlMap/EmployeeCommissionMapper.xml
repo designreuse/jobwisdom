@@ -767,25 +767,25 @@
   
   <select id="selectEaringReport" parameterType="java.util.Map" resultMap="CommissionDtoBaseResultMap">
   	SELECT el.employee_id, el.name as employee_name, el.store_id, 
-		CASE (SELECT SUM(ec.commission_calculate) FROM employee_commission ec WHERE DATE_FORMAT(ec.charge_time, '%m') = #{chargeTime} AND ec.employee_id = el.employee_id AND ec.is_deleted = 0) IS NULL
+		CASE (SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE DATE_FORMAT(ec.charge_time, '%m') = #{chargeTime} AND ec.employee_id = el.employee_id AND ec.is_deleted = 0) IS NULL
 			WHEN 1 THEN 0 
-			ELSE (SELECT SUM(ec.commission_calculate) FROM employee_commission ec WHERE DATE_FORMAT(ec.charge_time, '%m') = #{chargeTime} AND ec.employee_id = el.employee_id AND ec.is_deleted = 0) END AS 'commission_calculate'
+			ELSE (SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE DATE_FORMAT(ec.charge_time, '%m') = #{chargeTime} AND ec.employee_id = el.employee_id AND ec.is_deleted = 0) END AS 'commission_calculate'
 	FROM employee_info el
 	WHERE el.store_id = #{storeId}
   </select>
   
   <select id="selectEaringGather" parameterType="java.util.Map" resultType="com.zefun.web.dto.EmployeeCommissionDto">
   	SELECT ei.employee_id as employeeId, ei.name as employeeName,
-		(SELECT SUM(ec.commission_calculate) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 1 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS projectCommissionCalculate,
-		(SELECT SUM(ec.commission_calculate) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 2 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS goodsCommissionCalculate,
-		(SELECT SUM(ec.commission_calculate) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 3 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS comboCommissionCalculate,
-		(SELECT SUM(ec.commission_calculate) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 4 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS cardCommissionCalculate
+		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 1 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS projectCommissionCalculate,
+		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 2 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS goodsCommissionCalculate,
+		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 3 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS comboCommissionCalculate,
+		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 4 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS cardCommissionCalculate
 	FROM employee_info ei WHERE ei.store_id = #{storeId}
   </select>
   
-  <select id="selectEaringDetail" parameterType="java.util.Map" resultType="com.zefun.web.dto.EmployeeCommissionDto">
-	SELECT ec.commission_calculate as commissionCalculate, ec.charge_time as chargeTime, od.is_assign as isAssign, 
-	ec.order_type as orderType, oi.order_code as orderCode,
+  <select id="selectEaringDetail" parameterType="com.zefun.web.entity.Page" resultType="com.zefun.web.dto.EmployeeCommissionDto">
+	SELECT ec.${params.columName} as commissionCalculate, ec.charge_time as chargeTime, od.is_assign as isAssign, 
+	ec.order_type as orderType, oi.order_code as orderCode, eio.name as employeeName, 
 	CASE 
 		WHEN oi.member_id IS NULL THEN '散客'
 		ELSE (SELECT ml.level_name FROM member_info mi LEFT JOIN member_level ml ON ml.level_id = mi.level_id WHERE mi.member_id = oi.member_id) END AS levelName,
@@ -796,9 +796,11 @@
 		ELSE '开卡充值类' END AS serverName
 	from employee_commission ec 
 	LEFT JOIN order_detail od ON od.detail_id = ec.detail_id
+	LEFT JOIN employee_info eio ON ec.employee_id = eio.employee_id
 	LEFT JOIN order_info oi ON od.order_id = oi.order_id
-	WHERE ec.employee_id = #{employeeId} 
-	<if test="isAssign != null"> and od.is_assign = #{isAssign}</if>
-	<if test="orderType != null"> and ec.order_type = #{orderType}</if>
+	WHERE 1=1 and od.store_id = #{params.storeId} and DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{params.detailStart} AND #{params.detailStop}
+	<if test="params.employeeId != null"> and ec.employee_id = #{params.employeeId} </if>
+	<if test="params.isAssign != null"> and od.is_assign = #{params.isAssign}</if>
+	<if test="params.orderType != null"> and ec.order_type = #{params.orderType}</if>
   </select>
 </mapper>
