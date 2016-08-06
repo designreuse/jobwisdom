@@ -641,5 +641,32 @@ public class EmployeeController extends BaseController{
         
     }
     
+    /**
+     * 员工业绩报表
+    * @author 小高
+    * @date 2016年8月3日 上午10:16:42
+    * @param request request
+    * @return ModelAndView
+     */
+    @RequestMapping(value = Url.Employee.EARNINGR_EPORT, method = RequestMethod.GET)
+    public ModelAndView earingReport(HttpServletRequest request){
+        String storeAccount = getStoreAccount(request);
+        Object storeId = request.getSession().getAttribute(App.Session.STORE_ID);
+        return employeeService.earingReport(storeAccount, storeId);
+    }
     
+    /**
+     * 员工业绩报表
+    * @author 小高
+    * @date 2016年8月3日 上午10:16:42
+    * @param request request
+    * @param query   query
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Employee.EARNINGR_EPORT, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto earingReport(HttpServletRequest request, @RequestBody JSONObject query){
+        String storeAccount = getStoreAccount(request);
+        return employeeService.earingReport(storeAccount, query);
+    }
 }

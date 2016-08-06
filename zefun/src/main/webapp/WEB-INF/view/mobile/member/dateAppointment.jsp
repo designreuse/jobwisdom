@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, height = device-height">
     <meta content="telephone=no" name="format-detection" />
+    <meta http-equiv="pragma" content="no-cache">
     <title>预约时间</title>
     <link rel="stylesheet" href="<%=swiperCssPath%>"/>
     <link rel="stylesheet" href="<%=iconfontCssPath%>"/>
@@ -188,6 +189,21 @@
     	})
  	  
       })
+      //刷新缓存
+      window.onload = function(){  
+        var url = window.location.href;  
+        var ps = url.split("#");  
+        try{  
+            if(ps[1] != 1){  
+                url += "#1";  
+            }else{  
+                window.location = ps[0];  
+            }  
+        }catch(ex){  
+            url += "#1";  
+        }  
+        window.location.replace(url);  
+    };  
     </script> 
 </body>
 </html>

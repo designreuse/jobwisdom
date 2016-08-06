@@ -502,6 +502,8 @@ public interface View {
 	class Employeelevel {
 		/** 职位信息页面 */
 		public static final String EMPLOYEELEVEL = "employee/employeelevel/employeelevel";
+		/** 业绩报表*/
+        public static final String EARING_REPORT = "employee/report/earing";
 	}
 
 	/**

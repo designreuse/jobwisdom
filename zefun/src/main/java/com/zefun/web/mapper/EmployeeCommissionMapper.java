@@ -374,8 +374,7 @@ public interface EmployeeCommissionMapper {
     * @param time  时间
     * @return  员工评分组
      */
-    List<Map<String, Object>> selectEvaluateGroupByRate(
-    		  @Param(value = "employeeId")int employeeId, @Param(value = "time")String time);
+    List<Map<String, Object>> selectEvaluateGroupByRate(@Param(value = "employeeId")int employeeId, @Param(value = "time")String time);
     
     /**
      * 查询某员工某时间段(某年/某月/某日)提成汇总
@@ -386,5 +385,32 @@ public interface EmployeeCommissionMapper {
     * @return  提成汇总
      */
     Double selectEmployeeCommissionByTimePeriod(@Param(value = "employeeId")int employeeId, @Param(value = "time")String time);
+
+    /**
+     * 查询业绩图标
+    * @author 高国藩
+    * @date 2016年8月4日 下午4:42:15
+    * @param map  map
+    * @return     List<EmployeeCommissionDto>
+     */
+    List<EmployeeCommissionDto> selectEaringReport(Map<String, Object> map);
+
+    /**
+     * 查询业绩汇总
+    * @author 高国藩
+    * @date 2016年8月4日 下午8:30:37
+    * @param map  map
+    * @return List<EmployeeCommissionDto>
+     */
+    List<EmployeeCommissionDto> selectEaringGather(Map<String, Object> map);
+
+    /**
+     * 查询员工业绩明细
+    * @author 高国藩
+    * @date 2016年8月5日 上午10:33:55
+    * @param map map
+    * @return    List<EmployeeCommissionDto>
+     */
+    List<EmployeeCommissionDto> selectEaringDetail(Map<String, Object> map);
     
 }

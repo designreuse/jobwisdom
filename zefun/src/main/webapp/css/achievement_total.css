@@ -1,0 +1,51 @@
+.content_right{padding:15px 20px;color:black}
+.content_right>ul{height:38px;position:relative;top:1px}
+.content_right>ul li{cursor:pointer;width:166px;height:38px;font-size:14px;border:1px solid #1d4e97;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
+.content_right>ul li:nth-child(1){border-right:none}
+
+.content_right>ul>.active{color:black;border-bottom:1px solid #b8c7ea;background:#b8c7ea}
+.wages_content{width:1037px;overflow:hidden;height:780px;border:1px solid #1d4e97;border-radius:0 12px 12px 12px;}
+.wages_content_datail{background:#b8c7ea;padding:10px 0 10px 10px}
+
+.wages_content_datail_top input{width:80px;height:16px;border-radius:12px;border:1px solid #718aaf}
+.wages_content_datail_top select{margin:0 10px;padding:0 40px 0 70px;width:90px;height:24px;border-radius:12px;border:1px solid #718aaf}
+.wages_content_datail_top button{width:80px;height:24px;border-radius:12px;border:1px solid #8298bd;border:none;text-align:center;line-height:24px;background:#7b809b;color:white}
+.wages_content_datail_top button:hover{background:#70758e}
+.wages_content_datail_table{position:relative;height:734px}
+.wages_content_datail_table table{width:100%}
+.wages_content_datail_table_{margin-top:44px;position:relative;height:649px;overflow-x:hidden;overflow-y:overlay}
+.wages_content_datail_table table td{width:170px;border-right:1px solid #74aad7;border-bottom:1px solid #74aad7;text-align:center;height:42px;vertical-align:middle}
+.content_right>ul li:nth-child(2){border-right:none}
+.wages_content_datail_table table tr:nth-child(odd){background:#ffffff}
+.wages_content_datail_table table tr:nth-child(even){background:#f6f8fc}
+.wages_content_datail_table table tr:nth-child(1){font-weight:normal!important}
+
+.wages_content_datail_table table td:last-child{border-right:none}
+.zzc{font-size: 12px;color: black;position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
+.zzc_wages{width:500px;height:320px;border-radius:12px;overflow:hidden;background:white;margin:10% auto}
+.zzc_wages>p{height:60px;text-align:center;line-height:60px;font-size:14px;color:white;background:#464859}
+.zzc_wages_content{padding:15px 25px}
+.zzc_wages_content select{width:80px;padding:0 0 0 40px ;height:22px;border-radius:12px;border:1px solid #dcdcdc}
+.zzc_wages_content i{display:inline-block;width:56px}
+.zzc_wages_content input{width:100px;padding:0 20px 0 0px ;height:22px;border-radius:12px;border:1px solid #dcdcdc}
+.zzc_wages_content span{display:inline-block;}
+.zzc_wages_content span em{position:relative;right:20px;color:#bababa}
+.total_top li:last-child{border-right:none}
+.remarks{margin-top:14px}
+.remarks_left{float:left;width:65px}
+.remarks_right{float:left;width:372px}
+.remarks_right textarea{width:372px;height:140px;border-radius:12px;border:1px solid #d2d2d2;resize:none}
+.remarks_button{text-align:center;margin-top:20px}
+.remarks_button button{width:130px;height:26px;color:white;font-size:14px;text-align:center;line-height:26px;border-radius:12px;border:none;background:#7b809b;margin:0 30px}
+.remarks_button button:hover{background:#6f748e}
+.total_bottom{border-radius:0 0 12px 12px;background:#b8c7ea;position:absolute;bottom:42px;left:0}
+.total_bottom li{color:#ee1a1a;float:left;width:172px;height:42px;text-align:center;line-height:42px;border-right: 1px solid #74aad7;border-top: 1px solid #74aad7;border-bottom: 1px solid #74aad7;}
+.total_top{background:#ebeff8;position:absolute;top:-44px;left:0}
+.total_top li{float:left;width:172px;height:42px;text-align:center;line-height:42px;border-right: 1px solid #74aad7;border-top: 1px solid #74aad7;border-bottom: 1px solid #74aad7;}
+.total_bottom li:last-child {
+    border-right: none;
+}
+.third table td{width:100px}
+.third  li{width:114px}
+.third select{width:80px;padding:0 0 0 20px;margin:0 2px}
+.third button{margin-left:10px}

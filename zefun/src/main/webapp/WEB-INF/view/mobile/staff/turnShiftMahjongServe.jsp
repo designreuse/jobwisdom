@@ -166,8 +166,7 @@
 	                dialog(e.msg);
 	                return;
 	            }
-	            var orderId = e.msg;
-	            window.location.href = baseUrl+"staff/view/order/all?orderId="+orderId;
+	            window.history.go(-1);
 	        }
 	    });
    }

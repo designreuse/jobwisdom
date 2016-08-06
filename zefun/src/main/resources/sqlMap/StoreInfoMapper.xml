@@ -397,11 +397,27 @@
   </select>
   
   
-    <select id="selectByfavourable" resultMap="favourable" parameterType="com.zefun.web.entity.Page">
+  <select id="selectByfavourable" resultMap="favourable" parameterType="com.zefun.web.entity.Page">
     select
       <include refid="Base_Column_List" />
     from store_info 
     where store_account = #{params.storeAccount}  and store_status=1 
+  </select>
+  
+  <resultMap type="com.zefun.web.dto.StoreInfoDto" id="storeInfoDto">
+  	   <id column="store_id" property="storeId" jdbcType="INTEGER" />
+	   <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+       <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+       <association property="employeeInfos" column="{storeId=store_id}" select="selectStoreEmployee"></association>
+  </resultMap>
+  <select id="selectStoreEmployee" parameterType="java.util.Map" resultType="com.zefun.web.entity.EmployeeInfo">
+  	select employee_id employeeId, name from employee_info where store_id = #{storeId}
+  </select>
+  <select id="selectEmployeeByAccount" resultMap="storeInfoDto" parameterType="java.lang.String">
+  	select
+      <include refid="Base_Column_List" />
+    from store_info 
+    where store_account =  #{storeAccount,jdbcType=VARCHAR}  and store_status=1
   </select>
   
 </mapper>

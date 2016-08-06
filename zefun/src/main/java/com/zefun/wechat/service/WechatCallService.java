@@ -388,6 +388,87 @@ public class WechatCallService {
 
         return null;
     }
+    
+    /**
+     * MICROPAY 刷卡支付
+    * @author 高国藩
+    * @date 2016年5月10日 下午3:58:03
+    * @param goodsName goodsName
+    * @param totalFee  goodsName
+    * @param outTradeNo outTradeNo
+    * @param request goodsName
+    * @param authCode  授权码
+    * @return goodsName
+     * @throws Exception Exception
+     */
+    public String payByMicro(String goodsName, Integer totalFee, String authCode, String outTradeNo, HttpServletRequest request) throws Exception {
+        String appId = App.Wechat.PAY_APP_KEY_ZEFUN;
+        String mchId = App.Wechat.MCH_ID_ZEFUN;
+        String mchKey = App.Wechat.MCH_PAY_KEY_ZEFUN;
+        String spbillCreateIp = SignUtil.localIp(); //StringUtil.getIpAddr(request);
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        SortedMap<Object, Object> parameters = new TreeMap<Object, Object>();
+        parameters.put("appid", appId);
+        parameters.put("mch_id", mchId);
+        parameters.put("auth_code", authCode);
+        parameters.put("nonce_str", uuid);
+        parameters.put("body", goodsName);
+        parameters.put("out_trade_no", outTradeNo);
+        parameters.put("total_fee", String.valueOf(totalFee));
+        parameters.put("spbill_create_ip", spbillCreateIp);
+        String mySign = SignUtil.createSign("UTF-8", parameters, mchKey);
+        parameters.put("sign", mySign);
+        return wxPayMicroPayPost(parameters);
+    }
+    
+    /**
+     * MICROPAY 刷卡支付api结果
+    * @author 高国藩
+    * @date 2016年8月5日 下午3:30:34
+    * @param parameters  parameters
+    * @return  String
+    * @throws Exception Exception
+     */
+    private String wxPayMicroPayPost(SortedMap<Object, Object> parameters) throws Exception {
+        StringBuffer xml = new StringBuffer();
+        xml.append("<xml>").append("<appid>").append(parameters.get("appid")).append("</appid>")
+        .append("<body><![CDATA[").append(parameters.get("body")).append("]]></body>")
+        .append("<auth_code><![CDATA[").append(parameters.get("auth_code")).append("]]></auth_code>")
+        .append("<mch_id>").append(parameters.get("mch_id")).append("</mch_id>")
+        .append("<nonce_str>").append(parameters.get("nonce_str")).append("</nonce_str>")
+        .append("<out_trade_no>").append(parameters.get("out_trade_no")).append("</out_trade_no>").append("<spbill_create_ip>")
+        .append(parameters.get("spbill_create_ip")).append("</spbill_create_ip>")
+        .append("<total_fee>").append(parameters.get("total_fee")).append("</total_fee>")
+        .append("<sign><![CDATA[").append(parameters.get("sign")) .append("]]></sign>")
+        .append("</xml>");
+        StringBuffer resultXml = new StringBuffer();
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        try {
+            HttpPost httpPost = new HttpPost(Url.AppPay.WECHAT_MICROPAY_API);
+            StringEntity myEntity = new StringEntity(xml.toString(), "utf-8");
+            httpPost.addHeader("Content-Type", "text/xml");
+            httpPost.setEntity(myEntity);
+            CloseableHttpResponse response = httpclient.execute(httpPost);
+            try {
+                HttpEntity resEntity = response.getEntity();
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                    InputStream is = resEntity.getContent();
+                    BufferedReader in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                    String line = "";
+                    while ((line = in.readLine()) != null) {
+                        resultXml.append(line);
+                    }
+                }
+            } 
+            finally {
+                response.close();
+            }
+        } 
+        finally {
+            httpclient.close();
+        }
+        return resultXml.toString();
+    }
 
     /**
      *微信统一下单api，获取预付单信息
