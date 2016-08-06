@@ -300,7 +300,7 @@ public class RabbitService {
     }
     
     /**
-     * 对门店进行声音的推送
+     * 对门店进行声音的推送(预约)
     * @author 高国藩
     * @date 2016年7月22日 上午10:27:29
     * @param storeId        storeId
@@ -329,6 +329,37 @@ public class RabbitService {
                         chat.setToUser(userId);
                         rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
                     }
+                }
+            }
+        }
+    }
+    
+    /**
+     * 对门店进行声音的推送(结账)
+    * @author 高国藩
+    * @date 2016年7月22日 上午10:27:29
+    * @param storeId        storeId
+    * @param memberCode     memberCode
+    * @param request        request
+     */
+    public void storeBalanceVoice(Integer storeId, String memberCode, HttpServletRequest request){
+      //检查门店是否需要预约语音提示
+        StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
+        if (storeSetting.getSpeechType() == 1) {
+            /**给聊天室门店下在线用户发送通知*/
+            Set<String> set = redisService.smembers(App.Redis.STORE_TO_CHAT_USER_SET_PRE + storeId);
+            if (set != null && set.size() > 0) {
+                ChatNoticeDto chat = new ChatNoticeDto();
+                chat.setFid(2);
+                chat.setFromUser("0");
+                ChatDataDto data = new ChatDataDto();
+                data.setType(4);
+                data.setMsg(memberCode + "号，需要结账，请前往系统中五指开单页面进行操作");
+                data.setCreateTime(DateUtil.getCurTime());
+                chat.setData(data);
+                for (String userId : set) {
+                    chat.setToUser(userId);
+                    rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
                 }
             }
         }

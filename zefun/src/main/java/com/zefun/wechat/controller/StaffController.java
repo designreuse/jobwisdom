@@ -90,8 +90,26 @@ public class StaffController extends BaseController {
         if (openId == null) {
             return null;
         }
+        return staffService.receptionView();
+    }
+    
+    /**
+     * 判断是否存在以操作的的订单
+    * @author 老王
+    * @date 2016年8月5日 下午2:46:41 
+    * @param request        请求对象
+    * @param response       返回对象
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Staff.ACTION_IS_EXIST_OPERATION, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto isExistOperation (HttpServletRequest request, HttpServletResponse response) {
+    	String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
         int employeeId = getUserIdByOpenId(openId);
-        return staffService.receptionView(employeeId);
+        return staffService.isExistOperation(employeeId);
     }
     
     /**
@@ -347,53 +365,6 @@ public class StaffController extends BaseController {
         mav.setViewName(View.StaffPage.MEMBER_SHIFTMAHJONG_SERVE);
         return mav;
     }
-    
-    /**
-     * 开单
-    * @author 王大爷
-    * @date 2015年9月19日 下午2:00:39
-    * @param request 返回
-    * @param response 请求
-    * @param objString 订单明细obj
-    * @param employeeObj 指定人员
-    * @param nextProjectObj 项目下一步服务步骤
-    * @param memberId 会员标识
-    * @param sex    消费者性别
-    * @param orderId 订单标识
-    * @return BaseDto
-     */
-    /*@RequestMapping(value = Url.Staff.ACTION_ADD_ORDER)
-    @ResponseBody
-    public BaseDto addOrder(HttpServletRequest request, HttpServletResponse response, String objString, String employeeObj, String nextProjectObj,
-             Integer memberId, String sex, Integer orderId) {
-        String openId = getOpenId(2, request, response);
-        if (openId == null) {
-            return null;
-        }
-        Integer storeId = getStoreIdByOpenId(openId);
-        Integer lastOperatorId = getUserIdByOpenId(openId);
-        return staffService.addOrder(objString, employeeObj, nextProjectObj, memberId, sex, storeId, lastOperatorId, 0, orderId);
-    }*/
-    
-    /**
-     * 附加项目（或商品、疗程）
-    * @author 王大爷
-    * @date 2015年11月5日 上午11:08:50
-    * @param request 返回
-    * @param response 请求
-    * @param orderId 订单标识
-    * @return ModelAndView
-     */
-    /*@RequestMapping(value = Url.Staff.VIEW_APPEND_DETAIL, method = RequestMethod.POST)
-    public ModelAndView appendDetail(HttpServletRequest request, HttpServletResponse response, Integer orderId){
-        String openId = getOpenId(2, request, response);
-        if (openId == null) {
-            return null;
-        }
-        Integer storeId = getStoreIdByOpenId(openId);
-        Integer lastOperatorId = getUserIdByOpenId(openId);
-        return staffService.appendDetail(orderId, storeId, lastOperatorId);
-    }*/
     
     /**
      * 查询明细是否修改

@@ -40,16 +40,36 @@ public class StaffOrderController extends BaseController{
     * @param request    请求对象
     * @param response   响应对象
     * @param orderId 订单标识
+    * @param pageType 是否存在操作订单标识
     * @return   全部订单页面
      */
     @RequestMapping(value = Url.Staff.VIEW_ALL_ORDER)
-    public ModelAndView allOrderView(HttpServletRequest request, HttpServletResponse response, Integer orderId){
+    public ModelAndView allOrderView(HttpServletRequest request, HttpServletResponse response, Integer orderId, Integer pageType){
         String openId = getOpenId(2, request, response);
         if (openId == null) {
             return null;
         }
         Integer employeeId = getUserIdByOpenId(openId);
-        return staffOrderService.allOrderView(orderId, employeeId);
+        return staffOrderService.allOrderView(orderId, employeeId, pageType);
+    }
+    
+    /**
+     * 查询看手牌对应订单
+    * @author 老王
+    * @date Oct 14, 2015 9:19:41 AM
+    * @param request    请求对象
+    * @param response   响应对象
+    * @param orderId 订单标识
+    * @return   全部订单页面
+     */
+    @RequestMapping(value = Url.Staff.ACTION_SELECT_NO_PAGE_ORDERID)
+    @ResponseBody
+    public BaseDto selectNoPageOrderId (HttpServletRequest request, HttpServletResponse response, Integer orderId) {
+    	String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
+        return staffOrderService.selectNoPageOrderId(orderId);
     }
     
     /**
@@ -92,8 +112,7 @@ public class StaffOrderController extends BaseController{
             return null;
         }
         int ownerStoreId = getStoreIdByOpenId(openId);
-        Integer employeeId = getUserIdByOpenId(openId);
-        return staffOrderService.selectOrderDetail(orderId, ownerStoreId, employeeId);
+        return staffOrderService.selectOrderDetail(orderId, ownerStoreId);
     }
     
     /**
@@ -113,6 +132,25 @@ public class StaffOrderController extends BaseController{
             return null;
         }
     	return staffOrderService.updateIsOrderOption(orderId);
+    }
+    
+    /**
+     * 通知买单
+    * @author 老王
+    * @date 2016年8月5日 上午10:45:40 
+    * @param request 返回
+    * @param response 请求
+    * @param orderId 订单标识
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Staff.ACTION_NOTICE_CHECKOUT)
+    @ResponseBody
+    public BaseDto noticeCheckout (HttpServletRequest request, HttpServletResponse response, Integer orderId) {
+    	String openId = getOpenId(2, request, response);
+        if (openId == null) {
+            return null;
+        }
+        return staffOrderService.noticeCheckout(orderId);
     }
     
     /**

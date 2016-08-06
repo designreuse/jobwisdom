@@ -52,8 +52,9 @@
 										<td>${accountGood.supplierName }</td>
 										<td>${accountGood.brandName }</td>
 										<td>
-										<span><img onclick="queryGoods(${accountGood.aId },this)" src="<%=basePath%>images/handle_1.png"></span><span class="active" style="display: inline-block; margin-left: 15px; height: 24px; width: 24px"></span>
-										<i style="display: none;">停止</i></td>
+											<span onclick="queryGoods(${accountGood.aId },this)"><img src="<%=basePath%>images/handle_1.png"></span>
+											<span class="active" style="display:inline-block;margin-left:15px;height:24px;width:24px;position:relative;top:4px"></span><i style="display: none;">停止</i>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

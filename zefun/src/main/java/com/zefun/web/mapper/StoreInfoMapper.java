@@ -224,4 +224,13 @@ public interface StoreInfoMapper {
 	* @return List
 	 */
 	List<StoreInfoDto> selectByfavourable(Page<StoreInfoDto> page);
+
+	/**
+	 * 查询该企业下的门店的员工信息
+	* @author 高国藩
+	* @date 2016年8月5日 上午11:07:37
+	* @param storeAccount storeAccount
+	* @return             List<StoreInfoDto>
+	 */
+    List<StoreInfoDto> selectEmployeeByAccount(String storeAccount);
 }

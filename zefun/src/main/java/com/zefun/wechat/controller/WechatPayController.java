@@ -1,6 +1,9 @@
 package com.zefun.wechat.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
@@ -18,6 +21,7 @@ import com.zefun.common.consts.Url;
 import com.zefun.common.swagger.SystemWebSocketHandler;
 import com.zefun.common.utils.GenerateQrCodeUtil;
 import com.zefun.common.utils.StringUtil;
+import com.zefun.common.utils.XmlUtil;
 import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.wechat.service.WechatCallService;
@@ -102,6 +106,49 @@ public class WechatPayController extends BaseController{
         wechatCallService.updateRechargeRecord(null, null, outTradeNo, 1, null);
         systemWebSocketHandler.sendMessageToUser(storeAccount, new TextMessage("充值成功".getBytes("UTF-8")));
         return "SUCCESS";
+    }
+    
+    /**
+     * 微信MICRO支付,展示页面
+    * @author 高国藩
+    * @date 2016年5月10日 下午4:52:22
+    * @param request    request
+    * @param response   response
+    * @return           展示支付二维码
+     */
+    @RequestMapping(value = Url.AppPay.REQUEST_APP_MICRO, method=RequestMethod.GET)
+    public ModelAndView payByMicro(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView view = new ModelAndView("wechat/MICRO");
+        return view;
+    }
+    
+    /**
+     * 微信MICRO支付, 扫码授权
+    * @author 高国藩
+    * @date 2016年8月5日 下午3:54:56
+    * @param request     request
+    * @param authCode    authCode
+    * @param fel         fel
+    * @return            BaseDto
+     */
+    @RequestMapping(value = Url.AppPay.REQUEST_APP_MICRO, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto payByMicro(HttpServletRequest request, String authCode, String fel){
+        try {
+            String result = wechatCallService.payByMicro(authCode, Integer.parseInt(fel), 
+                    authCode, UUID.randomUUID().toString().replace("-", ""), request);
+            Map<String, String> map = XmlUtil.getMapFromXML(result);
+            String resultCode = map.get("result_code");
+            String returnCode = map.get("return_code");
+            String openId = map.get("openid");
+            String outTradeNo = map.get("out_trade_no");
+            log.info(resultCode+returnCode+openId+outTradeNo);
+        } 
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new BaseDto(0, "支付成功");
     }
     
     /**

@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -53,8 +54,10 @@ import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.StringUtil;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.EmployeeBaseDto;
+import com.zefun.web.dto.EmployeeCommissionDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.EmployeeInfoDto;
+import com.zefun.web.dto.StoreInfoDto;
 import com.zefun.web.entity.AccountRoleInfo;
 import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeInfo;
@@ -1630,5 +1633,138 @@ public class EmployeeService {
             map.put("code", code);
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, jsonWages(map));
+    }
+
+    /**
+     * 业绩图标
+    * @author 高国藩
+    * @date 2016年8月4日 下午4:17:48
+    * @param storeAccount storeAccount
+    * @param storeId      storeId
+    * @return             ModelAndView
+     */
+    public ModelAndView earingReport(String storeAccount, Object storeId) {
+        ModelAndView view = new ModelAndView(View.Employeelevel.EARING_REPORT);
+        List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
+        if (storeId == null){
+            storeId = storeInfos.get(0).getStoreId();
+        }
+        else {
+            view.addObject("storeId", storeId);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String queryDate = sdf.format(new Date()).toString();
+        
+        Map<String, Object> result = assembleEaringReportQueryMap(Integer.parseInt(storeId.toString()), 
+                (Calendar.getInstance().get(Calendar.MONTH)+1)+"", queryDate, queryDate, null, null, null, 
+                null, null, 0);
+        
+        view.addObject("earingCommissionDtos", JSONArray.fromObject(result.get("earingCommissionDtos")));
+        view.addObject("gatherCommissionDtos", result.get("gatherCommissionDtos"));
+        
+        view.addObject("projectCommissionCalculates", result.get("projectCommissionCalculates"));
+        view.addObject("goodsCommissionCalculates", result.get("goodsCommissionCalculates"));
+        view.addObject("comboCommissionCalculates", result.get("comboCommissionCalculates"));
+        view.addObject("cardCommissionCalculates", result.get("cardCommissionCalculates"));
+        
+        List<EmployeeInfo> employeeInfos = employeeInfoMapper.selectEmployeeByStoreId(Integer.parseInt(storeId.toString()));
+        List<StoreInfoDto> storeInfoDtos = storeInfoMapper.selectEmployeeByAccount(storeAccount);
+        
+        view.addObject("employeeInfos", employeeInfos);
+        view.addObject("storeInfoDtos", JSONArray.fromObject(storeInfoDtos));
+        view.addObject("storeInfoDto", storeInfoDtos);
+        
+        return view;
+    }
+    
+    /**
+     * 动态查询业绩报表
+    * @author 高国藩
+    * @date 2016年8月5日 下午2:31:16
+    * @param storeAccount storeAccount
+    * @param query        query
+    * @return             BaseDto
+     */
+    public BaseDto earingReport(String storeAccount, JSONObject query) {
+        BaseDto baseDto = new BaseDto();
+        baseDto.setCode(0);
+        Integer storeId = Integer.parseInt(query.getString("storeId"));
+        Integer documentNum = Integer.parseInt(query.getString("documentNum"));
+        if (documentNum.equals(1)){
+            String chargeTime =  query.getString("chargeTime");
+            Map<String, Object> result = assembleEaringReportQueryMap(storeId, chargeTime, null, null, null, null, null, null, null, documentNum);
+            baseDto.setMsg(JSONArray.fromObject(result.get("earingCommissionDtos")));
+        }
+        if (documentNum.equals(2)){
+            String gatherStart =  query.getString("gatherStart");
+            String gatherStop =  query.getString("gatherStop");
+            Map<String, Object> result = assembleEaringReportQueryMap(storeId, null, gatherStart, gatherStop, null, null, null, null, null, documentNum);
+            baseDto.setMsg(result);
+        }
+        return baseDto;
+    }
+    
+    /**
+     * 业绩图标，放回查询的条件
+    * @author 高国藩
+    * @date 2016年8月4日 下午5:41:21
+    * @param storeId       门店
+    * @param earingMonth   业绩的月份
+    * @param gatherStart   业绩汇总的开始时间
+    * @param gatherStop    业绩汇总的结束时间
+    * @param detailStart   业绩明细的结束时间
+    * @param detailStop    业绩明细的结束时间
+    * @param orderType     业绩明细的类型
+    * @param employeeId    业绩明细的员工ID
+    * @param isAssign      明细是否制定
+    * @param documentNum   动态查询的类型(0:全部 1:业绩图标 2:业绩汇总 3:业绩明细)
+    * @return              Map<String, Object>
+     */
+    public Map<String, Object> assembleEaringReportQueryMap(Integer storeId, String earingMonth, String gatherStart, String gatherStop, 
+            String detailStart, String detailStop, Integer orderType, Integer employeeId, Integer isAssign, Integer documentNum){
+        //业绩图标
+        Map<String, Object> earingQueryMap = new HashMap<>();
+        earingQueryMap.put("storeId", storeId);
+        earingQueryMap.put("chargeTime", earingMonth);
+        //业绩汇总
+        Map<String, Object> gatherQueryMap = new HashMap<>();
+        gatherQueryMap.put("storeId", storeId);
+        gatherQueryMap.put("gatherStart", gatherStart);
+        gatherQueryMap.put("gatherStop", gatherStop);
+        //业绩明显
+        Map<String, Object> detailQueryMap = new HashMap<>();
+        detailQueryMap.put("storeId", storeId);
+        detailQueryMap.put("detailStart", detailStart);
+        detailQueryMap.put("detailStop", detailStop);
+        detailQueryMap.put("orderType", orderType);
+        detailQueryMap.put("isAssign", isAssign);
+        detailQueryMap.put("employeeId", employeeId);
+        
+        Map<String, Map<String, Object>> map = new HashMap<>();
+        map.put("earingQueryMap", earingQueryMap);
+        map.put("gatherQueryMap", gatherQueryMap);
+        map.put("detailQueryMap", detailQueryMap);
+        
+        Map<String, Object> result = new LinkedHashMap<>();
+        
+        List<EmployeeCommissionDto> earingCommissionDtos = employeeCommissionMapper.selectEaringReport(map.get("earingQueryMap"));
+        List<EmployeeCommissionDto> gatherCommissionDtos = employeeCommissionMapper.selectEaringGather(map.get("gatherQueryMap"));
+        
+        result.put("projectCommissionCalculates", gatherCommissionDtos.stream().filter(p -> p.getProjectCommissionCalculate() != null).collect(Collectors.toList()).stream()
+                .mapToLong(g -> Long.getLong(g.getProjectCommissionCalculate().toString())).sum());
+        result.put("goodsCommissionCalculates", gatherCommissionDtos.stream().filter(p -> p.getGoodsCommissionCalculate() != null).collect(Collectors.toList()).stream()
+                .mapToLong(g -> Long.getLong(g.getGoodsCommissionCalculate().toString())).sum());
+        result.put("comboCommissionCalculates", gatherCommissionDtos.stream().filter(p -> p.getComboCommissionCalculate() != null).collect(Collectors.toList()).stream()
+                .mapToLong(g -> Long.getLong(g.getComboCommissionCalculate().toString())).sum());
+        result.put("cardCommissionCalculates", gatherCommissionDtos.stream().filter(p -> p.getCardCommissionCalculate() != null).collect(Collectors.toList()).stream()
+                .mapToLong(g -> Long.getLong(g.getCardCommissionCalculate().toString())).sum());
+        
+        List<EmployeeCommissionDto> detailCommissionDtos = employeeCommissionMapper.selectEaringDetail(map.get("detailQueryMap"));
+        
+        result.put("earingCommissionDtos", earingCommissionDtos);
+        result.put("gatherCommissionDtos", gatherCommissionDtos);
+        result.put("detailCommissionDtos", detailCommissionDtos);
+        
+        return result;
     }
 }

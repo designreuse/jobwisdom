@@ -947,6 +947,8 @@ public interface Url {
         public static final String VIEW_POSITION_LEVEL_WAGES = "employee/account/store/wages";
         /** 员工工资单*/
         public static final String VIEW_POSITION_LEVEL_SELECTWAGES = "employee/account/store/selectwages";
+        /** 业绩报表*/
+        public static final String EARNINGR_EPORT = "employee/account/store/earning";
 
 	}
 
@@ -967,8 +969,12 @@ public interface Url {
 		public static final String ACTION_LOGOUT = "/staff/action/logout";
 		/** 查询所有订单 */
 		public static final String VIEW_ALL_ORDER = "/staff/view/order/all";
+		/**  */
+		public static final String ACTION_SELECT_NO_PAGE_ORDERID = "/staff/action/selectNoPageOrderId";
 		/** 查询员工排班 */
 		public static final String VIEW_SELECT_VIEW_SCHEDULING = "/staff/view/selectViewScheduling";
+		/** 判断是否存在以操作的的订单 */
+		public static final String ACTION_IS_EXIST_OPERATION = "/staff/action/isExistOperation";
 		/** 通知会员买单 */
 		public static final String ACTION_ORDER_NOTITY = "/staff/action/order/notify";
 		/** 查询我的预约 */
@@ -1054,6 +1060,8 @@ public interface Url {
 		public static final String VIEW_SELECT_ORDER_DETAIL = "/staff/view/selectOrderDetail/{storeId}/{businessType}";
 		/** 修改订单操作性*/
 		public static final String ACTION_UPDATE_IS_ORDER_OPTION = "staff/action/updateIsOrderOption";
+		/** 通知买单*/
+		public static final String ACTION_NOTICE_CHECKOUT = "staff/action/noticeCheckout";
 		/** 删除订单明细 */
 		public static final String ACTION_DELETE_ORDER_DETAIL = "staff/action/deleteOrderDetail";
 		/** 删除订单 */
@@ -1735,6 +1743,8 @@ public interface Url {
 	class AppPay {
 	    /** 发起NATIVE扫码支付请求 */
         public static final String REQUEST_APP_PAY = "app/pay/qr";
+        /** 发起micro支付请求 */
+        public static final String REQUEST_APP_MICRO = "app/pay/micro";
         /** NATIVE扫码支付请求回调 */
         public static final String REQUEST_APP_PAY_CALLBACK = "app/pay/qr/call/{outTradeNo}/{storeAccount}";
         /** 商城调起微信支付*/
@@ -1743,6 +1753,10 @@ public interface Url {
         public static final String GOODSINFO_PAY_CALLBACK = "app/goodsinfo/wechat/pay/callback/{transactionId}";
         /** 微信支付统一下单api*/
         public static final String WECHAT_SERVER_API = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+        /** 微信支付micropay api*/
+        public static final String WECHAT_MICROPAY_API = "https://api.mch.weixin.qq.com/pay/micropay";
+        
+        
 	}
 
 	/**
