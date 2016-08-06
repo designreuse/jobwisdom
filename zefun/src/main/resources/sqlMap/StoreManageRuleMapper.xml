@@ -20,7 +20,29 @@
     select 
     <include refid="Base_Column_List" />
     from store_manage_rule
-    where store_id = #{storeId}
+    where 
+    store_id = #{storeId}
+  </select>
+  
+     <select id="selectRuleListByAccountStoreId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_manage_rule
+    where  1=1
+      <if test="storeId != null" >
+      and store_id = #{storeId}
+      </if>
+      	<if test="storeIds != null and storeIds !=''">
+	   and  store_id in
+		 <foreach collection="storeIds" item="storeId" index="index" open="(" close=")" separator=",">
+           #{storeId}
+        </foreach>
+	</if>
+	   <if test="processType1 != null" >
+      and process_type = #{processType1}
+      </if>
+
+    
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

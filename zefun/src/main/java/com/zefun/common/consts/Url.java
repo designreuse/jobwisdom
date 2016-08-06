@@ -1652,6 +1652,8 @@ public interface Url {
 		public static final String ACTION_ADD_REWARD = "/rewards/action/add";
 		/** 删除员工奖惩 */
 		public static final String ACTION_DELETE_REWARD = "/rewards/action/delete";
+		/** 员工 */
+		public static final String ACTION_EMOLOYEE_REWARD = "rewards/view/employee";
 	}
 
 	/**

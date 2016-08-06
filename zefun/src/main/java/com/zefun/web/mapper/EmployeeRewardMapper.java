@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.zefun.web.dto.EmployeeBaseDto;
 import com.zefun.web.dto.EmployeeRewardDto;
 import com.zefun.web.entity.EmployeeReward;
 import com.zefun.web.entity.Page;
@@ -72,6 +73,14 @@ public interface EmployeeRewardMapper {
      * @return  奖惩集EmployeeRewardDto
      */
     List<EmployeeRewardDto> selectCountRewardByPage(Page<EmployeeRewardDto> page);
+    /**
+     *  几个员工
+    * @author 骆峰
+    * @date 2016年8月4日 下午5:44:16
+    * @param params params
+    * @return List
+     */
+    List<EmployeeRewardDto> selectCountRewardByGroupBy(Map<String, Object> params);
     
     /**
      * 分页查询奖惩详细
