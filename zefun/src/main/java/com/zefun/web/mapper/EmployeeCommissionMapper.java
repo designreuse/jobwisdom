@@ -10,6 +10,7 @@ import com.zefun.web.dto.EmployeeCommissionDto;
 import com.zefun.web.dto.EmployeeDto;
 import com.zefun.web.dto.EmployeeInfoDto;
 import com.zefun.web.entity.EmployeeCommission;
+import com.zefun.web.entity.Page;
 import com.zefun.wechat.dto.CommissionValueAndTypeDto;
 import com.zefun.wechat.dto.EmployeeCommissionOfBossDto;
 
@@ -408,9 +409,9 @@ public interface EmployeeCommissionMapper {
      * 查询员工业绩明细
     * @author 高国藩
     * @date 2016年8月5日 上午10:33:55
-    * @param map map
+    * @param page page
     * @return    List<EmployeeCommissionDto>
      */
-    List<EmployeeCommissionDto> selectEaringDetail(Map<String, Object> map);
+    List<EmployeeCommissionDto> selectEaringDetail(Page<EmployeeCommissionDto> page);
     
 }

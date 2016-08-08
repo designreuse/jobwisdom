@@ -43,8 +43,19 @@ public class AccountGoods {
 
     /** 品牌 */
     private String brandName;
+    
+    /** 单位*/
+    private String unit;
 
     
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     public Integer getIsDeleted() {
         return isDeleted;
     }

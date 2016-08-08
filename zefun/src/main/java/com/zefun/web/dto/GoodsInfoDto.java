@@ -135,6 +135,18 @@ public class GoodsInfoDto {
     /**企业商品ID*/
     private Integer aId;
     
+    /** 单位*/
+    private String unit;
+    
+    
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     /**
      * d
     * @author 高国藩

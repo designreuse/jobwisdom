@@ -753,7 +753,7 @@
   	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId, gf.a_id as aId, 
   	gs.count as goodsStock, ag.is_sell_product as isSellProduct, ag.cost_price as costPrice, ag.goods_code_suffix as goodsCodeSuffix, 
   	gb.brand_id as brandId, gb.brand_name as brandName, cate.category_name as categoryName, si.supplier_id as supplierId, 
-  	si.supplier_name as supplierName
+  	si.supplier_name as supplierName, ag.unit as unit
   	from goods_info gf 
   	left join dept_info df on gf.dept_id = df.dept_id
   	left join goods_category cate on cate.category_id = gf.category_id

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -646,13 +647,14 @@ public class EmployeeController extends BaseController{
     * @author 小高
     * @date 2016年8月3日 上午10:16:42
     * @param request request
+    * @param type    type
     * @return ModelAndView
      */
     @RequestMapping(value = Url.Employee.EARNINGR_EPORT, method = RequestMethod.GET)
-    public ModelAndView earingReport(HttpServletRequest request){
+    public ModelAndView earingReport(HttpServletRequest request, @PathVariable Integer type){
         String storeAccount = getStoreAccount(request);
         Object storeId = request.getSession().getAttribute(App.Session.STORE_ID);
-        return employeeService.earingReport(storeAccount, storeId);
+        return employeeService.earingReport(storeAccount, storeId, type);
     }
     
     /**
@@ -661,12 +663,13 @@ public class EmployeeController extends BaseController{
     * @date 2016年8月3日 上午10:16:42
     * @param request request
     * @param query   query
+    * @param type type
     * @return BaseDto
      */
     @RequestMapping(value = Url.Employee.EARNINGR_EPORT, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto earingReport(HttpServletRequest request, @RequestBody JSONObject query){
+    public BaseDto earingReport(HttpServletRequest request, @RequestBody JSONObject query, @PathVariable Integer type){
         String storeAccount = getStoreAccount(request);
-        return employeeService.earingReport(storeAccount, query);
+        return employeeService.earingReport(storeAccount, query, type);
     }
 }
