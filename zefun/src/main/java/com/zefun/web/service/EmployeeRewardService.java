@@ -58,7 +58,6 @@ public class EmployeeRewardService {
     
     /**
      * 添加奖惩
-
      * @param vo  添加参数详情
      * @return  添加结果
      */
@@ -69,8 +68,10 @@ public class EmployeeRewardService {
         vo.setNumber(Double.parseDouble(storeManageRule.getProcessMoney().toString()));
         vo.setType(storeManageRule.getRuleName());
         employeeRewardMapper.insertSelective(vo);
-        
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, vo);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("rewardId", vo.getRewardId());
+        List<EmployeeRewardDto> results = employeeRewardMapper.selectCountRewardByGroupBy(map);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, results.get(0));
     }
     
     
@@ -81,12 +82,20 @@ public class EmployeeRewardService {
      * @param storeId  storeId
      * @return  ModelAndView
      */
-    public ModelAndView findCountEmployeeRewardHome(EmployeeRewardVo vo, String storeAccount, Integer storeId) {
+    public ModelAndView findCountEmployeeRewardHome(EmployeeRewardVo vo, String storeAccount, Object storeId) {
         ModelAndView mav = new ModelAndView(View.EmployeeReward.HOME);
 
         List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("storeId", selectByStoreAccount.get(0).getStoreId());
+        if (storeId != null && storeId !=""){
+            params.put("storeId", storeId);
+            mav.addObject("storeId", storeId);
+        }
+        else {
+            mav.addObject("storeId", 0);
+        }
+        
         params.put("time", vo.getTime());
         
         Page<EmployeeRewardDto> page = new Page<EmployeeRewardDto>();
@@ -243,7 +252,6 @@ public class EmployeeRewardService {
         page.setParams(params);
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
-        
         //全部奖罚数据
         List<EmployeeRewardDto> list = employeeRewardMapper.selectCountRewardByPage(page);
         page.setResults(list);
@@ -305,6 +313,13 @@ public class EmployeeRewardService {
     }
 
 
+    /**
+     *  修改
+    * @author 骆峰
+    * @date 2016年8月8日 上午9:43:32
+    * @param vo vo
+    * @return BaseDto
+     */
     public BaseDto updateEmployeeReward(EmployeeReward vo) {
         vo.setModifytime(DateUtil.getCurDate());
         int ruleId = Integer.parseInt(vo.getType());
@@ -312,8 +327,10 @@ public class EmployeeRewardService {
         vo.setNumber(Double.parseDouble(storeManageRule.getProcessMoney().toString()));
         vo.setType(storeManageRule.getRuleName());
         employeeRewardMapper.updateByPrimaryKeySelective(vo);
-        
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, vo);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("rewardId", vo.getRewardId());
+        List<EmployeeRewardDto> results = employeeRewardMapper.selectCountRewardByGroupBy(map);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, results.get(0));
     }
 
     

@@ -1646,7 +1646,6 @@ public interface Url {
 	class EmployeeReward {
 		/** 员工奖惩首页 */
 		public static final String VIEW_EMPLOYEE_REWARD_HOME = "/rewards/view/home";
-	
 		/** 添加员工奖惩 */
 		public static final String ACTION_UPDATE_REWARD = "/rewards/action/update";
 		/** 添加员工奖惩 */

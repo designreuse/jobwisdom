@@ -207,6 +207,23 @@
 </body>
 <script>
 var rewardId =null ;
+var storeId = ${storeId} ;
+
+function storeSelect(){
+	if(storeId != 0 ){
+		var storeName = jQuery("#storeIdAll option[storeId='"+storeId+"'] ").val();
+		jQuery("#storeIdAll").val(storeName);
+		jQuery("#storeIdAll").attr("disabled","disabled");
+		
+		jQuery("#storeId1").val(storeName);
+		jQuery("#storeId1").attr("disabled","disabled");
+		
+		jQuery("#storeId2").val(storeName);
+		jQuery("#storeId2").attr("disabled","disabled");
+		
+	}
+}
+
 function updated(rewardIds,storeId){
 	rewardId =rewardIds;
 	showView();
@@ -224,7 +241,7 @@ function updated(rewardIds,storeId){
 	var typename = jQuery("#"+rewardIds).find("td").eq(3).text();
 	jQuery("#storeManageRule1").val(typename);
 	var reasons = jQuery("#"+rewardIds).find("td").eq(5).text();
-	jQuery("#reasons").text(reasons);
+	jQuery("#reasons").val(reasons);
 }
 
 
@@ -282,7 +299,6 @@ function save(){
 					dialog('修改成功');
 				}
 				 showOnehtml(e.msg);
-				
 			}
 		})
 	
@@ -291,7 +307,6 @@ function showOnehtml(value){
 	jQuery("#"+value.rewardId).empty();
 	var html = '';
 	html +=' <tr id="'+value.rewardId+'"><td>'+value.employeeCode+'</td>	   <td>'+value.employeeName +'</td> <td>'+value.employeeName+'</td><td>'+value.type+'</td>';
-	
 	   if(value.isReward == 1){
 			html += '<td>奖励</td>';
 	   }
@@ -448,15 +463,15 @@ var ruleL1 = ruleList1.length;
 var ruleL2 = ruleList2.length;
 
 jQuery(function(){
-	employee();
 	jQuery(".rule1").attr("colspan",ruleL1);
 	jQuery(".rule2").attr("colspan",ruleL2);
 	showHtml(jsonarray);
 	wid= (ruleL2+ruleL1+2)*100;
 	jQuery('.table_right_head').css('width',wid+'px');
 	jQuery(".fenye").hide();
+	storeSelect();
+	employee();
 });
-
 
 //展示奖罚管理
 function showHtml(jsonarray){

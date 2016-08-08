@@ -229,16 +229,16 @@
 			and ei.store_id = ${params.storeId}
 		</if>
 		<if test="params.time != null and params.time != ''">
-			and er.modifytime = ${params.time}
+			and er.modifytime = "${params.time}"
 		</if>
 		<if test="params.time1 != null and params.time1 != ''">
-			and er.modifytime   &gt; ' ${params.time1}'
+			and er.modifytime   &gt;= "${params.time1}"
 		</if>
 		<if test="params.time2 != null and params.time2 != ''">
-			and er.modifytime   &lt;  '${params.time2}'
+			and er.modifytime   &lt;  "${params.time2}"
 		</if>
 		<if test="params.ruleName != null and params.ruleName != ''">
-			and er.type  =  '${params.ruleName}' 
+			and er.type  =  "${params.ruleName}"
 		</if>
 		<if test="params.ruleType != null and params.ruleType != 0">
 			and er.is_reward   =  ${params.ruleType}
@@ -272,13 +272,14 @@
 		<if test="time != null and time != '' ">
 			and left(er.modifytime,7) = '${time}'
 		</if>
+		<if test="rewardId != null and rewardId != ''">
+		 and	reward_id =${rewardId}
+		</if>
 		<if test="group != null and group != ''">
 			GROUP BY  er.employee_id,storeName
 		</if>
-		order by  er.modifytime
-	
+		order by  er.modifytime desc 
   </select>
-  
   
   
   

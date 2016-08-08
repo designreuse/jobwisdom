@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
+import com.zefun.common.consts.App.Session;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.EmployeeReward;
 import com.zefun.web.service.EmployeeRewardService;
@@ -54,7 +55,6 @@ public class EmployeeRewardController extends BaseController {
         return employeeRewardService.updateEmployeeReward(vo);
     }
     
-	
 	/**
 	 * 员工奖惩汇总主页查询
 	 * @param request  请求
@@ -64,11 +64,9 @@ public class EmployeeRewardController extends BaseController {
 	@RequestMapping(value = Url.EmployeeReward.VIEW_EMPLOYEE_REWARD_HOME)
 	public ModelAndView searchCountEmployeeRewardHome (HttpServletRequest request, EmployeeRewardVo vo) {
 	    String storeAccount = getStoreAccount(request);
-	    Integer storeId = getStoreId(request);
+	    Object storeId = request.getSession().getAttribute(Session.STORE_ID);
 		return employeeRewardService.findCountEmployeeRewardHome(vo, storeAccount, storeId);
 	}
-	
-
 	/**
 	 *  该门店下的员工
 	* @author 骆峰
