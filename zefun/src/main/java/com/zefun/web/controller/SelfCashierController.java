@@ -23,6 +23,8 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.OrderInfoSubmitDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
+import com.zefun.web.entity.StoreSetting;
+import com.zefun.web.mapper.StoreSettingMapper;
 import com.zefun.web.service.MemberInfoService;
 import com.zefun.web.service.SelfCashierService;
 import com.zefun.wechat.service.StaffOrderService;
@@ -46,8 +48,11 @@ public class SelfCashierController extends BaseController {
 
 	/** */
 	@Autowired
-	StaffOrderService staffOrderService;
-
+	private StaffOrderService staffOrderService;
+	
+	/** */
+	@Autowired
+	private StoreSettingMapper storeSettingMapper;
 	/**
 	 * 订单信息页面
 	 * 
@@ -156,13 +161,15 @@ public class SelfCashierController extends BaseController {
 			}
 			memberType = 1;
 		}
+		StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
+		mav.addObject("updateMoneyAuthorize", storeSetting.getUpdateMoneyAuthorize());
 		mav.addObject("memberType", memberType);
 		return mav;
 	}
 
 	/**
 	 * 支付订单
-	 * @author 张进军
+	 * @author laowang
 	 * @date Nov 11, 2015 8:23:17 PM
 	 * @param orderSubmit 订单支付信息
 	 * @param request 请求对象

@@ -53,8 +53,19 @@ public class StoreSetting {
 	/** 原服务商 */
 	private String lastFacilitator;
 
+	/** 改价授权金额*/
+	private Integer updateMoneyAuthorize;
 	
 	
+	
+	public Integer getUpdateMoneyAuthorize() {
+		return updateMoneyAuthorize;
+	}
+
+	public void setUpdateMoneyAuthorize(Integer updateMoneyAuthorize) {
+		this.updateMoneyAuthorize = updateMoneyAuthorize;
+	}
+
 	public Integer getStartHandNumber() {
 		return startHandNumber;
 	}

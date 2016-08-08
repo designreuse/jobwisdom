@@ -78,6 +78,13 @@
 									</td>
 									<td>快到预约时间时发出预约提醒通知(单位:小时)</td>
 								</tr>
+								<tr>
+									<td>改价授权金额</td>
+									<td>
+										<span><input type="text" name="updateMoneyAuthorize" value="${storeSetting.updateMoneyAuthorize }">元</span>
+									</td>
+									<td>结账时，该订单改价金额超出该值，则需要授权</td>
+								</tr>
 								<!-- <tr>
 									<td>优惠卷过期提醒</td>
 									<td>
@@ -152,9 +159,10 @@
 			var smsFee = jQuery("input[name='smsFee']").val();
 			var appointRemindHour = jQuery("input[name='appointRemindHour']").val();
 			var firstFollowGift = jQuery("input[name='firstFollowGift']").val();
+			var updateMoneyAuthorize = jQuery("input[name='updateMoneyAuthorize']").val();
 			var data ={"costCommissionType" : costCommissionType, "commissionFixedType" : commissionFixedType, "couponCommissionRate" : couponCommissionRate,
 		    		"giftCommissionRate" : giftCommissionRate, "smsFee" : smsFee, "appointRemindHour" : appointRemindHour, "firstFollowGift" : firstFollowGift,
-		    		};
+		    		"updateMoneyAuthorize" : updateMoneyAuthorize};
 		    var firstFollowCoupon = "";
 		    if (jQuery("input[name='firstFollowCoupon']:checked").length > 0) {
 		    	for (var i = 0; i < jQuery("input[name='firstFollowCoupon']:checked").length; i++) {
