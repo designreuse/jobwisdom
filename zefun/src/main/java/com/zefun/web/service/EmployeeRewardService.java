@@ -1,6 +1,5 @@
 package com.zefun.web.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,17 +83,12 @@ public class EmployeeRewardService {
      */
     public ModelAndView findCountEmployeeRewardHome(EmployeeRewardVo vo, String storeAccount, Integer storeId) {
         ModelAndView mav = new ModelAndView(View.EmployeeReward.HOME);
-   
-        ArrayList<Integer> lists = new ArrayList<Integer>();
+
         List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
-        for (StoreInfo storeInfo : selectByStoreAccount) {
-            lists.add(storeInfo.getStoreId());
-        }
-        
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("storeId", null);
-        params.put("storeIds", lists);
+        params.put("storeId", selectByStoreAccount.get(0).getStoreId());
         params.put("time", vo.getTime());
+        
         Page<EmployeeRewardDto> page = new Page<EmployeeRewardDto>();
         page.setParams(params);
         page.setPageNo(1);
@@ -102,21 +96,22 @@ public class EmployeeRewardService {
         //全部员工
         List<EmployeeBaseDto> selectEmployeeListByStoreIdAll = employeeInfoMapper.selectEmployeeListByStoreIdAll(params);
         
-        //全部奖罚数据
+        //全部奖罚数据分页 
         List<EmployeeRewardDto> list = employeeRewardMapper.selectCountRewardByPage(page);
         page.setResults(list);
         
+        //全部奖罚数据 
+        List<EmployeeRewardDto> results = employeeRewardMapper.selectCountRewardByGroupBy(params);
+        params.put("group", "group");
         //全部奖罚数据  员工group 
         List<EmployeeRewardDto> resultsGroup = employeeRewardMapper.selectCountRewardByGroupBy(params);
         
     	  //处理方式(1:奖励，2:惩罚)
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("storeIds", lists);
-        List<StoreManageRule> storeManageRule = storeManageRuleMapper.selectRuleListByAccountStoreId(map);
-        map.put("processType1", 1);
-        List<StoreManageRule> ruleList1 = storeManageRuleMapper.selectRuleListByAccountStoreId(map);
-        map.put("processType1", 2);
-        List<StoreManageRule> ruleList2 = storeManageRuleMapper.selectRuleListByAccountStoreId(map);
+        List<StoreManageRule> storeManageRule = storeManageRuleMapper.selectRuleListByAccountStoreId(params);
+        params.put("processType1", 1);
+        List<StoreManageRule> ruleList1 = storeManageRuleMapper.selectRuleListByAccountStoreId(params);
+        params.put("processType1", 2);
+        List<StoreManageRule> ruleList2 = storeManageRuleMapper.selectRuleListByAccountStoreId(params);
         StoreManageRule rule = new StoreManageRule();
         if (ruleList1.size() == 0) {
             ruleList1.add(rule);
@@ -124,9 +119,7 @@ public class EmployeeRewardService {
         if (ruleList2.size() == 0) {  
             ruleList2.add(rule);
         }
-//        ruleList1.clear();
-//        ruleList2.clear();
-	    JSONArray jsonarray = classify(list, resultsGroup, ruleList1, ruleList2);
+	    JSONArray jsonarray = classify(results, resultsGroup, ruleList1, ruleList2);
     
 	    mav.addObject("page", page);
 	    mav.addObject("selectEmployeeListByStoreIdAll", selectEmployeeListByStoreIdAll);
@@ -165,7 +158,7 @@ public class EmployeeRewardService {
                 
                 List<EmployeeRewardDto> reward1 = collect.stream().filter(p1 -> p1.getIsReward().equals("1"))
                         .collect(Collectors.toList());
-                List<EmployeeRewardDto> reward2 = collect.stream().filter(p2 -> p2.getIsReward().equals("0"))
+                List<EmployeeRewardDto> reward2 = collect.stream().filter(p2 -> p2.getIsReward().equals("2"))
                         .collect(Collectors.toList());
                 double sum1 = 0.0;
                 double sum2 = 0.0;
@@ -205,317 +198,123 @@ public class EmployeeRewardService {
     * @author 骆峰
     * @date 2016年8月5日 下午6:41:44
     * @param storeId storeId
+    * @param type type
     * @return BaseDto
      */
-    public BaseDto selectEmployeeByAccount(Integer storeId) {
+    public BaseDto selectEmployeeByAccount(Integer storeId, Integer type) {
         List<EmployeeInfo> selectEmployeeList = employeeInfoMapper.selectEmployeeList(storeId);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("storeId", storeId);
+        params.put("processType1", type);
+        List<StoreManageRule> ruleList = storeManageRuleMapper.selectRuleListByAccountStoreId(params);
+        params.put("emp", selectEmployeeList);
+        params.put("rule", ruleList);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, params);
+    }
+
+
+    /**
+     *  奖罚明细分页查询
+    * @author 骆峰
+    * @date 2016年8月6日 下午1:54:32
+    * @param pageNo 页数  
+    * @param staTime 开始时间
+    * @param endTime 结束时间
+    * @param storeId 门店标识
+    * @param ruleName 奖罚名称
+    * @param ruleType 类型
+    * @param employee 员工
+    * @param pageSize 一页多少条数据
+    * @return BaseDto
+     */
+    public BaseDto selectRuleByPage(Integer pageNo, String staTime,
+            String endTime, Integer storeId, String ruleName, Integer ruleType,
+            Integer employee, Integer pageSize) {
         
-        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, selectEmployeeList);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("storeId", storeId);
+        params.put("ruleName", ruleName);
+        params.put("ruleType", ruleType);
+        params.put("employee", employee);
+        params.put("time1", staTime);
+        params.put("time2", endTime);
+
+        Page<EmployeeRewardDto> page = new Page<EmployeeRewardDto>();
+        page.setParams(params);
+        page.setPageNo(pageNo);
+        page.setPageSize(pageSize);
+        
+        //全部奖罚数据
+        List<EmployeeRewardDto> list = employeeRewardMapper.selectCountRewardByPage(page);
+        page.setResults(list);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
+    }
+
+
+    /**
+     *  奖罚管理条件查询
+    * @author 骆峰
+    * @date 2016年8月6日 下午3:19:28
+    * @param storeId storeId
+    * @param time time
+    * @return BaseDto
+     */
+    public BaseDto changeRule(Integer storeId, String time) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("storeId", storeId);
+        params.put("time", time);
+        
+        //全部奖罚数据 
+        List<EmployeeRewardDto> results = employeeRewardMapper.selectCountRewardByGroupBy(params);
+      
+        //全部奖罚数据  员工group 
+        params.put("group", "group");
+        List<EmployeeRewardDto> resultsGroup = employeeRewardMapper.selectCountRewardByGroupBy(params);
+        //处理方式(1:奖励，2:惩罚)
+        params.put("processType1", 1);
+        List<StoreManageRule> ruleList1 = storeManageRuleMapper.selectRuleListByAccountStoreId(params);
+        params.put("processType1", 2);
+        List<StoreManageRule> ruleList2 = storeManageRuleMapper.selectRuleListByAccountStoreId(params);
+
+        StoreManageRule rule = new StoreManageRule();
+        if (ruleList1.size() == 0) {
+            ruleList1.add(rule);
+        }
+        if (ruleList2.size() == 0) {  
+            ruleList2.add(rule);
+        }
+        JSONArray jsonarray = classify(results, resultsGroup, ruleList1, ruleList2);
+        
+        params.put("jsonarray", jsonarray);
+        params.put("ruleList1", ruleList1);
+        params.put("ruleList2", ruleList2);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, params);
     }
     
 
+ 
     /**
-     * 运功几个
-     * @param vo  员工奖惩vo
-     * @param storeAccount  storeAccount
-     * @param lists  lists
-     * @return Page<EmployeeRewardDto>
+     * 删除奖惩记录
+    * @author DavidLiang
+    * @date 2016年1月14日 下午8:47:24
+    * @param rewardId  奖惩id
+    * @return  是否成功
      */
-//    public Page<EmployeeRewardDto> findCountEmployeegroup(EmployeeRewardVo vo, String storeAccount,  ArrayList<Integer> lists) {
-//     
-//        //给查询的奖惩总数归类
-//        page.setResults(list);
-//        return page;
-//    }
-    
-    /**
-     * 员工奖惩记录汇总分页查询
-     * @param vo  员工奖惩vo
-     * @param storeAccount  storeAccount
-     * @param lists  lists
-     * @return Page<EmployeeRewardDto>
-     */
-//    public Page<EmployeeRewardDto> findCountEmployeeRewardByPage(EmployeeRewardVo vo, String storeAccount, ArrayList<Integer> lists) {
-//     
-//        Page<EmployeeRewardDto> page = new Page<EmployeeRewardDto>();
-//        page.setPageNo(vo.getPageNo());
-//        page.setPageSize(vo.getPageSize());
-//    
-//        //给查询的奖惩总数归类
-//        page.setResults(list); 
-//        return page;
-//    }
-//
-//    /**
-//     * 全查询员工奖惩汇总
-//    * @author DavidLiang
-//    * @date 2016年1月16日 下午8:44:44
-//    * @param vo  查询条件
-//    * @return  奖惩汇总
-//     */
-//    public BaseDto findALlListAction(EmployeeRewardVo vo) {
-//    	Map<String, Object> params = new HashMap<String, Object>();
-//    	params.put("storeId", vo.getStoreId());
-//		params.put("rewardType", vo.getRule());
-//		params.put("time", vo.getTime());
-//		params.put("employeeName", vo.getEmployeeName());
-//		List<EmployeeRewardDto> list = employeeRewardMapper.selectAllCountReward(params);
-//		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, classify(list));
-//    }
-//    
-//    /**
-//     * 分页查询员工奖惩汇总
-//     * @param page 分页
-//     * @param vo 查询条件
-//     * @return 奖惩汇总
-//     */
-//    public BaseDto findListAction(Page<EmployeeRewardDto> page, EmployeeRewardVo vo) {
-//    	Map<String, Object> params = new HashMap<String, Object>();
-//    	params.put("storeId", vo.getStoreId());
-//		params.put("rewardType", vo.getRule());
-//		params.put("time", vo.getTime());
-//		params.put("employeeName", vo.getEmployeeName());
-//		page.setParams(params);
-//		List<EmployeeRewardDto> list = employeeRewardMapper.selectCountRewardByPage(page);
-//		page.setResults(classify(list));
-//		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
-//    }
-//    
-//    /**
-//     *  员工奖惩记录汇总全查询
-//    * @author DavidLiang
-//    * @date 2016年1月17日 下午3:37:08
-//    * @param vo  员工奖惩vo
-//    * @return  员工奖惩记录
-//     */
-//    public List<EmployeeRewardDto> findAllCountEmployeeReward(EmployeeRewardVo vo) {
-//		Map<String, Object> params = new HashMap<String, Object>();
-//		params.put("storeId", vo.getStoreId());
-//		params.put("rewardType", vo.getRule());
-//		params.put("time", vo.getTime());
-//		params.put("employeeName", vo.getEmployeeName());
-//		List<EmployeeRewardDto> rewardCountList = employeeRewardMapper.selectAllCountReward(params);
-//		//给查询的奖惩总数归类
-//        return classify(rewardCountList);
-//    }
-// 
-//    
-//    
-//  
-//    
-//    /**
-//     * 分页查询奖惩详细action
-//     * @param page  页码页距查询条件
-//     * @param vo  其他查询条件
-//     * @return  带状态奖惩分页查询结果
-//     */
-//    public BaseDto findEmployeeRewardByPageAction(Page<EmployeeReward> page, EmployeeRewardVo vo) {
-//    	Map<String, Object> params = new HashMap<String, Object>();
-//    	params.put("type", vo.getType());
-//		params.put("employeeId", vo.getEmployeeId());
-//		params.put("time", vo.getTime());
-//		page.setParams(params);
-//		List<EmployeeReward> list = employeeRewardMapper.selectRewardByPage(page);
-//		page.setResults(list);
-//		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
-//    }
-//    
-//    /**
-//     * 分页查询奖惩详细服务
-//     * @param vo  查询条件
-//     * @return  奖惩分页内容
-//     */
-//    public Page<EmployeeReward> findEmployeeRewardByPage(EmployeeRewardVo vo) {
-//    	Page<EmployeeReward> page = new Page<EmployeeReward>();
-//    	page.setPageNo(vo.getPageNo());
-//		page.setPageSize(vo.getPageSize());
-//		Map<String, Object> params = new HashMap<String, Object>();
-//		params.put("type", vo.getType());
-//		params.put("employeeId", vo.getEmployeeId());
-//		params.put("time", vo.getTime());
-//		page.setParams(params);
-//		List<EmployeeReward> list = employeeRewardMapper.selectRewardByPage(page);
-//		page.setResults(list);
-//		return page;
-//    }
-//    
-//
-//    
-//    /**
-//     * 删除奖惩记录
-//    * @author DavidLiang
-//    * @date 2016年1月14日 下午8:47:24
-//    * @param rewardId  奖惩id
-//    * @return  是否成功
-//     */
-//    public boolean deleteEmployeeReward(int rewardId) {
-//    	return employeeRewardMapper.deleteByPrimaryKey(rewardId) == 1 ? true : false;
-//    }
-//    
-//  
-//    
-//    /**
-//     * 填充数据
-//     * @param queryDto  数据库查询出的dto
-//     * @param tempDto  临时(转移)存放dto
-//     * @param exist  true存在，false不存在
-//     * @return  临时(转移)存放dto(tempDto)
-//     */
-//    private EmployeeRewardDto dataFill(EmployeeRewardDto queryDto, EmployeeRewardDto tempDto, boolean exist) {
-//    	if (!exist) {
-//    		tempDto = new EmployeeRewardDto();
-//    	}
-//    	if (queryDto.getType() != null && queryDto.getCount() != null) {
-//    		if (queryDto.getType().equals("1")) {
-//    			tempDto.setCountOfLate(queryDto.getCount());
-//    			if (queryDto.getMoney() != null) {
-//    				tempDto.setMoneyOfPunishment(queryDto.getMoney() + tempDto.getMoneyOfPunishment());
-//    			}
-//    		} 
-//    		else if (queryDto.getType().equals("2")) {
-//    			tempDto.setCountOfEarlyLeave(queryDto.getCount());
-//    			if (queryDto.getMoney() != null) {
-//    				tempDto.setMoneyOfPunishment(queryDto.getMoney() + tempDto.getMoneyOfPunishment());
-//    			}
-//    		}
-//			else if (queryDto.getType().equals("3")) {
-//				tempDto.setCountOfHoliday(queryDto.getCount());
-//				if (queryDto.getMoney() != null) {
-//					tempDto.setMoneyOfPunishment(queryDto.getMoney() + tempDto.getMoneyOfPunishment());
-//    			}
-//			}
-//			else if (queryDto.getType().equals("4")) {
-//				tempDto.setCountOfAbsenteeism(queryDto.getCount());
-//				if (queryDto.getMoney() != null) {
-//					tempDto.setMoneyOfPunishment(queryDto.getMoney() + tempDto.getMoneyOfPunishment());
-//    			}
-//			}
-//			else if (queryDto.getType().equals("5")) {
-//				tempDto.setCountOfAttendance(queryDto.getCount());
-//				if (queryDto.getMoney() != null) {
-//    				tempDto.setMoneyOfReward(queryDto.getMoney() + tempDto.getMoneyOfReward());
-//    			}
-//			}
-//			else if (queryDto.getType().equals("6")) {
-//				tempDto.setCountOfSmallMistake(queryDto.getCount());
-//				if (queryDto.getMoney() != null) {
-//					tempDto.setMoneyOfPunishment(queryDto.getMoney() + tempDto.getMoneyOfPunishment());
-//    			}
-//			}
-//			else if (queryDto.getType().equals("7")) {
-//				tempDto.setCountOfSeriousMistake(queryDto.getCount());
-//				if (queryDto.getMoney() != null) {
-//					tempDto.setMoneyOfPunishment(queryDto.getMoney() + tempDto.getMoneyOfPunishment());
-//    			}
-//			}
-//			else if (queryDto.getType().equals("8")) {
-//				tempDto.setCountOfWarning(queryDto.getCount());
-//				if (queryDto.getMoney() != null) {
-//					tempDto.setMoneyOfPunishment(queryDto.getMoney() + tempDto.getMoneyOfPunishment());
-//    			}
-//			}
-//			else if (queryDto.getType().equals("9")) {
-//				tempDto.setCountOfFavourable(queryDto.getCount());
-//				if (queryDto.getMoney() != null) {
-//					tempDto.setMoneyOfReward(queryDto.getMoney() + tempDto.getMoneyOfReward());
-//    			}
-//			}
-//			else if (queryDto.getType().equals("10")) {
-//				tempDto.setCountOfBadpost(queryDto.getCount());
-//				if (queryDto.getMoney() != null) {
-//					tempDto.setMoneyOfPunishment(queryDto.getMoney() + tempDto.getMoneyOfPunishment());
-//    			}
-//			}
-//			else if (queryDto.getType().equals("11")) {
-//				tempDto.setCountOfComplaint(queryDto.getCount());
-//				if (queryDto.getMoney() != null) {
-//					tempDto.setMoneyOfPunishment(queryDto.getMoney() + tempDto.getMoneyOfPunishment());
-//    			}
-//			}
-//    	}
-//    	if (!exist) {
-//    		tempDto.setEmployeeId(queryDto.getEmployeeId());
-//    		//tempDto.setType(queryDto.getType());
-//    		if (queryDto.getIsReward() != null) {
-//        		tempDto.setIsReward(queryDto.getIsReward());
-//        	}
-//        	if (queryDto.getNumber() != null) {
-//        		tempDto.setNumber(queryDto.getNumber());
-//        	}
-//        	if (queryDto.getModifyer() != null) {
-//        		tempDto.setModifyer(queryDto.getModifyer());
-//        	}
-//        	if (queryDto.getModifytime() != null) {
-//        		tempDto.setModifytime(queryDto.getModifytime());
-//        	}
-//        	if (queryDto.getReasons() != null) {
-//        		tempDto.setReasons(queryDto.getReasons());
-//        	}
-//        	if (queryDto.getEmployeeName() != null) {
-//        		tempDto.setEmployeeName(queryDto.getEmployeeName());
-//        	}
-//        	if (queryDto.getEmployeeCode() != null) {
-//        		tempDto.setEmployeeCode(queryDto.getEmployeeCode());
-//        	}
-//    	}
-//    	return tempDto;
-//    }
-//    
-//    /**
-//     * 根据奖惩类型判断是否奖励
-//     * @param type  奖惩类型
-//     * @return  "1"(奖励), "0"(惩罚)
-//     */
-//    private String decideIsReward(String type) {
-//    	if (type.equals(String.valueOf(EmployeeRewardTypeEnum.FAVOURABLE.getEmployeeRewardType())) 
-//    			  || type.equals(String.valueOf(EmployeeRewardTypeEnum.ATTENDANCE.getEmployeeRewardType()))) {
-//    		return "1";
-//    	}
-//    	return "0";
-//    }
-//    
-//    /**
-//     * 根据奖惩类型查询店铺规
-//     * @param type  奖惩类型
-//     * @param storeId  店铺id
-//     * @return  该店铺规则
-//     */
-//    private StoreManageRule getMoneyByType(String type, int storeId) {
-//    	String ruleName = null;
-//    	if ("1".equals(type)) {
-//    		ruleName = "迟到";
-//    	}
-//    	else if ("2".equals(type)) {
-//    		ruleName = "早退";
-//    	}
-//    	else if ("3".equals(type)) {
-//    		ruleName = "请假";
-//    	}
-//    	else if ("4".equals(type)) {
-//    		ruleName = "旷工";
-//    	}
-//    	else if ("5".equals(type)) {
-//    		ruleName = "全勤";
-//    	}
-//    	else if ("6".equals(type)) {
-//    		ruleName = "小过";
-//    	}
-//    	else if ("7".equals(type)) {
-//    		ruleName = "大过";
-//    	}
-//    	else if ("8".equals(type)) {
-//    		ruleName = "警告";
-//    	}
-//    	else if ("9".equals(type)) {
-//    		ruleName = "好评";
-//    	}
-//    	else if ("10".equals(type)) {
-//    		ruleName = "差评";
-//    	}
-//    	else if ("11".equals(type)) {
-//    		ruleName = "投诉";
-//    	}
-//    	return storeManageRuleMapper.selectRuleByRuleNameAndStoreId(storeId, ruleName);
-//    }
+    public boolean deleteEmployeeReward(int rewardId) {
+    	return employeeRewardMapper.deleteByPrimaryKey(rewardId) == 1 ? true : false;
+    }
+
+
+    public BaseDto updateEmployeeReward(EmployeeReward vo) {
+        vo.setModifytime(DateUtil.getCurDate());
+        int ruleId = Integer.parseInt(vo.getType());
+        StoreManageRule storeManageRule = storeManageRuleMapper.selectByPrimaryKey(ruleId);
+        vo.setNumber(Double.parseDouble(storeManageRule.getProcessMoney().toString()));
+        vo.setType(storeManageRule.getRuleName());
+        employeeRewardMapper.updateByPrimaryKeySelective(vo);
+        
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, vo);
+    }
+
     
 }

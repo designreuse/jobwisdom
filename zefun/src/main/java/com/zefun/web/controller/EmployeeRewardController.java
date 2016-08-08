@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.EmployeeReward;
@@ -41,6 +42,18 @@ public class EmployeeRewardController extends BaseController {
         return employeeRewardService.addEmployeeReward(vo);
     }
     
+    /**
+     * 修改奖惩
+     * @param request  请求
+     * @param vo  添加参数详情
+     * @return  添加结果
+     */
+    @RequestMapping(value = Url.EmployeeReward.ACTION_UPDATE_REWARD, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto updateEmployeeReward(HttpServletRequest request, EmployeeReward vo) {
+        return employeeRewardService.updateEmployeeReward(vo);
+    }
+    
 	
 	/**
 	 * 员工奖惩汇总主页查询
@@ -61,77 +74,68 @@ public class EmployeeRewardController extends BaseController {
 	* @author 骆峰
 	* @date 2016年8月5日 下午6:41:12
 	* @param storeId  storeId
+	* @param type  type
 	* @return BaseDto
 	 */
     @RequestMapping(value = Url.EmployeeReward.ACTION_EMOLOYEE_REWARD, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto selectEmployeeByAccount(Integer storeId) {
-        return employeeRewardService.selectEmployeeByAccount(storeId);
+    public BaseDto selectEmployeeByAccount(Integer storeId, Integer type) {
+        return employeeRewardService.selectEmployeeByAccount(storeId, type);
     }
 	
+    
+
+    /**
+     *  奖罚明细分页查询
+    * @author 骆峰
+    * @date 2016年8月6日 下午1:54:32
+    * @param pageNo 页数  
+    * @param staTime 开始时间
+    * @param endTime 结束时间
+    * @param storeId 门店标识
+    * @param ruleName 奖罚名称
+    * @param ruleType 类型
+    * @param employee 员工
+    * @param pageSize 一页多少条数据
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.EmployeeReward.VIEW_EMPLOYEE_REWARD_HOME_PAGE, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto selectEmployeeByAccount(Integer pageNo, String staTime, String endTime, Integer storeId, String ruleName,
+            Integer ruleType, Integer employee, Integer pageSize) {             
+        return employeeRewardService.selectRuleByPage(pageNo, staTime, endTime, storeId, ruleName, ruleType, employee, pageSize);
+    }
 	
-//	/**
-//	 * 全查询员工奖惩汇总
-//	* @author DavidLiang
-//	* @date 2016年1月16日 下午8:43:15
-//	* @param request  请求
-//	* @param vo  查询条件
-//	* @return  奖惩汇总BaseDto
-//	 */
-//	@RequestMapping(value = Url.EmployeeReward.ACTION_LISTALL_ATTENDANCE, method = RequestMethod.POST)
-//	@ResponseBody
-//	public BaseDto findAllAttendanceReward(HttpServletRequest request, EmployeeRewardVo vo) {
-//		vo.setStoreId(getStoreId(request));
-//		if (vo.getEmployeeName().trim().length() == 0) {
-//			vo.setEmployeeName(null);
-//		}
-//		return employeeRewardService.findALlListAction(vo);
-//	}
-//	
-//	/**
-//	 * 分页查询员工奖惩汇总
-//	 * @param request  请求
-//	 * @param vo  查询条件
-//	 * @param page  分页
-//	 * @return  奖惩汇总BaseDto
-//	 */
-//	@RequestMapping(value = Url.EmployeeReward.ACTION_LIST_ATTENDANCE, method = RequestMethod.POST)
-//	@ResponseBody
-//	public BaseDto findAttendanceReward(HttpServletRequest request, EmployeeRewardVo vo, Page<EmployeeRewardDto> page) {
-//		vo.setStoreId(getStoreId(request));
-//		if (vo.getEmployeeName().trim().length() == 0) {
-//			vo.setEmployeeName(null);
-//		}
-//		return employeeRewardService.findListAction(page, vo);
-//	}
-//	
-//	/**
-//	 * 分页查询奖惩详细action
-//	 * @param page  页码页距查询条件
-//     * @param vo  其他查询条件
-//     * @return  带状态奖惩分页查询结果
-//	 */
-//	@RequestMapping(value = Url.EmployeeReward.ACTION_REWARD_DETAIL, method = RequestMethod.POST)
-//	@ResponseBody
-//	public BaseDto findEmployeeRewardByPageAction(Page<EmployeeReward> page, EmployeeRewardVo vo) {
-//		return employeeRewardService.findEmployeeRewardByPageAction(page, vo);
-//	}
-//
-//	
-//	/**
-//	 * 删除奖惩记录
-//	* @author DavidLiang
-//	* @date 2016年1月14日 下午8:46:15
-//	* @param rewardId  奖惩id
-//	* @return  BaseDto
-//	 */
-//	@RequestMapping(value = Url.EmployeeReward.ACTION_DELETE_REWARD, method = RequestMethod.POST)
-//	@ResponseBody
-//	public BaseDto deleteEmployeeReward(int rewardId) {
-//		if (employeeRewardService.deleteEmployeeReward(rewardId)) {
-//			return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除成功");
-//		}
-//		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "删除失败");
-//	}
+    /**
+     *  奖罚管理条件查询
+    * @author 骆峰
+    * @date 2016年8月6日 下午3:19:28
+    * @param storeId storeId
+    * @param time time
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.EmployeeReward.VIEW_EMPLOYEE_REWARD_HOME_RULE, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto changeRule(Integer storeId, String time){
+        return employeeRewardService.changeRule(storeId, time);
+        
+    }
+    
+ 
+	/**
+	 * 删除奖惩记录
+	* @author DavidLiang
+	* @date 2016年1月14日 下午8:46:15
+	* @param rewardId  奖惩id
+	* @return  BaseDto
+	 */
+	@RequestMapping(value = Url.EmployeeReward.ACTION_DELETE_REWARD, method = RequestMethod.POST)
+	@ResponseBody
+	public BaseDto deleteEmployeeReward(int rewardId) {
+		if (employeeRewardService.deleteEmployeeReward(rewardId)) {
+			return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除成功");
+		}
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "删除失败");
+	}
 
 }

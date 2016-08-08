@@ -27,16 +27,16 @@
 				<%@include file="/top.jsp"%>
 <div class="content_right clearfix">
     <ul class="clearfix">
-	  <li class="active">奖惩管理</li>
-	  <li class="">奖惩明细</li> 
+	  <li class="active" onclick="jQuery('.fenye').hide();">奖惩管理</li>
+	  <li class=""  onclick="jQuery('.fenye').show();">奖惩明细</li> 
 	</ul>
 	<div class="wages_content" >
 	  <div class="wages_content_datail">
 			<div class="wages_content_datail_top">
 			 时间查询
-			  <input type="text" style="width:100px;margin:0 10px" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
-			  <select id="storeId1">
-			     <option storeId="0">全部门店</option>
+			  <input type="text" id="time" onchange="changeRule()" style="width:100px;margin:0 10px" onfocus="WdatePicker({dateFmt:'yyyy-MM'})">
+			  <select id="storeId1"  onchange="changeRule()">
+			     
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
 			  </c:forEach>
@@ -59,14 +59,14 @@
 	   <div class="table_right_head">
 		   <table id="teb2">  
 			 <tbody>
-			 <tr>
+			 <tr id="tr1">
 			   <td rowspan="2">合计</td>
 			   <td class = "rule1" colspan="3">奖励类别</td>
 				<td rowspan="2">奖励合计</td>
 				<td class = "rule2" colspan="3">奖惩类别</td>
 				<td rowspan="2">惩罚合计</td>	
 			  </tr>
-			  <tr>
+			  <tr id="tr2">
 				 <c:forEach items="${ruleList1 }" var="ruleList">
 					<td>${ruleList.ruleName }</td>
 			    </c:forEach>
@@ -93,27 +93,27 @@
 			<td>奖惩名称</td>
 			<td>奖惩类别</td>
 			<td>选择员工</td>
-			<td rowspan="2"><button>搜索</button></td>
+			<td rowspan="2"><button onclick="selectd()">搜索</button></td>
 		  </tr>
 		   <tr>
-			<td><input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
-			<td><input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
+			<td><input type="text" onchange="changeIsFind()" name="statime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
+			<td><input type="text"   onchange="changeIsFind()" name="endtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
 			<td>	
-			  <select id="storeId2">
-			     <option storeId=" ">全部门店</option>
+			  <select id="storeId2" onchange="changeIsFind()">
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
 			  </c:forEach>
 			  </select>
 			 </td>
-			<td>  <select name="storeManageRule">
-         	    <option ruleId ="0">全部</option>
+			<td>  
+			<select name="storeManageRule" onchange="changeIsFind()">
+         	   <option ruleId="0">全部</option>
 			  <c:forEach items="${storeManageRule }" var="storeRule">
-			     <option ruleId="${storeRule.ruleId }">${storeRule.ruleName }</option>
+			     <option ruleId="${storeRule.ruleName }">${storeRule.ruleName }</option>
 			  </c:forEach>
-         </select></td>
-			<td><select name="type"><option value="0">全部</option><option value="1">奖励</option><option value="0">惩罚</option></select></td>
-			<td><input type="text" placeholder="名称/工号"></td>
+         		</select></td>
+			<td><select onchange="changeIsFind()"  name="type"><option value="0">全部</option><option value="1">奖励</option><option value="0">惩罚</option></select></td>
+			<td><input onchange="changeIsFind()" type="text" name ="employeeCode" placeholder="名称/工号"></td>
 		  </tr>
 		
 		</tbody></table>
@@ -135,16 +135,16 @@
 	   <table class="second">  
 	     <tbody>
 		<c:forEach var="list" items="${page.results}">
-		 <tr>
+		 <tr id="${list.rewardId }">
 		   <td>${list.employeeCode }</td>
 		   <td>${list.employeeName }</td>
 		   <td>${list.employeeName }</td>
 		   <td>${list.type }</td>
-		   <c:if test="${list.isReward eq 0}"> <td>惩罚</td></c:if>
+		   <c:if test="${list.isReward eq 2}"> <td>惩罚</td></c:if>
 		   <c:if test="${list.isReward eq 1}"> <td>奖励</td></c:if>
 		   <td style="width:200px">${list.reasons }</td>
 		   <td>${list.modifytime }</td>
-		   <td><img src="<%=basePath %>images/add_store_1.png"><img src="<%=basePath %>images/add_store_2.png"></td>
+		   <td><img onclick="updated(${list.rewardId },${list.storeId })" src="<%=basePath %>images/add_store_1.png"><img onclick="deleted(${list.rewardId })" src="<%=basePath %>images/add_store_2.png"></td>
     	 </tr>
 		</c:forEach>
 	   	</tbody>
@@ -165,7 +165,7 @@
      <div class="zzc_new_style_content">
 	   <ul class="zzc_new_style_content_ul clearfix">
 	     <li><span>所属门店</span>
-	     	  <select id="storeIdAll" onchange="employee(this)">
+	     	  <select id="storeIdAll" onchange="employee()">
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
 			  </c:forEach>
@@ -176,12 +176,15 @@
 	     <select id="employee">
 	     </select></li>
 	      
-	      <li><span>奖惩类别</span>
-	         <select id="type1" onchange="storeRule(this)">
-	         <option value="1">奖励</option><option value="2">惩罚</option></select></li>
+	     <li><span>奖惩类别</span>
+	         <select id="type1" onchange="employee()">
+	         <option value="1">奖励</option><option value="2">惩罚</option></select>
+	     </li>
+	     
          <li><span>奖惩名称</span>
-         <select name="storeManageRule1" >
-         </select></li>
+         <select id="storeManageRule1" >
+         </select>
+         </li>
          		     
 	   </ul>
 	   <div class="alert_saying clearfix">
@@ -189,44 +192,231 @@
 		  备注
 		 </div>
 	     <div class="alert_saying_right">
-		  <textarea>		  
+		  <textarea id="reasons">		  
 		  </textarea>
 		 </div>
 	   </div>
 	   
 	   <div class="new_style_button">
-	     <button>确定</button>
-		 <button>取消</button>
+	     <button onclick = "save()">确定</button>
+		 <button onclick="hide()">取消</button>
 	   </div>
 	 </div>
   </div>
 </div>
 </body>
 <script>
-
-function employee(){
+var rewardId =null ;
+function updated(rewardIds,storeId){
+	rewardId =rewardIds;
+	showView();
+	var name = jQuery("#storeIdAll option[storeid='"+storeId+"'").val();
+	jQuery("#storeIdAll").val(name);
 	
+	var type = jQuery("#"+rewardIds).find("td").eq(4).text();
+	if(type == "奖励"){
+		type = "1";
+	}else{
+		type="2";
+	}
+	jQuery("#type1").val(type);
+	employee();
+	var typename = jQuery("#"+rewardIds).find("td").eq(3).text();
+	jQuery("#storeManageRule1").val(typename);
+	var reasons = jQuery("#"+rewardIds).find("td").eq(5).text();
+	jQuery("#reasons").text(reasons);
+}
+
+
+
+function deleted(rewardId){
+	if(confirm("你确定删除吗？")){
+		 jQuery.ajax({
+				type : "post",
+				url : baseUrl + "/rewards/action/delete",
+				data : "rewardId="+rewardId,
+				dataType : "json",
+				success : function(e){
+					if(e.code == 0){
+						jQuery("#"+rewardId).empty();
+					}
+					dialog(e.msg);
+				}
+			})
+	}
+
+}
+function hide(){
+	jQuery(".zzc").hide();
+	jQuery("#reasons").val("");
+	rewardId =null ;
+	employee();
+
+}
+//弹出框保存
+function save(){
+	 var storeId = jQuery("#storeIdAll option:selected").attr("storeId");
+	 var employeeId = jQuery("#employee option:selected").attr("employeeid");
+	 var type = jQuery("#storeManageRule1 option:selected").attr("ruleid");
+	 var isReward = jQuery("#type1").val();
+	 var reasons = jQuery("#reasons").val();
+	 var url ="";
+	 var dates ="";
+	 if(rewardId == null){
+		 url = baseUrl + "/rewards/action/add";
+		 dates = "type="+type+"&storeId="+storeId+"&employeeId="+employeeId+"&isReward="+isReward+"&reasons="+reasons;
+	 }else{
+		 url = baseUrl + "/rewards/action/update";
+		 dates = "type="+type+"&storeId="+storeId+"&employeeId="+employeeId+"&isReward="+isReward+"&reasons="+reasons+"&rewardId="+rewardId;
+	 }
+	 jQuery.ajax({
+			type : "post",
+			url : url,
+			data : dates,
+			dataType : "json",
+			success : function(e){
+				hide();
+				if(rewardId == null){
+					dialog('新增成功');
+				}else{
+					dialog('修改成功');
+				}
+				 showOnehtml(e.msg);
+				
+			}
+		})
+	
+}
+function showOnehtml(value){
+	jQuery("#"+value.rewardId).empty();
+	var html = '';
+	html +=' <tr id="'+value.rewardId+'"><td>'+value.employeeCode+'</td>	   <td>'+value.employeeName +'</td> <td>'+value.employeeName+'</td><td>'+value.type+'</td>';
+	
+	   if(value.isReward == 1){
+			html += '<td>奖励</td>';
+	   }
+	   if(value.isReward == 2){
+			html += '<td>惩罚</td>';
+	   }
+	   html += ' <td style="width:200px">'+value.reasons +'</td><td>'+value.modifytime+'</td> <td><img onclick="updated('+value.rewardId+','+value.storeId+')" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleted('+value.rewardId +')" src="'+baseUrl+'images/add_store_2.png"></td>	 </tr>';
+	   jQuery(".second tr").eq(0).before(html);
+}
+
+//奖罚管理查询页面
+function changeRule(){
+	  var time = jQuery("#time").val();
+	  var storeId = jQuery("#storeId1 option:selected").attr("storeId");
+	  jQuery.ajax({
+			type : "post",
+			url : baseUrl + "/rewards/view/home/rule",
+			data : "time="+time+"&storeId="+storeId,
+			dataType : "json",
+			success : function(e){
+				selectChange(e.msg.ruleList1, e.msg.ruleList2);
+				showHtml(e.msg.jsonarray);
+			}
+		})
+}
+
+function selectChange(ruleList1,ruleList2){
+	   jQuery("#tr2").empty();
+	   var html ='<tr id="tr2"> ';
+	   for (var i = 0; i < ruleList1.length; i++) {
+			var ruleList = ruleList1[i];
+			html += '<td>'+ruleList.ruleName +'</td>';
+	   }
+	   for (var j = 0; j < ruleList2.length; j++) {
+			var ruleList = ruleList2[j];
+			html += '<td>'+ruleList.ruleName +'</td>';
+	   }
+	   html +='</tr>';
+	   jQuery("#tr1").after(html);
+}
+//搜索
+var isFindDate = false;
+function selectd(){
+	isFindDate = true;
+	changePage() ;
+}
+//条件改变时
+function changeIsFind(){
+	isFindDate = true;
+}
+//分页
+function changePage() {
+	var staTime  = jQuery("input[name='statime']").val();
+	var endTime  = jQuery("input[name='endtime']").val();
+	var storeid  = jQuery("#storeId2 option:selected").attr("storeId");
+	var ruleName = jQuery("select[name='storeManageRule'] option:selected").attr("ruleId");
+	var ruleType = jQuery("select[name='type']").val();
+	var employee = jQuery("input[name='employeeCode']").val();
+	if(ruleName == '0'){
+		ruleName= "";
+	}
+	var datas = "pageNo=" + pageNo + "&staTime=" +staTime + "&endTime=" +endTime + "&storeId=" +storeid + "&ruleName=" +ruleName
+	+ "&ruleType=" +ruleType + "&employee=" +employee + "&pageSize=" +pageSize;
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "/rewards/view/home/page",
+		data : datas,
+		dataType : "json",
+		success : function(e) {
+			pageNo = e.msg.pageNo;
+			pageSize = e.msg.pageSize;
+			totalPage = e.msg.totalPage;
+			totalRecord = e.msg.totalRecord;
+			if(isFindDate){
+				unbuildPagination();
+				isFindDate = false;
+			}
+			var html='';
+			jQuery(".second").empty();
+			jQuery.each(e.msg.results, function(n, value) {
+				html +=' <tr id="'+value.rewardId+'"><td>'+value.employeeCode+'</td>	   <td>'+value.employeeName +'</td> <td>'+value.employeeName+'</td><td>'+value.type+'</td>';
+				
+				   if(value.isReward == 1){
+						html += '<td>奖励</td>';
+				   }
+				   if(value.isReward == 2){
+						html += '<td>惩罚</td>';
+				   }
+				   html += ' <td style="width:200px">'+value.reasons +'</td><td>'+value.modifytime+'</td> <td><img onclick="updated('+value.rewardId+','+value.storeId+')" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleted('+value.rewardId +')" src="'+baseUrl+'images/add_store_2.png"></td>	 </tr>';
+			});
+			jQuery(".second").append(html);
+		}
+	});
+}
+
+//弹出框改变下拉框
+function employee(){
+	var type = jQuery("#type1 option:selected").val();
 	var storeId = jQuery("#storeIdAll option:selected").attr("storeId");
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "rewards/view/employee",
-		data : "storeId=" +storeId,
+		url : baseUrl + "/rewards/view/employee",
+		data : "storeId=" +storeId +"&type="+type,
 		dataType : "json",
 		success : function(e) {
-			var emp = e.msg;
+			var emp = e.msg.emp;
+			var rule = e.msg.rule;
 			var html ='';
+			var htmlrule ='';
+			
 			for (var i = 0; i < emp.length; i++) {
 				html += '<option employeeId="'+emp[i].employeeId+'">'+emp[i].name+'</option>';
 			}
+			for (var i = 0; i < rule.length; i++) {
+				htmlrule += '<option ruleId="'+rule[i].ruleId+'" processType="'+rule[i].processType+'">'+rule[i].ruleName+'</option>';
+			}
+			
+			jQuery("#storeManageRule1").empty();
+			jQuery("#storeManageRule1").append(htmlrule);
 			jQuery("#employee").empty();
 			jQuery("#employee").append(html);
 		}
 	})
 }
 
-function storeRule(s){
-	var type = jQuery(s).val();
-}
 
 function showView(){
 	jQuery(".zzc").show();
@@ -258,14 +448,17 @@ var ruleL1 = ruleList1.length;
 var ruleL2 = ruleList2.length;
 
 jQuery(function(){
+	employee();
 	jQuery(".rule1").attr("colspan",ruleL1);
 	jQuery(".rule2").attr("colspan",ruleL2);
 	showHtml(jsonarray);
 	wid= (ruleL2+ruleL1+2)*100;
 	jQuery('.table_right_head').css('width',wid+'px');
-	employee();
+	jQuery(".fenye").hide();
 });
 
+
+//展示奖罚管理
 function showHtml(jsonarray){
 	var html1 ='';
 	var html2 ='';
@@ -288,25 +481,9 @@ function showHtml(jsonarray){
     
 }
 
-function changePage() {
-	var datas = "pageNo=" + pageNo
-	jQuery.ajax({
-		type : "post",
-		url : baseUrl + "view/coupons/by/page",
-		data : datas,
-		dataType : "json",
-		success : function(e) {
-			pageNo = e.msg.pageNo;
-			pageSize = e.msg.pageSize;
-			totalPage = e.msg.totalPage;
-			totalRecord = e.msg.totalRecord;
-			jQuery("#tables [name='trs']").empty();
-			jQuery.each(e.msg.results, function(n, value) {
-					jQuery("#tables").append(jQuery(html));
-			});
-		}
-	});
-}
+
+
+
 
 	//dialog('msg');
 </script>

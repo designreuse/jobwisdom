@@ -21,6 +21,7 @@
     <result column="is_reward" property="isReward" jdbcType="CHAR" />
     <result column="number" property="number" jdbcType="DOUBLE" />
     <result column="modifyer" property="modifyer" jdbcType="INTEGER" />
+    <result column="storeId" property="storeId" jdbcType="INTEGER" />
     <result column="modifytime" property="modifytime" jdbcType="CHAR" />
     <result column="reasons" property="reasons" jdbcType="VARCHAR" />
     <result column="count" property="count" jdbcType="INTEGER"/>
@@ -209,60 +210,73 @@
   
   <!-- 根据员工id和类型分组查询奖惩记录汇总(分页查询) -->
   <select id="selectCountRewardByPage" resultMap="DtoResultMap" parameterType="com.zefun.web.entity.Page">
-  		select
-		ei.name as employee_name,
-		ei.employee_code as employee_code,
-		(select store_name from store_info where store_id =  ei.store_id) as  storeName,
+    SELECT
+		ei.name AS employee_name,
+		ei.employee_code AS employee_code,
+		st.store_name  AS  storeName,
+		ei.store_id as storeId,
 		er.*
 	from
-		employee_reward er left join
+		employee_reward er LEFT JOIN
 		employee_info ei
-	on
-		er.employee_id = ei.employee_id
-	where	1=1
+	ON
+		er.employee_id = ei.employee_id LEFT JOIN
+		store_info st 
+	ON  
+	    st.store_id =  ei.store_id	
+	WHERE	1=1
 		<if test="params.storeId != null and params.storeId !=''">
 			and ei.store_id = ${params.storeId}
 		</if>
-		<if test="params.storeIds != null and params.storeIds !=''">
-			and ei.store_id in 
-			 <foreach item="storeId" index="index" collection="params.storeIds" open="(" separator="," close=")">  
-			   ${storeId}
-			</foreach>  
-		</if>
-		<if test="params.time != null">
+		<if test="params.time != null and params.time != ''">
 			and er.modifytime = ${params.time}
+		</if>
+		<if test="params.time1 != null and params.time1 != ''">
+			and er.modifytime   &gt; ' ${params.time1}'
+		</if>
+		<if test="params.time2 != null and params.time2 != ''">
+			and er.modifytime   &lt;  '${params.time2}'
+		</if>
+		<if test="params.ruleName != null and params.ruleName != ''">
+			and er.type  =  '${params.ruleName}' 
+		</if>
+		<if test="params.ruleType != null and params.ruleType != 0">
+			and er.is_reward   =  ${params.ruleType}
+		</if>
+		<if test="params.employee != null and params.employee != ''">
+			and (ei.employee_code   =  ${params.ruleType}  or ei.name = ${params.ruleType})
 		</if>
   </select>
   
   
    <!-- 根据员工id和类型分组查询奖惩记录汇总(分页查询) -->
   <select id="selectCountRewardByGroupBy" resultMap="DtoResultMap" parameterType="java.util.Map">
-  	select
-		ei.name as employee_name,
-		ei.employee_code as employee_code,
-		(select store_name from store_info where store_id =  ei.store_id) as  storeName,
+  	SELECT
+		ei.name AS employee_name,
+		ei.employee_code AS employee_code,
+		st.store_name  AS  storeName,
+		ei.store_id as storeId,
 		er.*
 	from
-		employee_reward er left join
+		employee_reward er LEFT JOIN
 		employee_info ei
-	on
-		er.employee_id = ei.employee_id
-	where	1=1
+	ON
+		er.employee_id = ei.employee_id LEFT JOIN
+		store_info st 
+	ON  
+	    st.store_id =  ei.store_id	
+	WHERE	1=1
 		<if test="storeId != null and storeId !=''">
 			and ei.store_id = ${storeId}
 		</if>
-		<if test="storeIds != null and storeIds !=''">
-			and ei.store_id in 
-			 <foreach item="storeId" index="index" collection="storeIds" open="(" separator="," close=")">  
-			  #{storeId} 
-			</foreach>  
+		<if test="time != null and time != '' ">
+			and left(er.modifytime,7) = '${time}'
 		</if>
-		<if test="time != null">
-			and er.modifytime = ${time}
+		<if test="group != null and group != ''">
+			GROUP BY  er.employee_id,storeName
 		</if>
-		
-		GROUP BY  er.employee_id,storeName
-
+		order by  er.modifytime
+	
   </select>
   
   
