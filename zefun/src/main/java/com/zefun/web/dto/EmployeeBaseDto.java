@@ -61,8 +61,18 @@ public class EmployeeBaseDto implements Serializable{
     
     /** 基本工资 */
     private  double baseSalaries;
+    /** 奖金（正负就看你自己咯） */
+    private  double number;
 
     
+    public double getNumber() {
+        return number;
+    }
+
+    public void setNumber(double number) {
+        this.number = number;
+    }
+
     public double getBaseSalaries() {
         return baseSalaries;
     }
