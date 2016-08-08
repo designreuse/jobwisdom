@@ -938,7 +938,6 @@ public class GoodsInfoService {
                 GoodsInfo info = new GoodsInfo();
                 info.setStoreId(storeInfos.get(i).getStoreId());
                 info.setaId(goodsInfo.getGoodsId());
-//                info.setIsSellProduct(goodsInfo.getIsSellProduct());
                 info.setIsDeleted(0);
                 goodsInfoMapper.insertSelective(info);
             }

@@ -1,5 +1,6 @@
 package com.zefun.common.utils;
 
+import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
@@ -414,6 +415,20 @@ public class StringUtil {
             }
         }
         return tmp.toString();
+    }
+    
+    /**
+     * 如果传入的参数是空，返回0
+    * @author 高国藩
+    * @date 2016年8月5日 下午6:21:42
+    * @param str   str
+    * @return      String
+     */
+    public static String isEmptyAndEquese(Object str){
+        if (str == null){
+            return "0";
+        }
+        return new BigDecimal(str.toString()).toString();
     }
     
 }

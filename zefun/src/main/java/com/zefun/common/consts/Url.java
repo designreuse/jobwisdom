@@ -948,7 +948,7 @@ public interface Url {
         /** 员工工资单*/
         public static final String VIEW_POSITION_LEVEL_SELECTWAGES = "employee/account/store/selectwages";
         /** 业绩报表*/
-        public static final String EARNINGR_EPORT = "employee/account/store/earning";
+        public static final String EARNINGR_EPORT = "employee/account/store/earning/{type}";
 
 	}
 

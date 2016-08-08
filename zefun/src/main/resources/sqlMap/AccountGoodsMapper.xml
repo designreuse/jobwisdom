@@ -68,6 +68,9 @@
       <if test="storeAccount != null" >
         store_account,
       </if>
+      <if test="unit != null" >
+        unit,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="goodsId != null" >
@@ -97,6 +100,9 @@
       <if test="storeAccount != null" >
         #{storeAccount,jdbcType=VARCHAR},
       </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=CHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zefun.web.entity.AccountGoods" >
@@ -125,6 +131,9 @@
       </if>
       <if test="storeAccount != null" >
         store_account = #{storeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
       </if>
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=INTEGER},
