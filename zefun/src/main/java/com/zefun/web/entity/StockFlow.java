@@ -59,7 +59,28 @@ public class StockFlow {
     /** 商品信息*/
     private List<AccountGoods> accountGoods;
     
+    /** 流水开始时间*/
+    private String flowStartDate;
+    /** 流水结束时间*/
+    private String flowStopDate;
     
+    
+    public String getFlowStartDate() {
+        return flowStartDate;
+    }
+
+    public void setFlowStartDate(String flowStartDate) {
+        this.flowStartDate = flowStartDate;
+    }
+
+    public String getFlowStopDate() {
+        return flowStopDate;
+    }
+
+    public void setFlowStopDate(String flowStopDate) {
+        this.flowStopDate = flowStopDate;
+    }
+
     public String getEmployeeName() {
         return employeeName;
     }

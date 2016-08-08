@@ -764,7 +764,8 @@
   	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{params.storeId} and ag.is_deleted = 0
   	<if test="params.queryName != null"> and (ag.goods_name like CONCAT('%','${params.queryName}','%' ) or ag.goods_code_suffix like CONCAT('%','${params.queryName}','%' ) )</if>
   	<if test="params.supplierId != null"> and (si.supplier_id = #{params.supplierId})</if>
-  	<if test="params.brand_id != null"> and (gb.brand_id = #{params.brand_id})</if>
+  	<if test="params.brandId != null"> and (gb.brand_id = #{params.brandId})</if>
+  	<if test="params.categoryId != null"> and (gf.category_id = #{params.categoryId})</if>
   </select>
   
   <select id="queryByGoodsIds" parameterType="list" resultMap="GoodsInfoDtoMap">
@@ -808,5 +809,11 @@
   
   <select id="selectByStoreAccountAndStoreId" parameterType="java.util.Map" resultMap="BaseResultMap">
     select * from goods_info where a_id =  #{aId,jdbcType=INTEGER} and store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllAmountAndCount" parameterType="java.lang.Integer" resultType="com.zefun.web.entity.GoodsStock">
+  	SELECT SUM(gs.count) amcount,SUM(gs.count*ag.cost_price) amount FROM goods_stock gs
+	LEFT JOIN account_goods ag ON ag.goods_id = gs.a_id
+	WHERE gs.store_id = #{storeId}
   </select>
 </mapper>

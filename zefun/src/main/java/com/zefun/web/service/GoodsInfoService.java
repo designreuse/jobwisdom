@@ -2,9 +2,11 @@ package com.zefun.web.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,7 @@ import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
+import com.zefun.web.entity.StockFlow;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.SupplierInfo;
 import com.zefun.web.mapper.AccountGoodsMapper;
@@ -56,6 +59,7 @@ import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ShipmentRecordMapper;
+import com.zefun.web.mapper.StockFlowMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.SupplierInfoMapper;
 import com.zefun.web.vo.CardStoreSalesVo;
@@ -122,6 +126,9 @@ public class GoodsInfoService {
     /** 商品库存管理 */
     @Autowired
     private GoodsStockMapper goodsStockMapper;
+    /** 进出库商品管理*/
+    @Autowired
+    private StockFlowMapper stockFlowMapper;
     
 
     /**
@@ -1039,6 +1046,180 @@ public class GoodsInfoService {
         supplierInfo.setSupplierId(supplierId);
         supplierInfoMapper.updateByPrimaryKeySelective(supplierInfo);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "删除供应商成功");
+    }
+
+    /**
+     * 库存查询统计
+    * @author 高国藩
+    * @date 2016年8月6日 下午6:21:31
+    * @param storeAccount storeAccount
+    * @param storeId      storeId
+    * @return             ModelAndView
+     */
+    public ModelAndView stockViewSercher(String storeAccount, Object storeId) {
+        ModelAndView view = new ModelAndView(View.GoodsInfo.STOCK_SERCH);
+        List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
+        view.addObject("storeInfos", storeInfos);
+        
+        if (storeId == null){
+            storeId = storeInfos.get(0).getStoreId();
+        }
+        else {
+            view.addObject("storeId", storeId);
+        }
+        GoodsStock amountAndCount = goodsInfoMapper.selectAllAmountAndCount(storeId);
+        List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByStoreId(Integer.parseInt(storeId.toString()));
+        view.addObject("goodsCategories", goodsCategories);
+        
+        StockFlow stockFlow = new StockFlow();
+        stockFlow.setToStore(Integer.parseInt(storeId.toString()));
+        stockFlow.setFlowStartDate("1970-01-01");
+        stockFlow.setFlowStopDate("2050-01-01");
+        List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(stockFlow);
+        
+        Page<GoodsInfoDto> page = new Page<>();
+        page.setPageNo(1);
+        page.setPageSize(20);
+        Map<String, Object> params = new HashMap<>();
+        params.put("storeId", storeId);
+        page.setParams(params);
+        List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreIdByPage(page);
+        page.setResults(goodsInfoDtos);
+        view.addObject("page", page);       
+        
+        view.addObject("amountAndCount", amountAndCount);                                                           //商品库存总量 amount总金额 amcount总数量
+        view.addObject("inquiryCount", getStockGoodsCountAndAmount(stockFlows, 1, null).get("count")); 
+        view.addObject("inquiryAmount", getStockGoodsCountAndAmount(stockFlows, 1, null).get("amount"));            //入库总量和金额
+        view.addObject("deliveringCount", getStockGoodsCountAndAmount(stockFlows, 2, null).get("count")); 
+        view.addObject("deliveringCountAmount", getStockGoodsCountAndAmount(stockFlows, 2, null).get("amount"));    //出库总量和金额
+        
+        view.addObject("normalStorageCount", getStockGoodsCountAndAmount(stockFlows, 1, "正常入库").get("count")); 
+        view.addObject("normalStorageAmount", getStockGoodsCountAndAmount(stockFlows, 1, "正常入库").get("amount")); 
+        view.addObject("customerReturnsCount", getStockGoodsCountAndAmount(stockFlows, 1, "客户退货").get("count")); 
+        view.addObject("customerReturnsAmount", getStockGoodsCountAndAmount(stockFlows, 1, "客户退货").get("amount"));
+        view.addObject("merchandiseCount", getStockGoodsCountAndAmount(stockFlows, 1, "商品调拨").get("count")); 
+        view.addObject("merchandiseAmount", getStockGoodsCountAndAmount(stockFlows, 1, "商品调拨").get("amount"));
+        
+        view.addObject("normalDeliveryCount", getStockGoodsCountAndAmount(stockFlows, 2, "正常出库").get("count")); 
+        view.addObject("normalDeliveryAmount", getStockGoodsCountAndAmount(stockFlows, 2, "正常出库").get("amount")); 
+        view.addObject("supplierReturnsCount", getStockGoodsCountAndAmount(stockFlows, 2, "供应商退货").get("count")); 
+        view.addObject("supplierReturnsAmount", getStockGoodsCountAndAmount(stockFlows, 2, "供应商退货").get("amount")); 
+        view.addObject("damageCount", getStockGoodsCountAndAmount(stockFlows, 2, "损坏").get("count")); 
+        view.addObject("damageAmount", getStockGoodsCountAndAmount(stockFlows, 2, "损坏").get("amount")); 
+        view.addObject("sendCount", getStockGoodsCountAndAmount(stockFlows, 2, "赠送").get("count")); 
+        view.addObject("sendAmount", getStockGoodsCountAndAmount(stockFlows, 2, "赠送").get("amount"));
+        view.addObject("getCount", getStockGoodsCountAndAmount(stockFlows, 2, "领用").get("count")); 
+        view.addObject("getAmount", getStockGoodsCountAndAmount(stockFlows, 2, "领用").get("amount"));
+        
+        return view;
+    }
+    
+    /**
+     * 动态查询商品库存报表
+    * @author 高国藩
+    * @date 2016年8月8日 下午4:32:15
+    * @param storeAccount storeAccount
+    * @param query        query
+    * @return             BaseDto
+     */
+    public BaseDto stockViewSercher(String storeAccount, JSONObject query) {
+        BaseDto baseDto = new BaseDto();
+        baseDto.setCode(0);
+        if (query.getInt("serchType") == 1){
+            Page<GoodsInfoDto> page = new Page<>();
+            page.setPageNo(query.getInt("pageNo"));
+            page.setPageSize(20);
+            Map<String, Object> params = new HashMap<>();
+            params.put("storeId", query.getInt("storeId"));
+            params.put("categoryId", query.get("categoryId"));
+            page.setParams(params);
+            List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreIdByPage(page);
+            page.setResults(goodsInfoDtos);
+            baseDto.setMsg(page);       
+        }
+        if (query.getInt("serchType") == 2){
+            Map<String, Object> result = new HashMap<>();
+            GoodsStock amountAndCount = goodsInfoMapper.selectAllAmountAndCount(query.getInt("storeId"));
+            StockFlow stockFlow = new StockFlow();
+            stockFlow.setToStore(query.getInt("storeId"));
+            stockFlow.setFlowStartDate(query.getString("flowStartDate"));
+            stockFlow.setFlowStopDate(query.getString("flowStopDate"));
+            List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(stockFlow);
+            
+            result.put("amountAndCount", amountAndCount);                                                           //商品库存总量 amount总金额 amcount总数量
+            result.put("inquiryCount", getStockGoodsCountAndAmount(stockFlows, 1, null).get("count")); 
+            result.put("inquiryAmount", getStockGoodsCountAndAmount(stockFlows, 1, null).get("amount"));            //入库总量和金额
+            result.put("deliveringCount", getStockGoodsCountAndAmount(stockFlows, 2, null).get("count")); 
+            result.put("deliveringCountAmount", getStockGoodsCountAndAmount(stockFlows, 2, null).get("amount"));    //出库总量和金额
+            
+            result.put("normalStorageCount", getStockGoodsCountAndAmount(stockFlows, 1, "正常入库").get("count")); 
+            result.put("normalStorageAmount", getStockGoodsCountAndAmount(stockFlows, 1, "正常入库").get("amount")); 
+            result.put("customerReturnsCount", getStockGoodsCountAndAmount(stockFlows, 1, "客户退货").get("count")); 
+            result.put("customerReturnsAmount", getStockGoodsCountAndAmount(stockFlows, 1, "客户退货").get("amount"));
+            result.put("merchandiseCount", getStockGoodsCountAndAmount(stockFlows, 1, "商品调拨").get("count")); 
+            result.put("merchandiseAmount", getStockGoodsCountAndAmount(stockFlows, 1, "商品调拨").get("amount"));
+            
+            result.put("normalDeliveryCount", getStockGoodsCountAndAmount(stockFlows, 2, "正常出库").get("count")); 
+            result.put("normalDeliveryAmount", getStockGoodsCountAndAmount(stockFlows, 2, "正常出库").get("amount")); 
+            result.put("supplierReturnsCount", getStockGoodsCountAndAmount(stockFlows, 2, "供应商退货").get("count")); 
+            result.put("supplierReturnsAmount", getStockGoodsCountAndAmount(stockFlows, 2, "供应商退货").get("amount")); 
+            result.put("damageCount", getStockGoodsCountAndAmount(stockFlows, 2, "损坏").get("count")); 
+            result.put("damageAmount", getStockGoodsCountAndAmount(stockFlows, 2, "损坏").get("amount")); 
+            result.put("sendCount", getStockGoodsCountAndAmount(stockFlows, 2, "赠送").get("count")); 
+            result.put("sendAmount", getStockGoodsCountAndAmount(stockFlows, 2, "赠送").get("amount"));
+            result.put("getCount", getStockGoodsCountAndAmount(stockFlows, 2, "领用").get("count")); 
+            result.put("getAmount", getStockGoodsCountAndAmount(stockFlows, 2, "领用").get("amount"));
+            baseDto.setMsg(result);       
+        }
+        return baseDto;
+    }
+    
+    /**
+     * 传入一个进出库流水
+    * @author 高国藩
+    * @date 2016年8月8日 下午1:40:49
+    * @param stockFlows      stockFlows
+    * @param stockType  stockType
+    * @param flowType   flowType
+    * @return      Map<String, Object>
+     */
+    public Map<String, Object> getStockGoodsCountAndAmount(List<StockFlow> stockFlows, Integer stockType, String flowType){
+        List<Integer> inquiryCount;
+        List<BigDecimal> inquiryCountCostPrice;
+        if (flowType != null){
+         // 计算数量集合
+            inquiryCount = stockFlows.stream()
+                    .filter(p -> p.getStockType().equals(stockType) && p.getFlowType().equals(flowType))
+                    .flatMap(p -> Arrays.asList(p.getStockCount().split(",")).stream())
+                    .map(f -> Integer.parseInt(f)).collect(Collectors.toList());
+            // 计算成本价集合
+            inquiryCountCostPrice = stockFlows.stream()
+                    .filter(p -> p.getStockType().equals(stockType) && p.getFlowType().equals(flowType))
+                    .flatMap(p -> p.getAccountGoods().stream().map(a -> a.getCostPrice()))
+                    .collect(Collectors.toList());
+        }
+        else {
+            // 计算数量集合
+            inquiryCount = stockFlows.stream()
+                    .filter(p -> p.getStockType().equals(stockType))
+                    .flatMap(p -> Arrays.asList(p.getStockCount().split(",")).stream())
+                    .map(f -> Integer.parseInt(f)).collect(Collectors.toList());
+            // 计算成本价集合
+            inquiryCountCostPrice = stockFlows.stream()
+                    .filter(p -> p.getStockType().equals(stockType))
+                    .flatMap(p -> p.getAccountGoods().stream().map(a -> a.getCostPrice()))
+                    .collect(Collectors.toList());
+        } 
+            
+        /** 查询入库成本价-入库*/
+        BigDecimal inquiryAmount = new BigDecimal(0);
+        for (int i = 0; i < inquiryCount.size(); i++) {
+            inquiryAmount = inquiryAmount.add(inquiryCountCostPrice.get(i).multiply(new BigDecimal(inquiryCount.get(0))));
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("count", inquiryCount.stream().count());
+        result.put("amount", inquiryAmount);
+        return result;
     }
     
 }

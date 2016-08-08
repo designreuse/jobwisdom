@@ -450,6 +450,8 @@ public interface View {
         public static final String GOOD_SETTING_STORE = "commodity/storeGoodsStock";
         /** 供应商管理 */
         public static final String SUPPLIER = "commodity/supplier";
+        /** 商品库存统计*/
+        public static final String STOCK_SERCH = "commodity/stockSerch";
 	}
 
 	/**
