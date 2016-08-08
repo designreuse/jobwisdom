@@ -58,7 +58,7 @@
 			 		<option value= "${store.storeId }">${store.storeName }</option>
 			    </c:forEach></select>
 			  <button onclick="checkWages(2)">搜索</button>
-			  <button style="width:130px">新增考勤</button>
+<!-- 			  <button style="width:130px">新增考勤</button> -->
 			</div>
 	  </div>
 	 <div class="wages_content_datail_table">
@@ -141,7 +141,7 @@ var views = ${type };
 	 html += '<td >提成汇总</td>	 <td >考勤奖惩</td>	 <td >实际发放</td>	</tr>';
 	   jQuery(s).each(function(t,value){
 		   html += '<tr> <td>'+value.code+'</td> <td>'+value.name+'</td><td>'+value.baseSalaries+'</td><td>'+value.ld+'</td><td>'+value.sp+'</td><td>'+value.lc+'</td>';
-		   html += '<td>'+value.kk+'</td><td>'+value.tc+'</td><td>考勤奖惩</td><td>'+value.tc+'</td>';
+		   html += '<td>'+value.kk+'</td><td>'+value.tc+'</td><td>'+value.number+'</td><td>'+value.tc+'</td>';
 	   })
 	
 	   jQuery("tbody[name='tab']").append(html);

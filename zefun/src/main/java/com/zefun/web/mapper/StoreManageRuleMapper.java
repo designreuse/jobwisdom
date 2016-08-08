@@ -1,6 +1,7 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zefun.web.entity.StoreManageRule;
 
@@ -37,6 +38,15 @@ public interface StoreManageRuleMapper {
     * @return List
      */
     List<StoreManageRule> selectRuleListByStoreId(Integer  storeId);
+    
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月4日 下午8:25:09
+    * @param map map
+    * @return List
+     */
+    List<StoreManageRule> selectRuleListByAccountStoreId(Map<String, Object>  map);
     /**
      * 
     * @author 骆峰

@@ -16,10 +16,12 @@
   <resultMap id="DtoResultMap" type="com.zefun.web.dto.EmployeeRewardDto" >
     <id column="reward_id" property="rewardId" jdbcType="INTEGER" />
     <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="storeName" property="storeName" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="is_reward" property="isReward" jdbcType="CHAR" />
     <result column="number" property="number" jdbcType="DOUBLE" />
     <result column="modifyer" property="modifyer" jdbcType="INTEGER" />
+    <result column="storeId" property="storeId" jdbcType="INTEGER" />
     <result column="modifytime" property="modifytime" jdbcType="CHAR" />
     <result column="reasons" property="reasons" jdbcType="VARCHAR" />
     <result column="count" property="count" jdbcType="INTEGER"/>
@@ -50,7 +52,7 @@
       #{endtime,jdbcType=CHAR}, #{modifyer,jdbcType=INTEGER}, #{modifytime,jdbcType=CHAR}, 
       #{reasons,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.zefun.web.entity.EmployeeReward" >
+  <insert id="insertSelective" parameterType="com.zefun.web.entity.EmployeeReward" useGeneratedKeys="true" keyProperty="rewardId">
     insert into employee_reward
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="rewardId != null" >
@@ -208,38 +210,78 @@
   
   <!-- 根据员工id和类型分组查询奖惩记录汇总(分页查询) -->
   <select id="selectCountRewardByPage" resultMap="DtoResultMap" parameterType="com.zefun.web.entity.Page">
-  	select
-		count(1) AS count,
-		sum(er.number) as money,
-		ei.name as employee_name,
-		ei.employee_code as employee_code,
+    SELECT
+		ei.name AS employee_name,
+		ei.employee_code AS employee_code,
+		st.store_name  AS  storeName,
+		ei.store_id as storeId,
 		er.*
 	from
-		employee_reward er,
+		employee_reward er LEFT JOIN
 		employee_info ei
-	where
-		er.employee_id = ei.employee_id
-		and ei.store_id = ${params.storeId}
-		<if test="params.rewardType == 'BEHAVIOUR'">
-			and er.type IN (6,7,8)
+	ON
+		er.employee_id = ei.employee_id LEFT JOIN
+		store_info st 
+	ON  
+	    st.store_id =  ei.store_id	
+	WHERE	1=1
+		<if test="params.storeId != null and params.storeId !=''">
+			and ei.store_id = ${params.storeId}
 		</if>
-		<if test="params.rewardType == 'ATTENDANCE'">
-			and er.type IN (1,2,3,4,5)
+		<if test="params.time != null and params.time != ''">
+			and er.modifytime = "${params.time}"
 		</if>
-		<if test="params.rewardType == 'SERVICE'">
-			and er.type IN (9,10,11)
+		<if test="params.time1 != null and params.time1 != ''">
+			and er.modifytime   &gt;= "${params.time1}"
 		</if>
-		<if test="params.time != null">
-			and er.modifytime like "${params.time}%"
+		<if test="params.time2 != null and params.time2 != ''">
+			and er.modifytime   &lt;  "${params.time2}"
 		</if>
-		<if test="params.employeeName != null">
-			and ei.name like "%${params.employeeName}%"
+		<if test="params.ruleName != null and params.ruleName != ''">
+			and er.type  =  "${params.ruleName}"
 		</if>
-	GROUP BY
-		er.employee_id,
-		er.type 
-	ORDER BY er.employee_id
+		<if test="params.ruleType != null and params.ruleType != 0">
+			and er.is_reward   =  ${params.ruleType}
+		</if>
+		<if test="params.employee != null and params.employee != ''">
+			and (ei.employee_code   =  ${params.ruleType}  or ei.name = ${params.ruleType})
+		</if>
   </select>
+  
+  
+   <!-- 根据员工id和类型分组查询奖惩记录汇总(分页查询) -->
+  <select id="selectCountRewardByGroupBy" resultMap="DtoResultMap" parameterType="java.util.Map">
+  	SELECT
+		ei.name AS employee_name,
+		ei.employee_code AS employee_code,
+		st.store_name  AS  storeName,
+		ei.store_id as storeId,
+		er.*
+	from
+		employee_reward er LEFT JOIN
+		employee_info ei
+	ON
+		er.employee_id = ei.employee_id LEFT JOIN
+		store_info st 
+	ON  
+	    st.store_id =  ei.store_id	
+	WHERE	1=1
+		<if test="storeId != null and storeId !=''">
+			and ei.store_id = ${storeId}
+		</if>
+		<if test="time != null and time != '' ">
+			and left(er.modifytime,7) = '${time}'
+		</if>
+		<if test="rewardId != null and rewardId != ''">
+		 and	reward_id =${rewardId}
+		</if>
+		<if test="group != null and group != ''">
+			GROUP BY  er.employee_id,storeName
+		</if>
+		order by  er.modifytime desc 
+  </select>
+  
+  
   
   <!-- 分页查询奖惩详细 -->
   <select id="selectRewardByPage" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.Page">

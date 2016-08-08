@@ -16,8 +16,20 @@ public class EmployeeRewardDto {
 
 	/** 类型：1，考勤；2，服务； */
 	private String type;
+	
 
-	/** 是否奖励：0，否；1，是； */
+    /** 类型：1，考勤；2，服务； */
+    private String storeName;
+
+	public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    /** 是否奖励：0，否；1，是； */
 	private String isReward;
 
 	/** 金额 */
