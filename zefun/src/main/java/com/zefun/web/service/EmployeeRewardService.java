@@ -111,9 +111,6 @@ public class EmployeeRewardService {
         
         //全部奖罚数据 
         List<EmployeeRewardDto> results = employeeRewardMapper.selectCountRewardByGroupBy(params);
-        params.put("group", "group");
-        //全部奖罚数据  员工group 
-        List<EmployeeRewardDto> resultsGroup = employeeRewardMapper.selectCountRewardByGroupBy(params);
         
     	  //处理方式(1:奖励，2:惩罚)
         List<StoreManageRule> storeManageRule = storeManageRuleMapper.selectRuleListByAccountStoreId(params);
@@ -128,7 +125,7 @@ public class EmployeeRewardService {
         if (ruleList2.size() == 0) {  
             ruleList2.add(rule);
         }
-	    JSONArray jsonarray = classify(results, resultsGroup, ruleList1, ruleList2);
+	    JSONArray jsonarray = classify(results, selectEmployeeListByStoreIdAll, ruleList1, ruleList2);
     
 	    mav.addObject("page", page);
 	    mav.addObject("selectEmployeeListByStoreIdAll", selectEmployeeListByStoreIdAll);
@@ -151,7 +148,7 @@ public class EmployeeRewardService {
      * @param ruleList2  惩罚
      * @return  汇总好的JSONArray
      */
-    public JSONArray classify(List<EmployeeRewardDto> employeeRewardDtoList, List<EmployeeRewardDto> resultsGroup, 
+    public JSONArray classify(List<EmployeeRewardDto> employeeRewardDtoList, List<EmployeeBaseDto> resultsGroup, 
             List<StoreManageRule> ruleList1, List<StoreManageRule> ruleList2) {
       
         
@@ -181,7 +178,7 @@ public class EmployeeRewardService {
                 jsono.accumulate("sum2", sum2);
                 jsono.accumulate("total", sum1- sum2);
                 jsono.accumulate("code", em.getEmployeeCode());
-                jsono.accumulate("name", em.getEmployeeName());
+                jsono.accumulate("name", em.getName());
                 jsonjl.clear();
                 for (int i = 0; i < ruleList1.size(); i++) {
                     String name = ruleList1.get(i).getRuleName();
@@ -275,9 +272,7 @@ public class EmployeeRewardService {
         //全部奖罚数据 
         List<EmployeeRewardDto> results = employeeRewardMapper.selectCountRewardByGroupBy(params);
       
-        //全部奖罚数据  员工group 
-        params.put("group", "group");
-        List<EmployeeRewardDto> resultsGroup = employeeRewardMapper.selectCountRewardByGroupBy(params);
+        List<EmployeeBaseDto> selectEmployeeListByStoreIdAll = employeeInfoMapper.selectEmployeeListByStoreIdAll(params);
         //处理方式(1:奖励，2:惩罚)
         params.put("processType1", 1);
         List<StoreManageRule> ruleList1 = storeManageRuleMapper.selectRuleListByAccountStoreId(params);
@@ -291,7 +286,7 @@ public class EmployeeRewardService {
         if (ruleList2.size() == 0) {  
             ruleList2.add(rule);
         }
-        JSONArray jsonarray = classify(results, resultsGroup, ruleList1, ruleList2);
+        JSONArray jsonarray = classify(results, selectEmployeeListByStoreIdAll, ruleList1, ruleList2);
         
         params.put("jsonarray", jsonarray);
         params.put("ruleList1", ruleList1);

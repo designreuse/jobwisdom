@@ -21,11 +21,21 @@ public class EmployeeCommission implements Serializable {
 	private Integer commissionId;
 	/** 轮牌信息标识*/
 	private Integer shiftMahjongStepId;
+	/** 惩罚金额*/
+	private Integer number;
 
 	/** 订单明细标识 */
 	private Integer detailId;
 
-	/** 岗位标识 */
+	public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    /** 岗位标识 */
 	private Integer positionId;
 
 	/** 订单类型(1:项目,2:商品,3:疗程,4、开卡充值) */

@@ -89,7 +89,7 @@
 		    <td rowspan="2"><button onclick="showView()">新增</button></td>
 			<td>开始时间</td>
 			<td>结束时间</td>
-			<td>所属门店</td>
+			<td id="storeTd">所属门店</td>
 			<td>奖惩名称</td>
 			<td>奖惩类别</td>
 			<td>选择员工</td>
@@ -98,7 +98,7 @@
 		   <tr>
 			<td><input type="text" onchange="changeIsFind()" name="statime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
 			<td><input type="text"   onchange="changeIsFind()" name="endtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
-			<td>	
+			<td id="storeTd2">	
 			  <select id="storeId2" onchange="changeIsFind()">
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
@@ -164,7 +164,7 @@
      <p>新增类型</p>
      <div class="zzc_new_style_content">
 	   <ul class="zzc_new_style_content_ul clearfix">
-	     <li><span>所属门店</span>
+	     <li id="storeHide"><span >所属门店</span>
 	     	  <select id="storeIdAll" onchange="employee()">
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
@@ -213,13 +213,15 @@ function storeSelect(){
 	if(storeId != 0 ){
 		var storeName = jQuery("#storeIdAll option[storeId='"+storeId+"'] ").val();
 		jQuery("#storeIdAll").val(storeName);
-		jQuery("#storeIdAll").attr("disabled","disabled");
+		jQuery("#storeHide").hide();
+		jQuery("#storeTd").remove();
+		jQuery("#storeTd2").remove();
 		
 		jQuery("#storeId1").val(storeName);
-		jQuery("#storeId1").attr("disabled","disabled");
+		jQuery("#storeId1").hide();
 		
 		jQuery("#storeId2").val(storeName);
-		jQuery("#storeId2").attr("disabled","disabled");
+		jQuery("#storeId2").hide();
 		
 	}
 }
@@ -267,7 +269,6 @@ function hide(){
 	jQuery(".zzc").hide();
 	jQuery("#reasons").val("");
 	rewardId =null ;
-	employee();
 
 }
 //弹出框保存

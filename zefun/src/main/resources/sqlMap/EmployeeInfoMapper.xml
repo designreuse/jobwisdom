@@ -147,7 +147,9 @@
         e.service_count as serviceCount,
         e.service_score as serviceScore,
 	    e.employee_desc as employeeDesc ,
-	    e.base_salaries as baseSalaries 
+	    e.base_salaries as baseSalaries ,
+	    (IFNULL((SELECT SUM(er.number) FROM  employee_reward er WHERE  er.employee_id = e.employee_id AND is_reward =1 AND  LEFT( er.modifytime,7) =#{time}),0) -
+        IFNULL((SELECT SUM(er.number) FROM  employee_reward er WHERE  er.employee_id = e.employee_id AND is_reward =2 AND  LEFT( er.modifytime,7) =#{time}),0)) AS number
     from employee_info e
     where 1=1
     <if test="storeId != null and storeId !=''">
