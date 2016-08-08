@@ -504,6 +504,8 @@ public interface View {
 		public static final String EMPLOYEELEVEL = "employee/employeelevel/employeelevel";
 		/** 业绩报表*/
         public static final String EARING_REPORT = "employee/report/earing";
+        /** 提成报表*/
+        public static final String AMOUNT_REPORT = "employee/report/amount";
 	}
 
 	/**

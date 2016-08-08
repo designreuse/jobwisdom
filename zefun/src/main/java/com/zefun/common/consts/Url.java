@@ -948,7 +948,7 @@ public interface Url {
         /** 员工工资单*/
         public static final String VIEW_POSITION_LEVEL_SELECTWAGES = "employee/account/store/selectwages";
         /** 业绩报表*/
-        public static final String EARNINGR_EPORT = "employee/account/store/earning";
+        public static final String EARNINGR_EPORT = "employee/account/store/earning/{type}";
 
 	}
 
@@ -1646,20 +1646,18 @@ public interface Url {
 	class EmployeeReward {
 		/** 员工奖惩首页 */
 		public static final String VIEW_EMPLOYEE_REWARD_HOME = "/rewards/view/home";
-		/** 全查询考勤规则奖惩汇总情况 */
-		public static final String ACTION_LISTALL_ATTENDANCE = "/attendance/action/listAll";
-		/** 分页查询考勤规则奖惩汇总情况 */
-		public static final String ACTION_LIST_ATTENDANCE = "/attendance/action/list";
-		/** 分页查询行为规范奖惩汇总情况 */
-		public static final String ACTION_LIST_BEHAVIOUR = "/behaviour/action/list";
-		/** 分页查询服务表现奖惩汇总情况 */
-		public static final String ACTION_LIST_SERVICE = "/service/action/list";
-		/** 分页查询奖惩详细 */
-		public static final String ACTION_REWARD_DETAIL = "/rewardsDetail/action/list";
+		/** 添加员工奖惩 */
+		public static final String ACTION_UPDATE_REWARD = "/rewards/action/update";
 		/** 添加员工奖惩 */
 		public static final String ACTION_ADD_REWARD = "/rewards/action/add";
 		/** 删除员工奖惩 */
 		public static final String ACTION_DELETE_REWARD = "/rewards/action/delete";
+		/** 员工 */
+		public static final String ACTION_EMOLOYEE_REWARD = "/rewards/view/employee";
+		/** 分页条件查询 */
+		public static final String VIEW_EMPLOYEE_REWARD_HOME_PAGE = "/rewards/view/home/page";
+		/** 奖罚管理条件查询 */
+		public static final String VIEW_EMPLOYEE_REWARD_HOME_RULE = "/rewards/view/home/rule";
 	}
 
 	/**

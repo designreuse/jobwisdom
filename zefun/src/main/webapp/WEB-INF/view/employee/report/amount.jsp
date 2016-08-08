@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="<%=basePath%>css/achievement_total.css" type="text/css" />
 <script type="text/javascript" src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
 <script>
-	var typeNum = '${type }';
-	var textName = ["", "业绩", "提成"];
 	var cname = new Array();
 	var cvalue = new Array();
 	var earingCommissionDtos = eval('('+'${earingCommissionDtos}'+')');
@@ -38,7 +36,7 @@
 						type : 'bar'
 					},
 					title : {
-						text : textName[typeNum]
+						text : '工资图表（元）'
 					},
 
 					xAxis : {
@@ -79,7 +77,7 @@
 						enabled : false
 					},
 					series : [{
-						name : textName[typeNum],
+						name : '业绩',
 						data : cvalue
 					}]
 				});
@@ -93,20 +91,11 @@
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
 				<div class='content_right clearfix'>
-					<c:if test="${type ==1 }">
 					<ul class="clearfix">
 						<li class="active">业绩图表</li>
 						<li>业绩汇总</li>
 						<li>业绩明细</li>
 					</ul>
-					</c:if>
-					<c:if test="${type ==2 }">
-					<ul class="clearfix">
-						<li class="active">提成图表</li>
-						<li>提成汇总</li>
-						<li>提成明细</li>
-					</ul>
-					</c:if>
 					<div class="wages_content">
 						<div class="wages_content_datail">
 							<div class="wages_content_datail_top">

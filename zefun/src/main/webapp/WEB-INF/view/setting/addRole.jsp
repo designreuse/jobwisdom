@@ -148,7 +148,6 @@ function roleChange(roleId, accountRoleId) {
 	jQuery(".zzc").find("ul[name='firestMemu']").empty();
 	jQuery(".zzc").find("ul[name='roleMemu']").empty();
 	jQuery(".zzc").find("input[name=' ']").val("");
-	jQuery("select[name='roleId']").val(roleId);
 	
 // 	jQuery("select[name='roleId']").empty();
 	var datas = "roleId=" + roleId + "&accountRoleId=" + accountRoleId ;
@@ -159,7 +158,7 @@ function roleChange(roleId, accountRoleId) {
 		dataType : "json",
 		success : function(data) {
 			if(accountRoleId != 0){
-				jQuery(".zzc").find("input").attr("changeRoleId",0);
+				jQuery(".zzc").find("input").attr("changeRoleId",0); //不回调
 				jQuery("select").val(jQuery("option[id='"+roleId+"']").text());
 				jQuery(".zzc").find("input").attr("changeRoleId",1);
 			}
@@ -196,7 +195,6 @@ function roleChange(roleId, accountRoleId) {
 			
 			if(accountRoleId != 0 ){
 				//修改的时候
-				
 				var accountRoleInfo = data.msg.accountRoleInfo;
 				var secondMenu = accountRoleInfo.secondMenu.split(",");
 				for (var g = 0; g < secondMenu.length; g++) {
