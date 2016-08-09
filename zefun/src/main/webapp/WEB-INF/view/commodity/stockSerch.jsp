@@ -211,6 +211,13 @@
 	</div>
 </body>
 <script>
+var storeId = '${storeId}';
+if (storeId != ''){
+	jQuery("select[name='flowStore']").val(storeId);
+	jQuery("select[name='flowStore']").hide();
+	jQuery("select[name='stockStore']").val(storeId);
+	jQuery("select[name='stockStore']").hide();
+}
 var isStock = false;
 function serchGoodStock(){
 	isStock = true;
@@ -248,6 +255,7 @@ function changePage(){
 							'<td>'+goods.categoryName +'</td>'+
 							'<td>'+goods.unit +'</td>'+
 							'<td>'+goods.goodsStock +'</td>'+
+							'<td>'+goods.costPrice +'</td>'+
 							'<td>'+(goods.goodsStock*goods.costPrice) +'</td>'+
 						'</tr>';
 				jQuery("#stockGoods").append(jQuery(html));
