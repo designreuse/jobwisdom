@@ -85,8 +85,8 @@
      FROM 
      employee_info e LEFT JOIN  employee_commission c   ON e.employee_id = c.employee_id 
      WHERE  e.is_deleted = 0 AND c.is_deleted = 0
-     <if test="store != null" >
-        and  e.store_id = #{store}
+     <if test="storeId != null" >
+        and  e.store_id = #{storeId}
      </if>
       <if test="storeIds != null" >
         and  e.store_id in 

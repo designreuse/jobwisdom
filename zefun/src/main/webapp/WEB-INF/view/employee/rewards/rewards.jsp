@@ -175,13 +175,13 @@
 	     <span style="position:relative;left:-10px">员工</span>
 	     <select id="employee">
 	     </select></li>
-	      
-	     <li><span>奖惩类别</span>
+	       <li><span>奖惩名称</span>
+	   
 	         <select id="type1" onchange="employee()">
 	         <option value="1">奖励</option><option value="2">惩罚</option></select>
 	     </li>
 	     
-         <li><span>奖惩名称</span>
+          <li><span>奖惩类别</span>
          <select id="storeManageRule1" >
          </select>
          </li>
@@ -252,7 +252,7 @@ function deleted(rewardId){
 	if(confirm("你确定删除吗？")){
 		 jQuery.ajax({
 				type : "post",
-				url : baseUrl + "/rewards/action/delete",
+				url : baseUrl + "rewards/action/delete",
 				data : "rewardId="+rewardId,
 				dataType : "json",
 				success : function(e){
@@ -281,10 +281,10 @@ function save(){
 	 var url ="";
 	 var dates ="";
 	 if(rewardId == null){
-		 url = baseUrl + "/rewards/action/add";
+		 url = baseUrl + "rewards/action/add";
 		 dates = "type="+type+"&storeId="+storeId+"&employeeId="+employeeId+"&isReward="+isReward+"&reasons="+reasons;
 	 }else{
-		 url = baseUrl + "/rewards/action/update";
+		 url = baseUrl + "rewards/action/update";
 		 dates = "type="+type+"&storeId="+storeId+"&employeeId="+employeeId+"&isReward="+isReward+"&reasons="+reasons+"&rewardId="+rewardId;
 	 }
 	 jQuery.ajax({
@@ -324,7 +324,7 @@ function changeRule(){
 	  var storeId = jQuery("#storeId1 option:selected").attr("storeId");
 	  jQuery.ajax({
 			type : "post",
-			url : baseUrl + "/rewards/view/home/rule",
+			url : baseUrl + "rewards/view/home/rule",
 			data : "time="+time+"&storeId="+storeId,
 			dataType : "json",
 			success : function(e){
@@ -366,14 +366,19 @@ function changePage() {
 	var ruleName = jQuery("select[name='storeManageRule'] option:selected").attr("ruleId");
 	var ruleType = jQuery("select[name='type']").val();
 	var employee = jQuery("input[name='employeeCode']").val();
+	
 	if(ruleName == '0'){
 		ruleName= "";
 	}
 	var datas = "pageNo=" + pageNo + "&staTime=" +staTime + "&endTime=" +endTime + "&storeId=" +storeid + "&ruleName=" +ruleName
 	+ "&ruleType=" +ruleType + "&employee=" +employee + "&pageSize=" +pageSize;
+	if(storeId != 0 ){
+		datas = "pageNo=" + pageNo + "&staTime=" +staTime + "&endTime=" +endTime +  "&ruleName=" +ruleName
+		+ "&ruleType=" +ruleType + "&employee=" +employee + "&pageSize=" +pageSize;
+	}
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "/rewards/view/home/page",
+		url : baseUrl + "rewards/view/home/page",
 		data : datas,
 		dataType : "json",
 		success : function(e) {
@@ -409,7 +414,7 @@ function employee(){
 	var storeId = jQuery("#storeIdAll option:selected").attr("storeId");
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "/rewards/view/employee",
+		url : baseUrl + "rewards/view/employee",
 		data : "storeId=" +storeId +"&type="+type,
 		dataType : "json",
 		success : function(e) {

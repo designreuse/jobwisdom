@@ -8,10 +8,9 @@
 <script>
   jQuery(function(){
     jQuery('.wages_content:gt(0)').hide();
-    jQuery('.content_right ul li').click(function(){
+    jQuery('.content_right>ul li').click(function(){
       jQuery(this).addClass('active').siblings().removeClass('active');
 	  jQuery('.wages_content').eq(jQuery(this).index()).show().siblings('.wages_content').hide();
-
 	})
   })
   
@@ -29,8 +28,8 @@
 		
 				<div class="content_right clearfix">
     <ul class="clearfix">
-	  <li class="active">工资图表</li>
-	  <li>当月工资表</li>
+	  <li onclick="jQuery('.fenye').show();" class="active">工资图表</li>
+	  <li onclick="jQuery('.fenye').hide();">当月工资表</li>
 	</ul>
 	<div class="wages_content">
          <div class="wages_content_datail">
@@ -81,6 +80,11 @@
 	  </div>
 	 </div>
 	</div>
+			<div class="fenye" id="fenye3">
+				<span>共找到了<i name="result3">0</i>条数据, 共 <i name="page3">0</i> 页</span>
+				<ul id="pagination-demo" class="pagination pagination-sm">
+				<li class="first disabled" onclick="showViwe(1)"><a   href="#">首页</a></li><li class="prev disabled" id="upSize3" onclick="upPage(-1)"><a  >上一页</a></li><li class="next disabled" onclick="upPage(2)"><a href="#" >下一页</a></li><li class="last disabled" onclick="upPage(3)"><a href="#" >尾页</a></li></ul>
+			</div>
   </div>
 
 			</div>
@@ -119,7 +123,8 @@ var views = ${type };
  jQuery(function(){
 	 var json = jsonos.jsona;
 	 showTable(json);
-	 showViwe(jsonos.jsonn,jsonos.jsont);
+	 fenye();
+	 showViwe(1);
 	 var myDate = new Date();
 	 var year = myDate.getFullYear();    //获取完整的年份(4位,1970-????)
 	 var month = myDate.getMonth();       //获取当前月份(0-11,0代表1月)
@@ -131,9 +136,8 @@ var views = ${type };
 		 jQuery("select[name='store1']").attr("class","hide");
 		 jQuery("select[name='store2']").attr("class","hide");
 	 }
-	 jQuery("select option:nth-child(2)").attr("selected" , "selected");  
-// 	 jQuery("select[name='store1']").options[1].selected = true;
-// 	 jQuery("select[name='store2']").options[1].selected = true;
+	 jQuery("select option:nth-child(2)").attr("selected" , "selected"); 
+
  });
  function showTable(s){
 	 jQuery("tbody[name='tab']").empty();
@@ -141,12 +145,14 @@ var views = ${type };
 	 html += '<td >提成汇总</td>	 <td >考勤奖惩</td>	 <td >实际发放</td>	</tr>';
 	   jQuery(s).each(function(t,value){
 		   html += '<tr> <td>'+value.code+'</td> <td>'+value.name+'</td><td>'+value.baseSalaries+'</td><td>'+value.ld+'</td><td>'+value.sp+'</td><td>'+value.lc+'</td>';
-		   html += '<td>'+value.kk+'</td><td>'+value.tc+'</td><td>'+value.number+'</td><td>'+value.tc+'</td>';
+		   html += '<td>'+value.kk+'</td><td>'+value.tc+'</td><td>'+value.number+'</td><td>'+value.ff+'</td>';
 	   })
 	
 	   jQuery("tbody[name='tab']").append(html);
 	 
  }
+ 
+ 
  
 function  checkWages(g){
 	var code = jQuery("input[name='code']").val();
@@ -169,9 +175,9 @@ function  checkWages(g){
 		success : function(e){
 				 dialog('查询成功');
 				 jsonos = e.msg;
-				 var json = jsonos.jsona;
+				 json = jsonos.jsona;
 				 showTable(json);
-				 showViwe(jsonos.jsonn,jsonos.jsont);
+				 showViwe(1);
 			     jQuery("select[name='store1']").val(store);
 			     jQuery("select[name='store2']").val(store);
 			     jQuery("input[name='time2']").val(time);
@@ -180,9 +186,61 @@ function  checkWages(g){
 	});
 	
 }
+
+//一页多少条
+var resultPage = 20;
+var pageNo = 1;
+var pageSize = 1;
+
+function upPage(s){
+	var result =  jsonos.jsonn.length;
+	//上一页
+	if(s==-1 && pageNo != 1){
+		showViwe(pageNo-1);
+	}
+	
+	//下一页
+	if(s==2  && pageNo != Math.ceil(result/resultPage)){
+		showViwe(pageNo+1);
+	}
+
+	//尾页
+	if(s==3 ){
+		showViwe(Math.ceil(result/resultPage));
+	}
+}
+//页数赋值
+function fenye(){
+	var result =  jsonos.jsonn.length;
+	jQuery("#fenye3 i[name='page3']").text(Math.ceil(result/resultPage));
+	jQuery("#fenye3 i[name='result3']").text(result);
+	for (var i = Math.ceil(result/resultPage); i >0 ; i--) {
+		if(i==1){
+			var html ='<li name = "pageSize" class="page active" id="'+i+'" onclick="showViwe('+i+')"><a href="#">'+i+'</a></li>';
+		}
+		else{
+			var html ='<li name = "pageSize" class="page" id="'+i+'"  onclick="showViwe('+i+')"><a  href="#">'+i+'</a></li>';
+		}
+		jQuery("#upSize3").after(jQuery(html));
+	}
+}
  
- function showViwe(name,data){
-	 //图表  
+//图表  
+function showViwe(page){
+
+		jQuery("#fenye3 li[id='"+pageNo+"']").attr("class","page");
+		jQuery("#fenye3 li[id='"+page+"']").attr("class","page active");
+		pageNo = page; 
+		var names = jsonos.jsonn;
+		var datas = jsonos.jsont;
+	 	var name = [];
+	 	var data = [];
+		var inf = (names.length - resultPage * page + resultPage)>resultPage ? (resultPage * page) : names.length;
+		for (var i = resultPage*page-resultPage ,j=0;i < inf; i++,j++) {
+			name[j]=names[i];
+			data[j]=datas[i];
+		}
+	 
 			jQuery('#container').highcharts({                                           
 				chart: {                                                           
 					type: 'bar'                                                    
@@ -232,7 +290,7 @@ function  checkWages(g){
 					name: '工资',                                             
 					data: data                                   
 				}]                                                                 
-			});                                                                    
+			});    
  }
 
 	//dialog('msg');

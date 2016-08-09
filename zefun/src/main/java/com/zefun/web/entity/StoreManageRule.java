@@ -31,6 +31,17 @@ public class StoreManageRule {
 
     /** 最后操作时间 */
     private String lastOperatorTime;
+    
+    /** 门店名称 */
+    private String storeName;
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 
     public Integer getRuleId() {
         return ruleId;
