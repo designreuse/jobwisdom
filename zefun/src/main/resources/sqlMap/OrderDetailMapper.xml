@@ -66,6 +66,7 @@
     <result column="project_count" property="projectCount" jdbcType="INTEGER" />
     <result column="project_image" property="projectImage" jdbcType="VARCHAR" />
     <result column="real_price" property="realPrice" jdbcType="DECIMAL" />
+    <result column="detail_calculate" property="detailCalculate" jdbcType="DECIMAL" />
     <result column="off_type" property="offType" jdbcType="INTEGER" />
     <result column="gift_amount" property="giftAmount" jdbcType="DECIMAL" />
     <result column="free_amount" property="freeAmount" jdbcType="CHAR" />
@@ -212,6 +213,9 @@
       <if test="realPrice != null" >
         real_price,
       </if>
+      <if test="detailCalculate != null" >
+        detail_calculate,
+      </if>
       <if test="offType != null" >
         off_type,
       </if>
@@ -303,6 +307,9 @@
       </if>
       <if test="realPrice != null" >
         #{realPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="detailCalculate != null" >
+        #{detailCalculate,jdbcType=DECIMAL},
       </if>
       <if test="offType != null" >
         #{offType,jdbcType=INTEGER},
@@ -396,6 +403,9 @@
       </if>
       <if test="realPrice != null" >
         real_price = #{realPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="detailCalculate != null" >
+        detail_calculate = #{detailCalculate,jdbcType=DECIMAL},
       </if>
       <if test="offType != null" >
         off_type = #{offType,jdbcType=INTEGER},
