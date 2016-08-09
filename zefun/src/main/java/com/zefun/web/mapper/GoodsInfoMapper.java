@@ -242,5 +242,5 @@ public interface GoodsInfoMapper {
     * @param storeId  storeId
     * @return         GoodsStock
      */
-    GoodsStock selectAllAmountAndCount(Object storeId);
+    GoodsStock selectAllAmountAndCount(Integer storeId);
 }
