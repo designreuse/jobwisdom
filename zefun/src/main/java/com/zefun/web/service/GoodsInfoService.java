@@ -1067,7 +1067,7 @@ public class GoodsInfoService {
         else {
             view.addObject("storeId", storeId);
         }
-        GoodsStock amountAndCount = goodsInfoMapper.selectAllAmountAndCount(storeId);
+        GoodsStock amountAndCount = goodsInfoMapper.selectAllAmountAndCount(Integer.parseInt(storeId.toString()));
         List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByStoreId(Integer.parseInt(storeId.toString()));
         view.addObject("goodsCategories", goodsCategories);
         
@@ -1085,7 +1085,7 @@ public class GoodsInfoService {
         page.setParams(params);
         List<GoodsInfoDto> goodsInfoDtos = goodsInfoMapper.selectAllGoodsInfoByStoreIdByPage(page);
         page.setResults(goodsInfoDtos);
-        view.addObject("page", page);       
+        view.addObject("page", page);
         
         view.addObject("amountAndCount", amountAndCount);                                                           //商品库存总量 amount总金额 amcount总数量
         view.addObject("inquiryCount", getStockGoodsCountAndAmount(stockFlows, 1, null).get("count")); 
@@ -1221,5 +1221,5 @@ public class GoodsInfoService {
         result.put("amount", inquiryAmount);
         return result;
     }
-    
+   
 }
