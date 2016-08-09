@@ -151,7 +151,7 @@
 	    (IFNULL((SELECT SUM(er.number) FROM  employee_reward er WHERE  er.employee_id = e.employee_id AND is_reward =1 AND  LEFT( er.modifytime,7) =#{time}),0) -
         IFNULL((SELECT SUM(er.number) FROM  employee_reward er WHERE  er.employee_id = e.employee_id AND is_reward =2 AND  LEFT( er.modifytime,7) =#{time}),0)) AS number
     from employee_info e
-    where 1=1
+    where 1=1  and e.level_id IS NOT NULL and e.is_deleted = 0
     <if test="storeId != null and storeId !=''">
 	   and  store_id = #{storeId}
 	</if>
@@ -161,9 +161,6 @@
            #{storeId}
         </foreach>
 	</if>
-
-    
-     and e.level_id IS NOT NULL and e.is_deleted = 0<!-- in (select level_id from project_commission where is_deleted = 0) -->
   </select>
   
   <!-- 根据门店查询员工  by DavidLiang -->

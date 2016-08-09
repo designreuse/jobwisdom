@@ -451,6 +451,8 @@ public interface Url {
         public static final String GOODSINFO_DELETE_PAGE = "goodsInfo/deleteGoodsBrand";
         /** 删除供应商*/
         public static final String GOODSINFO_DELETE_SUPILER = "goodsInfo/deleteSuplier";
+        /** 库存统计分析*/
+        public static final String STOCK_VIEW_SERCHER = "goodsInfo/stock/view/sercher";
         
 	}
 
@@ -1264,8 +1266,10 @@ public interface Url {
 
 	/** 门店制度管理模块 */
 	class StoreManageRule {
-		/** 查看管理制度主页 */
-		public static final String VIEW_HOME = "storeManageRule/view/home";
+	    /** 查看管理制度主页 */
+	    public static final String VIEW_HOME = "storeManageRule/view/home";
+	    /** 查看管理制度主页 */
+	    public static final String VIEW_STORE = "storeManageRule/view/store";
 		/** 保存或者修改管理制度主页 */
 		public static final String SAVE_HOME = "storeManageRule/save/home";
 		/** 删除规则信息 */
@@ -1646,7 +1650,7 @@ public interface Url {
 	class EmployeeReward {
 		/** 员工奖惩首页 */
 		public static final String VIEW_EMPLOYEE_REWARD_HOME = "/rewards/view/home";
-		/** 添加员工奖惩 */
+		/** 修改员工奖惩 */
 		public static final String ACTION_UPDATE_REWARD = "/rewards/action/update";
 		/** 添加员工奖惩 */
 		public static final String ACTION_ADD_REWARD = "/rewards/action/add";

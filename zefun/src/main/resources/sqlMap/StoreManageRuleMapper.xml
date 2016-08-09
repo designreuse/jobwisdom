@@ -11,6 +11,17 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
     <result column="last_operator_time" property="lastOperatorTime" jdbcType="CHAR" />
   </resultMap>
+  
+    <resultMap id="BaseResultMapByName" type="com.zefun.web.entity.StoreManageRule" >
+    <id column="rule_id" property="ruleId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="rule_desc" property="ruleDesc" jdbcType="VARCHAR" />
+    <result column="process_type" property="processType" jdbcType="INTEGER" />
+    <result column="process_money" property="processMoney" jdbcType="DECIMAL" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+    <result column="last_operator_time" property="lastOperatorTime" jdbcType="CHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     rule_id, store_id, rule_name, rule_desc, process_type, process_money, last_operator_id, 
     last_operator_time
@@ -24,24 +35,23 @@
     store_id = #{storeId}
   </select>
   
-     <select id="selectRuleListByAccountStoreId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+     <select id="selectRuleListByAccountStoreId" resultMap="BaseResultMapByName" parameterType="java.util.Map" >
     select 
-    <include refid="Base_Column_List" />
-    from store_manage_rule
+    r.*,(select store_name from store_info s where s.store_id=r.store_id) as storeName
+    from store_manage_rule r 
     where  1=1
       <if test="storeId != null" >
-      and store_id = #{storeId}
+      and r.store_id = #{storeId}
       </if>
       	<if test="storeIds != null and storeIds !=''">
-	      and  store_id in
+	      and  r.store_id in
 		 <foreach collection="storeIds" item="storeId" index="index" open="(" close=")" separator=",">
            #{storeId}
         </foreach>
 	</if>
 	   <if test="processType1 != null" >
-      and process_type = #{processType1}
+      and r.process_type = #{processType1}
       </if>
-
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

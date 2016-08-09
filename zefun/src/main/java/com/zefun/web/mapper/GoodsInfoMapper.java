@@ -11,6 +11,7 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.TrendDeptDataDto;
 import com.zefun.web.entity.GoodsInfo;
+import com.zefun.web.entity.GoodsStock;
 import com.zefun.web.entity.Page;
 import com.zefun.web.vo.CardStoreSalesVo;
 import com.zefun.web.vo.CashStoreSalesVo;
@@ -233,4 +234,13 @@ public interface GoodsInfoMapper {
     * @return      商品详情
      */
     GoodsInfo selectByStoreAccountAndStoreId(Map<String, Object> query);
+
+    /**
+     * 查询门店下所有的商品*成本
+    * @author 高国藩
+    * @date 2016年8月8日 上午9:47:19
+    * @param storeId  storeId
+    * @return         GoodsStock
+     */
+    GoodsStock selectAllAmountAndCount(Integer storeId);
 }

@@ -231,14 +231,21 @@ public class EmployeeRewardService {
     * @param ruleType 类型
     * @param employee 员工
     * @param pageSize 一页多少条数据
+    * @param storeid 门店登录
     * @return BaseDto
      */
     public BaseDto selectRuleByPage(Integer pageNo, String staTime,
             String endTime, Integer storeId, String ruleName, Integer ruleType,
-            Integer employee, Integer pageSize) {
+            Integer employee, Integer pageSize, Object storeid) {
         
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("storeId", storeId);
+        if (storeid != null) {
+            params.put("storeId", storeid);
+        }
+        else {
+            params.put("storeId", storeId);
+        }
+
         params.put("ruleName", ruleName);
         params.put("ruleType", ruleType);
         params.put("employee", employee);

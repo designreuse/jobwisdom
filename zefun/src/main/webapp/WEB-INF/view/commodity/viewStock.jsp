@@ -441,7 +441,7 @@
 			var fromStore = jQuery(modal).find("select[name='fromStore']").val();
 			var toStore = jQuery(modal).find("select[name='toStore']").val();
 			if (fromStore == toStore){dialog('自己给自己出库啊?');return;}
-			var data = {"stockType":stockType, "aIds":aIds, "stockDesc":stockDesc, "stockCount":stockCount, "toStore":toStore, "fromStore":fromStore};
+			var data = {"stockType":stockType, flowType:"商品调拨", "aIds":aIds, "stockDesc":stockDesc, "stockCount":stockCount, "toStore":toStore, "fromStore":fromStore};
 			console.log(data);
 			jQuery.ajax({
 				type : "post",
