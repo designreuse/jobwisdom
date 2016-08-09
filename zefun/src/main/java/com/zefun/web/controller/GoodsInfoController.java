@@ -755,12 +755,39 @@ public class GoodsInfoController extends BaseController {
     * @param supplierId supplierId
     * @return BaseDto
      */
-    
     @RequestMapping(value = Url.GoodsInfo.GOODSINFO_DELETE_SUPILER, method=RequestMethod.POST)
     @ResponseBody
     public BaseDto deletedSupiler(HttpServletRequest request, Integer supplierId){
         return goodsInfoService.deletedSupiler(supplierId);
     }
    
+    /**
+     * 库存统计
+    * @author 高国藩
+    * @date 2016年8月8日 上午9:47:58
+    * @param request  request
+    * @return         ModelAndView
+     */
+    @RequestMapping(value = Url.GoodsInfo.STOCK_VIEW_SERCHER, method=RequestMethod.GET)
+    public ModelAndView stockViewSercher(HttpServletRequest request){
+        String storeAccount = getStoreAccount(request);
+        Object storeId = request.getSession().getAttribute(App.Session.STORE_ID);
+        return goodsInfoService.stockViewSercher(storeAccount, storeId);
+    }
+    
+    /**
+     * 库存统计
+    * @author 高国藩
+    * @date 2016年8月8日 上午9:47:58
+    * @param request  request
+    * @param query    查询条件
+    * @return         ModelAndView
+     */
+    @RequestMapping(value = Url.GoodsInfo.STOCK_VIEW_SERCHER, method=RequestMethod.POST)
+    @ResponseBody
+    public BaseDto stockViewSercher(HttpServletRequest request, @RequestBody JSONObject query){
+        String storeAccount = getStoreAccount(request);
+        return goodsInfoService.stockViewSercher(storeAccount, query);
+    }
     
 }
