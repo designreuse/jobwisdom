@@ -382,7 +382,7 @@
   <!--  删除没有做完的项目 -->
   <select id="selectByIsNotOver" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select * from shift_mahjong_project_step
-    where detail_id = #{detailId,jdbcType=INTEGER} and is_deleted = 0 and is_over = 2
+    where detail_id = #{detailId,jdbcType=INTEGER} and is_deleted = 0 and is_over = 1
   </select>
   
   <!-- 根据步骤标识查询该步骤前的没完成的步骤 (由于步骤中会出现不同的项目，该sql不能满足)-->

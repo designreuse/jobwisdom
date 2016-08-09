@@ -328,6 +328,9 @@ public class StaffService {
     	else if (orderInfo.getIsOrderOption() == 1) {
     		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该服务订单正在操作，无法进入！");
     	}
+    	else if (orderInfo.getIsOrderOption() == 1) {
+    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该服务订单已通知买单，无法进入！");
+    	}
     	else {
     		Integer orderId = orderInfo.getOrderId();
     		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, orderId);
