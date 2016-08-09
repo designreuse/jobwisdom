@@ -1516,13 +1516,14 @@ public class EmployeeService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("time", yearMonth);
         
-//        if (selectByStoreAccount.size() != 0) {
-//            map.put("storeId", selectByStoreAccount.get(0).getStoreId()) ;
-//        }
-//        if (storeId !=null) {
-//            map.put("storeId", storeId) ;
-//            type = 1;
-//        }
+        if (selectByStoreAccount.size() != 0) {
+            map.put("storeId", selectByStoreAccount.get(0).getStoreId()) ;
+        }
+        if (storeId !=null) {
+            map.put("storeId", storeId) ;
+            type = 1;
+        }
+        
         view.addObject("type", type);
         JSONObject jsonos = jsonWages(map);
         view.addObject("jsonos", jsonos);
@@ -1530,7 +1531,7 @@ public class EmployeeService {
     }
  
     /**
-     * 
+     *  组装数据
     * @author 骆峰
     * @date 2016年8月3日 下午8:10:13
     * @param map map
@@ -1579,19 +1580,6 @@ public class EmployeeService {
                     }
                 }
                
-                if (!jsono.containsKey("ld")) {
-                    jsono.accumulate("ld", new BigDecimal(0));
-                }
-                if (!jsono.containsKey("sp")) {
-                    jsono.accumulate("sp", new BigDecimal(0));
-                }
-                if (!jsono.containsKey("lc")) {
-                    jsono.accumulate("lc", new BigDecimal(0));
-                }
-                if (!jsono.containsKey("kk")) {
-                    jsono.accumulate("kk", new BigDecimal(0));
-                }
-                
                 jsono.accumulate("tc", total.add((BigDecimal) jsono.get("kk")) .add((BigDecimal) jsono.get("lc")).add((BigDecimal) jsono.get("sp"))
                         .add((BigDecimal) jsono.get("ld")).add((BigDecimal) jsono.get("baseSalaries")));
                 
@@ -1633,7 +1621,7 @@ public class EmployeeService {
         if (time != "") {
             map.put("time", time);
         }
-        if (time != "") {
+        if (code != "") {
             map.put("code", code);
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, jsonWages(map));

@@ -113,7 +113,6 @@ var storeId = ${StoreId};
 var ruleId= null;
 var name = "";
 var ruleLiss =  ${ruleListByStoreIds};
-//  var ruleListByStoreId = eval("(" + ruleLiss + ")");
 
 //门店登录 隐藏
 jQuery(function(){ 
@@ -251,7 +250,7 @@ function viewStore(storeIds){
 			html +=' <td>惩罚</td>';
 		}
 		html += ' <td>'+ruleListByStoreId.processMoney+'</td><td>'+ruleListByStoreId.ruleDesc+'</td>';
-		if(storeId != 0){
+		if(storeId == 0){
 			html += '<td><img onclick = "updated('+ruleListByStoreId.storeId +','+ruleListByStoreId.ruleId +','+ruleListByStoreId.processType +',"'+ruleListByStoreId.ruleName +'",'+ruleListByStoreId.processMoney +',"'+ruleListByStoreId.ruleDesc +'")" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleted('+ruleListByStoreId.ruleId +')" src="'+baseUrl+'images/add_store_2.png"></td></tr>';
 		}
 		 
