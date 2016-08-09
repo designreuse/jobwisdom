@@ -2,7 +2,7 @@
 .add_money{background:#ebeff8;border:1px solid #1d4e97;padding:13px;border-radius:12px}
 .add_money button{width:100px;height:24px;border:none;text-align:center;line-height:24px;border-radius:12px;color:white;background:#616a84}
 .add_money button:hover{background:#5b637b}
-.add_money_table{height:640px;border:1px solid #1d4e97;border-radius:12px;margin-top:15px;overflow:hidden }
+.add_money_table{height:640px;border:1px solid #1d4e97;border-radius:12px;margin-top:15px;overflow:overlay }
 .add_money_table table{width:100%;}
 .add_money_table table td{height:40px;vertical-align:middle;text-align:center;border-bottom:1px solid #1d4e97;border-right:1px solid #1d4e97;}
 .add_money_table table td:last-child{border-right:none}
@@ -19,12 +19,12 @@
     z-index: 10000;
     background: rgba(102, 108, 121, 0.8);}
 	
-.add_system{width:590px;height:300px;border-radius:12px;overflow:hidden;margin:100px auto;background:white}	
+.add_system{width:590px;height:350px;border-radius:12px;overflow:hidden;margin:100px auto;background:white}	
 .add_system>p{font-size:14px;color:white;text-align:center;height:40px;line-height:40px;background:#3a4052}
 .add_system_content{padding:20px}
 .add_system_content select{margin-left:10px;width:80px;padding:0 0 0 30px;height:24px;border-radius:12px;border:1px solid #b8b8b8;}
 .add_system_content input{margin-left:10px;width:100px;height:14px;border-radius:12px;border:1px solid #b8b8b8;}
-.add_system_content span{display:inline-block;margin-right:18px;}
+.add_system_content span{display:inline-block;margin-right:8px;}
 .system_saying{margin-top:18px}
 .system_saying .saying{float:left;width:56px;}
 .textarea1 textarea{width:472px;height:140px;border:1px solid #b8b8b8;border-radius:12px}

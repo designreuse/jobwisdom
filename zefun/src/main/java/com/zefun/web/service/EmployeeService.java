@@ -1513,16 +1513,16 @@ public class EmployeeService {
         else {
             yearMonth = year +"-"+month;
         }
-       
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("time", yearMonth);
-        if (selectByStoreAccount.size() != 0) {
-            map.put("stroe", selectByStoreAccount.get(0).getStoreId()) ;
-        }
-        if (storeId !=null) {
-            map.put("stroe", storeId) ;
-            type = 1;
-        }
+        
+//        if (selectByStoreAccount.size() != 0) {
+//            map.put("storeId", selectByStoreAccount.get(0).getStoreId()) ;
+//        }
+//        if (storeId !=null) {
+//            map.put("storeId", storeId) ;
+//            type = 1;
+//        }
         view.addObject("type", type);
         JSONObject jsonos = jsonWages(map);
         view.addObject("jsonos", jsonos);
@@ -1542,6 +1542,7 @@ public class EmployeeService {
         JSONArray jsont = new JSONArray();
         JSONObject jsono = new JSONObject();
         JSONObject jsonos = new JSONObject();
+        
         List<EmployeeInfoDto> commission = employeeCommissionMapper.selectEmployeeInfoByCommission(map);
         List<EmployeeBaseDto> employeeList =  employeeInfoMapper.selectEmployeeListByStoreIdAll(map);
         employeeList.stream().forEach(em ->{
@@ -1549,6 +1550,7 @@ public class EmployeeService {
                 jsono.accumulate("code", em.getEmployeeCode());
                 jsono.accumulate("name", em.getName());
                 jsono.accumulate("baseSalaries", new BigDecimal(em.getBaseSalaries()));
+                jsono.accumulate("number", em.getNumber());
                 BigDecimal total = new BigDecimal(0);
                 for (Integer i = 1; i < 5; i++) {
                     BigDecimal t = new BigDecimal(i.toString());
@@ -1556,7 +1558,6 @@ public class EmployeeService {
                         = commission.parallelStream().filter(p -> p.getEmployeeId().intValue() == em.getEmployeeId().intValue() 
                          && p.getOrderType().compareTo(t) == 0)
                         .collect(Collectors.toList());
-                    
                     double tatailCommission = 0.0;
                     if (commissionList.size() != 0) {
                         tatailCommission = commissionList.parallelStream()
@@ -1590,10 +1591,13 @@ public class EmployeeService {
                 if (!jsono.containsKey("kk")) {
                     jsono.accumulate("kk", new BigDecimal(0));
                 }
+                
                 jsono.accumulate("tc", total.add((BigDecimal) jsono.get("kk")) .add((BigDecimal) jsono.get("lc")).add((BigDecimal) jsono.get("sp"))
                         .add((BigDecimal) jsono.get("ld")).add((BigDecimal) jsono.get("baseSalaries")));
+                
+                jsono.accumulate("ff", jsono.getDouble("tc") + em.getNumber());
                 jsona.add(jsono);
-                jsont.add(jsono.get("tc"));
+                jsont.add(jsono.getDouble("tc") + em.getNumber());
                 jsonn.add(em.getName());
             });
         jsonos.accumulate("jsona", jsona);
@@ -1621,7 +1625,7 @@ public class EmployeeService {
             list.add(storeInfo.getStoreId());
         }
         if (store != 0) {
-            map.put("store", store);
+            map.put("storeId", store);
         }
         else {
             map.put("storeIds", list);
