@@ -451,6 +451,8 @@ public interface Url {
         public static final String GOODSINFO_DELETE_PAGE = "goodsInfo/deleteGoodsBrand";
         /** 删除供应商*/
         public static final String GOODSINFO_DELETE_SUPILER = "goodsInfo/deleteSuplier";
+        /** 库存统计分析*/
+        public static final String STOCK_VIEW_SERCHER = "goodsInfo/stock/view/sercher";
         
 	}
 

@@ -7,6 +7,7 @@
 <script>
 	var typeNum = '${type }';
 	var textName = ["", "业绩", "提成"];
+	var urlList = ["", "employee/account/store/earning/1", "employee/account/store/earning/2"];
 	var cname = new Array();
 	var cvalue = new Array();
 	var earingCommissionDtos = eval('('+'${earingCommissionDtos}'+')');
@@ -203,12 +204,12 @@
 							<ul class="clearfix total_top">
 								<li>提成人员</li>
 								<li>单号</li>
-								<li>项目</li>
-								<li>业绩类型</li>
-								<li>是否指定</li>
-								<li>客户类型</li>
-								<li>业绩</li>
-								<li>时间</li>
+								<li style="width: 129px">项目</li>
+								<li style="width: 129px">业绩类型</li>
+								<li style="width: 129px">是否指定</li>
+								<li style="width: 129px">客户类型</li>
+								<li style="width: 129px">业绩</li>
+								<li style="width: 129px">时间</li>
 							</ul>
 							<div class="wages_content_datail_table_">
 								<table id="detail">
@@ -280,7 +281,7 @@ function serchEaring(){
 	}
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "employee/account/store/earning",
+		url : baseUrl + urlList[typeNum],
 		data : JSON.stringify(data),
 		dataType : "json",
 		contentType : "application/json",
@@ -310,7 +311,7 @@ function serchGather(){
 	var data = {"storeId":storeId, "gatherStart":gatherStart, "gatherStop":gatherStop, "documentNum":2 };
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "employee/account/store/earning",
+		url : baseUrl + urlList[typeNum],
 		data : JSON.stringify(data),
 		dataType : "json",
 		contentType : "application/json",
@@ -371,7 +372,7 @@ function changePage(){
 			"employeeId":employeeId, "isAssign":isAssign, "orderType":orderType, "documentNum":3};
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "employee/account/store/earning/1",
+		url : baseUrl + urlList[typeNum],
 		data : JSON.stringify(data),
 		dataType : "json",
 		contentType : "application/json",

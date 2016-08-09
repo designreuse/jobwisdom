@@ -304,10 +304,6 @@ public class MemberCenterService {
     private ComboInfoMapper comboInfoMapper;
     
     
-    
-    
-    
-    
 	/**
 	 * wifi主页
 	* @author 张进军
@@ -331,7 +327,7 @@ public class MemberCenterService {
             }
             //员工
             else {
-                return staffService.receptionView(userId);
+                return staffService.receptionView();
             }
 	    }
         return storeInfoView(storeId, ownerStoreId);

@@ -1,5 +1,7 @@
 package com.zefun.web.entity;
 
+import java.math.BigDecimal;
+
 /**
  * 商品库存
 * @author 高国藩
@@ -11,6 +13,28 @@ public class GoodsStock extends GoodsStockKey {
 
     /** 更新时间 */
     private String updateTime;
+    
+    /** 库存总金额*/
+    private BigDecimal amount;
+    
+    /** 库存总数量*/
+    private Integer amcount;
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public Integer getAmcount() {
+        return amcount;
+    }
+
+    public void setAmcount(Integer amcount) {
+        this.amcount = amcount;
+    }
 
     public Integer getCount() {
         return count;

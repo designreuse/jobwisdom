@@ -208,6 +208,7 @@
   <resultMap id="ResultGoodsMap" type="com.zefun.web.entity.AccountGoods" >
     <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
     <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
     <result column="goods_code_suffix" property="goodsCodeSuffix" jdbcType="CHAR" />
   </resultMap>
   
@@ -223,8 +224,15 @@
     <if test="storeAccount != null" >
         and sf.store_account = #{storeAccount,jdbcType=VARCHAR}
     </if>
+    <if test="toStore != null" >
+        and (sf.to_store = #{toStore,jdbcType=VARCHAR} or sf.from_store = #{toStore,jdbcType=VARCHAR})
+    </if>
+    <if test="flowStartDate != null" >
+        and DATE_FORMAT(sf.create_time, '%Y-%m-%d') between #{flowStartDate} and #{flowStopDate}
+    </if>
   </select>
+  
   <select id="selectGoodsIds" parameterType="java.util.Map" resultMap="ResultGoodsMap">
-  	select goods_id, goods_name, goods_code_suffix  from account_goods where goods_id in (${aIds})
+  	select goods_id, goods_name, goods_code_suffix, cost_price from account_goods where goods_id in (${aIds})
   </select>
 </mapper>

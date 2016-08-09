@@ -1831,11 +1831,17 @@ public class EmployeeService {
                 .mapToDouble(p -> Double.parseDouble(StringUtil.isEmptyAndEquese(p.getCardCommissionCalculate()))).sum());
         
         
-        List<EmployeeCommissionDto> detailCommissionDtos = employeeCommissionMapper.selectEaringDetail(page);
-        page.setResults(detailCommissionDtos);
+        try {
+            List<EmployeeCommissionDto> detailCommissionDtos = employeeCommissionMapper.selectEaringDetail(page);
+            page.setResults(detailCommissionDtos);
+            result.put("page", page);
+        } 
+        catch (Exception e) {
+            
+        }
         result.put("earingCommissionDtos", earingCommissionDtos);
         result.put("gatherCommissionDtos", gatherCommissionDtos);
-        result.put("page", page);
+        
         
         return result;
     }
