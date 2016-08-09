@@ -113,7 +113,7 @@
    WHERE i.order_status = 4    AND d.order_type = 2 
    AND i.is_deleted =0 AND  d.is_deleted =0
         AND i.store_id = ${storeId}
-        AND left(i.create_time,4) = " ${time} "
+        AND left(i.create_time,4) = "${time}"
   </select>
   
   

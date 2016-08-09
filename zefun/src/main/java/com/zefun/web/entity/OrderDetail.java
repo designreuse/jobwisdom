@@ -102,18 +102,19 @@ public class OrderDetail {
 
 	/***/
 	private ProjectInfo projectInfo;
+	
 
 	
 	
 	public BigDecimal getDetailCalculate() {
-		return detailCalculate;
-	}
+        return detailCalculate;
+    }
 
-	public void setDetailCalculate(BigDecimal detailCalculate) {
-		this.detailCalculate = detailCalculate;
-	}
+    public void setDetailCalculate(BigDecimal detailCalculate) {
+        this.detailCalculate = detailCalculate;
+    }
 
-	public Integer getFreeEmployeeId() {
+    public Integer getFreeEmployeeId() {
 		return freeEmployeeId;
 	}
 
