@@ -361,8 +361,7 @@
   
     <select id="selectByStore" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.Page" >
   	SELECT   i.* from coupon_store s  LEFT JOIN  coupon_info    i  ON  s.coupon_id=i.coupon_id   WHERE
-  	  s.store_id =#{params.StoreId}   AND  i.is_delete=0   AND 
-  	  CURDATE() &lt;= i.coupon_stop_time AND CURDATE() &gt;= i.release_time AND i.start_type =2   order  by  coupon_id desc 
+  	  s.store_id =#{params.StoreId}   AND  i.is_delete=0 AND i.start_type =2   
   </select>
   
   <select id="selectByStoreAccount" resultMap="BaseResultMap" parameterType="com.zefun.web.entity.Page" >

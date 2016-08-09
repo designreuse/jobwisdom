@@ -236,7 +236,7 @@ public class EmployeeRewardService {
      */
     public BaseDto selectRuleByPage(Integer pageNo, String staTime,
             String endTime, Integer storeId, String ruleName, Integer ruleType,
-            Integer employee, Integer pageSize, Object storeid) {
+            String employee, Integer pageSize, Object storeid) {
         
         Map<String, Object> params = new HashMap<String, Object>();
         if (storeid != null) {

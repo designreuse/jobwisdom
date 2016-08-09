@@ -102,7 +102,7 @@ public class EmployeeRewardController extends BaseController {
     @RequestMapping(value = Url.EmployeeReward.VIEW_EMPLOYEE_REWARD_HOME_PAGE, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto selectEmployeeByAccount(HttpServletRequest request, Integer pageNo, String staTime, String endTime, 
-            Integer storeId, String ruleName, Integer ruleType, Integer employee, Integer pageSize) {          
+            Integer storeId, String ruleName, Integer ruleType, String employee, Integer pageSize) {          
         Object storeid = request.getSession().getAttribute(Session.STORE_ID);
         return employeeRewardService.selectRuleByPage(pageNo, staTime, endTime, storeId, ruleName, ruleType, employee, pageSize, storeid);
     } 

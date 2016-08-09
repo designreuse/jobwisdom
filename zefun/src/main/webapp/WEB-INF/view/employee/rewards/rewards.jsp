@@ -28,7 +28,7 @@
 <div class="content_right clearfix">
     <ul class="clearfix">
 	  <li class="active" onclick="jQuery('.fenye').hide();">奖惩管理</li>
-	  <li class=""  onclick="jQuery('.fenye').show();">奖惩明细</li> 
+	  <li class=""  id="li" onclick="jQuery('.fenye').show();">奖惩明细</li> 
 	</ul>
 	<div class="wages_content" >
 	  <div class="wages_content_datail">
@@ -46,14 +46,14 @@
 	 <div class="wages_content_datail_table clearfix">
 	  <div class="table_left">
 	   <table id="teb1">
-	      <tbody>
+	      
 	      <tr>
 		    <td style="height:85px">工号</td>
 		    <td style="height:85px">姓名</td>
 		  </tr>
 	
 		
-	   </tbody></table>
+	   </table>
 	  </div>
 	  <div class="table_right">
 	   <div class="table_right_head">
@@ -209,13 +209,22 @@
 var rewardId =null ;
 var storeId = ${storeId} ;
 
+jQuery(function(){
+	jQuery(document).on('click','#teb1 tr:gt(0) td',function(){	
+		 jQuery("input[name='employeeCode']").val(jQuery(this).text());
+		 jQuery("#storeId2").val(jQuery("#storeId1").val());
+		 jQuery("#li").click();
+		 selectd();
+	})
+  })
+
 function storeSelect(){
 	if(storeId != 0 ){
 		var storeName = jQuery("#storeIdAll option[storeId='"+storeId+"'] ").val();
 		jQuery("#storeIdAll").val(storeName);
 		jQuery("#storeHide").hide();
-		jQuery("#storeTd").remove();
-		jQuery("#storeTd2").remove();
+		jQuery("#storeTd").empty();
+		jQuery("#storeTd2").empty();
 		
 		jQuery("#storeId1").val(storeName);
 		jQuery("#storeId1").hide();
