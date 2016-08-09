@@ -52,7 +52,7 @@
 		z-index: 10000;
 		background: rgba(102, 108, 121, 0.8);
 	   }
-	  .zzc3 .alert_operate{margin:100px auto;width:300px;height:150px;background:white;border-radius:12px;overflow:hidden}
+	  .zzc3 .alert_operate{margin:100px auto;width:300px;height:180px;background:white;border-radius:12px;overflow:hidden}
 	  .zzc3 .alert_operate>p{font-size:14px;background:#343e49;height:40px;line-height:40px;color:white;text-align:center;}
 	  .alert_operate_content{padding:20px}
 	  .alert_operate_content input{margin-left:5px;width:160px;height:16px;border-radius:12px;border:1px solid #728293}
@@ -306,6 +306,7 @@
   <div class="alert_operate">
     <p>操作员授权码</p>
     <div class="alert_operate_content">  
+      <p>总该价金额：<em name = "totailChangeUpdateMoney"></em>元</p>
       <p>输入授权码：<input type="password" name = "authorityValue"></p>
 	  <div class="alert_operate_button">
 	    <button onclick = "subminChangePric()">确认</button>
@@ -324,6 +325,7 @@
 <script>
 var orderId =  '${selfCashierOrderDto.orderId}';
 var memberType = '${memberType}';
+var updateMoneyAuthorize = '${updateMoneyAuthorize}';
 var discountMap = null;
 var allOffMap = null;
 if (memberType == 1) {

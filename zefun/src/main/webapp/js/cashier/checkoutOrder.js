@@ -135,7 +135,23 @@ function initialization () {
 function showChangePric (obj) {
 	jQuery(".zzc").show();
 	var mustAmount  = jQuery(obj).parents(".change_price__spread").find("em[name='mustAmount']").attr("mustAmount");
+	var detailId  = jQuery(obj).parents(".change_price__spread").attr("detailId");
 	jQuery("em[name='freeMustAmount']").text(mustAmount);
+	
+	var  type = 0;
+	for (var i = 0; i < changePricList.length; i++) {
+		var changePric = changePricList[i];
+		if (changePric.detailId == detailId) {
+			jQuery("input[name='freeAmount']").val(changePric.freeAmount);
+			jQuery("[name='orderRemark']").val(changePric.orderRemark);
+			type = 1;
+		}
+	}
+	
+	if (type == 0) {
+		jQuery("input[name='freeAmount']").val();
+		jQuery("[name='orderRemark']").val();
+	}
 	changePricObj = obj;
 }
 
@@ -144,11 +160,23 @@ function confirm () {
 	var detailId = jQuery(changePricObj).parents(".change_price__spread").attr("detailId");
 	var mustAmount  = jQuery(changePricObj).parents(".change_price__spread").find("em[name='mustAmount']").attr("mustAmount");
 	var freeAmount = jQuery("input[name='freeAmount']").val();
+	var orderRemark = jQuery("[name='orderRemark']").val();
+	
+	if (isEmpty(freeAmount)) {
+		dialog("改价后金额不能为空");
+		return;
+	}
+	
+	if (isEmpty(orderRemark)) {
+		dialog("改价原因不能为空");
+		return;
+	}
+	
 	//修改实收金额
 	jQuery(changePricObj).parents(".change_price__spread").find("span[name='actualAmount']").text(new Big(freeAmount).toFixed(2));
 	jQuery(changePricObj).parents(".change_price__spread").find("span[name='actualAmount']").attr("actualAmount", new Big(freeAmount).toFixed(2));
 	freeAmount = new Big(freeAmount - mustAmount).toFixed(2);
-	var orderRemark = jQuery("[name='orderRemark']").val();
+	
 	//是否存在标识
 	var type = 0;
 	for (var i = 0; i < changePricList.length; i++) {
@@ -174,11 +202,25 @@ function confirm () {
 	}
 	jQuery(changePricObj).parents(".change_price__spread").find("em[name='detailFree']").text(freeAmount);
 	
+	jQuery(changePricObj).parents(".change_price__spread").find("em[name='detailFree']").parent().find("i").remove();
 	jQuery(changePricObj).parents(".change_price__spread").find("em[name='detailFree']").parent().append("<i>!<a href='javascript:;' class='bubble_'>"+orderRemark+"<em></em></a></i>");
+	jQuery(changePricObj).parents(".change_price__spread").find("em[name='detailFree']").parent().append("<em style = 'font-size: 12px;text-decoration: underline;color: #459ae9;' onclick = 'revokeUpdayeMoney(this)'>撤销</em>")
 	
 	tatailProc();
 	
 	canle();
+}
+
+function revokeUpdayeMoney (obj) {
+	var detailId = jQuery(obj).parents(".change_price__spread").attr("detailId");
+	for (var i = 0; i < changePricList.length; i++) {
+		var changePric = changePricList[i];
+		if (changePric.detailId == detailId) {
+			changePricList.remove(i);
+			
+			
+		}
+	}
 }
 
 function canle () {
@@ -348,7 +390,20 @@ function changeOff (obj) {
 
 function checkIsChangePric () {
 	if (changePricList.length > 0 && isEmpty(authorityEmployeeId)) {
-		jQuery(".zzc3").show();
+		var totail = new Big(0);
+		for (var i = 0; i < changePricList.length; i++) {
+			var changePric = changePricList[i];
+			totail = totail.plus(new Big(changePric.freeAmount));
+		}
+		
+		if  (totail.abs().gte(new Big(updateMoneyAuthorize))) {
+			jQuery("[name='totailChangeUpdateMoney']").text(totail.toFixed(2));
+			jQuery("[name='authorityValue']").val("");
+			jQuery(".zzc3").show();
+		}
+		else {
+			submitOrderInfo();
+		}
 	}
 	else {
 		submitOrderInfo();
