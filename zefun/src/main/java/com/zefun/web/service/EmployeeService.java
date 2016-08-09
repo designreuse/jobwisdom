@@ -1565,7 +1565,6 @@ public class EmployeeService {
                                 .mapToDouble(EmployeeInfoDto::getCommissionAmount).average().getAsDouble();
                     }
                    
-                
                     if (i == 1) {
                         jsono.accumulate("ld", new BigDecimal(tatailCommission).setScale(2, BigDecimal.ROUND_HALF_UP));
                     }

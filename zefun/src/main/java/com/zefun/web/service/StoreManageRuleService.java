@@ -59,6 +59,8 @@ public class StoreManageRuleService {
         }
         else {
             map.put("storeId", selectByStoreAccount.get(0).getStoreId());
+
+            
             mav.addObject("StoreId", 0);
         }
         mav.addObject("selectByStoreAccount", selectByStoreAccount);

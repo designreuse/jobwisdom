@@ -36,6 +36,7 @@
     <result column="combo_id" property="comboId" jdbcType="INTEGER" />
     <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
     <result column="gift_amount" property="giftAmount" jdbcType="DECIMAL" />
+    <result column="detail_calculate" property="detailCalculate" jdbcType="DECIMAL" />
     <result column="free_amount" property="freeAmount" jdbcType="CHAR" />
     <result column="order_remark" property="orderRemark" jdbcType="VARCHAR" />
     <result column="free_employee_id" property="freeEmployeeId" jdbcType="INTEGER" />
@@ -101,8 +102,19 @@
     detail_id, detail_code, order_id, dept_id, order_type, is_appoint, appoint_off, is_assign, 
     project_id, project_name, project_price, project_count, project_image, discount_amount, 
     real_price, off_type, combo_id, coupon_id, gift_amount, free_amount, order_remark, free_employee_id,
-    service_length, store_id, order_status, is_deleted, is_update, create_time, update_time, last_operator_id
+    service_length, store_id, order_status, is_deleted, is_update, create_time, update_time, last_operator_id,detail_calculate
   </sql>
+  
+  
+   <select id="selectDetailLByOrderId" parameterType="java.util.Map" resultMap="BaseResultMap">
+   SELECT d.order_id,i.create_time ,SUM( d.project_count) as project_count ,SUM(d.detail_calculate) as detail_calculate FROM 
+   order_info i LEFT JOIN  order_detail  d ON i.order_id= d.order_id 
+   WHERE i.order_status = 4    AND d.order_type = 2 
+   AND i.is_deleted =0 AND  d.is_deleted =0
+        AND i.store_id = ${storeId}
+        AND left(i.create_time,4) = " ${time} "
+  </select>
+  
   
   <!-- 删除门店所有订单明细数据(清除测试数据)，by 张小胖 -->
   <delete id="deleteByStoreId" parameterType="java.lang.Integer">
