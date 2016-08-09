@@ -99,10 +99,22 @@ public class OrderDetail {
 
 	/***/
 	private ProjectInfo projectInfo;
+	
+	
+	/**明细业绩值 */
+	private BigDecimal  detailCalculate;
 
 	
 	
-	public Integer getFreeEmployeeId() {
+	public BigDecimal getDetailCalculate() {
+        return detailCalculate;
+    }
+
+    public void setDetailCalculate(BigDecimal detailCalculate) {
+        this.detailCalculate = detailCalculate;
+    }
+
+    public Integer getFreeEmployeeId() {
 		return freeEmployeeId;
 	}
 

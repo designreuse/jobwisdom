@@ -6,11 +6,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BusinessDiscountPart;
 import com.zefun.web.dto.BusinessIncomePart;
 import com.zefun.web.dto.BusinessSummaryRelativeAmt;
@@ -372,6 +374,8 @@ public class OrderInfoService {
         }
         
         map.put("time", yearMonth);
+        map.put("type", yearMonth);
+        map.put("timeType", yearMonth);
         view.addObject("selectByStoreAccount", selectByStoreAccount);
         view.addObject("time", yearMonth);
        
@@ -383,11 +387,15 @@ public class OrderInfoService {
     * @author 骆峰
     * @date 2016年8月9日 下午5:02:53
     * @param map 条件
-    * @param type 条件
     * @return JSONArray
      */
-    public JSONArray joinData(Map<String, Object> map, Integer type){
+    public JSONArray joinData(Map<String, Object> map){
         List<OrderDetail> selectDetailLByOrderId = orderDetailMapper.selectDetailLByOrderId(map);
+        String time = map.get("timeType").toString();
+        
+        List<OrderDetail> monthCollect = selectDetailLByOrderId.stream()
+                .filter(s ->s.getCreateTime().substring(6).equals(map.get(time))).collect(Collectors.toList());
+        Integer monthDay = DateUtil.monthDay(map.get(time).toString());
         return null;
     }
 }
