@@ -53,7 +53,7 @@ public class OrderDetail {
 	private BigDecimal realPrice;
 	
 	/** 业绩值*/
-	private BigDecimal detailCalculate;
+	private Double detailCalculate;
 
 	/** 签单金额 */
 	private String freeAmount;
@@ -106,11 +106,12 @@ public class OrderDetail {
 
 	
 	
-	public BigDecimal getDetailCalculate() {
+
+    public Double getDetailCalculate() {
         return detailCalculate;
     }
 
-    public void setDetailCalculate(BigDecimal detailCalculate) {
+    public void setDetailCalculate(Double detailCalculate) {
         this.detailCalculate = detailCalculate;
     }
 
