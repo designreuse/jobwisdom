@@ -339,7 +339,7 @@ public interface EmployeeInfoMapper {
     * @param params params
     * @return List
      */
-    List<EmployeeBaseDto> selectEmployeeListByStoreIdAll( Map<String, Object> params);
+    List<EmployeeBaseDto> selectEmployeeListByStoreIdAll(Map<String, Object> params);
     
     /**
      * 根据门店查询员工

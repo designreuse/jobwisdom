@@ -33,7 +33,6 @@ import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * 订单相关操作服务类
