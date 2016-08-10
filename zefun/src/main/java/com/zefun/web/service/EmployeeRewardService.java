@@ -1,5 +1,6 @@
 package com.zefun.web.service;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -174,9 +175,9 @@ public class EmployeeRewardService {
                 if (reward2.size() != 0) {
                     sum2 = reward2.parallelStream().mapToDouble(EmployeeRewardDto::getNumber).sum(); // 可以简写为.sum()
                 }
-                jsono.accumulate("sum1", sum1);
-                jsono.accumulate("sum2", sum2);
-                jsono.accumulate("total", sum1- sum2);
+                jsono.accumulate("sum1", new BigDecimal(sum1).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsono.accumulate("sum2", new BigDecimal(sum2).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsono.accumulate("total", new BigDecimal(sum1- sum2).setScale(2, BigDecimal.ROUND_HALF_UP));
                 jsono.accumulate("code", em.getEmployeeCode());
                 jsono.accumulate("name", em.getName());
                 jsonjl.clear();
@@ -231,14 +232,21 @@ public class EmployeeRewardService {
     * @param ruleType 类型
     * @param employee 员工
     * @param pageSize 一页多少条数据
+    * @param storeid 门店登录
     * @return BaseDto
      */
     public BaseDto selectRuleByPage(Integer pageNo, String staTime,
             String endTime, Integer storeId, String ruleName, Integer ruleType,
-            Integer employee, Integer pageSize) {
+            String employee, Integer pageSize, Object storeid) {
         
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("storeId", storeId);
+        if (storeid != null) {
+            params.put("storeId", storeid);
+        }
+        else {
+            params.put("storeId", storeId);
+        }
+
         params.put("ruleName", ruleName);
         params.put("ruleType", ruleType);
         params.put("employee", employee);

@@ -244,7 +244,7 @@
 			and er.is_reward   =  ${params.ruleType}
 		</if>
 		<if test="params.employee != null and params.employee != ''">
-			and (ei.employee_code   =  ${params.ruleType}  or ei.name = ${params.ruleType})
+			and (ei.employee_code   =  "${params.employee}" or ei.name = "${params.employee}")
 		</if>
   </select>
   

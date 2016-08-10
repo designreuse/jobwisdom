@@ -1513,16 +1513,17 @@ public class EmployeeService {
         else {
             yearMonth = year +"-"+month;
         }
-       
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("time", yearMonth);
+        
         if (selectByStoreAccount.size() != 0) {
-            map.put("stroe", selectByStoreAccount.get(0).getStoreId()) ;
+            map.put("storeId", selectByStoreAccount.get(0).getStoreId()) ;
         }
         if (storeId !=null) {
-            map.put("stroe", storeId) ;
+            map.put("storeId", storeId) ;
             type = 1;
         }
+        
         view.addObject("type", type);
         JSONObject jsonos = jsonWages(map);
         view.addObject("jsonos", jsonos);
@@ -1530,7 +1531,7 @@ public class EmployeeService {
     }
  
     /**
-     * 
+     *  组装数据
     * @author 骆峰
     * @date 2016年8月3日 下午8:10:13
     * @param map map
@@ -1542,6 +1543,7 @@ public class EmployeeService {
         JSONArray jsont = new JSONArray();
         JSONObject jsono = new JSONObject();
         JSONObject jsonos = new JSONObject();
+        
         List<EmployeeInfoDto> commission = employeeCommissionMapper.selectEmployeeInfoByCommission(map);
         List<EmployeeBaseDto> employeeList =  employeeInfoMapper.selectEmployeeListByStoreIdAll(map);
         employeeList.stream().forEach(em ->{
@@ -1549,6 +1551,7 @@ public class EmployeeService {
                 jsono.accumulate("code", em.getEmployeeCode());
                 jsono.accumulate("name", em.getName());
                 jsono.accumulate("baseSalaries", new BigDecimal(em.getBaseSalaries()));
+                jsono.accumulate("number", em.getNumber());
                 BigDecimal total = new BigDecimal(0);
                 for (Integer i = 1; i < 5; i++) {
                     BigDecimal t = new BigDecimal(i.toString());
@@ -1556,14 +1559,12 @@ public class EmployeeService {
                         = commission.parallelStream().filter(p -> p.getEmployeeId().intValue() == em.getEmployeeId().intValue() 
                          && p.getOrderType().compareTo(t) == 0)
                         .collect(Collectors.toList());
-                    
                     double tatailCommission = 0.0;
                     if (commissionList.size() != 0) {
                         tatailCommission = commissionList.parallelStream()
                                 .mapToDouble(EmployeeInfoDto::getCommissionAmount).average().getAsDouble();
                     }
                    
-                
                     if (i == 1) {
                         jsono.accumulate("ld", new BigDecimal(tatailCommission).setScale(2, BigDecimal.ROUND_HALF_UP));
                     }
@@ -1578,22 +1579,12 @@ public class EmployeeService {
                     }
                 }
                
-                if (!jsono.containsKey("ld")) {
-                    jsono.accumulate("ld", new BigDecimal(0));
-                }
-                if (!jsono.containsKey("sp")) {
-                    jsono.accumulate("sp", new BigDecimal(0));
-                }
-                if (!jsono.containsKey("lc")) {
-                    jsono.accumulate("lc", new BigDecimal(0));
-                }
-                if (!jsono.containsKey("kk")) {
-                    jsono.accumulate("kk", new BigDecimal(0));
-                }
                 jsono.accumulate("tc", total.add((BigDecimal) jsono.get("kk")) .add((BigDecimal) jsono.get("lc")).add((BigDecimal) jsono.get("sp"))
                         .add((BigDecimal) jsono.get("ld")).add((BigDecimal) jsono.get("baseSalaries")));
+                
+                jsono.accumulate("ff", jsono.getDouble("tc") + em.getNumber());
                 jsona.add(jsono);
-                jsont.add(jsono.get("tc"));
+                jsont.add(jsono.getDouble("tc") + em.getNumber());
                 jsonn.add(em.getName());
             });
         jsonos.accumulate("jsona", jsona);
@@ -1621,7 +1612,7 @@ public class EmployeeService {
             list.add(storeInfo.getStoreId());
         }
         if (store != 0) {
-            map.put("store", store);
+            map.put("storeId", store);
         }
         else {
             map.put("storeIds", list);
@@ -1629,7 +1620,7 @@ public class EmployeeService {
         if (time != "") {
             map.put("time", time);
         }
-        if (time != "") {
+        if (code != "") {
             map.put("code", code);
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, jsonWages(map));

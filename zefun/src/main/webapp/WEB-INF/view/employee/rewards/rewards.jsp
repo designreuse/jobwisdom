@@ -28,7 +28,7 @@
 <div class="content_right clearfix">
     <ul class="clearfix">
 	  <li class="active" onclick="jQuery('.fenye').hide();">奖惩管理</li>
-	  <li class=""  onclick="jQuery('.fenye').show();">奖惩明细</li> 
+	  <li class=""  id="li" onclick="jQuery('.fenye').show();">奖惩明细</li> 
 	</ul>
 	<div class="wages_content" >
 	  <div class="wages_content_datail">
@@ -46,14 +46,14 @@
 	 <div class="wages_content_datail_table clearfix">
 	  <div class="table_left">
 	   <table id="teb1">
-	      <tbody>
+	      
 	      <tr>
 		    <td style="height:85px">工号</td>
 		    <td style="height:85px">姓名</td>
 		  </tr>
 	
 		
-	   </tbody></table>
+	   </table>
 	  </div>
 	  <div class="table_right">
 	   <div class="table_right_head">
@@ -175,13 +175,13 @@
 	     <span style="position:relative;left:-10px">员工</span>
 	     <select id="employee">
 	     </select></li>
-	      
-	     <li><span>奖惩类别</span>
+	       <li><span>奖惩名称</span>
+	   
 	         <select id="type1" onchange="employee()">
 	         <option value="1">奖励</option><option value="2">惩罚</option></select>
 	     </li>
 	     
-         <li><span>奖惩名称</span>
+          <li><span>奖惩类别</span>
          <select id="storeManageRule1" >
          </select>
          </li>
@@ -209,13 +209,22 @@
 var rewardId =null ;
 var storeId = ${storeId} ;
 
+jQuery(function(){
+	jQuery(document).on('click','#teb1 tr:gt(0) td',function(){	
+		 jQuery("input[name='employeeCode']").val(jQuery(this).text());
+		 jQuery("#storeId2").val(jQuery("#storeId1").val());
+		 jQuery("#li").click();
+		 selectd();
+	})
+  })
+
 function storeSelect(){
 	if(storeId != 0 ){
 		var storeName = jQuery("#storeIdAll option[storeId='"+storeId+"'] ").val();
 		jQuery("#storeIdAll").val(storeName);
 		jQuery("#storeHide").hide();
-		jQuery("#storeTd").remove();
-		jQuery("#storeTd2").remove();
+		jQuery("#storeTd").empty();
+		jQuery("#storeTd2").empty();
 		
 		jQuery("#storeId1").val(storeName);
 		jQuery("#storeId1").hide();
@@ -252,7 +261,7 @@ function deleted(rewardId){
 	if(confirm("你确定删除吗？")){
 		 jQuery.ajax({
 				type : "post",
-				url : baseUrl + "/rewards/action/delete",
+				url : baseUrl + "rewards/action/delete",
 				data : "rewardId="+rewardId,
 				dataType : "json",
 				success : function(e){
@@ -281,10 +290,10 @@ function save(){
 	 var url ="";
 	 var dates ="";
 	 if(rewardId == null){
-		 url = baseUrl + "/rewards/action/add";
+		 url = baseUrl + "rewards/action/add";
 		 dates = "type="+type+"&storeId="+storeId+"&employeeId="+employeeId+"&isReward="+isReward+"&reasons="+reasons;
 	 }else{
-		 url = baseUrl + "/rewards/action/update";
+		 url = baseUrl + "rewards/action/update";
 		 dates = "type="+type+"&storeId="+storeId+"&employeeId="+employeeId+"&isReward="+isReward+"&reasons="+reasons+"&rewardId="+rewardId;
 	 }
 	 jQuery.ajax({
@@ -324,7 +333,7 @@ function changeRule(){
 	  var storeId = jQuery("#storeId1 option:selected").attr("storeId");
 	  jQuery.ajax({
 			type : "post",
-			url : baseUrl + "/rewards/view/home/rule",
+			url : baseUrl + "rewards/view/home/rule",
 			data : "time="+time+"&storeId="+storeId,
 			dataType : "json",
 			success : function(e){
@@ -366,14 +375,19 @@ function changePage() {
 	var ruleName = jQuery("select[name='storeManageRule'] option:selected").attr("ruleId");
 	var ruleType = jQuery("select[name='type']").val();
 	var employee = jQuery("input[name='employeeCode']").val();
+	
 	if(ruleName == '0'){
 		ruleName= "";
 	}
 	var datas = "pageNo=" + pageNo + "&staTime=" +staTime + "&endTime=" +endTime + "&storeId=" +storeid + "&ruleName=" +ruleName
 	+ "&ruleType=" +ruleType + "&employee=" +employee + "&pageSize=" +pageSize;
+	if(storeId != 0 ){
+		datas = "pageNo=" + pageNo + "&staTime=" +staTime + "&endTime=" +endTime +  "&ruleName=" +ruleName
+		+ "&ruleType=" +ruleType + "&employee=" +employee + "&pageSize=" +pageSize;
+	}
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "/rewards/view/home/page",
+		url : baseUrl + "rewards/view/home/page",
 		data : datas,
 		dataType : "json",
 		success : function(e) {
@@ -409,7 +423,7 @@ function employee(){
 	var storeId = jQuery("#storeIdAll option:selected").attr("storeId");
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "/rewards/view/employee",
+		url : baseUrl + "rewards/view/employee",
 		data : "storeId=" +storeId +"&type="+type,
 		dataType : "json",
 		success : function(e) {

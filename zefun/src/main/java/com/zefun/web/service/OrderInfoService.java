@@ -6,10 +6,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BusinessDiscountPart;
 import com.zefun.web.dto.BusinessIncomePart;
 import com.zefun.web.dto.BusinessSummaryRelativeAmt;
@@ -23,7 +26,14 @@ import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.OrderInfoBaseDto;
 import com.zefun.web.dto.SummaryResultDto;
+import com.zefun.web.entity.OrderDetail;
+import com.zefun.web.entity.StoreInfo;
+import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.StoreInfoMapper;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 订单相关操作服务类
@@ -40,10 +50,17 @@ public class OrderInfoService {
     @Autowired
     private OrderInfoMapper orderInfoMapper;
     
+    /** 门店*/
+    @Autowired
+    private StoreInfoMapper storeInfoMapper;
+    /** d订单详细 */
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
+    
     
     /**
      * 查询门店下所有的订单信息
-    * @author 张进军
+    * @author 
     * @date Oct 13, 2015 8:04:21 PM
     * @param storeId    门店标识
     * @param type 订单状态类型（1、进行中，2、已完成，3、全部）
@@ -67,7 +84,7 @@ public class OrderInfoService {
     
     /**
      * 查询某员工的订单信息
-    * @author 张进军
+    * @author 
     * @date Oct 13, 2015 8:04:21 PM
     * @param employeeId    员工标识
     * @param type 订单状态类型（1、进行中，2、已完成，3、全部）
@@ -90,7 +107,7 @@ public class OrderInfoService {
     
     /**
      * 根据订单编号集合查询订单信息
-    * @author 张进军
+    * @author 
     * @date Oct 13, 2015 8:07:29 PM
     * @param orderIdList    订单编号集合
     * @return   订单信息集合
@@ -110,7 +127,7 @@ public class OrderInfoService {
     
     /**
      * 根据订单编号获取订单基础传输对象
-    * @author 张进军
+    * @author 
     * @date Oct 13, 2015 8:01:38 PM
     * @param orderId    订单编号
     * @return   订单基础传输对象
@@ -148,7 +165,7 @@ public class OrderInfoService {
     }
     
     /**
-    * @author 乐建建
+    * @author 
     * @date 2016年2月18日 下午2:32:15
     * @param dto 传递给定的参数条件 
     * @return 处理之后的结果
@@ -184,7 +201,7 @@ public class OrderInfoService {
     }
     
     /**
-    * @author 乐建建
+    * @author 
     * @date 2016年2月19日 上午11:57:01
     * @param dto 封装参数条件
     * @return 营业汇总封装类
@@ -209,7 +226,7 @@ public class OrderInfoService {
     }
     
     /**
-    * @author 乐建建
+    * @author 
     * @date 2016年2月19日 下午2:25:09
     * @param incomes 营业收入
     * @param expenses 营业扣减
@@ -231,7 +248,7 @@ public class OrderInfoService {
 
 
     /**
-    * @author 乐建建
+    * @author 
     * @date 2016年2月19日 下午2:21:27
     * @param cards 刷卡消费
     * @param expenses 营业扣减消费
@@ -250,7 +267,7 @@ public class OrderInfoService {
 
 
     /**
-    * @author 乐建建
+    * @author 
     * @date 2016年2月19日 下午1:56:00
     * @param dto 封装参数条件
     * @param list 待处理的数据
@@ -282,7 +299,7 @@ public class OrderInfoService {
     }
     
     /**
-    * @author 乐建建
+    * @author 
     * @date 2016年2月19日 下午8:48:51
     * @param year 指定年
     * @param month 指定月
@@ -297,7 +314,7 @@ public class OrderInfoService {
     }
     
     /**
-    * @author 乐建建
+    * @author 
     * @date 2016年2月21日 下午4:41:37
     * @param dto 封装参数
     * @return 将某些null对象转换成有默认值的对象 不要返回null
@@ -316,5 +333,132 @@ public class OrderInfoService {
         }
         return list;
     }
+
+
+    /**
+     * 商品销售
+    * @author 骆峰
+    * @date 2016年8月9日 下午2:44:20
+    * @param storeAccount storeAccount
+    * @param storeId storeId
+    * @return ModelAndView
+     */
+    public ModelAndView showOrderDetail(String storeAccount, Object storeId){
+        ModelAndView view = new ModelAndView();
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+        List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
+        //没有门店的时候
+        if (selectByStoreAccount.size() ==0){
+            return new ModelAndView("redirect:500");
+        }
+        
+        //门店进入
+        if (storeId != null){
+            map.put("storeId", storeId);
+        }
+        else {
+            map.put("storeId", selectByStoreAccount.get(0).getStoreId());
+        }
+        
+        
+        Calendar a=Calendar.getInstance();
+        String year = String.valueOf(a.get(Calendar.YEAR));
+        String month = String.valueOf(a.get(Calendar.MONTH)+1);
+        
+        String yearMonth ="";
+        if (Integer.parseInt(month)<10) {
+            yearMonth = year +"-0"+month;
+        }
+        else {
+            yearMonth = year +"-"+month;
+        }
+        
+        map.put("time", yearMonth);
+        map.put("type", yearMonth);
+        map.put("timeType", yearMonth);
+        view.addObject("selectByStoreAccount", selectByStoreAccount);
+        view.addObject("time", yearMonth);
+       
+        return null;
+    }
     
+    /**
+     *    拼接数据
+    * @author 骆峰
+    * @date 2016年8月9日 下午5:02:53
+    * @param map 条件
+    * @return JSONArray
+     */
+    public JSONArray joinData(Map<String, Object> map){
+        
+        JSONArray jsona      = new JSONArray(); //总数据
+        JSONArray jsonaYear  = new JSONArray(); //当条件是年的时候数据
+        JSONArray jsonoYear = new  JSONArray(); 
+        
+        JSONArray jsonaMonth = new JSONArray(); //当条件是月的时候数据
+        JSONArray jsonoMonth = new  JSONArray();
+        
+        JSONArray day = new  JSONArray(); 
+        
+        List<OrderDetail> detail = orderDetailMapper.selectDetailLByOrderId(map);
+        String time = map.get("timeType").toString(); //年月
+        String year = time.substring(0, 4);
+        
+        String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        
+        List<OrderDetail> monthCollect = detail.stream()
+                .filter(s ->s.getCreateTime().substring(0, 7).equals(map.get(time))).collect(Collectors.toList());
+        Integer monthDay = DateUtil.monthDay(map.get(time).toString());
+        
+        for (int j = 1; j <= monthDay; j++) {
+            int g = j;
+            Double count = 0.0;
+            Double price = 0.0;
+            if (j<11) {
+                //天数
+                day.add(month[g]);
+                
+                count = monthCollect.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+month[g-1]))
+                        .mapToDouble(OrderDetail::getProjectCount).sum();
+                price = monthCollect.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+month[g-1]))
+                        .mapToDouble(OrderDetail::getDetailCalculate).sum();
+            }
+            else {
+                //天数
+                day.add(j);
+                count = monthCollect.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+String.valueOf(g)))
+                        .mapToDouble(OrderDetail::getProjectCount).sum();
+        
+                price = monthCollect.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+String.valueOf(g)))
+                        .mapToDouble(OrderDetail::getDetailCalculate).sum();
+            }
+       
+            jsonaMonth.add(new BigDecimal(count).setScale(2, BigDecimal.ROUND_HALF_UP));
+            jsonoMonth.add(new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP));
+            
+        }
+        
+        //年的数据
+        for (int i = 0; i < month.length; i++) {
+            int g = i;
+            double count = detail.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(year+month[g]))
+                    .mapToDouble(OrderDetail::getProjectCount).sum();
+            
+            double price = detail.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(year+month[g]))
+                    .mapToDouble(OrderDetail::getDetailCalculate).sum();
+            jsonaYear.add(new BigDecimal(count).setScale(2, BigDecimal.ROUND_HALF_UP));
+            jsonoYear.add(new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP));
+        }
+        
+               
+        
+        jsona.add(day); //天
+        jsona.add(jsonaMonth); 
+        jsona.add(jsonoMonth);
+        jsona.add(month); //月
+        jsona.add(jsonaYear); //月的数据
+        jsona.add(jsonoYear);
+        return jsona;
+    }
 }

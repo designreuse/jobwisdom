@@ -515,7 +515,7 @@ public class OpenCardService {
 
 		MemberAccount record = new MemberAccount();
 		record.setAccountId(memberId);
-		record.setDebtAmount(memberAccount.getDebtAmount().add(realPrice));
+		record.setDebtAmount(memberAccount.getDebtAmount().subtract(realPrice));
 		if (memberAccount.getDebtAmount().compareTo(new BigDecimal(0)) <= 0) {
 		    new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 		}
@@ -777,9 +777,14 @@ public class OpenCardService {
 		if (employeeInfo != null) {
 		    calculateDeptId = employeeInfo.getDeptId();
 		}
-
+		
+		BigDecimal detailCalculate = new BigDecimal(0);
+        for (int i = 0; i < calculateAmount.size(); i++) {
+            detailCalculate.add(calculateAmount.get(i));
+        }
 		// 添加订单明细
 		OrderDetail orderDetail = new OrderDetail();
+		orderDetail.setDetailCalculate(detailCalculate.doubleValue());
 		orderDetail.setOrderId(orderInfo.getOrderId());
 		orderDetail.setDeptId(calculateDeptId);
 		orderDetail.setProjectName(businessDesc);
@@ -793,6 +798,7 @@ public class OpenCardService {
 		orderDetail.setLastOperatorId(lastOperatorId);
 		orderDetailMapper.insert(orderDetail);
 
+		
 		// 如果赠送卡金，需要额外增加一笔明细
 		if (rewardAmount.compareTo(BigDecimal.ZERO) == 1) {
 			OrderDetail rewarDetail = new OrderDetail();

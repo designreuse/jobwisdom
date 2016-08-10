@@ -1,6 +1,8 @@
 package com.zefun.web.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +12,12 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreManageRule;
+import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.StoreManageRuleMapper;
+
+import net.sf.json.JSONArray;
 
 /**
  * 
@@ -27,17 +33,41 @@ public class StoreManageRuleService {
     @Autowired
     private StoreManageRuleMapper storeManageRuleMapper;
     
+    /**门店*/
+    @Autowired
+    private StoreInfoMapper storeInfoMapper;
+    
     /**
      * 
     * @author 骆峰
     * @date 2016年8月4日 下午1:54:30
     * @param storeId storeId
+    * @param storeAccount storeAccount
     * @return ModelAndView
      */
-    public ModelAndView homeView(int storeId){
+    public ModelAndView homeView(Object storeId, String storeAccount){
         ModelAndView mav = new ModelAndView(View.StoreManageRule.RULE);
-        List<StoreManageRule> ruleListByStoreId = storeManageRuleMapper.selectRuleListByStoreId(storeId);
+        List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
+//        ArrayList<Integer> list = new ArrayList<Integer>();
+//        for (StoreInfo storeInfo : selectByStoreAccount) {
+//            list.add(storeInfo.getStoreId());
+//        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (storeId !=null){
+            map.put("storeId", storeId);
+            mav.addObject("StoreId", storeId);
+        }
+        else {
+            map.put("storeId", selectByStoreAccount.get(0).getStoreId());
+
+            
+            mav.addObject("StoreId", 0);
+        }
+        mav.addObject("selectByStoreAccount", selectByStoreAccount);
+        List<StoreManageRule> ruleListByStoreId = storeManageRuleMapper.selectRuleListByAccountStoreId(map);
         mav.addObject("ruleListByStoreId", ruleListByStoreId);
+        mav.addObject("ruleListByStoreIds", JSONArray.fromObject(ruleListByStoreId));
+       
         return mav;
     }
     
@@ -59,12 +89,10 @@ public class StoreManageRuleService {
     * @author 骆峰
     * @date 2016年8月4日 下午12:07:35
     * @param storeManageRule storeManageRule
-    * @param storeId storeId
     * @return BaseDto
      */
-    public BaseDto saveOrUpdate(StoreManageRule storeManageRule, Integer storeId) {
+    public BaseDto saveOrUpdate(StoreManageRule storeManageRule) {
         storeManageRule.setLastOperatorTime(DateUtil.getCurDate());
-        storeManageRule.setStoreId(storeId);
         if (storeManageRule.getRuleId() != null) {
             storeManageRuleMapper.updateByPrimaryKey(storeManageRule);
         }
@@ -73,5 +101,19 @@ public class StoreManageRuleService {
             storeManageRuleMapper.insertSelective(storeManageRule);
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, storeManageRule);
+    }
+
+    /**
+     *  门店查询
+    * @author 骆峰
+    * @date 2016年8月8日 下午4:13:46
+    * @param storeId storeId
+    * @return BaseDto
+     */
+    public BaseDto storeView(Integer storeId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("storeId", storeId);
+        List<StoreManageRule> ruleListByStoreId = storeManageRuleMapper.selectRuleListByAccountStoreId(map);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, JSONArray.fromObject(ruleListByStoreId));
     }
 }

@@ -447,6 +447,12 @@ public class SelfCashierService {
 			
 			stepCommissionMap = calculateCommonCommission(orderDetailObj, memberSubAccount, storeId, payType, ownerMemberId, employeeId);
 			stepCommissionList.add(stepCommissionMap);
+			
+			//修改业绩值
+			OrderDetail obj = new OrderDetail();
+			obj.setDetailId(orderDetailObj.getDetailId());
+			obj.setDetailCalculate(new Double(stepCommissionMap.get("tataliCommonCalculate").toString()));
+			orderDetailMapper.updateByPrimaryKey(obj);
 		}
 
 		
@@ -646,9 +652,10 @@ public class SelfCashierService {
 		stepCommissionMap.put("orderType", orderDetail.getOrderType());
 		
         BigDecimal hundred = new BigDecimal(100);
+        
 	    //查询门店设置
 	    Map<String, Object> storeSettingMap = employeeObjectiveMapper.selectStoreSetting(storeId);
-	    //提成是否扣除成本(0:不扣除，1:扣除)
+	    //业绩提成是否扣除成本(0:不扣除，1:扣除)
 	    Integer costCommissionType = Integer.valueOf(storeSettingMap.get("costCommissionType").toString());
 	    //礼金减扣比例
 	    Integer giftCommissionRate = Integer.valueOf(storeSettingMap.get("giftCommissionRate").toString());
@@ -706,7 +713,8 @@ public class SelfCashierService {
         		
         	}
         }
-	    
+        
+        stepCommissionMap.put("tataliCommonCalculate", tataliCommonCalculate);
         //当为项目时
 		if (orderDetail.getOrderType() == 1) {
 

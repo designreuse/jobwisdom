@@ -50,7 +50,8 @@
     background: rgba(102, 108, 121, 0.8);
     color: black;
     font-size: 14px;}
-.zzc_change_price{margin:100px auto;width:440px;height:325px;background:white}
+.zzc_change_price{margin:100px auto;width:440px;height:325px;background:white;border-radius: 12px;
+    overflow: hidden;}
 .zzc_change_price>p{height:56px;text-align:center;font-size:16px;color:white;line-height:56px;background:#383849}
 .zzc_change_price_content{padding:30px}
 .zzc_change_price_content p input{width:140px;height:18px;border-radius:12px;border:1px solid #afafaf;}

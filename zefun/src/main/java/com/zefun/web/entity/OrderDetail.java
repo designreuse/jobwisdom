@@ -51,6 +51,9 @@ public class OrderDetail {
 
 	/** 项目实际金额 */
 	private BigDecimal realPrice;
+	
+	/** 业绩值*/
+	private Double detailCalculate;
 
 	/** 签单金额 */
 	private String freeAmount;
@@ -99,10 +102,20 @@ public class OrderDetail {
 
 	/***/
 	private ProjectInfo projectInfo;
+	
 
 	
 	
-	public Integer getFreeEmployeeId() {
+
+    public Double getDetailCalculate() {
+        return detailCalculate;
+    }
+
+    public void setDetailCalculate(Double detailCalculate) {
+        this.detailCalculate = detailCalculate;
+    }
+
+    public Integer getFreeEmployeeId() {
 		return freeEmployeeId;
 	}
 

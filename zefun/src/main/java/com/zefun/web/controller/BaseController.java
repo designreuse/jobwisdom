@@ -134,7 +134,7 @@ public class BaseController {
 
     /**
      * 根据微信唯一标识查询所属门店标识
-    * @author 张进军
+    * @author 
     * @date Nov 19, 2015 4:36:24 PM
     * @param openId 微信openid
     * @return   门店标识
@@ -175,7 +175,7 @@ public class BaseController {
 
     /**
      * 获取当前登录用户id
-    * @author 张进军
+    * @author 
     * @date Oct 14, 2015 10:30:18 AM
     * @param request    请求对象
     * @return   当前用户id
@@ -192,7 +192,7 @@ public class BaseController {
 
     /**
      * 根据微信openID从redis中获取对应的userID
-    * @author 张进军
+    * @author 
     * @date Nov 3, 2015 2:54:39 PM
     * @param openId 微信openID
     * @return   会员/员工ID
@@ -320,7 +320,7 @@ public class BaseController {
     
     /**
      * 
-    * @author 张进军
+    * @author 
     * @date Feb 26, 2016 7:36:58 PM
     * @param businessType   业务类型(1:会员,2:员工)
     * @param request    请求对象
@@ -341,7 +341,7 @@ public class BaseController {
     
     /**
      * 
-    * @author 张进军
+    * @author 
     * @date Feb 26, 2016 7:36:58 PM
     * @param businessType   业务类型(1:会员,2:员工)
     * @param request    请求对象
@@ -362,7 +362,7 @@ public class BaseController {
 
     /**
      * 获取session中的openId
-    * @author 张进军
+    * @author 
     * @date Aug 27, 2015 11:11:30 AM
     * @param businessType   业务类型(1:会员,2:员工,3:固定门店ID)
     * @param request    请求对象
@@ -388,7 +388,7 @@ public class BaseController {
     
     /**
      * 判断是否是ajax请求
-    * @author 张进军
+    * @author 
     * @date Aug 17, 2015 4:35:42 PM
     * @param request       请求对象
     * @return              返回判断结果
@@ -401,7 +401,7 @@ public class BaseController {
 
     /**
      * 发起微信授权请求
-    * @author 张进军
+    * @author 
     * @date Aug 17, 2015 4:35:42 PM
     * @param storeAccount   门店代号
     * @param businessType   业务类型(1:会员,2:员工)
@@ -442,7 +442,7 @@ public class BaseController {
 
     /**
      * 为当前地址进行微信js api授权
-    * @author 张进军
+    * @author 
     * @date Aug 17, 2015 4:44:46 PM
     * @param storeAccount    门店标识
     * @param request    请求对象
@@ -464,7 +464,7 @@ public class BaseController {
 
     /**
      * 为当前地址进行微信地址api授权
-    * @author 张进军
+    * @author 
     * @date Aug 17, 2015 4:44:46 PM
     * @param storeAccount    门店标识
     * @param request    请求对象
@@ -483,7 +483,7 @@ public class BaseController {
 
     /**
      * 获取门店标识的微信应用id
-    * @author 张进军
+    * @author 
     * @date Aug 17, 2015 4:39:06 PM
     * @param storeAccount    门店标识
     * @return           对应门店的微信应用id
@@ -495,7 +495,7 @@ public class BaseController {
 
     /**
      * 获取门店标识的微信密钥
-    * @author 张进军
+    * @author 
     * @date Aug 17, 2015 4:39:06 PM
     * @param storeAccount    门店标识
     * @return           对应门店的微信密钥
@@ -507,7 +507,7 @@ public class BaseController {
 
     /**
      * 获取当前门店的微信访问口令
-    * @author 张进军
+    * @author 
     * @date Aug 17, 2015 4:39:06 PM
     * @param request    请求对象
     * @return           当前门店的微信访问口令
@@ -519,7 +519,7 @@ public class BaseController {
 
     /**
      * 获取当前门店的微信JS接口的临时票据
-    * @author 张进军
+    * @author 
     * @date Aug 17, 2015 4:39:06 PM
     * @param storeAccount    门店标识
     * @return           当前门店的微信JS接口的临时票据
@@ -531,7 +531,7 @@ public class BaseController {
 
     /**
      * 获取请求地址的绝对路径
-    * @author 张进军
+    * @author 
     * @date Aug 17, 2015 3:46:05 PM
     * @param request    请求对象
     * @return           当前请求的绝对路径
