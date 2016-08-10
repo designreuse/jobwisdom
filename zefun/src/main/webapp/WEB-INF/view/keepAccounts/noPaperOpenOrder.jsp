@@ -202,7 +202,7 @@
 		     	    预约人：<span style="color:red" name = "appointEmployee"></span>
 			               大项：<span style="color:red" name = "appointProject"></span>
 			  </div>
-			  <div class="open_state" style="top:54px">
+			  <div class="open_state" style="top:49px">
 			   <span><em style="background:#21d9db"></em>空闲</span>
 			   <span><em style="background:#e11e23"></em>工作</span>
 			   <span><em style="background:#e7a3ef"></em>点客</span>
