@@ -60,6 +60,17 @@ public interface OrderDetailMapper {
     * @return 订单明细
      */
     OrderDetail selectByPrimaryKey(Integer detailId);
+    
+    
+    
+    /**
+     *  商品信息
+    * @author 骆峰
+    * @date 2016年8月9日 下午4:56:59
+    * @param map map
+    * @return List
+     */
+    List<OrderDetail> selectDetailLByOrderId(Map<String, Object> map);
 
     /**
      * 修改订单明细信息

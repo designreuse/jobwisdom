@@ -354,7 +354,7 @@ public class RabbitService {
                 chat.setFromUser("0");
                 ChatDataDto data = new ChatDataDto();
                 data.setType(4);
-                data.setMsg(memberCode + "号，需要结账，请前往系统中五指开单页面进行操作");
+                data.setMsg(memberCode + "号顾客已服务完成，请到收银台买单,期待您的下次光临，谢谢");
                 data.setCreateTime(DateUtil.getCurTime());
                 chat.setData(data);
                 for (String userId : set) {

@@ -114,6 +114,8 @@ var ruleId= null;
 var name = "";
 var ruleLiss =  ${ruleListByStoreIds};
 
+
+
 //门店登录 隐藏
 jQuery(function(){ 
 	if(storeId != 0){

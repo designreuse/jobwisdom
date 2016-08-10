@@ -143,9 +143,6 @@ public class StaffOrderService {
     	record.setOptionEmployeeId(null);
     	//将订单状态改为正在操作
     	orderInfoMapper.updateIsOrderOption(record);
-    	// 发送pc端通知操作
-    	OrderInfo  info = orderInfoMapper.selectByPrimaryKey(orderId);
-    	rabbitService.storeBalanceVoice(info.getStoreId(), info.getHandOrderCode(), null);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     
@@ -157,17 +154,24 @@ public class StaffOrderService {
     * @return BaseDto
      */
     public BaseDto noticeCheckout (Integer orderId) {
-    	
-    	
     	List<OrderDetail> orderDetailList = orderDetailMapper.selectOrderDetail(orderId);
     	
-    	
+    	for (OrderDetail orderDetail : orderDetailList) {
+    		List<ShiftMahjongProjectStep> stepList = shiftMahjongProjectStepMapper.selectByIsNotOver(orderDetail.getDetailId());
+    		if (!stepList.isEmpty() && stepList.size() > 0) {
+    			return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "改订单中存在未完成步骤，无法通知买单");
+    		}
+		}
     	
     	OrderInfo record = new OrderInfo();
     	record.setOrderId(orderId);
     	record.setIsOrderOption(2);
     	record.setOptionEmployeeId(null);
     	orderInfoMapper.updateIsOrderOption(record);
+    	
+    	// 发送pc端通知操作
+    	OrderInfo  info = orderInfoMapper.selectByPrimaryKey(orderId);
+    	rabbitService.storeBalanceVoice(info.getStoreId(), info.getHandOrderCode(), null);
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     

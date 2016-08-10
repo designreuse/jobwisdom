@@ -61,6 +61,9 @@ public class OrderDetailDto implements Serializable{
 
     /** 项目实际金额 */
     private BigDecimal realPrice;
+    
+    /** 明细业绩值*/
+    private BigDecimal detailCalculate;
 
     /** 折扣价格 */
     private BigDecimal discountAmount;
@@ -114,7 +117,15 @@ public class OrderDetailDto implements Serializable{
     private List<EmployeeCommissionDto> commissionList;
     
     
-    public List<EmployeeCommissionDto> getCommissionList() {
+    public BigDecimal getDetailCalculate() {
+		return detailCalculate;
+	}
+
+	public void setDetailCalculate(BigDecimal detailCalculate) {
+		this.detailCalculate = detailCalculate;
+	}
+
+	public List<EmployeeCommissionDto> getCommissionList() {
         return commissionList;
     }
 

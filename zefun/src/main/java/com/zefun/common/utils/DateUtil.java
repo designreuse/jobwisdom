@@ -33,6 +33,21 @@ public class DateUtil {
 		}
 		return null;
 	}
+	
+	
+	/**
+	 *   
+	* @author 骆峰
+	* @date 2016年8月9日 下午5:34:54
+	* @param dateStr dateStr
+	* @return Integer 天数
+	 */
+	public static Integer monthDay(String dateStr){
+	    Calendar cal = Calendar.getInstance();
+	    cal.set(Calendar.YEAR, Integer.parseInt(dateStr.substring(0, 4)));
+	    cal.set(Calendar.MONTH, Integer.parseInt(dateStr.substring(5)) - 1);
+        return cal.getActualMaximum(Calendar.DATE);
+	}
 
 	/**
 	 * 根据时间字符串获取日期 yyyy-MM-dd

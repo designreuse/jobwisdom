@@ -737,7 +737,7 @@
 							<div class="recharge_time">
 								<span>开单时间<input type="text" id="date" name="createTime4" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></span>
 								<span>手工单号<input name="orderCodetab4" type="text"></span>
-								<button onclick="hkConfirm()">充值并结账</button>
+								<button onclick="hkConfirm()">充值</button>
 							</div>
 
 						</div>
