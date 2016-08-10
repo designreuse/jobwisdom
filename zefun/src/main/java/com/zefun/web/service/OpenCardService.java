@@ -784,7 +784,7 @@ public class OpenCardService {
         }
 		// 添加订单明细
 		OrderDetail orderDetail = new OrderDetail();
-		orderDetail.setDetailCalculate(detailCalculate);
+		orderDetail.setDetailCalculate(detailCalculate.doubleValue());
 		orderDetail.setOrderId(orderInfo.getOrderId());
 		orderDetail.setDeptId(calculateDeptId);
 		orderDetail.setProjectName(businessDesc);
