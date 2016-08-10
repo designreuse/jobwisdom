@@ -144,7 +144,8 @@ function alertZzc() {
 	    				str = '<div name = "shiftMajone" positionId = "'+positionInfoShiftMahjongDto.positionId+'"><p class = "shift_majone_name">'+
 							        '<span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = "" disabled="disabled"></span>'+
 							        '<span>选择轮牌人员<input type="text" name="shiftMahjongEmployeeName" shiftMahjongEmployeeId = "" disabled="disabled"></span>'+
-							        '<span>是否指定<input type="checkbox" name= "isAssign"></span>'+
+							        '<span>是否指定<input type="checkbox" name= "isAssign" chooseType = "0"></span>'+
+							        '<span>是否指定<input type="checkbox" name= "isAppoint" chooseType = "0"></span>'+
 							   '</p>'+
 	    				       '<div class="open_card_alert_state_content">';
 	    			}
@@ -154,7 +155,7 @@ function alertZzc() {
 	    				str = '<div class = "hide" name = "shiftMajone" positionId = "'+positionInfoShiftMahjongDto.positionId+'"><p class = "shift_majone_name">'+
 							        '<span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = "" disabled="disabled"></span>'+
 							        '<span>选择轮牌人员<input type="text" name="shiftMahjongEmployeeName" shiftMahjongEmployeeId = "" disabled="disabled"></span>'+
-							        '<span>是否指定<input type="checkbox" name= "isAssign"></span>'+
+							        '<span>是否指定<input type="checkbox" name= "isAssign" chooseType = "0"></span>'+
 							   '</p>'+
 							   '<div class="open_card_alert_state_content">';
 	    			}
@@ -197,6 +198,23 @@ function alertZzc() {
 	    });
 	  jQuery("div[name='openOrderZzc']").show();
 }
+
+jQuery(".zzc").delegate("div[name='shiftMajone'] input[type='checkbox']", "click", function () {
+	jQuery(this).parents("div[name='shiftMajone']").find("input[type='checkbox']").attr("checked",false);
+    if (jQuery(this).attr("name") == "isAssign") {
+    	jQuery(this).parents("div[name='shiftMajone']").find("input[name='isAppoint']").attr("chooseType", 0);
+    }
+    else {
+    	jQuery(this).parents("div[name='shiftMajone']").find("input[name='isAssign']").attr("chooseType", 0);
+    }
+	if (jQuery(this).attr("chooseType") != 1) {
+		jQuery(this).prop("checked",true);
+		jQuery(this).attr("chooseType", 1);
+	}
+	else {
+		jQuery(this).attr("chooseType", 0);
+	}
+});
 
 function selectNoPageOrder () {
 	var selectHandCode = jQuery("input[name='selectHandCode']").val();
@@ -338,8 +356,13 @@ function submits(){
     for (var i =0; i < obj.length; i++) {
         var positionId = jQuery(obj[i]).attr("positionId");
         var isAssign = 0;
-        if (jQuery("input[name='isAssign']").is(':checked')) {
+        var isAppoint = 0;
+        if (jQuery(obj[i]).find("input[name='isAssign']").is(':checked')) {
         	isAssign = 1;
+        }
+        
+        if (jQuery(obj[i]).find("input[name='isAppoint']").is(':checked')) {
+        	isAppoint = 1;
         }
         
         var shiftMahjongId = jQuery(obj[i]).find("input[name='shiftMahjongName']").attr("shiftmahjongid");
@@ -353,7 +376,7 @@ function submits(){
         	employeeId = "";
         }
     	
-        var employeeStr = {"positionId":positionId, "isAssign":isAssign, "shiftMahjongId":shiftMahjongId, "employeeId" : employeeId}
+        var employeeStr = {"positionId":positionId, "isAssign":isAssign, "isAppoint":isAppoint, "shiftMahjongId":shiftMahjongId, "employeeId" : employeeId}
         arrayObj.push(employeeStr);
     }
     var employeeObj = JSON.stringify(arrayObj);
