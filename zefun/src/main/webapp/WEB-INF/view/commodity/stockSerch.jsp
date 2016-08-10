@@ -288,7 +288,7 @@
 									<select name="stockType" onchange="selectShowEmSpan(this.value)">
 										<option value="1">入库</option>
 										<option value="2">出库</option>
-										<c:if test="${storeId != '' }"><option value="3">调拨</option></c:if>
+										<c:if test="${storeId == '' }"><option value="3">调拨</option></c:if>
 									</select>
 								</span>
 								<em id="em"> 
@@ -373,7 +373,7 @@
 									<select name="serchStockFlowType">
 										<option value="0">全部</option>
 									</select>
-									选择门店：
+									<em>选择门店：</em>
 									<select name="postageStore">
 										<option value="0">全部门店</option>
 										<c:forEach items="${storeInfos }" var="storeInfo"><option value="${storeInfo.storeId }">${storeInfo.storeName }</option></c:forEach>
@@ -435,7 +435,7 @@
 									<select name="detailFlowType">
 										<option value="0">全部类型</option><option value="正常入库">正常入库</option><option value="客户退货">客户退货</option>
 									</select>
-									所属门店
+									<em>选择门店：</em>
 									<select name="detailStore">
 										<option value="0">全部门店</option>
 										<c:forEach items="${storeInfos }" var="storeInfo"><option value="${storeInfo.storeId }">${storeInfo.storeName }</option></c:forEach>
@@ -475,10 +475,13 @@
 		jQuery("select[name='flowStore']").hide();
 		jQuery("select[name='stockStore']").val(storeId);
 		jQuery("select[name='stockStore']").hide();
+		
 		jQuery("select[name='postageStore']").val(storeId);
 		jQuery("select[name='postageStore']").hide();
+		jQuery("select[name='postageStore']").prev().hide();
 		jQuery("select[name='detailStore']").val(storeId);
 		jQuery("select[name='detailStore']").hide();
+		jQuery("select[name='detailStore']").prev().hide();
 	}
 	var isStock = false;
 	function serchGoodStock() {
