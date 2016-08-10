@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BusinessDiscountPart;
 import com.zefun.web.dto.BusinessIncomePart;
@@ -33,7 +34,6 @@ import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * 订单相关操作服务类
@@ -344,7 +344,7 @@ public class OrderInfoService {
     * @return ModelAndView
      */
     public ModelAndView showOrderDetail(String storeAccount, Object storeId){
-        ModelAndView view = new ModelAndView();
+        ModelAndView view = new ModelAndView(View.Statistical.STORE_ORDER);
         Map<String, Object> map = new HashMap<String, Object>();
         
         List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
@@ -375,12 +375,12 @@ public class OrderInfoService {
         }
         
         map.put("time", yearMonth);
-        map.put("type", yearMonth);
         map.put("timeType", yearMonth);
         view.addObject("selectByStoreAccount", selectByStoreAccount);
         view.addObject("time", yearMonth);
-       
-        return null;
+        JSONArray joinData = joinData(map);
+        view.addObject("joinData", joinData);
+        return view;
     }
     
     /**
@@ -402,13 +402,16 @@ public class OrderInfoService {
         JSONArray day = new  JSONArray(); 
         
         List<OrderDetail> detail = orderDetailMapper.selectDetailLByOrderId(map);
+        if (detail.size() == 0){
+            return null;
+        }
         String time = map.get("timeType").toString(); //年月
         String year = time.substring(0, 4);
         
         String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
         
         List<OrderDetail> monthCollect = detail.stream()
-                .filter(s ->s.getCreateTime().substring(0, 7).equals(map.get(time))).collect(Collectors.toList());
+                .filter(s ->s.getCreateTime().substring(0, 7).equals(map.get(time).toString())).collect(Collectors.toList());
         Integer monthDay = DateUtil.monthDay(map.get(time).toString());
         
         for (int j = 1; j <= monthDay; j++) {

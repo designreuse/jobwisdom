@@ -63,6 +63,17 @@ public interface View {
 		public static final String CONFERENCE_VIEW_ADMISSION = "mobile/conference/admission";
 	}
 
+	
+	   
+    /**
+     *  统计
+    * @author 骆峰
+    * @date 2016年8月10日 上午10:04:32
+     */
+    class Statistical{
+        /**商品报表展示 */
+        public static final  String STORE_ORDER = "order/store_order";
+    }
 	/**
 	 * 门店管理制度模块
 	 * 
