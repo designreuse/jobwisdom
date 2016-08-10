@@ -29,6 +29,7 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.ShipmentRecordDto;
+import com.zefun.web.dto.StoreInfoDto;
 import com.zefun.web.dto.SummaryResultDto;
 import com.zefun.web.dto.SupplierInfoDto;
 import com.zefun.web.dto.TrendDeptDataDto;
@@ -46,6 +47,7 @@ import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShipmentRecord;
 import com.zefun.web.entity.StockFlow;
+import com.zefun.web.entity.StockFlowDetail;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.SupplierInfo;
 import com.zefun.web.mapper.AccountGoodsMapper;
@@ -59,6 +61,7 @@ import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.ShipmentRecordMapper;
+import com.zefun.web.mapper.StockFlowDetailMapper;
 import com.zefun.web.mapper.StockFlowMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 import com.zefun.web.mapper.SupplierInfoMapper;
@@ -129,6 +132,10 @@ public class GoodsInfoService {
     /** 进出库商品管理*/
     @Autowired
     private StockFlowMapper stockFlowMapper;
+    /** 紧促库明细*/
+    @Autowired
+    private StockFlowDetailMapper stockFlowDetailMapper;
+    
     
 
     /**
@@ -1087,6 +1094,16 @@ public class GoodsInfoService {
         page.setResults(goodsInfoDtos);
         view.addObject("page", page);
         
+        /**公共数据， 门店员工，供应商商品*/
+        List<StoreInfoDto> storeInfoDtos = storeInfoMapper.selectEmployeeByAccount(storeAccount);
+        view.addObject("storeInfoDtos", storeInfoDtos);
+        view.addObject("storeInfoDtosJs", JSONArray.fromObject(storeInfoDtos));
+        SupplierInfo supplierInfo = new SupplierInfo();
+        supplierInfo.setStoreAccount(storeAccount);
+        List<SupplierInfoDto> supplierInfoDtos = supplierInfoMapper.selectInfoByAccount(supplierInfo);
+        view.addObject("supplierInfoDtos", JSONArray.fromObject(supplierInfoDtos));
+        view.addObject("accountGoods", supplierInfoDtos.stream().flatMap(s -> s.getAccountGoods().stream()).collect(Collectors.toList()));
+        
         view.addObject("amountAndCount", amountAndCount);                                                           //商品库存总量 amount总金额 amcount总数量
         view.addObject("inquiryCount", getStockGoodsCountAndAmount(stockFlows, 1, null).get("count")); 
         view.addObject("inquiryAmount", getStockGoodsCountAndAmount(stockFlows, 1, null).get("amount"));            //入库总量和金额
@@ -1170,6 +1187,29 @@ public class GoodsInfoService {
             result.put("getCount", getStockGoodsCountAndAmount(stockFlows, 2, "领用").get("count")); 
             result.put("getAmount", getStockGoodsCountAndAmount(stockFlows, 2, "领用").get("amount"));
             baseDto.setMsg(result);       
+        }
+        if (query.getInt("serchType") == 3){
+            StockFlow stockFlow = (StockFlow) JSONObject.toBean(query, StockFlow.class);
+            List<StockFlow> stockFlows = stockFlowMapper.selectByProperties(stockFlow);
+            stockFlows.stream().forEach(f -> {
+                    Integer count = 0;
+                    Long amount = 0l;
+                    String[] counts = f.getStockCount().split(",");
+                    List<AccountGoods> accountGoods = f.getAccountGoods();
+                    for (int i = 0; i < counts.length; i++) {
+                        amount += Long.decode(counts[i])*accountGoods.get(i).getCostPrice().longValue();
+                        count += Integer.parseInt(counts[i]);
+                    }
+                    f.setGoodsAmount(amount);
+                    f.setCount(count);
+                });
+            baseDto.setMsg(JSONArray.fromObject(stockFlows));
+        }
+        if (query.getInt("serchType") == 4){
+            StockFlowDetail stockFlowDetail = (StockFlowDetail) JSONObject.toBean(query, StockFlowDetail.class);
+            stockFlowDetail.setStoreAccount(storeAccount);
+            List<StockFlowDetail> stockFlowDetails = stockFlowDetailMapper.selectByProperites(stockFlowDetail);
+            baseDto.setMsg(stockFlowDetails);
         }
         return baseDto;
     }

@@ -1,10 +1,10 @@
 .content_right{padding:15px 20px;color:black}
 .content_right>ul{height:38px;position:relative;top:1px}
-.content_right>ul li{cursor:pointer;width:127px;height:38px;font-size:14px;border:1px solid #1d4e97;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
-.content_right>ul li:nth-child(1){border-right:none}
+.content_right>ul li{cursor:pointer;width:127px;height:38px;font-size:14px;border:1px solid #1d4e97;border-right:none;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
+.content_right>ul li:nth-child(5){border-right:1px solid #1d4e97}
 
 .content_right>ul>.active{color:black;border-bottom:1px solid #b8c7ea;background:#b8c7ea}
-.wages_content{overflow-y:overlay;overflow-x:hidden;width:1037px;height:780px;border:1px solid #1d4e97;border-radius:0 12px 12px 12px;}
+.wages_content{position:relative;overflow:hidden;width:1037px;height:780px;border:1px solid #1d4e97;border-radius:0 12px 12px 12px;}
 .wages_content_datail{background:#b8c7ea;padding:10px 0 10px 10px}
 
 .wages_content_datail_top input{width:80px;height:16px;border-radius:12px;border:1px solid #718aaf}
@@ -38,7 +38,7 @@
 
 .wages_content_datail button{width:100px;height:40px;border:none;border-radius:12px;color:white;font-size:14px;text-align:center;line-height:40px;background:#66708f}
 .wages_content_datail button:hover{background:#596381}
-.wages_content_datail  input{width:100px;height:14px;border-radius:12px;border:1px solid #89a2d1}
+.wages_content_datail  input{width:100px;height:16px;border-radius:12px;border:1px solid #89a2d1}
 .second td img{margin:0 10px}
 .second_table td{height:34px;border-right:1px solid #89a2d1;border-bottom:1px solid #89a2d1;vertical-align:middle;text-align:center}
 .second_table td select{padding:0 0 0 20px;width:80px;height:24px;border-radius:12px;border:1px solid #89a2d1}
@@ -71,18 +71,18 @@
 
 
 
-.wages_content_datail_top>span{display:inline-block;width:102px;height:22px;text-align:center;color:black;margin:0 5px;cursor:pointer;line-height:22px;border-radius:12px;background:#e6e6e6}
+.wages_content_datail_top>span{display:inline-block;width:102px;height:24px;text-align:center;color:black;margin:0 5px;cursor:pointer;line-height:24px;border-radius:12px;background:#e6e6e6}
 .wages_content_datail_top>span.active{background:#21a2e5;color:white}
 
 .wages_content_datail_top>button{width:80px;height:22px;border:none;color:white;text-align:center;line-height:22px;border-radius:12px;background:#6b7594}
 
-.stock_content{margin-top:60px;}
-.stock_content li{float:left;position:relative;margin-left:100px}
-.stock_content li img{position:absolute;left:8px;top:36px}
-.stock_content .number{width:210px;height:50px;color:white;text-align:center;line-height:50px;background:#12ae44;transform:rotate(-2deg);-webkit-transform:rotate(-2deg)}
-.stock_content .money{width:210px;height:50px;color:white;text-align:center;line-height:50px;background:#21a2e5;transform:rotate(2deg);-webkit-transform:rotate(2deg);margin-top:15px}
+.stock_content{margin-top:40px;}
+.stock_content li{float:left;position:relative;width:500px}
+.stock_content li img{position:absolute;left:150px;top:35px}
+.stock_content .number{margin:0 auto;width:210px;height:50px;color:white;text-align:center;line-height:50px;background:#12ae44;transform:rotate(-2deg);-webkit-transform:rotate(-2deg)}
+.stock_content .money{margin:0 auto;;width:210px;height:50px;color:white;text-align:center;line-height:50px;background:#21a2e5;transform:rotate(2deg);-webkit-transform:rotate(2deg);margin-top:15px}
 
-.stock_content_table{width:1000px;height:285px;overflow:hidden;border-radius:12px;border:1px solid #1d4e97;margin:80px auto}
+.stock_content_table{width:1000px;height:285px;overflow:hidden;border-radius:12px;border:1px solid #1d4e97;margin:50px auto}
 .stock_content_table table{width:50%;float:left}
 .stock_content_table table td{position:relative;border-bottom:1px solid #bbcae0;height:40px;text-align:center;vertical-align:middle}
 .stock_content_table table td img{position:absolute;right:10px;vertical-align:middle}
@@ -96,3 +96,60 @@
 .third{overflow:hidden}
 .wages_content_datail_table{height:734px;}
 .wages_content_datail_table_{overflow:overlay;height:694px}
+
+.wages_content_top{font-size:14px;width:485px;height:40px;line-height:40px;border-radius:12px;overflow:hidden;margin:20px auto;color:white}
+.wages_content_top_left{text-align:center;float:left;background:#0096dd;width:275px;height:40px}
+.wages_content_top_right{text-align:center;float:left;width:210px;height:40px;background:#3ec138}
+.wages_content_top_left span{position:relative;top:8px;float:left;display:inline-block;height:26px;width:60px;text-align:center;line-height:26px;border-right:1px solid #80cbee}
+.wages_content_datail_left{float:left}
+.wages_content_datail_left select{height:24px;width:68px;padding:0 0 0 30px;border-radius:12px;border:1px solid #bbbbbb}
+.wages_content_datail_left span{display:inline-block;margin-right:10px}
+.wages_content_datail_right{float:right}
+.wages_content_datail_right select{width:64px;padding:0 0 0 30px;border-radius:12px;border:1px solid #bbbbbb}
+.wages_content_datail_right span{display:inline-block;margin-right:10px}
+
+.wages_content_apartment {padding:10px 20px;width: 1037px;height:600px}
+
+.wages_content_apartment_left{float:left;width:475px;height:534px;border-radius:12px;border:1px solid #bbbbbb;overflow:hidden}
+.wages_content_apartment_left>p{height:38px;text-align:center;background:#b8c6e8;line-height:32px}
+.wages_content_apartment_left select{color:black;border-radius:12px;width:80px;padding:0 0 0 40px;height:24px;font-size:14px;border:1px solid #bbbbbb}
+
+.wages_content_apartment_left_content{width:437px;height:472px;border:1px solid #bbbbbb;border-radius:12px;margin:10px auto;overflow-x:hidden;overflow-y:overlay}
+
+.roll{border-radius:12px 12px 0 0;border-bottom:1px solid #bbbbbb;height:38px;width:438px;line-height:38px;position:relative;background:#d8e0f2}
+.roll li{cursor:pointer;float:left;width:72px;height:24px;text-align:center;line-height:24px;border-right:1px solid #acb2be}
+.roll span{display:inline-block;position:absolute;top:0}
+.roll ul{width:3000px;position:relative;top:5px}
+.hand_right{right:5px;z-index:2}
+.hand_left{left:5px;z-index:2}
+.active{color:#315cd6}
+
+.roll_bottom_content{cursor:pointer;float:left;margin-left:10px;width:120px;height:40px;padding:2px 0px 2px 10px;color:black;border-radius:12px;border:1px solid #bbbbbb;margin-top:10px}
+.roll_bottom_content em{color:#bbbbbb}
+
+.wages_content_apartment_right{background:#d8deed;overflow:overlay;margin-left:45px;float:left;width:475px;height:534px;border-radius:12px;border:1px solid #bbbbbb;overflow:hidden}
+.wages_content_apartment_right>p{    height: 38px;    border-bottom: 1px solid #bbbbbb;
+    background: #b8c6e8;
+    line-height: 32px;}
+	
+.wages_content_apartment_right button{width:130px;height:24px;border:none;text-align:center;line-height:24px;color:white;background:#637194;border-radius:12px;margin-left:20px}
+.wages_content_apartment_right button:hover{background:#586586}
+
+.wages_content_apartment_right_content_detail{background:white;margin:18px 30px 0 30px;float:left;position:relative;width:164px;height:40px;padding:0px 0 0px 8px;border-radius:12px;border:1px solid #909090}
+.detail_left{padding-right:4px;float:left;border-right:1px solid #909090}
+.detail_right{float:left;line-height:38px}
+.detail_right input{width:26px;height:10px;border:1px solid #909090;border-radius:4px;margin:0 2px 0 4px;text-align:center}
+.detail_left span{color:#909090}
+.wages_content_apartment_right_content_detail img{position:absolute;right:-5px;top:-5px;width:14px}
+
+.remarks{width:1012px;position:absolute;bottom:145px;left:0;line-height:35px;height:38px;padding-left:27px;background:#b8c6e8}
+.remarks input{margin-left:11px;width:950px;height:14px;border-radius:12px;border:1px solid #c6c6c6}
+
+.stock_button{text-align:center}
+.stock_button button{width:130px;height:26px;color:white;font-size:14px;text-align:center;line-height:26px;border-radius:12px;background:#637194;margin:0 67px;border:none}
+.stock_button button:hover{background:#5c698b}
+
+.four input{width:70px!important}
+.four select{width:70px!important;padding:0 0 0 20px}
+.four_ li{width:102px}
+.five li{width:93px}
