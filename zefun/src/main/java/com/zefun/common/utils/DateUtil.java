@@ -36,16 +36,16 @@ public class DateUtil {
 	
 	
 	/**
-	 *   
+	 *   获取某年 某月的 天数
 	* @author 骆峰
 	* @date 2016年8月9日 下午5:34:54
-	* @param dateStr dateStr
+	* @param dateStr 2016-08
 	* @return Integer 天数
 	 */
 	public static Integer monthDay(String dateStr){
 	    Calendar cal = Calendar.getInstance();
 	    cal.set(Calendar.YEAR, Integer.parseInt(dateStr.substring(0, 4)));
-	    cal.set(Calendar.MONTH, Integer.parseInt(dateStr.substring(5)) - 1);
+	    cal.set(Calendar.MONTH, Integer.parseInt(dateStr.substring(5, 7)) - 1);
         return cal.getActualMaximum(Calendar.DATE);
 	}
 

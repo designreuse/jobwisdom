@@ -33,6 +33,7 @@ import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 订单相关操作服务类
@@ -390,12 +391,74 @@ public class OrderInfoService {
     * @return JSONArray
      */
     public JSONArray joinData(Map<String, Object> map){
-        List<OrderDetail> selectDetailLByOrderId = orderDetailMapper.selectDetailLByOrderId(map);
-        String time = map.get("timeType").toString();
         
-        List<OrderDetail> monthCollect = selectDetailLByOrderId.stream()
-                .filter(s ->s.getCreateTime().substring(6).equals(map.get(time))).collect(Collectors.toList());
+        JSONArray jsona      = new JSONArray(); //总数据
+        JSONArray jsonaYear  = new JSONArray(); //当条件是年的时候数据
+        JSONArray jsonoYear = new  JSONArray(); 
+        
+        JSONArray jsonaMonth = new JSONArray(); //当条件是月的时候数据
+        JSONArray jsonoMonth = new  JSONArray();
+        
+        JSONArray day = new  JSONArray(); 
+        
+        List<OrderDetail> detail = orderDetailMapper.selectDetailLByOrderId(map);
+        String time = map.get("timeType").toString(); //年月
+        String year = time.substring(0, 4);
+        
+        String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        
+        List<OrderDetail> monthCollect = detail.stream()
+                .filter(s ->s.getCreateTime().substring(0, 7).equals(map.get(time))).collect(Collectors.toList());
         Integer monthDay = DateUtil.monthDay(map.get(time).toString());
-        return null;
+        
+        for (int j = 1; j <= monthDay; j++) {
+            int g = j;
+            Double count = 0.0;
+            Double price = 0.0;
+            if (j<11) {
+                //天数
+                day.add(month[g]);
+                
+                count = monthCollect.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+month[g-1]))
+                        .mapToDouble(OrderDetail::getProjectCount).sum();
+                price = monthCollect.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+month[g-1]))
+                        .mapToDouble(OrderDetail::getDetailCalculate).sum();
+            }
+            else {
+                //天数
+                day.add(j);
+                count = monthCollect.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+String.valueOf(g)))
+                        .mapToDouble(OrderDetail::getProjectCount).sum();
+        
+                price = monthCollect.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+String.valueOf(g)))
+                        .mapToDouble(OrderDetail::getDetailCalculate).sum();
+            }
+       
+            jsonaMonth.add(new BigDecimal(count).setScale(2, BigDecimal.ROUND_HALF_UP));
+            jsonoMonth.add(new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP));
+            
+        }
+        
+        //年的数据
+        for (int i = 0; i < month.length; i++) {
+            int g = i;
+            double count = detail.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(year+month[g]))
+                    .mapToDouble(OrderDetail::getProjectCount).sum();
+            
+            double price = detail.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(year+month[g]))
+                    .mapToDouble(OrderDetail::getDetailCalculate).sum();
+            jsonaYear.add(new BigDecimal(count).setScale(2, BigDecimal.ROUND_HALF_UP));
+            jsonoYear.add(new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP));
+        }
+        
+               
+        
+        jsona.add(day); //天
+        jsona.add(jsonaMonth); 
+        jsona.add(jsonoMonth);
+        jsona.add(month); //月
+        jsona.add(jsonaYear); //月的数据
+        jsona.add(jsonoYear);
+        return jsona;
     }
 }
