@@ -62,9 +62,9 @@
 
   <div class="zzc" style="display:none">
    <div class="new_round_of_cards">
-      <p>新建轮牌</p>
+      <p>新增轮牌</p>
       <div class="new_round_of_cards_content">
-	    <p>轮牌名牌<input type="text" name="shiftMahjongName" placeholder="最多5个字"></p>
+	    <p>轮牌名称<input type="text" name="shiftMahjongName" placeholder="最多5个字"></p>
 	    <ul class="new_rules clearfix">
 		   <li>轮牌规则:<span> <input type="radio"  name="shiftMahjongRule" value="1">指定不动牌</span><span> <input type="radio" name="shiftMahjongRule" value="2">指定动牌</span></li>
 		   <li style="position:relative;left:70px">离开规则:<span> <input type="radio" name="nature" value="1">离开不轮牌</span><span> <input type="radio"  name="nature" value="2">离开轮牌</span></li>
