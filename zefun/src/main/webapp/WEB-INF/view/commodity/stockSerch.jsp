@@ -15,31 +15,26 @@
 							'active');
 					jQuery('.wages_content').eq(jQuery(this).index()).show()
 							.siblings('.wages_content').hide();
-
 				})
 	})
 
 	jQuery(function() {
-
 		jQuery('.wages_content_datail_top>span').click(
 				function() {
 					jQuery(this).addClass('active').siblings('span')
 							.removeClass('active');
-
 				})
 	})
 
 	//轮播
 	jQuery(function() {
 		var now_ = 0, count = jQuery('.roll li').size();
-
 		//向右走
 		jQuery('.hand_right').click(function() {
 			if (now_ <= count - 6) {
 				now_ += 1;
 				jQuery(this).parent().find('ul').stop(true, true).animate({
 					left : -73 * now_
-
 				})
 			}
 		});
@@ -50,10 +45,8 @@
 				now_ -= 1;
 				jQuery(this).parent().find('ul').stop(true, true).animate({
 					left : -73 * now_
-
 				})
 			}
-
 		});
 	});
 
@@ -72,7 +65,7 @@
 			<div class="rightpanel" style="margin-left: 200px; position: relative">
 				<%@include file="/top.jsp"%>
 				<div class="content_right clearfix">
-					<ul class="clearfix">
+					<ul class="clearfix" id="ul">
 						<li class="active">库存统计</li>
 						<li>库存查询</li>
 						<li>出入库单</li>
@@ -106,13 +99,13 @@
 
 						<ul class="stock_content clearfix">
 							<li>
-								<div class="number">入库数量：${inquiryCount }</div>
-								<div class="money">入库金额：${inquiryAmount }</div>
+								<div class="number">入库数量：${result.inquiryCount }</div>
+								<div class="money">入库金额：${result.inquiryAmount }</div>
 								<img src="<%=basePath%>images/decorate.png">
 							</li>
 							<li>
-								<div class="number">出库数量：${deliveringCount }</div>
-								<div class="money">出库金额：${deliveringCountAmount }</div>
+								<div class="number">出库数量：${result.deliveringCount }</div>
+								<div class="money">出库金额：${result.deliveringCountAmount }</div>
 								<img src="<%=basePath%>images/decorate.png">
 							</li>
 						</ul>
@@ -127,24 +120,29 @@
 									</tr>
 									<tr>
 										<td>正常入库</td>
-										<td>${normalStorageCount }</td>
+										<td>${result.normalStorageCount }</td>
 										<td>
-											${normalStorageAmount }<img src="<%=basePath%>images/stock.png">
-										</td>
-									</tr>
-									<tr>
-										<td>调拨入库</td>
-										<td>${merchandiseCount }</td>
-										<td>
-											${merchandiseAmount }<img src="<%=basePath%>images/stock.png">
+											${result.normalStorageAmount }<img onclick="clickPostFlow(1, '正常入库')" src="<%=basePath%>images/stock.png">
 										</td>
 									</tr>
 									<tr>
 										<td>顾客退货</td>
-										<td>${customerReturnsCount }</td>
+										<td>${result.customerReturnsCount }</td>
 										<td>
-											${customerReturnsAmount }<img src="<%=basePath%>images/stock.png">
+											${result.customerReturnsAmount }<img onclick="clickPostFlow(1, '客户退货')" src="<%=basePath%>images/stock.png">
 										</td>
+									</tr>
+									<tr>
+										<td>调拨入库</td>
+										<td>${result.merchandiseCount }</td>
+										<td>
+											${result.merchandiseAmount }<img onclick="clickPostFlow(3, '商品调拨')" src="<%=basePath%>images/stock.png">
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
 									</tr>
 									<tr>
 										<td></td>
@@ -158,6 +156,22 @@
 									</tr>
 								</tbody>
 							</table>
+							<script>
+								function clickPostFlow(stockType, flowType){
+									jQuery("select[name='serchStockType']").val(stockType);
+									serchStockType(stockType);
+									jQuery("select[name='serchStockFlowType']").val(flowType);
+									var flowStartDate = jQuery("input[name='flowStartDate']").val();
+									var flowStopDate = jQuery("input[name='flowStopDate']").val();
+									if (flowStartDate == ""){flowStartDate = "1970-01-01";}
+									if (flowStopDate == ""){flowStopDate = "2050-01-01";}
+									jQuery("input[name='postageSerchStartDate']").val(flowStartDate);
+									jQuery("input[name='postageSerchStopDate']").val(flowStopDate);
+									jQuery("select[name='postageStore']").val(jQuery("select[name='flowStore']").val());
+									jQuery("#ul").children("li").eq(3).click();
+									serchPostage();
+								}
+							</script>
 							<table>
 								<tbody id="delivering">
 									<tr>
@@ -167,37 +181,44 @@
 									</tr>
 									<tr>
 										<td>销售出库</td>
-										<td>${normalDeliveryCount }</td>
+										<td>${result.normalDeliveryCount }</td>
 										<td>
-											${normalDeliveryAmount }<img src="<%=basePath%>images/stock.png">
+											${result.normalDeliveryAmount }<img onclick="clickPostFlow(2, '销售出库')" src="<%=basePath%>images/stock.png">
 										</td>
 									</tr>
 									<tr>
 										<td>供应商退货</td>
-										<td>${supplierReturnsCount }</td>
+										<td>${result.supplierReturnsCount }</td>
 										<td>
-											${supplierReturnsAmount }<img src="<%=basePath%>images/stock.png">
+											${result.supplierReturnsAmount }<img onclick="clickPostFlow(2, '供应商退货')" src="<%=basePath%>images/stock.png">
 										</td>
 									</tr>
 									<tr>
 										<td>损坏</td>
-										<td>${damageCount }</td>
+										<td>${result.damageCount }</td>
 										<td>
-											${damageAmount }<img src="<%=basePath%>images/stock.png">
+											${result.damageAmount }<img onclick="clickPostFlow(2, '损坏')" src="<%=basePath%>images/stock.png">
 										</td>
 									</tr>
 									<tr>
 										<td>赠送</td>
-										<td>${sendCount }</td>
+										<td>${result.sendCount }</td>
 										<td>
-											${sendAmount }<img src="<%=basePath%>images/stock.png">
+											${result.sendAmount }<img onclick="clickPostFlow(2, '赠送')" src="<%=basePath%>images/stock.png">
 										</td>
 									</tr>
 									<tr>
 										<td>领用</td>
-										<td>${getCount }</td>
+										<td>${result.getCount }</td>
 										<td>
-											${getAmount }<img src="<%=basePath%>images/stock.png">
+											${result.getAmount }<img onclick="clickPostFlow(2, '领用')" src="<%=basePath%>images/stock.png">
+										</td>
+									</tr>
+									<tr>
+										<td>商品调拨</td>
+										<td>${result.deliveringDbCount }</td>
+										<td>
+											${result.deliveringDbAmount }<img onclick="clickPostFlow(3, '商品调拨')" src="<%=basePath%>images/stock.png">
 										</td>
 									</tr>
 								</tbody>
@@ -267,7 +288,7 @@
 									<select name="stockType" onchange="selectShowEmSpan(this.value)">
 										<option value="1">入库</option>
 										<option value="2">出库</option>
-										<option value="3">调拨</option>
+										<c:if test="${storeId != '' }"><option value="3">调拨</option></c:if>
 									</select>
 								</span>
 								<em id="em"> 
@@ -379,17 +400,25 @@
 									
 								</table>
 							</div>
+							<script>
+								function selectFlowNumber(flowNumber){
+									jQuery("input[name='detailFlowNumber']").val(flowNumber);
+									jQuery("select[name='detailFlowType']").val(jQuery("select[name='postageStore']").val());
+									jQuery("#ul").children("li").eq(4).click();
+									serchDetailStore();
+								}
+							</script>
 						</div>
 					</div>
 					<div class="wages_content">
 						<div class="wages_content_datail" style="padding: 0">
 							<div class="wages_content_datail">
 								<div class="wages_content_datail_top four">
-									<input type="text" name="detailStartDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px; margin: 0 10px">
+									<input type="text" name="detailStartDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px; ">
 									至
-									<input type="text" name="detailStopDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px; margin: 0 10px">
+									<input type="text" name="detailStopDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px; ">
 									单号
-									<input type="text" name="detailFlowNumber" style="width: 100px; margin: 0 10px">
+									<input type="text" name="detailFlowNumber" style="width: 100px;">
 									商品
 									<select name="aId">
 										<option value="0">全部</option>
@@ -446,6 +475,10 @@
 		jQuery("select[name='flowStore']").hide();
 		jQuery("select[name='stockStore']").val(storeId);
 		jQuery("select[name='stockStore']").hide();
+		jQuery("select[name='postageStore']").val(storeId);
+		jQuery("select[name='postageStore']").hide();
+		jQuery("select[name='detailStore']").val(storeId);
+		jQuery("select[name='detailStore']").hide();
 	}
 	var isStock = false;
 	function serchGoodStock() {
@@ -502,6 +535,8 @@
 	function serchGoodFlow() {
 		var flowStartDate = jQuery("input[name='flowStartDate']").val();
 		var flowStopDate = jQuery("input[name='flowStopDate']").val();
+		if (flowStartDate == ""){flowStartDate = "1970-01-01";}
+		if (flowStopDate == ""){flowStopDate = "2050-01-01";}
 		var storeId = jQuery("select[name='flowStore']").val();
 		var data = {
 			"storeId" : storeId,
@@ -516,53 +551,43 @@
 			dataType : "json",
 			contentType : "application/json",
 			success : function(e) {
-				jQuery(".number").eq(0).text('入库数量：' + e.msg.inquiryCount);
-				jQuery(".money").eq(0).text('入库金额：' + e.msg.inquiryAmount);
-				jQuery(".number").eq(1).text('出库数量：' + e.msg.deliveringCount);
-				jQuery(".money").eq(1).text(
-						'出库金额：' + e.msg.deliveringCountAmount);
+				jQuery(".number").eq(0).text('入库数量：' + e.msg.result.inquiryCount);
+				jQuery(".money").eq(0).text('入库金额：' + e.msg.result.inquiryAmount);
+				jQuery(".number").eq(1).text('出库数量：' + e.msg.result.deliveringCount);
+				jQuery(".money").eq(1).text('出库金额：' + e.msg.result.deliveringCountAmount);
 
-				jQuery(".wages_content_top_left").find("em").text(
-						"库存金额：" + e.msg.amountAndCount.amount);
-				jQuery(".wages_content_top_right").find("span").text(
-						"库存数量: " + e.msg.amountAndCount.amcount);
-				jQuery(".number").eq(2).text(
-						'库存总数量：' + e.msg.amountAndCount.amcount);
-				jQuery(".money").eq(2).text(
-						'库存总金额：' + e.msg.amountAndCount.amount);
-				jQuery("#inquiry").children("tr").eq(1).children("td").eq(1)
-						.text(e.msg.normalStorageCount);
-				jQuery("#inquiry").children("tr").eq(1).children("td").eq(2)
-						.text(e.msg.normalStorageAmount);
-				jQuery("#inquiry").children("tr").eq(2).children("td").eq(1)
-						.text(e.msg.merchandiseCount);
-				jQuery("#inquiry").children("tr").eq(2).children("td").eq(2)
-						.text(e.msg.merchandiseAmount);
-				jQuery("#inquiry").children("tr").eq(3).children("td").eq(1)
-						.text(e.msg.customerReturnsCount);
-				jQuery("#inquiry").children("tr").eq(3).children("td").eq(2)
-						.text(e.msg.customerReturnsAmount);
+				jQuery(".wages_content_top_left").find("em").text("库存金额：" + e.msg.amountAndCount.amount);
+				jQuery(".wages_content_top_right").find("span").text("库存数量: " + e.msg.amountAndCount.amcount);
+				
+				jQuery("#inquiry").children("tr").eq(1).children("td").eq(1).text(e.msg.result.normalStorageCount);
+				jQuery("#inquiry").children("tr").eq(1).children("td").eq(2).text(e.msg.result.normalStorageAmount);
+				
+				jQuery("#inquiry").children("tr").eq(1).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(1, \'正常入库\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#inquiry").children("tr").eq(2).children("td").eq(1).text(e.msg.result.customerReturnsCount);
+				jQuery("#inquiry").children("tr").eq(2).children("td").eq(2).text(e.msg.result.customerReturnsAmount);
+				jQuery("#inquiry").children("tr").eq(2).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(1, \'客户退货\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#inquiry").children("tr").eq(3).children("td").eq(1).text(e.msg.result.merchandiseCount);
+				jQuery("#inquiry").children("tr").eq(3).children("td").eq(2).text(e.msg.result.merchandiseAmount);
+				jQuery("#inquiry").children("tr").eq(3).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'商品调拨\')" src="'+baseUrl+'images/stock.png">'));
 
-				jQuery("#delivering").children("tr").eq(1).children("td").eq(1)
-						.text(e.msg.normalDeliveryCount);
-				jQuery("#delivering").children("tr").eq(1).children("td").eq(2)
-						.text(e.msg.normalDeliveryAmount);
-				jQuery("#delivering").children("tr").eq(2).children("td").eq(1)
-						.text(e.msg.supplierReturnsCount);
-				jQuery("#delivering").children("tr").eq(2).children("td").eq(2)
-						.text(e.msg.supplierReturnsAmount);
-				jQuery("#delivering").children("tr").eq(3).children("td").eq(1)
-						.text(e.msg.damageCount);
-				jQuery("#delivering").children("tr").eq(3).children("td").eq(2)
-						.text(e.msg.damageAmount);
-				jQuery("#delivering").children("tr").eq(4).children("td").eq(1)
-						.text(e.msg.sendCount);
-				jQuery("#delivering").children("tr").eq(4).children("td").eq(2)
-						.text(e.msg.sendAmount);
-				jQuery("#delivering").children("tr").eq(5).children("td").eq(1)
-						.text(e.msg.getCount);
-				jQuery("#delivering").children("tr").eq(5).children("td").eq(2)
-						.text(e.msg.getAmount);
+				jQuery("#delivering").children("tr").eq(1).children("td").eq(1).text(e.msg.result.normalDeliveryCount);
+				jQuery("#delivering").children("tr").eq(1).children("td").eq(2).text(e.msg.result.normalDeliveryAmount);
+				jQuery("#delivering").children("tr").eq(1).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'销售出库\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(2).children("td").eq(1).text(e.msg.result.supplierReturnsCount);
+				jQuery("#delivering").children("tr").eq(2).children("td").eq(2).text(e.msg.result.supplierReturnsAmount);
+				jQuery("#delivering").children("tr").eq(2).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'供应商退货\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(3).children("td").eq(1).text(e.msg.result.damageCount);
+				jQuery("#delivering").children("tr").eq(3).children("td").eq(2).text(e.msg.result.damageAmount);
+				jQuery("#delivering").children("tr").eq(3).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'损坏\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(4).children("td").eq(1).text(e.msg.result.sendCount);
+				jQuery("#delivering").children("tr").eq(4).children("td").eq(2).text(e.msg.result.sendAmount);
+				jQuery("#delivering").children("tr").eq(4).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'赠送\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(5).children("td").eq(1).text(e.msg.result.getCount);
+				jQuery("#delivering").children("tr").eq(5).children("td").eq(2).text(e.msg.result.getAmount);
+				jQuery("#delivering").children("tr").eq(5).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'领用\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(6).children("td").eq(1).text(e.msg.result.deliveringDbCount);
+				jQuery("#delivering").children("tr").eq(6).children("td").eq(2).text(e.msg.result.deliveringDbAmount);
+				jQuery("#delivering").children("tr").eq(6).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'商品调拨\')" src="'+baseUrl+'images/stock.png">'));
 			}
 		});
 	}
@@ -752,7 +777,7 @@
 				jQuery("#serchStockFlows").empty();
 				for (var i = 0; i < stockFlows.length; i++) {
 					var html = '<tr>'+
-							'<td>'+stockFlows[i].flowNumber+'</td>'+
+							'<td onclick="selectFlowNumber(\''+stockFlows[i].flowNumber+'\')">'+stockFlows[i].flowNumber+'</td>'+
 							'<td>'+stockFlows[i].flowType+'</td>'+
 							'<td>'+stockFlows[i].fromStoreName+'</td>'+
 							'<td>'+stockFlows[i].toStoreName+'</td>'+
@@ -817,9 +842,9 @@
 				for (var i = 0; i < stockFlowDetails.length; i++) {
 					var stockFlowDetail = stockFlowDetails[i];
 					if (stockFlowDetail.employeeName == null) stockFlowDetail.employeeName = '';
-					if (+stockFlowDetail.stockType == 1) stockFlowDetail.stockType = "入库";
-					if (+stockFlowDetail.stockType == 2) stockFlowDetail.stockType = "出库";
-					if (+stockFlowDetail.stockType == 3) stockFlowDetail.stockType = "调拨";
+					if (stockFlowDetail.stockType == 1) stockFlowDetail.stockType = "入库";
+					if (stockFlowDetail.stockType == 2) stockFlowDetail.stockType = "出库";
+					if (stockFlowDetail.stockType == 3) stockFlowDetail.stockType = "调拨";
 					var html = '<tr>'+
 									'<td>'+stockFlowDetail.flowNumber+'</td>'+
 									'<td>'+stockFlowDetail.accountGoods.goodsName+'</td>'+

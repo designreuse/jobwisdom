@@ -8,7 +8,7 @@
 .wages_content_datail{background:#b8c7ea;padding:10px 0 10px 10px}
 
 .wages_content_datail_top input{width:80px;height:16px;border-radius:12px;border:1px solid #718aaf}
-.wages_content_datail_top select{margin:0 10px;padding:0 0 0 30px;width:90px;height:24px;border-radius:12px;border:1px solid #718aaf}
+.wages_content_datail_top select{margin:0 2px;padding:0 0 0 30px;width:90px;height:24px;border-radius:12px;border:1px solid #718aaf}
 .wages_content_datail_top button{width:80px;height:24px;border-radius:12px;border:1px solid #8298bd;border:none;text-align:center;line-height:24px;background:#7b809b;color:white}
 .wages_content_datail_top button:hover{background:#70758e}
 
