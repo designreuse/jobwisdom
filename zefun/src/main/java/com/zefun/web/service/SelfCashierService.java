@@ -443,12 +443,16 @@ public class SelfCashierService {
 			realAmount = realAmount.add(orderDetail.getRealPrice());
 			orderDetailMapper.updateByPrimaryKey(orderDetail);
 			
-			/*OrderDetail orderDetailObj = orderDetailMapper.selectByPrimaryKey(orderDetail.getDetailId());*/
+			OrderDetail orderDetailObj = orderDetailMapper.selectByPrimaryKey(orderDetail.getDetailId());
 			
-			stepCommissionMap = calculateCommonCommission(orderDetail, memberSubAccount, storeId, payType, ownerMemberId, employeeId);
+			stepCommissionMap = calculateCommonCommission(orderDetailObj, memberSubAccount, storeId, payType, ownerMemberId, employeeId);
 			stepCommissionList.add(stepCommissionMap);
-			orderDetail.setd
-			orderDetailMapper.updateByPrimaryKey(orderDetail);
+			
+			//修改业绩值
+			OrderDetail obj = new OrderDetail();
+			obj.setDetailId(orderDetailObj.getDetailId());
+			obj.setDetailCalculate(new BigDecimal(stepCommissionMap.get("tataliCommonCalculate").toString()));
+			orderDetailMapper.updateByPrimaryKey(obj);
 		}
 
 		
