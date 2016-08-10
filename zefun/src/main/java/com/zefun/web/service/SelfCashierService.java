@@ -451,7 +451,7 @@ public class SelfCashierService {
 			//修改业绩值
 			OrderDetail obj = new OrderDetail();
 			obj.setDetailId(orderDetailObj.getDetailId());
-			obj.setDetailCalculate(new BigDecimal(stepCommissionMap.get("tataliCommonCalculate").toString()));
+			obj.setDetailCalculate(new Double(stepCommissionMap.get("tataliCommonCalculate").toString()));
 			orderDetailMapper.updateByPrimaryKey(obj);
 		}
 
