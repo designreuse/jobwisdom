@@ -98,25 +98,25 @@
 					  <div class="wages_content_datail">
 						   <div class="wages_content_datail_top">
 							 <span class="active" onclick="showProject()">大项PK</span><span onclick="showGoods()">商品PK</span>
-							  <select style="margin:0;display:none;" id="goodsInfo1">
+							  <select style="margin:0;display:none;" id="goodsInfo1" >
 							     <c:forEach items="${goodsInfoDto }" var="goodsInfo">
 									     <option goodsId="${goodsInfo.goodsId }">${goodsInfo.goodsName }</option>
 									  </c:forEach>
 							  </select>
 							  
-							   <select style="margin:0" id="goodsCategory1">
+							   <select style="margin:0" id="goodsCategory1" >
 							    <c:forEach items="${goodsCategory }" var="goodsCategory">
 									     <option categoryId="${goodsCategory.categoryId }">${goodsCategory.categoryName }</option>
 									  </c:forEach>
 							  </select>
 							  PK
-							   <select style="margin:0;display:none;" id="goodsInfo2" >
+							   <select style="margin:0;display:none;" id="goodsInfo2"  >
 							     <c:forEach items="${goodsInfoDto }" var="goodsInfo">
 									     <option goodsId="${goodsInfo.goodsId }">${goodsInfo.goodsName }</option>
 									  </c:forEach>
 							  </select>
 							  
-							     <select style="margin:0" id="goodsCategory2">
+							     <select style="margin:0" id="goodsCategory2" >
 							       <c:forEach items="${goodsCategory }" var="goodsCategory">
 									     <option categoryId="${goodsCategory.categoryId }">${goodsCategory.categoryName }</option>
 									  </c:forEach>
@@ -126,10 +126,10 @@
 							  <em>
 							    <span class="active" style="width:50px" onclick="showYear()">年</span>
 							    <span style="width:50px" onclick="showYearMonth()">月</span>
-							  <input  type="text" id="yearMonth1" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
-							  <input  type="text" id="yearMonth2" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})" > 
+							  <input  type="text" onchange="checkGood()" id="yearMonth1" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
+							  <input  type="text" onchange="checkGood()" id="yearMonth2" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})" > 
 							  </em>
-							  门店<select  id="storeTwo" >
+							  门店<select  id="storeTwo" onchange="checkGood()">
 									  <c:forEach items="${selectByStoreAccount }" var="store">
 									     <option storeId="${store.storeId }">${store.storeName }</option>
 									  </c:forEach>
