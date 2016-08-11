@@ -650,61 +650,6 @@
               )
   </select>
   
-  <!-- <select id="selectLaborPerformance" parameterType="com.zefun.web.dto.LaborPerformanceSummaryDto"
-  			resultType="com.zefun.web.dto.LaborPerformanceSummaryDto">
-  	SELECT
-	SUM(if(order_type=1,1,0)) servicedCustomerNum,
-	SUM(if(order_type=1,1,0)) consumerCount,
-	SUM(IFNULL(discount_amount,0)) sumLaborPerformance
-	from
-	order_detail
-	WHERE
-	create_time <![CDATA[>=]]> #{begin}
-	AND create_time <![CDATA[<]]> #{end}
-	AND store_id = #{storeId}
-	AND order_type = 1
-	AND order_status IN(3);
-  </select>  -->
-  <!--<select id="selectSummaryByDept" parameterType="com.zefun.web.dto.LaborPerformanceSummaryDto"
-  			resultType="com.zefun.web.vo.ProjectLaborPerformanceVo">
-	  SELECT 
-	SUM(IFNULL(od.discount_amount,0)) deptSum,
-	di.dept_id deptId
-	from
-	dept_info di,
-	order_detail od
-	WHERE 
-	di.dept_id= od.dept_id
-	AND
-	od.store_id = #{storeId}
-	AND create_time <![CDATA[>=]]> #{begin}
-	AND create_time <![CDATA[<]]> #{end}
-	AND od.order_type = 1
-	GROUP BY di.dept_id
-  </select>  -->
-  <!-- <select id="selectSummaryDetailBySeries" parameterType="com.zefun.web.dto.LaborPerformanceSummaryDto"
-  			resultType="com.zefun.web.vo.SeriesUnderDept">
-	SELECT 
-	SUM(od.discount_amount) seriesSum,
-	pi.dept_id deptId,
-	pc.category_name seriesName
-	from
-	project_category pc,
-	project_info pi,
-	order_detail od
-	WHERE
-	pi.category_id = pc.category_id
-	AND
-	pi.project_id = od.project_id
-	AND
-	od.store_id = pc.store_id
-	AND od.store_id = #{storeId}
-	AND create_time <![CDATA[>=]]> #{begin}
-	AND create_time <![CDATA[<]]> #{end}
-	GROUP BY pi.category_id
-  </select>  
-  </select> -->
-  
   <select id="selectTataiRealPriceByType" parameterType="java.util.Map" resultType="java.math.BigDecimal">
      select ifnull(sum(a.real_price), 0) from order_detail a 
      where exists(select 1 from order_info b 

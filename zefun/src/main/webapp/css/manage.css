@@ -12,7 +12,7 @@ table td{width:100px;height:40px;text-align:center;border:1px solid #8d9eb3;vert
 table td img{margin:0 20px}
 
 .zzc{font-size: 12px;color: black;position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
-.zzc .zzc_manage{overflow:hidden;width:385px;height:328px;background:white;border-radius:12px;margin:100px auto}
+.zzc .zzc_manage{overflow:hidden;width:330px;height:270px;background:white;border-radius:12px;margin:100px auto}
 .zzc_manage>p{height:50px;line-height:50px;background:#36384e;text-align:center;color:white;font-size:14px}
 .zzc_manage_content>p{height:30px;width:224px;line-height:30px;margin:8px auto}
 .zzc_manage_content>p input{width:126px;height:14px;border-radius:12px;border:1px solid #cbd6e0;}

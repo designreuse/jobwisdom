@@ -62,7 +62,7 @@
 					                <span>顾客：散客</span>
 					           </c:otherwise>
 					         </c:choose>
-							 <em>开单时间：${fn:substring(cashierDto.createTime, 11, 16)}</em>
+							 <em>服务时间：${fn:substring(cashierDto.createTime, 11, 16)}</em>
 						   </div>
 						   <div class="customer_content">
 						      <div class="customer_content_div">
@@ -74,19 +74,20 @@
 									        <c:choose>
 									           <c:when test="${orderDetail.projectId == null}">
 									             <td colspan="5" name = "projectId" projectId = "">
-									               <em style="position:absolute;right:-4px;top:-10px" onclick="deleteDetailId(${orderDetail.detailId})">
+									               <%-- <em style="position:absolute;right:-4px;top:-10px" onclick="deleteDetailId(${orderDetail.detailId})">
 											            <img src="<%=basePath%>images/hand_close.png">
 											       </em>
-											       <em class="empty" onclick = "showSettingProject(${orderDetail.detailId})" >+</em>
+											       <em class="empty" onclick = "showSettingProject(${orderDetail.detailId})" >+</em> --%>
+											       	服务项目：未设置
 											     </td>
 									           </c:when>
 									           <c:otherwise>
 									              <td colspan="5" name = "projectId" projectId = "${orderDetail.projectId}">
-									                ${orderDetail.projectName}
-									                <span>
+									                	服务项目：${orderDetail.projectName}
+									                <%-- <span>
 									                    <img src="<%=basePath%>images/architecture_edit.png" onclick = "showSettingProject(${orderDetail.detailId})">
 									                    <em style="position:absolute;right:-4px;top:-10px"><img onclick="deleteDetailId(${orderDetail.detailId})" src="<%=basePath%>images/hand_close.png"></em>
-									                </span>
+									                </span> --%>
 									              </td>
 									           </c:otherwise>
 									        </c:choose>
@@ -97,7 +98,7 @@
 									    <td>开始</td>
 									    <td>结束</td>
 									    <td>服务者</td>
-										<td>操作</td>
+										<!-- <td>操作</td> -->
 									  </tr>
 									  <c:forEach items="${orderDetail.stepList}" var="step">
 									      <tr name = "shiftMahjongStep" shiftMahjongStepId = "${step.shiftMahjongStepId}" shiftMahjongId = "${step.shiftMahjongId}" positionId = "${step.positionId}" employeeId = "${step.employeeInfo.employeeId }" isOver = "${step.isOver }">
@@ -105,7 +106,16 @@
 										    <td>${fn:substring(step.beginTime, 0, 5)}</td>
 										    <td>${fn:substring(step.finishTime, 0, 5)}</td>
 										    <td>
-										       <c:choose>
+										       <c:if test="${step.employeeInfo != null}">
+										             ${step.employeeInfo.name}
+										             <c:if test="${step.isOver == 1}">
+										                  (服务中)
+										             </c:if>
+										             <c:if test="${step.isOver == 2}">
+										                  (已完成)
+										             </c:if>
+										        </c:if>
+										       <%-- <c:choose>
 										          <c:when test="${step.employeeInfo != null}">
 										             ${step.employeeInfo.name}
 										             <c:if test="${step.isOver == 1}">
@@ -115,13 +125,13 @@
 										          <c:otherwise>
 										             <em onclick="showServers(this, 2)">+</em>
 										          </c:otherwise>
-										       </c:choose>
+										       </c:choose> --%>
 										    </td>
-											<td>
+											<%-- <td>
 												<c:if test="${step.isOver == 1}">
 								                  <img onclick="overServerEmployee(this)" src="<%=basePath%>images/do_over.png" style="position:relative;right:0px;top:2px">
 								                </c:if>
-							                </td>
+							                </td> --%>
 										  </tr>
 									  </c:forEach>
 									</table>
@@ -137,8 +147,8 @@
 							   </c:forEach>
 							 </ul>
 							 <div class="table_content_button">
-							    <button onclick = "settlementOrder(this, ${cashierDto.orderId})">结算</button>
-							    <button onclick = "addServer(this, ${cashierDto.orderId})">添加</button>
+							    <button onclick = "settlementOrder(this, ${cashierDto.orderId})"><img src="<%=basePath%>images/accounts.png">结算</button>
+							    <%-- <button onclick = "addServer(this, ${cashierDto.orderId})">添加</button> --%>
 							 </div>
 						   </div> 
 						 </li>

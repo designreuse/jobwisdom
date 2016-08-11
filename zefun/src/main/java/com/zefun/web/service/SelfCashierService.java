@@ -594,6 +594,13 @@ public class SelfCashierService {
 				memberAccountMapper.updateByPrimaryKey(memberAccount);
 			}
 
+			//修改会员累计消费次数,累计消费总额,单次消费均价,最后消费时间
+			Map<String, Object> avgMap = new HashMap<>();
+			avgMap.put("memberId", ownerMemberId);
+			avgMap.put("consumeAmount", orderInfo.getRealAmount());
+			avgMap.put("consumeTime", DateUtil.getCurTime());
+			memberAccountMapper.updateAvgConsume(avgMap);
+			
 			memberInfoService.wipeCache(ownerMemberId);
 			memberInfoService.syncLevelId(ownerMemberId);
 		}

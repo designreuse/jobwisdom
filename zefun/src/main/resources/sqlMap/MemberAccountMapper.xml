@@ -378,18 +378,24 @@
     select
         <choose>
            <when test="pageType == 1">
-               (CASE WHEN TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) = 0 THEN 1 
+				a.total_consume_amount/(CASE WHEN ((CASE WHEN TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) = 0 THEN 1 
 				ELSE TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) 
-				END)* a.total_consume_amount/12
+				END)/12) &lt; 1 THEN 1
+				ELSE ((CASE WHEN TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) = 0 THEN 1 
+				ELSE TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) 
+				END)/12) END)
            </when>
            <when test="pageType == 2">
-               (CASE WHEN TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) = 0 THEN 1 
+               a.consume_count/(CASE WHEN ((CASE WHEN TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) = 0 THEN 1 
 				ELSE TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) 
-				END)* a.consume_count/12
+				END)/12) &lt; 1 THEN 1
+				ELSE ((CASE WHEN TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) = 0 THEN 1 
+				ELSE TIMESTAMPDIFF(MONTH, a.create_time, sysdate()) 
+				END)/12) END)
            </when>
            <otherwise>
                 CASE WHEN TIMESTAMPDIFF(DAY, a.last_consume_time, sysdate()) = 0 THEN 1 
-				ELSE TIMESTAMPDIFF(DAY, a.create_time, sysdate()) 
+				ELSE TIMESTAMPDIFF(DAY, a.last_consume_time, sysdate()) 
 				END
            </otherwise>
         </choose>
@@ -411,4 +417,10 @@
 	</choose>
   </select>
 
+   <!-- 计算会员累计消费次数,累计消费总额,单次消费均价,最后消费时间 -->
+  <update id="updateAvgConsume" parameterType="java.util.Map">
+  	  update member_account set member_account.avg_consume_amount = IFNULL((select sum(a.receivable_amount)/count(*) from order_info a where member_account.account_id = a.member_id), 0), 
+  	  consume_count = consume_count + 1, total_consume_amount = total_consume_amount + #{consumeAmount,jdbcType=DECIMAL}, last_consume_time = #{consumeTime,jdbcType=VARCHAR}
+  	  WHERE member_account.account_id = #{memberId,jdbcType=INTEGER}
+  </update>
 </mapper>

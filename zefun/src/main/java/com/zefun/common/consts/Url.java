@@ -523,6 +523,8 @@ public interface Url {
 	class KeepAccounts {
 		/** 初始化无纸开单*/
 		public static final String INITIALIZE_NO_PAPER_OPEN_ORDER = "KeepAccounts/initializeNoPaperOpenOrder";
+		/** 快速开单预约信息*/
+		public static final String MANUALLY_OPEN_ORDER_APPOINT = "KeepAccounts/manuallyOpenOrderAppoint";
 		/** 初始化弹出框*/
 		public static final String INITIALIZE_NOPAPER_MODEL = "KeepAccounts/initializeNoPaperModel";
 		/** 无纸开单 */

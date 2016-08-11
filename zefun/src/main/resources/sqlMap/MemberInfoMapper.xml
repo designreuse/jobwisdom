@@ -327,6 +327,7 @@
     <result column="balance_amount" property="balanceAmount" jdbcType="DECIMAL" />
     <result column="total_integral" property="totalIntegral" jdbcType="INTEGER" />
     <result column="balance_integral" property="balanceIntegral" jdbcType="INTEGER" />
+    <result column="consume_count" property="consumeCount" jdbcType="DECIMAL" />
     <result column="total_consume_amount" property="totalConsumeAmount" jdbcType="DECIMAL" />
     <result column="avg_consume_amount" property="avgConsumeAmount" jdbcType="DECIMAL" />
     <result column="last_consume_time" property="lastConsumeTime" jdbcType="CHAR" />

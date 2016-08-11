@@ -118,7 +118,7 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 	if (type == 1) {
 		var projectDiv = jQuery("<div class='nav_content_div' name= 'projectNameLI' projectId = '"+projectId+"'></div>");
 		projectDiv.append("<span class='hand_close' onclick = 'deleteProject(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
-				     	  "<p><em>"+projectName+"</em><i>项目价格："+projectPrice+"</i></p>");
+				     	  "<p><em>"+projectName+"</em><i>项目价格："+projectPrice+"</i><span class='select_order' onclick = 'chooseAppoint(this, 1)' appointmentId = ''>选择预约人员+</span></p>");
 		
 		var  stepTable = jQuery("<table></table>");
 		
@@ -133,10 +133,10 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 			else {
 				buzhou.append("<td style='width:360px'><input type='text' name = 'employeeId' employeeId = '' chooseType = '2'></td>");
 			}
-			buzhou.append("<td>指定:<input type='checkbox' name = 'isAssign'></td>");
+			buzhou.append("<td>指定:<input type='checkbox' name = 'isAssign' chooseType = '0'></td>");
 			
 			if (i == 0) {
-				buzhou.append("<td>预约:<input type='checkbox' name = 'isAppoint'></td>");
+				buzhou.append("<td>预约:<input type='checkbox' name = 'isAppoint' chooseType = '0'></td>");
 			}
 			stepTable.append(buzhou);
 		}
@@ -177,6 +177,112 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 		}
 	}
 }
+
+jQuery(".project_hand_content").delegate("li", "click", function () {
+	jQuery(this).siblings().removeClass("appiontActive");
+	if (jQuery(this).hasClass("appiontActive")){
+		jQuery(this).removeClass("appiontActive");
+	}
+	else {
+		jQuery(this).addClass("appiontActive");
+	}
+});
+
+function confirmAppion () {
+	var appiont = jQuery(".zzc").find(".appiontActive");
+	jQuery(appointObj).empty();
+	if (isEmpty(jQuery(appiont).attr("employeename"))) {
+		jQuery(appointObj).append("选择预约人员+");
+		jQuery(appointObj).attr("appointmentId", "");
+	}
+	else {
+		var employeename = jQuery(appiont).attr("employeename");
+		var appointmentdate = jQuery(appiont).attr("appointmentdate");
+		var appointmentId = jQuery(appiont).attr("appointmentId");
+		jQuery(appointObj).append("预约人员:"+employeename+"  时间:"+appointmentdate);
+		jQuery(appointObj).attr("appointmentId", appointmentId);
+	}
+	cancl();
+}
+
+var appointObj = "";
+
+function chooseAppoint (obj, orderType) {
+	if (orderType == 2) {
+		dialog("无纸单无法修改预约人员！");
+		return;
+	}
+	appointObj = obj;
+	var appointmentId = jQuery(obj).attr("appointmentId");
+	jQuery.ajax({
+    	url : baseUrl + "KeepAccounts/manuallyOpenOrderAppoint",
+    	type : "POST",
+    	success : function(e){
+    		if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+    		var appointObjList = e.msg;
+    		
+    		jQuery(".project_hand_content").empty();
+    		
+    		for (var i = 0; i < appointObjList.length; i++) {
+    			var appointObj = appointObjList[i];
+    			var str = "";
+    			if (appointmentId == appointObj.appointmentId) {
+    				str += '<li class="clearfix appiontActive" employeeName = "'+appointObj.employeeName+'" appointmentDate = "'+appointObj.appointmentDate+'" appointmentId = "'+appointObj.appointmentId+'">';
+    			}
+    			else {
+    				str += '<li class="clearfix" employeeName = "'+appointObj.employeeName+'" appointmentDate = "'+appointObj.appointmentDate+'" appointmentId = "'+appointObj.appointmentId+'">';
+    			}
+    			str += '<div class="img">'+
+					     	'<img src="'+qiniuUrl+appointObj.headUrl+'">'+
+					   '</div>'+
+					   '<div class="text">'+
+						   '<span>'+appointObj.memberName+'</span>'+
+						   '<div>'+appointObj.phone+'</div>';
+    			if (appointObj.appointmentWay == 1) {
+    				str += '<p>电话预约</p>';
+    			}
+    			else {
+    				str += '<p>微信预约</p>';
+    			}
+		        str +='</div>'+
+					 '<div class="project_hand_right">'+
+					   '<div>'+appointObj.categoryName+'</div>'+
+					   '<span>预约时间'+appointObj.appointmentDate+'</span>'+
+					   '<p>'+appointObj.employeeName+'</p>'+
+					   '<p>'+appointObj.levelName+'</p>'+
+					 '</div>'+
+				   '</li>';
+
+    			jQuery(".project_hand_content").append(str);
+    		}
+    		jQuery(".zzc").show();
+    	}
+    });
+}
+
+function cancl () {
+	jQuery(".zzc").hide();
+}
+
+jQuery("div[name='projectPay']").delegate("div[name='projectNameLI'] table tr:eq(0) input[type='checkbox']", "click", function () {
+	jQuery(this).parents("div[name='projectNameLI']").find("table tr:eq(0) input[type='checkbox']").attr("checked",false);
+    if (jQuery(this).attr("name") == "isAssign") {
+    	jQuery(this).parents("div[name='projectNameLI']").find("table tr:eq(0) input[name='isAppoint']").attr("chooseType", 0);
+    }
+    else {
+    	jQuery(this).parents("div[name='projectNameLI']").find("table tr:eq(0) input[name='isAssign']").attr("chooseType", 0);
+    }
+	if (jQuery(this).attr("chooseType") != 1) {
+		jQuery(this).prop("checked",true);
+		jQuery(this).attr("chooseType", 1);
+	}
+	else {
+		jQuery(this).attr("chooseType", 0);
+	}
+});
 
 function changeDiv(type) {
 	if (type == 1) {
@@ -230,12 +336,11 @@ function save() {
 	var projectObj = jQuery("div[name='projectNameLI']");
 	for (var i = 0; i < projectObj.length; i++) {
 		var projectId = jQuery(projectObj[i]).attr("projectId");
+		var appointmentId = jQuery(projectObj[i]).find(".select_order").attr("appointmentid");
 		var detailId = changeEmpty(jQuery(projectObj[i]).attr("detailId"));
 		var projectStepArrayObj = new Array();
 		var projectStepObj = jQuery(projectObj[i]).find("tr");
-		
-		var appoint = 0;
-		
+				
 		for (var j = 0; j < projectStepObj.length; j++) {
 			var positionId = jQuery(projectStepObj[j]).attr("positionId");
 			var shiftMahjongStepId = changeEmpty(jQuery(projectStepObj[j]).attr("shiftMahjongStepId"));
@@ -247,16 +352,15 @@ function save() {
 			var isAppoint = 0;
 			if (jQuery(projectStepObj[j]).find("input[name='isAppoint']").prop('checked')) {
 				isAppoint = 1;
+				isAssign = 1;
 			}
 
-            if (isAppoint == 1) {
-            	appoint = isAppoint;
-			}
 			var StepStr = {"shiftMahjongStepId" : shiftMahjongStepId, "positionId":positionId, "employeeId":employeeId, "isAssign":isAssign, "isAppoint":isAppoint};
 			projectStepArrayObj.push(StepStr);
 		}
+		
 		var projectStepArrayObjStr = JSON.stringify(projectStepArrayObj);
-		var projectObjStr = {"type":1, "projectId":projectId, "detailId" : detailId, "appoint" : appoint, "projectStepArrayObjStr":projectStepArrayObjStr};
+		var projectObjStr = {"type":1, "projectId":projectId, "detailId" : detailId, "appoint" : appointmentId, "projectStepArrayObjStr":projectStepArrayObjStr};
 		arrayObj.push(projectObjStr);
 	}
 	//疗程
