@@ -87,6 +87,8 @@ public interface Url {
         public static final  String STORE_ORDER_CHECK = "order/store/check";
         /**销售PK*/
         public static final  String STORE_CATEGORY_CHECK = "order/category/check";
+        /**销量汇总*/
+        public static final  String STORE_GOODS_CHECK = "order/goods/check";
     }
 	
 	

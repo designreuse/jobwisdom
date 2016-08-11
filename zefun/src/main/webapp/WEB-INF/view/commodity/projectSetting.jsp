@@ -305,8 +305,8 @@
 													<p>业绩</p>
 													<div class="achievement_content">
 														业绩计算方式<select id="active11" onchange="changeprice(this,'price_step1')">
-														<option  value="1">固定</option> 
-														<option value="2">比例</option>
+														<option  value="2">固定</option> 
+														<option value="1">比例</option>
 														</select>
 														<span>员工业绩<input placeholder="0" id="active111" type="number"><i id="price_step1">元</i></span>
 													</div>
@@ -348,7 +348,7 @@
 												<div class="achievement">
 													<p>业绩</p>
 													<div class="achievement_content">
-														业绩计算方式<select id="active12" onchange="changeprice(this,'price_step2')"><option  value="1">固定</option> <option value="2">比例</option></select><span>员工业绩<input
+														业绩计算方式<select id="active12" onchange="changeprice(this,'price_step2')"><option  value="2">固定</option> <option value="1">比例</option></select><span>员工业绩<input
 														id="active112"	placeholder="0" type="number"><i id="price_step2">元</i></span>
 													</div>
 													<p>提成</p>
@@ -384,7 +384,7 @@
 												<div class="achievement">
 													<p>业绩</p>
 													<div class="achievement_content">
-														业绩计算方式<select  id="active13" onchange="changeprice(this,'price_step3')"><option value="1">固定</option> <option value="2">比例</option></select>
+														业绩计算方式<select  id="active13" onchange="changeprice(this,'price_step3')"><option value="2">固定</option> <option value="1">比例</option></select>
 														<span>员工业绩<input
 														placeholder="0"	type="number" id="active113" ><i id="price_step3">元</i></span>
 													</div>

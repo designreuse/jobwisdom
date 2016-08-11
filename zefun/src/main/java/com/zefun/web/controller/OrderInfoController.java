@@ -77,4 +77,21 @@ public class OrderInfoController extends BaseController {
     
     
     
+    /**
+     *  销量汇总
+    * @author 骆峰
+    * @date 2016年8月11日 下午3:20:36
+    * @param storeId storeId
+    * @param time1 time1
+    * @param time2 time2
+    * @return BaseDto
+     */
+    
+    @RequestMapping(value = Url.Statistical.STORE_GOODS_CHECK)
+    @ResponseBody
+    public BaseDto selectByGoods(Integer storeId, String time1, String time2){
+        return orderInfoService.selectByGoods(storeId, time1, time2);
+    }
+    
+    
 }

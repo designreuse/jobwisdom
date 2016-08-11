@@ -96,7 +96,7 @@
      </if>
 
       <if test="time != null " >
-      and  LEFT(c.charge_time,7)=#{time}
+      and  LEFT(c.charge_time,7)= "#{time}"
      </if>
 
       <if test="code != null and  code != ''" >
