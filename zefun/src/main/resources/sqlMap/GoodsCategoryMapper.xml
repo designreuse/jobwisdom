@@ -19,6 +19,9 @@
     from goods_category
     where category_id = #{categoryId,jdbcType=INTEGER}
   </select>
+  
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from goods_category
     where category_id = #{categoryId,jdbcType=INTEGER}
@@ -111,6 +114,13 @@
     <include refid="Base_Column_List" />
     from goods_category
     where store_id = #{storeId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  
+  <select id="selectBygoodsInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   select  
+    c.*
+    from goods_info g LEFT JOIN goods_category c ON c.category_id = g.category_id 
+    WHERE c.store_id = #{storeId,jdbcType=INTEGER} AND c.is_deleted = 0 AND g.goods_price > 0 GROUP BY  c.category_id 
   </select>
   
   <resultMap type="com.zefun.web.dto.DeptInfoDto" id="DetpInfoMap">
