@@ -107,10 +107,20 @@ public class OrderInfo {
 
 	/** 最后操作人标识 */
 	private Integer lastOperatorId;
+	
+	/** 支付类型 1:现金支付，2：卡金支付*/
+	private Integer cashCardType;
 
 	
-	
-	public Integer getOptionEmployeeId() {
+	public Integer getCashCardType() {
+        return cashCardType;
+    }
+
+    public void setCashCardType(Integer cashCardType) {
+        this.cashCardType = cashCardType;
+    }
+
+    public Integer getOptionEmployeeId() {
 		return optionEmployeeId;
 	}
 
