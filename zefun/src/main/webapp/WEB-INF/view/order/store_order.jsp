@@ -4,9 +4,10 @@
 <%@ page import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="<%=basePath%>css/store_sell.css"	type="text/css" />
+<script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
 <script>
   jQuery(function(){
-    jQuery('.wages_content:gt(0)').hide();jQuery('.wages_content:gt(0)').hide();
+    jQuery('.wages_content:gt(0)').hide();
     jQuery('.content_right>ul>li').click(function(){
       jQuery(this).addClass('active').siblings().removeClass('active');
 	  jQuery('.wages_content').eq(jQuery(this).index()).show().siblings('.wages_content').hide();
@@ -16,14 +17,25 @@
   
 //选中
  jQuery(function(){
-   jQuery('.wages_content_datail_top>span').click(function(){
+   jQuery('.first .wages_content_datail_top>span').click(function(){
      jQuery(this).addClass('active').siblings().removeClass('active');
 	 jQuery('.date').eq(jQuery(this).index()).show().siblings('.date').hide();
-	 jQuery('.container_').eq(jQuery(this).index()).show().siblings('.container_').hide()
+	 jQuery('.first .container_').eq(jQuery(this).index()).show().siblings('.container_').hide()
    });
    
  })
  
+  
+ jQuery(function(){
+	   jQuery('.second .wages_content_datail_top>span').click(function(){
+	     jQuery(this).addClass('active').siblings().removeClass('active');
+		 
+		 
+	   });
+	   
+	 })
+	 
+	 
   jQuery(function(){
    jQuery('.wages_content_datail_top>em>span').click(function(){
      jQuery(this).addClass('active').siblings().removeClass('active');
@@ -44,114 +56,7 @@
    })
  })
   </script>
-  <script>
-  //第一个图表 
-  jQuery(function () {
-    jQuery('#container1').highcharts({
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: '销售走势图'
-        },
-     
-        xAxis: {
-            categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-        },
-        tooltip: {
-            enabled: false,
-            formatter: function() {
-                return '<b>'+ this.series.name +'</b><br/>'+this.x +': '+ this.y +'°C';
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: '日期/月',
-            data: [50, 100, 150, 200, 250, 300]
-        }]
-    });
-});		
- //第二个图表 
-  jQuery(function () {
-    jQuery('#container2').highcharts({
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: '销售走势图'
-        },
-     
-        xAxis: {
-            categories: ['1号', '2号', '3号', '4号', '5号', '6号', '7号', '8号', '9号', '10号', '11号', '12号','13号','14号','15号','16号','17号','18号','19号','20号','21号','22号','23号','24号','25号','26号','27','28号']
-        },
-        tooltip: {
-            enabled: false,
-            formatter: function() {
-                return '<b>'+ this.series.name +'</b><br/>'+this.x +': '+ this.y +'°C';
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: '日期/天',
-            data: [50, 100, 150, 200, 250, 300,50, 100, 150, 200, 250, 300,50, 100, 150, 200, 250, 300,50, 100, 150, 200, 250, 300,50, 100, 150, 200]
-        }]
-    });
-});	
-  
-  
-  
-  //销量PK第一个图表
-   jQuery(function () {
-    jQuery('#container3').highcharts({
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: '销售走势图'
-        },
-     
-        xAxis: {
-            categories: ['1号', '2号', '3号', '4号', '5号', '6号', '7号', '8号', '9号', '10号', '11号', '12号','13号','14号','15号','16号','17号','18号','19号','20号','21号','22号','23号','24号','25号','26号','27','28号']
-        },
-        tooltip: {
-            enabled: false,
-            formatter: function() {
-                return '<b>'+ this.series.name +'</b><br/>'+this.x +': '+ this.y +'°C';
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: '洗剪吹',
-            data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-           }, {
-            name: '烫染',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-        }]
-    });
-});	
-  
-  </script>
+
 <body>
 
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
@@ -163,65 +68,80 @@
 				<%@include file="/top.jsp"%>
 				<div class="content_right clearfix">
 				    <ul class="clearfix">
-					  <li class="">商品出售</li>
-					  <li>销售pk</li> 
-					  <li class="active">销量汇总</li> 
+					  <li class="active">商品出售</li>
+					  <li onclick="checkGood()">销售PK</li> 
+					  <li class="">销量汇总</li> 
 					</ul>
 					
-					<div class="wages_content" style="display: none;">
+					<div class="wages_content first" >
 					  <div class="wages_content_datail">
 						   <div class="wages_content_datail_top">
-							 <span class="active">年</span><span>月</span>
-							  <select class="date">
-							     <option>2016</option>
-							  </select>
-							   <select class="date" style="width:100px;display:none">
-							     <option>2016-01-01</option>
+							 <span class="active" id="typeYear">年</span><span>月</span>
+							  
+							  <input  class="date" type="text" name="birthday" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
+							  <input class="date" type="text" name="birthdays" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})"> 
+							
+							  门店<select  id="stores" >
+									  <c:forEach items="${selectByStoreAccount }" var="store">
+									     <option storeId="${store.storeId }">${store.storeName }</option>
+									  </c:forEach>
+								 </select>
+							  走势类型<select id="yj" onchange="changeType(this)"> <option value="1">业绩</option> <option value="0">数量</option></select>
+							 <button onclick="check()">查询</button>
+							</div>
+					  </div>
+					  <div id="container1" class="container_" style="min-width:1000px;height:600px"></div>
+	                 <div id="container2" class="container_" style="min-width:1000px;height:600px"></div>
+					</div>
+				
+					<div class="wages_content second" >
+					  <div class="wages_content_datail">
+						   <div class="wages_content_datail_top">
+							 <span class="active" onclick="showProject()">大项PK</span><span onclick="showGoods()">商品PK</span>
+							  <select style="margin:0;display:none;" id="goodsInfo1">
+							     <c:forEach items="${goodsInfoDto }" var="goodsInfo">
+									     <option goodsId="${goodsInfo.goodsId }">${goodsInfo.goodsName }</option>
+									  </c:forEach>
 							  </select>
 							  
-							  门店<select> <option></option></select>
-							  走势类型<select> <option>业绩</option> <option>数量</option></select>
-							 <button>查询</button>
-							</div>
-					  </div>
-					  <div id="container1" class="container_" style="min-width:1000px;height:600px" data-highcharts-chart="0"><div class="highcharts-container" id="highcharts-0" style="position: relative; overflow: hidden; width: 1037px; height: 600px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="1037" height="600"><desc>Created with Highcharts 4.1.5</desc><defs><clipPath id="highcharts-1"><rect x="0" y="0" width="951" height="465"></rect></clipPath></defs><rect x="0" y="0" width="1037" height="600" strokeWidth="0" fill="#FFFFFF" class=" highcharts-background"></rect><g class="highcharts-button" style="cursor:default;" stroke-linecap="round" transform="translate(1003,10)"><title>Chart context menu</title><rect x="0.5" y="0.5" width="24" height="22" strokeWidth="1" fill="white" stroke="none" stroke-width="1" rx="2" ry="2"></rect><path fill="#E0E0E0" d="M 6 6.5 L 20 6.5 M 6 11.5 L 20 11.5 M 6 16.5 L 20 16.5" stroke="#666" stroke-width="3" zIndex="1"></path><text x="0" zIndex="1" style="color:black;fill:black;" transform="translate(0,12)"></text></g><g class="highcharts-button" style="cursor:default;" stroke-linecap="round" transform="translate(1003,10)"><title>Chart context menu</title><rect x="0.5" y="0.5" width="24" height="22" strokeWidth="1" fill="white" stroke="none" stroke-width="1" rx="2" ry="2"></rect><path fill="#E0E0E0" d="M 6 6.5 L 20 6.5 M 6 11.5 L 20 11.5 M 6 16.5 L 20 16.5" stroke="#666" stroke-width="3" zIndex="1"></path><text x="0" zIndex="1" style="color:black;fill:black;" transform="translate(0,12)"></text></g><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-grid" zIndex="1"><path fill="none" d="M 76 518.5 L 1027 518.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 452.5 L 1027 452.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 385.5 L 1027 385.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 319.5 L 1027 319.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 252.5 L 1027 252.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 186.5 L 1027 186.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 119.5 L 1027 119.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 52.5 L 1027 52.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path></g><g class="highcharts-axis" zIndex="2"><path fill="none" d="M 234.5 518 L 234.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 392.5 518 L 392.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 551.5 518 L 551.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 709.5 518 L 709.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 868.5 518 L 868.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 1027.5 518 L 1027.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 75.5 518 L 75.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 76 518.5 L 1027 518.5" stroke="#C0D0E0" stroke-width="1" zIndex="7" visibility="visible"></path></g><g class="highcharts-axis" zIndex="2"><text x="28.25" zIndex="7" text-anchor="middle" transform="translate(0,0) rotate(270 28.25 285.5)" class=" highcharts-yaxis-title" style="color:#707070;fill:#707070;" visibility="visible" y="285.5">Values</text></g><g class="highcharts-series-group" zIndex="3"><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(76,53) scale(1 1)" clip-path="url(#highcharts-1)"><path fill="none" d="M 79.25 398.57142857142856 L 237.75 332.1428571428571 L 396.25 265.7142857142857 L 554.75 199.28571428571428 L 713.25 132.8571428571429 L 871.75 66.42857142857144" stroke="#7cb5ec" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path></g><g class="highcharts-markers" visibility="visible" zIndex="0.1" transform="translate(76,53) scale(1 1)" clip-path="url(#highcharts-2)"><path fill="#7cb5ec" d="M 871 62.428571428571445 C 876.328 62.428571428571445 876.328 70.42857142857144 871 70.42857142857144 C 865.672 70.42857142857144 865.672 62.428571428571445 871 62.428571428571445 Z"></path><path fill="#7cb5ec" d="M 713 128.8571428571429 C 718.328 128.8571428571429 718.328 136.8571428571429 713 136.8571428571429 C 707.672 136.8571428571429 707.672 128.8571428571429 713 128.8571428571429 Z"></path><path fill="#7cb5ec" d="M 554 195.28571428571428 C 559.328 195.28571428571428 559.328 203.28571428571428 554 203.28571428571428 C 548.672 203.28571428571428 548.672 195.28571428571428 554 195.28571428571428 Z"></path><path fill="#7cb5ec" d="M 396 261.7142857142857 C 401.328 261.7142857142857 401.328 269.7142857142857 396 269.7142857142857 C 390.672 269.7142857142857 390.672 261.7142857142857 396 261.7142857142857 Z"></path><path fill="#7cb5ec" d="M 237 328.1428571428571 C 242.328 328.1428571428571 242.328 336.1428571428571 237 336.1428571428571 C 231.672 336.1428571428571 231.672 328.1428571428571 237 328.1428571428571 Z"></path><path fill="#7cb5ec" d="M 79 394.57142857142856 C 84.328 394.57142857142856 84.328 402.57142857142856 79 402.57142857142856 C 73.672 402.57142857142856 73.672 394.57142857142856 79 394.57142857142856 Z"></path></g></g><text x="519" text-anchor="middle" class="highcharts-title" zIndex="4" style="color:#333333;font-size:18px;fill:#333333;width:973px;" y="24">销售走势图</text><g class="highcharts-data-labels" visibility="visible" zIndex="6" transform="translate(76,53) scale(1 1)" opacity="1"><g zIndex="1" style="" transform="translate(67,371)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>50</tspan></text></g><g zIndex="1" style="" transform="translate(221,304)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>100</tspan></text></g><g zIndex="1" style="" transform="translate(380,238)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>150</tspan></text></g><g zIndex="1" style="" transform="translate(538,171)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>200</tspan></text></g><g zIndex="1" style="" transform="translate(697,105)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>250</tspan></text></g><g zIndex="1" style="" transform="translate(855,38)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>300</tspan></text></g></g><g class="highcharts-legend" zIndex="7" transform="translate(478,556)"><g zIndex="1"><g><g class="highcharts-legend-item" zIndex="1" transform="translate(8,3)"><path fill="none" d="M 0 11 L 16 11" stroke="#7cb5ec" stroke-width="2"></path><path fill="#7cb5ec" d="M 8 7 C 13.328 7 13.328 15 8 15 C 2.6719999999999997 15 2.6719999999999997 7 8 7 Z"></path><text x="21" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2" y="15">日期/月</text></g></g></g></g><g class="highcharts-axis-labels highcharts-xaxis-labels" zIndex="7"><text x="155.25" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:149px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">1月</text><text x="313.75" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:149px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">2月</text><text x="472.25" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:149px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">3月</text><text x="630.75" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:149px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">4月</text><text x="789.25" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:149px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">5月</text><text x="947.75" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:149px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">6月</text></g><g class="highcharts-axis-labels highcharts-yaxis-labels" zIndex="7"><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:332px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="521" opacity="1">0</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:332px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="455" opacity="1">50</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:332px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="388" opacity="1">100</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:332px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="322" opacity="1">150</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:332px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="255" opacity="1">200</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:332px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="189" opacity="1">250</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:332px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="122" opacity="1">300</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:332px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="56" opacity="1">350</text></g><text x="1027" text-anchor="end" zIndex="8" style="cursor:pointer;color:#909090;font-size:9px;fill:#909090;" y="595"></text></svg></div></div>
-					 <div id="container2" class="container_" style="min-width: 1000px; height: 600px; display: none;" data-highcharts-chart="1"><div class="highcharts-container" id="highcharts-4" style="position: relative; overflow: hidden; width: 1000px; height: 600px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="1000" height="600"><desc>Created with Highcharts 4.1.5</desc><defs><clipPath id="highcharts-5"><rect x="0" y="0" width="914" height="451"></rect></clipPath></defs><rect x="0" y="0" width="1000" height="600" strokeWidth="0" fill="#FFFFFF" class=" highcharts-background"></rect><g class="highcharts-button" style="cursor:default;" stroke-linecap="round" transform="translate(939,10)"><title>Chart context menu</title><rect x="0.5" y="0.5" width="24" height="22" strokeWidth="1" fill="white" stroke="none" stroke-width="1" rx="2" ry="2"></rect><path fill="#E0E0E0" d="M 6 6.5 L 20 6.5 M 6 11.5 L 20 11.5 M 6 16.5 L 20 16.5" stroke="#666" stroke-width="3" zIndex="1"></path><text x="0" zIndex="1" style="color:black;fill:black;" transform="translate(0,12)"></text></g><g class="highcharts-button" style="cursor:default;" stroke-linecap="round" transform="translate(966,10)"><title>Chart context menu</title><rect x="0.5" y="0.5" width="24" height="22" strokeWidth="1" fill="white" stroke="none" stroke-width="1" rx="2" ry="2"></rect><path fill="#E0E0E0" d="M 6 6.5 L 20 6.5 M 6 11.5 L 20 11.5 M 6 16.5 L 20 16.5" stroke="#666" stroke-width="3" zIndex="1"></path><text x="0" zIndex="1" style="color:black;fill:black;" transform="translate(0,12)"></text></g><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-grid" zIndex="1"><path fill="none" d="M 76 504.5 L 990 504.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 440.5 L 990 440.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 375.5 L 990 375.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 311.5 L 990 311.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 246.5 L 990 246.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 182.5 L 990 182.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 117.5 L 990 117.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 76 53.5 L 990 53.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path></g><g class="highcharts-axis" zIndex="2"><path fill="none" d="M 108.5 504 L 108.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 140.5 504 L 140.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 173.5 504 L 173.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 206.5 504 L 206.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 238.5 504 L 238.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 271.5 504 L 271.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 304.5 504 L 304.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 336.5 504 L 336.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 369.5 504 L 369.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 401.5 504 L 401.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 434.5 504 L 434.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 467.5 504 L 467.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 499.5 504 L 499.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 532.5 504 L 532.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 565.5 504 L 565.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 597.5 504 L 597.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 630.5 504 L 630.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 663.5 504 L 663.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 695.5 504 L 695.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 728.5 504 L 728.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 761.5 504 L 761.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 793.5 504 L 793.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 826.5 504 L 826.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 858.5 504 L 858.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 891.5 504 L 891.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 924.5 504 L 924.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 956.5 504 L 956.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 989.5 504 L 989.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 75.5 504 L 75.5 514" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 76 504.5 L 990 504.5" stroke="#C0D0E0" stroke-width="1" zIndex="7" visibility="visible"></path></g><g class="highcharts-axis" zIndex="2"><text x="28.25" zIndex="7" text-anchor="middle" transform="translate(0,0) rotate(270 28.25 278.5)" class=" highcharts-yaxis-title" style="color:#707070;fill:#707070;" visibility="visible" y="278.5">Values</text></g><g class="highcharts-series-group" zIndex="3"><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(76,53) scale(1 1)" clip-path="url(#highcharts-5)"><path fill="none" d="M 16.321428571428573 386.57142857142856 L 48.96428571428572 322.1428571428571 L 81.60714285714286 257.7142857142857 L 114.25000000000001 193.28571428571428 L 146.89285714285717 128.8571428571429 L 179.5357142857143 64.42857142857144 L 212.17857142857147 386.57142857142856 L 244.8214285714286 322.1428571428571 L 277.4642857142857 257.7142857142857 L 310.1071428571429 193.28571428571428 L 342.75 128.8571428571429 L 375.39285714285717 64.42857142857144 L 408.03571428571433 386.57142857142856 L 440.67857142857144 322.1428571428571 L 473.3214285714286 257.7142857142857 L 505.9642857142857 193.28571428571428 L 538.6071428571429 128.8571428571429 L 571.25 64.42857142857144 L 603.8928571428572 386.57142857142856 L 636.5357142857143 322.1428571428571 L 669.1785714285714 257.7142857142857 L 701.8214285714287 193.28571428571428 L 734.4642857142858 128.8571428571429 L 767.1071428571429 64.42857142857144 L 799.7500000000001 386.57142857142856 L 832.3928571428572 322.1428571428571 L 865.0357142857143 257.7142857142857 L 897.6785714285714 193.28571428571428" stroke="#7cb5ec" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path></g><g class="highcharts-markers" visibility="visible" zIndex="0.1" transform="translate(76,53) scale(1 1)" clip-path="url(#highcharts-6)"><path fill="#7cb5ec" d="M 897 189.28571428571428 C 902.328 189.28571428571428 902.328 197.28571428571428 897 197.28571428571428 C 891.672 197.28571428571428 891.672 189.28571428571428 897 189.28571428571428 Z"></path><path fill="#7cb5ec" d="M 865 253.71428571428572 C 870.328 253.71428571428572 870.328 261.7142857142857 865 261.7142857142857 C 859.672 261.7142857142857 859.672 253.71428571428572 865 253.71428571428572 Z"></path><path fill="#7cb5ec" d="M 832 318.1428571428571 C 837.328 318.1428571428571 837.328 326.1428571428571 832 326.1428571428571 C 826.672 326.1428571428571 826.672 318.1428571428571 832 318.1428571428571 Z"></path><path fill="#7cb5ec" d="M 799 382.57142857142856 C 804.328 382.57142857142856 804.328 390.57142857142856 799 390.57142857142856 C 793.672 390.57142857142856 793.672 382.57142857142856 799 382.57142857142856 Z"></path><path fill="#7cb5ec" d="M 767 60.428571428571445 C 772.328 60.428571428571445 772.328 68.42857142857144 767 68.42857142857144 C 761.672 68.42857142857144 761.672 60.428571428571445 767 60.428571428571445 Z"></path><path fill="#7cb5ec" d="M 734 124.85714285714289 C 739.328 124.85714285714289 739.328 132.8571428571429 734 132.8571428571429 C 728.672 132.8571428571429 728.672 124.85714285714289 734 124.85714285714289 Z"></path><path fill="#7cb5ec" d="M 701 189.28571428571428 C 706.328 189.28571428571428 706.328 197.28571428571428 701 197.28571428571428 C 695.672 197.28571428571428 695.672 189.28571428571428 701 189.28571428571428 Z"></path><path fill="#7cb5ec" d="M 669 253.71428571428572 C 674.328 253.71428571428572 674.328 261.7142857142857 669 261.7142857142857 C 663.672 261.7142857142857 663.672 253.71428571428572 669 253.71428571428572 Z"></path><path fill="#7cb5ec" d="M 636 318.1428571428571 C 641.328 318.1428571428571 641.328 326.1428571428571 636 326.1428571428571 C 630.672 326.1428571428571 630.672 318.1428571428571 636 318.1428571428571 Z"></path><path fill="#7cb5ec" d="M 603 382.57142857142856 C 608.328 382.57142857142856 608.328 390.57142857142856 603 390.57142857142856 C 597.672 390.57142857142856 597.672 382.57142857142856 603 382.57142857142856 Z"></path><path fill="#7cb5ec" d="M 571 60.428571428571445 C 576.328 60.428571428571445 576.328 68.42857142857144 571 68.42857142857144 C 565.672 68.42857142857144 565.672 60.428571428571445 571 60.428571428571445 Z"></path><path fill="#7cb5ec" d="M 538 124.85714285714289 C 543.328 124.85714285714289 543.328 132.8571428571429 538 132.8571428571429 C 532.672 132.8571428571429 532.672 124.85714285714289 538 124.85714285714289 Z"></path><path fill="#7cb5ec" d="M 505 189.28571428571428 C 510.328 189.28571428571428 510.328 197.28571428571428 505 197.28571428571428 C 499.672 197.28571428571428 499.672 189.28571428571428 505 189.28571428571428 Z"></path><path fill="#7cb5ec" d="M 473 253.71428571428572 C 478.328 253.71428571428572 478.328 261.7142857142857 473 261.7142857142857 C 467.672 261.7142857142857 467.672 253.71428571428572 473 253.71428571428572 Z"></path><path fill="#7cb5ec" d="M 440 318.1428571428571 C 445.328 318.1428571428571 445.328 326.1428571428571 440 326.1428571428571 C 434.672 326.1428571428571 434.672 318.1428571428571 440 318.1428571428571 Z"></path><path fill="#7cb5ec" d="M 408 382.57142857142856 C 413.328 382.57142857142856 413.328 390.57142857142856 408 390.57142857142856 C 402.672 390.57142857142856 402.672 382.57142857142856 408 382.57142857142856 Z"></path><path fill="#7cb5ec" d="M 375 60.428571428571445 C 380.328 60.428571428571445 380.328 68.42857142857144 375 68.42857142857144 C 369.672 68.42857142857144 369.672 60.428571428571445 375 60.428571428571445 Z"></path><path fill="#7cb5ec" d="M 342 124.85714285714289 C 347.328 124.85714285714289 347.328 132.8571428571429 342 132.8571428571429 C 336.672 132.8571428571429 336.672 124.85714285714289 342 124.85714285714289 Z"></path><path fill="#7cb5ec" d="M 310 189.28571428571428 C 315.328 189.28571428571428 315.328 197.28571428571428 310 197.28571428571428 C 304.672 197.28571428571428 304.672 189.28571428571428 310 189.28571428571428 Z"></path><path fill="#7cb5ec" d="M 277 253.71428571428572 C 282.328 253.71428571428572 282.328 261.7142857142857 277 261.7142857142857 C 271.672 261.7142857142857 271.672 253.71428571428572 277 253.71428571428572 Z"></path><path fill="#7cb5ec" d="M 244 318.1428571428571 C 249.328 318.1428571428571 249.328 326.1428571428571 244 326.1428571428571 C 238.672 326.1428571428571 238.672 318.1428571428571 244 318.1428571428571 Z"></path><path fill="#7cb5ec" d="M 212 382.57142857142856 C 217.328 382.57142857142856 217.328 390.57142857142856 212 390.57142857142856 C 206.672 390.57142857142856 206.672 382.57142857142856 212 382.57142857142856 Z"></path><path fill="#7cb5ec" d="M 179 60.428571428571445 C 184.328 60.428571428571445 184.328 68.42857142857144 179 68.42857142857144 C 173.672 68.42857142857144 173.672 60.428571428571445 179 60.428571428571445 Z"></path><path fill="#7cb5ec" d="M 146 124.85714285714289 C 151.328 124.85714285714289 151.328 132.8571428571429 146 132.8571428571429 C 140.672 132.8571428571429 140.672 124.85714285714289 146 124.85714285714289 Z"></path><path fill="#7cb5ec" d="M 114 189.28571428571428 C 119.328 189.28571428571428 119.328 197.28571428571428 114 197.28571428571428 C 108.672 197.28571428571428 108.672 189.28571428571428 114 189.28571428571428 Z"></path><path fill="#7cb5ec" d="M 81 253.71428571428572 C 86.328 253.71428571428572 86.328 261.7142857142857 81 261.7142857142857 C 75.672 261.7142857142857 75.672 253.71428571428572 81 253.71428571428572 Z"></path><path fill="#7cb5ec" d="M 48 318.1428571428571 C 53.328 318.1428571428571 53.328 326.1428571428571 48 326.1428571428571 C 42.672 326.1428571428571 42.672 318.1428571428571 48 318.1428571428571 Z"></path><path fill="#7cb5ec" d="M 16 382.57142857142856 C 21.328 382.57142857142856 21.328 390.57142857142856 16 390.57142857142856 C 10.672 390.57142857142856 10.672 382.57142857142856 16 382.57142857142856 Z"></path></g></g><text x="500" text-anchor="middle" class="highcharts-title" zIndex="4" style="color:#333333;font-size:18px;fill:#333333;width:936px;" y="24">销售走势图</text><g class="highcharts-data-labels" visibility="visible" zIndex="6" transform="translate(76,53) scale(1 1)" opacity="1"><g zIndex="1" style="" transform="translate(4,359)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>50</tspan></text></g><g zIndex="1" style="" transform="translate(33,294)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>100</tspan></text></g><g zIndex="1" style="" transform="translate(65,230)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>150</tspan></text></g><g zIndex="1" style="" transform="translate(98,165)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>200</tspan></text></g><g zIndex="1" style="" transform="translate(131,101)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>250</tspan></text></g><g zIndex="1" style="" transform="translate(163,36)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>300</tspan></text></g><g zIndex="1" style="" transform="translate(200,359)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>50</tspan></text></g><g zIndex="1" style="" transform="translate(228,294)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>100</tspan></text></g><g zIndex="1" style="" transform="translate(261,230)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>150</tspan></text></g><g zIndex="1" style="" transform="translate(294,165)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>200</tspan></text></g><g zIndex="1" style="" transform="translate(326,101)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>250</tspan></text></g><g zIndex="1" style="" transform="translate(359,36)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>300</tspan></text></g><g zIndex="1" style="" transform="translate(395,359)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>50</tspan></text></g><g zIndex="1" style="" transform="translate(424,294)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>100</tspan></text></g><g zIndex="1" style="" transform="translate(457,230)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>150</tspan></text></g><g zIndex="1" style="" transform="translate(490,165)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>200</tspan></text></g><g zIndex="1" style="" transform="translate(522,101)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>250</tspan></text></g><g zIndex="1" style="" transform="translate(555,36)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>300</tspan></text></g><g zIndex="1" style="" transform="translate(591,359)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>50</tspan></text></g><g zIndex="1" style="" transform="translate(620,294)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>100</tspan></text></g><g zIndex="1" style="" transform="translate(653,230)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>150</tspan></text></g><g zIndex="1" style="" transform="translate(685,165)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>200</tspan></text></g><g zIndex="1" style="" transform="translate(718,101)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>250</tspan></text></g><g zIndex="1" style="" transform="translate(751,36)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>300</tspan></text></g><g zIndex="1" style="" transform="translate(787,359)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>50</tspan></text></g><g zIndex="1" style="" transform="translate(816,294)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>100</tspan></text></g><g zIndex="1" style="" transform="translate(849,230)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>150</tspan></text></g><g zIndex="1" style="" transform="translate(881,165)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>200</tspan></text></g></g><g class="highcharts-legend" zIndex="7" transform="translate(460,556)"><g zIndex="1"><g><g class="highcharts-legend-item" zIndex="1" transform="translate(8,3)"><path fill="none" d="M 0 11 L 16 11" stroke="#7cb5ec" stroke-width="2"></path><path fill="#7cb5ec" d="M 8 7 C 13.328 7 13.328 15 8 15 C 2.6719999999999997 15 2.6719999999999997 7 8 7 Z"></path><text x="21" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2" y="15">日期/天</text></g></g></g></g><g class="highcharts-axis-labels highcharts-xaxis-labels" zIndex="7"><text x="95.14985569617475" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 95.14985569617475 520)" y="520" opacity="1"><tspan>1号</tspan></text><text x="127.79271283903189" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 127.79271283903189 520)" y="520" opacity="1"><tspan>2号</tspan></text><text x="160.43556998188905" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 160.43556998188905 520)" y="520" opacity="1"><tspan>3号</tspan></text><text x="193.07842712474618" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 193.07842712474618 520)" y="520" opacity="1"><tspan>4号</tspan></text><text x="225.72128426760335" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 225.72128426760335 520)" y="520" opacity="1"><tspan>5号</tspan></text><text x="258.36414141046055" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 258.36414141046055 520)" y="520" opacity="1"><tspan>6号</tspan></text><text x="291.00699855331766" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 291.00699855331766 520)" y="520" opacity="1"><tspan>7号</tspan></text><text x="323.6498556961748" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 323.6498556961748 520)" y="520" opacity="1"><tspan>8号</tspan></text><text x="356.29271283903194" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 356.29271283903194 520)" y="520" opacity="1"><tspan>9号</tspan></text><text x="388.9355699818891" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 388.9355699818891 520)" y="520" opacity="1"><tspan>10号</tspan></text><text x="421.57842712474627" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 421.57842712474627 520)" y="520" opacity="1"><tspan>11号</tspan></text><text x="454.2212842676034" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 454.2212842676034 520)" y="520" opacity="1"><tspan>12号</tspan></text><text x="486.86414141046055" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 486.86414141046055 520)" y="520" opacity="1"><tspan>13号</tspan></text><text x="519.5069985533177" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 519.5069985533177 520)" y="520" opacity="1"><tspan>14号</tspan></text><text x="552.1498556961748" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 552.1498556961748 520)" y="520" opacity="1"><tspan>15号</tspan></text><text x="584.792712839032" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 584.792712839032 520)" y="520" opacity="1"><tspan>16号</tspan></text><text x="617.4355699818891" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 617.4355699818891 520)" y="520" opacity="1"><tspan>17号</tspan></text><text x="650.0784271247462" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 650.0784271247462 520)" y="520" opacity="1"><tspan>18号</tspan></text><text x="682.7212842676034" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 682.7212842676034 520)" y="520" opacity="1"><tspan>19号</tspan></text><text x="715.3641414104605" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 715.3641414104605 520)" y="520" opacity="1"><tspan>20号</tspan></text><text x="748.0069985533177" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 748.0069985533177 520)" y="520" opacity="1"><tspan>21号</tspan></text><text x="780.6498556961749" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 780.6498556961749 520)" y="520" opacity="1"><tspan>22号</tspan></text><text x="813.292712839032" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 813.292712839032 520)" y="520" opacity="1"><tspan>23号</tspan></text><text x="845.9355699818891" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 845.9355699818891 520)" y="520" opacity="1"><tspan>24号</tspan></text><text x="878.5784271247463" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 878.5784271247463 520)" y="520" opacity="1"><tspan>25号</tspan></text><text x="911.2212842676034" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 911.2212842676034 520)" y="520" opacity="1"><tspan>26号</tspan></text><text x="943.8641414104605" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 943.8641414104605 520)" y="520" opacity="1"><tspan>27</tspan></text><text x="976.5069985533178" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:600px;text-overflow:ellipsis;" text-anchor="end" transform="translate(0,0) rotate(-45 976.5069985533178 520)" y="520" opacity="1"><tspan>28号</tspan></text></g><g class="highcharts-axis-labels highcharts-yaxis-labels" zIndex="7"><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="507" opacity="1">0</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="443" opacity="1">50</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="378" opacity="1">100</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="314" opacity="1">150</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="249" opacity="1">200</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="185" opacity="1">250</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="120" opacity="1">300</text><text x="61" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="56" opacity="1">350</text></g><text x="990" text-anchor="end" zIndex="8" style="cursor:pointer;color:#909090;font-size:9px;fill:#909090;" y="595"></text></svg></div></div>
-					</div>
-					<div class="wages_content" style="display: none;">
-					  <div class="wages_content_datail">
-						   <div class="wages_content_datail_top">
-							 <span class="active">大PK</span><span>商品PK</span>
-							  <select style="margin:0">
-							     <option>洗剪吹</option>
+							   <select style="margin:0" id="goodsCategory1">
+							    <c:forEach items="${goodsCategory }" var="goodsCategory">
+									     <option categoryId="${goodsCategory.categoryId }">${goodsCategory.categoryName }</option>
+									  </c:forEach>
 							  </select>
 							  PK
-							   <select style="margin:0">
-							     <option>烫染</option>
+							   <select style="margin:0;display:none;" id="goodsInfo2" >
+							     <c:forEach items="${goodsInfoDto }" var="goodsInfo">
+									     <option goodsId="${goodsInfo.goodsId }">${goodsInfo.goodsName }</option>
+									  </c:forEach>
+							  </select>
+							  
+							     <select style="margin:0" id="goodsCategory2">
+							       <c:forEach items="${goodsCategory }" var="goodsCategory">
+									     <option categoryId="${goodsCategory.categoryId }">${goodsCategory.categoryName }</option>
+									  </c:forEach>
 							  </select>
 							  PK类型
-							  <select style="margin:0">
-							     <option>金额</option>
-							  </select>
+							  <select style="margin:0" id="sl" onchange="showData()"> <option value="0">业绩</option> <option value="1">数量</option></select>
 							  <em>
-							    <span class="active" style="width:50px">年</span>
-							    <span style="width:50px">月</span>
-								<select class="date" style="margin:0">
-							     <option>2016</option>
-							  </select>
-							  <select class="date" style="width:100px;display:none">
-							     <option>2016-01-01</option>
-							  </select>
+							    <span class="active" style="width:50px" onclick="showYear()">年</span>
+							    <span style="width:50px" onclick="showYearMonth()">月</span>
+							  <input  type="text" id="yearMonth1" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
+							  <input  type="text" id="yearMonth2" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})" > 
 							  </em>
-							  门店<select> <option></option></select>
-							 <button>查询</button>
+							  门店<select  id="storeTwo" >
+									  <c:forEach items="${selectByStoreAccount }" var="store">
+									     <option storeId="${store.storeId }">${store.storeName }</option>
+									  </c:forEach>
+								 </select>
+							 <button onclick="checkGood()">查询</button>
 							</div>
 					  </div>
-					  <div id="container3" style="min-width:1000px;height:600px" data-highcharts-chart="2"><div class="highcharts-container" id="highcharts-8" style="position: relative; overflow: hidden; width: 1000px; height: 600px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="1000" height="600"><desc>Created with Highcharts 4.1.5</desc><defs><clipPath id="highcharts-9"><rect x="0" y="0" width="910" height="465"></rect></clipPath></defs><rect x="0" y="0" width="1000" height="600" strokeWidth="0" fill="#FFFFFF" class=" highcharts-background"></rect><g class="highcharts-button" style="cursor:default;" stroke-linecap="round" transform="translate(939,10)"><title>Chart context menu</title><rect x="0.5" y="0.5" width="24" height="22" strokeWidth="1" fill="white" stroke="none" stroke-width="1" rx="2" ry="2"></rect><path fill="#E0E0E0" d="M 6 6.5 L 20 6.5 M 6 11.5 L 20 11.5 M 6 16.5 L 20 16.5" stroke="#666" stroke-width="3" zIndex="1"></path><text x="0" zIndex="1" style="color:black;fill:black;" transform="translate(0,12)"></text></g><g class="highcharts-button" style="cursor:default;" stroke-linecap="round" transform="translate(966,10)"><title>Chart context menu</title><rect x="0.5" y="0.5" width="24" height="22" strokeWidth="1" fill="white" stroke="none" stroke-width="1" rx="2" ry="2"></rect><path fill="#E0E0E0" d="M 6 6.5 L 20 6.5 M 6 11.5 L 20 11.5 M 6 16.5 L 20 16.5" stroke="#666" stroke-width="3" zIndex="1"></path><text x="0" zIndex="1" style="color:black;fill:black;" transform="translate(0,12)"></text></g><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-grid" zIndex="1"><path fill="none" d="M 80 518.5 L 990 518.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 476.5 L 990 476.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 433.5 L 990 433.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 391.5 L 990 391.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 349.5 L 990 349.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 307.5 L 990 307.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 264.5 L 990 264.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 222.5 L 990 222.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 180.5 L 990 180.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 138.5 L 990 138.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 95.5 L 990 95.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 80 52.5 L 990 52.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path></g><g class="highcharts-axis" zIndex="2"><path fill="none" d="M 155.5 518 L 155.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 231.5 518 L 231.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 307.5 518 L 307.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 382.5 518 L 382.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 458.5 518 L 458.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 534.5 518 L 534.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 610.5 518 L 610.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 686.5 518 L 686.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 761.5 518 L 761.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 837.5 518 L 837.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 913.5 518 L 913.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 989.5 518 L 989.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 79.5 518 L 79.5 528" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 80 518.5 L 990 518.5" stroke="#C0D0E0" stroke-width="1" zIndex="7" visibility="visible"></path></g><g class="highcharts-axis" zIndex="2"><text x="28.453125" zIndex="7" text-anchor="middle" transform="translate(0,0) rotate(270 28.453125 285.5)" class=" highcharts-yaxis-title" style="color:#707070;fill:#707070;" visibility="visible" y="285.5">Values</text></g><g class="highcharts-series-group" zIndex="3"><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(80,53) scale(1 1)" clip-path="url(#highcharts-9)"><path fill="none" d="M 37.916666666666664 388.9090909090909 L 113.75 390.6 L 189.58333333333331 346.6363636363636 L 265.4166666666667 262.09090909090907 L 341.25 196.14545454545453 L 417.0833333333333 143.7272727272727 L 492.9166666666667 81.16363636363633 L 568.7499999999999 59.18181818181813 L 644.5833333333333 113.29090909090905 L 720.4166666666666 197.83636363636361 L 796.2499999999999 272.23636363636365 L 872.0833333333333 344.94545454545454" stroke="#7cb5ec" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path></g><g class="highcharts-markers" visibility="visible" zIndex="0.1" transform="translate(80,53) scale(1 1)" clip-path="url(#highcharts-10)"><path fill="#7cb5ec" d="M 872 340.94545454545454 C 877.328 340.94545454545454 877.328 348.94545454545454 872 348.94545454545454 C 866.672 348.94545454545454 866.672 340.94545454545454 872 340.94545454545454 Z"></path><path fill="#7cb5ec" d="M 796 268.23636363636365 C 801.328 268.23636363636365 801.328 276.23636363636365 796 276.23636363636365 C 790.672 276.23636363636365 790.672 268.23636363636365 796 268.23636363636365 Z"></path><path fill="#7cb5ec" d="M 720 193.83636363636361 C 725.328 193.83636363636361 725.328 201.83636363636361 720 201.83636363636361 C 714.672 201.83636363636361 714.672 193.83636363636361 720 193.83636363636361 Z"></path><path fill="#7cb5ec" d="M 644 109.29090909090905 C 649.328 109.29090909090905 649.328 117.29090909090905 644 117.29090909090905 C 638.672 117.29090909090905 638.672 109.29090909090905 644 109.29090909090905 Z"></path><path fill="#7cb5ec" d="M 568 55.18181818181813 C 573.328 55.18181818181813 573.328 63.18181818181813 568 63.18181818181813 C 562.672 63.18181818181813 562.672 55.18181818181813 568 55.18181818181813 Z"></path><path fill="#7cb5ec" d="M 492 77.16363636363633 C 497.328 77.16363636363633 497.328 85.16363636363633 492 85.16363636363633 C 486.672 85.16363636363633 486.672 77.16363636363633 492 77.16363636363633 Z"></path><path fill="#7cb5ec" d="M 417 139.7272727272727 C 422.328 139.7272727272727 422.328 147.7272727272727 417 147.7272727272727 C 411.672 147.7272727272727 411.672 139.7272727272727 417 139.7272727272727 Z"></path><path fill="#7cb5ec" d="M 341 192.14545454545453 C 346.328 192.14545454545453 346.328 200.14545454545453 341 200.14545454545453 C 335.672 200.14545454545453 335.672 192.14545454545453 341 192.14545454545453 Z"></path><path fill="#7cb5ec" d="M 265 258.09090909090907 C 270.328 258.09090909090907 270.328 266.09090909090907 265 266.09090909090907 C 259.672 266.09090909090907 259.672 258.09090909090907 265 258.09090909090907 Z"></path><path fill="#7cb5ec" d="M 189 342.6363636363636 C 194.328 342.6363636363636 194.328 350.6363636363636 189 350.6363636363636 C 183.672 350.6363636363636 183.672 342.6363636363636 189 342.6363636363636 Z"></path><path fill="#7cb5ec" d="M 113 386.6 C 118.328 386.6 118.328 394.6 113 394.6 C 107.672 394.6 107.672 386.6 113 386.6 Z"></path><path fill="#7cb5ec" d="M 37 384.9090909090909 C 42.328 384.9090909090909 42.328 392.9090909090909 37 392.9090909090909 C 31.672 392.9090909090909 31.672 384.9090909090909 37 384.9090909090909 Z"></path></g><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(80,53) scale(1 1)" clip-path="url(#highcharts-9)"><path fill="none" d="M 37.916666666666664 441.3272727272727 L 113.75 436.25454545454545 L 189.58333333333331 410.8909090909091 L 265.4166666666667 363.5454545454545 L 341.25 306.0545454545454 L 417.0833333333333 250.25454545454545 L 492.9166666666667 219.8181818181818 L 568.7499999999999 226.58181818181814 L 644.5833333333333 267.16363636363633 L 720.4166666666666 333.1090909090909 L 796.2499999999999 395.6727272727273 L 872.0833333333333 426.1090909090909" stroke="#434348" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path></g><g class="highcharts-markers" visibility="visible" zIndex="0.1" transform="translate(80,53) scale(1 1)" clip-path="url(#highcharts-10)"><path fill="#434348" d="M 872 422.1090909090909 L 876 426.1090909090909 872 430.1090909090909 868 426.1090909090909 Z"></path><path fill="#434348" d="M 796 391.6727272727273 L 800 395.6727272727273 796 399.6727272727273 792 395.6727272727273 Z"></path><path fill="#434348" d="M 720 329.1090909090909 L 724 333.1090909090909 720 337.1090909090909 716 333.1090909090909 Z"></path><path fill="#434348" d="M 644 263.16363636363633 L 648 267.16363636363633 644 271.16363636363633 640 267.16363636363633 Z"></path><path fill="#434348" d="M 568 222.58181818181814 L 572 226.58181818181814 568 230.58181818181814 564 226.58181818181814 Z"></path><path fill="#434348" d="M 492 215.8181818181818 L 496 219.8181818181818 492 223.8181818181818 488 219.8181818181818 Z"></path><path fill="#434348" d="M 417 246.25454545454545 L 421 250.25454545454545 417 254.25454545454545 413 250.25454545454545 Z"></path><path fill="#434348" d="M 341 302.0545454545454 L 345 306.0545454545454 341 310.0545454545454 337 306.0545454545454 Z"></path><path fill="#434348" d="M 265 359.5454545454545 L 269 363.5454545454545 265 367.5454545454545 261 363.5454545454545 Z"></path><path fill="#434348" d="M 189 406.8909090909091 L 193 410.8909090909091 189 414.8909090909091 185 410.8909090909091 Z"></path><path fill="#434348" d="M 113 432.25454545454545 L 117 436.25454545454545 113 440.25454545454545 109 436.25454545454545 Z"></path><path fill="#434348" d="M 37 437.3272727272727 L 41 441.3272727272727 37 445.3272727272727 33 441.3272727272727 Z"></path></g></g><text x="500" text-anchor="middle" class="highcharts-title" zIndex="4" style="color:#333333;font-size:18px;fill:#333333;width:936px;" y="24">销售走势图</text><g class="highcharts-data-labels" visibility="visible" zIndex="6" transform="translate(80,53) scale(1 1)" opacity="1"><g zIndex="1" style="" transform="translate(29,361)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>7</tspan></text></g><g zIndex="1" style="" transform="translate(99,363)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>6.9</tspan></text></g><g zIndex="1" style="" transform="translate(175,319)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>9.5</tspan></text></g><g zIndex="1" style="" transform="translate(247,234)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>14.5</tspan></text></g><g zIndex="1" style="" transform="translate(322,168)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>18.4</tspan></text></g><g zIndex="1" style="" transform="translate(398,116)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>21.5</tspan></text></g><g zIndex="1" style="" transform="translate(474,53)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>25.2</tspan></text></g><g zIndex="1" style="" transform="translate(550,31)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>26.5</tspan></text></g><g zIndex="1" style="" transform="translate(626,85)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>23.3</tspan></text></g><g zIndex="1" style="" transform="translate(702,170)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>18.3</tspan></text></g><g zIndex="1" style="" transform="translate(777,244)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>13.9</tspan></text></g><g zIndex="1" style="" transform="translate(857,317)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>9.6</tspan></text></g></g><g class="highcharts-data-labels" visibility="visible" zIndex="6" transform="translate(80,53) scale(1 1)" opacity="1"><g zIndex="1" style="" transform="translate(23,413)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>3.9</tspan></text></g><g zIndex="1" style="" transform="translate(99,408)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>4.2</tspan></text></g><g zIndex="1" style="" transform="translate(175,383)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>5.7</tspan></text></g><g zIndex="1" style="" transform="translate(251,336)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>8.5</tspan></text></g><g zIndex="1" style="" transform="translate(322,278)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>11.9</tspan></text></g><g zIndex="1" style="" transform="translate(398,222)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>15.2</tspan></text></g><g zIndex="1" style="" transform="translate(480,192)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>17</tspan></text></g><g zIndex="1" style="" transform="translate(550,199)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>16.6</tspan></text></g><g zIndex="1" style="" transform="translate(626,239)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>14.2</tspan></text></g><g zIndex="1" style="" transform="translate(702,305)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>10.3</tspan></text></g><g zIndex="1" style="" transform="translate(781,368)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>6.6</tspan></text></g><g zIndex="1" style="" transform="translate(857,398)"><text x="5" zIndex="1" style="font-size: 11px; font-weight: bold; color: rgb(0, 0, 0); fill: rgb(0, 0, 0); text-shadow: rgb(255, 255, 255) 0px 0px 6px, rgb(255, 255, 255) 0px 0px 3px;" transform="translate(0,17)"><tspan>4.8</tspan></text></g></g><g class="highcharts-legend" zIndex="7" transform="translate(430,556)"><g zIndex="1"><g><g class="highcharts-legend-item" zIndex="1" transform="translate(8,3)"><path fill="none" d="M 0 11 L 16 11" stroke="#7cb5ec" stroke-width="2"></path><path fill="#7cb5ec" d="M 8 7 C 13.328 7 13.328 15 8 15 C 2.6719999999999997 15 2.6719999999999997 7 8 7 Z"></path><text x="21" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2" y="15">洗剪吹</text></g><g class="highcharts-legend-item" zIndex="1" transform="translate(85.703125,3)"><path fill="none" d="M 0 11 L 16 11" stroke="#434348" stroke-width="2"></path><path fill="#434348" d="M 8 7 L 12 11 8 15 4 11 Z"></path><text x="21" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2">烫染</text></g></g></g></g><g class="highcharts-axis-labels highcharts-xaxis-labels" zIndex="7"><text x="117.91666666666666" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">1号</text><text x="193.75" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">2号</text><text x="269.5833333333333" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">3号</text><text x="345.41666666666663" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">4号</text><text x="421.25" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">5号</text><text x="497.0833333333333" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">6号</text><text x="572.9166666666666" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">7号</text><text x="648.75" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">8号</text><text x="724.5833333333333" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">9号</text><text x="800.4166666666666" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">10号</text><text x="876.25" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">11号</text><text x="952.0833333333333" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:72px;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="538" opacity="1">12号</text></g><g class="highcharts-axis-labels highcharts-yaxis-labels" zIndex="7"><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="520" opacity="1">2.5</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="478" opacity="1">5</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="435" opacity="1">7.5</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="393" opacity="1">10</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="351" opacity="1">12.5</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="309" opacity="1">15</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="266" opacity="1">17.5</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="224" opacity="1">20</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="182" opacity="1">22.5</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="140" opacity="1">25</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="97" opacity="1">27.5</text><text x="65" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:320px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="55" opacity="1">30</text></g><text x="990" text-anchor="end" zIndex="8" style="cursor:pointer;color:#909090;font-size:9px;fill:#909090;" y="595"></text></svg></div></div>
+					  <div id="container3" style="min-width:1000px;height:600px"></div>
 					  
 					  
-					  
-					  </div>
-					<div class="wages_content" style="display: block;">
+				</div>
+					<div class="wages_content" >
 					  <div class="wages_content_datail">
 						   <div class="wages_content_datail_top">
 							  <input type="text">至<input type="text">
@@ -270,7 +190,7 @@
 						    <table>
 							 <tbody><tr>
 						      <td rowspan="40">大项大项</td>
-							  <td>项目总汇<img src="assets/images/triangle1.png">	
+							  <td>项目总汇<img src="<%=basePath%>images/triangle1.png">	
 							  </td>
 							  <td>500/<em>500.00</em></td>
 							  <td>500/<em>500.00</em></td>
@@ -314,7 +234,7 @@
 							<table>
 							 <tbody><tr>
 						      <td rowspan="40">大项大项</td>
-							  <td>项目总汇<img src="assets/images/triangle1.png">	
+							  <td>项目总汇<img src="<%=basePath%>images/triangle1.png">	
 							  </td>
 							  <td>500/<em>500.00</em></td>
 							  <td>500/<em>500.00</em></td>
@@ -338,7 +258,7 @@
 					       	<table>
 							 <tbody><tr>
 						      <td rowspan="40">大项大项</td>
-							  <td>项目总汇<img src="assets/images/triangle1.png">	
+							  <td>项目总汇<img src="<%=basePath%>images/triangle1.png">	
 							  </td>
 							  <td>500/<em>500.00</em></td>
 							  <td>500/<em>500.00</em></td>
@@ -361,12 +281,309 @@
 							</tbody></table>
 					</div>
 				  </div>
-				</div>
+			</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script>
-	//dialog('msg');
+var project= 1;
+var yearMonth = 1;
+var json ="";
+var joinData = ${joinData};
+var year = ${year} ;
+var month = ${month} ;
+if(month<10){
+	month = "0"+month.toString()
+}else{
+	month = month.toString()
+}
+function showYear(){
+	jQuery("#yearMonth1").show();
+	jQuery("#yearMonth2").hide();
+	yearMonth = 1;
+	showData();
+}
+function showYearMonth(){
+	jQuery("#yearMonth1").hide();
+	jQuery("#yearMonth2").show();
+	yearMonth = 2;
+	showData();
+}
+
+function showProject(){
+	jQuery("#goodsInfo1").hide();
+	jQuery("#goodsInfo2").hide();
+	jQuery("#goodsCategory2").show();
+	jQuery("#goodsCategory1").show();
+	project= 1;
+	showData();
+}
+function showGoods(){
+	jQuery("#goodsInfo1").show();
+	jQuery("#goodsInfo2").show();
+	jQuery("#goodsCategory2").hide();
+	jQuery("#goodsCategory1").hide();
+	project= 2;
+	showData();
+}
+
+function checkGood(){
+	var goodsId1 =jQuery("#goodsInfo1 option:selected").attr("goodsId");	
+	var goodsId2 =jQuery("#goodsInfo2 option:selected").attr("goodsId");	
+	var categoryId1 =jQuery("#goodsCategory1 option:selected").attr("categoryId");	
+	var categoryId2 =jQuery("#goodsCategory2 option:selected").attr("categoryId");	
+	var storeId = jQuery("#storeTwo option:selected").attr("storeId");
+	var time = jQuery("#yearMonth1").val();
+	var timeType = jQuery("#yearMonth2").val();
+	if(yearMonth==2){
+		time = timeType.substring(0,4);
+	}
+	if(time=="" || time ==null ){
+		dialog('查询的日期年不能为空');
+		return ;
+	}
+	if(timeType=="" || timeType ==null ){
+		dialog('查询的日期年月不能为空');
+		return ;
+	}
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "order/category/check",
+		data : "goodsId1=" + goodsId1 + "&goodsId2=" + goodsId2  + "&storeId=" + storeId + "&categoryId1=" + categoryId1+ 
+		"&categoryId2=" + categoryId2 + "&time=" + time+ "&timeType=" + timeType,
+		dataType : "json",
+		success : function(e){
+			jQuery("#yearMonth1").val(time);
+			json  = e.msg;
+			showData();
+		}
+	});
+}
+function showData(){
+	if(json == ""){
+		return;
+	}
+	var name1= "";
+	var name2= "";
+	var data1="";
+	var data2="";
+	var dayMonth ;
+	var type = jQuery("#sl option:selected").val();
+	// 大项PK or 商品
+    if(project == 1){
+    	name1= jQuery("#goodsCategory1 option:selected").val();
+    	name2= jQuery("#goodsCategory2 option:selected").val();
+    	data1= json.joinCategory;
+    	data2= json.joinOrderCategory;
+    }
+    else {
+    	name1= jQuery("#goodsInfo1 option:selected").val();
+    	name2= jQuery("#goodsInfo2 option:selected").val();
+    	data1= json.joinDetail;
+    	data2= json.joinOrderDetail;
+    }
+    
+	//按年  or 月 PK
+    if(yearMonth == 1){
+    	dayMonth =data1.month;
+    	// 按数量Or 业绩
+    	if(type ==1){
+   	    	data1 = data1.jsonaYear;
+   	    	data2 = data2.jsonaYear;
+   	    }
+   	    else{
+   	    	data1 = data1.jsonoYear;
+   	    	data2 = data2.jsonoYear;
+   	    }
+    }
+    else {
+    	dayMonth =data1.day;
+    	if(type ==1){
+   	    	data1 = data1.jsonaMonth;
+   	    	data2 = data2.jsonaMonth;
+   	    }
+   	    else{
+   	    	data1 = data1.jsonoMonth;
+   	    	data2 = data2.jsonoMonth;
+   	    }
+    }
+    showPK(data1,data2,name1,name2,dayMonth);
+	
+}
+
+function showPK(data1,data2,name1,name2,dayMonth){
+	jQuery('#container3').highcharts({
+	      chart: {
+	          type: 'line'
+	      },
+	      title: {
+	          text: '销售走势图'
+	      },
+	   
+	      xAxis: {
+	          categories: dayMonth
+	      },
+	      tooltip: {
+	          enabled: false,
+	          formatter: function() {
+	              return '<b>'+ this.series.name +'</b><br/>'+this.x +': '+ this.y +'°C';
+	          }
+	      },
+	      plotOptions: {
+	          line: {
+	              dataLabels: {
+	                  enabled: true
+	              },
+	              enableMouseTracking: false
+	          }
+	      },
+	      series: [{
+	          name: name1,
+	          data: data1
+	         }, {
+	          name: name2,
+	          data: data2
+	      }]
+	  });
+}
+
+
+function check(){
+	var times = jQuery("input[name='birthday']").val();
+	var timeType = jQuery("input[name='birthdays']").val();
+	var storeId = jQuery("#stores option:selected").attr("storeId");
+	
+	if(times=="" || times ==null ){
+		dialog('查询的日期年不能为空');
+		return ;
+	}
+	if(timeType=="" || timeType ==null ){
+		dialog('查询的日期年月不能为空');
+		return ;
+	}
+	if(!jQuery("#typeYear").hasClass("active")){
+		times = timeType.substring(0,4);
+	}
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "order/store/check",
+		data : "time=" + times + "&storeId=" + storeId + "&timeType=" + timeType,
+		dataType : "json",
+		success : function(e){
+			joinData = e.msg;
+			jQuery("input[name='birthday']").val(times);
+			changeType();
+		}
+	});
+}
+
+jQuery(function(){
+	jQuery("input[name='birthdays']").hide();
+	jQuery("input[name='birthdays']").val(year.toString() +"-"+month);
+	jQuery("input[name='birthday']").val(year);
+	jQuery("#yearMonth1").val(year);
+	jQuery("#yearMonth2").val(year.toString() +"-"+month);
+	secends();
+	showYear()
+})
+
+
+function changeType(){
+	var type = jQuery("#yj option:selected").val();
+	
+	if(type == 1){
+		secends()
+	}
+	else{
+		firest()
+	}
+}
+function firest(){
+	secendData(joinData.day,joinData.jsonaMonth);
+	firstData(joinData.month,joinData.jsonaYear);
+}
+
+function secends(){
+	secendData(joinData.day,joinData.jsonoMonth);
+	firstData(joinData.month,joinData.jsonoYear);
+}
+
+function secendData(day,data){
+	jQuery('#container2').highcharts({
+	    chart: {
+	        type: 'line'
+	    },
+	    title: {
+	        text: '销售走势图'
+	    },
+	 
+	    xAxis: {
+	        categories: day
+	    },
+	    yAxis: {
+	        allowDecimals: 'false',        //控制数轴是否显示小数。
+	        min: 0                            //控制数轴的最小                   
+	    },
+	    tooltip: {
+	        enabled: false,
+	        formatter: function() {
+	            return '<b>'+ this.series.name +'</b><br/>'+this.x +': '+ this.y +'°C';
+	        }
+	    },
+	    plotOptions: {
+	        line: {
+	            dataLabels: {
+	                enabled: true
+	            },
+	            enableMouseTracking: true
+	        }
+	    },
+	    series: [{
+	        name: '日期/天',
+	        data: data
+	    }]
+	});
+
+}
+
+
+
+function firstData(month,jsonaYear){
+	jQuery('#container1').highcharts({
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: '销售走势图'
+        },
+     
+        xAxis: {
+            categories: month
+        },   
+        yAxis: {
+	        allowDecimals: 'false',        //控制数轴是否显示小数。
+	        min: 0                            //控制数轴的最小                   
+	    },
+        tooltip: {
+            enabled: false,
+            formatter: function() {
+                return '<b>'+ this.series.name +'</b><br/>'+this.x +': '+ this.y +'°C';
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: true
+            }
+        },
+        series: [{
+            name: '日期/月',
+            data: jsonaYear
+        }]
+    });
+}
 </script>
 </html>

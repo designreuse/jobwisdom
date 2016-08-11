@@ -82,7 +82,11 @@ public interface Url {
      */
     class Statistical{
         /**商品报表展示 */
-        public static final  String STORE_ORDER_HOME = "order/store_order/home";
+        public static final  String STORE_ORDER_HOME = "order/store/home";
+        /**商品报表展示 */
+        public static final  String STORE_ORDER_CHECK = "order/store/check";
+        /**销售PK*/
+        public static final  String STORE_CATEGORY_CHECK = "order/category/check";
     }
 	
 	
