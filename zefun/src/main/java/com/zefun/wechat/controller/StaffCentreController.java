@@ -24,7 +24,6 @@ import com.zefun.web.controller.BaseController;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.mapper.EmployeeCommissionMapper;
-import com.zefun.web.service.EmployeeAttendanceService;
 import com.zefun.wechat.service.BossOfEmployeeCommissionService;
 import com.zefun.wechat.service.StaffCentreService;
 
@@ -39,10 +38,6 @@ public class StaffCentreController extends BaseController{
     /** 员工中心*/
     @Autowired
     private StaffCentreService staffCentreService;
-    
-    /** 员工考勤服务对象 */
-    @Autowired 
-    private EmployeeAttendanceService employeeAttendanceService;
     
     /** Boss端员工业绩服务 */
 	@Autowired

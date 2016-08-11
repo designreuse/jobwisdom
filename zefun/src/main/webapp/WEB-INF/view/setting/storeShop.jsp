@@ -146,7 +146,8 @@
 												<span class="shoes_right_new">${goodsInfo.goodsName }</span>
 											</div>
 											<div class="shoes_right_">
-												<span>商品价：${goodsInfo.goodsPrice }</span> <span>市场价：0</span> <span>重要：500g</span>
+												<span>商城价：${goodsInfo.goodsPrice }</span> 
+												<span>成本价：${goodsInfo.costPrice }</span>
 											</div>
 										</div>
 									</c:forEach>
@@ -178,7 +179,8 @@
 												<span class="shoes_right_new">${goodsInfo.goodsName }</span>
 											</div>
 											<div class="shoes_right_">
-												<span>商品价：${goodsInfo.goodsPrice }</span> <span>市场价：0</span> <span>重要：500g</span>
+												<span>商城价：${goodsInfo.goodsPrice }</span> 
+												<span>成本价：${goodsInfo.costPrice }</span>
 											</div>
 										</div>
 									</c:forEach>
@@ -252,13 +254,16 @@
 jQuery('.adjust_list').click(function() {
 		if(jQuery(this).attr("class").indexOf("active")>0)return;
 		var goodsId = jQuery(this).attr("goodsId");
+		var goodsName = jQuery(this).find(".shoes_right_new").text();
+		var goodsPrice = jQuery(this).find(".shoes_right_").children("span").eq(0).text();
+		var costPrice = jQuery(this).find(".shoes_right_").children("span").eq(1).text();
 		var html = '<div class="adjust_list clearfix" goodsId="'+goodsId+'"><span class="img"><img src="'+baseUrl+'images/seo_close.png"></span>'+
 						'<em class="shoes_">商品</em>'+
 						'<div class="shoes_right">'+
-							'<span class="shoes_right_new">可丝莹565</span>'+
+							'<span class="shoes_right_new">'+goodsName+'</span>'+
 						'</div>'+
 						'<div class="shoes_right_">'+
-							'<span>商品价：79.00</span> <span>市场价：0</span> <span>重要：500g</span>'+
+							'<span>'+goodsPrice+'</span><span>'+costPrice+'</span>'+
 						'</div>'+
 					'</div>';
 		jQuery(this).parents(".adjust_goods").find(".adjust_ul_list").append(jQuery(html));

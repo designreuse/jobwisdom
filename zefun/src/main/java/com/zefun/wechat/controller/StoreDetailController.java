@@ -389,13 +389,13 @@ public class StoreDetailController extends BaseController {
     @ResponseBody
     public String sysOpenCallback(String data, @PathVariable Integer storeId,
             @PathVariable Integer sysType, @PathVariable Integer smsType) {
-        StoreInfo storeInfo = storeInfoService.getByStoreId(storeId);
+        /*StoreInfo storeInfo = storeInfoService.getByStoreId(storeId);*/
         RechargeSetting sysSetting = rechargeSettingService.getById(sysType);
         RechargeSetting smsSetting = rechargeSettingService.getById(smsType);
 
         //初始化门店数据
-        storeInfoService.initStoreData(storeId, storeInfo.getStoreType(), storeInfo.getStoreLinkname(),
-                storeInfo.getStoreLinkphone());
+//        storeInfoService.initStoreData(storeId, storeInfo.getStoreType(), storeInfo.getStoreLinkname(),
+//                storeInfo.getStoreLinkphone());
 
         //增加系统使用时间
         Calendar calendar = Calendar.getInstance();

@@ -2,7 +2,6 @@
 .shop_data_head{background:#d8e0f2;padding:12px;border:1px solid #000000;border-radius:12px}
 .shop_data_head select{width:100px;padding:0 0 0 40px;height:22px;border:1px solid #000000;border-radius:12px;}
 
-/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
 select::-ms-expand { display: none; }
 
 .shop_data_head>span{display:inline-block;width:150px;border-right:1px solid #6c7079;height:34px;line-height:34px}
@@ -12,7 +11,7 @@ select::-ms-expand { display: none; }
 .shop_data_head button:hover{background:#515f7f}
 .shop_data_head em{margin-left:100px}
 
-.shop_data_content{overflow:hidden;border:1px solid #000000;border-radius:12px;height:600px;margin-top:16px}
+.shop_data_content{overflow:overlay;border:1px solid #000000;border-radius:12px;height:600px;margin-top:16px}
 .shop_data_content table{width:100%}
 .shop_data_content table td{height:40px;vertical-align:middle;text-align:center;border-bottom:1px solid black;border-right:1px solid black}
 .shop_data_content table tr td:last-child{border-right:none}

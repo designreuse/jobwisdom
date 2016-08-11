@@ -501,13 +501,18 @@ input[type=radio] {
 		if (goodsId==null){dialog("请先选择一个商品");return;}
 		var deptId = jQuery("select[name='deptId']").val();
 		var goodsPrice = jQuery("input[name='goodsPrice']").val();
+		if (goodsPrice == ""){goodsPrice = 0;}
 		var isCashDeduction = jQuery('input:radio[name="isCashDeduction"]:checked').val();
 		var highestDiscount = jQuery("input[name='highestDiscount']").val();
+		if (highestDiscount == ""){highestDiscount = 0;}
 		var calculationType = jQuery('input:radio[name="calculationType"]:checked').val();
 		var onlineShoppingPrice = jQuery("input[name='onlineShoppingPrice']").val();
+		if (onlineShoppingPrice == ""){onlineShoppingPrice = 0;}
 		var commissionType = jQuery('input:radio[name="commissionType"]:checked').val();
 		var commissionAmount = jQuery("input[name='commissionAmount']").val();
+		if (commissionAmount == ""){commissionAmount = 0;}
 		var cardAmount = jQuery("input[name='cardAmount']").val();
+		if (cardAmount == ""){cardAmount = 0;}
 		
 		data = {
 			"storeId" : storeId,

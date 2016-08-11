@@ -1,6 +1,10 @@
 package com.zefun.web.service;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +24,12 @@ import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.GoodsStock;
 import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.StockFlow;
+import com.zefun.web.entity.StockFlowDetail;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.AccountGoodsMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsStockMapper;
+import com.zefun.web.mapper.StockFlowDetailMapper;
 import com.zefun.web.mapper.StockFlowMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 
@@ -54,6 +60,10 @@ public class GoodsStockService {
     /** 门店员工  */
     @Autowired
     private EmployeeInfoMapper employeeInfoMapper;
+    /** 库存明细  */
+    @Autowired
+    private StockFlowDetailMapper stockFlowDetailMapper;
+    
     
     /**
      * 查看进销存页面
@@ -145,13 +155,41 @@ public class GoodsStockService {
         List<Integer> count = Arrays.asList(stockFlow.getStockCount().split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
         Integer toStore = stockFlow.getToStore();
         Integer fromStore = stockFlow.getFromStore();
+        List<StockFlowDetail> stockFlowDetails = new ArrayList<>();
         for (int i = 0; i < aIds.size(); i++) {
+            
+            BigDecimal costPrice = accountGoodsMapper.selectByPrimaryKey(aIds.get(i)).getCostPrice();
+            // 调拨直接存入两条数据
+            StockFlowDetail stockFlowDetailFromStore = new StockFlowDetail();
+            StockFlowDetail stockFlowDetailToStore = new StockFlowDetail();
+            
+            stockFlowDetailFromStore.setaId(aIds.get(i));
+            stockFlowDetailFromStore.setFlowCount(count.get(i));
+            stockFlowDetailFromStore.setCostPrice(costPrice);
+            stockFlowDetailFromStore.setFlowAmount(costPrice.multiply(new BigDecimal(count.get(i))));
+            stockFlowDetailFromStore.setStockType(stockFlow.getStockType());
+            stockFlowDetailFromStore.setFlowType(stockFlow.getFlowType());
+            stockFlowDetailFromStore.setFromStore(stockFlow.getFromStore());
+            stockFlowDetailFromStore.setEmployeeId(stockFlow.getLibraryObject());
+            stockFlowDetailFromStore.setStoreAccount(stockFlow.getStoreAccount());
+            
+            stockFlowDetailToStore.setaId(aIds.get(i));
+            stockFlowDetailToStore.setFlowCount(count.get(i));
+            stockFlowDetailToStore.setCostPrice(costPrice);
+            stockFlowDetailToStore.setFlowAmount(costPrice.multiply(new BigDecimal(count.get(i))));
+            stockFlowDetailToStore.setStockType(stockFlow.getStockType());
+            stockFlowDetailToStore.setFlowType(stockFlow.getFlowType());
+            stockFlowDetailToStore.setToStore(stockFlow.getToStore());
+            stockFlowDetailToStore.setEmployeeId(stockFlow.getLibraryObject());
+            stockFlowDetailToStore.setStoreAccount(stockFlow.getStoreAccount());
+            
             //发货
             GoodsStockKey key = new GoodsStockKey();
             key.setaId(aIds.get(i));
             key.setStoreId(fromStore);
             GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
-            if (goodsStock!=null&&goodsStock.getCount()>=count.get(i)){
+            if (goodsStock != null && goodsStock.getCount() >= count.get(i)){
+                stockFlowDetailFromStore.setGoodsStockCount(goodsStock.getCount());
                 goodsStock.setCount(goodsStock.getCount()-count.get(i));
                 goodsStock.setUpdateTime(DateUtil.getCurDate());
                 goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
@@ -164,12 +202,14 @@ public class GoodsStockService {
             key2.setaId(aIds.get(i));
             key2.setStoreId(toStore);
             GoodsStock goodsStock2 = goodsStockMapper.selectByPrimaryKey(key2);
-            if (goodsStock2!=null){
+            if (goodsStock2 != null){
+                stockFlowDetailToStore.setGoodsStockCount(goodsStock2.getCount());
                 goodsStock2.setCount(goodsStock2.getCount()+count.get(i));
                 goodsStock2.setUpdateTime(DateUtil.getCurDate());
                 goodsStockMapper.updateByPrimaryKeySelective(goodsStock2);
             }
             else {
+                stockFlowDetailToStore.setGoodsStockCount(0);
                 goodsStock2 = new GoodsStock();
                 goodsStock2.setaId(aIds.get(i));
                 goodsStock2.setCount(count.get(i));
@@ -177,10 +217,22 @@ public class GoodsStockService {
                 goodsStock2.setUpdateTime(DateUtil.getCurDate());
                 goodsStockMapper.insertSelective(goodsStock2);
             }
+            stockFlowDetails.add(stockFlowDetailFromStore);
+            stockFlowDetails.add(stockFlowDetailToStore);
         }
         //流水
+        SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmm");
+        stockFlow.setFlowNumber("db"+sdf.format(new Date()));
         stockFlow.setCreateTime(DateUtil.getCurDate());
         stockFlowMapper.insertSelective(stockFlow);
+        
+        stockFlowDetails.stream().forEach(s -> {
+                s.setFlowNumber(stockFlow.getFlowNumber());
+                s.setCreateTime(DateUtil.getCurDate());
+                s.setIsDeleted(0);
+            });
+        stockFlowDetailMapper.insertStockFlowDetails(stockFlowDetails);
+        
         return new BaseDto(0, "出库成功");
     }
 
@@ -195,12 +247,27 @@ public class GoodsStockService {
         List<Integer> aIds = Arrays.asList(stockFlow.getaIds().split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
         List<Integer> count = Arrays.asList(stockFlow.getStockCount().split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
         Integer fromStore = stockFlow.getFromStore();
+        List<StockFlowDetail> stockFlowDetails = new ArrayList<>();
         for (int i = 0; i < aIds.size(); i++) {
             GoodsStockKey key = new GoodsStockKey();
             key.setaId(aIds.get(i));
             key.setStoreId(fromStore);
+            
+            BigDecimal costPrice = accountGoodsMapper.selectByPrimaryKey(aIds.get(i)).getCostPrice();
+            StockFlowDetail stockFlowDetail = new StockFlowDetail();
+            stockFlowDetail.setaId(aIds.get(i));
+            stockFlowDetail.setFlowCount(count.get(i));
+            stockFlowDetail.setCostPrice(costPrice);
+            stockFlowDetail.setFlowAmount(costPrice.multiply(new BigDecimal(count.get(i))));
+            stockFlowDetail.setStockType(stockFlow.getStockType());
+            stockFlowDetail.setFlowType(stockFlow.getFlowType());
+            stockFlowDetail.setFromStore(stockFlow.getFromStore());
+            stockFlowDetail.setEmployeeId(stockFlow.getLibraryObject());
+            stockFlowDetail.setStoreAccount(stockFlow.getStoreAccount());
+            
             GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
-            if (goodsStock!=null&&goodsStock.getCount()>=count.get(i)){
+            if (goodsStock != null && goodsStock.getCount() >= count.get(i)){
+                stockFlowDetail.setGoodsStockCount(goodsStock.getCount());
                 goodsStock.setCount(goodsStock.getCount()-count.get(i));
                 goodsStock.setUpdateTime(DateUtil.getCurDate());
                 goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
@@ -208,10 +275,19 @@ public class GoodsStockService {
             else {
                 return new BaseDto(-1, "出库失败,商品没有库存");
             }
+            stockFlowDetails.add(stockFlowDetail);
         }
         //流水
+        SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmm");
+        stockFlow.setFlowNumber("ck"+sdf.format(new Date()));
         stockFlow.setCreateTime(DateUtil.getCurDate());
         stockFlowMapper.insertSelective(stockFlow);
+        stockFlowDetails.stream().forEach(s -> {
+                s.setFlowNumber(stockFlow.getFlowNumber());
+                s.setCreateTime(DateUtil.getCurDate());
+                s.setIsDeleted(0);
+            });
+        stockFlowDetailMapper.insertStockFlowDetails(stockFlowDetails);
         return new BaseDto(0, "出库成功");
     }
 
@@ -226,17 +302,35 @@ public class GoodsStockService {
         List<Integer> aIds = Arrays.asList(stockFlow.getaIds().split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
         List<Integer> count = Arrays.asList(stockFlow.getStockCount().split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
         Integer storeId = stockFlow.getToStore();
+        List<StockFlowDetail> stockFlowDetails = new ArrayList<>();
+        
         for (int i = 0; i < aIds.size(); i++) {
             GoodsStockKey key = new GoodsStockKey();
             key.setaId(aIds.get(i));
             key.setStoreId(storeId);
             GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
+            BigDecimal costPrice = accountGoodsMapper.selectByPrimaryKey(aIds.get(i)).getCostPrice();
+            //库存流水明细
+            StockFlowDetail stockFlowDetail = new StockFlowDetail();
+            stockFlowDetail.setaId(aIds.get(i));
+            stockFlowDetail.setFlowCount(count.get(i));
+            stockFlowDetail.setCostPrice(costPrice);
+            stockFlowDetail.setFlowAmount(costPrice.multiply(new BigDecimal(count.get(i))));
+            stockFlowDetail.setStockType(stockFlow.getStockType());
+            stockFlowDetail.setFlowType(stockFlow.getFlowType());
+            stockFlowDetail.setToStore(stockFlow.getToStore());
+            stockFlowDetail.setEmployeeId(stockFlow.getLibraryObject());
+            stockFlowDetail.setStoreAccount(stockFlow.getStoreAccount());
             if (goodsStock!=null){
+                //将原来的库存记录下来
+                stockFlowDetail.setGoodsStockCount(goodsStock.getCount());
+                
                 goodsStock.setCount(goodsStock.getCount()+count.get(i));
                 goodsStock.setUpdateTime(DateUtil.getCurDate());
                 goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
             }
             else {
+                stockFlowDetail.setGoodsStockCount(0);
                 goodsStock = new GoodsStock();
                 goodsStock.setaId(aIds.get(i));
                 goodsStock.setCount(count.get(i));
@@ -244,10 +338,19 @@ public class GoodsStockService {
                 goodsStock.setUpdateTime(DateUtil.getCurDate());
                 goodsStockMapper.insertSelective(goodsStock);
             }
+            stockFlowDetails.add(stockFlowDetail);
         }
         //流水
+        SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmm");
+        stockFlow.setFlowNumber("rk"+sdf.format(new Date()));
         stockFlow.setCreateTime(DateUtil.getCurDate());
         stockFlowMapper.insertSelective(stockFlow);
+        stockFlowDetails.stream().forEach(s -> {
+                s.setFlowNumber(stockFlow.getFlowNumber());
+                s.setCreateTime(DateUtil.getCurDate());
+                s.setIsDeleted(0);
+            });
+        stockFlowDetailMapper.insertStockFlowDetails(stockFlowDetails);
         return new BaseDto(0, "入库成功");
     }
 

@@ -58,6 +58,16 @@ public interface GoodsCategoryMapper {
      */
     List<GoodsCategory> selectByStoreId(Integer storeId);
     
+    
+    /**
+     *  门店下已完成的商品大项
+    * @author 骆峰
+    * @date 2016年8月10日 下午8:58:36
+    * @param storeId
+    * @return
+     */
+    List<GoodsCategory> selectBygoodsInfo(Integer storeId);
+    
     /**
      * 获取部门，商品类别和商品列表
     * @author 洪秋霞

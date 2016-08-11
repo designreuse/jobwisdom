@@ -237,6 +237,7 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
     <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <association property="brands" column="{goodsBrandIds=supply_brand}" select="selectGoodsBrandBySupplier"></association>
+    <association property="accountGoods" column="supplier_id" select="com.zefun.web.mapper.AccountGoodsMapper.selectAccountGoodsInfoBySupplierId"></association>
   </resultMap>
   
   <resultMap type="com.zefun.web.entity.GoodsBrand" id="selectBrandByAccount">

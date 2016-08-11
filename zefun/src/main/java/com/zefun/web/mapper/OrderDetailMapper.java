@@ -64,13 +64,32 @@ public interface OrderDetailMapper {
     
     
     /**
-     *  商品信息
+     *  全部商品信息
     * @author 骆峰
     * @date 2016年8月9日 下午4:56:59
     * @param map map
     * @return List
      */
     List<OrderDetail> selectDetailLByOrderId(Map<String, Object> map);
+    
+    
+    /**
+     *  商品PK
+    * @author 骆峰
+    * @date 2016年8月10日 下午6:20:16
+    * @param map map
+    * @return List
+     */
+    List<OrderDetail> selectDetailLByGoods(Map<String, Object> map);
+    
+    /**
+     *  项目PK
+    * @author 骆峰
+    * @date 2016年8月10日 下午6:29:27
+    * @param map map
+    * @return List
+     */
+    List<OrderDetail> selectDetailLByCategory(Map<String, Object> map);
 
     /**
      * 修改订单明细信息

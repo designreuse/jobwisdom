@@ -75,6 +75,21 @@ public interface Url {
 		public static final String VIEW_SHOW_MIN_VOTE = "marketing/view/showMinVote";
 	}
 	
+	/**
+     *  统计
+    * @author 骆峰
+    * @date 2016年8月10日 上午10:04:32
+     */
+    class Statistical{
+        /**商品报表展示 */
+        public static final  String STORE_ORDER_HOME = "order/store/home";
+        /**商品报表展示 */
+        public static final  String STORE_ORDER_CHECK = "order/store/check";
+        /**销售PK*/
+        public static final  String STORE_CATEGORY_CHECK = "order/category/check";
+    }
+	
+	
 	/** 系统设置模块 */
 	class SystemSetting {
 		/** 访问个人设置页面 */

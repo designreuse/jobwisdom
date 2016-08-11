@@ -61,10 +61,44 @@ public class StockFlow {
     
     /** 流水开始时间*/
     private String flowStartDate;
+    
     /** 流水结束时间*/
     private String flowStopDate;
     
+    /** 流水单号*/
+    private String flowNumber;
     
+    /**一比流水中包含多少数量商品*/
+    private Integer count;
+    
+    /**一比流水中包含多少金额*/
+    private Long goodsAmount;
+    
+    
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Long getGoodsAmount() {
+        return goodsAmount;
+    }
+
+    public void setGoodsAmount(Long goodsAmount) {
+        this.goodsAmount = goodsAmount;
+    }
+
+    public String getFlowNumber() {
+        return flowNumber;
+    }
+
+    public void setFlowNumber(String flowNumber) {
+        this.flowNumber = flowNumber;
+    }
+
     public String getFlowStartDate() {
         return flowStartDate;
     }

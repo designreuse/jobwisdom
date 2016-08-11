@@ -138,12 +138,22 @@
 						</div>
 						<div class="wages_content_datail_table">
 							<ul class="clearfix total_top">
-								<li style="width: 171px">员工姓名</li>
-								<li>服务业绩</li>
-								<li>外卖业绩</li>
-								<li>疗程业绩</li>
-								<li>卡项业绩</li>
-								<li>合计</li>
+								<c:if test="${type == 1 }">
+									<li style="width: 171px">员工姓名</li>
+									<li>服务业绩</li>
+									<li>外卖业绩</li>
+									<li>疗程业绩</li>
+									<li>卡项业绩</li>
+									<li>合计</li>
+								</c:if>
+								<c:if test="${type == 2 }">
+									<li style="width: 171px">员工姓名</li>
+									<li>服务提成</li>
+									<li>外卖提成</li>
+									<li>疗程提成</li>
+									<li>卡项提成</li>
+									<li>合计</li>
+								</c:if>
 							</ul>
 							<div class="wages_content_datail_table_">
 								<table id="gather">
@@ -205,10 +215,12 @@
 								<li>提成人员</li>
 								<li>单号</li>
 								<li style="width: 129px">项目</li>
-								<li style="width: 129px">业绩类型</li>
+								<c:if test="${type == 1 }"><li style="width: 129px">业绩类型</li></c:if>
+								<c:if test="${type == 2 }"><li style="width: 129px">提成类型</li></c:if>
 								<li style="width: 129px">是否指定</li>
 								<li style="width: 129px">客户类型</li>
-								<li style="width: 129px">业绩</li>
+								<c:if test="${type == 1 }"><li style="width: 129px">业绩</li></c:if>
+								<c:if test="${type == 2 }"><li style="width: 129px">提成</li></c:if>
 								<li style="width: 129px">时间</li>
 							</ul>
 							<div class="wages_content_datail_table_">
@@ -258,15 +270,15 @@
 var storeInfoDtos = eval('('+'${storeInfoDtos}'+')');
 console.log(storeInfoDtos);
 function selectEmployee(storeId){
-	jQuery("select[name='employeeInfo']").empty();
-	jQuery("select[name='employeeInfo']").append(jQuery('<option value="0">请选择员工</option>'));
+	jQuery("select[name='employeeId']").empty();
+	jQuery("select[name='employeeId']").append(jQuery('<option value="0">请选择员工</option>'));
 	for (var i = 0; i < storeInfoDtos.length; i++) {
 		if (storeId == storeInfoDtos[i].storeId){
 			for (var j = 0; j < storeInfoDtos[i].employeeInfos.length; j++) {
 				var name = storeInfoDtos[i].employeeInfos[j].name;
 				var id = storeInfoDtos[i].employeeInfos[j].employeeId;
 				var html = '<option value='+id+'>'+name+'</option>';
-				jQuery("select[name='employeeInfo']").append(jQuery(html));
+				jQuery("select[name='employeeId']").append(jQuery(html));
 			}
 		}
 	}
@@ -276,8 +288,11 @@ function serchEaring(){
 	var storeId = jQuery("select[name='earingStore']").val();
 	if (storeId==0){return dialog("请选择一个门店");}
 	var data = {"storeId":storeId, "documentNum":1};
-	if (jQuery("input[name='chargeTime']").val() != ""){
+	if (jQuery("input[name='chargeTime']").val() != ''){
 		data['chargeTime'] = jQuery("input[name='chargeTime']").val();
+	}
+	else {
+		return dialog("选择一个月份查看吧");
 	}
 	jQuery.ajax({
 		type : "post",

@@ -110,12 +110,33 @@
    <select id="selectDetailLByOrderId" parameterType="java.util.Map" resultMap="BaseResultMap">
    SELECT d.order_id,i.create_time ,SUM( d.project_count) as project_count ,SUM(d.detail_calculate) as detail_calculate FROM 
    order_info i LEFT JOIN  order_detail  d ON i.order_id= d.order_id 
-   WHERE i.order_status = 4    AND d.order_type = 2 
-   AND i.is_deleted =0 AND  d.is_deleted =0
-        AND i.store_id = ${storeId}
-        AND left(i.create_time,4) = "${time}"
+   WHERE i.order_status  in (3,4)    AND d.order_type = 2 
+   AND i.is_deleted =0 AND  d.is_deleted =0 
+   AND i.store_id = ${storeId}        AND left(i.create_time,4) = "${time}"         GROUP BY d.order_id
   </select>
   
+  
+    <select id="selectDetailLByGoods" parameterType="java.util.Map" resultMap="BaseResultMap">
+   SELECT 
+   d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate FROM 
+		order_detail  d LEFT JOIN  goods_info g  ON g.goods_id = d.project_id 
+ 						LEFT JOIN  order_info i  ON i.order_id = d.order_id    
+	    WHERE i.order_status  IN (3,4)    AND d.order_type = 2  AND i.is_deleted =0 AND  d.is_deleted =0 
+   AND i.store_id = ${storeId}   AND left(i.create_time,4) = "${time}"   AND g.goods_id = ${goodsId}    
+     GROUP BY d.order_id
+  </select>
+  
+  
+   <select id="selectDetailLByCategory" parameterType="java.util.Map" resultMap="BaseResultMap">
+   SELECT 
+   d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate FROM 
+		order_detail  d LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
+ 						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
+ 						LEFT JOIN  goods_category c ON g.category_id = c.category_id 
+	    WHERE i.order_status  IN (3,4)    AND d.order_type = 2  AND i.is_deleted =0 AND  d.is_deleted =0 
+   AND i.store_id = ${storeId}   AND left(i.create_time,4) = "${time}"   AND g.category_id = ${categoryId}    
+     GROUP BY d.order_id
+  </select>
   
   <!-- 删除门店所有订单明细数据(清除测试数据)，by 张小胖 -->
   <delete id="deleteByStoreId" parameterType="java.lang.Integer">

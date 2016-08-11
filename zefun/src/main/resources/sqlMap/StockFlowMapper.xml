@@ -84,6 +84,9 @@
       <if test="storeAccount != null" >
         store_account,
       </if>
+      <if test="flowNumber != null" >
+        flow_number,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="stockFlowId != null" >
@@ -124,6 +127,9 @@
       </if>
       <if test="storeAccount != null" >
         #{storeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="flowNumber != null" >
+        #{flowNumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -202,6 +208,7 @@
     <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
     <result column="fromStoreName" property="fromStoreName" jdbcType="VARCHAR" />
     <result column="toStoreName" property="toStoreName" jdbcType="VARCHAR" />
+    <result column="flow_number" property="flowNumber" jdbcType="VARCHAR" />
     <association property="accountGoods" column="{aIds = a_ids}" select="selectGoodsIds" />
   </resultMap>
   
@@ -214,7 +221,7 @@
   
   <select id="selectByProperties" parameterType="com.zefun.web.entity.StockFlow" resultMap="ResultMap">
   	select sf.stock_flow_id, sf.stock_type, sf.flow_type, sf.stock_count, sf.create_time, sf.from_store, sf.to_store, 
-    sf.a_ids, sf.operation_staff, sf.library_object, sf.stock_desc, sf.is_deleted, sf.store_account,
+    sf.a_ids, sf.operation_staff, sf.library_object, sf.stock_desc, sf.is_deleted, sf.store_account, sf.flow_number, 
     sio.store_name as fromStoreName, sif.store_name as toStoreName, ei.name as employeeName
     from stock_flow sf 
     left join store_info sio on sf.from_store = sio.store_id
@@ -229,6 +236,15 @@
     </if>
     <if test="flowStartDate != null" >
         and DATE_FORMAT(sf.create_time, '%Y-%m-%d') between #{flowStartDate} and #{flowStopDate}
+    </if>
+    <if test="stockType != null" >
+        and sf.stock_type = #{stockType}
+    </if>
+    <if test="flowNumber != null" >
+        and sf.flow_number = #{flowNumber}
+    </if>
+    <if test="flowType != null" >
+        and sf.flow_type = #{flowType}
     </if>
   </select>
   

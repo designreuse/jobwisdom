@@ -2,6 +2,7 @@ package com.zefun.web.dto;
 
 import java.util.List;
 
+import com.zefun.web.entity.AccountGoods;
 import com.zefun.web.entity.GoodsBrand;
 
 /**
@@ -58,6 +59,18 @@ public class SupplierInfoDto {
     
     /** 品牌列表 */
     private List<GoodsBrand> brands;
+    
+    /** 满足条件的供应商商品*/
+    private List<AccountGoods> accountGoods;
+
+    
+    public List<AccountGoods> getAccountGoods() {
+        return accountGoods;
+    }
+
+    public void setAccountGoods(List<AccountGoods> accountGoods) {
+        this.accountGoods = accountGoods;
+    }
 
     public List<GoodsBrand> getBrands() {
         return brands;

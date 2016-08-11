@@ -129,7 +129,7 @@
             </div>
         </div>
         <div class="pro-money" style="position:relative;top:-2.5rem;width: 70%;">
-        	<span class="time">￥${goodsInfo.goodsPrice / 100}</span>
+        	<span class="time">￥${goodsInfo.goodsPrice }</span>
         </div>
         <span style="position:absolute;top:0px; position: absolute; top: 23rem;left: 65%;font-size: 1.2rem;color:#847F7F">已售: ${goodsInfo.salesCount }</span>
     </section>
