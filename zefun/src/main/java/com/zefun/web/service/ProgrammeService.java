@@ -202,13 +202,13 @@ public class ProgrammeService {
 						  && new BigDecimal(a.getYearAverageVlaue()).compareTo(new BigDecimal(ruleStrToo)) < 0)
 						  .collect(Collectors.toList());
 				if (pageType == 1) {
-					boyObj.put("rule", rule[0] + "-" + rule[1] + "元");
+					boyObj.put("rule", rule[i] + "-" + rule[i+1] + "元");
 				}
 				else if (pageType == 2) {
-					boyObj.put("rule", rule[0] + "-" + rule[1] + "次");
+					boyObj.put("rule", rule[i] + "-" + rule[i+1] + "次");
 				}
 				else {
-					boyObj.put("rule", rule[0] + "-" + rule[1] + "天");
+					boyObj.put("rule", rule[i] + "-" + rule[i+1] + "天");
 				}
 			}
 			boyObj.put("memberNumber", boyList.size());

@@ -11,7 +11,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * 自助收银订单详情相关
-* @author luhw
+* @author 老王
 * @date 2015年10月21日 下午4:20:00
  */
 public class SelfCashierDetailDto implements Serializable {
@@ -28,7 +28,7 @@ public class SelfCashierDetailDto implements Serializable {
     /** 订单类型(1：项目，2:商品，3:疗程) */
     private Integer orderType;
     
-    /** 是否预约 */
+    /** 预约标识 */
     private Integer isAppoint;
     
     /** 预约优惠金额 */
@@ -90,9 +90,8 @@ public class SelfCashierDetailDto implements Serializable {
     /** 步骤集合 */
     private List<OrderDetailStepDto> stepList;
     
-    
-    
-    public List<OrderDetailStepDto> getStepList() {
+
+	public List<OrderDetailStepDto> getStepList() {
 		return stepList;
 	}
 

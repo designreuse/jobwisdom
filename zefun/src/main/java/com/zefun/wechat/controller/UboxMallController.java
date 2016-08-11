@@ -1,5 +1,6 @@
 package com.zefun.wechat.controller;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,7 +102,7 @@ public class UboxMallController extends BaseController {
         GoodsInfoDto goodsInfoDto = goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
         String callback = "/" + Url.AppPay.GOODSINFO_PAY_CALLBACK;
         return wechatCallService.wepayForZefun(storeAccount, storeId, 4, goodsId, goodsInfoDto.getGoodsName(), 
-                goodsInfoDto.getGoodsPrice().intValue(), openId, callback, request);
+                goodsInfoDto.getGoodsPrice().multiply(new BigDecimal(100)).intValue(), openId, callback, request);
     }
     
     /**

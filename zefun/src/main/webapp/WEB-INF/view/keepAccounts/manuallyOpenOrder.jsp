@@ -82,6 +82,35 @@ background-size: cover;}
 .absolute ul{border-bottom:1px dashed #e1dfdf;padding:5px 0}
 .common_table table{width:998px!important;margin-left:30px}
 .show_search{left:60px!important}
+
+ .nav_content_div{border:1px solid #ccc}
+ .select_order{padding:1px 5px;background:#5b6080;border-radius:12px;margin-left:20px;color:white;cursor:pointer}
+ .project_hand{width:900px;height:400px;background:white;border-radius:12px;margin:50px auto;overflow:hidden}
+ .project_hand>p{height:40px;line-height:40px;text-align:center;color:white;font-size:14px;background:#43495d}
+ .project_hand_content li{padding:10px;width:330px;height:60px;border:1px solid #909090;margin:10px 30px;border-radius:12px;float:left}
+ .project_hand_content .img{float:left;width:60px;height:60px;background:#ccc}
+ .project_hand_content .text{float:left;color:black;margin-left:8px}
+ .project_hand_content .text span{font-size:14px}
+ .project_hand_content .text p{color:#909090}
+ .project_hand_right{float:right;line-height:16px;color:black}
+ .project_hand_right div{font-size:14px;}
+ .project_hand_right span{color:#d92010}
+ .project_hand_button{text-align:center}
+ .project_hand_button button{margin:0 30px;width:130px;height:24px;line-height:24px;color:white;font-size:14px;text-align:center;border:none;border-radius:12px;background:#5c6f86}
+ .project_hand_button button:hover{background:#54677d;}
+ .zzc {
+    position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+    display: none;
+}
+.appiontActive {
+    background: #d8e0f2;
+}
 </style>
 <body>
 
@@ -258,7 +287,18 @@ background-size: cover;}
 				           <c:forEach items="${selfCashierOrderDto.orderDetails}" var="orderDetail">
 				                <div class="nav_content_div" name= 'projectNameLI' projectId = "${orderDetail.projectId }" detailId = "${orderDetail.detailId }">
 								   <span class="hand_close"></span>
-								      <p><em>${orderDetail.projectName}</em><i>项目价格：${orderDetail.projectPrice}</i></p>
+								      <p>
+								         <em>${orderDetail.projectName}</em>
+								         <i>项目价格：${orderDetail.projectPrice}</i>
+								         <c:choose>
+								           <c:when test="${orderDetail.isAppoint == null}">
+								               <span class='select_order' onclick = 'chooseAppoint(this, 1)' appointmentId = ''>选择预约人员+</span>
+								           </c:when>
+								           <c:otherwise>
+								               <span class='select_order' onclick = 'chooseAppoint(this, 2)' appointmentId = '${orderDetail.isAppoint}'>预约人员:${appointEmployeeName }  时间:${appointTime }</span>
+								           </c:otherwise>
+								         </c:choose>
+								      </p>
 								      <table>
 								         <c:forEach items="${orderDetail.stepList}" var="step" varStatus="status">
 								            <tr positionId = '${step.positionId}' shiftMahjongStepId = "${step.shiftMahjongStepId}">
@@ -302,26 +342,37 @@ background-size: cover;}
         </div>
   </div>
 </div>	
-
+<div class="zzc">
+  <div class="project_hand">
+     <p>选择预约人员</p>
+     <ul class="project_hand_content clearfix">
+  
+	 </ul>
+	 
+	 <div class="project_hand_button">
+       <button onclick = "confirmAppion()">确定</button> 
+	   <button onclick = "cancl()">取消</button> 
+	 </div>
+  </div>
+</div>
 <div class="modal hide" tabindex="-1" role="dialog" id="memberSkipModal">
-	    <div class="modal-dialog" role="document">
-	        <div class="modal-content kaidan-tip">
-	            <div class="modal-header">
-	                <h4 class="modal-title">温馨提示</h4>
-	            </div>
-	            <div class="modal-body">
-	                <p class="extendpd"><span class="red font-size-14">已成功开单</span> 请问还需要进行其它操作吗?</p>
-	            </div><!--modal body-->
-	            <div class="modal-footer">
-	                <a class="btn btn-primary modal-confirm" href="#" onclick ="chooseSkipType(1)">继续开单</a>
-	                <a class="btn btn-primary modal-confirm" href="#" name = "memberModelChoose" onclick="chooseSkipType(2)">会员充值</a>
-	                <a class="btn btn-primary modal-confirm" href="#" name = "memberModelChoose" onclick="chooseSkipType(3)">会员升级</a>
-	                <a class="btn btn-primary modal-confirm" href="#" onclick ="chooseSkipType(4)">立即买单</a>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-
+    <div class="modal-dialog" role="document">
+        <div class="modal-content kaidan-tip">
+            <div class="modal-header">
+                <h4 class="modal-title">温馨提示</h4>
+            </div>
+            <div class="modal-body">
+                <p class="extendpd"><span class="red font-size-14">已成功开单</span> 请问还需要进行其它操作吗?</p>
+            </div><!--modal body-->
+            <div class="modal-footer">
+                <a class="btn btn-primary modal-confirm" href="#" onclick ="chooseSkipType(1)">继续开单</a>
+                <a class="btn btn-primary modal-confirm" href="#" name = "memberModelChoose" onclick="chooseSkipType(2)">会员充值</a>
+                <a class="btn btn-primary modal-confirm" href="#" name = "memberModelChoose" onclick="chooseSkipType(3)">会员升级</a>
+                <a class="btn btn-primary modal-confirm" href="#" onclick ="chooseSkipType(4)">立即买单</a>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
    var positionInfosStr = '${positionInfosStr}';
    var positionInfos = eval("(" + positionInfosStr + ")");

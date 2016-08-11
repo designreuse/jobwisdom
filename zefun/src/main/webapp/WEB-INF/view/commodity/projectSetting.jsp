@@ -625,8 +625,7 @@
 		var projectName = jQuery("input[name='projectName']").val();
 		var projectDesc = u1.getContent();
 		var projectCodeSuffix = jQuery("input[name='projectCodeSuffix']").val();
-		var projectImage = jQuery("img[name='projectImage']").attr(
-				"projectImage");
+		var projectImage = jQuery("img[name='projectImage']").attr("projectImage");
 		var affiliatedImage = "";
 		for (var i = 0; i < jQuery("img[name='affiliatedImage']").length; i++) {
 			if (i == (jQuery("img[name='affiliatedImage']").length - 1)) {
@@ -640,9 +639,13 @@
 			}
 		}
 		var projectPrice = jQuery("input[name='projectPrice']").val();
+		if (projectPrice == "") {projectPrice = 0;}
 		var costPrice = jQuery("input[name='costPrice']").val();
+		if (costPrice == "") {costPrice = 0;}
 		var appointmentPrice = jQuery("input[name='appointmentPrice']").val();
+		if (appointmentPrice == "") {appointmentPrice = 0;}
 		var highestDiscount = jQuery("input[name='highestDiscount']").val();
+		if (highestDiscount == "") {highestDiscount = 0;}
 		var isGiftCash = jQuery('input:radio[name="isGiftCash"]:checked').val();
 		var isAppointment = jQuery('input:radio[name="isAppointment"]:checked').val();
 		data = {

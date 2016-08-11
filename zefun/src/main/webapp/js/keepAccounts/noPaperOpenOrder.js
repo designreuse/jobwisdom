@@ -145,7 +145,7 @@ function alertZzc() {
 							        '<span>选择轮牌名称<input type="text" name= "shiftMahjongName" shiftMahjongId = "" disabled="disabled"></span>'+
 							        '<span>选择轮牌人员<input type="text" name="shiftMahjongEmployeeName" shiftMahjongEmployeeId = "" disabled="disabled"></span>'+
 							        '<span>是否指定<input type="checkbox" name= "isAssign" chooseType = "0"></span>'+
-							        '<span>是否指定<input type="checkbox" name= "isAppoint" chooseType = "0"></span>'+
+							        '<span>是否预约<input type="checkbox" name= "isAppoint" chooseType = "0"></span>'+
 							   '</p>'+
 	    				       '<div class="open_card_alert_state_content">';
 	    			}
@@ -363,6 +363,7 @@ function submits(){
         
         if (jQuery(obj[i]).find("input[name='isAppoint']").is(':checked')) {
         	isAppoint = 1;
+        	isAssign = 1;
         }
         
         var shiftMahjongId = jQuery(obj[i]).find("input[name='shiftMahjongName']").attr("shiftmahjongid");

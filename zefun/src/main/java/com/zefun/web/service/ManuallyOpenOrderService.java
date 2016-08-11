@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,11 @@ import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.PositionInfoShiftMahjongDto;
 import com.zefun.web.dto.ProjectMahjongProjectStepDto;
+import com.zefun.web.dto.SelfCashierDetailDto;
 import com.zefun.web.dto.SelfCashierOrderDto;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.DeptInfo;
+import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.MemberAppointment;
 import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.OrderDetail;
@@ -162,6 +165,19 @@ public class ManuallyOpenOrderService {
 		
 		if (orderId != null) {
 			SelfCashierOrderDto selfCashierOrderDto = selfCashierService.selectSelfCashierOrderDetail(orderId, false, storeId);
+			//查看是否存在预约信息
+			List<SelfCashierDetailDto> orderDetails = selfCashierOrderDto.getOrderDetails();
+			List<SelfCashierDetailDto> details = orderDetails.parallelStream().filter(p -> p.getIsAppoint() != null)
+					  .collect(Collectors.toList());
+			
+			if (!details.isEmpty() && details.size() > 0) {
+				Integer appointmentId = details.get(0).getIsAppoint();
+				MemberAppointment appointment = memberAppointmentMapper.selectByPrimaryKey(appointmentId);
+				EmployeeInfo employeeInfo = employeeInfoMapper.selectByPrimaryKey(appointment.getEmployeeId());
+				mav.addObject("appointEmployeeName", employeeInfo.getName());
+				mav.addObject("appointTime", appointment.getAppointmentDate() + " " + appointment.getAppointmentTime());
+			}
+			
 			mav.addObject("selfCashierOrderDto", selfCashierOrderDto);
 			if (selfCashierOrderDto.getMemberId() != null) {
 				MemberBaseDto memberBaseDto = memberInfoMapper.selectMemberBaseInfo(selfCashierOrderDto.getMemberId());
@@ -171,6 +187,18 @@ public class ManuallyOpenOrderService {
 		
 		mav.setViewName(View.KeepAccounts.MANUALLY_OPEN_ORDER);
 		return mav;
+	}
+	
+	/**
+	 * 快速开单预约信息
+	* @author 老王
+	* @date 2016年8月10日 下午8:11:16 
+	* @param storeId 门店标识
+	* @return BaseDto
+	 */
+	public BaseDto manuallyOpenOrderAppoint (Integer storeId) {
+		List<Map<String, Object>> appointObjList = packgAppoint(storeId, 2);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, appointObjList);
 	}
 	
 	/**
@@ -230,6 +258,20 @@ public class ManuallyOpenOrderService {
 		List<Integer> handOrderCodeList = orderInfoMapper.selectIsUserHandOrderCode(storeId);
 		map.put("handOrderCodeList", handOrderCodeList);
 		
+		List<Map<String, Object>> appointObjList = packgAppoint(storeId, 1);
+		map.put("appointObjList", appointObjList);
+		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+	}
+	
+	/**
+	 *  组装预约数据
+	* @author 老王
+	* @date 2016年8月10日 下午8:01:45 
+	* @param storeId 门店标识
+	* @param type 查询类型 1：无纸开单， 2：快速开单
+	* @return List<Map<String, Object>>
+	 */
+	public List<Map<String, Object>> packgAppoint(Integer storeId, Integer type) {
 		List<MemberAppointment> memberAppointmentList = memberAppointmentMapper.selectByStoreIdServer(storeId);
 		List<Map<String, Object>> appointObjList = new ArrayList<>();
 		for (MemberAppointment memberAppointment : memberAppointmentList) {
@@ -255,8 +297,7 @@ public class ManuallyOpenOrderService {
 			appointObj.put("categoryName", projectCategory.getCategoryName());
 			appointObjList.add(appointObj);
 		}
-		map.put("appointObjList", appointObjList);
-		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+		return appointObjList;
 	}
 	
 	/**
@@ -325,7 +366,7 @@ public class ManuallyOpenOrderService {
             Integer positionId = jsonEmployee.getInt("positionId");
             //是否指定
             Integer isAssign = jsonEmployee.getInt("isAssign");
-            Integer isAppoint = 0;
+            Integer isAppoint = jsonEmployee.getInt("isAppoint");
             
             Integer shiftMahjongId = null;
             if (!jsonEmployee.get("shiftMahjongId").toString().isEmpty()) {
@@ -337,9 +378,6 @@ public class ManuallyOpenOrderService {
             if (!jsonEmployee.get("employeeId").toString().isEmpty()) {
             	//指定员工对应轮牌员工标识
             	employeeId = jsonEmployee.getInt("employeeId");
-            	if (memberAppointment != null && employeeId.intValue() == memberAppointment.getEmployeeId().intValue()) {
-            		isAppoint = 1;
-            	}
             }
             
             addShiftMahjongProjectStep(detailId, shiftMahjongId, employeeId, positionId, isAssign, isAppoint, lastOperatorId);

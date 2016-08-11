@@ -780,7 +780,7 @@
 				jQuery("#serchStockFlows").empty();
 				for (var i = 0; i < stockFlows.length; i++) {
 					var html = '<tr>'+
-							'<td onclick="selectFlowNumber(\''+stockFlows[i].flowNumber+'\')">'+stockFlows[i].flowNumber+'</td>'+
+							'<td style="cursor: pointer;" onclick="selectFlowNumber(\''+stockFlows[i].flowNumber+'\')">'+stockFlows[i].flowNumber+'</td>'+
 							'<td>'+stockFlows[i].flowType+'</td>'+
 							'<td>'+stockFlows[i].fromStoreName+'</td>'+
 							'<td>'+stockFlows[i].toStoreName+'</td>'+

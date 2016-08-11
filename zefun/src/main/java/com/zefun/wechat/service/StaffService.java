@@ -35,6 +35,7 @@ import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.EmployeeShift;
 import com.zefun.web.entity.EnterpriseInfo;
 import com.zefun.web.entity.GoodsDiscount;
+import com.zefun.web.entity.MemberAppointment;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.PositionInfo;
@@ -54,6 +55,7 @@ import com.zefun.web.mapper.EmployeeShiftMapper;
 import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.MemberAppointmentMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
@@ -163,6 +165,9 @@ public class StaffService {
     /** 企业角色信息*/
     @Autowired
     private AccountRoleInfoMapper accountRoleInfoMapper;
+    /** */
+    @Autowired
+    private MemberAppointmentMapper memberAppointmentMapper;
     
     
     /**
@@ -616,9 +621,16 @@ public class StaffService {
                 }
                 
                 //记录预约优惠金额
-                if (isAppointment == 1) {
+                if (isAppointment != null) {
                     orderDetail.setAppointOff(projectInfo.getAppointmentPrice());
                     orderDetail.setIsAppoint(isAppointment);
+                    
+                    //修改预约订单状态
+                    MemberAppointment memberAppointment = memberAppointmentMapper.selectByPrimaryKey(isAppointment);
+            		MemberAppointment record = new MemberAppointment();
+            		record.setAppointmentId(memberAppointment.getAppointmentId());
+            		record.setAppointmentStatus(7);
+            		memberAppointmentMapper.updateByPrimaryKey(record);
                 }
             }
             

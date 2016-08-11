@@ -1,6 +1,9 @@
 package com.zefun.wechat.service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,15 +26,19 @@ import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberSubAccountDto;
 import com.zefun.web.dto.ubox.UboxTransactionDto;
+import com.zefun.web.entity.AccountGoods;
 import com.zefun.web.entity.CouponInfo;
 import com.zefun.web.entity.GoodsInfo;
 import com.zefun.web.entity.GoodsStock;
 import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
+import com.zefun.web.entity.StockFlow;
+import com.zefun.web.entity.StockFlowDetail;
 import com.zefun.web.entity.TransactionInfo;
 import com.zefun.web.entity.UboxMachineInfo;
 import com.zefun.web.entity.UboxTransaction;
+import com.zefun.web.mapper.AccountGoodsMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.EmployeeInfoMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
@@ -39,6 +46,8 @@ import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.MemberSubAccountMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
+import com.zefun.web.mapper.StockFlowDetailMapper;
+import com.zefun.web.mapper.StockFlowMapper;
 import com.zefun.web.mapper.TransactionInfoMapper;
 import com.zefun.web.mapper.UboxMachineInfoMapper;
 import com.zefun.web.mapper.UboxTransactionMapper;
@@ -104,6 +113,18 @@ public class UboxMallService {
     @Autowired
     private MemberSubAccountMapper memberSubAccountMapper;
     
+    /** 企业商品*/
+    @Autowired
+    private AccountGoodsMapper accountGoodsMapper;
+    
+    /** 库存管理*/
+    @Autowired
+    private StockFlowDetailMapper stockFlowDetailMapper;
+    
+    /** 库存管理*/
+    @Autowired
+    private StockFlowMapper stockFlowMapper;
+    
     
     /**
      * 商品详情页面
@@ -129,7 +150,7 @@ public class UboxMallService {
         key.setaId(aId);
         key.setStoreId(storeId);
         GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
-        if (goodsStock==null||goodsStock.getCount()<=0){
+        if (goodsStock == null || goodsStock.getCount() <= 0){
             mav.addObject("isBuy", false);
         }
         
@@ -419,12 +440,13 @@ public class UboxMallService {
             Integer amount = transactionInfo.getTransactionAmount();
             OrderInfo orderInfo = new OrderInfo();
             orderInfo.setStoreId(storeId);
-            orderInfo.setOrderType(1);
+            orderInfo.setOrderType(3);
             orderInfo.setMemberId(Integer.parseInt(memberId));
             orderInfo.setReceivableAmount(new BigDecimal(amount).divide(new BigDecimal(100)));
             orderInfo.setRealAmount(new BigDecimal(amount).divide(new BigDecimal(100)));
             orderInfo.setWechatAmount(new BigDecimal(amount).divide(new BigDecimal(100)));
             orderInfo.setOrderStatus(3);
+            orderInfo.setCashCardType(1);
             orderInfo.setCreateTime(DateUtil.getCurDate());
             orderInfoMapper.insert(orderInfo);
             Integer orderId = orderInfo.getOrderId();
@@ -447,11 +469,48 @@ public class UboxMallService {
             info.setSalesCount(goodsInfo.getSalesCount()+1);
             goodsInfoMapper.updateByPrimaryKeySelective(info);
             
+            AccountGoods accountGoods = accountGoodsMapper.selectByPrimaryKey(goodsInfo.getaId());
+            
+            List<StockFlowDetail> stockFlowDetails = new ArrayList<>();
+            
+            StockFlow stockFlow = new StockFlow();
+            stockFlow.setStockFlowId(2);
+            stockFlow.setFlowType("商城销售");
+            SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmm");
+            stockFlow.setFlowNumber("ck" + sdf.format(new Date()));
+            stockFlow.setFromStore(storeId);
+            stockFlow.setCreateTime(DateUtil.getCurDate());
+            stockFlow.setaIds(accountGoods.getGoodsId().toString());
+            stockFlow.setStoreAccount(accountGoods.getStoreAccount());
+            stockFlowMapper.insertSelective(stockFlow);
+            
+            
+            StockFlowDetail stockFlowDetail = new StockFlowDetail();
+            stockFlowDetail.setaId(goodsInfo.getaId());
+            stockFlowDetail.setFlowCount(1);
+            stockFlowDetail.setCostPrice(accountGoods.getCostPrice());
+            stockFlowDetail.setFlowAmount(accountGoods.getCostPrice());
+            stockFlowDetail.setStockType(2);
+            stockFlowDetail.setFlowType("商城销售");
+            stockFlowDetail.setFromStore(goodsInfo.getStoreId());
+            stockFlowDetail.setStoreAccount(accountGoods.getStoreAccount());
+            
             //商品库存
             GoodsStockKey key = new GoodsStockKey();
             key.setaId(goodsInfo.getaId());
             key.setStoreId(goodsInfo.getStoreId());
             GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
+            
+            // 记录发生事件商品库存
+            stockFlowDetail.setGoodsStockCount(goodsStock.getCount());
+            stockFlowDetails.add(stockFlowDetail);
+            stockFlowDetails.stream().forEach(s -> {
+                    s.setFlowNumber(stockFlow.getFlowNumber());
+                    s.setCreateTime(DateUtil.getCurDate());
+                    s.setIsDeleted(0);
+                });
+            stockFlowDetailMapper.insertStockFlowDetails(stockFlowDetails);
+            
             goodsStock.setCount(goodsStock.getCount()-1);
             goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
             

@@ -19,6 +19,7 @@
     <result column="wechat_amount" property="wechatAmount" jdbcType="DECIMAL" />
     <result column="alipay_amount" property="alipayAmount" jdbcType="DECIMAL" />
     <result column="group_amount" property="groupAmount" jdbcType="DECIMAL" />
+    <result column="cash_card_type" property="cashCardType" jdbcType="INTEGER" />
     <result column="combo_amount" property="comboAmount" jdbcType="DECIMAL" />
     <result column="coupon_amount" property="couponAmount" jdbcType="DECIMAL" />
     <result column="appoint_off" property="appointOff" jdbcType="INTEGER" />
@@ -53,6 +54,7 @@
     <result column="wechat_amount" property="wechatAmount" jdbcType="DECIMAL" />
     <result column="alipay_amount" property="alipayAmount" jdbcType="DECIMAL" />
     <result column="group_amount" property="groupAmount" jdbcType="DECIMAL" />
+    <result column="cash_card_type" property="cashCardType" jdbcType="INTEGER" />
     <result column="card_amount" property="cardAmount" jdbcType="DECIMAL" />
     <result column="combo_amount" property="comboAmount" jdbcType="DECIMAL" />
     <result column="coupon_amount" property="couponAmount" jdbcType="DECIMAL" />
@@ -103,6 +105,7 @@
     <result column="wechat_amount" property="wechatAmount" jdbcType="DECIMAL" />
     <result column="alipay_amount" property="alipayAmount" jdbcType="DECIMAL" />
     <result column="group_amount" property="groupAmount" jdbcType="DECIMAL" />
+    <result column="cash_card_type" property="cashCardType" jdbcType="INTEGER" />
     <result column="combo_amount" property="comboAmount" jdbcType="DECIMAL" />
     <result column="coupon_amount" property="couponAmount" jdbcType="DECIMAL" />
     <result column="appoint_off" property="appointOff" jdbcType="INTEGER" />
@@ -126,6 +129,7 @@
     <result column="wechat_amount" property="wechatAmount" jdbcType="DOUBLE" />
     <result column="alipay_amount" property="alipayAmount" jdbcType="DOUBLE" />
     <result column="group_amount" property="groupAmount" jdbcType="DOUBLE" />
+    <result column="cash_card_type" property="cashCardType" jdbcType="INTEGER" />
     <result column="combo_amount" property="comboAmount" jdbcType="DOUBLE" />
     <result column="coupon_amount" property="couponAmount" jdbcType="DOUBLE" />
     <result column="appoint_off" property="appointOff" jdbcType="DOUBLE" />
@@ -169,7 +173,7 @@
   <sql id="Base_Column_List" >
     order_id, store_id, order_type, member_id, sex, dept_id, order_code, hand_order_code, receivable_amount,
     discount_amount, cash_amount, unionpay_amount, card_amount, gift_amount, wechat_amount,
-    alipay_amount, group_amount, combo_amount, coupon_amount, appoint_off, free_amount, debt_amount,
+    alipay_amount, group_amount, cash_card_type, combo_amount, coupon_amount, appoint_off, free_amount, debt_amount,
     real_amount, order_status, is_order_option, option_employee_id, order_evaluate, appointment_id, is_share, is_deleted,
     create_time, update_time, last_operator_id
   </sql>
@@ -1004,6 +1008,9 @@
       <if test="groupAmount != null" >
         group_amount,
       </if>
+      <if test="cashCardType != null" >
+        cash_card_type,
+      </if>
       <if test="comboAmount != null" >
         combo_amount,
       </if>
@@ -1098,6 +1105,9 @@
       </if>
       <if test="groupAmount != null" >
         #{groupAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="cashCardType != null" >
+     	 #{cashCardType,jdbcType=INTEGER},
       </if>
       <if test="comboAmount != null" >
         #{comboAmount,jdbcType=DECIMAL},
@@ -1194,6 +1204,9 @@
       </if>
       <if test="groupAmount != null" >
         group_amount = #{groupAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="cashCardType != null" >
+        cash_card_type = #{cashCardType,jdbcType=INTEGER},
       </if>
       <if test="comboAmount != null" >
         combo_amount = #{comboAmount,jdbcType=DECIMAL},

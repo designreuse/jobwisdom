@@ -57,6 +57,21 @@ public class ManuallyOpenOrderController extends BaseController{
 	}
 	
 	/**
+	 * 快速开单预约信息
+	* @author 老王
+	* @date 2016年8月10日 下午8:08:39 
+	* @param request 返回
+	* @param response 请求
+	* @return BaseDto
+	 */
+	@RequestMapping(value = Url.KeepAccounts.MANUALLY_OPEN_ORDER_APPOINT)
+    @ResponseBody
+	public BaseDto manuallyOpenOrderAppoint (HttpServletRequest request, HttpServletResponse response) {
+		Integer storeId = getStoreId(request);
+		return manuallyOpenOrderService.manuallyOpenOrderAppoint(storeId);
+	}
+	
+	/**
 	 * 无纸开单页面
 	* @author 王大爷
 	* @date 2015年8月11日 上午11:10:16
