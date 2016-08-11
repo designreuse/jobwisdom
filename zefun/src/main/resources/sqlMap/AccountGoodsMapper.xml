@@ -171,4 +171,8 @@
   	<if test="goodsId != null" > and goods_id != #{goodsId}</if>
   </select>
   
+  <select id="selectAccountGoodsInfoBySupplierId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select * from account_goods where supplier_id = #{supplierId,jdbcType=INTEGER}
+  </select>
+  
 </mapper>

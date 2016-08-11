@@ -76,4 +76,13 @@ public interface AccountGoodsMapper {
     * @return    List<AccountGoods>
      */
     List<AccountGoods> selectHasGoodsInfo(AccountGoods goodsInfo);
+    
+    /**
+     * 根据供应商查询满足条件的商品
+    * @author 高国藩
+    * @date 2016年8月9日 下午3:10:27
+    * @param supplierId  供应商标示
+    * @return            商品集合
+     */
+    List<AccountGoods> selectAccountGoodsInfoBySupplierId(Integer supplierId);
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zefun.web.mapper.StockFlowDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.zefun.web.entity.StockFlowDetail" >
+    <id column="flow_detail_id" property="flowDetailId" jdbcType="INTEGER" />
+    <result column="flow_number" property="flowNumber" jdbcType="VARCHAR" />
+    <result column="stock_type" property="stockType" jdbcType="INTEGER" />
+    <result column="flow_type" property="flowType" jdbcType="VARCHAR" />
+    <result column="goods_stock_count" property="goodsStockCount" jdbcType="INTEGER" />
+    <result column="flow_count" property="flowCount" jdbcType="INTEGER" />
+    <result column="flow_amount" property="flowAmount" jdbcType="DECIMAL" />
+    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="from_store" property="fromStore" jdbcType="INTEGER" />
+    <result column="to_store" property="toStore" jdbcType="INTEGER" />
+    <result column="a_id" property="aId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    flow_detail_id, flow_number, stock_type, flow_type, goods_stock_count, flow_count, 
+    flow_amount, cost_price, create_time, from_store, to_store, a_id, employee_id, is_deleted, 
+    store_account
+  </sql>
+  <insert id="insertStockFlowDetails" parameterType="java.util.List">
+  	insert into stock_flow_detail (flow_number, stock_type, 
+      flow_type, goods_stock_count, flow_count, 
+      flow_amount, cost_price, create_time, 
+      from_store, to_store, a_id, 
+      employee_id, is_deleted, store_account
+      )
+    values
+  	<foreach collection="list" item="item" index="index" separator="," >  
+         (#{item.flowNumber,jdbcType=VARCHAR}, #{item.stockType,jdbcType=INTEGER}, 
+	      #{item.flowType,jdbcType=VARCHAR}, #{item.goodsStockCount,jdbcType=INTEGER}, #{item.flowCount,jdbcType=INTEGER}, 
+	      #{item.flowAmount,jdbcType=DECIMAL}, #{item.costPrice,jdbcType=DECIMAL}, #{item.createTime,jdbcType=CHAR}, 
+	      #{item.fromStore,jdbcType=INTEGER}, #{item.toStore,jdbcType=INTEGER}, #{item.aId,jdbcType=INTEGER}, 
+	      #{item.employeeId,jdbcType=INTEGER}, #{item.isDeleted,jdbcType=INTEGER}, #{item.storeAccount,jdbcType=VARCHAR}
+	      )
+    </foreach>  
+  </insert>
+  
+  <resultMap id="accountGoodsResult" type="com.zefun.web.entity.StockFlowDetail" >
+	    <id column="flow_detail_id" property="flowDetailId" jdbcType="INTEGER" />
+	    <result column="flow_number" property="flowNumber" jdbcType="VARCHAR" />
+	    <result column="stock_type" property="stockType" jdbcType="INTEGER" />
+	    <result column="flow_type" property="flowType" jdbcType="VARCHAR" />
+	    <result column="goods_stock_count" property="goodsStockCount" jdbcType="INTEGER" />
+	    <result column="flow_count" property="flowCount" jdbcType="INTEGER" />
+	    <result column="flow_amount" property="flowAmount" jdbcType="DECIMAL" />
+	    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+	    <result column="create_time" property="createTime" jdbcType="CHAR" />
+	    <result column="from_store" property="fromStore" jdbcType="INTEGER" />
+	    <result column="to_store" property="toStore" jdbcType="INTEGER" />
+	    <result column="a_id" property="aId" jdbcType="INTEGER" />
+	    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+	    <result column="name" property="employeeName" jdbcType="VARCHAR" />
+	    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+	    <result column="store_account" property="storeAccount" jdbcType="VARCHAR" />
+	    <association property="accountGoods" column="a_id" select="selectAccountGoods" />
+  </resultMap>
+  
+  <select id="selectAccountGoods" parameterType="java.lang.Integer" resultType="com.zefun.web.entity.AccountGoods">
+  	select goods_name goodsName, goods_code_suffix goodsCodeSuffix, cost_price costPrice, unit from account_goods where goods_id = #{goodsId}
+  </select>
+  
+  <select id="selectByProperites" parameterType="com.zefun.web.entity.StockFlowDetail" resultMap="accountGoodsResult">
+  	select sfd.flow_detail_id, sfd.flow_number, sfd.stock_type, sfd.flow_type, sfd.goods_stock_count, sfd.flow_count, 
+    sfd.flow_amount, sfd.cost_price, sfd.create_time, sfd.from_store, sfd.to_store, sfd.a_id, sfd.employee_id, sfd.is_deleted, 
+    sfd.store_account, ei.name
+    from stock_flow_detail sfd
+    left join employee_info ei on ei.employee_id = sfd.employee_id
+    where sfd.store_account = #{storeAccount}
+  	<if test="flowNumber != null"> and sfd.flow_number = #{flowNumber}</if>
+  	<if test="stockType != null"> and sfd.stock_type = #{stockType}</if>
+  	<if test="flowType != null"> and sfd.flow_type = #{flowType}</if>
+  	<if test="toStore != null"> and (sfd.to_store = #{toStore} or sfd.from_store = #{toStore})</if>
+  	<if test="aId != null"> and sfd.a_id = #{aId}</if>
+  	<if test="detailStartDate != null"> and DATE_FORMAT(sfd.create_time, '%Y-%m-%d') between #{detailStartDate} and #{detailStopDate}</if>
+  </select>
+</mapper>
