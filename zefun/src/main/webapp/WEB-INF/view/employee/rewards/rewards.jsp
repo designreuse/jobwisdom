@@ -123,8 +123,8 @@
 	     <li>工号</li>
 	     <li>姓名</li>
 		 <li>所属门店</li>
-		 <li>奖惩类别</li>
 		 <li>奖惩名称</li>
+		 <li>奖惩类别</li>
 		 <li style="width:229px">备注</li>
 		 <li style="width:115px">创建时间</li>
 		 <li>操作</li>
@@ -175,13 +175,14 @@
 	     <span style="position:relative;left:-10px">员工</span>
 	     <select id="employee">
 	     </select></li>
-	       <li><span>奖惩名称</span>
+	       <li><span>奖惩类别</span>
+	       
 	   
 	         <select id="type1" onchange="employee()">
 	         <option value="1">奖励</option><option value="2">惩罚</option></select>
 	     </li>
 	     
-          <li><span>奖惩类别</span>
+        <li><span>奖惩名称</span>
          <select id="storeManageRule1" >
          </select>
          </li>
