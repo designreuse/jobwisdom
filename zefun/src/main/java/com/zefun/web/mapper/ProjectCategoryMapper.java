@@ -108,4 +108,13 @@ public interface ProjectCategoryMapper {
     * @return       查询结果信息
      */
     List<ProjectCategoryDto> selectProjectCategoryByDeptId(Integer deptId);
+    
+    /**
+     * 根据 门店标识查询
+    * @author 老王
+    * @date 2016年8月11日 下午8:21:50 
+    * @param storeId 门店标识
+    * @return List<ProjectCategoryDto>
+     */
+    List<ProjectCategoryDto> selectProjectCategoryByStoreId(Integer storeId);
 }

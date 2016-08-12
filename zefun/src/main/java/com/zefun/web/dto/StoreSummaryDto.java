@@ -121,6 +121,17 @@ public class StoreSummaryDto {
      */
     protected Integer memberCnt = 0;
 
+    /** 1:现金支付，2：卡金支付*/
+    private Integer cashCardType;
+    
+    
+    public Integer getCashCardType() {
+		return cashCardType;
+	}
+
+	public void setCashCardType(Integer cashCardType) {
+		this.cashCardType = cashCardType;
+	}
     /**
      * 
      * @author gebing

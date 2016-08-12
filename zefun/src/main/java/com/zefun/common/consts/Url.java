@@ -1379,6 +1379,16 @@ public interface Url {
 	}
 
 	/**
+	 * 批量设置
+	* @author 老王
+	* @date 2016年8月11日 下午8:02:00
+	 */
+	class BatchSet {
+		/** 项目批量设置初始化页面*/
+		public static final String VIEW_INITIALIZATION_PROJECT_BATCH_SET = "batchSet/view/initializationProjectBatchSet";
+	}
+	
+	/**
 	 * 自助收银
 	 * 
 	 * @author luhhwen
