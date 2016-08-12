@@ -123,7 +123,7 @@
 		  <img src="<%=basePath%>images/mobile/member/down_content_.png">
 		</div>
 	    <div class="order_shop_name">
-		   我道1号店<em>布吉</em>
+		   ${storeInfo.storeName }
 		</div>
 	 </header> 
       <div class="order_content">

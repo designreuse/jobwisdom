@@ -6,17 +6,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
 import com.zefun.web.service.MemberLevelService;
+
+import net.sf.json.JSONObject;
 
 /**
  * 会员等级管理
@@ -220,6 +224,33 @@ public class MemberLevelController extends BaseController {
         return memberLevelService.defaultAction(storeId, levelId);
     }
     
+    /**
+     * 
+    * @author 高国藩
+    * @date 2016年8月11日 下午4:35:07
+    * @param request
+    * @return
+     */
+    @RequestMapping(value = Url.MemberLevel.VIEW_CARD_SELL_COUNT, method = RequestMethod.GET)
+    public ModelAndView cardSellCount(HttpServletRequest request){
+        String storeAccount = getStoreAccount(request);
+        Object storeId = request.getSession().getAttribute(App.Session.STORE_ID);
+        return memberLevelService.cardSellCount(storeAccount, storeId);
+    }
+    
+    /**
+     * 
+    * @author 高国藩
+    * @date 2016年8月11日 下午4:35:07
+    * @param request
+    * @return
+     */
+    @RequestMapping(value = Url.MemberLevel.VIEW_CARD_SELL_COUNT, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto cardSellCount(HttpServletRequest request, @RequestBody JSONObject query){
+        String storeAccount = getStoreAccount(request);
+        return memberLevelService.cardSellCount(query);
+    }
    
     /**
      * 会员卡导入项设置

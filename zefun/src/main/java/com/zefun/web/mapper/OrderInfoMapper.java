@@ -622,4 +622,22 @@ public interface OrderInfoMapper {
     * @return List<OrderInfo>
      */
     List<OrderInfo> selectByOptionEmployeeId(Integer optionEmployeeId);
+
+    /**
+     * 以年或月查询使用卡金消费的记录
+    * @author 高国藩
+    * @date 2016年8月12日 上午10:14:35
+    * @param orderInfo orderInfo
+    * @return          List<OrderInfo>
+     */
+    List<OrderInfo> selectOrderInfoCardMoneyByDate(OrderInfo orderInfo);
+
+    /**
+     * 以年或月查询使用卡金储存的记录
+    * @author 高国藩
+    * @date 2016年8月12日 上午10:44:19
+    * @param orderInfo orderInfo
+    * @return          List<OrderInfo>
+     */
+    List<OrderInfo> selectOrderInfoCardMoneyInByDate(OrderInfo orderInfo);
 }

@@ -189,6 +189,8 @@ public interface Url {
 		public static final String ACTION_DEFAULT = "memberLevel/action/default";
 		/** 会员卡导入excle */
 		public static final String IMPORTEXCLE = "memberLevel/action/importexcle";
+		/** 卡项销售统计 */
+        public static final String VIEW_CARD_SELL_COUNT = "memberLevel/view/cardSellCount";
 
 	}
 

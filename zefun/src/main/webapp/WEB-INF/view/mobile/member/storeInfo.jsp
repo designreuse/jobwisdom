@@ -207,6 +207,20 @@
 .tab_content_div_last img {
 	width: 100%
 }
+.zzc{ position: fixed;
+	top: 0px;
+	height: 100%;
+	left: 0px;
+	width: 100%;
+	background: rgba(102, 108, 121, 0.8);
+	z-index: 20;
+	display:none
+	}
+.zzc_tel{bottom:-40%;height:12rem;position:absolute;left:0;width:100%;text-align:center}
+.zzc a{margin-bottom:1rem;display:inline-block;background:white;color:#ccc;font-size:20px;text-align:center;height:5rem;border-radius:8px;-webkit-border-radius:8px;line-height:5rem;width:90%;}
+.zzc .cancle{display:inline-block;background:white;color:#ccc;font-size:20px;text-align:center;height:5rem;border-radius:8px;-webkit-border-radius:8px;line-height:5rem;width:90%;}
+      .store_name{position:absolute;top:1rem;left:0;width:100%;text-align:center}
+.store_name span{padding:5px 1.2rem;border-radius:6px;background:rgba(34,53,105,0.8);color:white}
 .hide{
 	display: none;
 }
@@ -231,9 +245,12 @@
 			<div class="hd" style="display: none">
 				<ul></ul>
 			</div>
+			<div class="store_name">
+			  <span>${storeInfo.storeName }</span>
+			</div>
 			<div class="slideBox_address">
 				<img src="<%=basePath%>images/mobile/member/localtion.png"><span>${storeInfo.storeAddress }</span>
-				<em onclick="$('#shop-tel').removeClass('hide');"><img src="<%=basePath%>images/mobile/member/telphone.png"></em>
+				<em><img src="<%=basePath%>images/mobile/member/telphone.png"></em>
 			</div>
 			<c:if test="${storeSize > 1 }">
 				<a class="more_store" href="<%=basePath %>memberCenter/view/storeList?url=/memberCenter/view/storeInfo/${session_key_store_account}/1?selectStoreId=_storeId_">更多门店》</a>
@@ -241,13 +258,13 @@
 		</div>
 
 		<ul class="tab clearfix">
-			<li style="background: #0771e8">
+			<li style="background: #00c0e2">
 				门店介绍<span></span>
 			</li>
-			<li style="background: #50be0d">
+			<li style="background: #eac259">
 				作品展示<span style="display: none"></span>
 			</li>
-			<li style="background: #ff8e08">
+			<li style="background: #fcd6bd3">
 				名师推荐<span style="display: none"></span>
 			</li>
 		</ul>
@@ -299,18 +316,15 @@
 			</div>
 		</div>
 	</div>
-	<!--店铺电话-->
-	<%-- <div class="s-modal hide s-modal-miss" id="shop-tel">
-	    <div class="s-modal-wrap">
-	        <div class="shop-tel">
-	        	<c:forEach items="${telArray }" var="tel">
-	        		<a href="tel:${tel }" class="modal-btn shop-modal-tel blue-word">${tel }</a>
-	        	</c:forEach>
-	            <a href="javascript:void(0);" class="modal-btn shop-modal-cancel">取消</a>
-	        </div>
-	    </div>
-	</div> --%>
+	
+	<div class="zzc" style="display: none;">
+	      <div class="zzc_tel" style="bottom: 0px;">
+            <a href="tel:${tel }">${tel }</a> 
+            <div class="cancle">取消</div>
+          </div>
+    </div>
 	<div style="height: 5rem"></div>
+	
 	<ul class="bottom_fix clearfix">
  		<a href="<%=basePath %>memberCenter/view/home/${session_key_store_account}/1">
 	      <li><img src="<%=basePath %>images/mobile/member/botton_1.png">
@@ -336,6 +350,24 @@
 	<%@include file="../memberBase.jsp"%>
 	<script type="text/javascript" src="<%=swiperJsPath%>"></script>
 	<script type="text/javascript">
+	 //点击电话
+		  $(function(){
+		   $('.slideBox_address em').on('touchstart',function(){
+		      $('.zzc').show()
+			   $('body,html').attr('style','overflow:hidden');
+			   $('.zzc_tel').animate({
+			     bottom:0
+			   },500)
+			  	  
+		   }) ;
+		   //取消
+		   $('.zzc .cancle').on('touchstart',function(){
+			     $('.zzc').fadeOut()
+				 $('body,html').attr('style','height:100%');
+				 $('.zzc_tel').attr('style','bottom:-40%');
+				 
+			 });	 	 
+		  })
 		TouchSlide({
 			slideCell : "#slideBox",
 			titCell : ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
