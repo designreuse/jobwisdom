@@ -40,4 +40,8 @@ public class BatchSetController extends BaseController {
 		Integer storeId = getStoreId(request);
 		return batchSetService.initializationProjectBatchSet(storeId);
 	}
+	
+	/*public BaseDto batchSetCalculate (HttpServletRequest request, HttpServletResponse response, Integer ) {
+		
+	}*/
 }
