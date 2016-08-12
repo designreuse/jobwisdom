@@ -146,4 +146,12 @@ public interface MemberAccountMapper {
      */
     List<BigMemberDto> selectBigMember(Map<String, Object> map);
     
+    /**
+     * 计算会员累计消费次数,累计消费总额,单次消费均价,最后消费时间
+    * @author 老王
+    * @date 2016年8月10日 下午2:10:23 
+    * @param map map
+    * @return int
+     */
+    int updateAvgConsume(Map<String, Object> map);
 }

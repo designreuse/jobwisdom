@@ -87,6 +87,8 @@ public interface Url {
         public static final  String STORE_ORDER_CHECK = "order/store/check";
         /**销售PK*/
         public static final  String STORE_CATEGORY_CHECK = "order/category/check";
+        /**销量汇总*/
+        public static final  String STORE_GOODS_CHECK = "order/goods/check";
     }
 	
 	
@@ -540,6 +542,8 @@ public interface Url {
 	class KeepAccounts {
 		/** 初始化无纸开单*/
 		public static final String INITIALIZE_NO_PAPER_OPEN_ORDER = "KeepAccounts/initializeNoPaperOpenOrder";
+		/** 快速开单预约信息*/
+		public static final String MANUALLY_OPEN_ORDER_APPOINT = "KeepAccounts/manuallyOpenOrderAppoint";
 		/** 初始化弹出框*/
 		public static final String INITIALIZE_NOPAPER_MODEL = "KeepAccounts/initializeNoPaperModel";
 		/** 无纸开单 */
@@ -1378,6 +1382,16 @@ public interface Url {
         public static final String ACTION_STORE_SETTING_SPECIAL_DELETED = "/storeinfo/action/storeSetting/special/deleted";
 	}
 
+	/**
+	 * 批量设置
+	* @author 老王
+	* @date 2016年8月11日 下午8:02:00
+	 */
+	class BatchSet {
+		/** 项目批量设置初始化页面*/
+		public static final String VIEW_INITIALIZATION_PROJECT_BATCH_SET = "batchSet/view/initializationProjectBatchSet";
+	}
+	
 	/**
 	 * 自助收银
 	 * 

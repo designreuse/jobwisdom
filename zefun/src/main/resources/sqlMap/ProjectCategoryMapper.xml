@@ -193,4 +193,8 @@
   <select id="selectProjectCategoryByDeptId" resultType="com.zefun.web.dto.ProjectCategoryDto" parameterType="java.lang.Integer">
   	select category_id categoryId, store_id storeId, category_name categoryName from project_category where dept_id = #{deptId} and is_deleted = 0
   </select>
+  
+  <select id="selectProjectCategoryByStoreId" resultMap="ProjectCategoryDtoMap" parameterType="java.lang.Integer">
+  	select category_id categoryId, store_id storeId, category_name categoryName from project_category where store_id = #{storeId} and is_deleted = 0
+  </select>
 </mapper>

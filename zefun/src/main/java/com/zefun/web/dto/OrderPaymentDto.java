@@ -75,7 +75,17 @@ public class OrderPaymentDto {
     /** 明细列表 */
     private List<DetailPaymentDto> detailList;
     
+    /** 1:现金支付，2：卡金支付*/
+    private Integer cashCardType;
     
+    
+    public Integer getCashCardType() {
+		return cashCardType;
+	}
+
+	public void setCashCardType(Integer cashCardType) {
+		this.cashCardType = cashCardType;
+	}
     
     public BigDecimal getGroupAmount() {
 		return groupAmount;

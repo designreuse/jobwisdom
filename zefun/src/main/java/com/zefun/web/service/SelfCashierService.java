@@ -475,6 +475,16 @@ public class SelfCashierService {
 		OrderInfo orderInfo = new OrderInfo();
 		orderInfo.setOrderId(orderId);
 		orderInfo.setCardAmount(orderSubmit.getCardAmount());
+		if (cashierDto.getDebtAmount().compareTo(new BigDecimal(0)) > 0 || orderSubmit.getAlipayAmount().compareTo(new BigDecimal(0)) > 0
+				  || orderSubmit.getCashAmount().compareTo(new BigDecimal(0)) > 0 
+				  || orderSubmit.getUnionpayAmount().compareTo(new BigDecimal(0)) > 0
+				  || orderSubmit.getWechatAmount().compareTo(new BigDecimal(0)) > 0
+				  || orderSubmit.getGroupAmount().compareTo(new BigDecimal(0)) > 0) {
+			orderInfo.setCashCardType(1);
+		}
+		else {
+			orderInfo.setCashCardType(2);
+		}
 		orderInfo.setCashAmount(orderSubmit.getCashAmount());
 		orderInfo.setUnionpayAmount(orderSubmit.getUnionpayAmount());
 		orderInfo.setAlipayAmount(orderSubmit.getAlipayAmount());
@@ -594,6 +604,13 @@ public class SelfCashierService {
 				memberAccountMapper.updateByPrimaryKey(memberAccount);
 			}
 
+			//修改会员累计消费次数,累计消费总额,单次消费均价,最后消费时间
+			Map<String, Object> avgMap = new HashMap<>();
+			avgMap.put("memberId", ownerMemberId);
+			avgMap.put("consumeAmount", orderInfo.getRealAmount());
+			avgMap.put("consumeTime", DateUtil.getCurTime());
+			memberAccountMapper.updateAvgConsume(avgMap);
+			
 			memberInfoService.wipeCache(ownerMemberId);
 			memberInfoService.syncLevelId(ownerMemberId);
 		}

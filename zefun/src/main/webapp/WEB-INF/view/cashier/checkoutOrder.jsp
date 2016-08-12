@@ -7,7 +7,7 @@
 <style>
     .common_table{margin-top:0!important}
 	.zzc{font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);}    
-	.zzc_sure{width:600px;height:430px;margin:50px auto;background:white}
+	.zzc_sure{width:600px;height:430px;margin:50px auto;background:white;border-radius: 12px;overflow: hidden;}
 	.zzc_sure>p{height:66px;text-align:center;font-size:18px;color:white;line-height:66px;color:white;background:#454560}
 	.zzc_sure_content{padding:12px 19px}
 	.zzc_sure_content>p{height:36px;line-height:36px;border-bottom:1px solid #dbdbdb}

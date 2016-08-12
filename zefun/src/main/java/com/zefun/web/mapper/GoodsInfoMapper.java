@@ -216,6 +216,15 @@ public interface GoodsInfoMapper {
     * @return        List<GoodsInfoDto>
      */
     List<GoodsInfoDto> selectAllGoodsInfoByStoreIdAndNotPay(Integer storeId);
+    
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月11日 下午6:03:51
+    * @param storeId storeId
+    * @return  List<GoodsInfoDto>
+     */
+    List<GoodsInfoDto> selectAllGoodsdInfoByStoreId(Integer storeId);
 
     /**
      * 通过企业商品id查询商品

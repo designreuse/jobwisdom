@@ -103,7 +103,7 @@ em {
 
 .table-toolbar input[type='text']{width:128px;height:16px;border:1px solid #ccc;border-radius:12px;}
 .nav_content{width:510px;height:420px;overflow-y:scroll;margin:26px auto}
-.nav_content_div{height:110px;border-radius:10px;background:#dfe1e9;position:relative;margin-bottom:20px}
+.nav_content_div{height:110px;border-radius:10px;background:white;position:relative;margin-bottom:20px}
 .nav_content_div_1{height:40px;border-radius:10px;background:#dfe1e9;position:relative;margin-bottom:20px}
 .nav_content_div p,.nav_content_div_1 p{padding:10px}
 .nav_content_div_1 span{display:inline-block;margin-left:30px}
@@ -123,4 +123,4 @@ em {
 
 .hand_ul li{padding-left:20px;height:40px;padding-right:20px}
 .head_search .active{border:1px solid #cb6262;color:#cb6262}
-.chzn-container-single .chzn-single{border-radius:8px!important}
+.project_hand_content{width:830px;height:275px;overflow:overlay;border:1px solid #b0b0b0;border-radius:12px;margin:20px auto}

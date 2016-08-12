@@ -166,8 +166,8 @@ function packgTable (rule, ruleType) {
     			valueTitle = "距今几日未到店";
     		}
     		
-    		packgPage ("container1", "(女客)" + valueTitle, valueTitle, regionArray, grilTotalVlaueArray);
-    		packgPage ("container2", "(男客)" + valueTitle, valueTitle, regionArray, boyTotalVlaueArray)
+    		packgPage ("container1", "(女客)" + valueTitle, "区间内消费金额(元)", regionArray, grilTotalVlaueArray);
+    		packgPage ("container2", "(男客)" + valueTitle, "区间内消费金额(元)", regionArray, boyTotalVlaueArray)
     	}
     });
 }
@@ -244,14 +244,18 @@ function initTable (e) {
 	var memberInfoDtos = e.msg.results;
 	for (var i =0; i < memberInfoDtos.length; i++) {
 		var dto = memberInfoDtos[i];
+		var bngDate = new Date();
+        var endDate = new Date(dto.lastConsumeTime);
+        var days= Math.floor(bngDate/(24*3600*1000)) - Math.floor(endDate/(24*3600*1000))
 		jQuery("#init_member").append('<tr>'+
 									     '<td><input type="checkbox"></td>'+
 									     '<td>'+dto.name+'</td>'+
 										 '<td>'+dto.sex+'</td>'+
 										 '<td>'+dto.phone+'</td>'+
-										 '<td>'+dto.totalAmount+'</td>'+
+										 '<td>'+dto.totalConsumeAmount+'</td>'+
 										 '<td>'+dto.consumeCount+'</td>'+
 										 '<td>'+dto.lastConsumeTime+'</td>'+
+										 '<td>'+days+'</td>'+
 										 '<td>'+dto.birthday+'</td>'+
 										 '<td>'+dto.createTime+'</td>'+
 										 '<td>'+dto.storeName+'</td>'+
@@ -324,7 +328,7 @@ function chooseStoreSelect(obj) {
 	for (var i = 0; i < storeRuleList.length; i++) {
 		var rule = storeRuleList[i];
 		if (rule.storeIdOrAccount == storeIdOrAccount) {
-			packgTable(rule, ruleType);
+			packgTable(rule, pageType);
 		}
 	}
 }

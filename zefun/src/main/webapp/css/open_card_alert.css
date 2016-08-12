@@ -126,7 +126,13 @@ background-size: cover;}
 .customer_content .active2{background:#61678b;border-radius:6px}
 
 .table_content_button{text-align:center;}
-.table_content_button button{width:130px;height:26px;color:white;border:none;color;white;margin:5px auto;border-radius:12px;background:#61678b}
+.table_content_button button{width: 130px;
+    height: 26px;
+    color: white;
+    border: none;
+    margin: 5px auto;
+    border-radius: 12px;
+    background: #61678b;}
 .open_card_content li>img{position:absolute;right:4px;top:4px}
 .open_card_content li{position:relative}
 .table_content_button button:hover{background:#4f5471}
@@ -189,3 +195,9 @@ background-size: cover;}
 .select_item_button{text-align:center;margin-top:6px}
 .select_item_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;color:white;border-radius:12px;background:#74819c;margin:0 26px;font-size:15px}
 .select_item_button button:hover{background:#64718c}
+
+.table_content_button img {
+    position: relative;
+    top: 3px;
+    margin-right: 4px;
+}

@@ -82,6 +82,19 @@
     <association property="stepList" column="detail_id" select="com.zefun.web.mapper.ShiftMahjongProjectStepMapper.selectOrderStepListByDetailId" />
   </resultMap>
   
+   <resultMap id="DetailBaseDtoMapBygoods" type="com.zefun.web.dto.OrderDetailDto" >
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="project_count" property="projectCount" jdbcType="INTEGER" />
+    <result column="detail_calculate" property="detailCalculate" jdbcType="INTEGER" />
+    <result column="cash_card_type" property="cashCardType" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="deptName" property="deptName" jdbcType="CHAR" />
+    <result column="dept_id" property="deptId" jdbcType="CHAR" />
+    <result column="category_name" property="categoryName" jdbcType="CHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="CHAR" />
+  </resultMap>
+
   <resultMap id="SumPriceDtoMap" type="com.zefun.web.dto.SumPriceDto" >
     <result column="sumprice" property="sumprice" jdbcType="DECIMAL" />
     <result column="pprice" property="pprice" jdbcType="DECIMAL" />
@@ -109,10 +122,20 @@
   
    <select id="selectDetailLByOrderId" parameterType="java.util.Map" resultMap="BaseResultMap">
    SELECT d.order_id,i.create_time ,SUM( d.project_count) as project_count ,SUM(d.detail_calculate) as detail_calculate FROM 
-   order_info i LEFT JOIN  order_detail  d ON i.order_id= d.order_id 
+ 		  order_info i LEFT JOIN  order_detail  d ON i.order_id= d.order_id 
    WHERE i.order_status  in (3,4)    AND d.order_type = 2 
    AND i.is_deleted =0 AND  d.is_deleted =0 
    AND i.store_id = ${storeId}        AND left(i.create_time,4) = "${time}"         GROUP BY d.order_id
+   
+UNION ALL
+   SELECT 
+	   d.order_id,d.create_time ,SUM( g.goods_counts) AS project_count ,SUM( g.goods_counts * g.combo_performance_cal ) AS detail_calculate FROM 
+			order_detail  d LEFT JOIN  combo_goods g  ON g.combo_id = d.project_id 
+	 						LEFT JOIN  order_info i  ON i.order_id = d.order_id    
+		    WHERE i.order_status  IN (3,4)    AND d.order_type = 3  AND i.is_deleted =0 AND  d.is_deleted =0 
+	   AND i.store_id = ${storeId}  AND LEFT(i.create_time,4) = "${time}"    AND  g.goods_id IS NOT NULL
+	     GROUP BY d.order_id
+   
   </select>
   
   
@@ -124,9 +147,15 @@
 	    WHERE i.order_status  IN (3,4)    AND d.order_type = 2  AND i.is_deleted =0 AND  d.is_deleted =0 
    AND i.store_id = ${storeId}   AND left(i.create_time,4) = "${time}"   AND g.goods_id = ${goodsId}    
      GROUP BY d.order_id
+UNION ALL
+   SELECT 
+	   d.order_id,d.create_time ,SUM( g.goods_counts) AS project_count ,SUM( g.goods_counts * g.combo_performance_cal ) AS detail_calculate FROM 
+			order_detail  d LEFT JOIN  combo_goods g  ON g.combo_id = d.project_id 
+	 						LEFT JOIN  order_info i  ON i.order_id = d.order_id    
+		    WHERE i.order_status  IN (3,4)    AND d.order_type = 3  AND i.is_deleted =0 AND  d.is_deleted =0 
+	   AND i.store_id = ${storeId}  AND LEFT(i.create_time,4) = "${time}"   AND g.goods_id = ${goodsId}     and goods_counts IS NOT NULL
+	     GROUP BY d.order_id
   </select>
-  
-  
    <select id="selectDetailLByCategory" parameterType="java.util.Map" resultMap="BaseResultMap">
    SELECT 
    d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate FROM 
@@ -136,7 +165,69 @@
 	    WHERE i.order_status  IN (3,4)    AND d.order_type = 2  AND i.is_deleted =0 AND  d.is_deleted =0 
    AND i.store_id = ${storeId}   AND left(i.create_time,4) = "${time}"   AND g.category_id = ${categoryId}    
      GROUP BY d.order_id
+     
+     UNION ALL
+   SELECT 
+	   d.order_id,d.create_time ,SUM( g.goods_counts) AS project_count ,SUM( g.goods_counts * g.combo_performance_cal ) AS detail_calculate FROM 
+			order_detail  d LEFT JOIN  combo_goods g  ON g.combo_id = d.project_id 
+	 						LEFT JOIN  order_info i  ON i.order_id = d.order_id    
+	 						LEFT JOIN  goods_info cs ON cs.goods_id    = cs.goods_id 
+	 						LEFT JOIN  goods_category c ON cs.category_id = c.category_id 
+		    WHERE i.order_status  IN (3,4)    AND d.order_type = 3  AND i.is_deleted =0 AND  d.is_deleted =0 
+	   AND i.store_id = ${storeId}  AND LEFT(i.create_time,4) = "${time}"    AND c.category_id = ${categoryId} and goods_counts IS NOT NULL
+	     GROUP BY d.order_id
   </select>
+  				
+  				
+    <select id="selectDetailListByGoods" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
+ 	SELECT 
+  i.cash_card_type,i.order_type,ag.goods_name ,ag.goods_id , c.category_name,d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
+		order_detail  d LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
+						LEFT JOIN  dept_info      f ON g.dept_id     = f.dept_id
+ 						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
+ 						LEFT JOIN  goods_category c ON g.category_id = c.category_id 
+						LEFT JOIN account_goods ag ON ag.goods_id = g.a_id 
+	    WHERE i.order_status  IN (3,4)    AND d.order_type = (2)   AND i.is_deleted =0 AND  d.is_deleted =0 
+   AND i.store_id = ${storeId}  
+   <if test="time1 !=null and time1 !=''">
+    AND LEFT(d.create_time,10) &gt;= "${time1}" 
+    </if>
+    <if test="time2 !=null and time2 !=''">
+    AND LEFT(d.create_time,10) &lt;= "${time2}" 
+    </if>
+     GROUP BY c.category_name, ag.goods_name,i.cash_card_type,i.order_type,f.dept_name
+  </select>
+  
+   <select id="selectDetailListByGoodsd" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
+ 	SELECT 
+  i.cash_card_type,i.order_type,ag.goods_name ,ag.goods_id , c.category_name,d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
+		order_detail  d LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
+						LEFT JOIN  dept_info      f ON g.dept_id     = f.dept_id
+ 						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
+ 						LEFT JOIN  goods_category c ON g.category_id = c.category_id 
+						LEFT JOIN account_goods ag ON ag.goods_id = g.a_id 
+	    WHERE i.order_status  IN (3,4)    AND d.order_type = (3)   AND i.is_deleted =0 AND  d.is_deleted =0   AND  ag.goods_name IS NOT NULL
+   AND i.store_id = ${storeId}  
+    <if test="time1 !=null and time1 !=''">
+    AND LEFT(d.create_time,10) &gt;= "${time1}" 
+    </if>
+    <if test="time2 !=null and time2 !=''">
+    AND LEFT(d.create_time,10) &lt;= "${time2}" 
+    </if>
+     GROUP BY c.category_name, ag.goods_name,i.cash_card_type,i.order_type,f.dept_name
+  </select>
+  
+   <select id="selectDetailListBygoodsCategory" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
+   SELECT 
+	   d.order_id,d.create_time ,SUM( g.goods_counts) AS project_count ,SUM( g.goods_counts * g.combo_performance_cal ) AS detail_calculate FROM 
+			order_detail  d LEFT JOIN  combo_goods g  ON g.combo_id = d.project_id 
+	 						LEFT JOIN  order_info i  ON i.order_id = d.order_id    
+	 						LEFT JOIN  goods_info cs ON cs.goods_id    = cs.goods_id 
+	 						LEFT JOIN  goods_category c ON cs.category_id = c.category_id 
+		    WHERE i.order_status  IN (3,4)    AND d.order_type = 3  AND i.is_deleted =0 AND  d.is_deleted =0 
+	   AND i.store_id = ${storeId}  AND LEFT(i.create_time,4) = "${time}"    AND c.category_id = ${categoryId} and goods_counts IS NOT NULL
+	     GROUP BY d.order_id
+	</select>
   
   <!-- 删除门店所有订单明细数据(清除测试数据)，by 张小胖 -->
   <delete id="deleteByStoreId" parameterType="java.lang.Integer">
@@ -670,61 +761,6 @@
                and b.is_deleted = 0
               )
   </select>
-  
-  <!-- <select id="selectLaborPerformance" parameterType="com.zefun.web.dto.LaborPerformanceSummaryDto"
-  			resultType="com.zefun.web.dto.LaborPerformanceSummaryDto">
-  	SELECT
-	SUM(if(order_type=1,1,0)) servicedCustomerNum,
-	SUM(if(order_type=1,1,0)) consumerCount,
-	SUM(IFNULL(discount_amount,0)) sumLaborPerformance
-	from
-	order_detail
-	WHERE
-	create_time <![CDATA[>=]]> #{begin}
-	AND create_time <![CDATA[<]]> #{end}
-	AND store_id = #{storeId}
-	AND order_type = 1
-	AND order_status IN(3);
-  </select>  -->
-  <!--<select id="selectSummaryByDept" parameterType="com.zefun.web.dto.LaborPerformanceSummaryDto"
-  			resultType="com.zefun.web.vo.ProjectLaborPerformanceVo">
-	  SELECT 
-	SUM(IFNULL(od.discount_amount,0)) deptSum,
-	di.dept_id deptId
-	from
-	dept_info di,
-	order_detail od
-	WHERE 
-	di.dept_id= od.dept_id
-	AND
-	od.store_id = #{storeId}
-	AND create_time <![CDATA[>=]]> #{begin}
-	AND create_time <![CDATA[<]]> #{end}
-	AND od.order_type = 1
-	GROUP BY di.dept_id
-  </select>  -->
-  <!-- <select id="selectSummaryDetailBySeries" parameterType="com.zefun.web.dto.LaborPerformanceSummaryDto"
-  			resultType="com.zefun.web.vo.SeriesUnderDept">
-	SELECT 
-	SUM(od.discount_amount) seriesSum,
-	pi.dept_id deptId,
-	pc.category_name seriesName
-	from
-	project_category pc,
-	project_info pi,
-	order_detail od
-	WHERE
-	pi.category_id = pc.category_id
-	AND
-	pi.project_id = od.project_id
-	AND
-	od.store_id = pc.store_id
-	AND od.store_id = #{storeId}
-	AND create_time <![CDATA[>=]]> #{begin}
-	AND create_time <![CDATA[<]]> #{end}
-	GROUP BY pi.category_id
-  </select>  
-  </select> -->
   
   <select id="selectTataiRealPriceByType" parameterType="java.util.Map" resultType="java.math.BigDecimal">
      select ifnull(sum(a.real_price), 0) from order_detail a 
