@@ -13,13 +13,23 @@ public class PositionInfoDto {
     private Integer positionId;
     /** 岗位名称*/
     private String positionName;
+    /** 是否为店长\\收银员(0,不是 1是)*/
+    private  String isShow;
    /**职位相关信息*/
     private List<EmployeeLevel> employeeLevel;
     
     
-    public Integer getPositionId() {
+    public String getIsShow() {
+		return isShow;
+	}
+    
+	public void setIsShow(String isShow) {
+		this.isShow = isShow;
+	}
+	public Integer getPositionId() {
         return positionId;
     }
+	
     public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }

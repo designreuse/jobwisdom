@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.View;
+import com.zefun.web.dto.PositionInfoDto;
 import com.zefun.web.dto.ProjectCategoryDto;
+import com.zefun.web.mapper.PositioninfoMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
 
 import net.sf.json.JSONArray;
@@ -23,6 +25,9 @@ public class BatchSetService {
 	/** 项目大项 */
 	@Autowired
 	private ProjectCategoryMapper projectCategoryMapper;
+	/** 岗位信息 */
+	@Autowired
+	private PositioninfoMapper  positioninfoMapper;
 
 	/**
 	 * 初始化项目批量设置页面
@@ -36,6 +41,11 @@ public class BatchSetService {
 		List<ProjectCategoryDto> projectCategoryDtoList = projectCategoryMapper.selectProjectCategoryByStoreId(storeId);
 		mav.addObject("projectCategoryDtoList", projectCategoryDtoList);
 		mav.addObject("projectCategoryDtoListStr", JSONArray.fromObject(projectCategoryDtoList).toString());
+		
+		//查询门店下所有的岗位
+		List<PositionInfoDto> positionInfos = positioninfoMapper.selectPositionEpmployees(storeId);
+		mav.addObject("positionInfos", positionInfos);
+		mav.addObject("positionInfosStr", JSONArray.fromObject(positionInfos).toString());
 		return mav;
 	}
 }

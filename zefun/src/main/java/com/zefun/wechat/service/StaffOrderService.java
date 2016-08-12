@@ -428,7 +428,7 @@ public class StaffOrderService {
             orderDetailMapper.updateByPrimaryKey(record);
         }
         
-        if (orderDetail.getIsAppoint() != 0) {
+        if (orderDetail.getIsAppoint() != null && orderDetail.getIsAppoint() != 0) {
         	MemberAppointment memberAppointment = memberAppointmentMapper.selectByPrimaryKey(orderDetail.getIsAppoint());
         	MemberAppointment record = new MemberAppointment();
         	record.setAppointmentId(memberAppointment.getAppointmentId());
