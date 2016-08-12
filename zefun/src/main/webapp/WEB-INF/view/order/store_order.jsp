@@ -50,7 +50,7 @@
  jQuery(function(){
    jQuery('.store_sell_table_content table').find('tr:gt(0)').css('background','#eeeeee');
    jQuery('.store_sell_table_content table').find('tr:gt(0)').hide();
-   jQuery('.store_sell_table_content img').click(function(){
+    jQuery(document).on('click','.store_sell_table_content img',function(){
      jQuery(this).parents('table').find('tr:gt(0)').stop(true,true).toggle('normal')
 
    })
@@ -70,7 +70,7 @@
 				    <ul class="clearfix">
 					  <li class="active">商品出售</li>
 					  <li onclick="checkGood()">销售PK</li> 
-					  <li class="" onclick="checkGoods()">销量汇总</li> 
+					  <li class="" onclick="jsonarrjoin()">销量汇总</li> 
 					</ul>
 					
 					<div class="wages_content first" >
@@ -151,33 +151,33 @@
 									     <option storeId="${store.storeId }">${store.storeName }</option>
 									  </c:forEach>
 								 </select>
-							 <button>查询</button>
+							 <button onclick="checkGoods()">查询</button>
 							</div>
 					  </div>
 					  
 					  <div class="store_sell">
 					     <ul class="clearfix">
 						   <li>
-						     <p >现金销售数量：<span id="priceDc">0</span></p>
-						     <p>现金销售业绩：<span id="pricePc">0</span></p>
+						     <p >现金销售数量：<span id="pricePc">0</span></p>
+						     <p>现金销售业绩：<span id="priceDc">0</span></p>
 						   </li>
 						   <li>
-						     <p>卡金销售数量：<span id="caPriceDc">0</span></p>
-						     <p>卡金销售业绩：<span id="caPricePc">0</span></p>
+						     <p>卡金销售数量：<span id="caPricePc">0</span></p>
+						     <p>卡金销售业绩：<span id="caPriceDc">0</span></p>
 						   </li>
 						   <li>
-						     <p>套餐销售数量：<span id="tcDc">0</span></p>
-						     <p>套餐销售业绩：<span id="tcPc">0</span></p>
+						     <p>套餐销售数量：<span id="tcPc">0</span></p>
+						     <p>套餐销售业绩：<span id="tcDc">0</span></p>
 						   </li>
 						   <li>
-						     <p>销售总数量：<span id="totalDc">0</span></p>
-						     <p>销售总业绩：<span id="totalPc">0</span></p>
+						     <p>销售总数量：<span id="totalPc">0</span></p>
+						     <p>销售总业绩：<span id="totalDc">0</span></p>
 						   </li>
 						 </ul>
 					  </div>
 					
-					  <div class="store_sell_table">
-				  </div>
+<!-- 					  <div class="store_sell_table"> -->
+<!-- 				  	</div> -->
 			</div>
 			</div>
 		</div>
@@ -197,6 +197,12 @@ if(month<10){
 }
 
 var jsonarr = "";
+
+function jsonarrjoin(){
+	if(jsonarr == ''){
+		checkGoods();
+	}
+}
 function checkGoods(){
 	var storeId = jQuery("#hz option:selected").attr("storeId");
 	var time1 = jQuery("#date1").val();
@@ -207,15 +213,11 @@ function checkGoods(){
 		data : "time1=" + time1 + "&time2=" + time2  + "&storeId=" + storeId,
 		dataType : "json",
 		success : function(e){
-// 			jQuery("#yearMonth1").val(time);
 			jsonarr  = e.msg;
-			console.log(jsonarr.goodsJoin);
 			showJsonArr();
-// 			showData();
 		}
 	});
 }
-
 
 function showJsonArr(){
 	jQuery("#caPriceDc").text(jsonarr.caPriceDc);
@@ -226,55 +228,36 @@ function showJsonArr(){
 	jQuery("#tcPc").text(jsonarr.tcPc);
 	jQuery("#totalDc").text(jsonarr.totalDc);
 	jQuery("#totalPc").text(jsonarr.totalPc);
+	showTable();
 }
-
 function showTable(){
 	
-	var html = '';
-	
-    
-		  
-	
-	
-	caPriceDc	:	3261.4	caPricePc	:	31	jsona	:	Array[12]	name	:	"美容部"	priceDc	:	2366	pricePc	:	20	shopDc	:	0	shopPc	:	0	
-	storeDc	:	5627.4	storePc	:	51	tcDc	:	0	tcPc	:	0	totalDc	:	11254.8	totalPc	:	102
-	for (var i = 0; i < jsonarr.goodsJoin.length; i++) {
-		var jsona = jsonarr.goodsJoin[i];
-		html += '<p><span>'+jsona.name+'</span>业绩汇总:'+jsona.totalDc+'</p> <table> <tbody><tr> <td rowspan="20">大项</td> <td>商品名称</td> <td>商城销售数量/业绩</td>　<td>门店销售数量/业绩</td>　<td>现金销售数量/业绩</td>　<td>卡金销售数量/业绩</td><td>套餐销售数量/业绩</td>　<td>总数量</td>　<td>总销售额</td>　</tr>　</tbody></table>';
-		html += '<div class="store_sell_table_content"><table><tbody><tr>';
-		 
-		    
-			 
-			 
-		      <td rowspan="40">大项大项</td>
-			  <td>项目总汇<img src="<%=basePath%>images/triangle1.png">	
-			  </td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500</td>
-			  <td><em>500.00</em></td> 
-			 </tr>
-          <tr style="display: none; background: rgb(238, 238, 238);">
-			  <td>啊啊啊啊啊</td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500/<em>500.00</em></td>
-			  <td>500</td>   
-			  <td>500/<em>500.00</em></td>
-			</tr>
-				
-			</tbody></table>
-
-	</div>
+	var html = '<div class="store_sell_table"> ';
+	for (var g = 0; g < jsonarr.goodsJoin.length; g++) {
+		var jsonaj = jsonarr.goodsJoin[g];
+		html += '<p><span>'+jsonaj.name+'</span>业绩汇总:'+jsonaj.deptTotal+'</p>';
+		html += '<table> <tbody><tr> <td rowspan="20">大项</td> <td>商品名称</td> <td>商城销售数量/业绩</td>　<td>门店销售数量/业绩</td>　<td>现金销售数量/业绩</td>　<td>卡金销售数量/业绩</td><td>套餐销售数量/业绩</td>　<td>总数量</td>　<td>总销售业绩</td>　</tr>　</tbody></table>';
+		for (var i = 0; i < jsonaj.table.length; i++) {
+			var jsona = jsonaj.table[i];
+			
+			html += '<div class="store_sell_table_content"><table><tbody><tr><td rowspan="40">'+jsona.name+'</td><td>项目总汇<img src="'+baseUrl+'images/triangle1.png"></td>';
+			html += '<td>'+jsona.shopPc+'/<em>'+jsona.shopDc+'</em></td><td>'+jsona.storePc+'/<em>'+jsona.storeDc+'</em></td><td>'+jsona.pricePc+'/<em>'+jsona.priceDc+'</em></td>';
+			html += '<td>'+jsona.caPricePc+'/<em>'+jsona.caPriceDc+'</em></td><td>'+jsona.tcPc+'/<em>'+jsona.tcDc+'</em></td><td>'+jsona.totalPc+'</td><td><em>'+jsona.totalDc+'</em></td></tr>' ;   
+		
+			for (var j = 0; j < jsona.jsonatable.length; j++) {
+				var table = jsona.jsonatable[j];
+				html += ' <tr style="display: none; background: rgb(238, 238, 238);"> <td>'+table.name+'</td>'
+				html += '<td>'+table.shopPcl+'/<em>'+table.shopDcl+'</em></td><td>'+table.storePcl+'/<em>'+table.storeDcl+'</em></td><td>'+table.pricePcl+'/<em>'+table.priceDcl+'</em></td>';
+				html += '<td>'+table.caPricePcl+'/<em>'+table.caPriceDcl+'</em></td><td>'+table.tcPcl+'/<em>'+table.tcDcl+'</em></td><td>'+table.totalPcl+'</td><td><em>'+table.totalDcl+'</em></td></tr>' ;   
+			
+			}
+			html += '</tbody></table>	</div>'
+		}
 	}
-	
-	
-	
+	html += '</div>'
+	jQuery(".store_sell_table").remove();
+	jQuery(".store_sell").append(html);
+	console.log(jsonarr);
 }
 
 function showYear(){
@@ -529,8 +512,6 @@ function secendData(day,data){
 	});
 
 }
-
-
 
 function firstData(month,jsonaYear){
 	jQuery('#container1').highcharts({
