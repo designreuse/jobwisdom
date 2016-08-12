@@ -274,6 +274,9 @@ public class MemberInfoService {
     /** 商品信息*/
     @Autowired
     private GoodsInfoMapper goodsInfoMapper;
+    /** 二级账户*/
+    @Autowired
+    private MemberSubAccountMapper memberSubAccountMapper;
     
     /**日志记录对象*/
     private static Logger log = Logger.getLogger(MemberLevelService.class);
@@ -5499,6 +5502,14 @@ public class MemberInfoService {
             MemberAccount memberAccount = memberAccounts.get(i);
             memberAccount.setAccountId(memberInfo.getMemberId());
             memberAccountMapper.insert(memberAccount);
+            MemberSubAccount memberSubAccount = new MemberSubAccount();
+            memberSubAccount.setLevelId(memberInfo.getLevelId());
+            memberSubAccount.setAccountId(memberAccount.getAccountId());
+            memberSubAccount.setBalanceAmount(memberAccount.getBalanceAmount());
+            memberSubAccount.setCreateTime(DateUtil.getCurDate());
+            memberSubAccount.setIsDeleted(0);
+            memberSubAccount.setLastOperatorId(employeeId);
+            memberSubAccountMapper.insert(memberSubAccount);
         }
         memberAccounts.stream().forEach(a -> {
                 if (a.getBalanceAmount()!=null && a.getBalanceAmount().compareTo(BigDecimal.ZERO)>0){
