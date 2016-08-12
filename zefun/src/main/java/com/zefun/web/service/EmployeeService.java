@@ -1543,7 +1543,7 @@ public class EmployeeService {
         JSONArray jsont = new JSONArray();
         JSONObject jsono = new JSONObject();
         JSONObject jsonos = new JSONObject();
-        
+       
         List<EmployeeInfoDto> commission = employeeCommissionMapper.selectEmployeeInfoByCommission(map);
         
 //        List<EmployeeInfo> employeeList = employeeInfoMapper.selectEmployeeByStoreId(Integer.parseInt(map.get("storeId").toString()));
@@ -1563,8 +1563,7 @@ public class EmployeeService {
                         .collect(Collectors.toList());
                     double tatailCommission = 0.0;
                     if (commissionList.size() != 0) {
-                        tatailCommission = commissionList.parallelStream()
-                                .mapToDouble(EmployeeInfoDto::getCommissionAmount).average().getAsDouble();
+                        tatailCommission = commissionList.parallelStream().mapToDouble(EmployeeInfoDto::getCommissionAmount).sum();
                     }
                    
                     if (i == 1) {

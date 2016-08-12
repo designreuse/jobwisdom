@@ -87,6 +87,7 @@
     <result column="project_count" property="projectCount" jdbcType="INTEGER" />
     <result column="detail_calculate" property="detailCalculate" jdbcType="INTEGER" />
     <result column="cash_card_type" property="cashCardType" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="deptName" property="deptName" jdbcType="CHAR" />
@@ -181,13 +182,13 @@ UNION ALL
   				
     <select id="selectDetailListByGoods" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
  	SELECT 
-  i.cash_card_type,i.order_type,ag.goods_name ,ag.goods_id , c.category_name,d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
+  i.cash_card_type,i.order_type,ag.goods_name ,g.goods_id , c.category_name,c.category_id,d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
 		order_detail  d LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
 						LEFT JOIN  dept_info      f ON g.dept_id     = f.dept_id
  						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
  						LEFT JOIN  goods_category c ON g.category_id = c.category_id 
 						LEFT JOIN account_goods ag ON ag.goods_id = g.a_id 
-	    WHERE i.order_status  IN (3,4)    AND d.order_type = (2)   AND i.is_deleted =0 AND  d.is_deleted =0 
+	    WHERE i.order_status  IN (3,4)    AND d.order_type = (2)   AND i.is_deleted =0 AND  d.is_deleted =0  and i.cash_card_type is not null
    AND i.store_id = ${storeId}  
    <if test="time1 !=null and time1 !=''">
     AND LEFT(d.create_time,10) &gt;= "${time1}" 
@@ -200,13 +201,13 @@ UNION ALL
   
    <select id="selectDetailListByGoodsd" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
  	SELECT 
-  i.cash_card_type,i.order_type,ag.goods_name ,ag.goods_id , c.category_name,d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
+  i.cash_card_type,i.order_type,ag.goods_name ,g.goods_id , c.category_name,c.category_id,d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
 		order_detail  d LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
 						LEFT JOIN  dept_info      f ON g.dept_id     = f.dept_id
  						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
  						LEFT JOIN  goods_category c ON g.category_id = c.category_id 
 						LEFT JOIN account_goods ag ON ag.goods_id = g.a_id 
-	    WHERE i.order_status  IN (3,4)    AND d.order_type = (3)   AND i.is_deleted =0 AND  d.is_deleted =0   AND  ag.goods_name IS NOT NULL
+	    WHERE i.order_status  IN (3,4)    AND d.order_type = (3)   AND i.is_deleted =0 AND  d.is_deleted =0   AND  ag.goods_name IS NOT NULL and i.cash_card_type is not null
    AND i.store_id = ${storeId}  
     <if test="time1 !=null and time1 !=''">
     AND LEFT(d.create_time,10) &gt;= "${time1}" 

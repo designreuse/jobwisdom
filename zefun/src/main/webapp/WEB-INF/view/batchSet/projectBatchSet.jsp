@@ -25,7 +25,7 @@
 				        <c:forEach items="${projectCategoryDtoList}" var="projectCategoryDto" varStatus="size">
 				            <c:if test="${size.index == 0}">
 				                <c:forEach items="${projectCategoryDto.projectInfo}" var="projectInfo">
-				                    <div class="batch_set_1_content_datail">
+				                    <div class="batch_set_1_content_datail" onclick = "chooseProject(this, ${projectInfo.projectId }, '${projectInfo.projectName }',${projectInfo.projectPrice }, ${projectInfo.costPrice })">
 									   <div class="item_name">
 									     <p>${projectInfo.projectName }</p>
 										<span>¥${projectInfo.projectPrice }</span><em>成本¥${projectInfo.costPrice }</em>
@@ -38,47 +38,28 @@
 				   </div>
 				    <div class="batch_set_2">
 				      <p>已选择项目</p>
-				      <div class="batch_set_1_content">
-					    <div class="batch_set_1_content_datail">
-						   <div class="item_name">
-						     <img src="assets/images/setting_close.png">
-						     <p>项目名称项目名称</p>
-							<span>¥300</span><em>成本¥500</em>
-						   </div>
-						</div>
+				      <div class="batch_set_1_content" name = "batchTwo">
+
 					  </div>
 				   </div>
 				   <div class="batch_set_3">
 				      <p>业绩设置</p>
 				      <div class="batch_set_3_content">
-					     <ul class="job">
-						    <li>设计师</li>
-						    <li>技师</li>
-							<li>助理</li>
+					     <ul class="job" style="height: 115px;">
+					        <c:forEach items="${positionInfos}" var="positionInfo">
+					            <c:if test="${positionInfo.isShow == 0}">
+					                <li onclick = "choosePosition(this, ${positionInfo.positionId}, '${positionInfo.positionName }')">${positionInfo.positionName }</li>
+					            </c:if>
+					        </c:forEach>
 						 </ul>
 						 
 						 <div class="selected_job">
 						   <p>已选择职位</p>
-						   <div class="selected_job_content">
-						      <div class="selected_job_content_detail">
-							     <img src="<%=basePath %>images/setting_close.png">
-							     <p>设计师</p>
-							     <div class="selected_way">
-								   <p><span>业绩方式</span><select><option>固定</option></select></p>
-								   <p><span>业绩值</span><input type="text"><em>%</em></p>
-								 </div>
-							  </div>
-						      <div class="selected_job_content_detail">
-							     <img src="assets/images/setting_close.png">
-							     <p>设计师</p>
-							     <div class="selected_way">
-								   <p><span>业绩方式</span><select><option>固定</option></select></p>
-								   <p><span>业绩值</span><input type="text"><em>%</em></p>
-								 </div>
-							  </div>
+						   <div class="selected_job_content" >
+
 						   </div>
 			              <div class="batch_set_button">
-						    <button>确定</button>
+						    <button>批量设置业绩</button>
 						  </div>   
 						 </div>		  
 					  </div>
@@ -86,107 +67,37 @@
 				   
 				   <div class="batch_set_4">
 				     <p>提成设置</p>
-				     <p style="background:#f4f7fc">提成方式<select><option>固定</option></select></p>
-				      <div class="batch_set_4_">   
-						<div class="batch_set_4_content">
-						   <p><input type="checkbox"><span>设计师</span><img src="assets/images/open_card_img.png"></p>
-						   <ul>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-						   </ul>
-						   
-						 </div>
-						 <div class="batch_set_4_content">
-						   <p><input type="checkbox"><span>技师</span><img src="assets/images/open_card_img.png"></p>
-						   <ul>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 
-						   </ul> 
-						 </div>
-						 <div class="batch_set_4_content">
-						   <p><input type="checkbox"><span>助理</span><img src="assets/images/open_card_img.png"></p>
-						   <ul>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-						   </ul> 
-						 </div>
-						 <div class="batch_set_4_content">
-						   <p><input type="checkbox"><span>助理</span><img src="assets/images/open_card_img.png"></p>
-						   <ul>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-						   </ul> 
-						 </div>
-						 <div class="batch_set_4_content">
-						   <p><input type="checkbox"><span>助理</span><img src="assets/images/open_card_img.png"></p>
-						   <ul>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-							 <li><input type="checkbox">烫染师</li>
-						   </ul> 
-						 </div>
+				     <p style="background:#f4f7fc">提成方式
+				         <select name = "commissionWay">
+				         	<option value="2">固定</option>
+				         	<option value="1">比例</option>
+				         </select>
+				      </p>
+				      <div class="batch_set_4_">
+				        <c:forEach items="${positionInfos}" var="positionInfo">
+				            <c:if test="${positionInfo.isShow == 0}">
+				               <div class="batch_set_4_content">
+								   <p><input type="checkbox" name = "positionCheck" positionId = "${positionInfo.positionId }" checkType = "0"><span>${positionInfo.positionName }</span><img src="<%=basePath %>images/open_card_img.png"></p>
+								   <ul>
+								     <c:forEach items="${positionInfo.employeeLevel}" var="employeeLevel">
+								        <li><input type="checkbox" name = "levelCheck" levelId = "${employeeLevel.levelId }" levelName = "${employeeLevel.levelName }">${employeeLevel.levelName }</li>
+								     </c:forEach>
+								   </ul>
+							   </div>
+				            </c:if>
+				        </c:forEach>   
 					 </div>
 					  <div class="batch_set_button">
-						    <button>确认选择</button>
+						    <button onclick = "confirmLevelChoose()">确认职位选择</button>
 					  </div>
 				   </div>
 				   <div class="batch_set_5">
 				     <p>批量设置</p>
 				     <div class="batch_set_5_content">
-					   <div class="batch_set_5_job">
-					      <img src="assets/images/setting_close.png">
-					      <ul class="clearfix">
-						    <li>职位</li>
-							<li><span class="active1">烫发师</span></li>
-							<li><span>烫发师</span></li>
-							<li><span>烫发师</span></li>
-							<li><span>烫发师</span></li>
-							<li><span>烫发师</span></li>	
-						  </ul>  
-					      <div class="batch_set_5_job_ul">
-					        <ul class="clearfix">
-							  <li>
-							    <p>现金</p>
-							    <div class="batch_set_5_job_ul_li">
-								  <p><input type="text"><em>%</em><span>指定</span></p>
-								  <p><input type="text"><em>%</em><span>非指定</span></p>
-								</div>
-							  </li>
-							   <li>
-							    <p>现金</p>
-							    <div class="batch_set_5_job_ul_li">
-								  <p><input type="text"><em>%</em><span>指定</span></p>
-								  <p><input type="text"><em>%</em><span>非指定</span></p>
-								</div>
-							  </li>
-							    <li>
-							    <p>现金</p>
-							    <div class="batch_set_5_job_ul_li">
-								  <p><input type="text"><em>%</em><span>指定</span></p>
-								  <p><input type="text"><em>%</em><span>非指定</span></p>
-								</div>
-							  </li>
-							
-							</ul>
-					      </div>
-					   </div>	 
+					   	 
 					 </div>
 				    <div class="batch_set_button">
-					   <button style="width:126px">确认批量设置</button>
+					   <button style="width:126px">提成批量设置</button>
 					</div>
 				   
 				   </div>
@@ -206,6 +117,9 @@
 <script>
 var projectCategoryDtoListStr = '${projectCategoryDtoListStr}';
 var projectCategoryDtoList = eval("(" + projectCategoryDtoListStr + ")");
+
+var positionInfosStr = '${projectCategoryDtoListStr}';
+var positionInfos = eval("(" + positionInfosStr + ")");
 jQuery(function(){ 
     jQuery('.batch_set_4_content>p').click(function(e){
 	  var target=e.target;

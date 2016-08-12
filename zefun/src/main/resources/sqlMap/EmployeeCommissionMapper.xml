@@ -79,34 +79,7 @@
     <result column="commission_amount" property="commissionAmount" jdbcType="DECIMAL" />
   </resultMap>
   
-    <select id="selectEmployeeInfoByCommission" parameterType="java.util.Map" resultMap="EmployeeCommissionMap">
-    SELECT  
-     e.employee_id,e.employee_code, e.name,e.base_salaries,  c.order_type, c.commission_amount
-     FROM 
-     employee_info e LEFT JOIN  employee_commission c   ON e.employee_id = c.employee_id 
-     WHERE  e.is_deleted = 0 AND c.is_deleted = 0
-     <if test="storeId != null" >
-        and  e.store_id = #{storeId}
-     </if>
-      <if test="storeIds != null" >
-        and  e.store_id in 
-          <foreach item="storeId" index="index" collection="storeIds" open="(" separator="," close=")">  
-			  #{storeId}  
-			</foreach>  
-     </if>
-
-      <if test="time != null " >
-      and  LEFT(c.charge_time,7)= "#{time}"
-     </if>
-
-      <if test="code != null and  code != ''" >
-      and  exists(select 1 FROM employee_info em where em.employee_id = e.employee_id  and em.name = #{code} 
-      union all select 1 FROM employee_info ems where ems.employee_id = e.employee_id  and   ems.employee_code = #{code})
-     </if>
-   </select>
-  
-  
-  
+   
   
   <sql id="Base_Column_List" >
     commission_id, detail_id, shift_mahjong_step_id, position_id, order_type, employee_id, commission_calculate, commission_amount, is_deleted,
@@ -124,7 +97,30 @@
   </select>
   
   
-  
+   <select id="selectEmployeeInfoByCommission" parameterType="java.util.Map" resultMap="EmployeeCommissionMap">
+    SELECT  
+     e.employee_id,e.employee_code, e.name,e.base_salaries,  c.order_type, c.commission_amount
+     FROM 
+     employee_info e LEFT JOIN  employee_commission c   ON e.employee_id = c.employee_id 
+     WHERE  e.is_deleted = 0 AND c.is_deleted = 0
+     <if test="storeId != null" >
+        and  e.store_id = #{storeId}
+     </if>
+      <if test="storeIds != null" >
+        and  e.store_id in 
+          <foreach item="storeId" index="index" collection="storeIds" open="(" separator="," close=")">  
+			  #{storeId}  
+			</foreach>  
+     </if>
+
+      <if test="time != null " >
+      and  LEFT(c.charge_time,7)=  #{time} 
+     </if>
+      <if test="code != null and  code != ''" >
+      and  exists(select 1 FROM employee_info em where em.employee_id = e.employee_id  and em.name = #{code} 
+      union all select 1 FROM employee_info ems where ems.employee_id = e.employee_id  and   ems.employee_code = #{code})
+     </if>
+   </select>
   
     <select id="selectEmployeeCommissions" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

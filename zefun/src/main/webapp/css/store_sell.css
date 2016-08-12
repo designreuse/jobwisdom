@@ -75,7 +75,7 @@
 .store_sell ul li:last-child{font-size:16px}
 
 .store_sell_table{color:black;height:575px;overflow:hidden}
-.store_sell_table>p{background:#ebeff8;text-align:center;height:40px;line-height:40px;border-top:1px solid #9b9b9b;border-bottom:1px solid #9b9b9b;}
+.store_sell_table>p{position:relative;top:20px;background:#ebeff8;text-align:center;height:40px;line-height:40px;border-top:1px solid #9b9b9b;border-bottom:1px solid #9b9b9b;}
 .store_sell_table>p span{font-size:14px;margin-right:5px}
 
 .store_sell_table table{width:100%}
@@ -90,4 +90,4 @@ table tr:nth-child(1){font-weight:normal!important;}
 table:nth-child(even){background:#f6f8fc}
 .store_sell_table>table{background:#ebeff8!important}
 
-.store_sell_table_content{height:470px;overflow:overlay}
+.store_sell_table_content{overflow:overlay}
