@@ -21,6 +21,16 @@ public interface MenuIdQuoteMapper {
      */
     List<MenuIdQuote> selectMemberFirts(Map<String, Object> params);
     
+    
+    /**
+     * 二级菜单
+    * @author 骆峰
+    * @date 2016年8月12日 下午6:28:19
+    * @param params params
+    * @return List
+     */
+    List<MenuIdQuote> selectMemberSecounds(Map<String, Object> params);
+    
     /**
      * 新增
     * @author 骆峰

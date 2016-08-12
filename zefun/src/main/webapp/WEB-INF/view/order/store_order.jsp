@@ -81,7 +81,7 @@
 							  <input  class="date" type="text" name="birthday" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
 							  <input class="date" type="text" name="birthdays" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})"> 
 							
-							  门店<select  id="stores" >
+							  门店<select  id="stores" name="md" >
 									  <c:forEach items="${selectByStoreAccount }" var="store">
 									     <option storeId="${store.storeId }">${store.storeName }</option>
 									  </c:forEach>
@@ -97,7 +97,7 @@
 					<div class="wages_content second" >
 					  <div class="wages_content_datail">
 						   <div class="wages_content_datail_top">
-							 <span class="active" onclick="showProject()">大项PK</span><span onclick="showGoods()">商品PK</span>
+							 <span class="active" onclick="showProject()">商品系列PK</span><span onclick="showGoods()">商品PK</span>
 							  <select style="margin:0;display:none;" id="goodsInfo1" >
 							     <c:forEach items="${goodsInfoDto }" var="goodsInfo">
 									     <option goodsId="${goodsInfo.goodsId }">${goodsInfo.goodsName }</option>
@@ -129,7 +129,7 @@
 							  <input  type="text" onchange="checkGood()" id="yearMonth1" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
 							  <input  type="text" onchange="checkGood()" id="yearMonth2" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})" > 
 							  </em>
-							  门店<select  id="storeTwo" onchange="checkGood()">
+							  门店<select name="md" id="storeTwo" onchange="checkGood()">
 									  <c:forEach items="${selectByStoreAccount }" var="store">
 									     <option storeId="${store.storeId }">${store.storeName }</option>
 									  </c:forEach>
@@ -146,7 +146,7 @@
 						   <div class="wages_content_datail_top">
 							    <input  type="text" id="date1" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"> 至
 							      <input  type="text"  id="date2" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"> 
-							  门店<select style="width:90px" id="hz">
+							  门店<select style="width:90px" id="hz" name="md">
 									  <c:forEach items="${selectByStoreAccount }" var="store">
 									     <option storeId="${store.storeId }">${store.storeName }</option>
 									  </c:forEach>

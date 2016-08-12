@@ -6,7 +6,7 @@
     <result column="menu_id" property="menuId" jdbcType="INTEGER" />
     <result column="quote_id" property="quoteId" jdbcType="INTEGER" />
     <result column="menu_html" property="menuHtml" jdbcType="LONGVARCHAR" />
-    <collection property="menuIdQuotes"  column="menu_id" select="selectMemberSecounds"></collection>
+<!--     <collection property="menuIdQuotes"  column="menu_id" select="selectMemberSecounds"></collection> -->
   </resultMap>
   <resultMap id="BaseResultSecondsMap" type="com.zefun.web.entity.MenuIdQuote" >
     <result column="menu_type" property="menuType" jdbcType="INTEGER" />
@@ -26,8 +26,17 @@
     </foreach> 
  </select>
  
- <select id="selectMemberSecounds" resultMap="BaseResultSecondsMap" parameterType="java.lang.Integer">
- 	select * from menu_id_quote where menu_type = 2 and quote_id = #{menu_id}
+ <select id="selectMemberSecounds" resultMap="BaseResultSecondsMap" parameterType="java.util.Map">
+<!--  	select * from menu_id_quote where menu_type = 2 and quote_id = #{menu_id} -->
+ 	
+ 	 	select * from menu_id_quote where menu_type = 2 and menu_id in 
+ 	<foreach item="menuIds" collection="listSecond" separator="," open="(" close=")" index="">  
+      #{menuIds}  
+    </foreach> 
+    ORDER BY FIELD(menu_id,
+  	<foreach item="menuIds" collection="listSecond" separator="," open=" " close=")" index="">  
+      #{menuIds}  
+    </foreach> 
  </select>
 
  <select id="selectByMemuRoles" resultMap="BaseResultMap" parameterType="java.util.Map"  >

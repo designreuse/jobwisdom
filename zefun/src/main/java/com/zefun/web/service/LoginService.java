@@ -137,19 +137,24 @@ public class LoginService {
 	    Stream.of(selectAccountMenuByRoleId.get(0).getSecondMenu().split(",")).forEach(str -> listSecond.add(Integer.parseInt(str.trim())));
 	    
 		mapMenu.put("menuId", listFirst);
+		mapMenu.put("listSecond", listSecond);
 		List<MenuIdQuote> idQuotes = menuIdQuoteMapper.selectMemberFirts(mapMenu);
+		List<MenuIdQuote> memberSecounds = menuIdQuoteMapper.selectMemberSecounds(mapMenu);
 		
 		StringBuffer firstSb =  new StringBuffer();
 		firstSb.append("<ul class='left_nav'>");
 		
         StringBuffer secontSb =  new StringBuffer();
         secontSb.append("<div class='left_nav_2' style='height: 840px;'>");
-        // 封装二级菜单
+        // 封装一级菜单
         idQuotes.stream().forEach(f -> {
                 int index = Integer.parseInt(Jsoup.parse(f.getMenuHtml()).select("li").attr("index").trim())-1;
                 List<String> selectMenu = new ArrayList<>();
+                // 封装一级菜单
                 secontSb.append("<ul index='"+index+"'>");
-                f.getMenuIdQuotes().stream().filter(s -> listSecond.contains(s.getMenuId())).collect(Collectors.toList()).stream().forEach(s -> {
+               
+                memberSecounds.stream().filter(s -> f.getMenuId().intValue() == s.getQuoteId()).collect(Collectors.toList()).stream().forEach(s -> {
+//              f.getMenuIdQuotes().stream().filter(s -> listSecond.contains(s.getMenuId())).collect(Collectors.toList()).stream().forEach(s -> {
                         selectMenu.add(Jsoup.parse(s.getMenuHtml()).select("a").attr("href"));
                         secontSb.append(s.getMenuHtml().replace("<%=menuBasePath%>", basePath));
                     });
