@@ -264,7 +264,7 @@
 			<li style="background: #eac259">
 				作品展示<span style="display: none"></span>
 			</li>
-			<li style="background: #fcd6bd3">
+			<li style="background: #cd6bd3">
 				名师推荐<span style="display: none"></span>
 			</li>
 		</ul>
