@@ -647,7 +647,6 @@ public class OrderInfoService {
                         jsona.add(jsono);
                         jsono.clear();
                     });
-                jsona.clear();
                 Double storeDc =  store.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum(); //门店
                 Double storePc = store.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
                 
@@ -679,9 +678,10 @@ public class OrderInfoService {
                 jsonoj.accumulate("totalPc",    new BigDecimal(totalPc).setScale(2, BigDecimal.ROUND_HALF_UP));
                 jsonoj.accumulate("jsona", jsona);
                 jsonoj.accumulate("name", d.getDeptName());
-                jsonoj.clear();
+                jsonar.add(jsonoj);
             });
-        jsonar.add(jsonoj);
+       
+        
         return jsonar;
     }
     
@@ -711,11 +711,11 @@ public class OrderInfoService {
         Double totalDc = priceDc + caPriceDc + tcDc;
         Double totalPc = pricePc + caPricePc + tcPc;
         
-        json.accumulate("priceDC",  new BigDecimal(priceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("priceDc",  new BigDecimal(priceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
         json.accumulate("pricePc",  new BigDecimal(pricePc).setScale(2, BigDecimal.ROUND_HALF_UP));
-        json.accumulate("caPriceDC", new BigDecimal(caPriceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("caPriceDc", new BigDecimal(caPriceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
         json.accumulate("caPricePc",  new BigDecimal(caPricePc).setScale(2, BigDecimal.ROUND_HALF_UP));
-        json.accumulate("tcDC",  new BigDecimal(tcDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("tcDc",  new BigDecimal(tcDc).setScale(2, BigDecimal.ROUND_HALF_UP));
         json.accumulate("tcPc",  new BigDecimal(tcPc).setScale(2, BigDecimal.ROUND_HALF_UP));
         json.accumulate("totalDc",  new BigDecimal(totalDc).setScale(2, BigDecimal.ROUND_HALF_UP));
         json.accumulate("totalPc",  new BigDecimal(totalPc).setScale(2, BigDecimal.ROUND_HALF_UP));

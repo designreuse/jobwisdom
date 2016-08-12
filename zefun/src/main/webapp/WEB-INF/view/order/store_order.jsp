@@ -158,86 +158,25 @@
 					  <div class="store_sell">
 					     <ul class="clearfix">
 						   <li>
-						     <p>现金销售数量：<span>0</span></p>
-						     <p>现金销售业绩：<span>0</span></p>
+						     <p >现金销售数量：<span id="priceDc">0</span></p>
+						     <p>现金销售业绩：<span id="pricePc">0</span></p>
 						   </li>
 						   <li>
-						     <p>卡金销售数量：<span>0</span></p>
-						     <p>卡金销售业绩：<span>0</span></p>
+						     <p>卡金销售数量：<span id="caPriceDc">0</span></p>
+						     <p>卡金销售业绩：<span id="caPricePc">0</span></p>
 						   </li>
 						   <li>
-						     <p>套餐销售数量：<span>0</span></p>
-						     <p>套餐销售业绩：<span>0</span></p>
+						     <p>套餐销售数量：<span id="tcDc">0</span></p>
+						     <p>套餐销售业绩：<span id="tcPc">0</span></p>
 						   </li>
 						   <li>
-						     <p>销售总数量：<span>0</span></p>
-						     <p>销售总业绩：<span>0</span></p>
+						     <p>销售总数量：<span id="totalDc">0</span></p>
+						     <p>销售总业绩：<span id="totalPc">0</span></p>
 						   </li>
 						 </ul>
 					  </div>
 					
 					  <div class="store_sell_table">
-					      <p><span>美发部门</span>业绩汇总:200000</p>
-					      <table>
-						    <tbody><tr>
-							  <td rowspan="20">大项</td>
-							  <td>商品名称</td>
-							  <td>商城销售数量/业绩</td>
-							  <td>门店销售数量/业绩</td>
-							  <td>现金销售数量/业绩</td>
-							  <td>卡金销售数量/业绩</td>
-							  <td>套餐销售数量/业绩</td>
-							  <td>总数量</td>
-							  <td>总销售额</td>
-						    </tr>
-						  </tbody></table>
-						  <div class="store_sell_table_content">
-						    <table>
-							 <tbody><tr>
-						      <td rowspan="40">大项大项</td>
-							  <td>项目总汇<img src="<%=basePath%>images/triangle1.png">	
-							  </td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500</td>
-							  <td><em>500.00</em></td> 
-							 </tr>
-				             <tr style="display: none; background: rgb(238, 238, 238);">
-							  <td>啊啊啊啊啊</td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500</td>   
-							  <td>500/<em>500.00</em></td>
-							</tr>
-							 <tr style="display: none; background: rgb(238, 238, 238);">
-							  <td>啊啊啊啊啊</td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500</td>   
-							  <td>500/<em>500.00</em></td>
-							</tr>
-						   <tr style="display: none; background: rgb(238, 238, 238);">
-							  <td>啊啊啊啊啊</td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500</td>   
-							  <td>500/<em>500.00</em></td>
-							</tr>			
-							</tbody></table>
-				
-					</div>
 				  </div>
 			</div>
 			</div>
@@ -270,10 +209,72 @@ function checkGoods(){
 		success : function(e){
 // 			jQuery("#yearMonth1").val(time);
 			jsonarr  = e.msg;
-			console.log(jsonarr);
+			console.log(jsonarr.goodsJoin);
+			showJsonArr();
 // 			showData();
 		}
 	});
+}
+
+
+function showJsonArr(){
+	jQuery("#caPriceDc").text(jsonarr.caPriceDc);
+	jQuery("#caPricePc").text(jsonarr.caPricePc);
+	jQuery("#priceDc").text(jsonarr.priceDc);
+	jQuery("#pricePc").text(jsonarr.pricePc);
+	jQuery("#tcDc").text(jsonarr.tcDc);
+	jQuery("#tcPc").text(jsonarr.tcPc);
+	jQuery("#totalDc").text(jsonarr.totalDc);
+	jQuery("#totalPc").text(jsonarr.totalPc);
+}
+
+function showTable(){
+	
+	var html = '';
+	
+    
+		  
+	
+	
+	caPriceDc	:	3261.4	caPricePc	:	31	jsona	:	Array[12]	name	:	"美容部"	priceDc	:	2366	pricePc	:	20	shopDc	:	0	shopPc	:	0	
+	storeDc	:	5627.4	storePc	:	51	tcDc	:	0	tcPc	:	0	totalDc	:	11254.8	totalPc	:	102
+	for (var i = 0; i < jsonarr.goodsJoin.length; i++) {
+		var jsona = jsonarr.goodsJoin[i];
+		html += '<p><span>'+jsona.name+'</span>业绩汇总:'+jsona.totalDc+'</p> <table> <tbody><tr> <td rowspan="20">大项</td> <td>商品名称</td> <td>商城销售数量/业绩</td>　<td>门店销售数量/业绩</td>　<td>现金销售数量/业绩</td>　<td>卡金销售数量/业绩</td><td>套餐销售数量/业绩</td>　<td>总数量</td>　<td>总销售额</td>　</tr>　</tbody></table>';
+		html += '<div class="store_sell_table_content"><table><tbody><tr>';
+		 
+		    
+			 
+			 
+		      <td rowspan="40">大项大项</td>
+			  <td>项目总汇<img src="<%=basePath%>images/triangle1.png">	
+			  </td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500</td>
+			  <td><em>500.00</em></td> 
+			 </tr>
+          <tr style="display: none; background: rgb(238, 238, 238);">
+			  <td>啊啊啊啊啊</td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500/<em>500.00</em></td>
+			  <td>500</td>   
+			  <td>500/<em>500.00</em></td>
+			</tr>
+				
+			</tbody></table>
+
+	</div>
+	}
+	
+	
+	
 }
 
 function showYear(){

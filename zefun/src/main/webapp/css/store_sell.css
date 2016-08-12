@@ -90,4 +90,4 @@ table tr:nth-child(1){font-weight:normal!important;}
 table:nth-child(even){background:#f6f8fc}
 .store_sell_table>table{background:#ebeff8!important}
 
-.store_sell_table_content{height:470px;overflow:overlay}
+.store_sell_table_content{overflow:overlay}
