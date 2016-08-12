@@ -246,6 +246,8 @@ public interface Url {
 		public static final String SERCH_MEMBER_BY_CONTENT = "member/serch/by/nameOrPhone";
 		/** 会员数据导入 */
 		public static final String IMPORTEXCLE = "member/action/importexcle";
+		/** 会员数据导入 */
+        public static final String UPLOADMEMBEREXLS = "member/action/uploadMemberExls";
 		/** 会员错误数据展示页面 */
 		public static final String VIEW_ERROR_MEMBER = "member/view/error/member/info";
 		/** 会员错误数据删除操作 */

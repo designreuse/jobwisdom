@@ -339,6 +339,26 @@ public class MemberController extends BaseController{
     }
     
     /**
+     * 会员数据模板导入
+    * @author 高国藩
+    * @date 2016年8月12日 下午6:35:30
+    * @param file     file
+    * @param request  request
+    * @param response response
+    * @return    BaseDto
+    * @throws IOException IOException
+     */
+    @RequestMapping(value = Url.Member.UPLOADMEMBEREXLS, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto uploadMemberExls(@RequestParam("file") MultipartFile[] file, 
+            HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer storeId = getStoreId(request);
+        String storeAccount = getStoreAccount(request);
+        Integer userId = getUserId(request);
+        return memberInfoService.uploadMemberExls(file, storeId, storeAccount, userId);
+    }
+    
+    /**
      * 进入错误会员统计页面
     * @author 高国藩
     * @date 2015年12月7日 上午10:37:39
