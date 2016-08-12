@@ -225,11 +225,11 @@ public class MemberLevelController extends BaseController {
     }
     
     /**
-     * 
+     * 储值消费走势图
     * @author 高国藩
     * @date 2016年8月11日 下午4:35:07
-    * @param request
-    * @return
+    * @param request  request
+    * @return         ModelAndView
      */
     @RequestMapping(value = Url.MemberLevel.VIEW_CARD_SELL_COUNT, method = RequestMethod.GET)
     public ModelAndView cardSellCount(HttpServletRequest request){
@@ -239,16 +239,16 @@ public class MemberLevelController extends BaseController {
     }
     
     /**
-     * 
+     * 储值消费走势图, 动态查询
     * @author 高国藩
     * @date 2016年8月11日 下午4:35:07
-    * @param request
-    * @return
+    * @param request  request
+    * @param query    query
+    * @return         BaseDto
      */
     @RequestMapping(value = Url.MemberLevel.VIEW_CARD_SELL_COUNT, method = RequestMethod.POST)
     @ResponseBody
     public BaseDto cardSellCount(HttpServletRequest request, @RequestBody JSONObject query){
-        String storeAccount = getStoreAccount(request);
         return memberLevelService.cardSellCount(query);
     }
    

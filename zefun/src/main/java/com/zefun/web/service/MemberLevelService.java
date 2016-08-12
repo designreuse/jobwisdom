@@ -1,6 +1,5 @@
 package com.zefun.web.service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -493,7 +492,7 @@ public class MemberLevelService {
      * 查询充值趋势图
     * @author 高国藩
     * @date 2016年8月11日 下午7:55:38
-    * @param orderInfos  orderInfos
+    * @param moneyFlows  moneyFlows
     * @param type        type
     * @param orderInfo   orderInfo
     * @param blanckDate  blanckDate
@@ -508,7 +507,8 @@ public class MemberLevelService {
             for (int i = 0; i < 12; i++) {
                 int count = i;
                 long out = moneyFlows.stream()
-                        .filter(m -> m.getFlowTime().substring(5, 7).equals(month[count]) && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
+                        .filter(m -> m.getFlowTime().substring(5, 7).equals(month[count]) 
+                                && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
                         .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
                 blanck.add(out);
             }
@@ -523,7 +523,8 @@ public class MemberLevelService {
             for (int i = 0; i < day; i++) {
                 Integer count = i;
                 long out = moneyFlows.stream()
-                        .filter(m -> m.getFlowTime().substring(8, 10).equals(month[count]) && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
+                        .filter(m -> m.getFlowTime().substring(8, 10).equals(month[count]) 
+                                && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
                         .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
                 blanck.add(out);
                 months.add((count+1) + "号");
