@@ -43,6 +43,17 @@ public class MoneyFlow {
 	/** 最后操作人标识*/
 	private Integer lastOperatorId;
 	
+	/** 查询条件, 1:year 2:month*/
+	private Integer queryType;
+	
+
+    public Integer getQueryType() {
+        return queryType;
+    }
+
+    public void setQueryType(Integer queryType) {
+        this.queryType = queryType;
+    }
 
     public Integer getLastOperatorId() {
         return lastOperatorId;

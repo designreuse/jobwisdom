@@ -203,6 +203,8 @@ public interface View {
 		public static final String ENTERPRISE_MEMBER_LEVEL = "member/memberLevel/enterpriseMemberLevel";
 		/** 会员等级列表页面 */
 		public static final String LIST = "member/memberLevel/list";
+		/** 储值余额走势图*/
+        public static final String CARD_SELL_COUNT = "member/memberLevel/cardSell";
 	}
 
 	

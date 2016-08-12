@@ -221,10 +221,10 @@ public interface GoodsInfoMapper {
      * 
     * @author 骆峰
     * @date 2016年8月11日 下午6:03:51
-    * @param storeId storeId
+    * @param map map
     * @return  List<GoodsInfoDto>
      */
-    List<GoodsInfoDto> selectAllGoodsdInfoByStoreId(Integer storeId);
+    List<GoodsInfoDto> selectAllGoodsdInfoByStoreId(Map<String, Object> map);
 
     /**
      * 通过企业商品id查询商品

@@ -1,5 +1,7 @@
 package com.zefun.web.service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,11 +18,17 @@ import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
+import com.zefun.web.entity.MoneyFlow;
+import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
 import com.zefun.web.mapper.MemberLevelMapper;
+import com.zefun.web.mapper.MoneyFlowMapper;
+import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
+
+import net.sf.json.JSONObject;
 
 
 /**
@@ -40,6 +48,12 @@ public class MemberLevelService {
     /** 门店信息*/
     @Autowired
     private StoreInfoMapper storeInfoMapper;
+    /**流水动态*/
+    @Autowired
+    private MoneyFlowMapper moneyFlowMapper;
+    /** 订单明细*/
+    @Autowired
+    private OrderInfoMapper orderInfoMapper;
 
 
     /**
@@ -433,5 +447,227 @@ public class MemberLevelService {
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
     }
 
+    /**
+     * 储值余额趋势图
+    * @author 高国藩
+    * @date 2016年8月11日 下午4:39:16
+    * @param storeAccount  storeAccount
+    * @param storeId       storeId
+    * @return              ModelAndView
+     */
+    public ModelAndView cardSellCount(String storeAccount, Object storeId) {
+        ModelAndView view = new ModelAndView(View.MemberLevel.CARD_SELL_COUNT);
+        List<StoreInfo> storeInfos = storeInfoMapper.selectByStoreAccount(storeAccount);
+        view.addObject("storeInfos", storeInfos);
+        if (storeId != null){
+            view.addObject("storeId", storeId);
+        }
+        else {
+            storeId = storeInfos.get(0).getStoreId();
+        }
+        
+        //储值走势图
+        MoneyFlow query = new MoneyFlow();
+        query.setFlowTime(Calendar.getInstance().get(Calendar.YEAR) + "");
+        query.setStoreId(Integer.parseInt(storeId.toString()));
+        query.setQueryType(1);
+        List<MoneyFlow> moneyFlows = moneyFlowMapper.selectByProperties(query);
+        
+        //消耗走势图
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setStoreId(Integer.parseInt(storeId.toString()));
+        orderInfo.setCreateTime(Calendar.getInstance().get(Calendar.YEAR) + "");
+        orderInfo.setQueryType(1);
+        List<OrderInfo> orderInfos = orderInfoMapper.selectOrderInfoCardMoneyByDate(orderInfo);
+        
+        
+        view.addObject("cardMoney", JSONObject.fromObject(getCardMoney(orderInfos, 1, orderInfo, null)));
+        view.addObject("cardOutMoney", JSONObject.fromObject(getCardInMoney(moneyFlows, 1, orderInfo, null)));
+        view.addObject("balanceAmount", JSONObject.fromObject(getBlanckResult(moneyFlows, 1, query, null)));
+        
+        return view;
+    }
+    
+    /**
+     * 查询充值趋势图
+    * @author 高国藩
+    * @date 2016年8月11日 下午7:55:38
+    * @param moneyFlows  moneyFlows
+    * @param type        type
+    * @param orderInfo   orderInfo
+    * @param blanckDate  blanckDate
+    * @return            Map<String, Object>
+     */ 
+    public Map<String, Object> getCardInMoney(List<MoneyFlow> moneyFlows, Integer type, OrderInfo orderInfo, String blanckDate){
+        Map<String, Object> result = new HashMap<>();
+        List<Long> blanck = new ArrayList<>();
+        if (type.equals(1)){
+            String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+            String [] months = {"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"};
+            for (int i = 0; i < 12; i++) {
+                int count = i;
+                long out = moneyFlows.stream()
+                        .filter(m -> m.getFlowTime().substring(5, 7).equals(month[count]) 
+                                && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
+                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                blanck.add(out);
+            }
+            result.put("blanckDates", months);
+            result.put("blanckValues", blanck);
+        }
+        if (type.equals(2)){
+            Integer day = DateUtil.monthDay(blanckDate);
+            String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16"
+                            , "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+            List<String> months = new ArrayList<>();
+            for (int i = 0; i < day; i++) {
+                Integer count = i;
+                long out = moneyFlows.stream()
+                        .filter(m -> m.getFlowTime().substring(8, 10).equals(month[count]) 
+                                && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
+                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                blanck.add(out);
+                months.add((count+1) + "号");
+            }
+            result.put("blanckDates", months);
+            result.put("blanckValues", blanck);
+        }
+        
+        return result;
+    }
+    
+    /**
+     * 查询储值趋势图
+    * @author 高国藩
+    * @date 2016年8月11日 下午7:55:38
+    * @param orderInfos  orderInfos
+    * @param type        type
+    * @param orderInfo   orderInfo
+    * @param blanckDate  blanckDate
+    * @return            Map<String, Object>
+     */ 
+    public Map<String, Object> getCardMoney(List<OrderInfo> orderInfos, Integer type, OrderInfo orderInfo, String blanckDate){
+        Map<String, Object> result = new HashMap<>();
+        List<Long> blanck = new ArrayList<>();
+        if (type.equals(1)){
+            String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+            String [] months = {"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"};
+            for (int i = 0; i < 12; i++) {
+                int count = i;
+                long out = orderInfos.stream()
+                        .filter(m -> m.getCreateTime().substring(5, 7).equals(month[count]))
+                        .mapToLong(m -> m.getCardAmount().longValue()).reduce(0, (a, b) -> a + b);
+                blanck.add(out);
+            }
+            result.put("blanckDates", months);
+            result.put("blanckValues", blanck);
+        }
+        if (type.equals(2)){
+            Integer day = DateUtil.monthDay(blanckDate);
+            String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16"
+                            , "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+            List<String> months = new ArrayList<>();
+            for (int i = 0; i < day; i++) {
+                Integer count = i;
+                long out = orderInfos.stream()
+                        .filter(m -> m.getCreateTime().substring(8, 10).equals(month[count]))
+                        .mapToLong(m -> m.getCardAmount().longValue()).reduce(0, (a, b) -> a + b);
+                blanck.add(out);
+                months.add((count+1) + "号");
+            }
+            result.put("blanckDates", months);
+            result.put("blanckValues", blanck);
+        }
+        
+        return result;
+    }
+
+    /**
+     * 查询储值趋势图
+    * @author 高国藩
+    * @date 2016年8月11日 下午7:55:38
+    * @param moneyFlows  moneyFlows
+    * @param type        type
+    * @param query       query
+    * @param blanckDate  blanckDate
+    * @return            Map<String, Object>
+     */ 
+    public Map<String, Object> getBlanckResult(List<MoneyFlow> moneyFlows, Integer type, MoneyFlow query, String blanckDate){
+        Map<String, Object> result = new HashMap<>();
+        List<Long> blanck = new ArrayList<>();
+        if (type.equals(1)){
+            String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+            String [] months = {"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"};
+            for (int i = 0; i < 12; i++) {
+                int count = i;
+                long out = moneyFlows.stream()
+                        .filter(m -> m.getFlowTime().substring(5, 7).equals(month[count]) && m.getFlowType().equals(1))
+                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                long in = moneyFlows.stream()
+                        .filter(m -> m.getFlowTime().substring(5, 7).equals(month[count]) && m.getFlowType().equals(2))
+                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                blanck.add(in - out);
+            }
+            result.put("blanckDates", months);
+            result.put("blanckValues", blanck);
+        }
+        if (type.equals(2)){
+            Integer day = DateUtil.monthDay(blanckDate);
+            String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16"
+                            , "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+            List<String> months = new ArrayList<>();
+            for (int i = 0; i < day; i++) {
+                Integer count = i;
+                long out = moneyFlows.stream()
+                        .filter(m -> m.getFlowTime().substring(8, 10).equals(month[count]) && m.getFlowType().equals(1))
+                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                long in = moneyFlows.stream()
+                        .filter(m -> m.getFlowTime().substring(8, 10).equals(month[count]) && m.getFlowType().equals(2))
+                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                blanck.add(in - out);
+                months.add((count+1) + "号");
+            }
+            result.put("blanckDates", months);
+            result.put("blanckValues", blanck);
+        }
+        
+        return result;
+    }
+
+    /**
+     * 动态查询报表数据
+    * @author 高国藩
+    * @date 2016年8月12日 上午9:54:51
+    * @param query query
+    * @return      BaseDto
+     */
+    public BaseDto cardSellCount(JSONObject query) {
+        BaseDto baseDto = new BaseDto(0, null);
+        Map<String, Object> result = new HashMap<>();
+        if (query.getInt("queryNum") == 1){
+          //储值走势图
+            MoneyFlow queryMoneyFlow = new MoneyFlow();
+            queryMoneyFlow.setFlowTime(query.getString("time"));
+            queryMoneyFlow.setStoreId(query.getInt("storeId"));
+            queryMoneyFlow.setQueryType(query.getInt("queryType"));
+            List<MoneyFlow> moneyFlows = moneyFlowMapper.selectByProperties(queryMoneyFlow);
+            
+            //消耗走势图
+            OrderInfo orderInfo = new OrderInfo();
+            orderInfo.setStoreId(query.getInt("storeId"));
+            orderInfo.setCreateTime(query.getString("time"));
+            orderInfo.setQueryType(query.getInt("queryType"));
+            List<OrderInfo> orderInfos = orderInfoMapper.selectOrderInfoCardMoneyByDate(orderInfo);
+            
+            result.put("cardMoney", getCardMoney(orderInfos, query.getInt("queryType"), orderInfo, query.getString("time")));
+            result.put("cardOutMoney", getCardInMoney(moneyFlows, query.getInt("queryType"), orderInfo, query.getString("time")));
+            result.put("balanceAmount", getBlanckResult(moneyFlows, query.getInt("queryType"), queryMoneyFlow, query.getString("time")));
+            baseDto.setMsg(result);
+        }
+        if (query.getInt("queryNum") == 2){
+           
+        }
+        return baseDto;
+    }
     
 }
