@@ -136,6 +136,7 @@
     <resultMap type="com.zefun.web.dto.PositionInfoDto" id="PositionInfoMap">
         <result property="positionId" column="position_id"  />
         <result property="positionName" column="position_name"  />
+        <result column="is_show" property="isShow" jdbcType="INTEGER" />
         <association property="employeeLevel" column="position_id" select="positionInfoSon" />
     </resultMap>
     
