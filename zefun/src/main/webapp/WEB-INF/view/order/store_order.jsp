@@ -70,7 +70,7 @@
 				    <ul class="clearfix">
 					  <li class="active">商品出售</li>
 					  <li onclick="checkGood()">销售PK</li> 
-					  <li class="">销量汇总</li> 
+					  <li class="" onclick="checkGoods()">销量汇总</li> 
 					</ul>
 					
 					<div class="wages_content first" >
@@ -91,7 +91,7 @@
 							</div>
 					  </div>
 					  <div id="container1" class="container_" style="min-width:1000px;height:600px"></div>
-	                 <div id="container2" class="container_" style="min-width:1000px;height:600px"></div>
+	                 <div id="container2" class="container_" style="min-width:1000px;height:600px;display:none"></div>
 					</div>
 				
 					<div class="wages_content second" >
@@ -144,8 +144,13 @@
 					<div class="wages_content" >
 					  <div class="wages_content_datail">
 						   <div class="wages_content_datail_top">
-							  <input type="text">至<input type="text">
-							  门店<select style="width:90px"> <option></option></select>
+							    <input  type="text" id="date1" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"> 至
+							      <input  type="text"  id="date2" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"> 
+							  门店<select style="width:90px" id="hz">
+									  <c:forEach items="${selectByStoreAccount }" var="store">
+									     <option storeId="${store.storeId }">${store.storeName }</option>
+									  </c:forEach>
+								 </select>
 							 <button>查询</button>
 							</div>
 					  </div>
@@ -161,12 +166,12 @@
 						     <p>卡金销售业绩：<span>0</span></p>
 						   </li>
 						   <li>
-						     <p>卡金销售数量：<span>0</span></p>
-						     <p>卡金销售业绩：<span>0</span></p>
+						     <p>套餐销售数量：<span>0</span></p>
+						     <p>套餐销售业绩：<span>0</span></p>
 						   </li>
 						   <li>
-						     <p>卡金销售数量：<span>0</span></p>
-						     <p>卡金销售业绩：<span>0</span></p>
+						     <p>销售总数量：<span>0</span></p>
+						     <p>销售总业绩：<span>0</span></p>
 						   </li>
 						 </ul>
 					  </div>
@@ -231,54 +236,7 @@
 							  <td>500/<em>500.00</em></td>
 							</tr>			
 							</tbody></table>
-							<table>
-							 <tbody><tr>
-						      <td rowspan="40">大项大项</td>
-							  <td>项目总汇<img src="<%=basePath%>images/triangle1.png">	
-							  </td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500</td>
-							  <td><em>500.00</em></td> 
-							 </tr>
-				          	 <tr style="display: none; background: rgb(238, 238, 238);">
-							  <td>啊啊啊啊啊</td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500</td>   
-							  <td>500/<em>500.00</em></td>
-							</tr>		 		
-							</tbody></table>
-					       	<table>
-							 <tbody><tr>
-						      <td rowspan="40">大项大项</td>
-							  <td>项目总汇<img src="<%=basePath%>images/triangle1.png">	
-							  </td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500</td>
-							  <td><em>500.00</em></td> 
-							 </tr>
-				          	 <tr style="display: none; background: rgb(238, 238, 238);">
-							  <td>啊啊啊啊啊</td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500/<em>500.00</em></td>
-							  <td>500</td>   
-							  <td>500/<em>500.00</em></td>
-							</tr>		 		
-							</tbody></table>
+				
 					</div>
 				  </div>
 			</div>
@@ -298,6 +256,26 @@ if(month<10){
 }else{
 	month = month.toString()
 }
+
+var jsonarr = "";
+function checkGoods(){
+	var storeId = jQuery("#hz option:selected").attr("storeId");
+	var time1 = jQuery("#date1").val();
+	var time2 = jQuery("#date2").val();
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "order/goods/check",
+		data : "time1=" + time1 + "&time2=" + time2  + "&storeId=" + storeId,
+		dataType : "json",
+		success : function(e){
+// 			jQuery("#yearMonth1").val(time);
+			jsonarr  = e.msg;
+			console.log(jsonarr);
+// 			showData();
+		}
+	});
+}
+
 function showYear(){
 	jQuery("#yearMonth1").show();
 	jQuery("#yearMonth2").hide();
@@ -424,6 +402,10 @@ function showPK(data1,data2,name1,name2,dayMonth){
 	      xAxis: {
 	          categories: dayMonth
 	      },
+	      yAxis: {
+		        allowDecimals: 'false',        //控制数轴是否显示小数。
+		        min: 0                            //控制数轴的最小                   
+		    },
 	      tooltip: {
 	          enabled: false,
 	          formatter: function() {
@@ -435,7 +417,7 @@ function showPK(data1,data2,name1,name2,dayMonth){
 	              dataLabels: {
 	                  enabled: true
 	              },
-	              enableMouseTracking: false
+	              enableMouseTracking: true
 	          }
 	      },
 	      series: [{

@@ -30,7 +30,12 @@ public class OrderDetailDto implements Serializable{
     
     /** 部门标识*/
     private Integer deptId;
+    
+    /** 商品标识*/
+    private Integer goodsId;
 
+
+  
 
     /** 订单类型(1:项目,2:商品,3:套餐,4:开卡,5:充值,6:升级,7:赠送,8:还款) */
     private Integer orderType;
@@ -63,7 +68,7 @@ public class OrderDetailDto implements Serializable{
     private BigDecimal realPrice;
     
     /** 明细业绩值*/
-    private BigDecimal detailCalculate;
+    private Double detailCalculate;
 
     /** 折扣价格 */
     private BigDecimal discountAmount;
@@ -116,16 +121,59 @@ public class OrderDetailDto implements Serializable{
     /** 员工提成*/
     private List<EmployeeCommissionDto> commissionList;
     
+    /** 1现金，2卡金*/
+    private Integer cashCardType;
     
-    public BigDecimal getDetailCalculate() {
-		return detailCalculate;
-	}
+    /** 商品名称*/
+    private String goodsName;
+    /** 商品大项*/
+    private String categoryName;
+    /**时间 */
+    private String createTime;
+    
 
-	public void setDetailCalculate(BigDecimal detailCalculate) {
-		this.detailCalculate = detailCalculate;
-	}
+    public Integer getCashCardType() {
+        return cashCardType;
+    }
 
-	public List<EmployeeCommissionDto> getCommissionList() {
+    public void setCashCardType(Integer cashCardType) {
+        this.cashCardType = cashCardType;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+
+	public Double getDetailCalculate() {
+        return detailCalculate;
+    }
+
+    public void setDetailCalculate(Double detailCalculate) {
+        this.detailCalculate = detailCalculate;
+    }
+
+    public List<EmployeeCommissionDto> getCommissionList() {
         return commissionList;
     }
 
@@ -207,6 +255,14 @@ public class OrderDetailDto implements Serializable{
         this.privilegeInfo = privilegeInfo;
     }
 
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+    
     public BigDecimal getPrivilegeMoney() {
         return privilegeMoney;
     }

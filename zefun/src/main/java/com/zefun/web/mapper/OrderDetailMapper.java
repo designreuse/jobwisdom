@@ -61,8 +61,6 @@ public interface OrderDetailMapper {
      */
     OrderDetail selectByPrimaryKey(Integer detailId);
     
-    
-    
     /**
      *  全部商品信息
     * @author 骆峰
@@ -71,6 +69,24 @@ public interface OrderDetailMapper {
     * @return List
      */
     List<OrderDetail> selectDetailLByOrderId(Map<String, Object> map);
+    /**
+     *  商品数据汇总(商品)
+    * @author 骆峰
+    * @date 2016年8月11日 下午3:17:39
+    * @param map map
+    * @return List
+     */
+    
+    List<OrderDetailDto> selectDetailListByGoods(Map<String, Object> map);
+    /**
+     *  商品数据汇总(套餐)
+     * @author 骆峰
+     * @date 2016年8月11日 下午3:17:39
+     * @param map map
+     * @return List
+     */
+    
+    List<OrderDetailDto> selectDetailListByGoodsd(Map<String, Object> map);
     
     
     /**

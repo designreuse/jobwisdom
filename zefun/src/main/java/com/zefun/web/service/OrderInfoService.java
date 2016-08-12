@@ -30,10 +30,13 @@ import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.OrderInfoBaseDto;
 import com.zefun.web.dto.SummaryResultDto;
+import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.StoreInfo;
+import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.GoodsCategoryMapper;
+import com.zefun.web.mapper.GoodsInfoMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
@@ -67,7 +70,10 @@ public class OrderInfoService {
     private GoodsCategoryMapper goodsCategoryMapper;
     /** 商品 */
     @Autowired
-    private GoodsInfoService goodsInfoService;
+    private GoodsInfoMapper goodsInfoMapper;
+    /** 部门*/
+    @Autowired
+    private DeptInfoMapper deptInfoMapper;
     
     
     
@@ -374,7 +380,7 @@ public class OrderInfoService {
             map.put("storeId", selectByStoreAccount.get(0).getStoreId());
         }
         List<GoodsCategory> goodsCategory = goodsCategoryMapper.selectBygoodsInfo(Integer.parseInt(map.get("storeId").toString()));
-        List<GoodsInfoDto> goodsInfoDto = goodsInfoService.selectGoodsInfosByStoreId(Integer.parseInt(map.get("storeId").toString()));
+        List<GoodsInfoDto> goodsInfoDto = goodsInfoMapper.selectAllGoodsInfoByStoreIdAndNotPay(Integer.parseInt(map.get("storeId").toString()));
         
         Calendar a=Calendar.getInstance();
         String year = String.valueOf(a.get(Calendar.YEAR));
@@ -518,18 +524,17 @@ public class OrderInfoService {
         map.put("storeId", storeId);
         map.put("timeType", timeType);
         map.put("goodsId", goodsId1);
-        map.put("categoryId", goodsId1);
+        map.put("categoryId", categoryId1);
         
         List<OrderDetail> category = orderDetailMapper.selectDetailLByCategory(map);
         List<OrderDetail> detail = orderDetailMapper.selectDetailLByGoods(map);
-        
         map.put("categoryId", categoryId2);
         map.put("goodsId", goodsId2);
         List<OrderDetail> orderCategory = orderDetailMapper.selectDetailLByCategory(map);
         List<OrderDetail> orderDetail = orderDetailMapper.selectDetailLByGoods(map);
         
         JSONObject joinDetail = joinData(map, detail);
-        JSONObject joinOrderDetail = joinData(map, orderDetail);
+        JSONObject joinOrderDetail = joinData(map, orderDetail); 
         
         JSONObject joinCategory = joinData(map, category);
         JSONObject joinOrderCategory = joinData(map, orderCategory);
@@ -539,11 +544,181 @@ public class OrderInfoService {
         json.accumulate("joinOrderDetail", joinOrderDetail);
         json.accumulate("joinCategory", joinCategory);
         json.accumulate("joinOrderCategory", joinOrderCategory);
-
-        
-        
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, json);
     }
 
 
+    
+    /**
+     *  销量汇总
+    * @author 骆峰
+    * @date 2016年8月11日 下午3:20:36
+    * @param storeId storeId
+    * @param time1 time1
+    * @param time2 time2
+    * @return BaseDto
+     */
+    public BaseDto selectByGoods(Integer storeId, String time1, String time2) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("storeId", storeId);
+        map.put("time1", time1);
+        map.put("time2", time2);
+        // 商品
+        List<OrderDetailDto> selectByGoods = orderDetailMapper.selectDetailListByGoods(map);
+        // 套餐
+        List<OrderDetailDto> selectByGoodsd = orderDetailMapper.selectDetailListByGoodsd(map);
+        List<DeptInfo> dept = deptInfoMapper.selectAllDetpByStoreId(storeId);
+        List<GoodsInfoDto> goods = goodsInfoMapper.selectAllGoodsdInfoByStoreId(storeId);
+        JSONObject json = goodsTotal(selectByGoods, selectByGoodsd); //总数
+        JSONArray goodsJoin = goodsJoin(selectByGoods, selectByGoodsd, dept, goods);
+        json.accumulate("goodsJoin", goodsJoin);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, json);
+    } 
+    
+   
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月11日 下午5:34:54
+    * @param selectByGoods selectByGoods
+    * @param selectByGoodsd selectByGoodsd
+    * @param dept dept
+    * @param goods goods
+    * @return JSONArray
+     */
+    public JSONArray goodsJoin(List<OrderDetailDto> selectByGoods, List<OrderDetailDto> selectByGoodsd,
+            List<DeptInfo> dept, List<GoodsInfoDto> goods){
+        
+        JSONArray  jsonar = new JSONArray();
+        JSONArray jsona   = new JSONArray();
+        JSONObject jsono  = new JSONObject();
+        JSONObject jsonoj  = new JSONObject();
+        dept.stream().forEach(d ->{
+       
+                List<OrderDetailDto> collect  = selectByGoods.stream().filter(s ->s.getDeptId().equals(d.getDeptId())).collect(Collectors.toList()); 
+                List<GoodsInfoDto> collect3   = goods.stream().filter(s ->s.getDeptId().equals(d.getDeptId())).collect(Collectors.toList()); 
+                List<OrderDetailDto> collect2 = selectByGoodsd.stream().filter(s ->s.getDeptId().equals(d.getDeptId())).collect(Collectors.toList());
+                        
+                List<OrderDetailDto> store = collect.stream().filter(s ->s.getOrderType().equals(1)).collect(Collectors.toList());          //门店
+                List<OrderDetailDto> shop = collect.stream().filter(s ->s.getOrderType().equals(3)).collect(Collectors.toList());    //商城
+                List<OrderDetailDto> price = collect.stream().filter(s ->s.getCashCardType().equals(1)).collect(Collectors.toList());      //现金 
+                List<OrderDetailDto> caPrice = collect.stream().filter(s ->s.getCashCardType().equals(2)).collect(Collectors.toList());  //卡金
+                collect3.stream().forEach(c ->{
+                        Double storeDcl = store.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getDetailCalculate).sum(); //门店
+                        Double storePcl =  store.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getProjectCount).sum();
+                        
+                        Double shopDcl =  shop.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getDetailCalculate).sum(); //商城
+                        Double shopPcl = shop.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getProjectCount).sum(); 
+                       
+                        Double priceDcl =  price.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getDetailCalculate).sum();     //现金    业绩
+                        Double pricePcl =  price.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getProjectCount).sum();  //数量
+                        
+                        Double caPriceDcl =  caPrice.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //卡金
+                        Double caPricePcl =  caPrice.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getProjectCount).sum();
+                       
+                        Double tcDcl =  collect2.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //套餐
+                        Double tcPcl =  collect2.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
+                                .mapToDouble(OrderDetailDto::getProjectCount).sum();
+                        
+                        Double totalDcl = priceDcl + caPriceDcl + tcDcl + shopDcl + storeDcl;
+                        Double totalPcl = pricePcl + caPricePcl + tcPcl + shopPcl + storePcl;
+                        jsono.accumulate("priceDcl",   new BigDecimal(priceDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("caPriceDcl", new BigDecimal(caPriceDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("tcDcl",      new BigDecimal(tcDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("shopDcl",    new BigDecimal(shopDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("storeDcl",   new BigDecimal(storeDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("pricePcl",   new BigDecimal(pricePcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("caPricePcl", new BigDecimal(caPricePcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("tcPcl",      new BigDecimal(tcPcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("shopPcl",    new BigDecimal(shopPcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("storePcl",   new BigDecimal(storePcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("totalDcl",   new BigDecimal(totalDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("totalPcl",   new BigDecimal(totalPcl).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        jsono.accumulate("name",   c.getGoodsName());
+                        jsona.add(jsono);
+                        jsono.clear();
+                    });
+                jsona.clear();
+                Double storeDc =  store.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum(); //门店
+                Double storePc = store.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
+                
+                Double shopDc =  shop.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum(); //商城
+                Double shopPc = shop.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum(); 
+               
+                Double priceDc =  price.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum();     //现金    业绩
+                Double pricePc =  price.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();  //数量
+                
+                Double caPriceDc =  caPrice.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //卡金
+                Double caPricePc =  caPrice.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
+               
+                Double tcDc =  collect2.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //套餐
+                Double tcPc =  collect2.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
+                
+                Double totalDc = priceDc + caPriceDc + tcDc + shopDc + storeDc;
+                Double totalPc = pricePc + caPricePc + tcPc + shopPc + storePc;
+                jsonoj.accumulate("storeDc",    new BigDecimal(storeDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("storePc",    new BigDecimal(storePc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("shopDc",     new BigDecimal(shopDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("shopPc",     new BigDecimal(shopPc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("priceDc",    new BigDecimal(priceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("pricePc",    new BigDecimal(pricePc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("caPriceDc",  new BigDecimal(caPriceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("caPricePc",  new BigDecimal(caPricePc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("tcDc",       new BigDecimal(tcDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("tcPc",       new BigDecimal(tcPc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("totalDc",    new BigDecimal(totalDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("totalPc",    new BigDecimal(totalPc).setScale(2, BigDecimal.ROUND_HALF_UP));
+                jsonoj.accumulate("jsona", jsona);
+                jsonoj.accumulate("name", d.getDeptName());
+                jsonoj.clear();
+            });
+        jsonar.add(jsonoj);
+        return jsonar;
+    }
+    
+    /**
+     *  销售汇总
+    * @author 骆峰
+    * @date 2016年8月11日 下午3:54:14
+    * @param selectByGoods selectByGoods
+    * @param selectByGoodsd selectByGoodsd
+    * @return JSONObject
+     */
+    public JSONObject goodsTotal(List<OrderDetailDto> selectByGoods, List<OrderDetailDto> selectByGoodsd){
+        JSONObject json = new JSONObject();
+   
+        List<OrderDetailDto> price = selectByGoods.stream().filter(s ->s.getCashCardType().equals(1)).collect(Collectors.toList());      //现金 
+        List<OrderDetailDto> caPrice = selectByGoods.stream().filter(s ->s.getCashCardType().equals(2)).collect(Collectors.toList());  //卡金
+       
+        Double priceDc =  price.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum();     //业绩
+        Double pricePc =  price.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();  //数量
+        
+        Double caPriceDc =  caPrice.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum();
+        Double caPricePc =  caPrice.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
+       
+        Double tcDc =  selectByGoodsd.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum();
+        Double tcPc =  selectByGoodsd.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
+        
+        Double totalDc = priceDc + caPriceDc + tcDc;
+        Double totalPc = pricePc + caPricePc + tcPc;
+        
+        json.accumulate("priceDC",  new BigDecimal(priceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("pricePc",  new BigDecimal(pricePc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("caPriceDC", new BigDecimal(caPriceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("caPricePc",  new BigDecimal(caPricePc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("tcDC",  new BigDecimal(tcDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("tcPc",  new BigDecimal(tcPc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("totalDc",  new BigDecimal(totalDc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        json.accumulate("totalPc",  new BigDecimal(totalPc).setScale(2, BigDecimal.ROUND_HALF_UP));
+        return json;
+    }
 }

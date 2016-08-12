@@ -803,6 +803,18 @@
   	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{storeId} and ag.is_sell_product = 1
   </select>
   
+  
+  <select id="selectAllGoodsdInfoByStoreId" resultType="com.zefun.web.dto.GoodsInfoDto" parameterType="java.lang.Integer">
+  	SELECT gf.goods_id as goodsId, ag.goods_name as goodsName, gf.goods_price as goodsPrice,ag.goods_code_suffix as goodsCodeSuffix, 
+  	gf.store_id as storeId, gf.goods_image as goodsImage, df.dept_name as deptName, df.dept_id as deptId,
+  	gc.category_id as categoryId, gc.category_name as categoryName, gf.a_id as aId
+  	from goods_info gf 
+  	left join dept_info df on gf.dept_id = df.dept_id
+  	left join goods_category gc on gc.category_id = gf.category_id
+  	left join account_goods ag on ag.goods_id = gf.a_id 
+  	where 1=1 and (gf.is_deleted = 0 or gf.is_deleted = 2) and gf.store_id = #{storeId} and ag.is_sell_product = 1  and df.dept_id IS NOT null
+  </select>
+  
   <select id="selectByStoreAccount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
   	select * from goods_info where a_id =  #{aId,jdbcType=INTEGER}
   </select>

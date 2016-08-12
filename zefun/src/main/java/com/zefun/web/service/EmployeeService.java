@@ -1545,6 +1545,8 @@ public class EmployeeService {
         JSONObject jsonos = new JSONObject();
         
         List<EmployeeInfoDto> commission = employeeCommissionMapper.selectEmployeeInfoByCommission(map);
+        
+//        List<EmployeeInfo> employeeList = employeeInfoMapper.selectEmployeeByStoreId(Integer.parseInt(map.get("storeId").toString()));
         List<EmployeeBaseDto> employeeList =  employeeInfoMapper.selectEmployeeListByStoreIdAll(map);
         employeeList.stream().forEach(em ->{
                 jsono.clear();
