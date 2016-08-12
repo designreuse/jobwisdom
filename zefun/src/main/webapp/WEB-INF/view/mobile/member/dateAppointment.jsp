@@ -21,6 +21,9 @@
     	.touch{display:inline-block;}
     	.touch em{display:inline-block;width:140px;text-align:center;height:34px;border:1px solid #cfcfcf;border-radius:8px;text-align:center;line-height:34px;margin-left:8px}
     	.green{color:white;background:#26cbc5}
+    	
+    	.green{background:#4ebeea}
+    	.foot-confirm-btn{background:#4ebeea}
     </style>
   
   </head>
