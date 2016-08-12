@@ -110,9 +110,20 @@ public class OrderInfo {
 	
 	/** 支付类型 1:现金支付，2：卡金支付*/
 	private Integer cashCardType;
+	
+	/** 查询类型， 1:year 2：month*/
+	private Integer queryType;
 
 	
-	public Integer getCashCardType() {
+	public Integer getQueryType() {
+        return queryType;
+    }
+
+    public void setQueryType(Integer queryType) {
+        this.queryType = queryType;
+    }
+
+    public Integer getCashCardType() {
         return cashCardType;
     }
 

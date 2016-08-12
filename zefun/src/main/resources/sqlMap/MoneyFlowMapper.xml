@@ -223,4 +223,11 @@
 		  and exists(select 1 from member_account d where d.account_id = a.account_id and d.account_id = #{memberId, jdbcType=INTEGER}) 
     order by flow_time desc limit 4
   </select>
+  
+  <select id="selectByProperties" parameterType="com.zefun.web.entity.MoneyFlow" resultMap="BaseResultMap">
+  	select * from money_flow where store_id = #{storeId}
+  	<if test="queryType == 1"> and DATE_FORMAT(flow_time,'%Y') = #{flowTime}</if>
+  	<if test="queryType == 2"> and DATE_FORMAT(flow_time,'%Y-%m') = #{flowTime} </if>
+  	
+  </select>
 </mapper>

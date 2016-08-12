@@ -1919,4 +1919,18 @@
         and option_employee_id = #{optionEmployeeId} 
         and is_deleted = 0
   </select>
+  
+  <select id="selectOrderInfoCardMoneyByDate" parameterType="com.zefun.web.entity.OrderInfo" resultMap="BaseResultMap">
+  	select * from order_info where store_id = #{storeId}
+  	<if test="queryType == 1"> and DATE_FORMAT(create_time,'%Y') = #{createTime}</if>
+  	<if test="queryType == 2"> and DATE_FORMAT(create_time,'%Y-%m') = #{createTime} </if>
+  </select>
+  
+  <select id="selectOrderInfoCardMoneyInByDate" parameterType="com.zefun.web.entity.OrderInfo" resultMap="BaseResultMap">
+  	select oi.* from order_info oi
+  	left join order_detail od on od.order_id = oi.order_id
+  	where oi.store_id = #{storeId} and od.order_type in (4,5,6,7,8) 
+  	<if test="queryType == 1"> and DATE_FORMAT(oi.create_time,'%Y') = #{createTime}</if>
+  	<if test="queryType == 2"> and DATE_FORMAT(oi.create_time,'%Y-%m') = #{createTime} </if>
+  </select>
 </mapper>

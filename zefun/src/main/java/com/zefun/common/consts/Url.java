@@ -191,6 +191,8 @@ public interface Url {
 		public static final String ACTION_DEFAULT = "memberLevel/action/default";
 		/** 会员卡导入excle */
 		public static final String IMPORTEXCLE = "memberLevel/action/importexcle";
+		/** 卡项销售统计 */
+        public static final String VIEW_CARD_SELL_COUNT = "memberLevel/view/cardSellCount";
 
 	}
 
@@ -1380,6 +1382,16 @@ public interface Url {
         public static final String ACTION_STORE_SETTING_SPECIAL_DELETED = "/storeinfo/action/storeSetting/special/deleted";
 	}
 
+	/**
+	 * 批量设置
+	* @author 老王
+	* @date 2016年8月11日 下午8:02:00
+	 */
+	class BatchSet {
+		/** 项目批量设置初始化页面*/
+		public static final String VIEW_INITIALIZATION_PROJECT_BATCH_SET = "batchSet/view/initializationProjectBatchSet";
+	}
+	
 	/**
 	 * 自助收银
 	 * 

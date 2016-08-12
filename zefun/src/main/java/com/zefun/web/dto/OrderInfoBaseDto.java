@@ -96,10 +96,19 @@ public class OrderInfoBaseDto {
     /** 订单明细 */
     private List<OrderDetailDto> orderDetailList;
 
+    /** 1:现金支付，2：卡金支付*/
+    private Integer cashCardType;
     
     
-    
-    public String getHandOrderCode() {
+    public Integer getCashCardType() {
+		return cashCardType;
+	}
+
+	public void setCashCardType(Integer cashCardType) {
+		this.cashCardType = cashCardType;
+	}
+
+	public String getHandOrderCode() {
 		return handOrderCode;
 	}
 

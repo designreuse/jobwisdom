@@ -93,4 +93,6 @@ public interface MoneyFlowMapper {
     * @return	删除数量
      */
     int deleteByMemberIdList(List<Integer> memberIdList);
+
+    List<MoneyFlow> selectByProperties(MoneyFlow query);
 }

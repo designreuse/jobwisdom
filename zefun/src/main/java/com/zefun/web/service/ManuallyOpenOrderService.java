@@ -584,7 +584,10 @@ public class ManuallyOpenOrderService {
             		detailId = jsonObj.getInt("detailId");
                 }
             	
-                Integer appoint = jsonObj.getInt("appoint");
+            	Integer appoint = null;
+            	if (!jsonObj.get("appoint").toString().isEmpty()) {
+            		appoint = jsonObj.getInt("appoint");
+                }
                         
                 ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(projectId);
                 
