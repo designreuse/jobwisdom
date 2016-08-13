@@ -50,7 +50,7 @@ function choosePosition (obj, positionId, positionName) {
 										     '<p>'+positionName+'</p>'+
 										    '<div class="selected_way">'+
 											   '<p><span>业绩方式</span><select name="calculateSelect"><option value="2">固定</option><option value="1">比例</option></select></p>'+
-											   '<p><span>业绩值</span><input type="text" name="calculateInput"><em>元</em></p>'+
+											   '<p><span>业绩值</span><input type="text" name="calculateInput" placeholder="0"><em>元</em></p>'+
 											 '</div>'+
 										  '</div>')
 }
@@ -72,66 +72,115 @@ jQuery("input[name='positionCheck']").click(function () {
 })
 
 function confirmLevelChoose () {
-	var commissionWay = jQuery("select[name='commissionWay']").val();
+	/*var commissionWay = jQuery("select[name='commissionWay']").val();*/
 	var type = "元 ";
-	if (commissionWay == 1) {
+	/*if (commissionWay == 1) {
 		type = "%";
-	}
-	var str = '<div class="batch_set_5_job">'+
-					'<img src="'+baseUrl+'images/setting_close.png" onclick = "deleteLevel(this)">'+
-				    '<ul class="clearfix">'+
-					    '<li>职位</li>';
-	jQuery("input[name='levelCheck']").each(function(){ 
-		if (jQuery(this).prop("checked")) {
-			var levelId = jQuery(this).attr("levelId");
-			var levelName = jQuery(this).attr("levelName");
-			str += '<li><span name = "levelId" levelId = "'+levelId+'">'+levelName+'</span></li>';
-			
-			jQuery(this).parent().hide();
-			jQuery(this).prop("checked",false);
-		}
-	})
+	}*/
+	var hand = '<img src="'+baseUrl+'images/setting_close.png" onclick = "deleteLevel(this)">'+
+			   '<ul class="clearfix">';
 	
-	str += '</ul>'+  
+	var end = '</ul>'+  
 			    '<div class="batch_set_5_job_ul">'+ 
 			      '<ul class="clearfix">'+ 
 					  '<li>'+ 
 					    '<p>现金</p>'+ 
 					    '<div class="batch_set_5_job_ul_li">'+ 
-						  '<p><input type="text"><em>'+type+'</em><span>指定</span></p>'+ 
-						  '<p><input type="text"><em>'+type+'</em><span>非指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionCash" placeholder="0"><em>'+type+'</em><span>指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionNoCash" placeholder="0"><em>'+type+'</em><span>非指定</span></p>'+ 
 						'</div>'+ 
 					  '</li>'+ 
 					   '<li>'+ 
-					    '<p>现金</p>'+ 
+					    '<p>卡金</p>'+ 
 					    '<div class="batch_set_5_job_ul_li">'+ 
-						  '<p><input type="text"><em>'+type+'</em><span>指定</span></p>'+ 
-						  '<p><input type="text"><em>'+type+'</em><span>非指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionCourse" placeholder="0"><em>'+type+'</em><span>指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionNoCourse" placeholder="0"><em>'+type+'</em><span>非指定</span></p>'+ 
 						'</div>'+ 
 					  '</li>'+ 
 					    '<li>'+ 
-					    '<p>现金</p>'+ 
+					    '<p>疗程</p>'+ 
 					    '<div class="batch_set_5_job_ul_li">'+ 
-						  '<p><input type="text"><em>'+type+'</em><span>指定</span></p>'+ 
-						  '<p><input type="text"><em>'+type+'</em><span>非指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionGold" placeholder="0"><em>'+type+'</em><span>指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionNoGold" placeholder="0"><em>'+type+'</em><span>非指定</span></p>'+ 
 						'</div>'+ 
 					  '</li>'+ 
 					'</ul>'+ 
-			    '</div>'+ 
-			 '</div>';
-	
-	jQuery(".batch_set_5_content").append(str);
+			    '</div>';
+	var positionIds = "";
+	var levelCheckList = jQuery("input[name='levelCheck']:checked");
+	var str = "";
+	for (var i = 0; i < levelCheckList.length; i++) {
+		var obj = levelCheckList[i];
+		var levelId = jQuery(obj).attr("levelId");
+		var levelName = jQuery(obj).attr("levelName");
+		var positionId = jQuery(obj).parents(".batch_set_4_content").find("input[name='positionCheck']").attr("positionId");
+		if (positionIds != positionId) {
+			if (i != 0) {
+				var page = "";
+				if (jQuery("input[name='positionCheck']").eq(0).attr("positionId") == positionIds){
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
+				}
+				else {
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select></p>';
+				}
+				var batchSetJob = jQuery('<div class="batch_set_5_job"></div>');
+				batchSetJob.append(page);
+				jQuery(".batch_set_5_content").append(batchSetJob);
+			}
+			positionIds  = positionId;
+			var positionName = jQuery(obj).parents(".batch_set_4_content").find("input[name='positionCheck']").parent().find("span").text();
+			str = '<li>'+positionName+'</li><li><span name = "levelId" levelId = "'+levelId+'">'+levelName+'</span></li>';
+			if (i + 1 == levelCheckList.length) {
+				var page = "";
+				if (jQuery("input[name='positionCheck']").eq(0).attr("positionId") == positionIds){
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
+				}
+				else {
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select></p>';
+				}
+				var batchSetJob = jQuery('<div class="batch_set_5_job"></div>');
+				batchSetJob.append(page);
+				jQuery(".batch_set_5_content").append(batchSetJob);
+			}
+		}
+		else {
+			str += '<li><span name = "levelId" levelId = "'+levelId+'">'+levelName+'</span></li>';
+			if (i + 1 == levelCheckList.length) {
+				var page = "";
+				if (jQuery("input[name='positionCheck']").eq(0).attr("positionId") == positionIds){
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
+				}
+				else {
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select></p>';
+				}
+				var batchSetJob = jQuery('<div class="batch_set_5_job"></div>');
+				batchSetJob.append(page);
+				jQuery(".batch_set_5_content").append(batchSetJob);
+			}
+		}
+		jQuery(obj).parent().hide();
+		jQuery(obj).prop("checked",false);
+	}
 	
 	jQuery("input[name='positionCheck']").prop("checked",false);
 }
 
 function deleteLevel (obj) {
-	jQuery("span[name='levelId']").each(function(){ 
+	jQuery(obj).parents(".batch_set_5_job").find("span[name='levelId']").each(function(){ 
 		var levelId = jQuery(this).attr("levelId");
 		jQuery("input[levelId='"+levelId+"']").parent().show();
 	})
 	jQuery(obj).parents(".batch_set_5_job").remove();
 }
+
+jQuery("body").delegate("select[name='commissionWay']", "click", function () {
+	var type = jQuery(this).val();
+	var val = "元";
+	if (type == 1) {
+		val = "%";
+	}
+	jQuery(this).parents(".batch_set_5_job").find("em").text(val);
+})
 
 jQuery("body").delegate("select[name='calculateSelect']", "click", function () {
 	var type = jQuery(this).val();
@@ -141,3 +190,117 @@ jQuery("body").delegate("select[name='calculateSelect']", "click", function () {
 	}
 	jQuery(this).parents(".selected_way").find("em").text(val);
 })
+
+/**
+ * 业绩设置
+ */
+function batchSetCalculate () {
+	var projectIdList = new Array();
+	jQuery("div[name='batchTwo']").find(".batch_set_1_content_datail").each(function(){ 
+		var projectId = jQuery(this).attr("projectId");
+		projectIdList.push(projectId);
+	})
+	
+	if (projectIdList.length == 0) {
+		dialog("请选择项目");
+		return;
+	}
+	
+	var calculateList = new Array();
+	jQuery(".selected_job_content_detail").each(function(){
+		var positionId = jQuery(this).attr("positionid");
+		var stepPerformanceType = jQuery(this).find("select[name='calculateSelect']").val();
+		var stepPerformance = jQuery(this).find("input[name='calculateInput']").val();
+		
+		if (isEmpty(stepPerformance)) {
+			stepPerformance = 0;
+		}
+		
+		calculateList.push({"positionId" : positionId, "stepPerformanceType" : stepPerformanceType, "stepPerformance" : stepPerformance});
+	})
+	
+	if (calculateList.length == 0) {
+		dialog("请选择需设置业绩的岗位");
+		return;
+	}
+	
+	jQuery.ajax({
+    	url : baseUrl + "batchSet/action/batchSetCalculate",
+    	type : "POST",
+    	data : "projectIdListStr=" + JSON.stringify(projectIdList) + "&calculateListStr=" + JSON.stringify(calculateList),
+    	success : function(e){
+    		if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+    		dialog("批量设置岗位业绩成功！");
+    		jQuery(".selected_job_content_detail").find("img").click();
+    	}
+    });
+}
+
+/**
+ * 提成设置
+ */
+function batchSetCommission () {
+	var projectIdList = new Array();
+	jQuery("div[name='batchTwo']").find(".batch_set_1_content_datail").each(function(){ 
+		var projectId = jQuery(this).attr("projectId");
+		projectIdList.push(projectId);
+	})
+	
+	if (projectIdList.length == 0) {
+		dialog("请选择项目");
+		return;
+	}
+	
+	var commissionList = new Array();
+	jQuery(".batch_set_5_job").each(function(){
+		var assignCashType = jQuery(this).find("select[name='commissionWay']").val();
+		
+		var commissionCash = setZero(jQuery(this).find("input[name='commissionCash']").val());
+		var commissionNoCash = setZero(jQuery(this).find("input[name='commissionNoCash']").val());
+		var commissionCourse = setZero(jQuery(this).find("input[name='commissionCourse']").val());
+		var commissionNoCourse = setZero(jQuery(this).find("input[name='commissionNoCourse']").val());
+		var commissionGold = setZero(jQuery(this).find("input[name='commissionGold']").val());
+		var commissionNoGold = setZero(jQuery(this).find("input[name='commissionNoGold']").val());
+		var commissionCard = setZero(jQuery(this).find("input[name='commissionCard']").val());
+		
+		
+		var levelIdList = new Array();
+		jQuery(this).find("span[name='levelId']").each(function(){
+			var levelId = jQuery(this).attr("levelId");
+			levelIdList.push(levelId);
+		})
+		
+		commissionList.push({"assignCashType" : assignCashType, "commissionCash" : commissionCash, "commissionNoCash" : commissionNoCash, 
+			"commissionCourse" : commissionCourse, "commissionNoCourse" : commissionNoCourse, 
+			"commissionGold" : commissionGold, "commissionNoGold" : commissionNoGold, "commissionCard" : commissionCard, "levelIdList" : levelIdList});
+	})
+	
+	if (commissionList.length == 0) {
+		dialog("请选择需设置提成的职位");
+		return;
+	}
+	
+	jQuery.ajax({
+    	url : baseUrl + "batchSet/action/batchSetCommission",
+    	type : "POST",
+    	data : "projectIdListStr=" + JSON.stringify(projectIdList) + "&commissionListStr=" + JSON.stringify(commissionList),
+    	success : function(e){
+    		if (e.code != 0) {
+                dialog(e.msg);
+                return;
+            }
+    		dialog("批量设置职位提成成功！");
+    		jQuery(".batch_set_5_job").find("img").click();
+    	}
+    });
+}
+
+function setZero (val) {
+	if (isEmpty(val)) {
+		val = 0;
+	}
+	return val;
+}

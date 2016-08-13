@@ -51,26 +51,11 @@
       <if test="projectId != null" >
         project_id,
       </if>
-      <if test="shiftMahjongId != null" >
-        shift_mahjong_id,
-      </if>
-      <if test="projectStepOrder != null" >
-        project_step_order,
-      </if>
-      <if test="projectStepDesc != null" >
-        project_step_desc,
-      </if>
-      <if test="isDisable != null" >
-        is_disable,
+      <if test="positionId != null" >
+        position_id,
       </if>
       <if test="isDeleted != null" >
         is_deleted,
-      </if>
-      <if test="isPermissionsUpdate != null" >
-        is_permissions_update,
-      </if>
-      <if test="isHangUp != null" >
-        is_hang_up,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -98,26 +83,11 @@
       <if test="projectId != null" >
         #{projectId,jdbcType=INTEGER},
       </if>
-      <if test="shiftMahjongId != null" >
-        #{shiftMahjongId,jdbcType=INTEGER},
-      </if>
-      <if test="projectStepOrder != null" >
-        #{projectStepOrder,jdbcType=INTEGER},
-      </if>
-      <if test="projectStepDesc != null" >
-        #{projectStepDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="isDisable != null" >
-        #{isDisable,jdbcType=INTEGER},
+      <if test="positionId != null" >
+        #{positionId,jdbcType=INTEGER},
       </if>
       <if test="isDeleted != null" >
         #{isDeleted,jdbcType=INTEGER},
-      </if>
-      <if test="isPermissionsUpdate != null" >
-        #{isPermissionsUpdate,jdbcType=INTEGER},
-      </if>
-      <if test="isHangUp != null" >
-        #{isHangUp,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=CHAR},
@@ -139,27 +109,18 @@
       <if test="projectId != null" >
         project_id = #{projectId,jdbcType=INTEGER},
       </if>
-      <!-- <if test="shiftMahjongId != null" >
-        shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER},
+      <if test="stepPerformanceType != null" >
+        step_performance_type = #{stepPerformanceType,jdbcType=INTEGER},
       </if>
-      <if test="projectStepOrder != null" >
-        project_step_order = #{projectStepOrder,jdbcType=INTEGER},
+      <if test="stepPerformance != null" >
+        step_performance = #{stepPerformance,jdbcType=DECIMAL},
       </if>
-      <if test="projectStepDesc != null" >
-        project_step_desc = #{projectStepDesc,jdbcType=VARCHAR},
+      <if test="positionId != null" >
+        position_id = #{positionId,jdbcType=INTEGER},
       </if>
-      <if test="isDisable != null" >
-        is_disable = #{isDisable,jdbcType=INTEGER},
-      </if> -->
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=INTEGER},
       </if>
-      <!-- <if test="isPermissionsUpdate != null" >
-        is_permissions_update = #{isPermissionsUpdate,jdbcType=INTEGER},
-      </if>
-      <if test="isHangUp != null" >
-        is_hang_up = #{isHangUp,jdbcType=INTEGER},
-      </if> -->
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=CHAR},
       </if>
@@ -188,9 +149,13 @@
   	select ifnull(sum(step_performance), 0) from project_step  where project_id =#{projectId,jdbcType=INTEGER} and step_performance_type = 2 and is_deleted = 0
   </select>
   
-  <select id="selectAppointStepByProjectId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectAppointStepByProjectId"  resultMap="BaseResultMap">
   	select <include refid="Base_Column_List" /> from project_step
-  	where project_id = #{projectId} and is_disable = 1 and is_deleted = 0 limit 0,1
+  	where project_id in 
+    <foreach collection="array" open="(" close=")" separator="," item="projectId">
+		#{projectId}
+	</foreach>
+	and is_deleted = 0
   </select>
   
   <insert id="insertStep" parameterType="com.zefun.web.entity.ProjectStep">

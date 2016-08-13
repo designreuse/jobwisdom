@@ -74,9 +74,11 @@
       <if test="commissionId != null" >
         commission_id,
       </if>
-   
       <if test="projectId != null" >
         project_id,
+      </if>
+      <if test="positionId != null" >
+        position_id,
       </if>
       <if test="levelId != null" >
         level_id,
@@ -87,29 +89,8 @@
       <if test="assignCash != null" >
         assign_cash,
       </if>
-      <if test="assignCardType != null" >
-        assign_card_type,
-      </if>
       <if test="assignCard != null" >
         assign_card,
-      </if>
-      <if test="nonAssignCashType != null" >
-        non_assign_cash_type,
-      </if>
-      <if test="nonAssignCash != null" >
-        non_assign_cash,
-      </if>
-      <if test="nonAssignCardType != null" >
-        non_assign_card_type,
-      </if>
-      <if test="nonAssignCard != null" >
-        non_assign_card,
-      </if>
-      <if test="appointmentRewardType != null" >
-        appointment_reward_type,
-      </if>
-      <if test="appointmentReward != null" >
-        appointment_reward,
       </if>
       <if test="isDeleted != null" >
         is_deleted,
@@ -123,7 +104,9 @@
       <if test="lastOperatorId != null" >
         last_operator_id,
       </if>
-
+      <if test="commissionCard != null" >
+        commission_card,
+      </if>
       <if test="commissionNoGold != null" >
         commission_no_gold,
       </if>
@@ -147,11 +130,11 @@
       <if test="commissionId != null" >
         #{commissionId,jdbcType=INTEGER},
       </if>
-      <if test="shiftMahjongId != null" >
-        #{shiftMahjongId,jdbcType=INTEGER},
-      </if>
       <if test="projectId != null" >
         #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="positionId != null" >
+        #{positionId,jdbcType=INTEGER},
       </if>
       <if test="levelId != null" >
         #{levelId,jdbcType=INTEGER},
@@ -162,29 +145,8 @@
       <if test="assignCash != null" >
         #{assignCash,jdbcType=INTEGER},
       </if>
-      <if test="assignCardType != null" >
-        #{assignCardType,jdbcType=INTEGER},
-      </if>
       <if test="assignCard != null" >
         #{assignCard,jdbcType=INTEGER},
-      </if>
-      <if test="nonAssignCashType != null" >
-        #{nonAssignCashType,jdbcType=INTEGER},
-      </if>
-      <if test="nonAssignCash != null" >
-        #{nonAssignCash,jdbcType=INTEGER},
-      </if>
-      <if test="nonAssignCardType != null" >
-        #{nonAssignCardType,jdbcType=INTEGER},
-      </if>
-      <if test="nonAssignCard != null" >
-        #{nonAssignCard,jdbcType=INTEGER},
-      </if>
-      <if test="appointmentRewardType != null" >
-        #{appointmentRewardType,jdbcType=INTEGER},
-      </if>
-      <if test="appointmentReward != null" >
-        #{appointmentReward,jdbcType=INTEGER},
       </if>
       <if test="isDeleted != null" >
         #{isDeleted,jdbcType=INTEGER},
@@ -198,7 +160,9 @@
       <if test="lastOperatorId != null" >
         #{lastOperatorId,jdbcType=INTEGER},
       </if>
-      
+      <if test="commissionCard != null" >
+         #{commissionCard,jdbcType=INTEGER},
+      </if>
         <if test="commissionNoGold != null" >
          #{commissionNoGold,jdbcType=INTEGER},
       </if>
@@ -217,8 +181,6 @@
       <if test="commissionCash != null" >
         #{commissionCash,jdbcType=INTEGER},
       </if>
-      
-      
     </trim>
   </insert>
   
@@ -237,8 +199,8 @@
       <if test="assignCashType != null" >
         assign_cash_type = #{assignCashType,jdbcType=INTEGER},
       </if>
-      <if test="assignCash != null" >
-        assign_cash = #{assignCash,jdbcType=INTEGER},
+      <if test="commissionCard != null" >
+        commission_card = #{commissionCard,jdbcType=INTEGER},
       </if>
 <!--       <if test="assignCardType != null" >
         assign_card_type = #{assignCardType,jdbcType=INTEGER},
@@ -421,4 +383,13 @@
   		SELECT * FROM project_commission  AS p WHERE project_id =#{projectId,jdbcType=INTEGER} AND EXISTS(SELECT * FROM position_info AS s WHERE  s.position_id =p.position_id )  AND is_deleted=0
   </select>
 	
+	<select id="selectByProjectIdList" resultMap="BaseResultMap">
+    select 
+      <include refid="Base_Column_List" />
+    from project_commission 
+    where is_deleted = 0 and project_id in
+    <foreach collection="array" open="(" separator="," close=")" item="item">
+       #{item} 
+    </foreach>
+  </select>
 </mapper>

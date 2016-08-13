@@ -136,16 +136,17 @@
     <resultMap type="com.zefun.web.dto.PositionInfoDto" id="PositionInfoMap">
         <result property="positionId" column="position_id"  />
         <result property="positionName" column="position_name"  />
+        <result property="storeId" column="store_id"  jdbcType="INTEGER"/>
         <result column="is_show" property="isShow" jdbcType="INTEGER" />
-        <association property="employeeLevel" column="position_id" select="positionInfoSon" />
+        <association property="employeeLevel" column="{positionId=position_id,storeId=store_id}" select="positionInfoSon" />
     </resultMap>
     
   <select id="getDetpInfo" resultMap="DetpInfoMap" parameterType="java.lang.Integer" >
    select dept_id deptId,dept_name deptName,dept_code deptCode,is_results isResults from dept_info where store_id=#{storeId} and is_deleted=0
   </select>
   
-   <select id="positionInfoSon" resultType="com.zefun.web.entity.EmployeeLevel" parameterType="java.lang.Integer">
-    	select level_id levelId,level_name levelName from employee_level where position_id=#{position_id} and is_deleted=0
+   <select id="positionInfoSon" resultType="com.zefun.web.entity.EmployeeLevel" parameterType="java.util.HashMap">
+    	select level_id levelId,level_name levelName from employee_level where position_id=#{positionId} and store_id=#{storeId} and is_deleted=0
    </select>
     
   <select id="getlevelIdList" resultType="java.lang.Integer" parameterType="java.lang.Integer">

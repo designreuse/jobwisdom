@@ -1390,6 +1390,10 @@ public interface Url {
 	class BatchSet {
 		/** 项目批量设置初始化页面*/
 		public static final String VIEW_INITIALIZATION_PROJECT_BATCH_SET = "batchSet/view/initializationProjectBatchSet";
+		/** 保存批量设置业绩*/
+		public static final String ACTION_BATCH_SET_CALCULATE = "batchSet/action/batchSetCalculate";
+		/** 保存批量设置提成*/
+		public static final String ACTION_BATCH_SET_COMMISSION = "batchSet/action/batchSetCommission";
 	}
 	
 	/**

@@ -1563,8 +1563,7 @@ public class EmployeeService {
                         .collect(Collectors.toList());
                     double tatailCommission = 0.0;
                     if (commissionList.size() != 0) {
-                        tatailCommission = commissionList.parallelStream()
-                                .mapToDouble(EmployeeInfoDto::getCommissionAmount).average().getAsDouble();
+                        tatailCommission = commissionList.parallelStream().mapToDouble(EmployeeInfoDto::getCommissionAmount).sum();
                     }
                    
                     if (i == 1) {
