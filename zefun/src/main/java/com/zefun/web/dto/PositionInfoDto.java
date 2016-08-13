@@ -11,6 +11,8 @@ import com.zefun.web.entity.EmployeeLevel;
 public class PositionInfoDto {
     /** 岗位标识*/
     private Integer positionId;
+    /** 门店标识*/
+    private Integer storeId;
     /** 岗位名称*/
     private String positionName;
     /** 是否为店长\\收银员(0,不是 1是)*/
@@ -19,7 +21,15 @@ public class PositionInfoDto {
     private List<EmployeeLevel> employeeLevel;
     
     
-    public String getIsShow() {
+    public Integer getStoreId() {
+		return storeId;
+	}
+	
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
+	}
+
+	public String getIsShow() {
 		return isShow;
 	}
     

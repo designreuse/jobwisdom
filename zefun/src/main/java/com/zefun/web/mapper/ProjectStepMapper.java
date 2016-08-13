@@ -17,10 +17,10 @@ public interface ProjectStepMapper {
      * 根据项目标识查询可预约的步骤信息
     * @author 张进军
     * @date Jan 29, 2016 5:02:29 PM
-    * @param projectId  项目标识
+    * @param projectIds  项目标识集合
     * @return   步骤信息
      */
-    ProjectStep selectAppointStepByProjectId(int projectId);
+    List<ProjectStep> selectAppointStepByProjectId(String[] projectIds);
     
     /**
      * 删除

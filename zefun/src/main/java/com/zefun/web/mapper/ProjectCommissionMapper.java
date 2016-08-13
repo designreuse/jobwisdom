@@ -132,4 +132,13 @@ public interface ProjectCommissionMapper {
     * @return ProjectCommission
      */
     List<ProjectCommission> selectShow(Integer projectId);
+    
+    /**
+     * 
+    * @author 老王
+    * @date 2016年8月13日 下午2:09:02 
+    * @param projectIdStr projectIdStr
+    * @return List<ProjectCommission>
+     */
+    List<ProjectCommission> selectByProjectIdList(String[] projectIdStr);
 }

@@ -213,7 +213,7 @@
 				   <table class="search_table_" width='439'>
 					 <tr>
 					  <td rowspan="100" width="141">
-						<p class="pay_item">${orderDetailList.projectName}</p><i class="pay_item" style="text-align: center;"><c:forEach items="${daybook.deptList}" var="deptList">(${deptList.deptName})</c:forEach></i>
+						<p class="pay_item">${orderDetailList.projectName}</p><p>${orderDetailList.detailCalculate}</p><i class="pay_item" style="text-align: center;"><c:forEach items="${daybook.deptList}" var="deptList">(${deptList.deptName})</c:forEach></i>
 					  </td>
 					  </tr>
 					  <c:forEach items="${orderDetailList.commissionList}" var="commissionList">

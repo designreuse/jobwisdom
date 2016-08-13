@@ -24,10 +24,14 @@
      <if test="roleId != null" >
        and  account_role_id = #{roleId}
      </if>
+     <if test="accountRoleName != null" >
+       and  account_role_name     &lt;&gt; '企业' 
+     </if>
        <if test="roleIds != null" >
        and  role_id = #{roleIds}
      </if>
-    and  store_account = #{storeAccount}  and  is_deleted = 0
+    and  store_account = #{storeAccount}  and  is_deleted = 0 
+    
   </select>
   
       <select id="selectByStoreAccout" resultMap="BaseResultMap" parameterType="java.util.Map" >

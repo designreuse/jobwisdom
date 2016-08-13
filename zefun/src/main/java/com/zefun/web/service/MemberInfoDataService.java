@@ -70,8 +70,7 @@ public class MemberInfoDataService {
     * @return 会员信息及账户信息
      */
     public BaseDto selectByMemberDto(Integer memberId, Integer storeId){
-        MemberDto memberDto = memberInfoMapper
-                .selectByMemberResultMap(memberId);
+        MemberDto memberDto = memberInfoMapper.selectByMemberResultMap(memberId);
         memberDto.getStoreInfo().setStoreDesc("");
         if (memberDto.getBirthday() == null) {
             memberDto.setBirthday("未设置");

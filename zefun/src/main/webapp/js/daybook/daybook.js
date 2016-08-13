@@ -223,7 +223,7 @@ function spellTableData(data) {
 			str += '</td><td style="width:140px" colspan="2">';
 			for(var i =0 ; i< data.orderDetailList.length ;i++){
 					var orderDetailList = data.orderDetailList[i];
-					str += '<table class="search_table_"  width="439"><tr><td rowspan="100" width="141"><p class="pay_item">'+orderDetailList.projectName+'</p><i class="pay_item" style="text-align: center;">';
+					str += '<table class="search_table_"  width="439"><tr><td rowspan="100" width="141"><p class="pay_item">'+orderDetailList.projectName+'</p><p>'+orderDetailList.detailCalculate+'</p><i class="pay_item" style="text-align: center;">';
 				for(var s = 0 ; s< data.deptList.length; s++){
 				    var deptList =  data.deptList[s];
 					str += '('+deptList.deptName+')';

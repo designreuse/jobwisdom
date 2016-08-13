@@ -371,13 +371,13 @@ function save() {
         var employeeId2 = jQuery(comboObj[i]).find("input[name='employeeId2']").attr("employeeId");
         var employeeId3 = jQuery(comboObj[i]).find("input[name='employeeId3']").attr("employeeId");
         if (isEmpty(employeeId1)) {
-        	employeeId1 = null;
+        	employeeId1 = 0;
         }
         if (isEmpty(employeeId2)) {
-        	employeeId2 = null;
+        	employeeId2 = 0;
         }
         if (isEmpty(employeeId3)) {
-        	employeeId3 = null;
+        	employeeId3 = 0;
         }
         var employeeIdObj = {"employeeId1" : employeeId1, "employeeId2" : employeeId2, "employeeId3" : employeeId3};
         
