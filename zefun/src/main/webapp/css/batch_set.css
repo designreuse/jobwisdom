@@ -43,15 +43,25 @@
 	
 .batch_set_3_content{height:640px;}
 
-.job li{margin:8px auto;width:135px;height:28px;line-height:28px;text-align:center;border-radius:12px;border:1px solid #909090;cursor:pointer;}
+.job li{ margin: 0px auto;
+    width: 135px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid #909090;
+    cursor: pointer;
+    position: relative;
+    top: 8px;
+    margin-bottom:8px}
 .selected_job>p{height:40px;border-top:1px solid #909090;border-bottom:1px solid #909090;font-size:14px;background:#ebeff8;text-align:center;line-height:40px}
-.selected_job_content{height:430px;padding-top:5px;overflow:overlay}
+.selected_job_content{height:437px;padding-top:5px;overflow:overlay}
 
 .selected_job_content_detail{position:relative;margin:10px auto;width:160px;height:76px;border:1px solid #909090;border-radius:12px}
 .selected_job_content_detail select{padding:0 0 0 20px; width:60px;height:18px;border:1px solid #939393;border-radius:12px}
 .selected_job_content_detail input{padding-right:20px;width:54px;height:10px;border-radius:12px;border:1px solid #939393}
 .selected_job_content_detail>p{height:24px;text-align:center;line-height:24px;border-bottom:1px solid #939393}
-.selected_way>p{padding-left:5px;margin-top:2px}
+.selected_way>p{padding-left:4px;margin-top:2px}
 .selected_way>p span{display:inline-block;width:62px;text-align:center}
 .selected_way>p em{position:relative;left:-18px;top:2px}
 .selected_job_content_detail img{position:absolute;right:-5px;top:-5px;width:15px}
@@ -91,7 +101,7 @@ input[type="checkbox"] {
 .batch_set_4_content{border-bottom:1px solid #939393}
 .batch_set_4_content>p span{display:inline-block;width:120px}
 
-.batch_set_4_{height:558px;overflow:overlay}
+.batch_set_4_{height:599px;overflow:overlay}
 .batch_set_5{height: 680px;float:left;width:378px}
 .batch_set_5>p {
     height: 40px;
