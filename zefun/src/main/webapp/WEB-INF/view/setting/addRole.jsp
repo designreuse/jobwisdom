@@ -163,8 +163,13 @@ jQuery(function(){
 </body>
 <script>
 
-
-
+jQuery(function(){
+	var htmlLi = '';
+	for (var z = 20; z > jQuery(".content_right .clearfix li").length; z--) {
+		htmlLi +='<li></li>';
+	}
+	jQuery(".content_right ul").append(htmlLi)
+})
 
 function roleChange(roleId, accountRoleId) {
 	jQuery(".zzc .second .appoint_ul_index").empty();

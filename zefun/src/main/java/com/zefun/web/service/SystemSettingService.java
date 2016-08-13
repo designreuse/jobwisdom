@@ -573,6 +573,7 @@ public class SystemSettingService {
         Map<String, Object> mapMenu = new HashMap<String, Object>();
         mapMenu.put("storeAccount", storeAccount);
         mapMenu.put("roleId", null);
+        mapMenu.put("accountRoleName", "accountRoleName");
         List<AccountRoleInfo> selectRoles = accountRoleInfoMapper.selectAccountMenuByRoleId(mapMenu);
         view.addObject("selectRoles", selectRoles); 
         return view;
