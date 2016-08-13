@@ -139,6 +139,7 @@ UNION ALL
    
   </select>
   
+  
     <select id="selectDetailLByGoods" parameterType="java.util.Map" resultMap="BaseResultMap">
    SELECT 
    d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate FROM 
@@ -159,7 +160,8 @@ UNION ALL
    <select id="selectDetailLByCategory" parameterType="java.util.Map" resultMap="BaseResultMap">
    SELECT 
    d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate FROM 
-		order_detail  d LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
+		order_detail  d 
+		LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
  						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
  						LEFT JOIN  goods_category c ON g.category_id = c.category_id 
 	    WHERE i.order_status  IN (3,4)    AND d.order_type = 2  AND i.is_deleted =0 AND  d.is_deleted =0 
@@ -200,14 +202,16 @@ UNION ALL
   
    <select id="selectDetailListByGoodsd" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
  	SELECT 
-  i.cash_card_type,i.order_type,ag.goods_name ,g.goods_id , c.category_name,c.category_id,d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
+  i.cash_card_type,i.order_type,ag.goods_name ,g.goods_id , c.category_name,c.category_id,d.order_id,d.create_time ,SUM( cm.goods_counts) AS project_count ,SUM( cm.goods_counts * cm.combo_performance_cal ) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
 		order_detail  d 
+							
 						LEFT JOIN  combo_goods     cm ON  cm.combo_id = d.project_id
 						LEFT JOIN  goods_info     g ON g.goods_id    = cm.goods_id 
 						LEFT JOIN  dept_info      f ON g.dept_id     = f.dept_id
  						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
  						LEFT JOIN  goods_category c ON g.category_id = c.category_id 
 						LEFT JOIN account_goods ag ON ag.goods_id = g.a_id 
+		
 	    WHERE i.order_status  IN (3,4)    AND d.order_type = (3)   AND i.is_deleted =0 AND  d.is_deleted =0   AND  ag.goods_name IS NOT NULL and i.cash_card_type is not null
    AND i.store_id = ${storeId}  
     <if test="time1 !=null and time1 !=''">

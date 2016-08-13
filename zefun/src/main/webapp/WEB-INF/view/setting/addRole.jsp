@@ -78,17 +78,6 @@ jQuery(function(){
     jQuery( "ul, li" ).disableSelection();
   });
   
-  jQuery(function() {
-    jQuery( "#sortable2").sortable({
-      revert: true
-    });
-    jQuery( "#draggable" ).draggable({
-      connectToSortable: "#sortable2",
-      helper: "clone",
-      revert: "invalid"
-    });
-    jQuery( "ul, li" ).disableSelection();
-  });
 
 
   </script>
