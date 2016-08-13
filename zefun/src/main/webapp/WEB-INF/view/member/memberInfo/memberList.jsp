@@ -68,7 +68,6 @@ input[type='file']{cursor:pointer;top:-40px;left:80px;width:200px;height:50px;ba
 						<button style="margin-left: 40px" value="0" onclick="selectHasDeleted(this)">已冻结账户</button>
 						<button class="input_file" onclick="jQuery('.zzc').show();">导入会员</button>
 						<span><em class="triangle-down"></em>更多筛选信息</span>
-						
 					</p>
 					<ul class="fuzzysearch" style="display: none;"></ul>
 					<div class="clearfix data_select" style="display: none">
@@ -340,7 +339,6 @@ jQuery(function(){
 
 function upload(){
 	var fileObj = document.getElementById("file").files[0];
-    console.log(fileObj)
     var FileController = baseUrl + "member/action/uploadMemberExls";                    // 接收上传文件的后台地址 
     var form = new FormData();
     form.append("file", fileObj);
@@ -348,7 +346,12 @@ function upload(){
     xhr.open("post", FileController, true);
     xhr.onload = function (e) {
     	var baseDto = eval("("+xhr.responseText+")");
-    	jQuery("#p").text(baseDto.msg);
+    	if (baseDto.code != 0){
+    		jQuery("#p").text(baseDto.msg);
+    	}else {
+    		dialog("导入成功");
+    		window.location.href = baseUrl + "member/view/list";
+    	}
     };
     xhr.send(form);
 }
