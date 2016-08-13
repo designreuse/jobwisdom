@@ -251,6 +251,18 @@ function save(type){
 	
 	var lyjfp2 = jQuery("#lyjfp"+type+"_2").val();
 	var lygfp2 =jQuery("#lygfp"+type+"_2").val();
+	var number1 = lyjfp1*1+lyjfp2*1;
+	var number2 = lygfp1*1+lygfp2*1;
+	if(number1>100){
+		dialog("现金二人分配业绩不能大于100%");
+		return;
+	}
+	if(number2>100){
+		dialog("现金二人分配提成不能大于100%");
+		return;
+	}
+	
+	
 	var cash_two_commission =lyjfp1.toString()+":"+lygfp1.toString()+","+lyjfp2.toString()+":"+lygfp2.toString();
 	
 	var syjfp1 =jQuery("#syjfp"+type+"_1").val();
@@ -261,6 +273,16 @@ function save(type){
 	
 	var syjfp3 =jQuery("#syjfp"+type+"_3").val();
 	var sygfp3 =jQuery("#sygfp"+type+"_3").val();
+	number1 = syjfp1*1 + syjfp2*1 + syjfp3*1;
+	number2 = sygfp1*1 + sygfp2*1 + sygfp3*1;
+	if(number1>100){
+		dialog("现金三人人分配业绩不能大于100%");
+		return;
+	}
+	if(number2>100){
+		dialog("现金三人人分配提成不能大于100%");
+		return;
+	}
 	
 	var cash_three_commission = syjfp1.toString()+":"+sygfp1.toString()+","+syjfp2.toString()+":"+syjfp2.toString()+","+syjfp3.toString()+":"+syjfp3.toString();
 	
@@ -271,6 +293,16 @@ function save(type){
 	var lyjtc2 = jQuery("#lyjtc"+type+"_2").val();
 	var lygtc2 =jQuery("#lygtc"+type+"_2").val();
 	var card_two_commission =lyjtc1+":"+lygtc1+","+lyjtc2+":"+lygtc2;
+	number1 = lyjtc1*1 + lyjtc2*1;
+	number2 = lygtc1*1 + lygtc2*1;
+	if(number1>100){
+		dialog("卡金二人分配业绩不能大于100%");
+		return;
+	}
+	if(number2>100){
+		dialog("现金二人分配提成不能大于100%");
+		return;
+	}
 	
 	var syjtc1 =jQuery("#syjtc"+type+"_1").val();
 	var sygtc1 =jQuery("#sygtc"+type+"_1").val();
@@ -280,7 +312,16 @@ function save(type){
 	
 	var syjtc3 =jQuery("#syjtc"+type+"_3").val();
 	var sygtc3 =jQuery("#sygtc"+type+"_3").val();
-	
+	number1 = syjtc1*1 + syjtc2*1 + syjtc3*1;
+	number2 = sygtc1*1 + sygtc2*1 + sygtc3*1;
+	if(number1>100){
+		dialog("卡金三人人分配业绩不能大于100%");
+		return;
+	}
+	if(number2>100){
+		dialog("现金三人人分配提成不能大于100%");
+		return;
+	}
 	var card_three_commission = syjtc1+":"+sygtc1+","+syjtc2+":"+syjtc2+","+syjtc3+":"+syjtc3;
 
    jQuery.ajax({

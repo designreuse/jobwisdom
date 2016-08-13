@@ -120,7 +120,7 @@
    select  
     c.*
     from goods_info g LEFT JOIN goods_category c ON c.category_id = g.category_id 
-    WHERE c.store_id = #{storeId,jdbcType=INTEGER} AND c.is_deleted = 0 AND g.goods_price > 0 GROUP BY  c.category_id 
+    WHERE c.store_id = #{storeId,jdbcType=INTEGER} AND c.is_deleted = 0 AND g.goods_price &gt; 0 GROUP BY  c.category_id 
   </select>
   
   <resultMap type="com.zefun.web.dto.DeptInfoDto" id="DetpInfoMap">

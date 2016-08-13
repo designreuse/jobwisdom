@@ -207,7 +207,7 @@ function save(){
 		dataType : "json",
 		success : function(e){
 			if(e.code != 0){
-				dialog("系统繁忙！");
+				dialog(e.msg);
 			}
 			
 			var ruleListByStoreId = e.msg;
@@ -233,7 +233,7 @@ function viewHtml(ruleListByStoreId){
 			html +=' <td>惩罚</td>';
 		}
 		html += ' <td>'+ruleListByStoreId.processMoney+'</td><td>'+ruleListByStoreId.ruleDesc+'</td>';
-		html += '<td><img onclick = "updated('+ruleListByStoreId.storeId +','+ruleListByStoreId.ruleId +','+ruleListByStoreId.processType +',"'+ruleListByStoreId.ruleName +'",'+ruleListByStoreId.processMoney +',"'+ruleListByStoreId.ruleDesc +'")" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleted('+ruleListByStoreId.ruleId +')" src="'+baseUrl+'images/add_store_2.png"></td></tr>' 
+		html += '<td><img onclick = "updated('+ruleListByStoreId.storeId +','+ruleListByStoreId.ruleId +','+ruleListByStoreId.processType +',\''+ruleListByStoreId.ruleName +'\','+ruleListByStoreId.processMoney +',\''+ruleListByStoreId.ruleDesc +'\')" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleted('+ruleListByStoreId.ruleId +')" src="'+baseUrl+'images/add_store_2.png"></td></tr>' 
 		
 	jQuery("#tab").append(html);
 }
@@ -253,7 +253,7 @@ function viewStore(storeIds){
 		}
 		html += ' <td>'+ruleListByStoreId.processMoney+'</td><td>'+ruleListByStoreId.ruleDesc+'</td>';
 		if(storeId == 0){
-			html += '<td><img onclick = "updated('+ruleListByStoreId.storeId +','+ruleListByStoreId.ruleId +','+ruleListByStoreId.processType +',"'+ruleListByStoreId.ruleName +'",'+ruleListByStoreId.processMoney +',"'+ruleListByStoreId.ruleDesc +'")" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleted('+ruleListByStoreId.ruleId +')" src="'+baseUrl+'images/add_store_2.png"></td></tr>';
+			html += '<td><img onclick = "updated('+ruleListByStoreId.storeId +','+ruleListByStoreId.ruleId +','+ruleListByStoreId.processType +',\''+ruleListByStoreId.ruleName +'\','+ruleListByStoreId.processMoney +',\''+ruleListByStoreId.ruleDesc +'\')" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleted('+ruleListByStoreId.ruleId +')" src="'+baseUrl+'images/add_store_2.png"></td></tr>';
 		}
 		 
 		jQuery("#tab").append(html);
