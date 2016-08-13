@@ -347,10 +347,10 @@ function upload(){
     xhr.onload = function (e) {
     	var baseDto = eval("("+xhr.responseText+")");
     	if (baseDto.code != 0){
+    		jQuery("#p").text(baseDto.msg);
+    	}else {
     		dialog("导入成功");
     		window.location.href = baseUrl + "member/view/list";
-    	}else {
-    		jQuery("#p").text(baseDto.msg);
     	}
     };
     xhr.send(form);
