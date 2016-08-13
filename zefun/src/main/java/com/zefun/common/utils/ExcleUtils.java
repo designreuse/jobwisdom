@@ -107,6 +107,23 @@ public class ExcleUtils {
     }
     
     /**
+     * 判断是否为数字
+    * @author 高国藩
+    * @date 2016年8月12日 下午6:28:43
+    * @param number number
+    * @return       boolean
+     */
+    public static boolean isNumber(String number){
+        try {
+            new BigDecimal(number);
+            return true;
+        } 
+        catch (Exception e) {
+            return false;
+        }
+    }
+    
+    /**
      * 格式化手机科学记数法
     * @author DavidLiang
     * @date 2016年1月18日 上午11:05:10

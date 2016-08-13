@@ -29,6 +29,7 @@
 		 jQuery('.second .appoint_ul_index ul').eq(index).append(html);
 		 jQuery('.second .appoint_ul_index ul').eq(index).find('li img').remove();
 		 jQuery('.second .appoint_ul_index ul').eq(index).find('li').append(img);
+		 jQuery('.second .appoint_ul_index ul').eq(index).find('li').attr('class','ui-state-default');
      	  }
 		jQuery(this).addClass('active');	 
 		jQuery('.second .appoint_ul li').eq(index).addClass('active').siblings().removeClass('active');
@@ -61,6 +62,35 @@ jQuery(function(){
 		
  })
 }) 
+  
+
+
+//排序
+  jQuery(function() {
+    jQuery( "#sortable1").sortable({
+      revert: true
+    });
+    jQuery( "#draggable" ).draggable({
+      connectToSortable: "#sortable1",
+      helper: "clone",
+      revert: "invalid"
+    });
+    jQuery( "ul, li" ).disableSelection();
+  });
+  
+  jQuery(function() {
+    jQuery( "#sortable2").sortable({
+      revert: true
+    });
+    jQuery( "#draggable" ).draggable({
+      connectToSortable: "#sortable2",
+      helper: "clone",
+      revert: "invalid"
+    });
+    jQuery( "ul, li" ).disableSelection();
+  });
+
+
   </script>
 <body>
 
@@ -107,7 +137,7 @@ jQuery(function(){
 	   <div class="appoint"  name="systemMemu">
 	     <p>*选择菜单</p>
 	     <div class="appoint_content first">
-		    <ul class="appoint_ul clearfix"  name="firestMemu">
+		    <ul class="appoint_ul clearfix  ui-sortable"  name="firestMemu">
 			</ul>
 		    <div class="appoint_ul_index" name="secendMemu">
 			</div>
@@ -117,9 +147,9 @@ jQuery(function(){
 	     <div class="appoint">
 	     <p>*已选择菜单</p>
 	     <div class="appoint_content second">
-		    <ul class="appoint_ul clearfix" name="roleMemu">
+		    <ul class="appoint_ul clearfix" name="roleMemu"  id="sortable">
 			</ul>
-		    <div class="appoint_ul_index">
+		    <div class="appoint_ul_index" >
 			</div>
 		 </div>
 	   </div>
@@ -132,7 +162,6 @@ jQuery(function(){
 </div>
 </body>
 <script>
-
 
 jQuery(function(){
 	var htmlLi = '';
@@ -167,29 +196,29 @@ function roleChange(roleId, accountRoleId) {
 			var html ='';
 			var htmlTwo = '';
 			for (var i = 0; i < jsonarray.length; i++) {
+				var g = i+1;
 				var jsono = jsonarray[i];
-				
+
 				if( i==0 ){
-					html += ' <li class="active" id ="'+jsono.memuId+'">'+jsono.fristMemuName+'</li> '
+					html += ' <li class="active" class="ui-state-default" id ="'+jsono.memuId+'">'+jsono.fristMemuName+'</li> '
 					htmlTwo +=' <ul class="clearfix">';
-					htmlUl += '<ul class="clearfix"> </ul>'; 
+					htmlUl += '<ul class="clearfix ui-sortable"    id="sortable'+g+'" > </ul>'; 
 				}
 				else{
-					html += ' <li  id ="'+jsono.memuId+'">'+jsono.fristMemuName+'</li> '
-					htmlTwo +=' <ul class="clearfix" style="display: none;">';
-					htmlUl += '<ul class="clearfix" style="display: none;"> </ul>'; 
+					html += ' <li  class="ui-state-default" id ="'+jsono.memuId+'">'+jsono.fristMemuName+'</li> '
+					htmlTwo +=' <ul class="clearfix"     style="display: none;"  >';
+					htmlUl += '<ul class="clearfix ui-sortable"  style="display: none;" id="sortable'+g+'"> </ul>'; 
 				}
 				//二级菜单
 				for (var j = 0; j < jsono.secendMemu.length; j++) {
 					 var secendMemu =jsono.secendMemu[j];
-					 htmlTwo +=' <li id="'+secendMemu.memuId+'">'+secendMemu.secendMemuName+'</li>'
+					 htmlTwo +=' <li  id="'+secendMemu.memuId+'">'+secendMemu.secendMemuName+'</li>';
 				}
-			
 				htmlTwo += '</ul>';
 				
 			}
 			jQuery(".zzc .second .appoint_ul_index").append(htmlUl);
-			jQuery(".zzc").find("div[name='secendMemu']").append(htmlTwo);
+			jQuery(".zzc").find("div[name='secendMemu']").append(htmlTwo); 
 			jQuery(".zzc").find("ul[name='firestMemu']").append(html);
 			jQuery(".zzc").find("ul[name='roleMemu']").append(html);
 			

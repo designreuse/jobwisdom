@@ -93,12 +93,22 @@ public class StoreManageRuleService {
      */
     public BaseDto saveOrUpdate(StoreManageRule storeManageRule) {
         storeManageRule.setLastOperatorTime(DateUtil.getCurDate());
+        Map<String, Object>  map = new HashMap<String, Object>();
+        map.put("ruleName", storeManageRule.getRuleName());
+        map.put("storeId", storeManageRule.getStoreId());
+        List<StoreManageRule> selectRuleListByRuleName = storeManageRuleMapper.selectRuleListByRuleName(map);
+      
         if (storeManageRule.getRuleId() != null) {
+            
             storeManageRuleMapper.updateByPrimaryKey(storeManageRule);
         }
         else {
-            
-            storeManageRuleMapper.insertSelective(storeManageRule);
+            if (selectRuleListByRuleName.size()==0){
+                storeManageRuleMapper.insertSelective(storeManageRule);
+            }
+            else{
+                return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有该名称");
+            }
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, storeManageRule);
     }

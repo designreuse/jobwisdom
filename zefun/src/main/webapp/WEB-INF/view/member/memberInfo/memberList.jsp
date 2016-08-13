@@ -4,6 +4,26 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="<%=basePath %>css/vip_data.css" type="text/css" />
 <script type="text/javascript" src="<%=basePath %>/js/My97DatePicker/WdatePicker.js"></script>
+<style>
+.zzc{position: fixed;
+    top: 0px;
+    height: 1090px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(102, 108, 121, 0.8);
+	}
+.input_file_content{position:relative;padding:20px}
+.input_file_{position:relative;left:50px;width:400px;height:250px;border-radius:12px;background:white;overflow:hidden;margin:100px auto}
+.input_file_>p{background:#323b4e;font-size:14px;color:white;height:40px;line-height:40px;text-align:center}
+
+input[type='file']{cursor:pointer;top:-40px;left:80px;width:200px;height:50px;background:Red;position:relative;opacity:0}
+.file_{position:relative;width:200px;height:50px;border-radius:12px;background:#ccc;color:white;font-size:16px;text-align:center;line-height:50px;left:80px;top:10px;}
+.input_file_content>p{text-align:center;font-size:14px}
+.input_button{text-align:center;margin-top:10px}
+.input_button button{width:120px;height:26px;border:none;color:whiite;font-size:14px;text-align:center;color:white;line-height:24px;margin:0 30px;background:#59688a;border-radius:12px}
+.input_button button:hover{background:#4c5a78}
+</style>
 <body>
 	<script>
 		jQuery(function() {
@@ -18,6 +38,23 @@
 			})
 		})
 	</script>
+	<div class="zzc" style="display: none;">
+	  <div class="input_file_">
+	     <p>上传文件</p>
+	     <div class="input_file_content">
+	      <div class="file_">	   
+		   	上传文件
+		   </div>  
+		 <input type="file" id="file" onchange="jQuery(this).next().text('文件读取成功，请点击上传');">
+		 <a href="http://7xss26.com1.z0.glb.clouddn.com/jobwisdom/TM/memberTM.xlsx" target="_blank" style="position: relative;left: 89px;top: -23px;">下载模板</a>
+		 <p id="p"></p>
+	   </div>
+	    <div class="input_button">
+		  <button onclick="upload()">确定</button>
+		  <button onclick="jQuery('.zzc').hide();">取消</button>
+		</div>
+	  </div>
+	</div>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
 			<%@include file="/menu.jsp"%>
@@ -29,7 +66,7 @@
 						<input type="text" onkeyup="searchMemberLike(this)" onfocus='if(jQuery(".fuzzysearch").children("li").length>0){jQuery(".fuzzysearch").show();}' id="serchMemberByNameOrPhone" placeholder="会员卡/姓名">
 						<button id="serchMemberByNameOrPhoneDoc">查询</button>
 						<button style="margin-left: 40px" value="0" onclick="selectHasDeleted(this)">已冻结账户</button>
-						<button onclick="window.location.href='<%=basePath %>member/view/error/member/info'">异常会员数据</button>
+						<button class="input_file" onclick="jQuery('.zzc').show();">导入会员</button>
 						<span><em class="triangle-down"></em>更多筛选信息</span>
 					</p>
 					<ul class="fuzzysearch" style="display: none;"></ul>
@@ -74,7 +111,7 @@
 						</div>
 						<div class="data_select_content_" style="border-bottom: none">
 							满足当前搜索条件共<em id="member_serch_count">6</em>人，你要保存该会员分组吗？<span>会员分组名称<input type="text" id="group_name"></span><i style="display: inline-block; margin-left: 90px"><button style="width: 110px; margin-left: 0" id="baocun">保存</button>
-								<button style="width: 110px; margin-left: 20px" id="fangqi">取消</button></i>
+								<button style="width: 110px; margin-left: 20px" id="fangqi" onclick="jQuery('.triangle-down').click()">取消</button></i>
 						</div>
 					</div>
 
@@ -128,7 +165,7 @@
 											</c:forEach>
 										</td>
 										<td><p>
-												<button style="background: #4e6fb3" onclick="deletedMember(${member.memberId }, 1, this)">冻</button>
+												<button style="background: #4e6fb3;" onclick="deletedMember(${member.memberId }, 1, this)">冻</button>
 											</p>
 										</td>
 										<td><p>
@@ -292,19 +329,32 @@ function selectHasDeleted(but){
 </script>
 <script>
 jQuery(function(){
-
 	jQuery(document).click(function(e){	
 		var tar=e.target;
-		
 		if(!jQuery(e.target).is('.fuzzysearch,#serchMemberByNameOrPhone')){
 			jQuery('.fuzzysearch').hide();
 		}
-		
-		
 	})
-	
 })
 
+function upload(){
+	var fileObj = document.getElementById("file").files[0];
+    var FileController = baseUrl + "member/action/uploadMemberExls";                    // 接收上传文件的后台地址 
+    var form = new FormData();
+    form.append("file", fileObj);
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", FileController, true);
+    xhr.onload = function (e) {
+    	var baseDto = eval("("+xhr.responseText+")");
+    	if (baseDto.code != 0){
+    		jQuery("#p").text(baseDto.msg);
+    	}else {
+    		dialog("导入成功");
+    		window.location.href = baseUrl + "member/view/list";
+    	}
+    };
+    xhr.send(form);
+}
 </script>
 <script src="<%=basePath%>js/member/member-list.js" type="text/javascript"></script>
 <script src="<%=basePath%>js/member/memberUpdate.js" type="text/javascript"></script>

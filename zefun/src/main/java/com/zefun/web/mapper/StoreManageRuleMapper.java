@@ -40,6 +40,15 @@ public interface StoreManageRuleMapper {
     List<StoreManageRule> selectRuleListByStoreId(Integer  storeId);
     
     /**
+     *  名称
+    * @author 骆峰
+    * @date 2016年8月13日 下午2:29:34
+    * @param ruleName ruleName
+    * @return  List<StoreManageRule>
+     */
+    List<StoreManageRule> selectRuleListByRuleName(Map<String, Object>  map);
+    
+    /**
      * 
     * @author 骆峰
     * @date 2016年8月4日 下午8:25:09

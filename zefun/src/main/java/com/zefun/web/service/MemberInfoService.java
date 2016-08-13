@@ -274,6 +274,9 @@ public class MemberInfoService {
     /** 商品信息*/
     @Autowired
     private GoodsInfoMapper goodsInfoMapper;
+    /** 二级账户*/
+    @Autowired
+    private MemberSubAccountMapper memberSubAccountMapper;
     
     /**日志记录对象*/
     private static Logger log = Logger.getLogger(MemberLevelService.class);
@@ -1124,7 +1127,8 @@ public class MemberInfoService {
             
             if (account.getBalanceIntegral()>0){
                 //积分流水变动
-                changeIntegralFlow(memberInfo, account, account.getBalanceIntegral(), App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
+                changeIntegralFlow(memberInfo.getMemberId(), account, account.getBalanceIntegral(), 
+                        App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
             }
             
             if (account.getDebtAmount().intValue()>0){
@@ -1717,12 +1721,12 @@ public class MemberInfoService {
                 }
                 //积分余额流水
                 if (account.getBalanceIntegral() > 0){
-                    changeIntegralFlow(memberInfos.get(i), account, account.getBalanceIntegral(), 
+                    changeIntegralFlow(memberInfos.get(i).getMemberId(), account, account.getBalanceIntegral(), 
                             App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
                 }
                 //礼金余额流水
                 if (account.getBalanceGiftmoneyAmount().intValue() > 0){
-                    changeGiftMoneyFlow(memberInfos.get(i), account, account.getBalanceGiftmoneyAmount(), 
+                    changeGiftMoneyFlow(memberInfos.get(i).getMemberId(), account, account.getBalanceGiftmoneyAmount(), 
                             App.Member.IMPORT_MONEY_DECS, 7, lastOperatorId);
                 }
             }
@@ -2994,7 +2998,7 @@ public class MemberInfoService {
      * 更新积分流水表
     * @author 高国藩
     * @date 2015年12月17日 下午8:23:28
-    * @param info                   会员信息
+    * @param memberId                   会员信息
     * @param account                会员明细信息
     * @param flowAmount             流水金额
     * @param desc                   流水业务描述
@@ -3003,10 +3007,10 @@ public class MemberInfoService {
     * @param balanceAmount          当前余额(0:导入,迁移要查询)
     * @param lastOperatorId         最后操作人员
      */
-    public void changeIntegralFlow(MemberInfo info, MemberAccount account, Integer flowAmount, String desc, Integer businessType, Integer storeId 
+    public void changeIntegralFlow(Integer memberId, MemberAccount account, Integer flowAmount, String desc, Integer businessType, Integer storeId 
             , Integer balanceAmount, Integer lastOperatorId){
         IntegralFlow integralFlow = new IntegralFlow();
-        integralFlow.setAccountId(info.getMemberId());
+        integralFlow.setAccountId(memberId);
         integralFlow.setFlowAmount(flowAmount);
         integralFlow.setBalanceAmount(balanceAmount);
         integralFlow.setFlowType(2);
@@ -3021,17 +3025,17 @@ public class MemberInfoService {
      * 礼金流水变动
     * @author 高国藩
     * @date 2015年12月17日 下午9:22:19
-    * @param info              会员信息
+    * @param memberId              会员信息
     * @param account           会员数据信息
     * @param desc              流水业务描述
     * @param businessType      流水类型(7:导入,8:迁移)
     * @param giftMoneyAmount   礼金金额
     * @param lastOperatorId    最后操作人员
      */
-    public void changeGiftMoneyFlow(MemberInfo info, MemberAccount account, BigDecimal giftMoneyAmount, 
+    public void changeGiftMoneyFlow(Integer memberId, MemberAccount account, BigDecimal giftMoneyAmount, 
             String desc, Integer businessType, Integer lastOperatorId){
         GiftmoneyDetail giftmoneyDetail = new GiftmoneyDetail();
-        giftmoneyDetail.setAccountId(info.getMemberId());
+        giftmoneyDetail.setAccountId(memberId);
         giftmoneyDetail.setTotalAmount(giftMoneyAmount);
         giftmoneyDetail.setNowMoney(giftMoneyAmount);
         giftmoneyDetail.setResidueNowMoney(giftMoneyAmount);
@@ -3267,11 +3271,12 @@ public class MemberInfoService {
             changeMoneyFlow(memberInfo.getMemberId(), errorMb.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         }
         if (errorMb.getBalanceIntegral().intValue()>0){
-            changeIntegralFlow(memberInfo, memberAccount, errorMb.getBalanceIntegral().intValue(), 
+            changeIntegralFlow(memberInfo.getMemberId(), memberAccount, errorMb.getBalanceIntegral().intValue(), 
                     App.Member.MOVE_MONEY_DECS, 8, storeId, 0, lastOperatorId);
         }
         if (errorMb.getBalanceGiftmoneyAmount().intValue()>0){
-            changeGiftMoneyFlow(memberInfo, memberAccount, errorMb.getBalanceGiftmoneyAmount(), App.Member.IMPORT_MONEY_DECS, 8, lastOperatorId);
+            changeGiftMoneyFlow(memberInfo.getMemberId(), memberAccount, errorMb.getBalanceGiftmoneyAmount(), 
+                    App.Member.IMPORT_MONEY_DECS, 8, lastOperatorId);
         }
         errorMb.setUpdateTime(DateUtil.getCurDate());
         errorMb.setLastOperatorId(lastOperatorId);
@@ -3392,7 +3397,8 @@ public class MemberInfoService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
         changeMoneyFlow(memberInfo.getMemberId(), errorSc.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
-        changeIntegralFlow(memberInfo, memberAccount, errorSc.getBalanceIntegral(), App.Member.MOVE_MONEY_DECS, 8, storeId, 0, lastOperatorId);
+        changeIntegralFlow(memberInfo.getMemberId(), memberAccount, errorSc.getBalanceIntegral(), 
+                App.Member.MOVE_MONEY_DECS, 8, storeId, 0, lastOperatorId);
         errorSc.setUpdateTime(DateUtil.getCurDate());
         errorSc.setLastOperatorId(lastOperatorId);
         errorSc.setIsDeleted(1);
@@ -3451,9 +3457,10 @@ public class MemberInfoService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
         changeMoneyFlow(memberInfo.getMemberId(), errorHt.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
-        changeIntegralFlow(memberInfo, memberAccount, errorHt.getBalanceIntegral().intValue(), 
+        changeIntegralFlow(memberInfo.getMemberId(), memberAccount, errorHt.getBalanceIntegral().intValue(), 
                 App.Member.MOVE_MONEY_DECS, 8, storeId, 0, lastOperatorId);
-        changeGiftMoneyFlow(memberInfo, memberAccount, errorHt.getBalanceGiftmoneyAmount(), App.Member.IMPORT_MONEY_DECS, 8, lastOperatorId);
+        changeGiftMoneyFlow(memberInfo.getMemberId(), memberAccount, errorHt.getBalanceGiftmoneyAmount(), 
+                App.Member.IMPORT_MONEY_DECS, 8, lastOperatorId);
         errorHt.setUpdateTime(DateUtil.getCurDate());
         errorHt.setLastOperatorId(lastOperatorId);
         errorHt.setIsDeleted(1);
@@ -3969,7 +3976,8 @@ public class MemberInfoService {
             }
             if (account.getBalanceIntegral()>0){
                 //积分流水变动
-                changeIntegralFlow(memberInfo, account, account.getBalanceIntegral(), App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
+                changeIntegralFlow(memberInfo.getMemberId(), account, account.getBalanceIntegral(), 
+                        App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
             }
             if (account.getDebtAmount().intValue()>0){
                 //欠款流水变动
@@ -4223,7 +4231,8 @@ public class MemberInfoService {
             }
             if (account.getBalanceIntegral()>0){
                 //积分流水变动
-                changeIntegralFlow(memberInfo, account, account.getBalanceIntegral(), App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
+                changeIntegralFlow(memberInfo.getMemberId(), account, account.getBalanceIntegral(), 
+                        App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
             }
             if (account.getDebtAmount().intValue()>0){
                 //欠款流水变动
@@ -4412,7 +4421,7 @@ public class MemberInfoService {
             }
             //礼金余额流水
             if (account.getBalanceGiftmoneyAmount().intValue() > 0){
-                changeGiftMoneyFlow(memberInfo, account, account.getBalanceGiftmoneyAmount(), 
+                changeGiftMoneyFlow(memberInfo.getMemberId(), account, account.getBalanceGiftmoneyAmount(), 
                         App.Member.IMPORT_MONEY_DECS, 7, lastOperatorId);
             }
         }
@@ -4650,10 +4659,12 @@ public class MemberInfoService {
                 changeMoneyFlow(memberInfo.getMemberId(), account.getBalanceAmount(), App.Member.IMPORT_MONEY_DECS, 7, storeId, lastOperatorId);
             }
             if (account.getBalanceGiftmoneyAmount().intValue() > 0){
-                changeGiftMoneyFlow(memberInfo, account, account.getBalanceGiftmoneyAmount(), App.Member.IMPORT_MONEY_DECS, 7, lastOperatorId);
+                changeGiftMoneyFlow(memberInfo.getMemberId(), account, account.getBalanceGiftmoneyAmount(), 
+                        App.Member.IMPORT_MONEY_DECS, 7, lastOperatorId);
             }
             if (account.getBalanceIntegral()>0){
-                changeIntegralFlow(memberInfo, account, account.getBalanceIntegral(), App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
+                changeIntegralFlow(memberInfo.getMemberId(), account, account.getBalanceIntegral(), 
+                        App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
             }
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "导入成功");
@@ -5053,12 +5064,12 @@ public class MemberInfoService {
                 }
                 //积分余额流水
                 if (account.getBalanceIntegral() > 0){
-                    changeIntegralFlow(memberInfos.get(i), account, account.getBalanceIntegral(), 
+                    changeIntegralFlow(memberInfos.get(i).getMemberId(), account, account.getBalanceIntegral(), 
                             App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, lastOperatorId);
                 }
                 //礼金余额流水
                 if (account.getBalanceGiftmoneyAmount().intValue() > 0){
-                    changeGiftMoneyFlow(memberInfos.get(i), account, account.getBalanceGiftmoneyAmount(), 
+                    changeGiftMoneyFlow(memberInfos.get(i).getMemberId(), account, account.getBalanceGiftmoneyAmount(), 
                             App.Member.IMPORT_MONEY_DECS, 7, lastOperatorId);
                 }
             }
@@ -5369,6 +5380,153 @@ public class MemberInfoService {
         memberInfoMapper.updateByPrimaryKey(memberInfo);
         return new BaseDto(0, memberInfo);
     }
-    
+
+
+    /**
+     * 导入会员数据
+    * @author 高国藩
+    * @date 2016年8月12日 下午5:53:01
+    * @param file              file
+    * @param storeId           storeId
+    * @param storeAccount      storeAccount
+    * @param employeeId        employeeId
+    * @return                  BaseDto
+     * @throws IOException 
+     */
+    public BaseDto uploadMemberExls(MultipartFile[] file, Integer storeId, String storeAccount, Integer employeeId) throws IOException {
+        // TODO Auto-generated method stub
+        String name = file[0].getOriginalFilename();
+        long size = file[0].getSize();
+        if ((name == null || name.equals("")) && size == 0) {
+            return new BaseDto(-1, "无法识别上传文件");
+        }
+        boolean isE2007 = false;
+        if (name.endsWith("xlsx")) {
+            isE2007 = true;
+        }
+        InputStream input = file[0].getInputStream();
+        Workbook wb = null;
+        if (isE2007) {
+            wb = new XSSFWorkbook(input);
+        } 
+        else {
+            wb = new HSSFWorkbook(input);
+        }
+        Sheet sheet = wb.getSheetAt(0);
+        Iterator<Row> rows = sheet.rowIterator();
+        List<MemberInfo> memberInfos = new ArrayList<>();
+        List<MemberAccount> memberAccounts = new ArrayList<>();
+        // 已经存在的会员手机号码
+        List<String> hasStr = new ArrayList<>();
+        memberInfoMapper.selectMemberByStoreId(storeId).forEach(m -> hasStr.add(m.getPhone()));
+        // 会员等级和名称对应,方便取值
+        Map<String, Integer> levelMap = packLevelMap(storeId);
+        a: for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+            Row xssfRow = sheet.getRow(rowNum);
+            if (xssfRow != null) {
+                MemberInfo memberInfo = new MemberInfo();
+                MemberAccount memberAccount = new MemberAccount();
+                b: for (int cellNum = 0; cellNum <= xssfRow.getLastCellNum(); cellNum++) {
+                    try {
+                        Cell cell = xssfRow.getCell(cellNum);
+                        String str = ExcleUtils.changeCellToString(cell);
+                        if (cellNum == 0) {
+                            if (hasStr.contains(str)) {
+                                log.info(str + " 已存在该手机号码");
+                                return new BaseDto(-1, "第"+rowNum+"行,第"+(cellNum+1)+"列,手机号码重复");
+                            } 
+                            else {
+                                Pattern p1 = Pattern.compile("(13\\d|14[57]|15[^4,\\D]|17[678]|18\\d)\\d{8}|170[059]\\d{7}");  
+                                Matcher m = p1.matcher(str); 
+                                if (m.matches()){
+                                    hasStr.add(str);
+                                    memberInfo.setPhone(str);
+                                }
+                                else {
+                                    log.info(str +" 该手机号码不合法");
+                                    return new BaseDto(-1, "第"+rowNum+"行,第"+(cellNum+1)+"列,该手机号码不合法");
+                                }
+                            }
+                            continue b;
+                        }
+                        if (cellNum == 1) {
+                            memberInfo.setName(str);
+                            continue b;
+                        }
+                        if (cellNum == 2) {
+                            memberInfo.setSex(str);
+                            continue b;
+                        }
+                        if (cellNum == 3) {
+                            Integer levelId = levelMap.get(str);
+                            if (levelId != null){
+                                memberInfo.setLevelId(levelId);
+                            }
+                            else {
+                                return new BaseDto(-1, "第"+rowNum+"行,第"+(cellNum+1)+"列,会员卡不存在");
+                            }
+                            continue b;
+                        }
+                        if (cellNum == 4 && ExcleUtils.isNumber(str)) {
+                            memberAccount.setBalanceAmount(new BigDecimal(str));
+                            continue b;
+                        }
+                        if (cellNum == 5  && ExcleUtils.isNumber(str)) {
+                            memberAccount.setBalanceIntegral(new BigDecimal(str).intValue());
+                            continue b;
+                        }
+                        if (cellNum == 6  && ExcleUtils.isNumber(str)) {
+                            memberAccount.setBalanceGiftmoneyAmount(new BigDecimal(str));
+                            continue b;
+                        }
+                        if (cellNum == 7  && ExcleUtils.isNumber(str)) {
+                            memberAccount.setDebtAmount(new BigDecimal(str));
+                            continue b;
+                        }
+                    } 
+                    catch (Exception e) {
+                        return new BaseDto(-1, "第"+rowNum+"行,存在数据不合法, 请检查");
+                    }
+                }
+                memberInfos.add(memberInfo);
+                memberAccounts.add(memberAccount);
+            }
+        }
+        for (int i = 0; i < memberInfos.size(); i++) {
+            MemberInfo memberInfo = memberInfos.get(i);
+            memberInfo.setStoreId(storeId);
+            memberInfo.setStoreAccount(storeAccount);
+            memberInfo.setIsDeleted(0);
+            memberInfo.setCreateTime(DateUtil.getCurDate());
+            memberInfoMapper.insert(memberInfo);
+            MemberAccount memberAccount = memberAccounts.get(i);
+            memberAccount.setAccountId(memberInfo.getMemberId());
+            memberAccountMapper.insert(memberAccount);
+            MemberSubAccount memberSubAccount = new MemberSubAccount();
+            memberSubAccount.setLevelId(memberInfo.getLevelId());
+            memberSubAccount.setAccountId(memberAccount.getAccountId());
+            memberSubAccount.setBalanceAmount(memberAccount.getBalanceAmount());
+            memberSubAccount.setCreateTime(DateUtil.getCurDate());
+            memberSubAccount.setIsDeleted(0);
+            memberSubAccount.setLastOperatorId(employeeId);
+            memberSubAccountMapper.insert(memberSubAccount);
+        }
+        memberAccounts.stream().forEach(a -> {
+                if (a.getBalanceAmount()!=null && a.getBalanceAmount().compareTo(BigDecimal.ZERO)>0){
+                    changeMoneyFlow(a.getAccountId(), a.getBalanceAmount(), App.Member.IMPORT_MONEY_DECS, 7, storeId, employeeId);
+                }
+                if (a.getBalanceGiftmoneyAmount()!=null && a.getBalanceGiftmoneyAmount().compareTo(BigDecimal.ZERO)>0){
+                    changeGiftMoneyFlow(a.getAccountId(), a, a.getBalanceGiftmoneyAmount(), App.Member.IMPORT_MONEY_DECS, 8, employeeId);
+                }
+                if (a.getDebtAmount()!=null && a.getDebtAmount().compareTo(BigDecimal.ZERO)>0){
+                    insertDebtFlow(a.getAccountId(), null, a.getDebtAmount(), App.Member.IMPORT_MONEY_DECS, 1, employeeId, DateUtil.getCurDate());
+                }
+                if (a.getBalanceIntegral()!=null && a.getBalanceIntegral()>0){
+                    changeIntegralFlow(a.getAccountId(), a, a.getBalanceIntegral(), App.Member.IMPORT_MONEY_DECS, 7, storeId, 0, employeeId);
+                }
+            });
+        return new BaseDto(0, "上传成功");
+    }
+   
 }
     

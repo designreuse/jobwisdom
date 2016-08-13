@@ -35,6 +35,14 @@
     store_id = #{storeId}
   </select>
   
+     <select id="selectRuleListByRuleName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_manage_rule
+    where 
+    rule_name = #{ruleName}  and   store_id = #{storeId}
+  </select>
+  
      <select id="selectRuleListByAccountStoreId" resultMap="BaseResultMapByName" parameterType="java.util.Map" >
     select 
     r.*,(select store_name from store_info s where s.store_id=r.store_id) as storeName
