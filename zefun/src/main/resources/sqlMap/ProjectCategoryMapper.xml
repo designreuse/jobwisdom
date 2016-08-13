@@ -160,7 +160,7 @@
   	select category_id categoryId,category_name categoryName, store_id storeId from project_category where dept_id = #{deptId}
   </select>
   <select id="getProjectInfoAss" resultType="com.zefun.web.entity.ProjectInfo" parameterType="java.util.Map">
-  	select project_id projectId, project_name projectName,project_image projectImage,project_price projectPrice,sales_count salesCount from project_info where category_id = #{categoryId} and store_id = #{storeId} and is_deleted = 0
+  	select project_id projectId, project_name projectName,project_image projectImage,project_price projectPrice,sales_count salesCount, cost_price costPrice from project_info where category_id = #{categoryId} and store_id = #{storeId} and is_deleted = 0
   </select>
  
   <!--  根据门店标识、部门标识查询类别下存在项目的类别 -->
