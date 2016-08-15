@@ -63,10 +63,20 @@ public interface GoodsCategoryMapper {
      *  门店下已完成的商品大项
     * @author 骆峰
     * @date 2016年8月10日 下午8:58:36
-    * @param storeId
-    * @return
+    * @param storeId storeId
+    * @return List<GoodsCategory>
      */
     List<GoodsCategory> selectBygoodsInfo(Integer storeId);
+    
+    
+    /**
+     *   门店下有无该名称
+    * @author 骆峰
+    * @date 2016年8月15日 上午10:13:17
+    * @param map map
+    * @return List<GoodsCategory>
+     */
+    List<GoodsCategory> selectByName(Map<String, Object> map);
     
     /**
      * 获取部门，商品类别和商品列表

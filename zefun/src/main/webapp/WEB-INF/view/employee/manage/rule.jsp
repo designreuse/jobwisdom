@@ -208,13 +208,14 @@ function save(){
 		success : function(e){
 			if(e.code != 0){
 				dialog(e.msg);
+				return;
 			}
 			
 			var ruleListByStoreId = e.msg;
 			name = jQuery("#storeIdAll").val();
 			if(ruleId != null){
 				
-				jQuery("#"+ruleId).empty();
+				jQuery("#"+ruleId).remove();
 				ruleId = null;
 			}
 			viewHtml(ruleListByStoreId);

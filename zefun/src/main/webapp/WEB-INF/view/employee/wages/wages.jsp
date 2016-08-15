@@ -120,6 +120,7 @@
 <script>
 var jsonos = ${jsonos };
 var views = ${type };
+var storeIds = ${storeId};
  jQuery(function(){
 	 var json = jsonos.jsona;
 	 showTable(json);
@@ -131,7 +132,9 @@ var views = ${type };
 	 var year_month = year + "-"+month;
 	 jQuery("input[name='time1']").val(year_month);
 	 jQuery("input[name='time2']").val(year_month);
-	
+	 
+	 jQuery("select[name='store1']").val(storeIds);
+	 jQuery("select[name='store2']").val(storeIds);
 	 if(views == 1){
 		 jQuery("select[name='store1']").attr("class","hide");
 		 jQuery("select[name='store2']").attr("class","hide");

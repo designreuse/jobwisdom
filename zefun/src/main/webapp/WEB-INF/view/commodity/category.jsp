@@ -216,6 +216,10 @@
 			contentType : "application/json",
 			async : false,
 			success : function(data) {
+				if (data.code==-1){
+					dialog(data.msg);
+					return ;
+				}
 				var html = '<li categoryId="'+data.msg.categoryId+'">'
 							+ data.msg.categoryName + '<p style="display: none;">'
 							+ '<span onclick="showUpdate(' + type + ', '

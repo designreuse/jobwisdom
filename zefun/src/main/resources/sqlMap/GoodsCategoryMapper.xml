@@ -21,6 +21,13 @@
   </select>
   
   
+   <select id="selectByName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_category
+    where category_name = #{categoryName} and is_deleted = 0 and store_id = #{storeId} 
+  </select>
+  
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from goods_category
