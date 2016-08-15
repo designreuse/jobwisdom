@@ -14,7 +14,7 @@
     width: 127px;
     height: 38px;
     font-size: 14px;
-    border: 1px solid #1d4e97;
+    border: 1px solid #ccc;
     border-right: none;
     float: left;
     border-radius: 12px 12px 0 0;
@@ -23,14 +23,14 @@
     color: #c5bfbd;
 }
 .content_right>ul li:nth-child(2) {
-    border-right: 1px solid #1d4e97;
+    border-right: 1px solid #ccc;
 }
 
 .wages_content {
     overflow: hidden;
     width: 1037px;
     height: 1380px;
-    border: 1px solid #1d4e97;
+    border: 1px solid #ccc;
     border-radius: 0 12px 12px 12px;
 }
 
