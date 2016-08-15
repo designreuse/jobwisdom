@@ -49,18 +49,6 @@ public class MoneyFlow {
 	/** 查询条件, 1:year 2:month*/
 	private Integer queryType;
 
-	/** 会员等级标识 */
-	private Integer levelId;
-	
-	
-	
-    public Integer getLevelId() {
-        return levelId;
-    }
-
-    public void setLevelId(Integer levelId) {
-        this.levelId = levelId;
-    }
 
     public Integer getLevelId() {
 		return levelId;
