@@ -520,7 +520,7 @@ public class MemberLevelService {
                 long out = moneyFlows.stream()
                         .filter(m -> m.getFlowTime().substring(5, 7).equals(month[count]) 
                                 && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
-                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                        .mapToLong(m -> m.getFlowAmount().longValue()).reduce(0, (a, b) -> a + b);
                 blanck.add(out);
             }
             result.put("blanckDates", months);
@@ -536,7 +536,7 @@ public class MemberLevelService {
                 long out = moneyFlows.stream()
                         .filter(m -> m.getFlowTime().substring(8, 10).equals(month[count]) 
                                 && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
-                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                        .mapToLong(m -> m.getFlowAmount().longValue()).reduce(0, (a, b) -> a + b);
                 blanck.add(out);
                 months.add((count+1) + "号");
             }

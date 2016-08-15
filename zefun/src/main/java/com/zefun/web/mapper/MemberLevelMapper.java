@@ -177,4 +177,13 @@ public interface MemberLevelMapper {
     * @return        List<LevelTotalRemittanceDto>
      */
     List<LevelTotalRemittanceDto> selectStoreRemittance(Integer storeId);
+
+    /**
+     * 根据企业查询企业号下的所有会员卡
+    * @author 高国藩
+    * @date 2016年8月15日 下午4:47:09
+    * @param storeAccount storeAccount
+    * @return             List<MemberLevel>
+     */
+    List<MemberLevel> selectMemberLevelByStoreAccount(String storeAccount);
 }

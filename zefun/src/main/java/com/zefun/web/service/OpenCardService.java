@@ -754,6 +754,7 @@ public class OpenCardService {
 		orderInfo.setReceivableAmount(receivableAmount);
 		orderInfo.setDiscountAmount(receivableAmount);
 		orderInfo.setCashAmount(cashAmount);
+		orderInfo.setCashCardType(1);
 		orderInfo.setUnionpayAmount(unionpayAmount);
 		orderInfo.setWechatAmount(wechatAmount);
 		orderInfo.setAlipayAmount(alipayAmount);

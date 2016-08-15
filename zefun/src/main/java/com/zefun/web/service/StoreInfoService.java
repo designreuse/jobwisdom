@@ -881,17 +881,20 @@ public class StoreInfoService {
         
         initStoreData(storeInfo.getStoreId(), storeInfo.getStoreAccount());
         
-        //新增默认会员
-        MemberLevel member = memberLevelMapper.selectMemberLevelBySotreIdAndLevelName(storeInfo.getStoreAccount(), "默认会员卡");
+        // 会员卡复制
+        List<MemberLevel> memberLevels = memberLevelMapper.selectMemberLevelByStoreAccount(storeInfo.getStoreAccount());
+        for (int i = 0; i < memberLevels.size(); i++) {
+            MemberLevel member = memberLevels.get(i);
+            Map<String, Integer> params = new HashMap<String, Integer>();
+            params.put("levelId", member.getLevelId());
+            params.put("storeId", 0);
+            MemberLevelDiscount selectByStoreLevel = memberLevelDiscountMapper.selectByStoreLevel(params);
+            selectByStoreLevel.setStoreId(storeInfo.getStoreId());
+            selectByStoreLevel.setCreateTime(DateUtil.getCurTime());
+            selectByStoreLevel.setDiscountId(null);
+            memberLevelDiscountMapper.insert(selectByStoreLevel);
+        }
         
-        Map<String, Integer> params = new HashMap<String, Integer>();
-        params.put("levelId", member.getLevelId());
-        params.put("storeId", 0);
-        MemberLevelDiscount selectByStoreLevel = memberLevelDiscountMapper.selectByStoreLevel(params);
-        selectByStoreLevel.setStoreId(storeInfo.getStoreId());
-        selectByStoreLevel.setCreateTime(DateUtil.getCurTime());
-        selectByStoreLevel.setDiscountId(null);
-        memberLevelDiscountMapper.insert(selectByStoreLevel);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
     

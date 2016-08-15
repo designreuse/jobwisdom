@@ -47,6 +47,10 @@
   	select count(1) from member_info where level_id = #{levelId} and is_deleted = 0
   </select>
   
+  <select id="selectMemberLevelByStoreAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from member_level where store_account = #{storeAccount}
+  </select>
+  
   <!-- 根据门店标识删除会员卡信息(非默认), by 张小胖 -->
   <delete id="deleteByStoreId" parameterType="java.lang.Integer">
   	delete from member_level where store_id = #{storeId} and is_default = 0
@@ -363,7 +367,6 @@
 	FROM member_level_discount mld 
 	LEFT JOIN member_level ml ON ml.level_id = mld.level_id
 	WHERE mld.store_id = #{storeId} AND mld.is_deleted = 0
-  
   </select>
   
 </mapper>
