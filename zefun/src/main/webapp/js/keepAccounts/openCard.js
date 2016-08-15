@@ -721,7 +721,7 @@ function hkConfirm(){
 		return;
 	}
 
-	var needRefund = jQuery("span[name = 'needRefund']").text();
+	var needRefund = jQuery("#tab4 td[name = 'needRefund']").text();
 	
 	var cashAmount = jQuery("input[name = 'hkCashAmount']").val();
 	
