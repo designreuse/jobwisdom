@@ -14,7 +14,6 @@
     <result column="flow_time" property="flowTime" jdbcType="CHAR" />
     <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
-    <result column="level_id" property="levelId" jdbcType="INTEGER" />
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
   </resultMap>
   
@@ -39,13 +38,9 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-<<<<<<< HEAD
-    flow_id, account_id, flow_type, business_type, flow_amount, balance_amount, order_id, 
-    business_desc, flow_time, is_deleted, store_id, last_operator_id,level_id
-=======
     flow_id, account_id, flow_type, business_type, level_id, flow_amount, balance_amount, order_id, 
     business_desc, flow_time, is_deleted, store_id, last_operator_id
->>>>>>> aefd0271b2d812631f12a80e0312c0e154eb8050
+
   </sql>
   
   <!-- 根据会员标识列表删除账户流水，by 张小胖 -->
@@ -87,9 +82,7 @@
   <insert id="insert" parameterType="com.zefun.web.entity.MoneyFlow" >
     insert into money_flow
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="levelId != null" >
-        level_id,
-      </if>
+   
         <if test="flowId != null" >
         flow_id,
       </if>
@@ -180,9 +173,7 @@
   <update id="updateByPrimaryKey" parameterType="com.zefun.web.entity.MoneyFlow" >
     update money_flow
     <set >
-       <if test="levelId != null" >
-        level_id = #{levelId,jdbcType=INTEGER},
-      </if>
+     
       <if test="accountId != null" >
         account_id = #{accountId,jdbcType=INTEGER},
       </if>
