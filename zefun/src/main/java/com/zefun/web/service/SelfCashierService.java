@@ -323,11 +323,15 @@ public class SelfCashierService {
 		BigDecimal appointOff = new BigDecimal(0);
 		BigDecimal realAmount = new BigDecimal(0);
 		BigDecimal discountAmount = new BigDecimal(0);
+		
 		MemberSubAccount memberSubAccount = memberSubAccountMapper.selectByPrimaryKey(orderSubmit.getSubAccountId());
 		
 		//结账方式
   		Integer payType = 0;
-  		        
+  		
+  		//订单支付会员等级
+  		Integer levelId = null;
+  		
   		if (orderSubmit.getCardAmount().compareTo(new BigDecimal(0)) == 1) {
   		    payType = 1;
   		}
@@ -353,6 +357,9 @@ public class SelfCashierService {
 			if (ownerMemberId != null) {
 				// 一人多卡，从新计算折扣价格
 				BigDecimal tempAmount = null;
+				
+				levelId = memberSubAccount.getLevelId();
+				
 				if (ownerDetail.getOrderType() == 1) {
 					tempAmount = projectService.getProjectPriceByMember(memberSubAccount.getLevelId(),
 							ownerDetail.getProjectId(), ownerDetail.getProjectPrice(), storeId);
@@ -367,6 +374,7 @@ public class SelfCashierService {
 				ownerDetail.setDiscountAmount(tempAmount);
 				orderDetail.setDiscountAmount(tempAmount);
 				orderDetail.setRealPrice(tempAmount);
+				orderDetail.setLevelId(levelId);
 				discountAmount = discountAmount.add(tempAmount);
 				// 优惠类型为疗程
 				if (detail.getOffType() == 1 || detail.getOffType() == 2) {
@@ -485,6 +493,7 @@ public class SelfCashierService {
 		else {
 			orderInfo.setCashCardType(2);
 		}
+		orderInfo.setLevelId(levelId);
 		orderInfo.setCashAmount(orderSubmit.getCashAmount());
 		orderInfo.setUnionpayAmount(orderSubmit.getUnionpayAmount());
 		orderInfo.setAlipayAmount(orderSubmit.getAlipayAmount());
@@ -580,7 +589,7 @@ public class SelfCashierService {
 
 			// 新增会员账户流水
 			insertMoneyFlow(cashierDto.getMemberInfo().getStoreId(), orderSubmit.getSubAccountId(), orderId,
-					  orderSubmit.getCardAmount(), cashierDto.getMemberInfo().getBalanceAmount(), curTime, employeeId);
+					  orderSubmit.getCardAmount(), cashierDto.getMemberInfo().getBalanceAmount(), curTime, employeeId, levelId);
 			// 新增积分流水
 			if (integralAmount > 0) {
 				insertIntegralFlow(ownerMemberId, orderId, cashierDto.getMemberInfo().getBalanceIntegral(),
@@ -1688,16 +1697,18 @@ public class SelfCashierService {
 	 *            流水时间
 	 * @param operatorId
 	 *            操作人标识
+	 * @param levelId 会员等级
 	 * @return 新增记录数
 	 */
 	@Transactional
 	protected int insertMoneyFlow(Integer storeId, Integer accountId, Integer orderId, BigDecimal flowAmount,
-			  BigDecimal balance, String time, int operatorId) {
+			  BigDecimal balance, String time, int operatorId, Integer levelId) {
 		// 新增资金流水
 		MoneyFlow moneyFlow = new MoneyFlow();
 		moneyFlow.setAccountId(accountId);
 		moneyFlow.setFlowType(1);
 		moneyFlow.setBusinessType(1);
+		moneyFlow.setLevelId(levelId);
 		moneyFlow.setFlowAmount(flowAmount);
 		moneyFlow.setBalanceAmount(balance);
 		moneyFlow.setFlowTime(time);

@@ -811,9 +811,8 @@ function queren(){
 		return;
 	}
 	
+    var subaccountId = jQuery("#tab3").find(".current").attr("subaccountid");
 
-    
-		
 	var amountvalue = jQuery("#tab3").find("input[name='openType']").val();
 
 	var cashAmount = jQuery("input[name = 'sjCashAmount']").val();
@@ -860,7 +859,7 @@ function queren(){
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "KeepAccounts/upgradeMemberInfo",
-		data : "memberId="+memberId+"&realPrice="+realPrice+"&createTime="+createTime+"&orderCode="+orderCode+"&levelId="+levelId+"&amountvalue="+amountvalue+"&recommend="+recommend+"&giftmoneyAmount="+giftmoneyAmount+"&pastDate="+pastDate+"&partType="+partType+"&rewardAmount="+rewardAmount+"&cashAmount="+cashAmount+"&unionpayAmount="+unionpayAmount+"&wechatAmount="+wechatAmount+"&alipayAmount="+alipayAmount+"&debtAmount="+debtAmount+"&deptStr="+deptStr,
+		data : "memberId="+memberId+"&subaccountId="+subaccountId+"&realPrice="+realPrice+"&createTime="+createTime+"&orderCode="+orderCode+"&levelId="+levelId+"&amountvalue="+amountvalue+"&recommend="+recommend+"&giftmoneyAmount="+giftmoneyAmount+"&pastDate="+pastDate+"&partType="+partType+"&rewardAmount="+rewardAmount+"&cashAmount="+cashAmount+"&unionpayAmount="+unionpayAmount+"&wechatAmount="+wechatAmount+"&alipayAmount="+alipayAmount+"&debtAmount="+debtAmount+"&deptStr="+deptStr,
 		async:false,//使用同步的Ajax请求  
 		dataType : "json",
 		success : function(e){

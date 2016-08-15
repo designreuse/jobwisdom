@@ -232,6 +232,7 @@ public class OpenCardController extends BaseController {
 	 * @param request 返回
 	 * @param response 请求
 	 * @param memberId 会员标识
+	 * @param subaccountId 子账户标识
 	 * @param levelId 会员级别
 	 * @param amountvalue 开卡金额
 	 * @param recommend 开卡员工
@@ -253,7 +254,7 @@ public class OpenCardController extends BaseController {
 	
 	@RequestMapping(value = Url.KeepAccounts.UPGRADE_MEMBERINFO, method = RequestMethod.POST)
 	@ResponseBody 
-	public BaseDto upgradeMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer memberId,
+	public BaseDto upgradeMemberInfo(HttpServletRequest request, HttpServletResponse response, Integer memberId, Integer subaccountId,
             Integer levelId, BigDecimal amountvalue, String recommend, BigDecimal giftmoneyAmount, Integer pastDate,
             Integer partType, BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount,
             BigDecimal alipayAmount, BigDecimal debtAmount, BigDecimal rewardAmount, String deptStr , String orderCode, String createTime)
@@ -292,7 +293,7 @@ public class OpenCardController extends BaseController {
 //		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 		
 		
-		return openCardService.upgradeMemberInfo(memberId, levelId, amountvalue, recommendId, commissionAmount,
+		return openCardService.upgradeMemberInfo(memberId, subaccountId, levelId, amountvalue, recommendId, commissionAmount,
 		        calculateAmount, giftmoneyAmount, pastDate, partType, cashAmount, unionpayAmount, wechatAmount,
 				alipayAmount, debtAmount, rewardAmount, getStoreId(request), deptIds, deptCalculates, getUserId(request), 
 				orderCode, createTime);

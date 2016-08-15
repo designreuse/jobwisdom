@@ -6,6 +6,7 @@
     <result column="store_id" property="storeId" jdbcType="INTEGER" />
     <result column="order_type" property="orderType" jdbcType="INTEGER" />
     <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="level_id" property="levelId" jdbcType="INTEGER" />
     <result column="sex" property="sex" jdbcType="CHAR" />
     <result column="dept_id" property="deptId" jdbcType="INTEGER" />
     <result column="order_code" property="orderCode" jdbcType="CHAR" />
@@ -171,7 +172,7 @@
   </resultMap>
 	
   <sql id="Base_Column_List" >
-    order_id, store_id, order_type, member_id, sex, dept_id, order_code, hand_order_code, receivable_amount,
+    order_id, store_id, order_type, member_id, level_id, sex, dept_id, order_code, hand_order_code, receivable_amount,
     discount_amount, cash_amount, unionpay_amount, card_amount, gift_amount, wechat_amount,
     alipay_amount, group_amount, cash_card_type, combo_amount, coupon_amount, appoint_off, free_amount, debt_amount,
     real_amount, order_status, is_order_option, option_employee_id, order_evaluate, appointment_id, is_share, is_deleted,
@@ -969,6 +970,9 @@
       <if test="memberId != null" >
         member_id,
       </if>
+      <if test="levelId != null" >
+        level_id,
+      </if>
       <if test="sex != null" >
         sex,
       </if>
@@ -1066,6 +1070,9 @@
       </if>
       <if test="memberId != null" >
         #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null" >
+        #{levelId,jdbcType=INTEGER},
       </if>
       <if test="sex != null" >
         #{sex,jdbcType=CHAR},
@@ -1165,6 +1172,9 @@
       </if>
       <if test="memberId != null" >
         member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null" >
+        level_id = #{levelId,jdbcType=INTEGER},
       </if>
       <if test="sex != null" >
         sex = #{sex,jdbcType=CHAR},
