@@ -330,4 +330,40 @@
   	select * from member_level where is_deleted = 0 and store_account = #{storeAccount} and level_name = #{levelName} limit 1
   </select>
   
+  <select id="selectStoreRemittance" resultType="com.zefun.web.dto.LevelTotalRemittanceDto" parameterType="java.lang.Integer">
+  	SELECT mld.level_id levelId, mld.discount_id discountId, ml.level_name levelName, 
+		(SELECT COUNT(1) FROM member_sub_account msa WHERE msa.level_id = mld.level_id AND msa.is_deleted = 0) AS activateLevelCount,
+		(SELECT SUM(msa.balance_amount) FROM member_sub_account msa WHERE msa.level_id = mld.level_id AND msa.is_deleted = 0) AS balanceAmount,
+		(SELECT SUM(msa.total_amount) FROM member_sub_account msa WHERE msa.level_id = mld.level_id AND msa.is_deleted = 0) AS totalAmount,
+		(SELECT SUM(total_amount) FROM member_sub_account WHERE level_id IN (SELECT level_id FROM member_level_discount WHERE store_id = #{storeId}) AND is_deleted = 0) AS levelTotalAmount,
+		(SELECT COUNT(order_id) FROM order_info WHERE order_id IN (SELECT order_id FROM order_detail WHERE order_type = 5) AND level_id = mld.level_id) AS activateLevelGoOnCount,
+		(SELECT SUM(flow_amount) FROM money_flow WHERE business_type = 2 AND level_id = mld.level_id) AS totalRechargeAmount,
+		(SELECT SUM(flow_amount) FROM money_flow WHERE business_type = 6 AND level_id = mld.level_id) AS totalPresentAmount
+	FROM member_level_discount mld 
+	LEFT JOIN member_level ml ON ml.level_id = mld.level_id
+	WHERE mld.store_id = #{storeId} AND mld.is_deleted = 0
+  </select>
+  
+  <select id="selectStoreRemittanceByDate" resultType="com.zefun.web.dto.LevelTotalRemittanceDto" parameterType="java.util.Map">
+  	SELECT mld.level_id levelId, mld.discount_id discountId, ml.level_name levelName, mld.sell_amount sellAmount,
+  		(SELECT COUNT(1) FROM order_info oif WHERE oif.order_id IN (SELECT odt.order_id FROM order_detail odt WHERE odt.order_type = 4) AND (DATE_FORMAT(oif.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate}) AND oif.level_id = mld.level_id) AS activePersionCount,
+ 		(SELECT SUM(oif.real_amount-mld.sell_amount) FROM order_info oif WHERE oif.order_id IN (SELECT odt.order_id FROM order_detail odt WHERE odt.order_type = 4) AND (DATE_FORMAT(oif.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate}) AND oif.level_id = mld.level_id) AS activeFaceAmount,
+ 		(SELECT SUM(odt.real_price) FROM order_detail odt WHERE odt.order_type = 7 AND (DATE_FORMAT(odt.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate}) AND odt.level_id = mld.level_id) AS activePersentAmount,
+ 		
+ 		(SELECT COUNT(1) FROM order_info oif WHERE oif.order_id IN (SELECT odt.order_id FROM order_detail odt WHERE odt.order_type = 5) AND (DATE_FORMAT(oif.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate}) AND oif.level_id = mld.level_id) AS rechargePersionCount,
+ 		(SELECT SUM(oif.real_amount) FROM order_info oif WHERE oif.order_id IN (SELECT odt.order_id FROM order_detail odt WHERE odt.order_type = 5) AND (DATE_FORMAT(oif.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate}) AND oif.level_id = mld.level_id) AS rechargeFaceAmount,
+ 		(SELECT SUM(odt.real_price) FROM order_detail odt WHERE odt.order_type = 9 AND (DATE_FORMAT(odt.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate}) AND odt.level_id = mld.level_id) AS rechargePersentAmount,
+ 		
+ 		(SELECT COUNT(1) FROM order_info oif WHERE oif.order_id IN (SELECT odt.order_id FROM order_detail odt WHERE odt.order_type = 6) AND (DATE_FORMAT(oif.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate}) AND oif.level_id = mld.level_id) AS upgradePersionCount,
+ 		(SELECT SUM(oif.real_amount) FROM order_info oif WHERE oif.order_id IN (SELECT odt.order_id FROM order_detail odt WHERE odt.order_type = 6) AND (DATE_FORMAT(oif.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate}) AND oif.level_id = mld.level_id) AS upgradeFaceAmount,
+ 		(SELECT SUM(odt.real_price) FROM order_detail odt WHERE odt.order_type = 10 AND (DATE_FORMAT(odt.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate}) AND odt.level_id = mld.level_id) AS upgradePersentAmount,
+	
+		(SELECT SUM(flow_amount) FROM money_flow WHERE flow_type = 1 AND level_id = mld.level_id AND (DATE_FORMAT(flow_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{stopDate})) AS pushLevel
+		
+	FROM member_level_discount mld 
+	LEFT JOIN member_level ml ON ml.level_id = mld.level_id
+	WHERE mld.store_id = #{storeId} AND mld.is_deleted = 0
+  
+  </select>
+  
 </mapper>

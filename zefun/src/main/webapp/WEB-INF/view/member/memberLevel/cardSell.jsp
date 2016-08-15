@@ -1,14 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <link rel="stylesheet" href="<%=basePath%>css/card_sell.css" type="text/css" />
 <script type="text/javascript" src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
 <body>
+	<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://112.74.210.155:3306/zb" user="root"  password="123456"/>
+	
 	<script>
-		jQuery(function() {
-			jQuery('.wages_content:gt(0)').hide();
-			jQuery('.wages_content:gt(0)').hide();
-		})
+	var sql = "<sql:query dataSource='${snapshot}' sql='select * from member_level' var='result' />";
+	console.log(sql.rows);
+	 jQuery(function(){
+		    jQuery('.wages_content:gt(0)').hide();jQuery('.wages_content:gt(0)').hide();
+		    jQuery('.content_right>ul>li').click(function(){
+		      jQuery(this).addClass('active').siblings().removeClass('active');
+			  jQuery('.wages_content').eq(jQuery(this).index()).show().siblings('.wages_content').hide();
+			})
+		  })
 
 		//选中
 		jQuery(function() {
@@ -176,14 +184,14 @@
 					<div class="wages_content">
 						<div class="wages_content_datail">
 							<div class="wages_content_datail_top">
-								<input type="text">
+								<input name="startDate" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
 								至
-								<input type="text">
+								<input name="stopDate" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
 								门店
-								<select style="width: 90px">
-									<option></option>
+								<select name="levelStore" style="width: 90px">
+									<c:forEach items="${storeInfos }" var="storeInfo"><option value="${storeInfo.storeId }">${storeInfo.storeName }</option></c:forEach>
 								</select>
-								<button>查询</button>
+								<button onclick="serchTotalLevel()">查询</button>
 							</div>
 						</div>
 
@@ -198,243 +206,92 @@
 									<td colspan="3">新增卡金</td>
 									<td rowspan="2">划卡</td>
 									<td rowspan="2">卡金净增</td>
-									<td rowspan="2">净增占比</td>
 								</tr>
 								<tr>
-									<td>人数/卡费</td>
+									<td>人次/卡费</td>
 									<td>实冲</td>
 									<td>赠送</td>
-									<td>人数/卡费</td>
+									<td>人次</td>
 									<td>实冲</td>
 									<td>赠送</td>
-									<td>人数/卡费</td>
+									<td>人次</td>
 									<td>实冲</td>
 									<td>赠送</td>
-									<td>人数/卡费</td>
-									<td>实冲</td>
-									<td>赠送</td>
+									<td>实充汇总</td>
+									<td>赠送汇总</td>
+									<td>汇总金额</td>
 								</tr>
 							</table>
 							<div class="store_sell_table_content">
-								<table>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
+								<table  id="table">
+									<c:set value="0" var="activePersionCount"/>
+									<c:set value="0" var="activeFaceAmount"/>
+									<c:set value="0" var="activePersentAmount"/>
+									<c:set value="0" var="rechargePersionCount"/>
+									<c:set value="0" var="rechargeFaceAmount"/>
+									<c:set value="0" var="rechargePersentAmount"/>
+									<c:set value="0" var="upgradePersionCount"/>
+									<c:set value="0" var="upgradeFaceAmount"/>
+									<c:set value="0" var="upgradePersentAmount"/>
+									<c:set value="0" var="faceAmounts"/>
+									<c:set value="0" var="persentAmounts"/>
+									<c:set value="0" var="total"/>
+									<c:set value="0" var="pushLevel"/>
+									<c:set value="0" var="earyPushLevel"/>
+									
+									<c:forEach items="${levelTotalRemittanceDtosLows }" var="levelTotalRemittanceDtosLow">
+									<c:set value="${activePersionCount + levelTotalRemittanceDtosLow.activePersionCount }" var="activePersionCount"/>
+									<c:set value="${activeFaceAmount + levelTotalRemittanceDtosLow.activeFaceAmount }" var="activeFaceAmount"/>
+									<c:set value="${activePersentAmount + levelTotalRemittanceDtosLow.activePersentAmount }" var="activePersentAmount"/>
+									<c:set value="${rechargePersionCount + levelTotalRemittanceDtosLow.rechargePersionCount }" var="rechargePersionCount"/>
+									<c:set value="${rechargeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount }" var="rechargeFaceAmount"/>
+									<c:set value="${rechargePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount }" var="rechargePersentAmount"/>
+									<c:set value="${upgradePersionCount + levelTotalRemittanceDtosLow.upgradePersionCount }" var="upgradePersionCount"/>
+									<c:set value="${upgradeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount }" var="upgradeFaceAmount"/>
+									<c:set value="${upgradePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount }" var="upgradePersentAmount"/>
+									<c:set value="${faceAmounts + levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount }" var="faceAmounts"/>
+									<c:set value="${persentAmounts + levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount }" var="persentAmounts"/>
+									<c:set value="${total + levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount + levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount }" var="total"/>
+									<c:set value="${pushLevel + levelTotalRemittanceDtosLow.pushLevel }" var="pushLevel"/>
+									<c:set value="${earyPushLevel + levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount + levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount - levelTotalRemittanceDtosLow.pushLevel}" var="earyPushLevel"/>
+									
+										<tr>
+											<td>${levelTotalRemittanceDtosLow.levelName }</td>
+											<td>${levelTotalRemittanceDtosLow.activePersionCount }/${levelTotalRemittanceDtosLow.sellAmount }</td>
+											<td>${levelTotalRemittanceDtosLow.activeFaceAmount }</td>
+											<td>${levelTotalRemittanceDtosLow.activePersentAmount }</td>
+											<td>${levelTotalRemittanceDtosLow.rechargePersionCount }</td>
+											<td>${levelTotalRemittanceDtosLow.rechargeFaceAmount }</td>
+											<td>${levelTotalRemittanceDtosLow.rechargePersentAmount }</td>
+											<td>${levelTotalRemittanceDtosLow.upgradePersionCount }</td>
+											<td>${levelTotalRemittanceDtosLow.upgradeFaceAmount }</td>
+											<td>${levelTotalRemittanceDtosLow.upgradePersentAmount }</td>
+											<td>${levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount }</td>
+											<td>${levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount }</td>
+											<td>${levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount + levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount}</td>
+											<td>${levelTotalRemittanceDtosLow.pushLevel }</td>
+											<td>${levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount + levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount - levelTotalRemittanceDtosLow.pushLevel }</td>
+										</tr>
+									</c:forEach>
 								</table>
 							</div>
-							<table class="total_count" style="background: #b8c7ea !important">
+							<table id="totalTable" class="total_count" style="background: #b8c7ea !important">
 								<tr>
 									<td>合计</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
+									<td>${activePersionCount }</td>
+									<td>${activeFaceAmount }</td>
+									<td>${activePersentAmount }</td>
+									<td>${rechargePersionCount }</td>
+									<td>${rechargeFaceAmount }</td>
+									<td>${rechargePersentAmount }</td>
+									<td>${upgradePersionCount }</td>
+									<td>${upgradeFaceAmount }</td>
+									<td>${upgradePersentAmount }</td>
+									<td>${faceAmounts }</td>
+									<td>${persentAmounts }</td>
+									<td>${total }</td>
+									<td>${pushLevel }</td>
+									<td>${earyPushLevel }</td>
 								</tr>
 							</table>
 						</div>
@@ -447,7 +304,7 @@
 									<td>会员等级</td>
 									<td>当前卡内总余额</td>
 									<td>总开卡数</td>
-									<td>总续卡人数</td>
+									<td>总续卡人次</td>
 									<td>总储值余额</td>
 									<td>总储值占比</td>
 									<td>总实冲</td>
@@ -456,148 +313,45 @@
 							</table>
 							<div class="store_sell_table_content">
 								<table>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
+									<c:set var="balanceAmounts" value="0"/>
+									<c:set var="activateLevelCounts" value="0"/>
+									<c:set var="activateLevelGoOnCounts" value="0"/>
+									<c:set var="totalAmounts" value="0"/>
+									<c:set var="totalRechargeAmounts" value="0"/>
+									<c:set var="totalPresentAmounts" value="0"/>
+									
+									<c:forEach items="${levelTotalRemittanceDtos }" var="levelTotalRemittanceDto">
+									
+									<c:set var="balanceAmounts" value="${balanceAmounts + levelTotalRemittanceDto.balanceAmount }" />
+									<c:set var="activateLevelCounts" value="${activateLevelCounts + levelTotalRemittanceDto.activateLevelCount }" />
+									<c:set var="activateLevelGoOnCounts" value="${activateLevelGoOnCounts + levelTotalRemittanceDto.activateLevelGoOnCount }" />
+									<c:set var="totalAmounts" value="${totalAmounts + levelTotalRemittanceDto.totalAmount }" />
+									<c:set var="totalRechargeAmounts" value="${totalRechargeAmounts + levelTotalRemittanceDto.totalRechargeAmount }" />
+									<c:set var="totalPresentAmounts" value="${totalPresentAmounts + levelTotalRemittanceDto.totalPresentAmount }" />
+									
+										<tr>
+											<td>${levelTotalRemittanceDto.levelName }</td>
+											<td>${levelTotalRemittanceDto.balanceAmount }</td>
+											<td>${levelTotalRemittanceDto.activateLevelCount }</td>
+											<td>${levelTotalRemittanceDto.activateLevelGoOnCount }</td>
+											<td>${levelTotalRemittanceDto.totalAmount }</td>
+											<td>${levelTotalRemittanceDto.totalAmount/levelTotalRemittanceDto.levelTotalAmount*100 }%</td>
+											<td>${levelTotalRemittanceDto.totalRechargeAmount }</td>
+											<td>${levelTotalRemittanceDto.totalPresentAmount }</td>
+										</tr>
+									</c:forEach>
 								</table>
 							</div>
 							<table class="total_count" style="background: #b8c7ea !important">
 								<tr>
 									<td>合计</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
+									<td><c:out value="${balanceAmounts }"/></td>
+									<td><c:out value="${activateLevelCounts }"/></td>
+									<td><c:out value="${activateLevelGoOnCounts }"/></td>
+									<td><c:out value="${totalAmounts }"/></td>
+									<td>100%</td>
+									<td><c:out value="${totalRechargeAmounts }"/></td>
+									<td><c:out value="${totalPresentAmounts }"/></td>
 								</tr>
 							</table>
 						</div>
@@ -630,6 +384,97 @@
 				cardMoneyValues = e.msg.cardMoney.blanckValues;
 				initPictuer();
 				initPictureTwo();
+			}
+		});
+	}
+	
+	function serchTotalLevel(){
+		var startDate = jQuery("input[name='startDate']").val();
+		var stopDate = jQuery("input[name='stopDate']").val();
+		var levelStore = jQuery("select[name='levelStore']").val();
+		if (startDate == ""){startDate = "1970-01-01";}
+		if (stopDate == ""){stopDate = "2050-01-01";}
+		var data = {"startDate":startDate, "stopDate":stopDate, "storeId":levelStore, "queryNum":2}
+		jQuery.ajax({
+			type : "post",
+			url : baseUrl + "memberLevel/view/cardSellCount",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType : "application/json",
+			async : false,
+			success : function(e) {
+				var levelTotalRemittanceDtos = e.msg;
+				jQuery("#table").empty();
+				var activePersionCount = 0;
+				var activeFaceAmount = 0;
+				var activePersentAmount = 0;
+				var rechargePersionCount = 0;
+				var rechargeFaceAmount = 0;
+				var rechargePersentAmount = 0;
+				var upgradePersionCount = 0;
+				var upgradeFaceAmount = 0;
+				var upgradePersentAmount = 0;
+				var faceAmounts = 0;
+				var persentAmounts = 0;
+				var total = 0;
+				var pushLevel = 0;
+				var erayPushLevel = 0;
+				for (var i = 0; i < levelTotalRemittanceDtos.length; i++) {
+					
+					var levelTotalRemittanceDtosLow = levelTotalRemittanceDtos[i];
+					
+					activePersionCount += levelTotalRemittanceDtosLow.activePersionCount;
+					activeFaceAmount += levelTotalRemittanceDtosLow.activeFaceAmount;
+					activePersentAmount += levelTotalRemittanceDtosLow.activePersentAmount;
+					rechargePersionCount += levelTotalRemittanceDtosLow.rechargePersionCount;
+					rechargeFaceAmount += levelTotalRemittanceDtosLow.rechargeFaceAmount;
+					rechargePersentAmount += levelTotalRemittanceDtosLow.rechargePersentAmount;
+					upgradePersionCount += levelTotalRemittanceDtosLow.upgradePersionCount;
+					upgradeFaceAmount += levelTotalRemittanceDtosLow.upgradeFaceAmount;
+					upgradePersentAmount += levelTotalRemittanceDtosLow.upgradePersentAmount;
+					faceAmounts += levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount;
+					persentAmounts += levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount;
+					total += levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount + levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount;
+					pushLevel += levelTotalRemittanceDtosLow.pushLevel;
+					erayPushLevel += levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount + levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount - levelTotalRemittanceDtosLow.pushLevel;
+					var html = '<tr>'+
+									'<td>'+levelTotalRemittanceDtosLow.levelName+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.activePersionCount+'/'+levelTotalRemittanceDtosLow.sellAmount+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.activeFaceAmount+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.activePersentAmount+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.rechargePersionCount+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.rechargeFaceAmount+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.rechargePersentAmount+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.upgradePersionCount+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.upgradeFaceAmount+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.upgradePersentAmount+'</td>'+
+									'<td>'+(levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount)+'</td>'+
+									'<td>'+(levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount)+'</td>'+
+									'<td>'+(levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount + levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount)+'</td>'+
+									'<td>'+levelTotalRemittanceDtosLow.pushLevel+'</td>'+
+									'<td>'+(levelTotalRemittanceDtosLow.activeFaceAmount + levelTotalRemittanceDtosLow.rechargeFaceAmount + levelTotalRemittanceDtosLow.upgradeFaceAmount + levelTotalRemittanceDtosLow.activePersentAmount + levelTotalRemittanceDtosLow.rechargePersentAmount + levelTotalRemittanceDtosLow.upgradePersentAmount - levelTotalRemittanceDtosLow.pushLevel)+'</td>'+
+								'</tr>';
+					jQuery("#table").append(jQuery(html));
+				}
+				jQuery("#totalTable").empty();
+				var html = '<tr>'+
+								'<td>合计</td>'+
+								'<td>'+activePersionCount+'</td>'+
+								'<td>'+activeFaceAmount+'</td>'+
+								'<td>'+activePersentAmount+'</td>'+
+								'<td>'+rechargePersionCount+'</td>'+
+								'<td>'+rechargeFaceAmount+'</td>'+
+								'<td>'+rechargePersentAmount+'</td>'+
+								'<td>'+upgradePersionCount+'</td>'+
+								'<td>'+upgradeFaceAmount+'</td>'+
+								'<td>'+upgradePersentAmount+'</td>'+
+								'<td>'+faceAmounts+'</td>'+
+								'<td>'+persentAmounts+'</td>'+
+								'<td>'+total+'</td>'+
+								'<td>'+pushLevel+'</td>'+
+								'<td>'+erayPushLevel+'</td>'+
+							'</tr>';
+				jQuery("#totalTable").append(jQuery(html));
 			}
 		});
 	}

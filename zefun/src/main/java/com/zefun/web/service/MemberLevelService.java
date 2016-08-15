@@ -15,6 +15,7 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.LevelTotalRemittanceDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
@@ -480,10 +481,20 @@ public class MemberLevelService {
         orderInfo.setQueryType(1);
         List<OrderInfo> orderInfos = orderInfoMapper.selectOrderInfoCardMoneyByDate(orderInfo);
         
+        //当前汇款总计(上)
+        Map<String, Object> low = new HashMap<>();
+        low.put("storeId", storeId);
+        low.put("startDate", DateUtil.getCurDate());
+        low.put("stopDate", DateUtil.getCurDate());
+        List<LevelTotalRemittanceDto> levelTotalRemittanceDtosLows = memberLevelMapper.selectStoreRemittanceByDate(low);
+        //当前汇款总计(下)
+        List<LevelTotalRemittanceDto> levelTotalRemittanceDtos = memberLevelMapper.selectStoreRemittance(Integer.parseInt(storeId.toString()));
         
         view.addObject("cardMoney", JSONObject.fromObject(getCardMoney(orderInfos, 1, orderInfo, null)));
         view.addObject("cardOutMoney", JSONObject.fromObject(getCardInMoney(moneyFlows, 1, orderInfo, null)));
         view.addObject("balanceAmount", JSONObject.fromObject(getBlanckResult(moneyFlows, 1, query, null)));
+        view.addObject("levelTotalRemittanceDtosLows", levelTotalRemittanceDtosLows);
+        view.addObject("levelTotalRemittanceDtos", levelTotalRemittanceDtos);
         
         return view;
     }
@@ -665,7 +676,12 @@ public class MemberLevelService {
             baseDto.setMsg(result);
         }
         if (query.getInt("queryNum") == 2){
-           
+            Map<String, Object> low = new HashMap<>();
+            low.put("storeId", query.getInt("storeId"));
+            low.put("startDate", query.getString("startDate"));
+            low.put("stopDate", query.getString("stopDate"));
+            List<LevelTotalRemittanceDto> levelTotalRemittanceDtosLows = memberLevelMapper.selectStoreRemittanceByDate(low);
+            baseDto.setMsg(levelTotalRemittanceDtosLows);
         }
         return baseDto;
     }

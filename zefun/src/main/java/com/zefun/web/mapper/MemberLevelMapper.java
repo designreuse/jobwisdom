@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.zefun.web.dto.LevelTotalRemittanceDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.Page;
@@ -158,4 +159,22 @@ public interface MemberLevelMapper {
     * @return MemberLevelDto
      */
     MemberLevelDto selectByDiscountId(Integer discountId);
+
+    /**
+     * 卡项汇总(上)
+    * @author 高国藩
+    * @date 2016年8月13日 下午3:13:31
+    * @param query query
+    * @return        List<LevelTotalRemittanceDto>
+     */
+    List<LevelTotalRemittanceDto> selectStoreRemittanceByDate(Map<String, Object> query);
+    
+    /**
+     * 卡项汇总(下)
+    * @author 高国藩
+    * @date 2016年8月13日 下午3:13:31
+    * @param storeId storeId
+    * @return        List<LevelTotalRemittanceDto>
+     */
+    List<LevelTotalRemittanceDto> selectStoreRemittance(Integer storeId);
 }
