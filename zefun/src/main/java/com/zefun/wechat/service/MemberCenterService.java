@@ -77,7 +77,6 @@ import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectEvaluate;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectShare;
-import com.zefun.web.entity.ProjectStep;
 import com.zefun.web.entity.SpecialService;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreSetting;
@@ -1910,8 +1909,8 @@ public class MemberCenterService {
         ModelAndView mav = projectDetailView(projectId, memberId, 2, storeId);
         mav.setViewName(View.MemberCenter.EMPLOYEE_PROJECT);
         
-        ProjectStep projectStep = projectStepMapper.selectAppointStepByProjectId(projectId);
-        mav.addObject("projectStep", projectStep);
+        /*ProjectStep projectStep = projectStepMapper.selectAppointStepByProjectId(projectId);
+        mav.addObject("projectStep", projectStep);*/
         
         EmployeeBaseDto employeeInfo = employeeInfoMapper.selectBaseInfoByEmployeeId(employeeId);
         mav.addObject("employeeInfo", employeeInfo);

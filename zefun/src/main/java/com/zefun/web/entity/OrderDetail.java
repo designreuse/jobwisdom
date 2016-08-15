@@ -21,6 +21,9 @@ public class OrderDetail {
 
 	/** 订单类型(1:项目,2:商品,3:疗程,4、开卡充值升级) */
 	private Integer orderType;
+	
+	/** 消费会员等级标识*/
+	private Integer levelId;
 
 	/** 是否预约(0：否，1：是) */
 	private Integer isAppoint;
@@ -107,7 +110,15 @@ public class OrderDetail {
 	
 	
 
-    public Double getDetailCalculate() {
+    public Integer getLevelId() {
+		return levelId;
+	}
+
+	public void setLevelId(Integer levelId) {
+		this.levelId = levelId;
+	}
+
+	public Double getDetailCalculate() {
         return detailCalculate;
     }
 

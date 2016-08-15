@@ -22,6 +22,7 @@
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="dept_id" property="deptId" jdbcType="INTEGER" />
     <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="level_id" property="levelId" jdbcType="INTEGER" />
     <result column="is_appoint" property="isAppoint" jdbcType="INTEGER" />
     <result column="appoint_off" property="appointOff" jdbcType="DECIMAL" />
     <result column="is_assign" property="isAssign" jdbcType="INTEGER" />
@@ -114,7 +115,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    detail_id, detail_code, order_id, dept_id, order_type, is_appoint, appoint_off, is_assign, 
+    detail_id, detail_code, order_id, dept_id, order_type, level_id, is_appoint, appoint_off, is_assign, 
     project_id, project_name, project_price, project_count, project_image, discount_amount, 
     real_price, off_type, combo_id, coupon_id, gift_amount, free_amount, order_remark, free_employee_id,
     service_length, store_id, order_status, is_deleted, is_update, create_time, update_time, last_operator_id,detail_calculate
@@ -160,7 +161,8 @@ UNION ALL
    <select id="selectDetailLByCategory" parameterType="java.util.Map" resultMap="BaseResultMap">
    SELECT 
    d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate FROM 
-		order_detail  d LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
+		order_detail  d 
+		LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
  						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
  						LEFT JOIN  goods_category c ON g.category_id = c.category_id 
 	    WHERE i.order_status  IN (3,4)    AND d.order_type = 2  AND i.is_deleted =0 AND  d.is_deleted =0 
@@ -172,7 +174,7 @@ UNION ALL
 	   d.order_id,d.create_time ,SUM( g.goods_counts) AS project_count ,SUM( g.goods_counts * g.combo_performance_cal ) AS detail_calculate FROM 
 			order_detail  d LEFT JOIN  combo_goods g  ON g.combo_id = d.project_id 
 	 						LEFT JOIN  order_info i  ON i.order_id = d.order_id    
-	 						LEFT JOIN  goods_info cs ON cs.goods_id    = cs.goods_id 
+	 						LEFT JOIN  goods_info cs ON g.goods_id    = cs.goods_id 
 	 						LEFT JOIN  goods_category c ON cs.category_id = c.category_id 
 		    WHERE i.order_status  IN (3,4)    AND d.order_type = 3  AND i.is_deleted =0 AND  d.is_deleted =0 
 	   AND i.store_id = ${storeId}  AND LEFT(i.create_time,4) = "${time}"    AND c.category_id = ${categoryId} and goods_counts IS NOT NULL
@@ -201,12 +203,16 @@ UNION ALL
   
    <select id="selectDetailListByGoodsd" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
  	SELECT 
-  i.cash_card_type,i.order_type,ag.goods_name ,g.goods_id , c.category_name,c.category_id,d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
-		order_detail  d LEFT JOIN  goods_info     g ON g.goods_id    = d.project_id 
+  i.cash_card_type,i.order_type,ag.goods_name ,g.goods_id , c.category_name,c.category_id,d.order_id,d.create_time ,SUM( cm.goods_counts) AS project_count ,SUM( cm.goods_counts * cm.combo_performance_cal ) AS detail_calculate,d.dept_id,f.dept_name AS deptName FROM 
+		order_detail  d 
+							
+						LEFT JOIN  combo_goods     cm ON  cm.combo_id = d.project_id
+						LEFT JOIN  goods_info     g ON g.goods_id    = cm.goods_id 
 						LEFT JOIN  dept_info      f ON g.dept_id     = f.dept_id
  						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
  						LEFT JOIN  goods_category c ON g.category_id = c.category_id 
 						LEFT JOIN account_goods ag ON ag.goods_id = g.a_id 
+		
 	    WHERE i.order_status  IN (3,4)    AND d.order_type = (3)   AND i.is_deleted =0 AND  d.is_deleted =0   AND  ag.goods_name IS NOT NULL and i.cash_card_type is not null
    AND i.store_id = ${storeId}  
     <if test="time1 !=null and time1 !=''">
@@ -295,6 +301,9 @@ UNION ALL
       </if>
       <if test="orderType != null" >
         order_type,
+      </if>
+      <if test="levelId != null" >
+        level_id,
       </if>
       <if test="isAppoint != null" >
         is_appoint,
@@ -391,6 +400,9 @@ UNION ALL
       <if test="orderType != null" >
         #{orderType,jdbcType=INTEGER},
       </if>
+      <if test="levelId != null" >
+        #{levelId,jdbcType=INTEGER},
+      </if>
       <if test="isAppoint != null" >
         #{isAppoint,jdbcType=INTEGER},
       </if>
@@ -486,6 +498,9 @@ UNION ALL
       </if>
       <if test="orderType != null" >
         order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null" >
+        level_id = #{levelId,jdbcType=INTEGER},
       </if>
       <if test="isAppoint != null" >
         is_appoint = #{isAppoint,jdbcType=INTEGER},

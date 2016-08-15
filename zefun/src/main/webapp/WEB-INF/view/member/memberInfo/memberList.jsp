@@ -111,7 +111,7 @@ input[type='file']{cursor:pointer;top:-40px;left:80px;width:200px;height:50px;ba
 						</div>
 						<div class="data_select_content_" style="border-bottom: none">
 							满足当前搜索条件共<em id="member_serch_count">6</em>人，你要保存该会员分组吗？<span>会员分组名称<input type="text" id="group_name"></span><i style="display: inline-block; margin-left: 90px"><button style="width: 110px; margin-left: 0" id="baocun">保存</button>
-								<button style="width: 110px; margin-left: 20px" id="fangqi">取消</button></i>
+								<button style="width: 110px; margin-left: 20px" id="fangqi" onclick="jQuery('.triangle-down').click()">取消</button></i>
 						</div>
 					</div>
 

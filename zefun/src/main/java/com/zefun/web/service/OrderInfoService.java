@@ -657,7 +657,8 @@ public class OrderInfoService {
                                         .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //套餐
                                 Double tcPcl =  collect2.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
                                         .mapToDouble(OrderDetailDto::getProjectCount).sum();
-                                
+                                shopDcl += tcDcl;
+                                shopPcl += tcPcl;
                                 Double totalDcl = shopDcl + storeDcl;
                                 Double totalPcl = shopPcl + storePcl;
                                 jsono.accumulate("priceDcl",   new BigDecimal(priceDcl).setScale(2, BigDecimal.ROUND_HALF_UP));

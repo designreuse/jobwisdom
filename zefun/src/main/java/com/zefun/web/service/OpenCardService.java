@@ -293,7 +293,7 @@ public class OpenCardService {
 		memberId = accountMap.get("memberId");
 		int subAccountId = accountMap.get("subAccountId");
 
-		commissionAndGift(memberId, subAccountId, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
+		commissionAndGift(memberId, subAccountId, levelId, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 4, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime);
 		
@@ -470,8 +470,8 @@ public class OpenCardService {
 		subHashMap.put("rewardAmount", rewardAmount);
 		memberSubAccountMapper.updateCharge(subHashMap); //总值和余额都加上 chargeAmount
 
-		commissionAndGift(memberId, subAccount.getSubAccountId(), recommendId, commissionAmount, calculateAmount, giftmoneyAmount, chargeAmount,
-    				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 5, storeId,
+		commissionAndGift(memberId, subAccount.getSubAccountId(), subAccount.getLevelId(), recommendId, commissionAmount, calculateAmount, 
+				    giftmoneyAmount, chargeAmount, cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 5, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime);
 		
 		memberInfoService.syncLevelId(memberId);
@@ -529,7 +529,7 @@ public class OpenCardService {
 		List<BigDecimal> calculateAmount = new ArrayList<BigDecimal>();
 		BigDecimal giftmoneyAmount = new BigDecimal(0);
 
-		commissionAndGift(memberId, null, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, realPrice,
+		commissionAndGift(memberId, null, null, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, realPrice,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, new BigDecimal(0), 0, 0, 8, storeId,
     				new BigDecimal(0), null, null, lastOperatorId, orderCode, createTime);
 
@@ -542,6 +542,7 @@ public class OpenCardService {
 	 * @author 王大爷
 	 * @date 2015年10月31日 下午9:28:23
 	 * @param memberId 会员标识
+	 * @param subaccountId 子账户标识
 	 * @param levelId 升级等级
 	 * @param amountvalue 开卡金额
 	 * @param recommendId 提成员工
@@ -566,7 +567,7 @@ public class OpenCardService {
 	 * @throws ParseException  解析异常
 	 */
 	@Transactional
-	public BaseDto upgradeMemberInfo(Integer memberId, Integer levelId, BigDecimal amountvalue,
+	public BaseDto upgradeMemberInfo(Integer memberId, Integer subaccountId, Integer levelId, BigDecimal amountvalue,
     			List<Integer> recommendId, List<BigDecimal> commissionAmount, List<BigDecimal> calculateAmount,
     			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal cashAmount,
     			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
@@ -618,13 +619,13 @@ public class OpenCardService {
  		//升级子账户卡 并改变其存储总值等
  		Map<String, Object> hashDecrease = new HashMap<String, Object>();
         hashDecrease.put("levelId", levelId);
-        hashDecrease.put("accountId", memberId);
+        hashDecrease.put("subaccountId", subaccountId);
         hashDecrease.put("chargeAmount", receivableAmount);
         hashDecrease.put("rewardAmount", rewardAmount);
         memberSubAccountMapper.updateLevel(hashDecrease);
      
  		
-		commissionAndGift(memberId, null, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
+		commissionAndGift(memberId, subaccountId, levelId, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 6, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime);
 		changeMemberOrder(memberId, storeId);
@@ -659,7 +660,7 @@ public class OpenCardService {
 							orderDetail.getProjectId(), orderDetail.getProjectPrice(), storeId);
 
 					// 扣除预约优惠
-					if (orderDetail.getIsAppoint() == 1) {
+					if (orderDetail.getIsAppoint() != null) {
 						ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(orderDetail.getProjectId());
 						discountAmount.subtract(projectInfo.getAppointmentPrice());
 					}
@@ -687,6 +688,7 @@ public class OpenCardService {
 	 * @date 2015年9月10日 下午7:32:42
 	 * @param memberId 会员标识
 	 * @param subAccountId 子账户标识
+	 * @param levelId 消费使用等级标识
 	 * @param recommendId 提成员工标识
 	 * @param commissionAmount 提成金额
 	 * @param calculateAmount 员工业绩金额
@@ -710,7 +712,8 @@ public class OpenCardService {
 	 * @throws ParseException  解析异常
 	 */
 	@Transactional
-	private void commissionAndGift(Integer memberId, Integer subAccountId, List<Integer> recommendId, List<BigDecimal> commissionAmount,
+	private void commissionAndGift(Integer memberId, Integer subAccountId, Integer levelId, List<Integer> recommendId, 
+			    List<BigDecimal> commissionAmount,
     			List<BigDecimal> calculateAmount, BigDecimal giftmoneyAmount, BigDecimal receivableAmount,
     			BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount,
     			BigDecimal debtAmount, Integer pastDate, Integer partType, Integer type, Integer storeId,
@@ -747,6 +750,7 @@ public class OpenCardService {
 		}
 		orderInfo.setOrderCode(orderCode);
 		orderInfo.setMemberId(memberId);
+		orderInfo.setLevelId(levelId);
 		orderInfo.setReceivableAmount(receivableAmount);
 		orderInfo.setDiscountAmount(receivableAmount);
 		orderInfo.setCashAmount(cashAmount);
@@ -789,6 +793,7 @@ public class OpenCardService {
 		orderDetail.setDeptId(calculateDeptId);
 		orderDetail.setProjectName(businessDesc);
 		orderDetail.setOrderType(type);
+		orderDetail.setLevelId(levelId);
 		orderDetail.setProjectPrice(cashAmount.add(unionpayAmount).add(wechatAmount).add(alipayAmount).add(debtAmount));
 		orderDetail.setDiscountAmount(cashAmount.add(unionpayAmount).add(wechatAmount).add(alipayAmount).add(debtAmount));
 		orderDetail.setRealPrice(cashAmount.add(unionpayAmount).add(wechatAmount).add(alipayAmount).add(debtAmount));
@@ -806,6 +811,7 @@ public class OpenCardService {
 			rewarDetail.setDeptId(deptIds.get(0));
 			rewarDetail.setProjectName(businessDesc + "赠送");
 			rewarDetail.setOrderType(7);
+			rewarDetail.setLevelId(levelId);
 			rewarDetail.setProjectPrice(rewardAmount);
 			rewarDetail.setDiscountAmount(rewardAmount);
 			rewarDetail.setRealPrice(BigDecimal.ZERO);
@@ -833,6 +839,7 @@ public class OpenCardService {
 			else {
 				moneyFlow.setBusinessType(5);
 			}
+			moneyFlow.setLevelId(levelId);
 			moneyFlow.setBusinessDesc(businessDesc);
 			moneyFlow.setOrderId(orderInfo.getOrderId());
 			moneyFlow.setFlowAmount(receivableAmount);
@@ -849,6 +856,7 @@ public class OpenCardService {
 			moneyFlow.setAccountId(subAccountId);
 			moneyFlow.setFlowType(2);
 			moneyFlow.setBusinessType(6);
+			moneyFlow.setLevelId(levelId);
 			moneyFlow.setOrderId(orderInfo.getOrderId());
 			moneyFlow.setFlowAmount(rewardAmount);
 			moneyFlow.setFlowTime(DateUtil.getCurTime());

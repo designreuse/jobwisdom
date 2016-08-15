@@ -118,7 +118,7 @@
 				  <td>${employee.sex }</td>
 				  <td>${employee.deptName }</td>
 				  <td>${employee.positionName }</td>
-				  <td>${employee.userName }</td>
+				  <td>${employee.levelName }</td>
 				  <td>${employee.phone }</td>
 				  <td><span onclick="selectEmp(${employee.employeeId})"><img src="<%=basePath %>images/handle_1.png" ></span><span onclick="deleteinfo(${employee.employeeId})"><img src="<%=basePath %>images/handle_2.png"></span></td>
 		        </tr>
@@ -163,7 +163,12 @@
 
 		 <div class="select_job_content clearfix">
         <div class="select_job_content_left">   
-          <p><em>角色</em><select name="roleId"><c:forEach items="${rolelist }" var="rolelist"><option value="${rolelist.accountRoleId }">${rolelist.accountRoleName }</option></c:forEach></select></p>    
+          <p><em>角色</em><select name="roleId">
+          <c:forEach items="${rolelist }" var="rolelist">
+          <c:if test="${rolelist.roleId != 1 }">
+          <option value="${rolelist.accountRoleId }">${rolelist.accountRoleName }</option>
+          </c:if>
+          </c:forEach></select></p>    
   		  <p><em>选择岗位</em><select onchange="changeEmployeeLevel(this.value)" name="positionId"><c:forEach items="${positionlist }" var="position"><option value="${position.positionId }">${position.positionName }</option></c:forEach></select></p>
 		  <p><em>职位</em><select name="levelId"></select></p>
 		  <p><em>部门</em><select name="deptId"><c:forEach items="${deptlist }" var="dept"><option value="${dept.deptId }">${dept.deptName }</option></c:forEach></select></p>

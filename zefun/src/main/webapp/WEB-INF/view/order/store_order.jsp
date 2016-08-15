@@ -97,7 +97,7 @@
 					<div class="wages_content second" >
 					  <div class="wages_content_datail">
 						   <div class="wages_content_datail_top">
-							 <span class="active" onclick="showProject()">商品系列PK</span><span onclick="showGoods()">商品PK</span>
+							 <span class="active" onclick="showProject()">大项PK</span><span onclick="showGoods()">商品PK</span>
 							  <select style="margin:0;display:none;" id="goodsInfo1" >
 							     <c:forEach items="${goodsInfoDto }" var="goodsInfo">
 									     <option goodsId="${goodsInfo.goodsId }">${goodsInfo.goodsName }</option>
