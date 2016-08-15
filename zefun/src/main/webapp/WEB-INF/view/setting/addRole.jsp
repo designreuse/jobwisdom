@@ -26,7 +26,31 @@
 	   if(background=='rgb(184, 199, 234)')
 	     return;
 	   else{
-		 jQuery('.second .appoint_ul_index ul').eq(index).append(html);
+		 var number1 = jQuery(html).attr("number"); 
+		 var numbers = jQuery('.second .appoint_ul_index ul').eq(index).find("li");
+		 if(numbers.length != 0){
+			 var num =numbers.length-1;
+			 for (var i = 0; i < numbers.length; i++) {
+					var  number2 = jQuery('.second .appoint_ul_index ul').eq(index).find("li").eq(i).attr("number");
+					 if(number1<number2){
+						 jQuery('.second .appoint_ul_index ul').eq(index).find("li").eq(i).before(html);
+						 break;
+						}
+					 else{
+						 if(i== num){
+						 jQuery('.second .appoint_ul_index ul').eq(index).find("li").eq(i).after(html);
+						 }
+					 }
+				}
+		 }
+		 else{
+			 jQuery('.second .appoint_ul_index ul').eq(index).append(html);
+		 }
+		
+		 
+		 
+		
+		 
 		 jQuery('.second .appoint_ul_index ul').eq(index).find('li img').remove();
 		 jQuery('.second .appoint_ul_index ul').eq(index).find('li').append(img);
 		 jQuery('.second .appoint_ul_index ul').eq(index).find('li').attr('class','ui-state-default');
@@ -136,7 +160,7 @@ jQuery(function(){
 	     <div class="appoint">
 	     <p>*已选择菜单</p>
 	     <div class="appoint_content second">
-		    <ul class="appoint_ul clearfix" name="roleMemu"  id="sortable">
+		    <ul class="appoint_ul clearfix" name="roleMemu"  >
 			</ul>
 		    <div class="appoint_ul_index" >
 			</div>
