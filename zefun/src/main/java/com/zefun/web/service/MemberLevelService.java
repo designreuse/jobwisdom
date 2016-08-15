@@ -680,8 +680,14 @@ public class MemberLevelService {
             low.put("storeId", query.getInt("storeId"));
             low.put("startDate", query.getString("startDate"));
             low.put("stopDate", query.getString("stopDate"));
+            //当前汇款总计(上)
             List<LevelTotalRemittanceDto> levelTotalRemittanceDtosLows = memberLevelMapper.selectStoreRemittanceByDate(low);
-            baseDto.setMsg(levelTotalRemittanceDtosLows);
+            //当前汇款总计(下)
+            List<LevelTotalRemittanceDto> levelTotalRemittanceDtos = memberLevelMapper.selectStoreRemittance(query.getInt("storeId"));
+            Map<String, Object> map = new HashMap<>();
+            map.put("levelTotalRemittanceDtosLows", levelTotalRemittanceDtosLows);
+            map.put("levelTotalRemittanceDtos", levelTotalRemittanceDtos);
+            baseDto.setMsg(map);
         }
         return baseDto;
     }

@@ -170,10 +170,11 @@
 										}
 									}
 								</script>
-								门店
+								<em>选择门店</em>
 								<select name="flowMoneyStore">
 									<c:forEach items="${storeInfos }" var="storeInfo"><option value="${storeInfo.storeId }">${storeInfo.storeName }</option></c:forEach>
 								</select>
+								
 								<button onclick="serchFlowMoney()">查询</button>
 							</div>
 						</div>
@@ -187,10 +188,21 @@
 								<input name="startDate" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
 								至
 								<input name="stopDate" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
-								门店
+								<em>选择门店</em>
 								<select name="levelStore" style="width: 90px">
 									<c:forEach items="${storeInfos }" var="storeInfo"><option value="${storeInfo.storeId }">${storeInfo.storeName }</option></c:forEach>
 								</select>
+								<script>
+								if ('${storeId}' != ''){
+									var storeId = '${storeId}';
+									jQuery("select[name='flowMoneyStore']").val(storeId);
+									jQuery("select[name='flowMoneyStore']").hide();
+									jQuery("select[name='flowMoneyStore']").prev().hide();
+									jQuery("select[name='levelStore']").val(storeId);
+									jQuery("select[name='levelStore']").hide();
+									jQuery("select[name='levelStore']").prev().hide();
+								}
+								</script>
 								<button onclick="serchTotalLevel()">查询</button>
 							</div>
 						</div>
@@ -312,7 +324,7 @@
 								</tr>
 							</table>
 							<div class="store_sell_table_content">
-								<table>
+								<table id="table2">
 									<c:set var="balanceAmounts" value="0"/>
 									<c:set var="activateLevelCounts" value="0"/>
 									<c:set var="activateLevelGoOnCounts" value="0"/>
@@ -342,7 +354,7 @@
 									</c:forEach>
 								</table>
 							</div>
-							<table class="total_count" style="background: #b8c7ea !important">
+							<table id="table3" class="total_count" style="background: #b8c7ea !important">
 								<tr>
 									<td>合计</td>
 									<td><c:out value="${balanceAmounts }"/></td>
@@ -403,7 +415,7 @@
 			contentType : "application/json",
 			async : false,
 			success : function(e) {
-				var levelTotalRemittanceDtos = e.msg;
+				var levelTotalRemittanceDtosLows = e.msg.levelTotalRemittanceDtosLows;
 				jQuery("#table").empty();
 				var activePersionCount = 0;
 				var activeFaceAmount = 0;
@@ -419,9 +431,9 @@
 				var total = 0;
 				var pushLevel = 0;
 				var erayPushLevel = 0;
-				for (var i = 0; i < levelTotalRemittanceDtos.length; i++) {
+				for (var i = 0; i < levelTotalRemittanceDtosLows.length; i++) {
 					
-					var levelTotalRemittanceDtosLow = levelTotalRemittanceDtos[i];
+					var levelTotalRemittanceDtosLow = levelTotalRemittanceDtosLows[i];
 					
 					activePersionCount += levelTotalRemittanceDtosLow.activePersionCount;
 					activeFaceAmount += levelTotalRemittanceDtosLow.activeFaceAmount;
@@ -475,6 +487,51 @@
 								'<td>'+erayPushLevel+'</td>'+
 							'</tr>';
 				jQuery("#totalTable").append(jQuery(html));
+				
+				// 汇总下表格
+				var levelTotalRemittanceDtos = e.msg.levelTotalRemittanceDtos;
+				
+				var balanceAmounts = 0;
+				var activateLevelCounts = 0;
+				var activateLevelGoOnCounts = 0;
+				var totalAmounts = 0;
+				var totalRechargeAmounts = 0;
+				var totalPresentAmounts = 0;
+				
+				jQuery("#table2").empty();
+				
+				for (var i = 0; i < levelTotalRemittanceDtos.length; i++) {
+					var levelTotalRemittanceDto = levelTotalRemittanceDtos[i];
+					balanceAmounts += levelTotalRemittanceDto.balanceAmount;
+					activateLevelCounts += levelTotalRemittanceDto.activateLevelCount;
+					activateLevelGoOnCounts += levelTotalRemittanceDto.activateLevelGoOnCount;
+					totalAmounts += levelTotalRemittanceDto.totalAmount;
+					totalRechargeAmounts += levelTotalRemittanceDto.totalRechargeAmount;
+					totalPresentAmounts += levelTotalRemittanceDto.totalPresentAmount;
+					var html = '<tr>'+
+									'<td>'+levelTotalRemittanceDto.levelName+'</td>'+
+									'<td>'+levelTotalRemittanceDto.balanceAmount+'</td>'+
+									'<td>'+levelTotalRemittanceDto.activateLevelCount+'</td>'+
+									'<td>'+levelTotalRemittanceDto.activateLevelGoOnCount+'</td>'+
+									'<td>'+levelTotalRemittanceDto.totalAmount+'</td>'+
+									'<td>'+(levelTotalRemittanceDto.totalAmount/levelTotalRemittanceDto.levelTotalAmount*100).toFixed(2)+'%</td>'+
+									'<td>'+levelTotalRemittanceDto.totalRechargeAmount+'</td>'+
+									'<td>'+levelTotalRemittanceDto.totalPresentAmount+'</td>'+
+								'</tr>';
+					jQuery("#table2").append(jQuery(html));
+				}
+				var html = '<tr>'+
+								'<td>合计</td>'+
+								'<td>'+balanceAmounts+'</td>'+
+								'<td>'+activateLevelCounts+'</td>'+
+								'<td>'+activateLevelGoOnCounts+'</td>'+
+								'<td>'+totalAmounts+'</td>'+
+								'<td>100%</td>'+
+								'<td>'+totalRechargeAmounts+'</td>'+
+								'<td>'+totalPresentAmounts+'</td>'+
+							'</tr>';
+				jQuery("#table3").empty();		
+				jQuery("#table3").append(html);
 			}
 		});
 	}
