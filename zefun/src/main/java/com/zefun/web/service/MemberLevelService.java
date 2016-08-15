@@ -15,6 +15,7 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.LevelTotalRemittanceDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.entity.MemberLevel;
 import com.zefun.web.entity.MemberLevelDiscount;
@@ -480,10 +481,20 @@ public class MemberLevelService {
         orderInfo.setQueryType(1);
         List<OrderInfo> orderInfos = orderInfoMapper.selectOrderInfoCardMoneyByDate(orderInfo);
         
+        //当前汇款总计(上)
+        Map<String, Object> low = new HashMap<>();
+        low.put("storeId", storeId);
+        low.put("startDate", DateUtil.getCurDate());
+        low.put("stopDate", DateUtil.getCurDate());
+        List<LevelTotalRemittanceDto> levelTotalRemittanceDtosLows = memberLevelMapper.selectStoreRemittanceByDate(low);
+        //当前汇款总计(下)
+        List<LevelTotalRemittanceDto> levelTotalRemittanceDtos = memberLevelMapper.selectStoreRemittance(Integer.parseInt(storeId.toString()));
         
         view.addObject("cardMoney", JSONObject.fromObject(getCardMoney(orderInfos, 1, orderInfo, null)));
         view.addObject("cardOutMoney", JSONObject.fromObject(getCardInMoney(moneyFlows, 1, orderInfo, null)));
         view.addObject("balanceAmount", JSONObject.fromObject(getBlanckResult(moneyFlows, 1, query, null)));
+        view.addObject("levelTotalRemittanceDtosLows", levelTotalRemittanceDtosLows);
+        view.addObject("levelTotalRemittanceDtos", levelTotalRemittanceDtos);
         
         return view;
     }
@@ -509,7 +520,7 @@ public class MemberLevelService {
                 long out = moneyFlows.stream()
                         .filter(m -> m.getFlowTime().substring(5, 7).equals(month[count]) 
                                 && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
-                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                        .mapToLong(m -> m.getFlowAmount().longValue()).reduce(0, (a, b) -> a + b);
                 blanck.add(out);
             }
             result.put("blanckDates", months);
@@ -525,7 +536,7 @@ public class MemberLevelService {
                 long out = moneyFlows.stream()
                         .filter(m -> m.getFlowTime().substring(8, 10).equals(month[count]) 
                                 && m.getFlowType().equals(2) && !m.getBusinessType().equals(1))
-                        .mapToLong(m -> m.getBalanceAmount().longValue()).reduce(0, (a, b) -> a + b);
+                        .mapToLong(m -> m.getFlowAmount().longValue()).reduce(0, (a, b) -> a + b);
                 blanck.add(out);
                 months.add((count+1) + "号");
             }
@@ -665,7 +676,18 @@ public class MemberLevelService {
             baseDto.setMsg(result);
         }
         if (query.getInt("queryNum") == 2){
-           
+            Map<String, Object> low = new HashMap<>();
+            low.put("storeId", query.getInt("storeId"));
+            low.put("startDate", query.getString("startDate"));
+            low.put("stopDate", query.getString("stopDate"));
+            //当前汇款总计(上)
+            List<LevelTotalRemittanceDto> levelTotalRemittanceDtosLows = memberLevelMapper.selectStoreRemittanceByDate(low);
+            //当前汇款总计(下)
+            List<LevelTotalRemittanceDto> levelTotalRemittanceDtos = memberLevelMapper.selectStoreRemittance(query.getInt("storeId"));
+            Map<String, Object> map = new HashMap<>();
+            map.put("levelTotalRemittanceDtosLows", levelTotalRemittanceDtosLows);
+            map.put("levelTotalRemittanceDtos", levelTotalRemittanceDtos);
+            baseDto.setMsg(map);
         }
         return baseDto;
     }

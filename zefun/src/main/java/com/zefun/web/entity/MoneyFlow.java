@@ -27,6 +27,9 @@ public class MoneyFlow {
 
 	/** 业务类型(1：消费、2：充值、3：转账、4：开卡) */
 	private Integer businessType;
+	
+	/** 流水会员等级标识*/
+	private Integer levelId;
 
 	/** 业务描述 */
 	private String businessDesc;
@@ -59,7 +62,15 @@ public class MoneyFlow {
         this.levelId = levelId;
     }
 
-    public Integer getQueryType() {
+    public Integer getLevelId() {
+		return levelId;
+	}
+
+	public void setLevelId(Integer levelId) {
+		this.levelId = levelId;
+	}
+
+	public Integer getQueryType() {
         return queryType;
     }
 

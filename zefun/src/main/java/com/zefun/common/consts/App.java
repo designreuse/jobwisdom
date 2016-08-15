@@ -77,7 +77,7 @@ public interface App {
 		public static final int SYSTEM_ROLE_STORE_EMPLOYEE = 4;
 		
 		/** 百度语音token*/
-		public static final String SYSTEM_VOICE = "24.ec7ed8464a648aa249a2c828a641f184.2592000.1471593113.282335-7977080";
+		public static final String SYSTEM_VOICE = "24.e6c0a67dfc019a28d4c260a251503afa.2592000.1473834846.282335-7977080";
 	}
 
 	/** 队列通道常量 */

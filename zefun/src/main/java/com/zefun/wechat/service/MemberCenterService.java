@@ -107,7 +107,6 @@ import com.zefun.web.mapper.ProjectCategoryMapper;
 import com.zefun.web.mapper.ProjectEvaluateMapper;
 import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ProjectShareMapper;
-import com.zefun.web.mapper.ProjectStepMapper;
 import com.zefun.web.mapper.ShiftMapper;
 import com.zefun.web.mapper.SpecialServiceMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
@@ -249,10 +248,6 @@ public class MemberCenterService {
 	/**员工账户操作对象*/
 	@Autowired
 	private UserAccountMapper userAccountMapper;
-	
-	/**项目步骤操作对象*/
-	@Autowired
-	private ProjectStepMapper projectStepMapper;
 	
 	/** 微信api服务对象 */
 	@Autowired

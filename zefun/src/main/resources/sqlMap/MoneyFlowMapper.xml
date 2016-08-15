@@ -6,6 +6,7 @@
     <result column="account_id" property="accountId" jdbcType="INTEGER" />
     <result column="flow_type" property="flowType" jdbcType="INTEGER" />
     <result column="business_type" property="businessType" jdbcType="INTEGER" />
+    <result column="level_id" property="levelId" jdbcType="INTEGER" />
     <result column="flow_amount" property="flowAmount" jdbcType="DECIMAL" />
     <result column="balance_amount" property="balanceAmount" jdbcType="DECIMAL" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
@@ -38,8 +39,13 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
+<<<<<<< HEAD
     flow_id, account_id, flow_type, business_type, flow_amount, balance_amount, order_id, 
     business_desc, flow_time, is_deleted, store_id, last_operator_id,level_id
+=======
+    flow_id, account_id, flow_type, business_type, level_id, flow_amount, balance_amount, order_id, 
+    business_desc, flow_time, is_deleted, store_id, last_operator_id
+>>>>>>> aefd0271b2d812631f12a80e0312c0e154eb8050
   </sql>
   
   <!-- 根据会员标识列表删除账户流水，by 张小胖 -->
@@ -96,6 +102,9 @@
       <if test="businessType != null" >
         business_type,
       </if>
+      <if test="levelId != null" >
+        level_id,
+      </if>
       <if test="flowAmount != null" >
         flow_amount,
       </if>
@@ -138,6 +147,9 @@
       <if test="businessType != null" >
         #{businessType,jdbcType=INTEGER},
       </if>
+      <if test="levelId != null" >
+        #{levelId,jdbcType=INTEGER},
+      </if>
       <if test="flowAmount != null" >
         #{flowAmount,jdbcType=DECIMAL},
       </if>
@@ -179,6 +191,9 @@
       </if>
       <if test="businessType != null" >
         business_type = #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null" >
+        level_id = #{levelId,jdbcType=INTEGER},
       </if>
       <if test="flowAmount != null" >
         flow_amount = #{flowAmount,jdbcType=DECIMAL},

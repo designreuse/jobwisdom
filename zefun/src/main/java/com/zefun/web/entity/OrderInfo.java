@@ -18,6 +18,9 @@ public class OrderInfo {
 
 	/** 会员标识(散客为空) */
 	private Integer memberId;
+	
+	/** 消费使用等级标识*/
+	private Integer levelId;
 
 	/** 消费项目性别 */
 	private String sex;
@@ -115,6 +118,14 @@ public class OrderInfo {
 	private Integer queryType;
 
 	
+	public Integer getLevelId() {
+		return levelId;
+	}
+
+	public void setLevelId(Integer levelId) {
+		this.levelId = levelId;
+	}
+
 	public Integer getQueryType() {
         return queryType;
     }
