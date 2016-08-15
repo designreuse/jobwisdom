@@ -44,6 +44,15 @@ public interface PositioninfoMapper {
     PositionInfo selectByPrimaryKey(Integer positionId);
     
     /**
+     *   门店下名称查询
+    * @author 骆峰
+    * @date 2016年8月15日 下午6:27:43
+    * @param map map
+    * @return List<PositionInfo>
+     */
+    List<PositionInfo> selectByName(Map<String, Object> map);
+    
+    /**
      * 查询岗位列表信息
     * @author 陈端斌
     * @date 2015年8月4日 下午8:12:02

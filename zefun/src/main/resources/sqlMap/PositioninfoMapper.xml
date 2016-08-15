@@ -28,6 +28,12 @@
     where position_id = #{positionId,jdbcType=INTEGER}
   </select>
   
+   <select id="selectByName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from position_info
+    where position_name = #{positionName} and store_id = #{storeId}
+  </select>
   <select id="queryAllByStoreId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -83,7 +83,10 @@
     insert into money_flow
     <trim prefix="(" suffix=")" suffixOverrides="," >
    
-        <if test="flowId != null" >
+         <if test="levelId != null" >
+        level_id,
+      </if>
+     <if test="flowId != null" >
         flow_id,
       </if>
       <if test="accountId != null" >
@@ -95,9 +98,7 @@
       <if test="businessType != null" >
         business_type,
       </if>
-      <if test="levelId != null" >
-        level_id,
-      </if>
+
       <if test="flowAmount != null" >
         flow_amount,
       </if>
@@ -140,9 +141,7 @@
       <if test="businessType != null" >
         #{businessType,jdbcType=INTEGER},
       </if>
-      <if test="levelId != null" >
-        #{levelId,jdbcType=INTEGER},
-      </if>
+  
       <if test="flowAmount != null" >
         #{flowAmount,jdbcType=DECIMAL},
       </if>

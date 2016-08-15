@@ -87,6 +87,8 @@ public class PositioninfoController extends BaseController{
 	public BaseDto updatePositioninfo(HttpServletRequest request, HttpServletResponse response, 
 	        PositionInfo positioninfo){
 		Integer storeId = getStoreId(request);
+		
+		
 		int result=positioninfoService.updatePositioninfo(positioninfo);
 		if (result==1){
 			return new BaseDto(-3, "岗位编码已经存在");
