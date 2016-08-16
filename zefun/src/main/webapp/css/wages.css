@@ -1,10 +1,10 @@
 .content_right{padding:15px 20px;color:black}
 .content_right>ul{height:38px;position:relative;top:1px}
-.content_right>ul li{cursor:pointer;width:166px;height:38px;font-size:14px;border:1px solid #1d4e97;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
+.content_right>ul li{cursor:pointer;width:166px;height:38px;font-size:14px;border:1px solid #ccc;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
 .content_right>ul li:nth-child(1){border-right:none}
 
 .content_right>ul>.active{color:black;border-bottom:1px solid #b8c7ea;background:#b8c7ea}
-.wages_content{width:1040px;overflow:hidden;height:780px;border:1px solid #1d4e97;border-radius:0 12px 12px 12px;}
+.wages_content{width:1040px;overflow:hidden;height:780px;border:1px solid #ccc;border-radius:0 12px 12px 12px;}
 .wages_content_datail{background:#b8c7ea;padding:10px 0 10px 10px}
 
 .wages_content_datail_top input{width:80px;height:16px;border-radius:12px;border:1px solid #718aaf}
@@ -13,8 +13,8 @@
 .wages_content_datail_top button:hover{background:#70758e}
 .wages_content_datail_table{padding:10px;background:#d8e0f2}
 .wages_content_datail_table table{width:100%}
-.wages_content_datail_table_{height:712px;border:1px solid #0068b7;border-radius:12px;overflow-x:hidden;overflow-y:scroll}
-.wages_content_datail_table table td{width:50px;border-right:1px solid #74aad7;border-bottom:1px solid #74aad7;text-align:center;height:42px;vertical-align:middle}
+.wages_content_datail_table_{height:712px;border:1px solid #ccc;border-radius:12px;overflow-x:hidden;overflow-y:overlay}
+.wages_content_datail_table table td{width:50px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;text-align:center;height:42px;vertical-align:middle}
 
 .wages_content_datail_table table tr:nth-child(odd){background:#ffffff}
 .wages_content_datail_table table tr:nth-child(even){background:#f6f8fc}

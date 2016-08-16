@@ -1,10 +1,10 @@
 .content_right{padding:15px 20px;color:black}
 .content_right>ul{height:38px;position:relative;top:1px}
-.content_right>ul li{cursor:pointer;width:127px;height:38px;font-size:14px;border:1px solid #1d4e97;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
+.content_right>ul li{cursor:pointer;width:127px;height:38px;font-size:14px;border:1px solid #ccc;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#ccc}
 .content_right>ul li:nth-child(1){border-right:none}
 
 .content_right>ul>.active{color:black;border-bottom:1px solid #b8c7ea;background:#b8c7ea}
-.wages_content{overflow-y:overlay;overflow-x:hidden;width:1037px;height:780px;border:1px solid #1d4e97;border-radius:0 12px 12px 12px;position:relative}
+.wages_content{overflow-y:overlay;overflow-x:hidden;width:1037px;height:780px;border:1px solid #ccc;border-radius:0 12px 12px 12px;}
 .wages_content_datail{background:#b8c7ea;padding:10px 0 10px 10px}
 
 .wages_content_datail_top input{width:80px;height:16px;border-radius:12px;border:1px solid #718aaf}
@@ -30,9 +30,9 @@
 .remarks_button button{width:130px;height:26px;color:white;font-size:14px;text-align:center;line-height:26px;border-radius:12px;border:none;background:#7b809b;margin:0 30px}
 .remarks_button button:hover{background:#6f748e}
 .total_bottom{border-radius:0 0 12px 12px;background:#b8c7ea;position:absolute;bottom:42px;left:0}
-.total_bottom li{color:#ee1a1a;float:left;width:172px;height:42px;text-align:center;line-height:42px;border-right: 1px solid #74aad7;border-top: 1px solid #74aad7;border-bottom: 1px solid #74aad7;}
+.total_bottom li{color:#ee1a1a;float:left;width:172px;height:42px;text-align:center;line-height:42px;border-right: 1px solid #ccc;border-top: 1px solid #ccc;border-bottom: 1px solid #74aad7;}
 .total_top{background:#ebeff8;position:absolute;top:-44px;left:0}
-.total_top li{float:left;width:172px;height:42px;text-align:center;line-height:42px;border-right: 1px solid #74aad7;border-top: 1px solid #74aad7;border-bottom: 1px solid #74aad7;}
+.total_top li{float:left;width:172px;height:42px;text-align:center;line-height:42px;border-right: 1px solid #ccc;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;}
 .total_bottom li:last-child {
     border-right: none;
 }
@@ -45,10 +45,10 @@
 
 
 .table_left{position:absolute;top:0;left:0;width:202px}
-.table_left td{width:100px;height:42px;vertical-align:middle;text-align:center;border-bottom:1px solid #b4c5de;border-right:1px solid #b4c5de}
+.table_left td{width:100px;height:42px;vertical-align:middle;text-align:center;border-bottom:1px solid #ccc;border-right:1px solid #ccc}
 
 .table_right{width:846px;overflow:scroll;position:absolute;left:201px;top:0}
-.table_right td{width:100px;height:42px;vertical-align:middle;text-align:center;border-bottom:1px solid #b4c5de;border-right:1px solid #b4c5de}
+.table_right td{width:100px;height:42px;vertical-align:middle;text-align:center;border-bottom:1px solid #ccc;border-right:1px solid #ccc}
 
 .wages_content_datail_table{position:relative}
 
@@ -69,14 +69,14 @@
 .new_style_button button:hover{background:#565d74}
 
 .second{width:100%}
-.second td{width:100px;text-align:center;vertical-align:middle;height:40px;border-bottom:1px solid #b4c5de;border-right:1px solid #b4c5de}
+.second td{width:100px;text-align:center;vertical-align:middle;height:40px;border-bottom:1px solid #ccc;border-right:1px solid #ccc}
 .wages_content_datail table{width:100%}
 
 .wages_content_datail button{width:100px;height:40px;border:none;border-radius:12px;color:white;font-size:14px;text-align:center;line-height:40px;background:#66708f}
 .wages_content_datail button:hover{background:#596381}
 .wages_content_datail  input{width:100px;height:14px;border-radius:12px;border:1px solid #89a2d1}
 .second td img{margin:0 10px}
-.second_table td{height:34px;border-right:1px solid #89a2d1;border-bottom:1px solid #89a2d1;vertical-align:middle;text-align:center}
+.second_table td{height:34px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;vertical-align:middle;text-align:center}
 .second_table td select{padding:0 0 0 20px;width:80px;height:24px;border-radius:12px;border:1px solid #89a2d1}
 
 
@@ -100,7 +100,7 @@
 .table_right_center_ table{width:100%}
 
 .table_left table{border-right:1px solid #89a2d1;}
-.table_left tr:last-child td{background:#b8c7ea;border-right:1px solid #89a2d1;}
-.table_right_head tr:last-child td{background:#b8c7ea;border-right:1px solid #89a2d1;}
+.table_left tr:last-child td{background:#b8c7ea;border-right:1px solid #ccc;}
+.table_right_head tr:last-child td{background:#b8c7ea;border-right:1px solid #ccc;}
 
 .second tr:nth-child(even){background:#ebeff8}

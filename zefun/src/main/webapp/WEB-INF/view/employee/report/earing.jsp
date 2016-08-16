@@ -18,8 +18,7 @@
 	jQuery(function() {
 		
 		jQuery('.wages_content:gt(0)').hide();
-		jQuery('.wages_content:gt(0)').hide();
-		jQuery('.content_right ul li').click(
+		jQuery('.content_right>ul li').click(
 				function() {
 					jQuery(this).addClass('active').siblings().removeClass(
 							'active');
