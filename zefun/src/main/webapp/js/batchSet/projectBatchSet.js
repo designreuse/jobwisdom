@@ -49,7 +49,7 @@ function choosePosition (obj, positionId, positionName) {
 										     '<img src="'+baseUrl+'images/setting_close.png" onclick = "deletePosition(this, '+positionId+', \''+positionName+'\')">'+
 										     '<p>'+positionName+'</p>'+
 										    '<div class="selected_way">'+
-											   '<p><span>业绩方式</span><select name="calculateSelect"><option value="2">固定</option><option value="1">比例</option></select></p>'+
+											   '<p><span>业绩方式</span><select name="calculateSelect"><option value="2" checked="checked">固定</option><option value="1">比例</option></select></p>'+
 											   '<p><span>业绩值</span><input type="text" name="calculateInput" placeholder="0"><em>元</em></p>'+
 											 '</div>'+
 										  '</div>')
@@ -118,10 +118,10 @@ function confirmLevelChoose () {
 			if (i != 0) {
 				var page = "";
 				if (jQuery("input[name='positionCheck']").eq(0).attr("positionId") == positionIds){
-					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
 				}
 				else {
-					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select></p>';
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select></p>';
 				}
 				var batchSetJob = jQuery('<div class="batch_set_5_job"></div>');
 				batchSetJob.append(page);
@@ -133,10 +133,10 @@ function confirmLevelChoose () {
 			if (i + 1 == levelCheckList.length) {
 				var page = "";
 				if (jQuery("input[name='positionCheck']").eq(0).attr("positionId") == positionIds){
-					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
 				}
 				else {
-					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select></p>';
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select></p>';
 				}
 				var batchSetJob = jQuery('<div class="batch_set_5_job"></div>');
 				batchSetJob.append(page);
@@ -148,10 +148,10 @@ function confirmLevelChoose () {
 			if (i + 1 == levelCheckList.length) {
 				var page = "";
 				if (jQuery("input[name='positionCheck']").eq(0).attr("positionId") == positionIds){
-					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
 				}
 				else {
-					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2">固定</option><option value="1">比例</option></select></p>';
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select></p>';
 				}
 				var batchSetJob = jQuery('<div class="batch_set_5_job"></div>');
 				batchSetJob.append(page);

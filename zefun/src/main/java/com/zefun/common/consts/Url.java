@@ -1438,6 +1438,10 @@ public interface Url {
 	class Businessreport {
 		/** 营业汇总 */
 		public static final String SUMMARY = "summary/view/summary";
+		/** 营业汇总走势图 */
+		public static final String ACTION_TREND_BUSINESS_SUMMAR = "summary/action/trendBusinessSummar";
+		/** 营业汇总分析*/
+		public static final String TOTAIL_BUSINESS_SUMMARY = "summary/action/totailBusinessSummary";
 		/** 现金 */
 		public static final String CASHRECEIPTS = "cashreceipts/view/cashreceipts";
 		/** 卡销售 */

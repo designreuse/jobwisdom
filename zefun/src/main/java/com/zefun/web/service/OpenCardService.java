@@ -741,7 +741,7 @@ public class OpenCardService {
 		}
 		else {
 			businessDesc = "还款";
-			orderInfo.setOrderType(3);
+			orderInfo.setOrderType(2);
 		}
 		if (orderCode.equals(null) || orderCode.length() ==0) {
 		    orderCode = staffService.getOrderCode("order_info", storeId);

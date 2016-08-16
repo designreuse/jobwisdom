@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.zefun.web.dto.BusinessAnalysisDto;
 import com.zefun.web.dto.BusinessSummaryRelativeAmt;
+import com.zefun.web.dto.BusinessTotailDto;
 import com.zefun.web.dto.CustomerAnalysisDto;
 import com.zefun.web.dto.DayBookDto;
 import com.zefun.web.dto.DayBookQueryDto;
@@ -640,4 +641,13 @@ public interface OrderInfoMapper {
     * @return          List<OrderInfo>
      */
     List<OrderInfo> selectOrderInfoCardMoneyInByDate(OrderInfo orderInfo);
+    
+    /**
+     * 以年或月查询订单数据
+    * @author 老王
+    * @date 2016年8月15日 下午3:49:49 
+    * @param map map
+    * @return List<OrderInfo>
+     */
+    List<BusinessTotailDto> selectOrderInfoBySummary(Map<String, Object> map);
 }

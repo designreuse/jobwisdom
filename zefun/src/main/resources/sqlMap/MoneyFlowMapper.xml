@@ -223,7 +223,7 @@
 	    money_flow a, store_info b, member_info c 
     WHERE a.store_id = b.store_id AND a.is_deleted = 0 AND c.member_id = #{params.memberId}
 		  AND EXISTS(SELECT 1 FROM member_sub_account d WHERE d.account_id = a.account_id AND d.account_id = #{params.memberId}) 
-    ORDER BY flow_time DESC
+    ORDER BY a.flow_time DESC
   </select>
   
   <!--  根据会员标识查询转出记录 -->
