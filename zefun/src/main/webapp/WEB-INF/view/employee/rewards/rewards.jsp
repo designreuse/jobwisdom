@@ -17,7 +17,6 @@
   })
   </script>
 <body>
-
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
 		style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -36,7 +35,6 @@
 			 时间查询
 			  <input type="text" id="time" onchange="changeRule()" style="width:100px;margin:0 10px" onfocus="WdatePicker({dateFmt:'yyyy-MM'})">
 			  <select id="storeId1"  onchange="changeRule()">
-			     
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
 			  </c:forEach>
