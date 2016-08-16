@@ -1,5 +1,5 @@
 .content_right{padding:45px 40px}
-.content_right .base_manage{background:#ebeff8;color:black;border:1px solid #898989;border-radius:12px;height:auto}
+.content_right .base_manage{background:#ebeff8;color:black;border:1px solid #ccc;border-radius:12px;height:auto}
 .content_right .base_manage table{width:100%}
 .content_right .base_manage td{height:39px;vertical-align:middle;text-align:center;text-align:center}
 .content_right .base_manage td input[type='radio']{margin:0 10px}
@@ -9,7 +9,7 @@ input[type=radio]:checked {
     background: #ff0242!important;
 }
 input[type=radio]{width:16px!important;height:16px!important}
-.base_manage td{border:1px solid #898989;border-top:none;border-left:none}
+.base_manage td{border:1px solid #ccc;border-top:none;border-left:none}
 .base_manage td:last-child{border-right:none}
 .base_manage tr:last-child td{border-bottom:none}
 .base_manage tr td input[type='text']{width:40px;height:14px;border:1px solid #898989;margin-right:10px}
@@ -35,7 +35,7 @@ background-size: cover;}
 .active {
     color: #eb1e34;
 }
-.base_manage_content{margin-top:16px;color:black; border: 1px solid #898989;padding:10px;
+.base_manage_content{margin-top:16px;color:black; border: 1px solid #ccc;padding:10px;
     border-radius: 12px;background:#ebeff8}
 .base_manage_content>p{font-size:14px;}
 .base_manage_content>p>em{color:#898989;display:inline-block;margin-left:4px;font-size:12px}

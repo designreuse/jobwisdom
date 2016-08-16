@@ -57,7 +57,7 @@
 .add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:14px;}
 .add_store_back {float:left}
 .add_store_div{width:1000px;margin:70px auto}
-.add_store_content{float:left;border:1px solid black;padding:20px;border-radius: 0 0 10px 10px}
+.add_store_content{float:left;border:1px solid #ccc;padding:20px;border-radius: 0 0 10px 10px}
 .add_store_span_1{float:right}
 .add_store_span_1 span{color:red;font-size:16px}
 .add_store_span_1{font-size:14px}

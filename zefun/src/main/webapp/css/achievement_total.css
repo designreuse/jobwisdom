@@ -1,10 +1,10 @@
 .content_right{padding:15px 20px;color:black}
 .content_right>ul{height:38px;position:relative;top:1px}
-.content_right>ul li{cursor:pointer;width:166px;height:38px;font-size:14px;border:1px solid #1d4e97;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
+.content_right>ul li{cursor:pointer;width:166px;height:38px;font-size:14px;border:1px solid #ccc;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
 .content_right>ul li:nth-child(1){border-right:none}
 
 .content_right>ul>.active{color:black;border-bottom:1px solid #b8c7ea;background:#b8c7ea}
-.wages_content{width:1037px;overflow:hidden;height:780px;border:1px solid #1d4e97;border-radius:0 12px 12px 12px;}
+.wages_content{width:1037px;overflow:hidden;height:780px;border:1px solid #ccc;border-radius:0 12px 12px 12px;}
 .wages_content_datail{background:#b8c7ea;padding:10px 0 10px 10px}
 
 .wages_content_datail_top input{width:80px;height:16px;border-radius:12px;border:1px solid #718aaf}
@@ -14,7 +14,7 @@
 .wages_content_datail_table{position:relative;height:734px}
 .wages_content_datail_table table{width:100%}
 .wages_content_datail_table_{margin-top:44px;position:relative;height:649px;overflow-x:hidden;overflow-y:overlay}
-.wages_content_datail_table table td{width:170px;border-right:1px solid #74aad7;border-bottom:1px solid #74aad7;text-align:center;height:42px;vertical-align:middle}
+.wages_content_datail_table table td{width:170px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;text-align:center;height:42px;vertical-align:middle}
 .content_right>ul li:nth-child(2){border-right:none}
 .wages_content_datail_table table tr:nth-child(odd){background:#ffffff}
 .wages_content_datail_table table tr:nth-child(even){background:#f6f8fc}
@@ -41,11 +41,11 @@
 .total_bottom{border-radius:0 0 12px 12px;background:#b8c7ea;position:absolute;bottom:42px;left:0}
 .total_bottom li{color:#ee1a1a;float:left;width:172px;height:42px;text-align:center;line-height:42px;border-right: 1px solid #74aad7;border-top: 1px solid #74aad7;border-bottom: 1px solid #74aad7;}
 .total_top{background:#ebeff8;position:absolute;top:-44px;left:0}
-.total_top li{float:left;width:172px;height:42px;text-align:center;line-height:42px;border-right: 1px solid #74aad7;border-top: 1px solid #74aad7;border-bottom: 1px solid #74aad7;}
+.total_top li{float:left;width:172px;height:42px;text-align:center;line-height:42px;border-right: 1px solid #ccc;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;}
 .total_bottom li:last-child {
     border-right: none;
 }
 .third table td{width:100px}
 .third  li{width:128px}
-.third select{width:80px;padding:0 0 0 20px;margin:0 2px}
+.third select{width:100px;padding:0 0 0 20px;margin:0 2px}
 .third button{margin-left:10px}
