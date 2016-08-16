@@ -70,7 +70,6 @@ public class EmployeeController extends BaseController{
     public ModelAndView accountViewStorePosition(HttpServletRequest request, HttpServletResponse response){
         return employeeService.accountViewStorePosition(getStoreAccount(request), request);
     }
-	
 	/**
      * 企业查看每个门店的组织架构
     * @author 高国藩

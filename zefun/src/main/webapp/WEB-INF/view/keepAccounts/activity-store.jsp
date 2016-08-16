@@ -108,7 +108,7 @@ jQuery(function(){
  
  
 function  deleted(activityStoreId){
-		if(confrim("确定要删除吗？")){
+		if(confirm("确定要删除吗？")){
 			jQuery.ajax({
 				type : "post",
 				url : baseUrl +"activity/view/showactivitydelete",

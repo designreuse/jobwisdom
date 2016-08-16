@@ -71,6 +71,15 @@ public interface StoreInfoMapper {
 	 * @return 门店基础信息
 	 */
 	StoreInfo selectBaseInfoByStoreId(int storeId);
+	
+	/**
+	 *  企业门店名称查询
+	* @author 骆峰
+	* @date 2016年8月16日 下午2:31:32
+	* @param map map
+	* @return StoreInfo
+	 */
+	List<StoreInfo> selectByStoreName(Map<String, Object> map);
 
 	/**
 	 * 根据门店查询门店介绍

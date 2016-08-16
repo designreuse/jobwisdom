@@ -253,6 +253,34 @@ jQuery('body').delegate('.lcs_check_assignType', 'lcs-statuschange', function() 
 var modelType = -1;
 var dataAjax = {};
 
+function cheage(s){
+	var type ;
+	if(s == 1){
+		type="cz";
+	}
+	else if(s == 2){
+		type="kk";
+	}
+	else if(s==3){
+		type="sj";
+	} 
+	var cashAmount = jQuery("input[name = '"+type+"CashAmount']").val();
+	var unionpayAmount = jQuery("input[name = '"+type+"UnionpayAmount']").val();
+	var wechatAmount = jQuery("input[name = '"+type+"WechatAmount']").val();
+	var alipayAmount = jQuery("input[name = '"+type+"AlipayAmount']").val();
+	var debtAmount = jQuery("input[name = '"+type+"ebtAmount']").val();
+	
+	cashAmount = valueZero(cashAmount);
+	unionpayAmount = valueZero(unionpayAmount);
+	wechatAmount = valueZero(wechatAmount);
+	alipayAmount = valueZero(alipayAmount);
+	debtAmount = valueZero(debtAmount);
+		
+	var realPrice = parseInt(cashAmount) + parseInt(unionpayAmount) + parseInt(debtAmount) + parseInt(wechatAmount) + parseInt(alipayAmount);
+	
+	jQuery("#Num"+s).val(realPrice);
+}
+
 function save(){
 	
 	
@@ -955,9 +983,13 @@ function valueZero(value) {
 	return value;
 }
 
-function checkNum(obj) {  
+function checkNum(obj,s) {  
     //检查是否是非数字值  
     if (isNaN(obj.value)) {  
         obj.value = "";  
     }   
+    if(s != 4){
+    	cheage(s);
+    }
+    
 } 
