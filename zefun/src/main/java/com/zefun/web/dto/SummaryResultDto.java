@@ -6,7 +6,7 @@ import com.zefun.web.entity.StoreInfo;
 
 /**
  * 汇总基础类
- * @author <a href="mailto:bing_ge@kingdee.com">bing_ge@kingdee.com</a>
+ * @author 老王
  * @date 2016年1月8日
  */
 public class SummaryResultDto {

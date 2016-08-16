@@ -256,14 +256,12 @@ public class OrderInfo {
 		return discountAmount;
 	}
 
-	/** @param cashAmount	现金支付 */
-	public void setCashAmount(BigDecimal cashAmount){
-		this.cashAmount = cashAmount;
+	public BigDecimal getCashAmount() {
+		return cashAmount;
 	}
 
-	/** @return	现金支付 */
-	public BigDecimal getCashAmount(){
-		return cashAmount;
+	public void setCashAmount(BigDecimal cashAmount) {
+		this.cashAmount = cashAmount;
 	}
 
 	/** @param unionpayAmount	银联支付 */
