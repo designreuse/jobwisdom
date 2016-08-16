@@ -306,10 +306,10 @@
     where member_id = #{memberId,jdbcType=INTEGER}
   </update>
   <select id="selectMemberByStoreId" resultMap="ResultDto" parameterType="java.lang.Integer" >
-    SELECT wx.*,qw.level_name,rt.* from member_info wx,member_level qw,member_account rt
-    WHERE  qw.level_id = wx.level_id
-    AND rt.account_id = wx.member_id
-    AND wx.store_id = #{storeId,jdbcType=INTEGER}
+    SELECT wx.*,qw.level_name,rt.* from member_info wx 
+    left join member_level qw on qw.level_id = wx.level_id
+	left join member_account rt on rt.account_id = wx.member_id
+    WHERE  wx.store_id = #{storeId,jdbcType=INTEGER}
     AND wx.is_deleted = 0
   </select>
   

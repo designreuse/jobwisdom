@@ -17,7 +17,6 @@
                                                                                   	
   </script>
 <body>
-
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
 		style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -132,14 +131,15 @@ var storeIds = ${storeId};
 	 var year_month = year + "-"+month;
 	 jQuery("input[name='time1']").val(year_month);
 	 jQuery("input[name='time2']").val(year_month);
-	 
+	 jQuery("select option:nth-child(2)").attr("selected" , "selected"); 
 	 jQuery("select[name='store1']").val(storeIds);
 	 jQuery("select[name='store2']").val(storeIds);
+	
 	 if(views == 1){
 		 jQuery("select[name='store1']").attr("class","hide");
 		 jQuery("select[name='store2']").attr("class","hide");
 	 }
-	 jQuery("select option:nth-child(2)").attr("selected" , "selected"); 
+
 
  });
  function showTable(s){
@@ -150,9 +150,7 @@ var storeIds = ${storeId};
 		   html += '<tr> <td>'+value.code+'</td> <td>'+value.name+'</td><td>'+value.baseSalaries+'</td><td>'+value.ld+'</td><td>'+value.sp+'</td><td>'+value.lc+'</td>';
 		   html += '<td>'+value.kk+'</td><td>'+value.tc+'</td><td>'+value.number+'</td><td>'+value.ff+'</td>';
 	   })
-	
 	   jQuery("tbody[name='tab']").append(html);
-	 
  }
  
  

@@ -349,6 +349,10 @@ function updatePosition(button){
 		data : data,
 		dataType : "json",
 		success : function(e){
+			if(e.code !=0){
+				dialog(e.msg);
+				return;
+			}
 			jQuery("em[positionId='"+positionId+"']").text(positionName);
 			jQuery(button).next().click();
 		}

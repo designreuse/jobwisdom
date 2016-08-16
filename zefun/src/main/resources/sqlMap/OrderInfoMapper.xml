@@ -1367,12 +1367,12 @@
   
   <select id="selectTatalCashAmount" parameterType="java.util.Map" resultType="java.util.Map">
      select 
-	    ifnull(sum(debt_amount) + sum(cash_amount) + sum(unionpay_amount) + sum(wechat_amount) + sum(alipay_amount) + sum(group_amount), 0) as totalAmount, 
-		ifnull(sum(debt_amount), 0) as debtAmount, ifnull(sum(cash_amount), 0) as cashAmount, ifnull(sum(unionpay_amount), 0) as unionpayAmount,
+	    ifnull(sum(cash_amount) + sum(unionpay_amount) + sum(wechat_amount) + sum(alipay_amount) + sum(group_amount), 0) as totalAmount, 
+		ifnull(sum(cash_amount), 0) as cashAmount, ifnull(sum(unionpay_amount), 0) as unionpayAmount,
 		ifnull(sum(wechat_amount), 0) as wechatAmount, ifnull(sum(alipay_amount), 0) as alipayAmount, ifnull(sum(group_amount), 0) as groupAmount
 	from order_info 
 	where store_id = #{storeId,jdbcType=INTEGER} and substring(create_time, 1, 10) &gt;= #{beginDay,jdbcType=CHAR} and substring(create_time, 1, 10) &lt;= #{endDay,jdbcType=CHAR}
-	and is_deleted = 0 and order_status > 2 and order_type != 3 
+	and is_deleted = 0 and order_status in (3, 4) 
   </select>
   
   <sql id="flow_sql_now" >
@@ -1942,5 +1942,22 @@
   	where oi.store_id = #{storeId} and od.order_type in (4,5,6,7,8) 
   	<if test="queryType == 1"> and DATE_FORMAT(oi.create_time,'%Y') = #{createTime}</if>
   	<if test="queryType == 2"> and DATE_FORMAT(oi.create_time,'%Y-%m') = #{createTime} </if>
+  </select>
+  
+  <select id="selectOrderInfoBySummary" parameterType="java.util.Map" resultType ="com.zefun.web.dto.BusinessTotailDto">
+   SELECT 
+     create_time as createTime, cash_amount + unionpay_amount + wechat_amount + alipay_amount + group_amount + debt_amount as valueMoney
+   FROM 
+	 order_info 
+   WHERE order_status  IN (3,4)    
+   AND is_deleted =0 AND store_id = ${storeId} AND cash_card_type = 1
+   <choose>
+	  <when test="dateType == 1">
+         AND left(create_time, 4) = ${time}
+	  </when>
+	  <otherwise>
+	     AND left(create_time, 7) = ${time}
+	  </otherwise>
+   </choose> 
   </select>
 </mapper>

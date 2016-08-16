@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.zefun.web.dto.BusinessTotailDto;
 import com.zefun.web.dto.CardConsumedTrendData;
 import com.zefun.web.dto.DeptSummaryByDayDto;
 import com.zefun.web.dto.Member2Info;
@@ -533,4 +534,13 @@ public interface OrderDetailMapper {
 	* @return Integer
 	 */
 	Integer selectOrderIdByStep(Integer shiftMahjongStepId);
+	
+	/**
+	 * 
+	* @author 老王
+	* @date 2016年8月15日 下午5:41:10 
+	* @param map 参数
+	* @return List<BusinessTotailDto>
+	 */
+	List<BusinessTotailDto> selectDetailCalculate(Map<String, Object> map);
 }
