@@ -81,6 +81,9 @@ public class MemberAccount {
 
 	/** 最后操作人标识 */
 	private Integer lastOperatorId;
+	
+	/** 会员等级 */
+	private Integer levelId;
 
 	/** 默认构造函数 */
 	public MemberAccount() {
@@ -122,6 +125,14 @@ public class MemberAccount {
         this.debtAmount = debtAmount;
         this.createTime = createTime;
         this.lastOperatorId = lastOperatorId;
+    }
+
+    public Integer getLevelId() {
+        return levelId;
+    }
+
+    public void setLevelId(Integer levelId) {
+        this.levelId = levelId;
     }
 
     public Integer getWechatCount() {

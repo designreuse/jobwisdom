@@ -375,9 +375,13 @@ public class OrderInfoService {
         //门店进入
         if (storeId != null){
             map.put("storeId", storeId);
+            view.addObject("storeId", storeId);
+            view.addObject("view", 1);
         }
         else {
             map.put("storeId", selectByStoreAccount.get(0).getStoreId());
+            view.addObject("storeId", selectByStoreAccount.get(0).getStoreId());
+            view.addObject("view", 0);
         }
         List<GoodsCategory> goodsCategory = goodsCategoryMapper.selectBygoodsInfo(Integer.parseInt(map.get("storeId").toString()));
         List<GoodsInfoDto> goodsInfoDto = goodsInfoMapper.selectAllGoodsInfoByStoreIdAndNotPay(Integer.parseInt(map.get("storeId").toString()));
@@ -491,7 +495,10 @@ public class OrderInfoService {
                 jsonaYear.add(new BigDecimal(count).setScale(2, BigDecimal.ROUND_HALF_UP));
                 jsonoYear.add(new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP));
             }
-        }     
+        } 
+        else {
+            
+        }
  
         jsono.accumulate("day", day);
         jsono.accumulate("jsonaMonth", jsonaMonth); //  月数量
@@ -582,7 +589,7 @@ public class OrderInfoService {
     
    
     /**
-     * 
+     *   销量汇总 数据汇总
     * @author 骆峰
     * @date 2016年8月11日 下午5:34:54
     * @param selectByGoods 门店或商品
@@ -617,7 +624,7 @@ public class OrderInfoService {
                                 .filter(s ->s.getOrderType().equals(1) &&  g.getCategoryId().equals(s.getCategoryId()))
                                 .collect(Collectors.toList());          //门店
                         
-                        List<OrderDetailDto> shop = collect.stream()
+                        List<OrderDetailDto> shop = collect2.stream()
                                 .filter(s ->s.getOrderType().equals(3) &&  g.getCategoryId().equals(s.getCategoryId()))
                                 .collect(Collectors.toList()); //商城
                         
@@ -652,13 +659,14 @@ public class OrderInfoService {
                                         .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //卡金
                                 Double caPricePcl =  caPrice.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
                                         .mapToDouble(OrderDetailDto::getProjectCount).sum();
-                               
+                                
+                                
                                 Double tcDcl =  collect2.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
                                         .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //套餐
                                 Double tcPcl =  collect2.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
                                         .mapToDouble(OrderDetailDto::getProjectCount).sum();
-                                shopDcl += tcDcl;
-                                shopPcl += tcPcl;
+                                storeDcl = tcDcl + storeDcl ;
+                                storePcl = tcPcl + storePcl;
                                 Double totalDcl = shopDcl + storeDcl;
                                 Double totalPcl = shopPcl + storePcl;
                                 jsono.accumulate("priceDcl",   new BigDecimal(priceDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
@@ -677,9 +685,10 @@ public class OrderInfoService {
                                 jsona.add(jsono);
                                 jsono.clear();
                             });
-                        
-                        Double storeDc =  store.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum(); //门店
-                        Double storePc = store.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
+                        Double storeDc = 0.0;
+                        Double storePc = 0.0;
+                        storeDc =  store.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum(); //门店
+                        storePc = store.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
                         
                         Double shopDc =  shop.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum(); //商城
                         Double shopPc = shop.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum(); 
@@ -689,12 +698,18 @@ public class OrderInfoService {
                         
                         Double caPriceDc =  caPrice.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //卡金
                         Double caPricePc =  caPrice.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
-                       
-                        Double tcDc =  collect2.parallelStream().mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //套餐
-                        Double tcPc =  collect2.parallelStream().mapToDouble(OrderDetailDto::getProjectCount).sum();
+                        Double tcDc = 0.0;
+                        Double tcPc = 0.0;
+                        tcDc =  collect2.parallelStream().filter(s -> g.getCategoryId().equals(s.getCategoryId()))
+                                .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //套餐
+                        tcPc =  collect2.parallelStream().filter(s -> g.getCategoryId().equals(s.getCategoryId()))
+                                .mapToDouble(OrderDetailDto::getProjectCount).sum();
                         
-                        Double totalDc = priceDc + caPriceDc ;
-                        Double totalPc = pricePc + caPricePc ;
+                        storeDc = tcDc + storeDc;
+                        storePc = tcPc + storePc;
+                        
+                        Double totalDc = priceDc + caPriceDc + tcDc;
+                        Double totalPc = pricePc + caPricePc + tcPc;
                        
                         jsonoj.accumulate("storeDc",    new BigDecimal(storeDc).setScale(2, BigDecimal.ROUND_HALF_UP));
                         jsonoj.accumulate("storePc",    new BigDecimal(storePc).setScale(2, BigDecimal.ROUND_HALF_UP));

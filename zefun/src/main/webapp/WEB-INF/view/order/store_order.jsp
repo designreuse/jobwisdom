@@ -81,7 +81,7 @@
 							  <input  class="date" type="text" name="birthday" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
 							  <input class="date" type="text" name="birthdays" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})"> 
 							
-							  门店<select  id="stores" name="md" >
+							 <i class="md">门店</i><select  id="stores" name="md" >
 									  <c:forEach items="${selectByStoreAccount }" var="store">
 									     <option storeId="${store.storeId }">${store.storeName }</option>
 									  </c:forEach>
@@ -129,7 +129,7 @@
 							  <input  type="text" onchange="checkGood()" id="yearMonth1" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
 							  <input  type="text" onchange="checkGood()" id="yearMonth2" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})" > 
 							  </em>
-							  门店<select name="md" id="storeTwo" onchange="checkGood()">
+							<i class="md">门店</i><select name="md" id="storeTwo" onchange="checkGood()">
 									  <c:forEach items="${selectByStoreAccount }" var="store">
 									     <option storeId="${store.storeId }">${store.storeName }</option>
 									  </c:forEach>
@@ -146,7 +146,7 @@
 						   <div class="wages_content_datail_top">
 							    <input  type="text" id="date1" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"> 至
 							      <input  type="text"  id="date2" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"> 
-							  门店<select style="width:90px" id="hz" name="md">
+							 <i class="md">门店</i><select style="width:90px" id="hz" name="md">
 									  <c:forEach items="${selectByStoreAccount }" var="store">
 									     <option storeId="${store.storeId }">${store.storeName }</option>
 									  </c:forEach>
@@ -190,6 +190,8 @@ var json ="";
 var joinData = ${joinData};
 var year = ${year} ;
 var month = ${month} ;
+var view = ${view} ;
+var storeIds = ${storeId} ;
 if(month<10){
 	month = "0"+month.toString()
 }else{
@@ -450,8 +452,15 @@ jQuery(function(){
 	jQuery("input[name='birthday']").val(year);
 	jQuery("#yearMonth1").val(year);
 	jQuery("#yearMonth2").val(year.toString() +"-"+month);
+	var name = jQuery("#hz option[storeId='"+storeIds+"']").text();
+	jQuery("select[name='md']").val(name);
+	if(view == 1){
+		jQuery("select[name='md']").hide();
+		jQuery(".md").hide();
+	}
 	secends();
-	showYear()
+	showYear();
+	
 })
 
 

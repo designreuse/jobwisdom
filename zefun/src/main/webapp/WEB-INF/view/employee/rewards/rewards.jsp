@@ -17,7 +17,6 @@
   })
   </script>
 <body>
-
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
 		style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -36,7 +35,6 @@
 			 时间查询
 			  <input type="text" id="time" onchange="changeRule()" style="width:100px;margin:0 10px" onfocus="WdatePicker({dateFmt:'yyyy-MM'})">
 			  <select id="storeId1"  onchange="changeRule()">
-			     
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
 			  </c:forEach>
@@ -111,7 +109,7 @@
 			  <c:forEach items="${storeManageRule }" var="storeRule">
 			     <option ruleId="${storeRule.ruleName }">${storeRule.ruleName }</option>
 			  </c:forEach>
-         		</select></td>
+         	</select></td>
 			<td><select onchange="changeIsFind()"  name="type"><option value="0">全部</option><option value="1">奖励</option><option value="0">惩罚</option></select></td>
 			<td><input onchange="changeIsFind()" type="text" name ="employeeCode" placeholder="名称/工号"></td>
 		  </tr>
@@ -138,7 +136,7 @@
 		 <tr id="${list.rewardId }">
 		   <td>${list.employeeCode }</td>
 		   <td>${list.employeeName }</td>
-		   <td>${list.employeeName }</td>
+		   <td>${list.storeName }</td>
 		   <td>${list.type }</td>
 		   <c:if test="${list.isReward eq 2}"> <td>惩罚</td></c:if>
 		   <c:if test="${list.isReward eq 1}"> <td>奖励</td></c:if>
@@ -224,8 +222,8 @@ function storeSelect(){
 		var storeName = jQuery("#storeIdAll option[storeId='"+storeId+"'] ").val();
 		jQuery("#storeIdAll").val(storeName);
 		jQuery("#storeHide").hide();
-		jQuery("#storeTd").empty();
-		jQuery("#storeTd2").empty();
+		jQuery("#storeTd").remove();
+		jQuery("#storeTd2").remove();
 		
 		jQuery("#storeId1").val(storeName);
 		jQuery("#storeId1").hide();
@@ -315,7 +313,10 @@ function save(){
 	
 }
 function showOnehtml(value){
-	jQuery("#"+value.rewardId).empty();
+	if(rewardId != null){
+		jQuery("#"+value.rewardId).remove();
+	}
+	
 	var html = '';
 	html +=' <tr id="'+value.rewardId+'"><td>'+value.employeeCode+'</td>	   <td>'+value.employeeName +'</td> <td>'+value.employeeName+'</td><td>'+value.type+'</td>';
 	   if(value.isReward == 1){
@@ -325,7 +326,7 @@ function showOnehtml(value){
 			html += '<td>惩罚</td>';
 	   }
 	   html += ' <td style="width:200px">'+value.reasons +'</td><td>'+value.modifytime+'</td> <td><img onclick="updated('+value.rewardId+','+value.storeId+')" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleted('+value.rewardId +')" src="'+baseUrl+'images/add_store_2.png"></td>	 </tr>';
-	   jQuery(".second tr").eq(0).before(html);
+	   jQuery(".second").append(html);
 }
 
 //奖罚管理查询页面

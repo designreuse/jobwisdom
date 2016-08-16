@@ -68,6 +68,7 @@ public class EmployeeRewardService {
         StoreManageRule storeManageRule = storeManageRuleMapper.selectByPrimaryKey(ruleId);
         vo.setNumber(Double.parseDouble(storeManageRule.getProcessMoney().toString()));
         vo.setType(storeManageRule.getRuleName());
+        
         employeeRewardMapper.insertSelective(vo);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("rewardId", vo.getRewardId());

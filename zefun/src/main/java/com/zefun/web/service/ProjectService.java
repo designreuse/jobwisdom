@@ -1315,22 +1315,58 @@ public class ProjectService {
         Integer type = jsonObject.getInt("type");
         if (type == 1){
             ProjectCategory projectCategory = (ProjectCategory) JSONObject.toBean(jsonObject, ProjectCategory.class);
+            
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("categoryName", projectCategory.getCategoryName());
+            map.put("storeId", projectCategory.getStoreId());
+            
+            List<ProjectCategory> selectByName = projectCategoryMapper.selectByName(map); 
             if (projectCategory.getCategoryId()==null){
-                projectCategoryMapper.insertSelective(projectCategory);
+                if (selectByName.size() == 0){
+                    projectCategoryMapper.insertSelective(projectCategory);
+                }
+                else {
+                    return new BaseDto(-1, "该名称已经存在");
+                }
             }
             else {
-                projectCategoryMapper.updateByPrimaryKeySelective(projectCategory);
+                
+                if (selectByName.size() == 0||selectByName.size() == 1){
+                    projectCategoryMapper.updateByPrimaryKeySelective(projectCategory);
+                }
+                else {
+                    return new BaseDto(-1, "该名称已经存在");
+                }
             }
             redisService.hdel(App.Redis.DEPT_PROJECT_BASE_INFO_KEY_HASH, jsonObject.get("deptId").toString());
             return new BaseDto(0, projectCategory);
         }
         else {
             GoodsCategory goodsCategory = (GoodsCategory) JSONObject.toBean(jsonObject, GoodsCategory.class);
+            
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("categoryName", goodsCategory.getCategoryName());
+            map.put("storeId", goodsCategory.getStoreId());
+            List<GoodsCategory> selectByName = goodsCategoryMapper.selectByName(map);
+            
             if (goodsCategory.getCategoryId() == null){
-                goodsCategoryMapper.insertSelective(goodsCategory);
+                
+                if (selectByName.size() == 0){
+                    goodsCategoryMapper.insertSelective(goodsCategory);
+                }
+                else {
+                    return new BaseDto(-1, "该名称已经存在");
+                }
+                
             }
             else {
-                goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
+                
+                if (selectByName.size() == 0||selectByName.size() == 1){
+                    goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
+                }
+                else {
+                    return new BaseDto(-1, "该名称已经存在");
+                }
             }
             redisService.hdel(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, jsonObject.get("deptId").toString());
             return new BaseDto(0, goodsCategory);

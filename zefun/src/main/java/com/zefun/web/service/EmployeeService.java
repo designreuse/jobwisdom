@@ -1518,9 +1518,11 @@ public class EmployeeService {
         
         if (selectByStoreAccount.size() != 0) {
             map.put("storeId", selectByStoreAccount.get(0).getStoreId()) ;
+            view.addObject("storeId", selectByStoreAccount.get(0).getStoreId());
         }
         if (storeId !=null) {
             map.put("storeId", storeId) ;
+            view.addObject("storeId", storeId);
             type = 1;
         }
         

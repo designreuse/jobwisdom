@@ -53,7 +53,6 @@
 	   
 	   })
 	  })
-	  
 	  	 jQuery(function(){ 
 	   jQuery('.no_user').click(function(){
 	    jQuery('.no_user_content').hide();
@@ -67,7 +66,6 @@
 	    jQuery('.no_password').fadeIn();
 	   })
 	  })
-	  
 	</script>
 </head>
 <style>
@@ -88,7 +86,6 @@
 </style>
 
 <body>
-
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
 		style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -199,14 +196,17 @@
 											部门业绩 <select name="deptChooseType"  onchange="chooseDept(this)">
 												<option value="1">固定</option>
 												<option value="2">比例</option>
-											</select> <span> <select name="deptSelectValue" id=""
+											</select> <span> 
+											<select name="deptSelectValue" id=""
 												onchange="chooseDeptInfo(this)">
 													<option value="">选择部门</option>
 													<c:forEach items="${deptInfoList}" var="deptInfo"
 														varStatus="status">
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
-											</select> <i  class = "addcolor">*</i>
+											</select> 
+											总业绩<input type="Number" id="Num1"/>
+											<i  class = "addcolor">*</i>
 											</span>
 
 										</p>
@@ -412,7 +412,9 @@
 														varStatus="status">
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
-											</select><i  class = "addcolor">*</i>
+											</select>
+												总业绩<input type="Number" id="Num2"/>
+											<i  class = "addcolor">*</i>
 											</span>
 										</p>
 
@@ -586,7 +588,9 @@
 														varStatus="status">
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
-											</select><i  class = "addcolor">*</i>
+											</select>
+												总业绩<input type="Number" id="Num3"/>
+											<i  class = "addcolor">*</i>
 											</span>
 
 										</p>

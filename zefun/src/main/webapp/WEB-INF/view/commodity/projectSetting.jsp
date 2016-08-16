@@ -1249,25 +1249,25 @@
 	function changeprice(s,type){
 		var price_step = jQuery(s).val();
 		if(price_step==1){
-			jQuery("#"+type).text("元");
-		}else{
 			jQuery("#"+type).text("%");
+		}else{
+			jQuery("#"+type).text("元");
 		}
 		
 	}
 	function changeprice1(s,levelId,type){
 		var price_step = jQuery(s).val();
 		if(price_step==1){
-			jQuery('#'+type+' i[id='+levelId+']').text("元");
+			jQuery('#'+type+' i[id='+levelId+']').text("%");
 		}else{
-			jQuery("#"+type+" i[id="+levelId+"]").not("i[name='cardyu']").text("%");
+			jQuery("#"+type+" i[id="+levelId+"]").not("i[name='cardyu']").text("元");
 		}
 	}
 	
 	function insertTable(s,levelName,levelId,type){
 		if(jQuery(s).is(':checked')){
 			var html="<tr id ="+levelId+" class='tr"+type+" '><td value ="+levelId+">"+levelName+"</td>"
-			+"<td><select onchange='changeprice1(this,"+levelId+","+type+")'><option value='1'>固定</option><option value='2'>比例</option></select></td>"
+			+"<td><select onchange='changeprice1(this,"+levelId+","+type+")'><option value='2'>固定</option><option value='1'>比例</option></select></td>"
 			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>"
 			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>"
 			+"<td><span><input  placeholder='0' type='text'><i id='"+levelId+"'>元</i></span></td>"
@@ -1293,6 +1293,9 @@
 		        jQuery("#active1"+n).val(selectShowStep[i].stepPerformanceType);
 		        jQuery("#active11"+n).attr("value",selectShowStep[i].stepPerformance);
 		        if(selectShowStep[i].stepPerformanceType==2){
+		    		jQuery("#price_step"+n).text("元");
+		        }
+		        if(selectShowStep[i].stepPerformanceType==1){
 		    		jQuery("#price_step"+n).text("%");
 		        }
 		}
@@ -1309,6 +1312,9 @@
 				jQuery("tr[id='"+selectShow[j].levelId+"']").children("td").eq(8).find("input").val(selectShow[j].commissionCard);
 			}
 			if(selectShow[j].assignCashType==2){
+				jQuery('i[id='+selectShow[j].levelId+']').text("元");
+			}
+			if(selectShow[j].assignCashType==1){
 				jQuery('i[id='+selectShow[j].levelId+']').text("%");
 			}
 		}

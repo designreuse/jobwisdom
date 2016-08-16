@@ -253,7 +253,6 @@ public class OpenCardService {
     			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
     			String payPassword, List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer openRecommendId,
     			Integer storeId, Integer lastOperatorId, String orderCode, String createTime) throws ParseException {
-
 	    MemberInfo selectPhone = memberInfoMapper.selectMemberByStoreIdAndPhone(storeId, phone);
         if (selectPhone != null) {
             return new BaseDto(-1, "该电话已有会员使用");
@@ -469,7 +468,6 @@ public class OpenCardService {
 		subHashMap.put("chargeAmount", chargeAmount.add(rewardAmount));
 		subHashMap.put("rewardAmount", rewardAmount);
 		memberSubAccountMapper.updateCharge(subHashMap); //总值和余额都加上 chargeAmount
-
 		commissionAndGift(memberId, subAccount.getSubAccountId(), subAccount.getLevelId(), recommendId, commissionAmount, calculateAmount, 
 				    giftmoneyAmount, chargeAmount, cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 5, storeId,
     				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime);
@@ -724,7 +722,7 @@ public class OpenCardService {
 		// 添加订单信息
 		OrderInfo orderInfo = new OrderInfo();
 		String businessDesc = "";
-
+		
 		Integer calculateType = 0;
 		if (type == 4) {
 			businessDesc = "开卡";
@@ -754,6 +752,7 @@ public class OpenCardService {
 		orderInfo.setReceivableAmount(receivableAmount);
 		orderInfo.setDiscountAmount(receivableAmount);
 		orderInfo.setCashAmount(cashAmount);
+		orderInfo.setCashCardType(1);
 		orderInfo.setUnionpayAmount(unionpayAmount);
 		orderInfo.setWechatAmount(wechatAmount);
 		orderInfo.setAlipayAmount(alipayAmount);
@@ -810,11 +809,22 @@ public class OpenCardService {
 			rewarDetail.setOrderId(orderInfo.getOrderId());
 			rewarDetail.setDeptId(deptIds.get(0));
 			rewarDetail.setProjectName(businessDesc + "赠送");
-			rewarDetail.setOrderType(7);
+			int number =7;
+		    if (type == 4) {
+		        number = 7;
+	        } 
+	        else if (type == 5) {
+	            number = 9;
+	        } 
+	        else if (type == 6) {
+	            number = 10;
+	        }
+			rewarDetail.setOrderType(number);
 			rewarDetail.setLevelId(levelId);
 			rewarDetail.setProjectPrice(rewardAmount);
 			rewarDetail.setDiscountAmount(rewardAmount);
-			rewarDetail.setRealPrice(BigDecimal.ZERO);
+//			rewarDetail.setRealPrice(BigDecimal.ZERO);
+			rewarDetail.setRealPrice(giftmoneyAmount);
 			rewarDetail.setProjectCount(1);
 			rewarDetail.setStoreId(storeId);
 			rewarDetail.setCreateTime(DateUtil.getCurTime());

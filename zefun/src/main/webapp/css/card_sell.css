@@ -14,7 +14,7 @@
     width: 127px;
     height: 38px;
     font-size: 14px;
-    border: 1px solid #1d4e97;
+    border: 1px solid #ccc;
     border-right: none;
     float: left;
     border-radius: 12px 12px 0 0;
@@ -23,14 +23,14 @@
     color: #c5bfbd;
 }
 .content_right>ul li:nth-child(2) {
-    border-right: 1px solid #1d4e97;
+    border-right: 1px solid #ccc;
 }
 
 .wages_content {
     overflow: hidden;
     width: 1037px;
     height: 1380px;
-    border: 1px solid #1d4e97;
+    border: 1px solid #ccc;
     border-radius: 0 12px 12px 12px;
 }
 
@@ -76,7 +76,7 @@
 
 .store_sell_table table{width:100%}
 .store_sell_table tr td:last-child{border-right:none}
-.store_sell_table td{position:relative;height:40px;width:30px;text-align:center;vertical-align:middle;border-bottom:1px solid #9b9b9b;border-right:1px solid #9b9b9b;}
+.store_sell_table td{position:relative;height:40px;width:65px;text-align:center;vertical-align:middle;border-bottom:1px solid #9b9b9b;border-right:1px solid #9b9b9b;}
 .store_sell_table td em{color:#d51414}
 .store_sell_table td img{position:absolute;top:12px;right:5px}
 
