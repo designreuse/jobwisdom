@@ -55,17 +55,18 @@ background-size: cover;}
 .new_round_of_cards_button button:hover{background:#42465b}
 
 
-.out_roll li{width:138px;height:66px;border:1px solid black;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
+.out_roll li{width:138px;height:66px;border:1px solid #ccc;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
 .click_left{position:absolute;z-index:2;top:2px;}
 .click_right{position:absolute;right:-50px;top:2px;z-index:2}
 .out_roll{width:960px;height:96px;position:relative;}
 .out_roll_ul{width:4000px;margin-left:2px;position:relative}
 .out_roll span img{height:55px}
 .out_roll_div{overflow:hidden}
-.out_roll_content{padding:20px 10px 0 0 ;border:1px solid black;border-radius:8px;background:#fbfbff;margin-bottom:20px}
+.out_roll_content{padding:20px 10px 0 0 ;border:1px solid #ccc;border-radius:8px;background:#fbfbff;margin-bottom:20px}
 .out_roll_ul .active{background:#ecf7fe}
 .out_tab_content_{height:450px}
 .out_tab{height:512px;width:1014px;border:1px solid black;border-top:none;margin-top:50px;border-radius:8px}
 .out_tab li{width:336px;height:36px;float:left;border:1px solid black;border-radius:10px 10px 0 0;text-align:center;line-height:36px;font-size:16px;color:black;cursor:pointer;font-weight:bold}
 .out_tab .active{border-bottom:none}
 .out_tab ul{height:37px}
+.card_table table td{border-top:none;border-left:none}
