@@ -1,5 +1,5 @@
 .content_right{padding:15px}
-.add_money{background:#ebeff8;border:1px solid #1d4e97;padding:13px;border-radius:12px}
+.add_money{background:#ebeff8;border:1px solid #ccc;padding:13px;border-radius:12px}
 .add_money button{width:100px;height:24px;border:none;text-align:center;line-height:24px;border-radius:12px;color:white;background:#616a84}
 .add_money button:hover{background:#5b637b}
 .add_money_table{height:640px;border:1px solid #ccc;border-radius:12px;margin-top:15px;overflow:overlay }
