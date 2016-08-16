@@ -1,12 +1,12 @@
 .content_right{padding:32px;background:white;font-size:12px}
-.out_roll li{width:138px;height:66px;border:1px solid black;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
+.out_roll li{width:138px;height:66px;border:1px solid #ccc;border-radius:8px;text-align:center;line-height:66px;cursor:pointer;font-size:16px;color:black;float:left;margin-left:40px}
 .click_left{position:absolute;z-index:2;top:2px;}
 .click_right{position:absolute;right:-50px;top:2px;z-index:2}
 .out_roll{width:960px;height:96px;position:relative;}
 .out_roll_ul{width:4000px;margin-left:2px;position:relative}
 .out_roll span img{height:55px}
 .out_roll_div{overflow:hidden}
-.out_roll_content{padding:20px 10px 0 0 ;border:1px solid black;border-radius:8px;background:#fbfbff}
+.out_roll_content{padding:20px 10px 0 0 ;border:1px solid #ccc;border-radius:8px;background:#fbfbff}
 .out_roll_ul .active{background:#ecf7fe}
 .out_tab_content_{height:450px}
 .out_tab{height:512px;width:1014px;border:1px solid black;border-top:none;margin-top:50px;border-radius:8px}
@@ -24,8 +24,8 @@
 .manage_button button{font-size:14px;width:130px;height:26px;border:none;text-align:center;line-height:26px;color:white;border-radius:12px;background:#5c6e85}
 .manage_button input{width:120px;height:18px;border:1px solid black;border-radius:12px;margin:0 30px 0 0px}
 .manage_button span button{margin-right:10px}
-.data_content {overflow:overlay;height:130px;background:white;border-radius:8px;margin-top:10px;border:1px solid black;padding:10px 20px}
-.data_text{margin:10px 33px;position:relative;float:left;font-size:14px;width:160px;height:26px;text-align:center;line-height:26px;color:black;border:1px solid black;border-radius:12px}
+.data_content {overflow:overlay;height:130px;background:white;border-radius:8px;margin-top:10px;border:1px solid #ccc;padding:10px 20px}
+.data_text{margin:10px 33px;position:relative;float:left;font-size:14px;width:160px;height:26px;text-align:center;line-height:26px;color:black;border:1px solid #ccc;border-radius:12px}
 .manage_button>button{margin-right:80px}
 .data_text ul{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;background:rgba(76,76,76,0.9);cursor:pointer;display:none}
 .data_text ul li{float:left;width:50%;text-align:center;line-height:28px;font-size:14px;color:white}
@@ -43,7 +43,7 @@
 .job_manage_content .job_manage_content_ul>ul>li{font-size:14px;cursor:pointer;float:left;width:331px;text-align:center;line-height:60px;height:60px;color:black}
 .job_manage_content ul li.active{background:#646f89;color:white;}
 .set{margin-left:65px}
-.job_manage_content .job_manage_content_ul>ul>li:nth-child(1){border-right: 1px solid black;}
+.job_manage_content .job_manage_content_ul>ul>li:nth-child(1){border-right: 1px solid #ccc;}
 .set i{display:inline-block;margin:0 20px;color:#616161}
 .set>div input{width:140px;height:18px;border-radius:12px;border:1px solid black}
 .set>div span{display:inline-block;margin:0 10px;cursor:pointer}
@@ -90,7 +90,7 @@
 .set span,.set em{display:inline-block;width:50px;height:26px;text-align:center;line-height:26px;border-radius:12px;background:#5c6e85;color:white}
 
 
-.job_manage_content_ul{height:426px;border:1px solid black;border-radius:8px;overflow:hidden}
+.job_manage_content_ul{height:426px;border:1px solid #ccc;border-radius:8px;overflow:hidden}
 .job_manage_content_{background:white;height:365px}
 .job_manage_content_text{padding:15px 20px}
 
@@ -155,5 +155,5 @@
 	bottom:4px;
 	left:0px}
 .job_name>p>span{padding-left:4px;display:inline-block;margin-bottom:20px;background:#e8be9e;color:white;width:140px;overflow-wrap: break-word;border-radius:8px;position:relative;top:6px;left:-58px;}
-.job_manage_content_ul>ul>li:nth-child(2){border-right:1px solid black}
-.job_manage_content_ul>ul{border-bottom:1px solid black}
+.job_manage_content_ul>ul>li:nth-child(2){border-right:1px solid #ccc}
+.job_manage_content_ul>ul{border-bottom:1px solid #ccc}
