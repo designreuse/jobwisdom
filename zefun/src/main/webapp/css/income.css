@@ -2,8 +2,8 @@
 
 .add_income>p>button{width:130px;height:26px;border-radius:12px;border:none;background:#5d5f78;color:white;font-size:14px;text-align:center;line-height:26px}
 .add_income ul li{float:left;margin-right:20px}
-.add_income ul li select{width:90px;height:16px;border-radius:12px;border:1px solid #717171}
-.add_income ul li input{width:90px;height:16px;border-radius:12px;margin:0 5px;border:1px solid #717171}
+.add_income ul li select{width:90px;height:16px;border-radius:12px;border:1px solid #CCC}
+.add_income ul li input{width:90px;height:16px;border-radius:12px;margin:0 5px;border:1px solid #ccc}
 .add_income ul li button{width:100px;height:26px;border-radius:12px;background:#5d5f78;color:white;border:none}
 .add_income ul{height:30px;margin:30px 0}
 .add_income_table>p{font-size:10px}

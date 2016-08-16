@@ -661,10 +661,10 @@ public class OrderInfoService {
                                         .mapToDouble(OrderDetailDto::getProjectCount).sum();
                                 
                                 
-                                Double tcDcl =  collect2.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
-                                        .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //套餐
-                                Double tcPcl =  collect2.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId()))
-                                        .mapToDouble(OrderDetailDto::getProjectCount).sum();
+                                Double tcDcl =  collect2.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId())  
+                                        && g.getCategoryId().equals(s.getCategoryId())).mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //套餐
+                                Double tcPcl =  collect2.parallelStream().filter(s ->c.getGoodsId().equals(s.getGoodsId())  
+                                        && g.getCategoryId().equals(s.getCategoryId())).mapToDouble(OrderDetailDto::getProjectCount).sum();
                                 storeDcl = tcDcl + storeDcl ;
                                 storePcl = tcPcl + storePcl;
                                 Double totalDcl = shopDcl + storeDcl;

@@ -19,6 +19,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.jsoup.select.Evaluator.IsEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -863,7 +864,13 @@ public class StoreInfoService {
     	if (enterpriseAccount.getBalanceStoreNum() <= 0) {
         	return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "创建门店数已满，无法新增门店！请升级版本");
         }
-    	
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("storeAccount", storeInfo.getStoreAccount());
+    	map.put("storeName", storeInfo.getStoreName());
+    	List<StoreInfo> selectByStoreName = storeInfoMapper.selectByStoreName(map);
+    	if (selectByStoreName.size() !=0){
+    	    return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有门店存在改名称，请修改后保存");
+    	}
         storeInfo.setCreateTime(DateUtil.getCurTime());
         storeInfoMapper.insert(storeInfo);
         

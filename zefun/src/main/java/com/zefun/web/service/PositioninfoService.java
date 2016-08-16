@@ -123,9 +123,10 @@ public class PositioninfoService {
 	    if (selectByName.size()>0 && positioninfo.getPositionId() == null){
 	        return 2;  
 	    }
-	    if (selectByName.size()>1 && positioninfo.getPositionId() != null){
+	    if (selectByName.size()==1 && positioninfo.getPositionId() != selectByName.get(0).getPositionId()){
             return 2;  
         }
+	 
 		positioninfoMapper.updateByPrimaryKeySelective(positioninfo);
 		return 0;	
 	}

@@ -1,25 +1,26 @@
 .content_right{padding:15px 20px;color:black}
 .content_right>ul{height:38px;position:relative;top:-1px}
-.content_right>ul li{cursor:pointer;width:166px;height:38px;font-size:14px;border:1px solid #1d4e97;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
+.content_right>ul li{cursor:pointer;width:166px;height:38px;font-size:14px;border:1px solid #ccc;float:left;border-radius:12px 12px 0 0;text-align:center;line-height:38px;color:#c5bfbd}
 .content_right>ul li:nth-child(1){border-right:none}
-.customer_analyse_content{height:780px;border:1px solid #1d4e97;border-radius:0 12px 12px 12px;}
+.content_right>ul li:nth-child(2){border-right:none}
+.customer_analyse_content{height:780px;border:1px solid #CCC;border-radius:0 12px 12px 12px;}
 .customer_analyse_content_datail{margin-bottom:10px}
 .customer_analyse_search{padding:12px 20px;background:#e0e7f4;border-radius:12px}
 .customer_analyse_search select{width:130px;height:22px;padding:0;padding-left:50px;border-radius:12px}
-.customer_analyse_search>button{margin-left:10px;border:none;width:80px;height:22px;color:white;color:white;text-align:center;line-height:22px;border-radius:12px;background:#727a9c}
-.customer_analyse_search>span>button{margin-left:20px;border:none;border-radius:12px;height:20px;line-height:20px;color:white;text-align:center;color:white;background:#727a9c;width:130px}
+.customer_analyse_search>button{margin-left:10px;border:none;width:80px;height:24px;color:white;color:white;text-align:center;border-radius:12px;background:#727a9c}
+.customer_analyse_search>span>button{margin-left:20px;border:none;border-radius:12px;height:24px;color:white;text-align:center;color:white;background:#727a9c;width:130px}
 .customer_analyse_search button:hover{background:#646c8e}
 
 #container1{float:left}
 #container2{float:left}
 
-.customer_analyse_table_left{margin-left:0px;float:left;width:500px;height:275px;border-radius:12px;border:1px solid #5d80b6;overflow:hidden}
+.customer_analyse_table_left{margin-left:0px;float:left;width:500px;height:275px;border-radius:12px;border:1px solid #ccc;overflow:hidden}
 table{width:100%;}
-table td{width:80px;height:40px;text-align:center;vertical-align:middle;border-right:1px solid #5d80b6;border-bottom:1px solid #5d80b6}
+table td{width:80px;height:40px;text-align:center;vertical-align:middle;border-right:1px solid #ccc;border-bottom:1px solid #ccc}
 table tr td:last-child{border-right:none}
 table tr:nth-child(odd){background:#ebeff8}
 table tr:first-child{font-weight:normal!important}
-.customer_analyse_table_right{margin-left:10px;float:left;width:500px;height:275px;border-radius:12px;border:1px solid #5d80b6;overflow:hidden}
+.customer_analyse_table_right{margin-left:10px;float:left;width:500px;height:275px;border-radius:12px;border:1px solid #ccc;overflow:hidden}
 .content_right>ul>.active{color:black;border-bottom:1px solid white;}
 .customer_analyse_content_:nth-child(2) .customer_analyse_search>button{width:126px}
 .customer_analyse_content_{padding:10px}
@@ -41,8 +42,8 @@ input[type="checkbox"]:checked {
 background-size: cover;}
 
 .solve_way_table td span{display:inline-block;width:24px}
-.solve_way{border:1px solid #7592bd;padding:10px;border-radius:12px;height: 680px;}
-.solve_way_table{border:1px solid #7592bd;border-radius:12px;overflow:hidden}
+.solve_way{border:1px solid #ccc;padding:10px;border-radius:12px;height: 680px;}
+.solve_way_table{border:1px solid #ccc;border-radius:12px;overflow:hidden}
 
 .zzc{    font-size: 12px;
     color: black;
@@ -57,6 +58,7 @@ background-size: cover;}
 .zzc .set_pay{width:410px;height:310px;border-radius:12px;overflow:hidden;background:white;margin:50px auto}
 .zzc .set_pay>p{height:50px;line-height:50px;text-align:center;color:white;font-size:14px;background:#3f465c}
 .set_pay_content{padding:12px 22px}
+.set_pay_content select{border-radius:12px;padding:2px 0 2px 60px;width:130px}
 .set_pay_content input{width:140px;height:14px;border-radius:12px;border:1px solid #cacaca}
 .set_pay_content span{display:inline-block;width:50px;text-align:center}
 .set_pay_content p{margin-bottom:10px}

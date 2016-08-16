@@ -7,6 +7,7 @@
 	type="text/css" />
 <script type="text/javascript"	src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript"	src="<%=basePath%>/js/common/md5.js"></script>
+
 <script type="text/javascript"	src="<%=basePath%>js/keepAccounts/openCard.js?date=<%=new Date().getTime()%>"></script>
 	<style>
 	.select_card_style{margin-top: 20px;}
@@ -175,15 +176,15 @@
 								<p>充值金额及支付方式</p>
 								<div class="recharge_way_content">
 									<span> 现金 <input type="Number" name="czCashAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,1)">
 									</span> <span> 银联<input type="Number" name="czUnionpayAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,1)">
 									</span> <span> 微信<input type="Number" name="czWechatAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,1)">
 									</span> <span> 支付宝<input type="Number" name="czAlipayAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,1)">
 									</span> <span> 挂账 <input type="Number" name="czDebtAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,1)">
 									</span>
 								</div>
 							</div>
@@ -192,6 +193,7 @@
 								<p>业绩提成</p>
 								<div class="achievement_content">
 									<div class="achievement_detail">
+									<p>	总业绩<input type="Number" id="Num1" style="width: 130px;height: 16px;border: 1px solid #717171;border-radius: 12px;margin-left: 15px;"/></p>
 										<p>
 											部门业绩 <select name="deptChooseType"  onchange="chooseDept(this)">
 												<option value="1">固定</option>
@@ -205,7 +207,7 @@
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
 											</select> 
-											总业绩<input type="Number" id="Num1"/>
+										
 											<i  class = "addcolor">*</i>
 											</span>
 
@@ -382,15 +384,15 @@
 								<p>充值金额及支付方式</p>
 								<div class="recharge_way_content">
 									<span> 现金 <input type="Number" name="kkCashAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,2)">
 									</span> <span> 银联<input type="Number" name="kkUnionpayAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,2)">
 									</span> <span> 微信<input type="Number" name="kkWechatAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,2)">
 									</span> <span> 支付宝<input type="Number" name="kkAlipayAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,2)">
 									</span> <span> 挂账 <input type="Number" name="kkDebtAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,2)">
 									</span>
 								</div>
 
@@ -413,7 +415,7 @@
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
 											</select>
-												总业绩<input type="Number" id="Num2"/>
+												总业绩<input type="Number" id="Num2" style="width: 130px;height: 16px;border: 1px solid #717171;border-radius: 12px;margin-left: 15px;"/>
 											<i  class = "addcolor">*</i>
 											</span>
 										</p>
@@ -560,15 +562,15 @@
 								<p>充值金额及支付方式</p>
 								<div class="recharge_way_content">
 									<span> 现金 <input type="Number" name="sjCashAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,3)">
 									</span> <span> 银联<input type="Number" name="sjUnionpayAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,3)">
 									</span> <span> 微信<input type="Number" name="sjWechatAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,3)">
 									</span> <span> 支付宝<input type="Number" name="sjAlipayAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,3)">
 									</span> <span> 挂账 <input type="Number" name="sjDebtAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,3)">
 									</span>
 								</div>
 							</div>
@@ -589,16 +591,13 @@
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
 											</select>
-												总业绩<input type="Number" id="Num3"/>
+												总业绩<input type="Number" id="Num3" style="width: 130px;height: 16px;border: 1px solid #717171;border-radius: 12px;margin-left: 15px;"/>
 											<i  class = "addcolor">*</i>
 											</span>
-
 										</p>
 										<ul class="achievement_detail_content clearfix">
-
 										</ul>
 									</div>
-
 									<div class="achievement_recharge">
 										<p>
 											充卡业绩 <select name="commissionType" class="chzn-select w70"
@@ -727,16 +726,16 @@
 								<p>充值金额及支付方式</p>
 								<div class="recharge_way_content">
 									<span> 现金 <input type="Number" name="hkCashAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,4)">
 									</span> 
 									<span> 银联<input type="Number" name="hkUnionpayAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,4)">
 									</span> 
 									<span> 微信<input type="Number" name="hkWechatAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,4)">
 									</span> 
 									<span> 支付宝<input type="Number" name="hkAlipayAmount"
-										onkeyup="checkNum(this)">
+										onkeyup="checkNum(this,4)">
 									</span> 
 								</div>
 							</div>

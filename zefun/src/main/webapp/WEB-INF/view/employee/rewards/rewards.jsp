@@ -97,7 +97,7 @@
 			<td><input type="text" onchange="changeIsFind()" name="statime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
 			<td><input type="text"   onchange="changeIsFind()" name="endtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
 			<td id="storeTd2">	
-			  <select id="storeId2" onchange="changeIsFind()">
+			  <select id="storeId2" onchange="selectd()">
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
 			  </c:forEach>
@@ -234,6 +234,7 @@ function storeSelect(){
 	}
 }
 
+
 function updated(rewardIds,storeId){
 	rewardId =rewardIds;
 	showView();
@@ -288,6 +289,15 @@ function save(){
 	 var reasons = jQuery("#reasons").val();
 	 var url ="";
 	 var dates ="";
+	 
+	 if(employeeId == null || employeeId == ''){
+		 dialog('没有员工不能保存');
+		 return ;
+	 }
+	 if(type == null || type == ''){
+		 dialog('奖罚名称不能为空');
+		 return ;
+	 }
 	 if(rewardId == null){
 		 url = baseUrl + "rewards/action/add";
 		 dates = "type="+type+"&storeId="+storeId+"&employeeId="+employeeId+"&isReward="+isReward+"&reasons="+reasons;
@@ -301,13 +311,14 @@ function save(){
 			data : dates,
 			dataType : "json",
 			success : function(e){
-				hide();
+		
 				if(rewardId == null){
 					dialog('新增成功');
 				}else{
 					dialog('修改成功');
 				}
 				 showOnehtml(e.msg);
+					hide();
 			}
 		})
 	
@@ -365,10 +376,24 @@ function selectd(){
 	isFindDate = true;
 	changePage() ;
 }
+
+
 //条件改变时
 function changeIsFind(){
 	isFindDate = true;
 }
+
+
+function showRule(par){
+	var storeManageRule = par.storeManageRule;
+	jQuery("select[name='storeManageRule']").empty();
+	var html = '<option ruleId="0">全部</option>';
+	jQuery.each(storeManageRule, function(n, value){
+		html += '<option ruleId="'+value.ruleId+'">'+value.ruleName+'</option>';
+	});
+	jQuery("select[name='storeManageRule']").append(html);
+}
+
 //分页
 function changePage() {
 	var staTime  = jQuery("input[name='statime']").val();
@@ -401,6 +426,8 @@ function changePage() {
 				unbuildPagination();
 				isFindDate = false;
 			}
+			var par = e.msg.params
+			showRule(par);
 			var html='';
 			jQuery(".second").empty();
 			jQuery.each(e.msg.results, function(n, value) {
@@ -418,6 +445,7 @@ function changePage() {
 		}
 	});
 }
+
 
 //弹出框改变下拉框
 function employee(){
@@ -460,6 +488,7 @@ var storeManageRule =  '${storeManageRule}';
 var ruleList1Str =  '${ruleList1Str}';
 var ruleList2Str = '${ruleList2Str}';
 
+
 var ruleList1;
 if (isEmpty(ruleList1Str)) {
 	ruleList1 = new Array();
@@ -475,6 +504,8 @@ if (isEmpty(ruleList2Str)) {
 else {
 	ruleList2 = eval("(" + ruleList2Str + ")");
 }
+
+
 var jsonarray = ${jsonarray};
 var ruleL1 = ruleList1.length;
 var ruleL2 = ruleList2.length;
