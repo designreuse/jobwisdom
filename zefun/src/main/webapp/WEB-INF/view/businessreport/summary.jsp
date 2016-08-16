@@ -45,13 +45,13 @@
 			  <input type="text" id="endDate" onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})">
 			  <c:if test="${role == 1 }">
 			      	门店
-                    <select> 
+                    <select name = "businessStoreId"> 
 		      	       <c:forEach items="${storeInfoList}" var="storeInfo">
 		      	           <option value="${storeInfo.storeId}">${storeInfo.storeName}</option>
 		      	       </c:forEach>
 		      	    </select>
 			  </c:if>
-			 <button>查询</button>
+			 <button onclick="totailSelect()">查询</button>
 			</div>
 	  </div>	
 	  <div class="business_canvas clearfix">
@@ -69,31 +69,7 @@
 		  </table>
 		  <div class="business_canvas_right_content">
 		    <table>
-		      <tr>
-			    <td>卡项销售</td>
-				<td></td>
-				<td></td>
-			  </tr>
-		      <tr>
-			    <td>挂账还款</td>
-				<td></td>
-				<td></td>
-			  </tr>
-			  <tr>
-			    <td>服务项目</td>
-				<td></td>
-				<td></td>
-			  </tr>
-			  <tr>
-			    <td>商品销售</td>
-				<td></td>
-				<td></td>
-			  </tr>
-			  <tr>
-			    <td>疗程销售</td>
-				<td></td>
-				<td></td>
-			  </tr>
+		      
 			</table>
 		  </div>
 		 </div>
@@ -117,14 +93,8 @@
 				<td>非指定个数</td>
 				<td>指定率</td>
 			  </tr>
-			   <tr>
-			    <td>111</td>
-				<td>111</td>
-				<td>111</td>
-				<td>111</td>
-				<td>111</td>
-				<td>111</td>
-				<td>11%</td>
+			   <tr name = "projectTR">
+			    
 			  </tr>
 			</table>
 		  </div>
@@ -139,20 +109,14 @@
 				  <tr>
 					<td>总业绩</td>
 					<td>总个数</td>
-					<td>指定业绩</td>
-					<td>非指定业绩</td>
-					<td>指定个数</td>
-					<td>非指定个数</td>
-					<td>指定率</td>
+					<td>商城购买业绩</td>
+					<td>门店购买业绩</td>
+					<td>商城购买个数</td>
+					<td>门店购买个数</td>
+					<td>商城购买率</td>
 				  </tr>
-				   <tr>
-					<td>111</td>
-					<td>111</td>
-					<td>111</td>
-					<td>111</td>
-					<td>111</td>
-					<td>111</td>
-					<td>11%</td>
+				   <tr name = "goodsTR">
+					
 				  </tr>
 				</table>
 			  </div>

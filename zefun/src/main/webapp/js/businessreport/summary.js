@@ -227,6 +227,76 @@ jQuery(function(){
 	                ['现金:'+cashAmount+'元', cashAmount]
 	            ]
 				piePage(pieData);
+				
+				var serverMoneyMap = e.msg.serverMoneyMap;
+				
+				var cardMoney = serverMoneyMap.cardMoney;
+				var debtMoney = serverMoneyMap.debtMoney;
+				var projectMoney = serverMoneyMap.projectMoney;
+				var goodsMoney = serverMoneyMap.goodsMoney;
+				var comboMoney = serverMoneyMap.comboMoney;
+		    	
+				var cardProportion = serverMoneyMap.cardProportion;
+				var debtProportion = serverMoneyMap.debtProportion;
+				var projectProportion = serverMoneyMap.projectProportion;
+				var goodsProportion = serverMoneyMap.goodsProportion;
+				var comboProportion = serverMoneyMap.comboProportion;
+                
+				jQuery(".business_canvas_right_content").find("table").empty();
+				jQuery(".business_canvas_right_content").find("table").append('<tr>'+
+																			    '<td>卡项销售</td>'+
+																				'<td>'+cardMoney+'</td>'+
+																				'<td>'+cardProportion+'%</td>'+
+																			  '</tr>'+
+																			  '<tr>'+
+																			    '<td>挂账还款</td>'+
+																				'<td>'+debtMoney+'</td>'+
+																				'<td>'+debtProportion+'%</td>'+
+																			  '</tr>'+
+																			  '<tr>'+
+																			    '<td>服务项目</td>'+
+																				'<td>'+projectMoney+'</td>'+
+																				'<td>'+projectProportion+'%</td>'+
+																			  '</tr>'+
+																			  '<tr>'+
+																			    '<td>商品销售</td>'+
+																				'<td>'+goodsMoney+'</td>'+
+																				'<td>'+goodsProportion+'%</td>'+
+																			  '</tr>'+
+																			  '<tr>'+
+																			    '<td>疗程销售</td>'+
+																				'<td>'+comboMoney+'</td>'+
+																				'<td>'+comboProportion+'%</td>'+
+																			  '</tr>');
+				var goodsMap = e.msg.goodsMap;
+				jQuery("tr[name='goodsTR']").empty();
+				jQuery("tr[name='goodsTR']").append('<td>'+goodsMap.goodsTotailCalculate+'</td>'+
+													  '<td>'+goodsMap.goodsTotailSize+'</td>'+
+													  '<td>'+goodsMap.mallListCalculate+'</td>'+
+													  '<td>'+goodsMap.storeListCalculate+'</td>'+
+													  '<td>'+goodsMap.mallSize+'</td>'+
+													  '<td>'+goodsMap.storeSize+'</td>'+
+													  '<td>'+goodsMap.mallProportion+'%</td>');
+				
+				var projectMap = e.msg.projectMap;
+				jQuery("tr[name='projectTR']").empty();
+				jQuery("tr[name='projectTR']").append('<td>'+projectMap.projectTotailCalculate+'</td>'+
+													  '<td>'+projectMap.projectTotailSize+'</td>'+
+													  '<td>'+projectMap.isAssignListCalculate+'</td>'+
+													  '<td>'+projectMap.isNoAssignListCalculate+'</td>'+
+													  '<td>'+projectMap.isAssignSize+'</td>'+
+													  '<td>'+projectMap.isNoAssignSize+'</td>'+
+													  '<td>'+projectMap.assignProportion+'%</td>');
 			}
 		});
+  }
+  
+  function totailSelect() {
+	  var businessStoreId = jQuery("select[name='businessStoreId']").val();
+	  if (isEmpty(businessStoreId)) {
+		  businessStoreId = storeId;
+	  }
+	  var startDate = jQuery("#startDate").val();
+	  var endDate = jQuery("#endDate").val();
+	  totailBusiness(businessStoreId, startDate, endDate);
   }
