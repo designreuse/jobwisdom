@@ -139,7 +139,7 @@
 .total_score_right_5{float:left;position:relative;left:-122px;text-align:center;color:white;line-height:30px;top:236px;}
 .total_score_right_5 span{font-size:16px}
 
-.business_collect_table{width:1000px;height:240px;border-radius:12px;border:1px solid #909090;overflow:hidden;margin:30px auto}
+.business_collect_table{width:1000px;height:120px;border-radius:12px;border:1px solid #909090;overflow:hidden;margin:30px auto}
 .business_collect_table table{width:100%;background:#ebeff8}
 .business_collect_table td{width:100px;height:39px;text-align:center;vertical-align:middle;border-bottom:1px solid #909090;border-right:1px solid #d0d2d9}
 .business_collect_table td:last-child{border-right:none}

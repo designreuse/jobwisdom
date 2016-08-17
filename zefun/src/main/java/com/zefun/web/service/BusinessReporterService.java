@@ -184,6 +184,23 @@ public class BusinessReporterService {
     	double cardTotailCalculate = 0.00;
     	//疗程业绩
     	double comboTotailCalculate = 0.00;
+    	
+    	//客次总数
+    	Integer customerTotailTime = 0;
+    	//客单价
+    	double customerAvgPrice = 0;
+    	//指定客数
+    	Integer assignCustomerNum = 0;
+    	//非指定客数
+    	Integer noAssignCustomerNum = 0;
+    	//会员数
+    	Integer memberNum = 0;
+    	//散客数
+    	Integer noMemberNum = 0;
+    	//男客数
+    	Integer manNum = 0;
+    	//女客数
+    	Integer girlNum = 0;
     	//
     	if (dtoList.size() > 0) {
     		cardMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("4") 
@@ -252,6 +269,30 @@ public class BusinessReporterService {
       			assignProportion = (isAssignSize/projectTotailSize)*100;
       		}
       		
+      		//客情分析
+      		customerTotailTime = projectList.size();
+      		customerAvgPrice = projectList.parallelStream().mapToDouble(BusinessTotailDto::getValueMoney) 
+    				.average().getAsDouble();
+      		
+      	    //指定客数
+        	assignCustomerNum = projectList.parallelStream().filter(a -> a.getIsAssign() == 1)
+		      		  .collect(Collectors.toList()).size();
+        	//非指定客数
+        	noAssignCustomerNum = projectList.parallelStream().filter(a -> a.getIsAssign() == 0)
+		      		  .collect(Collectors.toList()).size();
+        	//会员数
+        	memberNum = projectList.parallelStream().filter(a -> a.getMemberId()  != null)
+		      		  .collect(Collectors.toList()).size();
+        	//散客数
+        	noMemberNum = projectList.parallelStream().filter(a -> a.getMemberId()  == null)
+		      		  .collect(Collectors.toList()).size();
+        	//男客数
+        	manNum = projectList.parallelStream().filter(a -> "男".equals(a.getSex()))
+		      		  .collect(Collectors.toList()).size();
+        	//女客数
+        	girlNum = projectList.parallelStream().filter(a -> "女".equals(a.getSex()))
+		      		  .collect(Collectors.toList()).size();
+        	
       		//汇总商品业绩
       		List<BusinessTotailDto> goodsList = detailCalculateList.parallelStream().filter(a -> "2".equals(a.getCreateTime()))
 				        .collect(Collectors.toList());
@@ -280,6 +321,7 @@ public class BusinessReporterService {
         	
         	comboTotailCalculate = detailCalculateList.parallelStream().filter(a -> "3".equals(a.getCreateTime()))
         	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+        	
       	}
       	Map<String, Object> projectMap = new HashMap<>();
       	projectMap.put("projectTotailCalculate", projectTotailCalculate);
@@ -323,12 +365,24 @@ public class BusinessReporterService {
   		cardMap.put("payMoney", payMoney);
   		cardMap.put("changeMoney", changeMoney);
   		
+  		Map<String, Object> customerMap = new HashMap<>();
+  		customerMap.put("customerTotailTime", customerTotailTime);
+  		customerMap.put("customerAvgPrice", customerAvgPrice);
+  		customerMap.put("assignCustomerNum", assignCustomerNum);
+  		customerMap.put("noAssignCustomerNum", noAssignCustomerNum);
+  		customerMap.put("memberNum", memberNum);
+  		customerMap.put("noMemberNum", noMemberNum);
+  		customerMap.put("manNum", manNum);
+  		customerMap.put("girlNum", girlNum);
+  		
     	Map<String, Object> map = new HashMap<>();
     	map.put("cashMap", cashMap);
     	map.put("serverMoneyMap", serverMoneyMap);
     	map.put("projectMap", projectMap);
     	map.put("goodsMap", goodsMap);
     	map.put("cardMap", cardMap);
+    	map.put("comboTotailCalculate", comboTotailCalculate);
+    	map.put("customerMap", customerMap);
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }
     
