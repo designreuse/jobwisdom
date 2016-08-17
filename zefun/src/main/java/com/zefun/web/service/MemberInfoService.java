@@ -5537,5 +5537,76 @@ public class MemberInfoService {
         return new BaseDto(0, "上传成功");
     }
    
+    
+    public BaseDto uploadGenYuMemberInfo(MultipartFile[] file, Integer storeId, String storeAccount, Integer employeeId) throws IOException {
+        // TODO Auto-generated method stub
+        String name = file[0].getOriginalFilename();
+        long size = file[0].getSize();
+        if ((name == null || name.equals("")) && size == 0) {
+            return new BaseDto(-1, "无法识别上传文件");
+        }
+        boolean isE2007 = false;
+        if (name.endsWith("xlsx")) {
+            isE2007 = true;
+        }
+        InputStream input = file[0].getInputStream();
+        Workbook wb = null;
+        if (isE2007) {
+            wb = new XSSFWorkbook(input);
+        } 
+        else {
+            wb = new HSSFWorkbook(input);
+        }
+        Sheet sheet = wb.getSheetAt(0);
+        Iterator<Row> rows = sheet.rowIterator();
+        List<MemberInfo> memberInfos = new ArrayList<>();
+        List<MemberAccount> memberAccounts = new ArrayList<>();
+        // 已经存在的会员手机号码
+        List<String> hasStr = new ArrayList<>();
+        Map<String, MemberInfoDto> memberInfoMap = new HashMap<>();
+        memberInfoMapper.selectMemberByStoreId(storeId).forEach(m -> {
+            hasStr.add(m.getPhone());
+            memberInfoMap.put(m.getPhone(), m);
+        });
+        // 会员等级和名称对应,方便取值
+        Map<String, Integer> levelMap = packLevelMap(storeId);
+        a: for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+            Row xssfRow = sheet.getRow(rowNum);
+            if (xssfRow != null) {
+                MemberInfo memberInfo = new MemberInfo();
+                MemberAccount memberAccount = new MemberAccount();
+                String phone = ExcleUtils.changeCellToString(xssfRow.getCell(7));
+                
+                b: for (int cellNum = 0; cellNum <= xssfRow.getLastCellNum(); cellNum++) {
+                    try {
+                        Cell cell = xssfRow.getCell(cellNum);
+                        String str = ExcleUtils.changeCellToString(cell);
+                        if (cellNum == 7){
+                            if (hasStr.contains(str)) {
+                                memberInfoMapper.selectMemberByStoreIdAndPhone(storeId, str);
+                                return new BaseDto(-1, "第"+rowNum+"行,第"+(cellNum+1)+"列,手机号码重复");
+                            } 
+                            else {
+                                Pattern p1 = Pattern.compile("(13\\d|14[57]|15[^4,\\D]|17[678]|18\\d)\\d{8}|170[059]\\d{7}");  
+                                Matcher m = p1.matcher(str); 
+                                if (m.matches()){
+                                    hasStr.add(str);
+                                    memberInfo.setPhone(str);
+                                }
+                                else {
+                                    log.info(str +" 该手机号码不合法");
+                                    return new BaseDto(-1, "第"+rowNum+"行,第"+(cellNum+1)+"列,该手机号码不合法");
+                                }
+                            }
+                            continue b;
+                        }
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }
     

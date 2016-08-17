@@ -59,7 +59,9 @@
 	width:1000px;
 	height:530px;
 	background:white;
-	margin:50px auto
+	margin:50px auto;
+	overflow:hidden;
+	border-radius:12px
 }
 .zzc .business_level>p{
 	height:66px;
@@ -104,7 +106,7 @@
 .business_level_back_text_ul{padding:30px 0px}
 .business_level_back_text_ul li input{
 	width:130px;border:1px solid #ccc;
-	border-radius:12px;margin-left:24px
+	border-radius:12px;
 }
 .chzn-container{
 	width: 126px!important;
@@ -132,7 +134,7 @@ input[type='number']{
 .business_level_button button:hover{
 	background:#525e7b
 }
-.business_level_content_right{float:left;border-left:1px solid black;width:329px;height:465px}
+.business_level_content_right{float:left;border-left:1px solid #ccc;width:329px;height:465px}
 .business_level_content_right>p{
 	color:black;font-size:16px;padding:13px 10px;
 	
