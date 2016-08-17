@@ -66,7 +66,7 @@
 .distribution_list >p span{display:inline-block;width:38px;height:20px;text-align:center;background:white;line-height:20px;color:#ec5758;border:1px solid #ec5758;border-radius:4px;position:absolute;right:4px;top:6px;cursor:pointer}
 .distribution_list_text p{margin-left:13px;line-height:22px}
 .distribution_list_text{margin-top:4px}
-.distribution_list{background:#f6f8fc;width:200px;height:86px;border-radius:12px;border:1px solid #3d3d3d;position:relative;float:left;margin-right:20px;margin-bottom:20px}
+.distribution_list{background:#f6f8fc;width:200px;height:86px;border-radius:12px;border:1px solid #ccc;position:relative;float:left;margin-right:20px;margin-bottom:20px}
 .distribution_alert{position:absolute;width:157px;height:111px;background:url('../images/add_back.png') no-repeat; left: 140px;z-index:3;
     top: 30px;padding-top:20px;display:none}
 .distribution_alert input{height:12px;width:52px;border-radius:4px;margin-left:10px;padding-right:20px}
@@ -103,7 +103,7 @@
 }
 .add_balance_content{width:664px;height:370px;overflow-y:overlay;margin:0px auto}
 .add_balance_content table{width:663px}
-.add_balance td{height:38px;text-align:center;border:1px solid black;vertical-align:middle;}
+.add_balance td{height:38px;text-align:center;border:1px solid #ccc;vertical-align:middle;}
 .add_balance{box-shadow:0 0 10px #dbdce2;width:730px}
 
 .add_balance tr:nth-child(even){background:#f6f8fc}
@@ -112,53 +112,53 @@ table tr:nth-child(1){font-weight:normal!important}
 	color:red
 }
 .add_balance_button button{height:26px;width:130px;text-align:center;line-height:26px;color:white;border-radius:12px;border:none;background:#59688a;margin-right:50px}
-<<<<<<< HEAD
+
 .add_balance_button {width:370px;margin:0 auto;text-align:center}
-=======
+
 .add_balance_button {width:370px;margin:20px auto;text-align:center}
->>>>>>> f923750a75ebdf557a896e00d2e7ea2b1e6d870b
+
 .add_balance_button button:hover{background:#3a4660}
 
 .add_balance_content>p{height:40px;font-size:14px}
 .this_buy>p{font-size:14px;margin:10px 0 20px 0}
 .this_buy li{float:left;width:220px;margin-bottom:20px}
-.this_buy li span{display:inline-block;height:26px;width:128px;line-height:26px;text-align:center;border-radius:8px;border:1px solid black;margin-left:10px}
+.this_buy li span{display:inline-block;height:26px;width:128px;line-height:26px;text-align:center;border-radius:8px;border:1px solid #ccc;margin-left:10px}
 .total_price{font-size:14px;margin-top:20px}
 .total_price span{font-size:18px;color:red}
 
 .this_buy input[type="text"]{width:120px;border-radius:8px;margin-left:2px;border:1px solid black}
 .assigned_table_point li{text-align:center;display:inline-block;background: #d7dcea; font-weight: bold;float:left;
-    color: black;height:38px;line-height:38px;border-top:1px solid black;border-left:1px solid black}
+    color: black;height:38px;line-height:38px;border-top:1px solid #ccc;border-left:1px solid #ccc}
 .assigned_table_point{width:562px;margin:20px auto;margin-bottom:0}	
 .assigned{width:510px;height:310px;margin:50px auto;background:white}
 .assigned p{height:64px;line-height:64px;text-align:center;background:#323b4e;color:white;font-size:16px}
 .assigned_table{width:562px;height:212px;margin:0px auto;overflow:overlay;}
 .assigned_table table{width:562px;box-shadow:0 0 10px #dbdce2;}
-<<<<<<< HEAD
-.assigned_table td{height:38px;text-align:center;border:1px solid black;vertical-align:middle;padding:0 10px}
+
+.assigned_table td{height:38px;text-align:center;border:1px solid #ccc;vertical-align:middle;padding:0 10px}
 .assigned_table tr:nth-child(1){background:#d7dcea;height:41px;font-size:14px}
-=======
-.assigned_table td{height:38px;text-align:center;border:1px solid black;vertical-align:middle;}
+
+.assigned_table td{height:38px;text-align:center;border:1px solid #ccc;vertical-align:middle;}
 
 .add_balance_fix{width:664px;margin:20px auto;margin-bottom:0}	
 .add_balance_fix li{text-align:center;display:inline-block;background: #d7dcea; font-weight: bold;float:left;
-    color: black;height:38px;line-height:38px;border-top:1px solid black;border-left:1px solid black}
->>>>>>> f923750a75ebdf557a896e00d2e7ea2b1e6d870b
+    color: black;height:38px;line-height:38px;border-top:1px solid #ccc;border-left:1px solid #ccc}
+
 .assigned button{width:130px;height:28px;text-align:center;line-height:28px;color:white;font-size:14px;border-radius:16px;border:none;background:#59688a;position:relative;left:80px;margin-left:50px}
 .assigned button:hover{background:#3f4a64}
 
-.assigned_table_span input,.assigned_table_span select{width:100px;height:20px;border-radius:15px;border:1px solid black}
+.assigned_table_span input,.assigned_table_span select{width:100px;height:20px;border-radius:15px;border:1px solid #ccc}
 .assigned_table_span em{display:inline-block;width:70px}
-<<<<<<< HEAD
+
 .assigned_table_span{display:inline-block;margin-right:100px;color:black;height:50px;float:none!important;margin-top:15px}
-.assigned_table_price_{color:black;margin:35px 0 0 30px;font-size:14px}
-=======
+.assigned_table_price_{color:black;margin:0px 0 0 30px;font-size:14px;position:relative;top:-35px}
+
 .assigned_table_span{display:inline-block;margin-right:80px;color:black;height:50px;float:none!important;}
-.assigned_table_price_{color:black;margin:15px 0 0 30px;font-size:14px}
->>>>>>> f923750a75ebdf557a896e00d2e7ea2b1e6d870b
+.assigned_table_price_{font-size:14px}
+
 .assigned_table_span select{border-radius:12px!important}
 .assigned_table_price_ em{color:red;font-size:16px}
-.assigned_table_sure_button{position:relative;top:36px}
+.assigned_table_sure_button{position:relative;}
 
 .assigned_table_sure_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;border-radius}
 .content_left{float:left}
