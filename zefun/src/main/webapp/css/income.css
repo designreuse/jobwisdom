@@ -58,7 +58,7 @@
 .income_way span{display:inline-block;margin-right:48px}
 .income_way span input{margin-right:10px}
 .income_saying{margin-top:15px}
-.income_saying textarea{margin-top:10px;width:520px;height:90px;border:1px solid #a2a3ad;border-radius:12px}
+.income_saying textarea{margin-top:10px;width:520px;height:90px;border:1px solid #ccc;border-radius:12px}
 .income_button button{width:130px;height:26px;color:white;border:none;border-radius:12px;text-align:center;line-height:26px;background:#41435c;margin:0 30px}
 .income_button {text-align:center;margin-top:18px}
 .income_button button:hover{
@@ -83,29 +83,30 @@
     height: 18px;
     border-radius: 12px;
     margin-left: 6px;
-    border: 1px solid #717171;
+    border: 1px solid #ccc;
 }
 .zzc_add_income_content_left2 select{  width: 130px;
     height: 18px;
     border-radius: 12px;
     margin-left: 10px;
-    border: 1px solid #717171;}
+    border: 1px solid #ccc;}
 .income_out_1{
    border-radius: 12px;
    margin-left:15px!important;
-   height:18px!important
+   height:18px!important;
+   border:1px solid #ccc!important
   }  
 .zzc_add_income_content_left2 input{ width: 130px;
     height:18px;
     border-radius: 12px;
     margin-left: 10px;
-    border: 1px solid #717171;}
+    border: 1px solid #ccc;}
 .zzc_add_income_content_left1 input{
 	width: 130px;
     height: 20px;
     border-radius: 12px;
     margin-left: 10px;
-    border: 1px solid #717171;
+    border: 1px solid #ccc;
 }
 .zzc_add_income_content_left1 span{display:inline-block;margin-right:50px}
 .zzc_add_income_content_left2 em{width:68px;display:inline-block}
@@ -114,4 +115,4 @@
     height: 20px;
     border-radius: 12px;
     margin-left: 8px;
-    border: 1px solid #717171;}
+    border: 1px solid #ccc;}

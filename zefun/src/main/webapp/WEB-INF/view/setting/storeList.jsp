@@ -350,13 +350,13 @@
 </div>	
 
 <div class="zzc3" style="display:none" name = "modelDiv" id = "rechargeFlow">
-  <div class="assigned" style="width: 590px; height: 410px;border-radius: 12px;overflow: hidden;">
+  <div class="assigned" style="width: 590px; height: 400px;border-radius: 12px;overflow: hidden;">
      <p>购买分配记录</p>
      <ul class="assigned_table_point clearfix">
 		   <li style="width:142px">公司/门店 </li>
 		   <li style="width:212px">时间 </li>
 		   <li style="width:101px">当前余量（条）</li>
-		   <li style="width:95px;border-right:1px solid #ccc">数量（条）</li>
+		   <li style="width:102px;border-right:1px solid #ccc">数量（条）</li>
      </ul>
      <div class="assigned_table">
          <table id = "rechargeFlowTable">

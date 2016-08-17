@@ -12,7 +12,7 @@ input[type=radio]{width:16px!important;height:16px!important}
 .base_manage td{border:1px solid #ccc;border-top:none;border-left:none}
 .base_manage td:last-child{border-right:none}
 .base_manage tr:last-child td{border-bottom:none}
-.base_manage tr td input[type='text']{width:40px;height:14px;border:1px solid #898989;margin-right:10px}
+.base_manage tr td input[type='text']{width:40px;height:14px;border:1px solid #ccc;margin-right:10px}
 
 input[type="checkbox"]{ -webkit-appearance: none;
     appearance: none;
@@ -43,8 +43,8 @@ background-size: cover;}
 .base_manage_content_detail_left{float:left}
 .base_manage_content_detail ul{float:left;width:900px;}
 .base_manage_content_detail ul li{float:left;margin-left:34px;margin-bottom:10px}
-.send_money input{width:90px;height:14px;border-radius:12px;border:1px solid #898989;margin-left:45px;padding-right:20px}
-.send_money em{position:relative;right:18px;position:relative;top:1px }
+.send_money input{width:90px;height:14px;border-radius:12px;border:1px solid #8ccc;margin-left:45px;padding-right:20px}
+.send_money em{position:relative;right:20px;position:relative;top:1px }
 input[type=radio]::after{left:5px!important;top:5px!important}
 
 .base_manage tr td:last-child{text-align:left;padding-left:10px}

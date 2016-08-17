@@ -20,14 +20,14 @@ select::-ms-expand { display: none; }
 .zzc_shop_data{width:730px;height:460px;border-radius:12px;background:white;overflow:hidden;margin:50px auto}
 .zzc_shop_data>p{height:50px;line-height:50px;text-align:center;font-size:14px;color:white;background:#2a3244}
 .zzc_shop_data_content{padding:15px 35px}
-.zzc_shop_data_content input[type="text"]{width:130px;height:16px;border-radius:12px;border:1px solid black}
+.zzc_shop_data_content input[type="text"]{width:130px;height:16px;border-radius:12px;border:1px solid #ccc}
 .zzc_shop_data_content span em{display:inline-block;width:60px}
 .zzc_shop_data_content span{position:relative;display:inline-block;margin-right:30px}
 .zzc_shop_data_content p{margin-bottom:25px;margin-right: -50px;}
 .zzc_shop_data_content p input[type="radio"]{margin-right:5px;margin-left:10px}
 .zzc_shop_data_content p i{position:absolute;right:10px;top:3px}
-.zzc_shop_data_content p select{width:100px;padding:0 0 0 40px;height:24px;border:1px solid #000000;border-radius:12px;}
-.shop_data_saying textarea{height:86px;width:660px;border-radius:12px;border:1px solid black;margin-top:10px}
+.zzc_shop_data_content p select{width:100px;padding:0 0 0 40px;height:24px;border:1px solid #ccc;border-radius:12px;}
+.shop_data_saying textarea{height:86px;width:660px;border-radius:12px;border:1px solid #ccc;margin-top:10px}
 .shop_data_button{margin-top:25px;text-align:center}
 .shop_data_button button{margin:0 30px;width:130px;height:26px;color:white;font-size:14px;color:white;border-radius:12px;border:none;background:#59688a}
 .shop_data_button button:hover{background:#505e7e}

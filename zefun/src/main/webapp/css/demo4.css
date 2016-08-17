@@ -57,7 +57,7 @@
 .add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:14px;}
 .add_store_back {float:left}
 .add_store_div{width:1000px;margin:40px auto}
-.add_store_content{float:left;border:1px solid black;padding:20px;border-radius: 0 0 10px 10px;font-size:12px}
+.add_store_content{float:left;border:1px solid #ccc;padding:20px;border-radius: 0 0 10px 10px;font-size:12px}
 .add_store_span_1{float:right}
 .add_store_span_1 span{color:red;font-size:16px}
 .add_store_span_1{font-size:14px}
@@ -119,13 +119,13 @@
 .add_store_content_1_content{width:910px;height:180px;border-radius:8px;background:#d8deed }
 .add_store_content_1_left{margin:10px}
 .add_store_content_1_center{width:300px;height:180px;margin-left:20px}
-.add_store_content_1_center input{border-radius:12px;width:126px;height:20px;border:1px solid black}
-.add_store_content_1_center select{border-radius:12px;width:126px;height:20px;border:1px solid black}
+.add_store_content_1_center input{border-radius:12px;width:126px;height:20px;border:1px solid #ccc}
+.add_store_content_1_center select{border-radius:12px;width:126px;height:20px;border:1px solid #ccc}
 .add_store_content_1_center p em{display:inline-block;width:90px}
 .add_store_content_1_center p{margin-top:45px}
 .add_store_content_1_right{height:180px}
 .add_store_content_1_right p> input{border-radius:12px;width:126px;height:20px;border:1px solid black}
-.add_store_content_1_right p span input{width:30px;border-radius:12px;height:20px;border:1px solid black;background:#ebebeb;margin:0 10px 0 20px}
+.add_store_content_1_right p span input{width:30px;border-radius:12px;height:20px;border:1px solid #ccc;background:#ebebeb;margin:0 10px 0 20px}
 .add_store_content_1_right>p{position:relative;top:120px}
 
 .select_item_content{height:264px;width:910px;border-radius:8px;background:#d8deed}
@@ -137,7 +137,7 @@
 .select_item_content td i{position:absolute;right:34px;top:10px}
 .select_item_content table td input[type="text"]{border-radius:12px;width:126px;height:20px;border:1px solid black}
 .select_item_content table td button{width:100px;height:28px;text-align:center;line-height:28px;border:none;color:white;background:#59688a;border-radius:12px}
-.select_item_content_roll{width:880px;height:150px;border-radius:8px;border:1px solid black;background:white;margin: 10px auto;position:relative;}
+.select_item_content_roll{width:880px;height:150px;border-radius:8px;border:1px solid #ccc;background:white;margin: 10px auto;position:relative;}
 .select_item_content_roll .left_click{position:absolute;top:40px;left:10px;z-index:2}
 .select_item_content_roll .right_click{position:absolute;right:10px;top:40px;z-index:2}
 .select_item_content_roll .left_click img,.select_item_content_roll .right_click img{width:40px}
@@ -170,10 +170,10 @@
 .add_store_content_price span{display:inline-block;width:66px}
 .add_store_content_price span input{margin-right:5px}
 .add_store_content_price table  input[type='text']{
-	width:100px;height:20px;border-radius:12px;border:1px solid black
+	width:100px;height:20px;border-radius:12px;border:1px solid #ccc
 }
 .add_store_content_price table  input[type='number']{
-	width:100px;height:20px;border-radius:12px;border:1px solid black
+	width:100px;height:20px;border-radius:12px;border:1px solid #ccc
 }
 .add_store_content_price table i{position:absolute;right:70px;top:5px}
 .add_store_content_2>p{font-size: 16px;
