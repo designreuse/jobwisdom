@@ -178,7 +178,7 @@ jQuery(function(){
 	  
 	  var trendStoreId = jQuery("select[name='trendStoreId']").val();
 	  
-	  if (isEmpty(storeIdVal)) {
+	  if (isEmpty(trendStoreId)) {
 		  trendStoreId = storeId;
 	  }
 	  
@@ -300,11 +300,11 @@ jQuery(function(){
 				jQuery("tr[name='comboTR']").empty();
 				jQuery("tr[name='comboTR']").append('<td>'+new Big(comboTotailCalculate).toFixed(2)+'</td>');
 				
-				jQuery("[name='cardTotailCalculate']").text(cardMap.cardTotailCalculate);
+				jQuery("[name='cardTotailCalculate']").text(new Big(cardMap.cardTotailCalculate).toFixed(2));
 				jQuery("[name='totailCalculate']").text(cardMap.cardTotailCalculate + projectMap.projectTotailCalculate + goodsMap.goodsTotailCalculate + comboTotailCalculate);
-				jQuery("[name='projectTotailCalculate']").text(projectMap.projectTotailCalculate);
-				jQuery("[name='goodsTotailCalculate']").text(goodsMap.goodsTotailCalculate);
-				jQuery("[name='comboTotailCalculate']").text(comboTotailCalculate);
+				jQuery("[name='projectTotailCalculate']").text(new Big(projectMap.projectTotailCalculate).toFixed(2));
+				jQuery("[name='goodsTotailCalculate']").text(new Big(goodsMap.goodsTotailCalculate).toFixed(2));
+				jQuery("[name='comboTotailCalculate']").text(new Big(comboTotailCalculate).toFixed(2));
 				
 				var customerMap = e.msg.customerMap;
 				jQuery("tr[name='customerTR']").empty();

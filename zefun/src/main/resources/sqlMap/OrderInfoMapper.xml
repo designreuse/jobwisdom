@@ -1953,10 +1953,10 @@
    AND is_deleted =0 AND store_id = ${storeId} AND cash_card_type = 1
    <choose>
 	  <when test="dateType == 1">
-         AND left(create_time, 4) = ${time}
+         AND left(create_time, 4) = '${time}'
 	  </when>
 	  <otherwise>
-	     AND left(create_time, 7) = ${time}
+	     AND left(create_time, 7) = '${time}'
 	  </otherwise>
    </choose> 
   </select>
