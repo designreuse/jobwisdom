@@ -45,7 +45,7 @@ public class ExcleUtils {
                     break;
                 // 公式
                 case HSSFCell.CELL_TYPE_FORMULA:   
-                    returnValue = cell.getCellFormula();
+                    returnValue = String.valueOf(cell.getCellFormula());
                     break;
                 // 故障
                 case HSSFCell.CELL_TYPE_ERROR:     

@@ -14,7 +14,7 @@
     background: rgba(102, 108, 121, 0.8);
 	}
 .input_file_content{position:relative;padding:20px}
-.input_file_{position:relative;left:50px;width:400px;height:250px;border-radius:12px;background:white;overflow:hidden;margin:100px auto}
+.input_file_{position:relative;left:50px;width:400px;height:270px;border-radius:12px;background:white;overflow:hidden;margin:100px auto}
 .input_file_>p{background:#323b4e;font-size:14px;color:white;height:40px;line-height:40px;text-align:center}
 
 input[type='file']{cursor:pointer;top:-40px;left:80px;width:200px;height:50px;background:Red;position:relative;opacity:0}
@@ -47,6 +47,10 @@ input[type='file']{cursor:pointer;top:-40px;left:80px;width:200px;height:50px;ba
 		   </div>  
 		 <input type="file" id="file" onchange="jQuery(this).next().text('文件读取成功，请点击上传');">
 		 <a href="http://7xss26.com1.z0.glb.clouddn.com/jobwisdom/TM/memberTM.xlsx" target="_blank" style="position: relative;left: 89px;top: -23px;">下载模板</a>
+		 <select name="uploadTypeName" style="width: 130px;border-radius:12px;padding-left:70px;position:relative;left:76px;top:-20px;">
+		 	<option value="模板导入">模板导入</option>
+		 	<option value="耕宇系统">耕宇系统</option>
+	 	</select>
 		 <p id="p"></p>
 	   </div>
 	    <div class="input_button">
@@ -339,9 +343,11 @@ jQuery(function(){
 
 function upload(){
 	var fileObj = document.getElementById("file").files[0];
+	var uploadTypeName = jQuery("select[name='uploadTypeName']").val();
     var FileController = baseUrl + "member/action/uploadMemberExls";                    // 接收上传文件的后台地址 
     var form = new FormData();
     form.append("file", fileObj);
+    form.append("uploadTypeName", uploadTypeName);
     var xhr = new XMLHttpRequest();
     xhr.open("post", FileController, true);
     xhr.onload = function (e) {
