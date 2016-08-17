@@ -133,7 +133,7 @@
 					<td>卡金消耗</td>
 					<td>总变动</td>
 				  </tr>
-				   <tr>
+				   <tr name = "cardTR">
 					<td>111</td>
 					<td>111</td>
 					<td>111</td>

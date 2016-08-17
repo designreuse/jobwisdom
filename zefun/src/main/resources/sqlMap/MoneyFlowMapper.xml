@@ -249,7 +249,7 @@
   
   <select id="selectFlowAmount" parameterType="java.util.Map" resultType ="com.zefun.web.dto.BusinessTotailDto">
    SELECT 
-     flow_type as createTime, flow_amount as valueMoney
+     flow_type as orderType, flow_amount as valueMoney, business_desc as createTime
    FROM 
 	 money_flow 
    WHERE business_type  IN (1, 2, 4, 5)    

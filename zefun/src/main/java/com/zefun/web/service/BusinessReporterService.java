@@ -182,6 +182,9 @@ public class BusinessReporterService {
 
     	//卡项业绩
     	double cardTotailCalculate = 0.00;
+    	//疗程业绩
+    	double comboTotailCalculate = 0.00;
+    	//
     	if (dtoList.size() > 0) {
     		cardMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("4") 
       			  || f.getCreateTime().equals("5") || f.getCreateTime().equals("6"))
@@ -274,6 +277,9 @@ public class BusinessReporterService {
         	cardTotailCalculate = detailCalculateList.parallelStream().filter(a -> "4".equals(a.getCreateTime()) 
         			|| "5".equals(a.getCreateTime()) || "6".equals(a.getCreateTime()))
         	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+        	
+        	comboTotailCalculate = detailCalculateList.parallelStream().filter(a -> "3".equals(a.getCreateTime()))
+        	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
       	}
       	Map<String, Object> projectMap = new HashMap<>();
       	projectMap.put("projectTotailCalculate", projectTotailCalculate);
@@ -295,13 +301,34 @@ public class BusinessReporterService {
       	
   		List<BusinessTotailDto> cardList = moneyFlowMapper.selectFlowAmount(selectCash);
   		
+  		double payMoney = cardList.parallelStream().filter(a -> a.getOrderType() == 1)
+    	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
   		
+  		double addTotailMoney = cardList.parallelStream().filter(a -> a.getOrderType() == 2)
+    	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+  		
+  		double giveMoney = cardList.parallelStream().filter(a -> a.getOrderType() == 2 && (("升级赠送").equals(a.getCreateTime())
+  				   || ("开卡赠送").equals(a.getCreateTime()) || ("充值赠送").equals(a.getCreateTime())))
+    	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+  		
+  		double addMoney = addTotailMoney - giveMoney;
+  		
+  		double changeMoney = addTotailMoney - payMoney;
+  		
+  		Map<String, Object> cardMap = new HashMap<>();
+  		cardMap.put("cardTotailCalculate", cardTotailCalculate);
+  		cardMap.put("addTotailMoney", addTotailMoney);
+  		cardMap.put("addMoney", addMoney);
+  		cardMap.put("giveMoney", giveMoney);
+  		cardMap.put("payMoney", payMoney);
+  		cardMap.put("changeMoney", changeMoney);
   		
     	Map<String, Object> map = new HashMap<>();
     	map.put("cashMap", cashMap);
     	map.put("serverMoneyMap", serverMoneyMap);
     	map.put("projectMap", projectMap);
     	map.put("goodsMap", goodsMap);
+    	map.put("cardMap", cardMap);
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }
     

@@ -313,6 +313,7 @@ public class SelfCashierService {
 
 		String curTime = DateUtil.getCurTime();
 		Integer ownerMemberId = cashierDto.getMemberId();
+		
 		if (memberId != null && !ownerMemberId.equals(memberId)) {
 			return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "您不能支付其他会员的订单！");
 		}

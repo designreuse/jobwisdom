@@ -287,6 +287,14 @@ jQuery(function(){
 													  '<td>'+projectMap.isAssignSize+'</td>'+
 													  '<td>'+projectMap.isNoAssignSize+'</td>'+
 													  '<td>'+projectMap.assignProportion+'%</td>');
+				
+				var cardMap = e.msg.cardMap;
+				jQuery("tr[name='cardTR']").empty();
+				jQuery("tr[name='cardTR']").append('<td>'+cardMap.cardTotailCalculate+'</td>'+
+													'<td>'+cardMap.addMoney+'</td>'+
+													'<td>'+cardMap.giveMoney+'</td>'+
+													'<td>'+cardMap.payMoney+'</td>'+
+													'<td>'+cardMap.changeMoney+'</td>');
 			}
 		});
   }
