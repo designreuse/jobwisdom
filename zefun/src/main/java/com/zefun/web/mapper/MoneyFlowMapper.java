@@ -3,6 +3,7 @@ package com.zefun.web.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.zefun.web.dto.BusinessTotailDto;
 import com.zefun.web.dto.MoneyFlowDto;
 import com.zefun.web.entity.MoneyFlow;
 import com.zefun.web.entity.Page;
@@ -94,5 +95,21 @@ public interface MoneyFlowMapper {
      */
     int deleteByMemberIdList(List<Integer> memberIdList);
 
+    /**
+     * 
+    * @author 老王
+    * @date 2016年8月16日 下午3:55:11 
+    * @param query query
+    * @return List<MoneyFlow>
+     */
     List<MoneyFlow> selectByProperties(MoneyFlow query);
+    
+    /**
+     * 流水汇总
+    * @author 老王
+    * @date 2016年8月16日 下午6:56:38 
+    * @param map map
+    * @return List<BusinessTotailDto>
+     */
+    List<BusinessTotailDto> selectFlowAmount(Map<String, Object> map);
 }

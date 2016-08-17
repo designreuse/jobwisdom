@@ -62,19 +62,12 @@ function refreshTableData(page){
 	             "<td>"+memberLevelDto.projectDiscount+"%</td>"+
 	             "<td>"+memberLevelDto.goodsDiscount+"%</td>"+
 	             "<td>"+memberLevelDto.chargeMinMoney+"元</td>"+
-	             "<td>"+memberLevelDto.sellAmount+"元</td>";
-	    
-	    if (memberLevelDto.cashDiscountType == 0) {
-	    	str += "<td>不打折</td>";
-	    }
-	    else {
-	    	str += "<td>打折</td>";
-	    }
-	    str += "<td>"+memberLevelDto.performanceDiscountPercent+"%</td>"+
+	             "<td>"+memberLevelDto.sellAmount+"元</td>"+
+                 "<td>"+memberLevelDto.performanceDiscountPercent+"%</td>"+
 	             "<td>"+memberLevelDto.integralUnit+"元 = "+memberLevelDto.integralNumber+"积分</td>"+
 	             "<td class='input80'>"+memberLevelDto.levelNotice+"</td>"+
 	             "<td>";
-	    			if(memberLevelDto.levelType=='登记卡'){
+	    			if(memberLevelDto.levelType=='等级卡'){
 	    				
 	    				 str += "<em onclick='editMemberLevel("+memberLevelDto.discountId+")'><img src='"+baseUrl+"images/handle_1.png'></em>";
 	    			}
@@ -108,7 +101,6 @@ function saveEditMemberLevel () {
 	var performanceDiscountPercentValue = jQuery("input[name='performanceDiscountPercent']").val();
 	var sellAmountValue = jQuery("input[name='sellAmount']").val();
 	var chargeMinMoneyValue = jQuery("input[name='chargeMinMoney']").val();
-	var cashDiscountType = jQuery("[name='cashDiscountType']").val();
 	var integralUnit = jQuery("[name='integralUnit']").val();
 	var integralNumber = jQuery("[name='integralNumber']").val();
 	var discountId = jQuery("[name='discountId']").val();
@@ -180,7 +172,6 @@ function saveEditMemberLevel () {
 	data["performanceDiscountPercent"] = performanceDiscountPercentValue;
 	data["sellAmount"] = sellAmountValue;
 	data["chargeMinMoney"] = chargeMinMoneyValue;
-	data["cashDiscountType"] = cashDiscountType;
 	data["integralUnit"] = integralUnit;
 	data["integralNumber"] = integralNumber;
 	data["discountId"] = discountId;

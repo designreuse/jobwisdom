@@ -40,6 +40,7 @@
     from employee_reward
     where reward_id = #{rewardId,jdbcType=INTEGER}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from employee_reward
     where reward_id = #{rewardId,jdbcType=INTEGER}

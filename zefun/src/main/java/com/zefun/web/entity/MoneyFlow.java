@@ -48,7 +48,7 @@ public class MoneyFlow {
 	
 	/** 查询条件, 1:year 2:month*/
 	private Integer queryType;
-	
+
 
     public Integer getLevelId() {
 		return levelId;

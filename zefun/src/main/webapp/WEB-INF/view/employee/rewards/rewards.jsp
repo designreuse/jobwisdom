@@ -17,7 +17,6 @@
   })
   </script>
 <body>
-
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper"
 		style="background-position: 0px 0px;">
 		<div class="leftpanel" style="height: 840px; margin-left: 0px;">
@@ -36,7 +35,6 @@
 			 时间查询
 			  <input type="text" id="time" onchange="changeRule()" style="width:100px;margin:0 10px" onfocus="WdatePicker({dateFmt:'yyyy-MM'})">
 			  <select id="storeId1"  onchange="changeRule()">
-			     
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
 			  </c:forEach>
@@ -99,7 +97,7 @@
 			<td><input type="text" onchange="changeIsFind()" name="statime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
 			<td><input type="text"   onchange="changeIsFind()" name="endtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"></td>
 			<td id="storeTd2">	
-			  <select id="storeId2" onchange="changeIsFind()">
+			  <select id="storeId2" onchange="selectd()">
 			  <c:forEach items="${selectByStoreAccount }" var="store">
 			     <option storeId="${store.storeId }">${store.storeName }</option>
 			  </c:forEach>
@@ -111,7 +109,7 @@
 			  <c:forEach items="${storeManageRule }" var="storeRule">
 			     <option ruleId="${storeRule.ruleName }">${storeRule.ruleName }</option>
 			  </c:forEach>
-         		</select></td>
+         	</select></td>
 			<td><select onchange="changeIsFind()"  name="type"><option value="0">全部</option><option value="1">奖励</option><option value="0">惩罚</option></select></td>
 			<td><input onchange="changeIsFind()" type="text" name ="employeeCode" placeholder="名称/工号"></td>
 		  </tr>
@@ -138,7 +136,7 @@
 		 <tr id="${list.rewardId }">
 		   <td>${list.employeeCode }</td>
 		   <td>${list.employeeName }</td>
-		   <td>${list.employeeName }</td>
+		   <td>${list.storeName }</td>
 		   <td>${list.type }</td>
 		   <c:if test="${list.isReward eq 2}"> <td>惩罚</td></c:if>
 		   <c:if test="${list.isReward eq 1}"> <td>奖励</td></c:if>
@@ -224,8 +222,8 @@ function storeSelect(){
 		var storeName = jQuery("#storeIdAll option[storeId='"+storeId+"'] ").val();
 		jQuery("#storeIdAll").val(storeName);
 		jQuery("#storeHide").hide();
-		jQuery("#storeTd").empty();
-		jQuery("#storeTd2").empty();
+		jQuery("#storeTd").remove();
+		jQuery("#storeTd2").remove();
 		
 		jQuery("#storeId1").val(storeName);
 		jQuery("#storeId1").hide();
@@ -235,6 +233,7 @@ function storeSelect(){
 		
 	}
 }
+
 
 function updated(rewardIds,storeId){
 	rewardId =rewardIds;
@@ -290,6 +289,15 @@ function save(){
 	 var reasons = jQuery("#reasons").val();
 	 var url ="";
 	 var dates ="";
+	 
+	 if(employeeId == null || employeeId == ''){
+		 dialog('没有员工不能保存');
+		 return ;
+	 }
+	 if(type == null || type == ''){
+		 dialog('奖罚名称不能为空');
+		 return ;
+	 }
 	 if(rewardId == null){
 		 url = baseUrl + "rewards/action/add";
 		 dates = "type="+type+"&storeId="+storeId+"&employeeId="+employeeId+"&isReward="+isReward+"&reasons="+reasons;
@@ -303,19 +311,23 @@ function save(){
 			data : dates,
 			dataType : "json",
 			success : function(e){
-				hide();
+		
 				if(rewardId == null){
 					dialog('新增成功');
 				}else{
 					dialog('修改成功');
 				}
 				 showOnehtml(e.msg);
+					hide();
 			}
 		})
 	
 }
 function showOnehtml(value){
-	jQuery("#"+value.rewardId).empty();
+	if(rewardId != null){
+		jQuery("#"+value.rewardId).remove();
+	}
+	
 	var html = '';
 	html +=' <tr id="'+value.rewardId+'"><td>'+value.employeeCode+'</td>	   <td>'+value.employeeName +'</td> <td>'+value.employeeName+'</td><td>'+value.type+'</td>';
 	   if(value.isReward == 1){
@@ -325,7 +337,7 @@ function showOnehtml(value){
 			html += '<td>惩罚</td>';
 	   }
 	   html += ' <td style="width:200px">'+value.reasons +'</td><td>'+value.modifytime+'</td> <td><img onclick="updated('+value.rewardId+','+value.storeId+')" src="'+baseUrl+'images/add_store_1.png"><img onclick="deleted('+value.rewardId +')" src="'+baseUrl+'images/add_store_2.png"></td>	 </tr>';
-	   jQuery(".second tr").eq(0).before(html);
+	   jQuery(".second").append(html);
 }
 
 //奖罚管理查询页面
@@ -364,10 +376,24 @@ function selectd(){
 	isFindDate = true;
 	changePage() ;
 }
+
+
 //条件改变时
 function changeIsFind(){
 	isFindDate = true;
 }
+
+
+function showRule(par){
+	var storeManageRule = par.storeManageRule;
+	jQuery("select[name='storeManageRule']").empty();
+	var html = '<option ruleId="0">全部</option>';
+	jQuery.each(storeManageRule, function(n, value){
+		html += '<option ruleId="'+value.ruleId+'">'+value.ruleName+'</option>';
+	});
+	jQuery("select[name='storeManageRule']").append(html);
+}
+
 //分页
 function changePage() {
 	var staTime  = jQuery("input[name='statime']").val();
@@ -400,6 +426,8 @@ function changePage() {
 				unbuildPagination();
 				isFindDate = false;
 			}
+			var par = e.msg.params
+			showRule(par);
 			var html='';
 			jQuery(".second").empty();
 			jQuery.each(e.msg.results, function(n, value) {
@@ -417,6 +445,7 @@ function changePage() {
 		}
 	});
 }
+
 
 //弹出框改变下拉框
 function employee(){
@@ -459,6 +488,7 @@ var storeManageRule =  '${storeManageRule}';
 var ruleList1Str =  '${ruleList1Str}';
 var ruleList2Str = '${ruleList2Str}';
 
+
 var ruleList1;
 if (isEmpty(ruleList1Str)) {
 	ruleList1 = new Array();
@@ -474,6 +504,8 @@ if (isEmpty(ruleList2Str)) {
 else {
 	ruleList2 = eval("(" + ruleList2Str + ")");
 }
+
+
 var jsonarray = ${jsonarray};
 var ruleL1 = ruleList1.length;
 var ruleL2 = ruleList2.length;

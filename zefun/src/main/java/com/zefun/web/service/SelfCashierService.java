@@ -313,6 +313,7 @@ public class SelfCashierService {
 
 		String curTime = DateUtil.getCurTime();
 		Integer ownerMemberId = cashierDto.getMemberId();
+		
 		if (memberId != null && !ownerMemberId.equals(memberId)) {
 			return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "您不能支付其他会员的订单！");
 		}
@@ -965,79 +966,80 @@ public class SelfCashierService {
 					empCommission = new BigDecimal(goodsInfoDto.getCardAmount());
 				}
 			}
-			
-			if (stepDtoList.size() == 1) {
-				stepOrderMap = new HashMap<>();
-				stepOrderMap.put("employeeId", stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
-	        	stepOrderMap.put("employeeCodeName", stepDtoList.get(0).getEmployeeInfo().getEmployeeCode() 
-	        			  + " " + stepDtoList.get(0).getEmployeeInfo().getName());
-	        	stepOrderMap.put("commissionCalculate", saveCommonCalculate);
-	        	stepOrderMap.put("commissionAmount", empCommission);
-	        	
-	        	EmployeeCommission employeeCommission = new EmployeeCommission();
-				employeeCommission.setDetailId(orderDetail.getDetailId());
-				employeeCommission.setOrderType(orderDetail.getOrderType());
-				employeeCommission.setEmployeeId(stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
-				employeeCommission.setCommissionCalculate(saveCommonCalculate);
-				employeeCommission.setCommissionAmount(saveCommonCalculate);
-				employeeCommission.setChargeTime(DateUtil.getCurTime());
-				employeeCommissionMapper.insert(employeeCommission);
-				
-				stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
-	        	stepList.add(stepOrderMap);
-			}
-			else {
-				String commissionStr = null;
-				if (stepDtoList.size() == 2){
-					for (CommissionScheme commissionScheme : commissionSchemeList) {
-						if (commissionScheme.getCommissionType() == 1 && payType == 0) {
-							commissionStr = commissionScheme.getCashTwoCommission();
-						}
-						else if (commissionScheme.getCommissionType() == 1 && payType == 1){
-							commissionStr = commissionScheme.getCardTwoCommission();
-						}
-					}
-				}
-				else if (stepDtoList.size() == 3) {
-					for (CommissionScheme commissionScheme : commissionSchemeList) {
-						if (commissionScheme.getCommissionType() == 1 && payType == 0) {
-							commissionStr = commissionScheme.getCashThreeCommission();
-						}
-						else if (commissionScheme.getCommissionType() == 1 && payType == 1){
-							commissionStr = commissionScheme.getCardThreeCommission();
-						}
-					}
-				}
-				String[] twoCommission = commissionStr.split(",");
-				for (int i = 0; i < twoCommission.length; i++) {
-					String commission = twoCommission[i];
-					//业绩比例
-					Integer calculationProportion = Integer.valueOf(commission.split(":")[0]);
-					
-					BigDecimal calculation = saveCommonCalculate.multiply(new BigDecimal(calculationProportion)).divide(hundred);
-					
-					//提成比例
-					Integer commProportion = Integer.valueOf(commission.split(":")[1]);
-					
-					BigDecimal comm = empCommission.multiply(new BigDecimal(commProportion)).divide(hundred);
-					
+			if (stepDtoList.size() > 0) {
+				if (stepDtoList.size() == 1) {
 					stepOrderMap = new HashMap<>();
-					stepOrderMap.put("employeeId", stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
-		        	stepOrderMap.put("employeeCodeName", stepDtoList.get(i).getEmployeeInfo().getEmployeeCode() 
-		        			  + " " + stepDtoList.get(i).getEmployeeInfo().getName());
-		        	stepOrderMap.put("commissionCalculate", calculation);
-		        	stepOrderMap.put("commissionAmount", comm);
+					stepOrderMap.put("employeeId", stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
+		        	stepOrderMap.put("employeeCodeName", stepDtoList.get(0).getEmployeeInfo().getEmployeeCode() 
+		        			  + " " + stepDtoList.get(0).getEmployeeInfo().getName());
+		        	stepOrderMap.put("commissionCalculate", saveCommonCalculate);
+		        	stepOrderMap.put("commissionAmount", empCommission);
 		        	
 		        	EmployeeCommission employeeCommission = new EmployeeCommission();
 					employeeCommission.setDetailId(orderDetail.getDetailId());
 					employeeCommission.setOrderType(orderDetail.getOrderType());
-					employeeCommission.setEmployeeId(stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
-					employeeCommission.setCommissionCalculate(calculation);
-					employeeCommission.setCommissionAmount(comm);
+					employeeCommission.setEmployeeId(stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
+					employeeCommission.setCommissionCalculate(saveCommonCalculate);
+					employeeCommission.setCommissionAmount(saveCommonCalculate);
 					employeeCommission.setChargeTime(DateUtil.getCurTime());
 					employeeCommissionMapper.insert(employeeCommission);
+					
 					stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
 		        	stepList.add(stepOrderMap);
+				}
+				else {
+					String commissionStr = null;
+					if (stepDtoList.size() == 2){
+						for (CommissionScheme commissionScheme : commissionSchemeList) {
+							if (commissionScheme.getCommissionType() == 1 && payType == 0) {
+								commissionStr = commissionScheme.getCashTwoCommission();
+							}
+							else if (commissionScheme.getCommissionType() == 1 && payType == 1){
+								commissionStr = commissionScheme.getCardTwoCommission();
+							}
+						}
+					}
+					else if (stepDtoList.size() == 3) {
+						for (CommissionScheme commissionScheme : commissionSchemeList) {
+							if (commissionScheme.getCommissionType() == 1 && payType == 0) {
+								commissionStr = commissionScheme.getCashThreeCommission();
+							}
+							else if (commissionScheme.getCommissionType() == 1 && payType == 1){
+								commissionStr = commissionScheme.getCardThreeCommission();
+							}
+						}
+					}
+					String[] twoCommission = commissionStr.split(",");
+					for (int i = 0; i < twoCommission.length; i++) {
+						String commission = twoCommission[i];
+						//业绩比例
+						Integer calculationProportion = Integer.valueOf(commission.split(":")[0]);
+						
+						BigDecimal calculation = saveCommonCalculate.multiply(new BigDecimal(calculationProportion)).divide(hundred);
+						
+						//提成比例
+						Integer commProportion = Integer.valueOf(commission.split(":")[1]);
+						
+						BigDecimal comm = empCommission.multiply(new BigDecimal(commProportion)).divide(hundred);
+						
+						stepOrderMap = new HashMap<>();
+						stepOrderMap.put("employeeId", stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
+			        	stepOrderMap.put("employeeCodeName", stepDtoList.get(i).getEmployeeInfo().getEmployeeCode() 
+			        			  + " " + stepDtoList.get(i).getEmployeeInfo().getName());
+			        	stepOrderMap.put("commissionCalculate", calculation);
+			        	stepOrderMap.put("commissionAmount", comm);
+			        	
+			        	EmployeeCommission employeeCommission = new EmployeeCommission();
+						employeeCommission.setDetailId(orderDetail.getDetailId());
+						employeeCommission.setOrderType(orderDetail.getOrderType());
+						employeeCommission.setEmployeeId(stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
+						employeeCommission.setCommissionCalculate(calculation);
+						employeeCommission.setCommissionAmount(comm);
+						employeeCommission.setChargeTime(DateUtil.getCurTime());
+						employeeCommissionMapper.insert(employeeCommission);
+						stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
+			        	stepList.add(stepOrderMap);
+					}
 				}
 			}
 		}
@@ -1078,83 +1080,84 @@ public class SelfCashierService {
 			}
 			saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
 			
-			if (stepDtoList.size() == 1) {
-				stepOrderMap = new HashMap<>();
-				stepOrderMap.put("employeeId", stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
-	        	stepOrderMap.put("employeeCodeName", stepDtoList.get(0).getEmployeeInfo().getEmployeeCode() 
-	        			  + " " + stepDtoList.get(0).getEmployeeInfo().getName());
-	        	stepOrderMap.put("commissionCalculate", saveCommonCalculate);
-	        	stepOrderMap.put("commissionAmount", empCommission);
-	        	
-	        	EmployeeCommission employeeCommission = new EmployeeCommission();
-				employeeCommission.setDetailId(orderDetail.getDetailId());
-				employeeCommission.setOrderType(orderDetail.getOrderType());
-				employeeCommission.setEmployeeId(stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
-				employeeCommission.setCommissionCalculate(saveCommonCalculate);
-				employeeCommission.setCommissionAmount(empCommission);
-				employeeCommission.setChargeTime(DateUtil.getCurTime());
-				employeeCommissionMapper.insert(employeeCommission);
-				stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
-	        	stepList.add(stepOrderMap);
-			}
-			else {
-				String commissionStr = null;
-				if (stepDtoList.size() == 2){
-					for (CommissionScheme commissionScheme : commissionSchemeList) {
-						if (commissionScheme.getCommissionType() == 1 && payType == 0) {
-							commissionStr = commissionScheme.getCashTwoCommission();
-						}
-						else if (commissionScheme.getCommissionType() == 1 && payType == 1){
-							commissionStr = commissionScheme.getCardTwoCommission();
-						}
-					}
-				}
-				else if (stepDtoList.size() == 3) {
-					for (CommissionScheme commissionScheme : commissionSchemeList) {
-						if (commissionScheme.getCommissionType() == 1 && payType == 0) {
-							commissionStr = commissionScheme.getCashThreeCommission();
-						}
-						else if (commissionScheme.getCommissionType() == 1 && payType == 1){
-							commissionStr = commissionScheme.getCardThreeCommission();
-						}
-					}
-				}
-				String[] twoCommission = commissionStr.split(",");
-				for (int i = 0; i < twoCommission.length; i++) {
-					
+			if (stepDtoList.size() > 0) {
+				if (stepDtoList.size() == 1) {
 					stepOrderMap = new HashMap<>();
-					
-					String commission = twoCommission[i];
-					//业绩比例
-					Integer calculationProportion = Integer.valueOf(commission.split(":")[0]);
-					
-					BigDecimal calculation = saveCommonCalculate.multiply(new BigDecimal(calculationProportion)).divide(hundred);
-					
-					//提成比例
-					Integer commProportion = Integer.valueOf(commission.split(":")[1]);
-					
-					BigDecimal comm = empCommission.multiply(new BigDecimal(commProportion)).divide(hundred);
-					
-					stepOrderMap.put("employeeId", stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
-		        	stepOrderMap.put("employeeCodeName", stepDtoList.get(i).getEmployeeInfo().getEmployeeCode() 
-		        			  + " " + stepDtoList.get(i).getEmployeeInfo().getName());
-		        	stepOrderMap.put("commissionCalculate", calculation);
-		        	stepOrderMap.put("commissionAmount", comm);
+					stepOrderMap.put("employeeId", stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
+		        	stepOrderMap.put("employeeCodeName", stepDtoList.get(0).getEmployeeInfo().getEmployeeCode() 
+		        			  + " " + stepDtoList.get(0).getEmployeeInfo().getName());
+		        	stepOrderMap.put("commissionCalculate", saveCommonCalculate);
+		        	stepOrderMap.put("commissionAmount", empCommission);
 		        	
 		        	EmployeeCommission employeeCommission = new EmployeeCommission();
 					employeeCommission.setDetailId(orderDetail.getDetailId());
 					employeeCommission.setOrderType(orderDetail.getOrderType());
-					employeeCommission.setEmployeeId(stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
-					employeeCommission.setCommissionCalculate(calculation);
-					employeeCommission.setCommissionAmount(comm);
+					employeeCommission.setEmployeeId(stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
+					employeeCommission.setCommissionCalculate(saveCommonCalculate);
+					employeeCommission.setCommissionAmount(empCommission);
 					employeeCommission.setChargeTime(DateUtil.getCurTime());
 					employeeCommissionMapper.insert(employeeCommission);
-					
 					stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
 		        	stepList.add(stepOrderMap);
 				}
+				else {
+					String commissionStr = null;
+					if (stepDtoList.size() == 2){
+						for (CommissionScheme commissionScheme : commissionSchemeList) {
+							if (commissionScheme.getCommissionType() == 1 && payType == 0) {
+								commissionStr = commissionScheme.getCashTwoCommission();
+							}
+							else if (commissionScheme.getCommissionType() == 1 && payType == 1){
+								commissionStr = commissionScheme.getCardTwoCommission();
+							}
+						}
+					}
+					else if (stepDtoList.size() == 3) {
+						for (CommissionScheme commissionScheme : commissionSchemeList) {
+							if (commissionScheme.getCommissionType() == 1 && payType == 0) {
+								commissionStr = commissionScheme.getCashThreeCommission();
+							}
+							else if (commissionScheme.getCommissionType() == 1 && payType == 1){
+								commissionStr = commissionScheme.getCardThreeCommission();
+							}
+						}
+					}
+					String[] twoCommission = commissionStr.split(",");
+					for (int i = 0; i < twoCommission.length; i++) {
+						
+						stepOrderMap = new HashMap<>();
+						
+						String commission = twoCommission[i];
+						//业绩比例
+						Integer calculationProportion = Integer.valueOf(commission.split(":")[0]);
+						
+						BigDecimal calculation = saveCommonCalculate.multiply(new BigDecimal(calculationProportion)).divide(hundred);
+						
+						//提成比例
+						Integer commProportion = Integer.valueOf(commission.split(":")[1]);
+						
+						BigDecimal comm = empCommission.multiply(new BigDecimal(commProportion)).divide(hundred);
+						
+						stepOrderMap.put("employeeId", stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
+			        	stepOrderMap.put("employeeCodeName", stepDtoList.get(i).getEmployeeInfo().getEmployeeCode() 
+			        			  + " " + stepDtoList.get(i).getEmployeeInfo().getName());
+			        	stepOrderMap.put("commissionCalculate", calculation);
+			        	stepOrderMap.put("commissionAmount", comm);
+			        	
+			        	EmployeeCommission employeeCommission = new EmployeeCommission();
+						employeeCommission.setDetailId(orderDetail.getDetailId());
+						employeeCommission.setOrderType(orderDetail.getOrderType());
+						employeeCommission.setEmployeeId(stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
+						employeeCommission.setCommissionCalculate(calculation);
+						employeeCommission.setCommissionAmount(comm);
+						employeeCommission.setChargeTime(DateUtil.getCurTime());
+						employeeCommissionMapper.insert(employeeCommission);
+						
+						stepOrderMap.put("commissionId", employeeCommission.getCommissionId());
+			        	stepList.add(stepOrderMap);
+					}
+				}
 			}
-			
 			//插入会员疗程表
 			insertMemberComboInfo(orderDetail.getProjectId(), employeeId, memberId, orderDetail.getDetailId());
 		}

@@ -1,5 +1,6 @@
 package com.zefun.web.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -114,6 +115,18 @@ public class PositioninfoService {
 	* @return int
 	 */
 	public int updatePositioninfo(PositionInfo positioninfo){
+	    
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("positionName", positioninfo.getPositionName());
+	    map.put("storeId", positioninfo.getStoreId());
+	    List<PositionInfo> selectByName = positioninfoMapper.selectByName(map);
+	    if (selectByName.size()>0 && positioninfo.getPositionId() == null){
+	        return 2;  
+	    }
+	    if (selectByName.size()==1 && positioninfo.getPositionId() != selectByName.get(0).getPositionId()){
+            return 2;  
+        }
+	 
 		positioninfoMapper.updateByPrimaryKeySelective(positioninfo);
 		return 0;	
 	}

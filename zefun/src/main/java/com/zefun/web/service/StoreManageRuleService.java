@@ -106,7 +106,7 @@ public class StoreManageRuleService {
             if (selectRuleListByRuleName.size()==0){
                 storeManageRuleMapper.insertSelective(storeManageRule);
             }
-            else{
+            else {
                 return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "已有该名称");
             }
         }

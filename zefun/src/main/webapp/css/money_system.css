@@ -1,10 +1,10 @@
 .content_right{padding:15px}
-.add_money{background:#ebeff8;border:1px solid #1d4e97;padding:13px;border-radius:12px}
+.add_money{background:#ebeff8;border:1px solid #ccc;padding:13px;border-radius:12px}
 .add_money button{width:100px;height:24px;border:none;text-align:center;line-height:24px;border-radius:12px;color:white;background:#616a84}
 .add_money button:hover{background:#5b637b}
-.add_money_table{height:640px;border:1px solid #1d4e97;border-radius:12px;margin-top:15px;overflow:overlay }
+.add_money_table{height:640px;border:1px solid #ccc;border-radius:12px;margin-top:15px;overflow:overlay }
 .add_money_table table{width:100%;}
-.add_money_table table td{height:40px;vertical-align:middle;text-align:center;border-bottom:1px solid #1d4e97;border-right:1px solid #1d4e97;}
+.add_money_table table td{height:40px;vertical-align:middle;text-align:center;border-bottom:1px solid #ccc;border-right:1px solid #ccc;}
 .add_money_table table td:last-child{border-right:none}
 .add_money_table table td img{margin:0 5px}
 .add_money_table table tr:nth-child(odd){background:#f6f8fc}

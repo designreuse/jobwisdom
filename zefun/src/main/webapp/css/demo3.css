@@ -57,7 +57,7 @@
 .add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:14px;}
 .add_store_back {float:left}
 .add_store_div{width:1000px;margin:70px auto}
-.add_store_content{float:left;border:1px solid black;padding:20px;border-radius: 0 0 10px 10px}
+.add_store_content{float:left;border:1px solid #ccc;padding:20px;border-radius: 0 0 10px 10px}
 .add_store_span_1{float:right}
 .add_store_span_1 span{color:red;font-size:16px}
 .add_store_span_1{font-size:14px}
@@ -147,8 +147,9 @@
 
 .add_store_sale{border-radius:10px;background:#d8deed;height:94px;padding:5px 20px}
 .add_store_sale span{display:inline-block;width:288px;height:50px;font-size:14px;}
-.add_store_sale span select{width:120px;height:22px;border:1px solid black;border-radius:10px;padding-left:30px}
+.add_store_sale span select{width:120px;height:22px;border:1px solid #ccc;border-radius:12px;padding-left:30px}
 .add_store_sale span em{display:inline-block;width:100px}
+.add_store_sale input{border:1px solid #ccc!important;border-radius:12px!important}
 .add_pic_{
 	margin-top:20px
 }
@@ -183,7 +184,7 @@
 .item_button{text-align:center;margin-top:50px}
 .item_button button{width:130px;height:28px;color:white;border:none;border-radius:12px;text-align:center;line-height:28px;color:white;background:#59688a;margin-right:80px}
 .shop_price{height:160px;border-radius:10px;background:#d8deed;padding: 5px 20px;font-size:14px;color:black}
-.shop_price_1 input,.shop_price_2 span input{height:22px;width:120px;border-radius:12px;margin-left:26px;border:1px solid black;padding-right:20px}
+.shop_price_1 input,.shop_price_2 span input{height:22px;width:120px;border-radius:12px;margin-left:26px;border:1px solid #ccc;padding-right:20px}
 .shop_price_1 span,.shop_price_2 span{display:inline-block;position:relative}
 .shop_price_1 em,.shop_price_2 span em{position:absolute;right:10px;top:5px;color:#737373}
 .shop_price_2{margin-top:30px}
@@ -227,7 +228,7 @@
 .li_button{text-align:center;margin-top:5px}
 .li_button button{border:none;width:50px;height:22px;text-align:center;line-height:22px;border-radius:8px;color:white;background:#59688a;margin-right:5px}
 .demo2_button{text-align:center;margin-top:25px}
-.demo2_button button{border:none;width:130px;height:26px;text-align:center;line-height:26px;color:white;border-radius:8px;background:#59688a;color:white;margin-right:25px}
+.demo2_button button{border:none;width:130px;height:26px;text-align:center;line-height:26px;color:white;border-radius:12px;background:#59688a;color:white;margin-right:25px}
 .demo2_button button:hover{background:#475473}
 .add_store_back li i{display:inline-block;width:17px;height:8px}
 .textarea_text p{text-indent:1em;line-height:26px}

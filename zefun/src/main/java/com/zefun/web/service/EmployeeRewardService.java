@@ -68,6 +68,7 @@ public class EmployeeRewardService {
         StoreManageRule storeManageRule = storeManageRuleMapper.selectByPrimaryKey(ruleId);
         vo.setNumber(Double.parseDouble(storeManageRule.getProcessMoney().toString()));
         vo.setType(storeManageRule.getRuleName());
+        
         employeeRewardMapper.insertSelective(vo);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("rewardId", vo.getRewardId());
@@ -252,7 +253,7 @@ public class EmployeeRewardService {
         params.put("employee", employee);
         params.put("time1", staTime);
         params.put("time2", endTime);
-
+        List<StoreManageRule> storeManageRule = storeManageRuleMapper.selectRuleListByAccountStoreId(params);
         Page<EmployeeRewardDto> page = new Page<EmployeeRewardDto>();
         page.setParams(params);
         page.setPageNo(pageNo);
@@ -260,6 +261,7 @@ public class EmployeeRewardService {
         //全部奖罚数据
         List<EmployeeRewardDto> list = employeeRewardMapper.selectCountRewardByPage(page);
         page.setResults(list);
+        params.put("storeManageRule", JSONArray.fromObject(storeManageRule));
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, page);
     }
 
@@ -294,6 +296,7 @@ public class EmployeeRewardService {
         if (ruleList2.size() == 0) {  
             ruleList2.add(rule);
         }
+        
         JSONArray jsonarray = classify(results, selectEmployeeListByStoreIdAll, ruleList1, ruleList2);
         
         params.put("jsonarray", jsonarray);

@@ -253,6 +253,34 @@ jQuery('body').delegate('.lcs_check_assignType', 'lcs-statuschange', function() 
 var modelType = -1;
 var dataAjax = {};
 
+function cheage(s){
+	var type ;
+	if(s == 1){
+		type="cz";
+	}
+	else if(s == 2){
+		type="kk";
+	}
+	else if(s==3){
+		type="sj";
+	} 
+	var cashAmount = jQuery("input[name = '"+type+"CashAmount']").val();
+	var unionpayAmount = jQuery("input[name = '"+type+"UnionpayAmount']").val();
+	var wechatAmount = jQuery("input[name = '"+type+"WechatAmount']").val();
+	var alipayAmount = jQuery("input[name = '"+type+"AlipayAmount']").val();
+	var debtAmount = jQuery("input[name = '"+type+"ebtAmount']").val();
+	
+	cashAmount = valueZero(cashAmount);
+	unionpayAmount = valueZero(unionpayAmount);
+	wechatAmount = valueZero(wechatAmount);
+	alipayAmount = valueZero(alipayAmount);
+	debtAmount = valueZero(debtAmount);
+		
+	var realPrice = parseInt(cashAmount) + parseInt(unionpayAmount) + parseInt(debtAmount) + parseInt(wechatAmount) + parseInt(alipayAmount);
+	
+	jQuery("#Num"+s).val(realPrice);
+}
+
 function save(){
 	
 	
@@ -368,7 +396,7 @@ function save(){
 	
 	//卡金
 	var rewardAmount = jQuery("input[name='rewardAmount']").val();
-
+	var calculate  = jQuery("#Num2").val();
 	rewardAmount = valueZero(rewardAmount);
 	var createTime = jQuery("input[name='createTime2']").val();
 	var orderCode = jQuery("input[name='orderCodetab2']").val();
@@ -376,7 +404,7 @@ function save(){
 			"recommend" : recommend, "giftmoneyAmount" : giftmoneyAmount, "pastDate" : pastDate,
 	        "partType" : partType, "rewardAmount" : rewardAmount,"messageType" : messageType, "balanceAmount" : balanceAmount, "cashAmount" : cashAmount, 
 	        "unionpayAmount" : unionpayAmount, "wechatAmount" : wechatAmount, "alipayAmount" : alipayAmount, "debtAmount" : debtAmount, "payPassword" : payPassword,
-	        "deptStr" : deptStr, "openRecommendId": openRecommendId, "orderCode" : orderCode, "createTime" : createTime};
+	        "deptStr" : deptStr, "openRecommendId": openRecommendId, "orderCode" : orderCode, "createTime" : createTime, "calculate" : calculate};
 	
 	openCard();
 }
@@ -556,8 +584,10 @@ function czConfirm(type){
 	var createTime = jQuery("input[name='createTime1']").val();
 	var orderCode = jQuery("input[name='orderCodetab1']").val();
 
+	var calculate  = jQuery("#Num1").val();
+	
 	dataAjax = {"subAccountId" : subAccountId, "chargeAmount" : chargeAmount, "cashAmount" : cashAmount, "unionpayAmount" : unionpayAmount, "wechatAmount" : wechatAmount, "alipayAmount" : alipayAmount, "debtAmount" : debtAmount, "recommend" : recommend, "giftmoneyAmount" : giftmoneyAmount, 
-			"pastDate": pastDate, "partType" : partType, "rewardAmount" : rewardAmount, "type" : type, "deptStr" : deptStr, "orderCode" : orderCode, "createTime" : createTime}
+			"pastDate": pastDate, "partType" : partType, "rewardAmount" : rewardAmount, "type" : type, "deptStr" : deptStr, "orderCode" : orderCode, "createTime" : createTime, "calculate":calculate}
 	
 	rechargeCard(type);
 }
@@ -844,6 +874,9 @@ function queren(){
 	}
 	var partType = jQuery("select[name='sjPartType']").val();
 	
+	
+	
+	
 	//礼金
 	var giftmoneyAmount = jQuery("input[name='sjGiftmoneyAmount']").val();
 	giftmoneyAmount = valueZero(giftmoneyAmount);
@@ -855,11 +888,15 @@ function queren(){
 	rewardAmount = valueZero(rewardAmount);
 	var createTime = jQuery("input[name='createTime3']").val();
 	var orderCode = jQuery("input[name='orderCodetab3']").val();
+	var calculate  = jQuery("#Num3").val();
 	
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "KeepAccounts/upgradeMemberInfo",
-		data : "memberId="+memberId+"&subaccountId="+subaccountId+"&realPrice="+realPrice+"&createTime="+createTime+"&orderCode="+orderCode+"&levelId="+levelId+"&amountvalue="+amountvalue+"&recommend="+recommend+"&giftmoneyAmount="+giftmoneyAmount+"&pastDate="+pastDate+"&partType="+partType+"&rewardAmount="+rewardAmount+"&cashAmount="+cashAmount+"&unionpayAmount="+unionpayAmount+"&wechatAmount="+wechatAmount+"&alipayAmount="+alipayAmount+"&debtAmount="+debtAmount+"&deptStr="+deptStr,
+		data : "memberId="+memberId+"&subaccountId="+subaccountId+"&realPrice="+realPrice+"&createTime="+createTime+"&orderCode="+orderCode+"&levelId="+levelId
+		+"&amountvalue="+amountvalue+"&recommend="+recommend+"&giftmoneyAmount="+giftmoneyAmount+"&pastDate="+pastDate+"&partType="+partType+"&rewardAmount="
+		+rewardAmount+"&cashAmount="+cashAmount+"&unionpayAmount="+unionpayAmount+"&wechatAmount="+wechatAmount+"&alipayAmount="+alipayAmount+"&debtAmount="
+		+debtAmount+"&deptStr="+deptStr+"&calculate="+calculate,
 		async:false,//使用同步的Ajax请求  
 		dataType : "json",
 		success : function(e){
@@ -955,9 +992,13 @@ function valueZero(value) {
 	return value;
 }
 
-function checkNum(obj) {  
+function checkNum(obj,s) {  
     //检查是否是非数字值  
     if (isNaN(obj.value)) {  
         obj.value = "";  
     }   
+    if(s != 4){
+    	cheage(s);
+    }
+    
 } 

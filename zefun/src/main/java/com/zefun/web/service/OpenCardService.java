@@ -242,6 +242,7 @@ public class OpenCardService {
 	 * @param openRecommendId 推荐人
      * @param createTime 创建时间
      * @param orderCode 单号
+     * @param calculate 总业绩
 	 * @return BaseDto
 	 * @throws ParseException  解析异常
 	 */
@@ -252,8 +253,7 @@ public class OpenCardService {
     			BigDecimal balanceAmount, BigDecimal rewardAmount, Integer messageType, BigDecimal cashAmount,
     			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
     			String payPassword, List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer openRecommendId,
-    			Integer storeId, Integer lastOperatorId, String orderCode, String createTime) throws ParseException {
-
+    			Integer storeId, Integer lastOperatorId, String orderCode, String createTime, Double calculate) throws ParseException {
 	    MemberInfo selectPhone = memberInfoMapper.selectMemberByStoreIdAndPhone(storeId, phone);
         if (selectPhone != null) {
             return new BaseDto(-1, "该电话已有会员使用");
@@ -295,7 +295,7 @@ public class OpenCardService {
 
 		commissionAndGift(memberId, subAccountId, levelId, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 4, storeId,
-    				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime);
+    				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime, calculate);
 		
 		memberInfoService.syncLevelId(memberId);
 
@@ -430,6 +430,7 @@ public class OpenCardService {
 	 * @param lastOperatorId 操作人
 	 * @param createTime 创建时间
      * @param orderCode 单号
+     * @param calculate 总业绩
 	 * @return BaseDto
 	 * @throws ParseException  解析异常
 	 */
@@ -439,7 +440,7 @@ public class OpenCardService {
     			List<Integer> recommendId, List<BigDecimal> commissionAmount, List<BigDecimal> calculateAmount,
     			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal rewardAmount,
     			List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer type, Integer storeId,
-    			Integer lastOperatorId, String orderCode, String createTime) throws ParseException {
+    			Integer lastOperatorId, String orderCode, String createTime, Double calculate) throws ParseException {
 
 		MemberSubAccount subAccount = memberSubAccountMapper.selectByPrimaryKey(subAccountId);
 
@@ -469,10 +470,9 @@ public class OpenCardService {
 		subHashMap.put("chargeAmount", chargeAmount.add(rewardAmount));
 		subHashMap.put("rewardAmount", rewardAmount);
 		memberSubAccountMapper.updateCharge(subHashMap); //总值和余额都加上 chargeAmount
-
 		commissionAndGift(memberId, subAccount.getSubAccountId(), subAccount.getLevelId(), recommendId, commissionAmount, calculateAmount, 
 				    giftmoneyAmount, chargeAmount, cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 5, storeId,
-    				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime);
+    				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime, calculate);
 		
 		memberInfoService.syncLevelId(memberId);
 
@@ -531,7 +531,7 @@ public class OpenCardService {
 
 		commissionAndGift(memberId, null, null, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, realPrice,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, new BigDecimal(0), 0, 0, 8, storeId,
-    				new BigDecimal(0), null, null, lastOperatorId, orderCode, createTime);
+    				new BigDecimal(0), null, null, lastOperatorId, orderCode, createTime, null);
 
 		return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
 	}
@@ -563,6 +563,7 @@ public class OpenCardService {
      * @param createTime 创建时间
      * @param orderCode 单号 
      * @param lastOperatorId 操作人
+     * @param calculate 总业绩
 	 * @return BaseDto
 	 * @throws ParseException  解析异常
 	 */
@@ -572,7 +573,7 @@ public class OpenCardService {
     			BigDecimal giftmoneyAmount, Integer pastDate, Integer partType, BigDecimal cashAmount,
     			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
     			BigDecimal rewardAmount, Integer storeId, List<Integer> deptIds, List<BigDecimal> deptCalculates,
-    			Integer lastOperatorId, String orderCode, String createTime) throws ParseException {
+    			Integer lastOperatorId, String orderCode, String createTime, Double calculate) throws ParseException {
 	    
 	    Integer accountId = memberId;
         List<MemberSubAccount> selectListByAccountId = memberSubAccountMapper.selectListByAccountId(accountId);
@@ -627,7 +628,7 @@ public class OpenCardService {
  		
 		commissionAndGift(memberId, subaccountId, levelId, recommendId, commissionAmount, calculateAmount, giftmoneyAmount, balanceAmount,
     				cashAmount, unionpayAmount, wechatAmount, alipayAmount, debtAmount, pastDate, partType, 6, storeId,
-    				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime);
+    				rewardAmount, deptIds, deptCalculates, lastOperatorId, orderCode, createTime, calculate);
 		changeMemberOrder(memberId, storeId);
 		// 更新缓存中的会员数据
 		memberInfoService.wipeCache(memberId);
@@ -709,6 +710,7 @@ public class OpenCardService {
 	 * @param lastOperatorId 操作人
 	 * @param createTime 创建时间
      * @param orderCode 单号
+     * @param calculate 总业绩
 	 * @throws ParseException  解析异常
 	 */
 	@Transactional
@@ -718,13 +720,13 @@ public class OpenCardService {
     			BigDecimal cashAmount, BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount,
     			BigDecimal debtAmount, Integer pastDate, Integer partType, Integer type, Integer storeId,
     			BigDecimal rewardAmount, List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer lastOperatorId,
-    			String  orderCode, String createTime)
+    			String  orderCode, String createTime, Double calculate)
 			throws ParseException {
 
 		// 添加订单信息
 		OrderInfo orderInfo = new OrderInfo();
 		String businessDesc = "";
-
+		
 		Integer calculateType = 0;
 		if (type == 4) {
 			businessDesc = "开卡";
@@ -743,7 +745,7 @@ public class OpenCardService {
 		}
 		else {
 			businessDesc = "还款";
-			orderInfo.setOrderType(3);
+			orderInfo.setOrderType(2);
 		}
 		if (orderCode.equals(null) || orderCode.length() ==0) {
 		    orderCode = staffService.getOrderCode("order_info", storeId);
@@ -802,6 +804,7 @@ public class OpenCardService {
 		orderDetail.setStoreId(storeId);
 		orderDetail.setCreateTime(DateUtil.getCurTime());
 		orderDetail.setLastOperatorId(lastOperatorId);
+		orderDetail.setDetailCalculate(calculate);
 		orderDetailMapper.insert(orderDetail);
 
 		
@@ -811,11 +814,22 @@ public class OpenCardService {
 			rewarDetail.setOrderId(orderInfo.getOrderId());
 			rewarDetail.setDeptId(deptIds.get(0));
 			rewarDetail.setProjectName(businessDesc + "赠送");
-			rewarDetail.setOrderType(7);
+			int number =7;
+		    if (type == 4) {
+		        number = 7;
+	        } 
+	        else if (type == 5) {
+	            number = 9;
+	        } 
+	        else if (type == 6) {
+	            number = 10;
+	        }
+			rewarDetail.setOrderType(number);
 			rewarDetail.setLevelId(levelId);
 			rewarDetail.setProjectPrice(rewardAmount);
 			rewarDetail.setDiscountAmount(rewardAmount);
-			rewarDetail.setRealPrice(BigDecimal.ZERO);
+//			rewarDetail.setRealPrice(BigDecimal.ZERO);
+			rewarDetail.setRealPrice(giftmoneyAmount);
 			rewarDetail.setProjectCount(1);
 			rewarDetail.setStoreId(storeId);
 			rewarDetail.setCreateTime(DateUtil.getCurTime());

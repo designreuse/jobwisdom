@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -21,6 +22,7 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.BusinessTotailDto;
 import com.zefun.web.dto.CardConsumedTrendData;
 import com.zefun.web.dto.CardSaleSummaryDto;
 import com.zefun.web.dto.DeptSummaryByDayDto;
@@ -41,7 +43,9 @@ import com.zefun.web.entity.ShopAccountState;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.CrossShopAccountMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
+import com.zefun.web.mapper.MoneyFlowMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
+import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.ShopAccountStateMapper;
 import com.zefun.web.mapper.StoreInfoMapper;
 
@@ -75,6 +79,354 @@ public class BusinessReporterService {
     /**门店对账服务借口*/
     @Autowired
     private ShopAccountStateMapper stateMapper;
+    
+    /**订单*/
+    @Autowired
+    private OrderInfoMapper orderInfoMapper;
+    /**明细*/
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
+    /**资金流水*/
+    @Autowired
+    private MoneyFlowMapper moneyFlowMapper;
+    
+    /**
+     * 营业汇总
+    * @author 老王
+    * @date 2016年8月15日 下午12:00:54 
+    * @param roleId 角色标识
+    * @param storeAccountOrId 企业号或门店标识
+    * @return ModelAndView
+     */
+    public ModelAndView businessSummaryView (Integer roleId, String storeAccountOrId) {
+    	ModelAndView mav = new ModelAndView(View.BusinessReport.BUSINESSSUMMARY);
+    	Integer storeId = null;
+    	if (roleId == 1) {
+    		List<StoreInfo> storeInfoList = storeInfoMapper.selectByStoreAccount(storeAccountOrId);
+    		mav.addObject("storeInfoList", storeInfoList);
+    		storeId = storeInfoList.get(0).getStoreId();
+    	}
+    	else {
+    		storeId = Integer.valueOf(storeAccountOrId);
+    	}
+    	
+    	Map<String, Object> dataMap = packgeData(storeId, 2, DateUtil.getCurMonth());
+    	
+    	mav.addObject("dataMapStr", JSONObject.fromObject(dataMap).toString());
+        mav.addObject("role", roleId);
+        mav.addObject("storeId", storeId);
+        return mav;
+    }
+    
+    /**
+     * 走势图
+    * @author 老王
+    * @date 2016年8月16日 下午1:32:41 
+    * @param storeId 门店id
+    * @param time      时间
+    * @param dateType 时间类型（1：年， 2：月）
+    * @return BaseDto
+     */
+    public BaseDto trendBusinessSummary (Integer storeId, String time, Integer dateType) {
+    	Map<String, Object> dataMap = packgeData(storeId, dateType, time);
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, dataMap);
+    }
+    
+    /**
+     * 营业汇总分析
+    * @author 老王
+    * @date 2016年8月16日 下午12:04:23 
+    * @param storeId 门店标识
+    * @param startDate 开始时间
+    * @param endDate 结束时间
+    * @return BaseDto
+     */
+    public BaseDto totailBusinessSummary (Integer storeId, String startDate, String endDate) {
+    	Map<String, Object> selectCash = new HashMap<>();
+    	selectCash.put("storeId", storeId);
+    	selectCash.put("beginDay", startDate);
+    	selectCash.put("endDay", endDate);
+    	Map<String, Object> cashMap = orderInfoMapper.selectTatalCashAmount(selectCash);
+    	
+    	List<BusinessTotailDto> dtoList = orderDetailMapper.selectTataiRealPriceByType(selectCash);
+    	
+    	Map<String, Double> serverMoneyMap = new HashMap<>();
+    	
+    	double cardMoney = 0.00;
+    	double debtMoney = 0.00;
+    	double projectMoney = 0.00;
+    	double goodsMoney = 0.00;
+    	double comboMoney = 0.00;
+    	
+    	double cardProportion = 0;
+    	double debtProportion = 0;
+    	double projectProportion = 0;
+    	double goodsProportion = 0;
+    	double comboProportion = 0;
+    	
+    	double projectTotailCalculate = 0.00;
+    	Integer projectTotailSize = 0;
+    	double isAssignListCalculate = 0.00;
+    	Integer isAssignSize = 0;
+    	double isNoAssignListCalculate = 0.00;
+    	Integer isNoAssignSize = 0;
+    	double assignProportion = 0;
+    	
+    	double goodsTotailCalculate = 0.00;
+    	Integer goodsTotailSize = 0;
+    	double mallListCalculate = 0.00;
+    	Integer mallSize = 0;
+    	double storeListCalculate = 0.00;
+    	Integer storeSize = 0;
+    	double mallProportion = 0;
+
+    	//卡项业绩
+    	double cardTotailCalculate = 0.00;
+    	//疗程业绩
+    	double comboTotailCalculate = 0.00;
+    	//
+    	if (dtoList.size() > 0) {
+    		cardMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("4") 
+      			  || f.getCreateTime().equals("5") || f.getCreateTime().equals("6"))
+                    .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+      	
+	      	debtMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("8"))
+	                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+	      	
+	      	projectMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("1"))
+	                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+	      	
+	      	goodsMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("2"))
+	                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+	      	
+	      	comboMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("3"))
+	                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+	      	
+	      	double totailMoney = cardMoney + debtMoney + projectMoney + goodsMoney + comboMoney;
+	      	
+	      	
+	      	if (totailMoney > 0) {
+	      		cardProportion = (cardMoney/totailMoney)*100;
+	        	debtProportion = (debtMoney/totailMoney)*100;
+	        	projectProportion = (projectMoney/totailMoney)*100;
+	        	goodsProportion = (goodsMoney/totailMoney)*100;
+	        	comboProportion = (comboMoney/totailMoney)*100;
+	      	}
+    	}
+    	
+    	serverMoneyMap.put("cardMoney", cardMoney);
+      	serverMoneyMap.put("debtMoney", debtMoney);
+      	serverMoneyMap.put("projectMoney", projectMoney);
+      	serverMoneyMap.put("goodsMoney", goodsMoney);
+      	serverMoneyMap.put("comboMoney", comboMoney);
+      	
+      	serverMoneyMap.put("cardProportion", cardProportion);
+      	serverMoneyMap.put("debtProportion", debtProportion);
+      	serverMoneyMap.put("projectProportion", projectProportion);
+      	serverMoneyMap.put("goodsProportion", goodsProportion);
+      	serverMoneyMap.put("comboProportion", comboProportion);
+    	
+      	
+      	List<BusinessTotailDto> detailCalculateList = orderDetailMapper.selectDetailCalculateByType(selectCash);
+      	
+      	if (detailCalculateList.size() > 0) {
+      		//汇总项目业绩
+      		List<BusinessTotailDto> projectList = detailCalculateList.parallelStream().filter(a -> "1".equals(a.getCreateTime()))
+  				      .collect(Collectors.toList());
+      		projectTotailCalculate =  projectList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
+      		projectTotailSize = projectList.size();
+      		
+      		List<BusinessTotailDto> isAssignList = projectList.parallelStream().filter(a -> a.getIsAssign() == 1)
+		      		  .collect(Collectors.toList());
+      		
+      		isAssignListCalculate =  isAssignList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
+      		isAssignSize = isAssignList.size();
+      		
+      		isNoAssignListCalculate = projectTotailCalculate - isAssignListCalculate;
+      		isNoAssignSize = projectTotailSize - isAssignSize;
+      		
+      		if (projectTotailSize == 0) {
+      			assignProportion = 0;
+      		}
+      		else {
+      			assignProportion = (isAssignSize/projectTotailSize)*100;
+      		}
+      		
+      		//汇总商品业绩
+      		List<BusinessTotailDto> goodsList = detailCalculateList.parallelStream().filter(a -> "2".equals(a.getCreateTime()))
+				        .collect(Collectors.toList());
+      		goodsTotailCalculate =  goodsList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
+      		goodsTotailSize = goodsList.size();
+      		
+      		List<BusinessTotailDto> mallList = goodsList.parallelStream().filter(a -> a.getOrderType() == 3)
+		      		  .collect(Collectors.toList());
+      		
+      		mallListCalculate = mallList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();;
+        	mallSize = mallList.size();
+      		
+        	storeListCalculate = goodsTotailCalculate - mallListCalculate;
+        	storeSize = goodsTotailSize - mallSize;
+        	
+        	if (goodsTotailSize == 0) {
+        		mallProportion = 0;
+        	}
+        	else {
+        		mallProportion = (mallSize/goodsTotailSize)*100;
+        	}
+        	
+        	cardTotailCalculate = detailCalculateList.parallelStream().filter(a -> "4".equals(a.getCreateTime()) 
+        			|| "5".equals(a.getCreateTime()) || "6".equals(a.getCreateTime()))
+        	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+        	
+        	comboTotailCalculate = detailCalculateList.parallelStream().filter(a -> "3".equals(a.getCreateTime()))
+        	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+      	}
+      	Map<String, Object> projectMap = new HashMap<>();
+      	projectMap.put("projectTotailCalculate", projectTotailCalculate);
+  		projectMap.put("projectTotailSize", projectTotailSize);
+  		projectMap.put("isAssignListCalculate", isAssignListCalculate);
+  		projectMap.put("isAssignSize", isAssignSize);
+  		projectMap.put("isNoAssignListCalculate", isNoAssignListCalculate);
+  		projectMap.put("isNoAssignSize", isNoAssignSize);
+  		projectMap.put("assignProportion", assignProportion);
+  		
+  		Map<String, Object> goodsMap = new HashMap<>();
+  		goodsMap.put("goodsTotailCalculate", goodsTotailCalculate);
+  		goodsMap.put("goodsTotailSize", goodsTotailSize);
+  		goodsMap.put("mallListCalculate", mallListCalculate);
+  		goodsMap.put("mallSize", mallSize);
+  		goodsMap.put("storeListCalculate", storeListCalculate);
+  		goodsMap.put("storeSize", storeSize);
+  		goodsMap.put("mallProportion", mallProportion);
+      	
+  		List<BusinessTotailDto> cardList = moneyFlowMapper.selectFlowAmount(selectCash);
+  		
+  		double payMoney = cardList.parallelStream().filter(a -> a.getOrderType() == 1)
+    	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+  		
+  		double addTotailMoney = cardList.parallelStream().filter(a -> a.getOrderType() == 2)
+    	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+  		
+  		double giveMoney = cardList.parallelStream().filter(a -> a.getOrderType() == 2 && (("升级赠送").equals(a.getCreateTime())
+  				   || ("开卡赠送").equals(a.getCreateTime()) || ("充值赠送").equals(a.getCreateTime())))
+    	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+  		
+  		double addMoney = addTotailMoney - giveMoney;
+  		
+  		double changeMoney = addTotailMoney - payMoney;
+  		
+  		Map<String, Object> cardMap = new HashMap<>();
+  		cardMap.put("cardTotailCalculate", cardTotailCalculate);
+  		cardMap.put("addTotailMoney", addTotailMoney);
+  		cardMap.put("addMoney", addMoney);
+  		cardMap.put("giveMoney", giveMoney);
+  		cardMap.put("payMoney", payMoney);
+  		cardMap.put("changeMoney", changeMoney);
+  		
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("cashMap", cashMap);
+    	map.put("serverMoneyMap", serverMoneyMap);
+    	map.put("projectMap", projectMap);
+    	map.put("goodsMap", goodsMap);
+    	map.put("cardMap", cardMap);
+    	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
+    }
+    
+    /**
+     * 组装数据
+    * @author 老王
+    * @date 2016年8月15日 下午6:04:20 
+    * @param storeId 门店标识
+    * @param dateType 时间类型（1：年， 2：月）
+    * @param time 时间
+    * @return Map<String, Object>
+     */
+    public Map<String, Object> packgeData(Integer storeId, Integer dateType, String time) {
+    	
+    	Map<String, Object> dataMap = new HashMap<>();
+    	
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("storeId", storeId);
+    	map.put("dateType", dateType);
+    	map.put("time", time);
+    	
+    	List<BusinessTotailDto> cashList = orderInfoMapper.selectOrderInfoBySummary(map);
+    	List<BusinessTotailDto> calculateList = orderDetailMapper.selectDetailCalculate(map);
+    	
+    	String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+    	
+    	List<Double> countList = new ArrayList<>();
+    	List<Double> priceList = new ArrayList<>();
+    	
+    	if (dateType == 1) {
+            String [] months = {"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"};
+            
+            dataMap.put("timeList", months);            
+            String year = time.substring(0, 4);
+            
+            //年的数据
+            for (int i = 0; i < month.length; i++) {
+                int g = i;
+                Double count = 0.0;
+                Double price = 0.0;
+                if (cashList.size() != 0){
+                	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(year+"-"+month[g]))
+                             .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+                }
+                
+                if (calculateList.size() != 0) {
+                	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(year+"-"+month[g]))
+                            .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+                }
+                countList.add(count);
+                priceList.add(price);
+            }
+    	}
+    	else {
+    		List<String> day = new  ArrayList<>();
+    		Integer monthDay = DateUtil.monthDay(time);
+    		
+    		for (int j = 1; j <= monthDay; j++) {
+                int g = j;
+                Double count = 0.0;
+                Double price = 0.0;
+                //天数
+                day.add(String.valueOf(j)+ "日");
+                if (j<11) {
+                	if (cashList.size() != 0){
+                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                                 .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+                    }
+                    
+                    if (calculateList.size() != 0) {
+                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                                .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+                    }
+                }
+                else {
+                	if (cashList.size() != 0){
+                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                                 .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+                    }
+                    
+                    if (calculateList.size() != 0) {
+                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                                .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+                    }
+
+                }
+                countList.add(count);
+                priceList.add(price);
+            }
+    		
+    		dataMap.put("timeList", day);
+    	}
+    	
+    	dataMap.put("countList", countList);
+    	dataMap.put("priceList", priceList);
+    	
+    	return dataMap;
+    }
     
     /**
     * @author 乐建建

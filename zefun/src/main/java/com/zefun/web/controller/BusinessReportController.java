@@ -18,7 +18,6 @@ import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.dto.BusinessSummaryDto;
 import com.zefun.web.dto.CardSaleSummaryDto;
 import com.zefun.web.dto.CardconsumptionStoreSummaryResultDto;
 import com.zefun.web.dto.CashIncomeDto;
@@ -37,7 +36,7 @@ import net.sf.json.JSONArray;
 
 /**
 * 营业报表控制类
-* @author 张进军
+* @author 老王
 * @date Jan 16, 2016 8:45:37 PM
 */
 @Controller
@@ -58,33 +57,63 @@ public class BusinessReportController extends BaseController {
      * 营业汇总
     * @author 张进军
     * @date Jan 16, 2016 8:49:33 PM
-    * @param storeId 门店id
-    * @param begin      开始时间
-    * @param end        结束时间
-    * @param dateType   日期类型
     * @param request    请求对象
     * @param response   响应对象
     * @return   营业汇总页面
      */
     @RequestMapping(value = Url.Businessreport.SUMMARY)
-    public ModelAndView businessSummaryView(@RequestParam(required = false) Integer storeId, String begin, String end, Integer dateType, 
-            HttpServletRequest request, HttpServletResponse response){
-        boolean flag=true;
-        if (storeId == null || storeId==0) {
-            storeId = getStoreId(request);
-            flag=false;
+    public ModelAndView businessSummaryView(HttpServletRequest request, HttpServletResponse response){
+        Integer roleId = getRoleId(request);
+        String storeAccountOrId = null;
+        if (roleId == 1) {
+        	storeAccountOrId = getStoreAccount(request);
         }
-        SummaryResultDto dto=new SummaryResultDto();
-        dto.setBegin(begin);
-        dto.setEnd(end);
-        dto.setDateType(dateType);
-        dto.setStoreId(storeId);
-        BusinessSummaryDto summaryResult = storeInfoService.getBusinessSummaryData(dto, flag);
-        ModelAndView mav = new ModelAndView(View.BusinessReport.BUSINESSSUMMARY);
-        mav.addObject("summaryResult", summaryResult);
-        return mav;
+        else {
+        	storeAccountOrId = getStoreId(request).toString();
+        }
+        
+        return businessReporter.businessSummaryView(roleId, storeAccountOrId);
     }
 
+    /**
+     * 走势图
+    * @author 老王
+    * @date 2016年8月16日 下午12:03:16 
+    * @param request    请求对象
+    * @param response   响应对象
+    * @param storeId 门店id
+    * @param time      时间
+    * @param dateType 时间类型（1：年， 2：月）
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Businessreport.ACTION_TREND_BUSINESS_SUMMAR)
+    @ResponseBody
+    public BaseDto trendBusinessSummary (HttpServletRequest request, HttpServletResponse response,
+    		  Integer storeId, String time, Integer dateType) {
+    	if (storeId == null) {
+    		storeId = getStoreId(request);
+    	}
+    	return businessReporter.trendBusinessSummary(storeId, time, dateType);
+    }
+    
+    /**
+     * 营业汇总分析
+    * @author 老王
+    * @date 2016年8月16日 下午12:03:16 
+    * @param request    请求对象
+    * @param response   响应对象
+    * @param storeId 门店id
+    * @param startDate  开始时间
+    * @param endDate 结束时间
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Businessreport.TOTAIL_BUSINESS_SUMMARY)
+    @ResponseBody
+    public BaseDto totailBusinessSummary (HttpServletRequest request, HttpServletResponse response,
+    		  Integer storeId, String startDate, String endDate) {
+    	return businessReporter.totailBusinessSummary(storeId, startDate, endDate);
+    }
+    
     /**
      * 现金收入
     * @author 张进军

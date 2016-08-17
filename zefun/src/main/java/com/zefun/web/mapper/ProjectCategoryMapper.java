@@ -92,6 +92,15 @@ public interface ProjectCategoryMapper {
     List<ProjectCategory> selectAllCategoryByStoreIdOrDeptId(Map<String, Integer> map);
     
     /**
+     *  门店下又无该名称
+    * @author 骆峰
+    * @date 2016年8月15日 上午10:16:17
+    * @param map map
+    * @return List<ProjectCategory>
+     */
+    List<ProjectCategory> selectByName(Map<String, Object> map);
+    
+    /**
      * 根据项目系列id集查询项目系列集
     * @author DavidLiang
     * @date 2016年2月19日 下午8:09:23

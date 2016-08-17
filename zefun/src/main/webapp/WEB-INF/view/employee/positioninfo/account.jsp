@@ -341,13 +341,18 @@ function updatePositon(type, positionName, positionIds){
 /**保存岗位信息*/
 function updatePosition(button){
 	var positionName = jQuery("input[name='positionName']").val();
-	var data = "positionName="+positionName+"&positionId="+positionId;
+	
+	var data = "positionName="+positionName+"&positionId="+positionId+ "&storeId=" + jQuery(".out_roll_ul").find("li[class='active']").attr("storeId");
 	jQuery.ajax({
 		type : "post",
 		url : baseUrl + "position/action/update",
 		data : data,
 		dataType : "json",
 		success : function(e){
+			if(e.code !=0){
+				dialog(e.msg);
+				return;
+			}
 			jQuery("em[positionId='"+positionId+"']").text(positionName);
 			jQuery(button).next().click();
 		}

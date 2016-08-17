@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zefun.common.consts.Url;
+import com.zefun.common.consts.App.Session;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.entity.PositionInfo;
@@ -86,7 +87,11 @@ public class PositioninfoController extends BaseController{
 	@ResponseBody
 	public BaseDto updatePositioninfo(HttpServletRequest request, HttpServletResponse response, 
 	        PositionInfo positioninfo){
-		Integer storeId = getStoreId(request);
+		Integer storeId = null;
+		Object attribute = request.getSession().getAttribute(Session.STORE_ID);
+		if (attribute !=null){
+		    storeId = Integer.parseInt(attribute.toString());
+		}
 		int result=positioninfoService.updatePositioninfo(positioninfo);
 		if (result==1){
 			return new BaseDto(-3, "岗位编码已经存在");
