@@ -328,6 +328,7 @@ public class RabbitService {
                     if (isLogin != null){
                         chat.setToUser(userId);
                         rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
+                        logger.info("预约通知推送门店: -->" + JSONObject.fromObject(chat).toString());
                     }
                 }
             }
