@@ -305,10 +305,10 @@
     <div class="add_balance" style="border-radius: 12px;overflow: hidden;">
 	  <p>收支明细</p>
 	  <ul class="add_balance_fix clearfix">
-			 <li style="width:95px">收支金额（元）</li>
-			 <li style="width:95px">当前金额（元）</li>
+			 <li style="width:94px">收支金额（元）</li>
+			 <li style="width:96px">当前金额（元）</li>
 			 <li style="width:154px">收支类型</li>
-			 <li style="width:314px;border-right:1px solid black">消费时间</li>
+			 <li style="width:314px;border-right:1px solid #ccc">消费时间</li>
 	 </ul>
 	  <div class="add_balance_content">
 	     <table id = "consumptionRecordTBODY">
@@ -353,10 +353,10 @@
   <div class="assigned" style="width: 590px; height: 410px;border-radius: 12px;overflow: hidden;">
      <p>购买分配记录</p>
      <ul class="assigned_table_point clearfix">
-		   <li style="width:149px">公司/门店 </li>
-		   <li style="width:225px">时间 </li>
-		   <li style="width:91px">当前余量（条）</li>
-		   <li style="width:92px;border-right:1px solid black">数量（条）</li>
+		   <li style="width:142px">公司/门店 </li>
+		   <li style="width:212px">时间 </li>
+		   <li style="width:101px">当前余量（条）</li>
+		   <li style="width:95px;border-right:1px solid #ccc">数量（条）</li>
      </ul>
      <div class="assigned_table">
          <table id = "rechargeFlowTable">
@@ -394,7 +394,7 @@
 		      <option value="5">5年</option>
 		   </select>
 		</span>
-		<span class="assigned_table_span"  style="margin:0;position:relative;top:104px;left:350px;font-size:14px">
+		<span class="assigned_table_span"  style="margin:0;position:relative;left:350px;font-size:14px;top:15px">
 		   <em>缴费金额</em>
 		   <em name = "payableEM" style="color:red;font-size:16px;">0.00</em>
 		   <i style="position:relative;left:-25px">元</i>

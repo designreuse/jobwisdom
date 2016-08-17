@@ -134,11 +134,7 @@
 					<td>总变动</td>
 				  </tr>
 				   <tr name = "cardTR">
-					<td>111</td>
-					<td>111</td>
-					<td>111</td>
-					<td>111</td>
-					<td>111</td>
+					
 				  </tr>
 				</table>
 			  </div>
@@ -150,15 +146,14 @@
 				  </tr>
 				  <tr>
 					<td>销售业绩</td>
-					<td>新增疗程金</td>
+					<!-- <td>新增疗程金</td>
 					<td>消耗疗程卡金</td>
-					<td>总变动</td>
+					<td>总变动</td> -->
 				  </tr>
-				   <tr>
+				   <tr name = "comboTR">
+					<!-- <td>111</td>
 					<td>111</td>
-					<td>111</td>
-					<td>111</td>
-					<td>111</td>
+					<td>111</td> -->
 				  </tr>
 				</table>
 			  </div>
@@ -167,21 +162,21 @@
 		  <div class="total_score_right clearfix">
 		     <div class="total_score_right_1">
 			   <p>卡项</p>
-			   <span>30000.00</span>
+			   <span name = "cardTotailCalculate"></span>
 			 </div>
-		    <div class="total_score_right_2">
+		    <div class="total_score_right_2" name = "totailCalculate">
 			   5000.00
 			</div>
 		    <div class="total_score_right_3">
 			   <p>项目业绩</p>
-			   <span>30000.00</span>
+			   <span name = "projectTotailCalculate"></span>
 			 </div> 
 			 <div class="total_score_right_4">
 			   <p>外卖</p>
-			   <span>20000.00</span>
+			   <span name = "goodsTotailCalculate"></span>
 			 </div>
 			  <div class="total_score_right_5">
-			   <p>20000.00</p>
+			   <p name="comboTotailCalculate"></p>
 			   <span>疗程</span>
 			 </div>
 		  </div>
@@ -196,17 +191,17 @@
 	  <tr>
 	     <td>总客次</td>
 		 <td>客单价</td>
-		 <td>指定客</td>
-		 <td>非指定客</td>
-		 <td>会员</td>
-		 <td>散客</td>
-		 <td>男客</td>
-		 <td>女客</td>
+		 <td>指定客次</td>
+		 <td>非指定客次</td>
+		 <td>会员客次</td>
+		 <td>散客客次</td>
+		 <td>男客客次</td>
+		 <td>女客客次</td>
 	  </tr>
 	</table>
     <div class="business_collect_table_1">
 	   <table>
-	     <tr>
+	     <tr name = "customerTR">
 		   <td></td>
 		   <td></td>
 		   <td></td>
@@ -215,40 +210,6 @@
 		   <td></td>
 		   <td></td>
 		   <td></td>
-		   
-		 </tr>
-		  <tr>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   
-		 </tr>
-		  <tr>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   
-		 </tr>
-		  <tr>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   <td></td>
-		   
 		 </tr>
 	   </table>
 	</div>
@@ -264,15 +225,15 @@
    <!-- <div class="left-show-btn">
         <span class="iconfont icon-quanbu110"></span>
     </div>-->
-    <a href="" class="showmenu"></a>
+    <!-- <a href="" class="showmenu"></a>
 
-    <i class="iconfont icon-fuzhi"></i>
+    <i class="iconfont icon-fuzhi"></i> -->
 
 
     <!--返回顶部-->
-<div id="return-top" class="return-top">
+<!-- <div id="return-top" class="return-top">
   <span class="iconfont icon-huidaodingbu"></span>
-</div>
+</div> -->
 
 <!--轮播-->
 

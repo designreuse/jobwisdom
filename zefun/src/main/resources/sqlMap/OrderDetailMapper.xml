@@ -792,7 +792,9 @@ UNION ALL
      select ifnull(a.detail_calculate, 0) as valueMoney, 
             a.order_type as createTime, 
             a.is_assign as isAssign,
-            b.order_type as  orderType
+            b.order_type as  orderType,
+            b.member_id as memberId,
+            b.sex as sex
      from order_detail a 
      left join order_info b on a.order_id = b.order_id
      where b.is_deleted = 0 and b.order_status in (3, 4)
@@ -1299,10 +1301,10 @@ UNION ALL
    AND b.is_deleted =0 AND a.is_deleted =0 AND b.store_id = ${storeId} AND a.order_type = 1
    <choose>
 	  <when test="dateType == 1">
-         AND left(a.create_time, 4) = ${time}
+         AND left(a.create_time, 4) = '${time}'
 	  </when>
 	  <otherwise>
-	     AND left(a.create_time, 7) = ${time}
+	     AND left(a.create_time, 7) = '${time}'
 	  </otherwise>
    </choose> 
   </select>
