@@ -283,14 +283,14 @@ function changeGiftmoney (uid) {
 
 //查询当前疗程抵扣，修改其他option中疗程
 function changeCombo (uid) {
-	var tatailGiftmoney = new Big(allOffMap[uid]);
-	//查询所有已选中的礼金总额
+	var tatailCombo = new Big(allOffMap[uid]);
+	//查询所有已选中的疗程
 	var selectedList = jQuery("select[name='selectOff'] option:selected");
 	
 	for (var i = 0; i < selectedList.length; i++) {
 		var selectedObj =  selectedList[i];
 		if (jQuery(selectedObj).attr("offtype") == 1) {
-			tatailGiftmoney = tatailGiftmoney.minus(new Big(1));
+			tatailCombo = tatailCombo.minus(new Big(1));
 		}
 	}
 	//未选中的礼金抵扣修改
@@ -299,8 +299,8 @@ function changeCombo (uid) {
 		var discountAmount = new Big(jQuery(selectedObj).parents(".change_price__spread").find("span[name='discountAmount']").attr("discountAmount"));
 		if (jQuery(selectedObj).attr("offtype") != 1) {
 			var option  =jQuery(selectedObj).parents("select").find("option[uid='"+uid+"']");
-			var maxOffAmount = new  Big(option.attr("maxOffAmount"));
-			if (tatailGiftmoney == 0) {
+			/*var maxOffAmount = new  Big(option.attr("maxOffAmount"));*/
+			if (tatailCombo == 0) {
       		  option.addClass("hide");
 			}
 			else {
@@ -539,8 +539,8 @@ function submitOrderInfo() {
 						str += '<td >'+step.positionName+'</td>';
 					}
 					str += '<td >'+step.employeeCodeName+'</td>'+
-						   '<td ><input type="text" name = "commissionCalculate" value = "'+step.commissionCalculate+'"><em>元</em></td>'+
-							'<td ><input type="text" name = "commissionAmount" value = "'+step.commissionAmount+'"><em>元</em></td>'+
+						   '<td ><input type="text" name = "commissionCalculate" value = "'+new Big(step.commissionCalculate).toFixed(2)+'"><em>元</em></td>'+
+							'<td ><input type="text" name = "commissionAmount" value = "'+new Big(step.commissionAmount).toFixed(2)+'"><em>元</em></td>'+
 						 '</tr>';
 					table.append(str);
 
