@@ -13,8 +13,24 @@ public class BusinessTotailDto {
     private Integer isAssign;
     /** 订单类型*/
     private Integer orderType;
+    /** 会员标识*/
+    private Integer memberId;
+    /** 性别*/
+    private String sex;
     
     
+	public Integer getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 	public Integer getOrderType() {
 		return orderType;
 	}

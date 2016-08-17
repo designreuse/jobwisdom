@@ -213,88 +213,109 @@ jQuery(function(){
 					return;
 				}
 				var cashMap = e.msg.cashMap;
-				var totalAmount = cashMap.totalAmount;
-				var cashAmount = cashMap.cashAmount;
-				var unionpayAmount = cashMap.unionpayAmount;
-				var wechatAmount = cashMap.wechatAmount;
-				var alipayAmount = cashMap.alipayAmount;
-				var groupAmount = cashMap.groupAmount;
+				var totalAmount = new Big(cashMap.totalAmount).toFixed(2);
+				var cashAmount = new Big(cashMap.cashAmount).toFixed(2);
+				var unionpayAmount = new Big(cashMap.unionpayAmount).toFixed(2);
+				var wechatAmount = new Big(cashMap.wechatAmount).toFixed(2);
+				var alipayAmount = new Big(cashMap.alipayAmount).toFixed(2);
+				var groupAmount = new Big(cashMap.groupAmount).toFixed(2);
 				var pieData = [
-	                ['微信:'+wechatAmount+'元', wechatAmount],
-	                ['团购:'+groupAmount+'元', groupAmount],
-	                ['银联:'+unionpayAmount+'元', unionpayAmount],
-	                ['支付宝:'+alipayAmount+'元', alipayAmount],
-	                ['现金:'+cashAmount+'元', cashAmount]
+	                ['微信:'+wechatAmount+'元', Number(wechatAmount)],
+	                ['团购:'+groupAmount+'元', Number(groupAmount)],
+	                ['银联:'+unionpayAmount+'元', Number(unionpayAmount)],
+	                ['支付宝:'+alipayAmount+'元', Number(alipayAmount)],
+	                ['现金:'+cashAmount+'元', Number(cashAmount)]
 	            ]
 				piePage(pieData);
 				
 				var serverMoneyMap = e.msg.serverMoneyMap;
 				
-				var cardMoney = serverMoneyMap.cardMoney;
-				var debtMoney = serverMoneyMap.debtMoney;
-				var projectMoney = serverMoneyMap.projectMoney;
-				var goodsMoney = serverMoneyMap.goodsMoney;
-				var comboMoney = serverMoneyMap.comboMoney;
+				var cardMoney = new Big(serverMoneyMap.cardMoney).toFixed(2);
+				var debtMoney = new Big(serverMoneyMap.debtMoney).toFixed(2);
+				var projectMoney = new Big(serverMoneyMap.projectMoney).toFixed(2);
+				var goodsMoney = new Big(serverMoneyMap.goodsMoney).toFixed(2);
+				var comboMoney = new Big(serverMoneyMap.comboMoney).toFixed(2);
 		    	
-				var cardProportion = serverMoneyMap.cardProportion;
-				var debtProportion = serverMoneyMap.debtProportion;
-				var projectProportion = serverMoneyMap.projectProportion;
-				var goodsProportion = serverMoneyMap.goodsProportion;
-				var comboProportion = serverMoneyMap.comboProportion;
+				var cardProportion = new Big(serverMoneyMap.cardProportion).toFixed(2);
+				var debtProportion = new Big(serverMoneyMap.debtProportion).toFixed(2);
+				var projectProportion = new Big(serverMoneyMap.projectProportion).toFixed(2);
+				var goodsProportion = new Big(serverMoneyMap.goodsProportion).toFixed(2);
+				var comboProportion = new Big(serverMoneyMap.comboProportion).toFixed(2);
                 
 				jQuery(".business_canvas_right_content").find("table").empty();
 				jQuery(".business_canvas_right_content").find("table").append('<tr>'+
 																			    '<td>卡项销售</td>'+
-																				'<td>'+cardMoney+'</td>'+
-																				'<td>'+cardProportion+'%</td>'+
+																				'<td>'+new Big(cardMoney).toFixed(2)+'</td>'+
+																				'<td>'+new Big(cardProportion).toFixed(2)+'%</td>'+
 																			  '</tr>'+
 																			  '<tr>'+
 																			    '<td>挂账还款</td>'+
-																				'<td>'+debtMoney+'</td>'+
-																				'<td>'+debtProportion+'%</td>'+
+																				'<td>'+new Big(debtMoney).toFixed(2)+'</td>'+
+																				'<td>'+new Big(debtProportion).toFixed(2)+'%</td>'+
 																			  '</tr>'+
 																			  '<tr>'+
 																			    '<td>服务项目</td>'+
-																				'<td>'+projectMoney+'</td>'+
-																				'<td>'+projectProportion+'%</td>'+
+																				'<td>'+new Big(projectMoney).toFixed(2)+'</td>'+
+																				'<td>'+new Big(projectProportion).toFixed(2)+'%</td>'+
 																			  '</tr>'+
 																			  '<tr>'+
 																			    '<td>商品销售</td>'+
-																				'<td>'+goodsMoney+'</td>'+
-																				'<td>'+goodsProportion+'%</td>'+
+																				'<td>'+new Big(goodsMoney).toFixed(2)+'</td>'+
+																				'<td>'+new Big(goodsProportion).toFixed(2)+'%</td>'+
 																			  '</tr>'+
 																			  '<tr>'+
 																			    '<td>疗程销售</td>'+
-																				'<td>'+comboMoney+'</td>'+
-																				'<td>'+comboProportion+'%</td>'+
+																				'<td>'+new Big(comboMoney).toFixed(2)+'</td>'+
+																				'<td>'+new Big(comboProportion).toFixed(2)+'%</td>'+
 																			  '</tr>');
 				var goodsMap = e.msg.goodsMap;
 				jQuery("tr[name='goodsTR']").empty();
-				jQuery("tr[name='goodsTR']").append('<td>'+goodsMap.goodsTotailCalculate+'</td>'+
+				jQuery("tr[name='goodsTR']").append('<td>'+new Big(goodsMap.goodsTotailCalculate).toFixed(2)+'</td>'+
 													  '<td>'+goodsMap.goodsTotailSize+'</td>'+
-													  '<td>'+goodsMap.mallListCalculate+'</td>'+
-													  '<td>'+goodsMap.storeListCalculate+'</td>'+
+													  '<td>'+new Big(goodsMap.mallListCalculate).toFixed(2)+'</td>'+
+													  '<td>'+new Big(goodsMap.storeListCalculate).toFixed(2)+'</td>'+
 													  '<td>'+goodsMap.mallSize+'</td>'+
 													  '<td>'+goodsMap.storeSize+'</td>'+
-													  '<td>'+goodsMap.mallProportion+'%</td>');
+													  '<td>'+new Big(goodsMap.mallProportion).toFixed(2)+'%</td>');
 				
 				var projectMap = e.msg.projectMap;
 				jQuery("tr[name='projectTR']").empty();
-				jQuery("tr[name='projectTR']").append('<td>'+projectMap.projectTotailCalculate+'</td>'+
+				jQuery("tr[name='projectTR']").append('<td>'+new Big(projectMap.projectTotailCalculate).toFixed(2)+'</td>'+
 													  '<td>'+projectMap.projectTotailSize+'</td>'+
-													  '<td>'+projectMap.isAssignListCalculate+'</td>'+
-													  '<td>'+projectMap.isNoAssignListCalculate+'</td>'+
+													  '<td>'+new Big(projectMap.isAssignListCalculate).toFixed(2)+'</td>'+
+													  '<td>'+new Big(projectMap.isNoAssignListCalculate).toFixed(2)+'</td>'+
 													  '<td>'+projectMap.isAssignSize+'</td>'+
 													  '<td>'+projectMap.isNoAssignSize+'</td>'+
-													  '<td>'+projectMap.assignProportion+'%</td>');
+													  '<td>'+new Big(projectMap.assignProportion).toFixed(2)+'%</td>');
 				
 				var cardMap = e.msg.cardMap;
 				jQuery("tr[name='cardTR']").empty();
-				jQuery("tr[name='cardTR']").append('<td>'+cardMap.cardTotailCalculate+'</td>'+
-													'<td>'+cardMap.addMoney+'</td>'+
-													'<td>'+cardMap.giveMoney+'</td>'+
-													'<td>'+cardMap.payMoney+'</td>'+
-													'<td>'+cardMap.changeMoney+'</td>');
+				jQuery("tr[name='cardTR']").append('<td>'+new Big(cardMap.cardTotailCalculate).toFixed(2)+'</td>'+
+													'<td>'+new Big(cardMap.addMoney).toFixed(2)+'</td>'+
+													'<td>'+new Big(cardMap.giveMoney).toFixed(2)+'</td>'+
+													'<td>'+new Big(cardMap.payMoney).toFixed(2)+'</td>'+
+													'<td>'+new Big(cardMap.changeMoney).toFixed(2)+'</td>');
+				
+				var comboTotailCalculate = e.msg.comboTotailCalculate;
+				jQuery("tr[name='comboTR']").empty();
+				jQuery("tr[name='comboTR']").append('<td>'+new Big(comboTotailCalculate).toFixed(2)+'</td>');
+				
+				jQuery("[name='cardTotailCalculate']").text(cardMap.cardTotailCalculate);
+				jQuery("[name='totailCalculate']").text(cardMap.cardTotailCalculate + projectMap.projectTotailCalculate + goodsMap.goodsTotailCalculate + comboTotailCalculate);
+				jQuery("[name='projectTotailCalculate']").text(projectMap.projectTotailCalculate);
+				jQuery("[name='goodsTotailCalculate']").text(goodsMap.goodsTotailCalculate);
+				jQuery("[name='comboTotailCalculate']").text(comboTotailCalculate);
+				
+				var customerMap = e.msg.customerMap;
+				jQuery("tr[name='customerTR']").empty();
+				jQuery("tr[name='customerTR']").append('<td>'+customerMap.customerTotailTime+'</td>'+
+													  '<td>'+new Big(customerMap.customerAvgPrice).toFixed(2)+'</td>'+
+													  '<td>'+customerMap.assignCustomerNum+'</td>'+
+													  '<td>'+customerMap.noAssignCustomerNum+'</td>'+
+													  '<td>'+customerMap.memberNum+'</td>'+
+													  '<td>'+customerMap.noMemberNum+'</td>'+
+													  '<td>'+customerMap.manNum+'</td>'+
+													  '<td>'+customerMap.girlNum+'</td>');
 			}
 		});
   }
