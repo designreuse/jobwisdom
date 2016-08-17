@@ -32,7 +32,6 @@ import com.zefun.app.common.param.UpdatePwdParam;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.Url;
 import com.zefun.web.dto.BaseDto;
-import com.zefun.web.service.EmployeeAttendanceService;
 import com.zefun.wechat.service.StaffCentreService;
 
 /**  
@@ -55,11 +54,6 @@ import com.zefun.wechat.service.StaffCentreService;
 @Controller
 @Api(value = "Employee", description = "员工模块", produces=MediaType.APPLICATION_JSON_VALUE)
 public class AppStaffController {
-    /**
-     * 配置员工出勤
-     */
-	@Autowired
-	private EmployeeAttendanceService employeeAttendanceService;
 	/**
 	 * 员工中心
 	 */
@@ -81,7 +75,7 @@ public class AppStaffController {
 			        @ApiResponse(code=App.System.API_RESULT_CODE_FOR_FAIL, message="系统错误", response=String.class)})
     @ResponseBody
     public BaseDto signCheck(@ApiParam(value="Json参数", name="signCheck", required=true)@RequestBody SigeCheckParam param) throws Exception{
-        return employeeAttendanceService.signCheck(param);
+        return null;
     }
     /**
      * 
