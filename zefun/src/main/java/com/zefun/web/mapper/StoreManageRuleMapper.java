@@ -43,7 +43,7 @@ public interface StoreManageRuleMapper {
      *  名称
     * @author 骆峰
     * @date 2016年8月13日 下午2:29:34
-    * @param ruleName ruleName
+    * @param map map
     * @return  List<StoreManageRule>
      */
     List<StoreManageRule> selectRuleListByRuleName(Map<String, Object>  map);
