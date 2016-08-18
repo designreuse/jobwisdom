@@ -634,7 +634,7 @@ public class OrderInfoService {
                                 .filter(s ->s.getOrderType().equals(1) &&  g.getCategoryId().equals(s.getCategoryId()))
                                 .collect(Collectors.toList());          //门店
                         
-                        List<OrderDetailDto> shop = collect2.stream()
+                        List<OrderDetailDto> shop = collect.stream()
                                 .filter(s ->s.getOrderType().equals(3) &&  g.getCategoryId().equals(s.getCategoryId()))
                                 .collect(Collectors.toList()); //商城
                         
