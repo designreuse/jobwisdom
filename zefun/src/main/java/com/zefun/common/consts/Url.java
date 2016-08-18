@@ -89,6 +89,15 @@ public interface Url {
         public static final  String STORE_CATEGORY_CHECK = "order/category/check";
         /**销量汇总*/
         public static final  String STORE_GOODS_CHECK = "order/goods/check";
+        /** 项目*/ 
+        public static final  String PROJECT_GOODS_CHECK = "order/project/check";
+        /**劳动业绩 */
+        public static final  String STORE_PROJECT_SELECT = "order/project/select";
+        /**劳动pk */
+        public static final  String STORE_CATEGORY_SELECT = "order/category/select";
+        
+        /**劳动汇总 */
+        public static final  String STORE_PROJECT_CATEGORY_CHECK = "order/project/category/check";
     }
 	
 	

@@ -70,6 +70,16 @@ public interface OrderDetailMapper {
     * @return List
      */
     List<OrderDetail> selectDetailLByOrderId(Map<String, Object> map);
+    
+    
+    /**
+     *  全部项目信息
+    * @author 骆峰
+    * @date 2016年8月9日 下午4:56:59
+    * @param map map
+    * @return List
+     */
+    List<OrderDetail> selectDetailLByProject(Map<String, Object> map);
     /**
      *  商品数据汇总(商品)
     * @author 骆峰
@@ -79,6 +89,15 @@ public interface OrderDetailMapper {
      */
     
     List<OrderDetailDto> selectDetailListByGoods(Map<String, Object> map);
+    
+    /**
+     *  项目汇总
+    * @author 骆峰
+    * @date 2016年8月17日 下午6:09:44
+    * @param map map
+    * @return List<OrderDetailDto>
+     */
+    List<OrderDetailDto> selectDetailListByProject(Map<String, Object> map);
     /**
      *  商品数据汇总(套餐)
      * @author 骆峰
@@ -100,13 +119,31 @@ public interface OrderDetailMapper {
     List<OrderDetail> selectDetailLByGoods(Map<String, Object> map);
     
     /**
-     *  项目PK
+     *  疗程项目PK
     * @author 骆峰
     * @date 2016年8月10日 下午6:29:27
     * @param map map
     * @return List
      */
     List<OrderDetail> selectDetailLByCategory(Map<String, Object> map);
+    
+    
+    /**
+     *  项目PK
+    * @author 骆峰
+    * @date 2016年8月17日 下午3:08:29
+    * @param map map
+    * @return  List<OrderDetail>
+     */
+    List<OrderDetail> selectDetailLByProjectInfo(Map<String, Object> map); 
+    /**
+     *  大项
+    * @author 骆峰
+    * @date 2016年8月17日 下午3:08:54
+    * @param map map
+    * @return List<OrderDetail> 
+     */
+    List<OrderDetail> selectDetailLByProjectCategory(Map<String, Object> map); 
 
     /**
      * 修改订单明细信息

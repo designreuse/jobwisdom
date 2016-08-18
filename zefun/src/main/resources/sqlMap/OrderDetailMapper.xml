@@ -88,10 +88,14 @@
     <result column="project_count" property="projectCount" jdbcType="INTEGER" />
     <result column="detail_calculate" property="detailCalculate" jdbcType="INTEGER" />
     <result column="cash_card_type" property="cashCardType" jdbcType="INTEGER" />
+    <result column="off_type" property="offType" jdbcType="INTEGER" />
+    <result column="is_assign" property="isAssign" jdbcType="INTEGER" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
     <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <result column="deptName" property="deptName" jdbcType="CHAR" />
+    <result column="project_name" property="projectName" jdbcType="CHAR" />
     <result column="dept_id" property="deptId" jdbcType="CHAR" />
     <result column="category_name" property="categoryName" jdbcType="CHAR" />
     <result column="goods_name" property="goodsName" jdbcType="CHAR" />
@@ -120,8 +124,59 @@
     real_price, off_type, combo_id, coupon_id, gift_amount, free_amount, order_remark, free_employee_id,
     service_length, store_id, order_status, is_deleted, is_update, create_time, update_time, last_operator_id,detail_calculate
   </sql>
+<!--   劳动 -->
+   <select id="selectDetailLByProject" parameterType="java.util.Map" resultMap="BaseResultMap">
+   SELECT d.detail_id,i.create_time ,SUM( d.project_count) as project_count ,SUM(d.detail_calculate) as detail_calculate FROM 
+ 		  order_info i LEFT JOIN  order_detail  d ON i.order_id= d.order_id 
+   WHERE i.order_status  in (3,4)    AND d.order_type = 1 
+   AND i.is_deleted =0 AND  d.is_deleted =0 
+   AND i.store_id = ${storeId}        AND left(i.create_time,4) = "${time}"         GROUP BY d.detail_id
+  </select>
   
-  
+	<!--   大项PK -->
+    <select id="selectDetailLByProjectCategory" parameterType="java.util.Map" resultMap="BaseResultMap">
+   SELECT 
+   d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate FROM 
+		order_detail  d 
+						LEFT JOIN  project_info     g   ON g.project_id = d.project_id   
+ 						LEFT JOIN  project_category c  ON c.category_id    = g.category_id
+ 						LEFT JOIN  order_info     i ON i.order_id    = d.order_id   
+	    WHERE i.order_status  IN (3,4)    AND d.order_type = 1  AND i.is_deleted =0 AND  d.is_deleted =0 
+   AND i.store_id = ${storeId}   AND left(i.create_time,4) = "${time}"   AND g.category_id = ${categoryId}    
+     GROUP BY d.order_id
+  </select>
+	<!--   项目PK -->
+   <select id="selectDetailLByProjectInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+   SELECT 
+   d.order_id,d.create_time ,SUM( d.project_count) AS project_count ,SUM(d.detail_calculate) AS detail_calculate FROM 
+			order_detail  d
+					    LEFT JOIN  project_info g   ON g.project_id = d.project_id 
+ 						LEFT JOIN  order_info i  ON i.order_id = d.order_id    
+	    WHERE i.order_status  IN (3,4)    AND d.order_type = 1  AND i.is_deleted =0 AND  d.is_deleted =0 
+   AND i.store_id = ${storeId}   AND left(i.create_time,4) = "${time}"   AND g.project_id = ${projectId}    
+     GROUP BY d.order_id
+  </select>
+
+    <select id="selectDetailListByProject" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
+   SELECT   c.category_id,g.project_id,c.dept_id,g.project_name,c.category_name,i.cash_card_type,d.off_type,d.is_assign,d.detail_id,i.create_time ,SUM( d.project_count) as project_count ,SUM(d.detail_calculate) as detail_calculate FROM 
+ 		  order_detail  d 
+ 		  					LEFT JOIN  project_info     g   ON g.project_id   = d.project_id   
+ 						    LEFT JOIN  project_category c   ON c.category_id  = g.category_id
+ 					     	LEFT JOIN  order_info       i   ON i.order_id     = d.order_id   
+	    WHERE i.order_status  IN (3,4)    AND d.order_type = (1)   AND i.is_deleted =0 AND  d.is_deleted =0  and i.cash_card_type is not null
+   AND i.store_id = ${storeId}  
+   <if test="time1 !=null and time1 !=''">
+    AND LEFT(d.create_time,10) &gt;= "${time1}" 
+    </if>
+    <if test="time2 !=null and time2 !=''">
+    AND LEFT(d.create_time,10) &lt;= "${time2}" 
+    </if>
+     	 GROUP BY d.detail_id
+  </select>
+   
+<!--   劳动结束 -->
+
+<!--   商品 -->
    <select id="selectDetailLByOrderId" parameterType="java.util.Map" resultMap="BaseResultMap">
    SELECT d.order_id,i.create_time ,SUM( d.project_count) as project_count ,SUM(d.detail_calculate) as detail_calculate FROM 
  		  order_info i LEFT JOIN  order_detail  d ON i.order_id= d.order_id 
@@ -139,7 +194,6 @@ UNION ALL
 	     GROUP BY d.order_id
    
   </select>
-  
   
     <select id="selectDetailLByGoods" parameterType="java.util.Map" resultMap="BaseResultMap">
    SELECT 
@@ -235,7 +289,7 @@ UNION ALL
 	   AND i.store_id = ${storeId}  AND LEFT(i.create_time,4) = "${time}"    AND c.category_id = ${categoryId} and goods_counts IS NOT NULL
 	     GROUP BY d.order_id
 	</select>
-  
+<!--   商品结束 -->
   <!-- 删除门店所有订单明细数据(清除测试数据)，by 张小胖 -->
   <delete id="deleteByStoreId" parameterType="java.lang.Integer">
   	delete from order_detail where store_id = #{storeId}
