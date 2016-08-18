@@ -46,7 +46,7 @@
   	select 
   	   <include refid="Base_Column_List" />
 	from member_sub_account 
-	where account_id = #{accountId}
+	where account_id = #{accountId} and is_deleted = 0
   </select>
   
   <select id="selectSubAccountListByAccountId" resultMap="SubAccountMap" parameterType="java.util.Map">

@@ -117,7 +117,7 @@ public class MemberController extends BaseController{
 	@RequestMapping(value = Url.Member.MEMBER_RETURN_CARD, method = RequestMethod.POST)
 	@ResponseBody
     public BaseDto returnCardMember(HttpServletRequest request, Integer subAccountId){
-        return memberInfoService.returnCardMember(subAccountId);
+        return memberInfoService.returnCardMember(subAccountId, getStoreAccount(request));
     }
 	
 	/**
