@@ -62,6 +62,11 @@
 	  .alert_operate_button button:hover{background:#526071}
 	
 	  .zzc_change_price_content i {display: inline-block;width: 85px;}
+	  
+	  table tr:nth-child(1) {
+		    font-weight: normal!important;
+		    color: #5f6164!important;
+	  }
 </style>
 <body>
 
