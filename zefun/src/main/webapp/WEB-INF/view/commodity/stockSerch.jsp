@@ -357,11 +357,11 @@
 						<div class="wages_content_datail" style="padding: 0">
 							<div class="wages_content_datail">
 								<div class="wages_content_datail_top four">
-									<input type="text" name="postageSerchStartDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px; margin: 0 10px">
+									<input type="text" name="postageSerchStartDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px; ">
 									至
-									<input type="text" name="postageSerchStopDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px; margin: 0 10px">
+									<input type="text" name="postageSerchStopDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px;">
 									单号：
-									<input type="text" style="width: 100px; margin: 0 10px">
+									<input type="text" style="width: 100px;">
 									出入库类型
 									<select name="serchStockType" onchange="serchStockType(this.value)">
 										<option value="0">选择出入库</option>
@@ -414,25 +414,25 @@
 						<div class="wages_content_datail" style="padding: 0">
 							<div class="wages_content_datail">
 								<div class="wages_content_datail_top four">
-									<input type="text" name="detailStartDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px; ">
+									<input type="text" name="detailStartDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:90px; ">
 									至
-									<input type="text" name="detailStopDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 100px; ">
+									<input type="text" name="detailStopDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width: 90px; ">
 									单号
-									<input type="text" name="detailFlowNumber" style="width: 100px;">
+									<input type="text" name="detailFlowNumber" style="width: 90px;">
 									商品
-									<select name="aId">
+									<select name="aId" style="width:102px!important">
 										<option value="0">全部</option>
 										<c:forEach items="${accountGoods }" var="accountGood"><option value="${accountGood.goodsId }">${accountGood.goodsName }</option></c:forEach>
 									</select>
 									出/入库类型
-									<select name="detailStockType" onchange="serchDetailFlowType(this.value)">
+									<select name="detailStockType" onchange="serchDetailFlowType(this.value)" style="width:75px!important">
 										<option value="0">全部</option>
 										<option value="1">入库</option>
 										<option value="2">出库</option>
 										<option value="3">商品调拨</option>
 									</select>
 									出/入库名称
-									<select name="detailFlowType">
+									<select name="detailFlowType" style="width:75px!important">
 										<option value="0">全部类型</option><option value="正常入库">正常入库</option><option value="客户退货">客户退货</option>
 									</select>
 									<em>选择门店：</em>
@@ -440,7 +440,7 @@
 										<option value="0">全部门店</option>
 										<c:forEach items="${storeInfos }" var="storeInfo"><option value="${storeInfo.storeId }">${storeInfo.storeName }</option></c:forEach>
 									</select>
-									<button onclick="serchDetailStore()">搜索</button>
+									<button onclick="serchDetailStore()" style="margin-top:5px">搜索</button>
 								</div>
 							</div>
 

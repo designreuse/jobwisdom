@@ -1,16 +1,16 @@
 .content_right{padding:20px 30px;font-size:12px}
-.manage_top{line-height:66px;height:66px;border:1px solid #003365;border-radius:12px}
-.manage_top input{margin:0 10px 0 22px;width:145px;height:16px;border:1px solid #003365;border-radius:12px;}
-.manage_top select{border:1px solid #003365;border-radius:12px;padding:3px 4px;width:70px}
+.manage_top{line-height:66px;height:66px;border:1px solid #ccc;border-radius:12px}
+.manage_top input{margin:0 10px 0 22px;width:145px;height:16px;border:1px solid #ccc;border-radius:12px;}
+.manage_top select{border:1px solid #ccc;border-radius:12px;padding:3px 4px;width:70px}
 .manage_top button{border:none;width:100px;height:26px;line-height:26px;text-align:center;color:white;border-radius:12px;background:#727a9c;margin-left:15px}
 .manage_top button:hover{background:#646c8b}
-.manage_content{height:600px;overflow:overlay;border:1px solid #003365;border-radius:12px;margin-top:16px}
+.manage_content{height:600px;overflow:overlay;border:1px solid #ccc;border-radius:12px;margin-top:16px}
 .manage_content table{width:100%}
 .manage_content table td{height:40px;vertical-align:middle}
 table tr:nth-child(odd){background:#f6f8fc}
-table td{width:100px;height:40px;text-align:center;border:1px solid #8d9eb3;vertical-align:middle;border-top:none;border-left:none}
+table td{width:100px;height:40px;text-align:center;border:1px solid #ccc;vertical-align:middle;border-top:none;border-left:none}
 table td img{margin:0 20px}
-
+table td:last-child{border-right:none}
 .zzc{font-size: 12px;color: black;position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
 .zzc .zzc_manage{overflow:hidden;width:330px;height:270px;background:white;border-radius:12px;margin:100px auto}
 .zzc_manage>p{height:50px;line-height:50px;background:#36384e;text-align:center;color:white;font-size:14px}

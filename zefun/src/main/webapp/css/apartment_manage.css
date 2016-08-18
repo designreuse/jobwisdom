@@ -22,7 +22,7 @@
 .manage_content .manage_num>p{font-size:15px;padding:0 0 15px 5px}
 .manage_num_content{height:200px;border-radius:8px;background:#d8deed;padding:10px}
 .manage_button button{font-size:14px;width:130px;height:26px;border:none;text-align:center;line-height:26px;color:white;border-radius:12px;background:#5c6e85}
-.manage_button input{width:120px;height:18px;border:1px solid black;border-radius:12px;margin:0 30px 0 0px}
+.manage_button input{width:120px;height:18px;border:1px solid #ccc;border-radius:12px;margin:0 30px 0 0px}
 .manage_button span button{margin-right:10px}
 .data_content {overflow:overlay;height:130px;background:white;border-radius:8px;margin-top:10px;border:1px solid #ccc;padding:10px 20px}
 .data_text{margin:10px 33px;position:relative;float:left;font-size:14px;width:160px;height:26px;text-align:center;line-height:26px;color:black;border:1px solid #ccc;border-radius:12px}
@@ -110,28 +110,28 @@
 .zzc{display:none;position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
 .adjust{border-radius:12px;overflow:hidden;width:264px;height:160px;background:white;margin:15% auto}
 .adjust>p{height:38px;background:#3e4b5e;text-align:center;line-height:38px;color:white;font-size:14px}
-.adjust_content input{width:150px;height:20px;border-radius:12px;border:1px solid #737373;margin:25px auto}
+.adjust_content input{width:150px;height:20px;border-radius:12px;border:1px solid #ccc;margin:25px auto}
 .adjust_content{text-align:center}
 .adjust_content_button button{height:20px;width:78px;line-height:20px;border:none;text-align:center;background:#7b80a1;color:white;margin:0 15px;border-radius:12px}
 .adjust_content_button button:hover{background:#686c8a}
 
 .zzc1{display:none;position: fixed;top: 0px;height: 100%;left: 0px;width: 100%;z-index: 10000;background: rgba(102, 108, 121, 0.8);}
-.first_adjust{width:240px;background:white;border-radius:12px;overflow:hidden;margin:12% auto}
+.first_adjust{width:340px;background:white;border-radius:12px;overflow:hidden;margin:12% auto}
 .first_adjust>p{height:60px;background:#3e4b5e;text-align:center;line-height:60px;color:white;font-size:14px}
 
-.first_adjust_content input{width:128px;height:14px;border-radius:12px;border:1px solid #6b6b6b;margin-left:6px}
+.first_adjust_content input{width:128px;height:14px;border-radius:12px;border:1px solid #ccc;margin-left:6px}
 .first_adjust_content>p{height:48px;line-height:48px;border-bottom:1px solid #cacaca;text-align:center;}
 .num_adjust_content>.depend>span{margin-left:3px;cursor:pointer;display:inline-block;width:14px;height:14px;color:white;background:#ff0707;border-radius:7px;text-align:center;line-height:12px}
 .num_adjust_content>.depend{position:relative;padding:5px 10px}
 
 .num_adjust_content_detail{text-align:center;margin-top:10px}
-.num_adjust_content_detail select{width:128px;border-radius:12px;border:1px solid #6b6b6b;margin-left: 6px;}
+.num_adjust_content_detail select{width:138px;border-radius:12px;border:1px solid #ccc;margin-left: 6px;}
 .first_adjust_content_button{text-align:center;margin-bottom:15px}
-.first_adjust_content_button button{width:80px;height:20px;text-align:center;line-height:20px;background:#7b80a1;border:none;border-radius:12px;color:white;margin:0 15px}
+.first_adjust_content_button button{width:100px;height:24px;text-align:center;line-height:20px;background:#7b80a1;border:none;border-radius:12px;color:white;margin:0 15px}
 .first_adjust_content_button{margin-top:15px}
 .first_adjust_content_button button:hover{background:#6a7092}
 .data_text ul{margin:0}
-.depend p{position:absolute;bottom:20px;left:35px;display:none}
+.depend p{position:absolute;bottom:20px;left:95px;display:none;}
 .depend p>em{
 	display:inline-block;
     width: 0;
@@ -141,9 +141,9 @@
     border-top: 10px solid #e8be9e;
 	position:absolute;
 	bottom:4px;
-	left:0px
+	left:25px
 }
-.depend p>span{display:inline-block;margin-bottom:20px;background:#e8be9e;color:white;width:110px;overflow-wrap: break-word;border-radius:8px;position:relative;top:6px;left:-35px;}
+.depend p>span{padding:0 5px;display:inline-block;margin-bottom:20px;background:#e8be9e;color:white;width:110px;overflow-wrap: break-word;border-radius:8px;position:relative;top:6px;left:-35px;}
 .job_name>p {position:absolute;bottom:30px;left:260px;display:none;}
 .job_name>p>i{display:inline-block;
     width: 0;

@@ -25,33 +25,33 @@ table tr:nth-child(1){background:#ebeff8;height:60px}
 	font-size:12px;
 	
 	}
-.zzc>.new_coupon{width:820px;margin:50px auto;background:white}
+.zzc>.new_coupon{width:820px;margin:50px auto;background:white;border-radius:12px;overflow:hidden}
 .zzc>.new_coupon>p{height:56px;color:white;font-size:15px;background:#373552;text-align:center;line-height:56px}
 .new_coupon_content{padding:15px 40px;}	
 .new_coupon_content input[type="checkbox"]{ -webkit-appearance: none;
-    appearance: none;width:10px;height:10px;border:1px solid black;position:relative;top: -3px;
+    appearance: none;width:10px;height:10px;border:1px solid #ccc;position:relative;top: -3px;
     left: -5px;}
 
-.beyond_shop span{display:inline-block;width:100px;height:26px;text-align:center;line-height:26px;border:1px solid #919191;border-radius:12px;margin-left:20px;background:#e4e8f4}
+.beyond_shop span{display:inline-block;width:100px;height:26px;text-align:center;line-height:26px;border:1px solid #ccc;border-radius:12px;margin-left:20px;background:#e4e8f4}
 .zzc_coupon_table{width:745px;margin-top:16px}
-.zzc_coupon_table li{float:left;width:145px;height:40px;text-align:center;line-height:40px;background:#e4e8f4;border:1px solid black;border-right:none}
-.zzc_coupon_table li:last-child{border-right:1px solid black}
+.zzc_coupon_table li{float:left;width:145px;height:40px;text-align:center;line-height:40px;background:#e4e8f4;border:1px solid #ccc;border-right:none}
+.zzc_coupon_table li:last-child{border-right:1px solid #ccc}
 .coupon_name p span{display:inline-block;margin-right:42px}
 .coupon_name p{height:40px;line-height:40px;margin-right:-60px}
-.coupon_name p input{width:120px;height:16px;border:1px solid black;border-radius:12px;margin-left:20px}
+.coupon_name p input{width:120px;height:16px;border:1px solid #ccc;border-radius:12px;margin-left:20px}
 .coupon_name{margin-top:10px;border-top:1px solid #cccccc;border-bottom:1px solid #cccccc;overflow:hidden}
 .new_coupon_content .user_ p{height:40px;line-height:40px;margin-right:-30px}
 .simple_full span{display:inline-block;width:350px}
 .simple_full span input[type="radio"]{margin-right:12px}
-.simple_full span input[type="text"]{width:100px;height:16px;border-radius:8px;border:1px solid black;margin:0 10px}
+.simple_full span input[type="text"]{width:100px;height:16px;border-radius:8px;border:1px solid #ccc;margin:0 10px}
 .user_ p input{width:130px;height:16px;border-radius:12px;border:1px solid black;margin-left:10px}
 .user_ p select{width:130px;height:16px;border-radius:12px;border:1px solid black;margin-left:10px}
 .user_ p span{display:inline-block;margin-right:25px}
 .user_{border-bottom:1px solid #cccccc}
 .new_coupon_content .report{margin-top:10px}
 .report_way{margin-top:10px;margin-bottom:10px}
-.report_way span{display:inline-block;width:150px;height:40px;text-align:center;line-height:40px;border:1px solid black;cursor:pointer;margin-right:90px}
-.report p input{width:80px;height:16px;border:1px solid black;border-radius:12px;margin-left:10px}
+.report_way span{display:inline-block;width:150px;height:40px;text-align:center;line-height:40px;border:1px solid #ccc;cursor:pointer;margin-right:90px}
+.report p input{width:80px;height:16px;border:1px solid #ccc;border-radius:12px;margin-left:10px}
 .report_way span.active{background:#e4e8f4}
 .zzc_coupon_button{text-align:center;margin-top:20px}
 .zzc_coupon_button button:hover{
@@ -78,10 +78,10 @@ table tr:nth-child(1){background:#ebeff8;height:60px}
 .coupon_card_price  em{position:relative;left:20px;top:-25px}
 .coupon_card_content>p{color:white;margin: 40px 0 0 280px;font-size:16px}
 input[type="checkbox"]:checked{background:url(../images/checked.png) no-repeat;background-position:center center;border:1px solid #d93717;background-size:cover}
-.select_color{float:right;width:90px;border:1px solid black;height:26px;border-radius:12px}
+.select_color{float:right;width:90px;border:1px solid #ccc;height:26px;border-radius:12px}
 .report_time input{width: 136px;
     height: 16px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     border-radius: 12px;}
 .report_time{margin:10px 0}
 .report_time input{margin-left:20px}
