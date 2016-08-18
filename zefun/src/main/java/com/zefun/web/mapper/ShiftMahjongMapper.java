@@ -1,6 +1,7 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zefun.web.dto.ShiftMahjongDto;
 import com.zefun.web.entity.ShiftMahjong;
@@ -146,4 +147,13 @@ public interface ShiftMahjongMapper {
     * @return List<ShiftMahjongDto>
      */
     List<ShiftMahjongDto> selectByIsExistsPositionId(Integer positionId);
+    
+    /**
+     * 根据轮牌名查询门店下轮牌
+    * @author 老王
+    * @date 2016年8月17日 下午8:24:00 
+    * @param map map
+    * @return List<ShiftMahjong>
+     */
+    List<ShiftMahjong> selectByShiftMahjongName(Map<String, Object> map);
 }

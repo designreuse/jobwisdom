@@ -94,4 +94,75 @@ public class OrderInfoController extends BaseController {
     }
     
     
+    
+    /**
+     *  项目销售页面展示
+    * @author 骆峰
+    * @date 2016年8月17日 上午10:36:05
+    * @param request request
+    * @return ModelAndView
+     */
+    @RequestMapping(value = Url.Statistical.PROJECT_GOODS_CHECK)
+    public ModelAndView showProjectDetail(HttpServletRequest request){
+        Object storeId = request.getSession().getAttribute(Session.STORE_ID);
+        String storeAccount = getStoreAccount(request);
+        return orderInfoService.showProjectDetail(storeAccount, storeId);
+    }
+    
+    
+    
+    /**
+     *  劳动业绩
+    * @author 骆峰
+    * @date 2016年8月17日 下午2:20:02
+    * @param time time
+    * @param storeId storeId
+    * @param timeType timeType
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Statistical.STORE_PROJECT_SELECT)
+    @ResponseBody
+    public BaseDto selectProjectCheck(String time, Integer storeId, String timeType){
+        return orderInfoService.selectProjectCheck(time, storeId, timeType);
+    }
+    
+    /**
+     *   项目PK
+    * @author 骆峰
+    * @date 2016年8月17日 下午3:12:24
+    * @param storeId  门店
+    * @param projectId1 项目1
+    * @param projectId2 项目2
+    * @param categoryId1 大项1
+    * @param categoryId2 大项2
+    * @param timeType  年月
+    * @param time   年
+    * @return  BaseDto
+     */
+    @RequestMapping(value = Url.Statistical.STORE_CATEGORY_SELECT)
+    @ResponseBody
+    public BaseDto selectProjectCategory(Integer storeId, Integer projectId1, Integer projectId2, Integer categoryId1,
+            Integer categoryId2, String timeType, String time){
+        return orderInfoService.selectProjectCategory(storeId, projectId1, projectId2, categoryId1, categoryId2, timeType, time);
+    }
+    
+
+
+    /**
+     *  项目销量汇总
+    * @author 骆峰
+    * @date 2016年8月17日 下午5:09:51
+    * @param storeId 门店
+    * @param time1  时间
+    * @param time2  时间
+    * @return  BaseDto
+     */
+    @RequestMapping(value = Url.Statistical.STORE_PROJECT_CATEGORY_CHECK)
+    @ResponseBody  
+    public BaseDto selectByProjectCategory(Integer storeId, String time1, String time2){
+        return orderInfoService.selectByProjectCategory(storeId, time1, time2);
+    }
+    
+    
+    
 }

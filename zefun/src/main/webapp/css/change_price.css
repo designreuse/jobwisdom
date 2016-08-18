@@ -21,7 +21,7 @@
 .roll_money{position:relative}
 .money_card{overflow:hidden;height:104px;margin-top:25px;margin-left:50px;width:1000px}
 .money_card ul{width:4000px;}
-.money_card ul li{height:102px;width:172px;float:left;border-radius:8px;border:1px solid black;margin-right:42px;position:relative}
+.money_card ul li{height:102px;width:172px;float:left;border-radius:8px;border:1px solid #ccc;margin-right:42px;position:relative}
 .money_get{margin-top:25px;font-size:14px}
 .money_get em{display:inline-block;margin-left:20px}
 .money_get em i{color:#e0673d;font-size:16px}

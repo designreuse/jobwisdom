@@ -62,6 +62,11 @@
 	  .alert_operate_button button:hover{background:#526071}
 	
 	  .zzc_change_price_content i {display: inline-block;width: 85px;}
+	  
+	  table tr:nth-child(1) {
+		    font-weight: normal!important;
+		    color: #5f6164!important;
+	  }
 </style>
 <body>
 
@@ -158,7 +163,7 @@
 				         <span>项目名称</span>
 				         <span>项目原价</span>
 				         <span>折扣</span>
-				         <span style="width:180px">疗程/礼金</span>
+				         <span style="width:180px">疗程/礼金/优惠券</span>
 				         <span >抵扣金额</span>
 				         <span>应收金额</span>
 				         <span>改价金额</span>
