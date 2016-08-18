@@ -254,7 +254,7 @@ function check(){
 	}
 	jQuery.ajax({
 		type : "post",
-		url : baseUrl + "order/store/check",
+		url : baseUrl + "order/project/select",
 		data : "time=" + times + "&storeId=" + storeId + "&timeType=" + timeType,
 		dataType : "json",
 		success : function(e){
