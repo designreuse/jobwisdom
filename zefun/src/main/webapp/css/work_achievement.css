@@ -6,7 +6,7 @@
 }
 .content_right>ul>.active {
     color: black;
-    border-bottom: 1px solid #b8c7ea;
+    border-bottom: 1px solid #ccc;
     background: #b8c7ea;
 }
 .content_right>ul li {
@@ -14,7 +14,7 @@
     width: 127px;
     height: 38px;
     font-size: 14px;
-    border: 1px solid #1d4e97;
+    border: 1px solid #ccc;
     border-right: none;
     float: left;
     border-radius: 12px 12px 0 0;
@@ -23,14 +23,14 @@
     color: #c5bfbd;
 }
 .content_right>ul li:nth-child(3) {
-    border-right: 1px solid #1d4e97;
+    border-right: 1px solid #ccc;
 }
 
 .wages_content {
-    overflow: hidden;
+   
     width: 1037px;
-    height: 780px;
-    border: 1px solid #1d4e97;
+   
+    border: 1px solid #ccc;
     border-radius: 0 12px 12px 12px;
 }
 
@@ -71,7 +71,7 @@
 
 
 
-.store_sell_table{color:black;height:425px;overflow:overlay}
+.store_sell_table{color:black;}
 .store_sell_table>p{position:relative;top:20px;background:#ebeff8;text-align:center;height:40px;line-height:40px;border-top:1px solid #9b9b9b;border-bottom:1px solid #9b9b9b;}
 .store_sell_table>p span{font-size:14px;margin-right:5px}
 
@@ -87,8 +87,8 @@ table tr:nth-child(1){font-weight:normal!important;}
 table:nth-child(even){background:#f6f8fc}
 .store_sell_table>table{background:#ebeff8!important}
 
-.store_sell_table_content{overflow:overlay}
-.work_achievement_content{width:775px;margin:17px auto;background:url(../images/store_sell_img.png) no-repeat}
+
+.work_achievement_content{width:775px;height:240px;margin:17px auto;background:url(../images/store_sell_img.png) no-repeat}
 
 .work_achievement_ul li{color:white;font-size:14px;text-align:center;margin-bottom:43px}
 .work_achievement_ul li p{margin-top:7px}
