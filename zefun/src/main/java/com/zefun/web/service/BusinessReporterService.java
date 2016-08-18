@@ -441,30 +441,30 @@ public class BusinessReporterService {
     		Integer monthDay = DateUtil.monthDay(time);
     		
     		for (int j = 1; j <= monthDay; j++) {
-                int g = j;
+                int g = j - 1;
                 Double count = 0.0;
                 Double price = 0.0;
                 //天数
                 day.add(String.valueOf(j)+ "日");
                 if (j<11) {
                 	if (cashList.size() != 0){
-                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+month[g]))
                                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
                     }
                     
                     if (calculateList.size() != 0) {
-                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+month[g]))
                                 .mapToDouble(BusinessTotailDto::getValueMoney).sum();
                     }
                 }
                 else {
                 	if (cashList.size() != 0){
-                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+String.valueOf(g)))
                                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
                     }
                     
                     if (calculateList.size() != 0) {
-                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+String.valueOf(g)))
                                 .mapToDouble(BusinessTotailDto::getValueMoney).sum();
                     }
 

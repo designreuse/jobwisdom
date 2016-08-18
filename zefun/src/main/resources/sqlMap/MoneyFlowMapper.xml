@@ -252,7 +252,7 @@
      flow_type as orderType, flow_amount as valueMoney, business_desc as createTime
    FROM 
 	 money_flow 
-   WHERE business_type  IN (1, 2, 4, 5)    
+   WHERE business_type  IN (1, 2, 4, 5, 6, 7)    
    AND is_deleted = 0 AND store_id = ${storeId}
    and substring(flow_time, 1, 10) &gt;= #{beginDay,jdbcType=CHAR} 
    and substring(flow_time, 1, 10) &lt;= #{endDay,jdbcType=CHAR} 

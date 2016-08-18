@@ -461,6 +461,7 @@ public class SelfCashierService {
 			OrderDetail obj = new OrderDetail();
 			obj.setDetailId(orderDetailObj.getDetailId());
 			obj.setDetailCalculate(new Double(stepCommissionMap.get("tataliCommonCalculate").toString()));
+			obj.setIsAssign(Integer.valueOf(stepCommissionMap.get("isAssign").toString()));
 			orderDetailMapper.updateByPrimaryKey(obj);
 		}
 
@@ -677,6 +678,7 @@ public class SelfCashierService {
 		stepCommissionMap.put("projectName", orderDetail.getProjectName());
 		stepCommissionMap.put("detailId", orderDetail.getDetailId());
 		stepCommissionMap.put("orderType", orderDetail.getOrderType());
+		stepCommissionMap.put("isAssign", 0);
 		
         BigDecimal hundred = new BigDecimal(100);
         
@@ -756,6 +758,10 @@ public class SelfCashierService {
 		        BigDecimal saveCommonCalculate = null;
 		        //员工提成金额
 		        BigDecimal empCommission = null;
+		        
+		        if (orderDetailStepDto.getIsAssign() == 1) {
+		        	stepCommissionMap.put("isAssign", 1);
+		        }
 		        
 		        Map<String, Object> stepOrderMap = new HashMap<>();
 		        stepOrderMap.put("positionName", orderDetailStepDto.getPositionName());
@@ -879,7 +885,7 @@ public class SelfCashierService {
 			    			    empCommission = empCommission.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
 			    				break;
 			    			case 2 : // 按固定金额
-			    				if (orderDetailStepDto.getIsAppoint() == 1) {
+			    				if (orderDetailStepDto.getIsAssign() == 1) {
 			    					if (payType == 1) {
 				    			        empCommission = new BigDecimal(commissionObj.getCommissionGold());
 				    			    }
