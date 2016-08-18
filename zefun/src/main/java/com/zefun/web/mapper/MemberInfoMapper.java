@@ -291,4 +291,13 @@ public interface MemberInfoMapper {
      * @return           结果数据
      */
     List<RegionCountDto> statWechatByRegion(Map<String, String> params);
+
+    /**
+     * 查询会员基本数据
+    * @author 高国藩
+    * @param storeId storeId
+    * @date 2016年8月17日 下午5:22:45
+    * @return List<MemberInfo>
+     */
+    List<MemberInfo> selectMemberBaseInfoByStoreId(Integer storeId);
 }

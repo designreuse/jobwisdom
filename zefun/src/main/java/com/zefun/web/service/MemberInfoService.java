@@ -2,6 +2,8 @@ package com.zefun.web.service;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,6 +34,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -49,6 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.rocketmq.common.filter.FilterAPI;
 import com.zefun.common.consts.App;
 import com.zefun.common.consts.View;
 import com.zefun.common.utils.DateUtil;
@@ -464,9 +468,10 @@ public class MemberInfoService {
         view.addObject("page", page);
         view.addObject("levels", levels);
         MemberInfoDto dto = memberInfoMapper.selectStoreMemberAmount(storeId);
-        List<MemberInfoDto> infoDtos = memberInfoMapper.selectMemberByStoreId(storeId);
+        List<MemberInfo> memberInfos = memberInfoMapper.selectMemberBaseInfoByStoreId(storeId);
+       /* List<MemberInfoDto> infoDtos = memberInfoMapper.selectMemberByStoreId(storeId);*/
         view.addObject("storeMember", dto);
-        view.addObject("infoDtos", JSONArray.fromObject(infoDtos).toString().trim());
+        view.addObject("infoDtos", JSONArray.fromObject(memberInfos).toString().trim());
         return view;
     }
 
@@ -1122,7 +1127,8 @@ public class MemberInfoService {
             
             if (account.getBalanceAmount().intValue()>0){
                 //余额流水变动
-                changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), account.getBalanceAmount(), App.Member.IMPORT_MONEY_DECS, 7, storeId, lastOperatorId);
+                changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                        account.getBalanceAmount(), App.Member.IMPORT_MONEY_DECS, 7, storeId, lastOperatorId);
             }
             
             if (account.getBalanceIntegral()>0){
@@ -1441,7 +1447,8 @@ public class MemberInfoService {
             account.setBalanceAmount(infoDtos.get(k).getBalanceAmount());
             account.setTotalAmount(infoDtos.get(k).getBalanceAmount());
             memberAccountMapper.insert(account);
-            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), account.getBalanceAmount(), App.Member.IMPORT_MONEY_DECS, 7, storeId, lastOperatorId);
+            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                    account.getBalanceAmount(), App.Member.IMPORT_MONEY_DECS, 7, storeId, lastOperatorId);
         }
         memberInfoMapper.dropTempTableZY();
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, "导入成功");
@@ -3174,7 +3181,8 @@ public class MemberInfoService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
         if (errorXsl.getBalanceAmount().intValue()>0){
-            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorXsl.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                    errorXsl.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         }
         errorXsl.setUpdateTime(DateUtil.getCurDate());
         errorXsl.setLastOperatorId(lastOperatorId);
@@ -3206,7 +3214,8 @@ public class MemberInfoService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
         if (errorXsl.getBalanceAmount().intValue()>0){
-            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorXsl.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                    errorXsl.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         }
         errorXsl.setUpdateTime(DateUtil.getCurDate());
         errorXsl.setLastOperatorId(lastOperatorId);
@@ -3238,7 +3247,8 @@ public class MemberInfoService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
         if (errorXsl.getBalanceAmount().intValue()>0){
-            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorXsl.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                    errorXsl.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         }
         errorXsl.setUpdateTime(DateUtil.getCurDate());
         errorXsl.setLastOperatorId(lastOperatorId);
@@ -3270,7 +3280,8 @@ public class MemberInfoService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
         if (errorMb.getBalanceAmount().intValue()>0){
-            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorMb.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+            changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                    errorMb.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         }
         if (errorMb.getBalanceIntegral().intValue()>0){
             changeIntegralFlow(memberInfo.getMemberId(), memberAccount, errorMb.getBalanceIntegral().intValue(), 
@@ -3309,7 +3320,8 @@ public class MemberInfoService {
         wipeCache(memberId);
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
-        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorGi.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                errorGi.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         errorGi.setUpdateTime(DateUtil.getCurDate());
         errorGi.setLastOperatorId(lastOperatorId);
         errorGi.setIsDeleted(1);
@@ -3339,7 +3351,8 @@ public class MemberInfoService {
         wipeCache(memberId);
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
-        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorLd.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                errorLd.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         errorLd.setUpdateTime(DateUtil.getCurDate());
         errorLd.setLastOperatorId(lastOperatorId);
         errorLd.setIsDeleted(1);
@@ -3368,7 +3381,8 @@ public class MemberInfoService {
         wipeCache(memberId);
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
-        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorGy.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                errorGy.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         errorGy.setUpdateTime(DateUtil.getCurDate());
         errorGy.setLastOperatorId(lastOperatorId);
         errorGy.setIsDeleted(1);
@@ -3398,7 +3412,8 @@ public class MemberInfoService {
         wipeCache(memberId);
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
-        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorSc.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                errorSc.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         changeIntegralFlow(memberInfo.getMemberId(), memberAccount, errorSc.getBalanceIntegral(), 
                 App.Member.MOVE_MONEY_DECS, 8, storeId, 0, lastOperatorId);
         errorSc.setUpdateTime(DateUtil.getCurDate());
@@ -3428,7 +3443,8 @@ public class MemberInfoService {
         wipeCache(memberId);
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
-        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorZy.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                errorZy.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         errorZy.setUpdateTime(DateUtil.getCurDate());
         errorZy.setLastOperatorId(lastOperatorId);
         errorZy.setIsDeleted(1);
@@ -3458,7 +3474,8 @@ public class MemberInfoService {
         wipeCache(memberId);
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
-        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorHt.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                errorHt.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         changeIntegralFlow(memberInfo.getMemberId(), memberAccount, errorHt.getBalanceIntegral().intValue(), 
                 App.Member.MOVE_MONEY_DECS, 8, storeId, 0, lastOperatorId);
         changeGiftMoneyFlow(memberInfo.getMemberId(), memberAccount, errorHt.getBalanceGiftmoneyAmount(), 
@@ -3490,7 +3507,8 @@ public class MemberInfoService {
         wipeCache(memberId);
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setMemberId(memberId);
-        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), errorBk.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
+        changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                errorBk.getBalanceAmount(), App.Member.MOVE_MONEY_DECS, 8, storeId, lastOperatorId);
         errorBk.setUpdateTime(DateUtil.getCurDate());
         errorBk.setLastOperatorId(lastOperatorId);
         errorBk.setIsDeleted(1);
@@ -3974,7 +3992,8 @@ public class MemberInfoService {
             
             if (account.getBalanceAmount().intValue()>0){
                 //余额流水变动
-                changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), account.getBalanceAmount(), App.Member.IMPORT_MONEY_DECS, 7, storeId, lastOperatorId);
+                changeMoneyFlow(memberInfo.getMemberId(), memberInfo.getLevelId(), 
+                        account.getBalanceAmount(), App.Member.IMPORT_MONEY_DECS, 7, storeId, lastOperatorId);
             }
             if (account.getBalanceIntegral()>0){
                 //积分流水变动
@@ -5537,5 +5556,118 @@ public class MemberInfoService {
         return new BaseDto(0, "上传成功");
     }
    
+    /**
+     * 耿宇数据导入
+    * @author 高国藩
+    * @date 2016年8月17日 下午3:00:56
+    * @param file               file
+    * @param storeId            storeId
+    * @param storeAccount       storeAccount
+    * @param employeeId         employeeId
+    * @return                   BaseDto
+    * @throws IOException       IOException
+     */
+    public BaseDto uploadGenYuMemberInfo(MultipartFile[] file, Integer storeId, String storeAccount, Integer employeeId) throws IOException {
+        // TODO Auto-generated method stub
+        String name = file[0].getOriginalFilename();
+        long size = file[0].getSize();
+        if ((name == null || name.equals("")) && size == 0) {
+            return new BaseDto(-1, "无法识别上传文件");
+        }
+        boolean isE2007 = false;
+        if (name.endsWith("xlsx")) {
+            isE2007 = true;
+        }
+        InputStream input = file[0].getInputStream();
+        Workbook wb = null;
+        if (isE2007) {
+            wb = new XSSFWorkbook(input);
+        } 
+        else {
+            wb = new HSSFWorkbook(input);
+        }
+        Sheet sheet = wb.getSheetAt(0);
+        Iterator<Row> rows = sheet.rowIterator();
+        // 已经存在的会员手机号码
+        List<String> hasStr = new ArrayList<>();
+        Map<String, MemberInfoDto> memberInfoMap = new HashMap<>();
+        memberInfoMapper.selectMemberByStoreId(storeId).forEach(m -> {
+                hasStr.add(m.getPhone());
+            });
+        // 会员等级和名称对应,方便取值
+        Map<String, Integer> levelMap = packLevelMap(storeId);
+        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+            Row xssfRow = sheet.getRow(rowNum);
+            BigDecimal balanceAmount = new BigDecimal(ExcleUtils.changeCellToString(xssfRow.getCell(5)));
+            String phone = ExcleUtils.changeCellToString(xssfRow.getCell(7));
+            String memberName = ExcleUtils.changeCellToString(xssfRow.getCell(8));
+            String sex = ExcleUtils.changeCellToString(xssfRow.getCell(9));
+            Integer levelId = levelMap.get(ExcleUtils.changeCellToString(xssfRow.getCell(10)));
+            if (levelId == null){
+                return new BaseDto(-1, "第"+ rowNum +"行,"+ ExcleUtils.changeCellToString(xssfRow.getCell(10)) +" 卡项不存在");
+            }
+            Pattern p1 = Pattern.compile("(13\\d|14[57]|15[^4,\\D]|17[678]|18\\d)\\d{8}|170[059]\\d{7}");  
+            Matcher m = p1.matcher(phone); 
+            if (!m.matches()){
+                return new BaseDto(-1, "第"+ rowNum +"行,该手机号码不合法");
+            }
+        }
+        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+            Row xssfRow = sheet.getRow(rowNum);
+            if (xssfRow != null) {
+                BigDecimal balanceAmount = new BigDecimal(ExcleUtils.changeCellToString(xssfRow.getCell(5)));
+                String phone = ExcleUtils.changeCellToString(xssfRow.getCell(7));
+                String memberName = ExcleUtils.changeCellToString(xssfRow.getCell(8));
+                String sex = ExcleUtils.changeCellToString(xssfRow.getCell(9));
+                Integer levelId = levelMap.get(ExcleUtils.changeCellToString(xssfRow.getCell(10)));
+
+                // 已有账户, 填充子卡
+                if (hasStr.contains(phone)){
+                    MemberInfo storeMemberInfo = memberInfoMapper.selectMemberByStoreIdAndPhone(storeId, phone);
+                    MemberSubAccount memberSubAccount = new MemberSubAccount();
+                    memberSubAccount.setAccountId(storeMemberInfo.getMemberId());
+                    memberSubAccount.setBalanceAmount(balanceAmount);
+                    memberSubAccount.setLevelId(levelId);
+                    memberSubAccount.setIsDeleted(0);
+                    memberSubAccount.setCreateTime(DateUtil.getCurDate());
+                    memberSubAccount.setLastOperatorId(employeeId);
+                    memberSubAccountMapper.insert(memberSubAccount);
+                    MemberAccount memberAccount = memberAccountMapper.selectByPrimaryKey(storeMemberInfo.getMemberId());
+                    memberAccount.setBalanceAmount(memberAccount.getBalanceAmount().add(balanceAmount));
+                    memberAccountMapper.updateByPrimaryKey(memberAccount);
+                }
+                else {
+                    MemberInfo memberInfo = new MemberInfo();
+                    memberInfo.setCreateTime(DateUtil.getCurDate());
+                    memberInfo.setLevelId(levelId);
+                    memberInfo.setName(memberName);
+                    memberInfo.setPhone(phone);
+                    memberInfo.setSex(sex);
+                    memberInfo.setStoreAccount(storeAccount);
+                    memberInfo.setStoreId(storeId);
+                    memberInfoMapper.insert(memberInfo);
+                    
+                    MemberAccount memberAccount = new MemberAccount();
+                    memberAccount.setAccountId(memberInfo.getMemberId());
+                    memberAccount.setBalanceAmount(balanceAmount);
+                    memberAccount.setLevelId(levelId);
+                    memberAccount.setCreateTime(DateUtil.getCurDate());
+                    memberAccountMapper.insert(memberAccount);
+                    
+                    MemberSubAccount memberSubAccount = new MemberSubAccount();
+                    memberSubAccount.setAccountId(memberInfo.getMemberId());
+                    memberSubAccount.setBalanceAmount(balanceAmount);
+                    memberSubAccount.setLevelId(levelId);
+                    memberSubAccount.setIsDeleted(0);
+                    memberSubAccount.setCreateTime(DateUtil.getCurDate());
+                    memberSubAccount.setLastOperatorId(employeeId);
+                    memberSubAccountMapper.insert(memberSubAccount);
+                    hasStr.add(phone);
+                }
+            }
+        }
+        return new BaseDto(0, "数据导入成功");
+    }
+    
 }
     

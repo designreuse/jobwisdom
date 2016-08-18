@@ -832,34 +832,28 @@ UNION ALL
               )
   </select>
   
-  <select id="selectTataiRealPriceByType" parameterType="java.util.Map" resultType="java.math.BigDecimal">
-     select ifnull(sum(a.real_price), 0) from order_detail a 
+  <select id="selectTataiRealPriceByType" parameterType="java.util.Map" resultType="com.zefun.web.dto.BusinessTotailDto">
+     select ifnull(a.real_price, 0) as valueMoney, a.order_type as createTime from order_detail a 
      where exists(select 1 from order_info b 
 				  where a.order_id = b.order_id and b.is_deleted = 0 and b.order_status in (3, 4)
 				  and b.cash_card_type = 1
 				 )
 	 and a.store_id = #{storeId,jdbcType=INTEGER} and substring(a.create_time, 1, 10) &gt;= #{beginDay,jdbcType=CHAR} 
 	 and substring(a.create_time, 1, 10) &lt;= #{endDay,jdbcType=CHAR} and a.is_deleted = 0 
-	 <choose>
-		<when test="orType == 1">
-	       and a.order_type = 1 
-		</when>
-		<when test="orType == 2">
-		   and a.order_type = 2 
-		</when>
-		<when test="orType == 3">
-		   and a.order_type = 3 
-		</when>
-		<when test="orType == 4">
-		   and a.order_type in (4, 5, 6) 
-		</when>
-		<when test="orType == 5">
-		   and a.order_type = 8 
-		</when>
-	 </choose>
-	 <if test="deptId != -1" >
-        and a.dept_id = #{deptId,jdbcType=INTEGER}
-     </if>
+  </select>
+  
+  <select id="selectDetailCalculateByType" parameterType="java.util.Map" resultType="com.zefun.web.dto.BusinessTotailDto">
+     select ifnull(a.detail_calculate, 0) as valueMoney, 
+            a.order_type as createTime, 
+            a.is_assign as isAssign,
+            b.order_type as  orderType,
+            b.member_id as memberId,
+            b.sex as sex
+     from order_detail a 
+     left join order_info b on a.order_id = b.order_id
+     where b.is_deleted = 0 and b.order_status in (3, 4)
+	 and a.store_id = #{storeId,jdbcType=INTEGER} and substring(a.create_time, 1, 10) &gt;= #{beginDay,jdbcType=CHAR} 
+	 and substring(a.create_time, 1, 10) &lt;= #{endDay,jdbcType=CHAR} and a.is_deleted = 0 
   </select>
   
   <select id="selectTataiCardByType" parameterType="java.util.Map" resultType="java.math.BigDecimal">
@@ -1361,10 +1355,10 @@ UNION ALL
    AND b.is_deleted =0 AND a.is_deleted =0 AND b.store_id = ${storeId} AND a.order_type = 1
    <choose>
 	  <when test="dateType == 1">
-         AND left(a.create_time, 4) = ${time}
+         AND left(a.create_time, 4) = '${time}'
 	  </when>
 	  <otherwise>
-	     AND left(a.create_time, 7) = ${time}
+	     AND left(a.create_time, 7) = '${time}'
 	  </otherwise>
    </choose> 
   </select>

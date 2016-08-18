@@ -37,6 +37,13 @@
     where shift_mahjong_id = #{shiftMahjongId,jdbcType=INTEGER}
   </select>
   
+  <select id="selectByShiftMahjongName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    *
+    from shift_mahjong
+    where shift_mahjong_name = #{shiftMahjongName,jdbcType=VARCHAR} and store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  
   <select id="selectAllByStoreId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
       select 
 	    *

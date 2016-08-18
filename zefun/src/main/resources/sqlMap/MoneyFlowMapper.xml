@@ -246,4 +246,15 @@
   	<if test="queryType == 2"> and DATE_FORMAT(flow_time,'%Y-%m') = #{flowTime} </if>
   	
   </select>
+  
+  <select id="selectFlowAmount" parameterType="java.util.Map" resultType ="com.zefun.web.dto.BusinessTotailDto">
+   SELECT 
+     flow_type as orderType, flow_amount as valueMoney, business_desc as createTime
+   FROM 
+	 money_flow 
+   WHERE business_type  IN (1, 2, 4, 5, 6, 7)    
+   AND is_deleted = 0 AND store_id = ${storeId}
+   and substring(flow_time, 1, 10) &gt;= #{beginDay,jdbcType=CHAR} 
+   and substring(flow_time, 1, 10) &lt;= #{endDay,jdbcType=CHAR} 
+  </select>
 </mapper>

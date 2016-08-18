@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -42,6 +43,7 @@ import com.zefun.web.entity.ShopAccountState;
 import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.mapper.CrossShopAccountMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
+import com.zefun.web.mapper.MoneyFlowMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.ShopAccountStateMapper;
@@ -84,6 +86,9 @@ public class BusinessReporterService {
     /**明细*/
     @Autowired
     private OrderDetailMapper orderDetailMapper;
+    /**资金流水*/
+    @Autowired
+    private MoneyFlowMapper moneyFlowMapper;
     
     /**
      * 营业汇总
@@ -142,13 +147,242 @@ public class BusinessReporterService {
     	selectCash.put("beginDay", startDate);
     	selectCash.put("endDay", endDate);
     	Map<String, Object> cashMap = orderInfoMapper.selectTatalCashAmount(selectCash);
-    	selectCash.put("orType", 1);
     	
-    	orderDetailMapper.selectTataiRealPriceByType(selectCash);
+    	List<BusinessTotailDto> dtoList = orderDetailMapper.selectTataiRealPriceByType(selectCash);
     	
+    	Map<String, Double> serverMoneyMap = new HashMap<>();
+    	
+    	double cardMoney = 0.00;
+    	double debtMoney = 0.00;
+    	double projectMoney = 0.00;
+    	double goodsMoney = 0.00;
+    	double comboMoney = 0.00;
+    	
+    	double cardProportion = 0;
+    	double debtProportion = 0;
+    	double projectProportion = 0;
+    	double goodsProportion = 0;
+    	double comboProportion = 0;
+    	
+    	double projectTotailCalculate = 0.00;
+    	Integer projectTotailSize = 0;
+    	double isAssignListCalculate = 0.00;
+    	Integer isAssignSize = 0;
+    	double isNoAssignListCalculate = 0.00;
+    	Integer isNoAssignSize = 0;
+    	double assignProportion = 0;
+    	
+    	double goodsTotailCalculate = 0.00;
+    	Integer goodsTotailSize = 0;
+    	double mallListCalculate = 0.00;
+    	Integer mallSize = 0;
+    	double storeListCalculate = 0.00;
+    	Integer storeSize = 0;
+    	double mallProportion = 0;
+
+    	//卡项业绩
+    	double cardTotailCalculate = 0.00;
+    	//疗程业绩
+    	double comboTotailCalculate = 0.00;
+    	
+    	//客次总数
+    	Integer customerTotailTime = 0;
+    	//客单价
+    	double customerAvgPrice = 0;
+    	//指定客数
+    	Integer assignCustomerNum = 0;
+    	//非指定客数
+    	Integer noAssignCustomerNum = 0;
+    	//会员数
+    	Integer memberNum = 0;
+    	//散客数
+    	Integer noMemberNum = 0;
+    	//男客数
+    	Integer manNum = 0;
+    	//女客数
+    	Integer girlNum = 0;
+    	//
+    	if (dtoList.size() > 0) {
+    		cardMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("4") 
+      			  || f.getCreateTime().equals("5") || f.getCreateTime().equals("6"))
+                    .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+      	
+	      	debtMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("8"))
+	                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+	      	
+	      	projectMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("1"))
+	                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+	      	
+	      	goodsMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("2"))
+	                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+	      	
+	      	comboMoney = dtoList.parallelStream().filter(f ->f.getCreateTime().equals("3"))
+	                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
+	      	
+	      	double totailMoney = cardMoney + debtMoney + projectMoney + goodsMoney + comboMoney;
+	      	
+	      	
+	      	if (totailMoney > 0) {
+	      		cardProportion = (cardMoney/totailMoney)*100;
+	        	debtProportion = (debtMoney/totailMoney)*100;
+	        	projectProportion = (projectMoney/totailMoney)*100;
+	        	goodsProportion = (goodsMoney/totailMoney)*100;
+	        	comboProportion = (comboMoney/totailMoney)*100;
+	      	}
+    	}
+    	
+    	serverMoneyMap.put("cardMoney", cardMoney);
+      	serverMoneyMap.put("debtMoney", debtMoney);
+      	serverMoneyMap.put("projectMoney", projectMoney);
+      	serverMoneyMap.put("goodsMoney", goodsMoney);
+      	serverMoneyMap.put("comboMoney", comboMoney);
+      	
+      	serverMoneyMap.put("cardProportion", cardProportion);
+      	serverMoneyMap.put("debtProportion", debtProportion);
+      	serverMoneyMap.put("projectProportion", projectProportion);
+      	serverMoneyMap.put("goodsProportion", goodsProportion);
+      	serverMoneyMap.put("comboProportion", comboProportion);
+    	
+      	
+      	List<BusinessTotailDto> detailCalculateList = orderDetailMapper.selectDetailCalculateByType(selectCash);
+      	
+      	if (detailCalculateList.size() > 0) {
+      		//汇总项目业绩
+      		List<BusinessTotailDto> projectList = detailCalculateList.parallelStream().filter(a -> "1".equals(a.getCreateTime()))
+  				      .collect(Collectors.toList());
+      		projectTotailCalculate =  projectList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
+      		projectTotailSize = projectList.size();
+      		
+      		List<BusinessTotailDto> isAssignList = projectList.parallelStream().filter(a -> a.getIsAssign() == 1)
+		      		  .collect(Collectors.toList());
+      		
+      		isAssignListCalculate =  isAssignList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
+      		isAssignSize = isAssignList.size();
+      		
+      		isNoAssignListCalculate = projectTotailCalculate - isAssignListCalculate;
+      		isNoAssignSize = projectTotailSize - isAssignSize;
+      		
+      		if (projectTotailSize == 0) {
+      			assignProportion = 0;
+      		}
+      		else {
+      			assignProportion = (isAssignSize/projectTotailSize)*100;
+      		}
+      		
+      		//客情分析
+      		customerTotailTime = projectList.size();
+      		customerAvgPrice = projectList.parallelStream().mapToDouble(BusinessTotailDto::getValueMoney) 
+    				.average().getAsDouble();
+      		
+      	    //指定客数
+        	assignCustomerNum = projectList.parallelStream().filter(a -> a.getIsAssign() == 1)
+		      		  .collect(Collectors.toList()).size();
+        	//非指定客数
+        	noAssignCustomerNum = projectList.parallelStream().filter(a -> a.getIsAssign() == 0)
+		      		  .collect(Collectors.toList()).size();
+        	//会员数
+        	memberNum = projectList.parallelStream().filter(a -> a.getMemberId()  != null)
+		      		  .collect(Collectors.toList()).size();
+        	//散客数
+        	noMemberNum = projectList.parallelStream().filter(a -> a.getMemberId()  == null)
+		      		  .collect(Collectors.toList()).size();
+        	//男客数
+        	manNum = projectList.parallelStream().filter(a -> "男".equals(a.getSex()))
+		      		  .collect(Collectors.toList()).size();
+        	//女客数
+        	girlNum = projectList.parallelStream().filter(a -> "女".equals(a.getSex()))
+		      		  .collect(Collectors.toList()).size();
+        	
+      		//汇总商品业绩
+      		List<BusinessTotailDto> goodsList = detailCalculateList.parallelStream().filter(a -> "2".equals(a.getCreateTime()))
+				        .collect(Collectors.toList());
+      		goodsTotailCalculate =  goodsList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
+      		goodsTotailSize = goodsList.size();
+      		
+      		List<BusinessTotailDto> mallList = goodsList.parallelStream().filter(a -> a.getOrderType() == 3)
+		      		  .collect(Collectors.toList());
+      		
+      		mallListCalculate = mallList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();;
+        	mallSize = mallList.size();
+      		
+        	storeListCalculate = goodsTotailCalculate - mallListCalculate;
+        	storeSize = goodsTotailSize - mallSize;
+        	
+        	if (goodsTotailSize == 0) {
+        		mallProportion = 0;
+        	}
+        	else {
+        		mallProportion = (mallSize/goodsTotailSize)*100;
+        	}
+        	
+        	cardTotailCalculate = detailCalculateList.parallelStream().filter(a -> "4".equals(a.getCreateTime()) 
+        			|| "5".equals(a.getCreateTime()) || "6".equals(a.getCreateTime()))
+        	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+        	
+        	comboTotailCalculate = detailCalculateList.parallelStream().filter(a -> "3".equals(a.getCreateTime()))
+        	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+        	
+      	}
+      	Map<String, Object> projectMap = new HashMap<>();
+      	projectMap.put("projectTotailCalculate", projectTotailCalculate);
+  		projectMap.put("projectTotailSize", projectTotailSize);
+  		projectMap.put("isAssignListCalculate", isAssignListCalculate);
+  		projectMap.put("isAssignSize", isAssignSize);
+  		projectMap.put("isNoAssignListCalculate", isNoAssignListCalculate);
+  		projectMap.put("isNoAssignSize", isNoAssignSize);
+  		projectMap.put("assignProportion", assignProportion);
+  		
+  		Map<String, Object> goodsMap = new HashMap<>();
+  		goodsMap.put("goodsTotailCalculate", goodsTotailCalculate);
+  		goodsMap.put("goodsTotailSize", goodsTotailSize);
+  		goodsMap.put("mallListCalculate", mallListCalculate);
+  		goodsMap.put("mallSize", mallSize);
+  		goodsMap.put("storeListCalculate", storeListCalculate);
+  		goodsMap.put("storeSize", storeSize);
+  		goodsMap.put("mallProportion", mallProportion);
+      	
+  		List<BusinessTotailDto> cardList = moneyFlowMapper.selectFlowAmount(selectCash);
+  		
+  		double payMoney = cardList.parallelStream().filter(a -> a.getOrderType() == 1)
+    	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+  		
+  		double addTotailMoney = cardList.parallelStream().filter(a -> a.getOrderType() == 2)
+    	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+  		
+  		double giveMoney = cardList.parallelStream().filter(a -> a.getOrderType() == 2 && (("升级赠送").equals(a.getCreateTime())
+  				   || ("开卡赠送").equals(a.getCreateTime()) || ("充值赠送").equals(a.getCreateTime())))
+    	 		.mapToDouble(BusinessTotailDto::getValueMoney).sum();
+  		
+  		double addMoney = addTotailMoney - giveMoney;
+  		
+  		double changeMoney = addTotailMoney - payMoney;
+  		
+  		Map<String, Object> cardMap = new HashMap<>();
+  		cardMap.put("cardTotailCalculate", cardTotailCalculate);
+  		cardMap.put("addTotailMoney", addTotailMoney);
+  		cardMap.put("addMoney", addMoney);
+  		cardMap.put("giveMoney", giveMoney);
+  		cardMap.put("payMoney", payMoney);
+  		cardMap.put("changeMoney", changeMoney);
+  		
+  		Map<String, Object> customerMap = new HashMap<>();
+  		customerMap.put("customerTotailTime", customerTotailTime);
+  		customerMap.put("customerAvgPrice", customerAvgPrice);
+  		customerMap.put("assignCustomerNum", assignCustomerNum);
+  		customerMap.put("noAssignCustomerNum", noAssignCustomerNum);
+  		customerMap.put("memberNum", memberNum);
+  		customerMap.put("noMemberNum", noMemberNum);
+  		customerMap.put("manNum", manNum);
+  		customerMap.put("girlNum", girlNum);
+  		
     	Map<String, Object> map = new HashMap<>();
     	map.put("cashMap", cashMap);
-    	
+    	map.put("serverMoneyMap", serverMoneyMap);
+    	map.put("projectMap", projectMap);
+    	map.put("goodsMap", goodsMap);
+    	map.put("cardMap", cardMap);
+    	map.put("comboTotailCalculate", comboTotailCalculate);
+    	map.put("customerMap", customerMap);
     	return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, map);
     }
     
@@ -207,30 +441,30 @@ public class BusinessReporterService {
     		Integer monthDay = DateUtil.monthDay(time);
     		
     		for (int j = 1; j <= monthDay; j++) {
-                int g = j;
+                int g = j - 1;
                 Double count = 0.0;
                 Double price = 0.0;
                 //天数
                 day.add(String.valueOf(j)+ "日");
                 if (j<11) {
                 	if (cashList.size() != 0){
-                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+month[g]))
                                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
                     }
                     
                     if (calculateList.size() != 0) {
-                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+month[g]))
                                 .mapToDouble(BusinessTotailDto::getValueMoney).sum();
                     }
                 }
                 else {
                 	if (cashList.size() != 0){
-                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                    	count = cashList.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+String.valueOf(g)))
                                  .mapToDouble(BusinessTotailDto::getValueMoney).sum();
                     }
                     
                     if (calculateList.size() != 0) {
-                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(time+"-"+month[g]))
+                    	price = calculateList.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+String.valueOf(g)))
                                 .mapToDouble(BusinessTotailDto::getValueMoney).sum();
                     }
 

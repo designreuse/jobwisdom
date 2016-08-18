@@ -16,6 +16,7 @@
  margin:0 auto;
  box-shadow:0 4px 10px #474a49
 }
+.enterprise_text{display:inline-block;width:80px}
 .preview_vip_card>p{padding-top:40px;text-align:center;font-size:24px;color:white}
 .preview_vip_card>p em{display:inline-block;margin-right:10px;font-size:30px}
 .item_card {color:white;margin:20px 0 0 80px}
@@ -155,7 +156,6 @@
 		 <td>商品折扣</td>
 	     <td>最低充值</td>
 		 <td>开卡充值</td>
-		 <td>现金支付打折</td>
 		 <td>业绩折扣比例</td>
 		 <td>积分计算方式</td>
 		 <td>等级说明</td>
@@ -173,16 +173,6 @@
              <td>${memberLevel.chargeMinMoney }元</td>
              <td>
              		${memberLevel.sellAmount }元
-             </td>
-             <td>
-             		<c:choose>
-             			<c:when test="${memberLevel.cashDiscountType == 0 }">
-             				不打折
-             			</c:when>
-             			<c:otherwise>
-             				打折
-             			</c:otherwise>
-             		</c:choose>
              </td>
              <td>
              		${memberLevel.performanceDiscountPercent }%
@@ -239,18 +229,12 @@
 		<div class="business_level_back">
 		   <div class="business_level_back_text">
 		      <ul class="business_level_back_text_ul clearfix">
-		         <li>项目折扣<input type="text" name="projectDiscount"><i  class = "addcolor">*</i><em style="position:relative;left:-20px">%</em></em></li>
-				 <li>现金支付打折
-				     <select name="cashDiscountType" >
-                        <option value="0">不打折</option>
-                        <option value="1">打折</option>
-                   	 </select>
-                 </li>
-				 <li>商品折扣<input type="text" name="goodsDiscount"><i  class = "addcolor">*</i><em style="position:relative;left:-20px">%</em></li>
-				 <li>员工业绩折扣<input type="text" name="performanceDiscountPercent"><em style="position:relative;left:-20px">%</em></li>
-				 <li>开卡费用<input type="text" name="sellAmount" ><span style="position:relative;left:-20px">元</span></li>
-				 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:22px"><span style="position:relative">元</span></li>
-				 <li style="width:600px;"><span class="mr10 label12 font-bold">积分计算方式：</span>
+		         <li><span class="enterprise_text">项目折扣</span><input type="text" name="projectDiscount"><i  class = "addcolor">*</i><em style="position:relative;left:-20px">%</em></em></li>
+				 <li><span class="enterprise_text">商品折扣</span><input type="text" name="goodsDiscount"><i  class = "addcolor">*</i><em style="position:relative;left:-20px">%</em></li>
+				 <li><span class="enterprise_text">员工业绩折扣</span><input type="text" name="performanceDiscountPercent"><em style="position:relative;left:-20px">%</em></li>
+				 <li><span class="enterprise_text">开卡费用</span><input type="text" name="sellAmount" ><span style="position:relative;left:-20px">元</span></li>
+				 <li><span class="enterprise_text">最低充值</span><input type="text" name="chargeMinMoney"><span style="position:relative;left:-15px">元</span></li>
+				 <li  style="width:330px"><span class="mr10 label12" >积分计算方式：</span>
 				                            每消费<input type="number" name="integralUnit" class="input30" value="1"><span class="percent-symbol">元</span>
                      <span class="ml10">获得</span>
                      <input type="number" name="integralNumber" class="input30" value="1" ><span class="percent-symbol">分</span>
@@ -363,12 +347,8 @@ function changePage(){
             	 html += '<span class="font-999">默认等级</span>';
              }
              html += '</td><td>'+memberLevel.projectDiscount+'%</td><td>'+memberLevel.goodsDiscount +'%</td><td>'+memberLevel.chargeMinMoney +'元</td><td>'+memberLevel.sellAmount +'元 </td>';
-           	 if(memberLevel.cashDiscountType == 0){
-           		 html += '<td>不打折';
-           	 }else{
-           		html += '<td>打折';
-           	 }
-           	 html += '</td><td>'+memberLevel.performanceDiscountPercent +'% </td><td>'+memberLevel.integralUnit +'元 = '+memberLevel.integralNumber +'积分</td>';
+
+           	 html += '<td>'+memberLevel.performanceDiscountPercent +'% </td><td>'+memberLevel.integralUnit +'元 = '+memberLevel.integralNumber +'积分</td>';
            	 html += '<td class="input80">'+memberLevel.levelNotice +'  </td> <td>';
 	         if(memberLevel.levelName != '默认会员卡'){
 	        	 html += '<em onclick="editMemberLevel('+memberLevel.levelId+')"><img src="<%=basePath %>images/handle_1.png"></em>';

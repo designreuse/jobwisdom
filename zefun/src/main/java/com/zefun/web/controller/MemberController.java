@@ -305,7 +305,7 @@ public class MemberController extends BaseController{
             return memberInfoService.importExcleBk(file[0], file[1], storeId, storeAccount, lastOperatorId, response, storeName);
         }
         else if (storeName.equals("耕宇")){
-            return memberInfoService.importExcleGy(file[0], storeId, storeAccount, lastOperatorId, response, storeName);
+            return memberInfoService.uploadGenYuMemberInfo(file, storeId, storeAccount, lastOperatorId);
         }
         else if (storeName.equals("共赢")){
             return memberInfoService.importExcleGi(file[0], storeId, storeAccount, lastOperatorId, response, storeName);
@@ -343,6 +343,7 @@ public class MemberController extends BaseController{
     * @author 高国藩
     * @date 2016年8月12日 下午6:35:30
     * @param file     file
+    * @param uploadTypeName uploadTypeName
     * @param request  request
     * @param response response
     * @return    BaseDto
@@ -350,12 +351,18 @@ public class MemberController extends BaseController{
      */
     @RequestMapping(value = Url.Member.UPLOADMEMBEREXLS, method = RequestMethod.POST)
     @ResponseBody
-    public BaseDto uploadMemberExls(@RequestParam("file") MultipartFile[] file, 
+    public BaseDto uploadMemberExls(@RequestParam("file") MultipartFile[] file, String uploadTypeName, 
             HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer storeId = getStoreId(request);
         String storeAccount = getStoreAccount(request);
         Integer userId = getUserId(request);
-        return memberInfoService.uploadMemberExls(file, storeId, storeAccount, userId);
+        if (uploadTypeName.equals("模板导入")){
+            return memberInfoService.uploadMemberExls(file, storeId, storeAccount, userId);
+        }
+        if (uploadTypeName.equals("耕宇系统")){
+            return memberInfoService.uploadGenYuMemberInfo(file, storeId, storeAccount, userId);
+        }
+        return null;
     }
     
     /**

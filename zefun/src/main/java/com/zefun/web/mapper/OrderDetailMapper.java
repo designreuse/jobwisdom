@@ -333,7 +333,7 @@ public interface OrderDetailMapper {
     * @param map 参数
     * @return BigDecimal
      */
-    BigDecimal selectTataiRealPriceByType(Map<String, Object> map);
+    List<BusinessTotailDto> selectTataiRealPriceByType(Map<String, Object> map);
     
     /**
      * 根据项目类别查询卡金或现金支付金额
@@ -580,4 +580,13 @@ public interface OrderDetailMapper {
 	* @return List<BusinessTotailDto>
 	 */
 	List<BusinessTotailDto> selectDetailCalculate(Map<String, Object> map);
+	
+	/**
+	 * 查询项目、商品、卡项，疗程的业绩值
+	* @author 老王
+	* @date 2016年8月16日 下午5:50:08 
+	* @param map map
+	* @return List<BusinessTotailDto>
+	 */
+	List<BusinessTotailDto> selectDetailCalculateByType(Map<String, Object> map);
 }
