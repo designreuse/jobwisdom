@@ -44,7 +44,7 @@
 .server_achievement span{padding:4px;display:inline-block;border-right:1px solid #cccccd}
 .server_achievement span a{position:absolute;right:4px;top:1px}
 .search_table td button:hover{background:#495878}
-.order_style_content_right>li>span:nth-child(1){width:60px}
+.order_style_content_right>li>span:nth-child(1){width:130px}
 .zzc,.zzc1{    position: fixed;
     top: 0px;
     height: 1090px;

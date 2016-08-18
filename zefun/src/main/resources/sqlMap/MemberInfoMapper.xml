@@ -737,4 +737,7 @@
     ORDER BY count(1) DESC
   </select>
 
+  <select id="selectMemberBaseInfoByStoreId" parameterType="java.lang.Integer" resultType="com.zefun.web.entity.MemberInfo">
+  	select member_id memberId,  name, phone from member_info where store_id = #{storeId} and is_deleted = 0
+  </select>
 </mapper>

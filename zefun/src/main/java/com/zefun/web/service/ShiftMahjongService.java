@@ -167,7 +167,16 @@ public class ShiftMahjongService {
 	 */
 	@Transactional
 	public BaseDto addUpdateShiftMahjong(ShiftMahjong shiftMahjong, List<Integer> positionIds){
+		Map<String, Object> isExistmap = new HashMap<>();
+		isExistmap.put("shiftMahjongName", shiftMahjong.getShiftMahjongName());
+		isExistmap.put("storeId", shiftMahjong.getStoreId());
+		List<ShiftMahjong> existList = shiftMahjongMapper.selectByShiftMahjongName(isExistmap);
 	    if (shiftMahjong.getShiftMahjongId() == null) {
+	    	
+	    	if (!existList.isEmpty()) {
+	    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "改轮牌名称已存在，请修改！");
+	    	}
+	    	
 	    	//查询出企业下所有门店
 	    	shiftMahjong.setCreateTime(DateUtil.getCurDate());
             shiftMahjongMapper.insert(shiftMahjong);
@@ -178,8 +187,14 @@ public class ShiftMahjongService {
             operationShiftMahjongEmployee(baseDtos, shiftMahjong.getShiftMahjongId(), shiftMahjong.getStoreId());
 	    }
 	    else {
-	        //查询轮牌对应的岗位信息
+	    	
             ShiftMahjong shiftMahjongOld = shiftMahjongMapper.selectByPrimaryKey(shiftMahjong.getShiftMahjongId());
+            
+            if (!existList.isEmpty() && existList.size() > 0 
+            		  && existList.get(0).getShiftMahjongId().intValue() !=  shiftMahjongOld.getShiftMahjongId().intValue()) {
+	    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "改轮牌名称已存在，请修改！");
+	    	}
+            
             String positionIdListOldStr = shiftMahjongOld.getPositionId();
             String [] positionIdOldStr = positionIdListOldStr.split(",");
             List<String> positionIdOlds = new ArrayList<>();

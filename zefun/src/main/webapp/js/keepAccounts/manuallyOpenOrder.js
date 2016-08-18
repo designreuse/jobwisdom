@@ -324,7 +324,7 @@ function changeIsAppoint(obj) {
 	jQuery(obj).attr("checked",true);
 }
 
-function save() {
+function save(type) {
 	var openOrderDate = jQuery("input[name='openOrderDate']").val();
 	var handOrderCode = jQuery("input[name='handOrderCode']").val();
 	var memberId = jQuery("div[name='memberTR']").find("input[name = 'memberId']").val();
@@ -422,7 +422,13 @@ function save() {
                 return;
             }
     		var orderId = e.msg;
-    		window.location.href = baseUrl + "selfcashier/action/orderinfo?orderId="+ orderId;
+    		if (type == 1) {
+    			window.location.href = baseUrl + "selfcashier/action/orderinfo?orderId="+ orderId;
+    		}
+    		else {
+    			dialog("挂单成功");
+    			location.reload();
+    		}
     	}
     });
 }
