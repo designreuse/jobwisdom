@@ -154,12 +154,13 @@
 							name="coupon_man" type="text"><i  class = "addcolor">*</i></span>
 					</p>
 				</div>
-				<div class="user_">
-					<p>使用条件</p>
-					<div class="simple_full">
-						<span><input type="radio" name="user" value="1">单笔订单满<input
-							name="price_sigle" type="text">元使用</span> <span><input
-							type="radio" name="user" value="0">无条件使用</span>
+				<div class="user_ ">
+					<p class = "hide">使用条件</p>
+					<div class="simple_full hide">
+						<span><input type="radio" name="user" value="1">单笔订单满
+						<input name="price_sigle" type="text">元使用</span> 
+						<span><input type="radio" name="user" value="0">无条件使用</span>
+				
 					</div>
 					<div class="report_time">
 						<span>发布时间<input name="release_time" type="text"
@@ -262,7 +263,8 @@
 		
 		var checkbo = jQuery("input[name='user'][value='0']").is(':checked');
 		if(checkbo==true){
-			couponNames="通用";
+// 			couponNames="通用";
+			couponNames=couponName;
 			priceSigle=0;
 		}else{
 			if (isEmpty(priceSigle)) {
