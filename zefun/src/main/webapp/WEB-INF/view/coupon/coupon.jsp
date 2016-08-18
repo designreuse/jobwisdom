@@ -361,7 +361,7 @@
 		var priceSigle = jQuery("input[name='price_sigle']").val();
 		var checkbo = jQuery("input[name='user'][value='0']").is(':checked');
 		if(checkbo==true){
-			jQuery("#type").text("通用");
+			jQuery("#type").text(jQuery("input[name='coupon_name']").val());
 		}else{
 			jQuery("#type").text("单笔消费"+priceSigle);
 		}
