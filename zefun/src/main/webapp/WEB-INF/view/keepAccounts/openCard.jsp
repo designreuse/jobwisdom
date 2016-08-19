@@ -403,6 +403,7 @@
 								<p>业绩提成</p>
 								<div class="achievement_content">
 									<div class="achievement_detail">
+									<p>总业绩<input type="Number" id="Num2" style="width: 100px;height: 16px;border: 1px solid #717171;border-radius: 12px;margin-left: 30px;"/></p>
 										<p>
 											部门业绩 <select name="deptChooseType"  onchange="chooseDept(this)">
 												<option value="1">固定</option>
@@ -415,7 +416,7 @@
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
 											</select>
-												总业绩<input type="Number" id="Num2" style="width: 130px;height: 16px;border: 1px solid #717171;border-radius: 12px;margin-left: 15px;"/>
+												
 											<i  class = "addcolor">*</i>
 											</span>
 										</p>
@@ -579,6 +580,7 @@
 								<p>业绩提成</p>
 								<div class="achievement_content">
 									<div class="achievement_detail">
+									  <p>总业绩<input type="Number" id="Num3" style="width: 100px;height: 16px;border: 1px solid #717171;border-radius: 12px;margin-left: 30px;"/></p>
 										<p>
 											部门业绩 <select name="deptChooseType"  onchange="chooseDept(this)">
 												<option value="1">固定</option>
@@ -591,7 +593,7 @@
 														<option value="${deptInfo.deptId}">${deptInfo.deptName}</option>
 													</c:forEach>
 											</select>
-												总业绩<input type="Number" id="Num3" style="width: 130px;height: 16px;border: 1px solid #717171;border-radius: 12px;margin-left: 15px;"/>
+												
 											<i  class = "addcolor">*</i>
 											</span>
 										</p>

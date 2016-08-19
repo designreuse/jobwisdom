@@ -217,7 +217,7 @@
 .right_click{position:absolute;z-index:2;top:25px;right:8px}
 .right_click img,.left_click img{width:40px}
 .vip_price_content{font-size:14px;background:#d8deed;padding: 5px 20px 20px 20px;border-radius:10px}
-.vip_price_content input{width:70px;border:1px solid black;border-radius:8px;margin:0 5px;height:16px}
+.vip_price_content input{width:70px;border:1px solid #ccc;border-radius:8px;margin:0 5px;height:16px}
 .roll_ul{height:115px;width:820px;overflow:hidden;border-radius:10px;margin-top:4px;position:relative;}
 .roll_ul ul{width:4000px;position:relative}
 .roll_ul li{border:1px solid black;width:150px;height:90px;border-radius:10px;margin:15px 35px 15px 0;float:left}

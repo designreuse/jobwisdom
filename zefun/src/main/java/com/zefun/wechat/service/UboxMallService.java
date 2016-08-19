@@ -439,6 +439,7 @@ public class UboxMallService {
             Integer storeId = transactionInfo.getStoreId();
             Integer goodsId = transactionInfo.getGoodsId();
             GoodsInfoDto goodsInfo = goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
+            
             Integer amount = transactionInfo.getTransactionAmount();
             OrderInfo orderInfo = new OrderInfo();
             orderInfo.setStoreId(storeId);
@@ -456,6 +457,14 @@ public class UboxMallService {
             //订单明细
            
             OrderDetail orderDetail = new OrderDetail();
+            if (goodsInfo.getCalculationType().equals(1)){
+                orderDetail.setDetailCalculate(goodsInfo.getGoodsPrice()
+                        .multiply(goodsInfo.getOnlineShoppingPrice()).divide(new BigDecimal(100)).doubleValue());
+            }
+            else {
+                orderDetail.setDetailCalculate(goodsInfo.getOnlineShoppingPrice().doubleValue());
+            }
+            
             orderDetail.setDeptId(goodsInfo.getDeptId());
             orderDetail.setOrderId(orderId);
             orderDetail.setOrderType(2);
