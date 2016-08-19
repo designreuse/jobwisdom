@@ -608,6 +608,7 @@
     <result column="debt_amount" property="debtAmount" jdbcType="DECIMAL" />
     <result column="real_amount" property="realAmount" jdbcType="DECIMAL" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="CHAR" />
     <association property="memberName" column="member_id" select="com.zefun.web.mapper.MemberInfoMapper.selectMemberNameByMemberId"></association>
     <association property="projectName" column="order_id" select="com.zefun.web.mapper.OrderDetailMapper.selectOrderDetailNameByOrderId"></association>
 	<association property="orderDetailList" column="order_id" select="com.zefun.web.mapper.OrderDetailMapper.selectIsDeleteDetailListByOrderId" />
@@ -642,7 +643,8 @@
       ifnull(oi.combo_amount,0) as combo_amount, ifnull(oi.coupon_amount, 0) as coupon_amount,
       ifnull(oi.free_amount, 0) as free_amount, ifnull(oi.debt_amount, 0) as debt_amount,
       ifnull(oi.group_amount, 0) as group_amount, ifnull(oi.real_amount, 0) as real_amount,
-      DATE_FORMAT(oi.create_time,'%Y-%m-%d %H:%i') as create_time
+      DATE_FORMAT(oi.create_time,'%Y-%m-%d %H:%i') as create_time,
+      oi.is_deleted as isDeleted
       from order_info oi
       <where>
         oi.store_id = #{params.daybook.storeId} and (oi.order_status = 3 or oi.order_status = 4) 

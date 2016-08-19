@@ -242,7 +242,12 @@ function spellTableData(data) {
 				}
 			str += '</table>';
 			}
-			str	+= '<td><button onclick="deleteOrder('+ data.orderId + ', this)">作废</button></td></tr>';
+			if (data.isDeleted == 0) {
+				str	+= '<td><button onclick="deleteOrder('+ data.orderId + ', this)">作废</button></td></tr>';
+			}
+			else {
+				str	+= '<td>已作废</td>';
+			}
 		return str;
 }
 
@@ -512,7 +517,7 @@ function deleteOrderConfirm(){
 							jQuery("#modelTbody").append(trVar);
 						}
 					}
-					dialog("删除成功！");
+					dialog("订单已作废！");
 					jQuery("#member-level-modal").modal("show");
 					jQuery(deleteOrderObj).parents("tr").remove();
 					return;
@@ -520,8 +525,16 @@ function deleteOrderConfirm(){
 				dialog(e.msg);
 				return;
 			}
-			dialog("删除成功！");
-			jQuery(deleteOrderObj).parents("tr").remove();
+			dialog("订单已作废！");
+			var value = jQuery("#orderState").find(".active").attr("value");
+			if (value == 1) {
+				jQuery(deleteOrderObj).parents("tr").remove();
+			}
+			else {
+				var td = jQuery(deleteOrderObj).parents("td");
+				td.empty();
+				td.text("已作废")
+			}
 		}
 	});
 }

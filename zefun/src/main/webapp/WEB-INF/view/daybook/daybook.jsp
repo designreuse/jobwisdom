@@ -235,7 +235,14 @@
 			   </table>
 		   </c:forEach>
 		 </td>
-		 <td><button onclick="deleteOrder(${daybook.orderId}, this)">作废</button></td>
+		 <td>
+		     <c:if test="${daybook.isDeleted == 0}">
+		         <button onclick="deleteOrder(${daybook.orderId}, this)">作废</button>
+		     </c:if>
+		     <c:if test="${daybook.isDeleted == 2}">
+		                          已作废
+		     </c:if>
+		 </td>
 	   </tr>
 	 </c:forEach>
 		 </table>
