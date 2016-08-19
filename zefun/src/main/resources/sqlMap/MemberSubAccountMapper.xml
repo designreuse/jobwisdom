@@ -39,7 +39,8 @@
   </sql>
   
   <select id="selectNoMoneyAccountId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-  	select sub_account_id from member_sub_account where account_id = #{accountId} and (total_amount + balance_amount) &lt;= 0 
+  	select a.sub_account_id from member_sub_account a where a.account_id = #{accountId} and (a.total_amount + a.balance_amount) &lt;= 0 
+  	and exists(select 1 from member_level b where b.is_default = 1 and b.is_deleted = 0 and b.level_id = a.level_id)
   </select>
   
   <select id="selectListByAccountId" resultMap="BaseResultMap" parameterType="java.util.Map">
