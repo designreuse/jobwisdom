@@ -1315,7 +1315,7 @@ public class GoodsInfoService {
             inquiryAmount = inquiryAmount.add(inquiryCountCostPrice.get(i).multiply(new BigDecimal(inquiryCount.get(0))));
         }
         Map<String, Object> result = new HashMap<>();
-        result.put("count", inquiryCount.stream().count());
+        result.put("count", inquiryCount.stream().mapToInt(p -> p.intValue()).sum());
         result.put("amount", inquiryAmount);
         return result;
     }
