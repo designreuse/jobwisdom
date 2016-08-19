@@ -479,6 +479,7 @@ public class UboxMallService {
             
             StockFlow stockFlow = new StockFlow();
             stockFlow.setStockType(2);
+            stockFlow.setStockCount("1");
             stockFlow.setFlowType("商城销售");
             SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmm");
             stockFlow.setFlowNumber("ck" + sdf.format(new Date()));
