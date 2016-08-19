@@ -265,9 +265,16 @@
 									<p>会员价格</p>
 									<div class="vip_price_content">
 										<p>
-											为不同会员设置折扣
-											<button onclick="addLevel()"
-												style="width: 126px; height: 26px; text-align: center; line-height: 26px; border-radius: 10px; color: white; border: none; background: #657392; position: relative; left: 330px">新建</button>
+											批量选择会员卡
+											<select multiple="true" data-placeholder="请选择会员等级" name="huiyuan" class="chzn-select-search" >
+				                                <c:forEach items="${memberLevels}" var="memberLevel">
+				                                    <option value="${memberLevel.levelId}">${memberLevel.levelName}</option>
+				                                </c:forEach>
+			                                </select>
+			                                                                          输入价格
+			                                <input type="text" value="0"/>
+											<button onclick="addLevel(this)"
+												style="width: 126px; height: 26px; text-align: center; line-height: 26px; border-radius: 10px; color: white; border: none; background: #657392; position: relative; left: 230px">确认</button>
 										</p>
 										<div class="vip_roll">
 											<span class="left_click"><img
@@ -1140,8 +1147,15 @@
 				});
 	})
 
-	function addLevel() {
-		jQuery("#projectLevel").append(jQuery("#li").html());
+	function addLevel(button) {
+		var ids = jQuery("select[name='huiyuan']").val();
+		var levelValue = jQuery(button).prev().val();
+		for (var i = 0; i < ids.length; i++) {
+			jQuery("#projectLevel").append(jQuery("#li").html());
+			jQuery("select[name='discountLevel']").eq(i).val(ids[i]);
+			jQuery("input[name='discountAmount']").eq(i).val(levelValue);
+		}
+		/* jQuery("#projectLevel").append(jQuery("#li").html()); */
 	}
 
 	//会员种类
