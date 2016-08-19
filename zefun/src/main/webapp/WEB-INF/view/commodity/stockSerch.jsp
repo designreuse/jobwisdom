@@ -702,6 +702,7 @@
 			aIds += "," + jQuery(this).prev().val();
 			stockCount += "," + jQuery(this).val();
 		});
+		if (aIds == ''){return dialog('未选择任何相关内容');}
 		var data = null;
 		if (stockType == 1){
 			data = {"stockType":stockType, "flowType":flowType, "stockDesc":stockDesc, 
@@ -730,6 +731,8 @@
 					dialog(data.msg);
 				}else {
 					dialog(data.msg);
+					serchGoodFlow();
+					serchGoodStock();
 					/* window.location.href = baseUrl + "goodsInfo/stock/view/sercher"; */
 				}
 			}

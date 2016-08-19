@@ -469,7 +469,6 @@ public class MemberInfoService {
         view.addObject("levels", levels);
         MemberInfoDto dto = memberInfoMapper.selectStoreMemberAmount(storeId);
         List<MemberInfo> memberInfos = memberInfoMapper.selectMemberBaseInfoByStoreId(storeId);
-       /* List<MemberInfoDto> infoDtos = memberInfoMapper.selectMemberByStoreId(storeId);*/
         view.addObject("storeMember", dto);
         view.addObject("infoDtos", JSONArray.fromObject(memberInfos).toString().trim());
         return view;
@@ -5376,17 +5375,29 @@ public class MemberInfoService {
     * @author 高国藩
     * @date 2016年7月7日 下午4:44:49
     * @param subAccountId  子账户
+    * @param storeAccount  storeAccount
     * @return              BaseDto
      */
-    public BaseDto returnCardMember(Integer subAccountId) {
+    public BaseDto returnCardMember(Integer subAccountId, String storeAccount) {
         MemberSubAccount memberSubAccount = subAccountMapper.selectByPrimaryKey(subAccountId);
         BigDecimal returnCardNum = memberSubAccount.getBalanceAmount();
-//        MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberSubAccount.getAccountId());
         MemberAccount memberAccount = memberAccountMapper.selectByPrimaryKey(memberSubAccount.getAccountId());
         memberAccount.setBalanceAmount(memberAccount.getBalanceAmount().subtract(memberSubAccount.getBalanceAmount()));
         memberSubAccount.setBalanceAmount(new BigDecimal(0));
         memberSubAccount.setIsDeleted(1);
         subAccountMapper.updateByPrimaryKey(memberSubAccount);
+        MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberAccount.getAccountId());
+        List<MemberSubAccount> memberSubAccounts = memberSubAccountMapper.selectListByAccountId(memberAccount.getAccountId());
+        if (memberSubAccounts.size() == 0){
+            List<MemberLevel> memberLevels = memberLevelMapper.selectMemberLevelByStoreAccount(storeAccount);
+            for (int i = 0; i < memberLevels.size(); i++) {
+                if (memberLevels.get(i).getIsDefault().equals(1)){
+                    memberInfo.setLevelId(memberLevels.get(i).getLevelId());
+                    memberAccount.setLevelId(memberLevels.get(i).getLevelId());
+                }
+            }
+        }
+        memberInfoMapper.updateByPrimaryKey(memberInfo);
         memberAccountMapper.updateByPrimaryKey(memberAccount);
         return new BaseDto(0, returnCardNum);
     }

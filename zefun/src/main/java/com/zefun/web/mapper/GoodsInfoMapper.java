@@ -252,4 +252,13 @@ public interface GoodsInfoMapper {
     * @return         GoodsStock
      */
     GoodsStock selectAllAmountAndCount(Integer storeId);
+    
+    /**
+     * 查询部门下的商品信息
+    * @author 高国藩
+    * @date 2016年8月18日 下午4:28:54
+    * @param deptId    deptId
+    * @return          List<GoodsInfo>
+     */
+    List<GoodsInfo> selectByDeptId(Integer deptId);
 }

@@ -308,7 +308,7 @@ public class RabbitService {
     * @param request        request
      */
     public void storeAppointVoice(Integer storeId, Integer employeeId, HttpServletRequest request){
-      //检查门店是否需要预约语音提示
+        //检查门店是否需要预约语音提示
         StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
         if (storeSetting.getSpeechType() == 1) {
             /**给聊天室门店下在线用户发送通知*/
@@ -324,6 +324,7 @@ public class RabbitService {
                 data.setCreateTime(DateUtil.getCurTime());
                 chat.setData(data);
                 for (String userId : set) {
+                    logger.info(storeId + " 门店下 ," + userId + " 在线");
                     Integer isLogin = (Integer) request.getSession().getServletContext().getAttribute(userId);
                     if (isLogin != null){
                         chat.setToUser(userId);

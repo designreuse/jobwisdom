@@ -159,7 +159,20 @@
     <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
     <association property="projectCategoryDtoList"  column="dept_id" select="com.zefun.web.mapper.ProjectCategoryMapper.selectProjectCategoryByDeptId"></association>
   </resultMap>
+  
   <select id="selectDeptInfoProjectCategory" resultMap="DeptInfoCategoryMap" parameterType="java.lang.Integer">
   	select * from dept_info where is_deleted = 0 and store_id = #{storeId}
+  </select>
+  
+  
+  <resultMap id="deptInfoDtoProjectAndGoodsInfoMap" type="com.zefun.web.dto.DeptInfoDto" >
+    <id column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="dept_code" property="deptCode" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <association property="projectInfos"  column="dept_id" select="com.zefun.web.mapper.ProjectInfoMapper.selectDeptIdOrder"></association>
+    <association property="goodsInfos"  column="dept_id" select="com.zefun.web.mapper.GoodsInfoMapper.selectByDeptId"></association>
+  </resultMap>
+  <select id="selectProjectAndGoodsInfoByStoreId" parameterType="java.lang.Integer" resultMap="deptInfoDtoProjectAndGoodsInfoMap">
+  	select dept_id, dept_name, dept_code from dept_info where store_id = #{storeId} and is_deleted = 0
   </select>
 </mapper>

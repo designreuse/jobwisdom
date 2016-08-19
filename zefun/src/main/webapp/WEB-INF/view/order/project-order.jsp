@@ -48,8 +48,7 @@
 
      })
    })
-   
-   
+
    
   function hideHtml(){
 	     jQuery('.store_sell_table_content table').find('tr:gt(0)').hide();  
@@ -141,7 +140,7 @@
 	  
 	  
 	  </div>
-	<div class="wages_content">
+	<div class="wages_content" style="overflow: visible;">
 	
 	
 	  <div class="wages_content_datail">
@@ -194,6 +193,7 @@
 			</ul>
          </div>		  
  
+ 	
 	  </div>
 		
 		 </div>

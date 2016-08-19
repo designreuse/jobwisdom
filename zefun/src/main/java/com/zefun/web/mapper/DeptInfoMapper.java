@@ -184,4 +184,13 @@ public interface DeptInfoMapper {
      */
     List<DeptInfoDto> selectDeptInfoProjectCategory(int storeId);
     
+    /**
+     * 查询门店下的部门，部门下的商品和项目信息
+    * @author 高国藩
+    * @date 2016年8月18日 下午4:23:53
+    * @param storeId   storeId
+    * @return          List<DeptInfoDto>
+     */
+    List<DeptInfoDto> selectProjectAndGoodsInfoByStoreId(Integer storeId);
+    
 }

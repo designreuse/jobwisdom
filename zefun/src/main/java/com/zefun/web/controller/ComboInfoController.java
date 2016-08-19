@@ -21,17 +21,16 @@ import com.zefun.common.consts.Url;
 import com.zefun.common.consts.View;
 import com.zefun.web.dto.BaseDto;
 import com.zefun.web.dto.DeptGoodsBaseDto;
-import com.zefun.web.dto.GoodsInfoDto;
+import com.zefun.web.dto.DeptInfoDto;
 import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.ProjectCommissionDto;
-import com.zefun.web.dto.ProjectInfoDto;
 import com.zefun.web.entity.ComboGoods;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.ComboMemberLevel;
 import com.zefun.web.entity.ComboProject;
-import com.zefun.web.entity.DeptInfo;
 import com.zefun.web.entity.MemberComboRecord;
 import com.zefun.web.mapper.ComboInfoMapper;
+import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.MemberComboRecordMapper;
 import com.zefun.web.service.ComboInfoService;
 import com.zefun.web.service.GoodsInfoService;
@@ -67,6 +66,9 @@ public class ComboInfoController extends BaseController {
     /**疗程*/
     @Autowired
     private ComboInfoMapper comboInfoMapper;
+    /**部门信息*/
+    @Autowired
+    private DeptInfoMapper deptInfoMapper;
 
     /**
      * 进入疗程页面
@@ -123,27 +125,12 @@ public class ComboInfoController extends BaseController {
         
         Integer storeId = getStoreId(request);
         model.setViewName(View.ComboInfo.COMBO_SETTING);
-        // 部门列表
-        List<DeptInfo> deptInfoList = projectService.queryDeptInfoList(storeId);
-        model.addObject("deptInfoList", deptInfoList);
-        model.addObject("js_deptInfoList", JSONArray.fromObject(deptInfoList));
 
-        // 项目列表
-        ProjectInfoDto projectInfoDto = new ProjectInfoDto();
-        projectInfoDto.setStoreId(storeId);
-        projectInfoDto.setIsDeleted(0);
-        List<ProjectInfoDto> projectInfoDtoList = projectService.queryProjectInfoList(projectInfoDto);
-        model.addObject("projectInfoDtoList", projectInfoDtoList);
-        model.addObject("projectInfoList", JSONArray.fromObject(projectInfoDtoList));
+        // 部门下商品和项目汇总
+        List<DeptInfoDto> deptInfoDtos = deptInfoMapper.selectProjectAndGoodsInfoByStoreId(storeId);
+        model.addObject("deptInfoList", deptInfoDtos);
+        model.addObject("js_deptInfoList", JSONArray.fromObject(deptInfoDtos));
         
-        //商品列表
-        GoodsInfoDto goodsInfo = new GoodsInfoDto();
-        goodsInfo.setStoreId(storeId);
-        goodsInfo.setIsDeleted(0);
-        goodsInfo.setIsSellProduct(1);
-        List<GoodsInfoDto> goodsinfos = goodsInfoService.selectGoodsInfos(goodsInfo);
-        model.addObject("goodsinfos", goodsinfos);
-        model.addObject("goodsinfos_js", JSONArray.fromObject(goodsinfos));
         // 会员等级列表
         List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);

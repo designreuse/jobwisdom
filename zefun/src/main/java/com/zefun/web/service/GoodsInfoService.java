@@ -1279,24 +1279,24 @@ public class GoodsInfoService {
         if (flowType != null){
          // 计算数量集合
             inquiryCount = stockFlows.stream()
-                    .filter(p -> p.getStockType().equals(stockType) && p.getFlowType().equals(flowType))
+                    .filter(p -> stockType.equals(p.getStockType()) && p.getFlowType().equals(flowType))
                     .flatMap(p -> Arrays.asList(p.getStockCount().split(",")).stream())
                     .map(f -> Integer.parseInt(f)).collect(Collectors.toList());
             // 计算成本价集合
             inquiryCountCostPrice = stockFlows.stream()
-                    .filter(p -> p.getStockType().equals(stockType) && p.getFlowType().equals(flowType))
+                    .filter(p -> stockType.equals(p.getStockType()) && p.getFlowType().equals(flowType))
                     .flatMap(p -> p.getAccountGoods().stream().map(a -> a.getCostPrice()))
                     .collect(Collectors.toList());
         }
         else {
             // 计算数量集合
             inquiryCount = stockFlows.stream()
-                    .filter(p -> p.getStockType().equals(stockType))
+                    .filter(p -> stockType.equals(p.getStockType()))
                     .flatMap(p -> Arrays.asList(p.getStockCount().split(",")).stream())
                     .map(f -> Integer.parseInt(f)).collect(Collectors.toList());
             // 计算成本价集合
             inquiryCountCostPrice = stockFlows.stream()
-                    .filter(p -> p.getStockType().equals(stockType))
+                    .filter(p -> stockType.equals(p.getStockType()))
                     .flatMap(p -> p.getAccountGoods().stream().map(a -> a.getCostPrice()))
                     .collect(Collectors.toList());
         } 
