@@ -69,6 +69,7 @@ public class MemberDataController extends BaseController{
     @ResponseBody
     public BaseDto selectStoreMemberInfo(HttpServletRequest request, HttpServletResponse response) {
         Integer storeId = getStoreId(request);
-        return memberInfoDataService.selectStoreMemberInfo(storeId);
+        String storeAccount = getStoreAccount(request);
+        return memberInfoDataService.selectStoreMemberInfo(storeId, storeAccount);
     }
 }

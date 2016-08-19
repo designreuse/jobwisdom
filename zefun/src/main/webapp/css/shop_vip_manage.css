@@ -20,6 +20,8 @@ width:130px;height:26px;border:none;border-radius:12px;text-align:center;line-he
     width: 1014px;
     border-radius: 8px;
   }
+  
+.white_card_content li i{display:inline-block;width:80px}
 .new_data table td{
     height: 40px;
     text-align: center;
@@ -112,7 +114,7 @@ input[type=radio]:checked {
 .new_data table td i{position:absolute;background:url('../images/data_shop1.png') no-repeat;width:46px;height:28px;display:inline-block;top: -20px;
     left: 82px;font-style:normal;cursor:pointer;display:none}
 
-.new_data{border:1px solid #ccc;border-radius:8px;margin-top:10px;height: 750px;}	
+.new_data{border:1px solid #ccc;border-radius:8px;margin-top:10px;height: 750px;overflow:overlay}	
 .new_data>p{color:black;font-size:14px;font-weight:bold;padding:10px}
 .new_data>p select{border:1px solid black;border-radius:8px;color:black;margin-left:10px;width:90px;padding-left:40px;font-size:12px}
 .vip_style select{border:1px solid #ccc!important;color:#707070!important}
@@ -157,7 +159,7 @@ input[type=radio]:checked {
 .zzc1_adjust>p{
 	    height: 60px;
     color: white;
-    font-size: 18px;
+    font-size: 15px;
     background: #2a3244;
     text-align: center;
     line-height: 60px;
@@ -165,19 +167,18 @@ input[type=radio]:checked {
 .white_card{padding:20px}
 .white_card>p{
 	color:black;
-	font-size:16px;
-	font-weight:bold
+	font-size:14px;
 }
 .white_card_content{
 width:480px;height:135px;
-border:1px solid black;
+border:1px solid #ccc;
 border-radius:8px;
 margin-top:10px
 }
 .white_card_content li em{font-style:normal;display:inline-block;margin-right:10px}
 .white_card_content ul{padding:10px}
-.white_card_content li{float:left;width:230px;margin-bottom:10px}
-.white_card_content li input{width:128px;height:22px;border-radius:8px;border:1px solid black;margin-left:5px}
+.white_card_content li{float:left;width:200px;margin-bottom:10px}
+.white_card_content li input{width:68px;height:22px;border-radius:12px;border:1px solid #ccc;}
 .zzc1_adjust button{
 	border:none;border-radius:10px;
 	color:white;text-align:center;

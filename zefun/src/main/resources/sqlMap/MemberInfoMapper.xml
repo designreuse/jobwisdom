@@ -681,23 +681,18 @@
   </select>
 
   <select id="selectStoreNamePhone" parameterType="java.util.Map" resultType="java.util.Map">
-    SELECT
-      ifnull(a.name, "未填写") as name,
-      a.phone as phone,
-      a.sex as sex,
-      b.store_name as storeName,
-      a.head_url as headUrl
-    from member_info a
-    left join store_info b on a.store_id = b.store_id
-    WHERE is_deleted = 0 
-    <choose>
-		<when test="type == 1">
-	       and a.store_id = #{storeId}
-		</when>
-		<when test="type == 2">
-		   and a.store_id in (select store_id from store_info c where exists(select 1 from store_info d where c.store_account = d.store_account and d.store_status = 1 and d.store_id = #{storeId}))
-		</when>
-	 </choose>
+  SELECT ifnull(a.name, "未填写") as name, a.phone, a.sex, a.head_url headUrl, b.store_name storeName
+  	 FROM member_info a, store_info b
+	  WHERE a.is_deleted = 0 
+	 	 <choose>
+			<when test="type == 1">
+		       and a.store_id = #{storeId}
+			</when>
+			<when test="type == 2">
+			   AND a.store_id IN (SELECT store_id FROM store_info WHERE store_account = #{storeAccount}) 
+			</when>
+		 </choose>
+	  	AND a.store_id = b.store_id
   </select>
 
   <select id="selectByMemberIds" parameterType="java.util.List" resultMap="BaseResultMap">

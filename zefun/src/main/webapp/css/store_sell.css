@@ -27,9 +27,9 @@
 }
 
 .wages_content {
-    overflow: hidden;
+    
     width: 1037px;
-    height: 780px;
+   
     border: 1px solid #ccc;
     border-radius: 0 12px 12px 12px;
 }
@@ -74,7 +74,7 @@
 .store_sell ul li p{text-align:center;margin-top:14px}
 .store_sell ul li:last-child{font-size:16px}
 
-.store_sell_table{color:black;height:575px;overflow: overlay;}
+.store_sell_table{color:black;}
 .store_sell_table>p{position:relative;top:20px;background:#ebeff8;text-align:center;height:40px;line-height:40px;border-top:1px solid #9b9b9b;border-bottom:1px solid #9b9b9b;}
 .store_sell_table>p span{font-size:14px;margin-right:5px}
 

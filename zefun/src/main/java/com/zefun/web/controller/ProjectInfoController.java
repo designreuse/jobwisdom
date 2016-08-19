@@ -113,23 +113,6 @@ public class ProjectInfoController extends BaseController {
         model.addObject("deptProjectList", deptProjectList);
         model.addObject("js_deptProjectList", JSONArray.fromObject(deptProjectList));
 
-        // List<DeptMahjongDto> deptMahjongList =
-        // projectService.getDeptMahjongByStoreId(storeId);
-        // model.addObject("deptMahjongList", deptMahjongList);
-        // model.addObject("mahjongList",
-        // JSONArray.fromObject(deptMahjongList).toString());
-        //
-        // List<EmployeeLevelBaseDto> employeeLevelList =
-        // deptMahjongList.stream()
-        // .flatMap(dml -> dml.getMahjongLevelList()
-        // .stream().flatMap(mll -> mll.getEmployeeLevelList()
-        // .stream())).collect(Collectors.toList());
-        //
-        // if (employeeLevelList!=null){
-        // model.addObject("employeeLevelList",
-        // JSONArray.fromObject(employeeLevelList));
-        // }
-
         // 会员等级列表
         List<MemberLevelDto> memberLevelList = memberLevelService.queryByAllStoreId(storeId);
         model.addObject("memberLevels", memberLevelList);

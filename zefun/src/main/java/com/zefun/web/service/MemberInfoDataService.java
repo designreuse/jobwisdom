@@ -387,14 +387,16 @@ public class MemberInfoDataService {
     * @author 王大爷
     * @date 2016年1月5日 下午6:23:06
     * @param storeId 门店标识
+    * @param storeAccount   storeAccount
     * @return BaseDto
      */
-    public BaseDto selectStoreMemberInfo (Integer storeId) {
-    	Map<String, Integer> mapHash = new HashMap<>();
+    public BaseDto selectStoreMemberInfo (Integer storeId, String storeAccount) {
+    	Map<String, Object> mapHash = new HashMap<>();
     	mapHash.put("type", 1);
     	mapHash.put("storeId", storeId);
         List<Map<String, Object>> storeMemberList = memberInfoMapper.selectStoreNamePhone(mapHash);
         mapHash.put("type", 2);
+        mapHash.put("storeAccount", storeAccount);
         List<Map<String, Object>> enterpriseMemberList = memberInfoMapper.selectStoreNamePhone(mapHash);
         Map<String, Object> map = new HashMap<>();
         map.put("storeMemberList", storeMemberList);

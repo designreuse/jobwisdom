@@ -82,6 +82,12 @@ margin: 0 10px 0 15px;width: 126px;}
     border: 1px solid #717171;
     border-radius: 12px;
     margin: 0 20px 0 10px;}
+    
+.upgrade_vip_content input{width: 130px;
+    height: 18px;
+    border: 1px solid #717171;
+    border-radius: 12px;
+    margin: 0 5px 0 5px;}
 .upgrade_vip_content em{color:#e54b4f}
 .upgrade_vip_content i{color:#818181}
 

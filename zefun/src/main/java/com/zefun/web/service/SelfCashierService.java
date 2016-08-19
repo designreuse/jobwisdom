@@ -325,6 +325,13 @@ public class SelfCashierService {
 		BigDecimal realAmount = new BigDecimal(0);
 		BigDecimal discountAmount = new BigDecimal(0);
 		
+		//查询四舍五入或保留两位小数
+		StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
+		Integer toFixedNum = 2;
+		if (storeSetting.getIsDecimalPoint() == 1) {
+			toFixedNum = 0;
+		}
+		
 		MemberSubAccount memberSubAccount = memberSubAccountMapper.selectByPrimaryKey(orderSubmit.getSubAccountId());
 		
 		//结账方式
@@ -353,7 +360,7 @@ public class SelfCashierService {
 			orderDetail.setProjectId(ownerDetail.getProjectId());
 			orderDetail.setDetailId(detail.getDetailId());
 			orderDetail.setGiftAmount(BigDecimal.ZERO);
-			orderDetail.setRealPrice(ownerDetail.getDiscountAmount());
+			orderDetail.setRealPrice(ownerDetail.getDiscountAmount().setScale(toFixedNum, BigDecimal.ROUND_HALF_UP));
 			orderDetail.setUpdateTime(curTime);
 			if (ownerMemberId != null) {
 				// 一人多卡，从新计算折扣价格
@@ -372,11 +379,12 @@ public class SelfCashierService {
 				else {
 					tempAmount = ownerDetail.getDiscountAmount();
 				}
+				tempAmount = tempAmount.setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 				ownerDetail.setDiscountAmount(tempAmount);
 				orderDetail.setDiscountAmount(tempAmount);
 				orderDetail.setRealPrice(tempAmount);
 				orderDetail.setLevelId(levelId);
-				discountAmount = discountAmount.add(tempAmount);
+				discountAmount = discountAmount.add(tempAmount).setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 				// 优惠类型为疗程
 				if (detail.getOffType() == 1 || detail.getOffType() == 2) {
 					// 减去疗程次数
@@ -385,8 +393,8 @@ public class SelfCashierService {
 					if (comboId == null) {
 						throw new ServiceException(-1, "对不起，您不存在此疗程！");
 					}
-					comboAmount = comboAmount.add(ownerDetail.getProjectPrice());
-					orderDetail.setGiftAmount(ownerDetail.getProjectPrice());
+					comboAmount = comboAmount.add(ownerDetail.getProjectPrice()).setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
+					orderDetail.setGiftAmount(ownerDetail.getProjectPrice().setScale(toFixedNum, BigDecimal.ROUND_HALF_UP));
 					orderDetail.setRealPrice(BigDecimal.ZERO);
 					orderDetail.setComboId(detail.getOffId());
 					orderDetail.setOffType(1);
@@ -403,7 +411,8 @@ public class SelfCashierService {
 					orderDetail.setGiftAmount(detail.getOffAmount());
 
 					// 检查是否有礼金抵扣
-					orderDetail.setRealPrice(ownerDetail.getDiscountAmount().subtract(detail.getOffAmount()));
+					orderDetail.setRealPrice(ownerDetail.getDiscountAmount().subtract(detail.getOffAmount())
+								 .setScale(toFixedNum, BigDecimal.ROUND_HALF_UP));
 
 					orderDetail.setOffType(3);
 				}
@@ -424,14 +433,14 @@ public class SelfCashierService {
 					discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());*/
 				} 
 				appointOff = appointOff.add(ownerDetail.getAppointOff());
-				BigDecimal rm = orderDetail.getRealPrice().subtract(ownerDetail.getAppointOff());
+				BigDecimal rm = orderDetail.getRealPrice().subtract(ownerDetail.getAppointOff()).setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 				if (rm.compareTo(BigDecimal.ZERO) == -1) {
 					rm = BigDecimal.ZERO;
 				}
 				orderDetail.setRealPrice(rm);
 			} 
 			else {
-				discountAmount = discountAmount.add(ownerDetail.getDiscountAmount());
+				discountAmount = discountAmount.add(ownerDetail.getDiscountAmount()).setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 			}
 
 			for (int j = 0; j < updatePricArray.size(); j++) {
@@ -444,7 +453,8 @@ public class SelfCashierService {
 					orderDetail.setOrderRemark(orderRemark);
 					orderDetail.setFreeEmployeeId(orderSubmit.getAuthorityEmployeeId());
 					
-					orderDetail.setRealPrice(orderDetail.getRealPrice().add(new BigDecimal(freeAmount)));
+					orderDetail.setRealPrice(orderDetail.getRealPrice().add(new BigDecimal(freeAmount))
+							   .setScale(toFixedNum, BigDecimal.ROUND_HALF_UP));
 				}
 				
 			}
@@ -454,7 +464,7 @@ public class SelfCashierService {
 			
 			OrderDetail orderDetailObj = orderDetailMapper.selectByPrimaryKey(orderDetail.getDetailId());
 			
-			stepCommissionMap = calculateCommonCommission(orderDetailObj, memberSubAccount, storeId, payType, ownerMemberId, employeeId);
+			stepCommissionMap = calculateCommonCommission(orderDetailObj, memberSubAccount, storeId, payType, ownerMemberId, employeeId, toFixedNum);
 			stepCommissionList.add(stepCommissionMap);
 			
 			//修改业绩值
@@ -669,10 +679,11 @@ public class SelfCashierService {
 	 * @param payType 支付方式
 	 * @param memberId 会员标识
 	 * @param employeeId 操作人
+	 * @param toFixedNum 是否保留小数点
 	 * @return Map<String, Object>
 	 */
 	protected Map<String, Object> calculateCommonCommission(OrderDetail orderDetail, MemberSubAccount memberSubAccount, 
-			  Integer storeId, Integer payType, Integer memberId, Integer employeeId) {
+			  Integer storeId, Integer payType, Integer memberId, Integer employeeId, Integer toFixedNum) {
 		
 		Map<String, Object> stepCommissionMap = new HashMap<>();
 		stepCommissionMap.put("projectName", orderDetail.getProjectName());
@@ -742,7 +753,7 @@ public class SelfCashierService {
         		
         	}
         }
-        
+        tataliCommonCalculate = tataliCommonCalculate.setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
         stepCommissionMap.put("tataliCommonCalculate", tataliCommonCalculate);
         //当为项目时
 		if (orderDetail.getOrderType() == 1) {
@@ -796,7 +807,7 @@ public class SelfCashierService {
 	                }
 	                
 	                saveCommonCalculate = zeroChoose(saveCommonCalculate);
-	                
+	                saveCommonCalculate = saveCommonCalculate.setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 	                stepOrderMap.put("commissionCalculate", saveCommonCalculate);
 	                
 	                Integer stepPositionId = orderDetailStepDto.getEmployeeInfo().getPositionId();
@@ -917,6 +928,7 @@ public class SelfCashierService {
 			    		    empCommission = empCommission.add(new BigDecimal(commissionObj.getCommissionCard()));
 			    		}
 			    	}
+			    	empCommission = empCommission.setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 			    	stepOrderMap.put("commissionAmount", empCommission);
 			    	EmployeeCommission employeeCommission = new EmployeeCommission();
 					employeeCommission.setDetailId(orderDetail.getDetailId());
@@ -952,7 +964,8 @@ public class SelfCashierService {
 			else {
 				saveCommonCalculate = goodsInfoDto.getOnlineShoppingPrice();
 			}
-			saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
+			saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100))
+					   .setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 			
 			if (goodsInfoDto.getCommissionType() == 1) {
 				//现金
@@ -972,6 +985,7 @@ public class SelfCashierService {
 					empCommission = new BigDecimal(goodsInfoDto.getCardAmount());
 				}
 			}
+			empCommission = empCommission.setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 			if (stepDtoList.size() > 0) {
 				if (stepDtoList.size() == 1) {
 					stepOrderMap = new HashMap<>();
@@ -1021,12 +1035,14 @@ public class SelfCashierService {
 						//业绩比例
 						Integer calculationProportion = Integer.valueOf(commission.split(":")[0]);
 						
-						BigDecimal calculation = saveCommonCalculate.multiply(new BigDecimal(calculationProportion)).divide(hundred);
+						BigDecimal calculation = saveCommonCalculate.multiply(new BigDecimal(calculationProportion)).divide(hundred)
+								   .setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 						
 						//提成比例
 						Integer commProportion = Integer.valueOf(commission.split(":")[1]);
 						
-						BigDecimal comm = empCommission.multiply(new BigDecimal(commProportion)).divide(hundred);
+						BigDecimal comm = empCommission.multiply(new BigDecimal(commProportion)).divide(hundred)
+								   .setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 						
 						stepOrderMap = new HashMap<>();
 						stepOrderMap.put("employeeId", stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
@@ -1084,8 +1100,9 @@ public class SelfCashierService {
 					empCommission = comboInfo.getCardCommission();
 				}
 			}
-			saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100));
-			
+			saveCommonCalculate = saveCommonCalculate.multiply(new BigDecimal(performanceDiscountPercent)).divide(new BigDecimal(100))
+					.setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
+			empCommission = empCommission.setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 			if (stepDtoList.size() > 0) {
 				if (stepDtoList.size() == 1) {
 					stepOrderMap = new HashMap<>();
@@ -1137,12 +1154,14 @@ public class SelfCashierService {
 						//业绩比例
 						Integer calculationProportion = Integer.valueOf(commission.split(":")[0]);
 						
-						BigDecimal calculation = saveCommonCalculate.multiply(new BigDecimal(calculationProportion)).divide(hundred);
+						BigDecimal calculation = saveCommonCalculate.multiply(new BigDecimal(calculationProportion)).divide(hundred)
+								   .setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 						
 						//提成比例
 						Integer commProportion = Integer.valueOf(commission.split(":")[1]);
 						
-						BigDecimal comm = empCommission.multiply(new BigDecimal(commProportion)).divide(hundred);
+						BigDecimal comm = empCommission.multiply(new BigDecimal(commProportion)).divide(hundred)
+								   .setScale(toFixedNum, BigDecimal.ROUND_HALF_UP);
 						
 						stepOrderMap.put("employeeId", stepDtoList.get(i).getEmployeeInfo().getEmployeeId());
 			        	stepOrderMap.put("employeeCodeName", stepDtoList.get(i).getEmployeeInfo().getEmployeeCode() 
