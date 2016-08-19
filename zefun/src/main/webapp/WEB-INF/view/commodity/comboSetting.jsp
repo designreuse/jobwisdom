@@ -236,7 +236,7 @@
 											<em>疗程名称</em><input name="comboName" maxlength="8" type="text"><i  class = "addcolor">*</i>
 										</p>
 										<p>
-											<em>疗程所属部门</em><select name="deptId"><c:forEach items="${deptInfoList }" var="deptInfo"><option value="${deptInfo.deptId }">${deptInfo.deptName }</option></c:forEach></select>
+											<em>疗程所属部门</em><select name="deptId" onchange="updateDeptInfoProjectGoodsInfo(this.value)"><c:forEach items="${deptInfoList }" var="deptInfo"><option value="${deptInfo.deptId }">${deptInfo.deptName }</option></c:forEach></select>
 										</p>
 									</div>
 									<div class="add_store_content_1_right">
@@ -261,7 +261,13 @@
 													<button style="display: none" onclick="saveProject(this)">保存</button></td>
 												</tr>
 												<tr style="display: none">
-													<td><select onchange="descProjectPrice(this)" name="projectId"><c:forEach items="${projectInfoDtoList }" var="projectInfo"><option projectPrice="${projectInfo.projectPrice }" value="${projectInfo.projectId }">${projectInfo.projectName }</option></c:forEach></select></td>
+													<td>
+														<select onchange="descProjectPrice(this)" name="projectId">
+															<c:forEach items="${projectInfoDtoList }" var="projectInfo">
+																<option projectPrice="${projectInfo.projectPrice }" value="${projectInfo.projectId }">${projectInfo.projectName }</option>
+															</c:forEach>
+														</select>
+													</td>
 													<td>0.00 元</td>
 													<td><span><input type="radio" name="isCountLimit" value="1" checked="checked">是</span><span><input type="radio" name="isCountLimit" value="0">否</span></td>
 													<td><input type="text" name="projectCount" ><i>个</i></td>
@@ -295,7 +301,13 @@
 													<td rowspan="2"><button onclick="jQuery(this).hide();jQuery(this).next().show();jQuery(this).parents('tr').next().show();">新增</button><button style="display: none" onclick="saveGoods(this)">保存</button></td>
 												</tr>
 												<tr style="display: none">
-													<td><select onchange="descGoodsPrice(this)" name="goodsId"><c:forEach items="${goodsinfos }" var="goodsinfo"><option goodsPrice="${goodsinfo.goodsPrice }" value="${goodsinfo.goodsId }">${goodsinfo.goodsName }</option></c:forEach></select></td>
+													<td>
+														<select onchange="descGoodsPrice(this)" name="goodsId">
+															<c:forEach items="${goodsinfos }" var="goodsinfo">
+																<option goodsPrice="${goodsinfo.goodsPrice }" value="${goodsinfo.goodsId }">${goodsinfo.goodsName }</option>
+															</c:forEach>
+														</select>
+													</td>
 													<td>0.00元</td>
 													<td><input type="text" name="goodsCounts" ><i style="right: 50px;">个</i></td>
 													<td><input type="text" name="comboPerformanceCal"  style="padding-right: 20px; width: 106px"><i style="right: 48px">元</i></td>
@@ -405,9 +417,42 @@ var u1 = UE.getEditor('editor1', toolbars);
 
 <script>
 	var comboId = null;
-	var projectInfoList = eval(<%=request.getAttribute("projectInfoList")%>);
 	var deptInfoListDate = eval(<%=request.getAttribute("js_deptInfoList")%>);
-	var goodsinfos = eval(<%=request.getAttribute("goodsinfos_js")%>);
+	var projectInfoList = deptInfoListDate[0].projectInfos;
+	var goodsinfos = deptInfoListDate[0].goodsInfos;
+	changeDeptProjects(deptInfoListDate[0].deptId);
+	changeDeptGoodsInfos(deptInfoListDate[0].deptId);
+	
+	function updateDeptInfoProjectGoodsInfo(deptIds){
+		changeDeptProjects(deptIds);
+		changeDeptGoodsInfos(deptIds);
+	}
+	
+	function changeDeptProjects(deptIds){
+		jQuery("select[name='projectId']").empty();
+		for (var i = 0; i < deptInfoListDate.length; i++) {
+			if (deptInfoListDate[i].deptId == deptIds){
+				for (var j = 0; j < deptInfoListDate[i].projectInfos.length; j++) {
+					var projectInfo = deptInfoListDate[i].projectInfos[j];
+					var html = '<option projectPrice="'+projectInfo.projectPrice+'" value="'+projectInfo.projectId+'">'+projectInfo.projectName+'</option>';
+					jQuery("select[name='projectId']").append(jQuery(html));
+				}
+			}
+		}
+	}
+	
+	function changeDeptGoodsInfos(deptIds){
+		jQuery("select[name='goodsId']").empty();
+		for (var i = 0; i < deptInfoListDate.length; i++) {
+			if (deptInfoListDate[i].deptId == deptIds){
+				for (var j = 0; j < deptInfoListDate[i].goodsInfos.length; j++) {
+					var goodsInfo = deptInfoListDate[i].goodsInfos[j];
+					var html = '<option goodsPrice="'+goodsInfo.goodsPrice+'" value="'+goodsInfo.projectId+'">'+goodsInfo.goodsName+'</option>';
+					jQuery("select[name='goodsId']").append(jQuery(html));
+				}
+			}
+		}
+	}
 	
 	// 选择查看了一个疗程
 	u1.ready(function(){

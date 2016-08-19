@@ -3,6 +3,8 @@ package com.zefun.web.dto;
 import java.util.List;
 
 import com.zefun.web.entity.ComboInfo;
+import com.zefun.web.entity.GoodsInfo;
+import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ShiftMahjong;
 
 /**
@@ -29,6 +31,27 @@ public class DeptInfoDto {
     private List<ComboInfo> comboInfoList;
     /**商品类别*/
     private List<GoodsCategoryDto> goodsCategoryDtoList;
+    /** 项目*/
+    private List<ProjectInfo> projectInfos;
+    /** 商品*/
+    private List<GoodsInfo> goodsInfos;
+    
+    
+    public List<ProjectInfo> getProjectInfos() {
+        return projectInfos;
+    }
+
+    public void setProjectInfos(List<ProjectInfo> projectInfos) {
+        this.projectInfos = projectInfos;
+    }
+
+    public List<GoodsInfo> getGoodsInfos() {
+        return goodsInfos;
+    }
+
+    public void setGoodsInfos(List<GoodsInfo> goodsInfos) {
+        this.goodsInfos = goodsInfos;
+    }
 
     public Integer getIsResults() {
         return isResults;

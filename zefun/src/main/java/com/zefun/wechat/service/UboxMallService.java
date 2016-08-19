@@ -434,9 +434,11 @@ public class UboxMallService {
             transactionInfo.setPayChannel(1);
             transactionInfo.setPayStatus(2);
             transactionInfoMapper.updateByPrimaryKey(transactionInfo);
+            
             //订单
             Integer storeId = transactionInfo.getStoreId();
             Integer goodsId = transactionInfo.getGoodsId();
+            GoodsInfoDto goodsInfo = goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
             Integer amount = transactionInfo.getTransactionAmount();
             OrderInfo orderInfo = new OrderInfo();
             orderInfo.setStoreId(storeId);
@@ -448,11 +450,13 @@ public class UboxMallService {
             orderInfo.setOrderStatus(3);
             orderInfo.setCashCardType(1);
             orderInfo.setCreateTime(DateUtil.getCurDate());
+            orderInfo.setDeptId(goodsInfo.getDeptId());
             orderInfoMapper.insert(orderInfo);
             Integer orderId = orderInfo.getOrderId();
             //订单明细
-            GoodsInfoDto goodsInfo = goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
+           
             OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setDeptId(goodsInfo.getDeptId());
             orderDetail.setOrderId(orderId);
             orderDetail.setOrderType(2);
             orderDetail.setProjectId(goodsId);
@@ -474,7 +478,8 @@ public class UboxMallService {
             List<StockFlowDetail> stockFlowDetails = new ArrayList<>();
             
             StockFlow stockFlow = new StockFlow();
-            stockFlow.setStockFlowId(2);
+            stockFlow.setStockType(2);
+            stockFlow.setStockCount("1");
             stockFlow.setFlowType("商城销售");
             SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmm");
             stockFlow.setFlowNumber("ck" + sdf.format(new Date()));

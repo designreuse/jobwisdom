@@ -470,7 +470,7 @@ table td button {
 									</c:choose>
 									<c:if test="${index.count == 1 }">
 										<td rowspan="100">
-											<div class="total">合计:¥${order.discountAmount }</div>
+											<div class="total">合计:¥${order.realAmount }</div>
 											<c:choose>
 											<%-- <c:when test="${order.orderStatus == 2 || order.orderStatus == 5 }">
 												<button onclick="pay(${order.orderId})" class="evaluate">结账</button>
