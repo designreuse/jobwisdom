@@ -567,9 +567,11 @@ public class ManuallyOpenOrderService {
             if (orderObj.getOrderCode().isEmpty()) {
             	String orderCode = staffService.getOrderCode("order_info", storeId);
             	orderInfo.setOrderCode(orderCode);
-            	orderInfo.setOrderId(orderId);
             }
+            orderInfo.setOrderId(orderId);
             orderInfoMapper.updateByPrimaryKey(orderInfo);
+            //解决当会员为空值   无法修改值得问他
+            orderInfoMapper.updateMemberId(orderInfo);
         }
         
         JSONArray arrayObj =JSONArray.fromObject(arrayObjStr);

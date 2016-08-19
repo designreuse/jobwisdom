@@ -77,6 +77,15 @@ public interface OrderInfoMapper {
      * @return 是否成功
      */
     int updateByPrimaryKey(OrderInfo record);
+    
+    /**
+     * 修改会员标识
+    * @author 老王
+    * @date 2016年8月19日 下午5:29:32 
+    * @param record 订单
+    * @return 是否成功
+     */
+    Integer updateMemberId(OrderInfo record);
 
     /**
      * 根据条件查询订单

@@ -286,7 +286,7 @@ background-size: cover;}
 					  <div class="nav_content" name = "projectPay">
 				           <c:forEach items="${selfCashierOrderDto.orderDetails}" var="orderDetail">
 				                <div class="nav_content_div" name= 'projectNameLI' projectId = "${orderDetail.projectId }" detailId = "${orderDetail.detailId }">
-								   <span class="hand_close"></span>
+								   <span class="hand_close" onclick = 'deleteProject(this)'><img src='<%=basePath%>images/hand_close.png'></span>
 								      <p>
 								         <em>${orderDetail.projectName}</em>
 								         <i>项目价格：${orderDetail.projectPrice}</i>
