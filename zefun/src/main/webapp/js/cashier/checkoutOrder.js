@@ -41,14 +41,14 @@ function initialization () {
             	discountAmount = new Big($this.find("span[name='discountAmount']").attr("discountAmount"));
             }
 			
-			$this.find("span[name='discountAmount']").attr("discountAmount", discountAmount.toFixed(2));
-			$this.find("span[name='discountAmount']").text(discountAmount.toFixed(2));
+			$this.find("span[name='discountAmount']").attr("discountAmount", new Big(discountAmount.toFixed(toFixedNum)).toFixed(2));
+			$this.find("span[name='discountAmount']").text(new Big(discountAmount.toFixed(toFixedNum)).toFixed(2));
 			
-			$this.find("em[name='mustAmount']").attr("mustAmount", discountAmount.toFixed(2));
-			$this.find("em[name='mustAmount']").text(discountAmount.toFixed(2));
+			$this.find("em[name='mustAmount']").attr("mustAmount", new Big(discountAmount.toFixed(toFixedNum)).toFixed(2));
+			$this.find("em[name='mustAmount']").text(new Big(discountAmount.toFixed(toFixedNum)).toFixed(2));
 			
-			$this.find("span[name='actualAmount']").attr("actualAmount", discountAmount.toFixed(2));
-			$this.find("span[name='actualAmount']").text(discountAmount.toFixed(2));
+			$this.find("span[name='actualAmount']").attr("actualAmount", new Big(discountAmount.toFixed(toFixedNum)).toFixed(2));
+			$this.find("span[name='actualAmount']").text(new Big(discountAmount.toFixed(toFixedNum)).toFixed(2));
 		}
 		
 	});
@@ -173,9 +173,9 @@ function confirm () {
 	}
 	
 	//修改实收金额
-	jQuery(changePricObj).parents(".change_price__spread").find("span[name='actualAmount']").text(new Big(freeAmount).toFixed(2));
-	jQuery(changePricObj).parents(".change_price__spread").find("span[name='actualAmount']").attr("actualAmount", new Big(freeAmount).toFixed(2));
-	freeAmount = new Big(freeAmount - mustAmount).toFixed(2);
+	jQuery(changePricObj).parents(".change_price__spread").find("span[name='actualAmount']").text(new Big(freeAmount).toFixed(toFixedNum));
+	jQuery(changePricObj).parents(".change_price__spread").find("span[name='actualAmount']").attr("actualAmount", new Big(freeAmount).toFixed(toFixedNum));
+	freeAmount = new Big(freeAmount - mustAmount).toFixed(toFixedNum);
 	
 	//是否存在标识
 	var type = 0;
@@ -320,16 +320,17 @@ function updateDetailPric () {
 	   var discountAmount = jQuery(selected).parents(".change_price__spread").find("span[name='discountAmount']").attr("discountAmount");
 	   var mustAmount = new Big(discountAmount - offAmount);
 	   
-	   jQuery(selected).parents(".change_price__spread").find("em[name='mustAmount']").text(mustAmount.toFixed(2));
-	   jQuery(selected).parents(".change_price__spread").find("em[name='mustAmount']").attr("mustAmount", mustAmount.toFixed(2));
-	   jQuery(selected).parents(".change_price__spread").find("span[name='actualAmount']").text(mustAmount.toFixed(2));
-	   jQuery(selected).parents(".change_price__spread").find("span[name='actualAmount']").attr("actualAmount", mustAmount.toFixed(2));
+	   jQuery(selected).parents(".change_price__spread").find("em[name='mustAmount']").text(new Big(mustAmount.toFixed(toFixedNum)).toFixed(2));
+	   jQuery(selected).parents(".change_price__spread").find("em[name='mustAmount']").attr("mustAmount", new Big(mustAmount.toFixed(toFixedNum)).toFixed(2));
+	   jQuery(selected).parents(".change_price__spread").find("span[name='actualAmount']").text(new Big(mustAmount.toFixed(toFixedNum)).toFixed(2));
+	   jQuery(selected).parents(".change_price__spread").find("span[name='actualAmount']").attr("actualAmount", new Big(mustAmount.toFixed(toFixedNum)).toFixed(2));
 	}
 }
 
 var totalRealMoney = new Big(0);
 
 function tatailProc () {
+	var totailDiscountAmount = new Big(0);
 	var totailOffAmount = new Big(0);
 	var totailMustAmount = new Big(0);
 	var totailActualAmount = new Big(0);
@@ -345,9 +346,11 @@ function tatailProc () {
 		totailActualAmount = totailActualAmount.plus(new Big(actualAmount));
 		var changePric = jQuery(spread).find("em[name='detailFree']").attr("detailFree");
 		tatailChangePric = tatailChangePric.plus(new Big(changePric));
+		var discountAmount = jQuery(spread).find("span[name='discountAmount']").attr("discountAmount");
+		totailDiscountAmount = totailDiscountAmount.plus(new Big(discountAmount));
 	}
 	
-	jQuery("span[name='tatailChangePric']").text(tatailChangePric.toFixed(2));
+	jQuery("span[name='tatailChangePric']").text(new Big(tatailChangePric.toFixed(toFixedNum)).toFixed(2));
 	if (tatailChangePric > 0) {
 		jQuery("span[name='tatailChangePric']").addClass("adjust_price");
 	}
@@ -358,9 +361,10 @@ function tatailProc () {
 		jQuery("span[name='tatailChangePric']").removeClass("adjust_price positive");
 	}
 	
-	jQuery("span[name='totailOffAmount']").text(totailOffAmount.toFixed(2));
-	jQuery("span[name='totailMustAmount']").text(totailMustAmount.toFixed(2));
-	jQuery("span[name='totailActualAmount']").text(totailActualAmount.toFixed(2));
+	jQuery("span[name='totailOffAmount']").text(new Big(totailOffAmount.toFixed(toFixedNum)).toFixed(2));
+	jQuery("span[name='totailMustAmount']").text(new Big(totailMustAmount.toFixed(toFixedNum)).toFixed(2));
+	jQuery("span[name='totailActualAmount']").text(new Big(totailActualAmount.toFixed(toFixedNum)).toFixed(2));
+	jQuery("span[name='totailDiscountAmount']").text(new Big(totailDiscountAmount.toFixed(toFixedNum)).toFixed(2));
 	totalRealMoney = totailActualAmount;
 }
 
@@ -397,7 +401,7 @@ function checkIsChangePric () {
 		}
 		
 		if  (totail.abs().gte(new Big(updateMoneyAuthorize))) {
-			jQuery("[name='totailChangeUpdateMoney']").text(totail.toFixed(2));
+			jQuery("[name='totailChangeUpdateMoney']").text(new Big(totail.toFixed(toFixedNum)).toFixed(2));
 			jQuery("[name='authorityValue']").val("");
 			jQuery(".zzc3").show();
 		}
@@ -492,11 +496,11 @@ function submitOrderInfo() {
 	tempAmount = tempAmount.plus(cardAmount);
 	
 	if (tempAmount.lt(totalRealMoney)) {
-		dialog("还差" + totalRealMoney.minus(tempAmount).toFixed(2) + "元才能买单哦");
+		dialog("还差" + new Big(totalRealMoney.minus(tempAmount).toFixed(toFixedNum)).toFixed(2) + "元才能买单哦");
 		return;
 	} 
 	else if (tempAmount.gt(totalRealMoney)) {
-		dialog("您多付了" + tempAmount.minus(totalRealMoney).toFixed(2) + "元，请更正");
+		dialog("您多付了" + new Big(tempAmount.minus(totalRealMoney).toFixed(toFixedNum)).toFixed(2) + "元，请更正");
 		return;
 	}
 	

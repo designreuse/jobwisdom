@@ -330,3 +330,5 @@ input[type="checkbox"]:checked {
     background-position: center center;
     border: 1px solid #d93717;
 background-size: cover;}
+
+.pagination li {background:#ccc}

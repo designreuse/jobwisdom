@@ -75,17 +75,21 @@
             jQuery(".mask").hide();
     	}
     }
+    
+    jQuery(function(){
+  	  jQuery('.add_store_div>.add_store_back li').each(function(i){
+  		jQuery(this).attr("class",'num'+i); 
+         })
+  	  })
+  	function list(num){
+         var num_=jQuery('.add_store_back li');
+  	    num_.eq(num).attr({'id':'active'+num+'4'}).siblings().attr({'id':''});
+  	    jQuery('.add_store_include .add_store_content').eq(num).show().siblings().hide(); 	
+  	 }
 </script>
 <script>
      //切换
-      jQuery(function(){
-	     jQuery('.add_store_include .add_store_content:gt(0)').hide();
-	     jQuery('.add_store_back li ').click(function(){
-		   jQuery(this).addClass('active').siblings().removeClass('active');
-		   jQuery('.add_store_include .add_store_content').eq(jQuery(this).index()).show().siblings().hide()
-		 
-        });
-	  });	
+   
 
 	  
   
@@ -153,11 +157,11 @@
 				<div class="content_right clearfix">
 					<div class="add_store_div clearfix">
 						<ul class="clearfix add_store_back">
-							<li class="active"><span>新增项目</span></li>
-							<li class=""><span style="position: relative; top: 20px">价格<i
+							<li id="active0" onclick="list(0)" style="position:relative;z-index:3"><span>新增项目</span></li>
+							<li class="" onclick="list(1)" style="position:relative;top:-57px;z-index:2"><span style="position: relative; top: 50px">价格<i
 									style="transform: rotate(-45deg);">\</i>会员价格
 							</span></li>
-							<li class=""><span>设置业绩提成</span></li>
+							<li class="" onclick="list(2)" style="position:relative;top:-100px" ><span style="position: relative; top: 60px">设置业绩提成</span></li>
 						</ul>
 
 						<div class="add_store_include">
@@ -462,11 +466,12 @@
 								</select></p>
 							      <p>会员价格<input type="text" name="discountAmount"></p>
 			                      <div class="li_button">
-								    <button>编辑</button><button onclick="jQuery(this).parents('li').remove();">删除</button>
+								    <button>编辑</button><button onclick="deleteProjectLevel(this)">删除</button>
 								  </div>
 							   </li>
 </script>
 <script>
+
 	var qiniu = '<%=qiniu%>	';
 	var imgObject;
 	var type = 1;
@@ -1147,15 +1152,63 @@
 				});
 	})
 
+	Array.prototype.contains = function (obj) {
+	    var i = this.length;
+	    while (i--) {
+	        if (this[i] === obj) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	Array.prototype.remove=function(dx) {
+	if(isNaN(dx)||dx>this.length){return false;}
+		for(var i=0,n=0;i<this.length;i++){
+		 	if(this[i]!=this[dx]) { 
+		 		this[n++]=this[i];
+			}
+		}
+	 this.length-=1;
+	}
+		
+	var ids = new Array();
 	function addLevel(button) {
-		var ids = jQuery("select[name='huiyuan']").val();
+		ids = jQuery("select[name='huiyuan']").val();
 		var levelValue = jQuery(button).prev().val();
 		for (var i = 0; i < ids.length; i++) {
 			jQuery("#projectLevel").append(jQuery("#li").html());
 			jQuery("select[name='discountLevel']").eq(i).val(ids[i]);
 			jQuery("input[name='discountAmount']").eq(i).val(levelValue);
 		}
-		/* jQuery("#projectLevel").append(jQuery("#li").html()); */
+		jQuery("select[name='huiyuan']").empty();
+		for (var i = 0; i < memberLevelList.length; i++) {
+			var memberLevel = memberLevelList[i];
+			if (!ids.contains(""+memberLevel.levelId+"")){
+				var html = '<option value="'+memberLevel.levelId+'">'+memberLevel.levelName+'</option>';
+				jQuery("select[name='huiyuan']").append(jQuery(html));
+			}
+		}
+		jQuery("select[name='huiyuan']").trigger("liszt:updated");
+	}
+	
+	function deleteProjectLevel(button){
+		jQuery("select[name='huiyuan']").empty();
+		var id = jQuery(button).parents("li").find("select").val();
+		for (var i = 0; i < ids.length; i++) {
+			if (ids[i] == id){
+				ids.remove(i);
+			}
+		}
+		for (var i = 0; i < memberLevelList.length; i++) {
+			var memberLevel = memberLevelList[i];
+			if (!ids.contains(""+memberLevel.levelId+"")){
+				var html = '<option value="'+memberLevel.levelId+'">'+memberLevel.levelName+'</option>';
+				jQuery("select[name='huiyuan']").append(jQuery(html));
+			}
+		}
+		jQuery("select[name='huiyuan']").trigger("liszt:updated");
+		jQuery(button).parents("li").remove();
 	}
 
 	//会员种类

@@ -1,9 +1,9 @@
 .rightpanel{background:white;color:black}
 .content_right{padding:20px 40px;font-size:12px;color:black}
 
-.recharge_ul li{height:106px;width:40px;background-size:40px 106px;font-size:14px;text-align:center;cursor:pointer}
+
 .recharge_ul .active{background:url('../images/add_store_back_1.png') no-repeat;background-size:40px 106px;color:white}
-.recharge_ul li span{display:inline-block;width:20px;position:relative;top:20px}
+.recharge_ul li span{display:inline-block;width:20px;position:relative;top:30px}
 .content_right .recharge_ul{float:left;position:relative;left:1px}
 .recharge_ul_right{overflow:overlay;float:left;width:914px;height:820px;border:1px solid #ccc;border-radius:0 8px 8px 8px;padding:16px 22px;}
 .seach_user{padding:10px 20px;background:#d8deed;border-radius:8px}
@@ -187,11 +187,15 @@ margin: 0 10px 0 15px;width: 126px;}
 
 
 
-.num0{background:url('../images/list_top.png') no-repeat;)}
-.num1,.num2,.num3,.num4{background:url('../images/list_center.png') no-repeat;)}
+.num0{background:url('../images/list_top.png') no-repeat;}
+.num1,.num2,.num3,.num4{background:url('../images/list_center.png') no-repeat}
 .num1{position:relative;top:-24px}
-.num2{position:relative;top:-48px}
-.num5{background:url('../images/list_bottom.png') no-repeat;)}
+.num2{position:relative;top:-44px}
+.num3{position:relative;top:-64px}
+.num4{position:relative;top:-84px}
+.num5{background:url('../images/list_bottom.png') no-repeat;position:relative;top:-103px;}
 #active0{background:url('../images/list_top_1.png') no-repeat;);color:white}
 #active1,#active2,#active3,#active4{background:url('../images/list_center_1.png') no-repeat;);color:white}
 #active5{background:url('../images/list_bottom_1.png') no-repeat;);color:white}
+
+.recharge_ul li{height:106px;width:40px;background-size:40px 106px!important;font-size:14px;text-align:center;cursor:pointer}

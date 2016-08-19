@@ -112,7 +112,7 @@
 
 				<div class="content_right">
 					<ul class="clearfix recharge_ul">
-						<li class="active" onclick="list(0)"><span>充值</span></li>
+						<li id="active0" onclick="list(0)"><span>充值</span></li>
 						<li class="" onclick="list(1)"><span>开卡</span></li>
 						<li class="" onclick="list(2)"><span>升级</span></li>
 						<li class="" onclick="list(3)"><span>还款</span></li>
