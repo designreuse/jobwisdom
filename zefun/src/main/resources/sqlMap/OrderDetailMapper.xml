@@ -83,6 +83,39 @@
     <association property="stepList" column="detail_id" select="com.zefun.web.mapper.ShiftMahjongProjectStepMapper.selectOrderStepListByDetailId" />
   </resultMap>
   
+  <!-- 作废订单map -->
+  <resultMap id="IsDeleteDetailBaseDtoMap" type="com.zefun.web.dto.OrderDetailDto" >
+    <id column="detail_id" property="detailId" jdbcType="INTEGER" />
+    <result column="detail_code" property="detailCode" jdbcType="CHAR" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="INTEGER" />
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="is_appoint" property="isAppoint" jdbcType="INTEGER" />
+    <result column="appoint_off" property="appointOff" jdbcType="DECIMAL" />
+    <result column="is_assign" property="isAssign" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_price" property="projectPrice" jdbcType="DECIMAL" />
+    <result column="project_count" property="projectCount" jdbcType="INTEGER" />
+    <result column="project_image" property="projectImage" jdbcType="VARCHAR" />
+    <result column="real_price" property="realPrice" jdbcType="DECIMAL" />
+    <result column="detail_calculate" property="detailCalculate" jdbcType="DECIMAL" />
+    <result column="off_type" property="offType" jdbcType="INTEGER" />
+    <result column="gift_amount" property="giftAmount" jdbcType="DECIMAL" />
+    <result column="free_amount" property="freeAmount" jdbcType="CHAR" />
+    <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="combo_id" property="comboId" jdbcType="INTEGER" />
+    <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="service_length" property="serviceLength" jdbcType="INTEGER" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="order_remark" property="orderRemark" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="is_update" property="isUpdate" jdbcType="INTEGER" />
+    <association property="commissionList" column="detail_id" select="com.zefun.web.mapper.EmployeeCommissionMapper.selectIsDeleteByEmployee" />
+    <association property="stepList" column="detail_id" select="com.zefun.web.mapper.ShiftMahjongProjectStepMapper.selectIsDeleteOrderStepListByDetailId" />
+  </resultMap>
+  
    <resultMap id="DetailBaseDtoMapBygoods" type="com.zefun.web.dto.OrderDetailDto" >
     <result column="order_type" property="orderType" jdbcType="INTEGER" />
     <result column="project_count" property="projectCount" jdbcType="INTEGER" />
@@ -247,6 +280,14 @@ UNION ALL
     ,(select dept_name from dept_info where dept_info.dept_id =s.dept_id) as dept_name
     from order_detail  s
     where s.order_id = #{orderId,jdbcType=INTEGER} and s.is_deleted = 0 and s.order_type &lt;&gt; 7
+  </select>
+  
+  <select id="selectIsDeleteDetailListByOrderId" parameterType="java.lang.Integer" resultMap="IsDeleteDetailBaseDtoMap">
+    select 
+    s.*
+    ,(select dept_name from dept_info where dept_info.dept_id =s.dept_id) as dept_name
+    from order_detail  s
+    where s.order_id = #{orderId,jdbcType=INTEGER} and s.is_deleted in (0, 2) and s.order_type &lt;&gt; 7
   </select>
   
   <select id="selectOrderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">

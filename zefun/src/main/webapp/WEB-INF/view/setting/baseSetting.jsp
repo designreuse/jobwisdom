@@ -15,8 +15,15 @@
 					<div class="base_manage">
 						<table>
 							<tbody>
+							    <tr>
+									<td>提成计算方式</td>
+									<td>
+										<span><input type="radio" name="costCommissionType" value="1">业绩</span> <span><input type="radio" name="costCommissionType" value="0">毛利</span>
+									</td>
+									<td>提成为比例计算的时候,根据毛利（实收-成本=毛利）还是业绩来计算</td>
+								</tr>
 								<tr>
-									<td>提成是否扣除成本</td>
+									<td>业绩是否扣除成本</td>
 									<td>
 										<span><input type="radio" name="costCommissionType" value="1">是</span> <span><input type="radio" name="costCommissionType" value="0">否</span>
 									</td>

@@ -761,6 +761,17 @@
     where e.detail_id = #{detailId,jdbcType=INTEGER} and e.is_deleted = 0 
   </select>
   
+  <select id="selectIsDeleteByEmployee" resultMap="CommissionDtoByEmployee" parameterType="java.lang.Integer" >
+    select 
+    e.commission_id,
+    e.commission_calculate,
+	e.commission_amount,
+	emp.employee_code,
+	emp.name
+    from employee_commission e  left join  employee_info emp on emp.employee_id =e.employee_id
+    where e.detail_id = #{detailId,jdbcType=INTEGER} and e.is_deleted in (0, 2) 
+  </select>
+  
   <select id="selectEaringReport" parameterType="java.util.Map" resultMap="CommissionDtoBaseResultMap">
   	SELECT el.employee_id, el.name as employee_name, el.store_id, 
 		CASE (SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE DATE_FORMAT(ec.charge_time, '%m') = #{chargeTime} AND ec.employee_id = el.employee_id AND ec.is_deleted = 0) IS NULL

@@ -242,7 +242,7 @@ function spellTableData(data) {
 				}
 			str += '</table>';
 			}
-			str	+= '<td><button onclick="deleteOrder('+ data.orderId + ', this)">退单</button></td></tr>';
+			str	+= '<td><button onclick="deleteOrder('+ data.orderId + ', this)">作废</button></td></tr>';
 		return str;
 }
 

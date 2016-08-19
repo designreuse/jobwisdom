@@ -610,7 +610,7 @@
     <result column="create_time" property="createTime" jdbcType="CHAR" />
     <association property="memberName" column="member_id" select="com.zefun.web.mapper.MemberInfoMapper.selectMemberNameByMemberId"></association>
     <association property="projectName" column="order_id" select="com.zefun.web.mapper.OrderDetailMapper.selectOrderDetailNameByOrderId"></association>
-	<association property="orderDetailList" column="order_id" select="com.zefun.web.mapper.OrderDetailMapper.selectDetailListByOrderId" />
+	<association property="orderDetailList" column="order_id" select="com.zefun.web.mapper.OrderDetailMapper.selectIsDeleteDetailListByOrderId" />
 	<association property="deptList" column="order_id" select="com.zefun.web.mapper.DeptObjectiveMapper.selectByDapt" />
  	
   </resultMap>
@@ -648,13 +648,12 @@
         oi.store_id = #{params.daybook.storeId} and (oi.order_status = 3 or oi.order_status = 4) 
 		      	<if test="params.daybook.queryCode != null and params.daybook.queryCode != ''">
 		      		and (oi.order_code = #{params.daybook.queryCode} 
-		      			 or oi.member_id = (select member_id from member_info where store_id = #{params.daybook.storeId} and phone = #{params.daybook.queryCode} and is_deleted = 0)
+		      			 or oi.member_id = (select member_id from member_info where store_id = #{params.daybook.storeId} and phone = #{params.daybook.queryCode})
 		      			 or exists(select 1 from employee_info ei, order_detail od 
 	  						left join employee_commission ec on od.detail_id = ec.detail_id
 		      				where ei.employee_code=#{params.daybook.queryCode} 
 		      				and ei.store_id = #{params.daybook.storeId} 
 		      				and oi.order_id = od.order_id  
-		      				and ei.is_deleted = 0 
 		      				and ei.employee_id = ec.employee_id)
 		            )
 		      	</if>
@@ -695,16 +694,17 @@
 				      	</when>
 				     </choose>
 		      	</if>
-		      	<if test="params.daybook.orderState != null and params.daybook.orderState != '' and params.daybook.orderState != 0">
-		           <choose>
+		      	<choose>
 			      	<when test="params.daybook.orderState == 1">
 			      		 and oi.is_deleted = 0
 			      	</when>
 			      	<when test="params.daybook.orderState == 2">
-			      		 and oi.is_deleted = 1
+			      		 and oi.is_deleted = 2
 			      	</when>
+			      	<otherwise>
+			      	     and oi.is_deleted in (0, 2) 
+			      	</otherwise>
 			      </choose>
-		        </if>
 		        <if test="params.daybook.deptId != null and params.daybook.deptId != '' and params.daybook.deptId != 0">
 		            and exists(select 1 from order_detail od where oi.order_id = od.order_id and od.dept_id = #{params.daybook.deptId})
 		        </if>
