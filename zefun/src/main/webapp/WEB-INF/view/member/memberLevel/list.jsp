@@ -51,7 +51,7 @@
 
 
 input[type='number']{
-width:55px!important}
+width:35px!important}
 
 </style>
 
@@ -163,14 +163,14 @@ width:55px!important}
 	    <p id = "levelNameP"></p>
 	    <div class="white_card_content">
 		   <ul class="clearfix">
-		      <li>项目折扣<input type="text" name="projectDiscount"><em style="position:Relative;left:-20px">%</em></li>
-			 <li>商品折扣<input type="text" name="goodsDiscount"><em style="position:Relative;left:-20px">%</em></li>
-			 <li>员工业绩折扣<input type="text" name="performanceDiscountPercent" style="margin-left:8px"></li>
-			 <li>开卡费用<input type="text" name="sellAmount"></li>
-			 <li>最低充值<input type="text" name="chargeMinMoney" style="position:relative;left:28px"></li>
-			 <li>积分计算方式：
+		      <li><i>项目折扣</i><input type="text" name="projectDiscount"><em style="position:Relative;left:-20px">%</em></li>
+			 <li><i>商品折扣</i><input type="text" name="goodsDiscount"><em style="position:Relative;left:-20px">%</em></li>
+			 <li><i>员工业绩折扣</i><input type="text" name="performanceDiscountPercent"></li>
+			 <li><i>开卡费用</i><input type="text" name="sellAmount"></li>
+			 <li><i>最低充值</i><input type="text" name="chargeMinMoney"></li>
+			 <li style="width:260px">积分计算方式
 			                            每消费<input type="number" name="integralUnit" class="input30" value="1"><span class="percent-symbol">元</span>
-                    <span class="ml10">获得</span>
+                    <span class="ml10">获得
                     <input type="number" name="integralNumber" class="input30" value="1"><span class="percent-symbol">分</span>
                 </li>
 		   </ul>

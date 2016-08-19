@@ -19,7 +19,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
-import org.jsoup.select.Evaluator.IsEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,6 +69,7 @@ import com.zefun.web.entity.EnterpriseMsnFlow;
 import com.zefun.web.entity.EnterpriseStoreAuthority;
 import com.zefun.web.entity.GoodsCategory;
 import com.zefun.web.entity.GoodsInfo;
+import com.zefun.web.entity.GoodsStock;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberInfo;
 import com.zefun.web.entity.MemberLevel;
@@ -94,6 +94,7 @@ import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.EnterpriseMsnFlowMapper;
 import com.zefun.web.mapper.EnterpriseStoreAuthorityMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberInfoMapper;
 import com.zefun.web.mapper.MemberLevelDiscountMapper;
@@ -276,6 +277,9 @@ public class StoreInfoService {
     /** 企业商品信息*/
     @Autowired
     private AccountGoodsMapper accountGoodsMapper;
+    /** 商品库存*/
+    @Autowired
+    private GoodsStockMapper goodsStockMapper;
 
     /**
      * 查询门店列表页面
@@ -923,6 +927,14 @@ public class StoreInfoService {
             info.setaId(accountGoods.get(i).getGoodsId());
             info.setIsDeleted(0);
             goodsInfoMapper.insertSelective(info);
+            
+            // 初始化商品的库存信息0
+            GoodsStock goodsStock = new GoodsStock();
+            goodsStock.setaId(accountGoods.get(i).getGoodsId());
+            goodsStock.setCount(0);
+            goodsStock.setStoreId(storeInfo.getStoreId());
+            goodsStock.setUpdateTime(DateUtil.getCurDate());
+            goodsStockMapper.insertSelective(goodsStock);
         }
     }
     

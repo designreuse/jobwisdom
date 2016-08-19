@@ -462,11 +462,12 @@
 								</select></p>
 							      <p>会员价格<input type="text" name="discountAmount"></p>
 			                      <div class="li_button">
-								    <button>编辑</button><button onclick="jQuery(this).parents('li').remove();">删除</button>
+								    <button>编辑</button><button onclick="deleteProjectLevel(this)">删除</button>
 								  </div>
 							   </li>
 </script>
 <script>
+
 	var qiniu = '<%=qiniu%>	';
 	var imgObject;
 	var type = 1;
@@ -1147,15 +1148,63 @@
 				});
 	})
 
+	Array.prototype.contains = function (obj) {
+	    var i = this.length;
+	    while (i--) {
+	        if (this[i] === obj) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	Array.prototype.remove=function(dx) {
+	if(isNaN(dx)||dx>this.length){return false;}
+		for(var i=0,n=0;i<this.length;i++){
+		 	if(this[i]!=this[dx]) { 
+		 		this[n++]=this[i];
+			}
+		}
+	 this.length-=1;
+	}
+		
+	var ids = new Array();
 	function addLevel(button) {
-		var ids = jQuery("select[name='huiyuan']").val();
+		ids = jQuery("select[name='huiyuan']").val();
 		var levelValue = jQuery(button).prev().val();
 		for (var i = 0; i < ids.length; i++) {
 			jQuery("#projectLevel").append(jQuery("#li").html());
 			jQuery("select[name='discountLevel']").eq(i).val(ids[i]);
 			jQuery("input[name='discountAmount']").eq(i).val(levelValue);
 		}
-		/* jQuery("#projectLevel").append(jQuery("#li").html()); */
+		jQuery("select[name='huiyuan']").empty();
+		for (var i = 0; i < memberLevelList.length; i++) {
+			var memberLevel = memberLevelList[i];
+			if (!ids.contains(""+memberLevel.levelId+"")){
+				var html = '<option value="'+memberLevel.levelId+'">'+memberLevel.levelName+'</option>';
+				jQuery("select[name='huiyuan']").append(jQuery(html));
+			}
+		}
+		jQuery("select[name='huiyuan']").trigger("liszt:updated");
+	}
+	
+	function deleteProjectLevel(button){
+		jQuery("select[name='huiyuan']").empty();
+		var id = jQuery(button).parents("li").find("select").val();
+		for (var i = 0; i < ids.length; i++) {
+			if (ids[i] == id){
+				ids.remove(i);
+			}
+		}
+		for (var i = 0; i < memberLevelList.length; i++) {
+			var memberLevel = memberLevelList[i];
+			if (!ids.contains(""+memberLevel.levelId+"")){
+				var html = '<option value="'+memberLevel.levelId+'">'+memberLevel.levelName+'</option>';
+				jQuery("select[name='huiyuan']").append(jQuery(html));
+			}
+		}
+		jQuery("select[name='huiyuan']").trigger("liszt:updated");
+		jQuery(button).parents("li").remove();
 	}
 
 	//会员种类

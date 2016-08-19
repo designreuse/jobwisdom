@@ -105,7 +105,7 @@ em {
 .nav .active{background:#d7d9e3;}
 
 .table-toolbar input[type='text']{width:128px;height:16px;border:1px solid #ccc;border-radius:12px;}
-.nav_content{width:510px;height:420px;overflow-y:scroll;margin:26px auto}
+.nav_content{width:510px;height:420px;overflow-y:overlay;margin:26px auto}
 .nav_content_div{height:110px;border-radius:10px;background:white;position:relative;margin-bottom:20px}
 .nav_content_div_1{height:40px;border-radius:10px;background:#dfe1e9;position:relative;margin-bottom:20px}
 .nav_content_div p,.nav_content_div_1 p{padding:10px}
