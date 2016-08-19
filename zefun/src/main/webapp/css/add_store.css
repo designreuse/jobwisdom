@@ -50,9 +50,14 @@
 .detail_address{margin-top:25px}
 .select_city input{border-radius:8px}
 .detail_address input{margin-top:10px}
-
-.add_store_back li{width:40px;height:166px;background:url('../images/add_store_back.png') no-repeat;cursor:pointer}
-.add_store_back .active{width:40px;height:166px;background:url('../images/add_store_back_1.png') no-repeat;color:white!important}
+.num0{background:url('../images/list_top.png') no-repeat;)}
+.num1{background:url('../images/list_center.png') no-repeat;)}
+.num2{background:url('../images/list_bottom.png') no-repeat;)}
+#active0{background:url('../images/list_top_1.png') no-repeat;);color:white}
+#active1{background:url('../images/list_center_1.png') no-repeat;);color:white}
+#active2{background:url('../images/list_bottom_1.png') no-repeat;);color:white}
+.add_store_back li{width:40px;height:166px;cursor:pointer}
+.add_store_back .active{width:40px;height:166px;color:white!important}
 .add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:10px;font-size:14px;}
 .add_store_back {float:left}
 .add_store_div{width:1000px;margin:70px auto}

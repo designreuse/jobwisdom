@@ -36,10 +36,8 @@
 	<script>
 	  jQuery(function(){
 	     jQuery('.recharge_ul_right_content:gt(0)').hide();
-		 jQuery('.recharge_ul li').click(function(){
-		   jQuery(this).addClass('active').siblings().removeClass('active');
-		   jQuery('.recharge_ul_right .recharge_ul_right_content').eq(jQuery(this).index()).show().siblings().hide() 
-		 })
+		 
+		
 	  })
 	  
 	 jQuery(function(){ 
@@ -67,6 +65,23 @@
 	    jQuery('.no_password').fadeIn();
 	   })
 	  })
+	  
+	  
+	jQuery(function(){
+	  jQuery('.recharge_ul li').each(function(i){
+		jQuery(this).attr("class",'num'+i);
+
+       })
+	  })
+	function list(num){
+       var num_=jQuery('.recharge_ul li');
+       
+	    num_.eq(num).attr({'id':'active'+num}).siblings().attr({'id':''});
+	    jQuery('.recharge_ul_right .recharge_ul_right_content').eq(num).show().siblings().hide(); 	
+	 }
+	
+	  
+	
 	</script>
 </head>
 <style>
@@ -97,12 +112,12 @@
 
 				<div class="content_right">
 					<ul class="clearfix recharge_ul">
-						<li class="active"><span>充值</span></li>
-						<li class=""><span>开卡</span></li>
-						<li class=""><span>升级</span></li>
-						<li class=""><span>还款</span></li>
-						<li class=""><span>赠送</span></li>
-						<li class=""><span>转账</span></li>
+						<li class="active" onclick="list(0)"><span>充值</span></li>
+						<li class="" onclick="list(1)"><span>开卡</span></li>
+						<li class="" onclick="list(2)"><span>升级</span></li>
+						<li class="" onclick="list(3)"><span>还款</span></li>
+						<li class="" onclick="list(4)"><span>赠送</span></li>
+						<li class="" onclick="list(5)"><span>转账</span></li>
 <!-- 						<li class=""><span>退卡</span></li> -->
 					</ul>
 					<div class="recharge_ul_right">
