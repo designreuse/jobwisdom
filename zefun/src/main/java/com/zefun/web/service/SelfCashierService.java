@@ -986,7 +986,7 @@ public class SelfCashierService {
 					employeeCommission.setOrderType(orderDetail.getOrderType());
 					employeeCommission.setEmployeeId(stepDtoList.get(0).getEmployeeInfo().getEmployeeId());
 					employeeCommission.setCommissionCalculate(saveCommonCalculate);
-					employeeCommission.setCommissionAmount(saveCommonCalculate);
+					employeeCommission.setCommissionAmount(empCommission);
 					employeeCommission.setChargeTime(DateUtil.getCurTime());
 					employeeCommissionMapper.insert(employeeCommission);
 					

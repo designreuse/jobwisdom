@@ -112,7 +112,7 @@ input[type=radio]:checked {
 .new_data table td i{position:absolute;background:url('../images/data_shop1.png') no-repeat;width:46px;height:28px;display:inline-block;top: -20px;
     left: 82px;font-style:normal;cursor:pointer;display:none}
 
-.new_data{border:1px solid #ccc;border-radius:8px;margin-top:10px;height: 750px;}	
+.new_data{border:1px solid #ccc;border-radius:8px;margin-top:10px;height: 750px;overflow:overlay}	
 .new_data>p{color:black;font-size:14px;font-weight:bold;padding:10px}
 .new_data>p select{border:1px solid black;border-radius:8px;color:black;margin-left:10px;width:90px;padding-left:40px;font-size:12px}
 .vip_style select{border:1px solid #ccc!important;color:#707070!important}

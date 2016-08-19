@@ -95,7 +95,7 @@ public class DayBookController extends BaseController {
     }
     
     /**
-     * 删除订单
+     * 作废订单
     * @author 王大爷
     * @date 2015年12月14日 下午3:04:10
     * @param request request

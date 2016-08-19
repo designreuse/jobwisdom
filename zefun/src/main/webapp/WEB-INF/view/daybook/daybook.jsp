@@ -134,7 +134,7 @@
 			    <em>状态：<em>
 				<span class = "active" value = "0">全部</span>
 				<span value = "1">正常</span>
-				<span value = "2">退单</span>
+				<span value = "2">作废</span>
 			  </li>
 			  <li id = "deptId">
 			    <em>部门：<em>
@@ -235,7 +235,14 @@
 			   </table>
 		   </c:forEach>
 		 </td>
-		 <td><button onclick="deleteOrder(${daybook.orderId}, this)">退单</button></td>
+		 <td>
+		     <c:if test="${daybook.isDeleted == 0}">
+		         <button onclick="deleteOrder(${daybook.orderId}, this)">作废</button>
+		     </c:if>
+		     <c:if test="${daybook.isDeleted == 2}">
+		                          已作废
+		     </c:if>
+		 </td>
 	   </tr>
 	 </c:forEach>
 		 </table>
