@@ -15,13 +15,13 @@
 					<div class="base_manage">
 						<table>
 							<tbody>
-							    <tr>
+							    <!-- <tr>
 									<td>提成计算方式</td>
 									<td>
 										<span><input type="radio" name="costCommissionType" value="1">业绩</span> <span><input type="radio" name="costCommissionType" value="0">毛利</span>
 									</td>
 									<td>提成为比例计算的时候,根据毛利（实收-成本=毛利）还是业绩来计算</td>
-								</tr>
+								</tr> -->
 								<tr>
 									<td>业绩是否扣除成本</td>
 									<td>
@@ -35,6 +35,13 @@
 										<span><input type="radio" name="commissionFixedType" value="1">是</span> <span><input type="radio" name="commissionFixedType" value="0">否</span>
 									</td>
 									<td style="width: 493px;">项目存在多个步骤时，如果此值为是，那么比例业绩计算规则为:项目实收-步骤中固定业绩值*步骤中业绩比例；固定业绩不考虑实收值，业绩不改变</td>
+								</tr>
+								<tr>
+									<td>价格/业绩折后小数处理</td>
+									<td>
+										<span><input type="radio" name="isDecimalPoint" value="1">四舍五入保留整数</span> <span><input type="radio" name="isDecimalPoint" value="0">保留两位小数</span>
+									</td>
+									<td style="width: 493px;">订单结算完成后，支付金额及员工业绩值四舍五入取整或保留两位小数</td>
 								</tr>
 								<!-- <tr>
 									<td>提成是否减扣其他步骤的固定提成值</td>
@@ -148,9 +155,11 @@
 		var isCost = "${storeSetting.costCommissionType}";
 		var isFixed = "${storeSetting.commissionFixedType}";
 		var couponStr = "${storeSetting.firstFollowCoupon}";
+		var isDecimalPoint = "${storeSetting.isDecimalPoint}";
 		jQuery(function() {
 			jQuery("[name='costCommissionType'][value='" + isCost + "']").click();
 			jQuery("[name='commissionFixedType'][value='" + isFixed + "']").click();
+			jQuery("[name='isDecimalPoint'][value='" + isDecimalPoint + "']").click();
 			if (!isEmpty(couponStr)) {
 				var couponArr = couponStr.split(",");
 				for (var i = 0; i < couponArr.length; i++) {
@@ -167,9 +176,10 @@
 			var appointRemindHour = jQuery("input[name='appointRemindHour']").val();
 			var firstFollowGift = jQuery("input[name='firstFollowGift']").val();
 			var updateMoneyAuthorize = jQuery("input[name='updateMoneyAuthorize']").val();
+			var isDecimalPoint = jQuery("input[name='isDecimalPoint']:checked").val();
 			var data ={"costCommissionType" : costCommissionType, "commissionFixedType" : commissionFixedType, "couponCommissionRate" : couponCommissionRate,
 		    		"giftCommissionRate" : giftCommissionRate, "smsFee" : smsFee, "appointRemindHour" : appointRemindHour, "firstFollowGift" : firstFollowGift,
-		    		"updateMoneyAuthorize" : updateMoneyAuthorize};
+		    		"updateMoneyAuthorize" : updateMoneyAuthorize, "isDecimalPoint" : isDecimalPoint};
 		    var firstFollowCoupon = "";
 		    if (jQuery("input[name='firstFollowCoupon']:checked").length > 0) {
 		    	for (var i = 0; i < jQuery("input[name='firstFollowCoupon']:checked").length; i++) {

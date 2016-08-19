@@ -48,7 +48,7 @@ function initialization () {
 			$this.find("em[name='mustAmount']").text(discountAmount.toFixed(2));
 			
 			$this.find("span[name='actualAmount']").attr("actualAmount", discountAmount.toFixed(2));
-			$this.find("span[name='actualAmount']").text(discountAmount.toFixed(2));
+			$this.find("span[name='actualAmount']").text(discountAmount.toFixed(0));
 		}
 		
 	});

@@ -56,8 +56,19 @@ public class StoreSetting {
 	/** 改价授权金额*/
 	private Integer updateMoneyAuthorize;
 	
+	/** 价格/业绩折后小数处理(0,保留两位小数，1：四舍五入保留整数)*/
+	private Integer isDecimalPoint;
 	
 	
+	
+	public Integer getIsDecimalPoint() {
+		return isDecimalPoint;
+	}
+
+	public void setIsDecimalPoint(Integer isDecimalPoint) {
+		this.isDecimalPoint = isDecimalPoint;
+	}
+
 	public Integer getUpdateMoneyAuthorize() {
 		return updateMoneyAuthorize;
 	}

@@ -285,25 +285,54 @@
    </div>
 </div>
  <!--删除提示-->
-	    <div class="modal hide" id="deleteOrderTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	        <div class="modal-dialog" role="document">
-	            <div class="modal-content confirm">
-	                <div class="modal-header">
-	                    <button type="button" class="close" data-dismiss="modal" onclick="czCancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                    <h4 class="modal-title" id="myModalLabel">删除订单</h4>
-	                </div>
+   <div class="modal hide" id="deleteOrderTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+       <div class="modal-dialog" role="document">
+           <div class="modal-content confirm">
+               <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" onclick="czCancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   <h4 class="modal-title" id="myModalLabel">删除订单</h4>
+               </div>
+   
+               <div class="modal-body confirm-body">
+                                               订单删除后不可恢复，是否确定本次操作？
+               </div><!--modal-body-->
+   
+               <div class="modal-footer">
+                   <a class="btn cancel-btn modal-cancel" data-dismiss="modal" href="javascript:void(0);">取消</a>
+                   <a class="btn btn-primary save-btn modal-confirm" href="javascript:deleteOrderConfirm();">确定</a>
+               </div>
+           </div>
+       </div>
+   </div> 
 	    
-	                <div class="modal-body confirm-body">
-	                                                订单删除后不可恢复，是否确定本次操作？
-	                </div><!--modal-body-->
-	    
-	                <div class="modal-footer">
-	                    <a class="btn cancel-btn modal-cancel" data-dismiss="modal" href="javascript:void(0);">取消</a>
-	                    <a class="btn btn-primary save-btn modal-confirm" href="javascript:deleteOrderConfirm();">确定</a>
-	                </div>
-	            </div>
-	        </div>
-	    </div> 
+	    <!-- 会员等级 -->
+  <div class="modal hide" id="member-level-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rotating-setting-modal" style="width: 450px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel">恢复会员等级</h5>
+            </div>
+            <div class="modal-body">
+                <form action="" class="editprofileform" method="post" style="padding-bottom: 42px;">
+                    <table class="table">
+                      <tbody id = "modelTbody">
+                        <tr id = "topTR">
+                            <td colspan="2">
+					                             检测到改订单为升级会员操作 ，您可以选择下列会员等级进行调整
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div><!--modal body-->
+            <div class="modal-footer">
+                <a class="btn modal-cancel" href="#" data-dismiss="modal" aria-label="Close">取消</a>
+                <a class="btn btn-primary modal-confirm" href="#" onclick="updateMemberLevel()">确定</a>
+            </div>
+        </div>
+    </div>
+  </div>
 <%@ include file="/template/memberData.jsp" %>
 <script>
 	var pageNo = "${page.pageNo}";
