@@ -23,6 +23,9 @@ em {
     box-shadow: 0 0 10px #ccc;
 	
 }
+.project_hand_content li{border:1px solid #ccc!important}
+.nav_content_div input[type='text']{border:1px solid #ccc!important}
+.project_hand_content .img{overflow:hidden}
 .arrow-up {
     width:0; 
     height:0; 
@@ -115,10 +118,10 @@ em {
 .nav_content td input{position:relative;left:6px;vertical-align:middle}
 .hand_close{position:absolute;right:10px;top:10px}
 .nav_content_div_1 i,.nav_content_div_1 >em{width:120px;display:inline-block;text-align:center}
-.open_time{margin-top:150px}
+.open_time{position:relative;left:300px;top:-150px}
 .open_time span{display:inline-block;width:190px;margin-right:20px}
 .open_time span input{width:120px;height:30px;border-bottom:1px solid #ccc;border-right:0;border-left:0;border-top:0;margin-left:10px}
-.open_time button{width:126px;height:30px;color:white;text-align:center;line-height:30px;background:#5b6080;border:none;border-radius:10px}
+.open_time button{margin-left:18px;width:126px;height:30px;color:white;text-align:center;line-height:30px;background:#5b6080;border:none;border-radius:12px}
 .open_time button:hover{background:#434760}
 
 .hand_ul li{padding-left:20px;height:40px;padding-right:20px}
