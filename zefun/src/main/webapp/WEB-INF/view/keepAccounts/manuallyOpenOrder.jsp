@@ -124,7 +124,7 @@ background-size: cover;}
 	                    <div class="p-part-first">
 	                        <div style="display: inline-block;" name= "seekTD">
 	                           <span class="ml10">会员:</span>
-	                           <input type="text" class="w185 searchinpput" name = "phoneNumber" placeholder="会员手机号"/>
+	                           <input type="text" class="w185 searchinpput" name = "phoneNumber" placeholder="会员手机号/名称"/>
 	                           <span class="iconfont icon-sousuo ml-30 mt5" name = "seekName"></span>
 	                           
 	                           <div class="show_search" name = "memberListDIV" style="display: none;">

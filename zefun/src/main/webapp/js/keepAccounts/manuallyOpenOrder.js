@@ -314,7 +314,7 @@ function changeDiv(type) {
 var deleteDetailId = new Array();
 
 function deleteProject(obj) {
-	var detailId = jQuery(obj).parents("div[name= 'projectNameLI']").attr(detailId);
+	var detailId = jQuery(obj).parents("div[name= 'projectNameLI']").attr("detailId");
 	if (!isEmpty(detailId)) {
 		deleteDetailId.push(detailId);
 	}

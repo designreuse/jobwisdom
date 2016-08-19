@@ -129,7 +129,7 @@
 									<div class="card-main clearfix" name="fillMemberInfo">
 										<div class="p-part-first ml10" name="memberTR" selectType="1">
 											<label class="w60" for="">搜索会员:</label> <input type="text"
-												class="w185" name="phoneNumber" placeholder="会员手机号">
+												class="w185" name="phoneNumber" placeholder="会员手机号/名称">
 											<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 											<div class="show_search" name="memberListDIV" style="display: none;">
 												<p>
@@ -302,7 +302,7 @@
 									<div class="card-main clearfix" name="fillMemberInfo">
 										<div class="p-part-first ml10" name="memberTR" selectType="1">
 											<label class="w60" for="">搜索会员:</label> <input type="text"
-												class="w185" name="phoneNumber" placeholder="会员手机号">
+												class="w185" name="phoneNumber" placeholder="会员手机号/名称">
 											<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 											<div class="show_search" name="memberListDIV"
 												style="display: none;">
@@ -505,7 +505,7 @@
 										<div class="card-main clearfix" name="fillMemberInfo">
 											<div class="p-part-first ml10" name="memberTR" selectType="1">
 												<label class="w60" for="">搜索会员:</label> <input type="text"
-													class="w185" name="phoneNumber" placeholder="会员手机号">
+													class="w185" name="phoneNumber" placeholder="会员手机号/名称">
 												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 												<div class="show_search" name="memberListDIV"
 													style="display: none;">
@@ -682,7 +682,7 @@
 										<div class="card-main clearfix" name="fillMemberInfo">
 											<div class="p-part-first ml10" name="memberTR" selectType="1">
 												<label class="w60" for="">搜索会员:</label> <input type="text"
-													class="w185" name="phoneNumber" placeholder="会员手机号">
+													class="w185" name="phoneNumber" placeholder="会员手机号/名称">
 												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 												<div class="show_search" name="memberListDIV"
 													style="display: none;">
@@ -774,7 +774,7 @@
 										<div class="card-main clearfix" name="fillMemberInfo">
 											<div class="p-part-first ml10" name="memberTR" selectType="1">
 												<label class="w60" for="">搜索会员:</label> <input type="text"
-													class="w185" name="phoneNumber" placeholder="会员手机号">
+													class="w185" name="phoneNumber" placeholder="会员手机号/名称">
 												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 												<div class="show_search" name="memberListDIV"
 													style="display: none;">
@@ -890,7 +890,7 @@
 										<div class="card-main clearfix" name="fillMemberInfo">
 											<div class="p-part-first ml10" name="memberTR" selectType="1">
 												<label class="w60" for="">搜索会员:</label> <input type="text"
-													class="w185" name="phoneNumber" placeholder="会员手机号">
+													class="w185" name="phoneNumber" placeholder="会员手机号/名称">
 												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 												<div class="show_search" name="memberListDIV"
 													style="display: none;">
@@ -954,7 +954,7 @@
 										<div class="card-main clearfix" name="fillMemberInfo">
 											<div class="p-part-first ml10" name="memberTR" selectType="1">
 												<label class="w60" for="">搜索会员:</label> <input type="text"
-													class="w185" name="phoneNumber" placeholder="会员手机号">
+													class="w185" name="phoneNumber" placeholder="会员手机号/名称">
 												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 												<div class="show_search" name="memberListDIV"
 													style="display: none;">
@@ -1031,7 +1031,7 @@
 										<div class="card-main clearfix" name="fillMemberInfo">
 											<div class="p-part-first ml10" name="memberTR" selectType="1">
 												<label class="w60" for="">搜索会员:</label> <input type="text"
-													class="w185" name="phoneNumber" placeholder="会员手机号">
+													class="w185" name="phoneNumber" placeholder="会员手机号/名称">
 												<span class="iconfont icon-sousuo ml-30 mt5" name="seekName"></span>
 												<div class="show_search" name="memberListDIV"
 													style="display: none;">

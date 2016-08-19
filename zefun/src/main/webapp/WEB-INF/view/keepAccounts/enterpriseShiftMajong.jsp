@@ -32,8 +32,8 @@
 							   <td>名称</td>
 							   <td style="width:220px">角色</td>
 							   <td>轮牌规则</td>
-							   <td>离开规则</td>
 							   <td>上牌规则</td>
+							   <td>离开规则</td>
 							   <td>创建时间</td>
 							   <td>操作</td>
 							</tr>

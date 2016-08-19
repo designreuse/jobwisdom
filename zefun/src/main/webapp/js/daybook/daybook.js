@@ -187,11 +187,11 @@ function refreshStatData(totalCount, obj) {
 }
 
 function spellTableData(data) {
-	   var str = '<tr><td onclick="updateSelectOrder('+ data.orderId +')"><a class="can-click">'+ data.orderCode +'</a></td>';
+	   var str = '<tr><td onclick="updateSelectOrder('+ data.orderId +')"><a>'+ data.orderCode +'</a></td>';
 			if(data.memberId == null || data.memberId == '') {
 				str += '<td>散（' + data.sex + '）</td>';
 				} else {
-				str += '<td class="can-click" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo('+data.memberId+')">' + data.memberName + '</td>'
+				str += '<td style = "color:#489be9;" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo('+data.memberId+')">' + data.memberName + '</td>'
 			}
 			var projectName = data.projectName ;
 			if (isEmpty(projectName) || projectName == 'null') {

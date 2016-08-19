@@ -57,6 +57,7 @@ import com.zefun.web.mapper.ProjectInfoMapper;
 import com.zefun.web.mapper.ShiftMahjongEmployeeMapper;
 import com.zefun.web.mapper.ShiftMahjongProjectStepMapper;
 import com.zefun.web.mapper.StoreSettingMapper;
+import com.zefun.wechat.service.StaffOrderService;
 import com.zefun.wechat.service.StaffService;
 
 import net.sf.json.JSONArray;
@@ -111,6 +112,8 @@ public class ManuallyOpenOrderService {
 	@Autowired private ProjectDiscountMapper projectDiscountMapper;
 	/** */
 	@Autowired private MemberLevelMapper memberLevelMapper;
+	/** */
+	@Autowired private StaffOrderService staffOrderService;
 	/**
 	 * 初始化轮职排班界面
 	* @author laowang
@@ -527,11 +530,12 @@ public class ManuallyOpenOrderService {
 	* @param lastOperatorId 操作人
 	* @param handOrderCode 手工单号
 	* @param orderId 订单标识
+	* @param deleteDetailIdStr 删除的明细标识
 	* @return BaseDto
 	 */
 	@Transactional
     public BaseDto manuallyOpenOrderSave(Integer memberId, String sex, String arrayObjStr, String openOrderDate, Integer storeId, 
-    		Integer lastOperatorId, String handOrderCode, Integer orderId){
+    		Integer lastOperatorId, String handOrderCode, Integer orderId, String deleteDetailIdStr){
         //查询会员基本信息
         MemberBaseDto memberBaseDto = new MemberBaseDto();
         if (memberId != null) {
@@ -785,6 +789,16 @@ public class ManuallyOpenOrderService {
                     shiftMahjongProjectStepMapper.insert(shiftMahjongProjectStep3);
                 }
             }
+        }
+        
+        //删除明细
+        JSONArray deleteDetailIdArray =JSONArray.fromObject(deleteDetailIdStr);
+        if (!deleteDetailIdArray.isEmpty() && deleteDetailIdArray.size() > 0) {
+        	for (int i = 0; i < deleteDetailIdArray.size(); i++) {
+        		Integer detailId = deleteDetailIdArray.getInt(i);
+        		OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(detailId);
+        	    staffOrderService.deletes(orderDetail, storeId, lastOperatorId);
+			}
         }
         
         OrderInfo orderInfo = new OrderInfo();
