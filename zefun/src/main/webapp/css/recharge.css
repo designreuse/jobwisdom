@@ -187,7 +187,7 @@ margin: 0 10px 0 15px;width: 126px;}
 
 
 
-.num0{background:url('../images/list_top.png') no-repeat;}
+.num0{background:url('../images/list_top.png') no-repeat;position:relative;z-index:2}
 .num1,.num2,.num3,.num4{background:url('../images/list_center.png') no-repeat}
 .num1{position:relative;top:-24px}
 .num2{position:relative;top:-44px}

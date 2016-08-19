@@ -458,7 +458,7 @@ var u1 = UE.getEditor('editor1', toolbars);
 			if (deptInfoListDate[i].deptId == deptIds){
 				for (var j = 0; j < deptInfoListDate[i].goodsInfos.length; j++) {
 					var goodsInfo = deptInfoListDate[i].goodsInfos[j];
-					var html = '<option goodsPrice="'+goodsInfo.goodsPrice+'" value="'+goodsInfo.projectId+'">'+goodsInfo.goodsName+'</option>';
+					var html = '<option goodsPrice="'+goodsInfo.goodsPrice+'" value="'+goodsInfo.goodsId+'">'+goodsInfo.goodsName+'</option>';
 					jQuery("select[name='goodsId']").append(jQuery(html));
 				}
 			}

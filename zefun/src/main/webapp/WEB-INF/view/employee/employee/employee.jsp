@@ -401,7 +401,24 @@ function saveEmployee(){
 	var employeeDesc = u1.getContent();  
 	var headImage = jQuery("input[name='headImage']").val();
 	var baseSalaries = jQuery("input[name='baseSalaries']").val();
+	var roleName =  jQuery("select[name='positionId'] option:checked").text();
+// 	positionId，deptId
+	if(levelId == "" || levelId == null){
+		if(roleName !="店长" || roleName !="收银员"){
+			dialog("岗位不能为空，请到企业号设置岗位");
+			return ;
+		}
+		
+	}
 	
+	if(deptId == "" || deptId == null){
+		if(roleName !="店长" || roleName !="收银员"){
+			dialog("部门不能为空，请到企业号设置部门");
+			return ;
+		}
+		
+	}
+
 	if(baseSalaries == "" || baseSalaries == null){
 		baseSalaries =0;
 	}
