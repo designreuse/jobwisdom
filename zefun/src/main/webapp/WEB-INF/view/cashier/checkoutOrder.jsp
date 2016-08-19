@@ -214,7 +214,7 @@
 					    <p>
 					       <span>汇总</span>
 					       <span>${selfCashierOrderDto.receivableAmount }</span>
-					       <span>${selfCashierOrderDto.discountAmount }</span>
+					       <span name = "totailDiscountAmount">${selfCashierOrderDto.discountAmount }</span>
 					       <span style="width:180px;height:26px"></span>
 					       <span name = "totailOffAmount"></span>
 					       <span name = "totailMustAmount"></span>
@@ -331,6 +331,12 @@
 var orderId =  '${selfCashierOrderDto.orderId}';
 var memberType = '${memberType}';
 var updateMoneyAuthorize = '${updateMoneyAuthorize}';
+var isDecimalPoint = '${isDecimalPoint}';
+var toFixedNum = 2;
+if (isDecimalPoint == 1) {
+	toFixedNum = 0;
+}
+
 var discountMap = null;
 var allOffMap = null;
 if (memberType == 1) {
