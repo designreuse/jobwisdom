@@ -23,7 +23,7 @@ function cancelModal () {
 	jQuery("input[name='projectDiscount']").attr({"disabled":false,"style":"background:#fff"});
 	jQuery("input[name='sellAmount']").attr({"disabled":false,"style":"background:#fff"});
 	jQuery("input[name='performanceDiscountPercent']").attr({"disabled":false,"style":"background:#fff"});
-	jQuery("input[name='chargeMinMoney']").attr({"disabled":false,"style":"background:#fff;position:relative;left:22px"});
+	jQuery("input[name='chargeMinMoney']").attr({"disabled":false,"style":"background:#fff"});
 	jQuery("input[name='integralUnit']").attr({"disabled":false,"style":"background:#fff"});
 	jQuery("input[name='integralNumber']").attr({"disabled":false,"style":"background:#fff"});
 }
@@ -265,7 +265,7 @@ function editMemberLevel(levelId){
 				jQuery("input[name='projectDiscount']").attr({"disabled":"disabled","style":"background:#eee"});
 				jQuery("input[name='sellAmount']").attr({"disabled":"disabled","style":"background:#eee"});
 				jQuery("input[name='performanceDiscountPercent']").attr({"disabled":"disabled","style":"background:#eee"});
-				jQuery("input[name='chargeMinMoney']").attr({"disabled":"disabled","style":"background:#eee;position:relative;left:22px"});
+				jQuery("input[name='chargeMinMoney']").attr({"disabled":"disabled","style":"background:#eee"});
 				jQuery("input[name='integralUnit']").attr({"disabled":"disabled","style":"background:#eee"});
 				jQuery("input[name='integralNumber']").attr({"disabled":"disabled","style":"background:#eee"});
 			}
