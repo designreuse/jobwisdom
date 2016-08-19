@@ -52,7 +52,7 @@
 .select_city input{border-radius:8px}
 .detail_address input{margin-top:10px}
 
-.add_store_back li{width:40px;height:251px;background:url('../images/add_store_back.png') no-repeat;cursor:pointer;background-size:40px 251px}
+.add_store_back li{width:40px;height:251px;cursor:pointer;background-size:40px 251px!important}
 .add_store_back .active{width:40px;height:251px;background:url('../images/add_store_back_1.png') no-repeat;color:white!important;background-size:40px 251px}
 .add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:14px;}
 .add_store_back {float:left}
@@ -521,3 +521,10 @@ em{font-style:normal}
 .hand_2 em{display:inline-block;margin-left:40px}
 .hand_2 select{    border-radius: 5px!important;
     box-shadow: 0 0 3px #ccc;}
+    
+.num0{background:url('../images/list_top.png') no-repeat;}
+.num1{background:url('../images/list_center.png') no-repeat;}
+.num2{background:url('../images/list_bottom.png') no-repeat;}
+#active04{background:url('../images/list_top_1.png') no-repeat;;color:white}
+#active14{background:url('../images/list_center_1.png') no-repeat;;color:white}
+#active24{background:url('../images/list_bottom_1.png') no-repeat;;color:white}

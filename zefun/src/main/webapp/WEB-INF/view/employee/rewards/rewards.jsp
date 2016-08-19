@@ -329,7 +329,7 @@ function showOnehtml(value){
 	}
 	
 	var html = '';
-	html +=' <tr id="'+value.rewardId+'"><td>'+value.employeeCode+'</td>	   <td>'+value.employeeName +'</td> <td>'+value.employeeName+'</td><td>'+value.type+'</td>';
+	html +=' <tr id="'+value.rewardId+'"><td>'+value.employeeCode+'</td>	   <td>'+value.employeeName +'</td> <td>'+value.storeName+'</td><td>'+value.type+'</td>';
 	   if(value.isReward == 1){
 			html += '<td>奖励</td>';
 	   }

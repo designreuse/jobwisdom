@@ -262,7 +262,7 @@ public interface MemberInfoMapper {
     * @param map 门店标识
     * @return Map<String, Object>
      */
-    List<Map<String, Object>> selectStoreNamePhone(Map<String, Integer> map);
+    List<Map<String, Object>> selectStoreNamePhone(Map<String, Object> map);
 
     /**
      * 根据会员id查询会员信息

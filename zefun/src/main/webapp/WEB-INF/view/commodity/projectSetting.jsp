@@ -75,17 +75,21 @@
             jQuery(".mask").hide();
     	}
     }
+    
+    jQuery(function(){
+  	  jQuery('.add_store_div>.add_store_back li').each(function(i){
+  		jQuery(this).attr("class",'num'+i); 
+         })
+  	  })
+  	function list(num){
+         var num_=jQuery('.add_store_back li');
+  	    num_.eq(num).attr({'id':'active'+num+'4'}).siblings().attr({'id':''});
+  	    jQuery('.add_store_include .add_store_content').eq(num).show().siblings().hide(); 	
+  	 }
 </script>
 <script>
      //切换
-      jQuery(function(){
-	     jQuery('.add_store_include .add_store_content:gt(0)').hide();
-	     jQuery('.add_store_back li ').click(function(){
-		   jQuery(this).addClass('active').siblings().removeClass('active');
-		   jQuery('.add_store_include .add_store_content').eq(jQuery(this).index()).show().siblings().hide()
-		 
-        });
-	  });	
+   
 
 	  
   
@@ -153,11 +157,11 @@
 				<div class="content_right clearfix">
 					<div class="add_store_div clearfix">
 						<ul class="clearfix add_store_back">
-							<li class="active"><span>新增项目</span></li>
-							<li class=""><span style="position: relative; top: 20px">价格<i
+							<li id="active0" onclick="list(0)" style="position:relative;z-index:3"><span>新增项目</span></li>
+							<li class="" onclick="list(1)" style="position:relative;top:-57px;z-index:2"><span style="position: relative; top: 50px">价格<i
 									style="transform: rotate(-45deg);">\</i>会员价格
 							</span></li>
-							<li class=""><span>设置业绩提成</span></li>
+							<li class="" onclick="list(2)" style="position:relative;top:-100px" ><span style="position: relative; top: 60px">设置业绩提成</span></li>
 						</ul>
 
 						<div class="add_store_include">

@@ -21,7 +21,7 @@ table tr td:last-child{border-right:none}
 table tr:nth-child(odd){background:#ebeff8}
 table tr:first-child{font-weight:normal!important}
 .customer_analyse_table_right{margin-left:10px;float:left;width:500px;height:275px;border-radius:12px;border:1px solid #ccc;overflow:hidden}
-.content_right>ul>.active{color:black;border-bottom:1px solid white;}
+.content_right>ul>.active{background:#b8c7ea;color:black;border-bottom:1px solid #b8c7ea;}
 .customer_analyse_content_:nth-child(2) .customer_analyse_search>button{width:126px}
 .customer_analyse_content_{padding:10px}
 input[type="checkbox"] {
