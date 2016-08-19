@@ -936,11 +936,10 @@ public class GoodsInfoService {
         if (accountGoods.size() > 0){
             return new BaseDto(-1, "当前系统存存在重复的名称或编号");
         }
-        if (goodsInfo.getGoodsId()!=null){
+        if (goodsInfo.getGoodsId()!= null){
             accountGoodsMapper.updateByPrimaryKeySelective(goodsInfo);
             List<GoodsInfo> info = goodsInfoMapper.selectByStoreAccount(goodsInfo.getGoodsId());
             for (int i = 0; i < info.size(); i++) {
-//                info.get(i).setIsSellProduct(goodsInfo.getIsSellProduct());
                 goodsInfoMapper.updateByPrimaryKeySelective(info.get(i));
             }
         }
@@ -954,6 +953,15 @@ public class GoodsInfoService {
                 info.setaId(goodsInfo.getGoodsId());
                 info.setIsDeleted(0);
                 goodsInfoMapper.insertSelective(info);
+                
+                // 初始化商品的库存信息0
+                GoodsStock goodsStock = new GoodsStock();
+                goodsStock.setaId(goodsInfo.getGoodsId());
+                goodsStock.setCount(0);
+                goodsStock.setStoreId(storeInfos.get(i).getStoreId());
+                goodsStock.setUpdateTime(DateUtil.getCurDate());
+                goodsStockMapper.insertSelective(goodsStock);
+                
             }
         }
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, goodsInfo);
