@@ -52,18 +52,18 @@
 
 .wages_content_datail_table{position:relative}
 
-.zzc>.zzc_new_style{width:490px;height:300px;background:white;border-radius:12px;overflow:hidden;margin:50px auto} 
+.zzc>.zzc_new_style{width:490px;height:310px;background:white;border-radius:12px;overflow:hidden;margin:50px auto} 
 .zzc>.zzc_new_style>p{height:38px;line-height:38px;text-align:center;font-size:14px;color:white;background:#3a4052}
 
 .zzc_new_style_content{padding:15 25px}
 .alert_saying{margin-top:15px}
 .zzc_new_style_content_ul li{float:left;width:50%;text-align:center;margin-top:20px}
 .zzc_new_style_content_ul li span{display:inline-block;width:70px}
-.zzc_new_style_content_ul li select{padding:0 0 0 30px;width:100px;border-radius:12px;border:1px solid #737b92;height:24px}
+.zzc_new_style_content_ul li select{padding:0 0 0 30px;width:100px;border-radius:12px;border:1px solid #ccc;height:24px}
 
 .alert_saying_left{float:left;width:58px;margin-left:33px}
 .alert_saying_right{float:left}
-.alert_saying_right textarea{width:372px;height:100px;border-radius:12px;border:1px solid #737b92}
+.alert_saying_right textarea{width:372px;height:100px;border-radius:12px;border:1px solid #ccc}
 .new_style_button{margin-top:15px;text-align:center}
 .new_style_button button{width:130px;height:26px;text-align:center;line-height:26px;border:none;border-radius:12px;color:white;background:#58617a;font-size:14px;margin:0 30px}
 .new_style_button button:hover{background:#565d74}
@@ -78,7 +78,7 @@
 .second td img{margin:0 10px}
 .second_table td{height:34px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;vertical-align:middle;text-align:center}
 .second_table td select{padding:0 0 0 20px;width:80px;height:24px;border-radius:12px;border:1px solid #89a2d1}
-
+table tr:nth-child(1){font-weight:normal}
 
 .table_left tr:nth-child(1){background:#ebeff8!important}
 .table_right_head tr:nth-child(1){background:#ebeff8!important}

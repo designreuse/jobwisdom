@@ -73,6 +73,8 @@ public interface View {
     class Statistical{
         /**商品报表展示 */
         public static final  String STORE_ORDER = "order/store_order";
+        /**销售展示 */
+        public static final  String PROJECT_ORDER = "order/project-order";
     }
 	/**
 	 * 门店管理制度模块

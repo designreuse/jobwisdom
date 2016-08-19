@@ -35,7 +35,9 @@
     border-radius: 12px;
     color: white;
     background: #59688a;
- margin-right:10px}
+    margin-right:10px;
+    line-height:10px
+ }
 
 .head_img img{width:100px}
 .zzc{position: fixed;
@@ -54,9 +56,9 @@ i,em{font-style:normal}
 .information{width:660px;float:left;margin-left:20px}
 .information span{display:inline-block;margin-right:17px;position:relative}
 .information span i{position:absolute;}
-.information input[type='text']{height:16px;width:130px;border:1px solid black;border-radius:12px}
+.information input[type='text']{height:16px;width:130px;border:1px solid #ccc;border-radius:12px}
 .information input[type='checkbox']{height:16px;width:16px;border:1px solid black;border-radius:}
-.information select{height:18px;width:130px;border:1px solid black;border-radius:12px}
+.information select{height:18px;width:130px;border:1px solid #ccc;border-radius:12px}
 .emploee_content{padding:15px 20px}
 .information p{margin-bottom:10px}
 .information p span em{display:inline-block;width:56px}
@@ -103,7 +105,7 @@ background-size: cover;}
 .select_job_content_left{width:250px;float:left}
 .select_job_content_left input{    height: 16px;
     width: 140px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     border-radius: 12px;}
 .select_job_content_left em{display:inline-block;width:60px}
 
@@ -116,6 +118,6 @@ background-size: cover;}
 .select_job_content_left select{
     height: 16px;
     width: 140px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     border-radius: 12px;
 }

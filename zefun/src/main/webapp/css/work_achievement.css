@@ -1,0 +1,103 @@
+.content_right{padding:10px 20px}
+.content_right>ul {
+    height: 38px;
+    position: relative;
+    top: 1px;
+}
+.content_right>ul>.active {
+    color: black;
+    border-bottom: 1px solid #ccc;
+    background: #b8c7ea;
+}
+.content_right>ul li {
+    cursor: pointer;
+    width: 127px;
+    height: 38px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-right: none;
+    float: left;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    line-height: 38px;
+    color: #c5bfbd;
+}
+.content_right>ul li:nth-child(3) {
+    border-right: 1px solid #ccc;
+}
+
+.wages_content {
+   
+    width: 1037px;
+   
+    border: 1px solid #ccc;
+    border-radius: 0 12px 12px 12px;
+}
+
+.wages_content_datail {
+    background: #b8c7ea;
+    padding: 10px 0 10px 10px;
+	border-bottom:1px solid #9b9b9b
+}
+.wages_content_datail_top span {
+    display: inline-block;
+    width: 82px;
+    height: 26px;
+    text-align: center;
+    color: black;
+    margin: 0 5px;
+    cursor: pointer;
+    line-height: 26px;
+    border-radius: 12px;
+    background: #e6e6e6;
+}
+.wages_content_datail_top span.active {
+    background: #21a2e5;
+    color: white;
+}
+.wages_content_datail_top select {
+    margin: 0 10px;
+    padding: 0 0 0 20px;
+    width: 80px;
+    height: 24px;
+    border-radius: 12px;
+    border: 1px solid #718aaf;
+}
+.wages_content_datail_top{color:black}
+.wages_content_datail_top button{width:100px;height:24px;border:none;border-radius:12px;text-align:center;line-height:24px;color:white;background:#717a9a}
+.wages_content_datail_top button:hover{background:#666e8b}
+
+.wages_content_datail_top input{width: 70px;height:14px;border-radius:12px;border:1px solid #aaaaaa;margin:0 5px}
+
+
+
+.store_sell_table{color:black;}
+.store_sell_table>p{position:relative;top:20px;background:#ebeff8;text-align:center;height:40px;line-height:40px;border-top:1px solid #9b9b9b;border-bottom:1px solid #9b9b9b;}
+.store_sell_table>p span{font-size:14px;margin-right:5px}
+
+.store_sell_table table{width:100%}
+.store_sell_table tr td:last-child{border-right:none}
+.store_sell_table td{position:relative;height:40px;width:100px;text-align:center;vertical-align:middle;border-bottom:1px solid #9b9b9b;border-right:1px solid #9b9b9b;}
+.store_sell_table td em{color:#d51414}
+.store_sell_table td img{position:absolute;top:12px;right:5px}
+
+.store_sell_table1{position:absolute;top:41px;width:924px!important;background:#eeeeee}
+table tr:nth-child(1){font-weight:normal!important;}
+
+table:nth-child(even){background:#f6f8fc}
+.store_sell_table>table{background:#ebeff8!important}
+
+
+.work_achievement_content{width:775px;height:240px;margin:17px auto;background:url(../images/store_sell_img.png) no-repeat}
+
+.work_achievement_ul li{color:white;font-size:14px;text-align:center;margin-bottom:43px}
+.work_achievement_ul li p{margin-top:7px}
+.work_achievement_ul{float:left;width:182px;}
+
+.work_achievement_center{width:150px;height:150px;color:white;font-size:14px;float:left;margin:40px 120px 80px 135px}
+.work_achievement_center>p{height:40px;text-align:center;line-height:40px}
+.work_achievement_center ul li{float:left;width:50%;text-align:center;height:70px;padding-top:20PX;line-height:30px}
+
+.work_achievement_ul_right{float:left;width:180px;height:150px;font-size:14px;color:white;margin-top:40px;margin-left:7px}
+.work_achievement_ul_right li{margin-bottom: 43px;text-align: center;}
+.work_achievement_ul_right li p{margin-top: 7px;}

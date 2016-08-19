@@ -156,7 +156,7 @@
 				</p> 
            
                <p> <span><em>身份证</em><input type="text" name="identityCard" value="" style="width:350px" ><i  class = "addcolor">*</i></span>
-				 <span>基本工资<input type="Number"   name = "baseSalaries" style="height: 16px;width: 130px;border: 1px solid black;margin-left:8px;border-radius: 12px;"></span>
+				 <span>基本工资<input type="Number"   name = "baseSalaries" style="height: 16px;width: 130px;border: 1px solid #ccc;margin-left:8px;border-radius: 12px;"></span>
 				</p>
 			</div>  
 		 </div>

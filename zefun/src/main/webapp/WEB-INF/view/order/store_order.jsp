@@ -55,6 +55,7 @@
 
    })
  })
+
   </script>
 
 <body>
@@ -259,7 +260,7 @@ function showTable(){
 	html += '</div>'
 	jQuery(".store_sell_table").remove();
 	jQuery(".store_sell").append(html);
-	console.log(jsonarr);
+	
 }
 
 function showYear(){
@@ -300,6 +301,14 @@ function checkGood(){
 	var storeId = jQuery("#storeTwo option:selected").attr("storeId");
 	var time = jQuery("#yearMonth1").val();
 	var timeType = jQuery("#yearMonth2").val();
+	if(goodsId1=="" || goodsId1 ==null ){
+		dialog('没有商品');
+		return ;
+	}
+	if(categoryId1=="" || categoryId1 ==null ){
+		dialog('没有商品系列');
+		return ;
+	}
 	if(yearMonth==2){
 		time = timeType.substring(0,4);
 	}

@@ -7,7 +7,7 @@
 <script type="text/javascript" src="<%=basePath%>/js/My97DatePicker/WdatePicker.js"></script>
 <style>
 	.zzc4{font-size:14px;color:black;position: fixed;top: 0px;height: 1090px;left: 0px;width: 100%;z-index: 10000; background: rgba(102, 108, 121, 0.8);}    
-	.select_people{width:570px;height:450px;margin:60px auto;background:white}
+	.select_people{width:570px;height:450px;margin:60px auto;background:white;border-radius:12px;overflow:hidden}
 	.select_people>p{height:66px;font-size:18px;color:white;text-align:center;line-height:66px;background:#3d4d62}
 	.value_left{height:312px;width:220px;background:#dadada;border-radius:8px;float:left;}
 	.value_left>p{text-align:center;height:35px;line-height:35px;font-size:16px}
