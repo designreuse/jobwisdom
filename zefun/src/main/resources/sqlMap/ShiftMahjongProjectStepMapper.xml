@@ -88,6 +88,25 @@
     where sms.detail_id = #{detailId} and sms.is_deleted = 0 order by ps.position_id
   </select>
   
+  <select id="selectIsDeleteOrderStepListByDetailId" resultMap="DetailStepResultMap" parameterType="java.lang.Integer">
+    select
+        sms.shift_mahjong_step_id as shiftMahjongStepId,
+        sms.shift_mahjong_id as shiftMahjongId,
+        sms.position_id as positionId,
+        ps.position_name as positionName,
+        sms.employee_id as employeeId,
+        substring(sms.begin_time, 12) as beginTime,
+        substring(sms.finish_time, 12) as finishTime,
+        sms.is_assign as isAssign,
+        sms.is_designate as isDesignate,
+        sms.is_appoint as isAppoint,
+        sms.is_over as isOver,
+        sms.is_current as isCurrent
+    from shift_mahjong_project_step sms
+    left join position_info ps on sms.position_id = ps.position_id 
+    where sms.detail_id = #{detailId} and sms.is_deleted in (0, 2) order by ps.position_id
+  </select>
+  
   <select id="selectOrderStepByCurrent" resultMap="DetailStepResultMap" parameterType="java.lang.Integer">
     select
         sms.shift_mahjong_step_id as shiftMahjongStepId,

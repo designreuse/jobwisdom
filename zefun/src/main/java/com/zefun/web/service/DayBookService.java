@@ -415,7 +415,7 @@ public class DayBookService {
     }
     
     /**
-     * 整笔订单删除
+     * 整笔订单作废
     * @author 王大爷
     * @date 2015年12月2日 上午10:42:27
     * @param orderId 订单标识
@@ -473,7 +473,7 @@ public class DayBookService {
             
             OrderInfo record = new  OrderInfo();
             record.setOrderId(orderId);
-            record.setIsDeleted(1);
+            record.setIsDeleted(2);
             orderInfoMapper.updateByPrimaryKey(record);
             
             MemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(memberId);
@@ -536,7 +536,7 @@ public class DayBookService {
             
         OrderInfo record = new  OrderInfo();
         record.setOrderId(orderId);
-        record.setIsDeleted(1);
+        record.setIsDeleted(2);
         orderInfoMapper.updateByPrimaryKey(record);
         return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, App.System.API_RESULT_MSG_FOR_SUCCEES);
     }
@@ -725,7 +725,7 @@ public class DayBookService {
         
         OrderDetail record = new OrderDetail();
         record.setDetailId(detailId);
-        record.setIsDeleted(1);
+        record.setIsDeleted(2);
         orderDetailMapper.updateByPrimaryKey(record);
         
         return type;
@@ -827,7 +827,7 @@ public class DayBookService {
             //打删除标识
             EmployeeCommission record = new EmployeeCommission();
             record.setCommissionId(employeeCommission.getCommissionId());
-            record.setIsDeleted(1);
+            record.setIsDeleted(2);
             employeeCommissionMapper.updateByPrimaryKey(record);
             
             String objectiveMonth = getMonthDate(employeeCommission.getChargeTime());
