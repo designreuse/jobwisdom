@@ -20,6 +20,8 @@ width:130px;height:26px;border:none;border-radius:12px;text-align:center;line-he
     width: 1014px;
     border-radius: 8px;
   }
+  
+.white_card_content li i{display:inline-block;width:80px}
 .new_data table td{
     height: 40px;
     text-align: center;
@@ -157,7 +159,7 @@ input[type=radio]:checked {
 .zzc1_adjust>p{
 	    height: 60px;
     color: white;
-    font-size: 18px;
+    font-size: 15px;
     background: #2a3244;
     text-align: center;
     line-height: 60px;
@@ -165,19 +167,18 @@ input[type=radio]:checked {
 .white_card{padding:20px}
 .white_card>p{
 	color:black;
-	font-size:16px;
-	font-weight:bold
+	font-size:14px;
 }
 .white_card_content{
 width:480px;height:135px;
-border:1px solid black;
+border:1px solid #ccc;
 border-radius:8px;
 margin-top:10px
 }
 .white_card_content li em{font-style:normal;display:inline-block;margin-right:10px}
 .white_card_content ul{padding:10px}
-.white_card_content li{float:left;width:230px;margin-bottom:10px}
-.white_card_content li input{width:128px;height:22px;border-radius:8px;border:1px solid black;margin-left:5px}
+.white_card_content li{float:left;width:200px;margin-bottom:10px}
+.white_card_content li input{width:68px;height:22px;border-radius:12px;border:1px solid #ccc;}
 .zzc1_adjust button{
 	border:none;border-radius:10px;
 	color:white;text-align:center;
