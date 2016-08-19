@@ -86,6 +86,8 @@ public class DayBookDto implements Serializable {
 	/** 统计数量 */
 	private Integer count;
 	
+	/** 是否删除(0:未删除,1:已删除,2:已作废)*/
+	private Integer isDeleted;
 
     /** 订单明细 */
     private List<OrderDetailDto> orderDetailList;
@@ -94,8 +96,17 @@ public class DayBookDto implements Serializable {
     private List<DeptObjective> deptList;
 
 
+    
+    
+    public Integer getIsDeleted() {
+		return isDeleted;
+	}
 
-    public List<DeptObjective> getDeptList() {
+	public void setIsDeleted(Integer isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public List<DeptObjective> getDeptList() {
         return deptList;
     }
 
