@@ -163,6 +163,7 @@ public class SelfCashierController extends BaseController {
 		}
 		StoreSetting storeSetting = storeSettingMapper.selectByPrimaryKey(storeId);
 		mav.addObject("updateMoneyAuthorize", storeSetting.getUpdateMoneyAuthorize());
+		mav.addObject("isDecimalPoint", storeSetting.getIsDecimalPoint());
 		mav.addObject("memberType", memberType);
 		return mav;
 	}
