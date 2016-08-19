@@ -56,8 +56,8 @@
 .add_store_back .active{width:40px;height:251px;background:url('../images/add_store_back_1.png') no-repeat;color:white!important;background-size:40px 251px}
 .add_store_back li span{display:inline-block;width:14px;position:relative;left:15px;top:50px;font-size:14px;}
 .add_store_back {float:left}
-.add_store_div{width:1000px;margin:70px auto}
-.add_store_content{float:left;border:1px solid black;padding:20px;border-radius: 0 0 10px 10px}
+.add_store_div{width:1000px;margin:20px auto}
+.add_store_content{float:left;border:1px solid #ccc;padding:20px;border-radius: 0 0 10px 10px}
 .add_store_span_1{float:right}
 .add_store_span_1 span{color:red;font-size:16px}
 .add_store_span_1{font-size:14px}
@@ -147,7 +147,7 @@
 
 .add_store_sale{border-radius:10px;background:#d8deed;height:94px;padding:5px 20px}
 .add_store_sale span{display:inline-block;width:288px;height:50px;font-size:14px;}
-.add_store_sale span select{width:120px;height:22px;border:1px solid black;border-radius:10px!important;padding-left:30px}
+.add_store_sale span select{width:120px;height:22px;border:1px solid #ccc;border-radius:12px!important;padding-left:30px}
 .add_store_sale span em{display:inline-block;width:100px}
 .add_pic_{
 	margin-top:20px
@@ -183,7 +183,7 @@
 .item_button{text-align:center;margin-top:20px}
 .item_button button{width:130px;height:28px;color:white;border:none;border-radius:10px;text-align:center;line-height:28px;color:white;background:#59688a;margin-right:80px}
 .shop_price{height:100px;border-radius:10px;background:#d8deed;padding: 5px 20px;font-size:12px;color:black}
-.shop_price_1 input,.shop_price_2 span input{height:22px;width:120px;border-radius:12px!important;margin-left:26px;border:1px solid black;padding-right:20px}
+.shop_price_1 input,.shop_price_2 span input{height:22px;width:120px;border-radius:12px!important;margin-left:26px;border:1px solid #ccc;padding-right:20px}
 .shop_price_1 span,.shop_price_2 span{display:inline-block;position:relative}
 .shop_price_1 em,.shop_price_2 span em{position:absolute;right:10px;top:5px;color:#737373}
 .shop_price_2{margin-top:30px}
@@ -200,7 +200,7 @@
     width: 120px;
     border-radius: 12px!important;
     margin-left: 26px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     padding-right: 20px;
 }
 .percentage span em {
@@ -217,11 +217,11 @@
 .right_click{position:absolute;z-index:2;top:25px;right:8px}
 .right_click img,.left_click img{width:40px}
 .vip_price_content{font-size:12px;background:#d8deed;padding: 5px 20px 20px 20px;border-radius:10px}
-.vip_price_content input{width:70px;border:1px solid black;border-radius:12px;margin:0 5px;height:16px}
+.vip_price_content input{width:70px;border:1px solid #ccc;border-radius:12px;margin:0 5px;height:16px}
 .roll_ul{height:115px;width:820px;overflow:hidden;border-radius:10px;margin-top:4px;position:relative;}
 .roll_ul ul{width:4000px;position:relative}
-.roll_ul li{padding-left:5px;border:1px solid black;width:150px;height:90px;border-radius:10px;margin:15px 35px 15px 0;float:left}
-.roll_ul li select{margin-left: 7px;padding:0;width:80px;height:20px;border-radius:10px;border:1px solid black}
+.roll_ul li{padding-left:5px;border:1px solid #ccc;width:150px;height:90px;border-radius:10px;margin:15px 35px 15px 0;float:left}
+.roll_ul li select{margin-left: 7px;padding:0;width:80px;height:20px;border-radius:10px;border:1px solid #ccc}
 .roll_ul li input{height:12px!important}
 .roll_ul ul{margin-left:40px}
 .roll_ul li p{margin-top:5px}
