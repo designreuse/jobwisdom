@@ -2,7 +2,7 @@
 .money_content .active{
 	background:#cbb7ad
 }
-.content_right{font-size:14px}
+.content_right{font-size:12px}
 .consume{position:relative}
 .circle_pic{display:none;float:right;margin-right:4px}
 .money_card_content li{cursor:pointer}
@@ -12,7 +12,7 @@
 .card_first{border-bottom:1px solid #f9dd48;padding-left:17px;width:155px;font-size:16px;height:26px;line-height:26px}
 
 .original_card p{padding-left:17px;margin-top:3px}
-
+.zzc{font-size:12px!important}
 .ten_money{color:#ef4456}
 .LeftBotton{position:absolute;top:24px}
 .RightBotton{position:absolute;right:10px;top:24px}
@@ -52,7 +52,7 @@
     font-size: 14px;}
 .zzc_change_price{margin:100px auto;width:440px;height:325px;background:white;border-radius: 12px;
     overflow: hidden;}
-.zzc_change_price>p{height:56px;text-align:center;font-size:16px;color:white;line-height:56px;background:#383849}
+.zzc_change_price>p{height:50px;text-align:center;font-size:15px;color:white;line-height:50px;background:#383849}
 .zzc_change_price_content{padding:30px}
 .zzc_change_price_content p input{width:140px;height:18px;border-radius:12px;border:1px solid #afafaf;}
 .change_reason{margin-top:20px}
@@ -60,7 +60,7 @@
 .change_reason span{position:relative;top:-25px}
 .zzc_change_price_content p em{color:#afafaf}
 .zzc_change_price_button{text-align:center;margin-top:25px}
-.zzc_change_price_button button{width:130px;height:28px;text-align:center;line-height:28px;border:none;border-radius:12px;font-size:16px;background:#61678b;color:white;margin:0 20px}
+.zzc_change_price_button button{width:130px;height:28px;text-align:center;line-height:28px;border:none;border-radius:12px;font-size:14px;background:#61678b;color:white;margin:0 20px}
 .zzc_change_price_button button:hover{background:#494d68}
 .change_price_name>p{background:#ebeff8;border-bottom:1px solid #b0b0b0}
 .change_price__spread:nth-child(odd){background:#ebeff8}
