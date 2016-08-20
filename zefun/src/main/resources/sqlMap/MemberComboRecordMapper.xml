@@ -31,6 +31,7 @@
     <result column="remaining_count" property="remainingCount" jdbcType="INTEGER" />
     <result column="overdue_time" property="overdueTime" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="is_time" property="isTime" jdbcType="INTEGER" />
     <association property="projectList" column="record_id" select="com.zefun.web.mapper.MemberComboProjectMapper.selectProjectListByRecordId" />
   </resultMap>
   
@@ -66,7 +67,7 @@
   
   <select id="selectComboListByMemberIdPage" resultMap="MemberComboResultMap" parameterType="com.zefun.web.entity.Page">
     SELECT 
-        a.record_id, a.combo_id, a.combo_name, a.combo_price, a.combo_image, 
+        a.record_id, a.combo_id, a.combo_name, a.combo_price, a.combo_image, a.is_time, 
         a.project_amount, a.project_count, a.remaining_count , a.overdue_time, a.create_time, 
         (SELECT CONCAT(IFNULL(d.employee_code,''), '  ', d.name) FROM employee_info d WHERE d.employee_id = a.last_operator_id AND d.is_deleted = 0) AS lastOperatorName, 
         (SELECT c.store_name FROM store_info c WHERE c.store_id = a.store_id AND c.store_status != 5) AS storeName

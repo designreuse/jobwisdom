@@ -46,12 +46,20 @@ public class MemberComboDto {
     /** 创建时间*/
     private String createTime;
     
+    /** 是否过期 */
+    private Integer isTime;
+    
     /**项目列表*/
     private List<MemberComboProject> projectList;
 
-    
-    
-    
+    public Integer getIsTime() {
+        return isTime;
+    }
+
+    public void setIsTime(Integer isTime) {
+        this.isTime = isTime;
+    }
+
     public String getCreateTime() {
         return createTime;
     }
