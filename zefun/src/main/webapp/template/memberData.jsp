@@ -174,6 +174,7 @@ String memberPicPath = "7xkv8r.com1.z0.glb.clouddn.com";
                                 <th>推荐员工</th>
                                 <th>消费时间</th>
                                 <th>过期时间</th>
+                                <th>是否过期</th>
                                 <th>消费门店</th>
                             </tr>
                             </thead>
