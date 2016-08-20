@@ -280,6 +280,8 @@ public interface Url {
 		public static final String RUMORS_COURSE = "member/view/rumors";
 		/** 查询门店内所有会员电话和名称 */
 		public static final String SELECT_STORE_MEMBERINFO = "member/action/selectStoreMemberInfo";
+		/** 查询企业内所有会员电话和名称 */
+		public static final String SELECT_ENTERPRISE_MEMBERINFO = "member/action/selectEnterpriseMemberInfo";
 		/** 退卡操作*/
         public static final String MEMBER_RETURN_CARD = "member/action/return/card";
         /** 冻结会员*/
