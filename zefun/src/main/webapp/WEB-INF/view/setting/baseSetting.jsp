@@ -39,7 +39,7 @@
 								<tr>
 									<td>价格/业绩折后小数处理</td>
 									<td>
-										<span><input type="radio" name="isDecimalPoint" value="1">四舍五入保留整数</span> <span><input type="radio" name="isDecimalPoint" value="0">保留两位小数</span>
+										<span><input type="radio" name="isDecimalPoint" value="1">四舍五入取整数</span> <span><input type="radio" name="isDecimalPoint" value="0">保留两位小数</span>
 									</td>
 									<td style="width: 493px;">订单结算完成后，支付金额及员工业绩值四舍五入取整或保留两位小数</td>
 								</tr>
