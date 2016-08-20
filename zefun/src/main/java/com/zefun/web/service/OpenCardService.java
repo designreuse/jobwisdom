@@ -829,7 +829,7 @@ public class OpenCardService {
 			rewarDetail.setProjectPrice(rewardAmount);
 			rewarDetail.setDiscountAmount(rewardAmount);
 //			rewarDetail.setRealPrice(BigDecimal.ZERO);
-			rewarDetail.setRealPrice(giftmoneyAmount);
+			rewarDetail.setRealPrice(rewardAmount);
 			rewarDetail.setProjectCount(1);
 			rewarDetail.setStoreId(storeId);
 			rewarDetail.setCreateTime(DateUtil.getCurTime());

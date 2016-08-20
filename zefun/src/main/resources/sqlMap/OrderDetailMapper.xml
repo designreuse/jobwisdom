@@ -323,6 +323,17 @@ UNION ALL
 	     GROUP BY d.order_id
 	</select>
 <!--   商品结束 -->
+  <select id="selectDetailByComboInfo" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
+   SELECT 
+	   d.order_id,d.create_time ,detail_calculate FROM 
+			order_detail  d 
+	 						LEFT JOIN  order_info i  ON i.order_id = d.order_id    
+		    WHERE i.order_status  IN (3,4)    AND d.order_type = 3  AND i.is_deleted =0 AND  d.is_deleted =0 
+	   AND i.store_id = ${storeId}  AND LEFT(i.create_time,4) = "${time}"   
+	     GROUP BY d.order_id
+	</select>
+<!-- 疗程 -->
+
   <!-- 删除门店所有订单明细数据(清除测试数据)，by 张小胖 -->
   <delete id="deleteByStoreId" parameterType="java.lang.Integer">
   	delete from order_detail where store_id = #{storeId}
@@ -1361,7 +1372,7 @@ UNION ALL
 	    	project_count, remaining_count, overdue_time, create_time, update_time, last_operator_id)
 	  select #{memberId,jdbcType=INTEGER}, combo_id, store_id, #{detailId,jdbcType=INTEGER},
 	  	combo_name, a.combo_sale_price, combo_image, project_amount,
-		project_count, project_count, case when a.valid_date != null then DATE_ADD(sysdate(),INTERVAL a.valid_date DAY) else '永久' end, 
+		project_count, project_count, case when a.valid_date is not null then DATE_FORMAT(DATE_ADD(sysdate(),INTERVAL a.valid_date DAY),'%Y-%m-%d') else '永久' end, 
 		sysdate(), sysdate(), #{employeeId,jdbcType=INTEGER}
 	 from combo_info a
 	 	where combo_id = #{comboId,jdbcType=INTEGER}

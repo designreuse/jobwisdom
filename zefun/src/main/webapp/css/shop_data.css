@@ -11,7 +11,7 @@ select::-ms-expand { display: none; }
 .shop_data_head button:hover{background:#515f7f}
 .shop_data_head em{margin-left:100px}
 
-.shop_data_content{overflow:overlay;border:1px solid  #ccc;border-radius:12px;height:600px;margin-top:16px}
+.shop_data_content{border:1px solid  #ccc;border-radius:12px;height:655px;margin-top:16px;overflow:hidden}
 .shop_data_content table{width:100%}
 .shop_data_content table td{height:40px;vertical-align:middle;text-align:center;border-bottom:1px solid  #ccc;border-right:1px solid  #ccc}
 .shop_data_content table tr td:last-child{border-right:none}
