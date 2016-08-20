@@ -6,10 +6,10 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.rabbitmq.client.Channel;  
-import com.rabbitmq.client.Connection;  
-import com.rabbitmq.client.ConnectionFactory;  
-import com.rabbitmq.client.MessageProperties;
+import com.zefun.common.consts.App;
+import com.zefun.common.utils.DateUtil;
+import com.zefun.web.dto.ChatDataDto;
+import com.zefun.web.dto.ChatNoticeDto;
 
 import net.sf.json.JSONObject; 
 
@@ -23,53 +23,30 @@ import net.sf.json.JSONObject;
 public class RabbitServerTest extends BaseTest{
     /**日志*/
     public static Logger log = Logger.getLogger(RabbitServerTest.class);
+    /**
+     * 水电费
+     */
+    /** rabbit队列模版方法 */
     @Autowired
     private RabbitTemplate rabbitTemplate;
-    
+    /**
+     * 声音推送
+    * @author 高国藩
+    * @date 2016年8月20日 上午11:35:18
+     */
     @Test
     public void send(){
-        log.info("Publish message --> routingKey : " + "routingKey" + ", Message : " + JSONObject.fromObject("{'name':1}"));
-        rabbitTemplate.convertAndSend("routingKey", JSONObject.fromObject("{'name':1}"));
+        ChatNoticeDto chat = new ChatNoticeDto();
+        chat.setFid(2);
+        chat.setFromUser("0");
+        ChatDataDto data = new ChatDataDto();
+        data.setType(2);
+        data.setMsg("1120" + "号，您有新预约，请与顾客确认");
+        data.setCreateTime(DateUtil.getCurTime());
+        chat.setData(data);
+        chat.setToUser("2085");
+        rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
     }
     
-    private static final String TASK_QUEUE_NAME = "task_queue";  
-    
-    public static void main(String[] argv) throws Exception {  
-  
-        ConnectionFactory factory = new ConnectionFactory();  
-        factory.setHost("120.24.165.15");
-        factory.setUsername("guest");
-        factory.setPassword("guest");
-        Connection connection = factory.newConnection();  
-        Channel channel = connection.createChannel();  
-        //声明此队列并且持久化  
-        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);  
-  
-        String message = getMessage(argv);  
-  
-        channel.basicPublish("", TASK_QUEUE_NAME,  
-                MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());//持久化消息  
-        System.out.println(" [x] Sent '" + message + "'");  
-  
-        channel.close();  
-        connection.close();  
-    }  
-  
-    private static String getMessage(String[] strings) {  
-        if (strings.length < 1)  
-            return "Hello World!";  
-        return joinStrings(strings, " ");  
-    }  
-    
-    private static String joinStrings(String[] strings, String delimiter) {  
-        int length = strings.length;  
-        if (length == 0)  
-            return "";  
-        StringBuilder words = new StringBuilder(strings[0]);  
-        for (int i = 1; i < length; i++) {  
-            words.append(delimiter).append(strings[i]);  
-        }  
-        return words.toString();  
-    }  
     
 }
