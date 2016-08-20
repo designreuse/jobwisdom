@@ -1,5 +1,8 @@
 package com.zefun.web.mapper;
 
+
+import java.util.Map;
+
 import com.zefun.web.entity.MemberComboProject;
 
 public interface MemberComboProjectMapper {
@@ -50,4 +53,12 @@ public interface MemberComboProjectMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(MemberComboProject record);
+
+    /**
+     * 修改状态吗
+    * @author 高国藩
+    * @date 2016年8月20日 下午3:11:24
+    * @param recordIds recordIds
+     */
+    void updateByRecordIds(Map<String, String> map);
 }
