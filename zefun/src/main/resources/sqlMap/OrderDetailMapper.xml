@@ -1372,7 +1372,7 @@ UNION ALL
 	    	project_count, remaining_count, overdue_time, create_time, update_time, last_operator_id)
 	  select #{memberId,jdbcType=INTEGER}, combo_id, store_id, #{detailId,jdbcType=INTEGER},
 	  	combo_name, a.combo_sale_price, combo_image, project_amount,
-		project_count, project_count, case when a.valid_date != null then DATE_ADD(sysdate(),INTERVAL a.valid_date DAY) else '永久' end, 
+		project_count, project_count, case when a.valid_date is not null then DATE_FORMAT(DATE_ADD(sysdate(),INTERVAL a.valid_date DAY),'%Y-%m-%d') else '永久' end, 
 		sysdate(), sysdate(), #{employeeId,jdbcType=INTEGER}
 	 from combo_info a
 	 	where combo_id = #{comboId,jdbcType=INTEGER}
