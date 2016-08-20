@@ -1,5 +1,6 @@
 package com.zefun.web.service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,6 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -370,16 +375,22 @@ public class OrderInfoService {
     * @date 2016年8月9日 下午2:44:20
     * @param storeAccount storeAccount
     * @param storeId storeId
+    * @param request request
+    * @param response response
     * @return ModelAndView
+     * @throws IOException 
+     * @throws ServletException 
      */
-    public ModelAndView showOrderDetail(String storeAccount, Object storeId){
+    public ModelAndView showOrderDetail(String storeAccount, Object storeId, 
+            HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         ModelAndView view = new ModelAndView(View.Statistical.STORE_ORDER);
         Map<String, Object> map = new HashMap<String, Object>();
         
         List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
         //没有门店的时候
         if (selectByStoreAccount.size() ==0){
-            return new ModelAndView("redirect:500");
+            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            return null;
         }
         
         //门店进入
@@ -800,9 +811,15 @@ public class OrderInfoService {
     * @date 2016年8月17日 上午10:31:25
     * @param storeAccount storeAccount
     * @param storeId storeId
+    * @param request request
+    * @param response response
     * @return ModelAndView
+     * @throws IOException 
+     * @throws ServletException 
      */
-    public ModelAndView showProjectDetail(String storeAccount, Object storeId) {
+    public ModelAndView showProjectDetail(String storeAccount, Object storeId,
+            HttpServletRequest request, HttpServletResponse response) 
+                    throws ServletException, IOException {
         ModelAndView view = new ModelAndView(View.Statistical.PROJECT_ORDER);
         Map<String, Object> map = new HashMap<String, Object>();
         
@@ -812,9 +829,9 @@ public class OrderInfoService {
        
        
         
-
         if (selectByStoreAccount.size() ==0){
-            return new ModelAndView("redirect:500");
+            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            return null;
         }
         
         //门店进入
@@ -1186,5 +1203,119 @@ public class OrderInfoService {
         json.accumulate("totalPc",  new BigDecimal(totalPc).setScale(2, BigDecimal.ROUND_HALF_UP));
         return json;
     }
+
+
+    /**
+     * 
+    * @author 骆峰
+    * @date 2016年8月19日 下午7:05:43
+    * @param storeAccount storeAccount
+    * @param storeId storeId
+    * @param request request
+    * @param response response
+    * @return ModelAndView
+    * @throws ServletException ServletException
+    * @throws IOException IOException
+     */
+    public ModelAndView showComboInfo(String storeAccount, Object storeId, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        ModelAndView view = new ModelAndView(View.Statistical.PROJECT_COMBOINFO);
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+        List<StoreInfo> selectByStoreAccount = storeInfoMapper.selectByStoreAccount(storeAccount);
+        //没有门店的时候
+        if (selectByStoreAccount.size() ==0){
+            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            return null;
+        }
+        
+        //门店进入
+        if (storeId != null){
+            map.put("storeId", storeId);
+            view.addObject("storeId", storeId);
+            view.addObject("view", 1);
+        }
+        else {
+            map.put("storeId", selectByStoreAccount.get(0).getStoreId());
+            view.addObject("storeId", selectByStoreAccount.get(0).getStoreId());
+            view.addObject("view", 0);
+        }
+        Calendar a=Calendar.getInstance();
+        String year = String.valueOf(a.get(Calendar.YEAR));
+        String month = String.valueOf(a.get(Calendar.MONTH)+1);
+        
+        String yearMonth ="";
+        if (Integer.parseInt(month)<10) {
+            yearMonth = year +"-0"+month;
+        }
+        else {
+            yearMonth = year +"-"+month;
+        }
+        map.put("time", year);
+        map.put("timeType", yearMonth); 
+        List<OrderDetailDto> comboInfo = orderDetailMapper.selectDetailByComboInfo(map);
+        JSONObject comboInfoData = comboInfoData(map, comboInfo);
+        view.addObject("comboInfoData", comboInfoData);
+        view.addObject("year", year);
+        view.addObject("month", month);
+        return view;
+    }
+    
+    
+    
+    /**
+     *   疗程走势图
+    * @author 骆峰
+    * @date 2016年8月19日 下午8:24:27
+    * @param map map
+    * @param comboInfo comboInfo
+    * @return JSONObject
+     */
+    public JSONObject comboInfoData(Map<String, Object> map, List<OrderDetailDto> comboInfo){
+        
+        JSONObject jsono     = new JSONObject(); //总数据
+        JSONArray jsonoYear  = new  JSONArray();  //当条件是年的时候数据
+        
+        JSONArray jsonoMonth = new  JSONArray();  //当条件是月的时候数据
+        
+        JSONArray day = new  JSONArray(); 
+        String [] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        String [] months = {"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"};
+      
+        if (comboInfo.size() != 0){
+            String time = map.get("timeType").toString(); //年月
+            String year = time.substring(0, 4);
+            Integer monthDay = DateUtil.monthDay(map.get("timeType").toString());
+            for (int j = 1; j <= monthDay; j++) {
+                int g = j;
+                Double price = 0.0;
+                //天数
+                day.add(String.valueOf(j)+ "日");
+                if (j<11) {
+                    price = comboInfo.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+month[g-1]))
+                            .mapToDouble(OrderDetailDto::getDetailCalculate).sum();
+                }
+                else {
+                    price = comboInfo.parallelStream().filter(f ->f.getCreateTime().substring(0, 10).equals(time+"-"+String.valueOf(g)))
+                            .mapToDouble(OrderDetailDto::getDetailCalculate).sum();
+                }
+                jsonoMonth.add(new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP));
+            }
+            
+            //年的数据
+            for (int i = 0; i < month.length; i++) {
+                int g = i;
+                double price = comboInfo.parallelStream().filter(f ->f.getCreateTime().substring(0, 7).equals(year+"-"+month[g]))
+                        .mapToDouble(OrderDetailDto::getDetailCalculate).sum();
+                jsonoYear.add(new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP));
+            }
+        } 
+        jsono.accumulate("day", day);
+        jsono.accumulate("jsonoMonth", jsonoMonth); //  月业绩
+        jsono.accumulate("month", months);
+        jsono.accumulate("jsonoYear", jsonoYear); //年 业绩
+        return jsono;
+    }
+    
     
 }

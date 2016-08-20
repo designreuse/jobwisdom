@@ -1,6 +1,10 @@
 package com.zefun.web.controller;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,13 +35,16 @@ public class OrderInfoController extends BaseController {
     * @author 骆峰
     * @date 2016年8月9日 下午2:43:21
     * @param request request
+    * @param response  response
     * @return ModelAndView
+     * @throws IOException  IOException
+     * @throws ServletException  ServletException
      */
     @RequestMapping(value = Url.Statistical.STORE_ORDER_HOME)
-    public ModelAndView showOrderDetail(HttpServletRequest request){
+    public ModelAndView showOrderDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         Object storeId = request.getSession().getAttribute(Session.STORE_ID);
         String storeAccount = getStoreAccount(request);
-        return orderInfoService.showOrderDetail(storeAccount, storeId);
+        return orderInfoService.showOrderDetail(storeAccount, storeId, request, response);
     }
     /**
      *  门店出售
@@ -100,13 +107,16 @@ public class OrderInfoController extends BaseController {
     * @author 骆峰
     * @date 2016年8月17日 上午10:36:05
     * @param request request
+    * @param response response
     * @return ModelAndView
+     * @throws IOException 
+     * @throws ServletException 
      */
     @RequestMapping(value = Url.Statistical.PROJECT_GOODS_CHECK)
-    public ModelAndView showProjectDetail(HttpServletRequest request){
+    public ModelAndView showProjectDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         Object storeId = request.getSession().getAttribute(Session.STORE_ID);
         String storeAccount = getStoreAccount(request);
-        return orderInfoService.showProjectDetail(storeAccount, storeId);
+        return orderInfoService.showProjectDetail(storeAccount, storeId, request, response);
     }
     
     
@@ -164,5 +174,22 @@ public class OrderInfoController extends BaseController {
     }
     
     
+    /**
+     *  疗程报表
+    * @author 骆峰
+    * @date 2016年8月19日 下午6:47:07
+    * @param request  request
+    * @param response  response
+    * @return ModelAndView
+     * @throws IOException 
+     * @throws ServletException 
+ 
+     */
+    @RequestMapping(value = Url.Statistical.STORE_COMBOINFO_CHECK)
+    public ModelAndView showComboInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        Object storeId = request.getSession().getAttribute(Session.STORE_ID);
+        String storeAccount = getStoreAccount(request); 
+        return orderInfoService.showComboInfo(storeAccount, storeId, request, response);
+    }
     
 }

@@ -110,6 +110,16 @@ public interface OrderDetailMapper {
     
     
     /**
+     *  疗程
+    * @author 骆峰
+    * @date 2016年8月19日 下午8:15:40
+    * @param map map
+    * @return  List<OrderDetailDto>
+     */
+    List<OrderDetailDto> selectDetailByComboInfo(Map<String, Object> map);
+    
+    
+    /**
      *  商品PK
     * @author 骆峰
     * @date 2016年8月10日 下午6:20:16
