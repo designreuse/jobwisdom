@@ -72,6 +72,6 @@
 
 .search_table_  tr:nth-child(1){background:white;}
 .search_table_  tr td{border-left:none;border-top:none}
-.search_table_ p{text-align:center;color:#5e9be0;}
-.search_table_  em{color: #5e9be0;}
+.search_table_ p{text-align:center;color:grey;}
+.search_table_  em{color: grey;}
 .search_table_  i{color: #f49549;}

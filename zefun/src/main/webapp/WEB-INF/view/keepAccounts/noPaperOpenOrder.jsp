@@ -168,7 +168,7 @@
 		  <span>手牌号<em name = "handOrderCode" class="vip_open_card_select"><img src="<%=basePath%>images/open_card_img.png"></em></span>
 		  <i class="vip_search_content" name = "openOrderType" typeValue = "1" onclick = "openOrderType(this)">
 		     <a href="javascript:;">会员服务
-		       <input type="text"name="phoneNumber" class = "input_content" placeholder="会员手机号" style="display: none;">
+		       <input type="text"name="phoneNumber" class = "input_content" placeholder="会员手机号/名称" style="display: none;">
 		       <span class="iconfont icon-sousuo ml-30 mt5" name="seekName" style="display: none;"></span>
 			   <div class="show_search" name="memberListDIV"
 					style="display: none;">

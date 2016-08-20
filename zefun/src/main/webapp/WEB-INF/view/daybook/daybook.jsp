@@ -171,7 +171,7 @@
 	   </tr>
 	<c:forEach var="daybook" items="${page.results}" varStatus="status">
 		<tr>
-	    <td onclick="updateSelectOrder(${daybook.orderId})"><a class="can-click">${daybook.orderCode}</a></td>
+	    <td onclick="updateSelectOrder(${daybook.orderId})"><a>${daybook.orderCode}</a></td>
 <%-- 	    <td onclick="jQuery('.zzc').show()"><a class="can-click">${daybook.orderCode}</a></td> --%>
          <c:choose>
               <c:when test="${daybook.memberId == null}">
@@ -180,7 +180,7 @@
               </td>
               </c:when>
               <c:otherwise>
-                <td class="can-click" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo(${daybook.memberId})">
+                <td style = "color:#489be9;" data-toggle="modal" data-target="#member-data" onclick="selectMemberInfo(${daybook.memberId})">
                    ${daybook.memberName}
                 </td>
               </c:otherwise>

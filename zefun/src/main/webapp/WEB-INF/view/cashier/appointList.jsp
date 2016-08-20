@@ -526,7 +526,7 @@ jQuery(this).addClass('change1').siblings().removeClass('change1')
      <p>预约项目</p>
      <div class="order_item_content">
           <div class="search_vip" name="memberTR" selectType="2"> 搜索会员：
-                   <input type="text"name="phoneNumber" class = "input_content" placeholder="会员手机号">
+                   <input type="text"name="phoneNumber" class = "input_content" placeholder="会员手机号/名称">
 			       <span class="iconfont icon-sousuo ml-30 mt5" name="seekName" style="display: none;"></span>
 				   <div class="show_search" name="memberListDIV"
 						style="display: none;">

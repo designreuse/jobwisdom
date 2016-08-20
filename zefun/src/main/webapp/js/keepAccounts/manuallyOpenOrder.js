@@ -311,7 +311,13 @@ function changeDiv(type) {
 	}
 }
 
+var deleteDetailId = new Array();
+
 function deleteProject(obj) {
+	var detailId = jQuery(obj).parents("div[name= 'projectNameLI']").attr("detailId");
+	if (!isEmpty(detailId)) {
+		deleteDetailId.push(detailId);
+	}
 	jQuery(obj).parents(".nav_content_div").remove();
 }
 
@@ -412,10 +418,11 @@ function save(type) {
 		return;
 	}
 	var arrayObjStr = JSON.stringify(arrayObj);
+	var deleteDetailIdStr = JSON.stringify(deleteDetailId);
 	jQuery.ajax({
     	url : baseUrl + "KeepAccounts/manuallyOpenOrderSave",
     	type : "POST",
-    	data : "memberId=" + memberId + "&sex=" + sex + "&arrayObjStr=" + arrayObjStr + "&openOrderDate="+ openOrderDate +"&handOrderCode=" + handOrderCode +"&orderId="+orderId,
+    	data : "memberId=" + memberId + "&sex=" + sex + "&arrayObjStr=" + arrayObjStr + "&openOrderDate="+ openOrderDate +"&handOrderCode=" + handOrderCode +"&orderId="+orderId + "&deleteDetailIdStr="+deleteDetailIdStr,
     	success : function(e){
     		if (e.code != 0) {
                 dialog(e.msg);
@@ -427,7 +434,7 @@ function save(type) {
     		}
     		else {
     			dialog("挂单成功");
-    			location.reload();
+    			window.location.href = baseUrl + "KeepAccounts/initializeManuallyOpenOrder";
     		}
     	}
     });
