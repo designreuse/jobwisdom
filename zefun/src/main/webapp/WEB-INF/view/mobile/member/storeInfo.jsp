@@ -319,7 +319,9 @@
 	
 	<div class="zzc" style="display: none;">
 	      <div class="zzc_tel" style="bottom: 0px;">
-            <a href="tel:${tel }">${tel }</a> 
+	      	<c:forEach items="${telArray }" var="tel">
+            	<a href="tel:${tel }">${tel }</a> 
+            </c:forEach>
             <div class="cancle">取消</div>
           </div>
     </div>
