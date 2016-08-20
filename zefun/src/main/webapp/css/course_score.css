@@ -1,0 +1,96 @@
+.content_right{padding:10px 20px}
+.content_right>ul {
+    height: 38px;
+    position: relative;
+    top: 1px;
+}
+.content_right>ul>.active {
+    color: black;
+    border-bottom: 1px solid #b8c7ea;
+    background: #b8c7ea;
+}
+.content_right>ul li {
+    cursor: pointer;
+    width: 127px;
+    height: 38px;
+    font-size: 14px;
+    border: 1px solid #909090;
+    border-right: none;
+    float: left;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    line-height: 38px;
+    color: #c5bfbd;
+}
+.content_right>ul li:nth-child(2) {
+    border-right: 1px solid #909090;
+}
+
+.wages_content {
+    overflow: hidden;
+    width: 1037px;
+    border: 1px solid #909090;
+    border-radius: 0 12px 12px 12px;
+}
+
+.wages_content_datail {
+    background: #b8c7ea;
+    padding: 10px 0 10px 10px;
+	border-bottom:1px solid #9b9b9b
+}
+.wages_content_datail_top span {
+    display: inline-block;
+    width: 82px;
+    height: 26px;
+    text-align: center;
+    color: black;
+    margin: 0 5px;
+    cursor: pointer;
+    line-height: 26px;
+    border-radius: 12px;
+    background: #e6e6e6;
+}
+.wages_content_datail_top span.active {
+    background: #21a2e5;
+    color: white;
+}
+.wages_content_datail_top select {
+    margin: 0 10px;
+    padding: 0 0 0 20px;
+    width: 80px;
+    height: 24px;
+    border-radius: 12px;
+    border: 1px solid #718aaf;
+	padding-left:40px
+}
+.wages_content_datail_top{color:black}
+.wages_content_datail_top button{width:100px;height:24px;border:none;border-radius:12px;text-align:center;line-height:24px;color:white;background:#717a9a}
+.wages_content_datail_top button:hover{background:#666e8b}
+
+.wages_content_datail_top input{width:90px;height:14px;border-radius:12px;border:1px solid #aaaaaa;margin:0 5px}
+#container1{padding-top:30px}
+
+.course_score{height:210px;}
+
+.course_score_image{font-size:14px;color:white;width:777px;height:151px;margin:0px auto;background:url(../images/course_score_img.png) no-repeat;position:relative;top:25px}
+.course_score_image_left{float:left;width:200px;padding-left:8px}
+.number_now{margin-bottom:42px}
+.number_now p{margin:8px 0}
+
+.course_score_image_center{float:left;margin-left:105px;width:150px;height:150px}
+.course_score_image_center p{text-align:center;height:40px;line-height:40px}
+.sell_left{float:left;width:75px;text-align:center}
+.sell_right{float:left;width:75px;text-align:center}
+.sell_left>p{margin-top:10px}
+.sell_right>p{margin-top:10px}
+.course_score_image_right{float:left;margin-left:150px}
+.card_content_detail>table{font-size:14px;background:#ebeff8}
+.card_content_detail table{width:100%}
+.card_content_detail table td{text-align:center;height:40px;vertical-align:middle;border-bottom:1px solid #999999;border-right:1px solid #cccccc;width:80px}
+table tr:nth-child(1){font-weight:normal!important}
+.card_content_detail_table td{border-bottom:1px solid #cccccc!important;border-right:1px solid #cccccc!important}
+.card_content_detail_table tr:nth-child(even){background:#ebeff8}
+.card_content_detail table td:last-child{border-right:none!important}
+
+.card_content_detail_table{height:328px;overflow:overlay}
+.card_content_detail{margin-bottom:40px;border-top:1px solid #9b9b9b}
