@@ -79,4 +79,11 @@
     where a_id = #{aId,jdbcType=INTEGER}
       and store_id = #{storeId,jdbcType=INTEGER}
   </update>
+  <select id="selectByStoreIdAndAid" parameterType="com.zefun.web.entity.GoodsStock" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from goods_stock
+    where a_id = #{aId,jdbcType=INTEGER}
+      and store_id = #{storeId,jdbcType=INTEGER}
+  </select>
 </mapper>
