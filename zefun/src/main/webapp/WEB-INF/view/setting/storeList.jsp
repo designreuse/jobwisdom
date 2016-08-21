@@ -42,6 +42,8 @@
     margin-left: 2px;
     border: 1px solid black;
 }
+
+
 </style>
 <head>
     <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
@@ -75,6 +77,20 @@
     	
     }
     </script>
+    <script type="text/javascript">
+    
+    jQuery(function(){
+  	  jQuery('.add_store_back li').each(function(i){
+  		jQuery(this).attr("class",'num'+i); 
+         })
+  	  })
+  	function list(num){
+         var num_=jQuery('.add_store_back li');
+  	    num_.eq(num).attr({'id':'active'+num}).siblings().attr({'id':''});
+  	    jQuery('.add_store_include .add_store_content').eq(num).show().siblings().hide(); 	
+  	 }
+    
+    </script>
 </head>
 <body>
 <div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -85,9 +101,9 @@
 				 <div class='content_right clearfix' style="background:white">
 				   <div class="add_store_div">
 				      <ul class="clearfix add_store_back">
-					     <li class="active"><span>门店基本信息</span></li>
-					     <li><span style="position:relative;top:15px">门店授权码</span></li>
-					     <li><span style="position:relative;top:20px">门店短信</span></li>
+					     <li onclick="list(0)" id="active0"  style="height:162px;"><span>门店基本信息</span></li>
+					     <li onclick="list(1)" style="height:193px;position:relative;top:-38px"><span style="position:relative;top:35px;">门店授权码</span></li>
+					     <li onclick="list(2)" style="height:193px;position:relative;top:-72px"><span style="position:relative;top:60px;">门店短信</span></li>
 					  </ul>
 				
 				    <div class="add_store_include">

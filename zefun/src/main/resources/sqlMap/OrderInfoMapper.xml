@@ -436,6 +436,12 @@
     where order_id = #{orderId} and order_status = 3
   </update>
   
+  <update id="updateMemberId" parameterType="com.zefun.web.entity.OrderInfo" >
+    update order_info
+       set member_id = #{memberId,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  
   <update id="updateIsOrderOption" parameterType="com.zefun.web.entity.OrderInfo" >
     update order_info
        set is_order_option = #{isOrderOption,jdbcType=INTEGER},

@@ -103,6 +103,19 @@ input[type=radio] {
         		
 	  });
  });
+ 	
+ 	
+ 	jQuery(function(){
+ 		  jQuery('.add_store_back li').each(function(i){
+ 			jQuery(this).attr("class",'num'+i); 
+ 	       })
+ 		  })
+ 		function list(num){
+ 	       var num_=jQuery('.add_store_back li');
+ 		    num_.eq(num).attr({'id':'active'+num}).siblings().attr({'id':''});
+ 		    jQuery('.add_store_include .add_store_content').eq(num).show().siblings().hide(); 	
+ 	 }
+ 		
 </script>
 <body>
 	<div class="mainwrapper" id="mainwrapper" name="mainwrapper" style="background-position: 0px 0px;">
@@ -114,8 +127,8 @@ input[type=radio] {
 				<div class="content_right clearfix">
 					<div class="add_store_div clearfix">
 						<ul class="clearfix add_store_back">
-							<li class="active"><span>上架商品</span></li>
-							<li class=""><span style="position: relative; top: 4px">价格<i style="transform: rotate(-45deg);">\</i>提成<i style="transform: rotate(-45deg);">\</i>会员价格
+							<li id="active0" onclick="list(0)" style="position:relative;z-index:2"><span>上架商品</span></li>
+							<li class="" onclick="list(1)" style="position:relative;top:-55px"><span style="position: relative; top: 28px;">价格<i style="transform: rotate(-45deg);">\</i>提成<i style="transform: rotate(-45deg);">\</i>会员价格
 							</span></li>
 						</ul>
 

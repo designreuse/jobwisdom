@@ -174,7 +174,7 @@ public class ShiftMahjongService {
 	    if (shiftMahjong.getShiftMahjongId() == null) {
 	    	
 	    	if (!existList.isEmpty()) {
-	    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "改轮牌名称已存在，请修改！");
+	    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该轮牌名称已存在，请修改！");
 	    	}
 	    	
 	    	//查询出企业下所有门店
@@ -192,7 +192,7 @@ public class ShiftMahjongService {
             
             if (!existList.isEmpty() && existList.size() > 0 
             		  && existList.get(0).getShiftMahjongId().intValue() !=  shiftMahjongOld.getShiftMahjongId().intValue()) {
-	    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "改轮牌名称已存在，请修改！");
+	    		return new BaseDto(App.System.API_RESULT_CODE_FOR_FAIL, "该轮牌名称已存在，请修改！");
 	    	}
             
             String positionIdListOldStr = shiftMahjongOld.getPositionId();

@@ -235,17 +235,18 @@ public class ManuallyOpenOrderController extends BaseController{
 	* @param openOrderDate 补单时间
 	* @param handOrderCode 手工单号
 	* @param orderId 订单标识
+	* @param deleteDetailIdStr 删除的明细标识
 	* @return BaseDto
 	 */
 	@RequestMapping(value = Url.KeepAccounts.MANUALLY_OPEN_ORDER_SAVE)
     @ResponseBody
 	public BaseDto manuallyOpenOrderSave(HttpServletRequest request, HttpServletResponse response, Integer memberId, String sex,
-	        String arrayObjStr, String openOrderDate, String handOrderCode, Integer orderId) {
+	        String arrayObjStr, String openOrderDate, String handOrderCode, Integer orderId, String deleteDetailIdStr) {
 		
 	    Integer storeId = getStoreId(request);
 	    Integer lastOperatorId = getUserId(request);
 	    return manuallyOpenOrderService.manuallyOpenOrderSave(memberId, sex, arrayObjStr, openOrderDate, 
-	    		storeId, lastOperatorId, handOrderCode, orderId);
+	    		storeId, lastOperatorId, handOrderCode, orderId, deleteDetailIdStr);
 	}
 	
 	/**

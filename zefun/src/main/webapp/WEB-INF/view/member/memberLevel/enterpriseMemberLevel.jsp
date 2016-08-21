@@ -241,6 +241,8 @@
                  </li>
 			  </ul>
 		   </div>
+		   
+		   
 		</div>
 		<input type="hidden" name="levelId" style="width: 0px; height: 0px;" >
 		<input type="hidden" name="discountId" style="width: 0px; height: 0px;" >
