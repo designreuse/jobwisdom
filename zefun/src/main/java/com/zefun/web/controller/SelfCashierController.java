@@ -56,7 +56,7 @@ public class SelfCashierController extends BaseController {
 	/**
 	 * 订单信息页面
 	 * 
-	 * @author luhw
+	 * @author 老王
 	 * @date 2015年10月21日 下午3:12:13
 	 * @param request
 	 *            request
