@@ -75,6 +75,8 @@ public interface View {
         public static final  String STORE_ORDER = "order/store_order";
         /**销售展示 */
         public static final  String PROJECT_ORDER = "order/project-order";
+        /**销售展示 */
+        public static final  String PROJECT_COMBOINFO = "order/comboInfo";
     }
 	/**
 	 * 门店管理制度模块

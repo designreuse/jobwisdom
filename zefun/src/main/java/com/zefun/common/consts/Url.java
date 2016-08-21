@@ -95,9 +95,10 @@ public interface Url {
         public static final  String STORE_PROJECT_SELECT = "order/project/select";
         /**劳动pk */
         public static final  String STORE_CATEGORY_SELECT = "order/category/select";
-        
         /**劳动汇总 */
         public static final  String STORE_PROJECT_CATEGORY_CHECK = "order/project/category/check";
+        /**疗程页面显示*/
+        public static final  String STORE_COMBOINFO_CHECK = "order/comboInfo/check";
     }
 	
 	
