@@ -1,5 +1,8 @@
 package com.zefun.web.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.zefun.web.entity.MemberComboRecord;
 
 public interface MemberComboRecordMapper {
@@ -50,4 +53,20 @@ public interface MemberComboRecordMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(MemberComboRecord record);
+
+    /**
+     * 查询所有的未过期和未删除的记录
+    * @author 高国藩
+    * @date 2016年8月20日 下午2:52:00
+    * @return
+     */
+    List<MemberComboRecord> selectAll(String date);
+
+    /**
+     * 将当前过期的设置为过期
+    * @author 高国藩
+    * @date 2016年8月20日 下午3:33:29
+    * @param reviceDate
+     */
+    void updateByDate(Map<String, String> map);
 }

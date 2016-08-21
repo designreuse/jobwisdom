@@ -264,4 +264,13 @@
       is_time = #{isTime,jdbcType=INTEGER}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from member_combo_record
+    where is_deleted = 0 and is_time = 0 and DATE_FORMAT(overdue_time, '%Y-%m-%d') = #{date}
+  </select>
+  <update id="updateByDate" parameterType="java.util.Map">
+    UPDATE member_combo_record SET is_time = 1 WHERE record_id IN (${recordIds}) 
+  </update>
 </mapper>

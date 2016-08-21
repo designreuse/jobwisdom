@@ -229,4 +229,7 @@
       is_time = #{isTime,jdbcType=INTEGER}
     where detail_id = #{detailId,jdbcType=INTEGER}
   </update>
+  <update id="updateByRecordIds" parameterType="java.util.Map">
+  	UPDATE `member_combo_project` SET is_time = 1 WHERE record_id IN (${recordIds})
+  </update>
 </mapper>
