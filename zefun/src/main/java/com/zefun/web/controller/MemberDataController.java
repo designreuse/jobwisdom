@@ -69,7 +69,21 @@ public class MemberDataController extends BaseController{
     @ResponseBody
     public BaseDto selectStoreMemberInfo(HttpServletRequest request, HttpServletResponse response) {
         Integer storeId = getStoreId(request);
+        return memberInfoDataService.selectStoreMemberInfo(storeId);
+    }
+    
+    /**
+     * 查询全企业会员
+    * @author 王大爷
+    * @date 2016年1月5日 下午6:20:34
+    * @param request 返回
+    * @param response 请求
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Member.SELECT_ENTERPRISE_MEMBERINFO, method = RequestMethod.POST)
+    @ResponseBody
+    public BaseDto selectEnterpriseMemberInfo(HttpServletRequest request, HttpServletResponse response) {
         String storeAccount = getStoreAccount(request);
-        return memberInfoDataService.selectStoreMemberInfo(storeId, storeAccount);
+        return memberInfoDataService.selectEnterpriseMemberInfo(storeAccount);
     }
 }

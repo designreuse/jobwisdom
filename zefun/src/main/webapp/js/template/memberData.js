@@ -34,8 +34,7 @@ jQuery(document).ready(function(){
 				dialog(e.msg);
 				return;
 			}
-			memberList = e.msg.storeMemberList;
-			enterpriseMemberList = e.msg.enterpriseMemberList;
+			memberList = e.msg;
 		}
 	});
 });
@@ -47,7 +46,24 @@ var inputMemberList = "";
 
 function changeAllEnterprise (obj) {
 	if (jQuery(obj).prop('checked')) {
-		inputMemberList = JSON.parse(JSON.stringify(enterpriseMemberList));
+		if (isEmpty(enterpriseMemberList)) {
+			jQuery("#loadingWrap").show();
+			jQuery.ajax({
+				type : "post",
+				url : baseUrl + "member/action/selectEnterpriseMemberInfo",
+				async:false,//使用同步的Ajax请求  
+				dataType : "json",
+				success : function(e){
+					if(e.code != 0){
+						dialog(e.msg);
+						return;
+					}
+					jQuery("#loadingWrap").hide();
+					enterpriseMemberList = e.msg;
+					inputMemberList = JSON.parse(JSON.stringify(enterpriseMemberList));
+				}
+			});
+		}
 	}
 	else {
 		inputMemberList = JSON.parse(JSON.stringify(memberList));
