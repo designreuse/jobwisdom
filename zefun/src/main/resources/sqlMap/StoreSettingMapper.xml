@@ -19,13 +19,15 @@
     <result column="start_hand_number" property="startHandNumber" jdbcType="INTEGER" />
     <result column="update_money_authorize" property="updateMoneyAuthorize" jdbcType="INTEGER" />
     <result column="is_decimal_point" property="isDecimalPoint" jdbcType="INTEGER" />
+    <result column="is_goods_minus" property="isGoodsMinus" jdbcType="INTEGER" />
     <result column="last_facilitator" property="lastFacilitator" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
     store_id, gift_clean_days, integral_clean_days, cost_commission_type, commission_fixed_type, 
     gift_commission_rate, coupon_commission_rate, appoint_remind_hour, speech_type, speech_turn_use, 
-    first_follow_coupon, first_follow_gift, member_share_reward, sms_fee, start_hand_number, update_money_authorize, is_decimal_point, last_facilitator
+    first_follow_coupon, first_follow_gift, member_share_reward, sms_fee, start_hand_number, 
+    update_money_authorize, is_decimal_point, is_goods_minus, last_facilitator
   </sql>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -94,6 +96,9 @@
       <if test="isDecimalPoint != null" >
         is_decimal_point,
       </if>
+      <if test="isGoodsMinus != null" >
+        is_goods_minus,
+      </if>
       <if test="lastFacilitator != null" >
         last_facilitator,
       </if>
@@ -149,6 +154,9 @@
       </if>
       <if test="isDecimalPoint != null" >
         #{isDecimalPoint,jdbcType=INTEGER},
+      </if>
+      <if test="isGoodsMinus != null" >
+        #{isGoodsMinus,jdbcType=INTEGER},
       </if>
       <if test="lastFacilitator != null" >
         #{lastFacilitator,jdbcType=VARCHAR},
@@ -206,6 +214,9 @@
       </if>
       <if test="isDecimalPoint != null" >
         is_decimal_point = #{isDecimalPoint,jdbcType=INTEGER},
+      </if>
+      <if test="isGoodsMinus != null" >
+        is_goods_minus = #{isGoodsMinus,jdbcType=INTEGER},
       </if>
       <if test="lastFacilitator != null" >
         last_facilitator = #{lastFacilitator,jdbcType=VARCHAR},

@@ -35,8 +35,31 @@ public class GoodsBaseDto {
     
     /** 附属图片 */
     private String affiliatedImage;
+    /** 企业商品id*/
+    private Integer aId;
 
-    public Integer getGoodsId() {
+    
+    /**
+     * 
+    * @author 老王
+    * @date 2016年8月20日 下午6:16:39 
+    * @return Integer
+     */
+    public Integer getaId() {
+		return aId;
+	}
+
+    /**
+     * 
+    * @author 老王
+    * @date 2016年8月20日 下午6:16:47 
+    * @param aId aId
+     */
+	public void setaId(Integer aId) {
+		this.aId = aId;
+	}
+
+	public Integer getGoodsId() {
         return goodsId;
     }
 

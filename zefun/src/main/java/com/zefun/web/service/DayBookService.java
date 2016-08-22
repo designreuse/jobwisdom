@@ -37,8 +37,6 @@ import com.zefun.web.entity.EmployeeInfo;
 import com.zefun.web.entity.EmployeeObjective;
 import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
-import com.zefun.web.entity.GoodsStock;
-import com.zefun.web.entity.GoodsStockKey;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberComboProject;
@@ -50,6 +48,8 @@ import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.OrderInfo;
 import com.zefun.web.entity.Page;
 import com.zefun.web.entity.ShiftMahjongProjectStep;
+import com.zefun.web.entity.StockFlow;
+import com.zefun.web.mapper.ComboGoodsMapper;
 import com.zefun.web.mapper.DebtFlowMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.EmployeeCommissionMapper;
@@ -58,7 +58,6 @@ import com.zefun.web.mapper.EmployeeObjectiveMapper;
 import com.zefun.web.mapper.GiftmoneyDetailMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
-import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.IntegralFlowMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberComboProjectMapper;
@@ -162,7 +161,10 @@ public class DayBookService {
 	
 	/** 商品库存*/
     @Autowired
-    private GoodsStockMapper goodsStockMapper;
+    private ComboGoodsMapper comboGoodsMapper;
+    /** 商品库存*/
+    @Autowired
+    private GoodsStockService goodsStockService;
 	
 	
     /**
@@ -420,10 +422,11 @@ public class DayBookService {
     * @date 2015年12月2日 上午10:42:27
     * @param orderId 订单标识
     * @param storeId 门店标识
+    * @param storeAccount 企业代号
     * @return BaseDto
      */
     @Transactional
-    public BaseDto elementDeleteOrderId(Integer orderId, Integer storeId) {
+    public BaseDto elementDeleteOrderId(Integer orderId, Integer storeId, String storeAccount) {
         OrderInfoBaseDto orderInfoBaseDto = orderInfoMapper.selectOrderBaseByOrderId(orderId);
         
         List<OrderDetailDto> orderDetailList = orderInfoBaseDto.getOrderDetailList();
@@ -461,14 +464,44 @@ public class DayBookService {
             memberAccountMapper.updateByPrimaryKey(memberAccount);
         }
         
+        String aIdStr = null;
+        String goodsNumStr = null;
         for (int i = 0; i < orderDetailList.size(); i++) {
             Integer detailId = orderDetailList.get(i).getDetailId();
-            Integer deleteType = elementDeleteDetailId(orderInfoBaseDto, detailId, memberId);
+            Map<String, Object> dataMap = elementDeleteDetailId(orderInfoBaseDto, detailId, memberId);
+            
+            Integer deleteType = Integer.valueOf(dataMap.get("type").toString());
+            
+            if (orderDetailList.get(i).getOrderType() != 1) {
+    			if (dataMap.get("aId") != null) {
+    				if (aIdStr == null) {
+    					aIdStr = dataMap.get("aId").toString();
+    					goodsNumStr = dataMap.get("goodsNum").toString();
+    				}
+    				else {
+    					aIdStr = aIdStr + "," + dataMap.get("aId").toString();
+    					goodsNumStr = goodsNumStr + "," + dataMap.get("goodsNum").toString();
+    				}
+    			}
+    		}
             
             if (deleteType != 2) {
                 type = deleteType;
             }
         }
+        
+        if (aIdStr != null) {
+			StockFlow stockFlow = new StockFlow();
+			stockFlow.setaIds(aIdStr);
+			stockFlow.setStockCount(goodsNumStr);
+			stockFlow.setToStore(storeId);
+			stockFlow.setFlowType("客户退货");
+			stockFlow.setStockType(1);
+			stockFlow.setStoreAccount(storeAccount);
+			//更新商品库存并生成流水
+			goodsStockService.inStock(stockFlow);
+		}
+        
         if (type == 1) {
             
             OrderInfo record = new  OrderInfo();
@@ -553,7 +586,10 @@ public class DayBookService {
     * @return Integer
      */
     @Transactional
-    public Integer elementDeleteDetailId(OrderInfoBaseDto orderInfoBaseDto, Integer detailId, Integer memberId) {
+    public Map<String, Object> elementDeleteDetailId(OrderInfoBaseDto orderInfoBaseDto, Integer detailId, Integer memberId) {
+    	
+    	Map<String, Object> dataMap = new HashMap<>();
+    	
         Integer type = 0;
         
         OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(detailId);
@@ -581,22 +617,34 @@ public class DayBookService {
         //商品
         else if (orderDetail.getOrderType() == 2){
             GoodsInfoDto goodsInfo = goodsInfoMapper.selectByPrimaryKey(orderDetail.getProjectId());
-            GoodsStockKey key = new GoodsStockKey();
+            /*GoodsStockKey key = new GoodsStockKey();
             key.setaId(goodsInfo.getaId());
             key.setStoreId(orderInfoBaseDto.getStoreId());
             GoodsStock goodsStock = goodsStockMapper.selectByPrimaryKey(key);
             goodsStock.setCount(goodsStock.getCount()+orderDetail.getProjectCount());
-            goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
-            //增加删除商品库存
-//            GoodsInfo goodsInfo = new GoodsInfo();
-//            goodsInfo.setGoodsId(orderDetail.getProjectId());
-//            goodsInfo.setGoodsStock(orderDetail.getProjectCount());
-//            goodsInfoMapper.updateGoodsStock(goodsInfo);
+            goodsStockMapper.updateByPrimaryKeySelective(goodsStock);*/
+            
+            dataMap.put("aId", goodsInfo.getaId());
+            dataMap.put("goodsNum", 1);
         }
         else if (orderDetail.getOrderType() == 3) {
             //清除员工疗程
             MemberComboDto dto = memberComboRecordMapper.selectComboListByDetailId(detailId);
             if (dto != null) {
+            	
+            	Map<String, String> map = comboGoodsMapper.selectGoodsNumByComboId(dto.getComboId());
+    	        
+    	        if (map == null) {
+    	        	dataMap.put("aId", null);
+    				
+    	        	dataMap.put("goodsNum", null);
+    	        }
+    	        else {
+    	        	dataMap.put("aId", map.get("aId"));
+    				
+    	        	dataMap.put("goodsNum", map.get("goodsNum"));
+    	        }
+            	
                 MemberComboRecord record = new MemberComboRecord();
                 record.setRecordId(dto.getRecordId());
                 record.setIsDeleted(1);
@@ -728,7 +776,8 @@ public class DayBookService {
         record.setIsDeleted(2);
         orderDetailMapper.updateByPrimaryKey(record);
         
-        return type;
+        dataMap.put("type", type);
+        return dataMap;
     }
     
     /**

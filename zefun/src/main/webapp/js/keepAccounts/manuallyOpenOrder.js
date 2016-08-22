@@ -63,6 +63,9 @@ var nowSeconds = now.getSeconds()<10?"0"+now.getSeconds():now.getSeconds() ; //�
 var nowDate = nowYear+"-"+nowMonth+"-"+nowDay+" "+nowHour+":"+nowMinute+":"+nowSeconds;
 jQuery("input[name='openOrderDate']").val(nowDate) ;
 
+var stockCountArray = new Array();
+var aIdsArray = new Array();
+
 function changeDept(obj) {
 	var deptId = jQuery(obj).val();
 	jQuery("div[chooseDept='chooseDept']").addClass("hide");
@@ -114,7 +117,7 @@ jQuery('body').delegate('.lcs_check', 'lcs-statuschange', function() {
     }
 });
 
-function chooceProject(projectId, projectName, projectPrice, type) {
+function chooceProject(aId, projectId, projectName, projectPrice, type) {
 	if (type == 1) {
 		var projectDiv = jQuery("<div class='nav_content_div' name= 'projectNameLI' projectId = '"+projectId+"'></div>");
 		projectDiv.append("<span class='hand_close' onclick = 'deleteProject(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
@@ -145,31 +148,45 @@ function chooceProject(projectId, projectName, projectPrice, type) {
 		changeDiv(1);
 	}
 	else {
-		var str = "<p><span class='hand_close' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
-                  "<em>"+projectName+"</em>"+
-                  "<i>价格：￥"+projectPrice+"</i></p>"+
-                  "<table class='select_people'>"+
-				      "<tr>"+
-						 "<td style='width:360px'>销售第一人"+
-						    "<input type='text' name = 'employeeId1' employeeId = '' chooseType = '2'></td>"+
-						 "</td>"+
-						 "<td style='width:360px'>销售第二人"+
-						     "<input type='text' name = 'employeeId2' employeeId = '' chooseType = '2'></td>"+
-						 "</td>"+
-						 "<td style='width:360px'>销售第三人"+
-						     "<input type='text' name = 'employeeId3' employeeId = '' chooseType = '2'></td>"+
-					 	 "</td>"+
-					  "</tr>"+
-			      "</table>";
-		
-		
 		if (type == 2) {
-			var div = jQuery("<div class='nav_content_div' goodsId = '"+projectId+"'></div>");
+			var str = "<p><span class='hand_close' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
+			            "<em>"+projectName+"</em>"+
+			            "<i>价格：￥"+projectPrice+"</i></p>"+
+			            "<table class='select_people'>"+
+						      "<tr>"+
+								 "<td style='width:360px'>销售第一人"+
+								    "<input type='text' name = 'employeeId1' employeeId = '' chooseType = '2'></td>"+
+								 "</td>"+
+								 "<td style='width:360px'>销售第二人"+
+								     "<input type='text' name = 'employeeId2' employeeId = '' chooseType = '2'></td>"+
+								 "</td>"+
+								 "<td style='width:360px'>销售第三人"+
+								     "<input type='text' name = 'employeeId3' employeeId = '' chooseType = '2'></td>"+
+							 	 "</td>"+
+							  "</tr>"+
+					      "</table>";
+			var div = jQuery("<div class='nav_content_div' goodsId = '"+projectId+"' aId = '"+aId+"'></div>");
 			div.append(str);
 			jQuery("div[name='goodsNameLI']").append(div);
 			changeDiv(2);
 		}
 		else {
+			var str = "<p><span class='hand_close' onclick = 'deleteComboGoods(this)'><img src='"+baseUrl+"images/hand_close.png'></span>"+
+			            "<em>"+projectName+"</em>"+
+			            "<i>价格：￥"+projectPrice+"</i></p>"+
+			            "<table class='select_people'>"+
+						      "<tr>"+
+								 "<td style='width:360px'>销售第一人"+
+								    "<input type='text' name = 'employeeId1' employeeId = '' chooseType = '2'></td>"+
+								 "</td>"+
+								 "<td style='width:360px'>销售第二人"+
+								     "<input type='text' name = 'employeeId2' employeeId = '' chooseType = '2'></td>"+
+								 "</td>"+
+								 "<td style='width:360px'>销售第三人"+
+								     "<input type='text' name = 'employeeId3' employeeId = '' chooseType = '2'></td>"+
+							 	 "</td>"+
+							  "</tr>"+
+					      "</table>";
 			var div = jQuery("<div class='nav_content_div' comboId = '"+projectId+"'></div>");
 			div.append(str);
 			jQuery("div[name='comboNameLI']").append(div);
@@ -395,6 +412,7 @@ function save(type) {
 	var goodsObj = jQuery("div[name='goodsNameLI']").find(".nav_content_div");
 	for (var i = 0; i < goodsObj.length; i++) {
 		var goodsId = jQuery(goodsObj[i]).attr("goodsId");
+		var aId = jQuery(goodsObj[i]).attr("aId");
         var employeeId1 = jQuery(goodsObj[i]).find("input[name='employeeId1']").attr("employeeId");
         var employeeId2 = jQuery(goodsObj[i]).find("input[name='employeeId2']").attr("employeeId");
         var employeeId3 = jQuery(goodsObj[i]).find("input[name='employeeId3']").attr("employeeId");
@@ -410,7 +428,7 @@ function save(type) {
         var employeeIdObj = {"employeeId1" : employeeId1, "employeeId2" : employeeId2, "employeeId3" : employeeId3};
         
         var projectStepArrayObjStr = JSON.stringify(employeeIdObj);
-		var projectObjStr = {"type":2, "projectId":goodsId, "projectStepArrayObjStr":projectStepArrayObjStr};
+		var projectObjStr = {"type":2, "projectId":goodsId, "aId" : aId, "projectStepArrayObjStr":projectStepArrayObjStr};
 		arrayObj.push(projectObjStr);
 	}
 	if (arrayObj.length == 0) {

@@ -43,6 +43,13 @@
 									</td>
 									<td style="width: 493px;">订单结算完成后，支付金额及员工业绩值四舍五入取整或保留两位小数</td>
 								</tr>
+								<tr>
+									<td>允许库存负数</td>
+									<td>
+										<span><input type="radio" name="isGoodsMinus" value="1">是</span> <span><input type="radio" name="isGoodsMinus" value="0">否</span>
+									</td>
+									<td style="width: 493px;">开单、商城中商品库存不足时，是否允许继续开单购买</td>
+								</tr>
 								<!-- <tr>
 									<td>提成是否减扣其他步骤的固定提成值</td>
 									<td>
@@ -156,10 +163,12 @@
 		var isFixed = "${storeSetting.commissionFixedType}";
 		var couponStr = "${storeSetting.firstFollowCoupon}";
 		var isDecimalPoint = "${storeSetting.isDecimalPoint}";
+		var isGoodsMinus = "${storeSetting.isGoodsMinus}";
 		jQuery(function() {
 			jQuery("[name='costCommissionType'][value='" + isCost + "']").click();
 			jQuery("[name='commissionFixedType'][value='" + isFixed + "']").click();
 			jQuery("[name='isDecimalPoint'][value='" + isDecimalPoint + "']").click();
+			jQuery("[name='isGoodsMinus'][value='" + isGoodsMinus + "']").click();
 			if (!isEmpty(couponStr)) {
 				var couponArr = couponStr.split(",");
 				for (var i = 0; i < couponArr.length; i++) {
@@ -177,9 +186,10 @@
 			var firstFollowGift = jQuery("input[name='firstFollowGift']").val();
 			var updateMoneyAuthorize = jQuery("input[name='updateMoneyAuthorize']").val();
 			var isDecimalPoint = jQuery("input[name='isDecimalPoint']:checked").val();
+			var isGoodsMinus = jQuery("input[name='isGoodsMinus']:checked").val();
 			var data ={"costCommissionType" : costCommissionType, "commissionFixedType" : commissionFixedType, "couponCommissionRate" : couponCommissionRate,
 		    		"giftCommissionRate" : giftCommissionRate, "smsFee" : smsFee, "appointRemindHour" : appointRemindHour, "firstFollowGift" : firstFollowGift,
-		    		"updateMoneyAuthorize" : updateMoneyAuthorize, "isDecimalPoint" : isDecimalPoint};
+		    		"updateMoneyAuthorize" : updateMoneyAuthorize, "isDecimalPoint" : isDecimalPoint, "isGoodsMinus" : isGoodsMinus};
 		    var firstFollowCoupon = "";
 		    if (jQuery("input[name='firstFollowCoupon']:checked").length > 0) {
 		    	for (var i = 0; i < jQuery("input[name='firstFollowCoupon']:checked").length; i++) {

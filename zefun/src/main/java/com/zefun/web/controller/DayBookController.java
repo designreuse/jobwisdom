@@ -107,7 +107,8 @@ public class DayBookController extends BaseController {
     @RequestMapping(value = Url.DayBook.ELEMENT_DELETE_ORDERID, method = RequestMethod.POST)
     public BaseDto elementDeleteOrderId(HttpServletRequest request, HttpServletResponse response, Integer orderId) {
         Integer storeId = getStoreId(request);
-        return dayBookService.elementDeleteOrderId(orderId, storeId);
+        String storeAccount = getStoreAccount(request);
+        return dayBookService.elementDeleteOrderId(orderId, storeId, storeAccount);
     }
     
     /**

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> 
 <%@ page import="java.util.Date" %>
 <%@ include file="/head.jsp" %>
 <link rel="stylesheet" href="<%=basePath %>css/batch_set.css" type="text/css" />
@@ -34,7 +34,7 @@
 				                    <div class="batch_set_1_content_datail" onclick = "chooseProject(this, ${projectInfo.projectId }, '${projectInfo.projectName }',${projectInfo.projectPrice }, ${projectInfo.costPrice })">
 									   <div class="item_name">
 									     <p>${projectInfo.projectName }</p>
-										<span>¥${projectInfo.projectPrice }</span><em>成本¥${projectInfo.costPrice }</em>
+										<span>¥<fmt:formatNumber value="${projectInfo.projectPrice }" type="number" pattern="#"/></span><em>成本¥<fmt:formatNumber value="${projectInfo.costPrice }" type="number" pattern="#"/></em>
 									   </div>
 									</div>
 					            </c:forEach>
