@@ -324,13 +324,9 @@ public class RabbitService {
                 data.setCreateTime(DateUtil.getCurTime());
                 chat.setData(data);
                 for (String userId : set) {
-                    logger.info(storeId + " 门店下 ," + userId + " 在线");
-                    Integer isLogin = (Integer) request.getSession().getServletContext().getAttribute(userId);
-                    if (isLogin != null){
-                        chat.setToUser(userId);
-                        rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
-                        logger.info("预约通知推送门店: -->" + JSONObject.fromObject(chat).toString());
-                    }
+                    chat.setToUser(userId);
+                    rabbitTemplate.convertAndSend(App.Queue.CHAT_NOTIFY, JSONObject.fromObject(chat).toString());
+                    logger.info("预约通知推送门店: -->" + JSONObject.fromObject(chat).toString());
                 }
             }
         }

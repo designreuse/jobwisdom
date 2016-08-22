@@ -673,7 +673,7 @@ public class DayBookService {
             
             useMoney = giftmoneyFlow.getFlowAmount();
             
-            if (!residueMoneyInfo.equals("") && residueMoneyInfo != null) {
+            if (residueMoneyInfo != null && !residueMoneyInfo.equals("")) {
                 String[] residueMoneys = residueMoneyInfo.split(",");
                 List<Integer> detailList = new ArrayList<Integer>(residueMoneys.length);
                 List<BigDecimal> operationValueList = new ArrayList<BigDecimal>(residueMoneys.length);

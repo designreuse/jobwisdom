@@ -152,12 +152,12 @@ transform: rotate(1deg);
 .emplee_save_{margin-left:720px;margin-top:40px;margin-bottom:20px}
 .emplee_content_2{height:300px;width:780px;border-radius:8px;background:#f4f4f4;margin:0px auto;overflow:overlay}
 .adjust_list_{width:826px;height:480px;margin:100px auto;border-radius: 12px;overflow: hidden;}
-.adjust_list_ .adjust_1{background:#323b4e;text-align:center;height:66px;line-height:66px;width:826px;font-size:18px;color:white}
+.adjust_list_ .adjust_1{background:#323b4e;text-align:center;height:66px;line-height:66px;width:826px;font-size:16px;color:white}
 .emplee_content_1_{background:white;padding-top:36px}
 .emplee_content_2 li{float:left;width:120px;text-align:center;height:32px;line-height:32px;background:white;border-radius:8px;margin-left:17px;margin-top:20px;cursor:pointer}
 .emplee_content_2 .active{background:#d8d8d8}
 
-.emplee_sure{width:160px;height:34px;text-align:center;line-height:34px;background:#323b4e;color:white;font-size:18px;bordeR:none;border-radius:20px;margin:20px 638px}
+.emplee_sure{width:140px;height:28px;text-align:center;background:#323b4e;color:white;font-size:15px;bordeR:none;border-radius:20px;margin:20px 638px}
 .close_1{position:relative;left:362px;top:2px}
 .adjust_button button{
 	border-radius: 14px;

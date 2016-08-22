@@ -72,7 +72,7 @@ em,i{font-style:normal}
 	.left_nav li{cursor:pointer}
 	.left_nav .active1{color:white;}
 	
-.header_1{width:400px;margin-left:600px;height:53px;line-height:53px;color:#ccced3;position:relative}
+.header_1{width:420px;margin-left:600px;height:53px;line-height:53px;color:#ccced3;position:relative}
 .header_1 span{display:inline-block;width:100px;text-align:center;height:33px;line-height:33px;}
 .header_1 span img{vertical-align:middle;}
 

@@ -134,7 +134,7 @@
 .select_item_content table select{border-radius:12px;width:126px;height:20px;border:1px solid #CCC}
 .select_item_content td span{display:inline-block;margin-left:10px}
 .select_item_content td span input{margin-right:4px}
-.select_item_content td i{position:absolute;right:14px;top:10px}
+.select_item_content td i{position:absolute;right:34px;top:10px}
 .select_item_content table td input[type="text"]{border-radius:12px;width:126px;height:20px;border:1px solid #CCC}
 .select_item_content table td button{width:100px;height:28px;text-align:center;line-height:28px;border:none;color:white;background:#59688a;border-radius:12px}
 .select_item_content_roll{overflow:hidden;width:880px;height:150px;border-radius:8px;border:1px solid #ccc;background:white;margin: 10px auto;position:relative;}

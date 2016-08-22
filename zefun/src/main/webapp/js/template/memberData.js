@@ -34,8 +34,7 @@ jQuery(document).ready(function(){
 				dialog(e.msg);
 				return;
 			}
-			memberList = e.msg.storeMemberList;
-			enterpriseMemberList = e.msg.enterpriseMemberList;
+			memberList = e.msg;
 		}
 	});
 });
@@ -47,7 +46,24 @@ var inputMemberList = "";
 
 function changeAllEnterprise (obj) {
 	if (jQuery(obj).prop('checked')) {
-		inputMemberList = JSON.parse(JSON.stringify(enterpriseMemberList));
+		if (isEmpty(enterpriseMemberList)) {
+			jQuery("#loadingWrap").show();
+			jQuery.ajax({
+				type : "post",
+				url : baseUrl + "member/action/selectEnterpriseMemberInfo",
+				async:false,//使用同步的Ajax请求  
+				dataType : "json",
+				success : function(e){
+					if(e.code != 0){
+						dialog(e.msg);
+						return;
+					}
+					jQuery("#loadingWrap").hide();
+					enterpriseMemberList = e.msg;
+					inputMemberList = JSON.parse(JSON.stringify(enterpriseMemberList));
+				}
+			});
+		}
 	}
 	else {
 		inputMemberList = JSON.parse(JSON.stringify(memberList));
@@ -598,10 +614,14 @@ function orderCombo(page) {
 	jQuery("#orderComboTBODY").empty();
 	for (var i = 0; i < results.length; i++) {
 		var orderComboDto = results[i];
+		var isTime = '';
+		if (orderComboDto.isTime == 1){
+			isTime = '已过期';
+		} else {
+			isTime = '未过期';
+		}
 		jQuery("#orderComboTBODY").append("<tr class='single'>"+
 				                              "<td class='cursor mr10 project-toggle'>"+orderComboDto.comboName+"<span class='iconfont icon-zhankai'></span></td>"+
-//				                              "<td>"+orderComboDto.projectCount+"</td>"+
-//				                              "<td class='red'>"+orderComboDto.remainingCount+"</td>"+
 				                              "<td></td>"+
 				                              "<td class='red'></td>"+
 				                              "<td class='blue'>"+orderComboDto.projectAmount+"</td>"+
@@ -609,6 +629,7 @@ function orderCombo(page) {
 				                              "<td>"+orderComboDto.lastOperatorName+"</td>"+
 				                              "<td>"+orderComboDto.createTime+"</td>"+
 				                              "<th>"+orderComboDto.overdueTime+"</th>"+
+				                              "<th>"+isTime+"</th>"+
 				                              "<td>"+orderComboDto.storeName+"</td>"+
 				                          "</tr>");
 		var projectList = orderComboDto.projectList;
