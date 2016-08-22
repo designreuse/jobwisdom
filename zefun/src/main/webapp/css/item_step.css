@@ -29,7 +29,7 @@ background-size: cover;}
 .item_step_table{height:310px;overflow:overlay;width:830px;margin-top:60px;}
 .item_step_table table{width:830px;}
 table tr:nth-child(odd){background:#f6f8fc}
-table tr:nth-child(1){background:#ebeff8;}
+table tr:nth-child(1){background:#ebeff8;font-weight:normal!important}
 .item_step_table table td{text-align:center;height:42px;line-height:42px;border:1px solid #ccc;vertical-align:middle}
 .item_step_table table td select{border:1px solid #ccc;border-radius:12px;width:50px;padding-left:10px;height:20px}
 .item_step_table table td input{width:50px;height:20px;border:1px solid #ccc;border-radius:12px;color:black;text-align:center}
