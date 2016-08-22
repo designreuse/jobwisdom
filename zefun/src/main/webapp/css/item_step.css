@@ -32,7 +32,7 @@ table tr:nth-child(odd){background:#f6f8fc}
 table tr:nth-child(1){background:#ebeff8;}
 .item_step_table table td{text-align:center;height:42px;line-height:42px;border:1px solid #ccc;vertical-align:middle}
 .item_step_table table td select{border:1px solid #ccc;border-radius:12px;width:50px;padding-left:10px;height:20px}
-.item_step_table table td input{width:50px;height:20px;border:1px solid black;border-radius:12px;color:black;text-align:center}
+.item_step_table table td input{width:50px;height:20px;border:1px solid #ccc;border-radius:12px;color:black;text-align:center}
 
 .item_step_button{text-align:center;margin-top:20px}
 .item_step_button button{width:150px;height:28px;border:none;color:white;font-size:16px;border-radius:12px;text-align:center;line-height:28px;background:#5c6e85;margin:0 60px}

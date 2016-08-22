@@ -157,7 +157,7 @@
 				<div class="content_right clearfix">
 					<div class="add_store_div clearfix">
 						<ul class="clearfix add_store_back">
-							<li id="active0" onclick="list(0)" style="position:relative;z-index:3"><span>新增项目</span></li>
+							<li id="active04" onclick="list(0)" style="position:relative;z-index:3"><span>新增项目</span></li>
 							<li class="" onclick="list(1)" style="position:relative;top:-57px;z-index:2"><span style="position: relative; top: 50px">价格<i
 									style="transform: rotate(-45deg);">\</i>会员价格
 							</span></li>
