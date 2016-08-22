@@ -208,6 +208,9 @@ public class SelfCashierService {
 	/** 员工提成表*/
 	@Autowired
 	private EmployeeCommissionMapper employeeCommissionMapper;
+	/** 商品库存Service*/
+	@Autowired
+	private GoodsStockService goodsStockService;
 
 	/** 日志操作对象 */
 	// private Logger logger = Logger.getLogger(SelfCashierService.class);
@@ -1064,6 +1067,8 @@ public class SelfCashierService {
 					}
 				}
 			}
+			//更新商品库存并生成流水
+			
 		}
 		else {
 			//员工总业绩值

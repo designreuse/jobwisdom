@@ -59,8 +59,19 @@ public class StoreSetting {
 	/** 价格/业绩折后小数处理(0,保留两位小数，1：四舍五入保留整数)*/
 	private Integer isDecimalPoint;
 	
+	/** 允许库存负数(1:是，0:否)*/
+	private Integer isGoodsMinus;
 	
 	
+	
+	public Integer getIsGoodsMinus() {
+		return isGoodsMinus;
+	}
+
+	public void setIsGoodsMinus(Integer isGoodsMinus) {
+		this.isGoodsMinus = isGoodsMinus;
+	}
+
 	public Integer getIsDecimalPoint() {
 		return isDecimalPoint;
 	}

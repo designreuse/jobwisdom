@@ -227,7 +227,7 @@ background-size: cover;}
 								     <div <c:if test="${projectStatus.index == 0}">class="hair_content"</c:if> <c:if test="${projectStatus.index != 0}">class="hair_content hide"</c:if> name= "project" categoryid = "${projectCategory.categoryId}">
 				                        <ul class="clearfix">
 				                            <c:forEach items="${projectCategory.projectList}" var="project">
-				                                <li onclick="chooceProject(${project.projectId}, '${project.projectName}', ${project.projectPrice}, 1)">
+				                                <li onclick="chooceProject(null,${project.projectId}, '${project.projectName}', ${project.projectPrice}, 1)">
 					                                <p>${project.projectName}</p>
 									                <span>价格：${project.projectPrice}</span>
 					                            </li>
@@ -239,7 +239,7 @@ background-size: cover;}
 								 <div class="hair_content hide" name= "combo">
 			                        <ul class="clearfix">
 			                            <c:forEach items="${dept.comboInfoList}" var="comboInfo">
-			                                <li onclick="chooceProject(${comboInfo.comboId}, '${comboInfo.comboName}', ${comboInfo.comboSalePrice}, 3)">
+			                                <li onclick="chooceProject(null,${comboInfo.comboId}, '${comboInfo.comboName}', ${comboInfo.comboSalePrice}, 3)">
 				                                <p>${comboInfo.comboName}</p>
 									            <span>价格：${comboInfo.comboSalePrice}</span>
 				                            </li>
@@ -251,7 +251,7 @@ background-size: cover;}
 			                        <div class="hair_content hide" name= "goods" categoryid = "${goodsCategory.categoryId}">
 				                        <ul class="clearfix">
 				                            <c:forEach items="${goodsCategory.goodsBaseDtos}" var="goods">
-				                                <li onclick="chooceProject(${goods.goodsId}, '${goods.goodsName}', ${goods.goodsPrice}, 2)">
+				                                <li onclick="chooceProject(${goods.aId},${goods.goodsId}, '${goods.goodsName}', ${goods.goodsPrice}, 2)">
 					                                <p>${goods.goodsName}</p>
 									                <span>价格：${goods.goodsPrice}</span>
 					                            </li>
