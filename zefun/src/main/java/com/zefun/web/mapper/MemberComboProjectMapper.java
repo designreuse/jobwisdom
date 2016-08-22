@@ -3,6 +3,7 @@ package com.zefun.web.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.zefun.web.dto.MemberComboProjectDto;
 import com.zefun.web.dto.PaymentOffDto;
 import com.zefun.web.entity.MemberComboProject;
 
@@ -69,6 +70,17 @@ public interface MemberComboProjectMapper {
     * @return   疗程标识
      */
     Integer selectComboIdByDetailId(Integer detailId);
+    
+    
+    
+    /**
+     *  疗程报表1
+    * @author 骆峰
+    * @date 2016年8月22日 上午10:41:30
+    * @param map map
+    * @return List<MemberComboProjectDto>
+     */
+    List<MemberComboProjectDto> selectProjectListByDto(Map<String, Object> map);
     
     /**
      * 根据会员标识跟项目标识查询疗程优惠列表

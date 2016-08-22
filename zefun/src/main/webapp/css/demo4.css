@@ -124,26 +124,26 @@
 .add_store_content_1_center p em{display:inline-block;width:90px}
 .add_store_content_1_center p{margin-top:45px}
 .add_store_content_1_right{height:180px}
-.add_store_content_1_right p> input{border-radius:12px;width:126px;height:20px;border:1px solid black}
+.add_store_content_1_right p> input{border-radius:12px;width:126px;height:20px;border:1px solid #CCC}
 .add_store_content_1_right p span input{width:30px;border-radius:12px;height:20px;border:1px solid #ccc;background:#ebebeb;margin:0 10px 0 20px}
 .add_store_content_1_right>p{position:relative;top:120px}
 
 .select_item_content{height:264px;width:910px;border-radius:8px;background:#d8deed}
 .select_item_content table{width:910px}
 .select_item_content table td{text-align:center;height:40px;vertical-align:middle;position:relative}
-.select_item_content table select{border-radius:12px;width:126px;height:20px;border:1px solid black}
+.select_item_content table select{border-radius:12px;width:126px;height:20px;border:1px solid #CCC}
 .select_item_content td span{display:inline-block;margin-left:10px}
 .select_item_content td span input{margin-right:4px}
 .select_item_content td i{position:absolute;right:34px;top:10px}
-.select_item_content table td input[type="text"]{border-radius:12px;width:126px;height:20px;border:1px solid black}
+.select_item_content table td input[type="text"]{border-radius:12px;width:126px;height:20px;border:1px solid #CCC}
 .select_item_content table td button{width:100px;height:28px;text-align:center;line-height:28px;border:none;color:white;background:#59688a;border-radius:12px}
-.select_item_content_roll{width:880px;height:150px;border-radius:8px;border:1px solid #ccc;background:white;margin: 10px auto;position:relative;}
+.select_item_content_roll{overflow:hidden;width:880px;height:150px;border-radius:8px;border:1px solid #ccc;background:white;margin: 10px auto;position:relative;}
 .select_item_content_roll .left_click{position:absolute;top:40px;left:10px;z-index:2}
 .select_item_content_roll .right_click{position:absolute;right:10px;top:40px;z-index:2}
 .select_item_content_roll .left_click img,.select_item_content_roll .right_click img{width:40px}
 .select_item_content_roll_ul{margin-top:10px;overflow-x:hidden;width:820px;}
 .select_item_content_roll_ul ul{width:3000px;margin-left:50px;position:absolute}
-.select_item_content_roll_ul li{float:left;width:210px;height:130px;border-radius:8px;border:1px solid black;border-radius:8px;margin-right:40px}
+.select_item_content_roll_ul li{float:left;width:210px;height:130px;border-radius:8px;border:1px solid #CCC;border-radius:8px;margin-right:40px}
 .select_item_content_roll_ul li>p{height:30px;line-height:30px;padding:0px 10px 0px 10px}
 .select_item_content_roll_ul_button button{border-radius:8px;width:50px;height:20px;text-align:center;line-height:20px;border:none;margin:0 10px;background:#d8deec}
 .select_item_content_roll_ul_button {text-align:center;margin-top:10px;color:black;}
@@ -156,12 +156,12 @@
 }
 .select_item{margin-top:20px;}
 
-.add_store_content_price{    height: 134px;
+.add_store_content_price{height: 70px;
     width: 910px;
     border-radius: 8px;
     background: #d8deed;}
 .add_store_content_price table{
-	width:720px;
+	width:100%;
 	margin-top:5px
 }
 .add_store_content_price table td{
@@ -175,10 +175,11 @@
 .add_store_content_price table  input[type='number']{
 	width:100px;height:20px;border-radius:12px;border:1px solid #ccc
 }
-.add_store_content_price table i{position:absolute;right:70px;top:5px}
-.add_store_content_2>p{font-size: 16px;
+.add_store_content_price table i{position:absolute;right:30px;top:5px}
+.add_store_content_2>p{font-size: 14px;
     color: black;
     margin-bottom: 10px;}
+	.add_store_content_2_saying>p{font-size:14px;margin-bottom:5px}
 .add_store_content_2_saying{margin-top:20px}
 .add_store_content_2_saying .add_store_content_textarea{width:890px;height:450px;background:#d8deed;border-radius:8px;padding:10px}
 .add_store_content_2_saying .add_store_content_textarea textarea{
@@ -190,3 +191,20 @@
 
 #active0{background:url('../images/list_top_1.png') no-repeat;);color:white}
 #active1{background:url('../images/list_bottom_1.png') no-repeat;);color:white}
+
+
+   .course_limit_content{background:#d8deed;margin-top:10px;padding:10px;border-radius:12px}
+   .course_limit{margin-top:15px}
+   .course_limit_content_left{float:left;width:500px;border-right:1px solid #ccc}
+   .course_limit_content_left span{display:inline-block;margin-left:10px;padding:2px 8px;background:white;border-radius:12px}
+   .course_limit_content_left  input{margin:0 8px}
+   .course_limit_content_left i input{width:120px;height:20px;border-radius:12px;border:1px solid #ccc}
+   .course_limit_content_left i{display:inline-block;margin-left:20px}
+   .course_limit_content_right{float:left;}
+   .course_limit_content_right span{display:inline-block;margin-left:50px}
+   .course_limit_content_right em input{display:inline-block;margin:0 8px}
+   .course_limit_content_right em{display:inline-block;padding:2px 8px;background:white;border-radius:12px;margin-left:10px}
+   .demo_button{float:right;margin-top:10px}
+   .demo_button button{width:130px;height:24px;line-height:24px;text-align:center;border:none;color:white;font-size:14px;background:#5d5f78;border-radius:12px;margin:0 20px}
+   .demo_button button:hover{background:#54566e}
+   table tr:nth-child(1){font-weight:normal}

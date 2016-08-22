@@ -146,6 +146,16 @@
     <result column="mcprice" property="mcprice" jdbcType="DECIMAL" />
   </resultMap>
   
+  
+  <resultMap id="SumPriceDtoMapCombo" type="com.zefun.web.dto.OrderDetailDto" >
+    <result column="cashCardType" property="cash_card_type" jdbcType="DECIMAL" />
+    <result column="comboName" property="combo_name" jdbcType="CHAR" />
+    <result column="orderId" property="order_id" jdbcType="DECIMAL" />
+    <result column="createtime" property="create_time" jdbcType="CHAR" />
+    <result column="projectCount" property="project_count" jdbcType="DECIMAL" />
+    <result column="detailCalculate" property="detail_calculate" jdbcType="DECIMAL" />
+  </resultMap>
+  
   <resultMap type="com.zefun.web.dto.TrendDeptDataDto" id="baseMap">
   	<result column="dept_id" property="deptId" jdbcType="INTEGER"/>
   	<association property="trendDeptData" column="{deptId=dept_id,dateType=dateType,begin=begin,end=end}" select="getSpecifyDateDeptSummary"></association>
@@ -157,6 +167,24 @@
     real_price, off_type, combo_id, coupon_id, gift_amount, free_amount, order_remark, free_employee_id,
     service_length, store_id, order_status, is_deleted, is_update, create_time, update_time, last_operator_id,detail_calculate
   </sql>
+
+  
+     <select id="selectDetailLByCombo" parameterType="java.util.Map" resultMap="SumPriceDtoMapCombo">
+   SELECT 
+	   i.cash_card_type,g.combo_name,d.order_id,d.create_time ,SUM( 1) AS project_count ,SUM( g.combo_performance ) AS detail_calculate FROM 
+			order_detail  d LEFT JOIN  combo_info g  ON g.combo_id = d.project_id 
+	 						LEFT JOIN  order_info i  ON i.order_id = d.order_id    
+		    WHERE i.order_status  IN (3,4)    AND d.order_type = 3  AND i.is_deleted =0 AND  d.is_deleted =0 
+	   AND i.store_id = ${storeId}  
+	   <if test="time1 != null and time1 != ''" >
+          AND d.create_time &lt;  ${time1} 
+      </if>
+        <if test="time2 != null and time2 != ''" >
+         AND d.create_time &gt;  ${time2}     
+      </if>
+	     GROUP BY g.combo_id,i.cash_card_type
+  </select>
+  
 <!--   劳动 -->
    <select id="selectDetailLByProject" parameterType="java.util.Map" resultMap="BaseResultMap">
    SELECT d.detail_id,i.create_time ,SUM( d.project_count) as project_count ,SUM(d.detail_calculate) as detail_calculate FROM 
@@ -323,6 +351,7 @@ UNION ALL
 	     GROUP BY d.order_id
 	</select>
 <!--   商品结束 -->
+<!-- 疗程 -->
   <select id="selectDetailByComboInfo" parameterType="java.util.Map" resultMap="DetailBaseDtoMapBygoods">
    SELECT 
 	   d.order_id,d.create_time ,detail_calculate FROM 
@@ -332,7 +361,7 @@ UNION ALL
 	   AND i.store_id = ${storeId}  AND LEFT(i.create_time,4) = "${time}"   
 	     GROUP BY d.order_id
 	</select>
-<!-- 疗程 -->
+
 
   <!-- 删除门店所有订单明细数据(清除测试数据)，by 张小胖 -->
   <delete id="deleteByStoreId" parameterType="java.lang.Integer">

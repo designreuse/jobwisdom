@@ -192,4 +192,36 @@ public class OrderInfoController extends BaseController {
         return orderInfoService.showComboInfo(storeAccount, storeId, request, response);
     }
     
+    
+    /**
+     *   疗程走势图
+    * @author 骆峰
+    * @date 2016年8月20日 下午2:39:41
+    * @param time time
+    * @param storeId  storeId
+    * @param timeType timeType
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Statistical.STORE_COMBOINFO_SELECT)
+    @ResponseBody
+    public BaseDto selectComboSelect(String time, Integer storeId, String timeType){
+        return orderInfoService.selectComboSelect(time, storeId, timeType);
+    }
+    
+    
+    /**
+     *  疗程表格
+    * @author 骆峰
+    * @date 2016年8月20日 下午6:27:46
+    * @param time1 time1
+    * @param storeId storeId
+    * @param time2 time2
+    * @return BaseDto
+     */
+    @RequestMapping(value = Url.Statistical.STORE_COMBOINFO_CHECKSELECT)
+    @ResponseBody
+    public BaseDto selectComboCheckSelect(String time1, Integer storeId, String time2){
+        return orderInfoService.selectComboCheckSelect(time1, storeId, time2);
+    }
+    
 }

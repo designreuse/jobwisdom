@@ -220,8 +220,8 @@
 .vip_price_content input{width:70px;border:1px solid #ccc;border-radius:8px;margin:0 5px;height:16px}
 .roll_ul{height:115px;width:820px;overflow:hidden;border-radius:10px;margin-top:4px;position:relative;}
 .roll_ul ul{width:4000px;position:relative}
-.roll_ul li{border:1px solid black;width:150px;height:90px;border-radius:10px;margin:15px 35px 15px 0;float:left}
-.roll_ul li select{width:70px;height:15px;border-radius:10px;border:1px solid black}
+.roll_ul li{border:1px solid #ccc;width:150px;height:90px;border-radius:10px;margin:15px 35px 15px 0;float:left}
+.roll_ul li select{width:70px;height:15px;border-radius:10px;border:1px solid #ccc}
 .roll_ul li input{height:12px!important}
 .roll_ul ul{margin-left:40px}
 .roll_ul li p{text-align:center;margin-top:5px}

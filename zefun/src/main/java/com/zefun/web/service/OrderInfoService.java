@@ -31,6 +31,7 @@ import com.zefun.web.dto.DeptCashIncomeDto;
 import com.zefun.web.dto.DeptSummaryDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
+import com.zefun.web.dto.MemberComboProjectDto;
 import com.zefun.web.dto.OrderDetailDto;
 import com.zefun.web.dto.OrderDetailStepDto;
 import com.zefun.web.dto.OrderInfoBaseDto;
@@ -41,9 +42,12 @@ import com.zefun.web.entity.OrderDetail;
 import com.zefun.web.entity.ProjectCategory;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.StoreInfo;
+import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.DeptInfoMapper;
 import com.zefun.web.mapper.GoodsCategoryMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.MemberComboProjectMapper;
+import com.zefun.web.mapper.MemberComboRecordMapper;
 import com.zefun.web.mapper.OrderDetailMapper;
 import com.zefun.web.mapper.OrderInfoMapper;
 import com.zefun.web.mapper.ProjectCategoryMapper;
@@ -89,6 +93,12 @@ public class OrderInfoService {
     /** 大项*/
     @Autowired
     private ProjectCategoryMapper projectCategoryMapper;
+    /** 疗程*/
+    @Autowired
+    private MemberComboProjectMapper memberComboProjectMapper;
+    /** 疗程*/
+    @Autowired
+    private ComboInfoMapper comboInfoMapper;
     
     
     
@@ -986,7 +996,6 @@ public class OrderInfoService {
      */
     public JSONArray projectJoin(List<OrderDetailDto> selectByProject,
             List<DeptInfo> dept, List<ProjectCategory> category , List<ProjectInfo> p){
-        
        
         JSONArray  jsonar = new JSONArray();
         JSONArray  tablear = new JSONArray();
@@ -1001,18 +1010,14 @@ public class OrderInfoService {
                 List<ProjectCategory> projectCategory = category.stream()
                         .filter(s ->s.getDeptId().equals(d.getDeptId())).collect(Collectors.toList());  
                 List<ProjectInfo> project = p.stream().filter(s ->s.getDeptId().equals(d.getDeptId())).collect(Collectors.toList());  
-                
                 // 大项
                 projectCategory.stream().forEach(g ->{  
-                    
                         List<OrderDetailDto> collect = selectByProject.stream().filter(s ->g.getCategoryId().equals(s.getCategoryId()))
                                 .collect(Collectors.toList());  //部门下商品所属大项
                         List<ProjectInfo> pro = project.stream().filter(s ->g.getCategoryId().equals(s.getCategoryId()))
                                 .collect(Collectors.toList());  //部门下所属项目
-                        
                         //项目
                         pro.stream().forEach(c ->{
-                       
                                 Double priceDcl =  collect.parallelStream().filter(s ->c.getProjectId().equals(s.getProjectId()) 
                                         && s.getCashCardType().equals(1) && !s.getOffType().equals(1))
                                         .mapToDouble(OrderDetailDto::getDetailCalculate).sum();     //现金    业绩
@@ -1042,7 +1047,6 @@ public class OrderInfoService {
                                         && s.getIsAssign().equals(1))
                                         .mapToDouble(OrderDetailDto::getProjectCount).sum();
                                 
-                                
                                 Double fzdDcl =  collect.parallelStream().filter(s ->c.getProjectId().equals(s.getProjectId()) 
                                         && s.getIsAssign().equals(0))
                                         .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //非指定
@@ -1057,7 +1061,6 @@ public class OrderInfoService {
                                     zdl =  (zdPcl/totalPcl)*100;
                                 }
                           
-                                
                                 jsono.accumulate("priceDcl",   new BigDecimal(priceDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
                                 jsono.accumulate("pricePcl",   new BigDecimal(pricePcl).setScale(2, BigDecimal.ROUND_HALF_UP));
                                 jsono.accumulate("caPriceDcl", new BigDecimal(caPriceDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
@@ -1071,13 +1074,11 @@ public class OrderInfoService {
                                 jsono.accumulate("zdl",   new BigDecimal(zdl).setScale(2, BigDecimal.ROUND_HALF_UP));
                                 jsono.accumulate("totalDcl",   new BigDecimal(totalDcl).setScale(2, BigDecimal.ROUND_HALF_UP));
                                 jsono.accumulate("totalPcl",   new BigDecimal(totalPcl).setScale(2, BigDecimal.ROUND_HALF_UP));
-                   
                                 jsono.accumulate("name",   c.getProjectName());
                                 jsona.add(jsono);
                                 jsono.clear();
                             });
                       
-                        
                         Double priceDc =  collect.parallelStream().filter(s ->s.getCashCardType().equals(1) && !s.getOffType().equals(1))
                                 .mapToDouble(OrderDetailDto::getDetailCalculate).sum();     //现金    业绩
                         Double pricePc =  collect.parallelStream().filter(s ->s.getCashCardType().equals(1) && !s.getOffType().equals(1))
@@ -1088,18 +1089,15 @@ public class OrderInfoService {
                         Double caPricePc =  collect.parallelStream().filter(s ->s.getCashCardType().equals(2) && !s.getOffType().equals(1))
                                 .mapToDouble(OrderDetailDto::getProjectCount).sum();
                         
-                        
                         Double lcDc =  collect.parallelStream().filter(s ->s.getOffType().equals(1))
                                 .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //疗程
                         Double lcPc =  collect.parallelStream().filter(s ->s.getOffType().equals(1))
                                 .mapToDouble(OrderDetailDto::getProjectCount).sum();
                         
-                        
                         Double zdDc =  collect.parallelStream().filter(s ->s.getIsAssign().equals(1))
                                 .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //指定
                         Double zdPc = collect.parallelStream().filter(s -> s.getIsAssign().equals(1))
                                 .mapToDouble(OrderDetailDto::getProjectCount).sum();
-                        
                         
                         Double fzdDc =  collect.parallelStream().filter(s -> s.getIsAssign().equals(0))
                                 .mapToDouble(OrderDetailDto::getDetailCalculate).sum();  //非指定
@@ -1112,8 +1110,6 @@ public class OrderInfoService {
                         if (totalPc>0){
                             zd =  zdPc/totalPc*100;
                         }
-                       
-                       
                         jsonoj.accumulate("priceDc",    new BigDecimal(priceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
                         jsonoj.accumulate("pricePc",    new BigDecimal(pricePc).setScale(2, BigDecimal.ROUND_HALF_UP));
                         jsonoj.accumulate("caPriceDc",  new BigDecimal(caPriceDc).setScale(2, BigDecimal.ROUND_HALF_UP));
@@ -1256,6 +1252,7 @@ public class OrderInfoService {
         List<OrderDetailDto> comboInfo = orderDetailMapper.selectDetailByComboInfo(map);
         JSONObject comboInfoData = comboInfoData(map, comboInfo);
         view.addObject("comboInfoData", comboInfoData);
+        view.addObject("selectByStoreAccount", selectByStoreAccount);
         view.addObject("year", year);
         view.addObject("month", month);
         return view;
@@ -1316,6 +1313,102 @@ public class OrderInfoService {
         jsono.accumulate("jsonoYear", jsonoYear); //年 业绩
         return jsono;
     }
+
+
+    /**
+     *   疗程走势图
+    * @author 骆峰
+    * @date 2016年8月20日 下午2:41:49
+    * @param time time
+    * @param storeId storeId
+    * @param timeType timeType
+    * @return BaseDto
+     */
+    public BaseDto selectComboSelect(String time, Integer storeId,
+            String timeType) {
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("time", time);
+        map.put("storeId", storeId);
+        map.put("timeType", timeType);
+        List<OrderDetailDto> comboInfo = orderDetailMapper.selectDetailByComboInfo(map);
+        JSONObject comboInfoData = comboInfoData(map, comboInfo);
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, comboInfoData);
+    }
+
+
+    /**
+     *  疗程汇总
+    * @author 骆峰
+    * @date 2016年8月20日 下午3:18:15
+    * @param time1 time1
+    * @param storeId storeId
+    * @param time2 time2
+    * @return BaseDto
+     */
+    public BaseDto selectComboCheckSelect(String time1, Integer storeId,
+            String time2) {
+        Map<String, Object> map = new HashMap<String, Object>(); 
+        map.put("time1", time1);
+        map.put("storeId", storeId);
+        map.put("time2", time2);
+        
+        List<OrderDetailDto> selectDetailLByCombo = orderDetailMapper.selectDetailLByCombo(map);
+        
+        List<MemberComboProjectDto> selectProjectListByDto = memberComboProjectMapper.selectProjectListByDto(map);
+        
+        List<Integer> selectComboIdByStoreId = comboInfoMapper.selectComboIdByStoreId(storeId);
+        
+        JSONArray joinCombo = joinCombo(selectDetailLByCombo, selectProjectListByDto);
+        
+        return new BaseDto(App.System.API_RESULT_CODE_FOR_SUCCEES, joinCombo);
+    }
+    
+    
+    /**
+     *   疗程表格1数据
+    * @author 骆峰
+    * @date 2016年8月22日 上午10:45:26
+    * @param combo combo
+    * @param project project
+    * @return JSONArray
+     */
+    public JSONArray joinCombo(List<OrderDetailDto> combo, List<MemberComboProjectDto> project){
+        JSONObject jsonob     = new JSONObject(); //总数据
+        JSONArray jsonarr  = new  JSONArray();  //当条件是年的时候数据
+        project.stream().forEach(p ->{
+                jsonob.accumulate("comboName", p.getComboName());
+                jsonob.accumulate("deptName", p.getDeptName());
+                jsonob.accumulate("number", p.getNumber());
+                Integer projectCount = p.getProjectCount() *  p.getNumber();   //总服务次数
+                Integer fuCount      =  projectCount-p.getRemainingCount();   // 服务了次数
+                jsonob.accumulate("projectCount", projectCount);
+                jsonob.accumulate("remainingCount", p.getRemainingCount());
+                jsonob.accumulate("fuCount", fuCount);
+                
+                jsonob.accumulate("efficiency", fuCount/projectCount);
+                
+                jsonob.put("xjPrice", 0);
+                jsonob.put("kjPrice", 0);
+                
+                List<OrderDetailDto> collect = combo.stream().filter(s ->s.getCashCardType().equals(1) 
+                        && s.getComboName().equals(p.getComboName())).collect(Collectors.toList());  //现金
+                List<OrderDetailDto> collect2 = combo.stream().filter(s ->s.getCashCardType().equals(2) 
+                        && s.getComboName().equals(p.getComboName())).collect(Collectors.toList());  //卡金
+                if (collect.size() == 1){
+                    jsonob.put("xjPrice", collect.get(0).getDetailCalculate());
+                }
+                
+                if (collect2.size() == 1){
+                    jsonob.put("kjPrice", collect.get(0).getDetailCalculate());
+                }
+                jsonarr.add(jsonob);
+                jsonob.clear();
+            });
+        return jsonarr;
+        
+    }
+    
     
     
 }

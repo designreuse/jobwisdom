@@ -72,7 +72,7 @@
 
 .course_score{height:210px;}
 
-.course_score_image{font-size:14px;color:white;width:777px;height:151px;margin:0px auto;background:url(../images/course_score_img.png) no-repeat;position:relative;top:25px}
+.course_score_image{font-size:14px;color:white;width:777px;margin:0px auto;background:url(../images/course_score_img.png) no-repeat;position:relative;top:25px}
 .course_score_image_left{float:left;width:200px;padding-left:8px}
 .number_now{margin-bottom:42px}
 .number_now p{margin:8px 0}

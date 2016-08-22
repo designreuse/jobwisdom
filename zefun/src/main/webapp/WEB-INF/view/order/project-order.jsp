@@ -76,7 +76,7 @@
 	<div class="wages_content">
 	  <div class="wages_content_datail">
 		   <div class="wages_content_datail_top">
-			 <span class="active" id="typeYear">年</span><span>月</span>
+			 <span class="active" id="typeYear" >年</span><span >月</span>
 			  <input  class="date" type="text" name="birthday" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
 			  <input class="date" type="text" name="birthdays" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})" style="display: none;"> 
 			
