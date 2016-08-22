@@ -35,7 +35,7 @@
 }
 .item_name img{position:absolute;right:-5px;top:-5px;width:15px}
 
-.batch_set_3{width:190px;height: 680px;border-right: 1px solid #909090;float:left}
+.batch_set_3{width:170px;height: 680px;border-right: 1px solid #909090;float:left}
 .batch_set_3>p{ height: 40px;
     line-height: 40px;
     text-align: center;
@@ -70,7 +70,7 @@
 .batch_set_button button{width:100px;height:22px;border:none;text-align:center;line-height:22px;border-radius:12px;color:white;background:#66789e}
 .batch_set_button button:hover{background:#5f7095}
 
-.batch_set_4{width:190px;height: 680px;border-right: 1px solid #909090;float:left}
+.batch_set_4{width:165px;height: 680px;border-right: 1px solid #909090;float:left}
 .batch_set_4>p{ height: 40px;
     line-height: 40px;
     text-align: center;

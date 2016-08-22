@@ -50,7 +50,7 @@ function choosePosition (obj, positionId, positionName) {
 										     '<p>'+positionName+'</p>'+
 										    '<div class="selected_way">'+
 											   '<p><span>业绩方式</span><select name="calculateSelect"><option value="2" checked="checked">固定</option><option value="1">比例</option></select></p>'+
-											   '<p><span>业绩值</span><input type="text" name="calculateInput" placeholder="0"><em>元</em></p>'+
+											   '<p><span>业绩值</span><input type="text"  onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" name="calculateInput" placeholder="0"><em>元</em></p>'+
 											 '</div>'+
 										  '</div>')
 }
@@ -86,22 +86,22 @@ function confirmLevelChoose () {
 					  '<li>'+ 
 					    '<p>现金</p>'+ 
 					    '<div class="batch_set_5_job_ul_li">'+ 
-						  '<p><input type="text" name = "commissionCash" placeholder="0"><em>'+type+'</em><span>指定</span></p>'+ 
-						  '<p><input type="text" name = "commissionNoCash" placeholder="0"><em>'+type+'</em><span>非指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionCash" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" placeholder="0"><em>'+type+'</em><span>指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionNoCash" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" placeholder="0"><em>'+type+'</em><span>非指定</span></p>'+ 
 						'</div>'+ 
 					  '</li>'+ 
 					   '<li>'+ 
 					    '<p>卡金</p>'+ 
 					    '<div class="batch_set_5_job_ul_li">'+ 
-						  '<p><input type="text" name = "commissionCourse" placeholder="0"><em>'+type+'</em><span>指定</span></p>'+ 
-						  '<p><input type="text" name = "commissionNoCourse" placeholder="0"><em>'+type+'</em><span>非指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionCourse" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" placeholder="0"><em>'+type+'</em><span>指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionNoCourse" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" placeholder="0"><em>'+type+'</em><span>非指定</span></p>'+ 
 						'</div>'+ 
 					  '</li>'+ 
 					    '<li>'+ 
 					    '<p>疗程</p>'+ 
 					    '<div class="batch_set_5_job_ul_li">'+ 
-						  '<p><input type="text" name = "commissionGold" placeholder="0"><em>'+type+'</em><span>指定</span></p>'+ 
-						  '<p><input type="text" name = "commissionNoGold" placeholder="0"><em>'+type+'</em><span>非指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionGold" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" placeholder="0"><em>'+type+'</em><span>指定</span></p>'+ 
+						  '<p><input type="text" name = "commissionNoGold" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" placeholder="0"><em>'+type+'</em><span>非指定</span></p>'+ 
 						'</div>'+ 
 					  '</li>'+ 
 					'</ul>'+ 
@@ -118,7 +118,7 @@ function confirmLevelChoose () {
 			if (i != 0) {
 				var page = "";
 				if (jQuery("input[name='positionCheck']").eq(0).attr("positionId") == positionIds){
-					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" placeholder="0"><em>元</em></p>';
 				}
 				else {
 					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select></p>';
@@ -133,7 +133,7 @@ function confirmLevelChoose () {
 			if (i + 1 == levelCheckList.length) {
 				var page = "";
 				if (jQuery("input[name='positionCheck']").eq(0).attr("positionId") == positionIds){
-					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" placeholder="0"><em>元</em></p>';
 				}
 				else {
 					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select></p>';
@@ -148,7 +148,7 @@ function confirmLevelChoose () {
 			if (i + 1 == levelCheckList.length) {
 				var page = "";
 				if (jQuery("input[name='positionCheck']").eq(0).attr("positionId") == positionIds){
-					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" placeholder="0"><em>元</em></p>';
+					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select>预约奖励：<input type="text" name = "commissionCard" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,\'\')" placeholder="0"><em>元</em></p>';
 				}
 				else {
 					page = hand + str + end + '<p class="get_way">提成方式：<select name="commissionWay"><option value="2" checked="checked">固定</option><option value="1">比例</option></select></p>';

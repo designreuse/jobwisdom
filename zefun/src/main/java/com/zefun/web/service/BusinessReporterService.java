@@ -250,70 +250,77 @@ public class BusinessReporterService {
       		//汇总项目业绩
       		List<BusinessTotailDto> projectList = detailCalculateList.parallelStream().filter(a -> "1".equals(a.getCreateTime()))
   				      .collect(Collectors.toList());
-      		projectTotailCalculate =  projectList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
-      		projectTotailSize = projectList.size();
       		
-      		List<BusinessTotailDto> isAssignList = projectList.parallelStream().filter(a -> a.getIsAssign() == 1)
-		      		  .collect(Collectors.toList());
-      		
-      		isAssignListCalculate =  isAssignList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
-      		isAssignSize = isAssignList.size();
-      		
-      		isNoAssignListCalculate = projectTotailCalculate - isAssignListCalculate;
-      		isNoAssignSize = projectTotailSize - isAssignSize;
-      		
-      		if (projectTotailSize == 0) {
-      			assignProportion = 0;
+      		if (projectList != null && projectList.size() > 0) {
+      			projectTotailCalculate =  projectList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
+          		projectTotailSize = projectList.size();
+          		
+          		List<BusinessTotailDto> isAssignList = projectList.parallelStream().filter(a -> a.getIsAssign() == 1)
+    		      		  .collect(Collectors.toList());
+          		
+          		isAssignListCalculate =  isAssignList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
+          		isAssignSize = isAssignList.size();
+          		
+          		isNoAssignListCalculate = projectTotailCalculate - isAssignListCalculate;
+          		isNoAssignSize = projectTotailSize - isAssignSize;
+          		
+          		if (projectTotailSize == 0) {
+          			assignProportion = 0;
+          		}
+          		else {
+          			assignProportion = (isAssignSize/projectTotailSize)*100;
+          		}
+          		
+          		//客情分析
+          		customerTotailTime = projectList.size();
+          		
+          		customerAvgPrice = projectList.parallelStream().mapToDouble(BusinessTotailDto::getValueMoney) 
+        				.average().getAsDouble();
+          		
+          	    //指定客数
+            	assignCustomerNum = projectList.parallelStream().filter(a -> a.getIsAssign() == 1)
+    		      		  .collect(Collectors.toList()).size();
+            	//非指定客数
+            	noAssignCustomerNum = projectList.parallelStream().filter(a -> a.getIsAssign() == 0)
+    		      		  .collect(Collectors.toList()).size();
+            	//会员数
+            	memberNum = projectList.parallelStream().filter(a -> a.getMemberId()  != null)
+    		      		  .collect(Collectors.toList()).size();
+            	//散客数
+            	noMemberNum = projectList.parallelStream().filter(a -> a.getMemberId()  == null)
+    		      		  .collect(Collectors.toList()).size();
+            	//男客数
+            	manNum = projectList.parallelStream().filter(a -> "男".equals(a.getSex()))
+    		      		  .collect(Collectors.toList()).size();
+            	//女客数
+            	girlNum = projectList.parallelStream().filter(a -> "女".equals(a.getSex()))
+    		      		  .collect(Collectors.toList()).size();
       		}
-      		else {
-      			assignProportion = (isAssignSize/projectTotailSize)*100;
-      		}
-      		
-      		//客情分析
-      		customerTotailTime = projectList.size();
-      		customerAvgPrice = projectList.parallelStream().mapToDouble(BusinessTotailDto::getValueMoney) 
-    				.average().getAsDouble();
-      		
-      	    //指定客数
-        	assignCustomerNum = projectList.parallelStream().filter(a -> a.getIsAssign() == 1)
-		      		  .collect(Collectors.toList()).size();
-        	//非指定客数
-        	noAssignCustomerNum = projectList.parallelStream().filter(a -> a.getIsAssign() == 0)
-		      		  .collect(Collectors.toList()).size();
-        	//会员数
-        	memberNum = projectList.parallelStream().filter(a -> a.getMemberId()  != null)
-		      		  .collect(Collectors.toList()).size();
-        	//散客数
-        	noMemberNum = projectList.parallelStream().filter(a -> a.getMemberId()  == null)
-		      		  .collect(Collectors.toList()).size();
-        	//男客数
-        	manNum = projectList.parallelStream().filter(a -> "男".equals(a.getSex()))
-		      		  .collect(Collectors.toList()).size();
-        	//女客数
-        	girlNum = projectList.parallelStream().filter(a -> "女".equals(a.getSex()))
-		      		  .collect(Collectors.toList()).size();
         	
       		//汇总商品业绩
       		List<BusinessTotailDto> goodsList = detailCalculateList.parallelStream().filter(a -> "2".equals(a.getCreateTime()))
 				        .collect(Collectors.toList());
-      		goodsTotailCalculate =  goodsList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
-      		goodsTotailSize = goodsList.size();
       		
-      		List<BusinessTotailDto> mallList = goodsList.parallelStream().filter(a -> a.getOrderType() == 3)
-		      		  .collect(Collectors.toList());
-      		
-      		mallListCalculate = mallList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();;
-        	mallSize = mallList.size();
-      		
-        	storeListCalculate = goodsTotailCalculate - mallListCalculate;
-        	storeSize = goodsTotailSize - mallSize;
-        	
-        	if (goodsTotailSize == 0) {
-        		mallProportion = 0;
-        	}
-        	else {
-        		mallProportion = (mallSize/goodsTotailSize)*100;
-        	}
+      		if (goodsList != null && goodsList.size() > 0) {
+      			goodsTotailCalculate =  goodsList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();
+          		goodsTotailSize = goodsList.size();
+          		
+          		List<BusinessTotailDto> mallList = goodsList.parallelStream().filter(a -> a.getOrderType() == 3)
+    		      		  .collect(Collectors.toList());
+          		
+          		mallListCalculate = mallList.parallelStream().filter(f -> 1 == 1).mapToDouble(BusinessTotailDto::getValueMoney).sum();;
+            	mallSize = mallList.size();
+          		
+            	storeListCalculate = goodsTotailCalculate - mallListCalculate;
+            	storeSize = goodsTotailSize - mallSize;
+            	
+            	if (goodsTotailSize == 0) {
+            		mallProportion = 0;
+            	}
+            	else {
+            		mallProportion = (mallSize/goodsTotailSize)*100;
+            	}
+      		}
         	
         	cardTotailCalculate = detailCalculateList.parallelStream().filter(a -> "4".equals(a.getCreateTime()) 
         			|| "5".equals(a.getCreateTime()) || "6".equals(a.getCreateTime()))
