@@ -435,11 +435,11 @@ public class UboxMallService {
             transactionInfo.setPayStatus(2);
             transactionInfoMapper.updateByPrimaryKey(transactionInfo);
             
-            //订单
             Integer storeId = transactionInfo.getStoreId();
             Integer goodsId = transactionInfo.getGoodsId();
             GoodsInfoDto goodsInfo = goodsInfoMapper.selectGoodsAllByPrimaryKey(goodsId);
             
+            //订单
             Integer amount = transactionInfo.getTransactionAmount();
             OrderInfo orderInfo = new OrderInfo();
             orderInfo.setStoreId(storeId);
@@ -454,8 +454,8 @@ public class UboxMallService {
             orderInfo.setDeptId(goodsInfo.getDeptId());
             orderInfoMapper.insert(orderInfo);
             Integer orderId = orderInfo.getOrderId();
+            
             //订单明细
-           
             OrderDetail orderDetail = new OrderDetail();
             if (goodsInfo.getCalculationType().equals(1)){
                 orderDetail.setDetailCalculate(goodsInfo.getGoodsPrice()
@@ -473,6 +473,7 @@ public class UboxMallService {
             orderDetail.setProjectImage(goodsInfo.getGoodsImage());
             orderDetail.setOrderStatus(3);
             orderDetail.setCreateTime(DateUtil.getCurDate());
+            orderDetail.setDiscountAmount(new BigDecimal(amount).divide(new BigDecimal(100)));
             orderDetail.setProjectPrice(new BigDecimal(amount).divide(new BigDecimal(100)));
             orderDetailMapper.insert(orderDetail);
             

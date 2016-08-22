@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/base.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -91,20 +92,22 @@
             <c:choose>
                 <c:when test="${isPayCode == 0 }">
                     <li class="name normal-li" onclick="setPwd();">
-		                <a href="javescript:void(0);">
-		                    <span class="li-name">支付密码</span>
-		                    <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
-		                    <span class="fr font-999">设置支付密码</span>
-		                </a>
+                    	<span class="li-name">支付密码</span>
+	                    <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
+	                    <span class="fr font-999">设置支付密码</span>
+		               <!--  <a href="javescript:void(0);">
+		                    
+		                </a> -->
 		            </li>
                 </c:when>
                 <c:otherwise>
                     <li class="name normal-li" onclick="showFixPwd();">
-		                <a href="javescript:void(0);">
-		                    <span class="li-name">支付密码</span>
-		                    <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
-		                    <span class="fr font-999">******</span>
-		                </a>
+                   		<span class="li-name">支付密码</span>
+	                    <span class="fr normoal-word"> <i class="iconfont icon-right"></i></span>
+	                    <span class="fr font-999">******</span>
+		               <!--  <a href="javescript:void(0);">
+		                    
+		                </a> -->
 		            </li>
                 </c:otherwise>
             </c:choose>
@@ -210,7 +213,7 @@
 </div>  
 
 <%@include file="../wechatBase.jsp" %>
-<script type="text/javascript" src="<%=basePath%>js/mobile/monthData.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/mobile/monthData.js?date=<%=new Date() %>"></script>
 <script type="text/javascript" src="<%=muiJsPath%>"></script>
 <script src="<%=basePath%>js/qiniu/qiniu.min.js"></script>
 <script src="<%=basePath%>js/mobile/md5.js"></script>
@@ -460,6 +463,7 @@
                                 headUrl = key;
                                 $("#headImg").attr("src", picUrl + key + "?imageView2/1/w/220/h/220");
                                 updateInfo(null);
+                                window.location.href = baseUrl + "memberCenter/view/info";
                             }
                         });
                     }
