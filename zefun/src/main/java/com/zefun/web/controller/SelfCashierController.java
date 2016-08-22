@@ -185,7 +185,13 @@ public class SelfCashierController extends BaseController {
 			    HttpServletResponse response) throws ServiceException {
 		Integer employeeId = getUserId(request);
 		Integer storeId = getStoreId(request);
-		return selfCashierService.cashierSubmit(employeeId, orderSubmit, null, storeId);
+		String storeAccount = getStoreAccount(request);
+		try {
+			return selfCashierService.cashierSubmit(employeeId, orderSubmit, null, storeId, storeAccount);
+		} 
+		catch (ServiceException e) {
+			return new  BaseDto(-1, e.getMsg());
+		}
 	}
 
 	/**

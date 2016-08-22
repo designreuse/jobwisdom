@@ -1,6 +1,7 @@
 package com.zefun.web.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zefun.web.entity.ComboGoods;
 
@@ -59,4 +60,13 @@ public interface ComboGoodsMapper {
     * @return 影响行数
      */
     int updateByPrimaryKey(ComboGoods record);
+    
+    /**
+     * 
+    * @author 老王
+    * @date 2016年8月22日 下午2:56:39 
+    * @param comboId 套餐标识
+    * @return Map<String, String>
+     */
+    Map<String, String> selectGoodsNumByComboId(Integer comboId);
 }

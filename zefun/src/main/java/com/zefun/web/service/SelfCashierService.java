@@ -51,7 +51,9 @@ import com.zefun.web.entity.ProjectCommission;
 import com.zefun.web.entity.ProjectDiscount;
 import com.zefun.web.entity.ProjectInfo;
 import com.zefun.web.entity.ProjectStep;
+import com.zefun.web.entity.StockFlow;
 import com.zefun.web.entity.StoreSetting;
+import com.zefun.web.mapper.ComboGoodsMapper;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.CommissionSchemeMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
@@ -211,6 +213,9 @@ public class SelfCashierService {
 	/** 商品库存Service*/
 	@Autowired
 	private GoodsStockService goodsStockService;
+	/** 商品库存Service*/
+	@Autowired
+	private ComboGoodsMapper comboGoodsMapper;
 
 	/** 日志操作对象 */
 	// private Logger logger = Logger.getLogger(SelfCashierService.class);
@@ -281,12 +286,12 @@ public class SelfCashierService {
 	 * @param memberId
 	 *            结账会员标识(会员自助结账时)
 	 * @param storeId 门店标识
+	 * @param storeAccount 企业代号
 	 * @return 成功返回码0；失败返回其他错误码，返回值为提示语
 	 * @throws ServiceException ServiceException
 	 */
 	@Transactional
-	public BaseDto cashierSubmit(int employeeId, OrderInfoSubmitDto orderSubmit, Integer memberId, Integer storeId)
-			throws ServiceException {
+	public BaseDto cashierSubmit(int employeeId, OrderInfoSubmitDto orderSubmit, Integer memberId, Integer storeId, String storeAccount) {
 		int orderId = orderSubmit.getOrderId();
 		SelfCashierOrderDto cashierDto = selectSelfCashierOrderDetail(orderId, true, storeId);
 		List<SelfCashierDetailDto> ownerDetailList = cashierDto.getOrderDetails();
@@ -351,6 +356,9 @@ public class SelfCashierService {
   		String updatePricArrayStr = orderSubmit.getUpdatePricArray();
   		//获取改价对象
   		JSONArray updatePricArray =JSONArray.fromObject(updatePricArrayStr);
+  		
+  		String aIdStr = null;
+  		String goodsNumStr = null;
   		
 		// 依次遍历所有支付的明细信息
 		for (OrderDetaiSubmitDto detail : orderSubmit.getDetailList()) {
@@ -470,6 +478,19 @@ public class SelfCashierService {
 			stepCommissionMap = calculateCommonCommission(orderDetailObj, memberSubAccount, storeId, payType, ownerMemberId, employeeId, toFixedNum);
 			stepCommissionList.add(stepCommissionMap);
 			
+			if (orderDetailObj.getOrderType() != 1) {
+				if (stepCommissionMap.get("aId") != null) {
+					if (aIdStr == null) {
+						aIdStr = stepCommissionMap.get("aId").toString();
+						goodsNumStr = stepCommissionMap.get("goodsNum").toString();
+					}
+					else {
+						aIdStr = aIdStr + "," + stepCommissionMap.get("aId").toString();
+						goodsNumStr = goodsNumStr + "," + stepCommissionMap.get("goodsNum").toString();
+					}
+				}
+			}
+			
 			//修改业绩值
 			OrderDetail obj = new OrderDetail();
 			obj.setDetailId(orderDetailObj.getDetailId());
@@ -478,7 +499,17 @@ public class SelfCashierService {
 			orderDetailMapper.updateByPrimaryKey(obj);
 		}
 
-		
+		if (aIdStr != null) {
+			StockFlow stockFlow = new StockFlow();
+			stockFlow.setaIds(aIdStr);
+			stockFlow.setStockCount(goodsNumStr);
+			stockFlow.setFromStore(storeId);
+			stockFlow.setFlowType("销售出库");
+			stockFlow.setStockType(2);
+			stockFlow.setStoreAccount(storeAccount);
+			//更新商品库存并生成流水
+			goodsStockService.outStock(stockFlow);
+		}
 		
 		if (realAmount.compareTo(BigDecimal.ZERO) == -1) {
 			realAmount = BigDecimal.ZERO;
@@ -956,6 +987,10 @@ public class SelfCashierService {
 	        
 			GoodsInfoDto goodsInfoDto = goodsInfoMapper.selectByPrimaryKey(orderDetail.getProjectId());
 			
+			stepCommissionMap.put("aId", goodsInfoDto.getaId());
+			
+			stepCommissionMap.put("goodsNum", 1);
+			
 			List<CommissionScheme> commissionSchemeList = commissionSchemeMapper.selectByStoreId(storeId);
 			
 			Map<String, Object> stepOrderMap = null;
@@ -1067,8 +1102,6 @@ public class SelfCashierService {
 					}
 				}
 			}
-			//更新商品库存并生成流水
-			
 		}
 		else {
 			//员工总业绩值
@@ -1078,6 +1111,19 @@ public class SelfCashierService {
 	        
 	        ComboInfo comboInfo = comboInfoMapper.selectByPrimaryKey(orderDetail.getProjectId());
 			
+	        Map<String, String> map = comboGoodsMapper.selectGoodsNumByComboId(comboInfo.getComboId());
+	        
+	        if (map == null) {
+	        	stepCommissionMap.put("aId", null);
+				
+				stepCommissionMap.put("goodsNum", null);
+	        }
+	        else {
+	        	stepCommissionMap.put("aId", map.get("aId"));
+				
+				stepCommissionMap.put("goodsNum", map.get("goodsNum"));
+	        }
+	        
 			List<CommissionScheme> commissionSchemeList = commissionSchemeMapper.selectByStoreId(storeId);
 			
 			Map<String, Object> stepOrderMap = null;

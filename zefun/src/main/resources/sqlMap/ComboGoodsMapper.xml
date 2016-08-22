@@ -31,6 +31,13 @@
     and goods_id = #{goodsId,jdbcType=INTEGER}
     </if>
   </select>
+  
+ <select id="selectGoodsNumByComboId" resultType="java.util.Map" parameterType="java.lang.Integer" >
+    select group_concat(b.a_id) as aId, group_concat(a.goods_counts) as goodsNum from combo_goods a
+    left join goods_info b on a.goods_id = b.goods_id
+    where a.combo_id = #{comboId,jdbcType=INTEGER} and a.is_deleted = 0
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="com.zefun.web.entity.ComboGoods" >
     delete from combo_goods
     where 1=1 

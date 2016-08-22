@@ -165,7 +165,7 @@ function chooceProject(aId, projectId, projectName, projectPrice, type) {
 							 	 "</td>"+
 							  "</tr>"+
 					      "</table>";
-			var div = jQuery("<div class='nav_content_div' goodsId = '"+projectId+"'></div>");
+			var div = jQuery("<div class='nav_content_div' goodsId = '"+projectId+"' aId = '"+aId+"'></div>");
 			div.append(str);
 			jQuery("div[name='goodsNameLI']").append(div);
 			changeDiv(2);
@@ -412,6 +412,7 @@ function save(type) {
 	var goodsObj = jQuery("div[name='goodsNameLI']").find(".nav_content_div");
 	for (var i = 0; i < goodsObj.length; i++) {
 		var goodsId = jQuery(goodsObj[i]).attr("goodsId");
+		var aId = jQuery(goodsObj[i]).attr("aId");
         var employeeId1 = jQuery(goodsObj[i]).find("input[name='employeeId1']").attr("employeeId");
         var employeeId2 = jQuery(goodsObj[i]).find("input[name='employeeId2']").attr("employeeId");
         var employeeId3 = jQuery(goodsObj[i]).find("input[name='employeeId3']").attr("employeeId");
@@ -427,7 +428,7 @@ function save(type) {
         var employeeIdObj = {"employeeId1" : employeeId1, "employeeId2" : employeeId2, "employeeId3" : employeeId3};
         
         var projectStepArrayObjStr = JSON.stringify(employeeIdObj);
-		var projectObjStr = {"type":2, "projectId":goodsId, "projectStepArrayObjStr":projectStepArrayObjStr};
+		var projectObjStr = {"type":2, "projectId":goodsId, "aId" : aId, "projectStepArrayObjStr":projectStepArrayObjStr};
 		arrayObj.push(projectObjStr);
 	}
 	if (arrayObj.length == 0) {
