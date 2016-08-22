@@ -29,13 +29,13 @@
 	              <span class="fl">
 	               <c:choose>
 	                   <c:when test="${detail.orderType == 4 }">
-	                       开卡
+	                       	开卡
 	                   </c:when>
 	                   <c:when test="${detail.orderType == 5 }">
-                           充值
+                          	 充值
                        </c:when>
                        <c:when test="${detail.orderType == 6 }">
-                           升级
+                           	升级
                        </c:when>
                        <c:otherwise>
                             ${detail.projectName }
@@ -43,7 +43,7 @@
 	               </c:choose>
 	              </span>
 	              <span class="fr">
-	               ￥${detail.projectPrice }
+	              	 ¥ ${detail.projectPrice }
 	              </span>
 	            </div>
 	            <c:choose>
@@ -53,7 +53,7 @@
 			                <div class="xiaofei-col two">
 			                  <span class="fl">会员折扣优惠</span>
 			                  <span class="fr">
-			                     -￥${detail.projectPrice - detail.discountAmount }
+			                     -¥ ${detail.projectPrice - detail.discountAmount }
 			                  </span>
 			                </div>
 			            </c:if>
@@ -62,7 +62,7 @@
 			                <div class="xiaofei-col three">
 			                  <span class="fl">在线预约优惠</span>
 			                  <span class="fr">
-			                    -￥${detail.appointOff}
+			                    -¥ ${detail.appointOff }
 			                  </span>
 			                </div>
 			            </c:if>
@@ -73,7 +73,7 @@
 			                <div class="xiaofei-col two">
 			                  <span class="fl">${detail.offType }</span>
 			                  <span class="fr">
-			                     -￥${detail.offAmount }
+			                     -¥ ${detail.offAmount }
 			                  </span>
 			                </div>
 			            </c:if>
@@ -84,7 +84,7 @@
 			                <div class="xiaofei-col two">
 			                  <span class="fl">${detail.offType }</span>
 			                  <span class="fr">
-			                     -￥${detail.offAmount }
+			                     -¥ ${detail.offAmount }
 			                  </span>
 			                </div>
 			            </c:if>
@@ -93,7 +93,7 @@
 			                <div class="xiaofei-col three">
 			                  <span class="fl">在线预约优惠</span>
 			                  <span class="fr">
-			                    -￥${detail.appointOff}
+			                    -¥ ${detail.appointOff}
 			                  </span>
 			                </div>
 			            </c:if>
@@ -107,36 +107,36 @@
 	        <c:if test="${orderPayment.cashAmount > 0 }">
 	           <div class="xiaofei-col two">
 	              <span class="fl">现金支付</span>
-	              <span class="fr">-￥${orderPayment.cashAmount }</span>
-	            </div>
+	              <span class="fr">-¥ ${orderPayment.cashAmount }</span>
+	           </div>
 	           <div class="clearfix"></div>
 	        </c:if>
 	        <c:if test="${orderPayment.unionpayAmount > 0 }">
                <div class="xiaofei-col two">
                   <span class="fl">银联支付</span>
-                  <span class="fr">-￥${orderPayment.unionpayAmount }</span>
-                </div>
+                  <span class="fr">-¥ ${orderPayment.unionpayAmount }</span>
+               </div>
                <div class="clearfix"></div>
             </c:if>
             <c:if test="${orderPayment.cardAmount > 0 }">
                <div class="xiaofei-col two">
                   <span class="fl">卡金支付</span>
-                  <span class="fr">-￥${orderPayment.cardAmount }</span>
-                </div>
+                  <span class="fr">-¥ ${orderPayment.cardAmount }</span>
+               </div>
                <div class="clearfix"></div>
             </c:if>
             <c:if test="${orderPayment.wechatAmount > 0 }">
                <div class="xiaofei-col two">
                   <span class="fl">微信支付</span>
-                  <span class="fr">-￥${orderPayment.wechatAmount }</span>
-                </div>
+                  <span class="fr">-¥ ${orderPayment.wechatAmount }</span>
+               </div>
                <div class="clearfix"></div>
             </c:if>
             <c:if test="${orderPayment.alipayAmount > 0 }">
                <div class="xiaofei-col two">
                   <span class="fl">支付宝支付</span>
-                  <span class="fr">-￥${orderPayment.alipayAmount }</span>
-                </div>
+                  <span class="fr">-¥ ${orderPayment.alipayAmount }</span>
+               </div>
                <div class="clearfix"></div>
             </c:if>
             <c:if test="${orderPayment.realAmount <= 0 }">
@@ -148,7 +148,7 @@
             </c:if>
 	        <div class="xiaofei-name xiaofei-col">
 	          <span class="fl">实际消费金额</span>
-	          <span class="red-price fr s-price">￥${orderPayment.receivableAmount }</span>
+	          <span class="red-price fr s-price">¥ ${orderPayment.receivableAmount }</span>
 	        </div>
 	        <div class="clearfix"></div>
 	      </li>
