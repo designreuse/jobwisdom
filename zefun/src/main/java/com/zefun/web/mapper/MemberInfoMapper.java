@@ -282,6 +282,26 @@ public interface MemberInfoMapper {
     * @return  会员信息
      */
     MemberInfo selectMemberByStoreIdAndPhone(@Param(value="storeId")int storeId, @Param(value="phone")String phone);
+    
+    
+    
+    
+    
+    
+    /**
+     *   企业下的会员
+    * @author 骆峰
+    * @date 2016年8月20日 上午11:39:07
+    * @param storeAccount storeAccount
+    * @param phone phone
+    * @return MemberInfo
+     */
+    
+    MemberInfo selectMemberByStoreAccountAndPhone(@Param(value="storeAccount")String storeAccount, @Param(value="phone")String phone);
+    
+    
+    
+    
 
     /**
      * 根据参数统计出每个城市门店的微信会员总数

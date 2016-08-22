@@ -34,10 +34,14 @@
     <association property="projectList" column="record_id" select="com.zefun.web.mapper.MemberComboProjectMapper.selectProjectListByRecordId" />
   </resultMap>
   
+ 
+  
   <sql id="Base_Column_List" >
     record_id, member_id, combo_id, store_id, detail_id, combo_name, combo_price, combo_image, project_amount, 
     project_count, remaining_count, overdue_time, create_time, is_deleted, update_time, last_operator_id
   </sql>
+
+  
   
   <!-- 根据疗程标识列表删除会员疗程记录，by 张小胖 -->
   <delete id="deleteByComboIdList" parameterType="java.util.List">

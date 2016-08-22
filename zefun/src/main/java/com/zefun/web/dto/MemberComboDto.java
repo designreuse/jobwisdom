@@ -37,7 +37,11 @@ public class MemberComboDto {
     
     /** 消费门店*/
     private String storeName;
+    /** 部门*/
+    private String deptName;
     
+
+
     /** 销售人员*/
     private String lastOperatorName;
     
@@ -50,7 +54,13 @@ public class MemberComboDto {
     private List<MemberComboProject> projectList;
 
     
-    
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
     
     public String getCreateTime() {
         return createTime;

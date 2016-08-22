@@ -99,6 +99,10 @@ public interface Url {
         public static final  String STORE_PROJECT_CATEGORY_CHECK = "order/project/category/check";
         /**疗程页面显示*/
         public static final  String STORE_COMBOINFO_CHECK = "order/comboInfo/check";
+        /**疗程页面走势图查询*/
+        public static final  String STORE_COMBOINFO_SELECT = "order/comboinfo/select";
+        /**疗程页面汇总*/
+        public static final  String STORE_COMBOINFO_CHECKSELECT = "order/comboinfo/checkSelect";
     }
 	
 	

@@ -38,9 +38,8 @@ public class OrderDetailDto implements Serializable{
     private Integer categoryId;
 
 
-  
 
-
+    
     /** 订单类型(1:项目,2:商品,3:套餐,4:开卡,5:充值,6:升级,7:赠送,8:还款) */
     private Integer orderType;
 
@@ -135,6 +134,17 @@ public class OrderDetailDto implements Serializable{
     /**时间 */
     private String createTime;
     
+    /** 疗程名称*/
+    private String comboName;
+    
+
+    public String getComboName() {
+        return comboName;
+    }
+
+    public void setComboName(String comboName) {
+        this.comboName = comboName;
+    }
 
     public Integer getCashCardType() {
         return cashCardType;

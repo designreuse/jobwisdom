@@ -243,6 +243,7 @@ public class OpenCardService {
      * @param createTime 创建时间
      * @param orderCode 单号
      * @param calculate 总业绩
+     * @param storeAccount storeAccount
 	 * @return BaseDto
 	 * @throws ParseException  解析异常
 	 */
@@ -253,8 +254,8 @@ public class OpenCardService {
     			BigDecimal balanceAmount, BigDecimal rewardAmount, Integer messageType, BigDecimal cashAmount,
     			BigDecimal unionpayAmount, BigDecimal wechatAmount, BigDecimal alipayAmount, BigDecimal debtAmount,
     			String payPassword, List<Integer> deptIds, List<BigDecimal> deptCalculates, Integer openRecommendId,
-    			Integer storeId, Integer lastOperatorId, String orderCode, String createTime, Double calculate) throws ParseException {
-	    MemberInfo selectPhone = memberInfoMapper.selectMemberByStoreIdAndPhone(storeId, phone);
+    			Integer storeId, Integer lastOperatorId, String orderCode, String createTime, Double calculate, String storeAccount) throws ParseException {
+	    MemberInfo selectPhone = memberInfoMapper.selectMemberByStoreAccountAndPhone(storeAccount, phone);
         if (selectPhone != null) {
             return new BaseDto(-1, "该电话已有会员使用");
         }
