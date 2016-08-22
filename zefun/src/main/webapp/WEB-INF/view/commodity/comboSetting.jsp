@@ -256,6 +256,21 @@
 										</p>
 									</div>
 								</div>
+								<div class="course_limit">
+						             <p>疗程限制</p>	  
+								     <div class="course_limit_content clearfix">
+									    <div class="course_limit_content_left">
+										  是否有时间限制<span><em><input checked="checked" onclick="jQuery('#number').show();"  type="radio"  name="standard" value="1">是</em>
+										  <em><input  onclick="jQuery('input[name=\'validDate\']').val('0');jQuery('#number').hide();" type="radio" name="standard" value="0">否</em></span>
+										  <i id="number">限制天数<input type="number" name="validDate" >天</i>
+										</div>
+									    <div class="course_limit_content_right">
+										  <span>是否有次数限制<em><input type="radio"  onclick="jQuery('.project').show();" name="isCountLimit" value="1" checked="checked">是
+										  <input type="radio" name="isCountLimit" value="0"  onclick="jQuery('input[name=\'projectCount\']').val('0');jQuery('.project').hide();" >否</em></span>
+										</div>
+									 </div>
+						          </div>
+						        
 								<div class="select_item">
 									<p>为疗程选择项目</p>
 									<div class="select_item_content">
@@ -265,8 +280,7 @@
 												<tr>
 													<td>项目名称</td>
 													<td>门店价格</td>
-													<td>是否有次数限制</td>
-													<td>疗程内项目数量</td>
+													<td class="project">疗程内项目数量</td>
 													<td>疗程单次服务业绩计算</td>
 													<td rowspan="2"><button onclick="jQuery(this).hide();jQuery(this).next().show();jQuery(this).parents('tr').next().show();">新增</button>
 													<button style="display: none" onclick="saveProject(this)">保存</button></td>
@@ -280,8 +294,7 @@
 														</select>
 													</td>
 													<td>0.00 元</td>
-													<td><span><input type="radio" name="isCountLimit" value="1" checked="checked">是</span><span><input type="radio" name="isCountLimit" value="0">否</span></td>
-													<td><input type="text" name="projectCount" ><i>个</i></td>
+													<td class="project"><input type="text" name="projectCount" ><i>个</i></td>
 													<td><input type="text" name="comboPerformance" style="padding-right: 20px; width: 106px"><i>元</i></td>
 												</tr>
 											</tbody>
@@ -347,30 +360,20 @@
 								<div class="add_store_content_2">
 									<p>设置疗程价格及销售提成</p>
 									<div class="add_store_content_price">
-										<table>
-											<tbody>
-												<tr>
-													<td>疗程原总价</td>
-													<td>是否有时间限制</td>
-													<td>有效期</td>
-												</tr>
-												<tr>
-													<td id="allProjectPrice">0.00元</td>
-													<td><span><input onclick="jQuery(this).parent().parent().next().show();" type="radio" checked="checked" name="standard" value="1">是</span><span><input onclick="jQuery('input[name=\'validDate\']').val('0');jQuery(this).parent().parent().next().hide();" type="radio" name="standard" value="0">否</span></td>
-													<td><input type="number" name="validDate"  style="width: 80px; padding-right: 20px"><i>天</i></td>
-												</tr>
-											</tbody>
-										</table>
+
 										<table style="width: 910px">
 											<tbody>
 												<tr>
+													<td>疗程原总价</td>
 													<td>疗程销售价</td>
 													<td>提成方式</td>
 													<td>现金提成</td>
 													<td>划卡提成</td>
 													<td>员工销售业绩计算</td>
 												</tr>
+			
 												<tr>
+													<td id="allProjectPrice">0.00元</td>
 													<td><input type="number" name="comboSalePrice" ><i style="right: 40px">元</i></td>
 													<td><span><input onclick="jQuery(this).parents('tr').find('i').text('元');jQuery(this).parents('tr').find('i').eq(0).text('元')" type="radio" name="commissionType" checked="checked" value="2">固定</span><span><input onclick="jQuery(this).parents('tr').find('i').text('%');jQuery(this).parents('tr').find('i').eq(0).text('元')" type="radio" name="commissionType" value="1">比例</span></td>
 													<td><input type="number" name="cashCommission"  style="width: 80px; padding-right: 20px"><i style="right: 40px">元</i></td>
@@ -505,7 +508,7 @@ var u1 = UE.getEditor('editor1', toolbars);
 			var comboPerformanceCal = comboGoods[i].comboPerformanceCal;
 			saveShowGoods(comboId, goodsId, goodsName, goodsPrice, goodsCounts, comboPerformanceCal);
 		}
-		console.log(comboId);
+// 		console.log(comboId);
 	}
 	})
 	/**保存疗程内的项目*/
@@ -515,6 +518,10 @@ var u1 = UE.getEditor('editor1', toolbars);
 		var projectPrice = jQuery("select[name='projectId']").children("option:selected").attr("projectPrice");
 		var projectCount = jQuery("input[name='projectCount']").val();
 		var comboPerformanceCal = jQuery("input[name='comboPerformance']").val();
+		if(comboPerformanceCal == "" || comboPerformanceCal == null ){
+			dialog("业绩值不能为空");
+			return ;
+		}
 		var isCountLimit = jQuery("input[name='isCountLimit']:checked").val();
 		saveShowProject(comboId, projectId, projectName, projectPrice, isCountLimit, projectCount, comboPerformanceCal);
 		jQuery(tr).prev().show();
@@ -633,12 +640,13 @@ var u1 = UE.getEditor('editor1', toolbars);
 		var cashCommission = jQuery("input[name='cashCommission']").val();
 		var cardCommission = jQuery("input[name='cardCommission']").val();
 		var comboPerformance = jQuery("input[name='saleComboPerformance']").val();
+		var isCountLimit = jQuery("input[name='isCountLimit']").val();
 		
 		var comboDesc = u1.getContent();;
 		var comboCodeSuffix = jQuery("input[name='comboCodeSuffix']").val();
 		var comboInfo = {"comboId":comboId,"comboImage":comboImage,"deptId":deptId,"validDate":validDate,"standard":standard,"comboCodeSuffix":comboCodeSuffix,
 				"comboSalePrice":comboSalePrice,"commissionType":commissionType,"cashCommission":cashCommission,"comboName":comboName,
-				"cardCommission":cardCommission,"comboPerformance":comboPerformance,"comboDesc":comboDesc};
+				"cardCommission":cardCommission,"comboPerformance":comboPerformance,"comboDesc":comboDesc, "isCountLimit" : isCountLimit,};
 
 		var data ={"comboInfo":comboInfo,"comboProject":data1,"comboGoods":data2};
 		console.log(JSON.stringify(data));

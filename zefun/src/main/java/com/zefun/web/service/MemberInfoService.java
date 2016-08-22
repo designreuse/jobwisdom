@@ -61,6 +61,7 @@ import com.zefun.common.utils.ExcleUtils;
 import com.zefun.common.utils.HttpClientUtil;
 import com.zefun.common.utils.MessageUtil;
 import com.zefun.web.dto.BaseDto;
+import com.zefun.web.dto.EnterpriseInfoDto;
 import com.zefun.web.dto.GoodsInfoDto;
 import com.zefun.web.dto.MemberBaseDto;
 import com.zefun.web.dto.MemberGroupDto;
@@ -69,6 +70,7 @@ import com.zefun.web.dto.MemberLevelDto;
 import com.zefun.web.dto.MemberOrderDto;
 import com.zefun.web.dto.MemberSubAccountDto;
 import com.zefun.web.dto.ScreeningDto;
+import com.zefun.web.entity.AccountGoods;
 import com.zefun.web.entity.ComboInfo;
 import com.zefun.web.entity.ComboProject;
 import com.zefun.web.entity.CouponInfo;
@@ -76,6 +78,7 @@ import com.zefun.web.entity.DebtFlow;
 import com.zefun.web.entity.GiftmoneyDetail;
 import com.zefun.web.entity.GiftmoneyFlow;
 import com.zefun.web.entity.GoodsDiscount;
+import com.zefun.web.entity.GoodsStock;
 import com.zefun.web.entity.IntegralFlow;
 import com.zefun.web.entity.MemberAccount;
 import com.zefun.web.entity.MemberComboProject;
@@ -108,13 +111,16 @@ import com.zefun.web.entity.StoreInfo;
 import com.zefun.web.entity.StoreSetting;
 import com.zefun.web.entity.TempTableSc;
 import com.zefun.web.entity.TempTableZy;
+import com.zefun.web.mapper.AccountGoodsMapper;
 import com.zefun.web.mapper.ComboInfoMapper;
 import com.zefun.web.mapper.CouponInfoMapper;
 import com.zefun.web.mapper.DebtFlowMapper;
+import com.zefun.web.mapper.EnterpriseInfoMapper;
 import com.zefun.web.mapper.GiftmoneyDetailMapper;
 import com.zefun.web.mapper.GiftmoneyFlowMapper;
 import com.zefun.web.mapper.GoodsDiscountMapper;
 import com.zefun.web.mapper.GoodsInfoMapper;
+import com.zefun.web.mapper.GoodsStockMapper;
 import com.zefun.web.mapper.IntegralFlowMapper;
 import com.zefun.web.mapper.MemberAccountMapper;
 import com.zefun.web.mapper.MemberComboProjectMapper;
@@ -471,6 +477,7 @@ public class MemberInfoService {
         List<MemberInfo> memberInfos = memberInfoMapper.selectMemberBaseInfoByStoreId(storeId);
         view.addObject("storeMember", dto);
         view.addObject("infoDtos", JSONArray.fromObject(memberInfos).toString().trim());
+        
         return view;
     }
 

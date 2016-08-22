@@ -449,20 +449,21 @@ public class GoodsInfoService {
     * @return   商品列表
      */
     public DeptGoodsBaseDto getDeptGoodsByDeptId(Integer deptId) {
-        String deptGoodsBaseInfoJson = redisService.hget(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, deptId);
+//        String deptGoodsBaseInfoJson = redisService.hget(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, deptId);
         DeptGoodsBaseDto deptGoods = null;
         //首先从缓存中获取，如果缓存中不存在，则从数据库查出并缓存
-        if (StringUtils.isBlank(deptGoodsBaseInfoJson)) {
-            deptGoods = goodsInfoMapper.selectDeptGoodsByDeptId(deptId);
-            if (deptGoods == null) {
-                return null;
-            }
-            redisService.hset(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, deptId, EntityJsonConverter.entity2Json(deptGoods));
-        }
-        //缓存中存在则直接转换为对象
-        else {
-            deptGoods = EntityJsonConverter.json2Entity(deptGoodsBaseInfoJson, DeptGoodsBaseDto.class);
-        }
+//        if (StringUtils.isBlank(deptGoodsBaseInfoJson)) {
+//            deptGoods = goodsInfoMapper.selectDeptGoodsByDeptId(deptId);
+//            if (deptGoods == null) {
+//                return null;
+//            }
+//            redisService.hset(App.Redis.DEPT_GOODS_BASE_INFO_KEY_HASH, deptId, EntityJsonConverter.entity2Json(deptGoods));
+//        }
+//        //缓存中存在则直接转换为对象
+//        else {
+//            deptGoods = EntityJsonConverter.json2Entity(deptGoodsBaseInfoJson, DeptGoodsBaseDto.class);
+//        }
+        deptGoods = goodsInfoMapper.selectDeptGoodsByDeptId(deptId);
         return deptGoods;
     }
     

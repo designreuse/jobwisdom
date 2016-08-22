@@ -125,12 +125,12 @@ ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div { margin: 0; padding: 0; list-style
 .detail_left img{height:8rem}
 .right_content{float:left;padding-top:1rem;width:68%;height:60rem;overflow:overlay;background:white;padding-left:0.5rem}
 .detail_left{float:left}
-.detail_text{float:left;width:54%;margin-left:1%}
+.detail_text{float:right;width:34%;margin-left:1%}
 .detail_text h2{font-size:1.6rem;margin-bottom:0.5rem}
 em{font-style:normal}
 .text_content{margin-bottom:0.5rem;line-height:1.5rem;font-size:1.3rem}
 .list_money span{color:#ee7352;font-size:1.3rem;font-weight:bold}
-.list_money em{display:inline-block;float:right;}
+.list_money em{display:inline-block;}
 .content_detial{border-bottom:1px solid #ccc!important;height:9.2rem;margin-bottom:1rem}
 .content_detial:last-child{border:none}
 

@@ -303,7 +303,7 @@
 											<c:forEach items="${storeInfos }" var="storeInfo"><option value="${storeInfo.storeId }">${storeInfo.storeName }</option></c:forEach>
 										</select>
 									</span>
-									<span style="display: none;">出库门店：
+									<span style="display: none;"><em>出库门店：</em>
 										<select name="fromStore" onchange="changeFromStore(this.value)">
 											<c:forEach items="${storeInfos }" var="storeInfo"><option value="${storeInfo.storeId }">${storeInfo.storeName }</option></c:forEach>
 										</select>
@@ -482,6 +482,16 @@
 		jQuery("select[name='detailStore']").val(storeId);
 		jQuery("select[name='detailStore']").hide();
 		jQuery("select[name='detailStore']").prev().hide();
+		
+		jQuery("select[name='toStore']").val(storeId);
+		jQuery("select[name='toStore']").hide();
+		jQuery("select[name='toStore']").prev().hide();
+		
+		jQuery("select[name='fromStore']").val(storeId);
+		jQuery("select[name='fromStore']").hide();
+		jQuery("select[name='fromStore']").prev().hide();
+		
+		
 	}
 	var isStock = false;
 	function serchGoodStock() {
@@ -734,6 +744,7 @@
 					serchGoodFlow();
 					serchGoodStock();
 					/* window.location.href = baseUrl + "goodsInfo/stock/view/sercher"; */
+					jQuery(".wages_content_apartment_right").find('img').click();
 				}
 			}
 		});

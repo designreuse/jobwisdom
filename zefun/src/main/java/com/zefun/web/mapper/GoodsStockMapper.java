@@ -58,4 +58,13 @@ public interface GoodsStockMapper {
     * @return     key
      */
     int updateByPrimaryKey(GoodsStock record);
+    
+    /**
+     * 根据字段查询
+    * @author 高国藩
+    * @date 2016年8月20日 下午6:09:52
+    * @param query query
+    * @return      GoodsStock
+     */
+    GoodsStock selectByStoreIdAndAid(GoodsStock query);
 }

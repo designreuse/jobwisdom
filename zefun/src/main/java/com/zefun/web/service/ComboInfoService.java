@@ -800,6 +800,7 @@ public class ComboInfoService {
             comboInfoMapper.updateByPrimaryKeySelective(comboInfo);
         }
         else {
+            comboInfo.setCreateTime(DateUtil.getCurDateTrimMinutes());
             comboInfoMapper.insertSelective(comboInfo);
         }
         ComboProject comboProject = new ComboProject();
@@ -813,6 +814,7 @@ public class ComboInfoService {
         if (comboProjects!=null && comboProjects.size()>0){
             for (int i = 0; i < comboProjects.size(); i++) {
                 comboProjects.get(i).setComboId(comboInfo.getComboId());
+                comboProjects.get(i).setCreateTime(DateUtil.getCurDateTrimMinutes());
             }
             comboProjectMapper.insertComboProject(comboProjects);
         }
@@ -820,6 +822,7 @@ public class ComboInfoService {
         if (comboGoods!=null && comboGoods.size()>0){
             for (int i = 0; i < comboGoods.size(); i++) {
                 comboGoods.get(i).setComboId(comboInfo.getComboId());
+                comboGoods.get(i).setCreateTime(DateUtil.getCurDateTrimMinutes());
                 comboGoodsMapper.insertSelective(comboGoods.get(i));
             }
         }

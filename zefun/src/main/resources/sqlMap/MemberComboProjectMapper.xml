@@ -16,10 +16,48 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
   </resultMap>
   
+  
+   <resultMap id="BaseResultMapDto" type="com.zefun.web.dto.MemberComboProjectDto" >
+    <id column="detail_id" property="detailId" jdbcType="INTEGER" />
+    <result column="combo_id" property="comboId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_price" property="projectPrice" jdbcType="DECIMAL" />
+    <result column="project_image" property="projectImage" jdbcType="VARCHAR" />
+    <result column="project_count" property="projectCount" jdbcType="INTEGER" />
+    <result column="remaining_count" property="remainingCount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="CHAR" />
+    <result column="dept_name" property="deptName" jdbcType="CHAR" />
+    <result column="combo_name" property="comboName" jdbcType="CHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="INTEGER" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     detail_id, combo_id, project_id, project_name, project_price, project_image, project_count, 
     remaining_count, create_time, is_deleted, update_time, last_operator_id
   </sql>
+  
+  
+<!--   疗程表格1 -->
+    <select id="selectProjectListByDto" resultMap="BaseResultMapDto" parameterType="java.util.Map">
+   SELECT d.dept_name, cm.combo_name, pr.combo_id, SUM(1) AS number, pr.project_count, SUM(pr.remaining_count) as  remaining_count
+  		 FROM member_combo_project pr 
+  		 
+				LEFT JOIN member_combo_record re ON  re.record_id=pr.record_id   
+				
+				LEFT JOIN combo_info cm ON  cm.combo_id=pr.combo_id
+				
+				LEFT JOIN dept_info d ON  d.dept_id=cm.dept_id
+				
+  		 WHERE cm.standard = 0 AND cm.is_count_limit = 1  AND   re.store_id =#{storeId} AND re.is_deleted = 0  
+				
+				GROUP BY pr.combo_id
+
+  </select>
+  
   
   <!-- 根据疗程标识列表删除会员疗程记录，by 张小胖 -->
   <delete id="deleteByComboIdList" parameterType="java.util.List">
@@ -28,6 +66,12 @@
 	#{item} 
 	</foreach>
   </delete>
+  
+  
+
+  
+  
+  
   
   <select id="selectPaymentOffListByMemberIdAndProjectId" resultType="com.zefun.web.dto.PaymentOffDto" parameterType="java.util.Map">
     select 

@@ -53,11 +53,15 @@
 	<div class="wages_content">
 	  <div class="wages_content_datail">
 		   <div class="wages_content_datail_top">
-			 <span class="active" onclick="showYear()" >年</span><span onclick="showDataMoth()">月</span>
+			 <span class="active" onclick="showYear()" >年</span><span onclick="showDataMoth()"  id="typeYear">月</span>
 			  <input  class="date" type="text" name="birthday" value="" onfocus="WdatePicker({dateFmt:'yyyy'})"> 
 			  <input class="date" type="text" name="birthdays" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM'})" style="display: none;"> 
-			  门店<select> <option></option></select>
-			 <button>查询</button>
+			  门店<select  id="stores" name="md" onchange="check()">
+					  <c:forEach items="${selectByStoreAccount }" var="store">
+					     <option storeId="${store.storeId }">${store.storeName }</option>
+					  </c:forEach>
+				 </select>
+			 <button onclick="check()">查询</button>
 			</div>
 	  </div>
 	
@@ -66,9 +70,14 @@
 	<div class="wages_content">
 	  <div class="wages_content_datail">
 		   <div class="wages_content_datail_top">
-			  <input type="text">至<input type="text">
-			  门店<select> <option></option></select>
-			 <button>查询</button>
+			    <input class="date" type="text" name="time1" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+			    至  <input class="date" type="text" name="time2" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+			  门店<select  id="store" name="md" >
+					  <c:forEach items="${selectByStoreAccount }" var="store">
+					     <option storeId="${store.storeId }">${store.storeName }</option>
+					  </c:forEach>
+				 </select>
+			 <button onclick="checkSelect()">查询</button>
 			</div>
 	  </div>	
 	  <div class="course_score">
@@ -126,7 +135,6 @@
 			 <td>累计售出课次</td>
 			 <td>服务总次数</td>
 			 <td>已服务次数</td>
-			 <td>剩余次数</td>
 			 <td>剩余服务次数</td>
 			 <td>消耗率</td>
 		   </tr>
@@ -143,6 +151,49 @@
 				<td>0</td>
 				<td>0</td>
 				<td>0</td>
+				<td>0%</td>			
+			  </tr>
+		     <tr>
+			    <td>不闷不闷</td>
+				<td>不闷不闷</td>
+				<td>0.00</td>
+				<td>0.00</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0%</td>			
+			  </tr>
+			  <tr>
+			    <td>不闷不闷</td>
+				<td>不闷不闷</td>
+				<td>0.00</td>
+				<td>0.00</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0%</td>			
+			  </tr>
+			  <tr>
+			    <td>不闷不闷</td>
+				<td>不闷不闷</td>
+				<td>0.00</td>
+				<td>0.00</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0%</td>			
+			  </tr>
+			  <tr>
+			    <td>不闷不闷</td>
+				<td>不闷不闷</td>
+				<td>0.00</td>
+				<td>0.00</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
 				<td>0</td>
 				<td>0%</td>			
 			  </tr>
@@ -155,7 +206,6 @@
 				<td>0</td>
 				<td>0</td>
 				<td>0</td>
-				<td>0</td>
 				<td>0%</td>			
 			  </tr>
 			  <tr>
@@ -167,7 +217,6 @@
 				<td>0</td>
 				<td>0</td>
 				<td>0</td>
-				<td>0</td>
 				<td>0%</td>			
 			  </tr>
 			  <tr>
@@ -175,55 +224,6 @@
 				<td>不闷不闷</td>
 				<td>0.00</td>
 				<td>0.00</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0%</td>			
-			  </tr>
-			  <tr>
-			    <td>不闷不闷</td>
-				<td>不闷不闷</td>
-				<td>0.00</td>
-				<td>0.00</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0%</td>			
-			  </tr>
-		     <tr>
-			    <td>不闷不闷</td>
-				<td>不闷不闷</td>
-				<td>0.00</td>
-				<td>0.00</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0%</td>			
-			  </tr>
-			  <tr>
-			    <td>不闷不闷</td>
-				<td>不闷不闷</td>
-				<td>0.00</td>
-				<td>0.00</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0</td>
-				<td>0%</td>			
-			  </tr>
-			  <tr>
-			    <td>不闷不闷</td>
-				<td>不闷不闷</td>
-				<td>0.00</td>
-				<td>0.00</td>
-				<td>0</td>
 				<td>0</td>
 				<td>0</td>
 				<td>0</td>
@@ -609,18 +609,83 @@ var view = ${view};
 var storeId = ${storeId};
 var year = ${year};
 var month = ${month};
+var months = '';
 if(month<10){
-	month = "0"+month.toString()
+	months = "0"+(month+1).toString();
+	month = "0"+month.toString();
 }else{
+	months = (month+1).toString();
 	month = month.toString()
 }
 
 
 var comboInfoData = ${comboInfoData};
+
+function check(){
+	var times = jQuery("input[name='birthday']").val();
+	var timeType = jQuery("input[name='birthdays']").val();
+	var storeId = jQuery("#stores option:selected").attr("storeId");
+	
+	if(times=="" || times ==null ){
+		dialog('查询的日期年不能为空');
+		return ;
+	}
+	if(timeType=="" || timeType ==null ){
+		dialog('查询的日期年月不能为空');
+		return ;
+	}
+	var type = 1;
+	if(jQuery("#typeYear").hasClass("active")){
+		times = timeType.substring(0,4);
+		type = 2;
+	}
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "order/comboinfo/select",
+		data : "time=" + times + "&storeId=" + storeId + "&timeType=" + timeType,
+		dataType : "json",
+		success : function(e){
+			comboInfoData = e.msg;
+			jQuery("input[name='birthday']").val(times);
+			if(type == 1){
+				showData(comboInfoData.jsonoYear, comboInfoData.month);
+			}
+			else{
+				showData(comboInfoData.jsonoMonth, comboInfoData.day);
+			}
+		}
+	});
+}
+
+
+
+
+function checkSelect(){
+	var time1 = jQuery("input[name='time1']").val();
+	var time2 = jQuery("input[name='time2']").val();
+	var storeId = jQuery("#store option:selected").attr("storeId");
+
+	jQuery.ajax({
+		type : "post",
+		url : baseUrl + "order/comboinfo/checkSelect",
+		data : "time1=" + time1 + "&storeId=" + storeId + "&time2=" + time2,
+		dataType : "json",
+		success : function(e){
+			console.log(e.mas);
+		}
+	});
+}
+
+
+
 jQuery(function () {
-// 	
 	jQuery("input[name='birthday']").val(year);
 	jQuery("input[name='birthdays']").val(year.toString() +"-"+month);
+	jQuery("input[name='time1']").val(year.toString() +"-"+month+"-01");
+	
+	jQuery("input[name='time2']").val(year.toString() +"-"+months+"-01");
+	var name = jQuery("#stores option[storeId='"+storeId+"']").text();
+	jQuery("select[name='md']").val(name);
 	showYear();
 });		
 
@@ -634,6 +699,9 @@ function showDataMoth(){
 	jQuery("input[name='birthdays']").show();
 	showData(comboInfoData.jsonoMonth, comboInfoData.day);
 }
+
+
+
 
 function showData(data,time){
 

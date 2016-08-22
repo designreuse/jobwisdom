@@ -11,7 +11,7 @@
 .new_plan_plan td .lose{color:#d73617}
 .new_plan_plan tr:nth-child(odd){background:#f6f8fc}
 
-.zzc{font-size: 14px;
+.zzc{
     color: black;
     position: fixed;
     top: 0px;
@@ -20,11 +20,11 @@
     width: 100%;
     z-index: 10000;
     background: rgba(102, 108, 121, 0.8);}
-.zzc_new_plan{width:750px;height:590px;margin:2% auto;background:white;border-radius:12px;overflow:hidden}	
-.zzc_new_plan>p{height:66px;color:white;text-align:center;line-height:66px;font-size:18px;background:#454560}
+.zzc_new_plan{width:750px;height:500px;margin:2% auto;background:white;border-radius:12px;overflow:hidden}	
+.zzc_new_plan>p{height:60px;color:white;text-align:center;line-height:60px;font-size:15px;background:#454560}
 .zzc_new_plan_content{padding:18px 35px}
-.new_plan_content_select>select{width:134px;height:20px;border:1px solid #898989;color:black;border-radius:12px;font-size:14px}
-.new_plan_content_select>span>select{width:94px;height:20px;border:1px solid #ccc;color:black;border-radius:12px;font-size:14px}
+.new_plan_content_select>select{width:134px;height:20px;border:1px solid #898989;color:black;border-radius:12px;font-size:12px}
+.new_plan_content_select>span>select{width:94px;height:20px;border:1px solid #ccc;color:black;border-radius:12px;font-size:12px}
 .new_plan_content_select input{margin-left:26px;width:134px;height:20px;border:1px solid #898989;border-radius:12px;}
 .new_plan_content_select span{display:inline-block;margin-right:10px}
 .new_plan_content_select>select{margin-right:50px}
@@ -66,7 +66,7 @@ background-size: cover;}
 .message_ask span{display:inline-block;margin:0 20px 0 15px}
 .message_ask span input{margin-right:10px}
 .new_plan_button{margin-top:20px;text-align:center}
-.new_plan_button button{width:130px;height:26px;border:none;border-radius:12px;text-align:center;line-height:26px;color:white;font-size:16px;margin:0 67px;background:#6c728b}
+.new_plan_button button{width:130px;height:26px;border:none;border-radius:12px;text-align:center;line-height:26px;color:white;font-size:14px;margin:0 67px;background:#6c728b}
 .new_plan_button button:hover{background:#4e5264}
 .plan_theme p select{border: 1px solid #989898;
     border-radius: 12px;

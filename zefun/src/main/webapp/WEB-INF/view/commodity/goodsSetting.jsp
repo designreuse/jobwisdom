@@ -534,7 +534,7 @@ input[type=radio] {
 			"deptId" : deptId,
 			"goodsPrice" : goodsPrice,
 			"isCashDeduction" : isCashDeduction,
-			"highestDiscount" : onlineShoppingPrice,
+			"highestDiscount" : highestDiscount,
 			"calculationType" : calculationType,
 			"onlineShoppingPrice" : onlineShoppingPrice,
 			"commissionType" : commissionType,
