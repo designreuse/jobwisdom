@@ -333,7 +333,7 @@
   }
   //拼装table
   function initTable(e){
-	  var tbody = '<tr><td>手机号</td><td>姓名</td><td>性别</td><td>储值余额</td><td>积分余额</td><td>累计消费</td><td>消费均额</td><td>礼金金额</td><td>注册日期</td><td>会员等级</td><td>生日</td><td>挂账金额</td><td colspan="3">操作</td></tr>';
+	  var tbody = '<tr><td>手机号</td><td>姓名</td><td>性别</td><td>储值余额</td><td>积分余额</td><td>累计消费</td><td>礼金金额</td><td>注册日期</td><td>生日</td><td>挂账金额</td><td colspan="2">会员等级|余额</td><td colspan="3">操作</td></tr>';
 	  jQuery("#init_member").append(jQuery(tbody));
 	  for (var i = 0; i < e.msg.results.length; i++) {
 			var tr = jQuery("<tr></tr>");
@@ -346,6 +346,14 @@
 			}
 			level += '</td>';
 			var td4 = jQuery(level);
+			
+			var levelBalance = '<td>';
+			for (var j = 0; j < e.msg.results[i].memberSubAccounts.length; j++) {
+				levelBalance += '<p>'+e.msg.results[i].memberSubAccounts[j].balanceAmount+'</p>';
+			}
+			levelBalance += '</td>';
+			var td4_4 = jQuery(levelBalance);
+			
 			var deleteLevel = '<td>';
 			for (var j = 0; j < e.msg.results[i].memberSubAccounts.length; j++) {
 				deleteLevel += '<p><button onclick="returnCard('+e.msg.results[i].memberId+', '+e.msg.results[i].memberSubAccounts[j].levelId+', this)">退</button></p>';
@@ -361,7 +369,6 @@
 			var td6 = jQuery("<td>"+e.msg.results[i].balanceAmount+"</td>");
 			var td7 = jQuery("<td>"+e.msg.results[i].balanceIntegral+"</td>");
 			var td8 = jQuery("<td>"+e.msg.results[i].totalConsumeAmount+"</td>");
-			var td9 = jQuery("<td>"+e.msg.results[i].avgConsumeAmount+"</td>");
 			var td12 = jQuery("<td>"+e.msg.results[i].balanceGiftmoneyAmount+"</td>");
 			var td10;
 			if (e.msg.results[i].createTime==null||e.msg.results[i].createTime==""){
@@ -385,17 +392,19 @@
 			tr.append(td6);
 			tr.append(td7);
 			tr.append(td8);
-			tr.append(td9);
 			tr.append(td12);
 			tr.append(td10);
-			tr.append(td4);
 			tr.append(td5);
 			tr.append(td14);
+			tr.append(td4);
+			tr.append(td4_4);
 			if (status==""){tr.append(td44);}
 			tr.append(td16);
 			tr.append(td17);
 			jQuery("#init_member").append(tr);
 		}
+	  jQuery('.vip_num_table tr:gt(1) td:nth-child(11),.vip_num_table tr:gt(1) td:nth-child(12),.vip_num_table tr:gt(1) td:nth-child(13)').find('p').css('border-bottom','1px solid #ccc');
+	  jQuery('.vip_num_table tr:gt(1) td:nth-child(11),.vip_num_table tr:gt(1) td:nth-child(12),.vip_num_table tr:gt(1) td:nth-child(13)').find('p:last-child').css('border-bottom','none');
   }
   
   //校验数据

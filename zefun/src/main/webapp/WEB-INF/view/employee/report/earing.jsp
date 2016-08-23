@@ -419,5 +419,13 @@ function changePage(){
 		}
 	});
 }
+
+jQuery("input[name='chargeTime']").val(new Date().pattern("MM"));
+jQuery("input[name='gatherStart']").val(new Date().pattern("yyyy-MM-dd"));
+jQuery("input[name='gatherStop']").val(new Date().pattern("yyyy-MM-dd"));
+serchGather();
+jQuery("input[name='detailStart']").val(new Date().pattern("yyyy-MM-dd"));
+jQuery("input[name='detailStop']").val(new Date().pattern("yyyy-MM-dd"));
+serchDetail();
 </script>
 </html>

@@ -135,12 +135,11 @@ input[type='file']{cursor:pointer;top:-40px;left:80px;width:200px;height:50px;ba
 										<td>储值余额</td>
 										<td>积分余额</td>
 										<td>累计消费</td>
-										<td>消费均额</td>
 										<td>礼金金额</td>
 										<td>注册日期</td>
-										<td style="width: 30px">会员等级</td>
 										<td>生日</td>
 										<td>挂账金额</td>
+										<td style="width: 30px" colspan="2">会员等级|余额</td>
 										<td colspan="3">操作</td>
 									</tr>
 									
@@ -152,20 +151,23 @@ input[type='file']{cursor:pointer;top:-40px;left:80px;width:200px;height:50px;ba
 										<td>${member.balanceAmount }</td>
 										<td>${member.balanceIntegral }</td>
 										<td>${member.totalConsumeAmount }</td>
-										<td>${member.avgConsumeAmount }</td>
 										<td>${member.balanceGiftmoneyAmount }</td>
 										<td>${fn:substring(member.createTime, 0, 10)}</td>
+										<td>${member.birthday }</td>
+										<td>${member.debtAmount }</td>
 										<td style="width:120px">
 											<c:forEach items="${member.memberSubAccounts }" var="memberSubAccount">
 												<p levelId="${memberSubAccount.levelId }">${memberSubAccount.levelName }</p>
 											</c:forEach>
 										</td>
-										<td>${member.birthday }</td>
-
-										<td>${member.debtAmount }</td>
+										<td style="width:120px">
+											<c:forEach items="${member.memberSubAccounts }" var="memberSubAccount">
+												<p>${memberSubAccount.balanceAmount }</p>
+											</c:forEach>
+										</td>
 										<td>
 											<c:forEach items="${member.memberSubAccounts }" var="memberSubAccount">
-												<p><button onclick="returnCard(${memberSubAccount.subAccountId}, ${memberSubAccount.levelId}, this)">退</button></p>
+												<p style="border-bottom:none"><button onclick="returnCard(${memberSubAccount.subAccountId}, ${memberSubAccount.levelId}, this)">退</button></p>
 											</c:forEach>
 										</td>
 										<td><p>
@@ -208,33 +210,33 @@ input[type='file']{cursor:pointer;top:-40px;left:80px;width:200px;height:50px;ba
                             <ul>
                                 <li><span>姓名：</span><input type="text" value="" onblur="changeName(this)"></li>
                                 <li><span>性别：</span><label class="radio">男<input type="radio" checked="checked" onclick="changeSex('男')"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label class="radio">女<input type="radio" onclick="changeSex('女')"></label></li>
-                                <li><span>生日：</span><input type="text" value="" class="timePickerClean datetimepicker" format="m-d" onblur="changeBirthday(this)"></li>
+                                <li><span>生日：</span><input type="text" value="" id="birthday" class="timePickerClean datetimepicker" format="m-d" onblur="changeBirthday(this)"></li>
                                 <li><span>手机号：</span><input type="text" value="" onblur="changePhone(this)"></li>
                                 <li style="width: 100%"><span>备注：</span><input type="text" value="" style="width: 80%" onblur="changeCommunity(this)"></li>
                             </ul>
                         </div>
-                        <table class="table table-bordered table-alter member-base-info-table">
-                            <tbody>
-                            <tr>
-                                <td class="width20 td-bkg-col">会员等级</td>
-                                <td class="width30">爱心卡</td>
-                                <td class="td-bkg-col">储值余额</td>
-                                <td>18900</td>
-                            </tr>
-                            <tr>
-                                <td class="td-bkg-col">积分余额</td>
-                                <td class="red">899</td>
-                                <td class="td-bkg-col">累计消费</td>
-                                <td>899</td>
-                            </tr>
-                            <tr>
-                                <td class="td-bkg-col">消费均额</td>
-                                <td>32103</td>
-                                <td class="td-bkg-col">创建日期</td>
-                                <td>32103</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <!-- <table class="table table-bordered table-alter member-base-info-table">
+	                            <tbody>
+	                            <tr>
+	                                <td class="width20 td-bkg-col">会员等级</td>
+	                                <td class="width30">爱心卡</td>
+	                                <td class="td-bkg-col">储值余额</td>
+	                                <td>18900</td>
+	                            </tr>
+	                            <tr>
+	                                <td class="td-bkg-col">积分余额</td>
+	                                <td class="red">899</td>
+	                                <td class="td-bkg-col">累计消费</td>
+	                                <td>899</td>
+	                            </tr>
+	                            <tr>
+	                                <td class="td-bkg-col">消费均额</td>
+	                                <td>32103</td>
+	                                <td class="td-bkg-col">创建日期</td>
+	                                <td>32103</td>
+	                            </tr>
+	                        </tbody>
+	                    </table> -->
                     <form id="updateMemberInfo">
                     	<input type="hidden" name="memberId" >
 	                    <input type="hidden" name="name" >
@@ -340,7 +342,11 @@ jQuery(function(){
 		}
 	})
 })
-
+ jQuery(function(){ 
+	  jQuery('.vip_num_table tr:gt(1) td:nth-child(11),.vip_num_table tr:gt(1) td:nth-child(12),.vip_num_table tr:gt(1) td:nth-child(13)').find('p').css('border-bottom','1px solid #ccc');
+	  jQuery('.vip_num_table tr:gt(1) td:nth-child(11),.vip_num_table tr:gt(1) td:nth-child(12),.vip_num_table tr:gt(1) td:nth-child(13)').find('p:last-child').css('border-bottom','none');
+	})
+	
 function upload(){
 	var fileObj = document.getElementById("file").files[0];
 	var uploadTypeName = jQuery("select[name='uploadTypeName']").val();

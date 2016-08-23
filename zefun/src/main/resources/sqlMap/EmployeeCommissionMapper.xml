@@ -778,16 +778,16 @@
 			WHEN 1 THEN 0 
 			ELSE (SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE DATE_FORMAT(ec.charge_time, '%m') = #{chargeTime} AND ec.employee_id = el.employee_id AND ec.is_deleted = 0) END AS 'commission_calculate'
 	FROM employee_info el
-	WHERE el.store_id = #{storeId}
+	WHERE el.store_id = #{storeId} and el.is_deleted = 0
   </select>
   
   <select id="selectEaringGather" parameterType="java.util.Map" resultType="com.zefun.web.dto.EmployeeCommissionDto">
   	SELECT ei.employee_id as employeeId, ei.name as employeeName,
-		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 1 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS projectCommissionCalculate,
-		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 2 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS goodsCommissionCalculate,
-		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 3 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS comboCommissionCalculate,
-		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.order_type = 4 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS cardCommissionCalculate
-	FROM employee_info ei WHERE ei.store_id = #{storeId}
+		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.is_deleted = 0 AND ec.order_type = 1 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS projectCommissionCalculate,
+		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.is_deleted = 0 AND ec.order_type = 2 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS goodsCommissionCalculate,
+		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.is_deleted = 0 AND ec.order_type = 3 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS comboCommissionCalculate,
+		(SELECT SUM(ec.${columName}) FROM employee_commission ec WHERE ec.employee_id = ei.employee_id AND ec.is_deleted = 0 AND ec.order_type = 4 AND DATE_FORMAT(ec.charge_time, '%Y-%m-%d') BETWEEN #{gatherStart} AND #{gatherStop}) AS cardCommissionCalculate
+	FROM employee_info ei WHERE ei.store_id = #{storeId} and ei.is_deleted = 0
   </select>
   
   <select id="selectEaringDetail" parameterType="com.zefun.web.entity.Page" resultType="com.zefun.web.dto.EmployeeCommissionDto">

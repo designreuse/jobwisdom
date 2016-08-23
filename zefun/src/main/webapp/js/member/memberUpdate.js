@@ -5,12 +5,6 @@ jQuery('.timePickerClean').datetimepicker({
 	format:'Y-m'
 });
 
-/** 修改滑动样式 */
-//jQuery(".can-click.m-btn.update").hover(function() {
-//	jQuery(this).find("span").show();
-//}, function() {
-//	jQuery(this).find("span").eq(1).hide();
-//});
 var objTr;
 /** 弹出修改信息模态框 */
 jQuery("body").delegate(".update","click",function(){
@@ -20,7 +14,7 @@ jQuery("body").delegate(".update","click",function(){
 	var phone = tr.children("td").eq(0).text();
 	var name = tr.children("td").eq(1).text();
 	var sex = tr.children("td").eq(2).text();
-	var birthday = tr.children("td").eq(10).text();
+	var birthday = tr.children("td").eq(8).text();
 	/*var levelName = tr.children("td").eq(3).text();*/
 	var community = tr.children("td").eq(3).attr("community");
 	var balanceAmount = tr.children("td").eq(5).text();
