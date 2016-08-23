@@ -1147,8 +1147,8 @@ public class GoodsInfoService {
         result.put("merchandiseCount", getStockTypeByStoreId(stockFlows, 1, storeId).get("count"));     // 商品调拨
         result.put("merchandiseAmount", getStockTypeByStoreId(stockFlows, 1, storeId).get("amount"));
         
-        result.put("normalDeliveryCount", getStockGoodsCountAndAmount(stockFlows, 2, "正常出库").get("count")); 
-        result.put("normalDeliveryAmount", getStockGoodsCountAndAmount(stockFlows, 2, "正常出库").get("amount")); 
+        result.put("normalDeliveryCount", getStockGoodsCountAndAmount(stockFlows, 2, "销售出库").get("count")); 
+        result.put("normalDeliveryAmount", getStockGoodsCountAndAmount(stockFlows, 2, "销售出库").get("amount")); 
         result.put("supplierReturnsCount", getStockGoodsCountAndAmount(stockFlows, 2, "供应商退货").get("count")); 
         result.put("supplierReturnsAmount", getStockGoodsCountAndAmount(stockFlows, 2, "供应商退货").get("amount")); 
         result.put("damageCount", getStockGoodsCountAndAmount(stockFlows, 2, "损坏").get("count")); 

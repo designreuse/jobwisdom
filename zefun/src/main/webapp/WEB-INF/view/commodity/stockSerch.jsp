@@ -404,6 +404,8 @@
 								function selectFlowNumber(flowNumber){
 									jQuery("input[name='detailFlowNumber']").val(flowNumber);
 									jQuery("select[name='detailFlowType']").val(jQuery("select[name='postageStore']").val());
+									jQuery("input[name='detailStartDate']").val("");
+									jQuery("input[name='detailStopDate']").val("");
 									jQuery("#ul").children("li").eq(4).click();
 									serchDetailStore();
 								}
@@ -585,19 +587,19 @@
 
 				jQuery("#delivering").children("tr").eq(1).children("td").eq(1).text(e.msg.result.normalDeliveryCount);
 				jQuery("#delivering").children("tr").eq(1).children("td").eq(2).text(e.msg.result.normalDeliveryAmount);
-				jQuery("#delivering").children("tr").eq(1).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'销售出库\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(1).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(2, \'销售出库\')" src="'+baseUrl+'images/stock.png">'));
 				jQuery("#delivering").children("tr").eq(2).children("td").eq(1).text(e.msg.result.supplierReturnsCount);
 				jQuery("#delivering").children("tr").eq(2).children("td").eq(2).text(e.msg.result.supplierReturnsAmount);
-				jQuery("#delivering").children("tr").eq(2).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'供应商退货\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(2).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(2, \'供应商退货\')" src="'+baseUrl+'images/stock.png">'));
 				jQuery("#delivering").children("tr").eq(3).children("td").eq(1).text(e.msg.result.damageCount);
 				jQuery("#delivering").children("tr").eq(3).children("td").eq(2).text(e.msg.result.damageAmount);
-				jQuery("#delivering").children("tr").eq(3).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'损坏\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(3).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(2, \'损坏\')" src="'+baseUrl+'images/stock.png">'));
 				jQuery("#delivering").children("tr").eq(4).children("td").eq(1).text(e.msg.result.sendCount);
 				jQuery("#delivering").children("tr").eq(4).children("td").eq(2).text(e.msg.result.sendAmount);
-				jQuery("#delivering").children("tr").eq(4).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'赠送\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(4).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(2, \'赠送\')" src="'+baseUrl+'images/stock.png">'));
 				jQuery("#delivering").children("tr").eq(5).children("td").eq(1).text(e.msg.result.getCount);
 				jQuery("#delivering").children("tr").eq(5).children("td").eq(2).text(e.msg.result.getAmount);
-				jQuery("#delivering").children("tr").eq(5).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'领用\')" src="'+baseUrl+'images/stock.png">'));
+				jQuery("#delivering").children("tr").eq(5).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(2, \'领用\')" src="'+baseUrl+'images/stock.png">'));
 				jQuery("#delivering").children("tr").eq(6).children("td").eq(1).text(e.msg.result.deliveringDbCount);
 				jQuery("#delivering").children("tr").eq(6).children("td").eq(2).text(e.msg.result.deliveringDbAmount);
 				jQuery("#delivering").children("tr").eq(6).children("td").eq(2).append(jQuery('<img onclick="clickPostFlow(3, \'商品调拨\')" src="'+baseUrl+'images/stock.png">'));
@@ -743,7 +745,6 @@
 					dialog(data.msg);
 					serchGoodFlow();
 					serchGoodStock();
-					/* window.location.href = baseUrl + "goodsInfo/stock/view/sercher"; */
 					jQuery(".wages_content_apartment_right").find('img').click();
 				}
 			}
