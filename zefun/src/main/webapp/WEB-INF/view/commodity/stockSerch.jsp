@@ -636,7 +636,7 @@
 		}else if (stockType == 2){
 			//出库
 			jQuery("select[name='flowType']").empty();
-			var html = '<option value="正常出库">正常出库</option><option value="供应商退货">供应商退货</option><option value="损坏">损坏</option><option value="赠送">赠送</option><option value="领用">领用</option>';
+			var html = '<option value="供应商退货">供应商退货</option><option value="损坏">损坏</option><option value="赠送">赠送</option><option value="领用">领用</option>';
 			jQuery("select[name='flowType']").append(jQuery(html));
 			
 			jQuery("#em").children("span").eq(0).show();
@@ -760,7 +760,7 @@
 			html = '<option value="0">全部类型</option><option value="正常入库">正常入库</option><option value="客户退货">客户退货</option>';
 		}
 		if (stockTypes == 2){
-			html = '<option value="0">全部类型</option><option value="正常出库">正常出库</option><option value="供应商退货">供应商退货</option><option value="损坏">损坏</option><option value="赠送">赠送</option><option value="领用">领用</option>';
+			html = '<option value="0">全部类型</option><option value="销售出库">销售出库</option><option value="供应商退货">供应商退货</option><option value="损坏">损坏</option><option value="赠送">赠送</option><option value="领用">领用</option>';
 		}
 		if (stockTypes == 3){
 			html = '<option value="0">全部类型</option><option value="商品调拨">商品调拨</option>';
@@ -821,7 +821,7 @@
 			html = '<option value="0">全部类型</option><option value="正常入库">正常入库</option><option value="客户退货">客户退货</option>';
 		}
 		if (stockTypes == 2){
-			html = '<option value="0">全部类型</option><option value="正常出库">正常出库</option><option value="供应商退货">供应商退货</option><option value="损坏">损坏</option><option value="赠送">赠送</option><option value="领用">领用</option>';
+			html = '<option value="0">全部类型</option><option value="供应商退货">供应商退货</option><option value="损坏">损坏</option><option value="赠送">赠送</option><option value="领用">领用</option>';
 		}
 		if (stockTypes == 3){
 			html = '<option value="0">全部类型</option><option value="商品调拨">商品调拨</option>';

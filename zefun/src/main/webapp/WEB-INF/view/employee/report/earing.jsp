@@ -419,7 +419,7 @@ function changePage(){
 		}
 	});
 }
-
+//初始化时间
 jQuery("input[name='chargeTime']").val(new Date().pattern("MM"));
 jQuery("input[name='gatherStart']").val(new Date().pattern("yyyy-MM-dd"));
 jQuery("input[name='gatherStop']").val(new Date().pattern("yyyy-MM-dd"));
