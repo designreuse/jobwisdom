@@ -23,7 +23,7 @@
 .achievement_detail_content{overflow:overlay;height:82px;background:white;border:1px solid #ccc;border-radius:8px;margin-top:10px}
 .achievement_detail_content li input{padding-right:15px;margin-left:4px;border:1px solid #717171;width:55px;border-radius:4px}
 .achievement_detail_content {padding:8px 15px}
-.achievement_detail_content li{margin-right:26px;margin-bottom:10px;float:left;border:1px solid #717171;border-radius:8px;width:140px;height:36px;border-radius:8px;line-height:36px;text-align:center;position:relative}
+.achievement_detail_content li{margin-right:26px;margin-bottom:10px;float:left;border:1px solid #ccc;border-radius:8px;width:140px;height:36px;border-radius:8px;line-height:36px;text-align:center;position:relative}
 .achievement_detail_content li img{position:absolute;right:-5px;top:-5px}
 .achievement_detail_content li em{position:relative;left:-15px;color:#c0c7d9}
 .select-result i{vertical-align:middle;display:inline-block;color:black;width:48px;overflow:hidden;height:36px}
@@ -45,7 +45,7 @@ input,select,textarea{border:1px solid #ccc!important}
 margin: 0 10px 0 15px;width: 126px;}
 .achievement_detail >p{margin-top:10px}
 .achievement_recharge_content {padding: 8px 15px;}
-.achievement_recharge_content li{float:left;margin-right:12px;margin-bottom:10px;position:relative;width:154px;height:60px;border:1px solid #717171;border-radius:8px}
+.achievement_recharge_content li{float:left;margin-right:12px;margin-bottom:10px;position:relative;width:154px;height:60px;border:1px solid #ccc;border-radius:8px}
 .achievement_recharge_content li input{text-align:center;width:36px;height:12px;border:1px solid #717171;padding-right:18px}
 .achievement_recharge_content li >p{text-align:center;margin:4px 0}
 .achievement_recharge_content_input{text-align:center}
@@ -102,7 +102,7 @@ margin: 0 10px 0 15px;width: 126px;}
 .send_manage_content_ p  button{width:100px;height:28px;border:none;border-radius:12px;color:white;text-align:center;line-height:28px;background:#5c6e85;margin-left:10px}
 .send_manage_content_ p  button:hover{background:#546478}
 .add_recharge{overflow:overlay;height:90px;padding:12px;background:white;border:1px solid #ccc;border-radius:8px}
-.add_recharge li{margin-bottom:10px;float:left;margin-right:13px;padding-top:5px;width:154px;border:1px solid #665050;border-radius:8px;height:86px}
+.add_recharge li{margin-bottom:10px;float:left;margin-right:13px;padding-top:5px;width:154px;border:1px solid #ccc;border-radius:8px;height:86px}
 .add_recharge li p{text-align:center}
 .add_recharge li button{width:50px;height:22px;border-radius:4px;border:none;border:1px solid #5c6e85;background:#d8deed}
 .add_recharge_button{text-align:center;margin-top:6px;}

@@ -1,9 +1,10 @@
 .content_right{padding:20px 30px;font-size:12px;color:black}
 .card_content>p button{width:130px;height:28px;text-align:center;line-height:28px;border:none;border-radius:12px;color:white;font-size:14px;background:#61678b}
 .card_content>p button:hover{background:#494e69}
-.card_table{height:600px;width:1020px;border:1px solid #b0b0b0;overflow:overlay;border-radius:12px;margin-top:15px}
+.card_table{height:600px;width:1020px;border:1px solid #ccc;overflow:overlay;border-radius:12px;margin-top:15px}
 .card_table table{width:1020px}
-.card_table table td{height:44px;text-align:center;line-height:44px;border:1px solid #b0b0b0;width:140px}
+.card_table table td{height:44px;text-align:center;line-height:44px;border:1px solid #ccc;width:140px}
+.card_table table td:last-child{border-right:none}
 table tr:nth-child(odd){background:#f6f8fc}
 table tr:nth-child(1){background:#ebeff8;}
 .card_table table td img{margin:0 10px;vertical-align:middle}
@@ -17,8 +18,8 @@ table tr:nth-child(1){background:#ebeff8;}
     background: rgba(102, 108, 121, 0.8);
 	
 }
-.new_round_of_cards{width:700px;height:370px;margin:100px auto;background:white;font-size:12px;color:black}
-.new_round_of_cards>p{font-size:14px;color:white;text-align:center;height:64px;line-height:64px;background:#303049}
+.new_round_of_cards{width:700px;height:350px;margin:100px auto;background:white;font-size:12px;color:black;border-radius:12px;overflow:hidden}
+.new_round_of_cards>p{font-size:14px;color:white;text-align:center;height:54px;line-height:54px;background:#303049}
 .new_round_of_cards_content{padding:15px 20px}
 
 .zzc .new_round_of_cards_content>p input{width:190px;height:18px;border:1px sold #b0b0b0;border-radius:12px;margin-left:15px;}
@@ -31,7 +32,7 @@ table tr:nth-child(1){background:#ebeff8;}
     appearance: none;
     width: 12px;
     height: 12px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     position: relative;
     top: -3px;
 	margin-right:8px

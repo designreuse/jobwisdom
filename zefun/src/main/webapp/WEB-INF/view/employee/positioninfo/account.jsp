@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="<%=basePath%>css/apartment_manage.css" type="text/css" />
 <style>
-.num_adjust_content_detail i{display:inline-block;width:50px}
+.num_adjust_content_detail i{display:inline-block;width:100px}
 
 
 </style>

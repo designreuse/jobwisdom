@@ -99,7 +99,7 @@
 .add_balance>p{
 	height:60px;text-align:center;
 	line-height:60px;color:white;
-	font-size:16px;background:#323b4e
+	font-size:15px;background:#323b4e
 }
 .add_balance_content{width:664px;height:370px;overflow-y:overlay;margin:0px auto}
 .add_balance_content table{width:663px}
@@ -131,7 +131,7 @@ table tr:nth-child(1){font-weight:normal!important}
     color: black;height:38px;line-height:38px;border-top:1px solid #ccc;border-left:1px solid #ccc}
 .assigned_table_point{width:562px;margin:20px auto;margin-bottom:0}	
 .assigned{width:510px;height:310px;margin:50px auto;background:white}
-.assigned p{height:64px;line-height:64px;text-align:center;background:#323b4e;color:white;font-size:16px}
+.assigned p{height:54px;line-height:54px;text-align:center;background:#323b4e;color:white;font-size:15px}
 .assigned_table{width:562px;height:212px;margin:0px auto;overflow:overlay;}
 .assigned_table table{width:562px;box-shadow:0 0 10px #dbdce2;}
 
@@ -181,7 +181,7 @@ table tr:nth-child(1){font-weight:normal!important}
 .add_store_top_content_{margin-top:10px}
 .add_store_top_content_right span{display:inline-block;width:80px;height:18px;text-align:center;line-height:18px;background:#e0e6f4;border-radius:8px}
 .add_store_editor{margin-top:3px;text-align:center}
-.add_store_editor button{width:120px;height:20px;border:none;border-radius:12px;color:white;font-size:14px;text-align:center;line-height:20px;background:#6e7da0}
+.add_store_editor button{width:120px;height:20px;border:none;border-radius:12px;color:white;font-size:14px;text-align:center;line-height:16px;background:#6e7da0}
 .add_store_top_content_right p{position:relative;top:-2px}
 .add_store_editor button:hover{background:#5e6c8c}
 .assigned_button{margin-top:20px}
