@@ -536,6 +536,7 @@ public class ManuallyOpenOrderService {
         MemberBaseDto memberBaseDto = new MemberBaseDto();
         if (memberId != null) {
             memberBaseDto = memberInfoService.getMemberBaseInfo(memberId, true);
+            sex = memberBaseDto.getSex();
         }
         else {
             memberBaseDto.setSex(sex);
@@ -624,7 +625,7 @@ public class ManuallyOpenOrderService {
                         }
                         
                         //记录预约优惠金额
-                        if (appoint == 1) {
+                        if (appoint != null) {
                             orderDetail.setAppointOff(projectInfo.getAppointmentPrice());
                             orderDetail.setIsAppoint(appoint);
                         }

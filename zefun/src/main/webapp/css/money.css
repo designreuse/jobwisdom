@@ -6,7 +6,7 @@ em,i{font-style:normal}
 .money_ em{font-style:normal;font-size:18px;}
 
 .column_small_first{margin:0!important;width:200px;float:left;margin-right:30px!important;margin-bottom:40px!important;position:relative}
-.column_img_container{background-size: 200px 240px!important;overflow:hidden£}
+.column_img_container{background-size: 200px 240px!important;overflow:hiddenï¿½}
 .long_hair{text-align:center;font-size:16px;margin-bottom:4px}
 .seo_time{text-align:center;color:#d7d8da}
 .shop_number li:first-child {
@@ -77,7 +77,7 @@ a{color:#606163}
 .boss_number_{float:left;margin-left:10px;position:relative;top:15px;}
 .boss_number_ p{margin-top:4px}
 
-.money_change,.zzc_1_card£¬.zzc_1_card1  {
+.money_change,.zzc_1_cardï¿½ï¿½.zzc_1_card1  {
     border: 1px solid #dbdce2;
     border-radius:8px;
 	margin-top:30px;
@@ -186,7 +186,7 @@ padding-left:114px
 .head_pic_right p{margin:10px}
 .refrush{position:absolute;bottom:2px;right:4px}
 .consume p{font-size:10px;color:#b7b7b7;text-align:left;width:170px;margin:2px auto}
-.confition{width:126px;height:22px;line-height:22px;background:#e7dede;border-radius:8px;margin:0 auto;text-align:center;position:relative;top:2px;cursor:pointer}
+.confition{display:inline-block;width:86px;height:22px;line-height:22px;background:#e7dede;border-radius:8px;margin-left:12px;text-align:center;position:relative;top:2px;cursor:pointer}
 .confition img{position:relative;top:2px;padding-right:4px}
 .confition:hover{background:#f6d0bd!important}
 ::-webkit-scrollbar-thumb{background:#dee1e7!important;width:20px}

@@ -331,12 +331,13 @@ background-size: cover;}
 			           </div>
 					  
 			      </div>		  
-					  <div class="open_time">
-					     <span>开单时间<input type="text" name="openOrderDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></span>
-					    <span>手工单号<input type="text" name= "handOrderCode"></span>
-						<button onclick="save()">立即开单</button>
-					  </div>
 				</div> 
+				<div class="open_time">
+			      <span>开单时间<input type="text" name="openOrderDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></span>
+			      <span>手工单号<input type="text" name= "handOrderCode"></span>
+				  <button onclick="save(1)">结账</button>
+				  <button onclick="save(2)">挂单</button>
+			    </div>
 			</div>
 	        <%@ include file="/template/memberData.jsp" %>
         </div>

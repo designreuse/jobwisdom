@@ -55,6 +55,7 @@
 
    })
  })
+
   </script>
 
 <body>
@@ -259,7 +260,7 @@ function showTable(){
 	html += '</div>'
 	jQuery(".store_sell_table").remove();
 	jQuery(".store_sell").append(html);
-	console.log(jsonarr);
+	
 }
 
 function showYear(){
