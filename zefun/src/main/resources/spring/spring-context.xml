@@ -21,7 +21,7 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
-	<context:property-placeholder location="classpath*:properties/test/*.properties" />
+	<context:property-placeholder location="classpath*:properties/dev/*.properties" />
 	
 	<import resource="datasource-context.xml" />
 	<import resource="redis-context.xml" />
